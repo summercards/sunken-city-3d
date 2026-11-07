@@ -10,9 +10,9 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/player/animation/item_receive.gd",
-      "source_sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d",
+      "source_sha256": "92afa0c7fa39ed7ea496f5a8bb230e2f7256132e03138254509e2430ab790434",
       "manifest": "assets/registry/manifests/sea-char-receive-001.json",
-      "version": "v008",
+      "version": "v009",
       "runtime_path": "godot/src/player/animation/item_receive.gd",
       "license": "project_authored_procedural_motion_and_satchel",
       "consumer_features": [
@@ -23,9 +23,9 @@
         "category": "character_animation",
         "subcategory": "receive_item"
       },
-      "verification": "docs/development/2026-11-05_character_scale_150.md",
-      "note": "2026-11-05 整体放大 1.5×：举物路径、挎包、背带、肩部抬起与腕部偏移全部乘 SCALE；动作时长、信号与表现唯一写入者不变。",
-      "previous_source_sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+      "verification": "docs/development/2026-11-08_harvest_gesture.md",
+      "note": "2026-11-05 整体放大 1.5×：举物路径、挎包、背带、肩部抬起与腕部偏移全部乘 SCALE；动作时长、信号与表现唯一写入者不变。；2026-11-08：收成改固定臂长的胸前屈肘示意，肩根不移动，不强求触碰作物或包口；当前动作与真实蒙皮专项见本轮记录。",
+      "previous_source_sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d",
       "scale_contract": {
         "scale": 1.5,
         "source": "godot/src/avatar/avatar_dimensions.gd"
@@ -175,6 +175,388 @@
       ],
       "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
       "note": "原4嘴型ID保留，16款大块图形嘴型；透明曲面贴片，情绪切帧与开合，不复制参考游戏像素。"
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-ACTOR-001",
+      "source_id": "SRC-SEA-CHAR-NPC-ACTOR-001",
+      "name": "NPC 共用 AvatarRig 表现装配",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-actor-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_assembly"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "reused_asset_ids": [
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-ACCESSORIES-001",
+      "source_id": "SRC-SEA-CHAR-NPC-ACCESSORIES-001",
+      "name": "七职业双配件程序源库",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_accessories.gd",
+      "source_sha256": "375d991bf9cf5c5a50655f991017bffab74361bc719ba11c8152a989724925a9",
+      "manifest": "assets/registry/manifests/sea-char-npc-accessories-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_accessories.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_accessory_library"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "accessory_parts": {
+        "signal_spool": [
+          "RopeCoil",
+          "RouteClasp"
+        ],
+        "seed_pouch": [
+          "SeedPouch",
+          "LeafBrooch"
+        ],
+        "diving_goggle": [
+          "ForeheadGoggles",
+          "SealedRecordTube"
+        ],
+        "joint_pencil": [
+          "EarPencil",
+          "ToolBelt"
+        ],
+        "lantern_badge": [
+          "LampBadge",
+          "ArchiveBook"
+        ],
+        "petal_visor": [
+          "PetalVisor",
+          "PruningShears"
+        ],
+        "stock_clip": [
+          "CargoTagClip",
+          "WaistPack"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-LUO-YAN",
+      "source_id": "SRC-SEA-CHAR-NPC-LUO-YAN",
+      "name": "牵线 · 船匠与领航员",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-luo-yan.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_luo_yan"
+      },
+      "accessory_parts": [
+        "RopeCoil",
+        "RouteClasp"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-MU-HE",
+      "source_id": "SRC-SEA-CHAR-NPC-MU-HE",
+      "name": "叶脉 · 种植者与种子保管人",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-mu-he.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_mu_he"
+      },
+      "accessory_parts": [
+        "SeedPouch",
+        "LeafBrooch"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-JI-CHEN",
+      "source_id": "SRC-SEA-CHAR-NPC-JI-CHEN",
+      "name": "回声 · 打捞者与旧城记录员",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-ji-chen.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_ji_chen"
+      },
+      "accessory_parts": [
+        "ForeheadGoggles",
+        "SealedRecordTube"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-NAN-ZHI",
+      "source_id": "SRC-SEA-CHAR-NPC-NAN-ZHI",
+      "name": "榫口 · 木工与屋顶修缮师",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-nan-zhi.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_nan_zhi"
+      },
+      "accessory_parts": [
+        "EarPencil",
+        "ToolBelt"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-BAI-SHI",
+      "source_id": "SRC-SEA-CHAR-NPC-BAI-SHI",
+      "name": "灯芯 · 灯火守望者与档案管理员",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-bai-shi.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_bai_shi"
+      },
+      "accessory_parts": [
+        "LampBadge",
+        "ArchiveBook"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-HUA-YI",
+      "source_id": "SRC-SEA-CHAR-NPC-HUA-YI",
+      "name": "花序 · 花店经营者与花材培育师",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-hua-yi.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_hua_yi"
+      },
+      "accessory_parts": [
+        "PetalVisor",
+        "PruningShears"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
+    },
+    {
+      "asset_id": "SEA-CHAR-NPC-BAO-HE",
+      "source_id": "SRC-SEA-CHAR-NPC-BAO-HE",
+      "name": "货架 · 综合商店经营者与补给整理员",
+      "domain": "characters",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/npc/npc_actor.gd",
+      "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+      "manifest": "assets/registry/manifests/sea-char-npc-bao-he.json",
+      "version": "v001",
+      "runtime_path": "godot/src/npc/npc_actor.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-RESIDENT"
+      ],
+      "classification": {
+        "category": "character_career_variant"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "content_selector": {
+        "path": "godot/assets/data/npc/npcs.json",
+        "collection": "npcs",
+        "id": "npc_bao_he"
+      },
+      "accessory_parts": [
+        "CargoTagClip",
+        "WaistPack"
+      ],
+      "reused_asset_ids": [
+        "SEA-CHAR-NPC-ACTOR-001",
+        "SEA-CHAR-NPC-ACCESSORIES-001",
+        "SEA-CHAR-AVATAR-001",
+        "SEA-CHAR-RIG-001"
+      ]
     }
   ]
 }

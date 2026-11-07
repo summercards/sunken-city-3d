@@ -6,6 +6,9 @@ var calendar_query: Callable
 var weather_query: Callable
 var clock_label: Label
 var material_shop: RefCounted
+## Compatibility shop page delegates to the independent shop owner when composed.
+var shop_query: Callable
+var shop_buy: Callable
 var owned_modal_query: Callable
 var owned_modal_close: Callable
 var owned_modal_input: Callable
@@ -154,9 +157,7 @@ func _ready() -> void:
 	_root.add_child(_dive_btn);_dive_btn.hide()
 	_dive_btn.pressed.connect(func(): dive_pressed.emit())
 	if Scope.minimal():
-		_dive_btn.disabled = true
-		_dive_btn.text = "潜水 · 未开放"
-		_dive_btn.modulate = Color(0.6,0.6,0.6)
+		# 潜水已开放；其余未上线入口仍在最小循环里禁用。
 		for id in _panel.tiles:
 			if not Scope.command_enabled(id) or id in ["shell","pearl"]:
 				_panel.tiles[id].disabled = true
@@ -280,6 +281,9 @@ func _layout_notice() -> void:
 	_toast_box.position = Vector2(maxf(24,_root.size.x-520),24 if _panel_open else 112)
 
 func _attach_presenters() -> void:
+	if not is_inside_tree():
+		tree_entered.connect(_attach_presenters,CONNECT_ONE_SHOT)
+		return
 	var adapter := preload("res://src/ui/island_presenters.gd").new()
 	add_child(adapter);adapter.attach(self,presenter_sources)
 
@@ -1094,24 +1098,36 @@ func _service_snapshot(service: String) -> Dictionary:
 	var pending: Dictionary=economy.daily.query()
 	var coins:=economy.count("coins")
 	var catalog: Array=[]
-	for crop in economy.farm.crop_definitions():
-		var definition: Dictionary=economy.farm.crop_def(crop)
-		var seed_id:=str(definition.seed)
-		var price:=int(definition.seed_price)
-		catalog.append({"id":seed_id,"crop":str(crop),"count":0,"price":price,
-			"max_buy":_buy_limit(seed_id,price,coins)})
-	catalog.append({"id":"soil","crop":"soil","count":0,"price":preload("res://src/building/material_shop.gd").PRICE,
-		"max_buy":_buy_limit("soil",preload("res://src/building/material_shop.gd").PRICE,coins)})
+	var shop_snapshot: Dictionary={}
+	if service=="shop":
+		if shop_query.is_valid():
+			shop_snapshot=shop_query.call()
+			catalog=shop_snapshot.catalog
+			coins=int(shop_snapshot.coins)
+		else:
+			# 未注入时仅保留孤立测试使用的旧路径。
+			for crop in economy.farm.crop_definitions():
+				var definition: Dictionary=economy.farm.crop_def(crop)
+				var seed_id:=str(definition.seed)
+				var price:=int(definition.seed_price)
+				catalog.append({"id":seed_id,"crop":str(crop),"count":0,"price":price,
+					"max_buy":_buy_limit(seed_id,price,coins)})
+			catalog.append({"id":"soil","crop":"soil","count":0,"price":preload("res://src/building/material_shop.gd").PRICE,
+				"max_buy":_buy_limit("soil",preload("res://src/building/material_shop.gd").PRICE,coins)})
 	var accepted: Array=[]
 	for id in ItemDBLib.all_ids():
 		if economy.daily.accepts(id): accepted.append(id)
-	return {"bag":economy.inventory.all(),"bag_capacity":economy.inventory.capacity(),
+	var snapshot: Dictionary={"bag":economy.inventory.all(),"bag_capacity":economy.inventory.capacity(),
 		"other":pending.items if service=="shipping" else economy.warehouse.all(),
 		"other_capacity":int(pending.capacity) if service=="shipping" else economy.warehouse.capacity(),
 		# 玩家拖拽整理出的次序。界面据此排格子，拖完立即重排。
 		"bag_order":economy.inventory.ordered_ids(),
 		"other_order":[] if service=="shipping" else economy.warehouse.ordered_ids(),
 		"coins":coins,"expected":int(pending.expected),"catalog":catalog,"accepts":accepted}
+	if not shop_snapshot.is_empty():
+		snapshot["shop_name"]=shop_snapshot.display_name
+		snapshot["caption"]=shop_snapshot.caption
+	return snapshot
 
 ## 一次最多能买几个：瓶盖够多少份、背包又还放得下多少，取小的那个。
 ##
@@ -1146,6 +1162,7 @@ func _service_command(id: String, action: String, amount: int) -> void:
 	var service:=_tab
 	_farm_action(func() -> Dictionary:
 		if action=="buy":
+			if shop_buy.is_valid(): return shop_buy.call(id,amount)
 			return material_shop.buy_soil(amount) if id=="soil" else economy.farm.buy_seed(id,amount)
 		if service=="shipping": return economy.daily.deposit(id,amount) if action=="deposit" else economy.daily.withdraw(id,amount)
 		return economy.storage.deposit(id,amount) if action=="deposit" else economy.storage.withdraw(id,amount))

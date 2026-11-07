@@ -50,7 +50,7 @@ func _ready() -> void:
 	_test_water_click()
 	_test_salvage()
 	_test_trade()
-	_test_dive_air()
+	await _test_dive_air()
 	_test_pointer_detail()
 	_test_save()
 	print("\n[selftest] %d passed, %d failed" % [_pass, _fail])
@@ -471,7 +471,7 @@ func _test_scene_contract() -> void:
 		"Boat",
 		"Boat/Explorer",
 		"Birds",
-		"Underwater",
+		"DiveSession",
 		"LandingMarkers",
 		"HUD",
 		"InteractPrompt",
@@ -902,17 +902,23 @@ func _test_gather() -> void:
 	shell.debug_advance(999.0)
 	_ok("冷却结束可再采", shell.available)
 
-	# 走动打断：按住时挪动位置，进度必须清零。
-	# 新平台交互物更密集：先走公开 update 消耗上一轮相邻目标的拒绝冷却。
+	# 走动打断：动作进行中挪动位置，必须中止。
+	#
+	# 触发式契约下「按住」不再累积读条，所以这里不能用「连续 update 看 hold 涨」
+	# 的老写法：一次按下就把动作发起，位移打断的是**动作本身**。
+	main.interactor.cancel()
 	main.interactor.debug_focus(shell)
-	main.interactor.update(0.7, true)
-	main.interactor.debug_focus(shell)
-	main.interactor.update(0.1, true)
+	main.interactor.update(0.0, false)
+	main.interactor.update(0.05, true)   # 按下：发起动作
+	main.interactor.update(0.10, true)   # 推进 0.1 秒
 	var held: float = main.interactor.hold
+	var acting: bool = main.interactor.acting
 	main.player.position += Vector3(1.2, 0, 0)
-	main.interactor.update(0.1, true)
-	_ok("走动打断采集", held > 0.0 and main.interactor.hold == 0.0,
-		"held=%.2f now=%.2f" % [held, main.interactor.hold])
+	main.interactor.update(0.05, true)
+	_ok("走动打断采集", held > 0.0 and acting and main.interactor.hold == 0.0
+		and not main.interactor.acting,
+		"held=%.2f acting=%s now=%.2f" % [held, acting, main.interactor.hold])
+	main.interactor.cancel()
 
 	# 建造前提：铁道站 1 级时玻璃上锁，2 级解禁。
 	var glass: Node3D = field.find("zone2_glass")
@@ -933,10 +939,16 @@ func _test_gather() -> void:
 func _test_underwater() -> void:
 	print("[underwater]")
 	var main := get_parent()
-	var uw: Node = main.get_node_or_null("Underwater")
-	_ok("海底世界已装配", uw != null)
-	if uw == null:
+	var tree := get_tree()
+	var session = main.dive
+	_ok("海面不常驻潜水地图", session.runtime == null)
+	var entered: bool = session.enter_map("zone1")
+	_ok("海底世界已装配", entered)
+	if not entered:
 		return
+	var uw = session.runtime
+	_ok("海底地图成为独立当前场景", tree.current_scene == uw and uw.get_parent() == tree.root)
+	_ok("潜水期间会话实例稳定", main.dive == session)
 
 	var regions: Node = uw.get_node_or_null("Regions")
 	_ok("有 Regions 容器", regions != null)
@@ -1020,15 +1032,14 @@ func _test_underwater() -> void:
 		_ok("%s 单面表面绕序朝外" % region_id, ratio > 0.97,
 			"%.1f%% (%d/%d) 双面表面 %d" % [ratio * 100.0, agree, total, double_surfaces])
 
-	# 下潜
-	uw.dive(Vector3.ZERO, "sea")
+	# enter_map 已下潜；海面整棵树移出，而非隐藏常驻几何。
 	_ok("下潜后 active", uw.active)
-	_ok("海面几何已隐藏", main.world_root.visible == false)
-	_ok("海面灯光已隐藏", main._surface_lights.size() > 0 and main._surface_lights[0].visible == false)
+	_ok("海面几何已移出树", not main.is_inside_tree() and not main.world_root.is_inside_tree())
+	_ok("海面灯光已移出树", main._surface_lights.size() > 0 and not main._surface_lights[0].is_inside_tree())
 	_ok("深度从 0 起", uw.depth < 0.5, "%.2f" % uw.depth)
 
-	# 直接跳过入水动画
-	uw.phase = "swim"
+	# 直接推进真实入水状态机，跳过动画等待。
+	uw.phase_machine.tick(uw.ENTER_TIME)
 	uw.diver_pos = Vector3(0, -12, 10)
 
 	# 游动边界：越界会被挡住
@@ -1063,12 +1074,16 @@ func _test_underwater() -> void:
 
 	# 上浮：恢复到海面状态
 	uw.surface()
-	for i in 60:
-		uw._process(0.1)
-	_ok("上浮后 active=false", not uw.active)
-	_ok("海面几何已恢复", main.world_root.visible == true)
-	_ok("海面灯光已恢复", main._surface_lights[0].visible == true)
-	_ok("相机交还海面", uw.camera.current == false)
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await tree.process_frame
+	await tree.process_frame
+	_ok("上浮后 active=false", not session.active)
+	_ok("返回原海面实例", main.is_inside_tree() and tree.current_scene == main)
+	_ok("海面几何已恢复", main.world_root.is_inside_tree() and main.world_root.visible == true)
+	_ok("海面灯光已恢复", main._surface_lights[0].is_inside_tree() and main._surface_lights[0].visible == true)
+	_ok("相机交还海面", tree.root.get_camera_3d() == main.cam)
+	_ok("会话稳定且无 runtime", main.dive == session and session.runtime == null)
+	_ok("旧潜水 runtime 已销毁", not is_instance_valid(uw))
 
 
 ## 绞盘打捞：深度 / 张力 / 断线 / 产出，全部按固定步长推。
@@ -1486,14 +1501,19 @@ func _test_dive_air() -> void:
 	_ok("水面能回满", air.ratio() > 0.99, "%.2f" % air.ratio())
 	_ok("喘过气可以再潜", air.can_dive())
 
-	# 世界层：潜水时氧气真的在掉，出水后回满。
-	var uw: Node = get_parent().dive
-	if uw != null:
-		var opened_ids: Array = uw.to_dict().get("opened", [])
-		_ok("宝箱进度可序列化", opened_ids.size() >= 1, str(opened_ids))
-		# 上一段测试已经上浮，这里重新下潜才有 active。
-		uw.dive(Vector3.ZERO, "sea")
-		uw.phase = "swim"
+	# 世界层：潜水时氧气真的在掉，宝箱进度跨 runtime 回收保留。
+	var main := get_parent()
+	var tree := get_tree()
+	var session = main.dive
+	var opened_ids: Array = session.to_dict().get("opened", [])
+	_ok("宝箱进度可序列化", opened_ids.size() >= 1, str(opened_ids))
+	_ok("海面不常驻潜水地图", session.runtime == null)
+	var entered: bool = session.enter_map("zone1")
+	_ok("重新进入 zone1 潜水地图", entered)
+	if entered:
+		var uw = session.runtime
+		_ok("海底地图成为独立当前场景", tree.current_scene == uw and uw.get_parent() == tree.root and not main.is_inside_tree())
+		uw.phase_machine.tick(uw.ENTER_TIME)
 		uw.debug_teleport(Vector3(0, -40, 10))
 		var before: float = uw.air.ratio()
 		for i in 30:
@@ -1505,11 +1525,15 @@ func _test_dive_air() -> void:
 		_ok("清空后已发现归零", uw.discovered_count() == 0, str(uw.discovered_count()))
 		uw.from_dict(snapshot)
 		_ok("还原后宝箱进度回来", uw.opened_chests() >= 1, str(uw.opened_chests()))
-		# 收尾：必须浮回海面，否则后面的指针/采集测试会全部落在潜水模式里。
+		# 收尾：等延迟回挂和回收完成后，才能继续海面指针/采集测试。
 		uw.surface()
-		for i in 80:
-			uw._process(0.1)
-		_ok("测试收尾回到海面", not uw.active)
+		uw.phase_machine.tick(uw.ENTER_TIME)
+		await tree.process_frame
+		await tree.process_frame
+		_ok("测试收尾回到海面", not session.active and main.is_inside_tree() and tree.current_scene == main)
+		_ok("相机交还海面", tree.root.get_camera_3d() == main.cam)
+		_ok("会话稳定且无 runtime", main.dive == session and session.runtime == null)
+		_ok("旧潜水 runtime 已销毁", not is_instance_valid(uw))
 
 
 ## 水面寻路：栅格、可通达性、以及「航线不穿岛」这条硬约束。

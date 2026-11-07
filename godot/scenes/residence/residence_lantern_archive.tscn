@@ -1,0 +1,130 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_shell.tscn" id="shell"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/storage_crate.tscn" id="storage_crate"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/flower_pot.tscn" id="flower_pot"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/water_barrel.tscn" id="water_barrel"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/table.tscn" id="table"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/wind_chime.tscn" id="wind_chime"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/oil_lamp.tscn" id="oil_lamp"]
+[ext_resource type="Material" path="res://scenes/residence/materials/wood.tres" id="wood"]
+[ext_resource type="Material" path="res://scenes/residence/materials/linen.tres" id="linen"]
+[sub_resource type="BoxMesh" id="counter"]
+size = Vector3(2.8, 1.05, 0.65)
+[sub_resource type="BoxMesh" id="shelf"]
+size = Vector3(2.8, 0.12, 0.55)
+[sub_resource type="BoxMesh" id="upright"]
+size = Vector3(0.12, 2, 0.55)
+[sub_resource type="BoxMesh" id="book"]
+size = Vector3(0.18, 0.46, 0.3)
+[node name="residence_lantern_archive" type="Node3D"]
+metadata/residence_id = "residence_lantern_archive"
+metadata/npc_id = "npc_bai_shi"
+metadata/feature_id = "SEA-RESIDENCE"
+metadata/profession = "守灯档案 / 书架与阅读角"
+
+[node name="Shell" instance=ExtResource("shell") parent="."]
+
+
+[node name="Nameplate" type="Label3D" parent="."]
+position = Vector3(0.5, 2, 2.66)
+text = "灯芯 · 灯档"
+font_size = 56
+pixel_size = 0.009
+modulate = Color(0.95, 0.88, 0.64, 1)
+outline_modulate = Color(0.18, 0.27, 0.26, 1)
+double_sided = true
+
+[node name="Display" type="Node3D" parent="."]
+position = Vector3(3, 0, -1.85)
+metadata/walk_obstacle = Rect2(-1.4, -0.3, 2.8, 0.6)
+
+[node name="LeftUpright" type="MeshInstance3D" parent="Display"]
+position = Vector3(-1.35, 1, 0)
+mesh = SubResource("upright")
+material_override = ExtResource("wood")
+
+[node name="RightUpright" type="MeshInstance3D" parent="Display"]
+position = Vector3(1.35, 1, 0)
+mesh = SubResource("upright")
+material_override = ExtResource("wood")
+
+[node name="Shelf0" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 0.35, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Shelf1" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.1, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Shelf2" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.85, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Book0" type="MeshInstance3D" parent="Display"]
+position = Vector3(-1.1, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book1" type="MeshInstance3D" parent="Display"]
+position = Vector3(-0.7000000000000001, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book2" type="MeshInstance3D" parent="Display"]
+position = Vector3(-0.30000000000000004, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book3" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.10000000000000009, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book4" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.5, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book5" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.8999999999999999, 0.64, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book6" type="MeshInstance3D" parent="Display"]
+position = Vector3(-1.1, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book7" type="MeshInstance3D" parent="Display"]
+position = Vector3(-0.7000000000000001, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book8" type="MeshInstance3D" parent="Display"]
+position = Vector3(-0.30000000000000004, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book9" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.10000000000000009, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book10" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.5, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="Book11" type="MeshInstance3D" parent="Display"]
+position = Vector3(0.8999999999999999, 1.3900000000000001, 0)
+mesh = SubResource("book")
+material_override = ExtResource("linen")
+
+[node name="ArchiveLamp0" instance=ExtResource("oil_lamp") parent="Display"]
+position = Vector3(-0.8, 1.91, 0)
+
+[node name="ArchiveLamp1" instance=ExtResource("oil_lamp") parent="Display"]
+position = Vector3(0.8, 1.91, 0)

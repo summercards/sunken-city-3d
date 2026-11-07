@@ -1,0 +1,12 @@
+{
+ "schema":"sea.npc_requests",
+ "requests":[
+  {"id":"request_route_rope","npc_id":"npc_luo_yan","title":"固定回程浮标","description":"交付2段缆绳，船老大拿来固定回程浮标。","source_event":"route_1","costs":{"rope":2},"result_tag":"route_buoy_secured","followup":"route_2"},
+  {"id":"request_seed_trial","npc_id":"npc_mu_he","title":"给豆豆找对照种子","description":"交付3粒种子，豆豆用它们和没标签的种子一起试种，比较长出的苗。","source_event":"seed_1","costs":{"seed":3},"result_tag":"seed_trial_sprouted","followup":"seed_2"},
+  {"id":"request_echo_box","npc_id":"npc_ji_chen","title":"修好阿海的日志匣扣","description":"交付2个零件，阿海换好匣扣，就能把散开的日志收稳。","source_event":"echo_1","costs":{"parts":2},"result_tag":"echo_log_box_repaired","followup":"echo_2"},
+  {"id":"request_joint_bench","npc_id":"npc_nan_zhi","title":"给长凳换个稳当架子","description":"交付3块木板，木头叔用来做新凳架，结实的旧面板继续用。","source_event":"joint_1","costs":{"wood":3},"result_tag":"joint_bench_rebuilt","followup":"joint_2"},
+  {"id":"request_lamp_glass","npc_id":"npc_bai_shi","title":"换掉裂开的公共灯罩","description":"交付2片玻璃，灯伯用来修灯罩，免得雨水进灯座。","source_event":"lamp_1","costs":{"glass":2},"result_tag":"lamp_shade_restored","followup":"lamp_2"},
+  {"id":"request_flower_pot","npc_id":"npc_hua_yi","title":"给小花的花盆垫底","description":"交付3枚贝壳，小花垫好盆底排水，再把花摆到天台摊位边。","source_event":"flower_1","costs":{"shell":3},"result_tag":"flower_pot_drained","followup":"flower_2"},
+  {"id":"request_shelf_basket","npc_id":"npc_bao_he","title":"绑牢借物篮提手","description":"交付2段缆绳，阿店绑好东南浮店的借物篮，方便抱着散货的人提走。","source_event":"shelf_1","costs":{"rope":2},"result_tag":"shelf_basket_opened","followup":"shelf_2"}
+ ]
+}

@@ -88,8 +88,36 @@ func run() -> void:
 			check(not first.is_equal_approx(n.transforms[0]),"fish really animate")
 		if d.asset_id=="SEA-DECO-ANIMAL-WHALE": whales+=1;check(box_of(n).size.length()>8,"large animal geometry")
 		if d.subcategory=="water_plants": leaves+=1
-	# 3 群水面（surface_animals）+ 7 群潜水 + 渔场围网内外 2 群（zone1 FisherySchools）。
-	# 渔场接入后总数从 10 变 12；写成 10 会让渔场鱼群变成"多出来的假失败"。
+	# 海面与潜水地图分开统计；七群潜水鱼必须真实进入 zone1 才能检查。
+	check(schools==5,"3 surface + 2 fishery schools")
+	var session = main.dive
+	check(session.runtime==null,"海面不常驻潜水地图")
+	var entered: bool=session.enter_map("zone1")
+	check(entered,"进入 zone1 潜水地图检查七群鱼")
+	if entered:
+		var uw = session.runtime
+		check(current_scene==uw and uw.get_parent()==root and not main.is_inside_tree(),"真实切换至独立潜水地图")
+		var dive_schools := 0
+		for n in nodes(uw):
+			if not n.has_method("describe"): continue
+			var d: Dictionary=n.describe()
+			check(not ids.has(d.instance_id) and d.instance_id!="","unique component instance "+d.instance_id)
+			ids[d.instance_id]=true
+			if d.asset_id!="SEA-DECO-ANIMAL-FISH-SCHOOL": continue
+			dive_schools+=1
+			check(n.members.size()==n.count,"school restored with its declared fish count")
+			n.sample(0);var first: Transform3D=n.transforms[0];n.sample(2)
+			check(not first.is_equal_approx(n.transforms[0]),"fish really animate")
+		check(dive_schools==7,"zone1 有七群潜水鱼")
+		schools+=dive_schools
+		uw.surface()
+		uw.phase_machine.tick(uw.ENTER_TIME)
+		await process_frame
+		await process_frame
+		check(main.is_inside_tree() and current_scene==main,"鱼群检查后返回原海面实例")
+		check(root.get_camera_3d()==main.cam,"鱼群检查后相机交还海面")
+		check(main.dive==session and not session.active and session.runtime==null,"鱼群检查后稳定会话回收 runtime")
+		check(not is_instance_valid(uw),"鱼群检查后旧 runtime 已销毁")
 	check(schools==12,"3 surface + 7 dive + 2 fishery schools")
 	check(whales==1,"one large whale")
 	check(leaves==24,"24 independent original lily leaves")
@@ -122,26 +150,33 @@ func run() -> void:
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png("res://outputs/decorations-"+pose[0]+".png")
 		var original_environment: Environment=main.world_env.environment
-		main._on_dive()
-		main.dive.debug_teleport(Vector3(1,-13,-12))
-		for i in 8: await process_frame
-		main.dive.set_process(false)
-		main.dive.freeze_time(0.0)
-		var dive_camera: Camera3D=main.dive.camera
-		dive_camera.global_position=Vector3(5,-10,-9)
-		dive_camera.look_at(Vector3(1,-13,-16))
-		main.dive.deco.update(0,0,Vector3(1,-13,-12),dive_camera)
-		check(main.dive.visible and not main.world_root.visible,"decorations follow dive lifecycle")
-		for i in 4: await process_frame
-		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://outputs/decorations-dive-fish.png")
-		main.dive.surface()
-		main.dive.set_process(true)
-		for i in 180:
-			if not main.dive.active: break
+		entered=session.enter_map("zone1")
+		check(entered,"进入 zone1 潜水地图截图")
+		if entered:
+			var uw = session.runtime
+			uw.phase_machine.tick(uw.ENTER_TIME)
+			uw.debug_teleport(Vector3(1,-13,-12))
+			for i in 8: await process_frame
+			uw.set_process(false)
+			uw.freeze_time(0.0)
+			var dive_camera: Camera3D=uw.camera
+			dive_camera.global_position=Vector3(5,-10,-9)
+			dive_camera.look_at(Vector3(1,-13,-16))
+			uw.deco.update(0,0,Vector3(1,-13,-12),dive_camera)
+			check(uw.visible and current_scene==uw and uw.get_parent()==root and not main.is_inside_tree(),"decorations follow dive lifecycle")
+			for i in 4: await process_frame
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("res://outputs/decorations-dive-fish.png")
+			uw.surface()
+			uw.phase_machine.tick(uw.ENTER_TIME)
 			await process_frame
-		check(not main.dive.active,"public surface action completes through exit state")
-		check(main.world_env.environment==original_environment,"surface environment restored")
+			await process_frame
+			check(not session.active,"public surface action completes through exit state")
+			check(main.is_inside_tree() and current_scene==main,"截图后返回原海面实例")
+			check(root.get_camera_3d()==main.cam,"截图后相机交还海面")
+			check(main.dive==session and session.runtime==null,"截图后稳定会话回收 runtime")
+			check(not is_instance_valid(uw),"截图后旧 runtime 已销毁")
+			check(main.world_env.environment==original_environment,"surface environment restored")
 	main.queue_free();await process_frame
 	print("[decorations] ",checks," checks, failures=",failures)
 	quit(0 if failures==0 else 1)

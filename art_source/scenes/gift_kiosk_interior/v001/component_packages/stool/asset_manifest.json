@@ -1,0 +1,54 @@
+{
+  "asset_id": "SEA-SCENE-GKI-STOOL",
+  "name": "圆坐凳",
+  "domain": "scenes",
+  "source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/stool/stool.blend",
+  "source_sha256": "275ccaed0c7a7308880263defce4125edcbfbf04f4f4a9954246667140ea032a",
+  "manifest": "art_source/scenes/gift_kiosk_interior/v001/component_packages/stool/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk_interior/stool/stool.glb",
+  "runtime_sha256": "3a00094940dd864a5c38797496087c0bc9af123db5ca30af740fe5a67240bfe6",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk_interior/stool.tscn",
+  "prefab_sha256": "0f2dc9d5bf78083bb0ac079e726aa20f0383b68365b267da77d7ab8ebdc308e2",
+  "optimized_source": "art_source/scenes/gift_kiosk_interior/v001/export/v001/gift_kiosk_interior_optimized_v001.blend",
+  "optimized_sha256": "b6629a2210cd1bfcfffaec7352641bf7162396ca0cb0bebc2450e0b1651dd712",
+  "optimization_manifest": "art_source/scenes/gift_kiosk_interior/v001/export/v001/optimization_manifest.json",
+  "geometry_fingerprint": "cf95dd3763960e37f29f6bc8bb070ca209854315bbef168f69e41a47ea6f5aad",
+  "classification": {
+    "category": "scene_component",
+    "subcategory": "seat"
+  },
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "facility_id": "SEA-SCENE-GKS-ASSEMBLY",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "maintenance_status": "runtime_integrated_verified",
+  "triangles": 2024,
+  "bounds_size": [
+    0.7799999713897705,
+    0.7799999713897705,
+    0.675000011920929
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "user_art_acceptance": "pending",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+    "docs/development/2026-11-07_gift_kiosk_interior.md"
+  ],
+  "origin": "bottom_center",
+  "front_axis": "Godot +Z",
+  "source_collection": "SEA-SCENE-GKI-STOOL",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKI-STOOL"
+}

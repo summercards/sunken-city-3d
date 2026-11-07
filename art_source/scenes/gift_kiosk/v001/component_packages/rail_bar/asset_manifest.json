@@ -1,0 +1,58 @@
+{
+  "key": "rail_bar",
+  "name": "黄色横栏",
+  "family": "rail",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-RAIL-BAR",
+  "design_pivot": [
+    0.0,
+    0.0,
+    -0.11500000208616257
+  ],
+  "bounds_min": [
+    -0.75,
+    -0.11500000208616257,
+    0
+  ],
+  "bounds_size": [
+    1.5,
+    0.23000000417232513,
+    0.23000000417232513
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_bar/rail_bar.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 1,
+  "instances": 38,
+  "triangles": 44,
+  "polygons": 14,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "a03a70199a795c91acbc809999ad47d3d0d6ec94152bb38d94976d78ba9f5d19",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-RAIL-BAR",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/rail_bar/rail_bar.glb",
+  "runtime_sha256": "f1f0518c76445a3b1a4dba0f53cc4203cb49681936ff1e2ce3f0ab28cbf7ea42",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/rail_bar.tscn",
+  "prefab_sha256": "36af08d32d615dc6ca01788bbd6b4583825b749ffd42e4fd785a436ab74463e9",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 44,
+  "triangles_after": 44,
+  "geometry_fingerprint": "1dc7b5422c51d0f66b3fa2d94029ca551ff0dd72377a833ab6110f501ed7301d"
+}

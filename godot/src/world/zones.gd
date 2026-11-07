@@ -90,6 +90,12 @@ func bind_scene(zone: Node3D) -> void:
 	var cfg := get_zone(zone.zone_id)
 	if cfg.is_empty():
 		return
+	# Moving facilities publish an event; this service remains the only writer of
+	# the public walk/landing snapshot. Fixed zones keep their one-time binding.
+	if zone.has_signal("support_moved"):
+		var refresh := bind_scene.bind(zone)
+		if not zone.is_connected("support_moved", refresh):
+			zone.connect("support_moved", refresh)
 	var landings: Array = []
 	for point in zone.landing_points():
 		landings.append(point.data())

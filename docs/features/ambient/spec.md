@@ -120,3 +120,27 @@ R12/R18补充：按用户明确要求，实际安装固定版本ProtonScatter，
 |---|---|
 | SEA-AMBIENT-R20 | 阳光房周边观赏鱼群提供小/中/外扩三档，数量分别为6/10/14；沿用现有水面采样与鱼体，不进入捕捞、库存、经济或存档。鱼群必须避开阳光房海下基座，真实运行检查数量、轨迹包络、沉深、身体和尾鳍动画。 |
 | SEA-AMBIENT-R21 | 海鸥只放在真实突出水面的阳光房与屋顶牧场；由唯一 `WorldClock` 控制，06:00–18:00显示，夜间关闭根节点和鸟的process。海鸥是纯视觉，不拥有建筑、交互、碰撞或资源职责；真实主场景与昼夜画面分别验证。 |
+
+## 2026-11-07 观赏小鱼扩布到其他海域
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R22 | 复用阳光房旁的 `fish_school.tscn` 与 `decorative_fish_school.gd`，以 `surface/flat` 同款彩色小鱼扩布正式海面，不替换成捕鱼点或潜水地图鱼群。新增10群98条，分布于铁道站、浅水台、家园南侧、牧场外海、旧城三处及驿站/霓虹街/补给站附近；6/8/10/12/14条与不同散布、巡游半径形成变体。原阳光房三群与旧三群保留。位置由独立TSCN保存且可编辑，建筑和主场景手动变换不回写。鱼最高点相对实际浪面沉深0.5–1.5米，真实水面逐群近景和像素差验证；不承诺77.8米远景每条小鱼可辨。无捕捞、库存、经济、交互、碰撞、导航或新存档职责；抽样几何避让、身体/尾鳍动画及唯一ID分别验证。 |
+
+## 2026-11-07 阳光房独立水下预览生态
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R23 | 仅在sunroom_region独立预览装配生态：dive/slim鱼8群138条；旧web baked reef12原株小单体摆32簇，不称新Blender模型或重复整礁；24灯具为8旧城street_lamp＋8gift_kiosk deck_light＋8spotlight，真实Omni16/Spot8、局部阴影0，旧模型/源不改。灯局部shader仅原镜片y6.774..6.826且x>=.674发光1.6，Point(1.075,6.8,0)位于实际镜片中心，不写共享材质或全局水参数。生态TSCN拥有摆位，56根接地已固化，实测最大误差1.907e-6米<.001；不生成碰撞、行走、导航、阻挡、岸线、交互、捕捞、产出或存档。最终专项67/0、真实渲染89/0均exit0/PASS，11视角的鱼/珊瑚/灯近景及全景已由父线程目检；来源权属、完整02b复用签署、性能和用户美术验收仍pending。不改变海面鱼群、原9图或生产路由，不将独立预览签成玩家潜水接入。 |
+
+[最终证据、修正过程与未验项](../../development/2026-11-07_sunroom_underwater_region.md)。
+
+## 2026-11-07 阳光房水下美术 r2（已独立验收，产品未接入）
+
+R23无碰撞是上一轮历史，本轮物体阻挡由SEA-DIVE-R14承接；气泡/尘埃/光束仍无碰撞。初填pending仅保留为当时状态，旧环境depth fog/8steps参数已由本节当前方案取代。
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R24 | 与旧海域同一清新水下语言，参考主#edffe3/环境#b9e9e2/辅#a1f7ef，局部PBR palette override保留色板/顶点色、roughness/metallic，朝上焦散gain=0.075，不改共享GLB/源。runtime禁用Environment fog，按旧地图同序使用一个opaque WaterFogPass（render_priority=-128）做屏幕统一混合；局部sunroom_underwater_color include共享6..110米/curve1.3距离吸收，天空/水顶/地形使用同一相机方向上下渐变，worldXZ448..500额外fade遮有限海床边缘，仅视觉衰减不缩小可动范围。透明粒子自雾且alpha衰减；beam加色、16steps采深度挡不透明墙、density基值0.085（按束增加0/0.008/0.016）、soft cap0.23，继承同距离fade，不叠双雾。环境能量随深度0.48→0.29，Sun0.60→0.30，Cool0.13；压下旧泛白地板，水顶texture gain0.18并保正常水色。保留138鱼/32珊瑚/24实灯（Omni16/Spot8、局部阴影0），10条水面下1米起/21..29米软体积代理光、192泡/200尘、2MultiMesh与sample/snapshot。旧Environment fog＋aerial1曾产生角落三角块，现改单通道，当前已审边角纯渐变无边；不以标志位替代实拍。原9图/旧源/高度源及toplevel、位置、范围、深度不变，仍F6、未接生产路由/存档；本任务不改Main。Main 可能被并行修改，不要求 Main 字节不变。 |
+
+**最终独立验收**：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`。结构78/0、碰撞264/0、真实渲染118/0，新区域460/0；dive-maps302/0、modules31/0回归333/0，总793/0，五入口全PASS/exit0，无unexpected。local Environment/Sky/material均resource_local_to_scene，保护多实例。RTX4060Ti/Vulkan Forward+真实18机位，home-base/ray-street/coral/fish/far-edge/corner-close已目检，最终远角pure gradient无边；默认射光、气泡、珊瑚、鱼与低照灯分列审阅，近处实体边缘不是远雾cut。像素far-fog-edge max0.0078431517、corner0.0039215982、west0.0039215982均<0.025；射光shader开关差分lit_samples5365>150，证明确实可见，不止node计数。225915为历史中间批，不再是latest final。低端/连续performance、rights/user acceptance/完整02b/production仍pending；定向登记和静态门禁由父线程回填真实结果，不以专项PASS代签。[最终开发记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。

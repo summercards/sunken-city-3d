@@ -188,3 +188,33 @@ HUD 焦点文案与悬浮卡片照旧工作。
 靠近反馈归 SEA-UI-R54：`prompt.enabled=false`；使用 HoverCard 的 `_near_icon` 与 `_near_progress`，不依赖鼠标悬停，不恢复底部键位/教程条。交互图标、状态、灰因与业务反馈保留，教程角标移除。`main._update_near_interaction()` 与 `input_blocked()` 收口模态/过场的隐藏；鼠标模型命中与空间可达性契约不变。
 
 实现定位：`godot/src/interaction/interactor.gd:46/60/66/101/194`、`godot/src/bootstrap/main.gd:2412`、`godot/src/ui/world_action_bubbles.gd:35/74/96/183`。200446最终headless报告farm606/0、travel374/0、keyboard-control30/0、control-feel31/0与click32/0通过；194828报告visual-farm617/0、exit0，9张唯一截图，本轮画面目视审阅4张确认近距无底部条/教程。interaction-reach35/1与dock-seed21/1的旧角标/标题断言失败保留为本轮过程；201957契约适配报告已通过interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0，均exit0、passed=true，不再pending；最终keyboard-final-contracts合批由主线程附记。完整路径和验收矩阵见[总交付](../../development/2026-11-06_keyboard_complete.md)。
+
+## 2026-11-07 面对区域才操作与泊位入口仲裁
+
+本节承接用户「种植区靠岸误触离岸，应面对区域才判定」及继续无操作教程的要求，覆盖R13的纯距离取舍、R16的只选最近泊位，以及R19未限制朝向的候选口径；不改鼠标模型命中、业务结算或已选命令的自动接近链路。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-INTERACT-R22 | 手动Interactor候选以角色局部+Z在水平面朝向`focus_position()`，dot≥0.55（约±56.6°）才可用；目标水平距离≤0.35m作近中心豁免，避免零向量抖动。原可见、可交互、空间可达、距离与高度条件仍须满足。Q/Shift+Q只在当前正面候选中稳定循环；转身离开正面锥、越距或不可达即清旧`keyboard_target`，不得凭旧Q选中操作背后的格。只有`auto_hold && node == preferred_target`的明确自动接近目标可绕过朝向筛选；单独preferred或Q锁定不能豁免，已选命令仍在原hold完成边界消费一次。 |
+| SEA-INTERACT-R23 | 岸上E上船仍先满足当前船已靠泊、角色距站立点≤2.4m、冷却/模态/过场条件；另须角色朝实际boat的水平dot≥0.60，不能用`stand-here`零向量误判。存在正面spot时默认让spot优先；boat alignment比spot alignment至少高0.15才可胜出；显式Q选中的有效spot始终受保护。近距图标与E复用`_boat_key_action()`同一胜者，显示物件就不能按成上船。船上近泊位靠岸仍为8m内且非航行，船头(-Z)朝`boatPark` dot≥0.20且`plan_route_to`非空才给入口（距park≤0.5m时方向豁免）；动作继续走`_select_landing`，不新建靠岸通道。 |
+
+近距只保留原hover图标/进度、动作状态与灰因；`prompt.enabled=false`，不恢复底部键位条、气泡角标或操作教程，主动系统帮助仍允许。岸边被挡仍可按intent转脸、不位移不空踩由SEA-MOVE-R27承接。最终合批`D:/projects/sea-work/verification/20261107-165822-movement-feel-final-9b7646/report.json`11项全PASS、exit0、unexpected_errors空：当前真实Main朝向102/0、视觉105/0、interaction-reach35/0、travel374/0、farm636/0；NPC世界端口/权威时钟/enabled query与owned_modal_input已装配，旧编译和NPC与菜箱重合故障仅保留历史、不再pending。农场夹具按0.55正面契约先面对再逐格Q lock，仍验证六格入口、不偷移位置且Q不触发业务，未放宽断言。`D:/projects/sea-work/verification/20261107-170723-movement-feel-render-final-950cd8/report.json`视觉农场647/0、真实岸线163769/0双PASS/exit0无unexpected_errors，主任务已目检最新facing plot图标方向正确、无教程；172123最新smoke的facing102/0 PASS确认NPC/dive最新装配可启动。171743兼容批只有actor-presentation PASS，click32/3及board12/0、dock22/0、save10/0、water41/0均为runner FAIL，潜水并发重构/WorldEnvironment缺失的过程错误不掩盖；新的movement-current-compatible五项另补，render不再待验。详见[本轮总交付与验收边界](../../development/2026-11-07_movement_feel_refinement.md)，整体仍`partial`。
+
+## 2026-11-07 触发式交互：不读条、朝向只仲裁、上下船走热区
+
+用户原话：「有些功能不需要读条，直接走近，进入判定区，出现图标，点击即可触发。比如种植区，不需要读条。大部分的操作反馈都不用压住读条。非常奇怪。」「码头的上船区，应该是在海面的，进入热区后点击即可靠岸上岸，上岸后，在陆地，走进船只，船只出现可上船图标，点击一下就坐上船。」「如果在岸上，同时进入种植区的判定区和上船的判定区，以角色面朝向为优先级判定。」
+
+本节覆盖 R22 的「正面锥是准入门槛」与 R23 的「上船朝向门槛 + 船头方向锥」，把朝向从**门槛**降为**仲裁**；R20 的「必须先松开」在触发式语义下重新定义。业务结算、鼠标模型命中、已选命令的自动接近链路保持不变。
+
+**一处设计修正（已在回复中向用户声明）**：朝向不能当硬门槛。背对船一米上不去，比「误触」更糟，而且玩家会以为坏了。正确做法是「判定区内只有它 → 直接可选；判定区内有多个 → 按面朝向仲裁」。补充项：靠妥容差、单一仲裁源、岸边挡停仍可转脸（SEA-MOVE-R27）。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-INTERACT-R24 | **触发式契约**：`hold_time` 语义从「要按多久」改为「这个动作本身多长」，`0` 表示瞬发。一次按下发起一次动作，之后由交互器自动走完，与按键是否松开无关；按住不连发、不穿菜单、不重复收获。实现见 `interactor.gd` 的 `acting` / `_acted_once` / `_wait_release`：动作推进分支必须在去重闸门**之前**，否则一按下就被冻在半路。`queue_command()` 必须清 `_acted_once`（命令式交互的 holding 来自 `auto_hold`，永远看不到「松开」，不清就一条命令都不执行）。`cancel()` 只按「手还按着就等松开」处理，**不得**打开整个闸门 —— 否则菜单自己取消交互时会连开两遍。 |
+| SEA-INTERACT-R25 | **朝向只用于仲裁**：单目标在判定区内直接可选，不看朝向；多个目标同时够得着时才比 `facing_alignment()`（角色 +Z 与目标水平方向的 dot）。差量在 `FACING_TIE = 0.08`（≈5°）以内视为「同等正对」，此时比距离与优先级。显式 `keyboard_target` / `preferred_target` 仍压过一切自然排序。交互器另有 `refresh_now()`：菜单刚关、过场刚结束时焦点可能还是 null，仲裁方必须先同步取一次，不能凭 null 判「旁边没有交互物」。 |
+| SEA-INTERACT-R26 | **上下船是热区，不是方向锥**：水面上，船进入泊位周围热区（`DOCK_KEY_REACH = 6.5 m`，且 `plan_route_to` 可达）即给「靠岸 · 区域名」入口，点击走原 `_select_landing` 链路靠妥并上岸 —— 与船头朝哪无关。岸上，走进船只（站立点 `BOAT_KEY_REACH = 2.4 m` 内**或**船体 `BOAT_HULL_REACH = 3.0 m` 内）即给「上船」图标，点击即上船。靠妥容差统一为 `DOCK_SETTLE_TOLERANCE = 1.6 m`（旧值 1.0 太紧，自动靠泊停在 1.1–1.4 m 时玩家看到船贴着码头却被告知「船不在泊位」）。 |
+| SEA-INTERACT-R27 | **提示 = 图标 = 按键同源**：`_near_action() -> Dictionary` 是唯一仲裁源，`kind ∈ {boat_board, boat_leave, dock, spot, pick}`；提示文案、近距图标、点击与 E 键分派全部读它，不允许任何一处另判一次。热区外的漂流物/鱼群不出图标（图标含义是「已进判定区，点一下就动手」），但 E 仍保留「划过去捞」的赶路兜底 —— 因此提示文案必须同步兜底，否则出现「提示为空、按 E 船却直奔漂流物」。常驻码头标记在「人上岸、船停泊位」时会让位给上船图标（`markers.suppress_query`），避免两个同款圆圈叠在船上读成渲染重影。 |
+
+动作时长（`hold_time`，秒）：种植格 0（瞬发，开菜单/播种/浇水/收获全部瞬发）；采集点 0.40–0.75；建造 0.5；阳光房修缮 0.6。仍保留进度反馈的地方只有真正有持续动作的采集与修缮，其余不再压读条。
+
+近距呈现仍归 SEA-UI-R54：`prompt.enabled=false`，只有原 hover 图标/进度，不恢复底部键位条与教程。整体仍 `partial`：本节只覆盖默认最小可玩范围，`--full-world`、建造组合、潜水与 NPC 全链路未随本节复验。

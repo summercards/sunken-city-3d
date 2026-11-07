@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk_interior/cubby/cubby.glb" id="model"]
+
+[node name="cubby" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKI-CUBBY"
+metadata/asset_version = "v001"
+metadata/interior_role = "cabinet"
+
+[node name="Visual" parent="." instance=ExtResource("model")]

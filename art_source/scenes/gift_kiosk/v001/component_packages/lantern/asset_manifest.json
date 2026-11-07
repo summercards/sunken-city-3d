@@ -1,0 +1,60 @@
+{
+  "key": "lantern",
+  "name": "紫色侧挂圆筒灯",
+  "family": "lantern",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-LANTERN",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-LANTERN",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.25,
+    -0.25,
+    0
+  ],
+  "bounds_size": [
+    0.5,
+    0.5,
+    0.8199999928474426
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/lantern/lantern.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "meshes": 5,
+  "instances": 4,
+  "triangles": 1732,
+  "polygons": 814,
+  "roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "dbf5590c42a39c1ec3c2db075a987231cff84f3ab2c8e422002935353956f014",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-LANTERN",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/lantern/lantern.glb",
+  "runtime_sha256": "acf96c9d30d1450c872a8fed49583bf760188dc3ff3ce9b0d39009c72ac324cd",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/lantern.tscn",
+  "prefab_sha256": "ad96cf74f1a3e2956dcb299d0b5613ebf7266c456ac99b8e3a5576b3dea73191",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1732,
+  "triangles_after": 1732,
+  "geometry_fingerprint": "ac0474954f90c4bbdae2a7729c8329d923554209144747ea097c31a5c04800c8"
+}

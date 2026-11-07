@@ -130,7 +130,9 @@ func _check_scene() -> void:
 	for id in ["fish", "vegetable", "tomato"]:
 		economy.inventory.add(id, 2)
 	var view = main.hud.services
-	main._on_click_command("shop")
+	# Production shop command now opens the detached ShopPanel. This regression
+	# deliberately exercises the retained legacy pocket adapter, not the new panel.
+	main.hud.open_tab("shop")
 	await process_frame
 
 	var order: Array = view.slots[0].map(func(t): return str(t.get_meta("item_id")))

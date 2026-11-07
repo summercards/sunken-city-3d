@@ -1,0 +1,95 @@
+{
+  "feature_id": "SEA-WORLD-R28",
+  "reports": {
+    "D:\\projects\\sea-work\\verification\\20261107-190758-shop-sightline-first-5930c3\\report.json": [
+      "shop-sightline",
+      "visual-shop-sightline"
+    ],
+    "D:\\projects\\sea-work\\verification\\20261107-191040-shop-sightline-regression-c712d9\\report.json": [
+      "roof-reveal",
+      "gift-kiosk-interior",
+      "camera"
+    ]
+  },
+  "runtime_files": [
+    {
+      "path": "godot/src/world/shop_sightline.gd",
+      "sha256": "aeb26cfdc602c146af668160d36f242846454768090751ba064ba327889c3f06",
+      "bytes": 6821
+    },
+    {
+      "path": "godot/shaders/shop_sightline.gdshader",
+      "sha256": "800b7537dbf7188199d3d81f75b066bee43818441bd9653c7bfac51eff39d0cd",
+      "bytes": 1721
+    },
+    {
+      "path": "godot/tests/test_shop_sightline.gd",
+      "sha256": "76efc5182d535323815a9f7bf875d45dcb26cc4a984dbe65d4939425b687e69c",
+      "bytes": 4333
+    },
+    {
+      "path": "godot/tools/capture_shop_sightline.gd",
+      "sha256": "12997bd7a100e02983e68be39ce62177c78be085f9f456dff5581f783fc780fa",
+      "bytes": 3169
+    },
+    {
+      "path": "godot/src/facilities/floating_shop_zone.gd",
+      "sha256": "0b548c7a11b763493d24e7f143b28e9928cd9fa2b03d7a5efe42a8a7bd412139",
+      "bytes": 2792
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "sha256": "d9264f0d27500ee8cc2c940c3756debf0655f6d968e61c16c52cc0a5987dc820",
+      "bytes": 90254
+    }
+  ],
+  "source_files_unchanged": 60,
+  "glb_files_unchanged": 58,
+  "visual_review": [
+    "before/after day and night",
+    "partial fade",
+    "opposite camera side",
+    "outside restored"
+  ],
+  "media_root": "D:\\projects\\sea-work\\gift_kiosk\\sightline\\final",
+  "expected_faults": [],
+  "not_run": [
+    "low-end device performance",
+    "full unrelated feature suite"
+  ],
+  "static_checks": {
+    "feature-sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\sightline\\feature-sync.log",
+      "output": "FAIL: SEA-SHOP: unknown verification shop-modules\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-HARBOR: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SHELL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-DOCK-WORKSHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SALVAGE-CABIN: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-BUILDER-LOFT: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-FLOWER-SHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-GENERAL-STORE: source hash drift\nFAIL: runtime hash drift: godot/assets/data/zones.json\nFAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/scenes/main.tscn\nFAIL: runtime hash drift: godot/scenes/residence/resident_harbor.tscn\nFAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: runtime hash drift: godot/src/core/play_scope.gd\nFAIL: runtime hash drift: godot/src/navigation/walk_area.gd\nFAIL: runtime hash drift: godot/src/player/actor_controller.gd\nFAIL: runtime hash drift: godot/src/player/character.gd\nFAIL: runtime hash drift: godot/src/save/save_game.gd\nFAIL: runtime hash drift: godot/src/save/save_schema.gd\nFAIL: runtime hash drift: godot/src/ui/hud.gd\nFAIL: content ID drift/duplicate godot/assets/data/zones.json\nFAIL: 43 features, 966 source assets, 1360 runtime resource hashes; 26 issues\n"
+    },
+    "feature-check": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\sightline\\feature-check.log",
+      "output": "FAIL: SEA-SHOP: unknown verification shop-modules\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-HARBOR: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SHELL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-DOCK-WORKSHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SALVAGE-CABIN: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-BUILDER-LOFT: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-FLOWER-SHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-GENERAL-STORE: source hash drift\nFAIL: runtime hash drift: godot/assets/data/zones.json\nFAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/scenes/main.tscn\nFAIL: runtime hash drift: godot/scenes/residence/resident_harbor.tscn\nFAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: runtime hash drift: godot/src/core/play_scope.gd\nFAIL: runtime hash drift: godot/src/navigation/walk_area.gd\nFAIL: runtime hash drift: godot/src/player/actor_controller.gd\nFAIL: runtime hash drift: godot/src/player/character.gd\nFAIL: runtime hash drift: godot/src/save/save_game.gd\nFAIL: runtime hash drift: godot/src/save/save_schema.gd\nFAIL: runtime hash drift: godot/src/ui/hud.gd\nFAIL: content ID drift/duplicate godot/assets/data/zones.json\nFAIL: derived feature index stale; use --sync\nFAIL: 43 features, 966 source assets, 1360 runtime resource hashes; 27 issues\n"
+    },
+    "placed-positions": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\sightline\\placed-positions.log",
+      "output": "placed structures checked: 4\nPASS: 4 placed structure(s), 0 warning(s)\n"
+    },
+    "diff-check": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\sightline\\diff-check.log",
+      "output": "warning: in the working copy of 'GDD_V1.0.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/content_index.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/current_source_index.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/characters.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/crops.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/scenes.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/runtime_resource_inventory.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/views/buildings_above_water.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/views/buildings_underwater.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/development/2026-11-07_npc_module_framework.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/interact/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/materials/sunken_city/seabed_material.tres', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/textures/vegetation/meadow_atlas.png.import', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/textures/vegetation/soft_atlas.png.import', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/project.godot', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/decorations/surface_animals.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/facilities/floating_shop.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/main.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/crops/harvest_visual.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/facilities/supply_counter.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/player/character_motor.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/player/states/strolling.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_keyboard_farm_loop.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_keyboard_travel.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/check_world_text.gd', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  },
+  "main_integration": {
+    "path": "godot/src/bootstrap/main.gd",
+    "tested_sha256": "2ea1e01c47f0d348fa185412fdbd15a494010b0851436d9cae12913bf6685b21",
+    "change": "Inject existing Camera3D via optional facility presentation port; never changes camera state",
+    "global_runtime_hash_updated": false
+  },
+  "final_check": {
+    "runtime_files_match_validated_snapshot": true,
+    "main_matches_validated_snapshot": true,
+    "scoped_checks": 1713,
+    "failures": 0,
+    "completed": true
+  }
+}

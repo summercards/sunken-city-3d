@@ -1,0 +1,501 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "key": "tile_cream",
+      "asset_id": "SEA-SCENE-GKI-TILE-CREAM",
+      "name": "奶油地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-TILE-CREAM",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.4650000035762787,
+        -0.4650000035762787,
+        0
+      ],
+      "bounds_size": [
+        0.9300000071525574,
+        0.9300000071525574,
+        0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/tile_cream/tile_cream.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 1,
+      "instances": 66,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 188,
+      "polygons": 98,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "ff8fa18e25adf4e26a69f8c93fa3274a4c186653b801649837e7114ad8f97204",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "tile_blue",
+      "asset_id": "SEA-SCENE-GKI-TILE-BLUE",
+      "name": "海蓝地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-TILE-BLUE",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.4650000035762787,
+        -0.4650000035762787,
+        0
+      ],
+      "bounds_size": [
+        0.9300000071525574,
+        0.9300000071525574,
+        0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/tile_blue/tile_blue.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 1,
+      "instances": 30,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 188,
+      "polygons": 98,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "572942ac1810202a5a63b5f489c43336a298691f02ccda033e3354e9ed0bbb9f",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "tile_honey",
+      "asset_id": "SEA-SCENE-GKI-TILE-HONEY",
+      "name": "蜜黄地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-TILE-HONEY",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.4650000035762787,
+        -0.4650000035762787,
+        0
+      ],
+      "bounds_size": [
+        0.9300000071525574,
+        0.9300000071525574,
+        0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/tile_honey/tile_honey.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 1,
+      "instances": 6,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 188,
+      "polygons": 98,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "42c53f623666286ab5186dc76bfe2271e5f56ca6c6c9dd19ca6bcda9000e57cd",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "checkout_counter",
+      "asset_id": "SEA-SCENE-GKI-CHECKOUT-COUNTER",
+      "name": "圆角收银柜台",
+      "family": "counter",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-CHECKOUT-COUNTER",
+      "design_pivot": [
+        0.0,
+        -0.30750003457069397,
+        0.0
+      ],
+      "bounds_min": [
+        -1.9199999570846558,
+        -0.8925000131130219,
+        0
+      ],
+      "bounds_size": [
+        3.8399999141693115,
+        1.7850000858306885,
+        1.25
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/checkout_counter/checkout_counter.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 15,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 2820,
+      "polygons": 1470,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "59c43d2beee22de6d58a3babf592e22d1999c95e481f46f66e6a94a01abb2263",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "cash_register",
+      "asset_id": "SEA-SCENE-GKI-CASH-REGISTER",
+      "name": "复古收银机",
+      "family": "register",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-CASH-REGISTER",
+      "design_pivot": [
+        0.0,
+        -0.016250014305114746,
+        0.0
+      ],
+      "bounds_min": [
+        -0.36000001430511475,
+        -0.3062500059604645,
+        0
+      ],
+      "bounds_size": [
+        0.7200000286102295,
+        0.612500011920929,
+        0.6825000047683716
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cash_register/cash_register.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 13,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 2572,
+      "polygons": 1318,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "eb76ebb676296ccb5c38a382ea6491d96762420d240d6c3feb0d1e79e14472a5",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "display_table",
+      "asset_id": "SEA-SCENE-GKI-DISPLAY-TABLE",
+      "name": "椭圆礼品陈列台",
+      "family": "display",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-DISPLAY-TABLE",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -1.0750000476837158,
+        -0.75,
+        0
+      ],
+      "bounds_size": [
+        2.1500000953674316,
+        1.5,
+        1.0429999828338623
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/display_table/display_table.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 2544,
+      "polygons": 1128,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "27305508610358804028db8125d7ee6eb7d9fb9d2f87c152b0ef4ed29fa94965",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "stool",
+      "asset_id": "SEA-SCENE-GKI-STOOL",
+      "name": "圆坐凳",
+      "family": "seat",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-STOOL",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.38999998569488525,
+        -0.38999998569488525,
+        0
+      ],
+      "bounds_size": [
+        0.7799999713897705,
+        0.7799999713897705,
+        0.675000011920929
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/stool/stool.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 2024,
+      "polygons": 908,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "275ccaed0c7a7308880263defce4125edcbfbf04f4f4a9954246667140ea032a",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "wall_poster",
+      "asset_id": "SEA-SCENE-GKI-WALL-POSTER",
+      "name": "海岸主题装饰画",
+      "family": "wall_art",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-WALL-POSTER",
+      "design_pivot": [
+        0.0,
+        -0.046000003814697266,
+        0.0
+      ],
+      "bounds_min": [
+        -0.5799999833106995,
+        -0.11100000143051147,
+        0
+      ],
+      "bounds_size": [
+        1.159999966621399,
+        0.22200000286102295,
+        1.4800000190734863
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/wall_poster/wall_poster.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 9,
+      "instances": 2,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 1864,
+      "polygons": 984,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "546846c82c98c7ccb59b1f02145496f3037a1e141bd764e2b394679020201b2e",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "wall_clock",
+      "asset_id": "SEA-SCENE-GKI-WALL-CLOCK",
+      "name": "圆挂钟",
+      "family": "clock",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-WALL-CLOCK",
+      "design_pivot": [
+        0.0,
+        -0.0534999743103981,
+        0.0
+      ],
+      "bounds_min": [
+        -0.46000000834465027,
+        -0.12850002199411392,
+        0
+      ],
+      "bounds_size": [
+        0.9200000166893005,
+        0.25700002908706665,
+        0.9200000166893005
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/wall_clock/wall_clock.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 17,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 2728,
+      "polygons": 1408,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "c897af162bab4e9bb257b5d4761dcfdba52950af686ec4b1e9c7ab785d22ecf3",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "wall_sconce",
+      "asset_id": "SEA-SCENE-GKI-WALL-SCONCE",
+      "name": "壁灯",
+      "family": "lamp",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-WALL-SCONCE",
+      "design_pivot": [
+        0.0,
+        -0.20499998331069946,
+        0.030000001192092896
+      ],
+      "bounds_min": [
+        -0.25999999046325684,
+        -0.3749999925494194,
+        0
+      ],
+      "bounds_size": [
+        0.5199999809265137,
+        0.75,
+        0.7999999523162842
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/wall_sconce/wall_sconce.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 2,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 1076,
+      "polygons": 534,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "source_sha256": "826d8aca81aec87e9f0cdb987f35be1754d26bf4fcf103546566ead31e97e865",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "cubby",
+      "asset_id": "SEA-SCENE-GKI-CUBBY",
+      "name": "礼品包装柜",
+      "family": "cabinet",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity",
+      "collection": "SEA-SCENE-GKI-CUBBY",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.7900000214576721,
+        -0.3400000035762787,
+        0
+      ],
+      "bounds_size": [
+        1.5800000429153442,
+        0.6800000071525574,
+        1.8599998950958252
+      ],
+      "component_source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cubby/cubby.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 8,
+      "instances": 1,
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "triangles": 1504,
+      "polygons": 784,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "86c549a23b61b62f385d9dc514e0d86d96b5e446af38f70b77fec68037fb383d",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    }
+  ]
+}

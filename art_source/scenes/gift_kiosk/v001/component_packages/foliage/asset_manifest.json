@@ -1,0 +1,58 @@
+{
+  "key": "foliage",
+  "name": "饱满球簇绿植",
+  "family": "foliage",
+  "group": "plant",
+  "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-FOLIAGE",
+  "design_pivot": [
+    0.00999993085861206,
+    0.09499996900558472,
+    0.12999999523162842
+  ],
+  "bounds_min": [
+    -0.7900001406669617,
+    -0.6250000596046448,
+    0
+  ],
+  "bounds_size": [
+    1.5800002813339233,
+    1.2500001192092896,
+    1.4700000286102295
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/foliage/foliage.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 6,
+  "instances": 5,
+  "triangles": 2244,
+  "polygons": 1214,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "f46ca798db59425034bede05671e50389a0d865f660318b2f86047ee6eb199e8",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-FOLIAGE",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/foliage/foliage.glb",
+  "runtime_sha256": "cba358e15953e9fb35cddf418695f47e4f2d3492745c610928691a03efcfe5b7",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/foliage.tscn",
+  "prefab_sha256": "0533ba839cd083e4399d34fc0459bcdaa8c957062670f6507f1ac78288364d84",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 2244,
+  "triangles_after": 2244,
+  "geometry_fingerprint": "17cbfcc51cd72fd78d156bcb45dc4740d2c7de2866581a548f8cea95783f7031"
+}

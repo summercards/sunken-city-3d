@@ -1,0 +1,53 @@
+{
+  "schema": "sea.npc_residences",
+  "version": 2,
+  "feature_id": "SEA-RESIDENCE",
+  "zone_id": "resident_harbor",
+  "scene": "res://scenes/residence/resident_harbor.tscn",
+  "marker_paths_relative_to": "resident_harbor",
+  "ground_path": "WalkAreas/Community",
+  "residences": [
+    {
+      "id": "residence_dock_workshop", "npc_id": "npc_luo_yan", "label": "牵线的修船间",
+      "scene": "res://scenes/residence/residence_dock_workshop.tscn", "node_path": "Models/Homes/residence_dock_workshop",
+      "home_anchor_id": "residence_dock_workshop", "work_anchor_id": "residence_dock_workshop_work", "social_anchor_id": "residence_dock_workshop_social", "rest_anchor_id": "residence_dock_workshop_rest", "door_anchor_id": "residence_dock_workshop_door",
+      "home_marker": "Models/Homes/residence_dock_workshop/Shell/Markers/Home", "work_marker": "Models/Homes/residence_dock_workshop/Shell/Markers/Work", "social_marker": "Models/Homes/residence_dock_workshop/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_dock_workshop/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_dock_workshop/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_sunroom_greenhouse", "npc_id": "npc_mu_he", "label": "叶脉的晒种房",
+      "scene": "res://scenes/residence/residence_sunroom_greenhouse.tscn", "node_path": "Models/Homes/residence_sunroom_greenhouse",
+      "home_anchor_id": "residence_sunroom_greenhouse", "work_anchor_id": "residence_sunroom_greenhouse_work", "social_anchor_id": "residence_sunroom_greenhouse_social", "rest_anchor_id": "residence_sunroom_greenhouse_rest", "door_anchor_id": "residence_sunroom_greenhouse_door",
+      "home_marker": "Models/Homes/residence_sunroom_greenhouse/Shell/Markers/Home", "work_marker": "Models/Homes/residence_sunroom_greenhouse/Shell/Markers/Work", "social_marker": "Models/Homes/residence_sunroom_greenhouse/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_sunroom_greenhouse/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_sunroom_greenhouse/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_salvage_cabin", "npc_id": "npc_ji_chen", "label": "回声的打捞舱",
+      "scene": "res://scenes/residence/residence_salvage_cabin.tscn", "node_path": "Models/Homes/residence_salvage_cabin",
+      "home_anchor_id": "residence_salvage_cabin", "work_anchor_id": "residence_salvage_cabin_work", "social_anchor_id": "residence_salvage_cabin_social", "rest_anchor_id": "residence_salvage_cabin_rest", "door_anchor_id": "residence_salvage_cabin_door",
+      "home_marker": "Models/Homes/residence_salvage_cabin/Shell/Markers/Home", "work_marker": "Models/Homes/residence_salvage_cabin/Shell/Markers/Work", "social_marker": "Models/Homes/residence_salvage_cabin/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_salvage_cabin/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_salvage_cabin/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_builder_loft", "npc_id": "npc_nan_zhi", "label": "榫口的木作阁",
+      "scene": "res://scenes/residence/residence_builder_loft.tscn", "node_path": "Models/Homes/residence_builder_loft",
+      "home_anchor_id": "residence_builder_loft", "work_anchor_id": "residence_builder_loft_work", "social_anchor_id": "residence_builder_loft_social", "rest_anchor_id": "residence_builder_loft_rest", "door_anchor_id": "residence_builder_loft_door",
+      "home_marker": "Models/Homes/residence_builder_loft/Shell/Markers/Home", "work_marker": "Models/Homes/residence_builder_loft/Shell/Markers/Work", "social_marker": "Models/Homes/residence_builder_loft/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_builder_loft/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_builder_loft/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_lantern_archive", "npc_id": "npc_bai_shi", "label": "灯芯的灯档",
+      "scene": "res://scenes/residence/residence_lantern_archive.tscn", "node_path": "Models/Homes/residence_lantern_archive",
+      "home_anchor_id": "residence_lantern_archive", "work_anchor_id": "residence_lantern_archive_work", "social_anchor_id": "residence_lantern_archive_social", "rest_anchor_id": "residence_lantern_archive_rest", "door_anchor_id": "residence_lantern_archive_door",
+      "home_marker": "Models/Homes/residence_lantern_archive/Shell/Markers/Home", "work_marker": "Models/Homes/residence_lantern_archive/Shell/Markers/Work", "social_marker": "Models/Homes/residence_lantern_archive/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_lantern_archive/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_lantern_archive/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_flower_shop", "npc_id": "npc_hua_yi", "label": "小花花店",
+      "scene": "res://scenes/residence/residence_flower_shop.tscn", "node_path": "Models/Homes/residence_flower_shop",
+      "home_anchor_id": "residence_flower_shop", "work_anchor_id": "anchor_flower_shop", "social_anchor_id": "residence_flower_shop_social", "rest_anchor_id": "residence_flower_shop_rest", "door_anchor_id": "residence_flower_shop_door",
+      "home_marker": "Models/Homes/residence_flower_shop/Shell/Markers/Home", "work_marker": "Models/Homes/residence_flower_shop/Shell/Markers/Work", "social_marker": "Models/Homes/residence_flower_shop/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_flower_shop/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_flower_shop/Shell/Markers/Door"
+    },
+    {
+      "id": "residence_general_store", "npc_id": "npc_bao_he", "label": "阿店海上商店",
+      "scene": "res://scenes/residence/residence_general_store.tscn", "node_path": "Models/Homes/residence_general_store",
+      "home_anchor_id": "residence_general_store", "work_anchor_id": "anchor_general_store", "social_anchor_id": "residence_general_store_social", "rest_anchor_id": "residence_general_store_rest", "door_anchor_id": "residence_general_store_door",
+      "home_marker": "Models/Homes/residence_general_store/Shell/Markers/Home", "work_marker": "Models/Homes/residence_general_store/Shell/Markers/Work", "social_marker": "Models/Homes/residence_general_store/Shell/Markers/Social", "rest_marker": "Models/Homes/residence_general_store/Shell/Markers/Rest", "door_marker": "Models/Homes/residence_general_store/Shell/Markers/Door"
+    }
+  ]
+}

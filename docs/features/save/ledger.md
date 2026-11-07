@@ -160,3 +160,11 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | SEA-SAVE-R18 | 已实现并实测通过；根v4/building版本1和必填schema不变，旧档原数据保留且无需迁移，支持2.8m旧结构与5.086335m实际平面混合；校验失败不改现场、不覆盖有效备份、不重复收费 | `building-save-compat`37/0来自`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`；`save-protection`来自`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`，exit0且日志`ok=true protected=true unchanged=true separate=true`；[建筑5m与UI开发记录](../../development/2026-11-06_building_5m_and_ui.md) |
 
 2026-11-06 R18最终安全补记：Service以rooted支撑修复高空孤台/循环支撑save绕过；无支持的新旧高空布局均拒绝，地面历史孤立合法。根v4/building版本1、旧ID/尺寸/坐标/py原数据及失败不改现场原则保持，未修改玩家真实存档。`building-5m-rules`446/0、`building-5m-experience`589/0及`building-save-compat`37/0在222059 release-signed报告中均通过；211435中`character-space-save`10/0和`save-protection`通过补充恢复与保护证据。不因此宣称断电/所有平台文件系统已验收。
+
+## 2026-11-07 多潜水地图进度兼容与写盘门禁
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-SAVE-R19 | 源码注册稳定DiveSession为原 `dive` 所有者；根v4与 `{found:int[],opened:int[]}`不变，不增map_id必填字段。固定全局宝箱ID、未知ID保留与from_dict全量覆盖已接入；registry.busy_query包含active/switching，直接SaveGame.write同样拒绝中间快照 | `DiveSession.to_dict / from_dict`、`Main._setup_save_registry`、`SnapshotRegistry.is_busy`、`SaveGame.write`；`dive-maps`运行 **pending，待父线程补充** |
+
+本条覆盖潜水数据的旧“未知内容过滤”概述；其他模块规则不变。初填pending为过程，最终R19由`20261107-190643-dive-map-switch-signed-451501`签署：dive-maps312/0、framework52/0、save-seed/save-corrupt-seed/save-protection均exit0且无非预期错误，覆盖旧ID/未知ID、跨图隔离、全量恢复、磁盘往返和潜水直接写盘拒绝；满包奖励原子结算亦通过。未升级根v4、未改dive wire字段、未触玩家真实档。断电/低端设备与所有文件系统未测，状态保持partial。[完整机制与最终结果](../../development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。

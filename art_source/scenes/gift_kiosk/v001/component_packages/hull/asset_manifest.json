@@ -1,0 +1,58 @@
+{
+  "key": "hull",
+  "name": "灰色圆角护舷底盘",
+  "family": "hull",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-HULL",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-HULL",
+  "design_pivot": [
+    0.0,
+    0.0,
+    -1.0199999809265137
+  ],
+  "bounds_min": [
+    -9.125,
+    -9.125,
+    0
+  ],
+  "bounds_size": [
+    18.25,
+    18.25,
+    1.1200000047683716
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/hull/hull.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 2,
+  "instances": 1,
+  "triangles": 1400,
+  "polygons": 620,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "c08c4073f57074f341e1d33e2bbaaff85f16bed9bdd0147dc22b00bc66977574",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-HULL",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/hull/hull.glb",
+  "runtime_sha256": "076525a82beb6199c43190ed15a91553239af5f1455fb058031789201286c5c8",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/hull.tscn",
+  "prefab_sha256": "8de794cf465f65cdedbdc7a4cd8a2707836e2758cc362807731a29eaeeee2487",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1400,
+  "triangles_after": 1400,
+  "geometry_fingerprint": "c16f1ba04091b9ca60db4b4988a2160263487337d76152c0fec2c60e1ad24e51"
+}

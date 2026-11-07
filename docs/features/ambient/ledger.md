@@ -29,7 +29,12 @@
     "visual-proton-scatter",
     "visual-proton-preview",
     "sea-fauna",
-    "visual-sea-fauna"
+    "visual-sea-fauna",
+    "scenic-fish-distribution",
+    "visual-scenic-fish-structure",
+    "visual-scenic-fish-distribution",
+    "sunroom-underwater",
+    "visual-sunroom-underwater"
   ]
 }
 ```
@@ -172,3 +177,25 @@ SEA-AMBIENT-R17及本轮R07/R08/R10/R11/R16覆盖项：六项统一runner实测�
 | 条款 ID | 实施状态 | 证据 |
 |---|---|---|
 | SEA-AMBIENT-R19 | 两处草皮分区、天台 14 个草堆、阳光房 56 个原花草均有保存到设施场景的调整节点。实际位置与朝向从当前主场景读取。正式草皮和草堆继续使用共享阵风。ProtonScatter 的真实生成批次及预览相机跟随预览设施。 | 契约 515315 项通过，两处正式场景实拍、ProtonScatter 11542 实例重开和移位通过。操作见[手动编辑入口](vegetation_meadow.md#在-godot-里手动摆放)，完整出口与集成失败见[开发记录](../../development/2026-11-06_vegetation_facility_editing.md)。 |
+
+## 2026-11-07 纯观赏小鱼多海域扩布
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R22 | 已实装独立 `ScenicSeaFishSchools`，10群98条覆盖其他海域，阳光房同款surface/flat小鱼，原群保留。4750逻辑/几何断言、416真实图像断言无失败；20近景、3环境图已生成。 | [本轮记录与明确失败边界](../../development/2026-11-07_scenic_fish_distribution.md)。正式import通过，但运行退出资源错误导致runner仍FAIL，后续并行NPC编译阻塞；完整集成和verified晋升pending。 |
+
+## 2026-11-07 阳光房独立水下预览生态（独立场景已验）
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R23 | ecology装配reef12原株/32簇、24灯具（Omni16/Spot8、局部阴影0），总成复用8群138鱼；56根接地最大误差1.907e-6米<.001，编辑器TSCN已固化。局部灯shader仅原镜片y6.774..6.826、x>=.674发光1.6，Point(1.075,6.8,0)，不写共享材质。ambient_source由错误3修为2并柔化，保留两版图过程，不改全局水或旧源 | 最终205426-signed报告sunroom-underwater67/0、visual89/0均exit0/PASS、无非预期错误；RTX4060Ti Vulkan Forward+、11真实视角，鱼/珊瑚/灯近景与全景已由父线程目检。[最终交付与失败过程](../../development/2026-11-07_sunroom_underwater_region.md)。仅独立预览，不新增碰撞/玩法，不接生产路由；来源、完整02b复用签署、性能、商业权属及用户美术验收仍pending，不冒称新Blender模型或默认开放。 |
+
+## 2026-11-07 阳光房水下美术 r2（已独立验收，产品未接入）
+
+初填时三项均pending，旧参数为环境depth fog6..100/curve1.65与8steps；仅保留该初填时点，不再代表当前方案。R23历史/登记头保留，物体阻挡归SEA-DIVE-R14，泡尘光束自身无碰撞。
+
+| 对应条款 | 当前实施 | 当前证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R24 | runtime禁用环境fog，按旧图同序one opaque WaterFogPass、render_priority=-128；sunroom_underwater_color include统一6..110/curve1.3，天空/水顶/地形同一相机方向上下渐变，worldXZ448..500额外fade。透明粒子自雾＋alpha衰减；beam加色16steps/density基值0.085（每束增0/0.008/0.016）/soft cap0.23，采深度挡墙并继承同距离fade，不叠双雾。ambient0.48→深0.29、Sun0.60→0.30、Cool0.13、palette caustic0.075；压下泛白地板，水顶纹理gain0.18、正常水色。保留138鱼/32珊瑚/24实灯与10光束/192泡/200尘及sample/snapshot | 最终232826-signed：结构78/0、碰撞264/0、视觉118/0，新区域460/0；dive-maps302/0与modules31/0回归333/0，五入口总793/0全PASS/exit0、无unexpected。local env/sky/material均resource_local_to_scene保护多实例；far-fog-edge max0.0078431517、corner/west各0.0039215982均<0.025；射光shader开关lit_samples5365>150，已证实际可见，不止node计数。RTX4060Ti/Vulkan Forward+、18机位；父线程已目检home-base/ray-street/coral/fish/far-edge/corner-close，旧环境fog＋aerial1角落三角块改单通道后已审边角纯渐变无边，不冒称18图全细节人工签署。原9图/旧源/高度源、toplevel/位置范围深度保持，70保护项最终核对待父回填。本任务不改Main；Main 可能被并行修改，不要求 Main 字节不变。低端/连续性能、rights/完整02b及产品验收仍pending，未接生产路由/存档。[r2记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。 |
+
+最终报告：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`；verification关联三项新区域及dive-maps/modules回归，总793/0全PASS。默认射光、气泡、珊瑚、鱼与低照灯分列审阅，最终远角pure gradient已目检，近处实体边缘不等于远雾cut。225915为中间历史，不再称latest final待验；登记实际写入及sync/check真实输出由父线程补到开发记录静态门禁节。本次不改登记头/登记JSON，不运行命令。

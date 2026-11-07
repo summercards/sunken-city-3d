@@ -1,0 +1,130 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/platform_5x5.tscn" id="platform_5x5"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/door_frame_5m.tscn" id="door_frame_5m"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/window_wall_5m.tscn" id="window_wall_5m"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/wall_5m.tscn" id="wall_5m"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/table.tscn" id="table"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/oil_lamp.tscn" id="oil_lamp"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/stool.tscn" id="stool"]
+[ext_resource type="Material" path="res://scenes/residence/materials/wood.tres" id="wood"]
+[ext_resource type="Material" path="res://scenes/residence/materials/linen.tres" id="linen"]
+[ext_resource type="Material" path="res://scenes/residence/materials/teal.tres" id="teal"]
+
+[sub_resource type="BoxMesh" id="bed_frame"]
+size = Vector3(1.7, 0.38, 2.6)
+[sub_resource type="BoxMesh" id="mattress"]
+size = Vector3(1.6, 0.24, 2.45)
+[sub_resource type="BoxMesh" id="pillow"]
+size = Vector3(1.2, 0.14, 0.48)
+[sub_resource type="BoxMesh" id="blanket"]
+size = Vector3(1.62, 0.1, 1.5)
+[sub_resource type="BoxMesh" id="headboard"]
+size = Vector3(1.7, 0.9, 0.12)
+[node name="ResidenceShell" type="Node3D"]
+metadata/feature_id = "SEA-RESIDENCE"
+metadata/building_class = "above_water"
+metadata/source_kind = "godot_existing_kit_and_native_scene"
+metadata/cutaway = "无屋顶；侧墙和前窗墙剖切到1.12m，门墙保留真实门楣"
+metadata/door_clear_width = 1.85
+metadata/door_clear_height = 3.1
+metadata/interior_size = Vector2(10, 5)
+
+[node name="Floor0" instance=ExtResource("platform_5x5") parent="."]
+position = Vector3(-2.5, 0, 0)
+
+[node name="Rear0" instance=ExtResource("window_wall_5m") parent="."]
+position = Vector3(-2.5, 0, -2.5)
+scale = Vector3(1, 0.55, 1)
+metadata/walk_obstacle = Rect2(-2.5, -0.1, 5, 0.2)
+
+[node name="Floor1" instance=ExtResource("platform_5x5") parent="."]
+position = Vector3(2.5, 0, 0)
+
+[node name="Rear1" instance=ExtResource("window_wall_5m") parent="."]
+position = Vector3(2.5, 0, -2.5)
+scale = Vector3(1, 0.55, 1)
+metadata/walk_obstacle = Rect2(-2.5, -0.1, 5, 0.2)
+
+[node name="Left" instance=ExtResource("wall_5m") parent="."]
+position = Vector3(-5, 0, 0)
+rotation = Vector3(0, 1.5707963268, 0)
+scale = Vector3(1, 0.22, 1)
+metadata/walk_obstacle = Rect2(-2.5, -0.1, 5, 0.2)
+
+[node name="Right" instance=ExtResource("wall_5m") parent="."]
+position = Vector3(5, 0, 0)
+rotation = Vector3(0, 1.5707963268, 0)
+scale = Vector3(1, 0.22, 1)
+metadata/walk_obstacle = Rect2(-2.5, -0.1, 5, 0.2)
+
+[node name="FrontCutaway" instance=ExtResource("window_wall_5m") parent="."]
+position = Vector3(-2.5, 0, 2.5)
+scale = Vector3(1, 0.22, 1)
+metadata/walk_obstacle = Rect2(-2.5, -0.1, 5, 0.2)
+
+[node name="DoorFrame" instance=ExtResource("door_frame_5m") parent="."]
+position = Vector3(2.5, 0, 2.5)
+
+[node name="DoorLeft" type="Node3D" parent="."]
+metadata/walk_obstacle = Rect2(0, 2.4, 1.575, 0.2)
+
+[node name="DoorRight" type="Node3D" parent="."]
+metadata/walk_obstacle = Rect2(3.425, 2.4, 1.575, 0.2)
+
+[node name="Bed" type="Node3D" parent="."]
+position = Vector3(-3.3, 0, -0.75)
+metadata/walk_obstacle = Rect2(-0.85, -1.3, 1.7, 2.6)
+
+[node name="Frame" type="MeshInstance3D" parent="Bed"]
+mesh = SubResource("bed_frame")
+material_override = ExtResource("wood")
+position = Vector3(0, 0.19, 0)
+
+[node name="Mattress" type="MeshInstance3D" parent="Bed"]
+mesh = SubResource("mattress")
+material_override = ExtResource("linen")
+position = Vector3(0, 0.5, 0)
+
+[node name="Pillow" type="MeshInstance3D" parent="Bed"]
+mesh = SubResource("pillow")
+material_override = ExtResource("linen")
+position = Vector3(0, 0.69, -0.85)
+
+[node name="Blanket" type="MeshInstance3D" parent="Bed"]
+mesh = SubResource("blanket")
+material_override = ExtResource("teal")
+position = Vector3(0, 0.67, 0.42)
+
+[node name="Headboard" type="MeshInstance3D" parent="Bed"]
+mesh = SubResource("headboard")
+material_override = ExtResource("wood")
+position = Vector3(0, 0.45, -1.3)
+
+[node name="DailyTable" instance=ExtResource("table") parent="."]
+position = Vector3(0, 0, -1.6)
+metadata/walk_obstacle = Rect2(-0.7, -0.5, 1.4, 1)
+
+[node name="Lamp" instance=ExtResource("oil_lamp") parent="."]
+position = Vector3(0.25, 0.78, -1.6)
+
+[node name="RestStool" instance=ExtResource("stool") parent="."]
+position = Vector3(-1.7, 0, -1.8)
+metadata/walk_obstacle = Rect2(-0.28, -0.28, 0.56, 0.56)
+
+[node name="Markers" type="Node3D" parent="."]
+
+
+[node name="Home" type="Marker3D" parent="Markers"]
+position = Vector3(-1.3, 0, 0.5)
+
+[node name="Rest" type="Marker3D" parent="Markers"]
+position = Vector3(-1.85, 0, -0.6)
+
+[node name="Work" type="Marker3D" parent="Markers"]
+position = Vector3(2.5, 0, -0.9)
+
+[node name="Door" type="Marker3D" parent="Markers"]
+position = Vector3(2.5, 0, 2.5)
+
+[node name="Social" type="Marker3D" parent="Markers"]
+position = Vector3(-2, 0, 3.4)

@@ -303,6 +303,7 @@ func run() -> void:
 		if near_point.is_finite():
 			respawn(near_point)
 	controller.walk_area = null
+	player.rotation.y = atan2(park.x - player.global_position.x, park.z - player.global_position.z)
 	main._boat_key_left = 0.0
 	check(main._boat_key_action() == "board", "泊位旁可以按 E 上船")
 	var boarded: bool = main._toggle_boat_by_key()

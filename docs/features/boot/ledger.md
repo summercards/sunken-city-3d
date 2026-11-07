@@ -95,3 +95,11 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-BOOT-R06 | 已接入，专项与回归以本轮记录为准 | `avatar-restart / onboarding / visual-avatar / framework-integration`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |
+
+## 2026-11-07 潜水地图会话挂起与返回
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-BOOT-R07 | 源码已接入Main轻量DiveSession装配、来源/奖励注入及移出树缓存；切current_scene后只保留一张海底runtime。返回同一Main，不free/重建/读档，恢复原姿态模式、相机环境及出树清理的投影/端口；挂起期间保留save_registry并暂停海面时间/天气/经营/自动存档 | `Main._setup_dive / _exit_tree / resume_after_dive_map`、`DiveSession.enter_map / _commit_return`；`dive-maps / visual-dive-maps`结果 **pending，待父线程补充** |
+
+初填pending为过程状态；最终R07由`20261107-190643-dive-map-switch-signed-451501`签署：dive-maps312/0、真实322/0、framework-integration52/0、minimum-loop147/0，均exit0，无非预期错误。九图返回同Main/镜头环境/地面投影、缺氧及异常销毁已覆盖；破损资源setup回滚未故意损坏文件实测。功能状态保持partial。[最终实测与边界](../../development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。

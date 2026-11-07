@@ -19,12 +19,21 @@ var stride = preload("res://src/player/actions/free_walk_action.gd").new()
 var board = preload("res://src/player/actions/board_action.gd").new()
 var disembark = preload("res://src/player/actions/disembark_action.gd").new()
 var approach_action = preload("res://src/player/actions/approach_action.gd").new()
+var climb_action = preload("res://src/player/actions/climb_ladder_action.gd").new()
+var climb_from := Vector3.ZERO
+var climb_to := Vector3.ZERO
+var climb_progress := 0.0
+var climb_subject: Node3D
 ## 键盘移动意图（世界 xz 方向，已归一化；零 = 没按键）。由 Main 每帧写入，
 ## 这里只负责「能不能转成一次行走」，不读键盘也不读镜头。
 var move_intent := Vector3.ZERO
 ## 当前行走速度（世界 m/s）。自由行走自己积分加减速，点击走路不写它。
 ## 镜头前视、步频、测试都只读这一个量，不再各自猜速度。
 var move_velocity := Vector3.ZERO
+## Shift 小跑只改变岸上自由行走的目标速度；不读键，Main 每帧写入。
+var sprint_held := false
+var _support_area: Node3D
+var _support_height := 0.0
 
 func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boundary: Dictionary) -> void:
 	actor = body
@@ -34,6 +43,7 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 	ports = boundary
 	var nodes := {
 		"sleeping":preload("res://src/player/states/sleeping.gd").new(),
+		"climbing":preload("res://src/player/states/climbing.gd").new(),
 		"ashore_idle":preload("res://src/player/states/ashore_idle.gd").new(),
 		"walking":preload("res://src/player/states/walking.gd").new(),
 		"strolling":preload("res://src/player/states/strolling.gd").new(),
@@ -45,7 +55,8 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 		"diving":preload("res://src/player/states/diving.gd").new()}
 	var edges := {
 		"sleeping":["ashore_idle"],
-		"ashore_idle":["walking","strolling","approaching","boarding","diving","interacting"],
+		"climbing":["ashore_idle"],
+		"ashore_idle":["walking","strolling","approaching","boarding","diving","interacting","climbing"],
 		"walking":["ashore_idle","walking","strolling","approaching","boarding"],
 		"strolling":["ashore_idle","walking","strolling","approaching","boarding"],
 		"approaching":["ashore_idle","walking","strolling","approaching","interacting","boarding"],
@@ -60,6 +71,13 @@ func _transitioned(previous: String, current: String) -> void:
 		actor.set_boat_seated(current in ["boat_idle","boarding","sailing"])
 	if is_instance_valid(actor) and actor.has_method("set_grounded_motion"):
 		actor.set_grounded_motion(current in ["ashore_idle","walking","strolling","approaching","interacting","sleeping"])
+		if current == "climbing":
+			actor.set_grounded_motion(false)
+	if is_instance_valid(actor) and actor.has_method("set_climbing"):
+		actor.set_climbing(current == "climbing")
+	if current != "strolling": sprint_held = false
+	if is_instance_valid(actor) and actor.has_method("set_sprinting"):
+		actor.set_sprinting(sprint_held)
 	mode_changed.emit(mode())
 	state_changed.emit(previous, current)
 
@@ -69,8 +87,53 @@ func mode() -> int:
 	return 1 if machine.current in ["boat_idle","boarding"] else 0
 
 func walking() -> bool: return machine.current in ["walking","strolling","approaching"]
+func climbing() -> bool: return machine.current == "climbing"
 func state_id() -> String: return machine.current
-func tick(delta: float) -> void: machine.tick(delta)
+func tick(delta: float) -> void:
+	_carry_moving_support()
+	machine.tick(delta)
+
+func climb_ladder(start: Vector3, end: Vector3, subject: Node3D) -> Dictionary:
+	if subject == null or not is_instance_valid(subject):
+		return {"blocked": "梯子已经不在了"}
+	if mode() != 0 or (ports.has("input_blocked") and bool(ports.input_blocked.call())):
+		return {"blocked": "现在不能爬梯子"}
+	var from := Vector3(actor.global_position.x, start.y, actor.global_position.z)
+	var to := Vector3(actor.global_position.x, end.y, actor.global_position.z)
+	var prepared := climb_action.prepare(self, from, to, subject)
+	if not bool(prepared.get("ok", false)):
+		return {"blocked": "梯子位置不适合攀爬"}
+	clear_interaction()
+	return {"event": "ladder_climb_started", "ok": machine.change("climbing", prepared, true)}
+
+func _carry_moving_support() -> void:
+	if mode() != 0 or not is_instance_valid(actor):
+		_support_area = null
+		return
+	var area: Node3D = walk_area
+	if not is_instance_valid(area) or not area.contains_position(actor.global_position, 0.5):
+		area = null
+		var zone: Variant = ports.zone.call() if ports.has("zone") else null
+		if is_instance_valid(zone) and zone.has_method("area_at"):
+			area = zone.area_at(actor.global_position, 0.5)
+	if area == null or not area.get_meta("moving_support", false):
+		_support_area = null
+		return
+	var height: float = area.surface_y
+	if _support_area == area:
+		var offset := Vector3(0, height - _support_height, 0)
+		actor.carry_ground_support(offset)
+		if walk_area == area:
+			for i in walk_path.size():
+				walk_path[i] += offset
+			walk_target += offset
+	else:
+		# Heave is not a saved gameplay state. Restoring a position captured at
+		# another phase attaches feet to the current support, rather than saving
+		# a permanent air gap (or sinking the actor into the floor).
+		actor.carry_ground_support(Vector3(0, height - actor.global_position.y, 0))
+	_support_area = area
+	_support_height = height
 func notify(text: String) -> void: ports.notify.call(text)
 func current_landing() -> Node3D: return ports.landing.call()
 
@@ -85,18 +148,27 @@ func current_landing() -> Node3D: return ports.landing.call()
 ##     （SEA-MOVE-R23）。立刻切状态会让减速那几帧没有任何人驱动，
 ##     表现为「松手瞬停」。
 ## 不做「按一下走一段」的节流：键盘是持续按住，速度由物理帧决定。
+func set_sprint_held(on: bool) -> void:
+	var blocked := ports.has("input_blocked") and bool(ports.input_blocked.call())
+	sprint_held = on and not blocked and move_intent != Vector3.ZERO and mode() == 0 and machine.current == "strolling"
+	if is_instance_valid(actor) and actor.has_method("set_sprinting"):
+		actor.set_sprinting(sprint_held)
+
 func set_move_intent(dir: Vector3) -> void:
 	var flat := Vector3(dir.x, 0.0, dir.z)
 	move_intent = flat.normalized() if flat.length_squared() > 0.000001 else Vector3.ZERO
 	if not is_instance_valid(actor):
 		return
 	if move_intent == Vector3.ZERO:
+		set_sprint_held(false)
 		return
-	if mode() != 0 or machine.current in ["diving","sleeping","boarding","interacting"]:
+	if mode() != 0 or machine.current in ["diving","sleeping","boarding","interacting","climbing"]:
 		move_intent = Vector3.ZERO
+		set_sprint_held(false)
 		return
 	if ports.has("input_blocked") and bool(ports.input_blocked.call()):
 		move_intent = Vector3.ZERO
+		set_sprint_held(false)
 		return
 	if machine.current in ["ashore_idle","walking","approaching","strolling"]:
 		clear_interaction()
@@ -137,8 +209,11 @@ func cancel() -> void:
 	if is_instance_valid(actor) and actor.has_method("cancel_action"): actor.cancel_action("cancelled")
 	clear_interaction()
 	move_intent = Vector3.ZERO
+	sprint_held = false
 	move_velocity = Vector3.ZERO
-	if is_instance_valid(actor): actor.walk_speed_ratio = 0.0
+	if is_instance_valid(actor):
+		actor.walk_speed_ratio = 0.0
+		if actor.has_method("set_sprinting"): actor.set_sprinting(false)
 	after_walk = Callable()
 	walk_path.clear()
 	if mode() == 3: return
@@ -171,6 +246,7 @@ func snapshot() -> Dictionary:
 
 func restore_pose(data: Dictionary) -> void:
 	cancel()
+	_support_area = null
 	var pos: Array = data.get("player",[])
 	var ashore := int(data.get("mode",1)) == 0 and pos.size()==3
 	if ashore:

@@ -87,9 +87,13 @@ func can_interact() -> bool:
 	return true
 
 
-## 施工中按住只会看进度；交付时按住 0.9 秒，避免误触扣掉一堆材料。
+## 动作时长（SEA-INTERACT-R19，2026-11-07）：按一次就触发，不需要一直按着。
+##
+## 旧注释写的是「按住 0.9 秒避免误触扣掉材料」。触发式交互下「误触」由
+## 「一次按下只触发一次」兜住（Interactor 的 `_acted_once`），不再靠时长防误触；
+## 交付仍保留 0.5 秒的动作节拍，读起来是「把材料抬上去」而不是瞬间扣款。
 func hold_time_for() -> float:
-	return 0.9 if _can_deliver() else 0.25
+	return 0.5 if _can_deliver() else 0.25
 
 
 func blocked_reason() -> String:

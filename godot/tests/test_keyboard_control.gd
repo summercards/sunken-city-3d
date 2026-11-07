@@ -203,13 +203,14 @@ func run() -> void:
 	if not near_point.is_finite():
 		near_point = stand
 	controller.restore_pose({"mode": 0, "player": [near_point.x, near_point.y, near_point.z]})
+	player.rotation.y = atan2(park.x - player.global_position.x, park.z - player.global_position.z)
 	await wait_frames(4)
 	check(main._boat_shortcut_text() == "上船", "泊位旁提示按 E 上船")
 	# 更近的可交互目标优先：用一个临时替身站在角色脚边，
 	# 证明「物件比泊位近时 E 归采集」，不依赖世界里某个具体家具的位置。
 	var stub := Node3D.new()
 	main.add_child(stub)
-	stub.global_position = player.global_position + Vector3(0.2, 0.0, 0.0)
+	stub.global_position = player.global_position + Vector3(park.x - player.global_position.x, 0.0, park.z - player.global_position.z).normalized() * 0.2
 	main.interactor.target = stub
 	check(main._toggle_boat_by_key() == false, "更近的交互目标时 E 不抢上船")
 	main.interactor.target = null

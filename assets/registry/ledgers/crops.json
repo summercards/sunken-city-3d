@@ -107,6 +107,132 @@
         "95b0bfe0189f234c60e7932800885fb0e839a77d90f9ca94682c6ea7af707ea1",
         "31527dcd9d2cce9b03db2527034975c7af4dfac414b5a7473dd9eb546c909616"
       ]
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-BLUE",
+      "source_id": "SRC-SEA-CROP-FLOWER-BLUE",
+      "name": "蓝星花 · 四阶段",
+      "domain": "crops",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/crops/flower_view.gd",
+      "source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+      "manifest": "assets/registry/manifests/sea-crop-flower-blue.json",
+      "version": "v001",
+      "runtime_path": "godot/src/crops/flower_view.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-RESIDENT",
+        "SEA-SHOP"
+      ],
+      "classification": {
+        "category": "procedural_crop_stage_set"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "prefab": "godot/scenes/crops/flower_blue.tscn",
+      "stage_nodes": [
+        "Stage0Seed",
+        "Stage1Sprout",
+        "Stage2Leaf",
+        "Stage3Harvest"
+      ],
+      "content_selector": {
+        "path": "godot/assets/data/crops.json",
+        "collection": "crops",
+        "id": "flower_blue"
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-SUN",
+      "source_id": "SRC-SEA-CROP-FLOWER-SUN",
+      "name": "晨光花 · 四阶段",
+      "domain": "crops",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/crops/flower_view.gd",
+      "source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+      "manifest": "assets/registry/manifests/sea-crop-flower-sun.json",
+      "version": "v001",
+      "runtime_path": "godot/src/crops/flower_view.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-RESIDENT",
+        "SEA-SHOP"
+      ],
+      "classification": {
+        "category": "procedural_crop_stage_set"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "prefab": "godot/scenes/crops/flower_sun.tscn",
+      "stage_nodes": [
+        "Stage0Seed",
+        "Stage1Sprout",
+        "Stage2Leaf",
+        "Stage3Harvest"
+      ],
+      "content_selector": {
+        "path": "godot/assets/data/crops.json",
+        "collection": "crops",
+        "id": "flower_sun"
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-CORAL",
+      "source_id": "SRC-SEA-CROP-FLOWER-CORAL",
+      "name": "珊瑚花 · 四阶段",
+      "domain": "crops",
+      "stage": "source_registered_runtime_visual_pending",
+      "source": "godot/src/crops/flower_view.gd",
+      "source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+      "manifest": "assets/registry/manifests/sea-crop-flower-coral.json",
+      "version": "v001",
+      "runtime_path": "godot/src/crops/flower_view.gd",
+      "license": "project_authored_procedural_source",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-RESIDENT",
+        "SEA-SHOP"
+      ],
+      "classification": {
+        "category": "procedural_crop_stage_set"
+      },
+      "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+      "validation": {
+        "source": "registered_and_hash_checked",
+        "runtime": "pending",
+        "visual": "pending",
+        "user_art_acceptance": "pending"
+      },
+      "note": "正式 Godot 程序源／原生场景；未伪造 Blender 或 GLB。原创新增部分不替共享素材或商业参考签署许可。",
+      "prefab": "godot/scenes/crops/flower_coral.tscn",
+      "stage_nodes": [
+        "Stage0Seed",
+        "Stage1Sprout",
+        "Stage2Leaf",
+        "Stage3Harvest"
+      ],
+      "content_selector": {
+        "path": "godot/assets/data/crops.json",
+        "collection": "crops",
+        "id": "flower_coral"
+      }
     }
   ]
 }

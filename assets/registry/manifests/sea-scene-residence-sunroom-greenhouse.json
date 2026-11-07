@@ -1,0 +1,67 @@
+{
+  "asset_id": "SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE",
+  "source_id": "SRC-SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE",
+  "source": "godot/src/residence/author_scenes.py",
+  "source_sha256": "782b5ab3d0fc27a47c7386d07da35a3cb0bf305b87ae5fd22a9ac7b6867c041c",
+  "version": "v001",
+  "source_type": "project_authored_native_Godot_source_no_Blender_or_GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/residence/author_scenes.py",
+      "sha256": "782b5ab3d0fc27a47c7386d07da35a3cb0bf305b87ae5fd22a9ac7b6867c041c",
+      "previous_sha256": "4c48fc06c27cd674a82cf252e67d77b6ee352e6876da74cb9f1b31f0b821d284"
+    },
+    {
+      "path": "godot/scenes/residence/residence_sunroom_greenhouse.tscn",
+      "sha256": "1e3881eca2915eb1f5ec7bfd6035033ab9b9a14936531a64fd566b5a79845c00"
+    },
+    {
+      "path": "godot/scenes/residence/residence_shell.tscn",
+      "sha256": "1fae4ecab3efe2d3df0863f26a82fdb3a88edd5d27c6c6165ac61622d2140cac"
+    },
+    {
+      "path": "godot/scenes/residence/materials/wood.tres",
+      "sha256": "c9f9396762d488f5d90df826dac2cdcc858cc4623225b204d917d6ac70a1fbb4"
+    },
+    {
+      "path": "godot/scenes/residence/materials/linen.tres",
+      "sha256": "fa1f3b94bb4a4275c75010b8a5c9c1fa66495d19912786d676151e79638fd54e"
+    },
+    {
+      "path": "godot/scenes/residence/materials/teal.tres",
+      "sha256": "69dbd1480fdb6bfd27e190b972ae96f79059e77a8a75236dc353260407052c9d"
+    }
+  ],
+  "validation": {
+    "source": "registered_and_hash_checked",
+    "runtime": "pending",
+    "visual": "pending",
+    "user_art_acceptance": "pending"
+  },
+  "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+  "reference_commercial_rights": "not_granted_by_this_registration",
+  "prefab": "godot/scenes/residence/residence_sunroom_greenhouse.tscn",
+  "content_selector": {
+    "path": "godot/assets/data/npc/residences.json",
+    "collection": "residences",
+    "id": "residence_sunroom_greenhouse"
+  },
+  "reused_asset_ids": [
+    "SEA-SCENE-RESIDENCE-SHELL",
+    "SEA-KIT-PLATFORM-5X5",
+    "SEA-KIT-DOOR-FRAME-5M",
+    "SEA-KIT-WINDOW-WALL-5M",
+    "SEA-KIT-WALL-5M",
+    "SEA-KIT-RAILING-5M",
+    "SEA-KIT-TABLE",
+    "SEA-KIT-OIL-LAMP",
+    "SEA-KIT-STOOL",
+    "SEA-KIT-STORAGE-CRATE",
+    "SEA-KIT-FLOWER-POT",
+    "SEA-KIT-WATER-BARREL",
+    "SEA-KIT-WIND-CHIME",
+    "SEA-KIT-LAMP-POST"
+  ],
+  "previous_source_sha256": "4c48fc06c27cd674a82cf252e67d77b6ee352e6876da74cb9f1b31f0b821d284"
+}

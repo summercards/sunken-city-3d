@@ -1,0 +1,53 @@
+{
+  "asset_id": "SEA-CHAR-NPC-ACCESSORIES-001",
+  "source_id": "SRC-SEA-CHAR-NPC-ACCESSORIES-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-NPC-ACCESSORIES-001",
+  "source": "godot/src/npc/npc_accessories.gd",
+  "source_sha256": "375d991bf9cf5c5a50655f991017bffab74361bc719ba11c8152a989724925a9",
+  "version": "v001",
+  "source_type": "project_authored_native_Godot_source_no_Blender_or_GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/npc/npc_accessories.gd",
+      "sha256": "375d991bf9cf5c5a50655f991017bffab74361bc719ba11c8152a989724925a9"
+    }
+  ],
+  "validation": {
+    "source": "registered_and_hash_checked",
+    "runtime": "pending",
+    "visual": "pending",
+    "user_art_acceptance": "pending"
+  },
+  "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+  "reference_commercial_rights": "not_granted_by_this_registration",
+  "accessory_parts": {
+    "signal_spool": [
+      "RopeCoil",
+      "RouteClasp"
+    ],
+    "seed_pouch": [
+      "SeedPouch",
+      "LeafBrooch"
+    ],
+    "diving_goggle": [
+      "ForeheadGoggles",
+      "SealedRecordTube"
+    ],
+    "joint_pencil": [
+      "EarPencil",
+      "ToolBelt"
+    ],
+    "lantern_badge": [
+      "LampBadge",
+      "ArchiveBook"
+    ],
+    "petal_visor": [
+      "PetalVisor",
+      "PruningShears"
+    ],
+    "stock_clip": [
+      "CargoTagClip",
+      "WaistPack"
+    ]
+  }
+}

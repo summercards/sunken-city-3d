@@ -1,0 +1,97 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_shell.tscn" id="shell"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/storage_crate.tscn" id="storage_crate"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/flower_pot.tscn" id="flower_pot"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/water_barrel.tscn" id="water_barrel"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/table.tscn" id="table"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/wind_chime.tscn" id="wind_chime"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/oil_lamp.tscn" id="oil_lamp"]
+[ext_resource type="Material" path="res://scenes/residence/materials/wood.tres" id="wood"]
+[ext_resource type="Material" path="res://scenes/residence/materials/linen.tres" id="linen"]
+[sub_resource type="BoxMesh" id="counter"]
+size = Vector3(2.8, 1.05, 0.65)
+[sub_resource type="BoxMesh" id="shelf"]
+size = Vector3(2.8, 0.12, 0.55)
+[sub_resource type="BoxMesh" id="upright"]
+size = Vector3(0.12, 2, 0.55)
+[sub_resource type="BoxMesh" id="book"]
+size = Vector3(0.18, 0.46, 0.3)
+[node name="residence_builder_loft" type="Node3D"]
+metadata/residence_id = "residence_builder_loft"
+metadata/npc_id = "npc_nan_zhi"
+metadata/feature_id = "SEA-RESIDENCE"
+metadata/profession = "木工 / 木料与测绘台"
+
+[node name="Shell" instance=ExtResource("shell") parent="."]
+
+
+[node name="Nameplate" type="Label3D" parent="."]
+position = Vector3(0.5, 2, 2.66)
+text = "榫口 · 木作阁"
+font_size = 56
+pixel_size = 0.009
+modulate = Color(0.95, 0.88, 0.64, 1)
+outline_modulate = Color(0.18, 0.27, 0.26, 1)
+double_sided = true
+
+[node name="Display" type="Node3D" parent="."]
+position = Vector3(3, 0, -1.85)
+metadata/walk_obstacle = Rect2(-1.4, -0.3, 2.8, 0.6)
+
+[node name="LeftUpright" type="MeshInstance3D" parent="Display"]
+position = Vector3(-1.35, 1, 0)
+mesh = SubResource("upright")
+material_override = ExtResource("wood")
+
+[node name="RightUpright" type="MeshInstance3D" parent="Display"]
+position = Vector3(1.35, 1, 0)
+mesh = SubResource("upright")
+material_override = ExtResource("wood")
+
+[node name="Shelf0" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 0.35, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Shelf1" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.1, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Shelf2" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.85, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="ToolCrate0" instance=ExtResource("storage_crate") parent="Display"]
+position = Vector3(-0.9, 0.41, 0)
+script = null
+
+[node name="ToolCrate1" instance=ExtResource("storage_crate") parent="Display"]
+position = Vector3(0.0, 0.41, 0)
+script = null
+
+[node name="ToolCrate2" instance=ExtResource("storage_crate") parent="Display"]
+position = Vector3(0.9, 0.41, 0)
+script = null
+
+[node name="RouteOrPlan" type="Label3D" parent="."]
+position = Vector3(0, 1.6, -2.34)
+text = "木工 / 木料与测绘台"
+font_size = 36
+pixel_size = 0.008
+
+[node name="Timber0" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.25, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Timber1" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.4, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")
+
+[node name="Timber2" type="MeshInstance3D" parent="Display"]
+position = Vector3(0, 1.55, 0)
+mesh = SubResource("shelf")
+material_override = ExtResource("wood")

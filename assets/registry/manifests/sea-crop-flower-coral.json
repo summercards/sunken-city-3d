@@ -1,0 +1,39 @@
+{
+  "asset_id": "SEA-CROP-FLOWER-CORAL",
+  "source_id": "SRC-SEA-CROP-FLOWER-CORAL",
+  "asset_ledger": "assets/registry/ledgers/crops.json#SEA-CROP-FLOWER-CORAL",
+  "source": "godot/src/crops/flower_view.gd",
+  "source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+  "version": "v001",
+  "source_type": "project_authored_native_Godot_source_no_Blender_or_GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/crops/flower_view.gd",
+      "sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1"
+    },
+    {
+      "path": "godot/scenes/crops/flower_coral.tscn",
+      "sha256": "d1114dd5097193cdc2b88e3b1270bda1bd1f85938173db2e42c9f28fec4b0d46"
+    }
+  ],
+  "validation": {
+    "source": "registered_and_hash_checked",
+    "runtime": "pending",
+    "visual": "pending",
+    "user_art_acceptance": "pending"
+  },
+  "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+  "reference_commercial_rights": "not_granted_by_this_registration",
+  "prefab": "godot/scenes/crops/flower_coral.tscn",
+  "content_selector": {
+    "path": "godot/assets/data/crops.json",
+    "collection": "crops",
+    "id": "flower_coral"
+  },
+  "stage_nodes": [
+    "Stage0Seed",
+    "Stage1Sprout",
+    "Stage2Leaf",
+    "Stage3Harvest"
+  ]
+}

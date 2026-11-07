@@ -1,0 +1,58 @@
+{
+  "key": "card",
+  "name": "蓝橙插画明信片",
+  "family": "stock_card",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-CARD",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-CARD",
+  "design_pivot": [
+    0.0,
+    -0.015250000171363354,
+    0.0
+  ],
+  "bounds_min": [
+    -0.20000000298023224,
+    -0.03275000024586916,
+    0
+  ],
+  "bounds_size": [
+    0.4000000059604645,
+    0.06549999862909317,
+    0.5
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/card/card.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "instances": 3,
+  "triangles": 544,
+  "polygons": 292,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "6f6fba623e1e09df7a4eccbdea00624fb4e68be94016fcb46ac20bbe2e7e094f",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-CARD",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/card/card.glb",
+  "runtime_sha256": "4db351a6b0e24d323fda247d9e2b871247f4d5cfd3ebc56b29917468d81f6df0",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/card.tscn",
+  "prefab_sha256": "dd63aa21f9d032bcee09e3d98e6106c3c98a19f69b934a108e3f6179cb2da72c",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 544,
+  "triangles_after": 544,
+  "geometry_fingerprint": "25eb333558c94f198c8643d9e542803645a969550c6f725e6dd53a57e01e3bd1"
+}

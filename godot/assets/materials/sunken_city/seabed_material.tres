@@ -1,12 +1,14 @@
-[gd_resource type="Terrain3DMaterial" load_steps=2 format=3]
+[gd_resource type="Terrain3DMaterial" format=3 uid="uid://cl2wp1v0x5idc"]
 
-[ext_resource type="Shader" path="res://assets/materials/sunken_city/seabed.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://82vbn1bumhkf" path="res://assets/materials/sunken_city/seabed.gdshader" id="1_shader"]
 
 [resource]
-shader_override = ExtResource("1_shader")
-shader_override_enabled = true
+_shader_parameters = {
+&"flat_terrain_normals": null,
+&"general_uniforms": null,
+&"private": null
+}
 world_background = 0
 texture_filtering = 3
-show_checkered = false
-show_colormap = false
-flat_terrain_normals = false
+shader_override_enabled = true
+shader_override = ExtResource("1_shader")

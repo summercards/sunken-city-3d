@@ -1,0 +1,266 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://src/residence/resident_harbor.gd" id="zone"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/platform_5x5.tscn" id="platform"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/lamp_post.tscn" id="lamp"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/railing_5m.tscn" id="rail"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_dock_workshop.tscn" id="residence_dock_workshop"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_sunroom_greenhouse.tscn" id="residence_sunroom_greenhouse"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_salvage_cabin.tscn" id="residence_salvage_cabin"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_builder_loft.tscn" id="residence_builder_loft"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_lantern_archive.tscn" id="residence_lantern_archive"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_flower_shop.tscn" id="residence_flower_shop"]
+[ext_resource type="PackedScene" path="res://scenes/residence/residence_general_store.tscn" id="residence_general_store"]
+[node name="resident_harbor" type="Node3D"]
+script = ExtResource("zone")
+zone_id = "resident_harbor"
+zone_label = "七灯住所港"
+water_layer = "amphibious"
+metadata/feature_id = "SEA-RESIDENCE"
+metadata/building_class = "above_water"
+metadata/source_kind = "godot_existing_kit_and_native_scene"
+[node name="Models" type="Node3D" parent="."]
+[node name="Platform" type="Node3D" parent="Models"]
+[node name="Blockers" type="Node3D" parent="Models/Platform"]
+script = ExtResource("blockers")
+mode = "manual"
+manual_rects = Array[Rect2]([Rect2(-15, -15, 30, 33), Rect2(15, -1.5, 4, 3)])
+
+[node name="Deck_0_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, -12.5)
+
+[node name="Deck_0_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, -7.5)
+
+[node name="Deck_0_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, -2.5)
+
+[node name="Deck_0_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, 2.5)
+
+[node name="Deck_0_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, 7.5)
+
+[node name="Deck_0_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, 12.5)
+
+[node name="Deck_0_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Deck_1_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, -12.5)
+
+[node name="Deck_1_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, -7.5)
+
+[node name="Deck_1_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, -2.5)
+
+[node name="Deck_1_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, 2.5)
+
+[node name="Deck_1_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, 7.5)
+
+[node name="Deck_1_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, 12.5)
+
+[node name="Deck_1_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Deck_2_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, -12.5)
+
+[node name="Deck_2_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, -7.5)
+
+[node name="Deck_2_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, -2.5)
+
+[node name="Deck_2_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, 2.5)
+
+[node name="Deck_2_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, 7.5)
+
+[node name="Deck_2_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, 12.5)
+
+[node name="Deck_2_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Deck_3_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, -12.5)
+
+[node name="Deck_3_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, -7.5)
+
+[node name="Deck_3_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, -2.5)
+
+[node name="Deck_3_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, 2.5)
+
+[node name="Deck_3_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, 7.5)
+
+[node name="Deck_3_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, 12.5)
+
+[node name="Deck_3_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Deck_4_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, -12.5)
+
+[node name="Deck_4_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, -7.5)
+
+[node name="Deck_4_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, -2.5)
+
+[node name="Deck_4_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, 2.5)
+
+[node name="Deck_4_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, 7.5)
+
+[node name="Deck_4_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, 12.5)
+
+[node name="Deck_4_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Deck_5_0" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, -12.5)
+
+[node name="Deck_5_1" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, -7.5)
+
+[node name="Deck_5_2" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, -2.5)
+
+[node name="Deck_5_3" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, 2.5)
+
+[node name="Deck_5_4" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, 7.5)
+
+[node name="Deck_5_5" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, 12.5)
+
+[node name="Deck_5_6" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, 16.5)
+scale = Vector3(1, 1, 0.6)
+
+[node name="Pier" instance=ExtResource("platform") parent="Models/Platform"]
+position = Vector3(17, 1.38, 0)
+scale = Vector3(0.8, 1, 0.6)
+
+[node name="Homes" type="Node3D" parent="Models"]
+
+
+[node name="residence_dock_workshop" instance=ExtResource("residence_dock_workshop") parent="Models/Homes"]
+position = Vector3(-7, 1.38, -10)
+
+[node name="residence_sunroom_greenhouse" instance=ExtResource("residence_sunroom_greenhouse") parent="Models/Homes"]
+position = Vector3(7, 1.38, -10)
+
+[node name="residence_salvage_cabin" instance=ExtResource("residence_salvage_cabin") parent="Models/Homes"]
+position = Vector3(-7, 1.38, -2)
+
+[node name="residence_builder_loft" instance=ExtResource("residence_builder_loft") parent="Models/Homes"]
+position = Vector3(7, 1.38, -2)
+
+[node name="residence_lantern_archive" instance=ExtResource("residence_lantern_archive") parent="Models/Homes"]
+position = Vector3(-7, 1.38, 6)
+
+[node name="residence_flower_shop" instance=ExtResource("residence_flower_shop") parent="Models/Homes"]
+position = Vector3(7, 1.38, 6)
+
+[node name="residence_general_store" instance=ExtResource("residence_general_store") parent="Models/Homes"]
+position = Vector3(0, 1.38, 14)
+
+[node name="PublicLighting" type="Node3D" parent="Models"]
+
+
+[node name="Lamp0" instance=ExtResource("lamp") parent="Models/PublicLighting"]
+position = Vector3(0, 1.38, -12)
+
+[node name="Lamp1" instance=ExtResource("lamp") parent="Models/PublicLighting"]
+position = Vector3(0, 1.38, -5)
+
+[node name="Lamp2" instance=ExtResource("lamp") parent="Models/PublicLighting"]
+position = Vector3(0, 1.38, 3)
+
+[node name="Lamp3" instance=ExtResource("lamp") parent="Models/PublicLighting"]
+position = Vector3(12.8, 1.38, 12)
+
+[node name="Blockers" type="Node3D" parent="Models/PublicLighting"]
+script = ExtResource("blockers")
+mode = "none"
+
+[node name="Blockers" type="Node3D" parent="Models/Homes"]
+script = ExtResource("blockers")
+mode = "none"
+
+[node name="RailNorth0" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, -15)
+
+[node name="RailSouth0" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-12.5, 1.38, 18)
+
+[node name="RailNorth1" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, -15)
+
+[node name="RailSouth1" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-7.5, 1.38, 18)
+
+[node name="RailNorth2" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, -15)
+
+[node name="RailSouth2" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(-2.5, 1.38, 18)
+
+[node name="RailNorth3" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, -15)
+
+[node name="RailSouth3" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(2.5, 1.38, 18)
+
+[node name="RailNorth4" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, -15)
+
+[node name="RailSouth4" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(7.5, 1.38, 18)
+
+[node name="RailNorth5" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, -15)
+
+[node name="RailSouth5" instance=ExtResource("rail") parent="Models/Platform"]
+position = Vector3(12.5, 1.38, 18)
+
+[node name="WalkAreas" type="Node3D" parent="."]
+[node name="Community" type="Node3D" parent="WalkAreas"]
+position = Vector3(0, 1.38, 0)
+script = ExtResource("walk")
+area_id = "resident_harbor_ground"
+zone_id = "resident_harbor"
+surface_y = 1.38
+body_radius = 0.38
+[node name="Landing" type="Marker3D" parent="WalkAreas/Community"]
+position = Vector3(18.1, 0, 0)
+script = ExtResource("landing")
+landing_id = "main"
+landing_label = "七灯住所港泊位"
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/Community/Landing"]
+position = Vector3(3.5, -0.26, 0)
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/Community/Landing"]
+position = Vector3(0.9, 0, 0)

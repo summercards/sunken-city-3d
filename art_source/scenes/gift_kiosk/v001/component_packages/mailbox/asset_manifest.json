@@ -1,0 +1,60 @@
+{
+  "key": "mailbox",
+  "name": "红色圆角邮筒",
+  "family": "mail",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-MAILBOX",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-MAILBOX",
+  "design_pivot": [
+    0.0,
+    -0.027499988675117493,
+    0.0
+  ],
+  "bounds_min": [
+    -0.550000011920929,
+    -0.4074999839067459,
+    0
+  ],
+  "bounds_size": [
+    1.100000023841858,
+    0.8149999380111694,
+    1.9950000047683716
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/mailbox/mailbox.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 6,
+  "instances": 1,
+  "triangles": 1128,
+  "polygons": 588,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "7c04006703b1f4c3bbf8454247bc4c98e0968f029357c1f46701426eccc3c1c4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-MAILBOX",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/mailbox/mailbox.glb",
+  "runtime_sha256": "85ce959a729d773e52e4b1772a07ffce34d97e0dfb0353c3ecfea4e383ff564c",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/mailbox.tscn",
+  "prefab_sha256": "525beecbfb88c7cad734c0b9f5ee22cc040cad15c7fa66b002489ba3da01bca4",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1128,
+  "triangles_after": 1128,
+  "geometry_fingerprint": "d410e522358532b44a669f2fb1073506671fca4958c747e9c846f10ee3b4d1e6"
+}

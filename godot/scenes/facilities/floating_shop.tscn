@@ -1,67 +1,1317 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://vpv6o33ks6e5" path="res://assets/models/facilities/floating_shop/floating_shop.glb" id="model"]
-[ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="matte"]
-[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="metal"]
-[ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="gloss"]
-[ext_resource type="Material" path="res://assets/materials/floating_shop/emission.tres" id="emission"]
-[ext_resource type="Script" path="res://src/world/sea_supply_zone.gd" id="structure"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/deck.tscn" id="deck"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/hull.tscn" id="hull"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/underframe.tscn" id="underframe"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/pontoon.tscn" id="pontoon"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/thruster.tscn" id="thruster"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/thruster_glow.tscn" id="thruster_glow"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/deck_light.tscn" id="deck_light"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/rail_post.tscn" id="rail_post"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/rail_bar.tscn" id="rail_bar"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/rail_corner.tscn" id="rail_corner"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/fender.tscn" id="fender"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/ladder.tscn" id="ladder"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/bollard.tscn" id="bollard"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/pot.tscn" id="pot"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/foliage.tscn" id="foliage"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/bench.tscn" id="bench"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/glass_bay.tscn" id="glass_bay"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/back_panel.tscn" id="back_panel"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/column.tscn" id="column"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/back_door.tscn" id="back_door"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/roof.tscn" id="roof"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/fascia.tscn" id="fascia"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/fascia_corner.tscn" id="fascia_corner"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/sign_postcards.tscn" id="sign_postcards"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/sign_gifts.tscn" id="sign_gifts"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/sign_drinks.tscn" id="sign_drinks"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/awning_blue.tscn" id="awning_blue"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/awning_white.tscn" id="awning_white"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/awning_corner.tscn" id="awning_corner"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/roof_disk.tscn" id="roof_disk"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/spotlight.tscn" id="spotlight"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/roof_pipe.tscn" id="roof_pipe"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/beacon.tscn" id="beacon"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/electrical_box.tscn" id="electrical_box"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/life_ring.tscn" id="life_ring"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/postcard_rack.tscn" id="postcard_rack"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/mailbox.tscn" id="mailbox"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/ice_box.tscn" id="ice_box"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/bin.tscn" id="bin"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/shelf.tscn" id="shelf"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/bottle.tscn" id="bottle"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/gift.tscn" id="gift"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/card.tscn" id="card"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/lantern.tscn" id="lantern"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/plaque.tscn" id="plaque"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/curved_glass.tscn" id="curved_glass"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/entry_frame.tscn" id="entry_frame"]
+[ext_resource type="Script" path="res://src/facilities/floating_shop_zone.gd" id="structure"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
 [ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
 [ext_resource type="Script" path="res://src/facilities/supply_counter.gd" id="counter"]
 
-[node name="海上悬浮商铺" type="Node3D"]
+[ext_resource type="Script" path="res://src/world/roof_reveal.gd" id="roof_reveal"]
+
+[ext_resource type="PackedScene" path="res://scenes/facilities/gift_kiosk_interior.tscn" id="interior"]
+
+[ext_resource type="Script" path="res://src/world/shop_sightline.gd" id="sightline"]
+[ext_resource type="PackedScene" path="res://scenes/npc/floating_shop_npc_stations.tscn" id="npc_stations"]
+
+[node name="FloatingGiftKiosk" type="Node3D"]
 script = ExtResource("structure")
 zone_id = "sea_supply"
 zone_label = "海上补给站"
-asset_id = "SEA-SCENE-FSH-ASSEMBLY"
+asset_id = "SEA-SCENE-GKS-ASSEMBLY"
 role = "shop"
-metadata/asset_id = "SEA-SCENE-FSH-ASSEMBLY"
-metadata/classification = "building/shop"
-metadata/triangles = 520185
-metadata/front_godot = Vector3(0, 0, 1)
-metadata/deck_top_local = 2.514
-metadata/deck_shape = "rounded_rectangle"
-metadata/deck_size_xz = Vector2(20, 15)
-metadata/source_version = "v003"
-metadata/storefront_windows = 4
-metadata/storefront_doors = 0
-metadata/storefront_glazing = "display_only"
-metadata/retail_displays = 8
-metadata/interior_lamps = 5
-metadata/sign_lettering = "chunky_extruded_overhang_x1_5"
-metadata/sign_palette = "deepblue|red|teal"
-metadata/single_storey_clear_height = 4.866335
-metadata/slab_thickness = 0.22
-metadata/column_width = 0.5175
-metadata/plank_width = 0.893551
-metadata/door_frame_reference_height = 3.070845
-metadata/walkable_ring_width_front_m = 3
-metadata/landing_id = "main"
 water_layer = "amphibious"
 water_layer_role = "entity"
+metadata/asset_id = "SEA-SCENE-GKS-ASSEMBLY"
+metadata/building_class = "above_water"
+metadata/source_version = "v001"
+metadata/deck_top_local = 0.3
+metadata/deck_size_xz = Vector2(18, 18)
+metadata/deck_shape = "rounded_square"
+metadata/underwater_architectural_base = false
+metadata/component_count = 47
+metadata/instance_count = 379
 
-[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Visual" type="Node3D" parent="."]
 
-[node name="FSH_SEA_Matte" parent="Visual" index="2"]
-surface_material_override/0 = ExtResource("matte")
+[node name="Structure" type="Node3D" parent="Visual"]
 
-[node name="FSH_SEA_Metal" parent="Visual" index="3"]
-surface_material_override/0 = ExtResource("metal")
+[node name="Furnishings" type="Node3D" parent="Visual"]
 
-[node name="FSH_SEA_Gloss" parent="Visual" index="1"]
-surface_material_override/0 = ExtResource("gloss")
+[node name="Plants" type="Node3D" parent="Visual"]
 
-[node name="FSH_SEA_Emission" parent="Visual" index="0"]
-surface_material_override/0 = ExtResource("emission")
+[node name="UnderwaterVisual" type="Node3D" parent="Visual"]
+metadata/visual_only = true
+metadata/building_class = "underwater"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+
+[node name="deck_001" parent="Visual/Structure" instance=ExtResource("deck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100000001, -0)
+
+[node name="hull_001" parent="Visual/UnderwaterVisual" instance=ExtResource("hull")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01999998, -0)
+
+[node name="underframe_001" parent="Visual/UnderwaterVisual" instance=ExtResource("underframe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.34000003, -0)
+
+[node name="pontoon_001" parent="Visual/UnderwaterVisual" instance=ExtResource("pontoon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -3.29999995, 6)
+
+[node name="plaque_001" parent="Visual/UnderwaterVisual" instance=ExtResource("plaque")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.20000005, 6)
+
+[node name="pontoon_002" parent="Visual/UnderwaterVisual" instance=ExtResource("pontoon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -3.29999995, -6)
+
+[node name="plaque_002" parent="Visual/UnderwaterVisual" instance=ExtResource("plaque")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.20000005, -6)
+
+[node name="pontoon_003" parent="Visual/UnderwaterVisual" instance=ExtResource("pontoon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3.29999995, 6)
+
+[node name="plaque_003" parent="Visual/UnderwaterVisual" instance=ExtResource("plaque")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.20000005, 6)
+
+[node name="pontoon_004" parent="Visual/UnderwaterVisual" instance=ExtResource("pontoon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3.29999995, -6)
+
+[node name="plaque_004" parent="Visual/UnderwaterVisual" instance=ExtResource("plaque")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.20000005, -6)
+
+[node name="thruster_001" parent="Visual/UnderwaterVisual" instance=ExtResource("thruster")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.91000009, -0)
+
+[node name="thruster_glow_001" parent="Visual/UnderwaterVisual" instance=ExtResource("thruster_glow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -0)
+
+[node name="deck_light_001" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9000001, -0.800000012, 9.22624969)
+
+[node name="deck_light_002" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.800000012, 9.22624969)
+
+[node name="deck_light_003" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9000001, -0.800000012, 9.22624969)
+
+[node name="deck_light_004" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.22624969, -0.800000012, 5.90000057)
+
+[node name="deck_light_005" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.22624969, -0.800000012, 6.93433208e-07)
+
+[node name="deck_light_006" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.22624969, -0.800000012, -5.89999962)
+
+[node name="deck_light_007" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.90000105, -0.800000012, -9.22624874)
+
+[node name="deck_light_008" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.01994702e-07, -0.800000012, -9.22624969)
+
+[node name="deck_light_009" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.89999914, -0.800000012, -9.22625065)
+
+[node name="deck_light_010" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.22624969, -0.800000012, -5.89999962)
+
+[node name="deck_light_011" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.22624969, -0.800000012, 6.94893686e-07)
+
+[node name="deck_light_012" parent="Visual/Furnishings" instance=ExtResource("deck_light")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.22624969, -0.800000012, 5.90000057)
+
+[node name="rail_post_001" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.300000012, 8.55000019)
+
+[node name="rail_post_002" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5999999, 0.300000012, 8.55000019)
+
+[node name="rail_post_003" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19999981, 0.300000012, 8.55000019)
+
+[node name="rail_post_004" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79999995, 0.300000012, 8.55000019)
+
+[node name="rail_post_005" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79999995, 0.300000012, 8.55000019)
+
+[node name="rail_post_006" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19999981, 0.300000012, 8.55000019)
+
+[node name="rail_post_007" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5999999, 0.300000012, 8.55000019)
+
+[node name="rail_post_008" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.300000012, 8.55000019)
+
+[node name="rail_bar_001" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, -6.30000019, 1.245, 8.55000019)
+
+[node name="rail_bar_002" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, -4.9000001, 1.245, 8.55000019)
+
+[node name="rail_bar_003" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.245, 8.55000019)
+
+[node name="rail_bar_004" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, -2.0999999, 1.245, 8.55000019)
+
+[node name="rail_bar_005" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, 2.0999999, 1.245, 8.55000019)
+
+[node name="rail_bar_006" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.245, 8.55000019)
+
+[node name="rail_bar_007" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, 4.9000001, 1.245, 8.55000019)
+
+[node name="rail_bar_008" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(0.933333337, 0, 0, 0, 1, 0, 0, 0, 1, 6.30000019, 1.245, 8.55000019)
+
+[node name="fender_001" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5999999, -1.59500003, 9.31999969)
+
+[node name="fender_002" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5999999, -1.59500003, 9.31999969)
+
+[node name="rail_corner_001" parent="Visual/Furnishings" instance=ExtResource("rail_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.82960939, 1.245, 7.82960939)
+
+[node name="rail_post_009" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.54999924, 0.300000012, 7.00000048)
+
+[node name="rail_post_010" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, 5.60000038)
+
+[node name="rail_post_011" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, 4.20000029)
+
+[node name="rail_post_012" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, 2.80000067)
+
+[node name="rail_post_013" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, 1.40000057)
+
+[node name="rail_post_014" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, 6.45507043e-07)
+
+[node name="rail_post_015" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, -1.39999938)
+
+[node name="rail_post_016" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, -2.79999924)
+
+[node name="rail_post_017" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, -4.19999933)
+
+[node name="rail_post_018" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000019, 0.300000012, -5.59999943)
+
+[node name="rail_post_019" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.55000114, 0.300000012, -6.99999952)
+
+[node name="rail_bar_009" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, 6.30000067)
+
+[node name="rail_bar_010" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, 4.90000057)
+
+[node name="rail_bar_011" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, 3.50000072)
+
+[node name="rail_bar_012" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, 2.10000062)
+
+[node name="rail_bar_013" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, 0.700000644)
+
+[node name="rail_bar_014" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, -0.699999332)
+
+[node name="rail_bar_015" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, -2.09999919)
+
+[node name="rail_bar_016" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, -3.49999928)
+
+[node name="rail_bar_017" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, -4.89999962)
+
+[node name="rail_bar_018" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-4.07972975e-08, 0, 1, 0, 1, 0, -0.933333337, 0, -4.371139e-08, 8.55000019, 1.245, -6.29999971)
+
+[node name="fender_003" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.31999969, -1.59500003, 5.60000038)
+
+[node name="fender_004" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.31999969, -1.59500003, 7.0364041e-07)
+
+[node name="fender_005" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.31999969, -1.59500003, -5.59999943)
+
+[node name="rail_corner_002" parent="Visual/Furnishings" instance=ExtResource("rail_corner")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.82960987, 1.245, -7.82960892)
+
+[node name="rail_post_020" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.00000095, 0.300000012, -8.54999924)
+
+[node name="rail_post_021" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.60000086, 0.300000012, -8.54999924)
+
+[node name="rail_post_022" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.20000076, 0.300000012, -8.55000019)
+
+[node name="rail_post_023" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.80000067, 0.300000012, -8.55000019)
+
+[node name="rail_post_024" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.40000069, 0.300000012, -8.55000019)
+
+[node name="rail_post_025" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.47464753e-07, 0.300000012, -8.55000019)
+
+[node name="rail_post_026" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.39999926, 0.300000012, -8.55000019)
+
+[node name="rail_post_027" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.79999924, 0.300000012, -8.55000019)
+
+[node name="rail_post_028" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4.19999886, 0.300000012, -8.55000019)
+
+[node name="rail_post_029" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.59999895, 0.300000012, -8.55000114)
+
+[node name="rail_post_030" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.99999905, 0.300000012, -8.55000114)
+
+[node name="rail_bar_019" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, 6.30000114, 1.245, -8.54999924)
+
+[node name="rail_bar_020" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, 4.90000105, 1.245, -8.55000019)
+
+[node name="rail_bar_021" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, 3.50000072, 1.245, -8.55000019)
+
+[node name="rail_bar_022" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, 2.10000062, 1.245, -8.55000019)
+
+[node name="rail_bar_023" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, 0.700000763, 1.245, -8.55000019)
+
+[node name="rail_bar_024" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, -0.699999213, 1.245, -8.55000019)
+
+[node name="rail_bar_025" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, -2.09999919, 1.245, -8.55000019)
+
+[node name="rail_bar_026" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, -3.49999928, 1.245, -8.55000019)
+
+[node name="rail_bar_027" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, -4.89999914, 1.245, -8.55000019)
+
+[node name="rail_bar_028" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(-0.933333337, 0, -8.742278e-08, 0, 1, 0, 8.1594595e-08, 0, -1, -6.29999924, 1.245, -8.55000114)
+
+[node name="fender_006" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.60000086, -1.59500003, -9.31999874)
+
+[node name="fender_007" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.14780265e-07, -1.59500003, -9.31999969)
+
+[node name="fender_008" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.59999895, -1.59500003, -9.32000065)
+
+[node name="rail_corner_003" parent="Visual/Furnishings" instance=ExtResource("rail_corner")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.82960892, 1.245, -7.82960987)
+
+[node name="rail_post_031" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000114, 0.300000012, -6.99999952)
+
+[node name="rail_post_032" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, -5.59999943)
+
+[node name="rail_post_033" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, -4.19999933)
+
+[node name="rail_post_034" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, -2.79999924)
+
+[node name="rail_post_035" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, -1.39999938)
+
+[node name="rail_post_036" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, 6.45507043e-07)
+
+[node name="rail_post_037" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, 1.40000057)
+
+[node name="rail_post_038" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, 2.80000067)
+
+[node name="rail_post_039" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, 4.20000029)
+
+[node name="rail_post_040" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.55000019, 0.300000012, 5.60000038)
+
+[node name="rail_post_041" parent="Visual/Furnishings" instance=ExtResource("rail_post")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -8.54999924, 0.300000012, 7.00000048)
+
+[node name="rail_bar_029" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, -6.29999971)
+
+[node name="rail_bar_030" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, -4.89999962)
+
+[node name="rail_bar_031" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, -3.49999928)
+
+[node name="rail_bar_032" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, -2.09999919)
+
+[node name="rail_bar_033" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, -0.699999332)
+
+[node name="rail_bar_034" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, 0.700000644)
+
+[node name="rail_bar_035" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, 2.10000062)
+
+[node name="rail_bar_036" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, 3.50000072)
+
+[node name="rail_bar_037" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, 4.90000057)
+
+[node name="rail_bar_038" parent="Visual/Furnishings" instance=ExtResource("rail_bar")]
+transform = Transform3D(1.11298885e-08, 0, -1, 0, 1, 0, 0.933333337, 0, 1.19248805e-08, -8.55000019, 1.245, 6.30000067)
+
+[node name="fender_009" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.31999969, -1.59500003, -5.59999943)
+
+[node name="fender_010" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.31999969, -1.59500003, 7.0364041e-07)
+
+[node name="fender_011" parent="Visual/Furnishings" instance=ExtResource("fender")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -9.31999969, -1.59500003, 5.60000038)
+
+[node name="rail_corner_004" parent="Visual/Furnishings" instance=ExtResource("rail_corner")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -7.82960892, 1.245, 7.82960987)
+
+[node name="pot_001" parent="Visual/Furnishings" instance=ExtResource("pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.300000012, 7)
+
+[node name="foliage_001" parent="Visual/Plants" instance=ExtResource("foliage")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.99000025, 1.14999998, 6.90500021)
+
+[node name="pot_002" parent="Visual/Furnishings" instance=ExtResource("pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.300000012, -7)
+
+[node name="foliage_002" parent="Visual/Plants" instance=ExtResource("foliage")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.99000025, 1.14999998, -7.09499979)
+
+[node name="pot_003" parent="Visual/Furnishings" instance=ExtResource("pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.300000012, -7)
+
+[node name="foliage_003" parent="Visual/Plants" instance=ExtResource("foliage")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00999975, 1.14999998, -7.09499979)
+
+[node name="pot_004" parent="Visual/Furnishings" instance=ExtResource("pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.300000012, 7)
+
+[node name="foliage_004" parent="Visual/Plants" instance=ExtResource("foliage")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00999975, 1.14999998, 6.90500021)
+
+[node name="bench_001" parent="Visual/Furnishings" instance=ExtResource("bench")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.03750038, 0.300000012, 5.46392487e-10)
+
+[node name="bench_002" parent="Visual/Furnishings" instance=ExtResource("bench")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.03750038, 0.300000012, -1.29999995)
+
+[node name="ladder_001" parent="Visual/Furnishings" instance=ExtResource("ladder")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -2.48000002, 8.98499966)
+
+[node name="bollard_001" parent="Visual/Furnishings" instance=ExtResource("bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79999995, 0.300000012, 8.18000031)
+
+[node name="bollard_002" parent="Visual/Furnishings" instance=ExtResource("bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79999995, 0.300000012, 8.18000031)
+
+[node name="glass_bay_001" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5999999, 0.300000012, 5.46500015)
+
+[node name="glass_bay_002" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5999999, 0.300000012, 5.46500015)
+
+[node name="entry_frame_001" parent="Visual/Structure" instance=ExtResource("entry_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300000012, 5.4000001)
+
+[node name="glass_bay_003" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.46500015, 0.300000012, 2.60000038)
+
+[node name="glass_bay_004" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.46500015, 0.300000012, 4.04847441e-07)
+
+[node name="glass_bay_005" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.46500015, 0.300000012, -2.59999943)
+
+[node name="glass_bay_006" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.46500015, 0.300000012, -2.59999943)
+
+[node name="glass_bay_007" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.46500015, 0.300000012, 4.08463791e-07)
+
+[node name="glass_bay_008" parent="Visual/Structure" instance=ExtResource("glass_bay")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.46500015, 0.300000012, 2.60000038)
+
+[node name="back_panel_001" parent="Visual/Structure" instance=ExtResource("back_panel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5999999, 0.300000012, -5.40700006)
+
+[node name="back_panel_002" parent="Visual/Structure" instance=ExtResource("back_panel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300000012, -5.40700006)
+
+[node name="back_panel_003" parent="Visual/Structure" instance=ExtResource("back_panel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5999999, 0.300000012, -5.40700006)
+
+[node name="back_door_001" parent="Visual/Structure" instance=ExtResource("back_door")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.0272176e-08, 0.300000012, -5.73749971)
+
+[node name="curved_glass_001" parent="Visual/Structure" instance=ExtResource("curved_glass")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67000008, 0.254999995, 4.67000008)
+
+[node name="curved_glass_002" parent="Visual/Structure" instance=ExtResource("curved_glass")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.67000008, 0.254999995, -4.67000008)
+
+[node name="curved_glass_003" parent="Visual/Structure" instance=ExtResource("curved_glass")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4.67000008, 0.254999995, -4.67000008)
+
+[node name="curved_glass_004" parent="Visual/Structure" instance=ExtResource("curved_glass")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -4.67000008, 0.254999995, 4.67000008)
+
+[node name="column_001" parent="Visual/Structure" instance=ExtResource("column")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8499999, 0.300000012, 5.3499999)
+
+[node name="column_002" parent="Visual/Structure" instance=ExtResource("column")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8499999, 0.300000012, 5.3499999)
+
+[node name="column_003" parent="Visual/Structure" instance=ExtResource("column")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3499999, 0.300000012, -3.8499999)
+
+[node name="column_004" parent="Visual/Structure" instance=ExtResource("column")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3499999, 0.300000012, -3.8499999)
+
+[node name="roof_001" parent="Visual/Structure" instance=ExtResource("roof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.61999989, 2.38418579e-07)
+metadata/roof_reveal = true
+
+[node name="fascia_001" parent="Visual/Furnishings" instance=ExtResource("fascia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.44999981, 6.02250004)
+metadata/roof_reveal = true
+
+[node name="fascia_corner_001" parent="Visual/Furnishings" instance=ExtResource("fascia_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.98953581, 5.39499998, 4.98953581)
+metadata/roof_reveal = true
+
+[node name="awning_blue_001" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57500005, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_001" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92499995, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_002" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2750001, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_002" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.625, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_003" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.975000024, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_003" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.324999988, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_004" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324999988, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_004" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.975000024, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_005" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_005" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2750001, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_006" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.92499995, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_006" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57500005, 4.57999992, 5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_corner_001" parent="Visual/Furnishings" instance=ExtResource("awning_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27200031, 4.57999992, 5.27200031)
+metadata/roof_reveal = true
+
+[node name="fascia_002" parent="Visual/Furnishings" instance=ExtResource("fascia")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6.02250004, 5.44999981, 4.4604343e-07)
+metadata/roof_reveal = true
+
+[node name="fascia_corner_002" parent="Visual/Furnishings" instance=ExtResource("fascia_corner")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.98953629, 5.39499998, -4.98953581)
+metadata/roof_reveal = true
+
+[node name="awning_blue_007" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.6864996, 4.57999992, 3.57500052)
+metadata/roof_reveal = true
+
+[node name="awning_white_007" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, 2.92500043)
+metadata/roof_reveal = true
+
+[node name="awning_blue_008" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, 2.27500057)
+metadata/roof_reveal = true
+
+[node name="awning_white_008" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, 1.62500048)
+metadata/roof_reveal = true
+
+[node name="awning_blue_009" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, 0.975000441)
+metadata/roof_reveal = true
+
+[node name="awning_white_009" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, 0.325000405)
+metadata/roof_reveal = true
+
+[node name="awning_blue_010" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, -0.324999571)
+metadata/roof_reveal = true
+
+[node name="awning_white_010" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, -0.974999607)
+metadata/roof_reveal = true
+
+[node name="awning_blue_011" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, -1.62499952)
+metadata/roof_reveal = true
+
+[node name="awning_white_011" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, -2.27499962)
+metadata/roof_reveal = true
+
+[node name="awning_blue_012" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650007, 4.57999992, -2.92499948)
+metadata/roof_reveal = true
+
+[node name="awning_white_012" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.68650055, 4.57999992, -3.57499957)
+metadata/roof_reveal = true
+
+[node name="awning_corner_002" parent="Visual/Furnishings" instance=ExtResource("awning_corner")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.27200031, 4.57999992, -5.27199984)
+metadata/roof_reveal = true
+
+[node name="fascia_003" parent="Visual/Furnishings" instance=ExtResource("fascia")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.13827331e-07, 5.44999981, -6.02250004)
+metadata/roof_reveal = true
+
+[node name="fascia_corner_003" parent="Visual/Furnishings" instance=ExtResource("fascia_corner")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4.98953581, 5.39499998, -4.98953629)
+metadata/roof_reveal = true
+
+[node name="awning_blue_013" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.57500052, 4.57999992, -5.6864996)
+metadata/roof_reveal = true
+
+[node name="awning_white_013" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.92500043, 4.57999992, -5.6864996)
+metadata/roof_reveal = true
+
+[node name="awning_blue_014" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.27500057, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_014" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.62500048, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_015" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.975000501, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_015" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.325000465, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_016" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.324999511, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_016" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.974999547, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_017" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.62499952, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_white_017" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.27499962, 4.57999992, -5.68650007)
+metadata/roof_reveal = true
+
+[node name="awning_blue_018" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.92499948, 4.57999992, -5.68650055)
+metadata/roof_reveal = true
+
+[node name="awning_white_018" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.57499957, 4.57999992, -5.68650055)
+metadata/roof_reveal = true
+
+[node name="awning_corner_003" parent="Visual/Furnishings" instance=ExtResource("awning_corner")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.27199984, 4.57999992, -5.27200031)
+metadata/roof_reveal = true
+
+[node name="fascia_004" parent="Visual/Furnishings" instance=ExtResource("fascia")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -6.02250004, 5.44999981, 4.50077067e-07)
+metadata/roof_reveal = true
+
+[node name="fascia_corner_004" parent="Visual/Furnishings" instance=ExtResource("fascia_corner")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -4.98953581, 5.39499998, 4.98953629)
+metadata/roof_reveal = true
+
+[node name="awning_blue_019" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650055, 4.57999992, -3.57499957)
+metadata/roof_reveal = true
+
+[node name="awning_white_019" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, -2.92499948)
+metadata/roof_reveal = true
+
+[node name="awning_blue_020" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, -2.27499962)
+metadata/roof_reveal = true
+
+[node name="awning_white_020" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, -1.62499952)
+metadata/roof_reveal = true
+
+[node name="awning_blue_021" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, -0.974999607)
+metadata/roof_reveal = true
+
+[node name="awning_white_021" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, -0.324999571)
+metadata/roof_reveal = true
+
+[node name="awning_blue_022" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, 0.325000405)
+metadata/roof_reveal = true
+
+[node name="awning_white_022" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, 0.975000441)
+metadata/roof_reveal = true
+
+[node name="awning_blue_023" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, 1.62500048)
+metadata/roof_reveal = true
+
+[node name="awning_white_023" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, 2.27500057)
+metadata/roof_reveal = true
+
+[node name="awning_blue_024" parent="Visual/Furnishings" instance=ExtResource("awning_blue")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.68650007, 4.57999992, 2.92500043)
+metadata/roof_reveal = true
+
+[node name="awning_white_024" parent="Visual/Furnishings" instance=ExtResource("awning_white")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.6864996, 4.57999992, 3.57500052)
+metadata/roof_reveal = true
+
+[node name="awning_corner_004" parent="Visual/Furnishings" instance=ExtResource("awning_corner")]
+transform = Transform3D(1.19248805e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248805e-08, -5.27199984, 4.57999992, 5.27200031)
+metadata/roof_reveal = true
+
+[node name="sign_postcards_001" parent="Visual/Furnishings" instance=ExtResource("sign_postcards")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114494085, 5.82999992, 6.22599983)
+metadata/roof_reveal = true
+
+[node name="sign_drinks_001" parent="Visual/Furnishings" instance=ExtResource("sign_drinks")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6.19999981, 5.69999981, 0.0752609968)
+metadata/roof_reveal = true
+
+[node name="sign_gifts_001" parent="Visual/Furnishings" instance=ExtResource("sign_gifts")]
+transform = Transform3D(0.608111829, 0, 0.608111855, 0, 0.860000014, 0, -0.608111855, 0, 0.608111829, 5.57912207, 5.75329971, 5.48294497)
+metadata/roof_reveal = true
+
+[node name="sign_gifts_002" parent="Visual/Furnishings" instance=ExtResource("sign_gifts")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.0790786147, 5.7750001, -6.23458767)
+metadata/roof_reveal = true
+
+[node name="sign_postcards_002" parent="Visual/Furnishings" instance=ExtResource("sign_postcards")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -6.22599983, 5.82999992, 0.114494085)
+metadata/roof_reveal = true
+
+[node name="roof_disk_001" parent="Visual/Furnishings" instance=ExtResource("roof_disk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.86000013, -0)
+metadata/roof_reveal = true
+
+[node name="spotlight_001" parent="Visual/Furnishings" instance=ExtResource("spotlight")]
+transform = Transform3D(0.955336486, 0, -0.295520218, 0, 1, 0, 0.295520218, 0, 0.955336486, -3.65319347, 6.86999989, 3.57196069)
+metadata/roof_reveal = true
+
+[node name="spotlight_002" parent="Visual/Furnishings" instance=ExtResource("spotlight")]
+transform = Transform3D(0.877582562, 0, 0.479425539, 0, 1, 0, -0.479425539, 0, 0.877582562, 3.58629656, 6.86999989, 3.15796494)
+metadata/roof_reveal = true
+
+[node name="spotlight_003" parent="Visual/Furnishings" instance=ExtResource("spotlight")]
+transform = Transform3D(-0.801143616, 0, 0.598472144, 0, 1, 0, -0.598472144, 0, -0.801143616, 4.00772524, 6.86999989, -3.24420571)
+metadata/roof_reveal = true
+
+[node name="spotlight_004" parent="Visual/Furnishings" instance=ExtResource("spotlight")]
+transform = Transform3D(-0.896758459, 0, -0.442520358, 0, 1, 0, 0.442520358, 0, -0.896758459, -3.87965369, 6.86999989, -3.56141663)
+metadata/roof_reveal = true
+
+[node name="roof_pipe_001" parent="Visual/Furnishings" instance=ExtResource("roof_pipe")]
+transform = Transform3D(0.955336486, 0, 0.295520218, 0, 1, 0, -0.295520218, 0, 0.955336486, 2.8499999, 6.86999989, -1.39999998)
+metadata/roof_reveal = true
+
+[node name="roof_pipe_002" parent="Visual/Furnishings" instance=ExtResource("roof_pipe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3, 6.86999989, -0.400000006)
+metadata/roof_reveal = true
+
+[node name="beacon_001" parent="Visual/Furnishings" instance=ExtResource("beacon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0999999, 6.86999989, -2.9000001)
+metadata/roof_reveal = true
+
+[node name="life_ring_001" parent="Visual/Furnishings" instance=ExtResource("life_ring")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5.48000002, 2.35300016, 2.70000005)
+
+[node name="life_ring_002" parent="Visual/Furnishings" instance=ExtResource("life_ring")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.48000002, 2.35300016, -2.70000005)
+
+[node name="electrical_box_001" parent="Visual/Furnishings" instance=ExtResource("electrical_box")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.70000005, 1.01999998, -5.67499971)
+
+[node name="electrical_box_002" parent="Visual/Furnishings" instance=ExtResource("electrical_box")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.70000005, 1.01999998, -5.67499971)
+
+[node name="roof_pipe_003" parent="Visual/Furnishings" instance=ExtResource("roof_pipe")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 2.4000001, 0, -1, 0, -4.371139e-08, 2, 1.70000005, -5.71999979)
+
+[node name="lantern_001" parent="Visual/Furnishings" instance=ExtResource("lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07999992, 5.5999999, 3.9000001)
+metadata/roof_reveal = true
+
+[node name="lantern_002" parent="Visual/Furnishings" instance=ExtResource("lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07999992, 5.5999999, -3.9000001)
+metadata/roof_reveal = true
+
+[node name="lantern_003" parent="Visual/Furnishings" instance=ExtResource("lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.07999992, 5.5999999, 3.9000001)
+metadata/roof_reveal = true
+
+[node name="lantern_004" parent="Visual/Furnishings" instance=ExtResource("lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.07999992, 5.5999999, -3.9000001)
+metadata/roof_reveal = true
+
+[node name="postcard_rack_001" parent="Visual/Furnishings" instance=ExtResource("postcard_rack")]
+transform = Transform3D(0.992808636, 0, -0.119712205, 0, 1, 0, 0.119712205, 0, 0.992808636, -2.77430296, 0.300000012, 6.3090148)
+
+[node name="mailbox_001" parent="Visual/Furnishings" instance=ExtResource("mailbox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36000001, 0.300000012, 6.07750034)
+
+[node name="ice_box_001" parent="Visual/Furnishings" instance=ExtResource("ice_box")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.95499992, 0.300000012, 3.04999995)
+
+[node name="bin_001" parent="Visual/Furnishings" instance=ExtResource("bin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.300000012, 5.97749996)
+
+[node name="pot_005" parent="Visual/Furnishings" instance=ExtResource("pot")]
+transform = Transform3D(0.649999976, 0, 0, 0, 0.649999976, 0, 0, 0, 0.649999976, -4.3499999, 0.300000012, 5.98000002)
+
+[node name="foliage_005" parent="Visual/Plants" instance=ExtResource("foliage")]
+transform = Transform3D(0.550000012, 0, 0, 0, 0.550000012, 0, 0, 0, 0.550000012, -4.34450006, 0.841499984, 5.92775011)
+
+[node name="shelf_001" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6500001, 0.300000012, -4.61249971)
+
+[node name="bottle_001" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -3.3499999, 0.910000026, -4.48000002)
+
+[node name="bottle_002" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.8900001, 0.910000026, -4.48000002)
+
+[node name="gift_001" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.4000001, 0.910000026, -4.47831249)
+
+[node name="gift_002" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -1.92999995, 0.910000026, -4.47831249)
+
+[node name="bottle_003" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -3.3499999, 1.85000002, -4.48000002)
+
+[node name="bottle_004" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.8900001, 1.85000002, -4.48000002)
+
+[node name="gift_003" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.4000001, 1.85000002, -4.47831249)
+
+[node name="gift_004" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -1.92999995, 1.85000002, -4.47831249)
+
+[node name="bottle_005" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -3.3499999, 2.78999996, -4.48000002)
+
+[node name="bottle_006" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.8900001, 2.78999996, -4.48000002)
+
+[node name="gift_005" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -2.4000001, 2.78999996, -4.47831249)
+
+[node name="gift_006" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, -1.92999995, 2.78999996, -4.47831249)
+
+[node name="shelf_002" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6500001, 0.300000012, -4.61249971)
+
+[node name="bottle_007" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 1.95000005, 0.910000026, -4.48000002)
+
+[node name="bottle_008" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.41000009, 0.910000026, -4.48000002)
+
+[node name="gift_007" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.9000001, 0.910000026, -4.47831249)
+
+[node name="gift_008" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 3.36999989, 0.910000026, -4.47831249)
+
+[node name="bottle_009" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 1.95000005, 1.85000002, -4.48000002)
+
+[node name="bottle_010" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.41000009, 1.85000002, -4.48000002)
+
+[node name="gift_009" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.9000001, 1.85000002, -4.47831249)
+
+[node name="gift_010" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 3.36999989, 1.85000002, -4.47831249)
+
+[node name="bottle_011" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 1.95000005, 2.78999996, -4.48000002)
+
+[node name="bottle_012" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.41000009, 2.78999996, -4.48000002)
+
+[node name="gift_011" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 2.9000001, 2.78999996, -4.47831249)
+
+[node name="gift_012" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.75, 0, 0, 0, 0.850000024, 0, 0, 0, 0.75, 3.36999989, 2.78999996, -4.47831249)
+
+[node name="shelf_003" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.5875001, 0.300000012, -2.60000014)
+
+[node name="bottle_013" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, -3.30000019)
+
+[node name="bottle_014" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, -2.84000015)
+
+[node name="gift_013" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, -2.35000014)
+
+[node name="gift_014" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, -1.88000023)
+
+[node name="bottle_015" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, -3.30000019)
+
+[node name="bottle_016" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, -2.84000015)
+
+[node name="gift_015" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, -2.35000014)
+
+[node name="gift_016" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, -1.88000023)
+
+[node name="bottle_017" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, -3.30000019)
+
+[node name="bottle_018" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, -2.84000015)
+
+[node name="gift_017" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, -2.35000014)
+
+[node name="gift_018" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, -1.88000023)
+
+[node name="shelf_004" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.5875001, 0.300000012, 0.599999845)
+
+[node name="bottle_019" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, -0.100000218)
+
+[node name="bottle_020" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, 0.359999806)
+
+[node name="gift_019" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, 0.849999785)
+
+[node name="gift_020" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, 1.31999981)
+
+[node name="bottle_021" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, -0.100000218)
+
+[node name="bottle_022" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, 0.359999806)
+
+[node name="gift_021" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, 0.849999785)
+
+[node name="gift_022" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, 1.31999981)
+
+[node name="bottle_023" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, -0.100000218)
+
+[node name="bottle_024" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, 0.359999806)
+
+[node name="gift_023" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, 0.849999785)
+
+[node name="gift_024" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, 1.31999981)
+
+[node name="shelf_005" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.5875001, 0.300000012, 3.19999981)
+
+[node name="bottle_025" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, 2.49999976)
+
+[node name="bottle_026" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 0.910000026, 2.9599998)
+
+[node name="gift_025" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, 3.44999981)
+
+[node name="gift_026" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 0.910000026, 3.91999984)
+
+[node name="bottle_027" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, 2.49999976)
+
+[node name="bottle_028" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 1.85000002, 2.9599998)
+
+[node name="gift_027" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, 3.44999981)
+
+[node name="gift_028" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 1.85000002, 3.91999984)
+
+[node name="bottle_029" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, 2.49999976)
+
+[node name="bottle_030" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88000011, 2.78999996, 2.9599998)
+
+[node name="gift_029" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, 3.44999981)
+
+[node name="gift_030" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, -0.74000001, 0, 0.850000024, 0, 0.74000001, 0, -3.2346429e-08, -4.88166523, 2.78999996, 3.91999984)
+
+[node name="shelf_006" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.5875001, 0.300000012, 2.60000014)
+
+[node name="bottle_031" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.87999964, 0.910000026, 3.30000043)
+
+[node name="bottle_032" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 0.910000026, 2.84000039)
+
+[node name="gift_031" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 0.910000026, 2.35000038)
+
+[node name="gift_032" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 0.910000026, 1.88000035)
+
+[node name="bottle_033" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.87999964, 1.85000002, 3.30000043)
+
+[node name="bottle_034" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 1.85000002, 2.84000039)
+
+[node name="gift_033" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 1.85000002, 2.35000038)
+
+[node name="gift_034" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 1.85000002, 1.88000035)
+
+[node name="bottle_035" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.87999964, 2.78999996, 3.30000043)
+
+[node name="bottle_036" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 2.78999996, 2.84000039)
+
+[node name="gift_035" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 2.78999996, 2.35000038)
+
+[node name="gift_036" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 2.78999996, 1.88000035)
+
+[node name="shelf_007" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.5875001, 0.300000012, -0.599999666)
+
+[node name="bottle_037" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 0.910000026, 0.100000367)
+
+[node name="bottle_038" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 0.910000026, -0.359999657)
+
+[node name="gift_037" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 0.910000026, -0.849999666)
+
+[node name="gift_038" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 0.910000026, -1.31999969)
+
+[node name="bottle_039" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 1.85000002, 0.100000367)
+
+[node name="bottle_040" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 1.85000002, -0.359999657)
+
+[node name="gift_039" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 1.85000002, -0.849999666)
+
+[node name="gift_040" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 1.85000002, -1.31999969)
+
+[node name="bottle_041" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 2.78999996, 0.100000367)
+
+[node name="bottle_042" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 2.78999996, -0.359999657)
+
+[node name="gift_041" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 2.78999996, -0.849999666)
+
+[node name="gift_042" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166523, 2.78999996, -1.31999969)
+
+[node name="shelf_008" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.58750057, 0.300000012, -3.19999981)
+
+[node name="bottle_043" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 0.910000026, -2.49999952)
+
+[node name="bottle_044" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 0.910000026, -2.95999956)
+
+[node name="gift_043" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 0.910000026, -3.44999957)
+
+[node name="gift_044" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 0.910000026, -3.9199996)
+
+[node name="bottle_045" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 1.85000002, -2.49999952)
+
+[node name="bottle_046" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 1.85000002, -2.95999956)
+
+[node name="gift_045" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 1.85000002, -3.44999957)
+
+[node name="gift_046" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 1.85000002, -3.9199996)
+
+[node name="bottle_047" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 2.78999996, -2.49999952)
+
+[node name="bottle_048" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88000011, 2.78999996, -2.95999956)
+
+[node name="gift_047" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 2.78999996, -3.44999957)
+
+[node name="gift_048" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(-3.2346429e-08, 0, 0.74000001, 0, 0.850000024, 0, -0.74000001, 0, -3.2346429e-08, 4.88166571, 2.78999996, -3.9199996)
+
+[node name="shelf_009" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5999999, 0.300000012, 4.63750029)
+
+[node name="bottle_049" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -3.29999995, 0.910000026, 4.94000006)
+
+[node name="bottle_050" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.83999991, 0.910000026, 4.94000006)
+
+[node name="gift_049" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.3499999, 0.910000026, 4.94166517)
+
+[node name="gift_050" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -1.88, 0.910000026, 4.94166517)
+
+[node name="bottle_051" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -3.29999995, 1.85000002, 4.94000006)
+
+[node name="bottle_052" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.83999991, 1.85000002, 4.94000006)
+
+[node name="gift_051" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.3499999, 1.85000002, 4.94166517)
+
+[node name="gift_052" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -1.88, 1.85000002, 4.94166517)
+
+[node name="bottle_053" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -3.29999995, 2.78999996, 4.94000006)
+
+[node name="bottle_054" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.83999991, 2.78999996, 4.94000006)
+
+[node name="gift_053" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -2.3499999, 2.78999996, 4.94166517)
+
+[node name="gift_054" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, -1.88, 2.78999996, 4.94166517)
+
+[node name="shelf_010" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5999999, 0.300000012, 4.63750029)
+
+[node name="bottle_055" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 1.89999998, 0.910000026, 4.94000006)
+
+[node name="bottle_056" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.3599999, 0.910000026, 4.94000006)
+
+[node name="gift_055" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.8499999, 0.910000026, 4.94166517)
+
+[node name="gift_056" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 3.31999993, 0.910000026, 4.94166517)
+
+[node name="bottle_057" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 1.89999998, 1.85000002, 4.94000006)
+
+[node name="bottle_058" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.3599999, 1.85000002, 4.94000006)
+
+[node name="gift_057" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.8499999, 1.85000002, 4.94166517)
+
+[node name="gift_058" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 3.31999993, 1.85000002, 4.94166517)
+
+[node name="bottle_059" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 1.89999998, 2.78999996, 4.94000006)
+
+[node name="bottle_060" parent="Visual/Furnishings" instance=ExtResource("bottle")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.3599999, 2.78999996, 4.94000006)
+
+[node name="gift_059" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 2.8499999, 2.78999996, 4.94166517)
+
+[node name="gift_060" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.74000001, 0, 0, 0, 0.850000024, 0, 0, 0, 0.74000001, 3.31999993, 2.78999996, 4.94166517)
+
+[node name="shelf_011" parent="Visual/Furnishings" instance=ExtResource("shelf")]
+transform = Transform3D(-1.20000005, 0, -8.742278e-08, 0, 0.600000024, 0, 1.0490734e-07, 0, -1, 2.29999995, 0.300000012, 1.41250002)
+
+[node name="gift_061" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.800000012, 0, 0, 0, 0.800000012, 0, 0, 0, 0.800000012, 1.5, 2.19000006, 1.40179992)
+
+[node name="gift_062" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.800000012, 0, 0, 0, 0.800000012, 0, 0, 0, 0.800000012, 2.20000005, 2.19000006, 1.40179992)
+
+[node name="gift_063" parent="Visual/Furnishings" instance=ExtResource("gift")]
+transform = Transform3D(0.800000012, 0, 0, 0, 0.800000012, 0, 0, 0, 0.800000012, 2.9000001, 2.19000006, 1.40179992)
+
+[node name="card_001" parent="Visual/Furnishings" instance=ExtResource("card")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.79999995, 4.6652503)
+
+[node name="card_002" parent="Visual/Furnishings" instance=ExtResource("card")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.79999995, 4.6652503)
+
+[node name="card_003" parent="Visual/Furnishings" instance=ExtResource("card")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.79999995, 4.6652503)
 
 [node name="Blockers" type="Node3D" parent="."]
 script = ExtResource("blockers")
 mode = "auto"
-target_path = NodePath("../Visual")
-blocks_water = true
-cell = 0.4
+target_path = NodePath("../Visual/Structure/deck_001")
+cell = 0.3
 
 [node name="WalkAreas" type="Node3D" parent="."]
 
@@ -69,32 +1319,69 @@ cell = 0.4
 script = ExtResource("walk")
 area_id = "sea_supply_deck"
 zone_id = "sea_supply"
-surface_y = 1.38
-span_min = 1.0
-span_max = 1.68
-rects = [Rect2(-9.4, 4.55, 18.8, 2.45), Rect2(-9.4, -7, 18.8, 2.45), Rect2(-9.4, -7, 3.35, 14), Rect2(6.05, -7, 3.35, 14)]
+surface_y = 1.42
+span_min = 1.07
+span_max = 1.77
+rects = [Rect2(-7.62, -8.26, 15.24, 0.36), Rect2(-7.9, -7.9, 15.8, 0.28), Rect2(-8.26, -7.62, 0.64, 1.24), Rect2(-6.38, -7.62, 12.76, 1.24), Rect2(7.62, -7.62, 0.64, 1.24), Rect2(-8.26, -6.38, 16.52, 0.7), Rect2(-8.26, -5.68, 2.58, 4.07), Rect2(5.68, -5.68, 2.58, 2.77), Rect2(-4, -4, 8, 0.13275001), Rect2(-4, -3.86724999, 6.98274991, 0.58224999), Rect2(3.71724989, -3.86724999, 0.282750105, 0.58224999), Rect2(-4, -0.670000038, 8, 1.33000009), Rect2(-4, -1.4, 6.16999992, 0.729999962), Rect2(3.02999989, -1.4, 0.97000011, 0.729999962), Rect2(-4, 0.660000048, 0.934999952, 0.249999952), Rect2(-0.834999952, 0.660000048, 4.83499995, 0.249999952), Rect2(-4, -1.535, 0.6, 0.135), Rect2(-2.18, -1.535, 6.18, 0.00499999046), Rect2(-2.18, -1.53000001, 4.34999992, 0.13000001), Rect2(3.02999989, -1.53000001, 0.97000011, 0.13000001), Rect2(-4, -3.285, 0.48, 1.75), Rect2(0.42, -3.13275001, 3.58, 0.352749911), Rect2(0.42, -3.285, 2.56274991, 0.15224999), Rect2(3.71724989, -3.285, 0.282750105, 0.15224999), Rect2(0.42, -2.02000009, 3.58, 0.485000092), Rect2(0.42, -2.7800001, 1.24999998, 0.760000007), Rect2(3.33000002, -2.7800001, 0.669999979, 0.760000007), Rect2(5.68, -2.91, 0.8, 3.22), Rect2(7.62, -2.91, 0.64, 3.22), Rect2(-8.26, -1.61, 0.64, 3.22), Rect2(-6.48, -1.61, 0.8, 3.22), Rect2(5.68, 0.31, 2.58, 1.59), Rect2(-4, 0.91, 0.934999952, 1), Rect2(-0.834999952, 0.91, 1.67499995, 1), Rect2(3.78, 0.91, 0.22, 1), Rect2(-8.26, 1.61, 2.58, 4.07), Rect2(6.54, 1.9, 1.72, 2.27), Rect2(-4, 2.24000005, 8, 0.742749867), Rect2(-4, 3.71724989, 8, 0.282750105), Rect2(-4, 2.98274991, 0.532750105, 0.73449998), Rect2(-2.73274991, 2.98274991, 6.73274991, 0.73449998), Rect2(-4, 1.91, 0.934999952, 0.330000048), Rect2(-0.834999952, 1.91, 4.83499995, 0.330000048), Rect2(-1.13, 4, 2.26, 1.59), Rect2(5.68, 4.17, 2.58, 1.51), Rect2(-0.77, 5.59, 1.9, 0.09), Rect2(-8.26, 5.68, 3.5, 0.7), Rect2(-3.91, 5.68, 1.96, 0.1), Rect2(-0.77, 5.68, 1.93, 0.69), Rect2(1.85, 5.68, 6.41, 0.69), Rect2(-3.91, 5.78, 0.49, 0.63), Rect2(-2.18, 5.78, 0.23, 0.74), Rect2(-0.77, 6.37, 9.03, 0.01), Rect2(-8.26, 6.38, 0.64, 1.24), Rect2(-6.38, 6.38, 1.62, 0.03), Rect2(-0.77, 6.38, 7.15, 0.14), Rect2(7.62, 6.38, 0.64, 1.24), Rect2(-6.38, 6.41, 2.96, 0.47), Rect2(-2.18, 6.52, 8.56, 0.36), Rect2(-6.38, 6.88, 12.76, 0.74), Rect2(-7.9, 7.62, 15.8, 0.2), Rect2(-7.9, 7.82, 4.7, 0.08), Rect2(-2.4, 7.82, 4.8, 0.44), Rect2(3.2, 7.82, 4.7, 0.08), Rect2(-7.62, 7.9, 4.42, 0.36), Rect2(3.2, 7.9, 4.42, 0.36)]
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.514, 5.2)
+position = Vector3(0, 0.3, 7.9)
 script = ExtResource("landing")
 landing_label = "海上补给站"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26, 4.65)
+position = Vector3(0, -0.3, 4.3)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9)
+position = Vector3(0, 0, 1.1)
 
 [node name="Objects" type="Node3D" parent="."]
 
+[node name="NpcStations" parent="Objects" instance=ExtResource("npc_stations")]
+
 [node name="SupplyCounter" type="Node3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.514, 6.6)
+position = Vector3(-1.1, 0.3, -0.75)
 script = ExtResource("counter")
 id = "sea_supply_counter"
 label = "海上补给站"
 verb = "补给"
 priority = 4
-focus_radius = 2.8
+focus_radius = 1.8
 hold_time = 0.0
-accent = Color(0.556863, 0.909804, 0.839216, 1)
 focus_anchor = "node"
+
+[node name="WarmShopLight0" type="OmniLight3D" parent="Objects" groups=["home_lamps"]]
+position = Vector3(-2.6, 3.1, 3.3)
+light_color = Color(1, 0.72, 0.35, 1)
+light_energy = 0.8
+omni_range = 7.5
+omni_attenuation = 1.5
+
+[node name="WarmShopLight1" type="OmniLight3D" parent="Objects" groups=["home_lamps"]]
+position = Vector3(2.6, 3.1, 3.3)
+light_color = Color(1, 0.72, 0.35, 1)
+light_energy = 0.8
+omni_range = 7.5
+omni_attenuation = 1.5
+
+[node name="WarmShopLight2" type="OmniLight3D" parent="Objects" groups=["home_lamps"]]
+position = Vector3(-3.2, 3.1, -2)
+light_color = Color(1, 0.72, 0.35, 1)
+light_energy = 0.8
+omni_range = 7.5
+omni_attenuation = 1.5
+
+[node name="WarmShopLight3" type="OmniLight3D" parent="Objects" groups=["home_lamps"]]
+position = Vector3(3.2, 3.1, -2)
+light_color = Color(1, 0.72, 0.35, 1)
+light_energy = 0.8
+omni_range = 7.5
+omni_attenuation = 1.5
+
+[node name="RoofReveal" type="Node3D" parent="."]
+script = ExtResource("roof_reveal")
+
+[node name="Interior" parent="Visual" instance=ExtResource("interior")]
+
+[node name="SightlineReveal" type="Node3D" parent="."]
+script = ExtResource("sightline")

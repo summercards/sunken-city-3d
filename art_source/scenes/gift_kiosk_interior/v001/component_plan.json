@@ -1,0 +1,180 @@
+{
+  "schema": "sea.scene.component_plan",
+  "feature_id": "SEA-ASSET",
+  "clause": "SEA-ASSET-R57",
+  "world_clause": "SEA-WORLD-R27",
+  "version": "v001",
+  "status": "frozen_before_geometry",
+  "asset_id": "SEA-SCENE-GKI-ASSEMBLY",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local interior furnishing extension; original 47-component exterior suite is protected and not regenerated",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_exception": "Continue the existing kiosk bright cozy palette, no palette change or duplicate",
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "reference_license": "pending_user_reference_commercial_rights_review",
+  "dimensions": {
+    "tile_pitch": 0.94,
+    "tile_width": 0.93,
+    "tile_height": 0.02,
+    "floor_top_local": 0.315,
+    "counter_height": 1.25,
+    "display_height": 1.02,
+    "stool_height": 0.65
+  },
+  "style": "Plump real 3-segment bevels; cream, sea blue and honey flooring; teal cabinet fronts and honey wood tops; no realistic wear",
+  "exceptions": [
+    "Interior is a separately maintained 11-component extension, not a rewrite of the 47-component exterior suite.",
+    "Three floor swatch variants have identical topology and dimensions; only PaletteUV changes. They share one floor semantic family and the same public material.",
+    "Thin inlaid tiles use 0.006m bevel constrained by their thickness; fixed furniture uses 0.04-0.12m real bevels."
+  ],
+  "locked": [
+    "all original exterior component sources and GLBs",
+    "all original 379 instance transforms",
+    "main.tscn user placement",
+    "roof reveal metadata and controller",
+    "original water blockers, landing and float behavior"
+  ],
+  "runtime": {
+    "stable_parent": "godot/scenes/facilities/floating_shop.tscn",
+    "stable_scene": "godot/scenes/facilities/gift_kiosk_interior.tscn",
+    "zone_id": "sea_supply",
+    "interaction": "move existing SupplyCounter to the new real counter customer side; preserve existing supply service"
+  },
+  "components": [
+    {
+      "key": "tile_cream",
+      "asset_id": "SEA-SCENE-GKI-TILE-CREAM",
+      "name": "奶油地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "tile_blue",
+      "asset_id": "SEA-SCENE-GKI-TILE-BLUE",
+      "name": "海蓝地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "tile_honey",
+      "asset_id": "SEA-SCENE-GKI-TILE-HONEY",
+      "name": "蜜黄地砖",
+      "family": "floor_tile",
+      "group": "structure",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "checkout_counter",
+      "asset_id": "SEA-SCENE-GKI-CHECKOUT-COUNTER",
+      "name": "圆角收银柜台",
+      "family": "counter",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "cash_register",
+      "asset_id": "SEA-SCENE-GKI-CASH-REGISTER",
+      "name": "复古收银机",
+      "family": "register",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "display_table",
+      "asset_id": "SEA-SCENE-GKI-DISPLAY-TABLE",
+      "name": "椭圆礼品陈列台",
+      "family": "display",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "stool",
+      "asset_id": "SEA-SCENE-GKI-STOOL",
+      "name": "圆坐凳",
+      "family": "seat",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "wall_poster",
+      "asset_id": "SEA-SCENE-GKI-WALL-POSTER",
+      "name": "海岸主题装饰画",
+      "family": "wall_art",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "wall_clock",
+      "asset_id": "SEA-SCENE-GKI-WALL-CLOCK",
+      "name": "圆挂钟",
+      "family": "clock",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "wall_sconce",
+      "asset_id": "SEA-SCENE-GKI-WALL-SCONCE",
+      "name": "壁灯",
+      "family": "lamp",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    },
+    {
+      "key": "cubby",
+      "asset_id": "SEA-SCENE-GKI-CUBBY",
+      "name": "礼品包装柜",
+      "family": "cabinet",
+      "group": "furnishing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y -> Godot +Z",
+      "budget": null,
+      "budget_source": "No user face cap; reference silhouette and actual camera fidelity"
+    }
+  ],
+  "clause_allocation_note": "R56 was claimed by a concurrent NPC asset task after plan creation; assigned next free stable design ID R57 before registration, geometry and AssetIDs unchanged"
+}

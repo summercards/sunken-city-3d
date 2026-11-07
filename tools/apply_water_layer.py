@@ -61,6 +61,7 @@ FAMILIES = [
     ('SEA-REF-01-ZONE', 'amphibious', 'assembly'),
     ('SEA-REF-FACILITY-', 'amphibious', 'entity'),
     ('SEA-SCENE-FSH-', 'amphibious', 'assembly'),
+    ('SEA-SCENE-GKS-', 'amphibious', 'assembly'),
     ('SEA-FISHERY-', 'amphibious', 'assembly'),
     ('SEA-SCENE-ORF2-', 'surface', 'assembly'),
     ('SEA-SCENE-ORF-', 'surface', 'assembly'),
@@ -103,6 +104,46 @@ KIT_FURNITURE = {
 
 
 def classify(asset_id):
+    # 独立水下预览总成：不承担海上建筑空间职责。
+    if asset_id == 'SEA-SCENE-SUNROOM-UNDERWATER-REGION':
+        return 'none', 'none'
+    # Gift kiosk interior: inset floors and the extension belong to the host
+    # facility; individual decorative furniture owns no water-space duty.
+    if asset_id.startswith('SEA-SCENE-GKI-'):
+        key = asset_id.removeprefix('SEA-SCENE-GKI-')
+        if key == 'ASSEMBLY' or key.startswith('TILE-'):
+            return 'surface', 'part'
+        return 'none', 'none'
+    # 本轮住所原生源：港口拥有空间，七独立房屋与共用壳体为设施部件。
+    if asset_id == 'SEA-SCENE-RESIDENCE-HARBOR':
+        return 'amphibious', 'entity'
+    if asset_id in {
+        'SEA-SCENE-RESIDENCE-SHELL',
+        'SEA-SCENE-RESIDENCE-DOCK-WORKSHOP',
+        'SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE',
+        'SEA-SCENE-RESIDENCE-SALVAGE-CABIN',
+        'SEA-SCENE-RESIDENCE-BUILDER-LOFT',
+        'SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE',
+        'SEA-SCENE-RESIDENCE-FLOWER-SHOP',
+        'SEA-SCENE-RESIDENCE-GENERAL-STORE',
+    }:
+        return 'surface', 'part'
+    if asset_id in {
+        'SEA-SCENE-RESIDENCE-MATERIAL-WOOD',
+        'SEA-SCENE-RESIDENCE-MATERIAL-LINEN',
+        'SEA-SCENE-RESIDENCE-MATERIAL-TEAL',
+    }:
+        return 'none', 'none'
+    if asset_id.startswith('SEA-SCENE-GKS-'):
+        key = asset_id.removeprefix('SEA-SCENE-GKS-')
+        if key in {'HULL', 'UNDERFRAME', 'PONTOON', 'THRUSTER', 'THRUSTER-GLOW', 'PLAQUE'}:
+            return 'submerged', 'part'
+        if key == 'ASSEMBLY':
+            return 'amphibious', 'entity'
+        if key in {'DECK', 'GLASS-BAY', 'BACK-PANEL', 'COLUMN', 'BACK-DOOR',
+                   'ROOF', 'CURVED-GLASS', 'ENTRY-FRAME'}:
+            return 'surface', 'part'
+        return 'none', 'none'
     # NGQ independent vegetation and print artwork have no building-space duty.
     if asset_id in {f'SEA-SCENE-NGQ-{n:03d}' for n in range(37, 45)} | {'SEA-SCENE-NGQ-POSTER-ATLAS'}:
         return 'none', 'none'
@@ -139,6 +180,8 @@ def insert_after(asset, fields):
 # facility projection. Geometry crossing the waterline remains pending section
 # validation; this registration never proves that a source was already split.
 UNDERWATER_VISUAL_COMPONENTS = {
+    'SEA-SCENE-GKS-HULL', 'SEA-SCENE-GKS-UNDERFRAME', 'SEA-SCENE-GKS-PONTOON',
+    'SEA-SCENE-GKS-THRUSTER', 'SEA-SCENE-GKS-THRUSTER-GLOW', 'SEA-SCENE-GKS-PLAQUE',
     'SEA-SCENE-SOLAR-PIER', 'SEA-SCENE-SOLAR-FOUNDATION',
     'SEA-SCENE-SOLAR-BASE-SLAB', 'SEA-SCENE-SOLAR-STILT',
     'SEA-SCENE-SOLAR-STAGE-BASE',

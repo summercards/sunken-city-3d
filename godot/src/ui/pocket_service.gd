@@ -102,8 +102,8 @@ func refresh(service: String) -> void:
 	_action_buttons.clear();_buy_minus=null;_buy_plus=null;_buy_button=null;_buy_limit=0
 	if not query.is_valid(): return
 	snapshot=query.call(mode)
-	get_node("ServiceName").text={"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]
-	caption.text={"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子与土壤 · 选一份带回家"}[mode]
+	get_node("ServiceName").text=str(snapshot.get("shop_name",{"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]))
+	caption.text=str(snapshot.get("caption",{"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子与土壤 · 选一份带回家"}[mode]))
 	total.text="瓶盖 %d · 背包 %d/%d 格" % [int(snapshot.coins),_used(snapshot.bag),int(snapshot.bag_capacity)]
 	if mode=="shipping": total.text+=" · 待收 %d" % int(snapshot.expected)
 	elif mode=="storage": total.text+=" · 仓库 %d/%d 格" % [_used(snapshot.other),int(snapshot.other_capacity)]

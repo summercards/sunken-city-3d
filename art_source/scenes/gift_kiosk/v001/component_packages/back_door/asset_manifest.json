@@ -1,0 +1,60 @@
+{
+  "key": "back_door",
+  "name": "后侧灰蓝检修门",
+  "family": "door",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BACK-DOOR",
+  "design_pivot": [
+    0.0,
+    -0.11749999970197678,
+    0.0
+  ],
+  "bounds_min": [
+    -0.949999988079071,
+    -0.2575000002980232,
+    0
+  ],
+  "bounds_size": [
+    1.899999976158142,
+    0.5149999856948853,
+    3.4000000953674316
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/back_door/back_door.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 1,
+  "triangles": 608,
+  "polygons": 308,
+  "roles": [
+    "SEA_Gloss",
+    "SEA_Metal"
+  ],
+  "source_sha256": "e3796897d07c0c2f350555d7be3eb91a952db4d6a192b7bfc78957e40e1a2e48",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BACK-DOOR",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/back_door/back_door.glb",
+  "runtime_sha256": "23f7cbcfd84d96b7efe0f0e4ee7480ee273bcc11c5ab7eb41b3328b3bff22251",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/back_door.tscn",
+  "prefab_sha256": "03bf01690a2644583bcd6a1ea56e7b7c702f263f94fdd2d9a3a433fe667d7fda",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 608,
+  "triangles_after": 608,
+  "geometry_fingerprint": "1b6de299ecf6013726558ffd4ab226f06dbc0d24480be148549932a3cc342c5a"
+}

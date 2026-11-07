@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk/sign_drinks/sign_drinks.glb" id="visual"]
+
+[node name="sign_drinks" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKS-SIGN-DRINKS"
+metadata/asset_version = "v001"
+metadata/water_layer = "none"
+metadata/water_layer_role = "none"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

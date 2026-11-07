@@ -147,3 +147,25 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | SEA-INVENTORY-R11 | add_all接收多种材料，先按全部堆叠合计容量，再一次写入并发布事件；任一项放不下整笔拒绝，不部分入包。建造拆回使用此命令全额返还配方，物件只在退款成功后删除；数量仍由Inventory唯一写入。 |
 
 [本轮交付](../../development/2026-10-29_open_ocean_building.md)。
+
+## 2026-11-07 NPC / Shop 原子交换接口（追加）
+
+在现有最大条款 R11 后新增 R12；R01–R11 的存储、转移、排列、购买与退款语义不变。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-INVENTORY-R12 | `Inventory.exchange(costs, gains)` 是同一库存的原子收支命令：两边逐项校验已登记的字符串物品 ID 与有限整数数量，业务有效项要求正整数；先校验全部 costs 足额，再合成同物品 gains−costs 的净变化，并以扣入后的最终候选计算堆叠与容量。未知项、非法数量、资源不足、最终溢出或超安全上限均整笔拒绝，现场数量、排列和信号不变。成功由 Inventory 这一个 owner 一次提交候选数量及新增物品排列，提交后才按每个物品净差发 changed，再发布 capacity_changed；不以 pay/add/remove 加失败补偿冒充原子交换。NPC / Shop 只注入并调用该公开端口，不私写库存，不持第二份余额。 |
+
+### 精确接口与当前实现边界
+
+- [inventory.gd](../../../godot/src/inventory/inventory.gd)：`exchange(costs: Dictionary, gains: Dictionary) -> Dictionary`，成功返回 `{ok:true, reason:""}`，拒绝返回 `{ok:false, reason:原因}`。两边允许空字典，分别服务纯消耗、纯奖励；每项及最终单物品计数安全上限为 `1000000000`，货币仍不占格。
+- 数量接受 int 或有限且数学上为整数的 float，以兼容 JSON；负数、分数、NaN/Inf、bool、字符串和超过上限拒绝。**当前底层还兼容数量 0（无数量变化）**，不是严格正整数拒绝器；业务端应省略零项，只提交正整数有效项，不把“零值已拒绝”写成实现或测试通过。
+- 同物品在两边出现时，仍须先拥有完整 costs，不能用本次 gains 抵赖资源不足；候选合成后按净差发信号，净差 0 不发该物品的 changed。容量按最终结果算，允许扣除腾格后整笔放入，而不是先要求当前空格。
+- 成功时先完整写入 counts 与 gains 的非货币排列登记，再发事件，监听者看到已提交现场；拒绝不登记新顺序、不发布数量/容量事件。这里是单 Inventory 提交，不取代 R05 的双端 InventoryTransfer，也不新增跨服务/跨进程 exactly-once 保证。
+- [ShopService](../../../godot/src/shop/shop_service.gd) 与 [NpcService](../../../godot/src/npc/npc_service.gd) 通过注入 exchange 使用该端口，商品报价、请求/礼物与有限 token 去重仍归各自服务；Inventory 不拥有这些业务状态。持久化仍为既有 capacity / counts / order，不新增交换日志或第二份存档。
+
+### 验证口径
+
+已注册的 `shop-rules` 使用 fake 原子库存验证商店规则与输入，不单独证明真实 Inventory 原子性；正式 `npc-integration` / `npc-save` 及跨进程恢复证据另列于[账本追加记录](ledger.md#2026-11-07-原子交换接口承接)。已有运行结果仅签其实际覆盖链路，不宣称本条每个数值边界都已独立实测，更不提升本功能整体 `partial` 状态。
+
+关联设计：[SEA-SHOP](../shop/spec.md) · [SEA-RESIDENT](../resident/spec.md)；[当前天台交付记录](../../development/2026-11-07_npc_module_framework.md#14-最终天台交付范围签署)。

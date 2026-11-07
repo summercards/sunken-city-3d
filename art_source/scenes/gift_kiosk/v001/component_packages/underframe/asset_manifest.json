@@ -1,0 +1,58 @@
+{
+  "key": "underframe",
+  "name": "船底十字管梁",
+  "family": "frame",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-UNDERFRAME",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -7.800000190734863,
+    -7.800000190734863,
+    0
+  ],
+  "bounds_size": [
+    15.600000381469727,
+    15.600000381469727,
+    0.3400000035762787
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/underframe/underframe.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 1,
+  "triangles": 492,
+  "polygons": 246,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "9d0c82a5e24eb2d6395b7399703d4dafa391a18352e5d7df6acb7454cff42d62",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-UNDERFRAME",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/underframe/underframe.glb",
+  "runtime_sha256": "928e079e6f63cfaea00a5e1cc4eb47f931a14eaf2300f52da311450e5feddc8e",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/underframe.tscn",
+  "prefab_sha256": "4b8e45d503fd29d50b3524d9511a24026ba78a56a53213db0630e83dc86575c3",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 492,
+  "triangles_after": 492,
+  "geometry_fingerprint": "343268ca93f1bee41731ba348278246a860cfacd95473ad718ae2a2e48d7e1e5"
+}

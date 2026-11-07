@@ -31,7 +31,7 @@ SEA-MOVE-R18 / SEA-NAV-R13：运行消费者仍为Character→rowing_action→Li
 
 创作/运行尺寸沿用现有米制、根缩放1、+Y上/+Z前，胶囊半径0.22m/高1.30m；帽顶约1.35m。没有本次角色Blend/GLB或骨架ID，原角色整体生产登记仍pending，不套用ShellStorm2双母版或1.5m契约。
 
-获物动作源`godot/src/player/animation/item_receive.gd`以既有`harvesting`注册动作采样，2.4秒。`play_action(id,context={})`接独立上下文；`play_receive_item(crop_id)`或`play_farm_action(event,payload)`复用。正文动作条款为SEA-MOVE-R14：代表实物中心最高1.60m，双手扶住底部，右侧挎包中心(0.29,0.49,0.08)、包口约0.64m。肩抬高与袖长只在表现节点内调整，结束/中断恢复，碰撞和根变换不动。
+获物动作源`godot/src/player/animation/item_receive.gd`以既有`harvesting`注册动作采样，2.4秒。`play_action(id,context={})`接独立上下文；`play_receive_item(crop_id)`或`play_farm_action(event,payload)`复用。正文动作条款为SEA-MOVE-R14/R28：代表实物仍按现有尺度在帽顶上方展示，再进入随体型适配的右侧挎包；双手只做胸前屈肘抬起和依次收回的示意动作，不强求接触实物或包口。肩根不移动，上下臂与蒙皮辅助骨只取当前体型的原始长度，不随物品路径伸长；结束/中断恢复，碰撞和根变换不动。
 
 实物来自`godot/src/crops/harvest_visual.gd`复制成熟阶段网格，角色拥有临时节点ReceivedItem。不附加碰撞，不转移原种植物，不改网格材质，不把代表实物份数当成产量。FarmPlot成功事件是当前接线入口；满包、未成熟或中止准备均不触发。物品数已由Farm唯一写入，动画信号不能发奖。角色/物品临时节点不序列化，读档取消动作。
 

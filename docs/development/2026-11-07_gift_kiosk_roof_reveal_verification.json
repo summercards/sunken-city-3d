@@ -1,0 +1,128 @@
+{
+  "feature_id": "SEA-WORLD-R25",
+  "report": "D:\\projects\\sea-work\\verification\\20261107-164731-gift-kiosk-roof-final-36558c\\report.json",
+  "passed_scoped_checks": [
+    "roof-reveal-component",
+    "roof-reveal",
+    "visual-roof-reveal",
+    "gift-kiosk",
+    "camera"
+  ],
+  "runtime_files": [
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "sha256": "91b3a094103ea60cdc519eade433d244e5b1191bef7ec87d9c9f80fe38131d8f",
+      "bytes": 88738
+    },
+    {
+      "path": "godot/src/facilities/floating_shop_zone.gd",
+      "sha256": "70fb962015db8d4447645ed2c9cd564f4069227905b0e307320787e8c4c8122b",
+      "bytes": 2645
+    },
+    {
+      "path": "godot/src/world/roof_reveal.gd",
+      "sha256": "76ed27b2a3732a2c345f9447d8053a64205759958fac33eb8dccf43dd7531f39",
+      "bytes": 4882
+    },
+    {
+      "path": "godot/shaders/roof_reveal.gdshader",
+      "sha256": "5e3a22c6e3831228945265f5eb32a31bd82b08e59d5ee2b6b9127d4670c2cb31",
+      "bytes": 1361
+    },
+    {
+      "path": "godot/tests/test_roof_reveal.gd",
+      "sha256": "71ef498c5f38bd0c69c6591280b7c69d577773ef9d0a22e9bbc47c9b1676fb15",
+      "bytes": 7181
+    },
+    {
+      "path": "godot/tests/test_roof_reveal_component.gd",
+      "sha256": "147b0b722e31cbdb433f5263cdca9c4ee42e4440f45564cd495867b90175357c",
+      "bytes": 3273
+    },
+    {
+      "path": "godot/tools/capture_roof_reveal.gd",
+      "sha256": "cc405d6d6cce7b7e395a4eade69dcc826b1b31ea619a7de48eccda5380ce2eae",
+      "bytes": 3514
+    }
+  ],
+  "reviewed_hash_changes": [
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "previous_sha256": "3f1358953140bc57a56e5f5d6eb31ee612b2a3163c0eff510d005093ec2c32c0",
+      "reviewed_sha256": "91b3a094103ea60cdc519eade433d244e5b1191bef7ec87d9c9f80fe38131d8f"
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "previous_sha256": "3f1358953140bc57a56e5f5d6eb31ee612b2a3163c0eff510d005093ec2c32c0",
+      "reviewed_sha256": "91b3a094103ea60cdc519eade433d244e5b1191bef7ec87d9c9f80fe38131d8f"
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "previous_sha256": "3f1358953140bc57a56e5f5d6eb31ee612b2a3163c0eff510d005093ec2c32c0",
+      "reviewed_sha256": "91b3a094103ea60cdc519eade433d244e5b1191bef7ec87d9c9f80fe38131d8f"
+    },
+    {
+      "path": "godot/src/facilities/floating_shop_zone.gd",
+      "previous_sha256": "2b09a788a6e2124dbd8d8d779c02bf867e6275461c75291bc183acc93af6974f",
+      "reviewed_sha256": "70fb962015db8d4447645ed2c9cd564f4069227905b0e307320787e8c4c8122b"
+    }
+  ],
+  "excluded_hash_updates": [
+    "godot/src/bootstrap/main.gd and all concurrent unknown changes"
+  ],
+  "related_regression": {
+    "water-layer": {
+      "exit_code": 1,
+      "checks": 2092,
+      "failures": 111,
+      "failure_scope": "World/SeaStructures/resident_harbor only; concurrent residence module, no kiosk failures",
+      "passed": false
+    }
+  },
+  "expected_faults": [],
+  "not_run": [
+    "full unrelated feature suite",
+    "low-end device performance"
+  ],
+  "static_checks": {
+    "feature-sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\roof_reveal\\static\\feature-sync.log",
+      "tail": [
+        "  File \"C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\pathlib\\__init__.py\", line 771, in open",
+        "    return io.open(self, mode, buffering, encoding, errors, newline)",
+        "           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\projects\\\\sea\\\\docs\\\\features\\\\residence\\\\spec.md'"
+      ]
+    },
+    "feature-check": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\roof_reveal\\static\\feature-check.log",
+      "tail": [
+        "  File \"C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\pathlib\\__init__.py\", line 771, in open",
+        "    return io.open(self, mode, buffering, encoding, errors, newline)",
+        "           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\projects\\\\sea\\\\docs\\\\features\\\\residence\\\\ledger.md'"
+      ]
+    },
+    "placed-positions": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\roof_reveal\\static\\placed-positions.log",
+      "tail": [
+        "placed structures checked: 4",
+        "PASS: 4 placed structure(s), 0 warning(s)"
+      ]
+    },
+    "diff-check": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\roof_reveal\\static\\diff-check.log",
+      "tail": [
+        "warning: in the working copy of 'godot/src/player/character_motor.gd', LF will be replaced by CRLF the next time Git touches it",
+        "warning: in the working copy of 'godot/src/player/states/strolling.gd', LF will be replaced by CRLF the next time Git touches it",
+        "warning: in the working copy of 'godot/tests/test_keyboard_farm_loop.gd', LF will be replaced by CRLF the next time Git touches it",
+        "warning: in the working copy of 'godot/tests/test_keyboard_travel.gd', LF will be replaced by CRLF the next time Git touches it"
+      ]
+    }
+  },
+  "final_own_files_match_verified_snapshot": true
+}

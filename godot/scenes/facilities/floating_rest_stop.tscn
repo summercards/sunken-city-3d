@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="PackedScene" uid="uid://vpv6o33ks6e5" path="res://assets/models/facilities/floating_shop/floating_shop.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="metal"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="gloss"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/emission.tres" id="emission"]
+[ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="Script" path="res://src/facilities/supply_counter.gd" id="counter"]
+
+[node name="OldMarineRestStop" type="Node3D"]
+script = ExtResource("structure")
+asset_id = "SEA-SCENE-FSH-ASSEMBLY"
+role = "rest_stop"
+metadata/asset_id = "SEA-SCENE-FSH-ASSEMBLY"
+metadata/classification = "building/rest_stop"
+metadata/triangles = 520185
+metadata/front_godot = Vector3(0, 0, 1)
+metadata/deck_top_local = 2.514
+metadata/deck_shape = "rounded_rectangle"
+metadata/deck_size_xz = Vector2(20, 15)
+metadata/source_version = "v003"
+metadata/storefront_windows = 4
+metadata/storefront_doors = 0
+metadata/storefront_glazing = "display_only"
+metadata/retail_displays = 8
+metadata/interior_lamps = 5
+metadata/sign_lettering = "chunky_extruded_overhang_x1_5"
+metadata/sign_palette = "deepblue|red|teal"
+metadata/single_storey_clear_height = 4.866335
+metadata/slab_thickness = 0.22
+metadata/column_width = 0.5175
+metadata/plank_width = 0.893551
+metadata/door_frame_reference_height = 3.070845
+metadata/walkable_ring_width_front_m = 3
+metadata/water_layer = "amphibious"
+metadata/water_layer_role = "entity"
+metadata/building_class = "above_water"
+metadata/retired_shop = true
+metadata/activity_role = "navigation_only"
+metadata/label = "旧海上驿站"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="FSH_SEA_Matte" parent="Visual" index="2"]
+surface_material_override/0 = ExtResource("matte")
+
+[node name="FSH_SEA_Metal" parent="Visual" index="3"]
+surface_material_override/0 = ExtResource("metal")
+
+[node name="FSH_SEA_Gloss" parent="Visual" index="1"]
+surface_material_override/0 = ExtResource("gloss")
+
+[node name="FSH_SEA_Emission" parent="Visual" index="0"]
+surface_material_override/0 = ExtResource("emission")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "auto"
+target_path = NodePath("../Visual")
+blocks_water = true
+cell = 0.4
+

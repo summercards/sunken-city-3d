@@ -1,0 +1,54 @@
+{
+  "asset_id": "SEA-SCENE-GKI-TILE-BLUE",
+  "name": "海蓝地砖",
+  "domain": "scenes",
+  "source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/tile_blue/tile_blue.blend",
+  "source_sha256": "572942ac1810202a5a63b5f489c43336a298691f02ccda033e3354e9ed0bbb9f",
+  "manifest": "art_source/scenes/gift_kiosk_interior/v001/component_packages/tile_blue/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk_interior/tile_blue/tile_blue.glb",
+  "runtime_sha256": "4b67ffdf99c83637991b939e2032779815601283150f409ddc8b4a6e9796c861",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk_interior/tile_blue.tscn",
+  "prefab_sha256": "b04bbdc21556b061667788cf0a68ea59c7805c7e4506d87ca243b405106f4a29",
+  "optimized_source": "art_source/scenes/gift_kiosk_interior/v001/export/v001/gift_kiosk_interior_optimized_v001.blend",
+  "optimized_sha256": "b6629a2210cd1bfcfffaec7352641bf7162396ca0cb0bebc2450e0b1651dd712",
+  "optimization_manifest": "art_source/scenes/gift_kiosk_interior/v001/export/v001/optimization_manifest.json",
+  "geometry_fingerprint": "1cb434919808c1e1ba68293cc8ae391ed9b2ada5944f4df02ca24fe2fc70778e",
+  "classification": {
+    "category": "scene_component",
+    "subcategory": "floor_tile"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "facility_id": "SEA-SCENE-GKS-ASSEMBLY",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "maintenance_status": "runtime_integrated_verified",
+  "triangles": 188,
+  "bounds_size": [
+    0.9300000071525574,
+    0.9300000071525574,
+    0.019999999552965164
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "user_art_acceptance": "pending",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+    "docs/development/2026-11-07_gift_kiosk_interior.md"
+  ],
+  "origin": "bottom_center",
+  "front_axis": "Godot +Z",
+  "source_collection": "SEA-SCENE-GKI-TILE-BLUE",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKI-TILE-BLUE"
+}

@@ -1,0 +1,58 @@
+{
+  "key": "deck",
+  "name": "奶油圆角方形铺砖甲板",
+  "family": "deck",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-DECK",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-DECK",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.10000000149011612
+  ],
+  "bounds_min": [
+    -9.0,
+    -9.0,
+    0
+  ],
+  "bounds_size": [
+    18.0,
+    18.0,
+    0.20350000262260437
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/deck/deck.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 23,
+  "instances": 1,
+  "triangles": 4836,
+  "polygons": 2466,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "fb2dea3c1bed820aaa072f7913e361ff4fe64e4688d146dcb125b2d199d5b905",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-DECK",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/deck/deck.glb",
+  "runtime_sha256": "4817ade89b117419264c00f3a5e1925e1792ba1b0067a9647292f19115971846",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/deck.tscn",
+  "prefab_sha256": "c7c846bc3d708adf2f70b153032e85da3db49d8ccf91d90696067b0c1d3c4761",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 4836,
+  "triangles_after": 4836,
+  "geometry_fingerprint": "cd77196ae15c4bbffd00187232b3272a6cdfb2f64b6ccd9c7f0770baad466390"
+}

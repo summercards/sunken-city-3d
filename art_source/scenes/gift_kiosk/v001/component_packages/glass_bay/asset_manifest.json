@@ -1,0 +1,62 @@
+{
+  "key": "glass_bay",
+  "name": "青蓝立框商店橱窗",
+  "family": "window",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-GLASS-BAY",
+  "design_pivot": [
+    0.0,
+    -0.06499999761581421,
+    0.0
+  ],
+  "bounds_min": [
+    -1.2400000095367432,
+    -0.19499999284744263,
+    0
+  ],
+  "bounds_size": [
+    2.4800000190734863,
+    0.38999998569488525,
+    4.900000095367432
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/glass_bay/glass_bay.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 7,
+  "instances": 8,
+  "triangles": 1316,
+  "polygons": 686,
+  "roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "dceed1a2bf3d13f1a15aaff976b7ebc22a97eba43e4d9f6c5adbbdcd0b41d357",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-GLASS-BAY",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/glass_bay/glass_bay.glb",
+  "runtime_sha256": "62927f2bddb58f4ded63c318a68014a8ada54bfd5513a84de389799265ed7c40",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/glass_bay.tscn",
+  "prefab_sha256": "2323ba671ef126e4c54354726dbc589906875caed674705f65ea0e4754a70de0",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1316,
+  "triangles_after": 1316,
+  "geometry_fingerprint": "08746cdaaf2a7778fa533ad030a0fd186693499135b50ac3ad0533de1f1d3bbf"
+}

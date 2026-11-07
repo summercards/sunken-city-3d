@@ -18,6 +18,12 @@ var pointer_query: Callable
 ##   · 人在船上 / 船不在 → 点它等于靠岸或换泊位，图标留在码头边缘。
 ## 由 main 注入，本脚本只负责「按查询结果画」，不判断玩法状态。
 var world_query: Callable
+## 什么时候这个标记要让位：`func(zone_id, landing_id) -> bool`。
+##
+## 近距交互图标已经把「现在就能上船」画在船上了（见 main._update_near_interaction），
+## 而本标记在「人上岸、船停泊位」时也会挂到船上 —— 两个圆圈叠在一起像渲染重影。
+## 由 main 判断具体条件，这里只管跳过。
+var suppress_query: Callable
 var current_zone := "zone1"
 var _tex: Texture2D
 var _canvas: Control
@@ -73,6 +79,7 @@ func _process(delta: float) -> void:
 	var mouse: Vector2=pointer_query.call() if pointer_query.is_valid() else get_viewport().get_mouse_position()
 	for item in items:
 		item.visible=false
+		if suppress_query.is_valid() and bool(suppress_query.call(String(item.zone),String(item.landing))): continue
 		# 位置每帧解析：图标可能刚因为「上船/靠岸」切换而换了宿主。
 		var world: Vector3=item.world
 		if world_query.is_valid():

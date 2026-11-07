@@ -17,6 +17,10 @@
     "tools/blender"
   ],
   "verification": [
+    "gift-kiosk-interior",
+    "visual-gift-kiosk-interior",
+    "gift-kiosk",
+    "visual-gift-kiosk",
     "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
@@ -32,7 +36,9 @@
     "floating-shop",
     "sea-supply",
     "fishery-environment",
-    "visual-fishery-environment"
+    "visual-fishery-environment",
+    "sunroom-underwater",
+    "visual-sunroom-underwater"
   ]
 }
 ```
@@ -553,3 +559,158 @@ R44全局同步：已执行sync与无参复核，分别退出1／1；ORF旧源�
 初次登记历史（非最终验收阶段）：专属工具 `tools/register_building_5m.py` 当时先校验现存源证据与冻结代码哈希，再精确写入十件及路径迁移；旧 `tools/register_building_kit.py` 仅修正KNOWN中的三条已搬路径，未执行旧脚本。代码仅更新已审阅的building域15个脚本哈希，main/导航/玩家/其他资产不刷新，未知漂移保持报红。该初次登记阶段未运行Godot或全局sync，亦未修改building/ui/save文档及GDD；不是对最终任务的描述。后续Godot真实渲染、release签署及主线程全局检查分别见下段与[完整任务交付](../../development/2026-11-06_building_5m_and_ui.md)。
 
 最终签署依据已更新为 `D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`：13项全PASS/exit0，12专项2965 checks/0 failures，另现场Sunroom对Catalog高度守卫`building-scale-reference`62 rows/0 failures。主线程通过 `tools/register_building_5m.py --promote-verified docs/development/2026-11-06_building_5m_verification.json --write` 绑定新机器签署，仅处理本批十件与已审阅运行资源；本次文档更新不执行该命令、不改registry。最终白名单20个代码文件与222059隔离副本完全一致，包含单个`ground_space.gd`适配；最新机器汇总44项`signed_source_comparison`均`matches_signed=true`，已确认新release副本；213331先签仍保留为历史，不混淆批次。不重算main、水材质、动物源等并行未知变更；上段15文件仅初次登记历史。
+
+
+## 2026-11-07 参考图海上礼品商亭
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R55 | 源级、02b和Godot正式接入完成：47组件/379实例；母版与47包重开、446047源检查、140981三角GLB独立审计、四镜头优化保真通过；48唯一资产登记 | [本轮记录](../../development/2026-11-07_gift_kiosk.md)。最终gift-kiosk 7129/0、真实渲染53/0、水层1594/0，均exit0；四语义角色、共享色板、无内嵌图片，无水下建筑基座。商业参考权属、用户最终美术与低端性能pending。 |
+
+## 2026-11-07 观赏小鱼多海域摆位复用
+
+| 对应条款 | 实施状态 | 证据与边界 |
+|---|---|---|
+| SEA-ASSET-R50 | 新增独立摆位资产 `SEA-DECO-SCENIC-SEA-FISH`，10群98条，复用阳光房现有程序化鱼体与PackedScene，不新增模型、不伪造Blender优化。 | [开发记录](../../development/2026-11-07_scenic_fish_distribution.md)。限定逻辑/图像断言成立，完整runner因退出错误未通过，登记 `source_scene_registered_runtime_final_pending`；共享鱼源旧hash不刷新，商业授权仍pending。 |
+
+
+## 2026-11-07 礼品商亭室内可见性补充
+
+| 对应条款 | 实施状态 | 证据与边界 |
+|---|---|---|
+| SEA-ASSET-R55 | 复用已验收的47组件/379实例和室内货架商品；正式设施场景仅增量标记78个顶部根并挂表现控制器。进入时使用本实例临时消隐材质，完全离开后原引用恢复；Blender源、优化文件、GLB及公共色板不改。 | [屋顶消隐开发记录](../../development/2026-11-07_gift_kiosk_roof_reveal.md)，行为归SEA-WORLD-R25。原商业参考权属和美术终审pending保持。 |
+
+
+礼品商亭屋顶追加签署：本轮正式场景中78顶部根、98surface与3临时材质通过实际GPU渲染及角色进出测试，外部关闭后恢复原引用；五个相关专项共7706/0且全部exit0/runner PASS。只更新商亭与其新表现文件登记，不重算Main等并行未知哈希。全世界water-layer的住所111条失败另列于[最终实测](../../development/2026-11-07_gift_kiosk_roof_reveal.md#最终实测结果)。
+
+## 2026-11-07 NPC、住所、花卉资产与内容登记
+
+| 对应条款 | 本轮实施 | 验证边界 |
+|---|---|---|
+| SEA-ASSET-R56 | 新增9条characters：共用Actor、七职业双配件源库、七职业变体；复用Avatar/AvatarRig，14个配件根按职业双件登记。唯一SRC-AssetID及独立manifest回链；不复制外观主表。 | source_registered_runtime_visual_pending；只核源、哈希、选择器和复用关系。未写art_source/characters/npc，不覆盖appearance成果，不代签运行/视觉/用户验收。 |
+| SEA-ASSET-R57 | 新增12条scenes（港口1＋七房7＋shell1＋材质3）、3条crops；scenes 902→914，characters 8→17，crops 3→6，全域930→954。港口amphibious/entity，七房及shell为surface/part，均above_water；三材质none/none且building_class=null。 | 真实房屋作者入口godot/src/residence/author_scenes.py，三花共用flower_view.gd；Godot程序/TSCN/TRES是正式源，不伪造Blend/GLB。旧Kit和前三作物源/哈希/许可保持。未执行生成器、Godot或渲染。 |
+| SEA-ASSET-R58 | 对齐24个item ID（新增8）、6作物、roster 7、events 25、requests 7、dialogues真实npc_id 7、residences 7、shops 2。新增events/requests索引入口。运行清单1255→1317：62新增路径、2个现有数据表定点更新，共64记录；62路径含原未登记的inventory/crop_catalog/harvest_visual三个已审阅脚本。 | dialogues的ids=[]仅是检查器对id的空投影，primary_ids保存七人真键并标pending_checker_only_supports_id；主线程需扩展主键能力或另登记有id的collection，本轮不改规则数据。Main及混合save四文件、任务外水/鱼/浮店/zones哈希不刷新。 |
+
+### 本轮工具与失败历史交接
+
+- 入口：`python -X utf8 tools/register_npc_assets.py`默认只读，`--write`显式写；写前核JSON及源文件并发快照，既有资产行及非白名单inventory逐字段保持。source index只投影已存哈希。
+- 首次读取register_npc_assets.py返回不存在，故核对avatar先例后新增工具，不是旧脚本执行失败；预检/写入/幂等复核均exit0，复核new_asset_ids与runtime_updated_paths均为空。apply_water_layer --dry-run：0 rows updated、policy_changed=False、stale_views=[]，未执行全量分类写入。
+- 10:33登记前契约exit1：43 features / 930 source assets / 1255 runtime hashes / 20 issues。shop-modules未注册、鱼群source漂移、13个runtime漂移、items/crops/zones/dialogues四表ID漂移、派生feature_index过期。本轮只修有授权的登记项。
+- 前序他线程报告住所water-layer 111失败、观赏鱼完整runner退出错误；本轮未重跑，不以静态登记冒充修复，不借用他线程历史PASS签当前文件或商业参考许可。
+- save_game.gd与save_schema.gd的当前diff同时含NPC/SEA-SUNROOM；和main.gd/main.tscn一样保留原基线。已审阅白名单仅items/crops JSON、inventory.exchange、crop_catalog整数产量规范化、harvest_visual三花成熟切花复制。
+
+### 本轮实测契约结果（10:41 首次／10:42 追加复核）
+
+`check_feature_contracts.py --sync` exit1，14 issues；无参check exit1，15 issues。均43 features / 954 source assets / 1317 runtime hashes。本轮GDD与docs/generated/feature_index.json执行前后SHA完全一致（CONTROL_FILES_UNCHANGED=True），未写主文档或未知派生状态；新增R56/R57/R58承接一致。本轮新资产未报告重复ID、错误域、manifest回链、source index或水层错误，不代表全工程PASS。
+
+无参check精确剩余15项（sync不检查最后一项，故14）：
+
+```text
+FAIL: SEA-SHOP: unknown verification shop-modules
+FAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift
+FAIL: runtime hash drift: godot/assets/data/zones.json
+FAIL: runtime hash drift: godot/assets/materials/water.tres
+FAIL: runtime hash drift: godot/scenes/main.tscn
+FAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn
+FAIL: runtime hash drift: godot/src/bootstrap/main.gd
+FAIL: runtime hash drift: godot/src/core/play_scope.gd
+FAIL: runtime hash drift: godot/src/navigation/walk_area.gd
+FAIL: runtime hash drift: godot/src/player/actor_controller.gd
+FAIL: runtime hash drift: godot/src/player/character.gd
+FAIL: runtime hash drift: godot/src/save/save_game.gd
+FAIL: runtime hash drift: godot/src/save/save_schema.gd
+FAIL: content ID drift/duplicate godot/assets/data/zones.json
+FAIL: derived feature index stale; use --sync
+```
+
+10:42追加记录后最终check再次exit1：43 features / 954 source assets / 1317 runtime hashes / **16 issues**。较10:41列表新增一项并行漂移：`FAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres`。未修改或刷新该记录；最新结果为上述15项加此1项，不能以10:41旧结果替代。
+
+新增AssetID清单（24条；SourceID逐条为SRC-加同一AssetID）：
+
+```text
+SEA-CHAR-NPC-ACTOR-001
+SEA-CHAR-NPC-ACCESSORIES-001
+SEA-CHAR-NPC-LUO-YAN
+SEA-CHAR-NPC-MU-HE
+SEA-CHAR-NPC-JI-CHEN
+SEA-CHAR-NPC-NAN-ZHI
+SEA-CHAR-NPC-BAI-SHI
+SEA-CHAR-NPC-HUA-YI
+SEA-CHAR-NPC-BAO-HE
+SEA-SCENE-RESIDENCE-HARBOR
+SEA-SCENE-RESIDENCE-SHELL
+SEA-SCENE-RESIDENCE-DOCK-WORKSHOP
+SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE
+SEA-SCENE-RESIDENCE-SALVAGE-CABIN
+SEA-SCENE-RESIDENCE-BUILDER-LOFT
+SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE
+SEA-SCENE-RESIDENCE-FLOWER-SHOP
+SEA-SCENE-RESIDENCE-GENERAL-STORE
+SEA-SCENE-RESIDENCE-MATERIAL-WOOD
+SEA-SCENE-RESIDENCE-MATERIAL-LINEN
+SEA-SCENE-RESIDENCE-MATERIAL-TEAL
+SEA-CROP-FLOWER-BLUE
+SEA-CROP-FLOWER-SUN
+SEA-CROP-FLOWER-CORAL
+```
+
+
+## 2026-11-07 礼品商亭室内陈设扩展
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R57 | 已由活跃Blender MCP制作11母版、112新实例及17复用陈设；三色地砖102片，柜台/收银/陈列/包装柜/坐凳/装饰画/挂钟/壁灯。独立源包重开、PaletteUV和优化/GLB审计通过；Godot导入与实景验收进行中。 | [本轮制作与验收](../../development/2026-11-07_gift_kiosk_interior.md)；未完成运行验收前不晋升正式可用。原商业参考权属与用户美术终审pending保持。 |
+
+
+SEA-ASSET-R57本轮最终签署：11源包重开、82259源检查、26484次面UV检查及17696三角GLB独立审计通过；优化前后17696→17696（清理执行且零冗余，无虚报减面），五镜头最大RGB RMS0.007303/255。最终185311的室内349/0、实拍28/0、商亭7129/0、屋顶364/0全部exit0/runner PASS；12唯一资产、46份运行资源定向登记。商业参考权属/用户美术接受仍pending；全世界住所水层111条及其它并行全局哈希/内容问题单列，[最终交付](../../development/2026-11-07_gift_kiosk_interior.md#最终运行与实景签署)。
+
+## 2026-11-07 NPC本轮修复定点重签交接（11:31）
+
+承接本轮SEA-ASSET-R56/R57/R58，不覆盖以上历史结果，不新增AssetID或晋升runtime/visual阶段。
+
+- 住所作者源和resident_harbor.tscn：将当前`landing_id = "main"`反向还原为旧`resident_harbor_main`后，LF SHA分别精确匹配旧基线`4c48fc06c27cd674a82cf252e67d77b6ee352e6876da74cb9f1b31f0b821d284`与`e06608d32e379e96355af81bc15330f7193b9ffdc25839240d5aac31f472c1b7`，证明仅此单行。作者源新SHA为`782b5ab3d0fc27a47c7386d07da35a3cb0bf305b87ae5fd22a9ac7b6867c041c`，港口场景新SHA为`c49bb6c063d3d8aecc638164cce2fb58ffe62ef24ef42ba52d6e1d9c02a249ad`。
+- 重签9条住所源主记录，保留previous_source_sha256；同步12份本轮住所manifest（其中三材质manifest仅更新相关作者源引用，不改材质源hash），每个变化的manifest源/文件hash保留previous字段。source index由当前全部账本投影，不重算未触记录。
+- 仅重签4条运行记录：resident_harbor.tscn、core/play_scope.gd、shop/shop_panel.gd、ui/hud.gd。play_scope的git diff仅追加resident_harbor；商店面板审阅同帧事件去重和打开帧拦截；HUD审阅shop_query/shop_buy与tree_entered一次性装配。保留旧hash，HUD既有previous进一步留入hash_history；status均为registered_npc_round_runtime_verification_pending。
+- 补登1条此前缺失的ui/pocket_service.gd，仅消费shop_name/caption委托快照。当前resident_harbor.gd的resolve_anchor别名/route、NPC严格JSON decode/日期校验/请求来源规则、inventory.exchange原子提交及花卉路径的已登记hash已匹配，不重复刷新。主线程报告NPC规则655项及角色/花卉专项通过，本次仅记录此报告，不代签最终合批或重跑专项。
+- dialogues table已按主线程要求改为`primary_key=npc_id`与7个真实ids，删除primary_ids及id_validation_status旧pending说明；zones仅同步实际9个ID（含resident_harbor），未改zones源数据或runtime hash。此前R58中空ids的临时方案由本次替代；检查器主键能力由主线程负责。
+- 新增`tools/reconcile_npc_round_hashes.py`，默认只读、显式--write；仅接受本次已审阅冻结指纹，反向证明单行旧hash，写前检查并发快照，断言非目标账本行与非白名单运行记录不变。未执行原register_npc_assets.py，未签任何其他制作工具。预检、写入、幂等复核exit0；第二次预检所有变更列表为空。
+- 本轮无新增AssetID，任务内24资产的唯一ID及runtime/visual pending均保持。当前全域966源资产（较上次954增加的12条为并行登记，未改），runtime1360→1361仅补pocket一条。
+
+11:27重签前无参check exit1：43 features / 966 source assets / 1360 runtime hashes / 29 issues（比主线程提到sync28多派生索引过期）。11:31重签后无参check exit1：43 features / 966 source assets / 1361 runtime hashes / **16 issues**。本次未运行sync，不改GDD、检查器或派生feature_index。精确剩余输出：
+
+```text
+FAIL: SEA-SHOP: unknown verification shop-modules
+FAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift
+FAIL: runtime hash drift: godot/assets/data/zones.json
+FAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres
+FAIL: runtime hash drift: godot/assets/materials/water.tres
+FAIL: runtime hash drift: godot/assets/materials/world_env.tres
+FAIL: runtime hash drift: godot/scenes/main.tscn
+FAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn
+FAIL: runtime hash drift: godot/src/bootstrap/main.gd
+FAIL: runtime hash drift: godot/src/navigation/walk_area.gd
+FAIL: runtime hash drift: godot/src/player/actor_controller.gd
+FAIL: runtime hash drift: godot/src/player/character.gd
+FAIL: runtime hash drift: godot/src/save/save_game.gd
+FAIL: runtime hash drift: godot/src/save/save_schema.gd
+FAIL: content ID drift/duplicate godot/assets/data/npc/dialogues.json
+FAIL: derived feature index stale; use --sync
+```
+
+最后两类依赖主线程primary_key支持与最终合批；其余14项为本轮未获整文件签署的未知/并行记录。未刷新Main/save/water/world、zones或共享鱼源hash，不声明全工程PASS。
+
+## 2026-11-07 阳光房独立水下区域登记（独立场景已验）
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R59 | 已定向登记唯一总成SEA-SCENE-SUNROOM-UNDERWATER-REGION、manifest、source index与精确分类规则；source_paths含新增lamp shader共6文件，并补六新runtime，未重建building_views或刷新旧hash。阶段standalone_runtime_verified_provenance_and_production_pending、production_route_integrated=false。旧城GLB与旧v005导出50/50哈希一致、source50/50一致、optimized文件50/50存在，但未重开不签新02b | 父线程tools/register_sunroom_underwater_region.py以--evidence `D:/projects/sea-work/verification/20261107-205426-sunroom-underwater-signed-2fa2bb/report.json` --write写入；专项67/0、真实89/0均exit0/PASS，11真实视角已由父线程目检。[最终交付与登记](../../development/2026-11-07_sunroom_underwater_region.md)。原始来源、源级完整审阅、完整优化复用/02b签署、性能、商业权属及用户美术验收仍pending。原海床/旧城/base/9maps/catalog哈希不变；Main仅有并行NPC删除resident_harbor两块差异，不声称整文件未变。minimum-loop147/1 open shop保留FAIL，未做因果回退；全局sync/check待父线程补填，不签全工程通过。 |
+
+## 2026-11-07 阳光房水下 r2 复用与登记（已独立验收，产品未接入）
+
+初填时三个专项及登记均pending，225915为中间实测批；最终232826-signed独立专项与回归已签署。v002定向登记已成功写入（仅4JSON、15源/17runtime含2tests，backup/回滚及old history保留），第二次dry-run为0项变更。登记头、R59旧签署及历史重复R57保留，不新增AssetID或条款。
+
+| 对应条款 | 当前实施状态 | 当前证据 / 待登记边界 |
+|---|---|---|
+| SEA-ASSET-R60 | 唯一总成SEA-SCENE-SUNROOM-UNDERWATER-REGION拟升级v002，总源15=原6＋atmosphere场景/脚本/collision三文件＋palette/beam/particles/sky/fog/color include六文件；统一WaterFogPass与局部色彩/透明自雾替代旧环境雾，16steps光束、local env/sky/material均resource_local_to_scene，758proxy/85uniqueMeshes/3115351instanceTriangles精确碰撞；physicsrun缓存99、visual158（同精确Basis key因启动浮点拆分而不同，各角色数量/assemblies/triangles一致）；无新Blend/优化源/GLB、不重复登记旧件，50城市源GLB不动 | 最终232826-signed：sunroom-underwater78/0、sunroom-collision264/0、visual118/0，新区域460/0；dive-maps302/0、modules31/0回归333/0，总793/0全PASS/exit0、无unexpected。远雾像素max0.0078431517/0.0039215982/0.0039215982均<0.025，射光开关lit_samples5365>150。v002白名单工具已写入成功，仅4JSON、15源/17runtime含2tests，backup/回滚及old history保留，无旧GLB导出；第二次dry-run为0项变更，不把旧6文件登记当r2完成。原9图/旧城/base/海床/原GLB70保护项最终核对70/70保持；toplevel/位置范围深度不变，本任务不改Main。Main 可能被并行修改，不要求 Main 字节不变。setup1834.253ms/load256.285ms仅单次、不签FPS；低端/连续运行、来源rights/完整02b和产品接入仍pending，production_route_integrated=false。[15文件及实测记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。 |
+
+最终报告：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`。verification关联三项新区域＋dive-maps/modules，最终793/0运行签署已完成；225915仅过程历史。定向登记实际写成功、4JSON事务备份/回滚信息、70保护项与sync/check真实output由父线程补入开发记录第8节，不编造成功。本次只改docs，不改登记JSON、不运行命令或registry。

@@ -3,6 +3,7 @@ extends SceneTree
 const Save = preload("res://src/save/save_game.gd")
 ## Reference-metre thresholds below are multiplied by the body scale (SEA-AVATAR-R27).
 const Dimensions = preload("res://src/avatar/avatar_dimensions.gd")
+const AvatarSupport = preload("res://tests/avatar_customization_support.gd")
 var checks := 0
 var failures := 0
 var main
@@ -36,7 +37,7 @@ func capture_clip() -> void:
 	actor.rotation.y = PI
 	main.cam.set_process(false); main.cam.follow_enabled = false
 	main.cam.global_position = actor.global_position + Vector3(-2.6,2.4,-3.5)
-	main.cam.look_at(actor.global_position+Vector3.UP*0.85); main.cam.fov = 35
+	main.cam.look_at(actor.global_position+Vector3.UP*0.95*Dimensions.SCALE); main.cam.fov = 35
 	var plot: Node3D = main.farm_field.find("platform_plot")
 	mature(plot,"pumpkin"); plot.perform("harvest")
 	for frame in 96:
@@ -59,7 +60,41 @@ func click_at(point: Vector2) -> void:
 		root.push_input(event,true)
 		await process_frame
 
+func gesture_contract() -> void:
+	var subject = preload("res://src/player/character.gd").new()
+	root.add_child(subject); subject.build(); subject.set_process(false); subject.set_physics_process(false)
+	for shape in [Vector2(0,0),Vector2(0,1),Vector2(1,0),Vector2(1,1),Vector2(.5,.5)]:
+		subject.apply_avatar(AvatarSupport.profile({}, {"body_build":shape.x,"head_size":shape.y,"head_width":1.0,"arm_girth":1.0,"leg_length":0.0}))
+		for fps in [30,60,120]:
+			subject.play_receive_item("pumpkin")
+			var origin: Transform3D = subject.transform
+			var length_error := 0.0
+			var shoulder_error := 0.0
+			var bone_error := 0.0
+			var finite := true
+			var length_scale: float = subject._avatar_factors.arm_length
+			for frame in int(2.4*fps):
+				subject._process(1.0/fps)
+				for side in [-1,1]:
+					var arm: Node3D = subject.left_arm if side < 0 else subject.right_arm
+					var elbow: Node3D = subject.left_elbow if side < 0 else subject.right_elbow
+					var hand: Node3D = elbow.get_node("Hand")
+					length_error = maxf(length_error,absf(elbow.position.y+Dimensions.UPPER_ARM*length_scale))
+					length_error = maxf(length_error,absf(hand.position.y+Dimensions.LOWER_ARM*length_scale))
+					shoulder_error = maxf(shoulder_error,arm.position.distance_to(subject.avatar_shoulder(side)))
+					finite = finite and arm.transform.is_finite() and elbow.transform.is_finite() and hand.global_position.is_finite()
+					for segment in ["upper_skin","lower_skin"]:
+						var bone: int = subject.limb_skinning.find_bone(("arm.L." if side < 0 else "arm.R.")+segment)
+						bone_error = maxf(bone_error,absf(subject.limb_skinning.get_bone_pose_scale(bone).y-length_scale))
+			var label := " shape=%s fps=%d" % [shape,fps]
+			check(length_error < 0.00001,"whole receipt preserves authored upper and lower arm lengths"+label)
+			check(bone_error < 0.00001,"actual skin bones never stretch to follow produce"+label)
+			check(shoulder_error < 0.00001 and finite and subject.transform == origin,"gesture preserves shoulder sockets, finite pose and actor root"+label)
+			subject.cancel_action("fixture")
+	subject.queue_free(); await process_frame
+
 func run() -> void:
+	await gesture_contract()
 	main = load("res://scenes/main.tscn").instantiate(); root.add_child(main)
 	main._autosave_on = false; main.set_process(false); main.set_physics_process(false)
 	main.boat.set_process(false); main.boat.set_physics_process(false); main.interactor.set_process(false)
@@ -75,7 +110,7 @@ func run() -> void:
 	main.actor_controller.restore_pose({"mode":0,"player":[at.x,at.y,at.z]})
 	actor.rotation.y = PI
 	main.cam.global_position = at + Vector3(-2.6,2.4,-3.5)
-	main.cam.look_at(at+Vector3.UP*0.85); main.cam.fov = 35
+	main.cam.look_at(at+Vector3.UP*0.95*Dimensions.SCALE); main.cam.fov = 35
 	main.hud.close_card()
 	check(actor._item_receive.bag != null,"satchel is part of the current character")
 	var current: int = actor.play_receive_item("lettuce")
@@ -103,8 +138,8 @@ func run() -> void:
 		var prop: Node3D = actor._item_receive.prop
 		check(prop.visible and prop.position.y > 1.5*Dimensions.SCALE,"above hat hold "+crop)
 		for elbow: Node3D in [actor.left_elbow,actor.right_elbow]:
-			var hand: Vector3 = actor.body_pivot.to_local(elbow.to_global(elbow.get_child(1).position))
-			check(hand.y > 1.35*Dimensions.SCALE and hand.distance_to(prop.position) < 0.29*Dimensions.SCALE,"wrists support overhead item "+crop)
+			var hand: Vector3 = actor.body_pivot.to_local(elbow.get_node("Hand").global_position)
+			check(hand.y < actor.head_pivot.position.y-0.15*Dimensions.SCALE and hand.z > 0.15*Dimensions.SCALE,"hands make a chest-height gesture below the face "+crop)
 		await shot(crop+"-overhead")
 		pose(1.96)
 		check(prop.position.distance_to(actor._item_receive.bag.position) < 0.23*Dimensions.SCALE,"item reaches actual satchel mouth "+crop)
@@ -143,6 +178,12 @@ func run() -> void:
 	mature(plot,"tomato")
 	main.interactor.cancel(); main.interactor.debug_focus(plot)
 	main.interactor.active = true; main.interactor._scan_left = 10.0
+	# 面朝地格再按 E（SEA-INTERACT-R24）：家园泊位就在旁边，站位同时落在
+	# 种植格判定区和上船热区里，此时按面朝向仲裁。不转向的话这一下 E 会被
+	# 判成「上船」，是设计如此、不是缺陷；夹具必须把脸转过去。
+	var face: Vector3 = plot.global_position - actor.global_position
+	# 朝向判据用的是 basis.z（不是相机那种 -Z），所以正向就是 atan2(x, z)。
+	actor.rotation.y = atan2(face.x, face.z)
 	var e_starts: int = started.size()
 	var e_business: Dictionary = economy.to_dict()
 	var e_state: Dictionary = farm.state(plot.plot_id)
@@ -246,7 +287,9 @@ func run() -> void:
 			"restore": main.actor_controller.restore_pose({"mode":0,"player":[at.x,at.y,at.z]})
 			"replaced": actor.play_farm_action("watered")
 			_: actor.cancel_action(reason)
-		check(actor._item_receive.prop == null and actor.left_arm.scale == Vector3.ONE,"interrupt cleans held item and stretched sleeves "+reason)
+		check(actor._item_receive.prop == null and actor.left_arm.scale == Vector3.ONE
+			and is_equal_approx(actor.left_elbow.position.y,-Dimensions.UPPER_ARM*float(actor._avatar_factors.arm_length))
+			and is_equal_approx(actor.right_elbow.get_node("Hand").position.y,-Dimensions.LOWER_ARM*float(actor._avatar_factors.arm_length)),"interrupt cleans held item and restores authored arm lengths "+reason)
 		actor._process(3.0)
 		check(not finished.has(["harvesting",token]),"cancelled action cannot finish later "+reason)
 		actor.cancel_action("reset"); actor.set_walking(false); actor.set_rowing(false); actor.set_diving(false)

@@ -1,0 +1,60 @@
+{
+  "key": "bin",
+  "name": "黄色分类垃圾桶",
+  "family": "bin",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-BIN",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BIN",
+  "design_pivot": [
+    0.0,
+    -0.007499992847442627,
+    0.0
+  ],
+  "bounds_min": [
+    -0.3149999976158142,
+    -0.3375000059604645,
+    0
+  ],
+  "bounds_size": [
+    0.6299999952316284,
+    0.675000011920929,
+    1.3600000143051147
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bin/bin.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 1,
+  "triangles": 564,
+  "polygons": 294,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "6a20a7ed5a3d79f13af551fb95b1379d36ded0035c01c1acdf62c3a85d66cd2b",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BIN",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/bin/bin.glb",
+  "runtime_sha256": "fc28728fe7682a1543a10ae1f0678ed3ea803cdf7cfc0e7f3636058c562b8f59",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/bin.tscn",
+  "prefab_sha256": "ee447ec3878c8940d9daf532085f32c882d3c3601d189d3fb7ddc929150dc9d7",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 564,
+  "triangles_after": 564,
+  "geometry_fingerprint": "c99d7b53787a6fd82324027825389e04ae74dae52bc719dc15793a5d3692f673"
+}

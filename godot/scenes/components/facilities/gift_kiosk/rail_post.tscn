@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk/rail_post/rail_post.glb" id="visual"]
+
+[node name="rail_post" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKS-RAIL-POST"
+metadata/asset_version = "v001"
+metadata/water_layer = "none"
+metadata/water_layer_role = "none"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

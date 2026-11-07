@@ -64,8 +64,8 @@ func run() -> void:
 	var catalog = CatalogLib.new()
 	check(catalog.reload(), "crops.json 加载")
 	check(catalog.error() == "", "加载无错误：" + catalog.error())
-	check(catalog.ids() == ["lettuce", "tomato", "pumpkin"], "三品种且顺序稳定")
-	check(catalog.count() == 3, "品种数量为 3")
+	check(catalog.ids() == ["lettuce", "tomato", "pumpkin", "flower_blue", "flower_sun", "flower_coral"], "三原品种加三花卉且顺序稳定")
+	check(catalog.count() == 6, "品种数量为 6，保留全部原品种")
 
 	var problems: Array = catalog.validate()
 	check(problems.is_empty(), "品种自检通过：" + str(problems))
@@ -100,7 +100,7 @@ func run() -> void:
 	check(catalog.get_crop("nope").is_empty(), "未知品种返回空定义")
 	check(StageDef.is_valid(catalog.stage_for_progress("nope", 0.6, false)), "未知品种仍给合法阶段")
 
-	# 表现装配：三品种 × 四阶段，每次只有目标阶段可见
+	# 表现装配：六品种 × 四阶段，每次只有目标阶段可见
 	var view = ViewLib.new()
 	root.add_child(view)
 	for id in catalog.ids():

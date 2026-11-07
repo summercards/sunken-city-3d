@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk/thruster_glow/thruster_glow.glb" id="visual"]
+
+[node name="thruster_glow" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKS-THRUSTER-GLOW"
+metadata/asset_version = "v001"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/building_class = "underwater"
+metadata/visual_only = true
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

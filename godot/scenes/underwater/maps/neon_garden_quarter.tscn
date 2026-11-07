@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/diving/underwater_world.gd" id="1_world"]
+[ext_resource type="Script" path="res://src/diving/uw_deco.gd" id="2_deco"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_neighborhood.tscn" id="3_neighborhood"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_reef.tscn" id="4_reef"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_trench.tscn" id="5_trench"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_basin.tscn" id="6_basin"]
+
+[node name="DiveNeonGardenQuarter" type="Node3D"]
+script = ExtResource("1_world")
+map_id = "dive_neon_garden_quarter"
+map_label = "霓虹沉街花园"
+swim_data_path = "res://assets/baked/underwater/swim.json"
+chest_ids = Array[int]([1, 2, 3])
+fish_indices = Array[int]([1, 3, 5])
+chest_id_base = 700
+neighborhood_collision_enabled = true
+trench_collision_enabled = true
+basin_closure_enabled = false
+spawn_point = Vector3(4, 1.12, -18)
+
+[node name="Regions" type="Node3D" parent="."]
+
+[node name="UnderwaterBasin" parent="Regions" instance=ExtResource("6_basin")]
+
+[node name="UnderwaterNeighborhood" parent="Regions" instance=ExtResource("3_neighborhood")]
+
+[node name="UnderwaterReef" parent="Regions" instance=ExtResource("4_reef")]
+rotation = Vector3(0, 0.34906585, 0)
+
+[node name="UnderwaterTrench" parent="Regions" instance=ExtResource("5_trench")]
+
+[node name="Deco" type="Node3D" parent="."]
+script = ExtResource("2_deco")
+
+[node name="Chests" type="Node3D" parent="."]
+
+[node name="DiveCamera" type="Camera3D" parent="."]
+fov = 55.0
+near = 0.12
+far = 420.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]

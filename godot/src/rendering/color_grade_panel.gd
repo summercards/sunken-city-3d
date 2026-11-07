@@ -2721,6 +2721,9 @@ func _flash(text: String) -> void:
 # ---- 持久化 -----------------------------------------------------------------
 
 func _apply_saved_on_start() -> void:
+	if not is_inside_tree():
+		tree_entered.connect(_apply_saved_on_start,CONNECT_ONE_SHOT)
+		return
 	_ensure_env()
 	_apply_filter_cfg()
 	# 太阳先解析：分时段偏移里既有环境键也有太阳键，

@@ -3,7 +3,7 @@
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RECEIVE-001",
   "source": "godot/src/player/animation/item_receive.gd",
   "runtime_path": "godot/src/player/animation/item_receive.gd",
-  "version": "v007",
+  "version": "v009",
   "animation": {
     "id": "harvesting",
     "duration": 2.4,
@@ -26,12 +26,14 @@
       0,
       1.6,
       0.08
-    ]
+    ],
+    "hand_contact": "optional gesture; shoulders and arm segment lengths follow the avatar rest shape"
   },
   "authored_files": [
     {
       "path": "godot/src/player/animation/item_receive.gd",
-      "sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e"
+      "sha256": "92afa0c7fa39ed7ea496f5a8bb230e2f7256132e03138254509e2430ab790434",
+      "previous_sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d"
     },
     {
       "path": "godot/src/player/animation/harvesting_action.gd",
@@ -57,7 +59,7 @@
     "SEA-CROP-PUMPKIN"
   ],
   "source_type": "existing sea procedural node model; no Blender/GLB change",
-  "verification": "docs/features/onboarding/ledger.md",
+  "verification": "docs/development/2026-11-08_harvest_gesture.md",
   "checks": [
     "actor-presentation",
     "harvest-receive",
@@ -66,5 +68,5 @@
   "rollback": "revert only files listed in development record; original crop GLBs unchanged",
   "skeleton_asset_id": "SEA-CHAR-RIG-001",
   "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
-  "note": "2026-11-04新旅程美术/交互"
+  "note": "2026-11-04新旅程美术/交互；2026-11-08收成改固定臂长的胸前示意，肩根不移动，手部无需接触作物或包口，当前实测见verification。"
 }

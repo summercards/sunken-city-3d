@@ -221,6 +221,9 @@ func camera_keys(label: String) -> void:
 	prompt_hidden(label)
 
 func plot_menu(plot: Node3D) -> bool:
+	var focus: Vector3 = plot.focus_position()
+	main.player.rotation.y = atan2(focus.x - main.player.global_position.x, focus.z - main.player.global_position.z)
+	await frames(10)
 	var locked := false
 	for attempt in 24:
 		# 必须真实按过 Q，不能把自动挑中的 target 当作 Q 已验收。
@@ -238,9 +241,12 @@ func plot_menu(plot: Node3D) -> bool:
 	max_progress = 0.0
 	send(KEY_E, true, true)
 	check(Input.is_action_pressed("interact") and Input.is_physical_key_pressed(KEY_E), "持续 E 已刷新全局 Input")
-	var opened := await until(func(): return menu.active, 4.0, "按住 E 出现世界菜单 " + str(plot.plot_id))
+	var opened := await until(func(): return menu.active, 4.0, "真实 E 出现世界菜单 " + str(plot.plot_id))
 	if opened:
-		check(max_progress > 0.0, "菜单来自真实 interactor 长按 " + str(plot.plot_id))
+		# 2026-11-07 契约变更：种植格是瞬发动作（hold_time=0.0），触发式交互
+		# 「按一次就执行」，不再有按住读条，max_progress 不再必然 >0。
+		# 改为断言：一次真实 E 即开菜单（瞬发），且不会连开两级。
+		check(is_zero_approx(float(plot.hold_time)), "种植格是瞬发动作（hold_time=0，触发式）")
 		check(not main.hover._near_icon.visible and not main.hover._near_progress.visible and main.hover.keyboard_focus == null, "菜单开时近距图标与进度收起")
 		var generation: int = menu.generation
 		await create_timer(0.65).timeout
@@ -330,6 +336,8 @@ func run() -> void:
 	await camera_keys("六格菜单退出后")
 	if not await walk_to(main._current_landing().stand_position(), "六格返船"):
 		finish(); return
+	var return_data: Dictionary = main._landing_data("zone5", "main")
+	main.player.rotation.y = atan2(float(return_data.boatPark[0]) - main.player.global_position.x, float(return_data.boatPark[2]) - main.player.global_position.z)
 	await frames(24)
 	if not check(main._boat_key_action() == "board", "走回泊位后 E 合法优先上船而非地格"):
 		diagnostic("返船 E 被占用"); finish(); return

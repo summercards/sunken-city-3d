@@ -21,7 +21,15 @@
         "lettuce_seed",
         "tomato_seed",
         "pumpkin_seed",
-        "soil"
+        "soil",
+        "flower_seed_blue",
+        "flower_seed_sun",
+        "flower_seed_coral",
+        "flower_bundle",
+        "flower_ribbon",
+        "flower_blue",
+        "flower_sun",
+        "flower_coral"
       ],
       "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
     },
@@ -32,7 +40,10 @@
       "ids": [
         "lettuce",
         "tomato",
-        "pumpkin"
+        "pumpkin",
+        "flower_blue",
+        "flower_sun",
+        "flower_coral"
       ],
       "note": "品种定义唯一源，由 SEA-CROP 拥有；数值被 SEA-FARM 查询，不在此复制。"
     },
@@ -203,6 +214,108 @@
         "roof_flat_5x5"
       ],
       "note": "五米新组件目录；保留旧配方和稳定AssetID，不以登记代替运行验收。"
+    },
+    {
+      "owner": "SEA-RESIDENT",
+      "path": "godot/assets/data/npc/npcs.json",
+      "collection_key": "npcs",
+      "ids": [
+        "npc_luo_yan",
+        "npc_mu_he",
+        "npc_ji_chen",
+        "npc_nan_zhi",
+        "npc_bai_shi",
+        "npc_hua_yi",
+        "npc_bao_he"
+      ],
+      "note": "七名 NPC 稳定身份与表现组装配置；关系边由同表维护。"
+    },
+    {
+      "owner": "SEA-RESIDENCE",
+      "path": "godot/assets/data/npc/residences.json",
+      "collection_key": "residences",
+      "ids": [
+        "residence_dock_workshop",
+        "residence_sunroom_greenhouse",
+        "residence_salvage_cabin",
+        "residence_builder_loft",
+        "residence_lantern_archive",
+        "residence_flower_shop",
+        "residence_general_store"
+      ],
+      "note": "NPC 住所与生活锚点声明；坐标是参考位，正式主场景摆位以用户 TSCN 为准。"
+    },
+    {
+      "owner": "SEA-RESIDENT",
+      "path": "godot/assets/data/npc/dialogues.json",
+      "collection_key": "dialogues",
+      "ids": [
+        "npc_luo_yan",
+        "npc_mu_he",
+        "npc_ji_chen",
+        "npc_nan_zhi",
+        "npc_bai_shi",
+        "npc_hua_yi",
+        "npc_bao_he"
+      ],
+      "note": "七名NPC对白，以npc_id为真实主键；不复制规则数据。",
+      "primary_key": "npc_id"
+    },
+    {
+      "owner": "SEA-SHOP",
+      "path": "godot/assets/data/shop/shops.json",
+      "collection_key": "shops",
+      "ids": [
+        "shop_flower",
+        "shop_general"
+      ],
+      "note": "花店与综合商店独立商品目录；购买由 ShopService 结算。"
+    },
+    {
+      "owner": "SEA-RESIDENT",
+      "path": "godot/assets/data/npc/events.json",
+      "collection_key": "events",
+      "ids": [
+        "route_1",
+        "route_2",
+        "route_3",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "echo_1",
+        "echo_2",
+        "echo_3",
+        "joint_1",
+        "joint_2",
+        "joint_3",
+        "lamp_1",
+        "lamp_2",
+        "lamp_3",
+        "flower_1",
+        "flower_2",
+        "flower_3",
+        "shelf_1",
+        "shelf_2",
+        "shelf_3",
+        "relation_old_route",
+        "relation_lamp_promise",
+        "relation_seed_color",
+        "relation_shop_supply"
+      ]
+    },
+    {
+      "owner": "SEA-RESIDENT",
+      "path": "godot/assets/data/npc/requests.json",
+      "collection_key": "requests",
+      "ids": [
+        "request_route_rope",
+        "request_seed_trial",
+        "request_echo_box",
+        "request_joint_bench",
+        "request_lamp_glass",
+        "request_flower_pot",
+        "request_shelf_basket"
+      ]
     }
   ]
 }

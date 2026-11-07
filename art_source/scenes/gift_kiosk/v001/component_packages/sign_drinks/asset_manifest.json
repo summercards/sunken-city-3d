@@ -1,0 +1,58 @@
+{
+  "key": "sign_drinks",
+  "name": "COLD DRINKS立体字及饮杯",
+  "family": "sign",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-SIGN-DRINKS",
+  "design_pivot": [
+    -0.07526099681854248,
+    0.0,
+    0.07999998331069946
+  ],
+  "bounds_min": [
+    -2.944738984107971,
+    -0.23999999463558197,
+    0
+  ],
+  "bounds_size": [
+    5.889477729797363,
+    0.47999998927116394,
+    1.0239553451538086
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_drinks/sign_drinks.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 1,
+  "triangles": 19560,
+  "polygons": 10659,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "5aa7ba6d620b1e979c4413893275040f956b1247fa1d39a46a629ed8cd8b5813",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-SIGN-DRINKS",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/sign_drinks/sign_drinks.glb",
+  "runtime_sha256": "ef1029838e7a5c2bb8e07302e61a53530dc1ff271fde7a2f73a6a22d78b3a379",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/sign_drinks.tscn",
+  "prefab_sha256": "a9f41b267d3582ea27c2881fafd0a01428e6a9461d7eb44c1f4d753c1f877cb3",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 19560,
+  "triangles_after": 19560,
+  "geometry_fingerprint": "03efe1fcc76f349f129dfc92293d4f5e6301210be8176aec545a68ad94ee5567"
+}

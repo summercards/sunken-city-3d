@@ -1,0 +1,60 @@
+{
+  "key": "fascia",
+  "name": "奶黄直段招牌灯箱",
+  "family": "fascia",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-FASCIA",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-FASCIA",
+  "design_pivot": [
+    0.0,
+    -0.07250000536441803,
+    0.0
+  ],
+  "bounds_min": [
+    -3.9000000953674316,
+    -0.23250000178813934,
+    0
+  ],
+  "bounds_size": [
+    7.800000190734863,
+    0.4650000035762787,
+    1.440000057220459
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia/fascia.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 6,
+  "instances": 4,
+  "triangles": 1048,
+  "polygons": 580,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "1f80e5ac57226b6a19e79f6bd3493f293b3f6665eade0f5e65113cb5ed8a4f72",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-FASCIA",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/fascia/fascia.glb",
+  "runtime_sha256": "50473e099f5b1834535ed084047b466da6a1bda5ade9bcf83b17fd8406b3f3bf",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/fascia.tscn",
+  "prefab_sha256": "18075e71c4098c00cfcc342fb136a8e4423e8d3b94d0ddb861a0aa307a26d395",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1048,
+  "triangles_after": 1048,
+  "geometry_fingerprint": "5362bf34e04912c3cdc3073d534e2182af4085ca7320fd4bc6dc3e16285c0a27"
+}

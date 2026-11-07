@@ -1,0 +1,62 @@
+{
+  "key": "curved_glass",
+  "name": "圆角透明橱窗及边框",
+  "family": "curved_window",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-CURVED-GLASS",
+  "design_pivot": [
+    0.7699999809265137,
+    -0.7699999809265137,
+    -0.04500000178813934
+  ],
+  "bounds_min": [
+    -0.8599999994039536,
+    -0.8599999994039536,
+    0
+  ],
+  "bounds_size": [
+    1.7200000286102295,
+    1.7200000286102295,
+    4.945000171661377
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/curved_glass/curved_glass.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 7,
+  "instances": 4,
+  "triangles": 2596,
+  "polygons": 1266,
+  "roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "b07009fe4874b513c5d7eb11d3cde4ab515f3a515e1a20b5a6f97add14297fc8",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-CURVED-GLASS",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/curved_glass/curved_glass.glb",
+  "runtime_sha256": "abf4a927bbf1946db137640d44cf93fa612bdfdd27b6e2ffbcc4e6cba5086c39",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/curved_glass.tscn",
+  "prefab_sha256": "fb505f6646beefda6ebb616807546c39d7c86c8c9f6defe36163de201f9ead20",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 2596,
+  "triangles_after": 2596,
+  "geometry_fingerprint": "9a897ddcdbaaa04f0e87b238dfe25a35e35731abee9038a820a146c7049b911a"
+}

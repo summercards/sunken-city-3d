@@ -1,0 +1,54 @@
+{
+  "asset_id": "SEA-SCENE-GKI-CUBBY",
+  "name": "礼品包装柜",
+  "domain": "scenes",
+  "source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cubby/cubby.blend",
+  "source_sha256": "86c549a23b61b62f385d9dc514e0d86d96b5e446af38f70b77fec68037fb383d",
+  "manifest": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cubby/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk_interior/cubby/cubby.glb",
+  "runtime_sha256": "c439b784b6366e7dc652c233d79fd285a05974d57063519305ee1a4dae8a7e96",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk_interior/cubby.tscn",
+  "prefab_sha256": "e487114694282d8aff026d155e7d07bce91d75562fd664e5a366c6dd2a52bd40",
+  "optimized_source": "art_source/scenes/gift_kiosk_interior/v001/export/v001/gift_kiosk_interior_optimized_v001.blend",
+  "optimized_sha256": "b6629a2210cd1bfcfffaec7352641bf7162396ca0cb0bebc2450e0b1651dd712",
+  "optimization_manifest": "art_source/scenes/gift_kiosk_interior/v001/export/v001/optimization_manifest.json",
+  "geometry_fingerprint": "6b3e48e3ad49654f698cc8b4c3e60d9b8b4d25a2218f4cd9442580f58a8a7f4d",
+  "classification": {
+    "category": "scene_component",
+    "subcategory": "cabinet"
+  },
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "facility_id": "SEA-SCENE-GKS-ASSEMBLY",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "maintenance_status": "runtime_integrated_verified",
+  "triangles": 1504,
+  "bounds_size": [
+    1.5800000429153442,
+    0.6800000071525574,
+    1.8599998950958252
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "user_art_acceptance": "pending",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+    "docs/development/2026-11-07_gift_kiosk_interior.md"
+  ],
+  "origin": "bottom_center",
+  "front_axis": "Godot +Z",
+  "source_collection": "SEA-SCENE-GKI-CUBBY",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKI-CUBBY"
+}

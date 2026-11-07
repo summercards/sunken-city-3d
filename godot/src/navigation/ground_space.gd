@@ -155,6 +155,22 @@ func _add_body(faces: PackedVector3Array, label: String) -> void:
 	body.global_transform = Transform3D.IDENTITY
 	_bodies.append(body)
 
+## Rigid support translation updates the existing collision and private nav map.
+## The facility moves its WalkArea declarations first. No rebake or second layout
+## is created, and static zones never call this command.
+func translate_projection(offset: Vector3) -> void:
+	if not offset.is_finite() or offset.length_squared() < 0.000000000001:
+		return
+	for body in _bodies:
+		if is_instance_valid(body):
+			body.global_position += offset
+	for region in _regions:
+		var pose := NavigationServer3D.region_get_transform(region)
+		pose.origin += offset
+		NavigationServer3D.region_set_transform(region, pose)
+	if _map.is_valid():
+		NavigationServer3D.map_force_update(_map)
+
 func area_at(point: Vector3, tolerance: float = 0.5) -> Node3D:
 	if not point.is_finite() or tolerance < 0.0: return null
 	var selected: Node3D

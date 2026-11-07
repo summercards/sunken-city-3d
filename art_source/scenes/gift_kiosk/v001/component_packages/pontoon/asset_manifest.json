@@ -1,0 +1,60 @@
+{
+  "key": "pontoon",
+  "name": "橙色圆鼓浮筒",
+  "family": "flotation",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-PONTOON",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-PONTOON",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -2.0420000553131104,
+    -2.0420000553131104,
+    0
+  ],
+  "bounds_size": [
+    4.084000110626221,
+    4.084000110626221,
+    2.700000047683716
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/pontoon/pontoon.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 4,
+  "triangles": 3320,
+  "polygons": 1628,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "f19dfdbd16dbe10796a8f541726e183d002bb5494798dcdc89ec12d3d401ec81",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-PONTOON",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/pontoon/pontoon.glb",
+  "runtime_sha256": "a18fb2ad9f040cc15c4ac1278a2d85f932f4cf0a2c198cb2b530ec5c9a4db321",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/pontoon.tscn",
+  "prefab_sha256": "7ab5ae5ace2286f0099ccbfbe71ff84c3ed94d52bd8a1be278d223eee32ab0de",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 3320,
+  "triangles_after": 3320,
+  "geometry_fingerprint": "68e8312b2b7ed5c871e14dfde27d0597a3b4c688674d4c7244bf1fda7f77ee67"
+}

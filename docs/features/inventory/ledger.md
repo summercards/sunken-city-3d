@@ -24,7 +24,10 @@
     "visual-pocket-bubbles",
     "visual-pocket-services",
     "pocket-drag-buy",
-    "visual-pocket-drag-buy"
+    "visual-pocket-drag-buy",
+    "shop-rules",
+    "npc-integration",
+    "npc-save"
   ]
 }
 ```
@@ -118,3 +121,31 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-INVENTORY-R11 | 已实现；多材料占用同一剩余格拒绝无变化，未满堆可完整返还；回调重入受建造提交锁保护 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+
+## 2026-11-07 原子交换接口承接
+
+按现有最大R11稳定追加 [SEA-INVENTORY-R12](spec.md#2026-11-07-npc--shop-原子交换接口追加)；不改R01–R11、旧接口快照、登记头顺序或历史结论，整体status继续 `partial`，不因NPC/Shop交付升级整个背包系统。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INVENTORY-R12 | 已实现真实Inventory.exchange的双边预校验、costs足额/最终候选容量、同物品净差、单owner先提交数量/排列后发信号；失败不改现场。业务有效项要求有限正整数，当前底层兼容0和整值float的差异如实保留，不称严格正整数拒绝已通过 | 221054 `shop-rules`259/0是fake规则/输入证据；214439正式 `npc-integration`668/0、`npc-save`618/0及重启证据另列，不把fake替代生产原子性或声称所有边界独立测完 |
+
+### 公开端口与所有者
+
+[inventory.gd](../../../godot/src/inventory/inventory.gd)新增 `exchange(costs: Dictionary, gains: Dictionary) -> Dictionary`，返回 `{ok, reason}`。两边逐项校验String且ItemDB存在的ID、有限整数数值及每项≤1000000000；候选单物品最终计数同受该上限保护。当前允许0无数量效果，空costs/gains可表示纯奖励/纯消耗；业务提交只使用正整数有效项，不虚构零值拒绝。非整值float、负数、bool、字符串、NaN/Inf、未知ID均拒绝。
+
+先足额扣costs，再合gains，不能拿本次所得抵扣原本不足的costs；同ID最终只发一次非零净差changed，容量按最终候选/堆叠算（货币不占格）。成功一次替换counts并登记新增非货币物品order，再发changed及capacity_changed；拒绝不改数量/排列、不发这两类信号。库存仍只有Inventory写入，不新增存档字段，不取代双库存InventoryTransfer。Shop/NPC的去重、剧情、礼物关系与请求状态各归其服务，本端口不承诺跨进程exactly-once。
+
+[ShopService](../../../godot/src/shop/shop_service.gd) / [NpcService](../../../godot/src/npc/npc_service.gd)只消费注入命令，不以pay/add/remove+退款拼原子性；规则详见[Shop](../shop/spec.md)与[NPC](../resident/spec.md)，不在本账本复制一份商品/余额/关系记录。
+
+### 已执行证据分层
+
+| 证据 / 日志 | 实测结果 | 适用范围 |
+|---|---|---|
+| [221054最新回归报告](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/report.json) / [shop-rules.log](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/shop-rules.log) | shop-rules259/0，exit0/PASS；整批11项均PASS/exit0、unexpected_errors空 | fake原子库存上的商店规则/UI输入与有限token，不单独证明真实Inventory；此前[213213报告](../../../../sea-work/verification/20261107-213213-shop-input-final-638cdf/report.json)同为259/0，历史不替换最新 |
+| [214439正式天台报告](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/report.json) / [npc-integration.log](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/npc-integration.log) | npc-integration668/0，exit0/PASS | 正式Main→NPC/Shop→真实Inventory交易、礼物/请求及拒绝/恢复链；不是只靠fake或住所版历史结果 |
+| 同报告 / [npc-save.log](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/npc-save.log) | npc-save618/0、seed408/0、restart202/0，均exit0/PASS | 当前天台坏档不改现场、库存联合持久化与跨进程恢复，具体覆盖以测试/日志为准 |
+
+214439五项还含visual-npc-release381/0，总2277/0，全部PASS/exit0、completion_marker=true、unexpected_errors=[]；完整命令、head/working_tree、隔离数据与快照见报告。该总数是联合交付范围，不是新增2277条Inventory原子边界断言。上述生产通过不签零值拒绝、全部极值/监听重入或背包所有旧条款已完整独测；既有R01–R03待核及其他未验继续保留。
+
+本次只核对现有证据并补接口文档；未重跑Godot/global sync/最终门禁，后者由主线程统一负责，不写全产品验收通过。

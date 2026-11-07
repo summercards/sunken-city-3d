@@ -26,7 +26,8 @@
     "harvest-receive",
     "visual-harvest-receive",
     "modules",
-    "structure"
+    "structure",
+    "flower-crops"
   ]
 }
 ```
@@ -84,3 +85,30 @@ CropStage：SEED / SPROUT / LEAF / HARVEST / KEYS / NODE_NAMES / count / key_of 
 - 2026-10-29（第二轮）：按用户反馈调整体量。第 1 阶段从 0.2 米的芽放大到 0.45 米（三叶 + 嫩茎），解决「浇水后第二天才看得出变化」；第 3/4 阶段单株体积放大约 2.6x / 5x。暴露并修掉两个真问题：① 地格父级 `scale.y=0.65` 把作物压扁，容器补 `1/0.65`；② `_pop` 把补偿洗成 1，改成基于基准缩放。同时加入 `FRAME_ENVELOPE` 越界断言，防止放大后穿模。面数预算 900 → 1600，理由是造型目标变了而非数据超标。
 
 - 2026-10-29：从 SEA-FARM 拆出品种与形态，建立独立功能文档、独立账本、独立代码模块 `godot/src/crops`、独立资产分账本 `ledgers/crops.json`；三作物升级为四阶段正式资产，原 `farm_plot.gd` 内联几何移除。
+
+## 2026-11-07 三花与真实手持接口承接
+
+本节追加承接 [SEA-CROP-R15](spec.md#2026-11-07-三花品种程序制作源与收获接口追加)，不改 R01–R14 原语义、登记头顺序、status 或历史 JSON/验证结论。上方三品种、12节点/3行资产及“新作物待做”的描述属于原阶段快照；当前品种集合为原生菜/番茄/南瓜 + 蓝星/晨光/珊瑚三花，共6品种，不能删除原三品种来满足旧数量断言。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-CROP-R15 | 已实现三花独立 seed / produce、2/3/4浇水日、8/10/12瓶盖、基础yield各2、单次收成不再生；真实四阶段程序网格及成熟花手持/原Character动作接通。运行专项已通过；源级stage预算独立审计、美术source验收与未取得的权属/用户确认仍待验 | 最新221054中 `crops`96/0、`flower-crops`1233/0，均exit0/PASS；下方区分运行实例测量与source验收，不冒签R06 |
+
+### 接口与资源增量
+
+- [crops.json](../../../godot/assets/data/crops.json)：`flower_blue` / `flower_sun` / `flower_coral`；seed依次 `flower_seed_blue` / `flower_seed_sun` / `flower_seed_coral`，各produce为同名独立鲜花，不是 `flower_bundle`。
+- 正式制作源为 [flower_view.gd](../../../godot/src/crops/flower_view.gd) + [flower_blue.tscn](../../../godot/scenes/crops/flower_blue.tscn) / [flower_sun.tscn](../../../godot/scenes/crops/flower_sun.tscn) / [flower_coral.tscn](../../../godot/scenes/crops/flower_coral.tscn)；四节点固定，`ensure_built()`离树幂等。它们是原生Godot程序源，不是新增.blend、GLB或 `art_source/crops` 下的伪源；上方旧新增作物的Blender/四GLB清单不作为这三花的已交付事实。
+- [CropCatalog.reload](../../../godot/src/crops/crop_catalog.gd)规范JSON yield为整数，修复三花数量消费者基础产量1→2，不改播种扣1包种子；原三作物数值不变（产量2/2/3，原温室加成保留）。[test_flower_crops.gd](../../../godot/tests/test_flower_crops.gd)明确断言旧产量与加成未变。
+- [HarvestVisual](../../../godot/src/crops/harvest_visual.gd)：`supports` / `create`增加三花成熟真实网格，复制花瓣/花心/茎叶、无土无碰撞，0.40米居中；保留R14原三作物选择及角色动作所有权，取消/结束清理不改库存或地格。
+- 资产归原[crops分账本](../../../assets/registry/ledgers/crops.json)；[蓝星manifest](../../../assets/registry/manifests/sea-crop-flower-blue.json)、[晨光manifest](../../../assets/registry/manifests/sea-crop-flower-sun.json)、[珊瑚manifest](../../../assets/registry/manifests/sea-crop-flower-coral.json)只作已登记来源引用，不由本次文档补记改资产stage或把pending重签为通过。
+
+### 已执行证据与剩余边界
+
+[最新221054报告](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/report.json)共11项全部PASS/exit0、completion_marker=true、unexpected_errors=[]；head/working_tree、完整命令、隔离user_data及project快照以报告为准。这是已存在报告的核对，不是本次文档修改后新跑。
+
+| 专项 / 日志 | 实测结果 | 覆盖与不能替代的内容 |
+|---|---|---|
+| [crops](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/crops.log) | 96 checks / 0 failed，exit0/PASS | `test_crops.gd`原3断言已扩6集合，保留原品种，六品种目录/阶段/表现回归；不是旧60项结果沿用 |
+| [flower-crops](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/flower-crops.log) | 1233 checks / 0 failures，exit0/PASS | 三花种收/缺水/换天/存档/满包/送礼，12运行阶段真实网格、每stage≤900面/框内、缺水还原，成熟手持与Character动作/取消；headless，不是source美术签署或真实四视图人工验收 |
+
+保留原R06 Blender源级“保存重开+四视图”未执行；三花程序源stage预算/source美术验收未取得独立结论，不用运行实例预算断言代签。历史visual-crops等只证明原范围，不借给三花；整体 `implemented` 不等于完整产品verified。后续其他品种、品质、耐性及既有待验仍保留。本次不运行global sync/最终门禁，由主线程统一负责。

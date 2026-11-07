@@ -239,6 +239,39 @@ func add_all(amounts: Dictionary) -> bool:
 	return true
 
 
+## Atomic exchange is the shared buy/gift/request port. Validate the complete
+## candidate first, then publish only after counts AND display order commit.
+func exchange(costs: Dictionary, gains: Dictionary) -> Dictionary:
+	var candidate := _counts.duplicate(true)
+	for values in [costs, gains]:
+		for id in values:
+			var amount: Variant = values[id]
+			if not id is String or not ItemDB.has(id): return {"ok": false, "reason": "未知物品"}
+			if not (amount is int or amount is float) or not is_finite(float(amount)) or amount < 0 or float(amount) != floor(float(amount)) or amount > 1000000000:
+				return {"ok": false, "reason": "物品数量无效"}
+	for id in costs:
+		if int(candidate.get(id, 0)) < int(costs[id]): return {"ok": false, "reason": "瓶盖不足" if id == "coins" else "物品不足"}
+		candidate[id] = int(candidate.get(id, 0)) - int(costs[id])
+	for id in gains: candidate[id] = int(candidate.get(id, 0)) + int(gains[id])
+	var used := 0
+	for id in candidate.keys():
+		if int(candidate[id]) <= 0: candidate.erase(id); continue
+		if int(candidate[id]) > 1000000000: return {"ok": false, "reason": "物品数量超过安全上限"}
+		if not ItemDB.is_currency(str(id)): used += ceili(float(candidate[id]) / maxi(ItemDB.stack_limit(str(id)), 1))
+	if used > _capacity: return {"ok": false, "reason": "背包已满"}
+	var old := _counts
+	_counts = candidate
+	for id in gains:
+		if int(gains[id]) > 0: _register(str(id))
+	var changed_ids := costs.keys()
+	for id in gains:
+		if not changed_ids.has(id): changed_ids.append(id)
+	for id in changed_ids:
+		var delta := int(_counts.get(id, 0)) - int(old.get(id, 0))
+		if delta != 0: changed.emit(str(id), delta)
+	capacity_changed.emit(slots_used(), _capacity)
+	return {"ok": true, "reason": ""}
+
 func expand(extra_slots: int) -> void:
 	_capacity += maxi(extra_slots, 0)
 	capacity_changed.emit(slots_used(), _capacity)

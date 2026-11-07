@@ -1,0 +1,1401 @@
+{
+  "schema": "sea.gift_kiosk.delivery_verification",
+  "feature_ids": [
+    "SEA-ASSET-R55",
+    "SEA-WORLD-R24",
+    "SEA-MOVE-R25",
+    "SEA-NAV-R18"
+  ],
+  "source": "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\gift_kiosk.blend",
+  "source_verification": {
+    "passed": true,
+    "checks": 446047,
+    "errors": [],
+    "source_sha256": "9194c7b365b546a3b9a982ed3b678b9fa77e1c87616a6589f76d05dac26eb493",
+    "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "packages_reopened": 47,
+    "components": 47,
+    "instances": 379,
+    "uv_faces_checked": 146118,
+    "master_triangles": 141000,
+    "expanded_triangles": 518384,
+    "exit_code": 0,
+    "commercial_reference_rights": "pending",
+    "user_art_acceptance": "pending"
+  },
+  "export_audit": {
+    "passed": true,
+    "components": 47,
+    "triangles_compared": 140981,
+    "includes": [
+      "positions",
+      "corner normals",
+      "UV0",
+      "material role"
+    ],
+    "errors": []
+  },
+  "fidelity": {
+    "passed": true,
+    "views": [
+      {
+        "view": "hero",
+        "rgb_rms_255": 0.04473910260149729,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "front",
+        "rgb_rms_255": 0.035892807786430565,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "back",
+        "rgb_rms_255": 0.04138236339311712,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "right",
+        "rgb_rms_255": 0.035008502368642364,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      }
+    ],
+    "components": 47,
+    "export_triangles": 140981,
+    "no_embedded_images": true,
+    "raw_source_protected": true
+  },
+  "placement": {
+    "sunroom_body_centre_xz": [
+      6.1499999999999995,
+      2.4700000000000006
+    ],
+    "southeast_offset_m": 141.42135623730948,
+    "reference_position": [
+      147.571356,
+      1.12,
+      143.891356
+    ],
+    "initial_distance_m": 199.99999966439367,
+    "position_authority": "main.tscn; reference coordinates are not future assertions",
+    "old_transform_preserved": true,
+    "probe": "D:\\projects\\sea-work\\verification\\20261107-133259-gift-kiosk-placement-probe-834547\\project\\outputs\\sunroom-body-probe.json"
+  },
+  "registration": {
+    "new_assets": 48,
+    "reviewed_runtime_files": 171,
+    "source_hashes_preserved": true,
+    "signed_report": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\report.json",
+    "unrelated_baseline_drift_preserved": [
+      "SEA-DECO-ANIMAL-FISH-SCHOOL",
+      "godot/assets/materials/water.tres",
+      "godot/src/bootstrap/main.gd"
+    ]
+  },
+  "final_runtime_report": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\report.json",
+  "results": {
+    "gift-kiosk": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\gift-kiosk.log",
+      "user_data_name": "sea-verification/20261107-140056-gift-kiosk-release-final-dc0ce0/gift-kiosk",
+      "renderer": "headless",
+      "command": [
+        "I:/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_gift_kiosk.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-gift-kiosk": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\visual-gift-kiosk.log",
+      "user_data_name": "sea-verification/20261107-140056-gift-kiosk-release-final-dc0ce0/visual-gift-kiosk",
+      "renderer": "real",
+      "command": [
+        "I:/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_gift_kiosk.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "water-layer": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\water-layer.log",
+      "user_data_name": "sea-verification/20261107-140056-gift-kiosk-release-final-dc0ce0/water-layer",
+      "renderer": "headless",
+      "command": [
+        "I:/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_water_layer.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  },
+  "import": {
+    "exit_code": 0,
+    "log": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\asset-import.log",
+    "unexpected_errors": []
+  },
+  "raw_runtime_evidence": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\project\\outputs\\gift-kiosk-verification.json",
+  "real_render_evidence": "D:\\projects\\sea-work\\verification\\20261107-140056-gift-kiosk-release-final-dc0ce0\\project\\outputs\\gift-kiosk-render.json",
+  "media": "D:\\projects\\sea-work\\gift_kiosk\\v001\\final",
+  "authored_runtime_sha256": {
+    "godot/scenes/main.tscn": "c837a3fff8a4609f323043ac73a315d3199d85517e57443f2bb0b5b056ce5fb0",
+    "godot/scenes/facilities/floating_shop.tscn": "3f1358953140bc57a56e5f5d6eb31ee612b2a3163c0eff510d005093ec2c32c0",
+    "godot/scenes/facilities/floating_rest_stop.tscn": "8c916de73e38972dbe2f4be224892eba4c3e56cf963d16e2513bc142415e94f0",
+    "godot/src/player/actor_controller.gd": "289f44ee7d7a5fc3628d7d08cb133e513c2bdb3df43ca4384cf6462bf329739a",
+    "godot/src/player/character_motor.gd": "829b1b88a7f43cd5b085e97e6f57d2e18d3e13339a7b062a095c77cff666175f",
+    "godot/src/navigation/ground_space.gd": "c98ca69dfde1e368350984f6788c0932fdc50e6770968bac3ee1f2105bc06217",
+    "godot/src/world/zones.gd": "26dfa994d9477fa55fe19a813c99bf732db77fdc1e60e303bb719c3ecf3feb08",
+    "godot/src/facilities/floating_shop_zone.gd": "2b09a788a6e2124dbd8d8d779c02bf867e6275461c75291bc183acc93af6974f",
+    "godot/tools/gift_kiosk_import.gd": "480b4370d7528bacc62fb7089729e0e647b368bd16b9585baae43749f35def65",
+    "godot/tools/capture_gift_kiosk.gd": "2df0918a34140f469eeacbabd8c8813d9b118df9eaf22f883363b1023a426316",
+    "godot/tests/test_gift_kiosk.gd": "b4a0e5561f3fb48119ee18fb84ff7927c5936d22f60dffd6ac0aa0995adb74ec",
+    "godot/tests/test_water_layer.gd": "b252639664bef4082437aefd895a42cbe9c4b6e6029abbe106b3cf9884dfb019"
+  },
+  "reviewed_resources": [
+    {
+      "path": "godot/assets/materials/gift_kiosk/emission.tres",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "a8d98596be74d18a34aa466309bba84aa178bd2360447f7e243697ede5935d04",
+      "bytes": 427,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/materials/gift_kiosk/gloss.tres",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "0fcce92e84aef9eb46a604955b1ac089fc6bc9f144276b3117254e6f32845fa9",
+      "bytes": 361,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/materials/gift_kiosk/matte.tres",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "79cde57810a6c0430fce8e95b1b178010e3bfeff90fddf9694bd0ae78f7f75b5",
+      "bytes": 291,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/materials/gift_kiosk/metal.tres",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "fb7df928e0bb9b9a87900ccbbf851dd09dc769e20c8507c71370377ca4109fcc",
+      "bytes": 294,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/materials/gift_kiosk/metal_lettering.tres",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "216552d307fe45f7e169e15acc6547a226be96da7185e2887a6e2630c7ad82fc",
+      "bytes": 326,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_blue/awning_blue.glb",
+      "asset_id": "SEA-SCENE-GKS-AWNING-BLUE",
+      "sha256": "843b3fbba897379cd9a0b3df3eb17c9c04dc940f58e4aeade33aad863d5465af",
+      "bytes": 64548,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_blue/awning_blue.glb.import",
+      "asset_id": "SEA-SCENE-GKS-AWNING-BLUE",
+      "sha256": "e124df3a207d8f95cab44fc864c742e37b5d35483212991535366defd55640ff",
+      "bytes": 1121,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_corner/awning_corner.glb",
+      "asset_id": "SEA-SCENE-GKS-AWNING-CORNER",
+      "sha256": "a9be077cb3fa953148b881d07b4dae614b57aa0d19dd9b715b273ecddcd84497",
+      "bytes": 271816,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_corner/awning_corner.glb.import",
+      "asset_id": "SEA-SCENE-GKS-AWNING-CORNER",
+      "sha256": "fa507aca2dbe00ea3a0a58f61cb66644635fecd9cb89268a04162454a1e32360",
+      "bytes": 1129,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_white/awning_white.glb",
+      "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+      "sha256": "03977ca64972e59d01d6cb7d5af677c738da7d1e7dee45ccffe30cfb55b40aec",
+      "bytes": 64552,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/awning_white/awning_white.glb.import",
+      "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+      "sha256": "96826f6706450e756dc17543967ff09c308814ecd197a913ea9ba8eca0a13561",
+      "bytes": 1125,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/back_door/back_door.glb",
+      "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+      "sha256": "23f7cbcfd84d96b7efe0f0e4ee7480ee273bcc11c5ab7eb41b3328b3bff22251",
+      "bytes": 39640,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/back_door/back_door.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+      "sha256": "af105e0c23515aa254570a00dfcc2392cbefa5853f85b78f016aacbbd9fcbc45",
+      "bytes": 1113,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/back_panel/back_panel.glb",
+      "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+      "sha256": "f5221c0b11378a430dcd4028b33efe77a0add9a8bebbabc0f0ef73c45a8275d0",
+      "bytes": 47084,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/back_panel/back_panel.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+      "sha256": "44bb0bb0dea7018de188a3d6a064e2e340d98d0eb98abcc7fd222bc69a181113",
+      "bytes": 1116,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/beacon/beacon.glb",
+      "asset_id": "SEA-SCENE-GKS-BEACON",
+      "sha256": "121d3b1747bb32831ea12923d8b8e3fa0f347f06e22dd39748e03203b06b78d9",
+      "bytes": 179300,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/beacon/beacon.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BEACON",
+      "sha256": "9428fc683d7b7521cabf7b0fd404e88342b59e65c75b330853d5b22f4711124e",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bench/bench.glb",
+      "asset_id": "SEA-SCENE-GKS-BENCH",
+      "sha256": "124b6dfd7553192999f537a1f4cf82a28b75c512a20a2fe7e137ffa15b857a81",
+      "bytes": 105156,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bench/bench.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BENCH",
+      "sha256": "5944b19c915d11e79f7abe37371d395b7e25deaa458950a01c788bac42d1bbfe",
+      "bytes": 1097,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bin/bin.glb",
+      "asset_id": "SEA-SCENE-GKS-BIN",
+      "sha256": "fc28728fe7682a1543a10ae1f0678ed3ea803cdf7cfc0e7f3636058c562b8f59",
+      "bytes": 36720,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bin/bin.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BIN",
+      "sha256": "5e71f661194112704d889d35480624324bc4b87d1a8a973bf252fa108f410145",
+      "bytes": 1089,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bollard/bollard.glb",
+      "asset_id": "SEA-SCENE-GKS-BOLLARD",
+      "sha256": "93d7edfdb96d182f0b424102b772bd7993bcb9d00f6e4f395ca2843938b0e59e",
+      "bytes": 73304,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bollard/bollard.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BOLLARD",
+      "sha256": "d0b28cca631525f86a1c1bdc93e0ce9d4e33661e0d80c1ecb19ca78db114cb44",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bottle/bottle.glb",
+      "asset_id": "SEA-SCENE-GKS-BOTTLE",
+      "sha256": "67b47df8e47ee9586d38cb60ccaf768f36f2565709016fcda29ed8ca3f60287d",
+      "bytes": 78948,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/bottle/bottle.glb.import",
+      "asset_id": "SEA-SCENE-GKS-BOTTLE",
+      "sha256": "0c53da813b182eda5ce4a1565cce4fa8345bcfcd0e1c6a39e36f137ec0efbe04",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/card/card.glb",
+      "asset_id": "SEA-SCENE-GKS-CARD",
+      "sha256": "4db351a6b0e24d323fda247d9e2b871247f4d5cfd3ebc56b29917468d81f6df0",
+      "bytes": 36808,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/card/card.glb.import",
+      "asset_id": "SEA-SCENE-GKS-CARD",
+      "sha256": "0028ba627d271dbbd8b469246c5096cfde67e9f7480b8aa5571963acd3e4a6bd",
+      "bytes": 1093,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/column/column.glb",
+      "asset_id": "SEA-SCENE-GKS-COLUMN",
+      "sha256": "ba7909a3e00d0645c3b95a849e0f5b517f33a675f2ce666ee727d93bdc67c73d",
+      "bytes": 12972,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/column/column.glb.import",
+      "asset_id": "SEA-SCENE-GKS-COLUMN",
+      "sha256": "ba4ddfab52b9e3f733503907d14825e687de3947ee869b9ad3775f2f479f393c",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/curved_glass/curved_glass.glb",
+      "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+      "sha256": "abf4a927bbf1946db137640d44cf93fa612bdfdd27b6e2ffbcc4e6cba5086c39",
+      "bytes": 192240,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/curved_glass/curved_glass.glb.import",
+      "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+      "sha256": "0ba5b9e7d57e7d30ff951ed614e062e6a4c9b6cb0d21ce114b5284f4e544ea76",
+      "bytes": 1125,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/deck/deck.glb",
+      "asset_id": "SEA-SCENE-GKS-DECK",
+      "sha256": "4817ade89b117419264c00f3a5e1925e1792ba1b0067a9647292f19115971846",
+      "bytes": 301452,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/deck/deck.glb.import",
+      "asset_id": "SEA-SCENE-GKS-DECK",
+      "sha256": "039f3e4bddbd7e3356e2328a0e519b05249d2df012834ac9dbf4cdd0841669fe",
+      "bytes": 1093,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/deck_light/deck_light.glb",
+      "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+      "sha256": "6eb612e27e373a0e6319df319f04c7c31963653e8d75732dbd2f788016657443",
+      "bytes": 25052,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/deck_light/deck_light.glb.import",
+      "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+      "sha256": "e1812e5154f5d38f879ba0933024087b570124e3497fe1021e76c77135afba52",
+      "bytes": 1117,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/electrical_box/electrical_box.glb",
+      "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "sha256": "d8a70553aa2f92270b59f550d8c90c5bde5b18a7619a43a07fe3adc9b2f865f1",
+      "bytes": 75536,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/electrical_box/electrical_box.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "sha256": "c419e985f901126b28fe5b0d1a89969c55299752745bdc6e3390111f462adafb",
+      "bytes": 1132,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/entry_frame/entry_frame.glb",
+      "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "sha256": "20c0975ac41a5c355229c7ffe079f610212c564e6698e3af8ec7291d6fabed76",
+      "bytes": 48360,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/entry_frame/entry_frame.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "sha256": "db4334fd28f8896f187f8dbb1f6559675703e45962ffa8a218e4779f0ce82654",
+      "bytes": 1121,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fascia/fascia.glb",
+      "asset_id": "SEA-SCENE-GKS-FASCIA",
+      "sha256": "50473e099f5b1834535ed084047b466da6a1bda5ade9bcf83b17fd8406b3f3bf",
+      "bytes": 77496,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fascia/fascia.glb.import",
+      "asset_id": "SEA-SCENE-GKS-FASCIA",
+      "sha256": "079e18f6b87ea0a6ae6f56ba69035d93c908657a98d86c00e3123c1cafc17a6e",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fascia_corner/fascia_corner.glb",
+      "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "sha256": "ffc95a0f854a37b626e0691976643db6ce5dde62c94474d729ce8676f07df1e6",
+      "bytes": 98476,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fascia_corner/fascia_corner.glb.import",
+      "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "sha256": "b44f3f28e1e1424b775b851948b2d856468352556973a3dac262ee88dc474e6f",
+      "bytes": 1129,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fender/fender.glb",
+      "asset_id": "SEA-SCENE-GKS-FENDER",
+      "sha256": "17afda78e93e485998ce0ebf0d29cd5efe7ffbec500dbb3dade3b31fb8984659",
+      "bytes": 151732,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/fender/fender.glb.import",
+      "asset_id": "SEA-SCENE-GKS-FENDER",
+      "sha256": "806e0ac7b8aafc34b4049ef1037ef65edc5c48313f2089dc5ad7da038398b41a",
+      "bytes": 1100,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/foliage/foliage.glb",
+      "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+      "sha256": "cba358e15953e9fb35cddf418695f47e4f2d3492745c610928691a03efcfe5b7",
+      "bytes": 171540,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/foliage/foliage.glb.import",
+      "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+      "sha256": "5a30fa570db9b47d6a01f19ec0072d88ac1d098afcce6a7a852dcaab488596c0",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/gift/gift.glb",
+      "asset_id": "SEA-SCENE-GKS-GIFT",
+      "sha256": "cd5db1ff9230d1d16e7ef2b7ddcd467ce4a40a827fd4e007726a263ffef0ab90",
+      "bytes": 47692,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/gift/gift.glb.import",
+      "asset_id": "SEA-SCENE-GKS-GIFT",
+      "sha256": "242f49d92f4984077c046da22d571319af6a8158ad70560342b6e13b07937ba8",
+      "bytes": 1092,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/glass_bay/glass_bay.glb",
+      "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+      "sha256": "62927f2bddb58f4ded63c318a68014a8ada54bfd5513a84de389799265ed7c40",
+      "bytes": 83544,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/glass_bay/glass_bay.glb.import",
+      "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+      "sha256": "90e6248e35ff6738d4f9eb3a71fa6d33b46f87dee620e47f6f6eea2837708f84",
+      "bytes": 1112,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/hull/hull.glb",
+      "asset_id": "SEA-SCENE-GKS-HULL",
+      "sha256": "076525a82beb6199c43190ed15a91553239af5f1455fb058031789201286c5c8",
+      "bytes": 102532,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/hull/hull.glb.import",
+      "asset_id": "SEA-SCENE-GKS-HULL",
+      "sha256": "d175a68538f3f8ea469f9d3e46ae62a092f503a9904c732e61befa41ccbec319",
+      "bytes": 1093,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/ice_box/ice_box.glb",
+      "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+      "sha256": "21f6ebe1d804df46ec4346f0f8c471f148438d4dd0fb3d92405a4101c0475068",
+      "bytes": 391680,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/ice_box/ice_box.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+      "sha256": "f5d0c9effb653012016f4709fe2e342ab69bded7e507cef308b6ce76ac34ee52",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/ladder/ladder.glb",
+      "asset_id": "SEA-SCENE-GKS-LADDER",
+      "sha256": "441a8713c8811c2f1f52481291497de9391d779e3d367796b390d13a03cced26",
+      "bytes": 52656,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/ladder/ladder.glb.import",
+      "asset_id": "SEA-SCENE-GKS-LADDER",
+      "sha256": "beb2097f1f3ae192ab1dc158ea031d5a7d03094b7ebb76f47aa5d5f869e1e98b",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/lantern/lantern.glb",
+      "asset_id": "SEA-SCENE-GKS-LANTERN",
+      "sha256": "acf96c9d30d1450c872a8fed49583bf760188dc3ff3ce9b0d39009c72ac324cd",
+      "bytes": 123180,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/lantern/lantern.glb.import",
+      "asset_id": "SEA-SCENE-GKS-LANTERN",
+      "sha256": "1e45addb3b713ca1f029aa060c7707568730b2d68c1f184882e17c4eea8b9b47",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/life_ring/life_ring.glb",
+      "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+      "sha256": "986f11bbb006528b607ec628cd494684482785e5549d2e9a93718707fb197c21",
+      "bytes": 205612,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/life_ring/life_ring.glb.import",
+      "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+      "sha256": "8a7c9f15528f2742f4e5fb66360292b3656a52a69644e7e43ad1e945b50af5bc",
+      "bytes": 1113,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/mailbox/mailbox.glb",
+      "asset_id": "SEA-SCENE-GKS-MAILBOX",
+      "sha256": "85ce959a729d773e52e4b1772a07ffce34d97e0dfb0353c3ecfea4e383ff564c",
+      "bytes": 70884,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/mailbox/mailbox.glb.import",
+      "asset_id": "SEA-SCENE-GKS-MAILBOX",
+      "sha256": "5ea821d223dedf04a4c139ca618e366315271f3957522c5c8a284050272512b7",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/plaque/plaque.glb",
+      "asset_id": "SEA-SCENE-GKS-PLAQUE",
+      "sha256": "1fb1151f9a806ce8242f928e446656c0a339a7dc0184b97e595d7ff352684053",
+      "bytes": 107116,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/plaque/plaque.glb.import",
+      "asset_id": "SEA-SCENE-GKS-PLAQUE",
+      "sha256": "355288efc1aa36e72aca99de0c0ce70a4cb446b947128e8068d63bf67c42f2f5",
+      "bytes": 1101,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/pontoon/pontoon.glb",
+      "asset_id": "SEA-SCENE-GKS-PONTOON",
+      "sha256": "a18fb2ad9f040cc15c4ac1278a2d85f932f4cf0a2c198cb2b530ec5c9a4db321",
+      "bytes": 246028,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/pontoon/pontoon.glb.import",
+      "asset_id": "SEA-SCENE-GKS-PONTOON",
+      "sha256": "65a3b4054c76df5df682eef0033b822670818f5435997e61d40c1549f5a2b542",
+      "bytes": 1105,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/postcard_rack/postcard_rack.glb",
+      "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "sha256": "c8012b7111ffbc9f41d8d769cc776fcebf66bdc946a16646de3b2e583a952f1c",
+      "bytes": 892340,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/postcard_rack/postcard_rack.glb.import",
+      "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "sha256": "7da4f0e464458aa464ba25a6e300a9e53d31b2cf1911297b9bb8b468720cba4b",
+      "bytes": 1129,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/pot/pot.glb",
+      "asset_id": "SEA-SCENE-GKS-POT",
+      "sha256": "056448455bb4661efcf049228bdf2b8ad86be8e3ba82398aca4b31878d5b639b",
+      "bytes": 133156,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/pot/pot.glb.import",
+      "asset_id": "SEA-SCENE-GKS-POT",
+      "sha256": "7b330029a34ba7d653f15df24930216513d0f8daa7a261f022126c49a4ef5460",
+      "bytes": 1088,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_bar/rail_bar.glb",
+      "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+      "sha256": "f1f0518c76445a3b1a4dba0f53cc4203cb49681936ff1e2ce3f0ab28cbf7ea42",
+      "bytes": 3980,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_bar/rail_bar.glb.import",
+      "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+      "sha256": "0e612fb50cfed29e6d6a2f73bc19848daac5a8e0581ea1a001d1e307652322e1",
+      "bytes": 1108,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_corner/rail_corner.glb",
+      "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+      "sha256": "09f11b8981bc27891f7ba3bb76915a91a7e051fce513ce0052db18662eb5f342",
+      "bytes": 31388,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_corner/rail_corner.glb.import",
+      "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+      "sha256": "c384e6bf2936d34e7d31eb71fe5e4e69689549717266b4725f3c7168f7fef630",
+      "bytes": 1120,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_post/rail_post.glb",
+      "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+      "sha256": "9090593134ca69f9fac6956c588c2d883569c104fa9bfa4bccd3b39c1e3a80fc",
+      "bytes": 104112,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/rail_post/rail_post.glb.import",
+      "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+      "sha256": "368b2fc33df7538ab14d72a8110e9ffbb1f26bee3de03c701d0f85abc5090518",
+      "bytes": 1113,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof/roof.glb",
+      "asset_id": "SEA-SCENE-GKS-ROOF",
+      "sha256": "ad2d85d0638c5d268cc54298649ea6ff8700c0dc83623516c4a096b0ff07c26d",
+      "bytes": 246900,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof/roof.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ROOF",
+      "sha256": "8651e594ce88c50e1ab03b8fd74d0774ad2ee8e95865d57c76b9bf126d59ab81",
+      "bytes": 1093,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof_disk/roof_disk.glb",
+      "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+      "sha256": "aa3bc9fa6bdfe78908e67cb73e633af3771590079e667dae4c487e218c15ef71",
+      "bytes": 322644,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof_disk/roof_disk.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+      "sha256": "8204d484172e7ad67232ea113ac8b2aeadcce323a7dcf33eeca5df251f90d1e0",
+      "bytes": 1113,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof_pipe/roof_pipe.glb",
+      "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+      "sha256": "9b247098edaf5ca97442bdfe440aa146941f657bb30cecb2d168749f28300a7e",
+      "bytes": 84252,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/roof_pipe/roof_pipe.glb.import",
+      "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+      "sha256": "531c6e250f43f25cd81a0b1e728e223fe3cbe0c4eb57e8b191576dc19299ab6f",
+      "bytes": 1112,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/runtime_manifest.json",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "b6b006838ab92439143e9f1f75316d709d7b2a12658a56b426aea9c30ad1ca53",
+      "bytes": 175268,
+      "status": "runtime_contract_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/shelf/shelf.glb",
+      "asset_id": "SEA-SCENE-GKS-SHELF",
+      "sha256": "2d37b68f21b0ddd156d2abc0dc061b7c8d8144c286754bebbd41f83af27c636c",
+      "bytes": 81800,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/shelf/shelf.glb.import",
+      "asset_id": "SEA-SCENE-GKS-SHELF",
+      "sha256": "28d677626c046e37f2628bef7cbc80c47b0791c2c3a4fe6720d1d406b15b57f9",
+      "bytes": 1097,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_drinks/sign_drinks.glb",
+      "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "sha256": "ef1029838e7a5c2bb8e07302e61a53530dc1ff271fde7a2f73a6a22d78b3a379",
+      "bytes": 1526820,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_drinks/sign_drinks.glb.import",
+      "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "sha256": "2a6deb60604cccd75b0161e47dd9d34c70b543aa8a3bc87717dffe41877c75c7",
+      "bytes": 1121,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_gifts/sign_gifts.glb",
+      "asset_id": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "sha256": "5f5e1fb3ad9bef1d63b229114b3714184e0503774afc49dcac8379086dd7c02b",
+      "bytes": 732100,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_gifts/sign_gifts.glb.import",
+      "asset_id": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "sha256": "2c12b34a8c8312dffb9d58438cba8da02d9b20bce0a511040cb7038b57e0f4ab",
+      "bytes": 1116,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_postcards/sign_postcards.glb",
+      "asset_id": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "sha256": "9e5ce7837d051b4638885fe2b797b9a853a0fcbdb705f024115c3f8bffdcda99",
+      "bytes": 1797956,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/sign_postcards/sign_postcards.glb.import",
+      "asset_id": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "sha256": "b07b363f3d29e267e319ad428b5a8592d5e6c9b499df7e0abbbc53247178babb",
+      "bytes": 1133,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/spotlight/spotlight.glb",
+      "asset_id": "SEA-SCENE-GKS-SPOTLIGHT",
+      "sha256": "689b08fd06029a22b8a68e5852e24f9c43d93f10dd39a730236ccea5f4376ec7",
+      "bytes": 199416,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/spotlight/spotlight.glb.import",
+      "asset_id": "SEA-SCENE-GKS-SPOTLIGHT",
+      "sha256": "c3901790821f47d7cc83b3c6960da2cb94871fafd7632196874d41e3dc30aee8",
+      "bytes": 1113,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/thruster/thruster.glb",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER",
+      "sha256": "6cbda41e09acd1518e7168980e8e2de6f97f24cda7c97d6daff54b9211c8ad15",
+      "bytes": 379024,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/thruster/thruster.glb.import",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER",
+      "sha256": "5caf2364bf418aa32a36f1b276cd822f3295ab2f4a11a4d07a774d9b2ec0b6e0",
+      "bytes": 1109,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/thruster_glow/thruster_glow.glb",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "sha256": "10d1680b62758a8f20ba41561e2c0193e474e0267881d4df93286098ba6802a4",
+      "bytes": 110484,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/thruster_glow/thruster_glow.glb.import",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "sha256": "6ba03929722843af43aa575bf9bbc764161d9687424b196866c27850ad2e2270",
+      "bytes": 1129,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/underframe/underframe.glb",
+      "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+      "sha256": "928e079e6f63cfaea00a5e1cc4eb47f931a14eaf2300f52da311450e5feddc8e",
+      "bytes": 34104,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk/underframe/underframe.glb.import",
+      "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+      "sha256": "9c8b7b7646719a1daca26167b03c6b9b6aeb3f9ea99ab3d62c3945d891ab02ce",
+      "bytes": 1117,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/awning_blue.tscn",
+      "asset_id": "SEA-SCENE-GKS-AWNING-BLUE",
+      "sha256": "d24947f4ca2826a3aabaf66206be136658b0e03ea07a62beba0a8cfb104885a5",
+      "bytes": 405,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/awning_corner.tscn",
+      "asset_id": "SEA-SCENE-GKS-AWNING-CORNER",
+      "sha256": "117c211896df1d365f309d5a50ff3497a9a11e5ec7f161c125d4b35230396214",
+      "bytes": 413,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/awning_white.tscn",
+      "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+      "sha256": "5865b5bbfd3772bf379bbbcbcf6e8ad694d6b7f64088d7d811d9e6ce9a40f3a8",
+      "bytes": 409,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/back_door.tscn",
+      "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+      "sha256": "03bf01690a2644583bcd6a1ea56e7b7c702f263f94fdd2d9a3a433fe667d7fda",
+      "bytes": 441,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/back_panel.tscn",
+      "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+      "sha256": "c4f1259f0e375551803a5c3c3bce195c14268662c1cfece4fc4f85a1a8d6c022",
+      "bytes": 445,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/beacon.tscn",
+      "asset_id": "SEA-SCENE-GKS-BEACON",
+      "sha256": "f81744268e208bdf1868c0236dad5cc73d9389f50288476111bcc91cc8c6e895",
+      "bytes": 385,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/bench.tscn",
+      "asset_id": "SEA-SCENE-GKS-BENCH",
+      "sha256": "d030dd0204efe8aeb1cc1722bcee23c4efdcdd43a4f9e86e685665622033f43d",
+      "bytes": 381,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/bin.tscn",
+      "asset_id": "SEA-SCENE-GKS-BIN",
+      "sha256": "ee447ec3878c8940d9daf532085f32c882d3c3601d189d3fb7ddc929150dc9d7",
+      "bytes": 373,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/bollard.tscn",
+      "asset_id": "SEA-SCENE-GKS-BOLLARD",
+      "sha256": "619812c329900bf1bcb8977b474568ef1ab0a843104a2400161bb60331afa85f",
+      "bytes": 389,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/bottle.tscn",
+      "asset_id": "SEA-SCENE-GKS-BOTTLE",
+      "sha256": "7d9b29710b2edea76b6934a2da4f773391f7218c9e2bad3ed9c1cffbdf44e33a",
+      "bytes": 385,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/card.tscn",
+      "asset_id": "SEA-SCENE-GKS-CARD",
+      "sha256": "dd63aa21f9d032bcee09e3d98e6106c3c98a19f69b934a108e3f6179cb2da72c",
+      "bytes": 377,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/column.tscn",
+      "asset_id": "SEA-SCENE-GKS-COLUMN",
+      "sha256": "eaf036196d9daa76870b75999ef558ad4441521ae5b21583adf84d20764fcdef",
+      "bytes": 429,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/curved_glass.tscn",
+      "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+      "sha256": "fb505f6646beefda6ebb616807546c39d7c86c8c9f6defe36163de201f9ead20",
+      "bytes": 453,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/deck.tscn",
+      "asset_id": "SEA-SCENE-GKS-DECK",
+      "sha256": "c7c846bc3d708adf2f70b153032e85da3db49d8ccf91d90696067b0c1d3c4761",
+      "bytes": 421,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/deck_light.tscn",
+      "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+      "sha256": "1eda503f108e0666e3cc746886bbd2f5daf23bd8155781ddc58b2e1560896ffc",
+      "bytes": 401,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/electrical_box.tscn",
+      "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "sha256": "f7f37edfc32ca3a44234bdbaeadb6c55b3cef76138232ddd755002a79cd3276f",
+      "bytes": 417,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/entry_frame.tscn",
+      "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "sha256": "672904e6b076b62c89c2eb2f3a1b9d3e4a08496457f60a47f85250fa651ff95e",
+      "bytes": 449,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/fascia.tscn",
+      "asset_id": "SEA-SCENE-GKS-FASCIA",
+      "sha256": "18075e71c4098c00cfcc342fb136a8e4423e8d3b94d0ddb861a0aa307a26d395",
+      "bytes": 385,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/fascia_corner.tscn",
+      "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "sha256": "f1a0246df4a9c9afdf326a3edd19b20ac15e4ec57426b6c39aa22a8b5c810623",
+      "bytes": 413,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/fender.tscn",
+      "asset_id": "SEA-SCENE-GKS-FENDER",
+      "sha256": "cdd56830ece74d40a2c22100f3cfa4cc169f1fc815bb11611f8ab1d2632b8568",
+      "bytes": 385,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/foliage.tscn",
+      "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+      "sha256": "0533ba839cd083e4399d34fc0459bcdaa8c957062670f6507f1ac78288364d84",
+      "bytes": 389,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/gift.tscn",
+      "asset_id": "SEA-SCENE-GKS-GIFT",
+      "sha256": "47ebc2d20dfb01caaf9fb66610089fc28829d82f13498b90a92566a885d01193",
+      "bytes": 377,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/glass_bay.tscn",
+      "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+      "sha256": "2323ba671ef126e4c54354726dbc589906875caed674705f65ea0e4754a70de0",
+      "bytes": 441,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/hull.tscn",
+      "asset_id": "SEA-SCENE-GKS-HULL",
+      "sha256": "8de794cf465f65cdedbdc7a4cd8a2707836e2758cc362807731a29eaeeee2487",
+      "bytes": 451,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/ice_box.tscn",
+      "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+      "sha256": "9cd7ba6bd851cd6a7cd030559295bfbd131c8cdf5bec73a7da4aa20b0d0a0f6b",
+      "bytes": 389,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/ladder.tscn",
+      "asset_id": "SEA-SCENE-GKS-LADDER",
+      "sha256": "e5171f3f94760aab94a34076ecf0d480ed9bbcaeeb7b2cfddbb5739348470706",
+      "bytes": 385,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/lantern.tscn",
+      "asset_id": "SEA-SCENE-GKS-LANTERN",
+      "sha256": "ad96cf74f1a3e2956dcb299d0b5613ebf7266c456ac99b8e3a5576b3dea73191",
+      "bytes": 389,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/life_ring.tscn",
+      "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+      "sha256": "d8c50a95b2c86c93a640555c0420db93b149129e3c3984fa6cc7297ed283c90f",
+      "bytes": 397,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/mailbox.tscn",
+      "asset_id": "SEA-SCENE-GKS-MAILBOX",
+      "sha256": "525beecbfb88c7cad734c0b9f5ee22cc040cad15c7fa66b002489ba3da01bca4",
+      "bytes": 389,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/plaque.tscn",
+      "asset_id": "SEA-SCENE-GKS-PLAQUE",
+      "sha256": "9dea5ffd80744a0cdc008a95b9718d73ae940b8e22d00e2066c04a3572924b12",
+      "bytes": 459,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/pontoon.tscn",
+      "asset_id": "SEA-SCENE-GKS-PONTOON",
+      "sha256": "7ab5ae5ace2286f0099ccbfbe71ff84c3ed94d52bd8a1be278d223eee32ab0de",
+      "bytes": 463,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/postcard_rack.tscn",
+      "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "sha256": "32d0418ebf6e94ea11018e05f9f127d4ea70a4e185b67e155a95295691f20013",
+      "bytes": 413,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/pot.tscn",
+      "asset_id": "SEA-SCENE-GKS-POT",
+      "sha256": "6790df7ea0cc10ea5083308b047f5596cb760f81b95a87563db113ad53a6803c",
+      "bytes": 373,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/rail_bar.tscn",
+      "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+      "sha256": "36af08d32d615dc6ca01788bbd6b4583825b749ffd42e4fd785a436ab74463e9",
+      "bytes": 393,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/rail_corner.tscn",
+      "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+      "sha256": "3d2680087c763c8a3e28647354c8da74340ee5d64659c7e44a31c309d28970f8",
+      "bytes": 405,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/rail_post.tscn",
+      "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+      "sha256": "44c7f5127bd63df1453c5fdbed57f271d2bea85586a6a8ac1bd5495651705521",
+      "bytes": 397,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/roof.tscn",
+      "asset_id": "SEA-SCENE-GKS-ROOF",
+      "sha256": "5efa0f6f5d5a2c4a7b7a5e22a8324a6bc1265539689c064165eb32fdf000dbf1",
+      "bytes": 421,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/roof_disk.tscn",
+      "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+      "sha256": "0e63abfa6b7d64fad5b43e3d91907f6e062ebca219001306350a9862a98b57e7",
+      "bytes": 397,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/roof_pipe.tscn",
+      "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+      "sha256": "5a98d8b2910b35d36f7c52d339a3d3471e669bdf3165c1665132d233862f7d82",
+      "bytes": 397,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/shelf.tscn",
+      "asset_id": "SEA-SCENE-GKS-SHELF",
+      "sha256": "8a9a1232eee5839a4f692101ac0cf1d81e78fbb5d57d6881c7978da863746d9b",
+      "bytes": 381,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/sign_drinks.tscn",
+      "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "sha256": "a9f41b267d3582ea27c2881fafd0a01428e6a9461d7eb44c1f4d753c1f877cb3",
+      "bytes": 405,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/sign_gifts.tscn",
+      "asset_id": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "sha256": "3238821dd29dba1e62908008d0a51566d4a090deb241fa79d0cce62842073eba",
+      "bytes": 401,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/sign_postcards.tscn",
+      "asset_id": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "sha256": "2236d306f43b074d0dc39933eb3f473d9b39000f51046f814bd5e8df42e805ff",
+      "bytes": 417,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/spotlight.tscn",
+      "asset_id": "SEA-SCENE-GKS-SPOTLIGHT",
+      "sha256": "bd7abed1fa7b664adbd76bcbc3c62cada8813643e1e1ed040a61d01149036577",
+      "bytes": 397,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/thruster.tscn",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER",
+      "sha256": "e076d984910bd66daba8c9d9e5eee3cd3299d194608a331011db095d44c631b7",
+      "bytes": 467,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/thruster_glow.tscn",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "sha256": "abe99c7c5cb8997c0a2320182ac9a1da3a50e0160206e7f164bf7d0ea59b290a",
+      "bytes": 487,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk/underframe.tscn",
+      "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+      "sha256": "4b8e45d503fd29d50b3524d9511a24026ba78a56a53213db0630e83dc86575c3",
+      "bytes": 475,
+      "status": "runtime_integrated_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/facilities/floating_rest_stop.tscn",
+      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "sha256": "8c916de73e38972dbe2f4be224892eba4c3e56cf963d16e2513bc142415e94f0",
+      "bytes": 2871,
+      "status": "retired_shop_visual_preserved_user_transform"
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "bytes": 87674,
+      "sha256": "3f1358953140bc57a56e5f5d6eb31ee612b2a3163c0eff510d005093ec2c32c0",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "status": "runtime_integrated_verified_provenance_pending",
+      "note": "v003零售细修：storefront_windows=4（陈列面，非入口）、retail_displays=8、interior_lamps=5、立体字元数据 sign_lettering/sign_palette（x1.5）"
+    },
+    {
+      "path": "godot/scenes/main.tscn",
+      "asset_id": null,
+      "sha256": "c837a3fff8a4609f323043ac73a315d3199d85517e57443f2bb0b5b056ce5fb0",
+      "bytes": 3867987,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "2bfdee5197a45e4a2139121fb5d90b39642b15b6ab02f6aa66b6d1197370c2f1",
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/src/facilities/floating_shop_zone.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "2b09a788a6e2124dbd8d8d779c02bf867e6275461c75291bc183acc93af6974f",
+      "bytes": 2454,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/src/navigation/ground_space.gd",
+      "asset_id": null,
+      "status": "reviewed_gift_kiosk_runtime_change",
+      "bytes": 16536,
+      "sha256": "c98ca69dfde1e368350984f6788c0932fdc50e6770968bac3ee1f2105bc06217",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
+      "previous_sha256": "3699a9ebeb42179578d054d9c8f021449d8032176b4bec2acc42603158917003",
+      "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+    },
+    {
+      "path": "godot/src/player/actor_controller.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "289f44ee7d7a5fc3628d7d08cb133e513c2bdb3df43ca4384cf6462bf329739a",
+      "bytes": 9528,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/src/player/character_motor.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "829b1b88a7f43cd5b085e97e6f57d2e18d3e13339a7b062a095c77cff666175f",
+      "bytes": 3280,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/src/world/zones.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "26dfa994d9477fa55fe19a813c99bf732db77fdc1e60e303bb719c3ecf3feb08",
+      "bytes": 3419,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "b4a0e5561f3fb48119ee18fb84ff7927c5936d22f60dffd6ac0aa0995adb74ec",
+      "bytes": 13479,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk.gd.uid",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "f7773bdf073d79e52eb4ea911898b470696d945fbd50c212f28f360b181dc896",
+      "bytes": 20,
+      "status": "stable_script_uid"
+    },
+    {
+      "path": "godot/tests/test_water_layer.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "b252639664bef4082437aefd895a42cbe9c4b6e6029abbe106b3cf9884dfb019",
+      "bytes": 8521,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "2df0918a34140f469eeacbabd8c8813d9b118df9eaf22f883363b1023a426316",
+      "bytes": 5121,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk.gd.uid",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "85c64bef7df3c97cd2afdcfb6b1a901c0fc6a73180f8dd5dd5ac1a905697c2b8",
+      "bytes": 19,
+      "status": "stable_script_uid"
+    },
+    {
+      "path": "godot/tools/gift_kiosk_import.gd",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "480b4370d7528bacc62fb7089729e0e647b368bd16b9585baae43749f35def65",
+      "bytes": 970,
+      "status": "reviewed_gift_kiosk_runtime_change"
+    },
+    {
+      "path": "godot/tools/gift_kiosk_import.gd.uid",
+      "asset_id": "SEA-SCENE-GKS-ASSEMBLY",
+      "sha256": "ecb51731701eace0265a47f487277b26f6178e7c4d3f2629dd641aad01647d65",
+      "bytes": 20,
+      "status": "stable_script_uid"
+    }
+  ],
+  "expected_rejections": [
+    "sea/prop/wall walking is rejected",
+    "open-water actor save is rejected",
+    "old navigation-only rest stop has no playable zone or duplicate supply interaction"
+  ],
+  "unexpected_runtime_errors": [],
+  "not_executed": [
+    "user final art preference",
+    "commercial reference rights review",
+    "low-end GPU/large-scale LOD performance",
+    "controller/touch controls"
+  ],
+  "other_baseline_drift": [
+    "SEA-DECO-ANIMAL-FISH-SCHOOL source",
+    "godot/assets/materials/water.tres",
+    "godot/src/bootstrap/main.gd"
+  ],
+  "final_static_checks": {
+    "feature_sync": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 1,
+      "stdout": "FAIL: orphan/missing feature files\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: 40 features, 929 source assets, 1247 runtime resource hashes; 4 issues\n",
+      "stderr": ""
+    },
+    "feature_check": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py"
+      ],
+      "exit_code": 1,
+      "stdout": "FAIL: orphan/missing feature files\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: derived feature index stale; use --sync\nFAIL: 40 features, 929 source assets, 1247 runtime resource hashes; 5 issues\n",
+      "stderr": ""
+    },
+    "placed_positions": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_placed_positions.py"
+      ],
+      "exit_code": 0,
+      "stdout": "placed structures checked: 3\nPASS: 3 placed structure(s), 0 warning(s)\n",
+      "stderr": ""
+    },
+    "building_class_policy": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "tools/apply_water_layer.py",
+        "--dry-run"
+      ],
+      "exit_code": 0,
+      "stdout": "building_class=above_water   540\nbuilding_class=underwater    200\nbuilding_class=None          161\nlegacy amphibious  entity   10\nlegacy amphibious  part    110\nlegacy backdrop    entity   82\nlegacy backdrop    part     43\nlegacy none        none    117\nlegacy submerged   entity   19\nlegacy submerged   part     83\nlegacy surface     entity   29\nlegacy surface     part    408\nDRY: 0 rows updated; policy_changed=False; stale_views=[]; 901 assets total\n",
+      "stderr": ""
+    },
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'GDD_V1.0.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/facilities/supply_counter.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/player/character_motor.gd', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  }
+}

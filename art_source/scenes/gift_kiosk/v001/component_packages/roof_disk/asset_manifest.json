@@ -1,0 +1,58 @@
+{
+  "key": "roof_disk",
+  "name": "屋顶黄色圆盘及奶白穹盖",
+  "family": "roof_machine",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ROOF-DISK",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -1.7899999618530273,
+    -1.7899999618530273,
+    0
+  ],
+  "bounds_size": [
+    3.5799999237060547,
+    3.5799999237060547,
+    2.0
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_disk/roof_disk.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 1,
+  "triangles": 4500,
+  "polygons": 2142,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "96102291d23eb242a9d4d80b7db7faa087d8815dc62f892f7e289da4876c5790",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ROOF-DISK",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/roof_disk/roof_disk.glb",
+  "runtime_sha256": "aa3bc9fa6bdfe78908e67cb73e633af3771590079e667dae4c487e218c15ef71",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/roof_disk.tscn",
+  "prefab_sha256": "0e63abfa6b7d64fad5b43e3d91907f6e062ebca219001306350a9862a98b57e7",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 4500,
+  "triangles_after": 4500,
+  "geometry_fingerprint": "abe9e5c36418f0053ed241c7b7c12215d1cd11ca7df58e9bd6b503750c04314c"
+}

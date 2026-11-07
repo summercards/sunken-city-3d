@@ -90,3 +90,23 @@
 | SEA-AVATAR-R27 | 整体尺寸由 `godot/src/avatar/avatar_dimensions.gd` 的单一常量 `SCALE = 1.5` 决定（相对参考身形放大 50%）：站立发顶 1.869 m、礼帽顶 2.050 m、肩关节 1.240 m、头部中心 1.650 m。骨骼关节、体型因子、四肢蒙皮剖面、获物解算、划船坐姿间隙全部读取该常量；头部/礼帽/躯干等**已在局部缩放的子节点保留参考尺寸**，不得二次相乘。胶囊与导航 agent 半径**不跟随** `SCALE`，保持 0.22 m / 1.30 m 的既有可达性契约（放大代理半径会挖掉木桥与窄栈桥的导航面，实测「木桥连接可达」失败）。已知限制：礼帽 + 头大 1.12 时 2.154 m，会穿 2.06 m 门楣 9.4 cm。 |
 
 [交付与实测](../../development/2026-11-05_character_scale_150.md)
+
+## 2026-11-07 NPC 复用角色外观接口（追加）
+
+本节在现有最大条款 R27 后新增 R28，不覆盖玩家档案、既有形体/动作或 1.5 倍尺度条款。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-AVATAR-R28 | NPC 通过独立 NpcActor 复用 `Character.apply_avatar(profile)`、AvatarCatalog / AvatarVisual、原 Skeleton3D / Skin 与动作采样，不复制第二套角色骨架或动画所有者。七人各自提供明确 appearance（含 skin）及完整九项 morphs，生成独立局部 profile，并各挂不同职业 accessory_id；不得读取、提交或覆盖玩家 AvatarProfile。NPC 外观查询返回深副本，重配先清旧配件，取消/销毁按既有生命周期清理；只修改 NPC 自身表现。保持 R27 的 SCALE=1.5、功能根、胶囊/导航 0.22m / 1.30m、Character 动作生命周期与原 animation ownership，不用根缩放伪造七人差异。 |
+
+### 输入、端口和所有权
+
+- [npcs.json](../../../godot/assets/data/npc/npcs.json) 拥有七人静态 `appearance` / `morphs` / `accessory_id`；七套 profile 各自独立，不要求七种互不相同肤色，当前专项检查七种轮廓/发型/衣色及至少四种肤色。NPC 关系、日程和存档仍归 [SEA-RESIDENT](../resident/spec.md)，不并入玩家 profile。
+- [NpcActor](../../../godot/src/npc/npc_actor.gd) 必须先加入场景树再 `configure(row: Dictionary)`；用 `AvatarCatalog.effective` / `effective_morphs` 形成 `_npc_profile`，交给 [Character.apply_avatar](../../../godot/src/player/character.gd)。该端口只消费外观数据，不调用玩家档案 commit。
+- `appearance_report() -> Dictionary` 返回局部 profile 深副本、geometry、accessories、animation、root_scale / body_scale；`accessory_metrics()` 只读配件度量，`clear_accessories()` 清理本实例配件。重配先清旧挂点，不叠加残留。
+- [npc_accessories.gd](../../../godot/src/npc/npc_accessories.gd) 只拥有局部表现挂点/网格：牵线 `signal_spool`、叶脉 `seed_pouch`、回声 `diving_goggle`、榫口 `joint_pencil`、灯芯 `lantern_badge`、花序 `petal_visor`、货架 `stock_clip`，七个不同 ID；职业配件替代 NPC 自身通用挎包，不隐藏或修改玩家挎包。头/帽已缩放父节点不得再次乘 SCALE。
+- NPC 路径消费者使用原 `set_walking` 等动作端口；Avatar 只处理网格/材质/形变，NpcActor 不另写动画、不改碰撞或玩家输入。程序化制作源如实登记，不宣称 Blender / GLB 交付。
+
+### 验证与未验边界
+
+已注册 `npc-appearance` / `npc-integration` / `visual-npc-release`；[本账本](ledger.md#2026-11-07-npc-角色复用接口承接)分别记录 2469/0 外观专项、正式集成/profile 隔离与 381/0 真实渲染。真实截图已产出不等于逐图人工审阅；不以 headless 网格断言冒签全视角/全组合美术通过。七人当前仅暂驻既有天台，无物理住房；住房暂停不改变本角色复用契约。玩家设备/发行包、剩余人工图审及其他既有未验项继续保留，不改整体 status，也不签全产品验收。

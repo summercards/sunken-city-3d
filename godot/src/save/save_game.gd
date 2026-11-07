@@ -107,6 +107,13 @@ static func decode(text: String) -> Dictionary:
 	if not doc.has("room"):
 		# 2026-11-05 新增的房间模块：旧 v4 档缺这一段，按初版床位置补，版本号不动。
 		doc.room={"version":1,"bed":{"position":[-1.86,0.0,-1.425],"yaw":0.0},"inside":false}
+	if not doc.has("npc"):
+		# NPC is a new optional owner on the existing wire version. Missing legacy data
+		# means no relationships yet; it must never erase the other owners.
+		doc.npc=preload("res://src/npc/npc_save_codec.gd").empty_snapshot()
+	if not doc.economy.has("sunroom"):
+		# SEA-SUNROOM：旧档不宣称已经修缮，保持新游戏的破损初始状态。
+		doc.economy.sunroom=preload("res://src/facilities/sunroom_service.gd").new().to_dict()
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}
 	doc.profile=preload("res://src/avatar/avatar_profile.gd").normalize(doc.profile)
@@ -115,6 +122,7 @@ static func decode(text: String) -> Dictionary:
 static func restore(host: Node, snapshot: Dictionary) -> Dictionary:
 	snapshot=snapshot.duplicate(true)
 	if not snapshot.has("profile"): snapshot.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
+	if not snapshot.has("npc"): snapshot.npc=preload("res://src/npc/npc_save_codec.gd").empty_snapshot()
 	var error := Schema.validate(snapshot)
 	if error!="": return {"ok":false,"reason":error}
 	snapshot.profile=preload("res://src/avatar/avatar_profile.gd").normalize(snapshot.profile)

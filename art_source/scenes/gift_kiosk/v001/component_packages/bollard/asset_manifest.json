@@ -1,0 +1,58 @@
+{
+  "key": "bollard",
+  "name": "双耳系泊柱",
+  "family": "mooring",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-BOLLARD",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BOLLARD",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.36000001430511475,
+    -0.25999999046325684,
+    0
+  ],
+  "bounds_size": [
+    0.7200000286102295,
+    0.5199999809265137,
+    0.6649999618530273
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bollard/bollard.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 2,
+  "triangles": 1060,
+  "polygons": 466,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "c5cb2e4dacaf539b62646b4e73ba84ab123e981a8ceb26e46e267f9168eabc1e",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BOLLARD",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/bollard/bollard.glb",
+  "runtime_sha256": "93d7edfdb96d182f0b424102b772bd7993bcb9d00f6e4f395ca2843938b0e59e",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/bollard.tscn",
+  "prefab_sha256": "619812c329900bf1bcb8977b474568ef1ab0a843104a2400161bb60331afa85f",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1060,
+  "triangles_after": 1060,
+  "geometry_fingerprint": "df289aa5cc5ba5b6dbdfc7b75efe953a082979078f49803c02b9da1b7b5c88b3"
+}

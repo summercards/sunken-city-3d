@@ -1,0 +1,60 @@
+{
+  "key": "deck_light",
+  "name": "舷沿胶囊暖黄灯",
+  "family": "edge_light",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-DECK-LIGHT",
+  "design_pivot": [
+    0.0,
+    -0.026249997317790985,
+    0.0
+  ],
+  "bounds_min": [
+    -0.5400000214576721,
+    -0.10624999552965164,
+    0
+  ],
+  "bounds_size": [
+    1.0800000429153442,
+    0.21249999105930328,
+    0.25999999046325684
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/deck_light/deck_light.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "meshes": 2,
+  "instances": 12,
+  "triangles": 376,
+  "polygons": 196,
+  "roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "75f89dd21bc62e9ebdbae4e1ce176aa1e7e79b0f22567da258d88d07eda40782",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-DECK-LIGHT",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/deck_light/deck_light.glb",
+  "runtime_sha256": "6eb612e27e373a0e6319df319f04c7c31963653e8d75732dbd2f788016657443",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/deck_light.tscn",
+  "prefab_sha256": "1eda503f108e0666e3cc746886bbd2f5daf23bd8155781ddc58b2e1560896ffc",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 376,
+  "triangles_after": 376,
+  "geometry_fingerprint": "0f8b00c8180e5c7d8afc19f9c10cf64997542a207d0d47b67f1f766b9b1262c0"
+}

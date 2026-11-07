@@ -131,3 +131,11 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 |---|---|
 | SEA-SAVE-R17 | 根快照v4可选profile版本1；decode与直接restore在缺失时明确迁移为completed=true默认旅人，存在但截断/类型错误/不支持版本则拒绝。独立注册表参与全模块先验后恢复，角色档案、DIY引用与整局原子写入；取消不写盘、写失败保留可重试草稿。重置默认档案为未完成，旧档案随原重置归档保留。 |
 | SEA-SAVE-R18 | 根v4 `building` 版本1与既有必填schema保持不变；2.8m旧结构与5.086335m实际平面可在同一布局混合保存/恢复。旧档原数据、旧deck/结构定义ID、尺寸与坐标无需迁移，不因新5m recipe改写；新增可选定义由目录识别。校验失败必须在恢复/写盘前拒绝且不改变现场、不覆盖有效备份、不重复收费。已由`building-save-compat`37/0及`save-protection`通过验证。 |
+
+## 2026-11-07 多潜水地图进度兼容与写盘门禁
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-SAVE-R19 | 根快照仍v4，原键 `dive` 仍为 `{found:int[],opened:int[]}`，不换key、不增加map_id等必填扩展。SnapshotRegistry注册稳定DiveSession为唯一潜水快照所有者；zone1原ID 0..4不动，其余来源固定百位100..800加各自局部子集，全局唯一，不重编号；未知ID在会话保存/未加载地图往返时保留。from_dict先清空全局进度再全量应用，读旧档不能叠加现场其它地图进度；地图返回只合并当前图增量，不重发已开启奖励。潜水active或switching均由registry.busy_query拒绝capture/restore及直接SaveGame.write，不能仅在F5/UI拦截；上浮恢复同一Main后才允许正常写盘，切图不是读档。氧气、冷却、中途动作及当前map_id不新增持久字段，读档仍恢复稳定海面。 |
+
+本条对 `dive` 的未知ID保留约束优先于历史通用“按内容表过滤”描述，不改变其他模块策略。功能仍 `partial`；旧v4/多图隔离/未知ID/全量覆盖/磁盘往返与直接写盘拒绝的运行证据 pending，待父线程补充。[完整机制与验证表](../../development/2026-11-07_dive_map_switch.md)。

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/diving/underwater_world.gd" id="1_world"]
+[ext_resource type="Script" path="res://src/diving/uw_deco.gd" id="2_deco"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_basin.tscn" id="3_basin"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_reef.tscn" id="4_reef"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/region_trench.tscn" id="5_trench"]
+
+[node name="DiveZone3" type="Node3D"]
+script = ExtResource("1_world")
+map_id = "dive_zone3"
+map_label = "环礁深庭"
+swim_data_path = "res://assets/baked/underwater/swim.json"
+chest_ids = Array[int]([0, 3])
+fish_indices = Array[int]([2, 3, 6])
+chest_id_base = 200
+neighborhood_collision_enabled = false
+trench_collision_enabled = true
+basin_closure_enabled = false
+spawn_point = Vector3(6, 1.12, 4)
+
+[node name="Regions" type="Node3D" parent="."]
+
+[node name="UnderwaterBasin" parent="Regions" instance=ExtResource("3_basin")]
+
+[node name="UnderwaterReef" parent="Regions" instance=ExtResource("4_reef")]
+
+[node name="UnderwaterTrench" parent="Regions" instance=ExtResource("5_trench")]
+
+[node name="Deco" type="Node3D" parent="."]
+script = ExtResource("2_deco")
+
+[node name="Chests" type="Node3D" parent="."]
+
+[node name="DiveCamera" type="Camera3D" parent="."]
+fov = 55.0
+near = 0.12
+far = 420.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]

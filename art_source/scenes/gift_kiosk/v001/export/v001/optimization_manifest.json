@@ -1,0 +1,2254 @@
+{
+  "schema": "sea.scene.optimization_manifest",
+  "passed": true,
+  "source": "art_source/scenes/gift_kiosk/v001/gift_kiosk.blend",
+  "source_sha256_before": "9194c7b365b546a3b9a982ed3b678b9fa77e1c87616a6589f76d05dac26eb493",
+  "source_sha256_after": "9194c7b365b546a3b9a982ed3b678b9fa77e1c87616a6589f76d05dac26eb493",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "protected_sources": {
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\gift_kiosk.blend": "9194c7b365b546a3b9a982ed3b678b9fa77e1c87616a6589f76d05dac26eb493",
+    "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cozy_8x8_512.png": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\deck\\deck.blend": "fb2dea3c1bed820aaa072f7913e361ff4fe64e4688d146dcb125b2d199d5b905",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\hull\\hull.blend": "c08c4073f57074f341e1d33e2bbaaff85f16bed9bdd0147dc22b00bc66977574",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\underframe\\underframe.blend": "9d0c82a5e24eb2d6395b7399703d4dafa391a18352e5d7df6acb7454cff42d62",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\pontoon\\pontoon.blend": "f19dfdbd16dbe10796a8f541726e183d002bb5494798dcdc89ec12d3d401ec81",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\thruster\\thruster.blend": "0942e477162fc75677d1dada0f42213e7dc8eb7570c690e7e60737b521d69a12",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\thruster_glow\\thruster_glow.blend": "5cf1158c7393b103ab989ce28f5caf4320e7afe651d013bfdb230b45db575188",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\deck_light\\deck_light.blend": "75f89dd21bc62e9ebdbae4e1ce176aa1e7e79b0f22567da258d88d07eda40782",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\rail_post\\rail_post.blend": "503f0b26528f7e5af73b698330e59b9e8c5879b5559ed3fbcd891642060e1b0a",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\rail_bar\\rail_bar.blend": "a03a70199a795c91acbc809999ad47d3d0d6ec94152bb38d94976d78ba9f5d19",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\rail_corner\\rail_corner.blend": "a036164d70c6d3be18a8e180a398bf08058aab5572b4120f4ea250e0f5f3ba0f",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\fender\\fender.blend": "54ee102808ee2beb4936553ef5ca926c26c64c575b1f069e6c1359618086c996",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\ladder\\ladder.blend": "a022d676a91a1a57b60aa452ef3df2d2bbf1be27db19ff0e5f864791d517acce",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\bollard\\bollard.blend": "c5cb2e4dacaf539b62646b4e73ba84ab123e981a8ceb26e46e267f9168eabc1e",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\pot\\pot.blend": "756b2d4708bf6554ed5b1fa7e78f574053a5e0e01e58d53d6596f8fa1a3e081b",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\foliage\\foliage.blend": "f46ca798db59425034bede05671e50389a0d865f660318b2f86047ee6eb199e8",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\bench\\bench.blend": "8c380bb9f68c5c0bbc3b4a34269f5e3baacb6df4b8234666ac0cf82adcfbb6f9",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\glass_bay\\glass_bay.blend": "dceed1a2bf3d13f1a15aaff976b7ebc22a97eba43e4d9f6c5adbbdcd0b41d357",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\back_panel\\back_panel.blend": "36f34d4367b243a86ba015f18a9ae097a9cb908021886024d77162a8718e01de",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\column\\column.blend": "2b1d1f6532f698e44e87bff7ae080427785dba09d874007f6761a2aae6ecafcc",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\back_door\\back_door.blend": "e3796897d07c0c2f350555d7be3eb91a952db4d6a192b7bfc78957e40e1a2e48",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\roof\\roof.blend": "3144d25b0822b8d65b517b9951db3992706856e927dec4ea95f3bfd0c7e54ce7",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\fascia\\fascia.blend": "1f80e5ac57226b6a19e79f6bd3493f293b3f6665eade0f5e65113cb5ed8a4f72",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\fascia_corner\\fascia_corner.blend": "297631909483a8b5b37018c2105f7745ca793a4ffd458c827f3b6886520ee108",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\sign_postcards\\sign_postcards.blend": "90c0db82ee813549229216808087607a4d40fe3cd3d2f9a47399dc5d6f6a49fb",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\sign_gifts\\sign_gifts.blend": "b45a39ab4332277cbaaf60479610fef12e9bbfc6fc8c0e54addad56f1c5aac50",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\sign_drinks\\sign_drinks.blend": "5aa7ba6d620b1e979c4413893275040f956b1247fa1d39a46a629ed8cd8b5813",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\awning_blue\\awning_blue.blend": "f055fe50db0bd26c790d7566b0db7dbfd3cd6f6eaee3f30e20fb4625bf05329d",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\awning_white\\awning_white.blend": "fb4c1fd385c844dd4a4058ff226594c1bead7b39fc33535076f91ec07da36eca",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\awning_corner\\awning_corner.blend": "e00a5c36cfa42a129d287781380c80db26bd7438a78085781479cbb51b847927",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\roof_disk\\roof_disk.blend": "96102291d23eb242a9d4d80b7db7faa087d8815dc62f892f7e289da4876c5790",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\spotlight\\spotlight.blend": "a50f3df376fad51426dbaaa133f470c15104b1568cad4443c5bbf77459addbc7",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\roof_pipe\\roof_pipe.blend": "47250e3a96e4469cede8c7f834c745929fab07363673624fa6bfecaac16f36fa",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\beacon\\beacon.blend": "a88dac83919a11828db88a3dbb0bfbf06fc70e5353e5e4e1c646d15ebb177900",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\electrical_box\\electrical_box.blend": "49336693e34826a9f9ec1abcd8ea3fb621cd45e8387d68ebf4c7622759895af4",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\life_ring\\life_ring.blend": "061478d1658b41d4a291b7de1b43ecdcae243a85020a6254ec8ff6d835b47e2e",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\postcard_rack\\postcard_rack.blend": "667790f21851b6c805a988f2a3b3047cb1e81c51a8ee26142bdcb722c2a944b4",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\mailbox\\mailbox.blend": "7c04006703b1f4c3bbf8454247bc4c98e0968f029357c1f46701426eccc3c1c4",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\ice_box\\ice_box.blend": "4b1d01f6a1528bb601f48746b2071720a73346aaa321a5cd6b6e2ddff6ea8bae",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\bin\\bin.blend": "6a20a7ed5a3d79f13af551fb95b1379d36ded0035c01c1acdf62c3a85d66cd2b",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\shelf\\shelf.blend": "75584735983263761e634cff559d86902813a2400893069b62c8bb18cea61ed2",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\bottle\\bottle.blend": "428f6f73edb723fe6b03720e67c76b6fe42841e011d79ad3143e735851ad654a",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\gift\\gift.blend": "3e72f61dc381e17d53690f1fade0230f187e38878e2502ea5a365e29c789df6c",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\card\\card.blend": "6f6fba623e1e09df7a4eccbdea00624fb4e68be94016fcb46ac20bbe2e7e094f",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\lantern\\lantern.blend": "dbf5590c42a39c1ec3c2db075a987231cff84f3ab2c8e422002935353956f014",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\plaque\\plaque.blend": "598e453b952c2e474189f0e7a82ec6cfb5db55f0415fc24d8b13e1b7bbe1640c",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\curved_glass\\curved_glass.blend": "b07009fe4874b513c5d7eb11d3cde4ab515f3a515e1a20b5a6f97add14297fc8",
+    "D:\\projects\\sea\\art_source\\scenes\\gift_kiosk\\v001\\component_packages\\entry_frame\\entry_frame.blend": "4ec3d9a8ab99eefc9c161dbc40ba886e87a5afb1a599a6f5bbccfc7cfecc1e30"
+  },
+  "components": [
+    {
+      "asset_id": "SEA-SCENE-GKS-DECK",
+      "key": "deck",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/deck/deck.blend",
+      "source_sha256_before": "fb2dea3c1bed820aaa072f7913e361ff4fe64e4688d146dcb125b2d199d5b905",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 4836,
+      "triangles_after": 4836,
+      "reduction_ratio": 0.0,
+      "meshes_before": 23,
+      "meshes_after": 23,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "deck__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/deck/deck.glb",
+      "glb_sha256": "4817ade89b117419264c00f3a5e1925e1792ba1b0067a9647292f19115971846",
+      "source_sha256_after": "fb2dea3c1bed820aaa072f7913e361ff4fe64e4688d146dcb125b2d199d5b905",
+      "exported_triangles": 4836,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-HULL",
+      "key": "hull",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/hull/hull.blend",
+      "source_sha256_before": "c08c4073f57074f341e1d33e2bbaaff85f16bed9bdd0147dc22b00bc66977574",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1400,
+      "triangles_after": 1400,
+      "reduction_ratio": 0.0,
+      "meshes_before": 2,
+      "meshes_after": 2,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "hull__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/hull/hull.glb",
+      "glb_sha256": "076525a82beb6199c43190ed15a91553239af5f1455fb058031789201286c5c8",
+      "source_sha256_after": "c08c4073f57074f341e1d33e2bbaaff85f16bed9bdd0147dc22b00bc66977574",
+      "exported_triangles": 1400,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+      "key": "underframe",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/underframe/underframe.blend",
+      "source_sha256_before": "9d0c82a5e24eb2d6395b7399703d4dafa391a18352e5d7df6acb7454cff42d62",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 492,
+      "triangles_after": 492,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "underframe__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/underframe/underframe.glb",
+      "glb_sha256": "928e079e6f63cfaea00a5e1cc4eb47f931a14eaf2300f52da311450e5feddc8e",
+      "source_sha256_after": "9d0c82a5e24eb2d6395b7399703d4dafa391a18352e5d7df6acb7454cff42d62",
+      "exported_triangles": 492,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-PONTOON",
+      "key": "pontoon",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/pontoon/pontoon.blend",
+      "source_sha256_before": "f19dfdbd16dbe10796a8f541726e183d002bb5494798dcdc89ec12d3d401ec81",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 3320,
+      "triangles_after": 3320,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "pontoon__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "pontoon__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/pontoon/pontoon.glb",
+      "glb_sha256": "a18fb2ad9f040cc15c4ac1278a2d85f932f4cf0a2c198cb2b530ec5c9a4db321",
+      "source_sha256_after": "f19dfdbd16dbe10796a8f541726e183d002bb5494798dcdc89ec12d3d401ec81",
+      "exported_triangles": 3320,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-THRUSTER",
+      "key": "thruster",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster/thruster.blend",
+      "source_sha256_before": "0942e477162fc75677d1dada0f42213e7dc8eb7570c690e7e60737b521d69a12",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 5352,
+      "triangles_after": 5352,
+      "reduction_ratio": 0.0,
+      "meshes_before": 8,
+      "meshes_after": 8,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "thruster__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/thruster/thruster.glb",
+      "glb_sha256": "6cbda41e09acd1518e7168980e8e2de6f97f24cda7c97d6daff54b9211c8ad15",
+      "source_sha256_after": "0942e477162fc75677d1dada0f42213e7dc8eb7570c690e7e60737b521d69a12",
+      "exported_triangles": 5352,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "key": "thruster_glow",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster_glow/thruster_glow.blend",
+      "source_sha256_before": "5cf1158c7393b103ab989ce28f5caf4320e7afe651d013bfdb230b45db575188",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1500,
+      "triangles_after": 1500,
+      "reduction_ratio": 0.0,
+      "meshes_before": 2,
+      "meshes_after": 2,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "thruster_glow__SEA_Emission",
+          "role": "SEA_Emission"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/thruster_glow/thruster_glow.glb",
+      "glb_sha256": "10d1680b62758a8f20ba41561e2c0193e474e0267881d4df93286098ba6802a4",
+      "source_sha256_after": "5cf1158c7393b103ab989ce28f5caf4320e7afe651d013bfdb230b45db575188",
+      "exported_triangles": 1500,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+      "key": "deck_light",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/deck_light/deck_light.blend",
+      "source_sha256_before": "75f89dd21bc62e9ebdbae4e1ce176aa1e7e79b0f22567da258d88d07eda40782",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 376,
+      "triangles_after": 376,
+      "reduction_ratio": 0.0,
+      "meshes_before": 2,
+      "meshes_after": 2,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "deck_light__SEA_Emission",
+          "role": "SEA_Emission"
+        },
+        {
+          "name": "deck_light__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/deck_light/deck_light.glb",
+      "glb_sha256": "6eb612e27e373a0e6319df319f04c7c31963653e8d75732dbd2f788016657443",
+      "source_sha256_after": "75f89dd21bc62e9ebdbae4e1ce176aa1e7e79b0f22567da258d88d07eda40782",
+      "exported_triangles": 376,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+      "key": "rail_post",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_post/rail_post.blend",
+      "source_sha256_before": "503f0b26528f7e5af73b698330e59b9e8c5879b5559ed3fbcd891642060e1b0a",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1456,
+      "triangles_after": 1456,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "rail_post__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/rail_post/rail_post.glb",
+      "glb_sha256": "9090593134ca69f9fac6956c588c2d883569c104fa9bfa4bccd3b39c1e3a80fc",
+      "source_sha256_after": "503f0b26528f7e5af73b698330e59b9e8c5879b5559ed3fbcd891642060e1b0a",
+      "exported_triangles": 1456,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+      "key": "rail_bar",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_bar/rail_bar.blend",
+      "source_sha256_before": "a03a70199a795c91acbc809999ad47d3d0d6ec94152bb38d94976d78ba9f5d19",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "meshes_before": 1,
+      "meshes_after": 1,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "rail_bar__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/rail_bar/rail_bar.glb",
+      "glb_sha256": "f1f0518c76445a3b1a4dba0f53cc4203cb49681936ff1e2ce3f0ab28cbf7ea42",
+      "source_sha256_after": "a03a70199a795c91acbc809999ad47d3d0d6ec94152bb38d94976d78ba9f5d19",
+      "exported_triangles": 44,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+      "key": "rail_corner",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_corner/rail_corner.blend",
+      "source_sha256_before": "a036164d70c6d3be18a8e180a398bf08058aab5572b4120f4ea250e0f5f3ba0f",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 404,
+      "triangles_after": 404,
+      "reduction_ratio": 0.0,
+      "meshes_before": 1,
+      "meshes_after": 1,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "rail_corner__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/rail_corner/rail_corner.glb",
+      "glb_sha256": "09f11b8981bc27891f7ba3bb76915a91a7e051fce513ce0052db18662eb5f342",
+      "source_sha256_after": "a036164d70c6d3be18a8e180a398bf08058aab5572b4120f4ea250e0f5f3ba0f",
+      "exported_triangles": 404,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-FENDER",
+      "key": "fender",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/fender/fender.blend",
+      "source_sha256_before": "54ee102808ee2beb4936553ef5ca926c26c64c575b1f069e6c1359618086c996",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1988,
+      "triangles_after": 1988,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "fender__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/fender/fender.glb",
+      "glb_sha256": "17afda78e93e485998ce0ebf0d29cd5efe7ffbec500dbb3dade3b31fb8984659",
+      "source_sha256_after": "54ee102808ee2beb4936553ef5ca926c26c64c575b1f069e6c1359618086c996",
+      "exported_triangles": 1988,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-LADDER",
+      "key": "ladder",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/ladder/ladder.blend",
+      "source_sha256_before": "a022d676a91a1a57b60aa452ef3df2d2bbf1be27db19ff0e5f864791d517acce",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 780,
+      "triangles_after": 780,
+      "reduction_ratio": 0.0,
+      "meshes_before": 9,
+      "meshes_after": 9,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "ladder__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/ladder/ladder.glb",
+      "glb_sha256": "441a8713c8811c2f1f52481291497de9391d779e3d367796b390d13a03cced26",
+      "source_sha256_after": "a022d676a91a1a57b60aa452ef3df2d2bbf1be27db19ff0e5f864791d517acce",
+      "exported_triangles": 780,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BOLLARD",
+      "key": "bollard",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/bollard/bollard.blend",
+      "source_sha256_before": "c5cb2e4dacaf539b62646b4e73ba84ab123e981a8ceb26e46e267f9168eabc1e",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1060,
+      "triangles_after": 1060,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "bollard__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/bollard/bollard.glb",
+      "glb_sha256": "93d7edfdb96d182f0b424102b772bd7993bcb9d00f6e4f395ca2843938b0e59e",
+      "source_sha256_after": "c5cb2e4dacaf539b62646b4e73ba84ab123e981a8ceb26e46e267f9168eabc1e",
+      "exported_triangles": 1060,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-POT",
+      "key": "pot",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/pot/pot.blend",
+      "source_sha256_before": "756b2d4708bf6554ed5b1fa7e78f574053a5e0e01e58d53d6596f8fa1a3e081b",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1816,
+      "triangles_after": 1816,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "pot__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "pot__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/pot/pot.glb",
+      "glb_sha256": "056448455bb4661efcf049228bdf2b8ad86be8e3ba82398aca4b31878d5b639b",
+      "source_sha256_after": "756b2d4708bf6554ed5b1fa7e78f574053a5e0e01e58d53d6596f8fa1a3e081b",
+      "exported_triangles": 1816,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+      "key": "foliage",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/foliage/foliage.blend",
+      "source_sha256_before": "f46ca798db59425034bede05671e50389a0d865f660318b2f86047ee6eb199e8",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 2244,
+      "triangles_after": 2244,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "foliage__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/foliage/foliage.glb",
+      "glb_sha256": "cba358e15953e9fb35cddf418695f47e4f2d3492745c610928691a03efcfe5b7",
+      "source_sha256_after": "f46ca798db59425034bede05671e50389a0d865f660318b2f86047ee6eb199e8",
+      "exported_triangles": 2244,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BENCH",
+      "key": "bench",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/bench/bench.blend",
+      "source_sha256_before": "8c380bb9f68c5c0bbc3b4a34269f5e3baacb6df4b8234666ac0cf82adcfbb6f9",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1692,
+      "triangles_after": 1692,
+      "reduction_ratio": 0.0,
+      "meshes_before": 9,
+      "meshes_after": 9,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "bench__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "bench__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/bench/bench.glb",
+      "glb_sha256": "124b6dfd7553192999f537a1f4cf82a28b75c512a20a2fe7e137ffa15b857a81",
+      "source_sha256_after": "8c380bb9f68c5c0bbc3b4a34269f5e3baacb6df4b8234666ac0cf82adcfbb6f9",
+      "exported_triangles": 1692,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+      "key": "glass_bay",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/glass_bay/glass_bay.blend",
+      "source_sha256_before": "dceed1a2bf3d13f1a15aaff976b7ebc22a97eba43e4d9f6c5adbbdcd0b41d357",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1316,
+      "triangles_after": 1316,
+      "reduction_ratio": 0.0,
+      "meshes_before": 7,
+      "meshes_after": 7,
+      "export_meshes_after": 3,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "glass_bay__SEA_Gloss",
+          "role": "SEA_Gloss"
+        },
+        {
+          "name": "glass_bay__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "glass_bay__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/glass_bay/glass_bay.glb",
+      "glb_sha256": "62927f2bddb58f4ded63c318a68014a8ada54bfd5513a84de389799265ed7c40",
+      "source_sha256_after": "dceed1a2bf3d13f1a15aaff976b7ebc22a97eba43e4d9f6c5adbbdcd0b41d357",
+      "exported_triangles": 1316,
+      "exported_surfaces": 3
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+      "key": "back_panel",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/back_panel/back_panel.blend",
+      "source_sha256_before": "36f34d4367b243a86ba015f18a9ae097a9cb908021886024d77162a8718e01de",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 752,
+      "triangles_after": 752,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "back_panel__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/back_panel/back_panel.glb",
+      "glb_sha256": "f5221c0b11378a430dcd4028b33efe77a0add9a8bebbabc0f0ef73c45a8275d0",
+      "source_sha256_after": "36f34d4367b243a86ba015f18a9ae097a9cb908021886024d77162a8718e01de",
+      "exported_triangles": 752,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-COLUMN",
+      "key": "column",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/column/column.blend",
+      "source_sha256_before": "2b1d1f6532f698e44e87bff7ae080427785dba09d874007f6761a2aae6ecafcc",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 188,
+      "triangles_after": 188,
+      "reduction_ratio": 0.0,
+      "meshes_before": 1,
+      "meshes_after": 1,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "column__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/column/column.glb",
+      "glb_sha256": "ba7909a3e00d0645c3b95a849e0f5b517f33a675f2ce666ee727d93bdc67c73d",
+      "source_sha256_after": "2b1d1f6532f698e44e87bff7ae080427785dba09d874007f6761a2aae6ecafcc",
+      "exported_triangles": 188,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+      "key": "back_door",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/back_door/back_door.blend",
+      "source_sha256_before": "e3796897d07c0c2f350555d7be3eb91a952db4d6a192b7bfc78957e40e1a2e48",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 608,
+      "triangles_after": 608,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "back_door__SEA_Gloss",
+          "role": "SEA_Gloss"
+        },
+        {
+          "name": "back_door__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/back_door/back_door.glb",
+      "glb_sha256": "23f7cbcfd84d96b7efe0f0e4ee7480ee273bcc11c5ab7eb41b3328b3bff22251",
+      "source_sha256_after": "e3796897d07c0c2f350555d7be3eb91a952db4d6a192b7bfc78957e40e1a2e48",
+      "exported_triangles": 608,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ROOF",
+      "key": "roof",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/roof/roof.blend",
+      "source_sha256_before": "3144d25b0822b8d65b517b9951db3992706856e927dec4ea95f3bfd0c7e54ce7",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 3656,
+      "triangles_after": 3656,
+      "reduction_ratio": 0.0,
+      "meshes_before": 12,
+      "meshes_after": 12,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "roof__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "roof__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/roof/roof.glb",
+      "glb_sha256": "ad2d85d0638c5d268cc54298649ea6ff8700c0dc83623516c4a096b0ff07c26d",
+      "source_sha256_after": "3144d25b0822b8d65b517b9951db3992706856e927dec4ea95f3bfd0c7e54ce7",
+      "exported_triangles": 3656,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-FASCIA",
+      "key": "fascia",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia/fascia.blend",
+      "source_sha256_before": "1f80e5ac57226b6a19e79f6bd3493f293b3f6665eade0f5e65113cb5ed8a4f72",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1048,
+      "triangles_after": 1048,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "fascia__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "fascia__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/fascia/fascia.glb",
+      "glb_sha256": "50473e099f5b1834535ed084047b466da6a1bda5ade9bcf83b17fd8406b3f3bf",
+      "source_sha256_after": "1f80e5ac57226b6a19e79f6bd3493f293b3f6665eade0f5e65113cb5ed8a4f72",
+      "exported_triangles": 1048,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "key": "fascia_corner",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia_corner/fascia_corner.blend",
+      "source_sha256_before": "297631909483a8b5b37018c2105f7745ca793a4ffd458c827f3b6886520ee108",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1336,
+      "triangles_after": 1336,
+      "reduction_ratio": 0.0,
+      "meshes_before": 2,
+      "meshes_after": 2,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "fascia_corner__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "fascia_corner__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/fascia_corner/fascia_corner.glb",
+      "glb_sha256": "ffc95a0f854a37b626e0691976643db6ce5dde62c94474d729ce8676f07df1e6",
+      "source_sha256_after": "297631909483a8b5b37018c2105f7745ca793a4ffd458c827f3b6886520ee108",
+      "exported_triangles": 1336,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "key": "sign_postcards",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_postcards/sign_postcards.blend",
+      "source_sha256_before": "90c0db82ee813549229216808087607a4d40fe3cd3d2f9a47399dc5d6f6a49fb",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 22948,
+      "triangles_after": 22947,
+      "reduction_ratio": 4.3576782290395675e-05,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 1,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 2012
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": null,
+      "role_meshes": [
+        {
+          "name": "sign_postcards__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "sign_postcards__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/sign_postcards/sign_postcards.glb",
+      "glb_sha256": "9e5ce7837d051b4638885fe2b797b9a853a0fcbdb705f024115c3f8bffdcda99",
+      "source_sha256_after": "90c0db82ee813549229216808087607a4d40fe3cd3d2f9a47399dc5d6f6a49fb",
+      "exported_triangles": 22947,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "key": "sign_gifts",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_gifts/sign_gifts.blend",
+      "source_sha256_before": "b45a39ab4332277cbaaf60479610fef12e9bbfc6fc8c0e54addad56f1c5aac50",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 9464,
+      "triangles_after": 9462,
+      "reduction_ratio": 0.00021132713440405747,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 2,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 796
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": null,
+      "role_meshes": [
+        {
+          "name": "sign_gifts__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/sign_gifts/sign_gifts.glb",
+      "glb_sha256": "5f5e1fb3ad9bef1d63b229114b3714184e0503774afc49dcac8379086dd7c02b",
+      "source_sha256_after": "b45a39ab4332277cbaaf60479610fef12e9bbfc6fc8c0e54addad56f1c5aac50",
+      "exported_triangles": 9462,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "key": "sign_drinks",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_drinks/sign_drinks.blend",
+      "source_sha256_before": "5aa7ba6d620b1e979c4413893275040f956b1247fa1d39a46a629ed8cd8b5813",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 19560,
+      "triangles_after": 19560,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 1665
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "sign_drinks__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/sign_drinks/sign_drinks.glb",
+      "glb_sha256": "ef1029838e7a5c2bb8e07302e61a53530dc1ff271fde7a2f73a6a22d78b3a379",
+      "source_sha256_after": "5aa7ba6d620b1e979c4413893275040f956b1247fa1d39a46a629ed8cd8b5813",
+      "exported_triangles": 19560,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-AWNING-BLUE",
+      "key": "awning_blue",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_blue/awning_blue.blend",
+      "source_sha256_before": "f055fe50db0bd26c790d7566b0db7dbfd3cd6f6eaee3f30e20fb4625bf05329d",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 884,
+      "triangles_after": 884,
+      "reduction_ratio": 0.0,
+      "meshes_before": 1,
+      "meshes_after": 1,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "awning_blue__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/awning_blue/awning_blue.glb",
+      "glb_sha256": "843b3fbba897379cd9a0b3df3eb17c9c04dc940f58e4aeade33aad863d5465af",
+      "source_sha256_after": "f055fe50db0bd26c790d7566b0db7dbfd3cd6f6eaee3f30e20fb4625bf05329d",
+      "exported_triangles": 884,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+      "key": "awning_white",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_white/awning_white.blend",
+      "source_sha256_before": "fb4c1fd385c844dd4a4058ff226594c1bead7b39fc33535076f91ec07da36eca",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 884,
+      "triangles_after": 884,
+      "reduction_ratio": 0.0,
+      "meshes_before": 1,
+      "meshes_after": 1,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "awning_white__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/awning_white/awning_white.glb",
+      "glb_sha256": "03977ca64972e59d01d6cb7d5af677c738da7d1e7dee45ccffe30cfb55b40aec",
+      "source_sha256_after": "fb4c1fd385c844dd4a4058ff226594c1bead7b39fc33535076f91ec07da36eca",
+      "exported_triangles": 884,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-AWNING-CORNER",
+      "key": "awning_corner",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_corner/awning_corner.blend",
+      "source_sha256_before": "e00a5c36cfa42a129d287781380c80db26bd7438a78085781479cbb51b847927",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 3900,
+      "triangles_after": 3900,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "awning_corner__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/awning_corner/awning_corner.glb",
+      "glb_sha256": "a9be077cb3fa953148b881d07b4dae614b57aa0d19dd9b715b273ecddcd84497",
+      "source_sha256_after": "e00a5c36cfa42a129d287781380c80db26bd7438a78085781479cbb51b847927",
+      "exported_triangles": 3900,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+      "key": "roof_disk",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_disk/roof_disk.blend",
+      "source_sha256_before": "96102291d23eb242a9d4d80b7db7faa087d8815dc62f892f7e289da4876c5790",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 4500,
+      "triangles_after": 4500,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "roof_disk__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/roof_disk/roof_disk.glb",
+      "glb_sha256": "aa3bc9fa6bdfe78908e67cb73e633af3771590079e667dae4c487e218c15ef71",
+      "source_sha256_after": "96102291d23eb242a9d4d80b7db7faa087d8815dc62f892f7e289da4876c5790",
+      "exported_triangles": 4500,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-SPOTLIGHT",
+      "key": "spotlight",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/spotlight/spotlight.blend",
+      "source_sha256_before": "a50f3df376fad51426dbaaa133f470c15104b1568cad4443c5bbf77459addbc7",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 2660,
+      "triangles_after": 2660,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "spotlight__SEA_Emission",
+          "role": "SEA_Emission"
+        },
+        {
+          "name": "spotlight__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/spotlight/spotlight.glb",
+      "glb_sha256": "689b08fd06029a22b8a68e5852e24f9c43d93f10dd39a730236ccea5f4376ec7",
+      "source_sha256_after": "a50f3df376fad51426dbaaa133f470c15104b1568cad4443c5bbf77459addbc7",
+      "exported_triangles": 2660,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+      "key": "roof_pipe",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_pipe/roof_pipe.blend",
+      "source_sha256_before": "47250e3a96e4469cede8c7f834c745929fab07363673624fa6bfecaac16f36fa",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1204,
+      "triangles_after": 1204,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "roof_pipe__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/roof_pipe/roof_pipe.glb",
+      "glb_sha256": "9b247098edaf5ca97442bdfe440aa146941f657bb30cecb2d168749f28300a7e",
+      "source_sha256_after": "47250e3a96e4469cede8c7f834c745929fab07363673624fa6bfecaac16f36fa",
+      "exported_triangles": 1204,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BEACON",
+      "key": "beacon",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/beacon/beacon.blend",
+      "source_sha256_before": "a88dac83919a11828db88a3dbb0bfbf06fc70e5353e5e4e1c646d15ebb177900",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 2484,
+      "triangles_after": 2484,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "beacon__SEA_Emission",
+          "role": "SEA_Emission"
+        },
+        {
+          "name": "beacon__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/beacon/beacon.glb",
+      "glb_sha256": "121d3b1747bb32831ea12923d8b8e3fa0f347f06e22dd39748e03203b06b78d9",
+      "source_sha256_after": "a88dac83919a11828db88a3dbb0bfbf06fc70e5353e5e4e1c646d15ebb177900",
+      "exported_triangles": 2484,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "key": "electrical_box",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/electrical_box/electrical_box.blend",
+      "source_sha256_before": "49336693e34826a9f9ec1abcd8ea3fb621cd45e8387d68ebf4c7622759895af4",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1048,
+      "triangles_after": 1048,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "electrical_box__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/electrical_box/electrical_box.glb",
+      "glb_sha256": "d8a70553aa2f92270b59f550d8c90c5bde5b18a7619a43a07fe3adc9b2f865f1",
+      "source_sha256_after": "49336693e34826a9f9ec1abcd8ea3fb621cd45e8387d68ebf4c7622759895af4",
+      "exported_triangles": 1048,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+      "key": "life_ring",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/life_ring/life_ring.blend",
+      "source_sha256_before": "061478d1658b41d4a291b7de1b43ecdcae243a85020a6254ec8ff6d835b47e2e",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 2688,
+      "triangles_after": 2688,
+      "reduction_ratio": 0.0,
+      "meshes_before": 9,
+      "meshes_after": 9,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 5280,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "life_ring__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/life_ring/life_ring.glb",
+      "glb_sha256": "986f11bbb006528b607ec628cd494684482785e5549d2e9a93718707fb197c21",
+      "source_sha256_after": "061478d1658b41d4a291b7de1b43ecdcae243a85020a6254ec8ff6d835b47e2e",
+      "exported_triangles": 2688,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "key": "postcard_rack",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/postcard_rack/postcard_rack.blend",
+      "source_sha256_before": "667790f21851b6c805a988f2a3b3047cb1e81c51a8ee26142bdcb722c2a944b4",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 13608,
+      "triangles_after": 13608,
+      "reduction_ratio": 0.0,
+      "meshes_before": 74,
+      "meshes_after": 74,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "postcard_rack__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "postcard_rack__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/postcard_rack/postcard_rack.glb",
+      "glb_sha256": "c8012b7111ffbc9f41d8d769cc776fcebf66bdc946a16646de3b2e583a952f1c",
+      "source_sha256_after": "667790f21851b6c805a988f2a3b3047cb1e81c51a8ee26142bdcb722c2a944b4",
+      "exported_triangles": 13608,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-MAILBOX",
+      "key": "mailbox",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/mailbox/mailbox.blend",
+      "source_sha256_before": "7c04006703b1f4c3bbf8454247bc4c98e0968f029357c1f46701426eccc3c1c4",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1128,
+      "triangles_after": 1128,
+      "reduction_ratio": 0.0,
+      "meshes_before": 6,
+      "meshes_after": 6,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "mailbox__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "mailbox__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/mailbox/mailbox.glb",
+      "glb_sha256": "85ce959a729d773e52e4b1772a07ffce34d97e0dfb0353c3ecfea4e383ff564c",
+      "source_sha256_after": "7c04006703b1f4c3bbf8454247bc4c98e0968f029357c1f46701426eccc3c1c4",
+      "exported_triangles": 1128,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+      "key": "ice_box",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/ice_box/ice_box.blend",
+      "source_sha256_before": "4b1d01f6a1528bb601f48746b2071720a73346aaa321a5cd6b6e2ddff6ea8bae",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 5276,
+      "triangles_after": 5276,
+      "reduction_ratio": 0.0,
+      "meshes_before": 13,
+      "meshes_after": 13,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 292
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "ice_box__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "ice_box__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/ice_box/ice_box.glb",
+      "glb_sha256": "21f6ebe1d804df46ec4346f0f8c471f148438d4dd0fb3d92405a4101c0475068",
+      "source_sha256_after": "4b1d01f6a1528bb601f48746b2071720a73346aaa321a5cd6b6e2ddff6ea8bae",
+      "exported_triangles": 5276,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BIN",
+      "key": "bin",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/bin/bin.blend",
+      "source_sha256_before": "6a20a7ed5a3d79f13af551fb95b1379d36ded0035c01c1acdf62c3a85d66cd2b",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 564,
+      "triangles_after": 564,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "bin__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "bin__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/bin/bin.glb",
+      "glb_sha256": "fc28728fe7682a1543a10ae1f0678ed3ea803cdf7cfc0e7f3636058c562b8f59",
+      "source_sha256_after": "6a20a7ed5a3d79f13af551fb95b1379d36ded0035c01c1acdf62c3a85d66cd2b",
+      "exported_triangles": 564,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-SHELF",
+      "key": "shelf",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/shelf/shelf.blend",
+      "source_sha256_before": "75584735983263761e634cff559d86902813a2400893069b62c8bb18cea61ed2",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1316,
+      "triangles_after": 1316,
+      "reduction_ratio": 0.0,
+      "meshes_before": 7,
+      "meshes_after": 7,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "shelf__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/shelf/shelf.glb",
+      "glb_sha256": "2d37b68f21b0ddd156d2abc0dc061b7c8d8144c286754bebbd41f83af27c636c",
+      "source_sha256_after": "75584735983263761e634cff559d86902813a2400893069b62c8bb18cea61ed2",
+      "exported_triangles": 1316,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-BOTTLE",
+      "key": "bottle",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/bottle/bottle.blend",
+      "source_sha256_before": "428f6f73edb723fe6b03720e67c76b6fe42841e011d79ad3143e735851ad654a",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1136,
+      "triangles_after": 1136,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "bottle__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/bottle/bottle.glb",
+      "glb_sha256": "67b47df8e47ee9586d38cb60ccaf768f36f2565709016fcda29ed8ca3f60287d",
+      "source_sha256_after": "428f6f73edb723fe6b03720e67c76b6fe42841e011d79ad3143e735851ad654a",
+      "exported_triangles": 1136,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-GIFT",
+      "key": "gift",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/gift/gift.blend",
+      "source_sha256_before": "3e72f61dc381e17d53690f1fade0230f187e38878e2502ea5a365e29c789df6c",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 752,
+      "triangles_after": 752,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "gift__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "gift__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/gift/gift.glb",
+      "glb_sha256": "cd5db1ff9230d1d16e7ef2b7ddcd467ce4a40a827fd4e007726a263ffef0ab90",
+      "source_sha256_after": "3e72f61dc381e17d53690f1fade0230f187e38878e2502ea5a365e29c789df6c",
+      "exported_triangles": 752,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-CARD",
+      "key": "card",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/card/card.blend",
+      "source_sha256_before": "6f6fba623e1e09df7a4eccbdea00624fb4e68be94016fcb46ac20bbe2e7e094f",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 544,
+      "triangles_after": 544,
+      "reduction_ratio": 0.0,
+      "meshes_before": 3,
+      "meshes_after": 3,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "card__SEA_Matte",
+          "role": "SEA_Matte"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/card/card.glb",
+      "glb_sha256": "4db351a6b0e24d323fda247d9e2b871247f4d5cfd3ebc56b29917468d81f6df0",
+      "source_sha256_after": "6f6fba623e1e09df7a4eccbdea00624fb4e68be94016fcb46ac20bbe2e7e094f",
+      "exported_triangles": 544,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-LANTERN",
+      "key": "lantern",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/lantern/lantern.blend",
+      "source_sha256_before": "dbf5590c42a39c1ec3c2db075a987231cff84f3ab2c8e422002935353956f014",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1732,
+      "triangles_after": 1732,
+      "reduction_ratio": 0.0,
+      "meshes_before": 5,
+      "meshes_after": 5,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "lantern__SEA_Emission",
+          "role": "SEA_Emission"
+        },
+        {
+          "name": "lantern__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/lantern/lantern.glb",
+      "glb_sha256": "acf96c9d30d1450c872a8fed49583bf760188dc3ff3ce9b0d39009c72ac324cd",
+      "source_sha256_after": "dbf5590c42a39c1ec3c2db075a987231cff84f3ab2c8e422002935353956f014",
+      "exported_triangles": 1732,
+      "exported_surfaces": 2
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-PLAQUE",
+      "key": "plaque",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/plaque/plaque.blend",
+      "source_sha256_before": "598e453b952c2e474189f0e7a82ec6cfb5db55f0415fc24d8b13e1b7bbe1640c",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 1708,
+      "triangles_after": 1692,
+      "reduction_ratio": 0.00936768149882904,
+      "meshes_before": 5,
+      "meshes_after": 5,
+      "export_meshes_after": 1,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 4,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 8
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": null,
+      "role_meshes": [
+        {
+          "name": "plaque__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/plaque/plaque.glb",
+      "glb_sha256": "1fb1151f9a806ce8242f928e446656c0a339a7dc0184b97e595d7ff352684053",
+      "source_sha256_after": "598e453b952c2e474189f0e7a82ec6cfb5db55f0415fc24d8b13e1b7bbe1640c",
+      "exported_triangles": 1692,
+      "exported_surfaces": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+      "key": "curved_glass",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/curved_glass/curved_glass.blend",
+      "source_sha256_before": "b07009fe4874b513c5d7eb11d3cde4ab515f3a515e1a20b5a6f97add14297fc8",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 2596,
+      "triangles_after": 2596,
+      "reduction_ratio": 0.0,
+      "meshes_before": 7,
+      "meshes_after": 7,
+      "export_meshes_after": 3,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "curved_glass__SEA_Gloss",
+          "role": "SEA_Gloss"
+        },
+        {
+          "name": "curved_glass__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "curved_glass__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/curved_glass/curved_glass.glb",
+      "glb_sha256": "abf4a927bbf1946db137640d44cf93fa612bdfdd27b6e2ffbcc4e6cba5086c39",
+      "source_sha256_after": "b07009fe4874b513c5d7eb11d3cde4ab515f3a515e1a20b5a6f97add14297fc8",
+      "exported_triangles": 2596,
+      "exported_surfaces": 3
+    },
+    {
+      "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "key": "entry_frame",
+      "source": "art_source/scenes/gift_kiosk/v001/component_packages/entry_frame/entry_frame.blend",
+      "source_sha256_before": "4ec3d9a8ab99eefc9c161dbc40ba886e87a5afb1a599a6f5bbccfc7cfecc1e30",
+      "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+      "role": "optimized",
+      "version": "v001",
+      "triangles_before": 752,
+      "triangles_after": 752,
+      "reduction_ratio": 0.0,
+      "meshes_before": 4,
+      "meshes_after": 4,
+      "export_meshes_after": 2,
+      "cleanup": {
+        "loose_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged": 0
+      },
+      "operations": [
+        "check and remove degenerate/duplicate/loose geometry per mesh",
+        "merge confirmed coincident vertices at 1e-7m preserving per-corner PaletteUV",
+        "retain all visible 3-segment bevels, bottoms, backs and interfaces",
+        "consolidate the exported GLB primitives by material role without changing scene object membership"
+      ],
+      "budget": null,
+      "budget_source": "user requested reference fidelity, no face cap",
+      "retained_faces_reason": "undersides and backs are explicitly shown in supplied reference; no speculative culling",
+      "zero_triangle_reduction_reason": "no additional safe reduction after required cleanup",
+      "role_meshes": [
+        {
+          "name": "entry_frame__SEA_Matte",
+          "role": "SEA_Matte"
+        },
+        {
+          "name": "entry_frame__SEA_Metal",
+          "role": "SEA_Metal"
+        }
+      ],
+      "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+      "optimized_reopened": true,
+      "glb": "godot/assets/models/facilities/gift_kiosk/entry_frame/entry_frame.glb",
+      "glb_sha256": "20c0975ac41a5c355229c7ffe079f610212c564e6698e3af8ec7291d6fabed76",
+      "source_sha256_after": "4ec3d9a8ab99eefc9c161dbc40ba886e87a5afb1a599a6f5bbccfc7cfecc1e30",
+      "exported_triangles": 752,
+      "exported_surfaces": 2
+    }
+  ],
+  "master_triangles_before": 141000,
+  "master_triangles_after": 140981,
+  "expanded_triangles_before": 518384,
+  "export_axis": "Blender(x,y,z)->Godot(x,z,-y)",
+  "fidelity": {
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\gift_kiosk\\v001\\fidelity.json",
+    "views": [
+      {
+        "view": "hero",
+        "rgb_rms_255": 0.04473910260149729,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "front",
+        "rgb_rms_255": 0.035892807786430565,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "back",
+        "rgb_rms_255": 0.04138236339311712,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      },
+      {
+        "view": "right",
+        "rgb_rms_255": 0.035008502368642364,
+        "fraction_changed_over_24": 0.0,
+        "passed": true
+      }
+    ]
+  },
+  "exporter": "data-only GLB writer executed inside active Blender MCP; no dependency-graph operator",
+  "exported_components": 47
+}

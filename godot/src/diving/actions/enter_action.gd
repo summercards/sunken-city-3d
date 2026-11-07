@@ -4,7 +4,7 @@ func execute(c, payload: Dictionary) -> void:
 	c._surface_zone = str(payload.get("zone",""))
 	c.active = true
 	c._enter_t = 0.0
-	c.diver_pos = Vector3(0, c.WATER_LEVEL, 12)
+	c.diver_pos = c.spawn_point
 	c._yaw = 0.0
 	c._pitch = 1.21
 	c._distance = 10.0

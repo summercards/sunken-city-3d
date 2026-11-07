@@ -1,0 +1,58 @@
+{
+  "key": "column",
+  "name": "青蓝圆角主柱",
+  "family": "column",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-COLUMN",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-COLUMN",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.25,
+    -0.25,
+    0
+  ],
+  "bounds_size": [
+    0.5,
+    0.5,
+    4.900000095367432
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/column/column.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 1,
+  "instances": 4,
+  "triangles": 188,
+  "polygons": 98,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "2b1d1f6532f698e44e87bff7ae080427785dba09d874007f6761a2aae6ecafcc",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-COLUMN",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/column/column.glb",
+  "runtime_sha256": "ba7909a3e00d0645c3b95a849e0f5b517f33a675f2ce666ee727d93bdc67c73d",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/column.tscn",
+  "prefab_sha256": "eaf036196d9daa76870b75999ef558ad4441521ae5b21583adf84d20764fcdef",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 188,
+  "triangles_after": 188,
+  "geometry_fingerprint": "756e2819bccf1348fdd699d778af92f2ba208a236aff065afe7d37a6c8a6d379"
+}

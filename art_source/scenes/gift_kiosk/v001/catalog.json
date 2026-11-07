@@ -1,0 +1,2258 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "key": "deck",
+      "name": "奶油圆角方形铺砖甲板",
+      "family": "deck",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-DECK",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-DECK",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.10000000149011612
+      ],
+      "bounds_min": [
+        -9.0,
+        -9.0,
+        0
+      ],
+      "bounds_size": [
+        18.0,
+        18.0,
+        0.20350000262260437
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/deck/deck.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 23,
+      "instances": 1,
+      "triangles": 4836,
+      "polygons": 2466,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "fb2dea3c1bed820aaa072f7913e361ff4fe64e4688d146dcb125b2d199d5b905",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "hull",
+      "name": "灰色圆角护舷底盘",
+      "family": "hull",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-HULL",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-HULL",
+      "design_pivot": [
+        0.0,
+        0.0,
+        -1.0199999809265137
+      ],
+      "bounds_min": [
+        -9.125,
+        -9.125,
+        0
+      ],
+      "bounds_size": [
+        18.25,
+        18.25,
+        1.1200000047683716
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/hull/hull.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 2,
+      "instances": 1,
+      "triangles": 1400,
+      "polygons": 620,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "c08c4073f57074f341e1d33e2bbaaff85f16bed9bdd0147dc22b00bc66977574",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "underframe",
+      "name": "船底十字管梁",
+      "family": "frame",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-UNDERFRAME",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-UNDERFRAME",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -7.800000190734863,
+        -7.800000190734863,
+        0
+      ],
+      "bounds_size": [
+        15.600000381469727,
+        15.600000381469727,
+        0.3400000035762787
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/underframe/underframe.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 1,
+      "triangles": 492,
+      "polygons": 246,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "9d0c82a5e24eb2d6395b7399703d4dafa391a18352e5d7df6acb7454cff42d62",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "pontoon",
+      "name": "橙色圆鼓浮筒",
+      "family": "flotation",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-PONTOON",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-PONTOON",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -2.0420000553131104,
+        -2.0420000553131104,
+        0
+      ],
+      "bounds_size": [
+        4.084000110626221,
+        4.084000110626221,
+        2.700000047683716
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/pontoon/pontoon.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 4,
+      "triangles": 3320,
+      "polygons": 1628,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "f19dfdbd16dbe10796a8f541726e183d002bb5494798dcdc89ec12d3d401ec81",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "thruster",
+      "name": "中央圆锥推进器",
+      "family": "propulsion",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-THRUSTER",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.09000000357627869
+      ],
+      "bounds_min": [
+        -1.5499999523162842,
+        -1.5499999523162842,
+        0
+      ],
+      "bounds_size": [
+        3.0999999046325684,
+        3.0999999046325684,
+        1.7649999856948853
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster/thruster.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 8,
+      "instances": 1,
+      "triangles": 5352,
+      "polygons": 2508,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "0942e477162fc75677d1dada0f42213e7dc8eb7570c690e7e60737b521d69a12",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "thruster_glow",
+      "name": "推进器暖黄灯芯",
+      "family": "emission",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-THRUSTER-GLOW",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.8550000190734863,
+        -0.8550000190734863,
+        0
+      ],
+      "bounds_size": [
+        1.7100000381469727,
+        1.7100000381469727,
+        0.4150000214576721
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster_glow/thruster_glow.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission"
+      ],
+      "meshes": 2,
+      "instances": 1,
+      "triangles": 1500,
+      "polygons": 714,
+      "roles": [
+        "SEA_Emission"
+      ],
+      "source_sha256": "5cf1158c7393b103ab989ce28f5caf4320e7afe651d013bfdb230b45db575188",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "deck_light",
+      "name": "舷沿胶囊暖黄灯",
+      "family": "edge_light",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-DECK-LIGHT",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-DECK-LIGHT",
+      "design_pivot": [
+        0.0,
+        -0.026249997317790985,
+        0.0
+      ],
+      "bounds_min": [
+        -0.5400000214576721,
+        -0.10624999552965164,
+        0
+      ],
+      "bounds_size": [
+        1.0800000429153442,
+        0.21249999105930328,
+        0.25999999046325684
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/deck_light/deck_light.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "meshes": 2,
+      "instances": 12,
+      "triangles": 376,
+      "polygons": 196,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "source_sha256": "75f89dd21bc62e9ebdbae4e1ce176aa1e7e79b0f22567da258d88d07eda40782",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rail_post",
+      "name": "球头黄色护栏立柱",
+      "family": "rail_post",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-RAIL-POST",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.23000000417232513,
+        -0.23000000417232513,
+        0
+      ],
+      "bounds_size": [
+        0.46000000834465027,
+        0.46000000834465027,
+        1.2899999618530273
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_post/rail_post.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 41,
+      "triangles": 1456,
+      "polygons": 692,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "503f0b26528f7e5af73b698330e59b9e8c5879b5559ed3fbcd891642060e1b0a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rail_bar",
+      "name": "黄色横栏",
+      "family": "rail",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-RAIL-BAR",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-RAIL-BAR",
+      "design_pivot": [
+        0.0,
+        0.0,
+        -0.11500000208616257
+      ],
+      "bounds_min": [
+        -0.75,
+        -0.11500000208616257,
+        0
+      ],
+      "bounds_size": [
+        1.5,
+        0.23000000417232513,
+        0.23000000417232513
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_bar/rail_bar.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 1,
+      "instances": 38,
+      "triangles": 44,
+      "polygons": 14,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "a03a70199a795c91acbc809999ad47d3d0d6ec94152bb38d94976d78ba9f5d19",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rail_corner",
+      "name": "圆弧黄色转角栏",
+      "family": "rail",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-RAIL-CORNER",
+      "design_pivot": [
+        0.8296093940734863,
+        -0.8296093940734863,
+        -0.11500000208616257
+      ],
+      "bounds_min": [
+        -0.8352520745247602,
+        -0.8352520745247602,
+        0
+      ],
+      "bounds_size": [
+        1.670504093170166,
+        1.670504093170166,
+        0.23000000417232513
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_corner/rail_corner.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 1,
+      "instances": 4,
+      "triangles": 404,
+      "polygons": 194,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "a036164d70c6d3be18a8e180a398bf08058aab5572b4120f4ea250e0f5f3ba0f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "fender",
+      "name": "黑色轮胎护舷与挂绳",
+      "family": "fender",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-FENDER",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-FENDER",
+      "design_pivot": [
+        0.0,
+        0.0,
+        -0.04500001668930054
+      ],
+      "bounds_min": [
+        -0.875,
+        -0.23500004410743713,
+        0
+      ],
+      "bounds_size": [
+        1.75,
+        0.47000008821487427,
+        2.239755392074585
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fender/fender.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 3,
+      "instances": 11,
+      "triangles": 1988,
+      "polygons": 986,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "54ee102808ee2beb4936553ef5ca926c26c64c575b1f069e6c1359618086c996",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "ladder",
+      "name": "黄色下水梯与扶手",
+      "family": "ladder",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-LADDER",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-LADDER",
+      "design_pivot": [
+        0.0,
+        0.015000015497207642,
+        0.0
+      ],
+      "bounds_min": [
+        -0.7099999785423279,
+        -0.4399999976158142,
+        0
+      ],
+      "bounds_size": [
+        1.4199999570846558,
+        0.8799999952316284,
+        3.5226285457611084
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/ladder/ladder.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 9,
+      "instances": 1,
+      "triangles": 780,
+      "polygons": 330,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "a022d676a91a1a57b60aa452ef3df2d2bbf1be27db19ff0e5f864791d517acce",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "bollard",
+      "name": "双耳系泊柱",
+      "family": "mooring",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-BOLLARD",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BOLLARD",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.36000001430511475,
+        -0.25999999046325684,
+        0
+      ],
+      "bounds_size": [
+        0.7200000286102295,
+        0.5199999809265137,
+        0.6649999618530273
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bollard/bollard.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 2,
+      "triangles": 1060,
+      "polygons": 466,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "c5cb2e4dacaf539b62646b4e73ba84ab123e981a8ceb26e46e267f9168eabc1e",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "pot",
+      "name": "奶白陶盆",
+      "family": "planter",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-POT",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-POT",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.5949999690055847,
+        -0.5949999690055847,
+        0
+      ],
+      "bounds_size": [
+        1.1899999380111694,
+        1.1899999380111694,
+        0.7949999570846558
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/pot/pot.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 5,
+      "triangles": 1816,
+      "polygons": 856,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "756b2d4708bf6554ed5b1fa7e78f574053a5e0e01e58d53d6596f8fa1a3e081b",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "foliage",
+      "name": "饱满球簇绿植",
+      "family": "foliage",
+      "group": "plant",
+      "asset_id": "SEA-SCENE-GKS-FOLIAGE",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-FOLIAGE",
+      "design_pivot": [
+        0.00999993085861206,
+        0.09499996900558472,
+        0.12999999523162842
+      ],
+      "bounds_min": [
+        -0.7900001406669617,
+        -0.6250000596046448,
+        0
+      ],
+      "bounds_size": [
+        1.5800002813339233,
+        1.2500001192092896,
+        1.4700000286102295
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/foliage/foliage.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 6,
+      "instances": 5,
+      "triangles": 2244,
+      "polygons": 1214,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "f46ca798db59425034bede05671e50389a0d865f660318b2f86047ee6eb199e8",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "bench",
+      "name": "厚木条长凳",
+      "family": "bench",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-BENCH",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BENCH",
+      "design_pivot": [
+        0.0,
+        0.012500002980232239,
+        0.0
+      ],
+      "bounds_min": [
+        -1.5,
+        -0.4674999862909317,
+        0
+      ],
+      "bounds_size": [
+        3.0,
+        0.934999942779541,
+        1.5750000476837158
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bench/bench.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 9,
+      "instances": 2,
+      "triangles": 1692,
+      "polygons": 882,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "8c380bb9f68c5c0bbc3b4a34269f5e3baacb6df4b8234666ac0cf82adcfbb6f9",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "glass_bay",
+      "name": "青蓝立框商店橱窗",
+      "family": "window",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-GLASS-BAY",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-GLASS-BAY",
+      "design_pivot": [
+        0.0,
+        -0.06499999761581421,
+        0.0
+      ],
+      "bounds_min": [
+        -1.2400000095367432,
+        -0.19499999284744263,
+        0
+      ],
+      "bounds_size": [
+        2.4800000190734863,
+        0.38999998569488525,
+        4.900000095367432
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/glass_bay/glass_bay.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 7,
+      "instances": 8,
+      "triangles": 1316,
+      "polygons": 686,
+      "roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "dceed1a2bf3d13f1a15aaff976b7ebc22a97eba43e4d9f6c5adbbdcd0b41d357",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "back_panel",
+      "name": "奶黄后墙设备板",
+      "family": "wall",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BACK-PANEL",
+      "design_pivot": [
+        0.0,
+        0.006999999284744263,
+        0.0
+      ],
+      "bounds_min": [
+        -1.2000000476837158,
+        -0.15700000524520874,
+        0
+      ],
+      "bounds_size": [
+        2.4000000953674316,
+        0.3140000104904175,
+        4.900000095367432
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/back_panel/back_panel.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 4,
+      "instances": 3,
+      "triangles": 752,
+      "polygons": 392,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "36f34d4367b243a86ba015f18a9ae097a9cb908021886024d77162a8718e01de",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "column",
+      "name": "青蓝圆角主柱",
+      "family": "column",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-COLUMN",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-COLUMN",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.25,
+        -0.25,
+        0
+      ],
+      "bounds_size": [
+        0.5,
+        0.5,
+        4.900000095367432
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/column/column.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 1,
+      "instances": 4,
+      "triangles": 188,
+      "polygons": 98,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "2b1d1f6532f698e44e87bff7ae080427785dba09d874007f6761a2aae6ecafcc",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "back_door",
+      "name": "后侧灰蓝检修门",
+      "family": "door",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-BACK-DOOR",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BACK-DOOR",
+      "design_pivot": [
+        0.0,
+        -0.11749999970197678,
+        0.0
+      ],
+      "bounds_min": [
+        -0.949999988079071,
+        -0.2575000002980232,
+        0
+      ],
+      "bounds_size": [
+        1.899999976158142,
+        0.5149999856948853,
+        3.4000000953674316
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/back_door/back_door.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "triangles": 608,
+      "polygons": 308,
+      "roles": [
+        "SEA_Gloss",
+        "SEA_Metal"
+      ],
+      "source_sha256": "e3796897d07c0c2f350555d7be3eb91a952db4d6a192b7bfc78957e40e1a2e48",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "roof",
+      "name": "圆角平屋顶与檐板",
+      "family": "roof",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-ROOF",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ROOF",
+      "design_pivot": [
+        0.0,
+        -2.384185791015625e-07,
+        0.0
+      ],
+      "bounds_min": [
+        -6.024999618530273,
+        -6.0249998569488525,
+        0
+      ],
+      "bounds_size": [
+        12.049999237060547,
+        12.049999237060547,
+        0.4099999964237213
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof/roof.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 12,
+      "instances": 1,
+      "triangles": 3656,
+      "polygons": 1820,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "3144d25b0822b8d65b517b9951db3992706856e927dec4ea95f3bfd0c7e54ce7",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "fascia",
+      "name": "奶黄直段招牌灯箱",
+      "family": "fascia",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-FASCIA",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-FASCIA",
+      "design_pivot": [
+        0.0,
+        -0.07250000536441803,
+        0.0
+      ],
+      "bounds_min": [
+        -3.9000000953674316,
+        -0.23250000178813934,
+        0
+      ],
+      "bounds_size": [
+        7.800000190734863,
+        0.4650000035762787,
+        1.440000057220459
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia/fascia.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 4,
+      "triangles": 1048,
+      "polygons": 580,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "1f80e5ac57226b6a19e79f6bd3493f293b3f6665eade0f5e65113cb5ed8a4f72",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "fascia_corner",
+      "name": "奶黄圆角招牌灯箱",
+      "family": "fascia",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-FASCIA-CORNER",
+      "design_pivot": [
+        1.0895358324050903,
+        -1.0895358324050903,
+        -0.055000003427267075
+      ],
+      "bounds_min": [
+        -1.0895358324050903,
+        -1.0895358324050903,
+        0
+      ],
+      "bounds_size": [
+        2.1790716648101807,
+        2.1790716648101807,
+        1.5499999523162842
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia_corner/fascia_corner.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 2,
+      "instances": 4,
+      "triangles": 1336,
+      "polygons": 676,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "297631909483a8b5b37018c2105f7745ca793a4ffd458c827f3b6886520ee108",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_postcards",
+      "name": "POSTCARDS立体字及信封",
+      "family": "sign",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-SIGN-POSTCARDS",
+      "design_pivot": [
+        0.11449408531188965,
+        -0.0260000079870224,
+        0.20999997854232788
+      ],
+      "bounds_min": [
+        -2.9505059719085693,
+        -0.08100000768899918,
+        0
+      ],
+      "bounds_size": [
+        5.901011943817139,
+        0.16200001537799835,
+        0.7200000286102295
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_postcards/sign_postcards.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 2,
+      "triangles": 22948,
+      "polygons": 12568,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "90c0db82ee813549229216808087607a4d40fe3cd3d2f9a47399dc5d6f6a49fb",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_gifts",
+      "name": "GIFTS立体字及礼盒",
+      "family": "sign",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-SIGN-GIFTS",
+      "design_pivot": [
+        0.07907861471176147,
+        -0.03458763286471367,
+        0.1550000011920929
+      ],
+      "bounds_min": [
+        -1.7845266461372375,
+        -0.11458763852715492,
+        0
+      ],
+      "bounds_size": [
+        3.5690531730651855,
+        0.22917526960372925,
+        0.9300000667572021
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_gifts/sign_gifts.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 2,
+      "triangles": 9464,
+      "polygons": 5132,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "b45a39ab4332277cbaaf60479610fef12e9bbfc6fc8c0e54addad56f1c5aac50",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_drinks",
+      "name": "COLD DRINKS立体字及饮杯",
+      "family": "sign",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-SIGN-DRINKS",
+      "design_pivot": [
+        -0.07526099681854248,
+        0.0,
+        0.07999998331069946
+      ],
+      "bounds_min": [
+        -2.944738984107971,
+        -0.23999999463558197,
+        0
+      ],
+      "bounds_size": [
+        5.889477729797363,
+        0.47999998927116394,
+        1.0239553451538086
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/sign_drinks/sign_drinks.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "triangles": 19560,
+      "polygons": 10659,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "5aa7ba6d620b1e979c4413893275040f956b1247fa1d39a46a629ed8cd8b5813",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "awning_blue",
+      "name": "蓝色圆垂边雨棚条",
+      "family": "awning",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-AWNING-BLUE",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-AWNING-BLUE",
+      "design_pivot": [
+        0.0,
+        -0.11649999022483826,
+        -0.05999999865889549
+      ],
+      "bounds_min": [
+        -0.32499998807907104,
+        -0.5834999978542328,
+        0
+      ],
+      "bounds_size": [
+        0.6499999761581421,
+        1.1670000553131104,
+        0.8789610266685486
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_blue/awning_blue.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 1,
+      "instances": 24,
+      "triangles": 884,
+      "polygons": 444,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "f055fe50db0bd26c790d7566b0db7dbfd3cd6f6eaee3f30e20fb4625bf05329d",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "awning_white",
+      "name": "白色圆垂边雨棚条",
+      "family": "awning",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-AWNING-WHITE",
+      "design_pivot": [
+        0.0,
+        -0.11649999022483826,
+        -0.05999999865889549
+      ],
+      "bounds_min": [
+        -0.32499998807907104,
+        -0.5834999978542328,
+        0
+      ],
+      "bounds_size": [
+        0.6499999761581421,
+        1.1670000553131104,
+        0.8789610266685486
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_white/awning_white.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 1,
+      "instances": 24,
+      "triangles": 884,
+      "polygons": 444,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "fb4c1fd385c844dd4a4058ff226594c1bead7b39fc33535076f91ec07da36eca",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "awning_corner",
+      "name": "蓝白转角圆垂雨棚",
+      "family": "awning",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-AWNING-CORNER",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-AWNING-CORNER",
+      "design_pivot": [
+        1.371999979019165,
+        -1.371999979019165,
+        -0.05999999865889549
+      ],
+      "bounds_min": [
+        -1.371999979019165,
+        -1.371999979019165,
+        0
+      ],
+      "bounds_size": [
+        2.74399995803833,
+        2.74399995803833,
+        0.8622150421142578
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_corner/awning_corner.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 6,
+      "instances": 4,
+      "triangles": 3900,
+      "polygons": 1968,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "e00a5c36cfa42a129d287781380c80db26bd7438a78085781479cbb51b847927",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "roof_disk",
+      "name": "屋顶黄色圆盘及奶白穹盖",
+      "family": "roof_machine",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-ROOF-DISK",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ROOF-DISK",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -1.7899999618530273,
+        -1.7899999618530273,
+        0
+      ],
+      "bounds_size": [
+        3.5799999237060547,
+        3.5799999237060547,
+        2.0
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_disk/roof_disk.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "triangles": 4500,
+      "polygons": 2142,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "96102291d23eb242a9d4d80b7db7faa087d8815dc62f892f7e289da4876c5790",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "spotlight",
+      "name": "深灰弯支架暖黄射灯",
+      "family": "spotlight",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-SPOTLIGHT",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-SPOTLIGHT",
+      "design_pivot": [
+        7.450580596923828e-08,
+        -0.18000002205371857,
+        0.0
+      ],
+      "bounds_min": [
+        -0.36999987065792084,
+        -0.4700000137090683,
+        0
+      ],
+      "bounds_size": [
+        0.7399997711181641,
+        0.940000057220459,
+        1.3899999856948853
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/spotlight/spotlight.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 4,
+      "triangles": 2660,
+      "polygons": 1334,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "source_sha256": "a50f3df376fad51426dbaaa133f470c15104b1568cad4443c5bbf77459addbc7",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "roof_pipe",
+      "name": "屋顶弯管",
+      "family": "pipe",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ROOF-PIPE",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.8399999737739563,
+        -0.25999999046325684,
+        0
+      ],
+      "bounds_size": [
+        1.6799999475479126,
+        0.5199999809265137,
+        1.0195287466049194
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_pipe/roof_pipe.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 3,
+      "triangles": 1204,
+      "polygons": 538,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "47250e3a96e4469cede8c7f834c745929fab07363673624fa6bfecaac16f36fa",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "beacon",
+      "name": "橙色信号灯",
+      "family": "beacon",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-BEACON",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BEACON",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.36000001430511475,
+        -0.36000001430511475,
+        0
+      ],
+      "bounds_size": [
+        0.7200000286102295,
+        0.7200000286102295,
+        1.9399999380111694
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/beacon/beacon.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "triangles": 2484,
+      "polygons": 1190,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "source_sha256": "a88dac83919a11828db88a3dbb0bfbf06fc70e5353e5e4e1c646d15ebb177900",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "electrical_box",
+      "name": "后墙电气盒",
+      "family": "electrical",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+      "design_pivot": [
+        0.0,
+        -0.03500000387430191,
+        0.0
+      ],
+      "bounds_min": [
+        -0.550000011920929,
+        -0.1600000038743019,
+        0
+      ],
+      "bounds_size": [
+        1.100000023841858,
+        0.3199999928474426,
+        1.0
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/electrical_box/electrical_box.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 2,
+      "triangles": 1048,
+      "polygons": 580,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "49336693e34826a9f9ec1abcd8ea3fb621cd45e8387d68ebf4c7622759895af4",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "life_ring",
+      "name": "红白救生圈",
+      "family": "safety",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-LIFE-RING",
+      "design_pivot": [
+        0.0,
+        0.0,
+        -0.04700005054473877
+      ],
+      "bounds_min": [
+        -0.8270000219345093,
+        -0.18000000715255737,
+        0
+      ],
+      "bounds_size": [
+        1.6540000438690186,
+        0.36000001430511475,
+        1.6540000438690186
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/life_ring/life_ring.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 9,
+      "instances": 2,
+      "triangles": 2688,
+      "polygons": 1344,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "061478d1658b41d4a291b7de1b43ecdcae243a85020a6254ec8ff6d835b47e2e",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "postcard_rack",
+      "name": "三面旋转明信片展示架",
+      "family": "retail_display",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-POSTCARD-RACK",
+      "design_pivot": [
+        0.02060568332672119,
+        0.043766677379608154,
+        0.0
+      ],
+      "bounds_min": [
+        -0.62410569190979,
+        -0.5937666893005371,
+        0
+      ],
+      "bounds_size": [
+        1.24821138381958,
+        1.1875333786010742,
+        2.9600000381469727
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/postcard_rack/postcard_rack.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 74,
+      "instances": 1,
+      "triangles": 13608,
+      "polygons": 7248,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "667790f21851b6c805a988f2a3b3047cb1e81c51a8ee26142bdcb722c2a944b4",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "mailbox",
+      "name": "红色圆角邮筒",
+      "family": "mail",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-MAILBOX",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-MAILBOX",
+      "design_pivot": [
+        0.0,
+        -0.027499988675117493,
+        0.0
+      ],
+      "bounds_min": [
+        -0.550000011920929,
+        -0.4074999839067459,
+        0
+      ],
+      "bounds_size": [
+        1.100000023841858,
+        0.8149999380111694,
+        1.9950000047683716
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/mailbox/mailbox.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 6,
+      "instances": 1,
+      "triangles": 1128,
+      "polygons": 588,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "7c04006703b1f4c3bbf8454247bc4c98e0968f029357c1f46701426eccc3c1c4",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "ice_box",
+      "name": "白色ICE冰柜",
+      "family": "ice",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ICE-BOX",
+      "design_pivot": [
+        0.0,
+        -0.025000005960464478,
+        0.0
+      ],
+      "bounds_min": [
+        -1.0800000429153442,
+        -0.5949999988079071,
+        0
+      ],
+      "bounds_size": [
+        2.1600000858306885,
+        1.190000057220459,
+        2.129999876022339
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/ice_box/ice_box.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 13,
+      "instances": 1,
+      "triangles": 5276,
+      "polygons": 2810,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "4b1d01f6a1528bb601f48746b2071720a73346aaa321a5cd6b6e2ddff6ea8bae",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "bin",
+      "name": "黄色分类垃圾桶",
+      "family": "bin",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-BIN",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BIN",
+      "design_pivot": [
+        0.0,
+        -0.007499992847442627,
+        0.0
+      ],
+      "bounds_min": [
+        -0.3149999976158142,
+        -0.3375000059604645,
+        0
+      ],
+      "bounds_size": [
+        0.6299999952316284,
+        0.675000011920929,
+        1.3600000143051147
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bin/bin.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 3,
+      "instances": 1,
+      "triangles": 564,
+      "polygons": 294,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "6a20a7ed5a3d79f13af551fb95b1379d36ded0035c01c1acdf62c3a85d66cd2b",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "shelf",
+      "name": "暖木三层商品架",
+      "family": "shelf",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-SHELF",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-SHELF",
+      "design_pivot": [
+        0.0,
+        0.012500002980232239,
+        0.0
+      ],
+      "bounds_min": [
+        -1.149999976158142,
+        -0.42249999940395355,
+        0
+      ],
+      "bounds_size": [
+        2.299999952316284,
+        0.8450000286102295,
+        3.0199999809265137
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/shelf/shelf.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 7,
+      "instances": 11,
+      "triangles": 1316,
+      "polygons": 686,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "75584735983263761e634cff559d86902813a2400893069b62c8bb18cea61ed2",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "bottle",
+      "name": "彩色饮料瓶",
+      "family": "stock_bottle",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-BOTTLE",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-BOTTLE",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.15299999713897705,
+        -0.15299999713897705,
+        0
+      ],
+      "bounds_size": [
+        0.3059999942779541,
+        0.3059999942779541,
+        0.7200000286102295
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bottle/bottle.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 60,
+      "triangles": 1136,
+      "polygons": 512,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "428f6f73edb723fe6b03720e67c76b6fe42841e011d79ad3143e735851ad654a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "gift",
+      "name": "红黄礼品盒",
+      "family": "stock_gift",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-GIFT",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-GIFT",
+      "design_pivot": [
+        0.0,
+        -0.002250000834465027,
+        0.0
+      ],
+      "bounds_min": [
+        -0.3100000023841858,
+        -0.26224999129772186,
+        0
+      ],
+      "bounds_size": [
+        0.6200000047683716,
+        0.5245000123977661,
+        0.6200000047683716
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/gift/gift.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 63,
+      "triangles": 752,
+      "polygons": 392,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "3e72f61dc381e17d53690f1fade0230f187e38878e2502ea5a365e29c789df6c",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "card",
+      "name": "蓝橙插画明信片",
+      "family": "stock_card",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-CARD",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-CARD",
+      "design_pivot": [
+        0.0,
+        -0.015250000171363354,
+        0.0
+      ],
+      "bounds_min": [
+        -0.20000000298023224,
+        -0.03275000024586916,
+        0
+      ],
+      "bounds_size": [
+        0.4000000059604645,
+        0.06549999862909317,
+        0.5
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/card/card.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "meshes": 3,
+      "instances": 3,
+      "triangles": 544,
+      "polygons": 292,
+      "roles": [
+        "SEA_Matte"
+      ],
+      "source_sha256": "6f6fba623e1e09df7a4eccbdea00624fb4e68be94016fcb46ac20bbe2e7e094f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "lantern",
+      "name": "紫色侧挂圆筒灯",
+      "family": "lantern",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-LANTERN",
+      "building_class": null,
+      "loaded_responsibility": null,
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-LANTERN",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.25,
+        -0.25,
+        0
+      ],
+      "bounds_size": [
+        0.5,
+        0.5,
+        0.8199999928474426
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/lantern/lantern.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "meshes": 5,
+      "instances": 4,
+      "triangles": 1732,
+      "polygons": 814,
+      "roles": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "source_sha256": "dbf5590c42a39c1ec3c2db075a987231cff84f3ab2c8e422002935353956f014",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "plaque",
+      "name": "船底圆角铆钉检修板",
+      "family": "maintenance",
+      "group": "furnishing",
+      "asset_id": "SEA-SCENE-GKS-PLAQUE",
+      "building_class": "underwater",
+      "loaded_responsibility": "references/underwater-scenery.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-PLAQUE",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -0.675000011920929,
+        -0.675000011920929,
+        0
+      ],
+      "bounds_size": [
+        1.350000023841858,
+        1.350000023841858,
+        0.1899999976158142
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/plaque/plaque.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "meshes": 5,
+      "instances": 4,
+      "triangles": 1708,
+      "polygons": 850,
+      "roles": [
+        "SEA_Metal"
+      ],
+      "source_sha256": "598e453b952c2e474189f0e7a82ec6cfb5db55f0415fc24d8b13e1b7bbe1640c",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "curved_glass",
+      "name": "圆角透明橱窗及边框",
+      "family": "curved_window",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-CURVED-GLASS",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-CURVED-GLASS",
+      "design_pivot": [
+        0.7699999809265137,
+        -0.7699999809265137,
+        -0.04500000178813934
+      ],
+      "bounds_min": [
+        -0.8599999994039536,
+        -0.8599999994039536,
+        0
+      ],
+      "bounds_size": [
+        1.7200000286102295,
+        1.7200000286102295,
+        4.945000171661377
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/curved_glass/curved_glass.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 7,
+      "instances": 4,
+      "triangles": 2596,
+      "polygons": 1266,
+      "roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "b07009fe4874b513c5d7eb11d3cde4ab515f3a515e1a20b5a6f97add14297fc8",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "entry_frame",
+      "name": "开放商亭入口框",
+      "family": "entry",
+      "group": "structure",
+      "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "building_class": "above_water",
+      "loaded_responsibility": "references/above-water.md",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "triangle_budget": null,
+      "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+      "collection": "SEA-SCENE-GKS-ENTRY-FRAME",
+      "design_pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        -1.4600000381469727,
+        -0.30000001192092896,
+        0
+      ],
+      "bounds_size": [
+        2.9200000762939453,
+        0.6000000238418579,
+        4.900000095367432
+      ],
+      "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/entry_frame/entry_frame.blend",
+      "version": "v001",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "meshes": 4,
+      "instances": 1,
+      "triangles": 752,
+      "polygons": 392,
+      "roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "source_sha256": "4ec3d9a8ab99eefc9c161dbc40ba886e87a5afb1a599a6f5bbccfc7cfecc1e30",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "stage": "source_verified_runtime_pending"
+    }
+  ]
+}

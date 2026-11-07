@@ -15,6 +15,9 @@ RULES = [
     'salvage/salvage_rewards.gd', 'farming/farm.gd', 'orders/orders.gd',
     'time/world_clock.gd', 'weather/weather_service.gd',
     'navigation/water_navigation.gd', 'save/save_game.gd', 'save/snapshot_registry.gd',
+    'npc/npc_catalog.gd', 'npc/npc_service.gd', 'npc/npc_relationship_graph.gd',
+    'npc/npc_schedule_resolver.gd', 'npc/npc_dialogue_runner.gd', 'npc/npc_save_codec.gd',
+    'shop/shop_catalog.gd', 'shop/shop_service.gd',
 ]
 # These two existing scripts are development probes, not loaded by the game.
 PROBES = {'ui/verify_ac_ui.gd', 'ui/verify_island_ui.gd'}
@@ -43,6 +46,10 @@ def check():
             errors.append(name + ': production depends on test/prototype')
         if 'SailNavLib.' in code and 'res://src/navigation/sail_nav.gd' not in code:
             errors.append(name + ': implicit parity class dependency')
+        if name.startswith('npc/') and 'res://src/shop/' in code:
+            errors.append(name + ': NPC imports Shop implementation instead of a public port')
+        if name.startswith('shop/') and 'res://src/npc/' in code:
+            errors.append(name + ': Shop imports NPC implementation instead of a public port')
         if name in RULES and re.search(r'get_parent\(|get_node(?:_or_null)?\(', code):
             errors.append(name + ': rule/service reads scene hierarchy')
     for name in RULES:

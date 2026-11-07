@@ -1,5 +1,6 @@
 extends Node3D
 var give_resource: Callable
+var give_rewards: Callable
 ## 海底世界（独立地图）。
 ##
 ## 与海面世界的关系：不是把相机压到水面下，而是切到一张独立的地图。
@@ -49,10 +50,26 @@ const MaterialLib = preload("res://src/diving/uw_materials.gd")
 const CharacterScript = preload("res://src/player/character.gd")
 const DiveAirLib = preload("res://src/diving/dive_air.gd")
 
-@onready var regions_root: Node3D = $Regions
-@onready var deco: Node3D = $Deco
-@onready var camera: Camera3D = $DiveCamera
-@onready var chests_root: Node3D = $Chests
+@export var map_id := "dive_zone1"
+@export var map_label := ""
+@export_file("*.json") var swim_data_path: String = SWIM_DATA
+## 旧数据的局部 ID / 零基鱼群索引；空数组表示不生成该类内容。
+@export var chest_ids: Array[int] = [0, 1, 2, 3, 4]
+@export var fish_indices: Array[int] = [0, 1, 2, 3, 4, 5, 6]
+@export var chest_id_base := 0
+## 旧导出顺序：0..32 街区楼体/桥/车辆，33..42 海沟沉船。
+@export var neighborhood_solid_indices: Array[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+@export var trench_solid_indices: Array[int] = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+@export var neighborhood_collision_enabled := true
+@export var trench_collision_enabled := true
+@export var basin_closure_enabled := false
+## 入水动作由调用方读取此坐标；旧入口的默认值保持不变。
+@export var spawn_point := Vector3(0, 1.12, 12)
+
+@onready var regions_root: Node3D = get_node_or_null("Regions") as Node3D
+@onready var deco: Node3D = get_node_or_null("Deco") as Node3D
+@onready var camera: Camera3D = get_node_or_null("DiveCamera") as Camera3D
+@onready var chests_root: Node3D = get_node_or_null("Chests") as Node3D
 
 var active := false
 var phase_machine = preload("res://src/core/state_machine.gd").new()
@@ -103,21 +120,32 @@ var air = DiveAirLib.new()
 var _air_emit_t := 0.0
 
 
-func setup(surface_nodes: Array, world_env: WorldEnvironment) -> void:
+func setup(surface_nodes: Array, world_env: WorldEnvironment) -> bool:
+	var error := _map_structure_error(world_env)
+	if not error.is_empty():
+		push_error("潜水地图 %s 初始化失败: %s" % [map_id, error])
+		return false
+	if not _load_swim_data():
+		return false
+	error = _map_content_error()
+	if not error.is_empty():
+		push_error("潜水地图 %s 初始化失败: %s" % [map_id, error])
+		return false
 	phase_machine.configure(self,{"surface":preload("res://src/diving/states/surface.gd").new(),"enter":preload("res://src/diving/states/enter.gd").new(),"swim":preload("res://src/diving/states/swim.gd").new(),"exit":preload("res://src/diving/states/exit.gd").new()},{"surface":["enter"],"enter":["swim","exit"],"swim":["exit"],"exit":["surface"]},"surface")
 	_surface_nodes = surface_nodes
 	_world_env = world_env
 	_saved_env = world_env.environment
 	_build_environment()
 	_build_fog_pass()
-	_load_swim_data()
+	if basin_closure_enabled:
+		_build_basin_closure()
 	_build_diver()
 	_build_chests()
-	# 海底世界常驻在场景里，但平时整棵树必须不可见 —— 否则它自带的
-	# 平行光 / 点光会一起照亮海面，白天瞬间过曝。
+	# 独立地图完成初始化后由 enter 状态显示，海面不持有此几何实例。
 	visible = false
 	_build_markers()
 	deco.setup(_fish_specs)
+	return true
 
 
 # ---------------------------------------------------------------- 进入 / 离开
@@ -182,21 +210,173 @@ func _update_sky(depth_now: float) -> void:
 
 # ---------------------------------------------------------------- 数据 / 碰撞
 var _fish_specs: Array = []
+var _chest_specs: Array = []
 
 
-func _load_swim_data() -> void:
-	var text := FileAccess.get_file_as_string(SWIM_DATA)
-	if text.is_empty():
-		push_error("读不到 " + SWIM_DATA)
-		return
-	var data: Variant = JSON.parse_string(text)
-	if data == null or not (data is Dictionary):
-		push_error("swim.json 解析失败")
-		return
-	_solids = data.get("solids", [])
-	_terraces = data.get("terraces", [])
-	_trench = data.get("trenchProfile", [])
-	_fish_specs = data.get("fish", [])
+func _map_structure_error(world_env: WorldEnvironment) -> String:
+	if not is_node_ready() or not is_inside_tree():
+		return "必须在地图进入场景树且 ready 后调用 setup"
+	if regions_root == null or deco == null or camera == null or chests_root == null:
+		return "缺少 Regions / Deco / DiveCamera / Chests 必需节点"
+	if not deco.has_method("setup") or not deco.has_method("update"):
+		return "Deco 缺少鱼群装配接口"
+	if not is_instance_valid(world_env) or not world_env.is_inside_tree():
+		return "环境节点无效或不在场景树内"
+	if not (get_node_or_null("WorldEnvironment") is WorldEnvironment):
+		return "缺少地图本地 WorldEnvironment"
+	if world_env != get_node_or_null("WorldEnvironment"):
+		return "必须传入当前地图的本地 WorldEnvironment，不能引用已移出树的 Main 环境"
+	if transform != Transform3D.IDENTITY or regions_root.transform != Transform3D.IDENTITY:
+		return "地图根与 Regions 必须保持 baked 数据原坐标"
+	if map_id.is_empty() or not spawn_point.is_finite():
+		return "map_id 为空或出生点不是有限坐标"
+	if not is_equal_approx(spawn_point.y, WATER_LEVEL):
+		return "出生点 Y 必须等于入水动作使用的 WATER_LEVEL"
+	if region_node("basin") == null:
+		return "必须保留 basin 可见容器与台地"
+	var has_neighborhood := region_node("neighborhood") != null
+	var has_trench := region_node("trench") != null
+	if neighborhood_collision_enabled != has_neighborhood or trench_collision_enabled != has_trench:
+		return "街区 / 海沟碰撞开关必须与可见 region 同步"
+	if basin_closure_enabled == has_trench:
+		return "无海沟地图必须封闭北侧开口，有海沟地图不得封口"
+	for region in region_nodes():
+		if not region.visible:
+			return "region 必须可见: " + str(region.name)
+		# reef 是无碰撞装饰，可独立变换；其余 region 与 baked 坐标严格对齐。
+		if str(region.get("region")) != "reef" and region.transform != Transform3D.IDENTITY:
+			return "碰撞所属 region 必须保持原坐标，暂不接受未同步的变换"
+		if region.get("instance_count") == null or int(region.get("instance_count")) <= 0:
+			return "region 未成功装配几何: " + str(region.name)
+	return ""
+
+
+func _load_swim_data() -> bool:
+	_solids = []
+	_terraces = []
+	_trench = []
+	_fish_specs = []
+	_chest_specs = []
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(swim_data_path))
+	if not (data is Dictionary):
+		push_error("潜水数据读取或解析失败: " + swim_data_path)
+		return false
+	for key in ["solids", "terraces", "trenchProfile", "fish", "chests"]:
+		if not (data.get(key) is Array):
+			push_error("潜水数据缺少数组: " + key)
+			return false
+	var solids: Array = data.solids
+	# 归属依据 export_underwater.cjs 与旧生成器；沉船的十段碰撞不能归街区。
+	for group_index in range(2):
+		var enabled := neighborhood_collision_enabled if group_index == 0 else trench_collision_enabled
+		if not enabled:
+			continue
+		var indices: Array[int] = neighborhood_solid_indices if group_index == 0 else trench_solid_indices
+		for index in indices:
+			var belongs := index >= 0 and index < 33 if group_index == 0 else index >= 33 and index < 43
+			if not belongs or index >= solids.size() or not (solids[index] is Dictionary):
+				push_error("潜水实体碰撞索引无效: " + str(index))
+				return false
+			var solid: Dictionary = solids[index]
+			for key in ["x", "z", "w", "d", "top", "bottom"]:
+				if not _finite_number(solid.get(key)):
+					push_error("潜水实体碰撞字段无效: " + key)
+					return false
+			_solids.append(solid)
+	_terraces = data.terraces
+	if trench_collision_enabled:
+		_trench = data.trenchProfile
+	if _terraces.is_empty() or (trench_collision_enabled and _trench.size() < 2):
+		push_error("潜水台地或海沟数据为空")
+		return false
+	for row in _terraces + _trench:
+		if not (row is Array) or row.size() != 5:
+			push_error("潜水台地 / 海沟数据行无效")
+			return false
+		for value in row:
+			if not _finite_number(value):
+				push_error("潜水台地 / 海沟坐标无效")
+				return false
+	for index in fish_indices:
+		if index < 0 or index >= data.fish.size():
+			push_error("潜水鱼群索引无效: " + str(index))
+			return false
+		var fish: Variant = data.fish[index]
+		if not (fish is Dictionary) or not _coordinate_array(fish.get("center")):
+			push_error("潜水鱼群坐标无效")
+			return false
+		_fish_specs.append(fish)
+	for id in chest_ids:
+		var matched := false
+		for spec in data.chests:
+			if not (spec is Dictionary) or not _finite_number(spec.get("id")):
+				push_error("潜水宝箱数据无效")
+				return false
+			if int(spec.id) != id:
+				continue
+			if not _coordinate_array(spec.get("pos")) or not (spec.get("reward") is Dictionary) or not (spec.get("name") is String):
+				push_error("潜水宝箱字段无效: " + str(id))
+				return false
+			_chest_specs.append(spec)
+			matched = true
+			break
+		if not matched:
+			push_error("潜水宝箱局部 ID 不存在: " + str(id))
+			return false
+	return true
+
+
+func _finite_number(value: Variant) -> bool:
+	return (value is int or value is float) and is_finite(float(value))
+
+
+func _coordinate_array(value: Variant) -> bool:
+	return value is Array and value.size() == 3 and _finite_number(value[0]) and _finite_number(value[1]) and _finite_number(value[2])
+
+
+func _map_content_error() -> String:
+	# 固定 XZ，从水面到 ENTER_DEPTH；与父线程 enter_action 的 spawn 约定一致。
+	var end := Vector3(spawn_point.x, ENTER_DEPTH, spawn_point.z)
+	if blocked(spawn_point) or not _clear_segment(spawn_point, end):
+		return "出生点或完整下潜路径有阻挡"
+	for spec in _chest_specs:
+		var p := Vector3(float(spec.pos[0]), float(spec.pos[1]), float(spec.pos[2]))
+		if not _inside_basin(p, 0.0):
+			return "宝箱不在地图游泳容器内: " + str(spec.id)
+		var destination := p + Vector3(1.6 if p.x < 0.0 else (-1.6 if p.x > 0.0 else 0.0), 1.45, 1.1)
+		if blocked(destination):
+			return "宝箱交互站位被阻挡: " + str(spec.id)
+	return ""
+
+
+## 原 basin 在北侧省略了海沟入口扇区；无 trench 时补回同一曲面的可见边界。
+func _build_basin_closure() -> void:
+	var closure := Node3D.new()
+	closure.name = "BasinClosure"
+	region_node("basin").add_child(closure)
+	var surface := SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for row in range(11):
+		for k in range(48):
+			if sin((float(k) + 0.5) / 48.0 * TAU) >= -0.72:
+				continue
+			var corners: Array[Vector3] = []
+			for cell in [Vector2i(k, row), Vector2i(k, row + 1), Vector2i(k + 1, row), Vector2i(k + 1, row + 1)]:
+				var y := 4.0 - float(cell.y) * 80.0 / 11.0
+				var bounds := _bounds_at(y)
+				var angle := float(cell.x) / 48.0 * TAU
+				var ripple := 1.0 + sin(float(cell.x) * 0.93 + float(cell.y) * 0.7) * 0.024
+				corners.append(Vector3(cos(angle) * (bounds.x + 1.0) * ripple, y, sin(angle) * (bounds.y + 1.0) * ripple))
+			for index in [0, 1, 2, 1, 3, 2]:
+				surface.add_vertex(corners[index])
+	surface.generate_normals()
+	var wall := MeshInstance3D.new()
+	wall.name = "NorthBasinWall"
+	wall.mesh = surface.commit()
+	wall.material_override = MaterialLib.from_color(Color("#4b8797"), {"double_side": true})
+	closure.add_child(wall)
+	# 旧底板北缘到 z=-26；补齐容器在此以北的底面。
+	_box(closure, Color("#407b88"), Vector3(0, -76, -38), Vector3(90, 2, 24))
 
 
 func _bounds_at(y: float) -> Vector2:
@@ -433,11 +613,12 @@ func region_node(id: String) -> Node3D:
 
 
 func _zone_name() -> String:
-	if diver_pos.z < -78.0:
-		return "北境沉船海沟"
-	if diver_pos.z < -34.0:
-		return "北境断层"
-	return _surface_zone if _surface_zone != "" else "珊瑚礁盘"
+	var label := map_label if not map_label.is_empty() else _surface_zone
+	if trench_collision_enabled and diver_pos.z < -78.0:
+		return label + " · 北境沉船海沟" if not map_label.is_empty() else "北境沉船海沟"
+	if trench_collision_enabled and diver_pos.z < -34.0:
+		return label + " · 北境断层" if not map_label.is_empty() else "北境断层"
+	return label if not label.is_empty() else "珊瑚礁盘"
 
 
 # ---------------------------------------------------------------- 宝箱
@@ -452,20 +633,17 @@ func _build_diver() -> void:
 	_diver.hat.visible = false
 	MaterialLib.apply_to_standard_meshes(_diver)
 	_diver.scale = Vector3.ONE * 1.25
-	_diver.position = Vector3(0, WATER_LEVEL, 12)
+	_diver.position = spawn_point
 	_diver.rotation.y = PI
 
 
 func _build_chests() -> void:
-	var text := FileAccess.get_file_as_string(SWIM_DATA)
-	if text.is_empty():
-		return
-	var data: Variant = JSON.parse_string(text)
-	for spec in data.get("chests", []):
+	for spec in _chest_specs:
+		var chest_id := int(spec.id) + chest_id_base
 		var pos_arr: Array = spec.pos
 		var pos := Vector3(float(pos_arr[0]), float(pos_arr[1]), float(pos_arr[2]))
 		var g := Node3D.new()
-		g.name = "Chest%d" % int(spec.id)
+		g.name = "Chest%d" % chest_id
 		g.position = pos
 		chests_root.add_child(g)
 
@@ -481,7 +659,7 @@ func _build_chests() -> void:
 		_box(g, Color("#f2d887"), Vector3(0, 0.55, 0.46), Vector3(0.18, 0.23, 0.08))
 
 		_chests.append({
-			"id": int(spec.id),
+			"id": chest_id,
 			"name": str(spec.name),
 			"pos": pos,
 			"reward": spec.get("reward", {}),
@@ -716,12 +894,18 @@ func _clear_segment(a: Vector3, b: Vector3) -> bool:
 
 
 func _open_chest(chest: Dictionary) -> void:
+	if bool(chest.get("opened",false)): return
 	_search = {}
 	_search_t = 0.0
 	_route.clear()
 	var reward: Dictionary = chest.reward
-	for key in reward.keys():
-		give_resource.call(str(key), int(reward[key]))
+	if give_rewards.is_valid():
+		if not bool(give_rewards.call(reward)):
+			message.emit("背包装不下整份物资 · 宝箱仍保留，整理后再来")
+			return
+	else:
+		# Compatibility for isolated historical content tools only.
+		for key in reward.keys(): give_resource.call(str(key), int(reward[key]))
 	chest.opened = true
 	chest.discovered = true
 	if chest.marker != null:

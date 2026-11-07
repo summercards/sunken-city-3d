@@ -1,0 +1,60 @@
+{
+  "key": "beacon",
+  "name": "橙色信号灯",
+  "family": "beacon",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-BEACON",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BEACON",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.36000001430511475,
+    -0.36000001430511475,
+    0
+  ],
+  "bounds_size": [
+    0.7200000286102295,
+    0.7200000286102295,
+    1.9399999380111694
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/beacon/beacon.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 1,
+  "triangles": 2484,
+  "polygons": 1190,
+  "roles": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "a88dac83919a11828db88a3dbb0bfbf06fc70e5353e5e4e1c646d15ebb177900",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BEACON",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/beacon/beacon.glb",
+  "runtime_sha256": "121d3b1747bb32831ea12923d8b8e3fa0f347f06e22dd39748e03203b06b78d9",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/beacon.tscn",
+  "prefab_sha256": "f81744268e208bdf1868c0236dad5cc73d9389f50288476111bcc91cc8c6e895",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 2484,
+  "triangles_after": 2484,
+  "geometry_fingerprint": "f66d87c9ab713a6be4fa73c557ce96a8c986ac1993b5ba1871986b7c970730c0"
+}

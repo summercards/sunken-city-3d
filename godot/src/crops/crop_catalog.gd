@@ -34,7 +34,15 @@ func reload(path := DEFAULT_TABLE) -> bool:
 		var id := str(row.get("id", ""))
 		if id == "" or _crops.has(id):
 			continue
-		_crops[id] = row.duplicate(true)
+		var crop: Dictionary = row.duplicate(true)
+		# JSON 数字读作 float；库存数量契约必须是整数，不能随温室加成改变类型。
+		var yields = crop.get("yield", {})
+		if yields is Dictionary:
+			for item_id in yields:
+				var amount: Variant = yields[item_id]
+				if (amount is int or amount is float) and is_finite(float(amount)) and float(amount) == floor(float(amount)):
+					yields[item_id] = int(amount)
+		_crops[id] = crop
 		_order.append(id)
 	if _crops.is_empty():
 		_error = "作物表为空：" + path

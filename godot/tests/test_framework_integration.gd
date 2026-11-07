@@ -99,14 +99,34 @@ func run() -> void:
 	check(storage.restore(main,good).ok,"pickup restore resets previous timers")
 	main.actor_controller.cancel()
 	check(main.actor_controller.state_id()=="boat_idle","cancel stable on boat")
-	main.dive.dive(main.boat.position,"test")
-	check(main.dive.phase=="enter","dive enter state")
-	main.dive.phase_machine.tick(main.dive.ENTER_TIME)
-	check(main.dive.phase=="swim","enter to swim")
-	main.dive.surface()
-	check(main.dive.phase=="exit","surface enters exit")
-	main.dive.phase_machine.tick(main.dive.ENTER_TIME)
-	check(main.dive.phase=="surface" and not main.dive.active,"exit restores surface")
+	# Startup presenters and saved lighting are deferred; let the real startup finish.
+	await process_frame
+	await process_frame
+	var session = main.dive
+	check(session.runtime==null,"海面不常驻潜水地图")
+	var entered: bool=session.enter_map("zone1")
+	check(entered,"进入 zone1 潜水地图")
+	if not entered:
+		main.queue_free()
+		await process_frame
+		quit(1)
+		return
+	var uw = session.runtime
+	check(current_scene==uw and uw.get_parent()==root and not main.is_inside_tree(),"真实切换至独立潜水地图")
+	check(main.dive==session,"潜水期间会话实例稳定")
+	check(uw.phase=="enter","dive enter state")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	check(uw.phase=="swim","enter to swim")
+	uw.surface()
+	check(uw.phase=="exit","surface enters exit")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	check(uw.phase=="surface" and not uw.active,"exit restores surface")
+	await process_frame
+	await process_frame
+	check(main.is_inside_tree() and current_scene==main,"返回原海面实例")
+	check(root.get_camera_3d()==main.cam,"上浮后相机交还海面")
+	check(main.dive==session and not session.active and session.runtime==null,"稳定会话已回收潜水 runtime")
+	check(not is_instance_valid(uw),"旧潜水 runtime 已销毁")
 	main._debug_teleport("zone1")
 	main.interactor.set_process(false)
 	var plot: Node3D=main.farm_field.find("home_plot")
@@ -125,6 +145,8 @@ func run() -> void:
 	main.actor_controller.tick(0.0)
 	check(main.interactor.auto_hold,"unblocked target begins hold")
 	main.interactor.active=true
+	# 触发式交互：一次按下只发起动作，动作本身由探测器按 hold_time 推进。
+	main.interactor.update(5.0,true)
 	main.interactor.update(5.0,true)
 	check(economy.count("lettuce_seed")==seeds and main.actor_controller.state_id()=="ashore_idle" and main.hud.world_actions.active,"interaction opens action bubbles without planting")
 	main.hud.world_actions.close(true)

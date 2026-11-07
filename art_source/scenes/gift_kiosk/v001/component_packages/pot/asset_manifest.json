@@ -1,0 +1,60 @@
+{
+  "key": "pot",
+  "name": "奶白陶盆",
+  "family": "planter",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-POT",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-POT",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.5949999690055847,
+    -0.5949999690055847,
+    0
+  ],
+  "bounds_size": [
+    1.1899999380111694,
+    1.1899999380111694,
+    0.7949999570846558
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/pot/pot.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 5,
+  "triangles": 1816,
+  "polygons": 856,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "756b2d4708bf6554ed5b1fa7e78f574053a5e0e01e58d53d6596f8fa1a3e081b",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-POT",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/pot/pot.glb",
+  "runtime_sha256": "056448455bb4661efcf049228bdf2b8ad86be8e3ba82398aca4b31878d5b639b",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/pot.tscn",
+  "prefab_sha256": "6790df7ea0cc10ea5083308b047f5596cb760f81b95a87563db113ad53a6803c",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1816,
+  "triangles_after": 1816,
+  "geometry_fingerprint": "b7c06bb931ebedab433ccf9fd1a3ca8f6839fdd6976cbd8dc27b4a34a2a4e7c6"
+}

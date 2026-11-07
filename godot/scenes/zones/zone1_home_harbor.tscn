@@ -62,6 +62,16 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main" unique_id=618562334]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05225)
 
+[node name="Walk_sunroom_upper_deck" type="Node3D" parent="WalkAreas"]
+script = ExtResource("3_walk")
+area_id = "sunroom_upper_deck"
+zone_id = "zone1"
+surface_y = 6.246335
+span_min = 5.2
+span_max = 7.5
+body_radius = 0.38
+rects = [Rect2(3.5, -2.7, 6.5, 6.2)]
+
 [node name="Walk_zone1_salvage" type="Node3D" parent="WalkAreas" unique_id=2046624904]
 script = ExtResource("3_walk")
 area_id = "zone1_salvage"

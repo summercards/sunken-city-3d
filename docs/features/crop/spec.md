@@ -95,3 +95,30 @@
 - [本轮交付](../../development/2026-10-29_crop_formalization.md)
 - [拆出前的种植设计](../../../godot/FARMING_DESIGN.md)
 - [资产生产规范](../asset/spec.md)
+
+## 2026-11-07 三花品种、程序制作源与收获接口（追加）
+
+本节承接新增三花，不改写 R01–R14。上文“三品种已实现 / 新作物未实现”是拆分时快照；当前集合依次为 `lettuce`、`tomato`、`pumpkin`、`flower_blue`、`flower_sun`、`flower_coral`，原三品种顺序、ID、数值和既有资产保持。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-CROP-R15 | 三花定义仍只由 CropCatalog 消费 `crops.json`：蓝星花 2 个浇水日 / 种价 8 瓶盖、晨光花 3 日 / 10 瓶盖、珊瑚花 4 日 / 12 瓶盖；各自独立 seed / produce，基础 yield 各 2，harvests=1、regrow_days=0，收后空地不再生。复用 Farm 播种、缺水停长、换天、生长水位线、满包整笔拒绝和存档契约，不另立花卉状态所有者。每花场景拥有四个真实独立阶段节点及真实网格，CropView 只切可见性和缺水表现；制作源如实登记为 flower_view.gd + 三个 TSCN 的原生 Godot 程序源，不伪称 Blender / GLB 交付。HarvestVisual 支持从成熟花阶段复制花冠、花心和茎叶，离树幂等构建、不含土壤/种子/碰撞、不修改地格原节点，归一为 0.40 米，并复用 Character 原收获动作及取消清理；表现不得重复发奖或回写 Farm / Inventory。 |
+
+### 品种与公开接口
+
+| 品种 ID / 名称 | seed | produce / 基础 yield | 浇水日 / 种价 | 四阶段场景 |
+|---|---|---|---|---|
+| `flower_blue` / 蓝星花 | `flower_seed_blue` | `flower_blue` ×2 | 2 / 8 瓶盖 | [flower_blue.tscn](../../../godot/scenes/crops/flower_blue.tscn) |
+| `flower_sun` / 晨光花 | `flower_seed_sun` | `flower_sun` ×2 | 3 / 10 瓶盖 | [flower_sun.tscn](../../../godot/scenes/crops/flower_sun.tscn) |
+| `flower_coral` / 珊瑚花 | `flower_seed_coral` | `flower_coral` ×2 | 4 / 12 瓶盖 | [flower_coral.tscn](../../../godot/scenes/crops/flower_coral.tscn) |
+
+- [CropCatalog](../../../godot/src/crops/crop_catalog.gd)：`seed_of(id)` / `produce_of(id)` / `model_scene(id)` 为跨域 ID 查询；`reload()` 将 JSON 中有限整值 yield 规范为 int，保证数量消费者不会把基础收成误作 1。修复目标仅为三花实际基础收成从 1 恢复为 2，不改原三作物产量（生菜2、番茄2、南瓜3）及原温室加成；一次播种仍扣 1 包种子，不是改扣种数量。
+- [flower_view.gd](../../../godot/src/crops/flower_view.gd)：`flower_style` 选择 blue / sun / coral，`ensure_built()` 幂等生成 `Stage0Seed` / `Stage1Sprout` / `Stage2Leaf` / `Stage3Harvest` 的实际网格，离树实例化也可用。蓝星低矮放射叶及五瓣星花、晨光高直对生叶及十瓣盘花、珊瑚三叉厚叶及杯状花簇，不靠单一换色冒充品种。
+- [HarvestVisual](../../../godot/src/crops/harvest_visual.gd)：`supports(crop_id) -> bool` / `create(crop_id) -> Node3D` 支持当前六品种，未知品种返回 false / null；副本生命周期及动作仍归 Character 表现，三花不改变 R14 对原三作物的选取语义。
+- 花种类别、独立鲜花产物引用 [items.json](../../../godot/assets/data/items.json)；收成不是商店的 `flower_bundle`。交易由 [SEA-SHOP](../shop/spec.md) 和 [SEA-INVENTORY](../inventory/spec.md) 拥有，送礼结果归 [SEA-RESIDENT](../resident/spec.md)，Crop 不复制商品、库存或好感状态。
+
+### 验证与制作源边界
+
+已注册入口为 `python3 scripts/run_verification.py crops flower-crops`；最新已执行证据见[账本追加记录](ledger.md#2026-11-07-三花与真实手持接口承接)。`test_crops.gd` 的旧数量 3 断言已扩为当前 6 品种集合，不删除原三品种覆盖。
+
+`flower-crops` 对实例化后的每花每阶段实测真实网格、≤900 三角面、木框包络、阶段可见性、缺水还原、种收/满包/存档/送礼和手持动作；这是运行实例专项，不等于制作源 stage 预算独立审计、源级美术验收或四阶段全视角人工验收。三花程序源不冒领 R06 的 Blender 保存重开 / PaletteUV 交付；原三作物 R06 源级未验继续保留，三花源级预算/美术/权属与用户确认未取得的部分仍 pending，不凭源码注释签通过。

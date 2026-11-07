@@ -407,11 +407,15 @@ func run() -> void:
 		await shot("whale-top", wp, 22.0, Vector3(-0.01, 1.0, 0.05))
 		await shot("whale-quarter", wp, 20.0, Vector3(0.62, 0.62, 0.48))
 
-	# 水下群：minimal 版本锁死潜水，只有 --full-world 能进。
-	if main.get("dive") != null and not main.dive.active:
-		main.call("_on_dive")
-	if main.get("dive") != null and main.dive.active:
-		var uw: Node3D = main.dive
+	# 水下群：测试直接进入真实 zone1 地图，不依赖默认屏蔽的游戏入口。
+	var session = main.dive
+	check(session.runtime == null, "海面不常驻潜水地图")
+	var entered: bool = session.enter_map("zone1")
+	check(entered, "进入 zone1 潜水地图")
+	if entered:
+		var uw = session.runtime
+		check(current_scene == uw and uw.get_parent() == root and not main.is_inside_tree(), "真实切换至独立潜水地图")
+		uw.phase_machine.tick(uw.ENTER_TIME)
 		uw.call("freeze_time", 3.0)
 		uw.call("debug_teleport", Vector3(-5, -13, -8))
 		for i in 10:
@@ -436,9 +440,14 @@ func run() -> void:
 			await process_frame
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://outputs/fish-schools-uw-side.png")
-		uw.set_process(true)
-	else:
-		print("[fish-schools] 潜水段未执行（当前为最小版本范围，需 --full-world）")
+		uw.surface()
+		uw.phase_machine.tick(uw.ENTER_TIME)
+		await process_frame
+		await process_frame
+		check(main.is_inside_tree() and current_scene == main, "上浮返回原海面实例")
+		check(root.get_camera_3d() == main.cam, "上浮后相机交还海面")
+		check(main.dive == session and not session.active and session.runtime == null, "稳定会话已回收潜水 runtime")
+		check(not is_instance_valid(uw), "旧潜水 runtime 已销毁")
 
 	print("[fish-schools] ", checks, " checks, failures=", failures)
 	main.queue_free()

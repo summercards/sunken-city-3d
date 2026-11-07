@@ -31,7 +31,10 @@
     "avatar-proportions",
     "visual-avatar-proportions",
     "avatar-skinning",
-    "visual-avatar-skinning"
+    "visual-avatar-skinning",
+    "npc-appearance",
+    "npc-integration",
+    "visual-npc-release"
   ]
 }
 ```
@@ -101,3 +104,30 @@
 `test_sunken_city.gd`、`walk_action.gd`、`bootstrap/main.gd`（后者叠着键盘控制轮未提交改动）。
 全局门禁由改前 21 项降到 7 项，0 项与本次承接条款相关；因仍有上述范围外项，`--sync` 未写入派生
 索引，本轮不宣称全工程通过门禁。
+
+## 2026-11-07 NPC 角色复用接口承接
+
+在R27后追加 [SEA-AVATAR-R28](spec.md#2026-11-07-npc-复用角色外观接口追加)，保留旧header/JSON顺序、R01–R27与历史，status维持 `implemented`，不升级verified。NPC/Shop天台范围已交付不等于玩家外观全系统或全产品验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-AVATAR-R28 | 已实现NpcActor→Character.apply_avatar复用：七套独立profile、明确skin及九morphs、七个distinct职业配件；实际材质/形体/蒙皮动作与重配清理专项通过，玩家profile不提交不污染。保持1.5尺度、碰撞/导航与原动画owner；真实渲染自动专项通过，剩余人工图审/设备等另待 | 最新221054 npc-appearance2469/0；214439正式integration668/0与visual381/0均exit0/PASS，日志/边界见下，不冒签14图全人工审阅 |
+
+### 当前消费接口与表现所有权
+
+- [npcs.json](../../../godot/assets/data/npc/npcs.json)为七套静态外观输入；[NpcActor](../../../godot/src/npc/npc_actor.gd)加入场景树后 `configure(row)`，构造独立 `_npc_profile`（含Catalog归一化appearance / morphs），调用[Character.apply_avatar](../../../godot/src/player/character.gd)。不查询或写玩家AvatarProfile、不把NPC外观存进玩家profile。
+- `appearance_report()`提供局部profile深副本、实际geometry / accessories / animation / root_scale / body_scale；`accessory_metrics()`只读度量，`clear_accessories()`及重配清理属于本实例生命周期，不累加旧挂点。
+- [npc_accessories.gd](../../../godot/src/npc/npc_accessories.gd)消费同一SCALE及形体挂点：牵线signal_spool、叶脉seed_pouch、回声diving_goggle、榫口joint_pencil、灯芯lantern_badge、花序petal_visor、货架stock_clip，共七个不同职业配件ID。七套独立profile不等于七种独占肤色；专项明确检七种轮廓/发型/衣色与至少四肤色。
+- 继续复用Character / AvatarVisual / Skeleton3D / Skin与既有动作采样；NPC只切set_walking等公开动作端口，不另写动画，不改SCALE=1.5或胶囊/导航0.22m / 1.30m，不改玩家挎包。程序源不冒称Blender/GLB交付；职业、关系、world路线与存档owner仍在[SEA-RESIDENT](../resident/spec.md)。
+
+### 已执行证据与人工审阅边界
+
+| 证据 / 日志 | 实测结果 | 覆盖与限制 |
+|---|---|---|
+| [221054最新报告](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/report.json) / [npc-appearance.log](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/npc-appearance.log) | npc-appearance2469 checks / 0 failures，exit0/PASS；整批11项全部PASS/exit0、unexpected_errors空 | 七外观/肤色与morph实际生效、七配件、原骨骼动作、清理/查询副本及玩家profile隔离；headless，不替代真实图审 |
+| [214439正式天台报告](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/report.json) / [npc-integration.log](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/npc-integration.log) | integration668/0，exit0/PASS；同报告save618/0、seed408/0、restart202/0 | 正式Main装配/NPC操作及重启玩家profile隔离，不借用旧住所版PASS |
+| 同报告 / [visual-npc-release.log](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/visual-npc-release.log) | visual-npc-release381/0，exit0/PASS；Forward+ / RTX4060Ti，实际1600×1000 | 正式真实渲染14PNG，自动断言通过不等于14图人工全部签署；不是另一个visual-npc-appearance入口的本轮通过 |
+
+214439五项总2277/0、全部PASS/exit0、completion_marker=true、unexpected_errors=[]；完整命令、head/working_tree、隔离数据与project快照见report。主线程既有记录只实际目检seven-residents、flower-purchase、story-choice三图，确认七人原天台草地/形象配件、花店购买和剧情；其余11图（含七张单人）仍待人工审阅，[逐图链接与签署边界](../../development/2026-11-07_npc_performance_fix.md#8-最终天台运行签署与14图清单)。本次文档线程未另作目检，不声称全部配件/动作视角已人工验收。
+
+NPC当前无物理住房、UI“暂驻天台”，住房source封存且deferred用户暂停，不借本条签住房完成。保留本账本既有设备/触摸/手柄/断电/发行包及未来DIY未验，R27已知门楣限制亦不移除；剩余图审、全组合外观/动作及完整美术验收不能用2469/0或381/0一概代签。本次未跑global sync/最终门禁，留主线程统一完成。

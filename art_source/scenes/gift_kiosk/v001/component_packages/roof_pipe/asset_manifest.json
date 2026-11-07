@@ -1,0 +1,58 @@
+{
+  "key": "roof_pipe",
+  "name": "屋顶弯管",
+  "family": "pipe",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-ROOF-PIPE",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ROOF-PIPE",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.8399999737739563,
+    -0.25999999046325684,
+    0
+  ],
+  "bounds_size": [
+    1.6799999475479126,
+    0.5199999809265137,
+    1.0195287466049194
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof_pipe/roof_pipe.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 3,
+  "triangles": 1204,
+  "polygons": 538,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "47250e3a96e4469cede8c7f834c745929fab07363673624fa6bfecaac16f36fa",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ROOF-PIPE",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/roof_pipe/roof_pipe.glb",
+  "runtime_sha256": "9b247098edaf5ca97442bdfe440aa146941f657bb30cecb2d168749f28300a7e",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/roof_pipe.tscn",
+  "prefab_sha256": "5a98d8b2910b35d36f7c52d339a3d3471e669bdf3165c1665132d233862f7d82",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1204,
+  "triangles_after": 1204,
+  "geometry_fingerprint": "90c1b9d3ef6f5714c43674910d12187d2b7fd6adf9f116f69e2f8a4655b301fa"
+}

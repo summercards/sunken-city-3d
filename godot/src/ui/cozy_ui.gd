@@ -232,7 +232,10 @@ static func paper(panel: PanelContainer, accent := TEAL, dialogue := false) -> v
 	panel.resized.connect(sync)
 	panel.item_rect_changed.connect(sync)
 	panel.visibility_changed.connect(sync)
-	panel.tree_exiting.connect(func(): drawing.queue_free())
+	# Scene suspension is not destruction. Keep the sibling while its panel is
+	# temporarily outside the tree; both are freed together with their parent.
+	panel.tree_exiting.connect(func():
+		if panel.is_queued_for_deletion() and is_instance_valid(drawing): drawing.queue_free())
 	# Called once after anchors have settled.
 	sync.call_deferred()
 

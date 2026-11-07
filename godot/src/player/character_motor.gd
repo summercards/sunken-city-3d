@@ -43,6 +43,13 @@ func _apply_motion_layers() -> void:
 	collision_layer = ACTOR_LAYER if grounded_motion_enabled else 0
 	collision_mask = GROUND_LAYER if grounded_motion_enabled else 0
 
+## Transport in a moving floor's coordinate frame. Walking continues to use
+## capsule sweeps below; this explicit support displacement has no gravity or
+## input fallback and is requested only by the sole ActorController owner.
+func carry_ground_support(offset: Vector3) -> void:
+	if grounded_motion_enabled and offset.is_finite():
+		global_position += offset
+
 ## Explicit displacement keeps the existing speed independent of render rate.
 ## move_and_collide sweeps the actual capsule; there is no position-write fallback.
 func move_ground(displacement: Vector3, delta: float) -> Dictionary:

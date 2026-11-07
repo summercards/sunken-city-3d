@@ -1,0 +1,58 @@
+{
+  "key": "thruster",
+  "name": "中央圆锥推进器",
+  "family": "propulsion",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-THRUSTER",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-THRUSTER",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.09000000357627869
+  ],
+  "bounds_min": [
+    -1.5499999523162842,
+    -1.5499999523162842,
+    0
+  ],
+  "bounds_size": [
+    3.0999999046325684,
+    3.0999999046325684,
+    1.7649999856948853
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster/thruster.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 8,
+  "instances": 1,
+  "triangles": 5352,
+  "polygons": 2508,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "0942e477162fc75677d1dada0f42213e7dc8eb7570c690e7e60737b521d69a12",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-THRUSTER",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/thruster/thruster.glb",
+  "runtime_sha256": "6cbda41e09acd1518e7168980e8e2de6f97f24cda7c97d6daff54b9211c8ad15",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/thruster.tscn",
+  "prefab_sha256": "e076d984910bd66daba8c9d9e5eee3cd3299d194608a331011db095d44c631b7",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 5352,
+  "triangles_after": 5352,
+  "geometry_fingerprint": "7a3b69ef21b3cf504148e91b9b51a94517aedd5f5210d083273431c873054e78"
+}

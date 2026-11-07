@@ -1,0 +1,58 @@
+{
+  "key": "life_ring",
+  "name": "红白救生圈",
+  "family": "safety",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-LIFE-RING",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-LIFE-RING",
+  "design_pivot": [
+    0.0,
+    0.0,
+    -0.04700005054473877
+  ],
+  "bounds_min": [
+    -0.8270000219345093,
+    -0.18000000715255737,
+    0
+  ],
+  "bounds_size": [
+    1.6540000438690186,
+    0.36000001430511475,
+    1.6540000438690186
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/life_ring/life_ring.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 9,
+  "instances": 2,
+  "triangles": 2688,
+  "polygons": 1344,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "061478d1658b41d4a291b7de1b43ecdcae243a85020a6254ec8ff6d835b47e2e",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-LIFE-RING",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/life_ring/life_ring.glb",
+  "runtime_sha256": "986f11bbb006528b607ec628cd494684482785e5549d2e9a93718707fb197c21",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/life_ring.tscn",
+  "prefab_sha256": "d8c50a95b2c86c93a640555c0420db93b149129e3c3984fa6cc7297ed283c90f",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 2688,
+  "triangles_after": 2688,
+  "geometry_fingerprint": "231046e855f69b4cf812b9971bbf9ab904a0d3901441f980cd2734e4baf95944"
+}

@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/npc/npc_rooftop_anchors.gd" id="provider"]
+
+[node name="NpcStations" type="Node3D"]
+script = ExtResource("provider")
+
+[node name="residence_dock_workshop" type="Node3D" parent="."]
+position = Vector3(-8.5, 60.05, 8.5)
+metadata/npc_id = "npc_luo_yan"
+metadata/home_label = "天台草地 · 船老大暂驻"
+
+[node name="Home" type="Marker3D" parent="residence_dock_workshop"]
+
+[node name="Work" type="Marker3D" parent="residence_dock_workshop"]
+
+[node name="Social" type="Marker3D" parent="residence_dock_workshop"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_dock_workshop"]
+
+[node name="Door" type="Marker3D" parent="residence_dock_workshop"]
+position = Vector3(0, 0, -0.3)
+
+[node name="residence_sunroom_greenhouse" type="Node3D" parent="."]
+position = Vector3(-5, 60.05, 7)
+metadata/npc_id = "npc_mu_he"
+metadata/home_label = "天台草地 · 豆豆暂驻"
+
+[node name="Home" type="Marker3D" parent="residence_sunroom_greenhouse"]
+
+[node name="Work" type="Marker3D" parent="residence_sunroom_greenhouse"]
+position = Vector3(0, 0, -0.6)
+
+[node name="Social" type="Marker3D" parent="residence_sunroom_greenhouse"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_sunroom_greenhouse"]
+position = Vector3(0, 0, 0.6)
+
+[node name="Door" type="Marker3D" parent="residence_sunroom_greenhouse"]
+position = Vector3(0, 0, -0.3)
+
+[node name="residence_salvage_cabin" type="Node3D" parent="."]
+position = Vector3(-1.5, 60.05, 7)
+metadata/npc_id = "npc_ji_chen"
+metadata/home_label = "天台草地 · 阿海暂驻"
+
+[node name="Home" type="Marker3D" parent="residence_salvage_cabin"]
+
+[node name="Work" type="Marker3D" parent="residence_salvage_cabin"]
+position = Vector3(0, 0, -0.6)
+
+[node name="Social" type="Marker3D" parent="residence_salvage_cabin"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_salvage_cabin"]
+position = Vector3(0, 0, 0.6)
+
+[node name="Door" type="Marker3D" parent="residence_salvage_cabin"]
+position = Vector3(0, 0, -0.3)
+
+[node name="residence_builder_loft" type="Node3D" parent="."]
+position = Vector3(2.5, 60.05, 7)
+metadata/npc_id = "npc_nan_zhi"
+metadata/home_label = "天台草地 · 木头叔暂驻"
+
+[node name="Home" type="Marker3D" parent="residence_builder_loft"]
+
+[node name="Work" type="Marker3D" parent="residence_builder_loft"]
+position = Vector3(0, 0, -0.6)
+
+[node name="Social" type="Marker3D" parent="residence_builder_loft"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_builder_loft"]
+position = Vector3(0, 0, 0.6)
+
+[node name="Door" type="Marker3D" parent="residence_builder_loft"]
+position = Vector3(0, 0, -0.3)
+
+[node name="residence_lantern_archive" type="Node3D" parent="."]
+position = Vector3(6.5, 60.05, 7)
+metadata/npc_id = "npc_bai_shi"
+metadata/home_label = "天台草地 · 灯伯暂驻"
+
+[node name="Home" type="Marker3D" parent="residence_lantern_archive"]
+
+[node name="Work" type="Marker3D" parent="residence_lantern_archive"]
+position = Vector3(0, 0, -0.6)
+
+[node name="Social" type="Marker3D" parent="residence_lantern_archive"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_lantern_archive"]
+position = Vector3(0, 0, 0.6)
+
+[node name="Door" type="Marker3D" parent="residence_lantern_archive"]
+position = Vector3(0, 0, -0.3)
+
+[node name="residence_flower_shop" type="Node3D" parent="."]
+position = Vector3(10.5, 60.05, 7)
+metadata/npc_id = "npc_hua_yi"
+metadata/home_label = "天台草地 · 小花暂驻"
+metadata/work_anchor_id = "anchor_flower_shop"
+
+[node name="Home" type="Marker3D" parent="residence_flower_shop"]
+
+[node name="Work" type="Marker3D" parent="residence_flower_shop"]
+position = Vector3(0, 0, -0.6)
+
+[node name="Social" type="Marker3D" parent="residence_flower_shop"]
+position = Vector3(-0.8, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="residence_flower_shop"]
+position = Vector3(0, 0, 0.6)
+
+[node name="Door" type="Marker3D" parent="residence_flower_shop"]
+position = Vector3(0, 0, -0.3)
+

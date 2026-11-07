@@ -1,0 +1,34 @@
+{
+  "schema": "sea.shops",
+  "shops": [
+    {
+      "id": "shop_flower",
+      "display_name": "小花花店",
+      "vendor_npc_id": "npc_hua_yi",
+      "kind": "flower",
+      "enabled": true,
+      "products": [
+        {"id": "flower_seed_blue", "crop_id": "flower_blue", "type": "seed", "max_amount": 20},
+        {"id": "flower_seed_sun", "crop_id": "flower_sun", "type": "seed", "max_amount": 20},
+        {"id": "flower_seed_coral", "crop_id": "flower_coral", "type": "seed", "max_amount": 20},
+        {"id": "flower_bundle", "item": "flower_bundle", "label": "小束鲜花", "type": "gift", "price": 18, "max_amount": 1},
+        {"id": "flower_ribbon", "item": "flower_ribbon", "label": "花序缎带", "type": "gift", "price": 26, "max_amount": 1}
+      ]
+    },
+    {
+      "id": "shop_general",
+      "display_name": "阿店海上商店",
+      "vendor_npc_id": "npc_bao_he",
+      "kind": "general",
+      "enabled": true,
+      "products": [
+        {"id": "general_lettuce_seed", "crop_id": "lettuce", "type": "seed", "max_amount": 20},
+        {"id": "general_tomato_seed", "crop_id": "tomato", "type": "seed", "max_amount": 20},
+        {"id": "general_pumpkin_seed", "crop_id": "pumpkin", "type": "seed", "max_amount": 20},
+        {"id": "general_soil", "item": "soil", "label": "土壤", "type": "material", "price": 4, "max_amount": 40},
+        {"id": "general_rope", "item": "rope", "label": "缆绳", "type": "material", "price": 9, "max_amount": 10},
+        {"id": "general_glass", "item": "glass", "label": "玻璃", "type": "material", "price": 16, "max_amount": 5}
+      ]
+    }
+  ]
+}

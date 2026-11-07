@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk/deck/deck.glb" id="visual"]
+
+[node name="deck" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKS-DECK"
+metadata/asset_version = "v001"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+metadata/building_class = "above_water"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

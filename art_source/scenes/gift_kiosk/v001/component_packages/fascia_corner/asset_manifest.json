@@ -1,0 +1,60 @@
+{
+  "key": "fascia_corner",
+  "name": "奶黄圆角招牌灯箱",
+  "family": "fascia",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-FASCIA-CORNER",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-FASCIA-CORNER",
+  "design_pivot": [
+    1.0895358324050903,
+    -1.0895358324050903,
+    -0.055000003427267075
+  ],
+  "bounds_min": [
+    -1.0895358324050903,
+    -1.0895358324050903,
+    0
+  ],
+  "bounds_size": [
+    2.1790716648101807,
+    2.1790716648101807,
+    1.5499999523162842
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fascia_corner/fascia_corner.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 2,
+  "instances": 4,
+  "triangles": 1336,
+  "polygons": 676,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "297631909483a8b5b37018c2105f7745ca793a4ffd458c827f3b6886520ee108",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-FASCIA-CORNER",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/fascia_corner/fascia_corner.glb",
+  "runtime_sha256": "ffc95a0f854a37b626e0691976643db6ce5dde62c94474d729ce8676f07df1e6",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/fascia_corner.tscn",
+  "prefab_sha256": "f1a0246df4a9c9afdf326a3edd19b20ac15e4ec57426b6c39aa22a8b5c810623",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1336,
+  "triangles_after": 1336,
+  "geometry_fingerprint": "ea83706229e372f9300eddf400696c36a8905d94962aa51b941975789836709f"
+}

@@ -1,0 +1,314 @@
+{
+  "feature_ids": [
+    "SEA-ASSET-R57",
+    "SEA-WORLD-R27"
+  ],
+  "report": "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+  "passed_checks": [
+    "gift-kiosk-interior",
+    "visual-gift-kiosk-interior",
+    "gift-kiosk",
+    "roof-reveal"
+  ],
+  "official_import_report": "D:/projects/sea-work/verification/20261107-184501-gift-kiosk-interior-first-7784c4/report.json",
+  "source_report": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\source_verification.json",
+  "fidelity_report": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\fidelity.json",
+  "glb_audit": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\export_audit.json",
+  "new_asset_ids": [
+    "SEA-SCENE-GKI-TILE-CREAM",
+    "SEA-SCENE-GKI-TILE-BLUE",
+    "SEA-SCENE-GKI-TILE-HONEY",
+    "SEA-SCENE-GKI-CHECKOUT-COUNTER",
+    "SEA-SCENE-GKI-CASH-REGISTER",
+    "SEA-SCENE-GKI-DISPLAY-TABLE",
+    "SEA-SCENE-GKI-STOOL",
+    "SEA-SCENE-GKI-WALL-POSTER",
+    "SEA-SCENE-GKI-WALL-CLOCK",
+    "SEA-SCENE-GKI-WALL-SCONCE",
+    "SEA-SCENE-GKI-CUBBY",
+    "SEA-SCENE-GKI-ASSEMBLY"
+  ],
+  "runtime_files": [
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/tile_cream.tscn",
+      "sha256": "95e5a0c178a22a8200596e40fcb5f3a19a84f815ef93afa35be6b8d86c760f73",
+      "bytes": 380
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_cream/tile_cream.glb",
+      "sha256": "4450e041482439600a344265f48fcb195307d72598e71df80db8cc78b302206e",
+      "bytes": 12788
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_cream/tile_cream.glb.import",
+      "sha256": "02a650a319fb67beac7820d6d11b45113bdf3874c8c1954bd01ba02aab44fa7a",
+      "bytes": 1126
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/tile_blue.tscn",
+      "sha256": "b04bbdc21556b061667788cf0a68ea59c7805c7e4506d87ca243b405106f4a29",
+      "bytes": 376
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_blue/tile_blue.glb",
+      "sha256": "4b67ffdf99c83637991b939e2032779815601283150f409ddc8b4a6e9796c861",
+      "bytes": 12784
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_blue/tile_blue.glb.import",
+      "sha256": "14d3c21cabb357d42a1126350a0e55521d313a1a08ef249f98c0a25db0370e08",
+      "bytes": 1122
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/tile_honey.tscn",
+      "sha256": "a2b8ff67ddda23d064ea8b2173a7f46c9ff94486b90121608696308f1f372b40",
+      "bytes": 380
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_honey/tile_honey.glb",
+      "sha256": "e4efc62d239cc5e79e30093c9336820084a0bd384b05f37fa12b263696a788dc",
+      "bytes": 12788
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/tile_honey/tile_honey.glb.import",
+      "sha256": "db41f8d014e1ad717fa8948d6bc6358faf30a30d053481c1f7fdd3d3d78bc5dc",
+      "bytes": 1126
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/checkout_counter.tscn",
+      "sha256": "453cb8fcb6d1a3c014075c9f671ef50e6f23db46848beca635a28fd4b9d32405",
+      "bytes": 401
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/checkout_counter/checkout_counter.glb",
+      "sha256": "831b007e50e98e3e9f05a41529f27bff45cdca81f1747a7f9c8ec3a18a2f9995",
+      "bytes": 175096
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/checkout_counter/checkout_counter.glb.import",
+      "sha256": "15585bb3c28cc674bdc4779a9eba68135e8dc764822eb0800b5f33540882de7b",
+      "bytes": 1149
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/cash_register.tscn",
+      "sha256": "028d408aaa52ee054d5913ac65cbcdb9e41669e0d8b297dc5fb2c62df7c2ee79",
+      "bytes": 390
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/cash_register/cash_register.glb",
+      "sha256": "691cb439138388838d8acbad3a7cdf2951f7ecf2de1348c901ae692159042c4a",
+      "bytes": 161148
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/cash_register/cash_register.glb.import",
+      "sha256": "31d1a6deda0ffb4c03ffdd78f0fa4f4f3be3ed2f75d0a57e6422b7b0ef5effb5",
+      "bytes": 1138
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/display_table.tscn",
+      "sha256": "ce0e63daf509524d311b2ad2f2559cd84d44cc0ce43cd627971a96801fe3f4fb",
+      "bytes": 389
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/display_table/display_table.glb",
+      "sha256": "b9bb71bdd38114c18d76fd9a72fe0e280ab71a940b3f049b76c06a288f96ae0b",
+      "bytes": 180472
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/display_table/display_table.glb.import",
+      "sha256": "efdf5623a92989ba06b789ce6eec18714e4bda510c6a2d94bd38cce34a5912f6",
+      "bytes": 1138
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/stool.tscn",
+      "sha256": "0f2dc9d5bf78083bb0ac079e726aa20f0383b68365b267da77d7ab8ebdc308e2",
+      "bytes": 354
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/stool/stool.glb",
+      "sha256": "3a00094940dd864a5c38797496087c0bc9af123db5ca30af740fe5a67240bfe6",
+      "bytes": 139648
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/stool/stool.glb.import",
+      "sha256": "2be58252b09002409aaaa157ee0f0325cdfbe0ed4c96fb1f0d485d2beeb11990",
+      "bytes": 1106
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/wall_poster.tscn",
+      "sha256": "c74b0ce4f7016883f6ff7efd9b36fbf6bdd6a3406e050ce2a4116295c124a63b",
+      "bytes": 382
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_poster/wall_poster.glb",
+      "sha256": "63e21aaa3429f806781793fe18a656accacafc8917ec5cd7eef1775a471ce053",
+      "bytes": 120084
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_poster/wall_poster.glb.import",
+      "sha256": "3d00f2c797723651998a5e72399461d3ce385a03a3f2563b925e6508b6f1d759",
+      "bytes": 1129
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/wall_clock.tscn",
+      "sha256": "31d33e75f649d6d394032983d422c2024dd3a0b993efc5f159f917be8dbdf051",
+      "bytes": 375
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_clock/wall_clock.glb",
+      "sha256": "fcf7b99effbe0b4b283aac02cf4b592270ec648df5a7182fab85d8bb72e4b0b2",
+      "bytes": 199516
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_clock/wall_clock.glb.import",
+      "sha256": "fcb266b04f541bdefb9dda2f939f606086a84551915af133f52c325260c9b321",
+      "bytes": 1126
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/wall_sconce.tscn",
+      "sha256": "8c52ef863ca5625cbc68f5b3c649e6d02111285a510af2c01678c2ef54a117af",
+      "bytes": 378
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_sconce/wall_sconce.glb",
+      "sha256": "5f86d1524ec05b3be04e7fdc5c50f636fc44174c71321b3e82180d9082ad2406",
+      "bytes": 77668
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/wall_sconce/wall_sconce.glb.import",
+      "sha256": "6ec9721cbcaaba1e3057949d8f47f881088291be6cb3791b36e8b5a9f9e43b50",
+      "bytes": 1130
+    },
+    {
+      "path": "godot/scenes/components/facilities/gift_kiosk_interior/cubby.tscn",
+      "sha256": "e487114694282d8aff026d155e7d07bce91d75562fd664e5a366c6dd2a52bd40",
+      "bytes": 357
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/cubby/cubby.glb",
+      "sha256": "c439b784b6366e7dc652c233d79fd285a05974d57063519305ee1a4dae8a7e96",
+      "bytes": 93336
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/cubby/cubby.glb.import",
+      "sha256": "f74f37db9d7f1428db7ec0ea249a3762534ec70cedab3e7fdbc864756005c405",
+      "bytes": 1106
+    },
+    {
+      "path": "godot/scenes/facilities/gift_kiosk_interior.tscn",
+      "sha256": "ded2a590e423012c105f87a2d9a8754504b8ae936caa1729e41aca38f9a37eb4",
+      "bytes": 25251
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "sha256": "76e740ee2bb89db10d918a253c166c6ca5af2b7b55f6f0ba97f33fefd848aee7",
+      "bytes": 90078
+    },
+    {
+      "path": "godot/assets/models/facilities/gift_kiosk_interior/runtime_manifest.json",
+      "sha256": "0cb1393fd1ad48c36b4224d7777acc918d05083c4b0d631dc09bef8c1ba84c71",
+      "bytes": 70012
+    },
+    {
+      "path": "godot/src/facilities/supply_counter.gd",
+      "sha256": "3c941809fab08ea76cb8dab9b56106da9646ceb533fdd392bd90e95746f6266b",
+      "bytes": 378
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk_interior.gd",
+      "sha256": "d557d7e49a7d435ad4c8650d0f0334f570df306b6a361fcb91004794eac87e53",
+      "bytes": 5841
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk_interior.gd",
+      "sha256": "4ab7da34d7ac60e7394f9ff4d4bf869fd4551aa0c1e56559eadc6242ff0e7e75",
+      "bytes": 3261
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk.gd",
+      "sha256": "545fc1d143187a5b30bcef3deb46b15affed81b186b02e6868f36204797605a4",
+      "bytes": 13610
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk.gd",
+      "sha256": "ba3dd56feedce90995d3ab156394780d266f1685e40b8f3fd10430da45e67bec",
+      "bytes": 5111
+    },
+    {
+      "path": "godot/src/facilities/supply_counter.gd.uid",
+      "sha256": "08180d9a74efcfa0ff49aa26cee6e54b25b25ae5f64af46141fa69820b36e809",
+      "bytes": 20
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk_interior.gd.uid",
+      "sha256": "052cd51d2ca3b53676bf158b88b42ee8ad0363598f01d31c63bfa84dd54065dd",
+      "bytes": 20
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk_interior.gd.uid",
+      "sha256": "ed6f879ddee82a8a26525517897cd17250276b7d89be10b6f33bddd6d46064e4",
+      "bytes": 20
+    },
+    {
+      "path": "godot/tests/test_gift_kiosk.gd.uid",
+      "sha256": "f7773bdf073d79e52eb4ea911898b470696d945fbd50c212f28f360b181dc896",
+      "bytes": 20
+    },
+    {
+      "path": "godot/tools/capture_gift_kiosk.gd.uid",
+      "sha256": "85c64bef7df3c97cd2afdcfb6b1a901c0fc6a73180f8dd5dd5ac1a905697c2b8",
+      "bytes": 19
+    }
+  ],
+  "expected_faults": [],
+  "not_run": [
+    "low-end device performance",
+    "full unrelated feature suite"
+  ],
+  "excluded_hash_updates": [
+    "Main, water material, concurrent NPC/residence/dive changes and all unknown source drift"
+  ],
+  "static_checks": {
+    "feature-sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\static\\feature-sync.log",
+      "output": "FAIL: SEA-SHOP: unknown verification shop-modules\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-HARBOR: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SHELL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-DOCK-WORKSHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SALVAGE-CABIN: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-BUILDER-LOFT: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-FLOWER-SHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-GENERAL-STORE: source hash drift\nFAIL: runtime hash drift: godot/assets/data/zones.json\nFAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/scenes/main.tscn\nFAIL: runtime hash drift: godot/scenes/residence/resident_harbor.tscn\nFAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: runtime hash drift: godot/src/core/play_scope.gd\nFAIL: runtime hash drift: godot/src/navigation/walk_area.gd\nFAIL: runtime hash drift: godot/src/player/actor_controller.gd\nFAIL: runtime hash drift: godot/src/player/character.gd\nFAIL: runtime hash drift: godot/src/save/save_game.gd\nFAIL: runtime hash drift: godot/src/save/save_schema.gd\nFAIL: runtime hash drift: godot/src/ui/hud.gd\nFAIL: content ID drift/duplicate godot/assets/data/zones.json\nFAIL: 43 features, 966 source assets, 1356 runtime resource hashes; 26 issues\n"
+    },
+    "feature-check": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\static\\feature-check.log",
+      "output": "FAIL: SEA-SHOP: unknown verification shop-modules\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-HARBOR: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SHELL: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-DOCK-WORKSHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SUNROOM-GREENHOUSE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-SALVAGE-CABIN: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-BUILDER-LOFT: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-LANTERN-ARCHIVE: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-FLOWER-SHOP: source hash drift\nFAIL: SEA-SCENE-RESIDENCE-GENERAL-STORE: source hash drift\nFAIL: runtime hash drift: godot/assets/data/zones.json\nFAIL: runtime hash drift: godot/assets/materials/sunken_city/seabed_material.tres\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/scenes/main.tscn\nFAIL: runtime hash drift: godot/scenes/residence/resident_harbor.tscn\nFAIL: runtime hash drift: godot/scenes/zones/zone1_home_harbor.tscn\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: runtime hash drift: godot/src/core/play_scope.gd\nFAIL: runtime hash drift: godot/src/navigation/walk_area.gd\nFAIL: runtime hash drift: godot/src/player/actor_controller.gd\nFAIL: runtime hash drift: godot/src/player/character.gd\nFAIL: runtime hash drift: godot/src/save/save_game.gd\nFAIL: runtime hash drift: godot/src/save/save_schema.gd\nFAIL: runtime hash drift: godot/src/ui/hud.gd\nFAIL: content ID drift/duplicate godot/assets/data/zones.json\nFAIL: derived feature index stale; use --sync\nFAIL: 43 features, 966 source assets, 1356 runtime resource hashes; 27 issues\n"
+    },
+    "placed-positions": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\static\\placed-positions.log",
+      "output": "placed structures checked: 4\nPASS: 4 placed structure(s), 0 warning(s)\n"
+    },
+    "diff-check": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\static\\diff-check.log",
+      "output": "warning: in the working copy of 'GDD_V1.0.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/content_index.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/current_source_index.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/characters.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/crops.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/scenes.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/runtime_resource_inventory.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/views/buildings_above_water.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/views/buildings_underwater.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/development/2026-11-07_npc_module_framework.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/asset/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/interact/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/move/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/nav/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/materials/sunken_city/seabed_material.tres', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/textures/vegetation/meadow_atlas.png.import', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/textures/vegetation/soft_atlas.png.import', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/project.godot', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/decorations/surface_animals.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/facilities/floating_shop.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/main.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/crops/harvest_visual.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/facilities/supply_counter.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/player/character_motor.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/player/states/strolling.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_keyboard_farm_loop.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_keyboard_travel.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/check_world_text.gd', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  },
+  "runtime_files_still_match_validated_snapshot": true,
+  "related_regression": {
+    "report": "D:\\projects\\sea-work\\verification\\20261107-185627-gift-kiosk-interior-water-bfe4b1\\report.json",
+    "water-layer": {
+      "checks": 2110,
+      "failures": 111,
+      "exit_code": 1,
+      "passed": false,
+      "failure_scope": "resident_harbor only"
+    }
+  },
+  "media_root": "D:\\projects\\sea-work\\gift_kiosk\\interior\\v001\\final",
+  "visual_review": [
+    "hero-day",
+    "close-day",
+    "top-day",
+    "checkout-day",
+    "checkout-panel",
+    "inside-night"
+  ],
+  "global_status": "scoped interior and related kiosk checks passed; unrelated global drift remains"
+}

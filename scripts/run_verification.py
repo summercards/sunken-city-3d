@@ -9,19 +9,65 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 GODOT_ROOT = ROOT / 'godot'
 TESTS = {
+    'sunroom-collision': ('tests/test_sunroom_underwater_collision.gd', r'\[sunroom-collision\] \d+ checks, 0 failures'),
+    'sunroom-underwater': ('tests/test_sunroom_underwater_region.gd', r'\[sunroom-underwater\] \d+ checks, 0 failures'),
+    'visual-sunroom-underwater': ('tests/test_sunroom_underwater_region.gd', r'\[sunroom-underwater\] \d+ checks, 0 failures'),
+    'visual-frame-diagnosis': ('tools/profile_frame_diagnosis.gd', r'\[frame-diagnosis\] complete'),
+    'visual-frame-process': ('tools/profile_frame_process.gd', r'\[frame-process\] complete'),
+    'visual-frame-subsystems': ('tools/profile_frame_subsystems.gd', r'\[frame-subsystems\] complete'),
+    'visual-frame-functions': ('tools/profile_frame_functions.gd', r'\[frame-functions\] complete'),
+    'shop-sightline': ('tests/test_shop_sightline.gd', r'\[shop-sightline\] \d+ checks, 0 failures'),
+    'visual-shop-sightline': ('tools/capture_shop_sightline.gd', r'\[shop-sightline-render\] \d+ checks, 0 failures'),
+    'gift-kiosk-interior': ('tests/test_gift_kiosk_interior.gd', r'\[gift-kiosk-interior\] \d+ checks, 0 failures'),
+    'visual-gift-kiosk-interior': ('tools/capture_gift_kiosk_interior.gd', r'\[gift-kiosk-interior-render\] \d+ checks, 0 failures'),
+    'dive-maps': ('tests/test_dive_maps.gd', r'\[dive-maps\] \d+ checks, 0 failures'),
+    'visual-dive-maps': ('tests/test_dive_maps.gd', r'\[dive-maps\] \d+ checks, 0 failures'),
+    'roof-reveal-component': ('tests/test_roof_reveal_component.gd', r'\[roof-reveal-component\] \d+ checks, 0 failures'),
+    'roof-reveal': ('tests/test_roof_reveal.gd', r'\[roof-reveal\] \d+ checks, 0 failures'),
+    'visual-roof-reveal': ('tools/capture_roof_reveal.gd', r'\[roof-reveal-render\] \d+ checks, 0 failures'),
+    'gift-kiosk': ('tests/test_gift_kiosk.gd', r'\[gift-kiosk\] \d+ checks, 0 failures'),
+    'visual-gift-kiosk': ('tools/capture_gift_kiosk.gd', r'\[gift-kiosk-render\] \d+ checks, 0 failures'),
     'seabed-scene': ('tools/test_seabed_scene.gd', r'\[seabed-scene\] \d+ checks, 0 failures'),
     'seabed-authoring': ('tools/build_sunken_seabed.gd', r'\[seabed-authoring\] \d+ checks, 0 failures'),
+    'scenic-fish-distribution': ('tests/test_scenic_fish_distribution.gd', r'\[scenic-fish-distribution\] \d+ checks, 0 failures'),
+    'visual-scenic-fish-structure': ('tests/test_scenic_fish_distribution.gd', r'\[scenic-fish-distribution\] \d+ checks, 0 failures'),
+    'visual-scenic-fish-distribution': ('tools/capture_scenic_fish_distribution.gd', r'\[scenic-fish-render\] \d+ checks, 0 failures'),
     'sea-fauna': ('tests/test_sea_fauna.gd', r'\[sea-fauna\] \d+ checks, 0 failures'),
     'visual-sea-fauna': ('tools/capture_sea_fauna.gd', r'\[sea-fauna-render\] \d+ checks, 0 failures'),
     'visual-sunken-seabed': ('tools/capture_sunken_seabed.gd', r'\[sunken-seabed-render\] \d+ checks, 0 failures'),
     'sunken-city': ('tests/test_sunken_city.gd', r'\[sunken-city\] \d+ checks, 0 failures'),
     'visual-sunken-city': ('tools/capture_sunken_city.gd', r'\[sunken-city-render\] \d+ checks, 0 failures'),
     'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
+    'npc-shop': ('tests/test_npc_shop.gd', r'\[npc-shop\] \d+ checks, 0 failures'),
+    'npc-people': ('tests/test_npc_people.gd', r'\[npc-people\] \d+ checks, 0 failures'),
+    'npc-profile-ui': ('tests/test_npc_profile_ui.gd', r'\[npc-profile-ui\] \d+ checks, 0 failures'),
+    'npc-shop-site': ('tests/test_npc_shop_site.gd', r'\[npc-shop-site\] \d+ checks, 0 failures'),
+    'npc-rules': ('tests/test_npc_rules.gd', r'\[npc-rules\] \d+ checks, 0 failures'),
+    'shop-rules': ('tests/test_shop_rules.gd', r'\[shop-rules\] \d+ checks, 0 failures'),
+    'npc-world': ('tests/test_npc_world.gd', r'\[npc-world\] \d+ checks, 0 failures'),
+    'npc-performance': ('tests/test_npc_performance.gd', r'\[npc-performance\] \d+ checks, 0 failures'),
+    'npc-clock': ('tests/test_npc_clock.gd', r'\[npc-clock\] \d+ checks, 0 failures'),
+    'rooftop-npc-access': ('tests/test_rooftop_npc_access.gd', r'\[rooftop-npc-access\] \d+ checks, 0 failures'),
+    'visual-npc-world': ('tools/capture_npc_world.gd', r'\[npc-world-render\].*0 failures'),
+    'npc-appearance': ('tests/test_npc_appearance.gd', r'\[npc-appearance\] \d+ checks, 0 failures'),
+    'visual-npc-appearance': ('tools/capture_npc_appearance.gd', r'\[npc-appearance-render\] \d+ PNG, 0 failures'),
+    'residence': ('tests/test_residence.gd', r'\[residence\] \d+ checks, 0 failures'),
+    'visual-residence': ('tests/test_residence.gd', r'\[residence\] \d+ checks, 0 failures'),
+    'flower-crops': ('tests/test_flower_crops.gd', r'\[flower-crops\] \d+ checks, 0 failures'),
+    'npc-careers': ('tests/test_npc_careers.gd', r'\[npc-careers\] \d+ checks, 0 failures'),
+    'npc-integration': ('tests/test_npc_integration.gd', r'\[npc-integration\] \d+ checks, 0 failures'),
+    'npc-relocation': ('tests/test_npc_relocation.gd', r'\[npc-relocation\] \d+ checks, 0 failures'),
+    'npc-save': ('tests/test_npc_save.gd', r'\[npc-save\] \d+ checks, 0 failures'),
+    'npc-save-seed': ('tests/test_npc_save.gd', r'\[npc-save\] \d+ checks, 0 failures'),
+    'npc-save-restart': ('tests/test_npc_save.gd', r'\[npc-save\] \d+ checks, 0 failures'),
+    'visual-npc-release': ('tools/capture_npc_release.gd', r'\[npc-release-render\] \d+ checks, 0 failures'),
+    'visual-npc-people': ('tools/capture_npc_people.gd', r'\[npc-people-render\] \d+ checks, 0 failures'),
     'parity': ('tests/test_core.gd', r'\d+ checks, 0 failures'),
     'farming': ('tests/test_farming.gd', r'\[farming\] \d+ checks, 0 failed'),
     # 作物品种与四阶段形态：隔离运行，不加载 main.tscn（SEA-CROP-R05 的证据）。
@@ -45,6 +91,12 @@ TESTS = {
     # 手感参数：加减速时间常数、反向弧线、步频耦合、镜头前视/零滞后、船转向惯性与侧滑、E 去抖
     # （SEA-MOVE-R22 / SEA-CAMERA-R13 / SEA-NAV-R16）。
     'control-feel': ('tests/test_control_feel.gd', r'\[control-feel\] \d+ checks, 0 failures'),
+    'boat-unstick': ('tests/test_boat_unstick.gd', r'\[boat-unstick\] \d+ checks, 0 failures'),
+    'visual-boat-unstick': ('tests/test_boat_unstick.gd', r'\[boat-unstick\] \d+ checks, 0 failures'),
+    'shift-jog': ('tests/test_shift_jog.gd', r'\[shift-jog\] \d+ checks, 0 failures'),
+    'visual-shift-jog': ('tests/test_shift_jog.gd', r'\[shift-jog\] \d+ checks, 0 failures'),
+    'facing-interaction': ('tests/test_facing_interaction.gd', r'\[facing-interaction\] \d+ checks, 0 failures'),
+    'visual-facing-interaction': ('tests/test_facing_interaction.gd', r'\[facing-interaction\] \d+ checks, 0 failures'),
     # 纯键盘可达性：采集点在场且站得上去、船上 E 能打捞/靠岸、泊位里朝岸=下船。
     # （SEA-GATHER-R04/R05 / SEA-INTERACT-R15/R16 / SEA-MOVE-R24）
     'interaction-reach': ('tests/test_interaction_reach.gd', r'\[interaction-reach\] \d+ checks, 0 failures'),
@@ -190,14 +242,14 @@ TESTS.update({
     'route-supply-probe': ('tools/probe_route_supply.gd', r'\[route-probe\] '),
     'sunroom-body-probe': ('tools/probe_sunroom_body.gd', r'\[sunroom-probe\] '),
     # 海上补给站：浮店作为最小区块，涵盖登记/甲板/泊位/上岸/柜台/存档校验。
-    'sea-supply': ('tests/test_sea_supply.gd', r'\[sea-supply\] \d+ checks, 0 failures'),
+    'sea-supply': ('tests/test_gift_kiosk.gd', r'\[sea-supply\] \d+ checks, 0 failures'),
     # 顶层牧场：原顶部梯段不挪位，整楼下沉至仅最后一段在水上，登陆可达屋顶。
     'rooftop-ranch': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
     'ranch-deck-probe': ('tools/probe_ranch_decks.gd', r'DOCKEDGE world='),
     'visual-rooftop-ranch': ('tools/capture_rooftop_ranch_v005.gd', r'\[ranch-shot\] complete'),
-    'floating-shop': ('tests/test_floating_shop.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
+    'floating-shop': ('tests/test_gift_kiosk.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
     'building-scale-reference': ('tools/probe_building_scale.gd', r'\[building-scale-reference\] \d+ rows, 0 failures'),
-    'visual-floating-shop': ('tools/capture_floating_shop.gd', r'\[floating-shop-render\] \d+ checks, 0 failures'),
+    'visual-floating-shop': ('tools/capture_gift_kiosk.gd', r'\[gift-kiosk-render\] \d+ checks, 0 failures'),
 	'visual-corner-notebook': ('tests/test_corner_notebook.gd', r'\[corner-notebook\] \d+ checks, 0 failures'),
     'title-clock-seed': ('tests/seed_title_clock.gd', r'\[title-clock-seed\] ok=true'),
     'visual-title-screen-day': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
@@ -264,6 +316,8 @@ TESTS.update({
     'save-seed': ('tests/test_save_seed.gd', r'\[save-seed\] ok=true'),
     'framework-integration': ('tests/test_framework_integration.gd', r'\[framework-integration\].*0 failures'),
     'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
+    'sunroom-repair': ('tests/test_sunroom_repair.gd', r'\[sunroom-repair\] \d+ checks, 0 failures'),
+    'sunroom-runtime': ('tests/test_sunroom_runtime.gd', r'\[sunroom-runtime\] \d+ checks, 0 failures'),
     'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
     # 鱼群专项：模型/动画/配色/单群散布 + 近景渲染证据。
@@ -434,7 +488,7 @@ def mount_readonly(target, source):
 def isolated_project(run_dir):
     project = run_dir / 'project'
     project.mkdir()
-    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons', 'terrain']:
+    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons']:
         source = GODOT_ROOT / name
         if source.exists():
             shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))
@@ -471,12 +525,59 @@ def isolated_project(run_dir):
     return project, user_name
 
 
+def user_data_root(user_name):
+    """`custom_user_dir_name` 落在哪个真实目录下（Godot 的系统数据目录）。
+
+    Godot 把 `custom_user_dir_name` 拼在**系统数据目录**后面，而不是工程目录：
+    Windows 是 `%APPDATA%`，macOS 是 `~/Library/Application Support`，
+    Linux 是 `~/.local/share`。这里只是把它算出来，用于**跑完清理**。
+    """
+    if os.name == 'nt':
+        base = Path(os.environ.get('APPDATA') or (Path.home() / 'AppData/Roaming'))
+    elif sys.platform == 'darwin':
+        base = Path.home() / 'Library/Application Support'
+    else:
+        base = Path(os.environ.get('XDG_DATA_HOME') or (Path.home() / '.local/share'))
+    return base / user_name
+
+
+def release_user_data(user_name, run_dir):
+    """把这一轮 Godot 的用户目录收掉，只留日志。
+
+    2026-11-07：C 盘被写满的根因就在这里。每跑一次验证，Godot 都会在
+    `%APPDATA%/sea-verification/<run>` 下重铺一遍 shader_cache（十几到二十几
+    MB），而脚本跑完什么都不删 —— 从 10 月 26 日累积到 **1921 个目录 / 20.5 GB**，
+    最后 C 盘 0 字节可用，连 Bash 工具都写不出临时文件。
+
+    shader_cache 是纯缓存，删掉只会让下一轮重新编译；`logs/` 里的
+    godot.log 才是有用的证据，先复制到 run_dir 再删。
+    """
+    root = user_data_root(user_name)
+    if not root.exists():
+        return None
+    if os.environ.get('SEA_KEEP_USER_DATA'):
+        # 排查渲染/存档问题时需要保留原始 user:// 目录，显式要才留。
+        return root
+    logs = root / 'logs'
+    if logs.is_dir():
+        saved = run_dir / 'godot-user-logs'
+        saved.mkdir(parents=True, exist_ok=True)
+        for item in logs.glob('*.log'):
+            try:
+                shutil.copy2(item, saved / item.name)
+            except OSError:
+                pass
+    shutil.rmtree(root, ignore_errors=True)
+    return root
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('checks', nargs='*', default=['core'])
     parser.add_argument('--label', default='verification')
     parser.add_argument('--timeout', type=int, default=180)
     parser.add_argument('--visual', action='store_true')
+    parser.add_argument('--engine-verbose', action='store_true', help='Include Godot resource lifetime diagnostics in captured logs')
     parser.add_argument('--lighting-profile', type=Path, help='Stage only lighting cfg fixtures for visual atmosphere captures')
     parser.add_argument('--import-assets', action='store_true', help='Import new art in the isolated project before checks')
     parser.add_argument('--full-world', action='store_true', help='Explicit legacy/development scope; default is the minimum playable loop')
@@ -498,6 +599,9 @@ def main():
     if 'building-open-restart' in checks and 'building-open-seed' not in checks:
         checks = list(checks)
         checks.insert(checks.index('building-open-restart'), 'building-open-seed')
+    if 'npc-save-restart' in checks and 'npc-save-seed' not in checks:
+        checks = list(checks)
+        checks.insert(checks.index('npc-save-restart'), 'npc-save-seed')
     unknown = set(checks) - set(TESTS)
     if unknown:
         parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
@@ -530,6 +634,7 @@ def main():
         evidence_path = ROOT.parent / 'sea-work' / 'sunken_city' / 'v005' / 'import' / 'minimum_loop_baseline.json'
         evidence_path.parent.mkdir(parents=True, exist_ok=True)
         evidence_path.write_text(json.dumps(baseline_report, ensure_ascii=False, indent=2))
+        release_user_data(user_name, run_dir)
         return 0 if all(x['passed'] for x in report['results'].values()) else 1
     if args.import_assets:
         import_log = run_dir / 'asset-import.log'
@@ -546,11 +651,13 @@ def main():
         if import_code != 0 or import_errors:
             (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
             print('\n'.join(import_text.splitlines()[-20:]), flush=True)
+            release_user_data(user_name, run_dir)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building','kit-safety'] else full_config
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
-        group = ('avatar-restart' if name in ['avatar','avatar-restart'] else
+        group = ('npc-save-restart' if name in ['npc-save-seed','npc-save-restart'] else
+                 'avatar-restart' if name in ['avatar','avatar-restart'] else
                  'building-open-restart' if name in ['building-open-seed','building-open-restart'] else
                  'building-restart' if name in ['building-seed','building-restart'] else
                  'title-clock' if name == 'title-clock-seed' or name in title_cases else
@@ -562,6 +669,8 @@ def main():
         (project / 'project.godot').write_text(config)
         script, marker = TESTS[name]
         cmd = [exe, '--path', str(project)]
+        if args.engine_verbose:
+            cmd.append('--verbose')
         is_visual = args.visual or name.startswith('visual-')
         if not is_visual:
             cmd.append('--headless')
@@ -583,6 +692,11 @@ def main():
         if name == 'building-open-seed':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--building-open-seed')
+        if name in ['npc-integration','npc-relocation','npc-save','npc-save-seed','npc-save-restart','visual-npc-release','visual-npc-people']:
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--nosave')
+            if name in ['npc-save-seed','npc-save-restart']:
+                cmd.append('--npc-save-phase=' + ('seed' if name == 'npc-save-seed' else 'restart'))
         if args.full_world:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--full-world')
@@ -606,6 +720,7 @@ def main():
         if not result['passed']:
             print('\n'.join(text.splitlines()[-18:]), flush=True)
         (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    release_user_data(user_name, run_dir)
     return 0 if all(x['passed'] for x in report['results'].values()) else 1
 
 

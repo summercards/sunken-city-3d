@@ -1,0 +1,60 @@
+{
+  "key": "postcard_rack",
+  "name": "三面旋转明信片展示架",
+  "family": "retail_display",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-POSTCARD-RACK",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-POSTCARD-RACK",
+  "design_pivot": [
+    0.02060568332672119,
+    0.043766677379608154,
+    0.0
+  ],
+  "bounds_min": [
+    -0.62410569190979,
+    -0.5937666893005371,
+    0
+  ],
+  "bounds_size": [
+    1.24821138381958,
+    1.1875333786010742,
+    2.9600000381469727
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/postcard_rack/postcard_rack.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 74,
+  "instances": 1,
+  "triangles": 13608,
+  "polygons": 7248,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "667790f21851b6c805a988f2a3b3047cb1e81c51a8ee26142bdcb722c2a944b4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-POSTCARD-RACK",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/postcard_rack/postcard_rack.glb",
+  "runtime_sha256": "c8012b7111ffbc9f41d8d769cc776fcebf66bdc946a16646de3b2e583a952f1c",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/postcard_rack.tscn",
+  "prefab_sha256": "32d0418ebf6e94ea11018e05f9f127d4ea70a4e185b67e155a95295691f20013",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 13608,
+  "triangles_after": 13608,
+  "geometry_fingerprint": "43931df4c288c991c121f5e3c3e225da05d4166a7365e040db6dad1b54e699a1"
+}

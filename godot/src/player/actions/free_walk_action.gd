@@ -14,6 +14,8 @@ extends RefCounted
 ## 同样按住 0.25 秒，30 / 60 / 120 FPS 走出的距离一致。
 
 const SPEED := 2.3
+## Shift 小跑只提升 12%：2.3 × 1.12 = 2.576m/s，不改变转向/碰撞/体力。
+const SPRINT_MULTIPLIER := 1.12
 ## 起步时间常数。0.085 s ⇒ 63% 在 0.085 s、95% 在 0.25 s 达到目标速度。
 ## 取值理由：低于 0.06 像被弹出去，高于 0.12 按一下没反应，0.085 正好是「脚步先着地」。
 const ACCEL_TAU := 0.085
@@ -57,7 +59,8 @@ func step(c, delta: float) -> void:
 		if speed_now > 0.20:
 			var align := clampf(vel.normalized().dot(intent), -1.0, 1.0)
 			scale = REVERSE_FLOOR + (1.0 - REVERSE_FLOOR) * (align * 0.5 + 0.5)
-		target = intent * SPEED * scale
+		var max_speed := SPEED * (SPRINT_MULTIPLIER if c.sprint_held else 1.0)
+		target = intent * max_speed * scale
 	vel = vel.lerp(target, 1.0 - exp(-dt / (ACCEL_TAU if has_input else DECEL_TAU)))
 	if not has_input and vel.length() < STOP_SPEED:
 		vel = Vector3.ZERO
@@ -90,6 +93,11 @@ func step(c, delta: float) -> void:
 	if step_vec.length_squared() < 0.0000000001:
 		# 顶住边界：吃掉这一帧的动量，避免持续推墙时越攒越大的「弹墙」。
 		c.move_velocity = Vector3.ZERO
+		c.actor.walk_speed_ratio = 0.0
+		# 脚步被甲板外缘挡住，仍能转脸看向船/操作口；否则面对交互
+		# 的要求会在岸边变成死锁。只转角色朝向，不挪位置、不空踩。
+		if has_input:
+			c.actor.rotation.y = lerp_angle(c.actor.rotation.y, atan2(intent.x, intent.z), 1.0 - exp(-dt / FACING_TAU))
 		return
 	var result: Dictionary = c.actor.move_ground(step_vec, dt)
 	var moved: Vector3 = result.moved
@@ -99,8 +107,9 @@ func step(c, delta: float) -> void:
 	if speed_actual < vel.length() * 0.5:
 		c.move_velocity = moved / dt
 	# 与点击走路一致：脸和脚尖朝局部 +Z，偏航把 +Z 对齐实际移动方向。
-	if speed_actual > FACING_MIN_SPEED:
-		var heading := atan2(vel.x, vel.z)
+	if speed_actual > FACING_MIN_SPEED or has_input:
+		var face_dir: Vector3 = vel if speed_actual > FACING_MIN_SPEED else intent
+		var heading := atan2(face_dir.x, face_dir.z)
 		c.actor.rotation.y = lerp_angle(c.actor.rotation.y, heading, 1.0 - exp(-dt / FACING_TAU))
 	# 步频跟地速走（SEA-MOVE-R23）：脚不打滑，慢起步时步子也慢下来。
 	c.actor.walk_speed_ratio = clampf(speed_actual / SPEED, 0.0, 1.35)

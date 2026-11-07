@@ -4,7 +4,7 @@ const Catalog = preload("res://src/crops/crop_catalog.gd")
 const Stage = preload("res://src/crops/crop_stage.gd")
 
 static func supports(crop_id: String) -> bool:
-	return crop_id in ["lettuce","tomato","pumpkin"]
+	return crop_id in ["lettuce","tomato","pumpkin","flower_blue","flower_sun","flower_coral"]
 
 static func create(crop_id: String) -> Node3D:
 	var catalog := Catalog.new()
@@ -14,6 +14,10 @@ static func create(crop_id: String) -> Node3D:
 	var packed = load(path)
 	if not packed is PackedScene: return null
 	var source: Node3D = packed.instantiate()
+	var flower := crop_id in ["flower_blue", "flower_sun", "flower_coral"]
+	# 手持物离树创建，不依赖 _ready；幂等构建保证成熟花冠已存在。
+	if flower:
+		source.ensure_built()
 	var stage: Node3D = source.get_node(Stage.node_name(Stage.HARVEST))
 	if stage == null:
 		source.free()
@@ -35,6 +39,9 @@ static func create(crop_id: String) -> Node3D:
 					var d := Vector2(center.x-at.x, center.z-at.z).length_squared()
 					if d < distance: nearest = heart; distance = d
 				if nearest == hearts[0]: selected.append(mesh)
+	elif flower:
+		# 复制成熟切花及其茎叶，不取种子、土壤、其它阶段或原节点。
+		selected.assign(meshes)
 	else:
 		# One fruit, with its own stem on pumpkin; no entire bush or soil.
 		var names: Array = ["果实"] if crop_id == "tomato" else ["南瓜", "瓜蒂"]

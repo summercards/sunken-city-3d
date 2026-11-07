@@ -18,6 +18,11 @@
     "godot/src/navigation/route_ribbon.gd"
   ],
   "verification": [
+    "boat-unstick",
+    "visual-boat-unstick",
+    "facing-interaction",
+    "visual-facing-interaction",
+    "gift-kiosk",
     "control-feel",
     "keyboard-control",
     "rowing-fit",
@@ -228,3 +233,18 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-NAV-R17 | 已实现；`_yaw_rate` 按 4.6 rad/s² 建立、舵效随船速缩放、航迹按 0.16 s 滞后并夹在 8° 内、低速软收尾；位移仍过 `_clear()`，撞岸停住 | `control-feel`（首帧 0.077 → 0.2 s 0.92 rad/s、侧滑 6.9°、滑行 1.48 m、不回弹）；`ocean`、`boat-water-contact`、`rowing-fit`、`keyboard-control` 复跑通过；[本轮交付](../../development/2026-11-05_control_feel.md)。自动航线的转向与到站契约未改。 |
+
+
+## 2026-11-07 浮动商亭靠泊
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-NAV-R18 | 复用sea_supply/main与既有靠泊上岸链路；stand/edge跟甲板、boatPark锁实际水线；Zones以支撑事件更新公开快照，旧驿站仅保留R13几何航路避让 | [本轮记录](../../development/2026-11-07_gift_kiosk.md)。家园至泊位4点合法航路、泊位不压阻挡、实际靠妥上岸/补给/回船与船上脱离支撑通过；最终7129/0、真实渲染53/0，board-click/minimum-loop回归exit0。 |
+
+## 2026-11-07 顶岸手动脱困
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R19 | 已实现并通过最终单体合批及真实shore渲染；120Hz子步，碰撞只停平移/速度、保留manual/yaw，Main不退出驾驶；锁存至合法划开0.1m或驾驶结束，stop/place/sail清理。尾流取实际航迹方向，自动碰撞仍停 | `D:/projects/sea-work/verification/20261107-165822-movement-feel-final-9b7646/report.json`11项全PASS，boat及visual各153459/0但该批visual仅单体；`D:/projects/sea-work/verification/20261107-170723-movement-feel-render-final-950cd8/report.json`的`visual-boat-unstick`163769/0真shore、13PNG，与visualfarm647/0双PASS/exit0、unexpected_errors空。主任务已ViewImage目检最新boatsequence，转头离岸可见、无教程；不再待渲染。[总交付与证据分层](../../development/2026-11-07_movement_feel_refinement.md)。 |
+
+165822的visual未设shore环境变量、仅单体；nonheadless直接调用`real_shore`修正后的170723已补齐真实岸线，不倒改旧批覆盖。163769包含单体153459，不重复相加。172123最新smoke的facing102/0 PASS证明NPC/dive新装配可启动，不等于五项兼容全过；171743六compat仅actor-presentation PASS，click32/3、board12/0、dock22/0、save10/0、water41/0均runner FAIL（当时潜水并发重构、本地WorldEnvironment缺失），新版Main接DiveSession后的172517-movement-current-compatible-8e5f98五项已全部runner PASS（board12/0、dock22/0、save10/0、boat-water-contact41/0、shift56/0），exit0且无unexpected_errors；旧click潜水三项本轮不代签。功能保持`partial`，R18不改；主任务已执行sync20 issues/普通check21，未强刷哈希，placed positions4项PASS/0warnings及本轮diffcheck通过，详见总交付。GDD由主任务维护，此回填不改生产/registry/hash/TSCN。

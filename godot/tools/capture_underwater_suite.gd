@@ -17,9 +17,21 @@ func _run() -> void:
 	main.set("_autosave_on", false)
 	for i in 5:
 		await process_frame
-	var uw: Node3D = main.get("dive")
+	var session = main.dive
 	var original_env: Environment = main.get("world_env").environment
-	main.call("_on_dive")
+	if not session.enter_map("zone1"):
+		printerr("[uw-suite] 无法进入 zone1 潜水地图")
+		main.queue_free()
+		await process_frame
+		quit(1)
+		return
+	var uw = session.runtime
+	var map_hud: CanvasLayer
+	for child in uw.get_children():
+		if child.get_script() == preload("res://src/diving/dive_map_hud.gd"):
+			map_hud = child
+	var switched: bool = current_scene == uw and uw.get_parent() == root and not main.is_inside_tree()
+	uw.phase_machine.tick(uw.ENTER_TIME)
 	uw.call("freeze_time", 3.0)
 	var cameras: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(
 		"res://outputs/uw-standard-web-cameras.json"))
@@ -59,7 +71,7 @@ func _run() -> void:
 		var diver: Node3D = uw.get("_diver")
 		diver.hide()
 		uw.get("_marker_layer").hide()
-		main.get("hud").hide()
+		map_hud.hide()
 		var a := await _save("uw-stability-%s-a" % tag)
 		var b := await _save("uw-stability-%s-b" % tag)
 		var diff := 0
@@ -76,14 +88,22 @@ func _run() -> void:
 		for n in hidden:
 			n.show()
 		diver.show()
-		main.get("hud").show()
+		map_hud.show()
 		uw.get("_marker_layer").show()
 	# 单独验头灯：深沟的开灯效果不能丢失。
 	uw.get("air").lamp = true
 	uw.call("_update_lamp")
 	await _save("uw-standard-godot-trench-lamp")
-	uw.call("_finish_exit")
+	uw.surface()
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await process_frame
+	await process_frame
 	var restored: bool = main.get("world_env").environment == original_env
+	var returned: bool = main.is_inside_tree() and current_scene == main and root.get_camera_3d() == main.cam
+	var released: bool = main.dive == session and not session.active and session.runtime == null and not is_instance_valid(uw)
+	if not switched or not returned or not released:
+		failures += 1
+		printerr("[uw-suite] 潜水地图切换或回收失败 switched=", switched, " returned=", returned, " released=", released)
 	print("[uw-suite] surface_environment_restored=", restored)
 	main.queue_free()
 	await process_frame

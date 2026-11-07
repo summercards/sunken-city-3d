@@ -1,0 +1,588 @@
+{
+  "asset_id": "SEA-SCENE-SUNROOM-UNDERWATER-REGION",
+  "source_id": "SRC-SEA-SCENE-SUNROOM-UNDERWATER-REGION",
+  "name": "阳光房下独立水下区域（含生态子装配）",
+  "domain": "scenes",
+  "version": "v002",
+  "stage": "standalone_runtime_verified_provenance_and_production_pending",
+  "source": "godot/scenes/underwater/sunroom_region.tscn",
+  "source_sha256": "6387df8efa42125636535c74254a62c437a39d0b45570b8caa2996b06c10bb8d",
+  "source_paths": [
+    "godot/scenes/underwater/sunroom_region.tscn",
+    "godot/scenes/underwater/sunroom_region/ecology.tscn",
+    "godot/src/diving/sunroom_region.gd",
+    "godot/src/ambient/sunroom_underwater_ecology.gd",
+    "godot/shaders/sunroom_underwater_surface.gdshader",
+    "godot/shaders/sunroom_underwater_lamp.gdshader",
+    "godot/scenes/underwater/sunroom_region/atmosphere.tscn",
+    "godot/src/ambient/sunroom_underwater_atmosphere.gd",
+    "godot/src/diving/sunroom_region_collision.gd",
+    "godot/shaders/sunroom_underwater_palette.gdshader",
+    "godot/shaders/sunroom_underwater_beam.gdshader",
+    "godot/shaders/sunroom_underwater_particles.gdshader",
+    "godot/shaders/sunroom_underwater_sky.gdshader",
+    "godot/shaders/sunroom_underwater_fog.gdshader",
+    "godot/shaders/sunroom_underwater_color.gdshaderinc"
+  ],
+  "authored_files": [
+    {
+      "path": "godot/scenes/underwater/sunroom_region.tscn",
+      "sha256": "6387df8efa42125636535c74254a62c437a39d0b45570b8caa2996b06c10bb8d"
+    },
+    {
+      "path": "godot/scenes/underwater/sunroom_region/ecology.tscn",
+      "sha256": "d2faa187ba6365374ca0abe8bbc2746da4931631c79d9749a0ce3aaf5b31a6b1"
+    },
+    {
+      "path": "godot/src/diving/sunroom_region.gd",
+      "sha256": "708be3989ecefa73f3ea25dbb7e9eb6f466588f82476f29f6b1f7d92dd495ee3"
+    },
+    {
+      "path": "godot/src/ambient/sunroom_underwater_ecology.gd",
+      "sha256": "0439e248fdfd9ed3ee3b47bac8c68ebbd810833986732024067472a9cca8e26e"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_surface.gdshader",
+      "sha256": "870ab7f0a4c4fb1a899f83a6fbb78072375d4679ed0fc236baa46aae41be8451"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_lamp.gdshader",
+      "sha256": "017fd6d8ddda58dccd8aa9129ecf5db88a2a6f0bc778f5ac2ad677b95c03dfd1"
+    },
+    {
+      "path": "godot/scenes/underwater/sunroom_region/atmosphere.tscn",
+      "sha256": "871c73eff4a3952285f99e373adafc3559e059095ddff468da6ad5d55b6043b5"
+    },
+    {
+      "path": "godot/src/ambient/sunroom_underwater_atmosphere.gd",
+      "sha256": "e6d322718497e4c9c37c27e1c584126f861f619b97bc168c465a9930ab4351ee"
+    },
+    {
+      "path": "godot/src/diving/sunroom_region_collision.gd",
+      "sha256": "444605057c7960ad49a29feda286fdbccee65d0bb542ddf4de34575206a560bc"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_palette.gdshader",
+      "sha256": "7b697cf67c7dad1fc779c757d3249685231e7e0ef223dba5444dad4783d43cc9"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_beam.gdshader",
+      "sha256": "08f7518702e137148466592974681c53d7b2bd03de62e4939100f747a02b2ec7"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_particles.gdshader",
+      "sha256": "c014ab8bef97f61210dd1578799c4969734ac50629f0372c9e431b3628ed4c26"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_sky.gdshader",
+      "sha256": "f72b945c8c700e85ebbda4bf2d3eeeed31fd664118553ffc6b16c2dbf5526877"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_fog.gdshader",
+      "sha256": "3e4806843794907957d6c4e7762c163e156d113a01c11219a169a288cefc3dec"
+    },
+    {
+      "path": "godot/shaders/sunroom_underwater_color.gdshaderinc",
+      "sha256": "887e5a263de797ad6c9353eab523f3c9754fa4a2e0d4f966a55c3952160fc2c9"
+    }
+  ],
+  "source_type": "native_Godot_assembly_and_baked_geometry_reuse_no_new_blend_or_GLB",
+  "manifest": "assets/registry/manifests/scene_components/sea-scene-sunroom-underwater-region.json",
+  "prefab": "godot/scenes/underwater/sunroom_region.tscn",
+  "prefab_sha256": "6387df8efa42125636535c74254a62c437a39d0b45570b8caa2996b06c10bb8d",
+  "runtime_path": "godot/scenes/underwater/sunroom_region.tscn",
+  "runtime_sha256": "6387df8efa42125636535c74254a62c437a39d0b45570b8caa2996b06c10bb8d",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "underwater_region_assembly"
+  },
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "placement_water_layer": "submerged",
+  "visual_only": false,
+  "collision": true,
+  "interactive": false,
+  "blocks_actor": true,
+  "blocks_water": false,
+  "walkable": false,
+  "has_landing": false,
+  "navigation_obstacle": false,
+  "resource_output": false,
+  "gameplay_state": false,
+  "shoreline_source": false,
+  "standalone_only": true,
+  "production_route_integrated": false,
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-DIVE",
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "license": "pending_legacy_and_user_reference_rights_review",
+  "commercial_rights_status": "pending",
+  "reference_rights_verified": false,
+  "validation": {
+    "source_review": "pending",
+    "runtime": "passed_standalone_only",
+    "visual": "captured_standalone_only_user_acceptance_pending",
+    "performance": "pending",
+    "user_art_acceptance": "pending",
+    "commercial_rights": "pending",
+    "original_provenance": "pending",
+    "reuse_optimization_evidence_consistency": "pending",
+    "collision": "passed_standalone_only"
+  },
+  "verification": [
+    "sunroom-underwater",
+    "sunroom-collision",
+    "visual-sunroom-underwater"
+  ],
+  "development_record": "docs/development/2026-11-07_sunroom_underwater_art_r2.md",
+  "reused_asset_ids": [
+    "SEA-SCENE-SCITY-ASSEMBLY",
+    "SEA-SCENE-SCITY-SEABED",
+    "SEA-SCENE-BLB-ASSEMBLY",
+    "SEA-DECO-ANIMAL-FISH-SCHOOL",
+    "SEA-SCENE-SCITY-STREET-LAMP",
+    "SEA-SCENE-GKS-DECK-LIGHT",
+    "SEA-SCENE-GKS-SPOTLIGHT"
+  ],
+  "reused_prefabs": [
+    "godot/scenes/world/sunken_city.tscn",
+    "godot/scenes/world/sunken_seabed.tscn",
+    "godot/scenes/facilities/solar_cabin_submerged_base.tscn"
+  ],
+  "ecology": {
+    "prefab": "godot/scenes/underwater/sunroom_region/ecology.tscn",
+    "source_script": "godot/src/ambient/sunroom_underwater_ecology.gd",
+    "coral_definition_count": 12,
+    "coral_cluster_count": 32,
+    "fish_group_count": 8,
+    "fish_count": 138,
+    "light_assembly_count": 24,
+    "street_lamp_count": 8,
+    "deck_light_count": 8,
+    "spotlight_fixture_count": 8,
+    "omni_count": 16,
+    "spot_count": 8,
+    "local_light_shadow_count": 0,
+    "coral_source_paths": [
+      "godot/assets/baked/underwater/scene.json",
+      "godot/assets/baked/underwater/geoms.bin",
+      "godot/assets/baked/underwater/geoms_idx.bin",
+      "godot/assets/baked/underwater/instances.bin"
+    ],
+    "coral_provenance": "旧web baked reef原株小单体几何提取，不是新Blender模型"
+  },
+  "dimensions": {
+    "city_logical_xz": [
+      240,
+      240
+    ],
+    "terrain_xz": [
+      1024,
+      1024
+    ],
+    "water_plane_xz": [
+      1280,
+      1280
+    ],
+    "water_level": 1.12,
+    "city_root_y": 43.487442,
+    "lowest_seabed_y": -62.0,
+    "maximum_seabed_depth_m": 63.12,
+    "actual_city_geometry_bounds": "[P: (-120.0, -38.65286, -120.0), S: (240.0, 37.00966, 240.0)]",
+    "actual_city_geometry_bounds_status": "observed_standalone",
+    "base_transform": [
+      1.4501,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1.4308,
+      -1.5113,
+      -0.3,
+      1.5988
+    ]
+  },
+  "blend": null,
+  "optimized_blend": null,
+  "glb_export": null,
+  "optimization": {
+    "mode": "existing_formal_resource_reuse_no_new_export",
+    "evidence_consistency": "pending",
+    "round_02b_signed": false
+  },
+  "note": "独立运行证据与生产接入分开；9来源不变、未接生产；既有源hash/优化许可均不重签。 v002仅独立区域艺术深化与本地阻挡；无新Blender源；来源/权属/02b/性能保持pending；历史hash与旧证据完整保留。",
+  "standalone_verification_report": "D:\\projects\\sea-work\\verification\\20261107-232826-sunroom-art-r2-signed-5f3e30\\report.json",
+  "runtime_scope": "standalone_region_local_only",
+  "collision_scope": "standalone_region_only_not_surface_prefabs",
+  "atmosphere": {
+    "beam_instances": 10,
+    "bubble_columns": 10,
+    "bubble_instances": 192,
+    "column_clearance_radius": 0.8,
+    "draw_submissions": 12,
+    "lights": 0,
+    "mote_instances": 200,
+    "multimeshes": 2,
+    "nodes": 36,
+    "particle_ceiling_y": 0.47
+  },
+  "collision_statistics": {
+    "assemblies": {
+      "city_bridge": 11,
+      "city_decoration": 66,
+      "city_fixture": 149,
+      "city_road": 100,
+      "city_structure": 62,
+      "coral": 32,
+      "facility_light": 24,
+      "solar_base": 1
+    },
+    "cached_shapes": 99,
+    "empty_meshes": 0,
+    "mesh_instances": 758,
+    "multimesh_instances": 298,
+    "proxy_count": 758,
+    "roles": {
+      "city_bridge": 11,
+      "city_decoration": 66,
+      "city_fixture": 149,
+      "city_road": 100,
+      "city_structure": 62,
+      "coral": 32,
+      "facility_light": 40,
+      "solar_base": 298
+    },
+    "terrain_mode": 3,
+    "terrain_regions": 4,
+    "terrain_source": "res://terrain/sunken_seabed",
+    "terrain_vertex_spacing": 2.0,
+    "triangles": 3115351,
+    "unique_meshes": 85
+  },
+  "render_capture_collision_statistics": {
+    "assemblies": {
+      "city_bridge": 11,
+      "city_decoration": 66,
+      "city_fixture": 149,
+      "city_road": 100,
+      "city_structure": 62,
+      "coral": 32,
+      "facility_light": 24,
+      "solar_base": 1
+    },
+    "cached_shapes": 158,
+    "empty_meshes": 0,
+    "mesh_instances": 758,
+    "multimesh_instances": 298,
+    "proxy_count": 758,
+    "roles": {
+      "city_bridge": 11,
+      "city_decoration": 66,
+      "city_fixture": 149,
+      "city_road": 100,
+      "city_structure": 62,
+      "coral": 32,
+      "facility_light": 40,
+      "solar_base": 298
+    },
+    "terrain_mode": 3,
+    "terrain_regions": 4,
+    "terrain_source": "res://terrain/sunken_seabed",
+    "terrain_vertex_spacing": 2.0,
+    "triangles": 3115351,
+    "unique_meshes": 85
+  },
+  "collision_cache_note": "精确Basis缓存key按进程浮点结果拆分；物理实测99形状、渲染快照158形状，85网格/758代理/3115351实例三角一致；不伪称两进程缓存数完全一致。",
+  "fog": {
+    "mode": "one_opaque_screen_fog_pass_reference_old_maps",
+    "near_m": 6.0,
+    "end_m": 110.0,
+    "curve": 1.3,
+    "terrain_edge_fade_m": [
+      448.0,
+      500.0
+    ],
+    "alpha_particles": "self_fog_no_double_fog"
+  },
+  "performance": {
+    "status": "pending",
+    "instance_triangles": 3115351,
+    "note": "约3.1M展开三角；真实设备性能未签署，不以缓存数量代签。"
+  },
+  "source_protection": {
+    "baseline": "D:\\projects\\sea-work\\outputs\\sunroom-underwater-art-r2-20261107\\baseline.json",
+    "baseline_sha256": "dca7d562209a0a97b6301ea14f43699f0e931f844bf8e767914f9164be879fc7",
+    "protected_count": 70,
+    "main_byte_identity_required": false,
+    "note": "Main 可能被并行修改，不要求 Main 字节不变；见开发记录上下文。本工具不写 Main，原9图/catalog/city/seabed/base、GLB/terrain 仍按 baseline 核验。",
+    "document": "docs/development/2026-11-07_sunroom_underwater_art_r2.md"
+  },
+  "final_evidence": {
+    "path": "D:\\projects\\sea-work\\verification\\20261107-232826-sunroom-art-r2-signed-5f3e30\\report.json",
+    "sha256": "067317bf5d1390e40d558ac8666d73779cd50d35ef5dd4dd5718d07fe990d7d4",
+    "checks": [
+      "sunroom-underwater",
+      "sunroom-collision",
+      "visual-sunroom-underwater"
+    ],
+    "tested_files": [
+      {
+        "path": "godot/scenes/underwater/sunroom_region.tscn",
+        "sha256": "6387df8efa42125636535c74254a62c437a39d0b45570b8caa2996b06c10bb8d"
+      },
+      {
+        "path": "godot/scenes/underwater/sunroom_region/ecology.tscn",
+        "sha256": "d2faa187ba6365374ca0abe8bbc2746da4931631c79d9749a0ce3aaf5b31a6b1"
+      },
+      {
+        "path": "godot/src/diving/sunroom_region.gd",
+        "sha256": "708be3989ecefa73f3ea25dbb7e9eb6f466588f82476f29f6b1f7d92dd495ee3"
+      },
+      {
+        "path": "godot/src/ambient/sunroom_underwater_ecology.gd",
+        "sha256": "0439e248fdfd9ed3ee3b47bac8c68ebbd810833986732024067472a9cca8e26e"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_surface.gdshader",
+        "sha256": "870ab7f0a4c4fb1a899f83a6fbb78072375d4679ed0fc236baa46aae41be8451"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_lamp.gdshader",
+        "sha256": "017fd6d8ddda58dccd8aa9129ecf5db88a2a6f0bc778f5ac2ad677b95c03dfd1"
+      },
+      {
+        "path": "godot/scenes/underwater/sunroom_region/atmosphere.tscn",
+        "sha256": "871c73eff4a3952285f99e373adafc3559e059095ddff468da6ad5d55b6043b5"
+      },
+      {
+        "path": "godot/src/ambient/sunroom_underwater_atmosphere.gd",
+        "sha256": "e6d322718497e4c9c37c27e1c584126f861f619b97bc168c465a9930ab4351ee"
+      },
+      {
+        "path": "godot/src/diving/sunroom_region_collision.gd",
+        "sha256": "444605057c7960ad49a29feda286fdbccee65d0bb542ddf4de34575206a560bc"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_palette.gdshader",
+        "sha256": "7b697cf67c7dad1fc779c757d3249685231e7e0ef223dba5444dad4783d43cc9"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_beam.gdshader",
+        "sha256": "08f7518702e137148466592974681c53d7b2bd03de62e4939100f747a02b2ec7"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_particles.gdshader",
+        "sha256": "c014ab8bef97f61210dd1578799c4969734ac50629f0372c9e431b3628ed4c26"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_sky.gdshader",
+        "sha256": "f72b945c8c700e85ebbda4bf2d3eeeed31fd664118553ffc6b16c2dbf5526877"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_fog.gdshader",
+        "sha256": "3e4806843794907957d6c4e7762c163e156d113a01c11219a169a288cefc3dec"
+      },
+      {
+        "path": "godot/shaders/sunroom_underwater_color.gdshaderinc",
+        "sha256": "887e5a263de797ad6c9353eab523f3c9754fa4a2e0d4f966a55c3952160fc2c9"
+      },
+      {
+        "path": "godot/tests/test_sunroom_underwater_region.gd",
+        "sha256": "68213cf168963f5d1e98feff380c352afb64f3762845e384b31bad1f9d9cb7ca"
+      },
+      {
+        "path": "godot/tests/test_sunroom_underwater_collision.gd",
+        "sha256": "f88532a749647888784fff48e37f1d940480d7c5cfc43bc482b305d68ca35a7b"
+      }
+    ]
+  },
+  "history": [
+    {
+      "transition": "sunroom_underwater_art_r2_v001_to_v002",
+      "manifest": {
+        "asset_id": "SEA-SCENE-SUNROOM-UNDERWATER-REGION",
+        "source_id": "SRC-SEA-SCENE-SUNROOM-UNDERWATER-REGION",
+        "name": "阳光房下独立水下区域（含生态子装配）",
+        "domain": "scenes",
+        "version": "v001",
+        "stage": "standalone_runtime_verified_provenance_and_production_pending",
+        "source": "godot/scenes/underwater/sunroom_region.tscn",
+        "source_sha256": "90e19265ec577c105ba7b094fdb9b6d89fdd1dee2518d6edfce1c794639582ad",
+        "source_paths": [
+          "godot/scenes/underwater/sunroom_region.tscn",
+          "godot/scenes/underwater/sunroom_region/ecology.tscn",
+          "godot/src/diving/sunroom_region.gd",
+          "godot/src/ambient/sunroom_underwater_ecology.gd",
+          "godot/shaders/sunroom_underwater_surface.gdshader",
+          "godot/shaders/sunroom_underwater_lamp.gdshader"
+        ],
+        "authored_files": [
+          {
+            "path": "godot/scenes/underwater/sunroom_region.tscn",
+            "sha256": "90e19265ec577c105ba7b094fdb9b6d89fdd1dee2518d6edfce1c794639582ad"
+          },
+          {
+            "path": "godot/scenes/underwater/sunroom_region/ecology.tscn",
+            "sha256": "d2faa187ba6365374ca0abe8bbc2746da4931631c79d9749a0ce3aaf5b31a6b1"
+          },
+          {
+            "path": "godot/src/diving/sunroom_region.gd",
+            "sha256": "4fc446dcb8feb06047189d8fcd32814473c15779b78a2f5dc34e9a37eb08278f"
+          },
+          {
+            "path": "godot/src/ambient/sunroom_underwater_ecology.gd",
+            "sha256": "0439e248fdfd9ed3ee3b47bac8c68ebbd810833986732024067472a9cca8e26e"
+          },
+          {
+            "path": "godot/shaders/sunroom_underwater_surface.gdshader",
+            "sha256": "e1565ca9cb4df5d26bab81af96daea975359de834aa3d0bb36d06d9df1e33a47"
+          },
+          {
+            "path": "godot/shaders/sunroom_underwater_lamp.gdshader",
+            "sha256": "017fd6d8ddda58dccd8aa9129ecf5db88a2a6f0bc778f5ac2ad677b95c03dfd1"
+          }
+        ],
+        "source_type": "native_Godot_assembly_and_baked_geometry_reuse_no_new_blend_or_GLB",
+        "manifest": "assets/registry/manifests/scene_components/sea-scene-sunroom-underwater-region.json",
+        "prefab": "godot/scenes/underwater/sunroom_region.tscn",
+        "prefab_sha256": "90e19265ec577c105ba7b094fdb9b6d89fdd1dee2518d6edfce1c794639582ad",
+        "runtime_path": "godot/scenes/underwater/sunroom_region.tscn",
+        "runtime_sha256": "90e19265ec577c105ba7b094fdb9b6d89fdd1dee2518d6edfce1c794639582ad",
+        "classification": {
+          "category": "decoration",
+          "subcategory": "underwater_region_assembly"
+        },
+        "building_class": null,
+        "water_layer": "none",
+        "water_layer_role": "none",
+        "placement_water_layer": "submerged",
+        "visual_only": true,
+        "collision": false,
+        "interactive": false,
+        "blocks_actor": false,
+        "blocks_water": false,
+        "walkable": false,
+        "has_landing": false,
+        "navigation_obstacle": false,
+        "resource_output": false,
+        "gameplay_state": false,
+        "shoreline_source": false,
+        "standalone_only": true,
+        "production_route_integrated": false,
+        "runtime_verified": true,
+        "consumer_features": [
+          "SEA-DIVE",
+          "SEA-AMBIENT",
+          "SEA-ASSET"
+        ],
+        "license": "pending_legacy_and_user_reference_rights_review",
+        "commercial_rights_status": "pending",
+        "reference_rights_verified": false,
+        "validation": {
+          "source_review": "pending",
+          "runtime": "passed_standalone_only",
+          "visual": "captured_and_reviewed_standalone_only_user_acceptance_pending",
+          "performance": "pending",
+          "user_art_acceptance": "pending",
+          "commercial_rights": "pending",
+          "original_provenance": "pending",
+          "reuse_optimization_evidence_consistency": "pending"
+        },
+        "verification": [
+          "sunroom-underwater",
+          "visual-sunroom-underwater"
+        ],
+        "development_record": "docs/development/2026-11-07_sunroom_underwater_region.md",
+        "reused_asset_ids": [
+          "SEA-SCENE-SCITY-ASSEMBLY",
+          "SEA-SCENE-SCITY-SEABED",
+          "SEA-SCENE-BLB-ASSEMBLY",
+          "SEA-DECO-ANIMAL-FISH-SCHOOL",
+          "SEA-SCENE-SCITY-STREET-LAMP",
+          "SEA-SCENE-GKS-DECK-LIGHT",
+          "SEA-SCENE-GKS-SPOTLIGHT"
+        ],
+        "reused_prefabs": [
+          "godot/scenes/world/sunken_city.tscn",
+          "godot/scenes/world/sunken_seabed.tscn",
+          "godot/scenes/facilities/solar_cabin_submerged_base.tscn"
+        ],
+        "ecology": {
+          "prefab": "godot/scenes/underwater/sunroom_region/ecology.tscn",
+          "source_script": "godot/src/ambient/sunroom_underwater_ecology.gd",
+          "coral_definition_count": 12,
+          "coral_cluster_count": 32,
+          "fish_group_count": 8,
+          "fish_count": 138,
+          "light_assembly_count": 24,
+          "street_lamp_count": 8,
+          "deck_light_count": 8,
+          "spotlight_fixture_count": 8,
+          "omni_count": 16,
+          "spot_count": 8,
+          "local_light_shadow_count": 0,
+          "coral_source_paths": [
+            "godot/assets/baked/underwater/scene.json",
+            "godot/assets/baked/underwater/geoms.bin",
+            "godot/assets/baked/underwater/geoms_idx.bin",
+            "godot/assets/baked/underwater/instances.bin"
+          ],
+          "coral_provenance": "旧web baked reef原株小单体几何提取，不是新Blender模型"
+        },
+        "dimensions": {
+          "city_logical_xz": [
+            240,
+            240
+          ],
+          "terrain_xz": [
+            1024,
+            1024
+          ],
+          "water_plane_xz": [
+            1280,
+            1280
+          ],
+          "water_level": 1.12,
+          "city_root_y": 43.487442,
+          "lowest_seabed_y": -62.0,
+          "maximum_seabed_depth_m": 63.12,
+          "actual_city_geometry_bounds": "[P: (-120.0, -38.65286, -120.0), S: (240.0, 37.00966, 240.0)]",
+          "actual_city_geometry_bounds_status": "observed_standalone",
+          "base_transform": [
+            1.4501,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1.4308,
+            -1.5113,
+            -0.3,
+            1.5988
+          ]
+        },
+        "blend": null,
+        "optimized_blend": null,
+        "glb_export": null,
+        "optimization": {
+          "mode": "existing_formal_resource_reuse_no_new_export",
+          "evidence_consistency": "pending",
+          "round_02b_signed": false
+        },
+        "note": "独立运行证据与生产接入分开；9来源不变、未接生产；既有源hash/优化许可均不重签。",
+        "standalone_verification_report": "D:\\projects\\sea-work\\verification\\20261107-205426-sunroom-underwater-signed-2fa2bb\\report.json",
+        "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SUNROOM-UNDERWATER-REGION"
+      }
+    }
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SUNROOM-UNDERWATER-REGION"
+}

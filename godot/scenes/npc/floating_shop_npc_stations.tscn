@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/npc/npc_site_anchors.gd" id="provider"]
+
+[node name="NpcStations" type="Node3D"]
+script = ExtResource("provider")
+
+[node name="residence_general_store" type="Node3D" parent="."]
+position = Vector3(-1.2, 0.3, -1.05)
+metadata/npc_id = "npc_bao_he"
+metadata/home_label = "东南海上商店 · 阿店"
+metadata/work_anchor_id = "anchor_general_store"
+
+[node name="Home" type="Marker3D" parent="residence_general_store"]
+
+[node name="Work" type="Marker3D" parent="residence_general_store"]
+position = Vector3(-0.4, 0, -0.1)
+
+[node name="Social" type="Marker3D" parent="residence_general_store"]
+position = Vector3(0.7, 0, 0.2)
+
+[node name="Rest" type="Marker3D" parent="residence_general_store"]
+position = Vector3(-1.3, 0, 0)
+
+[node name="Door" type="Marker3D" parent="residence_general_store"]
+position = Vector3(-1.6, 0, 0.3)

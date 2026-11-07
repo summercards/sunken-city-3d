@@ -51,6 +51,8 @@ var inventory: RefCounted
 var energy = preload("res://src/energy/energy_service.gd").new()
 ## 家园补给站 → 渔场的升级状态（SEA-AQUA）。只拥有「升没升过」这一位。
 var fishery = preload("res://src/aqua/fishery_service.gd").new()
+## 阳光房修缮进度：设施拆分、梯子攀爬与二楼休整的唯一状态所有者。
+var sunroom = preload("res://src/facilities/sunroom_service.gd").new()
 ## 种植规则与状态（Node 子节点，天然跟场景树同生共死）。
 ## 故意不加静态类型：FarmModel 的方法（plant/tick/to_dict）在 Node 基类上不存在，
 ## 标成 Node 会让编译器拒绝调用。
@@ -337,12 +339,12 @@ func upgrade_ship() -> Dictionary:
 ## ---- 存档 -------------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict(),"daily_loop":daily.to_dict(),"energy":energy.to_dict(),"fishery":fishery.to_dict()}
+	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict(),"daily_loop":daily.to_dict(),"energy":energy.to_dict(),"fishery":fishery.to_dict(),"sunroom":sunroom.to_dict()}
 	for owner in [construction,facility,ship,goals]: data.merge(owner.to_dict())
 	return data
 
 func snapshot_event_sources() -> Array:
-	return [self,inventory,daily,daily.cargo,storage,storage.warehouse,construction,facility,ship,goals,farm,orders,energy,fishery]
+	return [self,inventory,daily,daily.cargo,storage,storage.warehouse,construction,facility,ship,goals,farm,orders,energy,fishery,sunroom]
 
 func publish_restored() -> void:
 	# State is already complete across every feature; these are refreshes, not rewards.
@@ -356,6 +358,7 @@ func publish_restored() -> void:
 	sites_changed.emit()
 	energy.changed.emit(energy.current,energy.maximum)
 	fishery.changed.emit()
+	sunroom.changed.emit()
 
 func from_dict(data: Dictionary) -> void:
 	inventory.from_dict(data.get("inventory",{}))
@@ -364,6 +367,7 @@ func from_dict(data: Dictionary) -> void:
 	farm.from_dict(data.get("farm",{}))
 	energy.from_dict(data.get("energy",{}))
 	fishery.from_dict(data.get("fishery",{}))
+	sunroom.from_dict(data.get("sunroom",{}))
 	orders.from_dict(data.get("orders",{}))
 	daily.from_dict(data.get("daily_loop",{}))
 	resources_changed.emit()
@@ -446,7 +450,11 @@ func _configure_services() -> void:
 		"pay":storage.construction_pay,
 		"missing_text":storage.construction_missing_text,
 		"can_receive":inventory.can_add,"receive":inventory.add_all})
+	sunroom.configure({"construction_pay":storage.construction_pay,
+		"construction_has":storage.construction_has,
+		"construction_missing_text":storage.construction_missing_text})
 	fishery.changed.connect(func(): resources_changed.emit())
+	sunroom.changed.connect(func(): sites_changed.emit())
 	construction.sites_changed.connect(func(): sites_changed.emit())
 	facility.sites_changed.connect(func(): sites_changed.emit())
 	construction.site_work_started.connect(func(id, seconds): site_work_started.emit(id, seconds))

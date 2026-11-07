@@ -1,0 +1,981 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ambient/sunroom_underwater_ecology.gd" id="1_ecology"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/street_lamp.tscn" id="2_street"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/deck_light.tscn" id="3_deck"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/gift_kiosk/spotlight.tscn" id="4_spot"]
+
+[node name="SunroomUnderwaterEcology" type="Node3D"]
+script = ExtResource("1_ecology")
+metadata/visual_only = true
+metadata/category = "underwater_ecology"
+metadata/coordinate_space = "world_reference_identity_parent"
+metadata/city_root_y_reference = 43.487442
+metadata/coral_definition_count = 12
+metadata/coral_cluster_count = 32
+metadata/light_assembly_count = 24
+metadata/shadow_light_count = 0
+metadata/grounding_owner = "parent_scene"
+metadata/grounding_rule = "nearest_expected_upward_mesh_surface_exclude_ecology"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="CoralClusters" type="Node3D" parent="."]
+metadata/visual_only = true
+metadata/category = "reef_coral_clusters"
+metadata/source_unit = "res://assets/models/underwater/reef/units/coral_00.glb"
+metadata/source_data = "res://assets/baked/underwater/scene.json"
+metadata/grounding_offset = 0.015
+
+[node name="CoralCluster01" type="Node3D" parent="CoralClusters"]
+position = Vector3(-98, -17.7975597381592, 78)
+rotation = Vector3(0, 0.35, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 0
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster01"]
+gi_mode = 0
+
+[node name="CoralCluster02" type="Node3D" parent="CoralClusters"]
+position = Vector3(-91, -17.5975608825684, 54)
+rotation = Vector3(0, 1.12, 0)
+scale = Vector3(0.85, 0.85, 0.85)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 7
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster02"]
+gi_mode = 0
+
+[node name="CoralCluster03" type="Node3D" parent="CoralClusters"]
+position = Vector3(-77, -17.5875606536865, 31)
+rotation = Vector3(0, 2.3, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 5
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster03"]
+gi_mode = 0
+
+[node name="CoralCluster04" type="Node3D" parent="CoralClusters"]
+position = Vector3(-91, -17.5975608825684, 6)
+rotation = Vector3(0, -0.8, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 9
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster04"]
+gi_mode = 0
+
+[node name="CoralCluster05" type="Node3D" parent="CoralClusters"]
+position = Vector3(-77, -17.5975608825684, -18)
+rotation = Vector3(0, 1.8, 0)
+scale = Vector3(0.9, 0.9, 0.9)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 4
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster05"]
+gi_mode = 0
+
+[node name="CoralCluster06" type="Node3D" parent="CoralClusters"]
+position = Vector3(-91, -17.5975608825684, -42)
+rotation = Vector3(0, 0.55, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 8
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster06"]
+gi_mode = 0
+
+[node name="CoralCluster07" type="Node3D" parent="CoralClusters"]
+position = Vector3(-77, -17.5875606536865, -67)
+rotation = Vector3(0, -1.4, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 2
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster07"]
+gi_mode = 0
+
+[node name="CoralCluster08" type="Node3D" parent="CoralClusters"]
+position = Vector3(-68, -18.3875427246094, -91)
+rotation = Vector3(0, 2.8, 0)
+scale = Vector3(0.9, 0.9, 0.9)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 10
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster08"]
+gi_mode = 0
+
+[node name="CoralCluster09" type="Node3D" parent="CoralClusters"]
+position = Vector3(-43, -22.3975639343262, -78)
+rotation = Vector3(0, 0.9, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 6
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster09"]
+gi_mode = 0
+
+[node name="CoralCluster10" type="Node3D" parent="CoralClusters"]
+position = Vector3(-18, -22.3975639343262, -91)
+rotation = Vector3(0, -2.1, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 11
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster10"]
+gi_mode = 0
+
+[node name="CoralCluster11" type="Node3D" parent="CoralClusters"]
+position = Vector3(7, -22.3875637054443, -77)
+rotation = Vector3(0, 1.45, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 1
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster11"]
+gi_mode = 0
+
+[node name="CoralCluster12" type="Node3D" parent="CoralClusters"]
+position = Vector3(31, -20.9875164031982, -91)
+rotation = Vector3(0, -0.25, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 3
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster12"]
+gi_mode = 0
+
+[node name="CoralCluster13" type="Node3D" parent="CoralClusters"]
+position = Vector3(59, -17.5875606536865, -77)
+rotation = Vector3(0, 2.55, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 8
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster13"]
+gi_mode = 0
+
+[node name="CoralCluster14" type="Node3D" parent="CoralClusters"]
+position = Vector3(92, -17.5975608825684, -60)
+rotation = Vector3(0, -1.1, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 4
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster14"]
+gi_mode = 0
+
+[node name="CoralCluster15" type="Node3D" parent="CoralClusters"]
+position = Vector3(77, -17.5975608825684, -30)
+rotation = Vector3(0, 0.7, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 0
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster15"]
+gi_mode = 0
+
+[node name="CoralCluster16" type="Node3D" parent="CoralClusters"]
+position = Vector3(92, -17.5875606536865, -2)
+rotation = Vector3(0, -2.65, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 7
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster16"]
+gi_mode = 0
+
+[node name="CoralCluster17" type="Node3D" parent="CoralClusters"]
+position = Vector3(77, -17.5875606536865, 26)
+rotation = Vector3(0, 1.9, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 5
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster17"]
+gi_mode = 0
+
+[node name="CoralCluster18" type="Node3D" parent="CoralClusters"]
+position = Vector3(92, -17.5875606536865, 55)
+rotation = Vector3(0, -0.65, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 9
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster18"]
+gi_mode = 0
+
+[node name="CoralCluster19" type="Node3D" parent="CoralClusters"]
+position = Vector3(69, -17.5875606536865, 77)
+rotation = Vector3(0, 2.15, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 2
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster19"]
+gi_mode = 0
+
+[node name="CoralCluster20" type="Node3D" parent="CoralClusters"]
+position = Vector3(20, -22.3875637054443, 77)
+rotation = Vector3(0, -1.7, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 6
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster20"]
+gi_mode = 0
+
+[node name="CoralCluster21" type="Node3D" parent="CoralClusters"]
+position = Vector3(-17, -22.3875637054443, 91)
+rotation = Vector3(0, 0.2, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 10
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster21"]
+gi_mode = 0
+
+[node name="CoralCluster22" type="Node3D" parent="CoralClusters"]
+position = Vector3(-46, -22.3875637054443, 77)
+rotation = Vector3(0, 1.6, 0)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 11
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+metadata/grounding_search_up = 2.5
+metadata/grounding_search_down = 2.5
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster22"]
+gi_mode = 0
+
+[node name="CoralCluster23" type="Node3D" parent="CoralClusters"]
+position = Vector3(-29, -22.6025638580322, 104)
+rotation = Vector3(0, -0.9, 0)
+scale = Vector3(0.65, 0.65, 0.65)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 3
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster23"]
+gi_mode = 0
+
+[node name="CoralCluster24" type="Node3D" parent="CoralClusters"]
+position = Vector3(-8, -11.9884557723999, 106)
+rotation = Vector3(0, 2.2, 0)
+scale = Vector3(0.65, 0.65, 0.65)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 8
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster24"]
+gi_mode = 0
+
+[node name="CoralCluster25" type="Node3D" parent="CoralClusters"]
+position = Vector3(-47, -11.9884557723999, -102)
+rotation = Vector3(0, -2.5, 0)
+scale = Vector3(0.7, 0.7, 0.7)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 1
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster25"]
+gi_mode = 0
+
+[node name="CoralCluster26" type="Node3D" parent="CoralClusters"]
+position = Vector3(106, -17.7975597381592, -69)
+rotation = Vector3(0, 0.85, 0)
+scale = Vector3(0.65, 0.65, 0.65)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 5
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster26"]
+gi_mode = 0
+
+[node name="CoralCluster27" type="Node3D" parent="CoralClusters"]
+position = Vector3(-10, -22.597562789917, -55)
+rotation = Vector3(0, 2.65, 0)
+scale = Vector3(0.7, 0.7, 0.7)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 6
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster27"]
+gi_mode = 0
+
+[node name="CoralCluster28" type="Node3D" parent="CoralClusters"]
+position = Vector3(65, -17.7975597381592, -9)
+rotation = Vector3(0, -1.3, 0)
+scale = Vector3(0.65, 0.65, 0.65)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 11
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster28"]
+gi_mode = 0
+
+[node name="CoralCluster29" type="Node3D" parent="CoralClusters"]
+position = Vector3(-12, -22.6025638580322, 6)
+rotation = Vector3(0, 0.6, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 0
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+metadata/grounding_search_up = 3.0
+metadata/grounding_search_down = 3.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster29"]
+gi_mode = 0
+
+[node name="CoralCluster30" type="Node3D" parent="CoralClusters"]
+position = Vector3(19, -22.597562789917, 6)
+rotation = Vector3(0, -0.5, 0)
+scale = Vector3(0.85, 0.85, 0.85)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 7
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+metadata/grounding_search_up = 3.0
+metadata/grounding_search_down = 3.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster30"]
+gi_mode = 0
+
+[node name="CoralCluster31" type="Node3D" parent="CoralClusters"]
+position = Vector3(-11, -22.6025638580322, -20)
+rotation = Vector3(0, 2.4, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 4
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+metadata/grounding_search_up = 3.0
+metadata/grounding_search_down = 3.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster31"]
+gi_mode = 0
+
+[node name="CoralCluster32" type="Node3D" parent="CoralClusters"]
+position = Vector3(19, -22.597562789917, -19)
+rotation = Vector3(0, -2, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+metadata/visual_only = true
+metadata/category = "coral"
+metadata/coral_definition = 2
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+metadata/grounding_search_up = 3.0
+metadata/grounding_search_down = 3.0
+
+[node name="Visual" type="MeshInstance3D" parent="CoralClusters/CoralCluster32"]
+gi_mode = 0
+
+[node name="FacilityLights" type="Node3D" parent="."]
+metadata/visual_only = true
+metadata/category = "facility_lights"
+metadata/grounding_offset = 0.01
+metadata/grounding_search_up = 3.0
+metadata/grounding_search_down = 3.0
+
+[node name="LightAssembly01" type="Node3D" parent="FacilityLights"]
+position = Vector3(-98, -17.807559967041, 72)
+metadata/visual_only = true
+metadata/category = "street_lamp_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly01" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly01"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.15
+light_specular = 0.25
+shadow_enabled = false
+omni_range = 13.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly02" type="Node3D" parent="FacilityLights"]
+position = Vector3(-98, -17.8025608062744, 18)
+rotation = Vector3(0, 1.570796, 0)
+metadata/visual_only = true
+metadata/category = "street_lamp_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly02" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly02"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.9
+light_specular = 0.2
+shadow_enabled = false
+omni_range = 12.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly03" type="Node3D" parent="FacilityLights"]
+position = Vector3(-98, -17.8025588989258, -57)
+metadata/visual_only = true
+metadata/category = "street_lamp_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly03" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly03"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.15
+light_specular = 0.25
+shadow_enabled = false
+omni_range = 13.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly04" type="Node3D" parent="FacilityLights"]
+position = Vector3(-24, -22.4025611877441, -77)
+rotation = Vector3(0, 3.141593, 0)
+metadata/visual_only = true
+metadata/category = "street_lamp_cold"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly04" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly04"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(0.35, 0.48, 0.9, 1)
+light_energy = 0.85
+light_specular = 0.2
+shadow_enabled = false
+omni_range = 12.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly05" type="Node3D" parent="FacilityLights"]
+position = Vector3(98, -17.8025588989258, -58)
+metadata/visual_only = true
+metadata/category = "street_lamp_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly05" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly05"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.15
+light_specular = 0.25
+shadow_enabled = false
+omni_range = 13.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly06" type="Node3D" parent="FacilityLights"]
+position = Vector3(98, -17.807559967041, 24)
+rotation = Vector3(0, -1.570796, 0)
+metadata/visual_only = true
+metadata/category = "street_lamp_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly06" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly06"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.9
+light_specular = 0.2
+shadow_enabled = false
+omni_range = 12.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly07" type="Node3D" parent="FacilityLights"]
+position = Vector3(68, -17.5925598144531, 91)
+metadata/visual_only = true
+metadata/category = "street_lamp_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly07" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly07"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.15
+light_specular = 0.25
+shadow_enabled = false
+omni_range = 13.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly08" type="Node3D" parent="FacilityLights"]
+position = Vector3(-28, -22.3925628662109, 77)
+metadata/visual_only = true
+metadata/category = "street_lamp_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly08" instance=ExtResource("2_street")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly08"]
+position = Vector3(1.075, 6.8, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.9
+light_specular = 0.2
+shadow_enabled = false
+omni_range = 12.0
+omni_attenuation = 1.5
+
+[node name="LightAssembly09" type="Node3D" parent="FacilityLights"]
+position = Vector3(-15, -22.6025638580322, 2)
+rotation = Vector3(0, 1.570796, 0)
+metadata/visual_only = true
+metadata/category = "deck_light_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly09" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly09"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.65
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly10" type="Node3D" parent="FacilityLights"]
+position = Vector3(22, -22.6025638580322, 2)
+rotation = Vector3(0, -1.570796, 0)
+metadata/visual_only = true
+metadata/category = "deck_light_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly10" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly10"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 0.7
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly11" type="Node3D" parent="FacilityLights"]
+position = Vector3(-12, -22.6075630187988, -23)
+metadata/visual_only = true
+metadata/category = "deck_light_cold"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly11" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly11"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(0.35, 0.48, 0.9, 1)
+light_energy = 0.6
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly12" type="Node3D" parent="FacilityLights"]
+position = Vector3(21, -22.6025638580322, -22)
+metadata/visual_only = true
+metadata/category = "deck_light_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly12" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly12"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.65
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly13" type="Node3D" parent="FacilityLights"]
+position = Vector3(-32, -22.6075630187988, 103)
+metadata/visual_only = true
+metadata/category = "deck_light_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly13" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly13"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 0.7
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly14" type="Node3D" parent="FacilityLights"]
+position = Vector3(-6, -11.9934568405151, 104)
+metadata/visual_only = true
+metadata/category = "deck_light_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly14" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly14"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.65
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly15" type="Node3D" parent="FacilityLights"]
+position = Vector3(-45, -9.16835689544678, -104)
+rotation = Vector3(0, 3.141593, 0)
+metadata/visual_only = true
+metadata/category = "deck_light_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly15" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly15"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 0.7
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly16" type="Node3D" parent="FacilityLights"]
+position = Vector3(105, -17.8025588989258, -67)
+rotation = Vector3(0, 1.570796, 0)
+metadata/visual_only = true
+metadata/category = "deck_light_cold"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly16" instance=ExtResource("3_deck")]
+
+[node name="Point" type="OmniLight3D" parent="FacilityLights/LightAssembly16"]
+position = Vector3(0, 0.14, 0.24)
+light_color = Color(0.35, 0.48, 0.9, 1)
+light_energy = 0.6
+light_specular = 0.15
+shadow_enabled = false
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="LightAssembly17" type="Node3D" parent="FacilityLights"]
+position = Vector3(-70, -18.102611541748, 71)
+rotation = Vector3(0, -0.75, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly17" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly17"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 1.2
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 10.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly18" type="Node3D" parent="FacilityLights"]
+position = Vector3(-70, -18.1026096343994, -69)
+rotation = Vector3(0, 2.4, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly18" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly18"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.25
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 10.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly19" type="Node3D" parent="FacilityLights"]
+position = Vector3(69, -17.807559967041, -68)
+rotation = Vector3(0, -2.3, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_cold"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly19" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly19"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(0.35, 0.48, 0.9, 1)
+light_energy = 1.1
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 10.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly20" type="Node3D" parent="FacilityLights"]
+position = Vector3(69, -17.8025608062744, 69)
+rotation = Vector3(0, 0.8, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "road_edge"
+
+[node name="Visual" parent="FacilityLights/LightAssembly20" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly20"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.25
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 10.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly21" type="Node3D" parent="FacilityLights"]
+position = Vector3(-14, -22.6025619506836, -55)
+rotation = Vector3(0, 0.6, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_warm"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly21" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly21"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(1, 0.58, 0.25, 1)
+light_energy = 1.0
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 8.0
+spot_attenuation = 1.5
+spot_angle = 40.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly22" type="Node3D" parent="FacilityLights"]
+position = Vector3(62, -17.8025588989258, -9)
+rotation = Vector3(0, -0.6, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "roof_terrace"
+metadata/grounding_search_up = 4.0
+metadata/grounding_search_down = 4.0
+
+[node name="Visual" parent="FacilityLights/LightAssembly22" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly22"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 0.95
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 8.0
+spot_attenuation = 1.5
+spot_angle = 40.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly23" type="Node3D" parent="FacilityLights"]
+position = Vector3(-18, -22.6075630187988, 12)
+rotation = Vector3(0, -0.9, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_cold"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly23" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly23"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(0.35, 0.48, 0.9, 1)
+light_energy = 1.0
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 9.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2
+
+[node name="LightAssembly24" type="Node3D" parent="FacilityLights"]
+position = Vector3(24, -22.6025562286377, 12)
+rotation = Vector3(0, 0.9, 0)
+metadata/visual_only = true
+metadata/category = "spotlight_cyan"
+metadata/needs_grounding = true
+metadata/grounding_surface = "base_footing"
+
+[node name="Visual" parent="FacilityLights/LightAssembly24" instance=ExtResource("4_spot")]
+
+[node name="Point" type="SpotLight3D" parent="FacilityLights/LightAssembly24"]
+position = Vector3(0, 1.0, 0.5)
+rotation = Vector3(-2.356194, 0, 0)
+light_color = Color(0.18, 0.78, 0.83, 1)
+light_energy = 1.0
+light_specular = 0.2
+shadow_enabled = false
+spot_range = 9.0
+spot_attenuation = 1.5
+spot_angle = 42.0
+spot_angle_attenuation = 1.2

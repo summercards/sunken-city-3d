@@ -17,4 +17,6 @@ static func zone_enabled(id: String) -> bool:
 	# room 是太阳房上的室内房间（SEA-ROOM），和 zone1 一起属于最小可玩循环。
 	return not minimal() or id in ["zone1", "zone2", "zone5", "sea_supply", "rooftop_ranch", "neon_garden_quarter", "room"]
 static func command_enabled(id: String) -> bool:
-	return not minimal() or id not in ["build", "dive", "lamp", "hook", "camera", "orders", "salvage", "rise", "descend"]
+	# 潜水已重新开放：下潜、头灯、上/下游都随家园海域可用。
+	# 建造、打捞、相机等仍不在最小循环范围内。
+	return not minimal() or id not in ["build", "hook", "camera", "orders", "salvage"]

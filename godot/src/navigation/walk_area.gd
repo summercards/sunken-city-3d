@@ -10,6 +10,7 @@ extends Node3D
 
 @export var area_id := ""
 @export var zone_id := ""
+@export var active := true
 @export var surface_y := 2.15
 @export var span_min := 1.3
 @export var span_max := 2.45
@@ -38,6 +39,8 @@ const GroundPath = preload("res://src/navigation/ground_path.gd")
 @export var body_radius := 0.38
 
 func outlines() -> Array:
+	if not active:
+		return []
 	var result: Array = polygons.duplicate()
 	for r: Rect2 in rects:
 		result.append(PackedVector2Array([r.position, Vector2(r.end.x, r.position.y),
@@ -201,6 +204,8 @@ func area_span() -> Vector2:
 	return Vector2(span_min, span_max)
 
 func surface_faces() -> PackedVector3Array:
+	if not active:
+		return PackedVector3Array()
 	var faces := PackedVector3Array()
 	if not surface_triangles.is_empty():
 		for p in surface_triangles: faces.append(to_global(p))

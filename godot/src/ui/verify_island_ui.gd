@@ -45,7 +45,7 @@ func same_family(font: Font) -> bool:
 	var f: Font = font
 	while f is FontVariation and (f as FontVariation).base_font != null:
 		f = (f as FontVariation).base_font
-	return f == hud._font
+	return f == (hud._font if main.is_inside_tree() else preload("res://src/ui/ui_font.gd").embedded())
 
 func inspect_fonts(node: Node) -> void:
 	if (node is Label or node is Button or node is LineEdit) and node.is_visible_in_tree():
@@ -54,7 +54,8 @@ func inspect_fonts(node: Node) -> void:
 
 func screenshot(tag: String) -> void:
 	await settle(0.32)
-	inspect_fonts(main)
+	# 潜水时 Main 已移出树，检查当前独立地图的本地 UI。
+	inspect_fonts(main if main.is_inside_tree() else current_scene)
 	if not visual: return
 	# A macOS-occluded test window may stop automatic drawing while process frames
 	# continue. Draw the real viewport explicitly so capture cannot wait forever.
@@ -262,22 +263,60 @@ func run() -> void:
 	await click(hud._dive_btn);await settle(1.5)
 	print("[island-ui] dive input: signals=",dive_clicks," message=",hud._toast.text)
 	check(dive_clicks==1,"dive click reaches original command once")
-	check(main.dive.active,"dive active")
-	main.dive.debug_teleport(Vector3(0,-10,12));await settle()
+	var session = main.dive
+	check(not session.active and session.runtime == null,"默认潜水按钮仍受入口 gate 保护")
+	# 新机制：测试显式进入独立地图，海面日志/菜单不参与水下 UI。
+	var entered: bool = session.enter_map("zone1")
+	check(entered,"显式进入 zone1 潜水地图")
+	if not entered:
+		main.queue_free()
+		await frames()
+		quit(1)
+		return
+	var uw = session.runtime
+	var map_hud: CanvasLayer
+	for child in uw.get_children():
+		if child.get_script() == preload("res://src/diving/dive_map_hud.gd"): map_hud = child
+	check(map_hud != null,"独立地图 HUD 存在")
+	check(current_scene == uw and uw.get_parent() == root and not main.is_inside_tree(),"真实切图使海面日志和菜单移出树")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	uw.debug_teleport(Vector3(0,-10,12));await settle()
+	var status: Dictionary = map_hud.presentation_snapshot()
+	check(map_hud._status.is_visible_in_tree() and status.text.contains(uw.map_label),"新机制本地状态栏替代 B 键日志")
+	check(is_equal_approx(status.oxygen,uw.air.ratio()) and is_equal_approx(status.depth,uw.depth),"本地状态栏消费 runtime 氧气与深度")
 	await key(KEY_ESCAPE)
-	check(menu.active and paused and main.dive.active,"underwater Esc pauses instead of surfacing")
-	var air_before: float=main.dive.air.ratio();await settle(0.4)
-	check(is_equal_approx(air_before,main.dive.air.ratio()),"pause stops oxygen drain")
+	check(paused and map_hud.presentation_snapshot().menu_open and session.active and uw.phase == "swim","Esc 打开独立暂停菜单，不上浮")
+	check(inside(map_hud._menu) and map_hud.menu_buttons.resume.has_focus(),"独立暂停菜单适配视口且默认继续探索")
+	var air_before: float = uw.air.ratio()
+	var pos_before: Vector3 = uw.diver_pos
+	await settle(0.4)
+	check(is_equal_approx(air_before,uw.air.ratio()) and uw.diver_pos == pos_before,"独立暂停停止氧气消耗与游动")
 	await screenshot("23_underwater_pause")
 	await key(KEY_ESCAPE)
-	await key(KEY_B);await settle()
-	var drain: float=main.dive.air.drain_rate(main.dive.depth,false,false)
-	main.dive.air.update((main.dive.air.ratio()-0.12)*main.dive.air.MAX/drain,main.dive.depth,false,false);main.dive._emit_air()
-	await screenshot("24_underwater_log")
-	check(hud._air_ratio<=0.15,"low oxygen real signal")
+	check(not paused and not map_hud.presentation_snapshot().menu_open and uw.phase == "swim","再次 Esc 恢复探索而非上浮")
+	await settle(0.2)
+	check(uw.air.ratio() < air_before,"解除暂停后氧气继续消耗")
+	var drain: float = uw.air.drain_rate(uw.depth,false,false)
+	uw.air.update((uw.air.ratio()-0.25)*uw.air.MAX/drain,uw.depth,false,false);uw._emit_air()
+	await frames(2)
+	status = map_hud.presentation_snapshot()
+	check(status.oxygen > 0.15 and status.oxygen <= 0.30 and status.color == Color("#E08B4A") and status.text.contains("氧气偏低"),"真实氧气驱动本地橙色低氧告警")
+	uw.air.update((uw.air.ratio()-0.12)*uw.air.MAX/drain,uw.depth,false,false);uw._emit_air()
+	await frames(2)
+	status = map_hud.presentation_snapshot()
+	check(status.oxygen > 0.0 and status.oxygen <= 0.15 and status.color == Color("#D4573F") and status.text.contains("氧气危急"),"真实氧气驱动本地红色危急告警")
+	check(is_equal_approx(status.oxygen,uw.air.ratio()) and is_equal_approx(status.depth,uw.depth),"低氧状态栏仍消费真实氧气和深度")
+	await screenshot("24_underwater_status")
 	await key(KEY_ESCAPE)
-	check(not hud._panel_open and main.dive.active,"Esc log preserves dive")
-	main.dive._finish_exit();await frames()
+	check(paused and map_hud.presentation_snapshot().menu_open and uw.phase == "swim","低氧时 Esc 仍只打开本地暂停菜单")
+	await click(map_hud.menu_buttons.surface)
+	check(not paused and uw.phase == "exit","暂停菜单上浮解除暂停并进入退出阶段")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await frames()
+	check(main.is_inside_tree() and current_scene == main and root.get_camera_3d() == main.cam,"上浮返回原 Main 与海面相机")
+	check(main.dive == session and not session.active and session.runtime == null,"稳定会话已回收 runtime")
+	check(not is_instance_valid(uw) and not is_instance_valid(map_hud),"旧 runtime 与本地 HUD 已销毁")
+	check(not paused,"上浮不遗留暂停")
 	for extent in [Vector2i(1280,800),Vector2i(1920,1080)]:
 		if visual: root.size=extent
 		await frames(6)

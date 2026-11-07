@@ -83,7 +83,6 @@ func sample(actor, delta: float) -> void:
 	var bend := 0.30 * _ease(p,0.0,0.15) * (1.0-_ease(p,0.16,0.39))
 	var lift := _ease(p,0.16,0.44)
 	var tuck := _ease(p,0.62,0.82)
-	var settle := _ease(p,0.90,1.0)
 	if p >= 0.16:
 		center = reach.lerp(overhead,lift)
 		# Carry the object around the front of the head, rather than through it.
@@ -97,31 +96,10 @@ func sample(actor, delta: float) -> void:
 	actor.body_pivot.position.y = sin(lift*PI)*0.025*s
 	actor.head_pivot.rotation.x = -0.12*lift*(1.0-tuck)
 	actor.head_pivot.rotation.z = 0.05*sin(tuck*PI)
-	# Raise the shoulders slightly and allow stylized sleeve extension; solve
-	# both wrists against the produce, rather than making it float above hands.
-	var shoulders := lift*(1.0-settle)
-	actor.left_arm.position = actor.avatar_shoulder(-1)+Vector3(-0.015,0,0)*shoulders*s
-	actor.right_arm.position = actor.avatar_shoulder(1)+Vector3(0.015,0,0)*shoulders*s
-	# The wide reference head needs the raised arms to arc in front of the
-	# cheeks. Wrists still support the item's front/lower corners.
-	var front_clearance: float=actor.avatar_arm_front_clearance()*lift*(1.0-tuck)
-	var left := center + Vector3(-0.16*s,-0.16*s,front_clearance)
-	var right := center + Vector3(0.16*s,-0.16*s,front_clearance)
-	if p>=0.60:
-		# Release the left hand before the item crosses toward the right bag.
-		# Its independent outward/front arc cannot follow the item through belly.
-		var retreat:=_ease(p,0.60,0.82)
-		var release_front: float=actor.avatar_arm_front_clearance()
-		left=(overhead+Vector3(-0.16*s,-0.16*s,release_front)).lerp(actor.avatar_rest_hand(-1),retreat)
-		left.x-=sin(retreat*PI)*0.17*s
-		left.z+=sin(retreat*PI)*0.10*s
-	right = right.lerp(mouth+Vector3(0.035,-0.04,0.02)*s,tuck)
-	left = actor.avatar_rest_hand(-1).lerp(left,_ease(p,0.0,0.14))
-	right = actor.avatar_rest_hand(1).lerp(right,_ease(p,0.0,0.14))
-	left = left.lerp(actor.avatar_rest_hand(-1),settle)
-	right = right.lerp(actor.avatar_rest_hand(1),settle)
-	_pose_arm(actor.left_arm,actor.left_elbow,left,-1.0)
-	_pose_arm(actor.right_arm,actor.right_elbow,right,1.0)
+	# The produce follows its own display arc. Hands only suggest taking,
+	# celebrating and putting away; never extend a limb to follow the prop.
+	_pose_gesture(actor,actor.left_arm,actor.left_elbow,-1,p,lift)
+	_pose_gesture(actor,actor.right_arm,actor.right_elbow,1,p,lift)
 	if is_instance_valid(prop):
 		prop.visible = p >= 0.13 and p < 0.92
 		prop.position = center
@@ -133,26 +111,20 @@ func sample(actor, delta: float) -> void:
 func _ease(p: float, from: float, to: float) -> float:
 	return smoothstep(from,to,p)
 
-func _pose_arm(arm: Node3D, elbow: Node3D, hand: Vector3, side: float) -> void:
-	var offset := hand-arm.position
-	var distance := maxf(offset.length(),0.001)
-	var k:=Dimensions.SCALE
-	var clearance:=smoothstep(0.72*k,1.10*k,hand.y)
-	var stretch := maxf(1.0,distance/((Dimensions.UPPER_ARM+Dimensions.LOWER_ARM)*lerpf(1.0,0.72,clearance)))
-	var upper := Dimensions.UPPER_ARM*stretch
-	var lower := Dimensions.LOWER_ARM*stretch
-	var direction := offset/distance
-	var axis := Vector3(side*0.85,-1.0,1.0)
-	var bend := (axis-direction*axis.dot(direction)).normalized()
-	var along := clampf((distance*distance+upper*upper-lower*lower)/(2.0*distance),0.0,upper)
-	var joint := arm.position+direction*along+bend*sqrt(maxf(0.0,upper*upper-along*along))
-	set_arm_length(arm,elbow,stretch)
-	arm.quaternion = Quaternion(Vector3.DOWN,(joint-arm.position).normalized())
-	elbow.quaternion = Quaternion(Vector3.DOWN,(arm.basis.inverse()*(hand-joint)).normalized())
+func _pose_gesture(actor, arm: Node3D, elbow: Node3D, side: int, p: float, lift: float) -> void:
+	var rest: float = actor._avatar_factors.arm_rest
+	var reach := _ease(p,0.0,0.14)
+	var release := _ease(p,0.60,0.88) if side < 0 else _ease(p,0.66,1.0)
+	var gesture := reach*(1.0-release)
+	arm.position = actor.avatar_shoulder(side)
+	set_arm_length(arm,elbow,float(actor._avatar_factors.arm_length))
+	# Bend forward about the elbow's existing local hinge and keep the arms
+	# outside the shirt, below the cheeks. The right hand settles slightly later.
+	arm.rotation = Vector3(-lerpf(0.40,0.95,lift)*gesture,0,side*(rest+0.12*gesture))
+	elbow.rotation = Vector3(-lerpf(0.75,1.05,lift)*gesture,0,side*actor.Morphology.REST_ELBOW_OUT)
 
-static func set_arm_length(_arm: Node3D, elbow: Node3D, stretch: float) -> void:
-	# Pose controls only. Skeleton helper bones stretch the continuous mesh
-	# along its length; the next joint never inherits width scale or shear.
-	elbow.position.y=-Dimensions.UPPER_ARM*stretch
+static func set_arm_length(_arm: Node3D, elbow: Node3D, length_scale: float) -> void:
+	# Only the avatar's authored body proportions determine segment lengths.
+	elbow.position.y=-Dimensions.UPPER_ARM*length_scale
 	var hand: Node3D=elbow.get_node("Hand")
-	hand.position.y=-Dimensions.LOWER_ARM*stretch
+	hand.position.y=-Dimensions.LOWER_ARM*length_scale

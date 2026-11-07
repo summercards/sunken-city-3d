@@ -90,7 +90,21 @@ const WALK_PHASE_RATE := 6.4
 const WALK_PHASE_FLOOR := 0.35
 var walk_speed_ratio := 0.0
 var _walk_phase := 0.0
+var _sprinting := false
+var _run_blend := 0.0
+const RUN_BLEND_TAU := 0.12
+## 地速已经带来12%步频；短步再补足到约15%，而不是重复乘15%。
+const JOG_PHASE_MULTIPLIER := 1.15 / 1.12
 
+func set_sprinting(on: bool) -> void:
+	# _action 要到表现帧才更新，起步只看已提交的基础动作，不能丢首帧。
+	var can_jog := _walking and _base_action == "walking" and _action_playback.capture().is_empty()
+	_sprinting = on and can_jog
+	if not can_jog:
+		_run_blend = 0.0
+
+func sprinting() -> bool: return _sprinting
+func run_blend() -> float: return _run_blend
 func walk_phase() -> float: return _walk_phase
 
 func play_farm_action(event: String, payload: Dictionary = {}) -> void:
@@ -102,7 +116,15 @@ func play_receive_item(crop_id: String) -> int:
 	return play_action("harvesting",{"crop":crop_id})
 
 var _walking := false
+var _climbing := false
 
+func set_climbing(on: bool) -> void:
+	_climbing = on
+	if on:
+		_base_action = "walking"
+		cancel_action("climbing")
+	elif _base_action == "walking" and not _walking:
+		_base_action = "idle"
 
 func build() -> void:
 	var sphere := SphereMesh.new()
@@ -211,24 +233,30 @@ func set_walking(on: bool) -> void:
 	if on:
 		_base_action="walking"
 		cancel_action("walking")
-	elif _base_action=="walking": _base_action="idle"
+	else:
+		if _base_action=="walking": _base_action="idle"
+		set_sprinting(false)
 
 func set_rowing(on: bool) -> void:
 	_rowing=on
 	if on:
 		_base_action="rowing"
+		set_sprinting(false)
 		cancel_action("rowing")
 	elif _base_action=="rowing" and not _boat_seated: _base_action="idle"
 
 func set_boat_seated(on: bool) -> void:
 	var leaving_seat := _boat_seated and not on
 	_boat_seated=on
-	if on: _base_action="rowing"
+	if on:
+		_base_action="rowing"
+		set_sprinting(false)
 	elif _base_action=="rowing": _base_action="idle"
 	if leaving_seat: _reset_action_pose()
 
 func set_diving(on: bool) -> void:
 	_base_action = "swimming" if on else "idle"
+	set_sprinting(false)
 	cancel_action("diving" if on else "restore")
 	if gear:
 		gear.visible = on
@@ -245,6 +273,7 @@ var _actions := {
 	"swimming":preload("res://src/player/animation/swimming_action.gd").new(),
 	"idle":preload("res://src/player/animation/idle_action.gd").new(),
 	"walking":preload("res://src/player/animation/walking_action.gd").new(),
+	"climbing":preload("res://src/player/animation/climbing_action.gd").new(),
 	"rowing":preload("res://src/player/animation/rowing_action.gd").new(),
 	"planting":preload("res://src/player/animation/planting_action.gd").new(),
 	"watering":preload("res://src/player/animation/watering_action.gd").new(),
@@ -278,6 +307,7 @@ func play_action(action_id: String, context: Dictionary = {}) -> int:
 	if action_id == "harvesting" and not _item_receive.Produce.supports(str(context.get("crop","lettuce"))): return 0
 	var result: Dictionary = _action_playback.start(action_id, float(_action_durations[action_id]))
 	if result.is_empty(): return 0
+	set_sprinting(false)
 	_item_receive.clear()
 	_reset_action_pose()
 	if action_id == "harvesting": _item_receive.prepare(self,str(context.get("crop","lettuce")))
@@ -351,9 +381,16 @@ func _process(delta: float) -> void:
 		_last_action = _action
 	# 步频只在本帧真的在走路时推进；其余状态冻结相位，切回走路时从脚下开始。
 	if _action == "walking":
-		_walk_phase = fmod(_walk_phase + delta * WALK_PHASE_RATE * maxf(WALK_PHASE_FLOOR, walk_speed_ratio), TAU)
+		var target_blend := 1.0 if _sprinting and walk_speed_ratio > 0.001 else 0.0
+		_run_blend = lerpf(_run_blend, target_blend, 1.0 - exp(-delta / RUN_BLEND_TAU))
+		if walk_speed_ratio > 0.001:
+			var phase_rate := WALK_PHASE_RATE * maxf(WALK_PHASE_FLOOR, walk_speed_ratio)
+			phase_rate *= lerpf(1.0, JOG_PHASE_MULTIPLIER, _run_blend)
+			_walk_phase = fmod(_walk_phase + delta * phase_rate, TAU)
 	else:
 		_walk_phase = 0.0
+		_sprinting = false
+		_run_blend = 0.0
 	_actions[_action].sample(self,delta)
 	var visible_progress:=action_progress()
 	if not playback.is_empty(): visible_progress=clampf((float(playback.elapsed)+delta)/float(playback.duration),0.0,1.0)

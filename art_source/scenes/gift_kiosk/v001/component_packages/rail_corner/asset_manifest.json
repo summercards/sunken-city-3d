@@ -1,0 +1,58 @@
+{
+  "key": "rail_corner",
+  "name": "圆弧黄色转角栏",
+  "family": "rail",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-RAIL-CORNER",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-RAIL-CORNER",
+  "design_pivot": [
+    0.8296093940734863,
+    -0.8296093940734863,
+    -0.11500000208616257
+  ],
+  "bounds_min": [
+    -0.8352520745247602,
+    -0.8352520745247602,
+    0
+  ],
+  "bounds_size": [
+    1.670504093170166,
+    1.670504093170166,
+    0.23000000417232513
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_corner/rail_corner.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 1,
+  "instances": 4,
+  "triangles": 404,
+  "polygons": 194,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "a036164d70c6d3be18a8e180a398bf08058aab5572b4120f4ea250e0f5f3ba0f",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-RAIL-CORNER",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/rail_corner/rail_corner.glb",
+  "runtime_sha256": "09f11b8981bc27891f7ba3bb76915a91a7e051fce513ce0052db18662eb5f342",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/rail_corner.tscn",
+  "prefab_sha256": "3d2680087c763c8a3e28647354c8da74340ee5d64659c7e44a31c309d28970f8",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 404,
+  "triangles_after": 404,
+  "geometry_fingerprint": "ee0d01ae7e44df47237a9c13745b0c4f7a656a3c60b0d7e886328cd150197c0d"
+}

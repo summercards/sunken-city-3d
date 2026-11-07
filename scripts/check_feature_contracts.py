@@ -241,7 +241,10 @@ def check(sync=False):
     for table in json.loads((ROOT / index['content_index']).read_text())['tables']:
         data = json.loads((ROOT / table['path']).read_text())
         values = data[table['collection_key']] if table['collection_key'] else data
-        ids = [str(x['id']) for x in values if 'id' in x]
+        primary_key = table.get('primary_key', 'id')
+        valid_rows = isinstance(primary_key, str) and bool(primary_key) and isinstance(values, list) and all(isinstance(x, dict) and primary_key in x for x in values)
+        require(valid_rows, 'content missing primary key ' + str(primary_key) + ': ' + table['path'])
+        ids = [str(x[primary_key]) for x in values] if valid_rows else []
         require(ids == table['ids'] and len(ids) == len(set(ids)), 'content ID drift/duplicate ' + table['path'])
         require(table['owner'] in {r['feature_id'] for r in rows}, 'unknown content owner')
     target = ROOT / 'docs/generated/feature_index.json'

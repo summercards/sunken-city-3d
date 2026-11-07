@@ -338,3 +338,44 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 | SEA-ASSET-R54 | `ocean_building_kit/v002` 独立登记平台、实墙、窗墙、门墙、柱、梁、栏杆、楼梯、斜屋顶和平顶十件，配方唯一入口为 `godot/assets/data/building_kit_5m.json`，稳定 AssetID 为 `SEA-KIT-PLATFORM-5X5`、`SEA-KIT-WALL-5M`、`SEA-KIT-WINDOW-WALL-5M`、`SEA-KIT-DOOR-FRAME-5M`、`SEA-KIT-POST-5M`、`SEA-KIT-BEAM-5M`、`SEA-KIT-RAILING-5M`、`SEA-KIT-STAIRS-5M`、`SEA-KIT-ROOF-SLOPE-5X5`、`SEA-KIT-ROOF-FLAT-5X5`。五米模数与精确层高 5.086335 米为本批明确例外；楼梯 27 级、宽 1.5 米，门净洞 1.85×3.1 米，平台以表面中心为原点、其余底心，源米制 1:1，不靠整件非均匀缩放。每件组件源包、GLB `godot/assets/models/building_kit/<id>/<id>.glb` 与 PackedScene `godot/scenes/buildables/kit/<id>.tscn` 分列；归水上功能建筑，实际碰撞/通行由既有建造空间投影拥有，纯视觉 GLB 不重复带阻挡。源重开、PaletteUV、GLB 无内嵌图静态通过仅允许 `stage=source_verified_runtime_final_pending`；最终 Godot 真实运行、通行、UI 与渲染必须由主agent实测并绑定当前文件哈希后独立晋升，不以登记冒充 verified。 |
 
 登记入口为 `tools/register_building_5m.py`，默认只读预检，显式 `--write` 才写入；账本路径从 `ledger_index.json` 解析，来源索引逐字段投影账本现存哈希，不重算其他源。运行清单仅新增十件模型/预制体/新目录、迁移四个建筑 UI 脚本到 `godot/src/building/ui/` 并保留原 `.uid` 与 asset 关联、登记 `building_view`/`building_progress_presenter`，代码哈希严格限定已审阅 building 白名单；main 等并行变更和未知漂移不得顺手接纳。v001 与旧配方原样保留。开发记录由主agent维护于 `docs/development/2026-11-06_building_5m_and_ui.md`。
+
+## 2026-11-07 参考图海上礼品商亭
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R55 | 活跃Blender MCP制作 gift_kiosk/v001：圆角方形甲板/商亭、蓝白圆垂雨棚、三种立体招牌和全部固定配件；47独立组件，结构/陈设/植物分集合，共享既有明亮cozy色板、唯一PaletteUV和四材质角色，饱满3段真实倒角。每组件源包可直接打开，独立优化源重开再导出稳定GLB/PackedScene；浅浮筒和推进器保留参考外观，无水下建筑基座。正式商店沿用sea_supply，旧模型与用户变换保留为旧驿站景观。源、优化、运行、真实渲染、商业参考权属与用户美术验收分列。 |
+
+## 2026-11-07 NPC、住所、花卉资产与内容登记
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R56 | NPC 表现归 characters：`npc_actor.gd` 复用现有 Character/AvatarRig，`npc_accessories.gd` 为七职业各两件配件的正式 Godot 程序源。共用装配、配件库及七职业变体分别登记唯一 AssetID/SourceID，允许同一 source 路径服务多条资产，manifest 回链唯一分账本；外观配置只引用 `npcs.json` 的稳定 ID，不复制外观主表，不覆盖 appearance 所有者的 art_source JSON。 |
+| SEA-ASSET-R57 | 住所归 scenes：`resident_harbor` 总装、七独立 house、共用 shell 与 wood/linen/teal 材质分别登记；真实制作源为 `godot/src/residence/author_scenes.py` 与原生 TSCN/TRES，复用已有 5m Kit，不伪造 Blender 源或新增 GLB。港口/房屋/shell 为 above_water，材质非建筑；只在 apply_water_layer 追加本批精确规则。三花归 crops，以 `flower_view.gd` 和三个 flower TSCN 为正式源与变体，保留四阶段节点，不复制前三种作物记录；作物资产合计六种。 |
+| SEA-ASSET-R58 | content_index 定点对齐实际8个新增 item、六作物、NPC roster/events/requests/dialogues、residences 与 shops；不复制规则数值。dialogues 主键 npc_id 不伪装成 id：保留 primary_ids 并标注现检查器只支持 id 的 pending 限制。运行清单仅签本轮新增文件与逐项审阅的库存/作物白名单；Main、混合并行 save 及水/鱼/浮店等未知漂移保留原哈希。登记工具默认只读、--write 显式写入并做并发快照守卫；源索引仅从全部既有记录投影，不重算未触源。源登记不等于运行、视觉或商业参考授权通过。 |
+
+
+## 2026-11-07 礼品商亭室内陈设扩展
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R57 | 商亭增加独立gift_kiosk_interior/v001室内陈设套件：三种PaletteUV配色地砖、圆角L柜台、独立收银机、陈列桌、坐凳、包装柜、海岸主题装饰画、挂钟与壁灯，共11组件；复用原礼品/瓶/卡片/花盆/植物。蓝白地砖以暖黄点缀，真实3段倒角、原cozy公共色板及四材质角色；原47件外观源及运行GLB保持。每件源包能直接打开，另存优化源重开后导出稳定GLB/PackedScene，独立验收UV/优化/保真/运行和实景，不以修改Godot原生几何代替Blender制作。 |
+
+## 2026-11-07 阳光房独立水下区域原生总成登记
+
+既有两条R57作为历史保留，不覆盖或重新编号；本轮接最大R58之后。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R59 | SEA-SCENE-SUNROOM-UNDERWATER-REGION经ledger_index路由scenes唯一登记，manifest回链总成并记录ecology；source_paths为2份TSCN、2份GDScript与水面/局部灯2份shader共6文件，无新blend/优化blend/GLB。旧城50组件388实例、海床、基座、鱼/灯仅复用既有资源，不重复登记、不更新旧源hash；reef12原株/32簇来自旧web baked几何提取，不称新Blender模型。最终67/0运行、89/0真实渲染均exit0/PASS，只签独立场景。父线程以--evidence最终report --write定向写入总成、唯一manifest、source index及分类规则，并仅补六新runtime，building_views未重建。当前50城市组件GLB哈希与旧v005导出50/50一致、source50/50一致、optimized文件50/50存在；未重开，完整优化复用签署/02b、源级完整审阅、原始来源、性能、商业权属和用户美术验收仍pending，不借哈希一致代签。阶段standalone_runtime_verified_provenance_and_production_pending，production_route_integrated=false；原9来源/默认屏蔽不变，全局sync/check待父线程补填，不冒称全工程通过。 |
+
+[最终登记、证据与未验边界](../../development/2026-11-07_sunroom_underwater_region.md)。
+
+## 2026-11-07 阳光房水下 r2 局部美术与碰撞复用边界（已独立验收，产品未接入）
+
+条款沿用R60，追加前最大R59及历史重复R57不重编号，不新增重复AssetID。初填pending为历史时点，当前运行证据与尚待登记分开管理。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R60 | 沿用唯一SEA-SCENE-SUNROOM-UNDERWATER-REGION，父线程正在执行v002定向登记，仅4个JSON目标、15源/17runtime（含2tests），backup/回滚与old history保留；实际写成功/退出码/事务目录待父线程回填，不借专项通过宣称登记成功。总源15文件=原6＋atmosphere相关3（场景/脚本/collision）＋palette/beam/particles/sky/fog/color include六文件；均为本区域原生实现，不伪造Blend/优化源/GLB，不重复登记旧组件。runtime禁用环境雾，以opaque WaterFogPass priority-128及sunroom_underwater_color统一6..110/curve1.3与worldXZ448..500 fade，透明自雾、beam16steps/density基值0.085/soft cap0.23，不回写共享材质；精确碰撞758proxy/85uniqueMeshes/3115351instanceTriangles，physicsrun缓存99/visual158（同精确Basis key因启动浮点拆分而不同，各角色数量/assemblies/triangles一致），50城市源GLB不动。原9图/旧城/base/海床/原GLB共70保护项由父线程在最终核对，未回填前不签全量哈希保护完成；本任务不改Main。Main 可能被并行修改，不要求 Main 字节不变。toplevel/位置/范围/深度保持，production_route_integrated=false。最终232826-signed五入口78/0、264/0、118/0、dive-maps302/0、modules31/0，总793/0全PASS/exit0无unexpected，新区域460/0、回归333/0；运行final已签署。local env/sky/material均resource_local_to_scene，远角像素max0.0078431517/0.0039215982/0.0039215982<0.025、射光开关lit_samples5365>150，不止计数；定向登记实际写入与sync/check真实输出由父线程补。setup1834.253ms/load256.285ms为单次记录，不签FPS；低端/连续performance、rights/user acceptance/完整02b与production仍pending。 |
+
+[最终运行证据、15源/17runtime、定向登记与静态门禁回填](../../development/2026-11-07_sunroom_underwater_art_r2.md)。

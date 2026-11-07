@@ -1,0 +1,42 @@
+{
+  "asset_id": "SEA-CHAR-NPC-LUO-YAN",
+  "source_id": "SRC-SEA-CHAR-NPC-LUO-YAN",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-NPC-LUO-YAN",
+  "source": "godot/src/npc/npc_actor.gd",
+  "source_sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3",
+  "version": "v001",
+  "source_type": "project_authored_native_Godot_source_no_Blender_or_GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/npc/npc_actor.gd",
+      "sha256": "5dfd66a33a982eb47b4d3a5d0c9b92b9d06a7cd919d053197dc6d0381f5604c3"
+    },
+    {
+      "path": "godot/src/npc/npc_accessories.gd",
+      "sha256": "375d991bf9cf5c5a50655f991017bffab74361bc719ba11c8152a989724925a9"
+    }
+  ],
+  "validation": {
+    "source": "registered_and_hash_checked",
+    "runtime": "pending",
+    "visual": "pending",
+    "user_art_acceptance": "pending"
+  },
+  "verification": "docs/features/asset/ledger.md#2026-11-07-npc住所花卉资产与内容登记",
+  "reference_commercial_rights": "not_granted_by_this_registration",
+  "content_selector": {
+    "path": "godot/assets/data/npc/npcs.json",
+    "collection": "npcs",
+    "id": "npc_luo_yan"
+  },
+  "accessory_parts": [
+    "RopeCoil",
+    "RouteClasp"
+  ],
+  "reused_asset_ids": [
+    "SEA-CHAR-NPC-ACTOR-001",
+    "SEA-CHAR-NPC-ACCESSORIES-001",
+    "SEA-CHAR-AVATAR-001",
+    "SEA-CHAR-RIG-001"
+  ]
+}

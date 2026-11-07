@@ -73,7 +73,7 @@ func run() -> void:
 	check(grade._sun == sun, "面板解析到的是 Sun，不是补光")
 	# 30 项环境+太阳，7 项天空盒。天空盒是这一轮补的：玩家抬头看到的那层
 	# 以前在面板里根本没有入口。
-	check(grade._light_widgets.size() == 37, "光照页控件数 37（实际 %d）" % grade._light_widgets.size())
+	check(grade._light_widgets.size() == 38, "光照页控件数 38（实际 %d）" % grade._light_widgets.size())
 	check(grade._slot == "morning", "打开面板站在当前时段「上午」（实际 %s）" % grade._slot)
 
 	# ---- 1. 滑杆 → 引擎对象 ---------------------------------------------------

@@ -1,0 +1,225 @@
+{
+  "date": "2026-11-08",
+  "feature": "SEA-MOVE",
+  "requirements": [
+    "SEA-MOVE-R14",
+    "SEA-MOVE-R17",
+    "SEA-MOVE-R28"
+  ],
+  "runs": {
+    "20261108-032857-harvest-gesture-0a4892": {
+      "report": "D:\\projects\\sea-work\\verification\\20261108-032857-harvest-gesture-0a4892\\report.json",
+      "results": {
+        "actor-presentation": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-032857-harvest-gesture-0a4892\\actor-presentation.log",
+          "renderer": "headless"
+        },
+        "harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-032857-harvest-gesture-0a4892\\harvest-receive.log",
+          "renderer": "headless"
+        },
+        "avatar-customization": {
+          "exit_code": 124,
+          "passed": false,
+          "completion_marker": false,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-032857-harvest-gesture-0a4892\\avatar-customization.log",
+          "renderer": "headless"
+        },
+        "avatar-skinning": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-032857-harvest-gesture-0a4892\\avatar-skinning.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    "20261108-033358-harvest-gesture-final-e9b3b0": {
+      "report": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\report.json",
+      "results": {
+        "visual-harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\visual-harvest-receive.log",
+          "renderer": "real"
+        },
+        "character-space-save": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\character-space-save.log",
+          "renderer": "headless"
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\save-seed.log",
+          "renderer": "headless"
+        },
+        "framework-integration": {
+          "exit_code": 1,
+          "passed": false,
+          "completion_marker": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL interaction opens action bubbles without planting"
+          ],
+          "failure_labels": [
+            "interaction opens action bubbles without planting"
+          ],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\framework-integration.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    "20261108-033430-harvest-avatar-final-0e097b": {
+      "report": "D:\\projects\\sea-work\\verification\\20261108-033430-harvest-avatar-final-0e097b\\report.json",
+      "results": {
+        "avatar-customization": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033430-harvest-avatar-final-0e097b\\avatar-customization.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    "20261108-033751-harvest-gesture-baseline-d22e68": {
+      "report": "D:\\projects\\sea-work\\verification\\20261108-033751-harvest-gesture-baseline-d22e68\\report.json",
+      "results": {
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "completion_marker": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "failure_labels": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033751-harvest-gesture-baseline-d22e68\\save-seed.log",
+          "renderer": "headless"
+        },
+        "framework-integration": {
+          "exit_code": 1,
+          "passed": false,
+          "completion_marker": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL interaction opens action bubbles without planting"
+          ],
+          "failure_labels": [
+            "interaction opens action bubbles without planting"
+          ],
+          "log": "D:\\projects\\sea-work\\verification\\20261108-033751-harvest-gesture-baseline-d22e68\\framework-integration.log",
+          "renderer": "headless"
+        }
+      }
+    }
+  },
+  "production_matches_tested_snapshot": {
+    "src/player/animation/item_receive.gd": true,
+    "tests/test_harvest_receive.gd": true
+  },
+  "baseline_control": {
+    "snapshot": "D:\\projects\\sea-work\\verification\\20261108-033358-harvest-gesture-final-e9b3b0\\project",
+    "only_restored_file": "src/player/animation/item_receive.gd",
+    "restored_sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d",
+    "standard_runner": "D:\\projects\\sea\\scripts\\run_verification.py",
+    "note": "All other source, scenes and test files copied from the same final snapshot."
+  },
+  "gates": {
+    "feature-sync": {
+      "command": [
+        "python",
+        "scripts/check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\verification\\20261108-harvest-gesture-gates\\feature-sync.log"
+    },
+    "feature-check": {
+      "command": [
+        "python",
+        "scripts/check_feature_contracts.py"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\verification\\20261108-harvest-gesture-gates\\feature-check.log"
+    },
+    "placed-positions": {
+      "command": [
+        "python",
+        "scripts/check_placed_positions.py"
+      ],
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\verification\\20261108-harvest-gesture-gates\\placed-positions.log"
+    },
+    "diff-check": {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "godot/src/player/animation/item_receive.gd",
+        "godot/tests/test_harvest_receive.gd",
+        "docs/features/move/spec.md",
+        "docs/features/move/ledger.md",
+        "docs/character-visuals.md",
+        "assets/registry/manifests/sea-char-receive-001.json"
+      ],
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\verification\\20261108-harvest-gesture-gates\\diff-check.log"
+    }
+  },
+  "preview": "D:/projects/sea-work/previews/harvest-gesture-20261108.gif",
+  "visual_review": {
+    "native_screenshots": 12,
+    "continuous_frames": 96,
+    "reviewed": [
+      "receive-pumpkin-overhead.png",
+      "receive-pumpkin-tuck.png",
+      "receive-clip/0028.png"
+    ],
+    "finding": "fixed arm length with a chest-level gesture; produce displays and enters satchel independently"
+  },
+  "expected_faults": [
+    "inventory full refusal",
+    "unsupported crop refusal",
+    "explicit action cancellation/replacement"
+  ],
+  "not_run": [
+    "touch and gamepad",
+    "low-end device performance",
+    "exhaustive appearance combinations",
+    "other obtain-item business entry points"
+  ]
+}

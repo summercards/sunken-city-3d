@@ -18,6 +18,11 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "shift-jog",
+    "visual-shift-jog",
+    "facing-interaction",
+    "visual-facing-interaction",
+    "gift-kiosk",
     "interaction-reach",
     "control-feel",
     "keyboard-control",
@@ -58,7 +63,7 @@
 | SEA-MOVE-R11 | 正式角色已接胶囊扫掠及唯一物理帧驱动，岸/船/潜水碰撞启停；保留原速度和转向 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
 | SEA-MOVE-R12 | 正式区块接GroundSpace，现有布局派生地板/边界/导航；三维表面及上下坡控制器专项通过 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
 | SEA-MOVE-R13 | 独立动作生命周期、token及注册/播放/取消接口；播种/浇水1.1秒，收获按R14更新 | [框架实测](../../development/2026-10-29_character_physics_framework.md)；[当前收获实测](../../development/2026-10-30_harvest_receive_animation.md) |
-| SEA-MOVE-R14 | 已实现；三种实物、帽上停留、双手支撑、包盖/收物、真实鼠标只触发一次及7类中断通过；30/60/120FPS及长帧清理通过 | `harvest-receive`、`visual-harvest-receive`；[本轮交付与原生渲染](../../development/2026-10-30_harvest_receive_animation.md) |
+| SEA-MOVE-R14 | 已按R28将双手支撑改为固定臂长的胸前示意；保留三种实物、帽上停留、包盖/收物、真实鼠标只触发一次及7类中断；30/60/120FPS及长帧清理通过 | `harvest-receive`、`visual-harvest-receive`；[当前修正与实测](../../development/2026-11-08_harvest_gesture.md)；[最初交付历史](../../development/2026-10-30_harvest_receive_animation.md) |
 
 ## 资源与调用入口
 
@@ -213,3 +218,26 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | SEA-MOVE-R24 | 已实现；`_key_intent_is_toward_shore()` 用「朝向登陆点 ±76°」或「1.4 米探针撞岸」判意图，命中即 `_step_ashore()` 并进 0.35 s 冷却；朝水面按方向键仍是划船 | `interaction-reach`（朝岸=下船、沿岸不算、朝水面照旧划走）、`keyboard-control`、`control-feel` 复跑通过 |
 
 2026-11-06 既有SEA-MOVE-R12/R15实施补记：`godot/src/navigation/ground_space.gd`已修复建筑坡脚sharedpoint及胶囊接触法线，修复4.7cm stuck；签署补充报告确认`ground-space`37/0，不放宽WalkAction。正式报告为`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`及对应日志。不新增需求ID，GroundSpace派生碰撞/导航所有权不变，building只登记适配依赖、不拥有导航或第二份布局。[建筑开发记录](../../development/2026-11-06_building_5m_and_ui.md)。
+
+
+## 2026-11-07 移动浮台承载角色
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-MOVE-R25 | ActorController唯一承载、CharacterMotor显式移动支撑；路径/目标同步，离船清理，跨浮动相位读档重新贴合当前甲板；静态区域仍走原胶囊/导航 | [本轮记录](../../development/2026-11-07_gift_kiosk.md)。30/60/120FPS起伏峰峰0.269085m，站立误差0、真实行走最大2.143mm、导航重烘焙0；当前专项7129/0及53项真实渲染通过。ground-space/character-motor/character-space-save/keyboard-control/board-click回归均exit0。 |
+
+## 2026-11-07 轻快小步跑与岸边转脸
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R26 | 已实现并通过最终合批；Shift目标2.576m/s、实际地速比基于2.3、步频补乘1.15/1.12至稳态7.36rad/s、0.12s混合与短步屈肘抬膝微前倾；原生命周期清理，不新增体力或存档 | `D:/projects/sea-work/verification/20261107-165822-movement-feel-final-9b7646/report.json`：`shift-jog`56/0、`visual-shift-jog`57/0，exit0、passed=true、完成标记真、unexpected_errors空；地速2.575827、相位7.359999，30/60/120FPS位移0.853191/0.834001/0.823888m、差异<5%。155921编译失败留历史，已不再阻塞；主任务已ViewImage目检shift phases，确认抬膝、屈肘与微前倾。[总交付](../../development/2026-11-07_movement_feel_refinement.md)。 |
+| SEA-MOVE-R27 | 已实现并通过补丁后的最终合批；挡停按intent转脸，根位置不移动、实际速度比0且相位不增长；正常运动仍保留原方向平滑 | 同一165822报告轻跑56/0、视觉57/0已包含新增3条边界转脸断言（位置不挪、侧向转脸、无假地速/空踩），不再待验；同批朝向102/0、视觉105/0及keyboard-control30/0、control-feel31/0、interaction-reach35/0、travel374/0、farm636/0全部通过；170723渲染最终批真shore163769/0、visualfarm647/0双PASS/exit0无unexpected_errors，172123最新smoke朝向102/0 PASS，转脸/近距图标不因NPC/dive最新装配失去启动入口。 |
+
+最终合批11项与170723渲染双项均已通过，NPC世界端口初始化已修复，旧断言未放宽；R25及其他ID不改，功能仍`partial`。`D:/projects/sea-work/verification/20261107-171743-movement-compat-final-7104b0/report.json`六compat仅actor-presentation PASS；当时潜水并发重构、本地WorldEnvironment缺失，click32/3失败，board12/0、dock22/0、save10/0、water41/0虽断言0失败仍runner FAIL。新版Main已接DiveSession，不修整套潜水，最终172517-movement-current-compatible-8e5f98报告五项已PASS：board-click12/0、dock-seed22/0、character-space-save10/0、boat-water-contact41/0、shift-jog56/0，均exit0且unexpected_errors空；旧click潜水三项本轮不代签通过。主任务17:16已执行全局sync得20 issues，普通check21（43features/930assets/1255runtime），未全绿且未强刷哈希；placed positions四项PASS/0warnings及本轮git diff --check通过。完整门禁问题见总交付，回填不改GDD、生产、registry/hash或手摆TSCN。
+
+## 2026-11-08 收成手臂修正
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R14/R17 | 获物时序、作物展示与收包保留，双手改自然示意，覆盖原先手掌必须追随实物的旧要求 | [本轮记录](../../development/2026-11-08_harvest_gesture.md)；成功一次性、满包拒绝、7类中断及存读均由当前harvest-receive实测 |
+| SEA-MOVE-R28 | 已移除追物拉伸；五组体型×30/60/120FPS全程保持上下臂与实际蒙皮辅助骨的原始体型长度，肩根固定，胸前屈肘抬手、左右依次收回 | `harvest-receive`137/0、`actor-presentation`31/0、`avatar-skinning`80/0、最终真实渲染150/0、`avatar-customization`重跑3559/0、`character-space-save`10/0均exit0、完成标记真、无非预期错误；12图/96帧已目检。集成52/1的菜单断言在同快照恢复旧动作后同样复现，未计通过。全局sync/check为范围外27/30项，未强刷哈希；摆位与diff检查exit0。报告、首轮超时与未执行项见[本轮记录](../../development/2026-11-08_harvest_gesture.md)及机器摘要；整体仍partial |

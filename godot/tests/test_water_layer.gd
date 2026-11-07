@@ -143,7 +143,20 @@ func run() -> void:
 					routes.append("water_shapes")
 				check(not routes.is_empty(),
 					label + " (" + layer + "): needs a boat-blocking route (BlockerSet or water_shapes)")
-				check(has_activity(node), label + " (" + layer + "): needs a walkable area or landing point")
+				if has_activity(node):
+					check(true, label + ": active facility provides walk/landing")
+				else:
+					# SEA-WORLD-R13 explicitly permits non-zone marine structures to
+					# own only navigation blocking. A retired shop reused as a marine
+					# landmark must opt into this role, never inherit a second shop ID.
+					check(node.get_meta("activity_role", "") == "navigation_only",
+						label + ": missing activity requires explicit navigation-only role")
+					check(node.get("zone_id") == null or str(node.get("zone_id")).is_empty(),
+						label + ": navigation-only structure is not a registered playable zone")
+					check(node.find_children("*", "CollisionObject3D", true, false).is_empty(),
+						label + ": navigation-only structure has no actor collision")
+					check(not node.is_in_group("interactable") and node.find_children("*", "Node3D", true, false).filter(func(n): return n.is_in_group("interactable")).is_empty(),
+						label + ": navigation-only structure has no interaction")
 			"submerged":
 				# 主人的判据：水下纯粹美化，不要阻挡、不要其它功能。
 				check(blocker == null or (blocker.mode == "none" and not blocker.blocks_water),

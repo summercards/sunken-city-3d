@@ -1,0 +1,58 @@
+{
+  "key": "shelf",
+  "name": "暖木三层商品架",
+  "family": "shelf",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-SHELF",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-SHELF",
+  "design_pivot": [
+    0.0,
+    0.012500002980232239,
+    0.0
+  ],
+  "bounds_min": [
+    -1.149999976158142,
+    -0.42249999940395355,
+    0
+  ],
+  "bounds_size": [
+    2.299999952316284,
+    0.8450000286102295,
+    3.0199999809265137
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/shelf/shelf.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 7,
+  "instances": 11,
+  "triangles": 1316,
+  "polygons": 686,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "75584735983263761e634cff559d86902813a2400893069b62c8bb18cea61ed2",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-SHELF",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/shelf/shelf.glb",
+  "runtime_sha256": "2d37b68f21b0ddd156d2abc0dc061b7c8d8144c286754bebbd41f83af27c636c",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/shelf.tscn",
+  "prefab_sha256": "8a9a1232eee5839a4f692101ac0cf1d81e78fbb5d57d6881c7978da863746d9b",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1316,
+  "triangles_after": 1316,
+  "geometry_fingerprint": "b43da30db5542ba4c27d925f6dd0bfcbf6cb70843380ee90e858ec435c2394a4"
+}

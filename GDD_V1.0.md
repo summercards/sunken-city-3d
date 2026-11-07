@@ -29,6 +29,8 @@
 
 本节条目按时间**倒序**追加：最新的变更在最上面，`2026-10-27`「太阳房最小生活循环」的原始阶段描述保留在本节末尾，其中已被后续阶段覆盖的部分就地标注。当前默认可玩范围与各功能状态以本节顶部条目和各功能账本为准。
 
+2026-11-07阳光房分阶段修缮：阳光房从一次性完整布景拆为 `ruined → ladder_fixed → restored` 三阶段。新局只有一株小雏菊；梯子先以裂木叠加效果表现破损，修梯消耗木板×5，成功后开放上下端点的真实 `climbing` 状态（`v=1.35m/s`，连续沿端点移动，不传送）。二楼先只开放空的休憩面；二楼休整消耗木板×8、土壤×2、玻璃×1，完成后才显示二楼沙发与植被，阳光房植物按当前季节表现逐步丰富。环境植物仍归 SEA-AMBIENT，不进入 Farm 地格存档；修缮状态写入可选 `economy.sunroom`，根存档 v4 不变，旧档缺字段按破损初始态迁移。童谣未在现有功能树中登记，本轮不凭空新增童谣系统，将用户原话中的素材消耗落到阳光房修缮材料。归 SEA-SUNROOM-R01–R08、SEA-WORLD、SEA-MOVE、SEA-AMBIENT、SEA-SAVE。[设计、实现与专项](docs/features/sunroom/spec.md) · [功能账本](docs/features/sunroom/ledger.md) · [开发记录](docs/development/2026-11-07_sunroom_repair_and_climb.md)。
+
 2026-11-05室内房间：太阳房门口原来的「睡觉」按钮改成「进入房间」，进屋是一个 5×5 米方形卧室 —— 木头地板、白墙、后墙一面 1.5×1.15 米窗，前侧接一间和外面同语言的白框玻璃前厅（3.44×1.80 米、斜面玻璃顶）。**进出用既有的圆幕过场（合拢 0.85 秒 → 全黑 → 1.05 秒打开），黑幕上一个字都没有**；过场期间输入、行走与存档全锁。床是可交互家具、`movable=true`，绑睡觉，位置与朝向由 SEA-ROOM 的布局状态唯一拥有（`place_bed` 夹回房间、压到床头柜/门口先就近滑位）；在屋里睡就在屋里床边醒，在屋外到点睡回太阳房门口。**「对着镜头的这面墙看不见」按相机方位逐帧算**，不是永久删墙：四面墙各有一个朝外法线，相机在哪一侧就收哪一面，相机高于墙顶时天花与前厅顶一起收；前厅各件也带法线，相机站到前厅前侧（局部 z>2.4）时整座前厅构件全部收起。**室内机位能自己转**：右键拖动绕房间旋转（四面墙的剖切跟着换面）、滚轮拉近拉远，俯仰 26–72°、距离 8–24 米；视点钉在房间上，左键不平移（5×5 米里允许平移就会拖出房间、四周全黑）。默认机位 14.4 米 / 俯角 46°。房间挂在 `World/Interior`、整间 `scale=1.5`（跟随角色 SCALE，几何仍 1:1 建模；净空/身高 = 3.99、门洞/身高 = 1.64，与原设计 4.00/1.65 一致），摆在世界 `(0,200,0)` —— **远离**海面 1.12、屋面 11.89、海鸥飞行层 14.3–17.7 与水下，屋外时隐藏并关碰撞层。原先摆在屋面上方 0.7 米时，房间 12.6–15.35 与海鸥层重叠，进屋后会有海鸥穿过卧室；现在改用双保险：挪远 + 让会按时段自显的环境节点认 `set_interior_hidden`（`visible = 时段 ∧ 非室内`），「在屋里睡到天亮」也不会把鸟放进来。**屋里看不到海、也看不到天**：进屋收起海面／船／船迹与全部区块，世界背景从天空盒切成纯黑（只动 `background_mode`/`background_color`，环境光仍取天空辐照，昼夜亮度与外面同步）；窗与前厅玻璃换室内玻璃实例（`interior_glass=true`，颜色不再乘色盘 ice 格的天蓝）—— 窗取深灰（后面是黑的），前厅取近透明冷灰（玩家要绕着看它）。13 个 Blender 组件包、7888 三角面、无内嵌贴图；`room` 112 项 0 失败、`visual-room` 6 机位与 `visual-room-orbit` 8 机位 0 失败，`sleep-cycle`/`water-layer`/`modules`/`framework-integration`/`minimum-loop`/`save-protection`/`building-simulate`/`energy` 复跑通过。归 SEA-ROOM-R01–R14（含 R06a/R14b）、SEA-ASSET-R52。[制作、接入与实测](docs/development/2026-11-05_bedroom_room.md) · [放大与隔离](docs/development/2026-11-06_room_scale_isolation.md)。
 
 2026-11-05家园外围残楼围挡（白盒 → 曾进主场景，已摘除）：按用户「把周围白盒的房子、水下淹半截的植被围起来，每20米一个独立组件、不许合并」的要求，新建独立套件 `sea_barrier/v001`：46 个组件、48 个围合实例，四边按「转角腿 10 + 11×20 + 转角腿 10 = 240」整除铺满。**范围三次改口径**：150 → 90 → 240；最后一次按用户红框截图实测反推（红框 854×698 px，用围挡外接与霓虹花园 x=156 两点校准得 0.33 米/px，约 282 米宽、右界落在 x≈+150），取 240 米见方。组件分双塌房／斜塌楼／半沉林带三型轮转，带真实窗洞与一层门洞、墙顶参差破口 0.8–2.8 米、6–17° 倾斜，顶层可整块塌落；树分半沉／高树／枯树。围挡全部落在 240×240 之外，可活动范围内零几何。**已修 5 处真实缺陷**：转角对角漏水、倾斜致整栋悬空、顶板悬空成托盘、楼梯间坐在已塌顶板上、对角补块在需镜像的两个角掉进可活动范围。**运行接入（当前已摘除）**：46 个 GLB 与组件包装已生成，总装 `scenes/world/sea_barrier.tscn` 曾挂到 `World/SeaStructures`（`main.tscn` 只插 1 条 ext_resource + 1 个节点），挡船复用既有 `_collect_water_shapes` 入口（每段自带 `BlockerSet` manual 矩形）。**2026-11-05 晚按用户要求「从那个场景里把这套围栏删掉」，已仅从 `main.tscn` 摘除那两行（diff 0 增 3 删，其余逐字节未动），资产、Blender 源、46 个包装、46 个 GLB 与 46 行登记全部保留，随时可重挂。**摘除后霓虹花园航路恢复、`SEALED_OFF` 例外清空；「不可达目标不退回穿岸直线」原用 `1000,1000`，实测该点为可达远海、此前通过只靠围挡封海，属假前提，已改为真正的不可达目标 `(0,0)`。源级 17635 项断言 0 失败；运行期专项 `sea-barrier` 通过（挂载时四边连续、无矩形侵入、连通搜索出不去；摘除后自动降级为「包装与总装独立加载」7012 项 0 失败）。性能实测与用户美术确认仍 pending。归 SEA-ASSET-R47。[制作、接入与验收](docs/development/2026-11-05_sea_barrier_whitebox.md)。
@@ -115,7 +117,7 @@
 
 ### 2026-10-27 阶段记录：太阳房最小生活循环（原始描述，后续覆盖见标注）
 
-> **本段是 2026-10-27 的阶段口径，不是当前状态。** 已被后续阶段覆盖的部分：①**范围**从「太阳房＋补给站＋浅水平台」扩到横滨铁道、顶层牧场、霓虹花园（东 150 米）、沉没旧城（240×240）与室内房间，实际可航行范围见 `godot/src/core/play_scope.gd`；②**睡觉入口**从「太阳房入口点击」改为进屋上床（2026-11-05，见本节顶部室内房间条目与 SEA-SLEEP-R01）；③「锁定打捞、远海、订单、相机入口」是那一阶段的开关状态。当前 `play_scope.gd` 的 `command_enabled` 在默认范围仍禁用 `build/dive/lamp/hook/camera/orders/salvage/rise/descend`，但**要分清禁的是哪个入口**：`build` 只是面板里的「建造计划」详情页，**建造本体走 `craft`「建造手册」（`corner_hud.gd:45`，默认可见）**，功能是开的；`camera` 是暂停菜单的取景入口，相机本体早已可用（缩放上限 77.8 米）；`salvage` 是菜单入口，打捞走场景内绞盘交互点。三者都不要读成「功能被禁用」。下文数值（80 瓶盖、3 包生菜种子、3 个浇水日、07:00 结算）仍有效，改动会单独记。
+> **本段是 2026-10-27 的阶段口径，不是当前状态。** 已被后续阶段覆盖的部分：①**范围**从「太阳房＋补给站＋浅水平台」扩到横滨铁道、顶层牧场、霓虹花园（东 150 米）、沉没旧城（240×240）与室内房间，实际可航行范围见 `godot/src/core/play_scope.gd`；②**睡觉入口**从「太阳房入口点击」改为进屋上床（2026-11-05，见本节顶部室内房间条目与 SEA-SLEEP-R01）；③「锁定打捞、远海、订单、相机入口」是那一阶段的开关状态。当前 `play_scope.gd` 的 `command_enabled` 在默认范围禁用 `build/hook/camera/orders/salvage`（**2026-11-08 起 `dive/lamp/rise/descend` 已随家园海域重新开放**，见本节上方同名章节），但**要分清禁的是哪个入口**：`build` 只是面板里的「建造计划」详情页，**建造本体走 `craft`「建造手册」（`corner_hud.gd:45`，默认可见）**，功能是开的；`camera` 是暂停菜单的取景入口，相机本体早已可用（缩放上限 77.8 米）；`salvage` 是菜单入口，打捞走场景内绞盘交互点。三者都不要读成「功能被禁用」。下文数值（80 瓶盖、3 包生菜种子、3 个浇水日、07:00 结算）仍有效，改动会单独记。
 
 本阶段优先于后文长期规划：范围缩小到太阳房、旁边家园补给站、浅水种植平台及附近水域。新游戏80瓶盖、3包生菜种子。捕鱼或种植收获 → 保管仓库存取 → 显式放进出货箱 → 次日07:00自动卖出 → 商店购买种子。新播生菜、番茄、南瓜首熟均需3个浇水日，缺水停长；岸上可补水；~~太阳房入口点击睡觉~~（2026-11-05 起改为进屋上床），23:00自动回家睡觉，06:00醒来，07:00生长与收货。保管仓库不卖货；出货箱可在结算前取回。
 
@@ -456,6 +458,7 @@
 | <a id="sea-avatar"></a>SEA-AVATAR | 角色档案与外观定制 | 角色 | SEA-MOVE, SEA-SAVE, SEA-UI | [文档](docs/features/avatar/spec.md) | [账本](docs/features/avatar/ledger.md) | 已实现待完整验收 |
 | <a id="sea-onboarding"></a>SEA-ONBOARDING | 新旅程码头开场 | 生活 | SEA-AVATAR, SEA-CAMERA | [文档](docs/features/onboarding/spec.md) | [账本](docs/features/onboarding/ledger.md) | 已实现待完整验收 |
 | <a id="sea-world"></a>SEA-WORLD | 区块与世界装配 | 世界 | SEA-BOOT | [文档](docs/features/world/spec.md) | [账本](docs/features/world/ledger.md) | 部分实现 |
+| <a id="sea-sunroom"></a>SEA-SUNROOM | 阳光房分阶段修缮、攀爬与季节表现 | 世界/经营/3C/表现 | SEA-WORLD, SEA-INVENTORY, SEA-MOVE, SEA-SAVE, SEA-AMBIENT | [文档](docs/features/sunroom/spec.md) | [账本](docs/features/sunroom/ledger.md) | 部分实现 |
 | <a id="sea-move"></a>SEA-MOVE | 角色移动与上下船 | 3C | SEA-WORLD | [文档](docs/features/move/spec.md) | [账本](docs/features/move/ledger.md) | 部分实现 |
 | <a id="sea-nav"></a>SEA-NAV | 航行与靠泊 | 3C | SEA-WORLD, SEA-MOVE | [文档](docs/features/nav/spec.md) | [账本](docs/features/nav/ledger.md) | 部分实现 |
 | <a id="sea-camera"></a>SEA-CAMERA | 相机跟随与手动控制 | 3C | SEA-MOVE | [文档](docs/features/camera/spec.md) | [账本](docs/features/camera/ledger.md) | 部分实现 |
@@ -470,11 +473,13 @@
 | <a id="sea-crop"></a>SEA-CROP | 作物品种与四阶段形态 | 经营 | SEA-ASSET | [文档](docs/features/crop/spec.md) | [账本](docs/features/crop/ledger.md) | 已实现待完整验收 |
 | <a id="sea-farm"></a>SEA-FARM | 种植与日常照料 | 经营 | SEA-INVENTORY, SEA-FACILITY, SEA-WORLD, SEA-CROP | [文档](docs/features/farm/spec.md) | [账本](docs/features/farm/ledger.md) | 部分实现 |
 | <a id="sea-salvage"></a>SEA-SALVAGE | 绞盘打捞 | 探索 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/salvage/spec.md) | [账本](docs/features/salvage/ledger.md) | 部分实现 |
-| <a id="sea-dive"></a>SEA-DIVE | 潜水探索与宝箱 | 探索 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/dive/spec.md) | [账本](docs/features/dive/ledger.md) | 部分实现 |
+| <a id="sea-dive"></a>SEA-DIVE | 按海域切换独立地图的潜水探索与宝箱 | 探索 | SEA-WORLD, SEA-INVENTORY, SEA-SAVE, SEA-BOOT | [文档](docs/features/dive/spec.md) | [账本](docs/features/dive/ledger.md) | 部分实现 |
 | <a id="sea-pickup"></a>SEA-PICKUP | 海面漂流物与鱼群收取 | 探索 | SEA-NAV, SEA-INVENTORY | [文档](docs/features/pickup/spec.md) | [账本](docs/features/pickup/ledger.md) | 部分实现 |
 | <a id="sea-order"></a>SEA-ORDER | 交易与订单 | 经营 | SEA-INVENTORY, SEA-BUILD, SEA-SHIP | [文档](docs/features/order/spec.md) | [账本](docs/features/order/ledger.md) | 部分实现 |
+| <a id="sea-shop"></a>SEA-SHOP | 花店与综合商店 | 经营 | SEA-INVENTORY, SEA-CROP, SEA-INTERACT | [文档](docs/features/shop/spec.md) | [账本](docs/features/shop/ledger.md) | 已实现待完整验收 |
 | <a id="sea-goal"></a>SEA-GOAL | 小目标追踪与引导 | 成长 | SEA-BUILD, SEA-SHIP | [文档](docs/features/goal/spec.md) | [账本](docs/features/goal/ledger.md) | 部分实现 |
-| <a id="sea-resident"></a>SEA-RESIDENT | NPC 居民、对话与关系网 | 生活 | SEA-WORLD, SEA-BUILD, SEA-MOVE, SEA-TIME, SEA-WEATHER, SEA-INTERACT, SEA-INVENTORY, SEA-SAVE | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
+| <a id="sea-residence"></a>SEA-RESIDENCE | 七人住所社区与生活锚点 | 世界/生活 | SEA-WORLD, SEA-ASSET, SEA-INTERACT | [文档](docs/features/residence/spec.md) | [账本](docs/features/residence/ledger.md) | 部分实现 |
+| <a id="sea-resident"></a>SEA-RESIDENT | NPC 居民、对话与关系网 | 生活 | SEA-WORLD, SEA-BUILD, SEA-MOVE, SEA-TIME, SEA-WEATHER, SEA-INTERACT, SEA-INVENTORY, SEA-AVATAR | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 已实现待完整验收 |
 | <a id="sea-time"></a>SEA-TIME | 世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 已实现待完整验收 |
 | <a id="sea-sleep"></a>SEA-SLEEP | 睡觉与次日醒来 | 生活 | SEA-TIME、SEA-MOVE、SEA-INTERACT | [文档](docs/features/sleep/spec.md) | [账本](docs/features/sleep/ledger.md) | 已实现待完整验收 |
 | <a id="sea-room"></a>SEA-ROOM | 室内房间（卧室与前厅） | 生活 | SEA-WORLD, SEA-SLEEP, SEA-MOVE, SEA-SAVE | [文档](docs/features/room/spec.md) | [账本](docs/features/room/ledger.md) | 已实现待完整验收 |
@@ -576,7 +581,7 @@
 
 **用户新增无提示要求覆盖SEA-INTERACT-R18与SEA-UI-R52**：底部prompt关闭、近距原hover图标/进度接管，modal/过场收起；世界气泡保留动作/状态/数量/灰因，不画键位角标/教程行。玩家主动打开system help允许，不列假缺口。近距最终9张图已生成，本轮画面目视审阅watered/full-bag/harvest-overhead/already-watered确认无底部条/键位教程；当前口袋源码已再次核实删除按1购买句/动作数字前缀，仅保留限额、余额、库存与动词数量，原同步差异已解决。
 
-**范围不扩张**：默认范围以当前`play_scope.gd`及实际挂载场景为准；`build`旧升级页、潜水/灯/钩/取景面板/订单/绞盘菜单等命令仍受默认开关限制，不能把`craft`/K建造、独立镜头或海面拾取误判为禁用，也不能把默认隐藏且`_open_salvage`直接返回的绞盘写成当前可玩。`--full-world`只是显式开发回归配置，不代表未挂载的zone3/zone4会自动回归或全部规划功能已实现。水下建筑/基座与沉没旧城仍仅景观；霓虹花园沿当前用户TSCN标高，不承诺其街口可上岸。本轮文档没有改资产、运行哈希、用户手摆TSCN位置或building文档。
+**范围不扩张**：默认范围以当前`play_scope.gd`及实际挂载场景为准；`build`旧升级页、钩/取景面板/订单/绞盘菜单等命令仍受默认开关限制（潜水/灯/上下游自 2026-11-08 已开放，本段保留为当时口径），不能把`craft`/K建造、独立镜头或海面拾取误判为禁用，也不能把默认隐藏且`_open_salvage`直接返回的绞盘写成当前可玩。`--full-world`只是显式开发回归配置，不代表未挂载的zone3/zone4会自动回归或全部规划功能已实现。水下建筑/基座与沉没旧城仍仅景观；霓虹花园沿当前用户TSCN标高，不承诺其街口可上岸。本轮文档没有改资产、运行哈希、用户手摆TSCN位置或building文档。
 
 **最终专项与契约适配通过，历史失败保留**：证据根`D:/projects/sea-work/verification/`；`20261106-200446-keyboard-release-regression-eae88a/report.json`已返回18项：14通过、4失败。farm606/0、travel374/0、panels80/0、building40/0、entry39/0及keyboard-control/control-feel/camera/click/initial-planters/walk-on-planters/farm-day-change等通过；`20261106-194828-keyboard-visual-travel-final-09cca9/report.json`的visual-farm617/0与travel374/0通过，`20261106-191403-visual-keyboard-final-no-instructions-5m-8295dd/report.json`的building visual43/0通过，以上均exit0、passed=true。旧travel负Rect FAIL保留为过程，`.abs()`修后已通过；interaction-reach35/1、dock-seed21/1、minimum-loop141/10、harvest-receive80/1旧角标/标题/直接harvest失败保留为本轮过程，不能标范围外；`20261106-201957-keyboard-contract-regression-888baa/report.json`适配后分别35/0、22/0、147/0、92/0，四项均exit0、passed=true，不再pending。`20261106-203447-keyboard-final-contracts-ff6d9f/report.json`最终合批已完成：panels80/0、interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0、pocket-bubbles59/0、pocket-drag-buy44/0，7项全PASS、合计479/0，全部exit0；不再待附。四功能仍partial，沿用FARM-R15/R16、INTERACT-R19–R21、UI-R54–R57、CAMERA-R15并正式登记ledger verification键盘入口；UI spec补齐原仅ledger存在的R53承接SEA-BUILDING-R32，使UI条款集合对齐。主线程最新sync已消除UI集合及unknown verification命名错误，当前40功能/881资产/1079 runtime仍sync13 issues，普通check加derived stale共14；本轮定向review更新4资产/4runtime已由registry代理完成，不能称全部哈希无漂移，本次未跑sync、不宣称全局门禁通过；不外推full-world/规划/设备/所有组合。建造仅引用[设计](docs/features/building/spec.md)/[账本](docs/features/building/ledger.md)，回填未动生产、哈希、用户TSCN或building文档，未运行新检查/sync。面板新增204809真实渲染93/0、4图，本轮画面目视审阅shop/map后发现并由主线程删除ac_card旧footer教程；旧图不等于清理后最终无教程，最新keyboard-panels-clean-final路径/结果待主补。主线程回报placed_positions三项均PASS/0warnings、git diff --check通过；全局13/14问题及定向登记边界详见总交付，不回改用户景观TSCN到参考坐标。
 
@@ -587,3 +592,160 @@
 ## 2026-11-06 五米建筑与集中UI最终签署
 
 `D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`13项全PASS、exit0；其中前12专项2965 checks/0 failures，另几何守卫独立记数：`building-5m-rules`446/0、`building-5m-experience`589/0、`visual-building-5m-experience`597/0、`building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0、`kit-safety`94/0、`building-kit`221/0、`building-save-compat`37/0、`building-integration`56/0、`keyboard-farm-loop`606/0、`minimum-loop`147/0；`building-scale-reference`62 rows/0 failures，actual5.08633422851563m、Catalog5.086335m、tol0.002m，不并入checks合计。Controller新平台preview与deck同传`origin=boat/shore`，船上独立起点确认不再误拒、岸上隔空仍拒、取消不收费，新增3条集成断言通过。213331先签12专项2962/0保留为历史。R30–R33本范围完成；旧211435批次kit失败保留但已由signed收口，`farming`35/2过时13地格/3床（含已移除圆弧农场）fixture失败仍单列，不改业务凑数或用新农场专项掩盖。Service rooted修复高空孤台/循环支撑存档绕过，无支撑的新旧高空布局拒绝、地面历史孤立合法；GroundSpace坡脚4.7cm卡住修复，不放宽WalkAction。最新机器汇总确认主线程已目检222059副本四张建筑PNG，新副本20代码文件完全一致，44项`signed_source_comparison`均`matches_signed=true`；213331先签另保留历史；main手摆、阳光小屋尺寸位置、玩家真实档均未动。设备/低端GPU/任意规模层数未验，feature保持implemented（已实现待完整验收）；全局任务外/并行drift不在本段宣称清零，本次不运行sync。[完整任务交付](docs/development/2026-11-06_building_5m_and_ui.md)；[机器汇总](docs/development/2026-11-06_building_5m_verification.json)已指向最新release报告。
+
+
+## 2026-11-07 参考图海上礼品商亭
+
+通过活跃Blender MCP完成47组件/379实例的圆角方形商亭、蓝白雨棚、立体招牌及全部配件；源与47包重开、独立优化/GLB审计及Godot正式导入完成。新店沿用sea_supply与floating_shop.tscn，初次参考位按阳光房当前主体中心东南200米计算，后续只认正式TSCN手摆。可上岸、环廊/入口/中央行走及补给；0.269米峰峰竖向浮动同步角色、碰撞、导航和交互，读档重贴当前支撑，回船即脱离。无水下建筑基座；参考浅浮筒仅观赏。旧模型保留完整用户变换，改为R13非区块旧驿站地标，保留几何船只避让，无重复泊位/商店身份。最终7129功能、53真实渲染、1594水层全部0失败/exit0；相关静态移动和最小循环回归通过。商业参考权属、用户美术终审与低端性能另记pending。归SEA-ASSET-R55 / SEA-WORLD-R24 / SEA-MOVE-R25 / SEA-NAV-R18。[交付与验收](docs/development/2026-11-07_gift_kiosk.md) · [机器签署](docs/development/2026-11-07_gift_kiosk_verification.json)。
+
+## 2026-11-07 观赏小鱼扩布其他海域
+
+按用户明确要求复用阳光房旁纯观赏小鱼，非捕鱼鱼点：新增独立ScenicSeaFishSchools，10群98条，覆盖铁道站/浅水台/家园南/牧场/旧城三处/驿站/霓虹街/补给站外海；原阳光房三群和旧三群保留。小鱼真实浪面下0.5–1.5m，5档数量、不同范围，正式场景增量挂载、不改手摆建筑或水体。4750逻辑几何断言及416实拍断言无失败，但统一runner因并行系统退出资源错误仍FAIL，后续NPC编译也阻塞完整复验；登记为runtime_final_pending，不冒充全面通过。归SEA-AMBIENT-R22。[实装、实景与待复验边界](docs/development/2026-11-07_scenic_fish_distribution.md)。
+
+
+## 2026-11-07 七 NPC 全套任务：设计分支与下午制作承接
+
+本轮按三条独立功能分支推进，均保持 `partial`：**SEA-RESIDENT** 管七人规则/会话/世界投影，**SEA-SHOP** 管两目录11商品与独立面板，新增 **SEA-RESIDENCE** 管七座正式住所及社区空间。上午五人规划、零路径、`planned` 等描述只保留为历史，不代表下午当前实现；当前已见规则、内容和表现源码，不等于整局接线及验收完成。
+
+- **依赖设计**：登记前仅做了候选依赖图静态检查，未发现环，不是结构专项或运行验收。住所依赖 WORLD/ASSET/INTERACT，不反向依赖 RESIDENT；Shop 依赖 INVENTORY/CROP/INTERACT，不硬依赖 RESIDENT/FARM。NPC 可依赖 RESIDENCE/AVATAR，UI/SAVE 是装配与持久化交接，不新增为 NPC 前置，避免后续反向装配形成环；不修改其他功能依赖。
+- **角色与内容**：牵线、叶脉、回声、榫口、灯芯、花序、货架保留七个稳定旧 ID；程序化复用 Avatar/Character/骨骼动作系统，七件独特配件，不触碰玩家 `profile`。静态内容为21个人事件+4关系事件、84日常对白、9关系边，源码/JSON 数量核对不能替代剧情游玩验收。新增条款 SEA-RESIDENT-R08–R12 承接角色组装、住所消费、职业挂载、集成和实际规则口径；原 R01–R07 不改作新用途。
+- **商店与库存**：独立 ShopService/Catalog/Panel；花店5商品、综合商店6商品，作物种子物品/价格取 CropCatalog。唯一写入口为主线程补齐并注入的原子 `Inventory.exchange(costs,gains)`，不以扣款/入包/补偿退款模拟原子事务。新增 SEA-SHOP-R07–R09 承接独立面板、原子交易/去重边界及集成；静态目录不另存副本，数量和瓶盖仍归 Inventory。
+- **住所与移动**：SEA-RESIDENCE-R01–R07 承接7座每座50m²的正式 TSCN、各自床/桌/灯、两商店空间、统一 GroundSpace 和35个生活 Marker。`resident_harbor.tscn` 在 main 中为新增独立实例，参考 `(38,0,-32)`，不锁坐标、不覆盖用户其他摆位；静态 TSCN 是布局真值，`residences.json` 只映射稳定 ID/节点路径。NPC world 消费住所锚点，禁止自己造屋；物理路线由 CharacterMotor + GroundSpace 执行。
+- **职业端口**：花序/货架走 `vendor_requested`；其余五人分别发 `ship` / `cultivation` / `salvage` / `building` / `archive` 外部功能意图，NPC 不复制业务规则。按钮或端口存在不表示对应外部功能已经接通。
+- **存档与日历**：动态状态只归 `npc.version=1`，严格 schema/剧情路径/关系结果追溯取实际 rules；无 `npc` 旧档仅明确 migration 补默认，已有坏数据拒绝且不改现场。生日采用112日循环，周从游戏第1日起每7日分组，先生日专用一次再当周两次普通额度；不等同 HUD 的365日显示日历。
+
+### 主线程回填占位：NPC 全套集成与验收
+
+当前只核对源码/静态内容，未运行 sync、Godot 或任何专项，不填写通过数。主线程完成真实接线后回填：`npc-rules` / `shop-rules` / `npc-world` / `npc-appearance` / `residence` 的实际入口、命令、提交/工作树版本、退出码、断言数、日志；真实渲染的截图/场景/图形后端；save/integration 的坏档不改现场、旧档迁移与跨进程恢复证据；设备/性能及未验项。细项见[下午制作与回填表](docs/development/2026-11-07_npc_module_framework.md#10-下午制作七人全套任务当前承接)。结构、运行、视觉、设备分开签署，未验前三个账本均保持 `partial`。
+
+## 2026-11-07 礼品商亭室内与屋顶展开消隐
+
+进入现有海上商亭后，顶盖及顶上招牌/雨棚/设备以角色为中心柔边展开并消失，直接看见实际室内与角色；离开后平滑恢复。门边退出缓冲、中途反转、岸上/高度判定及浮动局部空间处理由设施表现控制器负责，不改变行走、碰撞、镜头、存档或用户摆位。归SEA-WORLD-R25及SEA-ASSET-R55。[开发与验收](docs/development/2026-11-07_gift_kiosk_roof_reveal.md)。
+
+## 2026-11-07 移动手感细修：顶岸脱困、Shift轻跑与正面交互
+
+按用户反馈修三处实际手感：手动船碰岸只停止平移、保留转向，120Hz子步复核合法水域，允许原地摆头后朝开阔水面划开；一轮持续顶岸只反馈一次，不放宽穿岸与自动航行到达判据。岸上Shift轻跑目标速度`2.3×1.12=2.576m/s`，步频`6.4×1.15=7.36rad/s`，0.12秒姿势混合，短步抬膝、屈肘与微前倾；不新增体力消耗或存档字段。手动交互只取角色正面宽锥，种植格与上船入口按面向仲裁，图标与E执行同一胜出目标，背对或侧对离岸口不误上船；甲板边缘挡停时仍可原地转脸。保留原近距图标，不新增日常教程。归SEA-MOVE-R26/R27、SEA-NAV-R19、SEA-INTERACT-R22/R23。
+
+165822隔离合批11项全部PASS；轻跑56/0、实景57/0，朝向102/0、实景105/0，键盘旅行374/0、种植636/0。170723补充真实岸线脱困163769/0（含逐帧重复断言，非独立场景数）、实景种植647/0，均exit0且unexpected_errors空，连续截图已审阅。补充兼容与全局登记差异单列，不用专项通过代替整工程通过。手感修改未调整用户场景摆位；[参数、当前报告与边界](docs/development/2026-11-07_movement_feel_refinement.md)。
+
+## 2026-11-08 潜水重新开放与“家园海底”
+
+按用户要求重新开放潜水：默认范围开放 `dive / lamp / rise / descend`（`build / hook / camera / orders / salvage` 仍锁），HUD 潜水按钮与角落菜单入口恢复可用。功能状态仍 `partial`，不把“能下水”当成完整探索玩法（家园海底无宝箱、无新收藏）。
+
+原先只在 F6 独立预览的 `sunroom_region.tscn` 现以 **家园海底** 接入潜水，且是**世界对齐**目标：与海面共用同一套世界坐标，人在哪片水面下水就从那片正下方入水，不设固定出生点。归属锚点取 `zone1 → 太阳能木屋` 的实际 `global_position`，水平 60 米内算家园海域；`source_ids()` 仍为 9 条，原 9 图 map_id/场景/宝箱基数不变，家园不占海区 ID。海面 Y=1.12、旧城根 43.487442、240×240 城域、1024×1024 海床、最深 63.12 米均保持。
+
+入水点不是「随便找个不重叠的空中位置」：先进入 enter 阶段占住水面点，等**垂直向下确实打到海床**（碰撞延迟提交完成）再选点；候选限定 16~30 米环 × 12 角度 × 路面 +6/8/10/12 米，须满足 12 米球形净空（不贴墙）、头顶 16 米无楼板（不落基座内腔）、某方向存在 18~38 米楼体（不落空广场），取目标 26 米最接近者定初始朝向。条件不满足时逐级放宽，最终保底「有净空即可下水」。家园海底复用全部既有内容（388 实例、138 鱼、32 珊瑚、24 灯、192 气泡、200 悬尘、10 射光）与 758 精确阻挡代理，新增 enter/swim/exit 三阶段与 0.55 秒可见上浮，氧气共享 `DiveAir`，本地 HUD 显示家园海底·氧气·水深；无宝箱，存档仍为 v4 原结构。
+
+新增条款 SEA-DIVE-R15–R19。最终 `20261108-055128-dive-home-seabed-signed2-00d74f` 九入口全 exit0/PASS、无 unexpected，合计 **1270 项 0 失败**：dive-maps 323/0、visual-dive-maps 335/0、framework-integration 52/0、minimum-loop 148/0、modules 31/0、click 39/0、sunroom-underwater 78/0、sunroom-collision 264/0、save-seed PASS；真实渲染入水画面已目检（旧城楼房、街道、翻倒车辆与远处街区可见，不贴墙、不落空广场、不陷基座）。顺带修复长潜水返回时 `Parameter "obj" is null` 与 Terrain3D `already connected` 两处原生报错。低端设备、连续性能、全路线人工探索与用户美术终审未签。[机制、坐标对齐与踩坑记录](docs/development/2026-11-08_home_seabed_and_dive_reopen.md)。
+
+## 2026-11-07 按海域切换独立潜水地图
+
+> 该节的“默认 PlayScope 继续屏蔽潜水”已被 2026-11-08 条款取代，以下内容保留为历史机制说明。
+
+潜水范围改为按来源海域切换独立地图，而非Main常驻同一张四区海底。SEA-DIVE前置增加SEA-SAVE（稳定进度/写盘门禁）与SEA-BOOT（同一Main挂起/恢复），仍依赖SEA-WORLD与SEA-INVENTORY；相关四功能均保持 `partial`。默认 PlayScope 的潜水屏蔽已由 2026-11-08 条款取消。
+
+岸上来源取GameState.current_zone；船上按已安装且Scope启用区块的实际TSCN泊位XZ最近者划分整个海平面，无有限半径、不取zones.json参考位。catalog登记9来源及唯一map_id/TSCN，含规划zone3/4但不恢复它们的Main实例。地图复用旧region资产，通过组合/出生点/宝箱/鱼群子集区分，不是9套新美术；正式名称与配置见[九图目录表](docs/development/2026-11-07_dive_map_switch.md#3-九图目录与配置快照)。
+
+Main仅挂稳定DiveSession轻节点。preflight后将同一Main移出树缓存，不free、不重建、不读档；current_scene切到唯一海底runtime及其本地环境/相机/HUD，海面时钟/天气/经营/自动存档暂停。上浮卸载海底，返回同一Main与原船人姿态/模式/相机/环境，恢复必要投影与端口；恢复冷却由稳定会话跨图持有，不能换图绕过。根v4原 `dive:{found:int[],opened:int[]}`保持，zone1原0..4、其余固定百位100..800加局部子集，全局ID唯一、不重编号；未知ID保留，读档全量覆盖，无map_id必填扩展、不换key。active/switching通过registry busy阻止直接SaveGame.write。
+
+旧underwater_world.tscn仅保留为旧资源，不运行常驻；旧build_underwater.py只能生成工程外候选，不覆盖正式maps/Main。SunkenCity及海床仍是原海面纯景观，本次不改造、不移动。新增条款SEA-DIVE-R06–R12、SEA-BOOT-R07、SEA-WORLD-R26、SEA-SAVE-R19。最终190643-signed报告9项全PASS/exit0：地图312/0、真实九图322/0、modules31/0、framework52/0、click39/0、minimum-loop147/0及存档种子/保护，计数903/0；19:14当前树补验地图312/0、框架52/0、最小147/0通过。满包奖励改整份原子入包、本地HUD暂停与缺氧/异常退出通过。九图实拍已目检，旧资产复用不等于九套新美术；综合selftest511/24和全局sync27/check28问题单列未通过（含本轮runtime登记与并行漂移），不批量刷哈希、不宣称全工程绿。默认仍屏蔽，设备/全路线/美术深化未签。[完整机制、最终结果与边界](docs/development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。
+
+
+## 2026-11-07 礼品商亭室内装饰与柜台
+
+按用户要求充实商亭室内：蓝白与暖黄地砖、L形圆角柜台/收银机、礼品陈列桌、包装柜、坐凳、挂钟、海岸装饰画和壁灯，复用原商品与植物。独立11组件室内套件增量挂入原商亭，补给点移到真实柜台前，行走域避开家具并保留动线；屋顶消隐和平台浮动继续作用。归SEA-ASSET-R57、SEA-WORLD-R27。[制作与验收](docs/development/2026-11-07_gift_kiosk_interior.md)。
+
+
+## 2026-11-07 商亭的近侧遮挡透视
+
+进入商亭后，以角色上身为中心的柔边椭圆窗口局部淡化镜头近侧墙框、玻璃、货架及物件，留浅轮廓、保留窗口外和远侧空间；随角色、相机换向/缩放及平台浮动实时更新，离开平滑恢复。地砖、甲板、玩法空间与镜头控制不改。归SEA-WORLD-R28。[开发与实景验收](docs/development/2026-11-07_gift_kiosk_sightline.md)。
+
+## 2026-11-07 19:40 覆盖声明：七人暂驻天台草地，住房暂停
+
+用户最新要求：“先不用做他们的住所，先全部放到那个天台草地上去”。本节覆盖上方下午七屋/7house、住所消费与住房接线验收待办，不删除历史条款，也不把住房冒称完成。本轮正式NPC现场改为 `rooftop_ranch`，尊重用户手摆root，使用其下 `NpcStations` 的7×5=35个局部Marker；站位从scene/root实际变换获得，不锁绝对世界坐标。历史住所参考 `(38,0,-32)` 仅作历史，不作为当前摆位或硬前置。
+
+- **NPC与Shop不回退**：保留七人稳定ID、七件配件、21个人+4关系剧情事件、84日常对白、9关系边及五职业端口；花序/货架两商店与独立ShopService/Catalog/Panel保留。NPC独立、Shop独立，商品/价格/库存和剧情不混写。七人当前无物理房屋，UI仅写“暂驻天台”，不得写“已经住屋”。
+- **依赖与条款**：功能表移除SEA-RESIDENT→SEA-RESIDENCE，其余NPC依赖不变；R09改为“通过公开世界站位端口，当前草地，后续可插住所”，NpcWorldPresenter / NpcWorldPorts与移动owner不变。新增稳定SEA-RESIDENT-R13承接天台暂驻，账本一行pending主验。UI/SAVE仍为装配协议；住所不成为NPC/Shop当前硬前置。
+- **住房deferred**：SEA-RESIDENCE仍登记 `partial`，原因是已有历史制作资源留存；本轮制作/接入/验收deferred（用户暂停），不新增住房开发，不删除七屋/50m²/家具/35住所Marker等历史R01–R07，不将暂停签退成通过。截至本轮收尾，Main的resident_harbor实例及zones/scope绑定已移除，源资源保留；用户手摆root及其他旧transform未动。该接入清理不是住房完成签署。天台站位属于现有世界场景端口，不是新增住房。
+- **历史PASS隔离**：`D:/projects/sea-work/verification/20261107-192319-seven-npc-release-a6fb1b` 的release integration/save已PASS仅对应住所版历史，不能声称当前天台版通过，亦不等于住房全项完成。
+
+### 19:40 主线程待回填（当前天台版，pending）
+
+回填resident_harbor实例及zone binding移除、源资源保留、rooftop_ranch用户手摆root/NpcStations35局部Marker及变换测试、七人世界路线/fallback/交互、五职业接收方、两店独立面板与真实交易、UI“暂驻天台”、save/integration迁移/坏档不改现场/跨进程及真实渲染截图；记录实际入口、命令、工作树版本、退出码、断言/失败数、日志和未验项。最新天台验收稍后由主线程补填，本轮不借用住所版PASS，不补做住房；细表见[施工记录第12节](docs/development/2026-11-07_npc_module_framework.md#12-1940覆盖天台草地暂驻与住房暂停)。
+
+## 2026-11-07 阳光房下独立水下区域（独立场景已验）
+
+新增sunroom_region独立预览，复用当前SunkenCity＋SunkenSeabed＋SolarCabinBase；旧城50组件388实例，未新导出GLB。city逻辑域240×240、terrain1024×1024、water与原Main同尺寸1280×1280；海面Y=1.12、旧城根Y=43.487442及基座原矩阵保留。城市实测包络P(-120,-38.65286,-120)、S(240,37.00966,240)，最高-1.64320、水下余量2.7632米；海床-62..-18.562597，最大深63.12米。32簇珊瑚来自旧web baked reef12原株，8群138鱼，24灯具为8旧城路灯＋8商亭甲板灯＋8射灯（Omni16/Spot8、局部阴影0）；56个生态根接地最大误差1.907e-6米，已固化到编辑器TSCN。新增局部灯shader仅使原镜片发光，不写共享材质或全局水参数。
+
+最终205426-signed报告：sunroom-underwater67/0、visual-sunroom-underwater89/0，均exit0/PASS、无非预期错误；RTX4060Ti Vulkan Forward+的11真实视角及鱼/珊瑚/灯近景和全景已由父线程目检。新总成、唯一manifest、source index及分类规则已定向登记，六份新增source/runtime已登记，building_views未重建。城市GLB与旧v005导出50/50哈希一致、source50/50一致、optimized文件50/50存在，未重开不签新02b；来源、完整优化复用签署、性能、商业权属和用户美术验收仍pending。原海床/旧城/base/9maps/catalog哈希不变；Main期间仅有并行NPC删除resident_harbor资源与实例两块差异，非本轮写入，不声称整份Main字节未变。204914集成minimum-loop147/1（open shop）仍FAIL、无脚本错误，未做因果回退，不能推定本场景导致或排除关联。全局sync/check待父线程补填。
+
+本场景最初仅F6独立打开、右键配合WASD/QE/Shift查看；自 2026-11-08 起已作为「家园海底」接入潜水（见上方同名章节与 SEA-DIVE-R15–R17），不再只是独立预览。原9来源与宝箱基数不变，家园不占海区 ID；本场景仍无宝箱，不新增收藏奖励，也不称第10条海区。以下为接入前的历史记录。归SEA-DIVE-R13、SEA-AMBIENT-R23、SEA-ASSET-R59。[最终交付、过程与未验边界](docs/development/2026-11-07_sunroom_underwater_region.md)。
+
+## 2026-11-07 NPC性能修复与天台收尾（当前）
+
+- **当前现场**：用户已暂停住所；Main已撤resident_harbor实例及zones/scope绑定、保留source，七人全部在既有rooftop_ranch的NpcStations35局部Marker，无物理住房、UI“暂驻天台”。用户手摆root与其他旧transform未动；本轮只调天台泊位局部Marker `(26.4,57.3,-2.1)`、boat `(26.4,57.04,-5.1)` 与yaw=PI/2，避shore_environment旧圆弧楼shape，不钉世界坐标。住房历史条款/source仍partial/deferred，不在本轮恢复开发或验收。
+- **实现不回退**：NPC独立、Shop独立；七人/七配件、21个人+4关系事件/84日常对白/9关系边、五职业端口、两商店11商品及三花各四stage已实现并有专项，不再仅称静态数量，也不把专项替代全量主验。
+- **SEA-TIME-R12单推进**：Main删除第二次clock.tick，仅sleep_cycle.advance内部至多推进一次并cap23:00睡点，06:00醒与07:00晨次保持；clock.changed经Main._on_npc_clock_changed→notify_world只小字典，不同步解析NPC。
+- **SEA-RESIDENT-R14性能门禁**：Presenter0.5s检测日/分钟、任意日程from/to+conditions hour+21:30边界、天气/关系剧情、手摆Marker/root/support变化；每batch仅1snapshot，support cache带active/surface/revision失效，idle免逐physics投影，force恢复保持。R13天台与历史承接保留，不通过关泛光、减质或删NPC换性能。
+- **已验性能**：[211435真实帧/函数报告](../sea-work/verification/20261107-211435-npc-fps-after-fix-6e7a56/report.json)两项exit0；Forward+/RTX4060Ti实际1600×1000，泛光开59.943FPS、帧p5016.681ms/p9518.097ms，关59.956、再开59.956；Main._process median0.752ms（旧153.23），重复npc_sync median0.008ms（五次含首轮2.458，旧77.62），不是每次全量sync仅0.008ms；sleep0.017/clock0.012ms。旧~5.7FPS场景住所已撤、draw3186对旧3654–3955，不能将全部约10倍收益归纯算法；函数直接支持阻塞已消除，泛光最终保留。
+- **专项分层**：小fixture61/0、120notify+sync558μs；主时钟npc-clock301/0+sleep42/0，均exit0。性能/rules/world/appearance/careers/flowers/sleep七项PASS；211435中shop-rules218/7、exit1为已解决的历史失败，213213最终shop259/0、exit0通过，不反改旧合批全绿；天台access772/0、rooftop655/0、water-layer1613/0均PASS，同报告landing-markers另有失败。报告、命令、快照版本及归因边界见[性能修复记录](docs/development/2026-11-07_npc_performance_fix.md)，[原诊断](docs/development/2026-11-07_frame_diagnosis.md)保留，仅追加新结果。
+
+### 主线程最终待填（不预签天台全量PASS）
+
+此处保留原待签标题作为阶段历史，当前运行证据已收齐并在下节正式签署：shop最终259/0、天台五项2277/0均exit0/PASS。14PNG已出，主线程仅三图目检、11图待审；设备/发行包/持续性能/全剧情人工体验及全局门禁仍另待，不借用住所版历史PASS。
+
+## 2026-11-07 最终天台交付签署
+
+[Shop最终输入报告](../sea-work/verification/20261107-213213-shop-input-final-638cdf/report.json)259 checks / 0 failures、exit0，原七项UI失败已解决，历史不删。[当前天台最终报告](../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/report.json)npc-integration668/0、npc-save618/0、seed408/0、restart202/0、visual-npc-release381/0，五项总2277/0，全部PASS/exit0、unexpected_errors空；实际完整命令、head/working_tree与工程外快照见report，不称整工程门禁已绿。
+
+当前七人初始地点全为**既有rooftop_ranch天台草地对应职业站点**：牵线船务、叶脉种植、回声打捞、榫口木作、灯芯档案、花序花店、货架综合店；不是旧码头/温室/住商房屋，保留稳定residence_id只作语义引用，无物理住房，UI天台暂驻。用户root与其他旧transform未动，旧住所source封存，不恢复开发。下午七屋/旧初始地点方案仅历史。
+
+真实HUD航行、上下船、消防梯、七点实际步行、鼠标与E、职业、七请求礼物、坏档原子和重启profile不变已通过。14PNG在214439的project/outputs/npc-release-*.png；主线程仅实际目检seven-residents、flower-purchase、story-choice三图，确认七人原草地/形象配件、花店5商品价格与购买成功、剧情可读2choices和天台暂驻UI。其余11图尚待人工审阅，不谎称14全目检，[逐图链接与最终签署](docs/development/2026-11-07_npc_performance_fix.md#8-最终天台运行签署与14图清单)。
+
+NPC当前R01–R14、Shop当前运行实现签署通过，两账本status为**implemented（已实现待完整产品验收）**，非verified；GDD功能表机器摘要/派生索引由主线程最终统一同步，住所摘要由主线程按partial规范改。本轮不跑global check，不改代码/registry/runner。未覆盖的完整产品验收：R02/R07全剧情人工体验，R08/R11/R13其余11图目检，R11/R14设备/发行包/持续性能及Shop剩余视觉/资产审阅。既有59.943FPS及性能归因边界保留；住所保持partial/deferred，R01–R07不签完成。
+
+### NPC主线程最终回归补签
+
+[221054最新11专项](../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/report.json)共5324/0，全部PASS；[222551最新工作树](../sea-work/verification/20261107-222551-npc-final-live-worktree-6eb68a/report.json)真实角色外观241PNG/0失败、兼容购买44/0、集成668/0、存档618/0、seed408/0、restart202/0全部PASS/exit0。14场景图已经原图或联系图补审，七人正面组装另审；不冒签241图全细节或全剧情人工体验。泛光保留、当前主场景约59.943FPS，时钟每帧单推进、NPC0.5秒增量日程契约固定。NPC/Shop已实现，住房仍暂停；[最终记录与交付路径](docs/development/2026-11-07_npc_performance_fix.md#9-主线程最终回归视觉审阅与门禁)。全局合同sync17/check18仍有源/runtime哈希和派生索引问题，不用单项通过掩盖工作区漂移，未覆盖其他会话改动。
+
+## 2026-11-07 阳光房独立水下美术 r2 与物体阻挡（已独立验收，产品未接入）
+
+新sunroom_region与旧海域统一水下美术、远雾不切边并加入真实物体阻挡。R13/R23“不新增碰撞”为上一轮历史，本轮由[SEA-DIVE-R14](docs/features/dive/spec.md)承接独立scene精确阻挡，[SEA-AMBIENT-R24](docs/features/ambient/spec.md)承接局部美术，[SEA-ASSET-R60](docs/features/asset/spec.md)承接唯一总成复用和待登记。初填时三专项pending仅保留为当时状态，不再代表当前结果。
+
+runtime禁用Environment fog，按旧地图同序使用one opaque WaterFogPass（render_priority=-128）屏幕统一混合，sunroom_underwater_color include共用6..110米/curve1.3；天空/水顶/地形同一相机方向上下渐变，worldXZ448..500额外fade遮边，透明粒子自雾＋alpha衰减，beam继承同距离fade不双雾。旧Environment fog＋aerial1角落三角块已改单通道，当前已审实拍边角纯渐变无边。旧海域主#edffe3/环境#b9e9e2/辅#a1f7ef参考不变，ambient0.48→深0.29、Sun0.60→0.30、Cool0.13，局部PBR palette/朝上焦散0.075压下泛白地板；水顶texture gain0.18、正常水色。保留138鱼/32珊瑚/24实灯，10条水面下1米起/21..29米软体积代理光为加色16steps、density基值0.085/soft cap0.23、采深度挡墙；192泡/200尘与sample接口保留。
+
+最终实测758proxy/85uniqueMeshes/3115351instanceTriangles；physicsrun缓存99、visual158（同精确Basis key因启动浮点拆分而不同，各角色数量/assemblies/triangles一致），逐Mesh/MultiMesh exact concave/backface＋immutable形状缓存，不降级整包AABB；Terrain3D本实例collision_mode3。Viewer胶囊0.35/1.6，move_and_collide每段≤0.75米/每段8slide，总预算2048steps/4096tests；100米请求thinwall两轴接触<3厘米，全部8roles至少1抽样及海床/桥下路口/斜滑/安全定位覆盖。raw set仅fixture，try_set拒绝重叠越界，F6出生延迟物理校验；水面下中心上限1.12−0.8−0.02=0.30米。setup1834.253ms/load256.285ms仅初次建树单次，不算FPS通过；低端/连续运行仍pending。scope只限独立scene，未来角色可复用但未接production player/路由/存档，仍F6、production_route_integrated=false。toplevel、位置、范围与深度不变；原9图/旧城/base/海床/原GLB70保护项父线程最终核对，50城市源GLB不动。本任务不改Main；Main 可能被并行修改，不要求 Main 字节不变。
+
+**最终签署**：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`，sunroom-underwater78/0、sunroom-collision264/0、visual-sunroom-underwater118/0，新区域460/0；dive-maps302/0、modules31/0回归333/0；五入口总793/0，全部PASS/exit0，无unexpected。RTX4060Ti/Vulkan Forward+真实18机位及home-base/ray-street/coral/fish/far-edge/corner-close已审，最终远角pure gradient；far-fog-edge max0.0078431517、corner0.0039215982、west0.0039215982均<0.025；射光shader开关lit_samples5365>150，已证实际可见而非仅node计数。默认射光/泡/珊瑚/鱼与低照灯分列，近处实体边缘不算远雾cut。local env/sky/material均resource_local_to_scene保多实例。旧100米cast约0.09米保守停靠属精度未达标，不是穿透；≤0.75米substep后接触误差<0.03米。225915保留为中间历史，运行final不再pending。唯一总成v002定向登记父线程执行中，只4JSON、15源/17runtime含2tests、backup/回滚及old history保留，无旧GLB导出；实际写成功、70保护项与sync/check真实输出由父线程补。低端/连续performance/rights/user acceptance/完整02b/production仍pending。本次只改文档，不运行命令或registry。[最终证据、登记命令与静态门禁回填位](docs/development/2026-11-07_sunroom_underwater_art_r2.md)。
+
+## 2026-11-07 22:39 居民称呼、人物内容与阿店迁址（当前设计分支）
+
+本轮承接SEA-RESIDENT，不另造重复功能：显示称呼改为船老大、豆豆、阿海、木头叔、灯伯、小花、阿店，NPC/剧情/关系边/请求ID和npc.version=1保持不变。覆盖旧七人全天台要求：六人仍在原天台草地，阿店移至用户已摆好的东南海上商店（World/SeaStructures/floating_shop、sea_supply），不移动建筑、不新建住所。
+
+NPC分支新增每人完整背景、日常习惯和6条具体相处看法；保留9条持久关系边并增加背景说明；原84个日常槽扩为每槽3句确定性轮换共252句，另加每人4个可主动选择的话题（共28话题/至少56页）。认识页与话题界面只读，阅读和取消不增加好感或完成剧情，隐情不直接剧透。商店分支只改店名为阿店的海上商店与小花花店，仍由独立ShopService结算；改NPC场地不改价格、库存或存档归属。
+
+世界适配分支用聚合站位端口连接天台30 Marker和浮店5 Marker；浮店刚性升沉由原区块拥有，阿店随支撑移动但不因海浪逐帧触发日程重算/导航烘焙，不让其他人跨海寻路。继续执行0.5秒增量日程/单时钟性能门禁、鼠标键盘交互、坏档原子和旧档恢复专项。具体条款与证据由[NPC设计](docs/features/resident/spec.md)、[NPC账本](docs/features/resident/ledger.md)、[商店设计](docs/features/shop/spec.md)、[商店账本](docs/features/shop/ledger.md)承接；本分支新增内容以本轮新实测签署，不沿用旧全天台计数作为迁址通过。
+
+## 2026-11-07 触发式交互：不读条、朝向只仲裁、上下船走热区
+
+用户反馈「有些功能不需要读条，走近出图标点一下就触发」「上下船判定经常体验不好」「同时进入种植区和上船判定区时按面朝向优先」。本轮把交互从「按住读条」整体改为「按一次就做完」：`hold_time` 语义变成动作时长，种植格为 0（瞬发），采集 0.40–0.75、建造 0.5、修缮 0.6。
+
+有一处设计修正：**朝向不能当准入门槛**，那样背对船一米也上不去，比误触更糟。改成「判定区内只有它就直接可选；有多个才按面朝向仲裁，差量 ≤0.08 视为同档再比距离」。上下船改为热区：水面泊位 6.5 米内（且可航）给靠岸入口，岸上站立点 2.4 米或船体 3.0 米内给上船图标；靠妥容差由 1.0 提到 1.6 米。提示文案、近距图标、点击与 E 键分派统一读 `_near_action()` 一处仲裁，不允许另判。
+
+条款见 [SEA-INTERACT-R24/R25/R26/R27](docs/features/interact/spec.md)、[SEA-FARM-R17](docs/features/farm/spec.md)；账本同步。证据：`D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json` 十三项全 PASS/exit0，`D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json` 视觉农场 PASS 并目检无底部提示条/进度条。[总交付](docs/development/2026-11-07_trigger_interaction.md)。整体仍 partial。
+
+另记一条环境事故：`scripts/run_verification.py` 每轮在 `%APPDATA%/sea-verification/` 留一个用户目录而从不清理，累积到 1921 个/20.5 GB 把 C 盘写满。已加 `release_user_data()` 跑完自清，验证后用户目录归零。全局合同 sync 后仍 29 issues，其中哈希漂移与 SEA-MOVE/SEA-SHOP/SEA-RESIDENT 差异属并行会话改动，未冒签。
+
+## 2026-11-08 收成动作修订
+
+按用户反馈，SEA-MOVE-R14/R17的获物表现由双手追逐作物改为自然的胸前屈肘抬手示意，新增SEA-MOVE-R28要求上下臂与实际蒙皮保持当前体型的原始长度，不强求接触作物或包口。保留2.4秒、帽上作物展示、收包、原奖励一次性与取消/存读生命周期。该条覆盖2026-10-30历史记录中的“双手举到帽子上方”要求；种植规则及正式场景位置保持原所有者。[设计](docs/features/move/spec.md) · [功能账本](docs/features/move/ledger.md) · [本轮实测](docs/development/2026-11-08_harvest_gesture.md)。
+
+## 2026-11-08 居民称呼与海店迁址运行签署
+
+C盘空间恢复后继续完成22:39分支：七人称呼为船老大、豆豆、阿海、木头叔、灯伯、小花、阿店；六人保留用户天台草地，阿店在用户已摆好的东南海店，建筑root不动，住所继续暂停。两目录完整标题统一“小花花店 / 阿店海上商店”，11商品与价格、稳定NPC/剧情/关系/请求ID及npc.version=1不变。七份背景、42条相处看法、252句日常、28话题56页的UI/只读/隐私/确定性与旧档契约已独立验证。
+
+本轮最终19个独立入口共**13177 checks / 0 failures**，均PASS/exit0、unexpected_errors空，含真实迁址898/0、正式集成695/0、save615/0、seed405/0、restart197/0、真实画面348/0及其余13项规则/时钟/性能机制回归。28张1728×1080截图已逐图审阅，两新店标题和真实购买、六天台一海店、认识与话题可见；不以旧全天台结果替代。登记SEA-RESIDENT/SEA-SHOP为implemented，非verified；低端/发行包/长期FPS/完整剧情人工体验仍待验。
+
+架构25服务/0问题、手摆3结构/0警告、diff检查通过。全局source/runtime hash仍有本轮及并行改动漂移，未批量重签；已运行sync及check，原检查脚本遇其他问题不写派生摘要，故全工程门禁与derived index另待核验，不用本轮绿项冒签全局。完整命令、旧FAIL与修复、当前报告和逐图边界见[开发记录第8节](docs/development/2026-11-07_npc_names_and_shop.md#8-2026-11-08-磁盘恢复后主线程最终签署)；可视验收页位于工程外`sea-work/outputs/npc_names_shop_acceptance.html`。
+
+最后校对覆盖：蓝星/珊瑚花种说明改“小花”，固定商品名“花序缎带”不变；shop-rules新增1断言后260/0，最终19入口合计**13178/0**。真实画面最终`20261108-044915-npc-visual-route-diagnosis-03bb1f`348/0、28图已全部逐图审阅；此前一次航行120秒超时278/1原报告保留，未稳定复现，生产船/坐标/阈值未改，不能冒签偶发根因已消除。详开发记录8.5。

@@ -20,6 +20,15 @@
     "godot/assets/data/zones.json"
   ],
   "verification": [
+    "shop-sightline",
+    "visual-shop-sightline",
+    "gift-kiosk-interior",
+    "visual-gift-kiosk-interior",
+    "roof-reveal-component",
+    "roof-reveal",
+    "visual-roof-reveal",
+    "gift-kiosk",
+    "visual-gift-kiosk",
     "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
@@ -281,3 +290,48 @@ SEA-WORLD-R01/R08/R13/R14/R15/R16：正式资源中7个独立海上设施地点�
 | 对应条款 | 当前实施 | 证据 / 边界 |
 |---|---|---|
 | SEA-WORLD-R23 | 用户否定外围追加道路块后，已撤下40个 `edge_ramp_*`；v005恢复原388实例。新增Terrain3D `World/SunkenSeabed`，中心按真实100个ground几何托底，外缘12m平台+96m缓坡至Y=-62m；collision0、不参与水面/岸线/导航。 | [v005制作与验收](../../development/2026-11-06_sunken_city_v005.md)；实际海床129项采样0穿地、0坡度违反、4 region/262144像素通过；用户摆位检查3结构0失败。LOD/性能、商业权属和美术终审pending。 |
+
+
+## 2026-11-07 礼品商亭替换、摆放与移动支撑
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R24 | 新商亭沿用sea_supply及稳定floating_shop.tscn；参考位按当前阳光房中心东南200米带入，后续认正式TSCN；旧模型完整用户变换保留为navigation_only旧驿站，不重复区块/泊位/补给 | [本轮记录](../../development/2026-11-07_gift_kiosk.md)及[摆放台账](placed_positions.md)。379实例矩阵独立比对、实际行走面/阻挡/泊位/海面日夜和角色承载通过；最终gift-kiosk 7129/0、render53/0、water-layer1594/0均exit0。 |
+
+
+## 2026-11-07 商亭屋顶围绕角色展开消隐
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-WORLD-R25 | 已在正式商亭增量标记78个顶盖及附属根，Main注入实际角色/岸上状态；局部空间柔边圆孔展开、整顶消隐与反向恢复，室内和货物保持。圆角/高度/门边退出缓冲、同设施浮动、共享材质保护已实测。 | [本轮开发与验收](../../development/2026-11-07_gift_kiosk_roof_reveal.md)。专项入口roof-reveal-component、roof-reveal、visual-roof-reveal；最终运行证据在该记录追加；不把有非预期脚本错误的runner结果标为通过。 |
+
+
+SEA-WORLD-R25最终本轮签署：`20261107-164731-gift-kiosk-roof-final-36558c`中roof-reveal-component127/0、实际主场景roof-reveal364/0、实际渲染74/0、商亭集成7129/0、镜头12/0，五项均exit0/runner PASS。water-layer另为2092/111、exit1，111条全部在并行resident_harbor，保留FAIL，不冒充全世界通过。[完整签署与边界](../../development/2026-11-07_gift_kiosk_roof_reveal.md#最终实测结果)。
+
+## 2026-11-07 海域来源与独立潜水地图边界
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R26 | 源码已改为岸上current_zone、船上已安装且Scope启用区块的实际TSCN泊位XZ最近分区，无半径截断/JSON参考位。Main仅装稳定DiveSession，不挂潜水地图；catalog含9来源，不恢复zone3/4海面实例，不移动现有设施，不改SunkenCity/海床景观。旧整图资源保留、旧生成器限候选 | `Main._dive_source_at / _setup_dive`、`dive_map_catalog.gd`、`scenes/underwater/maps/*.tscn`；`dive-maps / visual-dive-maps`结果 **pending，待父线程补充** |
+
+当前节覆盖R08旧“Underwater常驻按状态隐藏”的历史说明，状态仍partial。初填pending为过程；最终R26：dive-maps312/0、visual322/0，当前已安装泊位/岸上ID来源、9独立场景及原实例返回通过；SunkenSeabed原变换与top_level恢复有逐图断言，正式手摆transform未改。check_placed_positions四结构通过/0warning。全海平面等距和用户后续任意移位组合未穷举，源查询从实时泊位读取；不把规划zone3/4目录当已安装海面。[最终实测与边界](../../development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。
+
+
+## 2026-11-07 商亭室内柜台与行走动线
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-WORLD-R27 | 正式floating_shop仅增量加Visual/Interior、柜台交互点及家具扣除后的WalkArea；陈列台和附带5件货品在Godot相对Blender参考位向局部+X调0.3m以保留左侧通道，记录source_position与运行位。既有379个实例变换和屋顶标记不动，main.tscn未由本任务编辑。 | [本轮记录](../../development/2026-11-07_gift_kiosk_interior.md)，实际路径、浮动承载和补给交互验收进行中。 |
+
+
+SEA-WORLD-R27最终签署：185311统一runner中室内349/0、实拍28/0、原商亭7129/0、屋顶364/0均exit0/runner PASS。真实胶囊到柜台前、包装柜侧和陈列台左过道；新家具不可穿越、原泊位/环廊/浮动/消隐通过，现行独立综合商店打开正常。用户修改的霓虹街区标高仅同步摆放台账，主场景未改。全世界水层仍有111条resident_harbor失败、全局契约有并行问题，完整边界见[本轮记录](../../development/2026-11-07_gift_kiosk_interior.md#相关全局检查与未验边界)。
+
+
+## 2026-11-07 商亭近侧遮挡椭圆透视
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-WORLD-R28 | 正式商亭挂独立SightlineReveal表现节点，消费RoofReveal室内判定；Main注入实际角色和Camera3D。屏幕椭圆、世界XZ近侧和视深度双门限限制局部消隐，保留淡轮廓与柔边；地面和原屋顶不重复控制。 | [开发与验收](../../development/2026-11-07_gift_kiosk_sightline.md)。最终运行和实景结果后续追加，不将尚未审阅的渲染自动标为完成。 |
+
+
+SEA-WORLD-R28最终签署：190758的shop-sightline968/0、实际GPU20/0和191040的roof-reveal364/0、gift-kiosk-interior349/0、camera12/0，五项合计1713/0、全部exit0/runner PASS。实际日夜/中间态/反向镜头及走出恢复已目视审阅，6份运行资源及Main与已验副本一致；60源文件和58GLB未改。全局契约26/27条并行问题另记，摆位4项与diff检查通过。见[最终交付](../../development/2026-11-07_gift_kiosk_sightline.md#最终实测与交付)。

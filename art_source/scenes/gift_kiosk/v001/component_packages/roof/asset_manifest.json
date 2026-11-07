@@ -1,0 +1,60 @@
+{
+  "key": "roof",
+  "name": "圆角平屋顶与檐板",
+  "family": "roof",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-ROOF",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ROOF",
+  "design_pivot": [
+    0.0,
+    -2.384185791015625e-07,
+    0.0
+  ],
+  "bounds_min": [
+    -6.024999618530273,
+    -6.0249998569488525,
+    0
+  ],
+  "bounds_size": [
+    12.049999237060547,
+    12.049999237060547,
+    0.4099999964237213
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/roof/roof.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 12,
+  "instances": 1,
+  "triangles": 3656,
+  "polygons": 1820,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "3144d25b0822b8d65b517b9951db3992706856e927dec4ea95f3bfd0c7e54ce7",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ROOF",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/roof/roof.glb",
+  "runtime_sha256": "ad2d85d0638c5d268cc54298649ea6ff8700c0dc83623516c4a096b0ff07c26d",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/roof.tscn",
+  "prefab_sha256": "5efa0f6f5d5a2c4a7b7a5e22a8324a6bc1265539689c064165eb32fdf000dbf1",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 3656,
+  "triangles_after": 3656,
+  "geometry_fingerprint": "5990378b94668f845747e12ad4ffe7bea2f8f4265e2b8fe797287afa0cdf061f"
+}

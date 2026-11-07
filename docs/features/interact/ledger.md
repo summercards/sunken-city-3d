@@ -15,6 +15,8 @@
     "godot/src/interaction"
   ],
   "verification": [
+    "facing-interaction",
+    "visual-facing-interaction",
     "keyboard-farm-loop",
     "visual-keyboard-farm-loop",
     "keyboard-travel",
@@ -245,3 +247,23 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 - interaction-reach35/1（第一项角标1）、dock-seed21/1（二级层级标题）、minimum-loop141/10（直接harvest及下游库存/出货）、harvest-receive80/1（E直接收获）均exit1，**属于本轮回归承接，不标范围外**。适配后`20261106-201957-keyboard-contract-regression-888baa/report.json`已通过interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0，四项exit0、passed=true、completion_marker=true、unexpected_errors空；不再待填，仅主线程keyboard-final-contracts最终合批待附。
 - 用户无提示新要求覆盖R18及UI-R52，原hover近距图标/进度与状态灰因保留，底部prompt与世界角标/教程行关闭。主动系统帮助是允许项；重新核实当前口袋源码已删除按1购买句与动作数字前缀，仅保留上限/余额/库存及动词数量，对应同步差异已解决，见总交付。
 - 四功能仍partial；本次仅回填原文档及verification数组，不运行检查/sync，不动生产、哈希、用户TSCN或building文档。
+
+## 2026-11-07 正面交互与泊位防误触
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-INTERACT-R22 | 已实现并通过最终合批；角色+Z水平dot≥0.55、中心0.35m豁免；Q仅正面、离面失效；只有auto_hold+preferred明确自动目标绕过朝向，沿原hold一次消费命令 | `D:/projects/sea-work/verification/20261107-165822-movement-feel-final-9b7646/report.json`：当前真实Main的`facing-interaction`102/0、`visual-facing-interaction`105/0、farm636/0、travel374/0，均PASS/exit0、完成标记真、unexpected_errors空。farm改为先面对再逐格Q lock，保留六格入口、不偷移位置及Q不触发业务断言；`D:/projects/sea-work/verification/20261107-170723-movement-feel-render-final-950cd8/report.json`的visual-keyboard-farm-loop647/0与真shore163769/0双PASS/exit0无unexpected_errors，主任务已目检最新facing plot，面向格近距图标正确、无教程。[总交付](../../development/2026-11-07_movement_feel_refinement.md)。 |
+| SEA-INTERACT-R23 | 已实现并通过最终合批；上船朝boat≥0.60、spot默认优先、boat alignment高出至少0.15可胜、Q明确spot保护；near与E同胜者。near dock朝park≥0.20（中心≤0.5m豁免）且plan_route非空 | 同一165822报告朝向102/0、视觉105/0及`interaction-reach`35/0通过；11项全PASS。NPC新世界端口由独立装配修复，已注入权威world_clock、enabled query并接owned_modal_input；旧NPC与菜箱重合/抢点失败仅作历史，不再pending；`D:/projects/sea-work/verification/20261107-172123-movement-latest-smoke-ed1994/report.json`的facing102/0 PASS进一步确认NPC/dive最新装配可启动，不外推为整套潜水完成。 |
+
+继续沿SEA-UI-R54只显示原near图标/进度，`prompt.enabled=false`，无底部键位条/气泡教程；NPC与用户手摆未为凑测试挪位，旧断言未放宽，render与visualfarm不再待验。171743兼容批六项仅actor-presentation PASS：当时潜水并发重构、本地WorldEnvironment缺失，click32/3、board12/0、dock22/0、save10/0、water41/0全部runner FAIL，零失败断言不能代替runner PASS。新版Main已接DiveSession，172517-movement-current-compatible-8e5f98五项最终均runner PASS（board12/0、dock22/0、save10/0、boat-water-contact41/0、shift56/0）、exit0且无unexpected_errors；不修整套潜水或代签旧click潜水三项。功能仍`partial`；主任务17:16已执行sync20 issues、普通check21（43features/930assets/1255runtime），未强刷哈希；placed positions4项PASS/0warnings与本轮diffcheck通过，详见总交付。本次回填不改生产、GDD、registry/hash/TSCN。
+
+## 2026-11-07 触发式交互
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-INTERACT-R24 | 已实现并通过：`hold_time` 改为动作时长，种植格 0 瞬发；`acting`/`_acted_once`/`_wait_release` 重定义；`queue_command` 清闸门；`cancel` 只设「等松开」不开闸门 | `D:/projects/sea-work/verification/20261108-025201-clean1-d01069/report.json`：facing-interaction、control-feel、interaction-reach、keyboard-travel、keyboard-farm-loop、harvest-receive 六项全 PASS/exit0；`D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json` 十三项（含 keyboard-panels/building/control、click、dock-seed、board-click、minimum-loop、initial-planters、farm-day-change）全 PASS/exit0。[总交付](../../development/2026-11-07_trigger_interaction.md)。 |
+| SEA-INTERACT-R25 | 已实现并通过：候选不再按朝向过滤；`_refresh_target()` 按 `FACING_TIE=0.08` 分档比朝向→距离→优先级；新增 `refresh_now()` 供仲裁同步取焦点 | 同一 20261108-025201 报告 facing-interaction 与 keyboard-travel 全绿；`interaction-reach` 中「3 米处提示为空但 E 仍打捞」的一致性缺陷已修（`_boat_shortcut_text()` 补同源兜底）。农场夹具与 selftest 的采集打断断言已按触发式契约改写（不再等 hold 累积，改为验证动作被位移中止）。 |
+| SEA-INTERACT-R26 | 已实现并通过：`_actor_in_boarding_zone()`（站立点 2.4 m 或船体 3.0 m）、`_near_landing_key()` 删船头 0.20 方向锥改热区 + 0.4 s 可航缓存、`DOCK_SETTLE_TOLERANCE` 统一 1.6 m | 20261108-031934-marker1-4f2e1f：facing-interaction、keyboard-travel、interaction-reach、control-feel 四项 PASS/exit0；`D:/projects/sea-work/verification/20261108-032313-visual-mark-a4fa46/report.json` visual-facing-interaction PASS，实景截图确认船体只剩一个锚图标。 |
+| SEA-INTERACT-R27 | 已实现并通过：`_near_action()` 为唯一仲裁源，`_activate_near_action()` 替换原匿名 lambda（原来 `"leave"` 会掉进 else 误触打捞）；`_boat_shortcut_text()` 与 `_press_boat_key()` 对远距 pick 同源；`markers.suppress_query` 让码头标记在上船档让位 | `D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json` visual-keyboard-farm-loop PASS；实景目检：种植格旁只出种植图标、底部无提示条与进度条，水面锚图标为常驻码头路标（不同目标，非重影）。 |
+
+复用证据边界：`selftest` 仍 508 passed / 24 failed，失败集合与 2026-11-07 基线（190002-dive-map-switch-final）逐条比对只差三项浮动项（打捞冷却读数、航路长度数值、泊位两两可达条数），属既有历史失败，非本节引入；`keyboard-panels` 与 `minimum-loop` 的两处失败已定位为**范围外的前序改动**（作物表由 3 种扩到 6 种导致笔记页数变化；shop 命令改为独立商店面板）并已按新事实修正断言，非本节回归。整体仍 `partial`。

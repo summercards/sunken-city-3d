@@ -1,0 +1,55 @@
+{
+  "asset_id": "SEA-SCENE-GKI-WALL-CLOCK",
+  "name": "圆挂钟",
+  "domain": "scenes",
+  "source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/wall_clock/wall_clock.blend",
+  "source_sha256": "c897af162bab4e9bb257b5d4761dcfdba52950af686ec4b1e9c7ab785d22ecf3",
+  "manifest": "art_source/scenes/gift_kiosk_interior/v001/component_packages/wall_clock/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk_interior/wall_clock/wall_clock.glb",
+  "runtime_sha256": "fcf7b99effbe0b4b283aac02cf4b592270ec648df5a7182fab85d8bb72e4b0b2",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk_interior/wall_clock.tscn",
+  "prefab_sha256": "31d33e75f649d6d394032983d422c2024dd3a0b993efc5f159f917be8dbdf051",
+  "optimized_source": "art_source/scenes/gift_kiosk_interior/v001/export/v001/gift_kiosk_interior_optimized_v001.blend",
+  "optimized_sha256": "b6629a2210cd1bfcfffaec7352641bf7162396ca0cb0bebc2450e0b1651dd712",
+  "optimization_manifest": "art_source/scenes/gift_kiosk_interior/v001/export/v001/optimization_manifest.json",
+  "geometry_fingerprint": "e4ff7c51f62bf154675854dce6c7cf3a1b7d3677d7de60e8e6cd2803046fbb87",
+  "classification": {
+    "category": "scene_component",
+    "subcategory": "clock"
+  },
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "facility_id": "SEA-SCENE-GKS-ASSEMBLY",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "maintenance_status": "runtime_integrated_verified",
+  "triangles": 2728,
+  "bounds_size": [
+    0.9200000166893005,
+    0.25700002908706665,
+    0.9200000166893005
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "user_art_acceptance": "pending",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+    "docs/development/2026-11-07_gift_kiosk_interior.md"
+  ],
+  "origin": "bottom_center",
+  "front_axis": "Godot +Z",
+  "source_collection": "SEA-SCENE-GKI-WALL-CLOCK",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKI-WALL-CLOCK"
+}

@@ -1,0 +1,58 @@
+{
+  "key": "awning_white",
+  "name": "白色圆垂边雨棚条",
+  "family": "awning",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-AWNING-WHITE",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-AWNING-WHITE",
+  "design_pivot": [
+    0.0,
+    -0.11649999022483826,
+    -0.05999999865889549
+  ],
+  "bounds_min": [
+    -0.32499998807907104,
+    -0.5834999978542328,
+    0
+  ],
+  "bounds_size": [
+    0.6499999761581421,
+    1.1670000553131104,
+    0.8789610266685486
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/awning_white/awning_white.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 1,
+  "instances": 24,
+  "triangles": 884,
+  "polygons": 444,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "fb4c1fd385c844dd4a4058ff226594c1bead7b39fc33535076f91ec07da36eca",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-AWNING-WHITE",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/awning_white/awning_white.glb",
+  "runtime_sha256": "03977ca64972e59d01d6cb7d5af677c738da7d1e7dee45ccffe30cfb55b40aec",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/awning_white.tscn",
+  "prefab_sha256": "5865b5bbfd3772bf379bbbcbcf6e8ad694d6b7f64088d7d811d9e6ce9a40f3a8",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 884,
+  "triangles_after": 884,
+  "geometry_fingerprint": "2a71cc094c32a1274ccfaa1883ff0cff234fc77ec9ebde76711b89128a0233c8"
+}

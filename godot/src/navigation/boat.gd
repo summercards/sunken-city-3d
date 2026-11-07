@@ -77,6 +77,10 @@ var _duration := 1.0
 var _to_zone := ""
 var _to_landing := ""
 var _speed_actual := 0.0
+## 手动驾驶撞到岸线后仍保留方向盘，允许玩家原地摆头脱困；
+## 同一轮贴岸只反馈一次，真正划开或结束驾驶后才重新允许反馈。
+var _manual_blocked := false
+var _manual_clear_distance := 0.0
 
 
 func build() -> void:
@@ -143,6 +147,12 @@ func place_at(pos: Vector3, yaw: float) -> void:
 	rotation.y = yaw
 	manual_drive = false
 	drive_dir = Vector2.ZERO
+	_manual_blocked = false
+	_manual_clear_distance = 0.0
+	manual = false
+	_dock_left = 0.0
+	_speed_actual = 0.0
+	_turn_rate = 0.0
 	_yaw_rate = 0.0
 	_travel_dir = _forward(yaw)
 	route.clear()
@@ -165,6 +175,10 @@ func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path
 	# 点目标 = 自动航行接管：手动驾驶必须当场放掉，否则两条控制同时写位置。
 	manual_drive = false
 	drive_dir = Vector2.ZERO
+	_manual_blocked = false
+	_manual_clear_distance = 0.0
+	_yaw_rate = 0.0
+	_travel_dir = _forward(rotation.y)
 	if landing_id != "manual":
 		manual = false
 	_align_at_arrival = align_at_arrival
@@ -231,7 +245,10 @@ func sail_to_point(pos: Vector3, path: Array = []) -> void:
 func set_drive(dir: Vector2) -> void:
 	var flat := Vector2(dir.x, dir.y)
 	var next := flat.normalized() if flat.length() > 0.001 else Vector2.ZERO
+	var changed_direction := drive_dir.length() > 0.001 and next.length() > 0.001 and absf(drive_dir.angle_to(next)) > 0.08
 	drive_dir = next
+	if changed_direction:
+		_manual_clear_distance = 0.0
 	if next == Vector2.ZERO:
 		return
 	if not manual_drive:
@@ -272,6 +289,9 @@ func would_hit_shore(dir: Vector2, probe := 0.55) -> bool:
 func stop_drive() -> void:
 	manual_drive = false
 	drive_dir = Vector2.ZERO
+	_manual_blocked = false
+	_manual_clear_distance = 0.0
+	_dock_left = 0.0
 	_vel = 0.0
 	_speed_actual = 0.0
 	_turn_rate = 0.0
@@ -283,9 +303,15 @@ func stop_drive() -> void:
 
 
 func _drive(delta: float) -> void:
-	var dt := minf(maxf(delta, 0.0), 0.25)
-	if dt <= 0.0:
-		return
+	# 与自动航路共用 120Hz 细分，撞岸/恢复也不依赖渲染帧率。
+	var left := clampf(delta, 0.0, 0.25)
+	while left > 0.00001 and manual_drive:
+		var dt := minf(left, 1.0 / 120.0)
+		_advance_drive(dt)
+		left -= dt
+
+
+func _advance_drive(dt: float) -> void:
 	var want := drive_dir
 	var cruising := cruise_speed()
 	var speed_ratio := clampf(_vel / maxf(cruising, 0.001), 0.0, 1.0)
@@ -326,26 +352,33 @@ func _drive(delta: float) -> void:
 	if step > 0.00001:
 		var moved := here + _travel_dir * step
 		if not _clear(here, moved):
+			# 最低推进也不能越岸：只取消平移，保留角速度继续摆头。
+			var first_block := not _manual_blocked
 			_vel = 0.0
 			_speed_actual = 0.0
-			_turn_rate = 0.0
-			_yaw_rate = 0.0
-			manual_drive = false
-			drive_dir = Vector2.ZERO
-			_sailing = false
-			_yaw_to = rotation.y
-			navigation_blocked.emit()
-			return
-		position.x = moved.x
-		position.z = moved.y
+			_manual_blocked = true
+			_manual_clear_distance = 0.0
+			if first_block:
+				navigation_blocked.emit()
+		else:
+			position.x = moved.x
+			position.z = moved.y
+			if _manual_blocked:
+				# 真正划开一小段才重置反馈；贴边微进/再撞不能反复 toast。
+				_manual_clear_distance += step
+				if _manual_clear_distance >= 0.1:
+					_manual_blocked = false
+					_manual_clear_distance = 0.0
 	_speed_actual = _vel
-	if want.length() <= 0.001 and _vel <= 0.02:
+	if want.length() <= 0.001 and _vel <= 0.02 and absf(_yaw_rate) <= 0.02:
 		_vel = 0.0
 		_speed_actual = 0.0
 		_turn_rate = 0.0
 		_yaw_rate = 0.0
 		manual_drive = false
 		_sailing = false
+		_manual_blocked = false
+		_manual_clear_distance = 0.0
 		_yaw_to = rotation.y
 
 func starts_sailing() -> bool:
@@ -546,6 +579,10 @@ func _animate_oars(delta: float) -> void:
 
 func wake_uniform() -> Vector4:
 	return Vector4(position.x, position.z, rotation.y, _speed_actual)
+
+## 仅手动模式持有侧滑方向；自动航行不得消费上次手动留下的航迹。
+func travel_direction() -> Vector2:
+	return _travel_dir if manual_drive and _travel_dir.length_squared() > 0.000001 else _forward(rotation.y)
 
 func rowing_state() -> Vector2:
 	return Vector2(_stroke, _row_blend)

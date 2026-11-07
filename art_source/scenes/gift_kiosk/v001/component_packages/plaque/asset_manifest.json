@@ -1,0 +1,58 @@
+{
+  "key": "plaque",
+  "name": "船底圆角铆钉检修板",
+  "family": "maintenance",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-PLAQUE",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-PLAQUE",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.675000011920929,
+    -0.675000011920929,
+    0
+  ],
+  "bounds_size": [
+    1.350000023841858,
+    1.350000023841858,
+    0.1899999976158142
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/plaque/plaque.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 5,
+  "instances": 4,
+  "triangles": 1708,
+  "polygons": 850,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "598e453b952c2e474189f0e7a82ec6cfb5db55f0415fc24d8b13e1b7bbe1640c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-PLAQUE",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/plaque/plaque.glb",
+  "runtime_sha256": "1fb1151f9a806ce8242f928e446656c0a339a7dc0184b97e595d7ff352684053",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/plaque.tscn",
+  "prefab_sha256": "9dea5ffd80744a0cdc008a95b9718d73ae940b8e22d00e2066c04a3572924b12",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1708,
+  "triangles_after": 1692,
+  "geometry_fingerprint": "1ad87ba6bcd60e1642c2af82b42613a23ef5c36f8bda6bf402aedde4f42354b3"
+}

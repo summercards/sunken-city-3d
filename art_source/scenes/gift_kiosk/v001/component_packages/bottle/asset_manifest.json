@@ -1,0 +1,58 @@
+{
+  "key": "bottle",
+  "name": "彩色饮料瓶",
+  "family": "stock_bottle",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-BOTTLE",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BOTTLE",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.15299999713897705,
+    -0.15299999713897705,
+    0
+  ],
+  "bounds_size": [
+    0.3059999942779541,
+    0.3059999942779541,
+    0.7200000286102295
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bottle/bottle.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 60,
+  "triangles": 1136,
+  "polygons": 512,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "428f6f73edb723fe6b03720e67c76b6fe42841e011d79ad3143e735851ad654a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BOTTLE",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/bottle/bottle.glb",
+  "runtime_sha256": "67b47df8e47ee9586d38cb60ccaf768f36f2565709016fcda29ed8ca3f60287d",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/bottle.tscn",
+  "prefab_sha256": "7d9b29710b2edea76b6934a2da4f773391f7218c9e2bad3ed9c1cffbdf44e33a",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1136,
+  "triangles_after": 1136,
+  "geometry_fingerprint": "fd18c564dd82da54e25996d14cf75800b8a4ce7bec21a3902f7654f07cc218fc"
+}

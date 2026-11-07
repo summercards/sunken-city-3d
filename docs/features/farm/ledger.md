@@ -152,3 +152,9 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 同批回归 initial-planters247/0、walk-on-planters53/0、farm-day-change23/0通过。minimum-loop141/10（scene harvest及库存/仓储/出货连锁断言）、harvest-receive80/1（旧E直接收获预期）、dock-seed21/1（旧二级标题预期）、interaction-reach35/1（旧角标预期）均exit1，作为本轮过程失败保留，不标范围外。新菜单/无角标契约适配后，`20261106-201957-keyboard-contract-regression-888baa/report.json`：minimum-loop147/0、harvest-receive92/0、dock-seed22/0、interaction-reach35/0，四项均exit0、passed=true、completion_marker=true、unexpected_errors空；已收口，不再pending。主线程keyboard-final-contracts包含面板及旧pocket回归的最终批次待附。
 
 旅行旧轮374/0但负Rect导致runner FAIL的过程保留；`.abs()`修复后194828与200446两份report均travel374/0、exit0、passed=true。夹具边界、截图清单与完整路径见[总交付](../../development/2026-11-06_keyboard_complete.md)。建造40/0与visual43/0仅引用[building设计](../building/spec.md)/[账本](../building/ledger.md)，未改其文档；不外推全部作物/DIY布局/full-world与设备验收。
+
+## 2026-11-07 种植区瞬发
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-FARM-R17 | 已实现并通过：`farm_plot.gd` 的 `hold_time = 0`（原读条），六个入口全部瞬发；作物表 6 种，笔记按 6 条一页自动分页 | `D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json` keyboard-farm-loop、keyboard-panels、initial-planters、farm-day-change、harvest-receive 全 PASS/exit0；`D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json` visual-keyboard-farm-loop PASS。测试侧两处旧契约断言已按事实修正：`keyboard-farm-loop` 由「开菜单前必须有 hold 进度」改为「触发式不读条、按一下就开菜单」；`keyboard-panels` 由「恰好两页」改为「按条目数算页数」。[总交付](../../development/2026-11-07_trigger_interaction.md)。功能仍 `partial`。 |

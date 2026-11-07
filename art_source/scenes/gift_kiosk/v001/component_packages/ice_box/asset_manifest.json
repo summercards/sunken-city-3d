@@ -1,0 +1,60 @@
+{
+  "key": "ice_box",
+  "name": "白色ICE冰柜",
+  "family": "ice",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-ICE-BOX",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ICE-BOX",
+  "design_pivot": [
+    0.0,
+    -0.025000005960464478,
+    0.0
+  ],
+  "bounds_min": [
+    -1.0800000429153442,
+    -0.5949999988079071,
+    0
+  ],
+  "bounds_size": [
+    2.1600000858306885,
+    1.190000057220459,
+    2.129999876022339
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/ice_box/ice_box.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 13,
+  "instances": 1,
+  "triangles": 5276,
+  "polygons": 2810,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "4b1d01f6a1528bb601f48746b2071720a73346aaa321a5cd6b6e2ddff6ea8bae",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ICE-BOX",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/ice_box/ice_box.glb",
+  "runtime_sha256": "21f6ebe1d804df46ec4346f0f8c471f148438d4dd0fb3d92405a4101c0475068",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/ice_box.tscn",
+  "prefab_sha256": "9cd7ba6bd851cd6a7cd030559295bfbd131c8cdf5bec73a7da4aa20b0d0a0f6b",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 5276,
+  "triangles_after": 5276,
+  "geometry_fingerprint": "40b10fb19a35cd4282f398b6097d722b1a120e158734a764420735ad1645501e"
+}

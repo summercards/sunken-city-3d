@@ -14,15 +14,20 @@ var construction: ConstructionDependency
 signal harvested(kind: String, amount: int, label: String)
 
 ## 资源元数据：标签、颜色、造型。
+##
+## `hold` 自 2026-11-07 起是**动作时长**（SEA-INTERACT-R19）：按一次 E 就触发，
+## 角色做完这段就结算，不需要一直按着。旧值是「要按住多久」，普遍 1.0–1.8 秒，
+## 直接沿用会让「点一下」变成「站着等两秒」，所以统一压到 0.4–0.7 秒 ——
+## 读起来是「弯下去捡」的一个动作节拍，不是一条要等的进度条。
 const KINDS := {
-	"shell": {"label": "贝壳", "color": Color("#f4d9a8"), "shape": "shell", "respawn": 55.0, "hold": 1.0},
-	"rope": {"label": "缆绳", "color": Color("#d9b483"), "shape": "rope", "respawn": 75.0, "hold": 1.3},
-	"wood": {"label": "木料", "color": Color("#c08a52"), "shape": "log", "respawn": 80.0, "hold": 1.4},
-	"parts": {"label": "零件", "color": Color("#b9c6d4"), "shape": "gear", "respawn": 95.0, "hold": 1.6},
-	"glass": {"label": "玻璃", "color": Color("#9fe6e2"), "shape": "shard", "respawn": 110.0, "hold": 1.7},
-	"seed": {"label": "种子", "color": Color("#a8d873"), "shape": "seed", "respawn": 60.0, "hold": 0.9},
-	"fish": {"label": "鱼", "color": Color("#8fd2ef"), "shape": "fish", "respawn": 70.0, "hold": 1.2},
-	"pearl": {"label": "珍珠", "color": Color("#f3f6ff"), "shape": "pearl", "respawn": 130.0, "hold": 1.8},
+	"shell": {"label": "贝壳", "color": Color("#f4d9a8"), "shape": "shell", "respawn": 55.0, "hold": 0.45},
+	"rope": {"label": "缆绳", "color": Color("#d9b483"), "shape": "rope", "respawn": 75.0, "hold": 0.55},
+	"wood": {"label": "木料", "color": Color("#c08a52"), "shape": "log", "respawn": 80.0, "hold": 0.60},
+	"parts": {"label": "零件", "color": Color("#b9c6d4"), "shape": "gear", "respawn": 95.0, "hold": 0.65},
+	"glass": {"label": "玻璃", "color": Color("#9fe6e2"), "shape": "shard", "respawn": 110.0, "hold": 0.70},
+	"seed": {"label": "种子", "color": Color("#a8d873"), "shape": "seed", "respawn": 60.0, "hold": 0.40},
+	"fish": {"label": "鱼", "color": Color("#8fd2ef"), "shape": "fish", "respawn": 70.0, "hold": 0.50},
+	"pearl": {"label": "珍珠", "color": Color("#f3f6ff"), "shape": "pearl", "respawn": 130.0, "hold": 0.75},
 }
 
 @export var kind: String = "wood"

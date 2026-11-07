@@ -73,7 +73,7 @@ SEA-WORLD装配GroundSpace，读取WalkArea表面声明；它只持有派生物�
 4. `python scripts/check_architecture.py` 阻止业务重新访问全局和正式代码依赖测试目录。`python scripts/check_feature_contracts.py --sync` 后再跑无参数检查。
 5. 资产通过 `assets/registry/ledger_index.json` 路由到类型分账本；功能账本与资产账本分开。源授权、导出与正式接入未验证保持 pending。
 
-居民、养殖、任务、音乐和音效仍是主文档登记的规划功能，已有独立文档和账本；未来实现沿上述接口接入，不创建空运行模块伪装成完成的玩法。
+历史规划列表中的居民现已进入七人NPC部分实现阶段，当前所有权见下方2026-11-07契约及其下午补充；其余功能以各自账本为准。已有独立文档和账本不等于验收完成，禁止空模块或结构通过伪装玩法完成。
 
 ## 查询副本与恢复事务（2026-10-27补强）
 
@@ -162,18 +162,122 @@ AvatarLimbSkinning（Skeleton3D）拥有4张连续封闭索引网格、Skin绑�
 
 四肢网格只在构造时生成，换装不重建骨骼/顶点权重，运行期不以CPU逐顶点改网格。deformed_points为只读验收/量测端口，不在生产_process中调用。保存仍只有profile稳定ID，恢复重置控制姿势并投影骨骼，不持久化临时蒙皮姿态；碰撞和根位移所有者不变。[独立契约](../features/avatar/spec.md)与[本轮证据](../development/2026-11-02_avatar_limb_skinning.md)。
 
-## 2026-11-07 独立 NPC 模块契约（SEA-RESIDENT）
+## 2026-11-07 独立 NPC 与商店模块契约（SEA-RESIDENT / SEA-SHOP）
 
-`NpcService` 是五名固定 NPC 的唯一运行状态所有者，计划代码目录为 `godot/src/npc/`。它独立维护身份、日程意图、对白会话、个人剧情、玩家好感、NPC-NPC 关系边、请求状态和 `npc` 存档快照；不访问 Main/HUD/Economy 私有字段，不持有背包、作物、建筑、船、时间或导航状态。
+`NpcService` 是七名固定 NPC 的唯一运行状态所有者，正式目录为 `godot/src/npc/`。它独立维护身份、日程意图、对白会话、个人剧情、玩家好感、NPC-NPC 关系边、住所归属、请求状态和 `npc` 存档快照；不访问 Main/HUD/Economy/Shop 私有字段，不持有背包、作物、建筑、船、时间或导航状态。`ShopService` 是花店与综合商店的独立规则所有者，目录为 `godot/src/shop/`；它只通过 Inventory 端口买卖，不读取 NpcService 好感/剧情。
 
 | 端口 | 提供方/消费方 | 契约 |
 |---|---|---|
 | `WorldClock.query()` | SEA-TIME → NPC | NPC 只读世界日、小时、星期，不推进时间 |
 | `WeatherService.query()` | SEA-WEATHER → 装配层 → NPC | NPC 只读天气标签，不修改天气 |
-| `MoveIntent(npc_id, anchor_id, facing, action)` | NPC → SEA-MOVE / SEA-WORLD | NPC 给生活位置意图；实际寻路、碰撞、到达和 home anchor 降级由世界/移动模块执行 |
+| 目标锚点/动作意图 | NPC rules → NpcWorldPresenter → SEA-MOVE / SEA-WORLD | R09通过公开世界站位端口消费anchor_snapshot，当前rooftop_ranch草地、后续可插住所但无SEA-RESIDENCE前置；GroundSpace/WalkArea提供surface_point/path_between，CharacterMotor执行；无路尝试home，仍失败则停止/隐藏并报fallback，不造房/传送 |
 | `interact(npc_id)` | SEA-INTERACT → NPC | 交互层转发目标，不把 NPC 内部状态写到热点节点 |
 | `InventoryGiftPort` | 装配层 → Inventory / NPC | 先预检物品并由 Inventory 唯一扣除，成功事件才结算好感 |
+| `vendor_requested(npc_id, shop_id)` | NPC → SEA-SHOP | NPC 只声明经营者与商店 ID，不读取商品/价格/库存 |
+| `buy(shop_id,product_id,amount,request_token="")` | 独立ShopPanel → SEA-SHOP → Inventory | ShopService校验报价，仅调用注入exchange(costs,gains)；主线程补齐真实原子Inventory，不用分步pay/add/remove或退款模拟 |
+| `purchase_completed` | SEA-SHOP → 装配层/NPC 可选消费 | 只携带公开稳定 ID 和结果，不复制购买状态 |
 | 业务结果事件 | Farm/Build/Ship/Salvage/Quest → NPC | NPC 只消费公开稳定 ID 和结果，不复制业务状态、不发放其他模块奖励 |
 | `SnapshotRegistry` | SEA-SAVE → NPC | 注册/验证/apply `npc.version=1`；恢复期间屏蔽中间事件，瞬态对话和移动路径不存档 |
 
-NPC 的关系图查询、对白查询和日程查询都返回副本。UI 只能发送 `meet`、`start_dialogue`、`choose_dialogue`、`give_gift` 等意图；不能直接改 `affinity`、`edge_deltas`、`seen_events` 或 `schedule`。关系与对白规则见 [SEA-RESIDENT 设计](../features/resident/spec.md)，施工顺序和门禁见 [NPC 模块施工文档](../development/2026-11-07_npc_module_framework.md)。
+NPC 的关系图查询、对白查询和日程查询都返回副本。Shop 的目录和购买快照同样返回副本。UI 只能发送 `meet`、`start_dialogue`、`choose_dialogue`、`request_vendor`、`buy` 等意图；不能直接改 `affinity`、`edge_deltas`、`seen_events`、`schedule`、商品价格或库存。关系与对白规则见 [SEA-RESIDENT 设计](../features/resident/spec.md)，商店规则见 [SEA-SHOP 设计](../features/shop/spec.md)，施工顺序和门禁见 [NPC 模块施工文档](../development/2026-11-07_npc_module_framework.md)。
+
+### 下午补充（历史）：七人角色、独立住所与装配验收边界
+
+- **依赖分支**：GDD已先登记SEA-RESIDENCE→WORLD/ASSET/INTERACT，无反向NPC依赖；SEA-SHOP→INVENTORY/CROP/INTERACT，无RESIDENT硬依赖；NPC增加RESIDENCE/AVATAR输入，UI/SAVE保持装配协议而非新增前置边。候选图只读静态检查无环，不是正式结构/运行专项，不改其他功能前置。
+- **代码与角色所有权**：实际 `src/npc` 包含 `npc_service/catalog/relationship_graph/schedule_resolver/dialogue_runner/save_codec` 规则，以及 `npc_panel/session/world_presenter/world_ports/interactable/actor/accessories`。NpcActor程序化复用AvatarCatalog/AvatarVisual/Character及骨骼动作，7独特配件分别为signal_spool、seed_pouch、diving_goggle、joint_pencil、lantern_badge、petal_visor、stock_clip。独立NPC外观快照只供表现，不读写玩家AvatarProfile或保存玩家profile副本；外观参数完整性与真实效果需npc-appearance和真实渲染。
+- **住所唯一真值**：新增独立[SEA-RESIDENCE](../features/residence/spec.md)拥有resident_harbor及7座50m²正式TSCN、各自床/桌/灯、两商店空间、统一GroundSpace和35生活Marker。main新增实例参考(38,0,-32)，坐标可调整，不覆盖其他用户摆位。residences.json版本2是稳定ID/Marker节点映射，不是坐标副本或npc存档版本。anchor_snapshot返回position/zone/ground/ground_space/residence_id/kind的容器快照，空间对象仅作只读服务引用，不可存档；NPC world不得自己生成房屋/地面。
+- **会话与职业**：NpcPanel→NpcSession→NpcService，Session仅持瞬态页签/确认/反馈，不结算业务；session_id/NPC戳拒绝旧按钮，取消/读档/场景销毁清理。当前NPC独立面板打开即模态，包括日常对白；Main统一屏蔽世界输入与睡眠/室内/标题流程。花序/货架发vendor_requested后进入独立ShopPanel；其余五人发action_requested(npc_id,action_id)，依次为ship/cultivation/salvage/building/archive，接收方属于外部功能，不以按钮存在宣称功能已接通。
+- **端口生命周期**：NpcService.configure接受clock_query/exchange/remove/count/result_port对象命名方法，规则拒绝捕获闭包并持弱引用；world端口同样需有效命名查询。Main只装配，不加入NPC/商店业务判断。请求acknowledge_request验证result_tag后仍交付库存，不能用外部success字段伪造完成；result回调仅通知。主线程须补齐真实Inventory.exchange并接通这些端口，本分支不改代码。
+- **商店所有权**：独立ShopService/Catalog/Panel；shops.json两目录11商品，其中三作物种子仅引用CropCatalog的seed/seed_price，名称描述取ItemDB。quote纯查询、返回副本；目录坏数据全表拒绝。exchange失败数量/排列/信号全不变，成功全量提交后发信号。token去重仅实例内120秒/最多256条，含拒绝、不续期，同token异参拒绝，空token独立请求；重配/重建/过期/淘汰不保证去重，不持久化或承诺跨进程exactly-once。
+- **严格durable**：npc.version=1只存graph（met/affinity/last_talk_day/gift_week/gift_count/birthday_gift_day/last_gift_day/edge_deltas）、seen_events事件记录字典、choice_flags、request_states。精确字段/ID、有限整数、剧情路径/前置日期/请求来源、choice_flags及边变化可追溯重建，全部以NpcSaveCodec.validate为准；from_dict先验后替换，坏档不改现场。旧无npc只在明确migration补默认，不将已有坏npc当旧空档；主线程对齐SaveSchema/SaveGame/Registry并在全量恢复后刷新world。保存取消未提交会话，不存路径/临时目标/profile/静态商店目录/住所布局。
+- **生日与周**：day从1开始，week=str(int((day-1)/7))，生日年内日=(day-1)%112+1；先生日专用1次再当周普通2次，生日当天礼物均乘3，roundi后clamp[-80,120]再限制affinity。NPC周年与HUD365日显示不是一份日历副本。
+- **验收职责**：静态数量核对7人/21个人+4关系事件/84日常对白/9边不等于运行。主线程真实接线并跑npc-rules/shop-rules/npc-world/npc-appearance/residence及真实渲染、save/integration；核实名称是否注册再记录实际入口。本分支未运行sync/Godot/测试，不新增runner/registry，不编造通过数，三域保持partial。结构、运行、视觉、设备和未验分别回填[施工记录第11节](../development/2026-11-07_npc_module_framework.md#11-主线程实测回填占位)，不以隔离测试替代整局证据。
+
+## 2026-11-07 潜水独立地图与稳定会话契约
+
+本节覆盖上方潜水所有权表的历史口径，对应SEA-DIVE-R06–R11、SEA-BOOT-R07、SEA-WORLD-R26、SEA-SAVE-R19；四功能状态仍 `partial`，不改变其它模块所有权。
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| Main → DiveSession | Main只装配轻节点及 `configure(host)`、`source_query(position)`、`give_rewards(reward)->bool`（Inventory.add_all原子端口），give_resource仅旧工具兼容，无常驻地图几何。生产来源由岸上current_zone或船上实际TSCN泊位XZ最近的已安装/Scope启用区块解析；覆盖全海平面，不是有限半径或JSON参考位。 |
+| DiveMapCatalog | `source_ids / get_map / validate`提供静态来源→唯一map_id/scene_path/label/chest_id_base，查询返回副本；9来源含zone3/4规划，不持实例/进度，不自动恢复未安装海面区块。 |
+| DiveSession | 唯一全局潜水进度与共享DiveAir所有者；`dive / enter_map / surface / abort_to_surface`编排切图，`swim_to / cancel_navigation / toggle_lamp`转发到当前runtime。`depth_changed / zone_changed / air_changed / message / exited`向外发布；active/switching/source_id/map_id/runtime供诊断，不作为外部私有写入口。 |
+| UnderwaterWorld / maps/*.tscn | 只拥有当前地图阶段/动作、内容/碰撞、潜水角色、相机/本地WorldEnvironment/HUD；复用旧region的不同组合/出生点/宝箱/鱼群子集，非9套新美术。`setup([], local_environment) -> bool`在ready后执行，检查结构/几何归属/出生点完整入水段及宝箱站位，失败不能继续运行半初始化图。 |
+| Main生命周期 → SceneTree | preflight通过才把同一Main移出树缓存，不free/重建/读档；稳定会话临时移到root，current_scene切唯一runtime。海面时钟/天气/经营/自动存档暂停，外部信号与可见性暂存；挂起退出保留save_registry/端口。上浮或setup失败回滚同一Main，卸载海底，恢复原船人姿态/模式/相机/环境及必要GroundSpace/表现端口，不重跑Main._ready；正式结束才清理。 |
+| SnapshotRegistry / SaveGame | 原 `dive` 项注册DiveSession；active或switching均纳入busy_query，直接SaveGame.write也须拒绝，不只UI门禁。上浮返回不调用SaveGame.read/restore；正常稳定海面才允许写盘。 |
+
+根v4仍为 `dive:{found:int[],opened:int[]}`，不换key、不增map_id必填字段；zone1的0..4不变，其余固定基数100..800加局部子集，全局唯一、不重新编号。DiveSession返回合并当前图，`from_dict`清空全局旧进度后全量覆盖，未加载地图与未知ID必须保留，不能套用上方通用未知内容过滤概述。runtime仅投影本图已知ID，重复开启不得重发奖励。DiveAir恢复冷却由稳定会话跨图持有，卸载或换图不重置，氧气/冷却/中途动作不新增持久字段。
+
+> 2026-11-08 起「默认潜水仍屏蔽」已被下方同名章节取代，其余挂起/恢复/存档规则继续有效。
+
+默认潜水仍屏蔽（历史）；旧underwater_world.tscn保留但不常驻运行，旧build_underwater.py只用于工程外候选，不覆盖正式maps/Main。SunkenCity及其海床不参与此次潜水改造。统一runner已登记 `dive-maps / visual-dive-maps`，本分支未执行任何验证或sync/check；运行/视觉结果 **pending，待父线程补充**。[完整机制、九图配置与回填表](../development/2026-11-07_dive_map_switch.md)。
+
+## 2026-11-08 潜水重新开放与世界对齐“家园海底”契约
+
+本节覆盖 2026-11-07 节的“默认屏蔽潜水”与“仅 9 条来源”两条口径，其余挂起/恢复/存档规则不变。对应 SEA-DIVE-R15–R19。
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| PlayScope → 潜水入口 | 默认范围内 `dive / lamp / rise / descend` 可用；`build / hook / camera / orders / salvage` 仍锁。HUD 潜水按钮与角落菜单在最小循环保留潜水入口，`--full-world` 不再是开启潜水的前提。 |
+| DiveMapCatalog | `source_ids()` 仍 9 条海区来源；追加 `home_map()` 与 `is_home_water(point, anchor)` 提供**世界对齐**目标 `dive_home_seabed`（`scenes/underwater/sunroom_region.tscn`）。家园不占来源 ID，`validate()` 一并校验其唯一 map_id/scene_path。锚点由调用方给实际位置，catalog 不写死坐标。 |
+| Main → source 解析 | `_dive_source_at(point)` 先判家园水域（水平 60 米内，锚点 = `zone1 → 太阳能木屋` 的 `global_position`），命中返回 `home_seabed`；否则维持岸上 current_zone / 船上最近已安装泊位。`_on_dive` 用**角色真实落水点**（岸上取人、船上取船）而不是固定船位。 |
+| DiveSession → 世界对齐地图 | 目录 `world_aligned=true` 时必需节点为 `Camera / WorldEnvironment / Water`（非 `Regions/Deco/Chests/DiveCamera`），跳过旧 `setup()` 与 swim 数据预检，改为 `begin_dive(surface_point) -> bool`；`dive(point, source)` 把落水点交给该图。其余编排、进度合并、`_commit_return` 恢复路径完全共用，不新增第二种返回逻辑。 |
+| SunroomRegion（家园海底） | `begin_dive` 先进入 `enter` 占位，等物理提交（垂直射线打到海床）后选点转 `swim`；`surface` 走 0.55 秒可见上浮后发 `exited`。对外暴露 `swim_to / cancel_navigation / toggle_lamp / surface / abort_to_surface`、`depth_changed / zone_changed / air_changed / message / exited`、`to_dict / from_dict`（无宝箱时为 v4 空表）、`chest_count / discovered_count`。氧气复用 `DiveAir`，不新增持久字段。 |
+
+信号恢复规则：从潜水返回时只重连**仍存活且尚未连接**的脚本信号；Terrain3D 的原生 `region_map_changed / height_maps_changed` 随重新进树自动恢复，手工再连会报 already connected，故整类跳过。
+
+最终证据：`D:/projects/sea-work/verification/20261108-055128-dive-home-seabed-signed2-00d74f/report.json`，九入口 exit0/PASS、合计 1270 项 0 失败。[机制与踩坑](../development/2026-11-08_home_seabed_and_dive_reopen.md)。
+
+## 2026-11-07 19:40 NPC世界站位覆盖（历史）：天台暂驻，住所deferred
+
+本节覆盖前文下午“NPC增加RESIDENCE输入”“住所唯一真值”对本轮的强制接入要求，保留历史，不改所有者。用户要求“先不用做他们的住所，先全部放到那个天台草地上去”。
+
+- **依赖**：移除SEA-RESIDENT→SEA-RESIDENCE，其他NPC依赖保留；Shop仍仅依赖INVENTORY/CROP/INTERACT，不以NPC或住房为硬前置。NPC/Shop规则、会话、库存与durable所有权不变。
+- **R09公开端口**：NpcWorldPresenter / NpcWorldPorts通过公开世界站位端口消费anchor_snapshot，当前rooftop_ranch草地，未来可插住所provider但不强制加载住所。GroundSpace/WalkArea只读空间查询、CharacterMotor执行及fallback/停止规则不变；不造屋、不插值穿墙、不存另一份世界坐标。
+- **R13天台站位**：正式NPC现场为rooftop_ranch，用户手摆root下NpcStations提供35个局部Marker（7人×Home/Work/Social/Rest/Door）；随scene/root实际变换取得站位，不冻结绝对世界坐标、不重跑作者工具覆盖手摆。Home/Rest等稳定语义仅为当前草地站位，不代表物理住房。七人当前无物理房屋，UI仅显示“暂驻天台”，七人身份/配件/剧情/五职业及两商店保留，NPC独立、Shop独立。
+- **住房生命周期**：SEA-RESIDENCE登记partial（历史制作资源留存），本轮deferred用户暂停，不新增开发、不删除R01–R07、不将通过签退。截至本轮收尾，Main中resident_harbor实例及zones/scope绑定已移除，源资源保留；参考(38,0,-32)只历史、不作本轮前置。用户手摆root与其他旧transform未动；本分支仅记执行结果，不改代码。
+- **证据与回填**：`D:/projects/sea-work/verification/20261107-192319-seven-npc-release-a6fb1b` 的release integration/save已PASS只属住所版历史，不证明当前天台版通过。19:40时R13/路线/交互/商店/save/integration/真实渲染pending主验；随后已验、失败和仍待主验统一以文末性能收尾及[施工记录第13节](../development/2026-11-07_npc_module_framework.md#13-性能优先收尾与当前证据)为准，不将历史住所版PASS转成天台结论。
+
+## 2026-11-07 时钟单推进与 NPC 增量同步（七人全天台阶段历史；性能原则延续）
+
+- **SEA-TIME-R12**：WorldClock仍唯一拥有时间；Main删除第二次clock.tick，只调sleep_cycle.advance，由其内部至多tick一次并cap23:00睡点，暂停/睡眠不推进；06:00醒与07:00晨次不变。clock.changed→Main._on_npc_clock_changed→Presenter.notify_world仅传小型世界字典，信号栈不解析日程、不采锚点、不寻路。
+- **SEA-RESIDENT-R14**：Presenter0.5s检测日/分钟、任意日程from/to和conditions.hour_from/hour_to及21:30边界、天气、关系/剧情、手摆Marker/root/support变化；变化才全量同步，每batch仅1次anchor_snapshot。support cache随active/surface/revision和变换失效，idle不逐physics投影；force读档/恢复刷新及失支撑停止/隐藏、fallback保持，不以缓存牺牲正确性。
+- **当前装配**：七人都在既有rooftop_ranch的NpcStations35局部Marker，无物理住房、UI“暂驻天台”；Main已撤resident_harbor实例及zones/scope绑定但source保留，用户root与其他旧transform未动。七人/七配件、21+4/84/9、五职业、两商店11商品、三花四stage已实现并有专项；NPC与Shop的独立所有权不变。
+- **证据分层**：主时钟301/0+sleep42/0，性能fixture61/0，当前合批NPC性能/rules/world/appearance/careers/flowers/sleep PASS；211435 shop-rules218/7、exit1为失败历史，已由213213最终259/0解决，不反改旧批为全绿。真实Forward+/4060Ti/1600×1000泛光开59.943FPS、Main._process median0.752ms；重复sync median0.008ms不是全量sync每次成本，旧住所撤除与draw变化不能算作纯算法收益。泛光、画质和七人保留。
+- **最终范围签署**：当前天台五项integration668/0、save618/0、seed408/0、restart202/0、visual381/0，总2277/0，214439报告五项exit0/PASS、unexpected_errors空；shop最终259/0。NPC R01–R14当前运行实现通过，NPC/Shop登记implemented（已实现待完整产品验收），不是verified；住房source仍partial/deferred。14真实PNG已出，主线程仅目检seven-residents/flower-purchase/story-choice三图，确认七人原草地/无新住房、形象配件、花店5商品价格与购买、剧情2choices及天台暂驻UI；其余11图待审。报告/命令/版本与全部截图链接见[性能修复记录第8节](../development/2026-11-07_npc_performance_fix.md#8-最终天台运行签署与14图清单)。
+
+## 最终签署边界（七人全天台历史）：运行通过不等于完整产品验收
+
+真实HUD航行、上下船、消防梯、七点走路、鼠标/E、职业、七请求礼物、坏档原子与重启profile隔离已在当前天台实际通过；无需再等执行或借旧住所版结果。天台provider为 `godot/src/npc/npc_rooftop_anchors.gd`，不是设施zone脚本；当前七个初始地点均天台草地对应职业站点，不代表房屋/温室已接入。R02/R07全剧情人工体验、R08/R11/R13剩余11图人工审阅及R11/R14设备/发行包/持续性能仍待完整产品验收。主线程另跑全局门禁；本轮不修改代码/registry/runner，不重复global check。
+
+## 2026-11-07 22:39 NPC人物与双场地契约（当前覆盖，partial / pending）
+
+上文七人全天台/35天台Marker及运行PASS保留为历史；当前6roof/1sea覆盖其场地分配，不改状态所有者。SEA-RESIDENT追加R15–R18（原最大R14），SEA-SHOP追加R10（原最大R09），两账本本轮partial、新实测pending；SEA-RESIDENCE仍partial/deferred，不作为前置，不恢复住房、不修改用户Main roots。
+
+### 静态内容、展示与durable边界
+
+- `NpcCatalog`唯一读取七人显示称呼映射：npc_luo_yan=船老大、npc_mu_he=豆豆、npc_ji_chen=阿海、npc_nan_zhi=木头叔、npc_bai_shi=灯伯、npc_hua_yi=小花、npc_bao_he=阿店。不限两字，不做地域/民族/假名释义；只换显示内容，稳定ID与npc.version=1不变，不强迁gender、不改玩家可自定义Avatar或其profile。
+- `row.profile`恰为`age_group/age_range/personality/past/arrival_reason/short_term_wish/secret_or_regret/habit/catchphrase`九字段，当前七人均成人；`social_notes`每人指向其余六人的具体相处看法，共42条，不新增持久关系边。九旧边仅加summary/history/tension/reconcile，不改base或edge ID。
+- `NpcService.character_profile(npc_id)`返回独立人物内容副本，`conversation_topics`返回话题ID/标题，`start_topic`启动display会话；Panel/Session只展示/转发，不拥有新好感或剧情状态。认识页隐藏secret_or_regret；未认识对象的social_notes隐藏名字和全文；reconcile仅在包含该边双方的已完成relationship事件后公开，不能用好感或无关事件放行。四有专属双人事件边外的五边不另造事件，和解内容默认仍隐藏。
+- 28个past/daily/friends/plans话题各两页共56页，读完/取消/重开不调用talk/meet、不增加好感、不发剧情/业务完成事件、不写seen_events/choice_flags/request_states。84daily槽ID不变，各text+2variants共252句，另有21intro页。正常daily/intro仍沿原交谈规则，不因话题零结算被一起改掉。
+- 日常轮换仅由现有日/天气/剧情完成数和稳定槽位hash求模，等价输入重复/读档一致；天气或剧情变更可换句，不新增随机流/计数持久字段。25旧events/7requests只文案朴素化，page/choice/event/request ID、条件、effects/costs/result_tag/followup和数值不变。静态人设/话题/目录/世界锚点不写npc存档，旧档按ID恢复，严格坏档原子性保持。
+
+### 世界端口与支撑所有权
+
+| 所有者 / 公开端口 | 当前契约 |
+|---|---|
+| Main → `NpcAnchorHub.configure(providers)` → Presenter | Main只装配天台NpcStations与浮店Objects/NpcStations，并向Presenter注入Hub；不在Main硬编码别名/日程/交易规则。 |
+| `NpcAnchorHub.anchor_snapshot/home_labels` | 聚合provider只读快照；天台30 Marker与浮店5 Marker合计35，但不再是35个全天台。`canonical_anchor_for_npc(anchor_id,npc)`按NPC归属解释共享旧名，不能借别人的同名锚点掩盖缺失。 |
+| `npc_rooftop_anchors.gd` | 六人Home/Work/Social/Rest/Door由用户rooftop_ranch局部Marker提供，所有普通/天气/好友/周末/剧情/夜间日程留在天台，不跨海寻路。 |
+| `npc_site_anchors.gd` | 只适配既有floating_shop/sea_supply的地面/局部Marker，不造地、不拥有Shop规则。阿店home=residence_general_store、work=anchor_general_store、social=residence_general_store_social，含Rest及全部条件日程都在浮店本地。 |
+| `anchor_snapshot`动态支撑扩展 | 提供position_local、support_frame、support_origin、site_pose、support_revision及只读ground/ground_space；frame是浮店Objects刚性支撑引用，不可持久化。 |
+| 浮店原owner → Presenter `_carry_supports` | heave仍由浮店世界owner推进，Presenter每physics仅携带阿店、目标与在途路径并做动态矩形廉价支撑检查；不把六个静态天台NPC送入逐physics三角投影。 |
+| `NpcWorldPorts.layout_snapshot/anchor_layout` | 动态站位比较局部position与静态site_pose，排除瞬时position/support_origin及heave高度；海浪本身不触发七人全量sync、重寻路或导航rebake。root/Marker变动、active/surface/revision仍使缓存失效，保留失支撑停止/隐藏与force恢复。 |
+
+沿用R14：clock.changed只notify小字典，0.5秒批次检测时间/天气/关系剧情/真实布局变化，每batch一次Hub快照；WorldClock仍唯一推进。UI标“常在”，不标“住处”；六人天台暂驻、阿店东南海上商店，Home/Rest不是已建住房证明。位置以用户TSCN实际root为准，不锁绝对坐标，不通过改Main旧transform或临时地面修验收。
+
+### 商店边界与新实测
+
+ShopCatalog显示标题目标“小花花店/阿店海上商店”，由主线程改shops.json；文档分支读到的仍为旧标题，不把计划写成已落。ShopService/Catalog/Panel继续独立、可无NPC购买，vendor_npc_id只作可选展示元数据；NPC只发vendor_requested，世界provider不引入价格/商品规则。两目录11商品ID、price/max_amount及CropCatalog来源不变，不顺带改flower_ribbon商品标签。跨海送花是叙事，不自动改Inventory/订单或强迫NPC跨海。
+
+主线程计划跑npc-people、npc-profile-ui、npc-shop-site、npc-relocation、visual-npc-people及rules/performance/save，实际入口是否注册须核实；命令、head+working_tree、退出码/计数、日志、真实截图与逐图审阅见[本轮开发记录第6节](../development/2026-11-07_npc_names_and_shop.md#6-主线程实测回填)，同时回填[Resident账本](../features/resident/ledger.md#2026-11-07-2239-当前覆盖与新增条款承接)和[Shop账本](../features/shop/ledger.md#2026-11-07-2239-当前覆盖与-r10-承接)。本分支不执行global sync/hash/运行，不复用历史全天台PASS证明6roof/1sea；未验项保持pending。

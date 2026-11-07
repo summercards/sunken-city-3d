@@ -177,3 +177,20 @@
 | SEA-NAV-R17 | 手动划行的角速度有加速度：`_yaw_rate` 按 `TURN_ACCEL = 4.6 rad/s²` 逼近目标值，满舵 1.8 rad/s 需约 0.39 s；上限随船速缩放 `TURN_RATE × (0.55 + 0.45·v/v_cruise)`（停船 0.99 rad/s）。航迹方向滞后船头，按 `DRIFT_TAU = 0.16 s` 跟随并夹在 `DRIFT_MAX = 0.14 rad`（约 8°）以内；位移仍须通过 `_clear()` 岸线判定，撞岸照旧停住并抛 `navigation_blocked`。松手不瞬间停：角速度自行归零，减速度按 `BRAKE × (0.35 + 0.65·v/v_cruise)` 收尾，速度归零才退出手动；停稳后不得回弹。自动航线（`_steer`）的转向与到站契约不变，点目标航行仍主动清手动。 |
 
 [交付与实测](../../development/2026-11-05_control_feel.md)。
+
+
+## 2026-11-07 浮动商亭靠泊
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-NAV-R18 | 新商亭沿用sea_supply/main和现有航行→靠妥→上岸链路；landStand与dockEdge随真实甲板起伏，boatPark保持实际水线且位于船只阻挡之外；Zones通过支撑变化事件更新公开泊位快照。远海参考摆位只作带入记录，验证正式TSCN下当前航路、上岸、甲板行走、回船及不可穿过船舷。 |
+
+## 2026-11-07 船头顶岸后的手动脱困
+
+用户反馈船头顶岸后不能转向或退开。本节覆盖R15/R17中手动碰撞即结束控制的旧行为，不放开岸线、不改自动航路碰撞处理，也不新增倒车档或传送。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-NAV-R19 | 手动`_drive`与自动航行同样以120Hz子步推进（单帧消费上限0.25s），每段平移必须过`_clear()`。手动撞岸只清该次平移及速度，保留`manual_drive`、输入方向和`_yaw_rate`，玩家可继续摆头，转向合法水面后划开；Main的`navigation_blocked`分支不得把手动状态切回`boat_idle`，已在驾驶时不得误走泊位方向键自动上岸分支。同一轮受阻只反馈一次，直到连续合法划开累计0.1m才重新允许反馈；再次受阻或改变输入方向清已累计距离，不能靠贴边微动刷反馈。松手按原减速/角速度收敛，停稳结束驾驶时清锁存；`stop_drive/place_at/sail_to`同步清锁存与累计距离，自动命令不继承手动航迹。自动路线碰撞仍停止并发出阻挡，不套用手动脱困。手动尾流取实际`travel_direction()`（含侧滑），阻挡零地速不得继续造出航行尾迹；自动模式不消费旧手动方向。 |
+
+最终合批`D:/projects/sea-work/verification/20261107-165822-movement-feel-final-9b7646/report.json`11项全PASS、exit0、unexpected_errors空；其中`boat-unstick`与`visual-boat-unstick`各153459/0。该批visual虽用真实渲染器，但未设shore环境变量，只执行单体、未进入`real_shore`，不得作为正式岸线截图证据。nonheadless直接调用`real_shore`后的`D:/projects/sea-work/verification/20261107-170723-movement-feel-render-final-950cd8/report.json`已完成：`visual-boat-unstick`163769/0真shore、13张PNG，及`visual-keyboard-farm-loop`647/0双PASS/exit0、unexpected_errors空；主任务已用ViewImage目检最新boatsequence，确认转头离岸可见且无教程。渲染验收已收口，不再pending；162541旧岸线图仅作历史，不回写成165822已覆盖岸线。171743兼容批仅actor-presentation PASS，其他五项runner FAIL保留；172123最新facing102/0 PASS说明NPC/dive新装配可启动，新的movement-current-compatible五项另补。[本轮总交付、历史画面与补充边界](../../development/2026-11-07_movement_feel_refinement.md)。近泊位键盘朝向/可达性筛选由SEA-INTERACT-R23承接，浮动商亭R18不改；整体仍`partial`。

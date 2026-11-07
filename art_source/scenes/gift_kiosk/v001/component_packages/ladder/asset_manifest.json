@@ -1,0 +1,58 @@
+{
+  "key": "ladder",
+  "name": "黄色下水梯与扶手",
+  "family": "ladder",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-LADDER",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-LADDER",
+  "design_pivot": [
+    0.0,
+    0.015000015497207642,
+    0.0
+  ],
+  "bounds_min": [
+    -0.7099999785423279,
+    -0.4399999976158142,
+    0
+  ],
+  "bounds_size": [
+    1.4199999570846558,
+    0.8799999952316284,
+    3.5226285457611084
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/ladder/ladder.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 9,
+  "instances": 1,
+  "triangles": 780,
+  "polygons": 330,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "a022d676a91a1a57b60aa452ef3df2d2bbf1be27db19ff0e5f864791d517acce",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-LADDER",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/ladder/ladder.glb",
+  "runtime_sha256": "441a8713c8811c2f1f52481291497de9391d779e3d367796b390d13a03cced26",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/ladder.tscn",
+  "prefab_sha256": "e5171f3f94760aab94a34076ecf0d480ed9bbcaeeb7b2cfddbb5739348470706",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 780,
+  "triangles_after": 780,
+  "geometry_fingerprint": "6b03f00e45d0e3394f5e5d28b9de76605e851e2d7e272ce21fe4a069a4f767b1"
+}

@@ -1,0 +1,60 @@
+{
+  "key": "entry_frame",
+  "name": "开放商亭入口框",
+  "family": "entry",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-ENTRY-FRAME",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ENTRY-FRAME",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -1.4600000381469727,
+    -0.30000001192092896,
+    0
+  ],
+  "bounds_size": [
+    2.9200000762939453,
+    0.6000000238418579,
+    4.900000095367432
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/entry_frame/entry_frame.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 4,
+  "instances": 1,
+  "triangles": 752,
+  "polygons": 392,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "4ec3d9a8ab99eefc9c161dbc40ba886e87a5afb1a599a6f5bbccfc7cfecc1e30",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ENTRY-FRAME",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/entry_frame/entry_frame.glb",
+  "runtime_sha256": "20c0975ac41a5c355229c7ffe079f610212c564e6698e3af8ec7291d6fabed76",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/entry_frame.tscn",
+  "prefab_sha256": "672904e6b076b62c89c2eb2f3a1b9d3e4a08496457f60a47f85250fa651ff95e",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 752,
+  "triangles_after": 752,
+  "geometry_fingerprint": "9a25757a4bfa6ec769af7849c8922fd6407b4262563d25efd35b5fc56422aa62"
+}

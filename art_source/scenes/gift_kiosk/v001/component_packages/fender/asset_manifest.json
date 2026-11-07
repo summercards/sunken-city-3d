@@ -1,0 +1,58 @@
+{
+  "key": "fender",
+  "name": "黑色轮胎护舷与挂绳",
+  "family": "fender",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-FENDER",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-FENDER",
+  "design_pivot": [
+    0.0,
+    0.0,
+    -0.04500001668930054
+  ],
+  "bounds_min": [
+    -0.875,
+    -0.23500004410743713,
+    0
+  ],
+  "bounds_size": [
+    1.75,
+    0.47000008821487427,
+    2.239755392074585
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/fender/fender.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "instances": 11,
+  "triangles": 1988,
+  "polygons": 986,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "54ee102808ee2beb4936553ef5ca926c26c64c575b1f069e6c1359618086c996",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-FENDER",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/fender/fender.glb",
+  "runtime_sha256": "17afda78e93e485998ce0ebf0d29cd5efe7ffbec500dbb3dade3b31fb8984659",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/fender.tscn",
+  "prefab_sha256": "cdd56830ece74d40a2c22100f3cfa4cc169f1fc815bb11611f8ab1d2632b8568",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1988,
+  "triangles_after": 1988,
+  "geometry_fingerprint": "762b4375c118fe4ae605b7c003331b241dc16bac7961e8edd9a87d9a7dcb9bef"
+}

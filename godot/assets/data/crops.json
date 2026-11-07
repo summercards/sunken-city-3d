@@ -151,6 +151,72 @@
       ],
       "model": "res://scenes/crops/pumpkin.tscn",
       "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png"
+    },
+    {
+      "id": "flower_blue",
+      "name": "蓝星花",
+      "icon": "✦",
+      "seed": "flower_seed_blue",
+      "produce": "flower_blue",
+      "grow_days": 2,
+      "regrow_days": 0,
+      "harvests": 1,
+      "seed_price": 8,
+      "yield": {"flower_blue": 2},
+      "color": "#79b8e8",
+      "model": "res://scenes/crops/flower_blue.tscn",
+      "stage_labels": ["播种", "幼苗", "抽叶", "开花"],
+      "stages": [
+        {"key": "seed", "label": "播种", "shape": "浅土窝中两颗灰蓝细种"},
+        {"key": "sprout", "label": "幼苗", "shape": "细嫩茎与三片尖子叶"},
+        {"key": "leaf", "label": "抽叶", "shape": "低矮放射的五片狭长叶与直立嫩梢"},
+        {"key": "harvest", "label": "开花", "shape": "五瓣蓝色星形花冠与奶白花心"}
+      ],
+      "desc": "2 个浇水日开花，收获蓝星花 ×2，可送礼；收后空地，不再生。"
+    },
+    {
+      "id": "flower_sun",
+      "name": "晨光花",
+      "icon": "✿",
+      "seed": "flower_seed_sun",
+      "produce": "flower_sun",
+      "grow_days": 3,
+      "regrow_days": 0,
+      "harvests": 1,
+      "seed_price": 10,
+      "yield": {"flower_sun": 2},
+      "color": "#f2c86b",
+      "model": "res://scenes/crops/flower_sun.tscn",
+      "stage_labels": ["播种", "幼苗", "抽叶", "开花"],
+      "stages": [
+        {"key": "seed", "label": "播种", "shape": "浅土窝中两颗暖褐长种"},
+        {"key": "sprout", "label": "幼苗", "shape": "直立嫩茎与三片圆阔子叶"},
+        {"key": "leaf", "label": "抽叶", "shape": "高直主茎与四片对生宽叶"},
+        {"key": "harvest", "label": "开花", "shape": "十瓣金黄圆盘花与暖褐花心"}
+      ],
+      "desc": "3 个浇水日开花，收获晨光花 ×2，可送礼；收后空地，不再生。"
+    },
+    {
+      "id": "flower_coral",
+      "name": "珊瑚花",
+      "icon": "❀",
+      "seed": "flower_seed_coral",
+      "produce": "flower_coral",
+      "grow_days": 4,
+      "regrow_days": 0,
+      "harvests": 1,
+      "seed_price": 12,
+      "yield": {"flower_coral": 2},
+      "color": "#e48d87",
+      "model": "res://scenes/crops/flower_coral.tscn",
+      "stage_labels": ["播种", "幼苗", "抽叶", "开花"],
+      "stages": [
+        {"key": "seed", "label": "播种", "shape": "浅土窝中两颗浅珊瑚圆种"},
+        {"key": "sprout", "label": "幼苗", "shape": "短嫩茎与三片厚圆子叶"},
+        {"key": "leaf", "label": "抽叶", "shape": "三叉低灌丛与五片厚圆叶"},
+        {"key": "harvest", "label": "开花", "shape": "三枝错落的珊瑚色杯状花簇"}
+      ],
+      "desc": "4 个浇水日开花，收获珊瑚花 ×2，可送礼；收后空地，不再生。"
     }
   ]
 }

@@ -49,7 +49,10 @@ static func schemas() -> Dictionary:
 			"energy":object({"version":integer(1,1),"current":number(0,10000),"maximum":number(1,10000),"pending_half":boolean},["version","current","maximum"]),
 			# SEA-AQUA：家园补给站是否已改成渔场。同样不进 required（旧档=没升过）。
 			"fishery":object({"version":integer(1,2),"unlocked":boolean,"pending":integer(0,24),
-				"observed_hour":number(-1,1.0e12),"next_hour":number(-1,1.0e12)},["version","unlocked"])},
+				"observed_hour":number(-1,1.0e12),"next_hour":number(-1,1.0e12)},["version","unlocked"]),
+			# SEA-SUNROOM：旧 v4 档缺少时按「破损、尚未修缮」恢复；出现时严格校验阶段与兼容布尔值。
+			"sunroom":object({"version":integer(1,1),"stage":{"type":"string","enum":["ruined","ladder_fixed","restored"]},
+				"ladder_repaired":boolean,"upper_restored":boolean,"seasonal_care":integer(0,100)},["version","stage","ladder_repaired","upper_restored","seasonal_care"])},
 			["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
 		"game":object({"zone":string,"landing":string,"mode":integer(0,3),"far_sea":boolean,"boat":boat,"player":vector},["zone","landing","mode","far_sea","boat","player"]),
 		# SEA-ROOM：床铺摆放（房间局部坐标）与「人在不在屋里」。2026-11-05 新增模块，
@@ -64,7 +67,8 @@ static func schemas() -> Dictionary:
 		"gather":map(number()),"dive":object({"found":list_of(integer()),"opened":list_of(integer())},["found","opened"]),
 		"salvage":object({"left":number()},["left"]),
 		"time":object({"day":integer(1),"seconds":number(0,86399.999999),"day_length":number(60,86400)},["day","seconds","day_length"]),
-		"weather":object({"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"])
+		"weather":object({"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"]),
+		"npc":object({"version":integer(1,1),"graph":object({"met":map({"type":"bool"}),"affinity":map(integer(0,1000)),"last_talk_day":map(integer(-1,1000000000)),"gift_week":map({"type":"string"}),"gift_count":map(integer(0,100)),"edge_deltas":map(integer(-1000,1000))},["met","affinity","last_talk_day","gift_week","gift_count","edge_deltas"]),"seen_events":object({}),"choice_flags":object({}),"request_states":object({})},["version","graph","seen_events","choice_flags","request_states"])
 	}
 static func validate(data: Dictionary) -> String:
 	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(4,4),"version")
@@ -73,13 +77,16 @@ static func validate(data: Dictionary) -> String:
 	for id in rules:
 		if id == "profile" and not data.has(id): continue # explicit legacy policy at restore/decode
 		# 房间是后加的模块：decode 会给旧档补默认值，这里再放一次，避免外部快照被误判为损坏。
-		if id == "room" and not data.has(id): continue
+		if id in ["room", "npc"] and not data.has(id): continue
 		if not data.has(id): return "Missing module: " + id
 		var error: String = preload("res://src/core/record_contract.gd").check(data[id],rules[id],id)
 		if error != "": return error
 	if data.has("profile"):
 		var profile_error: String=preload("res://src/avatar/avatar_profile.gd").validate_snapshot(data.profile)
 		if profile_error!="": return profile_error
+	if data.has("npc"):
+		var npc_error: String = preload("res://src/npc/npc_save_codec.gd").validate(data.npc)
+		if npc_error != "": return npc_error
 	var fishery_error: String = preload("res://src/aqua/fishery_service.gd").validate_snapshot(data.economy.get("fishery",{}),(int(data.time.day)-1)*24.0+float(data.time.seconds)/3600.0)
 	if fishery_error != "": return fishery_error
 	var building_error: String=preload("res://src/building/building_service.gd").validate_snapshot(data.building)

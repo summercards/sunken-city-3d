@@ -25,7 +25,7 @@ const HUDScript = preload("res://src/ui/hud.gd")
 const MarkersScript = preload("res://src/ui/landing_markers.gd")
 const CharacterScript = preload("res://src/player/character.gd")
 const PropsScript = preload("res://src/pickups/sea_props.gd")
-const UnderwaterScene = preload("res://scenes/underwater/underwater_world.tscn")
+const DiveSession = preload("res://src/diving/dive_session.gd")
 const GatherFieldScript = preload("res://src/gathering/gather_field.gd")
 const BuildFieldScript = preload("res://src/construction/build_field.gd")
 const FarmFieldScript = preload("res://src/farming/farm_field.gd")
@@ -43,6 +43,9 @@ const SalvageModelLib = preload("res://src/salvage/salvage.gd")
 const RouteRibbonScript = preload("res://src/navigation/route_ribbon.gd")
 const ItemDB = preload("res://src/inventory/item_db.gd")
 const SaveGameLib = preload("res://src/save/save_game.gd")
+const NpcServiceScript = preload("res://src/npc/npc_service.gd")
+const NpcCatalog = preload("res://src/npc/npc_catalog.gd")
+const ShopServiceScript = preload("res://src/shop/shop_service.gd")
 
 ## 自动存档间隔（秒）：太勤会在航行中反复写盘，太稀又容易丢进度。
 const AUTOSAVE_SECONDS := 120.0
@@ -103,6 +106,8 @@ var actor_controller = preload("res://src/player/actor_controller.gd").new()
 var room_service = preload("res://src/room/room_service.gd").new()
 var room_controller = preload("res://src/room/room_controller.gd").new()
 var room: Node3D
+var sunroom_surface: Node3D
+var sunroom_view: Node3D
 var _auto_target: Node3D:
 	get: return actor_controller.auto_target
 	set(value): actor_controller.auto_target = value
@@ -129,8 +134,18 @@ var _after_walk: Callable:
 	get: return actor_controller.after_walk
 	set(value): actor_controller.after_walk = value
 const WALK_SPEED := 2.3
-## 按 E 上船的有效距离（米）：从泊位站立点算起，再远就要求玩家先走过去。
+## 上船热区·到泊位站立点的半径（米）。走进这个圈，船边就出上船图标。
 const BOAT_KEY_REACH := 2.4
+## 上船热区·直接贴到船舷的半径（米）。码头很长、站立点在另一头时兜住玩家。
+const BOAT_HULL_REACH := 3.0
+## 岸上「朝谁操作」的仲裁带宽（与 Interactor.FACING_TIE 同值，见那里注释）。
+const FACING_TIE := 0.08
+## 靠妥容差（米）：船与泊位锚点的距离在这个范围内就算「停在泊位」。
+##
+## 旧值 1.0 太紧 —— 自动靠泊收在余速下常常停在 1.1–1.4 米，船明明贴着码头，
+## 按 E 却说「船不在泊位」。上下船判定被抱怨「体验不好」有一部分来自这里。
+## `_landing_is_docked`、点船体、登陆标记图标三处共用，不再各写一个数。
+const DOCK_SETTLE_TOLERANCE := 1.6
 ## 按 E 上/下船后的冷却（秒）。切换是一次性动作：按住不放时键盘只会补 echo 事件，
 ## 但「走位到一半再按一下」会立刻反向 —— 表现为刚上船又上岸。0.35 秒足够过场起势，
 ## 又不会让有意连按失效（真连按通常是误触，本来就该被吞掉）。
@@ -185,6 +200,14 @@ var _save_protected := false
 var save_registry = preload("res://src/save/snapshot_registry.gd").new()
 var world_clock = preload("res://src/time/world_clock.gd").new()
 var weather_service = preload("res://src/weather/weather_service.gd").new()
+var npc_service = NpcServiceScript.new()
+var shop_service = ShopServiceScript.new()
+var npc_world_presenter
+var shop_panel
+var npc_career_panel
+var _npc_previous_modal_query: Callable
+var _npc_previous_modal_close: Callable
+var _npc_previous_modal_input: Callable
 var weather_view: Node2D
 ## 昼夜光照。时段不再靠屏幕叠加伪造，而是真的去动太阳、环境光、天空与水面反射；
 ## 资源里的值是它的09:00基准，见 `src/rendering/daylight_rig.gd`。
@@ -238,6 +261,7 @@ func _ready() -> void:
 	_setup_environment()
 	_setup_lights()
 	_setup_scene()
+	_setup_sunroom()
 	_setup_gather()
 	_setup_build()
 	_setup_farm()
@@ -270,6 +294,7 @@ func _ready() -> void:
 	_setup_sleep()
 	_setup_room()
 	_setup_building()
+	_setup_npc_systems()
 	_setup_save_registry()
 	_setup_avatar()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
@@ -1031,8 +1056,18 @@ func _update_keyboard_move(delta: float) -> void:
 	var world := _camera_relative(axis)
 	var mode := actor_controller.mode()
 	if mode == 0:
+		if actor_controller.climbing():
+			actor_controller.set_move_intent(Vector3.ZERO)
+			actor_controller.set_sprint_held(false)
+			return
+		# Shift 只在岸上自由行走生效；小跑是同一套物理步进的轻微提速，
+		# 面板/过场已在 input_blocked() 里统一挡住，不会穿透到世界。
 		actor_controller.set_move_intent(world)
+		# 先让 set_move_intent 进入 strolling，再写入 Shift；否则从站立
+		# 起步的第一帧会因为状态还没切换而丢掉小跑意图。
+		actor_controller.set_sprint_held(axis != Vector2.ZERO and Input.is_physical_key_pressed(KEY_SHIFT))
 		return
+	actor_controller.set_sprint_held(false)
 	if boat == null or (dive != null and dive.active):
 		return
 	if mode == 1 or mode == 2:
@@ -1060,33 +1095,104 @@ func _update_keyboard_move(delta: float) -> void:
 			actor_controller.request_mode(GameState.Mode.SAILING)
 		boat.set_drive(Vector2(world.x, world.z))
 
+## 近距交互的**唯一仲裁**：图标画什么、点下去执行什么，都读这一个结果。
+##
+## 拆成两个函数是 2026-11-07 那类 bug 的温床（图标说「上岸」、点下去在采集）。
+## 返回 {"kind": ..., "node": ...}；kind 只有五种：
+##   boat_board —— 岸上船边，点击上船
+##   boat_leave —— 船上泊位，点击靠妥并上岸
+##   dock       —— 水面泊位热区，点击开过去靠岸并上岸
+##   spot       —— 世界交互物（采集点 / 菜箱 / 出货箱 / 房门 …）
+##   pick       —— 海面漂流物 / 鱼群（仅 `near` 时进入仲裁：图标 = 已进判定区）
+##
+## `pick` 的 `near` 门槛只管**图标**：够不着的时候不出「点它就捞」的图标，
+## 否则等于告诉玩家「现在点能捞」却要开船过去。热区外按 E 仍然会划过去捞，
+## 那是 `_press_boat_key()` 的赶路兜底，文案由 `_boat_shortcut_text()` 同步兜底。
+func _near_action() -> Dictionary:
+	if hover == null or hud == null or input_blocked():
+		return {}
+	if building_controller != null and building_controller.active:
+		return {}
+	# 交互焦点是上下船仲裁的对手方。它每 0.12 秒才重扫一次，而这里可能正好
+	# 落在两次扫描之间（菜单刚关、过场刚结束）—— 那时 target 还是 null，
+	# `_boat_key_action()` 会以为「旁边没有可操作的东西」而直接判上船。
+	# 先同步要一次最新焦点，保证图标/按键和玩家眼睛看到的一致。
+	if interactor != null and interactor.active and not is_instance_valid(interactor.target):
+		interactor.refresh_now()
+	# 上下船与泊位先排：它们和交互物是同一次仲裁（谁赢 E 谁出图标）。
+	var boat_action := _boat_key_action()
+	if boat_action != "":
+		if boat_action == "leave":
+			var landing := _current_landing()
+			if landing != null:
+				return {"kind": "boat_leave", "node": landing}
+		elif is_instance_valid(boat):
+			return {"kind": "boat_board", "node": boat}
+	if interactor.active and is_instance_valid(interactor.target):
+		return {"kind": "spot", "node": interactor.target}
+	var pick := _sea_pick_candidate()
+	if not pick.is_empty() and bool(pick.get("near", false)):
+		var item: Dictionary = pick.item
+		var root: Node3D = item.get("root")
+		if is_instance_valid(root):
+			return {"kind": "pick", "node": root, "pick": pick}
+	var dock := _near_landing_key()
+	if not dock.is_empty():
+		var point: Node3D = _zone_nodes[str(dock.zone)].landing_point(str(dock.landing))
+		if point != null:
+			return {"kind": "dock", "node": point, "dock": dock}
+	return {}
+
+
+## 上一帧近距仲裁的结果，供码头标记让位使用（见 `_marker_suppressed`）。
+##
+## 不在这里保存会重复算一次 `_near_action()`：它带寻路缓存、还会顺手刷新
+## 交互目标，每帧多调一次没有意义，也容易引入「谁先算」的不确定性。
+var _near_kind := ""
+var _near_landing_id := ""
+
 ## 只在玩家已接近、输入可用时出现原悬停图标，不显示教程或按键说明。
+##
+## 图标 = 「这里现在能操作」的唯一提示，所以**每一个可执行的入口都要出图标**：
+## 岸上贴着船、船上开进泊位、站在采集点旁、海面上够得着漂流物。缺了哪一处，
+## 玩家就只会读到「东西在那儿但我点不动」。
 func _update_near_interaction() -> void:
-	if hover == null: return
-	if input_blocked() or (building_controller != null and building_controller.active):
+	if hover == null:
+		return
+	var action := _near_action()
+	_near_kind = str(action.get("kind", ""))
+	_near_landing_id = str(action.get("dock", {}).get("landing", ""))
+	if action.is_empty():
 		hover.hide_near_focus()
 		return
-	if interactor.active and is_instance_valid(interactor.target):
-		hover.show_near_focus(interactor.target, interactor.progress())
-		return
-	var pick := _sea_pick_candidate()
-	if not pick.is_empty() and bool(pick.get("near",false)):
-		var item: Dictionary = pick.item
-		var node: Node3D = item.get("root")
-		if is_instance_valid(node):
+	var kind := str(action.get("kind", ""))
+	var node: Node3D = action.get("node")
+	match kind:
+		"boat_board":
+			# 图标贴在船上：点击即上船。
 			hover.keyboard_focus = node
-			hover.show_near_action(node.global_position+Vector3.UP*0.5,"fish" if pick.type=="fish" else "hand")
-			return
-	var boat_action := _boat_key_action()
-	var dock := _near_landing_key()
-	if boat_action != "" or not dock.is_empty():
-		var point: Node3D = _current_landing()
-		if not dock.is_empty(): point = _zone_nodes[str(dock.zone)].landing_point(str(dock.landing))
-		if point != null:
-			hover.keyboard_focus = point
-			hover.show_near_action(point.stand_position()+Vector3.UP*0.55,"anchor")
-			return
-	hover.hide_near_focus()
+			hover.show_near_action(node.global_position + Vector3.UP * 1.05, "anchor")
+		"boat_leave":
+			# 图标贴在落脚的岸边：点击即靠妥并上岸。
+			hover.keyboard_focus = node
+			hover.show_near_action(node.stand_position() + Vector3.UP * 0.55, "anchor")
+		"dock":
+			# 图标贴在水面泊位锚点：点击即开过去靠岸并上岸。
+			var dock: Dictionary = action.get("dock", {})
+			var data: Dictionary = _landing_data(str(dock.get("zone", "")), str(dock.get("landing", "")))
+			var at: Vector3 = node.stand_position()
+			if not data.is_empty():
+				at = Vector3(float(data.boatPark[0]), WATER_LEVEL + 0.35, float(data.boatPark[2]))
+			hover.keyboard_focus = node
+			hover.show_near_action(at, "anchor")
+		"pick":
+			hover.keyboard_focus = node
+			hover.show_near_action(node.global_position + Vector3.UP * 0.5,
+				"fish" if str(action.get("pick", {}).get("type", "")) == "fish" else "hand")
+		"spot":
+			hover.show_near_focus(node, interactor.progress())
+		_:
+			hover.hide_near_focus()
 
 func _setup_water() -> void:
 	water_node = get_node_or_null("World/Water") as MeshInstance3D
@@ -1244,6 +1350,11 @@ func _setup_boat() -> void:
 				if school.has_method("set_water"):
 					school.set_water(water_node)
 	boat.navigation_blocked.connect(func() -> void:
+		# 手动划行撞住时，Boat 会保留方向盘，让玩家继续转头脱困；
+		# 这里不能把状态切回 boat_idle，否则又会吃掉这次修复。
+		if boat.driving():
+			if hud != null: hud.toast("前方是岸")
+			return
 		_cancel_pending_pick()
 		_ashore_on_arrival = false
 		actor_controller.request_mode(GameState.Mode.ON_BOAT)
@@ -1251,8 +1362,7 @@ func _setup_boat() -> void:
 		if ribbon != null:
 			ribbon.clear()
 		if hud != null:
-			# 撞岸不该只丢一句「请重新选择航路」：键盘玩家这时候要做的事是「靠岸」。
-			# 附近有泊位就把 E 说出来，没有才让他换个方向。
+			# 自动航行撞阻挡才回到待机；手动驾驶不在这里结束。
 			hud.toast("前方是岸" if not _near_landing_key().is_empty()
 				else "前方靠岸过近，请重新选择航路"))
 	var l := Zones.landing("zone1", "main")
@@ -1304,6 +1414,7 @@ func _setup_markers() -> void:
 	markers.build(cam)
 	markers.pointer_query=_pointer_pos
 	markers.world_query = _landing_icon_world
+	markers.suppress_query = _marker_suppressed
 	markers.set_highlight(GameState.current_zone)
 
 
@@ -1326,10 +1437,24 @@ func _landing_icon_world(zone_id: String, landing_id: String, fallback: Vector3)
 	# starts_sailing() 不在 Node3D 基类上：不显式写 bool，整条表达式会退化成
 	# Variant，Godot 推不出类型直接报解析错误，整个 main.gd 加载不了。
 	var sailing: bool = boat.starts_sailing()
-	if sailing or boat.position.distance_to(park) > 1.0:
+	if sailing or boat.position.distance_to(park) > DOCK_SETTLE_TOLERANCE:
 		return fallback
 	# 抬到船舱上方，和 dockEdge 的 +0.55 观感一致，不被船体挡住。
 	return boat.global_position + Vector3.UP * 1.35
+
+
+## 码头锚点标记要不要给近距图标让位。
+##
+## 岸上船停在泊位时，标记会被 `_landing_icon_world` 挂到船上；新的上船图标也
+## 贴在同一艘船上 —— 两个 teal 圆圈叠在一起，读起来像渲染重影。此时只留近距
+## 图标（它带「现在按 E 就上船」的语境），标记让位。
+##
+## 反过来不行：标记是常驻路标，近距图标只在热区里出现，让标记消失会让远处
+## 的玩家找不到船。所以只在这一档让位。
+func _marker_suppressed(zone_id: String, landing_id: String) -> bool:
+	if _near_kind != "boat_board":
+		return false
+	return zone_id == GameState.current_zone and landing_id == GameState.landing_id
 
 
 ## 点船体 = 上船。
@@ -1347,7 +1472,7 @@ func _click_boat(screen: Vector2) -> bool:
 		return false
 	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
 	var sailing: bool = boat.starts_sailing()
-	if sailing or boat.position.distance_to(park) > 1.0:
+	if sailing or boat.position.distance_to(park) > DOCK_SETTLE_TOLERANCE:
 		hud.toast("船不在泊位，先用登陆点把它叫回来")
 		return true
 	_select_landing({"zone": GameState.current_zone, "landing": GameState.landing_id})
@@ -1374,6 +1499,92 @@ func _setup_player() -> void:
 
 
 ## 世界里的采集点：从 assets/data/gather_spots.json 生成，坐标是与区块同一套世界坐标。
+func _setup_sunroom() -> void:
+	var zone: Node = _zone_nodes.get("zone1")
+	if zone == null:
+		return
+	sunroom_surface = zone.get_node_or_null("Models/太阳能木屋/太阳能木屋-海上区域") as Node3D
+	if sunroom_surface == null:
+		return
+	# Runtime helpers live under the existing VegetationTurf child so the four
+	# semantic surface modules remain the scene's only direct children.
+	var runtime_parent: Node3D = sunroom_surface.get_node_or_null("前部倾斜太阳能房") as Node3D
+	if runtime_parent == null:
+		runtime_parent = sunroom_surface
+	sunroom_view = _ensure_sunroom_runtime_node(runtime_parent, "SunroomView", "res://src/facilities/sunroom_view.gd")
+	if sunroom_view != null and sunroom_view.has_method("configure"):
+		sunroom_view.configure(sunroom_surface)
+	var refresh := func() -> void: _apply_sunroom_state()
+	var repair: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomRepair", "res://src/facilities/sunroom_repair_interactable.gd")
+	if repair != null and repair.has_method("configure"):
+		repair.position = Vector3(4.66225, 2.15, 2.708127)
+		repair.configure(Economy.sunroom, refresh)
+	var upper: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomUpperRestore", "res://src/facilities/sunroom_upper_interactable.gd")
+	if upper != null and upper.has_method("configure"):
+		upper.position = Vector3(6.83575, 7.016335, -0.814)
+		upper.configure(Economy.sunroom, refresh)
+	var bottom: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderBottom", "res://src/facilities/sunroom_ladder_interactable.gd")
+	var top: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderTop", "res://src/facilities/sunroom_ladder_interactable.gd")
+	var damage: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomDamage", "res://src/facilities/sunroom_damage_visual.gd")
+	if damage != null:
+		damage.position = Vector3(4.66225, 2.15, 2.708127)
+	var base: Vector3 = Vector3(4.66225, 2.15, 2.708127)
+	var roof: Vector3 = Vector3(base.x, 6.246335, base.z)
+	if bottom != null and bottom.has_method("configure"):
+		bottom.position = base
+		bottom.configure(Economy.sunroom, Callable(actor_controller, "climb_ladder"), "up", base, roof)
+	if top != null and top.has_method("configure"):
+		top.position = roof
+		top.configure(Economy.sunroom, Callable(actor_controller, "climb_ladder"), "down", base, roof)
+	if not Economy.sunroom.changed.is_connected(_apply_sunroom_state):
+		Economy.sunroom.changed.connect(_apply_sunroom_state)
+	_apply_sunroom_state()
+
+func _ensure_sunroom_runtime_node(parent: Node3D, node_name: String, script_path: String) -> Node3D:
+	var existing: Node3D = parent.get_node_or_null(node_name) as Node3D
+	if existing != null:
+		return existing
+	var node := Node3D.new()
+	node.name = node_name
+	node.set_script(load(script_path))
+	parent.add_child(node)
+	return node
+	Economy.sunroom.changed.connect(_apply_sunroom_state)
+
+func _apply_sunroom_state() -> void:
+	if Economy.sunroom == null:
+		return
+	var day := int(world_clock.day) if world_clock != null else 1
+	Economy.sunroom.set_calendar_day(day)
+	if sunroom_view != null and sunroom_view.has_method("apply_stage"):
+		sunroom_view.apply_stage(Economy.sunroom.stage, Economy.sunroom.season())
+	var repair: Node = sunroom_surface.find_child("SunroomRepair", true, false) if sunroom_surface != null else null
+	var upper: Node = sunroom_surface.find_child("SunroomUpperRestore", true, false) if sunroom_surface != null else null
+	var bottom: Node = sunroom_surface.find_child("SunroomLadderBottom", true, false) if sunroom_surface != null else null
+	var top: Node = sunroom_surface.find_child("SunroomLadderTop", true, false) if sunroom_surface != null else null
+	for node in [repair, upper, bottom, top]:
+		if node == null:
+			continue
+		if node.has_method("set_sunroom_stage"):
+			node.set_sunroom_stage(Economy.sunroom.stage)
+		if node == repair:
+			node.visible = Economy.sunroom.stage == "ruined"
+		elif node == upper:
+			node.visible = Economy.sunroom.stage == "ladder_fixed"
+		else:
+			node.visible = Economy.sunroom.ladder_repaired()
+	var damage: Node = sunroom_surface.find_child("SunroomDamage", true, false) if sunroom_surface != null else null
+	if damage != null:
+		damage.visible = Economy.sunroom.stage == "ruined"
+	var lower: Variant = _zone_nodes.get("zone1")
+	if lower != null:
+		for area in lower.walk_areas:
+			if str(area.area_id) == "sunroom_upper_deck":
+				var was_active: bool = bool(area.active)
+				area.active = Economy.sunroom.upper_restored()
+				if area.active != was_active:
+					lower.rebuild_ground()
+
 func _setup_gather() -> void:
 	gather = get_node_or_null("World/Gameplay/GatherField") as Node3D
 	if gather == null:
@@ -1644,18 +1855,22 @@ func _bind_supply_counter() -> void:
 	var shop: Node = _zone_nodes.get("sea_supply")
 	if shop == null:
 		return
+	if shop.has_method("configure_view_subject"):
+		var ashore_query := func() -> bool: return actor_controller.mode() == 0
+		shop.configure_view_subject(player, ashore_query, cam)
 	var counter := shop.get_node_or_null("Objects/SupplyCounter")
 	if counter != null and counter.has_signal("opened"):
 		counter.opened.connect(_open_supply)
 
 
 func _open_supply(_counter: Node3D) -> void:
-	hud.open_tab("shop")
+	if shop_panel != null: shop_panel.open_shop("shop_general")
+	else: hud.open_tab("shop")
 
 
 func _open_orders(_board: Node3D) -> void:
 	if Scope.minimal():
-		hud.open_tab("shop")
+		shop_panel.open_shop("shop_general")
 		return
 	if order_panel == null or order_panel.is_open():
 		return
@@ -1816,13 +2031,33 @@ func _setup_hover() -> void:
 	interactor.target_changed.connect(func(_spot): _update_near_interaction())
 	interactor.progress_changed.connect(func(ratio: float):
 		if ratio <= 0.0 and hover._near_progress != null: hover._near_progress.hide())
-	hover.near_requested.connect(func():
-		if input_blocked(): return
-		if interactor.active and is_instance_valid(interactor.target): _open_spot_bubbles(interactor.target)
-		else: _press_boat_key())
+	hover.near_requested.connect(_activate_near_action)
 	# 走不到的目标不给悬停图标、不改指针 —— 有图标就等于「这里能点」，
 	# 玩家点了却弹不出东西，只会觉得界面坏了。判定与点击提示共用同一个函数。
 	hover.reach_gate = _land_reach_reason
+
+
+## 点近距图标：读 `_near_action()` 的同一份仲裁结果，绝不另判一次。
+##
+## 以前这里写的是 `if _boat_key_action() == "board": ... elif 交互物: ...`，
+## 于是「船上·泊位」这一支（boat_action == "leave"）掉进了 else 分支，
+## 点图标走的是海面打捞判定 —— 玩家在泊位点「上岸」图标，船却在捞东西。
+func _activate_near_action() -> void:
+	if hud != null and hud.world_actions != null and hud.world_actions.is_open():
+		return
+	var action := _near_action()
+	if action.is_empty():
+		return
+	match str(action.get("kind", "")):
+		"boat_board", "boat_leave":
+			_toggle_boat_by_key()
+		"dock":
+			var dock: Dictionary = action.get("dock", {})
+			_select_landing({"zone": str(dock.get("zone", "")), "landing": str(dock.get("landing", ""))})
+		"pick":
+			_press_sea_pick(action.get("pick", {}))
+		"spot":
+			_open_spot_bubbles(action.get("node"))
 
 
 ## 悬停与自动交互每帧更新：面板打开 / 潜水时整体关掉，避免抢指针。
@@ -2031,19 +2266,15 @@ func _setup_pickup_progress() -> void:
 	pickup_progress.subject = player
 
 
-## 海底是独立地图：整棵 UnderwaterWorld 一直挂在主线里，平时隐藏，
-## 下潜时切相机 + 换 Environment（海面物体整体隐藏）。
+## 海面只装配稳定会话所有者；海底PackedScene按来源海域真正切换，不常驻几何。
 func _setup_dive() -> void:
-	dive = get_node_or_null("Underwater")
-	if dive == null:
-		dive = UnderwaterScene.instantiate()
-		dive.name = "Underwater"
-		add_child(dive)
-	# 海面灯光也要一起藏：海底有自己的一整套灯，混着会整体过曝。
-	var hide_on_dive: Array = [world_root, water_node, boat, bird_root, markers, props, player]
-	hide_on_dive.append_array(_surface_lights)
+	dive = DiveSession.new()
+	dive.name = "DiveSession"
+	add_child(dive)
+	dive.configure(self)
 	dive.give_resource = Economy.add_resource
-	dive.setup(hide_on_dive, world_env)
+	dive.give_rewards = Economy.inventory.add_all
+	dive.source_query = _dive_source_at
 	dive.depth_changed.connect(_on_depth_changed)
 	dive.zone_changed.connect(_on_dive_zone)
 	dive.air_changed.connect(_on_dive_air)
@@ -2112,7 +2343,9 @@ func _on_click_command(command: String) -> void:
 			hud.toast("镜头跟随角色")
 		"close":
 			if hud.is_panel_open(): hud.toggle_panel()
-		"bag", "notes", "plant", "build", "storage", "shop", "shipping":
+		"shop":
+			shop_panel.open_shop("shop_general")
+		"bag", "notes", "plant", "build", "storage", "shipping":
 			_auto_target = null
 			interactor.auto_hold = false
 			cam_panel.set_open(false)
@@ -2373,11 +2606,11 @@ func _select_landing(hit: Dictionary) -> void:
 	# 这里一旦用 `:=`，整条表达式就是 Variant，Godot 推不出类型会直接报解析错误，
 	# 而 main.gd 解析失败会让整个游戏加载不了。2026-10-28 改鲸的场景后重导入时踩到过。
 	var docked: bool = zone_id == GameState.current_zone and landing_id == GameState.landing_id \
-		and not boat.starts_sailing() and boat.position.distance_to(park) < 1.0
+		and not boat.starts_sailing() and boat.position.distance_to(park) < DOCK_SETTLE_TOLERANCE
 	if docked:
 		if GameState.mode == GameState.Mode.ASHORE:
 			_ashore_on_arrival = false
-			_depart(func() -> void: hud.toast("上船了 · 点水面或远方的登陆点出发"))
+			_depart(func() -> void: hud.toast("上船了"))
 		else:
 			_ashore_on_arrival = false
 			_step_ashore()
@@ -2402,13 +2635,16 @@ func _step_ashore() -> bool:
 	return true
 
 
-## ---- E 键上下船（SEA-INTERACT-R13，2026-11-05）-----------------------------
+## ---- 上下船热区（SEA-INTERACT-R13 / R25，2026-11-07）------------------------
 ##
-## 与点击登陆标记是同一对动作，只是入口从「点图标」换成「站在旁边按 E」：
-##   · 岸上、船正停在这个泊位、站在站立点 2.4 米内 → 上船；
-##   · 船上、船停稳在这个泊位 → 上岸。
-## 附近同时有可交互物时按「谁更近」让位：物件比泊位近就归采集，
-## 否则站在船舷边按 E 永远会被旁边的出货箱吃掉。
+## 与点击登陆标记是同一对动作，只是入口从「点图标」换成「走进热区按 E / 点图标」：
+##   · 岸上·船边：船停在本泊位，人走进船旁 → 上船；
+##   · 水面·泊位：船开进泊位附近的水面 → 靠岸并上岸；
+##   · 船上·已靠妥：船已停稳在泊位 → 上岸。
+##
+## 朝向**不再是**上船的硬门槛。旧规则要求正对船 0.60，背对船哪怕只差一米也上不去，
+## 玩家读成「船就在旁边却点不动」。现在它只用于**仲裁**：岸上同时够得着种植格
+## 和上船口时，面朝谁就选谁（SEA-INTERACT-R24）。单人单目标时直接可选。
 func _boat_key_action() -> String:
 	if boat == null or (dive != null and dive.active):
 		return ""
@@ -2431,21 +2667,42 @@ func _boat_key_action() -> String:
 	var landing := _current_landing()
 	if landing == null or not is_instance_valid(actor_controller.actor):
 		return ""
-	var stand: Vector3 = landing.stand_position()
-	var here: Vector3 = actor_controller.actor.global_position
-	var land_dist := Vector2(here.x - stand.x, here.z - stand.z).length()
-	if land_dist > BOAT_KEY_REACH:
+	if not _actor_in_boarding_zone(landing):
 		return ""
-	if interactor != null and interactor.target != null:
+	# 朝向只用于仲裁，不作为门槛：玩家正面对着种植格/出货箱时 E 归它，
+	# 其余情况一律上船。差量在 FACING_TIE 以内视为同等正对，此时更近的一方赢
+	# —— 也就是「站得离谁近，操作谁」，避免微微一晃就换目标。
+	if interactor != null and interactor.active and is_instance_valid(interactor.target):
 		var spot: Node3D = interactor.target
-		# Q 是明确选择，不能再被“泊位更近”抢走同一个 E。
-		if interactor.active and interactor.keyboard_target == spot: return ""
-		if is_instance_valid(spot):
-			var spot_pos: Vector3 = spot.focus_position() if spot.has_method("focus_position") else spot.global_position
-			var spot_dist := Vector2(here.x - spot_pos.x, here.z - spot_pos.z).length()
-			if spot_dist <= land_dist:
-				return ""
+		if interactor.keyboard_target == spot: return ""
+		var spot_pos: Vector3 = spot.focus_position() if spot.has_method("focus_position") else spot.global_position
+		if _actor_facing_alignment(boat.global_position) < _actor_facing_alignment(spot_pos) + FACING_TIE:
+			return ""
 	return "board"
+
+
+## 岸上船边热区：站在登陆点旁（去船舱的落点）或贴着船舷，都算「走进船只」。
+##
+## 为什么两个半径取或：各区块泊位到站立点的距离差别很大（实测 3.6–8.0 米），
+## 只按站立点算，「顺着码头走到船边、离站立点 3 米」的玩家会进不了热区；
+## 只按船算，则大泊位的站立点在 8 米外同样进不去。
+func _actor_in_boarding_zone(landing: Node3D) -> bool:
+	var here: Vector3 = actor_controller.actor.global_position
+	var stand: Vector3 = landing.stand_position()
+	if Vector2(here.x - stand.x, here.z - stand.z).length() <= BOAT_KEY_REACH:
+		return true
+	if boat == null:
+		return false
+	return Vector2(here.x - boat.global_position.x, here.z - boat.global_position.z).length() <= BOAT_HULL_REACH
+
+func _actor_facing_alignment(point: Vector3) -> float:
+	var body: Node3D = actor_controller.actor
+	if not is_instance_valid(body): return -1.0
+	var to := Vector3(point.x - body.global_position.x, 0.0, point.z - body.global_position.z)
+	if to.length() < 0.00001: return 1.0
+	var forward := body.global_transform.basis.z
+	forward.y = 0.0
+	return forward.normalized().dot(to.normalized())
 
 
 ## 泊位里按方向键：这个方向算「往岸上走」吗（SEA-MOVE-R24）。
@@ -2536,39 +2793,52 @@ func _sea_pick_candidate() -> Dictionary:
 	return best
 
 
-func _sea_pick_text() -> String:
-	if hud == null or not is_instance_valid(hud) or input_blocked():
-		return ""
-	var c := _sea_pick_candidate()
-	if c.is_empty():
-		return ""
-	return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
-
-
-## E 的总入口：就近的优先，其次上下船/靠岸，最后才是「划过去捞」。
+## E 的总入口：读近距仲裁的同一份结果。
+##
+## 优先级由 `_near_action()` 一处拥有（贴到跟前的漂流物 → 上下船 → 泊位热区 →
+## 划过去捞），提示文案、图标、按键分派全读它，三者不可能不一致。
 func _press_boat_key() -> bool:
-	var c := _sea_pick_candidate()
-	# 已经贴到跟前：先捞。否则在泊位上按 E 会被「上岸」吃掉。
-	if not c.is_empty() and bool(c.get("near", false)):
-		return _press_sea_pick(c)
-	if _toggle_boat_by_key():
-		return true
-	var dock := _near_landing_key()
-	if not dock.is_empty():
-		_select_landing({"zone": str(dock.zone), "landing": str(dock.landing)})
-		return true
-	if not c.is_empty():
-		return _press_sea_pick(c)
+	if input_blocked():
+		return false
+	var action := _near_action()
+	if action.is_empty():
+		# 仲裁之外还有「不在热区、但想划过去捞」这一档：那是明确的赶路指令。
+		# `_boat_shortcut_text()` 对此有同样的兜底，两边必须同时改。
+		var c := _sea_pick_candidate()
+		if not c.is_empty():
+			return _press_sea_pick(c)
+		return false
+	match str(action.get("kind", "")):
+		"boat_board", "boat_leave":
+			return _toggle_boat_by_key()
+		"dock":
+			var dock: Dictionary = action.get("dock", {})
+			_select_landing({"zone": str(dock.get("zone", "")), "landing": str(dock.get("landing", ""))})
+			return true
+		"pick":
+			return _press_sea_pick(action.get("pick", {}))
+		"spot":
+			return false
 	return false
 
 
-## 键盘靠岸（SEA-INTERACT-R16）。
+## 键盘靠岸（SEA-INTERACT-R16 / R25，2026-11-07）。
 ##
 ## 原来「去哪个岛」只能点登陆标记：键盘玩家把船划到岛边就再也走不下去了。
 ## 这里按「船离哪个泊位最近」挑一个，走的是点击那条同一条链路
 ## （`_select_landing` → 航行 → 靠妥 → 上岸），不新增靠泊通道。
-## 8 米是「已经到岛边、只差靠泊」的距离；更远时该用方向键自己划。
-const DOCK_KEY_REACH := 8.0
+##
+## **热区而不是方向锥**（2026-11-07）。旧实现要求船头朝泊位 0.20 以上，
+## 于是「船已经开进泊位旁边，只是船尾对着码头」也点不了靠岸 —— 玩家原话是
+## 「码头的上船区应该是在海面的，进入热区后点击即可靠岸上岸」。
+## 现在只要船开进泊位周围这片水面、且真的能划过去，就出靠岸入口；
+## 是否在热区由**位置**决定，与船头朝哪无关（航行到站本来就会摆正船头）。
+## 保留「可航」这一条：距离近但被岸线/养殖平台隔开的泊位不算，否则会画一个
+## 开不过去的入口。
+const DOCK_KEY_REACH := 6.5
+## 可航判定带缓存：热区查询每帧都跑，而路径规划不便宜。
+var _dock_cache := {}
+const DOCK_CACHE_TTL_MS := 400
 
 func _near_landing_key() -> Dictionary:
 	if boat == null or (dive != null and dive.active):
@@ -2592,10 +2862,33 @@ func _near_landing_key() -> Dictionary:
 				continue
 			var park := Vector3(float(data.boatPark[0]), WATER_LEVEL, float(data.boatPark[2]))
 			var d := Vector2(park.x - boat.position.x, park.z - boat.position.z).length()
-			if d < best_d:
+			if d >= best_d:
+				continue
+			# 已经在当前泊位中心：方向与可航都没有意义，一定允许（上岸/上船入口）。
+			if d <= 1.0:
 				best_d = d
 				best = {"zone": str(zone_id), "landing": str(data.get("id", "main")), "dist": d}
+				continue
+			if not _dock_route_ok(park):
+				continue
+			best_d = d
+			best = {"zone": str(zone_id), "landing": str(data.get("id", "main")), "dist": d}
 	return best
+
+
+## 泊位能不能划过去。结果按「船位置 + 目标点」缓存 0.4 秒：
+## 热区查询在近距图标、按键分派、提示文案三处都会跑，不缓存就是每帧三次寻路。
+func _dock_route_ok(park: Vector3) -> bool:
+	var key := Vector3i(roundi(boat.position.x * 4.0), roundi(park.x * 4.0), roundi(park.z * 4.0))
+	var now := Time.get_ticks_msec()
+	var hit: Variant = _dock_cache.get(key)
+	if hit != null and now - int(hit.get("stamp", 0)) < DOCK_CACHE_TTL_MS:
+		return bool(hit.get("ok", false))
+	var ok := not plan_route_to(park.x, park.z).is_empty()
+	if _dock_cache.size() > 64:
+		_dock_cache.clear()
+	_dock_cache[key] = {"ok": ok, "stamp": now}
+	return ok
 
 
 func _press_sea_pick(c: Dictionary) -> bool:
@@ -2604,6 +2897,10 @@ func _press_sea_pick(c: Dictionary) -> bool:
 
 
 ## 船是否正停在这个泊位（与点击登陆标记、点船体同一判据）。
+##
+## 容差 1.6 米：旧值 1.0 太紧，自动靠泊在余速下常常停在 1.1–1.4 米，
+## 玩家看到船明明贴着码头，E 却说「船不在泊位」——「上下船判定经常体验不好」
+## 有相当一部分来自这里。船头朝向不参与判定，靠妥时本来就已摆正。
 func _landing_is_docked() -> bool:
 	if boat == null:
 		return false
@@ -2612,26 +2909,40 @@ func _landing_is_docked() -> bool:
 		return false
 	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
 	var sailing: bool = boat.starts_sailing()
-	return not sailing and boat.position.distance_to(park) < 1.0
+	return not sailing and boat.position.distance_to(park) < DOCK_SETTLE_TOLERANCE
+
 
 
 ## 提示条上的「现在按 E 会做什么」。
+##
+## 读 `_near_action()` 的同一份仲裁：提示、图标、按键分派三处共用一个结果，
+## 不会再出现「写着上岸、按下去在打捞」。
+##
+## 有一档必须单独说清楚：**热区之外**的漂流物 / 鱼群。
+## 那时不出图标（图标的意思是「你已进入判定区，点一下就动手」），
+## 但 `_press_boat_key()` 仍保留「划过去捞」这条赶路指令 —— 键盘玩家
+## 隔着几米没法出发就断手了。既然 E 会开船，提示就不能空着：
+## 旧实现在 3 米处提示为空、按 E 船却直奔漂流物，正是「提示 ≠ 按键」。
+## 这里补上与 `_press_boat_key()` 兜底同源的判断。
 func _boat_shortcut_text() -> String:
 	if hud == null or not is_instance_valid(hud) or input_blocked():
 		return ""
-	var c := _sea_pick_candidate()
-	# 跟 `_press_boat_key` 同一优先级：贴到跟前就先说「打捞」，
-	# 否则玩家看到「上岸」按下去却在捞东西，提示和动作必须一致。
-	if not c.is_empty() and bool(c.get("near", false)):
-		return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
-	match _boat_key_action():
-		"board": return "上船"
-		"leave": return "上岸"
-	var dock := _near_landing_key()
-	if not dock.is_empty():
-		return "靠岸 · " + Zones.label(str(dock.zone))
-	if not c.is_empty():
-		return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
+	var action := _near_action()
+	match str(action.get("kind", "")):
+		"boat_board": return "上船"
+		"boat_leave": return "上岸"
+		"dock":
+			var dock: Dictionary = action.get("dock", {})
+			return "靠岸 · " + Zones.label(str(dock.get("zone", "")))
+		"pick":
+			return "捕鱼" if str(action.get("pick", {}).get("type", "")) == "fish" else "打捞"
+		"spot":
+			# 交互物的文案由 interactor / prompt 自己给，这里不抢。
+			return ""
+	# 空结果 = 不在任何热区。这一档 E 仍可能「划过去捞」，如实写明。
+	var far := _sea_pick_candidate()
+	if not far.is_empty():
+		return "捕鱼" if str(far.get("type", "")) == "fish" else "打捞"
 	return ""
 
 
@@ -2850,9 +3161,42 @@ func _on_dive_zone(name: String) -> void:
 
 
 func _on_dive_exited() -> void:
-	actor_controller.request_mode(GameState.Mode.ON_BOAT)
+	# Session restored the same actor/boat scene and its original mode, not a new save.
 	hud.set_diving(false)
 	hud.toast("回到水面")
+
+func _dive_source_at(boat_position: Vector3) -> String:
+	# 家园海域：阳光房附近与「家园海底」共用一套世界坐标，下水点即入水点。
+	var home := preload("res://src/diving/dive_map_catalog.gd").home_map()
+	if not home.is_empty() and preload("res://src/diving/dive_map_catalog.gd").is_home_water(boat_position, _home_seabed_anchor()):
+		return "home_seabed"
+	if actor_controller != null and actor_controller.mode() == GameState.Mode.ASHORE:
+		return GameState.current_zone
+	# Nearest installed, enabled sea area wins. Anchors come from live scene landings,
+	# never zones.json reference origins; moving a facility moves its catchment.
+	var chosen := ""
+	var nearest := INF
+	for id in _zone_nodes:
+		if not Scope.zone_enabled(str(id)): continue
+		if preload("res://src/diving/dive_map_catalog.gd").get_map(str(id)).is_empty(): continue
+		var zone = _zone_nodes[id]
+		var points: Array = zone.landing_points()
+		for point in points:
+			var anchor: Vector3 = point.global_position
+			var distance := Vector2(anchor.x-boat_position.x,anchor.z-boat_position.z).length_squared()
+			if distance < nearest or (is_equal_approx(distance,nearest) and str(id) < chosen):
+				nearest = distance
+				chosen = str(id)
+	return chosen
+
+
+## 阳光房的真实海面位置由手摆场景决定，不写死在脚本里；挪动木屋会一起挪动入水归属。
+func _home_seabed_anchor() -> Vector3:
+	var zone = _zone_nodes.get("zone1")
+	if zone == null: return Vector3.ZERO
+	var cabin: Node3D = zone.find_child("太阳能木屋",true,false) as Node3D
+	if cabin != null: return cabin.global_position
+	return zone.global_position
 
 
 ## 调试入口（`--salvage`）：忽略距离，直接开面板。
@@ -2867,7 +3211,6 @@ func _try_salvage() -> void:
 
 func _on_dive() -> void:
 	if _title_active: return
-	if Scope.minimal(): return
 	if boat.starts_sailing():
 		hud.toast("先靠岸或停船再潜水")
 		return
@@ -2876,18 +3219,21 @@ func _on_dive() -> void:
 		hud.set_diving(false)
 		hud.toast("上浮")
 		return
+	if room_service != null and room_service.inside:
+		hud.toast("请先离开房间再潜水")
+		return
+	if input_blocked(): return
 	_cancel_action()
 	if hud.is_panel_open(): hud.toggle_panel()
 	cam_panel.set_open(false)
 	grade.set_open(false)
-	dive.dive(boat.position, Zones.label(GameState.current_zone))
-	# 氧气还没恢复时 dive() 会拒绝并自己发提示，别把 HUD 切成潜水模式。
-	if not dive.active:
-		return
-	actor_controller.request_mode(GameState.Mode.DIVING)
-	player.set_diving(true)
-	hud.set_diving(true)
-	hud.toast("下潜 · %s" % Zones.label(GameState.current_zone))
+	# The surface actor keeps its original mode and position while removed from tree.
+	# The separate dive map owns its diver, camera, environment and HUD.
+	# 世界对齐地图要用角色的真实落水点：岸上取人、船上取船。
+	var entry := boat.position
+	if actor_controller.mode() == GameState.Mode.ASHORE: entry = player.global_position
+	var source: String = _dive_source_at(entry)
+	dive.dive(entry, source)
 
 
 ## 建造页直接进入前往和自动交付流程。
@@ -2972,7 +3318,7 @@ func _process(delta: float) -> void:
 	if sleep_cycle.busy:
 		if building_controller!=null and building_controller.active: building_controller.close()
 		return
-	world_clock.tick(delta)
+	# SleepCycle.advance owns this frame's single, bedtime-capped clock tick.
 	props.sync_population(world_clock.query(),boat.position)
 	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
@@ -3098,7 +3444,7 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or _exhausted_rest or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or _exhausted_rest or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
@@ -3127,7 +3473,9 @@ func _setup_actor_controller() -> void:
 func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
 	world_clock.configure(config.get("clock",{}))
-	world_clock.changed.connect(func(snapshot: Dictionary): props.sync_population(snapshot,boat.position))
+	world_clock.changed.connect(func(snapshot: Dictionary):
+		props.sync_population(snapshot,boat.position)
+		Economy.sunroom.set_calendar_day(int(snapshot.get("day", 1))))
 	Economy.fishery.observe(world_clock.query())
 	world_clock.changed.connect(Economy.fishery.observe)
 	if Scope.minimal():
@@ -3351,8 +3699,184 @@ func _restore_building(data: Dictionary) -> void:
 func _validate_building_world(snapshot: Dictionary) -> String:
 	return validate_world_state(snapshot.game,snapshot.building.instances,bool(snapshot.economy.get("fishery",{}).get("unlocked",false)))
 
+func _setup_npc_systems() -> void:
+	# NPC 与商店仍各自持有业务，Main 只注入端口与转发公开事件。
+	shop_service.configure(Economy.inventory)
+	hud.shop_query = _legacy_shop_snapshot
+	hud.shop_buy = _legacy_shop_buy
+	npc_service.configure(_npc_world_query, Economy.inventory.exchange, Economy.inventory.remove, Economy.inventory.count)
+	shop_panel = preload("res://src/shop/shop_panel.gd").new()
+	shop_panel.name = "ShopPanel"
+	add_child(shop_panel)
+	shop_panel.configure(shop_service, Economy.inventory)
+	shop_panel.opened.connect(func(_id): _on_npc_modal_changed(true))
+	shop_panel.closed.connect(func(_id): _on_npc_modal_changed(false))
+	npc_career_panel = preload("res://src/npc/npc_career_panel.gd").new()
+	npc_career_panel.name = "NpcCareerPanel"
+	add_child(npc_career_panel)
+	npc_career_panel.configure(_npc_career_query, _npc_career_command)
+	npc_career_panel.closed.connect(func(): _on_npc_modal_changed(false))
+	npc_service.vendor_requested.connect(_on_npc_vendor_requested)
+	assert(NpcCatalog.validate() == "", NpcCatalog.validate())
+	npc_world_presenter = preload("res://src/npc/npc_world_presenter.gd").new()
+	npc_world_presenter.name = "NpcWorldPresenter"
+	npc_world_presenter.npc_interaction_requested.connect(_on_npc_interaction_requested)
+	add_child(npc_world_presenter)
+	_npc_previous_modal_query = hud.owned_modal_query
+	_npc_previous_modal_close = hud.owned_modal_close
+	_npc_previous_modal_input = hud.owned_modal_input
+	hud.owned_modal_query = _npc_owned_modal
+	hud.owned_modal_close = _npc_close_modal
+	hud.owned_modal_input = _npc_modal_input
+	npc_world_presenter.modal_changed.connect(_on_npc_modal_changed)
+	npc_world_presenter.action_requested.connect(_on_npc_career_requested)
+	var stations: Node3D = get_node_or_null("World/SeaStructures/rooftop_ranch/NpcStations") as Node3D
+	var anchor_hub = preload("res://src/npc/npc_anchor_hub.gd").new()
+	anchor_hub.name = "NpcAnchorHub"
+	add_child(anchor_hub)
+	anchor_hub.configure([stations, get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations")])
+	npc_world_presenter.configure(npc_service, anchor_hub, _npc_world_query, _on_npc_interaction_requested)
+	world_clock.changed.connect(_on_npc_clock_changed)
+
+func _legacy_shop_snapshot() -> Dictionary:
+	var view: Dictionary = shop_service.shop_snapshot("shop_general")
+	var catalog: Array = []
+	for row in view.get("products", []):
+		catalog.append({"id":row.item, "crop":row.id, "count":0, "price":row.price, "max_buy":row.max_buy})
+	return {"catalog":catalog, "coins":view.get("coins", 0), "display_name":view.get("display_name", "综合商店"), "caption":"种子、土壤与日常补给"}
+
+func _legacy_shop_buy(product_id: String, amount: int) -> Dictionary:
+	var aliases := {"lettuce":"general_lettuce_seed", "tomato":"general_tomato_seed", "pumpkin":"general_pumpkin_seed", "soil":"general_soil"}
+	var result: Dictionary = shop_service.buy("shop_general", str(aliases.get(product_id, product_id)), amount)
+	if result.ok:
+		result["event"] = "bought"
+		result["message"] = "已购入 %s ×%d" % [result.label, amount]
+	else: result["blocked"] = result.get("reason", "购买未完成")
+	return result
+
+func _on_npc_clock_changed(_snapshot: Dictionary) -> void:
+	# High-frequency clock signals only publish context; NPC owns bounded schedule work.
+	if npc_world_presenter != null: npc_world_presenter.notify_world(_npc_world_query())
+
+func _npc_world_query() -> Dictionary:
+	var snapshot: Dictionary = world_clock.query()
+	snapshot["weather"] = weather_service.query().get("kind", "clear")
+	return snapshot
+
+func _npc_owned_modal() -> bool:
+	return (npc_world_presenter != null and npc_world_presenter.is_modal()) or (shop_panel != null and shop_panel.is_open()) or (npc_career_panel != null and npc_career_panel.is_open()) or (_npc_previous_modal_query.is_valid() and _npc_previous_modal_query.call())
+
+func _npc_close_modal() -> void:
+	if shop_panel != null and shop_panel.is_open(): shop_panel.close()
+	elif npc_career_panel != null and npc_career_panel.is_open(): npc_career_panel.close()
+	elif npc_world_presenter != null and npc_world_presenter.is_modal(): npc_world_presenter.cancel_session()
+	elif _npc_previous_modal_close.is_valid(): _npc_previous_modal_close.call()
+
+func _npc_modal_input(event: InputEvent) -> bool:
+	if shop_panel != null and shop_panel.is_open(): return shop_panel.handle_input(event)
+	if npc_career_panel != null and npc_career_panel.is_open(): return npc_career_panel.handle_input(event)
+	if npc_world_presenter != null and npc_world_presenter.is_modal(): return npc_world_presenter.handle_input(event)
+	return _npc_previous_modal_input.is_valid() and _npc_previous_modal_input.call(event)
+
+func _on_npc_modal_changed(active: bool) -> void:
+	hud.set_external_modal(active or _npc_owned_modal() or hud.menu.external_open(), false)
+	_world_press = false
+	if active:
+		hud.close_card()
+		actor_controller.cancel()
+		interactor.require_release()
+		interactor.active = false
+		if hover != null: hover.clear()
+
+func _on_npc_vendor_requested(npc_id: String, shop_id: String) -> void:
+	var row: Dictionary = NpcCatalog.get_npc(npc_id)
+	if row.get("shop_id", "") != shop_id: return
+	npc_world_presenter.cancel_session()
+	if npc_career_panel != null: npc_career_panel.close()
+	var opened: Dictionary = shop_panel.open_shop(shop_id)
+	if not opened.ok: hud.toast(opened.reason)
+
+func _on_npc_career_requested(npc_id: String, action_id: String) -> void:
+	var expected := {"npc_luo_yan":"ship", "npc_mu_he":"cultivation", "npc_ji_chen":"salvage", "npc_nan_zhi":"building", "npc_bai_shi":"archive"}
+	if expected.get(npc_id, "") != action_id: return
+	var result: Dictionary = npc_career_panel.open_service(npc_id, action_id)
+	if result.ok: _on_npc_modal_changed(true)
+	else: hud.toast(result.reason)
+
+func _npc_career_query(action_id: String) -> Dictionary:
+	var ids := {"ship":"npc_luo_yan", "cultivation":"npc_mu_he", "salvage":"npc_ji_chen", "building":"npc_nan_zhi", "archive":"npc_bai_shi"}
+	var npc: Dictionary = NpcCatalog.get_npc(str(ids.get(action_id, "")))
+	var result := {"ok": true, "display_name":npc.get("display_name", ""), "role":npc.get("role", "")}
+	match action_id:
+		"ship":
+			result.merge({"ship_level":Economy.ship.ship_level, "cost":Economy.ship.ship_cost(), "can_execute":Economy.ship.can_upgrade_ship(), "reason":"船已满级" if Economy.ship.ship_level >= 3 else Economy.ship.construction_missing_text(Economy.ship.ship_cost())})
+		"salvage":
+			var now := SaveGameLib.now_seconds()
+			var left: float = Economy.salvage.salvage_cooldown_left(now)
+			result.merge({"cooldown_left":left, "can_execute":left <= 0.0, "description":"委托回声整理打捞物，复用现有打捞结算。", "reason":"绞盘正在收线" if left > 0.0 else ""})
+		"cultivation":
+			var crops: Array = []
+			for id in Economy.farm.crop_definitions():
+				var crop: Dictionary = Economy.farm.crop_def(str(id))
+				crops.append({"display_name":crop.get("name",id), "growth_text":"%d个浇水日成熟" % crop.get("grow_days",3), "status_text":"收获 ×%d" % int(crop.get("yield",{}).values()[0])})
+			result["crops"] = crops
+		"archive":
+			var events: Array = npc_service.list_events()
+			for event in events: event["npc_id"] = str(event.npc_ids[0])
+			result["events"] = events
+	return result
+
+func _npc_career_command(action_id: String, command: Dictionary) -> Dictionary:
+	match str(command.get("id", "")):
+		"upgrade_ship": return Economy.ship.upgrade_ship() if action_id == "ship" else {"ok":false,"reason":"职能不匹配"}
+		"do_salvage":
+			if action_id != "salvage": return {"ok":false,"reason":"职能不匹配"}
+			var now := SaveGameLib.now_seconds()
+			if not Economy.salvage.can_salvage(now): return {"ok":false,"reason":"打捞正在冷却"}
+			if not Economy.inventory.can_add("wood",3) or not Economy.inventory.can_add("parts",2): return {"ok":false,"reason":"请留出打捞物空间"}
+			var gain: Dictionary = Economy.salvage.do_salvage(now)
+			return {"ok":not gain.is_empty(),"message":"打捞整理完成 · 木板 ×3 / 零件 ×2"}
+		"shop_general":
+			npc_career_panel.close()
+			return shop_panel.open_shop("shop_general")
+		"open_plant":
+			npc_career_panel.close(); hud.open_tab("plant")
+			return {"ok":true}
+		"open_building":
+			npc_career_panel.close(); _on_click_command("craft")
+			return {"ok":true}
+		"open_events", "replay_event":
+			npc_career_panel.close()
+			if str(command.id) == "replay_event":
+				var event: Dictionary = NpcCatalog.get_event(str(command.get("event_id", "")))
+				if event.is_empty(): return {"ok":false,"reason":"未知档案"}
+				var opened: Dictionary = npc_world_presenter.open_npc(str(event.npc_ids[0]))
+				if not opened.ok: return opened
+				return npc_world_presenter.panel.session.command("event", {"id":str(event.id)})
+			var opened: Dictionary = npc_world_presenter.open_npc("npc_bai_shi")
+			if not opened.ok: return opened
+			return npc_world_presenter.panel.session.command("events")
+	return {"ok":false,"reason":"未知职业命令"}
+
+func _on_npc_interaction_requested(npc_id: String = "") -> Dictionary:
+	# 无参调用是弱引用 ports 的命名门禁；有参通知只清世界输入，不再重复启动 NPC 业务。
+	if not npc_id.is_empty():
+		actor_controller.cancel()
+		_world_press = false
+	return {
+		"enabled": not _title_active and not _exhausted_rest and not actor_controller.climbing()
+			and not room_controller.busy and not dive.active and not building_controller.active
+			and not hud.is_panel_open() and not hud.menu.active and not hud.menu.external_open()
+			and not hud.world_actions.is_open() and not hud.corner.expanded
+			and not shop_panel.is_open() and not npc_career_panel.is_open(),
+		"paused": get_tree().paused,
+		"sleeping": sleep_cycle.busy,
+		"player_indoors": room_service.inside,
+		"dialogue_active": hud.narrative_active()
+	}
+
 func _setup_save_registry() -> void:
-	save_registry.busy_query = func(): return Economy.daily.is_settling() or sleep_cycle.busy or building.busy()
+	save_registry.busy_query = func(): return dive.active or dive.switching or Economy.daily.is_settling() or sleep_cycle.busy or building.busy() or actor_controller.climbing()
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
 	save_registry.register("profile",avatar_profile.to_dict,avatar_profile.from_dict,schemas.profile,avatar_profile.to_dict(),avatar_profile.validate_snapshot,[avatar_profile])
 	save_registry.snapshot_validator = _validate_building_world
@@ -3364,6 +3888,7 @@ func _setup_save_registry() -> void:
 		save_registry.register(id,owner.to_dict,owner.from_dict,schemas[id],owner.to_dict(),Callable(),sources)
 	save_registry.register("game",capture_world_state,restore_world_state,schemas.game,capture_world_state(),Callable(),[GameState])
 	save_registry.register("room",room_service.to_dict,room_service.from_dict,schemas.room,room_service.to_dict(),room_service.validate_snapshot,[room_service])
+	save_registry.register("npc",npc_service.to_dict,npc_service.from_dict,schemas.npc,npc_service.to_dict(),npc_service.validate_snapshot,[npc_service])
 	save_registry.restored.connect(_after_restore)
 
 func capture_world_state() -> Dictionary:
@@ -3421,7 +3946,12 @@ func _after_restore() -> void:
 	props.sync_population(world_clock.query(),boat.position)
 	if Scope.minimal(): Economy.daily.observe(world_clock.query())
 	Economy.fishery.observe(world_clock.query())
+	Economy.sunroom.set_calendar_day(int(world_clock.day))
 	Economy.publish_restored()
+	# NPC movement/visual refresh is intentionally deferred until the world has restored.
+	if shop_panel != null: shop_panel.close()
+	if npc_career_panel != null: npc_career_panel.close()
+	if npc_world_presenter != null: npc_world_presenter.refresh_after_restore()
 	_sync_zone_levels()
 	cam.restore_follow(player)
 	markers.set_highlight(GameState.current_zone)
@@ -3434,7 +3964,22 @@ func _after_restore() -> void:
 		room_controller.resync_outside()
 	hud.refresh_after_restore()
 
+func resume_after_dive_map() -> void:
+	# Exit-tree cleanup for projections/editors is real, so restore only those ports
+	# and projections; do not rerun Main._ready or load/reset any player snapshot.
+	for zone in _zone_nodes.values():
+		if zone.ground_space != null: zone.ground_space.configure(zone.walk_areas)
+	avatar_session.save = func(): return save_game("",true)
+	arrival_flow.place_at_dock = _place_new_traveler
+	arrival_flow.release_title_camera = func(): title_camera.finish(cam)
+	if npc_world_presenter != null:
+		npc_world_presenter.sync_world(_npc_world_query())
+	get_tree().call_group("dive_resume_listener","resume_after_map_switch")
+
 func _exit_tree() -> void:
+	if get_meta("dive_map_suspended",false): return
+	if dive != null: dive.dispose()
+	if npc_service != null: npc_service.dispose()
 	actor_controller.ports.clear()
 	actor_controller.after_walk = Callable()
 	save_registry.clear()
@@ -3883,7 +4428,7 @@ func _prepare_sleep() -> void:
 		presenter.set_open(false)
 	salvage_panel.cancel()
 	# Development/full-world saves may be underwater. Finish through the dive state machine.
-	if dive.active: dive.phase_machine.change("surface",{},true)
+	if dive.active: dive.abort_to_surface()
 	actor_controller.begin_sleep()
 	# Keep rain/world rendering alive; hide gameplay UI until the iris is fully open.
 	_sleep_ui_layers.clear()

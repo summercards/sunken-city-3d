@@ -71,17 +71,38 @@ func run() -> void:
 	else:
 		check(main._auto_target==main.build_field.find("home_cabin"),"建造菜单前往并自动交付")
 	main._cancel_action()
-	main.dive.dive(main.boat.position,"test")
-	main.dive.phase = "swim"
-	main.dive.diver_pos = Vector3(0,-6,10)
-	check(main.dive.swim_to(Vector3(1,-6,10)),"鼠标潜水导航规划")
-	check(not main.dive._route.is_empty(),"潜水路线建立")
-	main.dive._search = {"id":999,"pos":Vector3(8,-6,10)}
-	main.dive._update_swim(0.016)
-	check(not main.dive._search.is_empty(),"游向宝箱途中保留搜索任务")
-	main.dive.cancel_navigation()
-	check(main.dive._route.is_empty() and main.dive._search.is_empty(),"取消潜水导航与搜索")
-	check(not main.dive.swim_to(Vector3(999,-6,999)),"拒绝界外目的地")
+	# Match player-reachable startup: complete deferred lighting/presenter/focus setup.
+	await process_frame
+	await process_frame
+	var session = main.dive
+	check(session.runtime==null,"海面不常驻潜水地图")
+	var entered: bool = session.enter_map("zone1")
+	check(entered,"进入 zone1 潜水地图")
+	if not entered:
+		main.queue_free()
+		await process_frame
+		quit(1)
+		return
+	var uw = session.runtime
+	check(current_scene==uw and uw.get_parent()==root and not main.is_inside_tree(),"真实切换至独立潜水地图")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	uw.diver_pos = Vector3(0,-6,10)
+	check(uw.swim_to(Vector3(1,-6,10)),"鼠标潜水导航规划")
+	check(not uw._route.is_empty(),"潜水路线建立")
+	uw._search = {"id":999,"pos":Vector3(8,-6,10)}
+	uw._update_swim(0.016)
+	check(not uw._search.is_empty(),"游向宝箱途中保留搜索任务")
+	uw.cancel_navigation()
+	check(uw._route.is_empty() and uw._search.is_empty(),"取消潜水导航与搜索")
+	check(not uw.swim_to(Vector3(999,-6,999)),"拒绝界外目的地")
+	uw.surface()
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await process_frame
+	await process_frame
+	check(main.is_inside_tree() and current_scene==main,"上浮返回原海面实例")
+	check(root.get_camera_3d()==main.cam,"上浮后相机交还海面")
+	check(main.dive==session and not session.active and session.runtime==null,"稳定会话已回收潜水 runtime")
+	check(not is_instance_valid(uw),"旧潜水 runtime 已销毁")
 	main.salvage_panel.begin()
 	check(main.salvage_panel._action_button != null,"打捞鼠标控件")
 	main.salvage_panel.cancel()

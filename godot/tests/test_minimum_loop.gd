@@ -22,10 +22,13 @@ func run() -> void:
 	var clock = main.world_clock
 	var saves = preload("res://src/save/save_game.gd")
 	check(economy.count("lettuce_seed")==3,"starter seeds")
-	check(main.hud._dive_btn.disabled,"dive button locked")
-	main._on_dive()
-	check(not main.dive.active,"dive command locked")
-	for id in ["build","dive","camera","hook","lamp"]:
+	# 2026-11-08 潜水重新开放：默认范围里「潜水/头灯/上下游」不再锁，
+	# 实际下潜与返回由 dive-maps 专项覆盖，这里只确认入口可用且不要中途切场景。
+	check(not main.hud._dive_btn.disabled,"dive button available in default scope")
+	var scope = preload("res://src/core/play_scope.gd")
+	for id in ["dive","lamp","rise","descend"]:
+		check(scope.command_enabled(id),"dive-related command enabled "+id)
+	for id in ["build","camera","hook"]:
 		check(main.hud._panel.tiles[id].disabled,"locked app "+id)
 		main.hud._activate(id)
 	check(not main.hud.is_panel_open(),"locked apps cannot open")
@@ -159,7 +162,14 @@ func run() -> void:
 	# Views use the real command route and remain separate from character dialogue.
 	main.hud.toast("已存入仓库")
 	check(main.hud.dialogue==null and main.hud._toast_box.custom_minimum_size.y<60,"system notice is compact")
-	for tab in ["shop","storage","shipping","plant"]:
+	# 商店从「HUD 的一个页签」升级成独立的商店面板（NPC 商店模块接入后，
+	# shop 命令走 shop_panel.open_shop，不再开 HUD 页签）。其余三个仍是页签。
+	main._on_click_command("shop")
+	check(main.shop_panel != null and main.shop_panel.is_open(),"open shop")
+	if main.shop_panel != null and main.shop_panel.is_open():
+		main.shop_panel.close()
+	await process_frame
+	for tab in ["storage","shipping","plant"]:
 		main._on_click_command(tab)
 		check(main.hud.is_panel_open() and main.hud._tab==tab,"open "+tab)
 		await process_frame

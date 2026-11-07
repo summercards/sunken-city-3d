@@ -6,6 +6,20 @@ func mouse(pos: Vector2, down: bool) -> void:
 	event.pressed = down
 	root.push_input(event,true)
 	await settle(2)
+func map_click(button: Button) -> void:
+	# 继承的 click() 会查询海面 HUD；独立地图只向本地控件发送真实鼠标事件。
+	check(button.is_visible_in_tree(),"潜水鼠标目标在当前地图内可见")
+	var pos := button.get_global_rect().get_center()
+	await mouse(pos,true)
+	await mouse(pos,false)
+func key(code: int) -> void:
+	for down in [true,false]:
+		var event := InputEventKey.new()
+		event.keycode = code
+		event.physical_keycode = code
+		event.pressed = down
+		root.push_input(event,true)
+		await process_frame
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
@@ -43,23 +57,63 @@ func run() -> void:
 	main._on_click_command("cancel")
 	check(main._auto_target==null and not main._walking,"命令取消移动与操作")
 	await click(main.hud._dive_btn)
-	for i in 300:
-		await process_frame
-		if main.dive.phase=="swim": break
-	check(main.dive.active and main.dive.phase=="swim","鼠标下潜")
-	var initial_lamp: bool = main.dive.air.lamp
-	await click(main.hud.command_buttons.lamp)
-	check(main.dive.air.lamp!=initial_lamp,"鼠标切换头灯")
-	await click(main.hud.command_buttons.descend)
-	check(not main.dive._route.is_empty(),"鼠标下游深度导航")
+	var session = main.dive
+	check(not session.active and session.runtime == null,"海面潜水按钮仍受默认 gate 保护")
+	# 新机制：显式进入地图，本地 HUD 承担潜水鼠标操作与状态，不读取海面日志。
+	var entered: bool = session.enter_map("zone1")
+	check(entered,"显式进入 zone1 潜水地图")
+	if not entered:
+		main.queue_free()
+		await settle(2)
+		quit(1)
+		return
+	var uw = session.runtime
+	var map_hud: CanvasLayer
+	for child in uw.get_children():
+		if child.get_script() == preload("res://src/diving/dive_map_hud.gd"): map_hud = child
+	check(map_hud != null,"独立地图 HUD 存在")
+	check(current_scene == uw and uw.get_parent() == root and not main.is_inside_tree(),"真实切换至独立地图并移出海面 UI")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await settle(3)
+	check(session.active and uw.phase == "swim","独立地图完成下潜")
+	var initial_lamp: bool = uw.air.lamp
+	await map_click(map_hud.command_buttons.lamp)
+	check(uw.air.lamp != initial_lamp and map_hud.presentation_snapshot().lamp_on == uw.air.lamp,"本地鼠标控件切换头灯并显示真实状态")
+	await map_click(map_hud.command_buttons.descend)
+	check(not uw._route.is_empty(),"本地鼠标下游深度导航")
 	await shot("click-controls-underwater")
-	main._on_click_command("cancel")
-	check(main.dive._route.is_empty(),"命令取消游动")
-	await click(main.hud._dive_btn)
-	for i in 300:
-		await process_frame
-		if not main.dive.active: break
-	check(not main.dive.active,"鼠标上浮")
+	await map_click(map_hud.command_buttons.cancel)
+	check(uw._route.is_empty() and uw._search.is_empty(),"本地鼠标取消游动与搜索")
+	var status: Dictionary = map_hud.presentation_snapshot()
+	check(is_equal_approx(status.oxygen,uw.air.ratio()) and is_equal_approx(status.depth,uw.depth),"新机制本地状态栏消费真实氧气和深度")
+	var drain: float = uw.air.drain_rate(uw.depth,false,false)
+	uw.air.update((uw.air.ratio()-0.25)*uw.air.MAX/drain,uw.depth,false,false);uw._emit_air()
+	await settle(2)
+	status = map_hud.presentation_snapshot()
+	check(status.oxygen > 0.15 and status.oxygen <= 0.30 and status.color == Color("#E08B4A") and status.text.contains("氧气偏低"),"本地氧气低氧告警为橙色并显示文字")
+	uw.air.update((uw.air.ratio()-0.12)*uw.air.MAX/drain,uw.depth,false,false);uw._emit_air()
+	await settle(2)
+	status = map_hud.presentation_snapshot()
+	check(status.oxygen > 0.0 and status.oxygen <= 0.15 and status.color == Color("#D4573F") and status.text.contains("氧气危急"),"本地氧气危急告警为红色并显示文字")
+	await key(KEY_ESCAPE)
+	check(paused and map_hud.presentation_snapshot().menu_open and uw.phase == "swim","Esc 打开独立暂停菜单而非上浮")
+	var air_before: float = uw.air.ratio()
+	var pos_before: Vector3 = uw.diver_pos
+	await settle(20)
+	check(is_equal_approx(air_before,uw.air.ratio()) and uw.diver_pos == pos_before,"暂停停止氧气消耗与游动")
+	await shot("click-controls-underwater-pause")
+	await key(KEY_ESCAPE)
+	check(not paused and not map_hud.presentation_snapshot().menu_open and uw.phase == "swim","再次 Esc 恢复独立地图探索")
+	await settle(10)
+	check(uw.air.ratio() < air_before,"恢复探索后氧气继续消耗")
+	await map_click(map_hud.command_buttons.surface)
+	check(uw.phase == "exit","本地鼠标上浮进入退出阶段")
+	uw.phase_machine.tick(uw.ENTER_TIME)
+	await settle(2)
+	check(main.is_inside_tree() and current_scene == main and root.get_camera_3d() == main.cam,"上浮返回原 Main 和海面相机")
+	check(main.dive == session and not session.active and session.runtime == null,"稳定会话已回收 runtime")
+	check(not is_instance_valid(uw) and not is_instance_valid(map_hud),"旧 runtime 与本地 HUD 已销毁")
+	check(not paused,"上浮不遗留暂停")
 	main.salvage_panel.begin()
 	await settle(5)
 	await mouse(main.salvage_panel._action_button.get_global_rect().get_center(),true)

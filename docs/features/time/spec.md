@@ -77,3 +77,11 @@
 | SEA-TIME-R11 | WorldClock从已有累计day派生月日：第1天为1月1日，固定365日显示循环，月份按31/28/31/30/31/30/31/31/30/31/30/31天；第41天显示2月10日，第366天显示1月1日。query新增month/day_of_month，text改为月日及时间。累计day、快照字段、晨次/睡觉/离线冻结不变；不把月日写回存档，不联动天气或季节光照。 |
 
 calendar_date(elapsed_day)为无副作用查询。月末/年末/读档/午夜边界与实际HUD见[本轮交付](../../development/2026-10-28_hud_date_camera_lock.md)。
+
+## 2026-11-07 单推进与 NPC 轻量通知
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-TIME-R12 | WorldClock仍为唯一时间所有者；Main每帧只调用sleep_cycle.advance(delta)，由其内部至多tick一次，Main不得第二次clock.tick。有效delta按23:00睡觉边界cap，不越过睡点；暂停/睡眠不推进，06:00醒来与07:00经营晨次分离。clock.changed经Main._on_npc_clock_changed只向Presenter.notify_world传递小型世界字典，不在信号栈解析NPC日程、采锚点或寻路；NPC只读时间，force恢复刷新保留。 |
+
+已实现并有真实Main回归：npc-clock 301/0、sleep-cycle 42/0，exit0；当前天台五项主验另由214439报告2277/0、exit0/PASS通过，不由时钟专项代签。14图已出、仅主线程三图目检，其余11图及设备发行/持续性能仍待产品验收。命令、版本、日志及性能归因边界见[性能修复记录](../../development/2026-11-07_npc_performance_fix.md)。

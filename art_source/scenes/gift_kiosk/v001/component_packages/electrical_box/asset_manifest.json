@@ -1,0 +1,58 @@
+{
+  "key": "electrical_box",
+  "name": "后墙电气盒",
+  "family": "electrical",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-ELECTRICAL-BOX",
+  "design_pivot": [
+    0.0,
+    -0.03500000387430191,
+    0.0
+  ],
+  "bounds_min": [
+    -0.550000011920929,
+    -0.1600000038743019,
+    0
+  ],
+  "bounds_size": [
+    1.100000023841858,
+    0.3199999928474426,
+    1.0
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/electrical_box/electrical_box.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 6,
+  "instances": 2,
+  "triangles": 1048,
+  "polygons": 580,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "49336693e34826a9f9ec1abcd8ea3fb621cd45e8387d68ebf4c7622759895af4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-ELECTRICAL-BOX",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/electrical_box/electrical_box.glb",
+  "runtime_sha256": "d8a70553aa2f92270b59f550d8c90c5bde5b18a7619a43a07fe3adc9b2f865f1",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/electrical_box.tscn",
+  "prefab_sha256": "f7f37edfc32ca3a44234bdbaeadb6c55b3cef76138232ddd755002a79cd3276f",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1048,
+  "triangles_after": 1048,
+  "geometry_fingerprint": "a41ebf7baea45ae0a71e5e6dc133ded9f209f6e22cf1c7ee8f41e4d4d6bbc539"
+}

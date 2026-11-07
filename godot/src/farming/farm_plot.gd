@@ -212,9 +212,14 @@ func _sync(_delta: float) -> void:
 	if _soil_mat != null:
 		_soil_mat.albedo_color = Color("#9a7a52").lerp(Color("#4b3524"), wet)
 
-	# 焦点文案与按住时长跟着动作走：浇水比收获慢一点，播种最快。
+	# 种植区是**触发式**交互（SEA-INTERACT-R19，2026-11-07）：走近 → 出现图标 →
+	# 点一下 / 按一次 E 就执行，不再要求按住读条。
+	#
+	# 旧值按动作给 0.35–1.25 秒，玩家原话是「不需要读条，直接走近，进入判定区，
+	# 出现图标，点击即可触发」。动作本身的反馈（土色变化、作物弹一下、toast）
+	# 由 `_sync` 与 `_pop` 承担，不靠一条进度条表达。
 	verb = "选择种子" if use_action_menu and phase == "empty" else ("照料" if use_action_menu and phase == "growing" else farm.action_label(plot_id))
-	hold_time = 0.95 if verb == "播种" else (1.25 if verb == "浇水" else (1.1 if verb == "收获" else 0.35))
+	hold_time = 0.0
 	if phase == "ready":
 		accent = Color("#ffd27a")
 	elif dry:

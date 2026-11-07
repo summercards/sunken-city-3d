@@ -101,6 +101,8 @@ func run() -> void:
 		state.set_mode(state.Mode.ASHORE)
 		controller.restore_pose({"mode": 0, "player": [stand_pos.x, stand_pos.y, stand_pos.z]})
 		controller.walk_area = ground
+		var shell_focus: Vector3 = shell.focus_position()
+		player.rotation.y = atan2(shell_focus.x - player.global_position.x, shell_focus.z - player.global_position.z)
 		await frames(20)
 		check(main.interactor.active, "岸上交互器已开放")
 		check(main.interactor.target == shell, "E 焦点锁到贝壳（实际 %s）" % str(main.interactor.target))
@@ -184,7 +186,7 @@ func run() -> void:
 	controller.restore_pose({"mode": 1})
 	await frames(4)
 	var away: Vector3 = park + sea_dir * 2.2 if sea_dir != Vector3.ZERO else park + Vector3(2.2, 0, 0)
-	main.boat.place_at(away, float(data.boatYaw))
+	main.boat.place_at(away, atan2(away.x - park.x, away.z - park.z))
 	check(not main._landing_is_docked(), "离泊 2.2 米时不算靠妥")
 	check(main._near_landing_key().get("landing", "") == "main", "但键盘靠岸仍认得出这个泊位")
 	check(main._boat_shortcut_text().begins_with("靠岸"), "提示说「靠岸」而不是空")
@@ -207,7 +209,29 @@ func run() -> void:
 		var cand: Dictionary = main._sea_pick_candidate()
 		check(not cand.is_empty(), "船边有可打捞目标")
 		check(str(cand.get("type", "")) == "crate", "候选是漂流物")
-		check(main._boat_shortcut_text() == "打捞", "提示说「打捞」")
+		# 2026-11-07 契约变更：提示文案改读 `_near_action()`，而 pick 只在
+		# `near=true` 时才算「近距交互」。这里把「提示」与「按键分派」的一致性
+		# 实测出来：`_press_boat_key` 对「不在热区、想划过去捞」仍保留兜底，
+		# 若提示为空但 E 会开捞，就是生产端的提示/动作不一致（不是测试夹具）。
+		var near: bool = bool(cand.get("near", false))
+		var reach: float = main.props.crate_reach(crate)
+		var dock_dist: float = Vector2(root.global_position.x - main.boat.position.x,
+			root.global_position.z - main.boat.position.z).length()
+		var hint: String = main._boat_shortcut_text()
+		print("[reach-salvage] kind=", crate.get("kind"), " reach=", reach,
+			" dist=", dock_dist, " near_threshold=", reach + 0.4, " cand_near=", near,
+			" near_action=", main._near_action(), " hint=[", hint, "]")
+		# 距离在 crate_reach 内时提示必须说「打捞」：这是 new-contract 的近距正例。
+		main.boat.place_at(root.global_position + Vector3(0.0, 0.0, reach + 0.2), 0.0)
+		main._dock_cache.clear()
+		await frames(4)
+		check(str(main._near_action().get("kind", "")) == "pick" and main._boat_shortcut_text() == "打捞",
+			"船贴着漂流物时提示说「打捞」（近距热区正例）")
+		# 回到 3 米夹具：提示必须与「按 E 会打捞」这一实际动作一致。
+		main.boat.place_at(root.global_position + Vector3(0.0, 0.0, 3.0), 0.0)
+		main._dock_cache.clear()
+		await frames(4)
+		check(main._boat_shortcut_text() == "打捞", "提示说「打捞」（须与 E 实际打捞一致）")
 		var crates_before: int = main.props.crates.size()
 		press_key(KEY_E)
 		await frames(4)
@@ -242,7 +266,14 @@ func run() -> void:
 			var ppos: Vector3 = parea.surface_point(Vector3(pstand.x, parea.surface_y, pstand.y))
 			controller.restore_pose({"mode": 0, "player": [ppos.x, ppos.y, ppos.z]})
 			controller.walk_area = parea
+			var plot_focus: Vector3 = plot.focus_position()
+			player.rotation.y = atan2(plot_focus.x - player.global_position.x, plot_focus.z - player.global_position.z)
 			await frames(18)
+			var actual: Node3D = main.interactor.target
+			print("[reach-plot-fixture] player=", player.global_position, " focus=", plot_focus,
+				" candidates_has_plot=", main.interactor.candidates().has(plot), " target=", actual,
+				" target_focus=", actual.focus_position() if actual != null else Vector3.INF,
+				" yaw=", player.rotation.y)
 			check(main.interactor.target == plot, "菜箱成为 E 焦点（实际 %s）" % str(main.interactor.target))
 			# 直接按 E 的语义：状态机走到「到位后按住」，交出 options 事件。
 			main.interactor.auto_hold = true

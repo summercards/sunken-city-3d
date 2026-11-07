@@ -105,10 +105,15 @@ func run() -> void:
 		ok(not src.contains("draw_string("), "上岸点不再绘制名称")
 		ok(markers._tex==preload("res://src/ui/illustrated_icons.gd").texture("anchor",true), "上岸点复用手绘图标")
 
-	# 水下宝箱名牌
-	var uw: Node = main.get_node_or_null("Underwater")
+	# 水下宝箱名牌：显式装载地图，不依赖海面常驻海底节点。
+	var session = main.dive
+	ok(session.runtime == null, "海面不常驻潜水地图")
+	var entered: bool = session.enter_map("zone1")
+	ok(entered, "进入 zone1 潜水地图")
+	var uw = session.runtime
 	var seen := 0
-	if uw != null:
+	if entered:
+		ok(current_scene == uw and uw.get_parent() == root and not main.is_inside_tree(), "真实切换至独立潜水地图")
 		for chest in uw._chests:
 			var l: Label = chest.get("marker")
 			if l == null:
@@ -118,6 +123,14 @@ func run() -> void:
 			if seen >= 3:
 				break
 	ok(seen > 0, "水下宝箱名牌存在（%d 个）" % seen)
+	if entered:
+		uw.surface()
+		uw.phase_machine.tick(uw.ENTER_TIME)
+		await frames(2)
+		ok(main.is_inside_tree() and current_scene == main, "上浮返回原海面实例")
+		ok(root.get_camera_3d() == main.cam, "上浮后相机交还海面")
+		ok(main.dive == session and not session.active and session.runtime == null, "稳定会话已回收潜水 runtime")
+		ok(not is_instance_valid(uw), "旧潜水 runtime 已销毁")
 
 	print("[world-text] %d checks, %d failures" % [checks, failures])
 	main.queue_free()

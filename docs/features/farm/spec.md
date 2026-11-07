@@ -145,3 +145,13 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 源码核实：`godot/src/farming/farm_plot.gd:86` 的 `interact()` 在 action-menu 模式下对 ready 同样发出 `interaction_requested`；`godot/src/bootstrap/main.gd:3623`、`:3651`、`:3770`、`:3785`、`:3795` 装配一级/二级/原命令。`keyboard-farm-loop` 脚本覆盖真实按键、六格切换、三次床铺睡眠及拒绝/取消，但使用位置、库存、水壶和初始日历夹具，不等于已验收整段旅行或所有品种/所有 DIY 布局。
 
 最终专项：`20261106-200446-keyboard-release-regression-eae88a/report.json` 已记录 `keyboard-farm-loop` **606/0**、`keyboard-travel` **374/0**、`keyboard-panels` **80/0**，均 exit0、passed=true。`20261106-194828-keyboard-visual-travel-final-09cca9/report.json` 的真实渲染 `visual-keyboard-farm-loop` **617/0**、exit0，输出9张唯一截图；本轮画面目视审阅已检查 watered/full-bag/harvest-overhead/already-watered，确认无底部条和键位教程。完整绝对路径见[本轮总交付](../../development/2026-11-06_keyboard_complete.md)。同批 initial-planters247/0、walk-on-planters53/0、farm-day-change23/0通过；minimum-loop141/10、harvest-receive80/1及交互角标/标题旧断言失败保留为本轮过程解释。`20261106-201957-keyboard-contract-regression-888baa/report.json` 已接受适配后的minimum-loop147/0、harvest-receive92/0、interaction-reach35/0、dock-seed22/0，均exit0、passed=true，四项不再pending；主线程keyboard-final-contracts批次待附，不预记结果。整体仍partial，保留规划/设备等边界。
+
+## 2026-11-07 种植区改瞬发交互
+
+用户原话：「比如种植区，不需要读条。」
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-FARM-R17 | 种植格的六个入口（播种/选种子/浇水/补水并浇水/收获/查看状态）全部**瞬发**：`FarmPlot.hold_time = 0`，走近进入判定区出图标，按一次 E 或点一次图标即出菜单并执行，不再压读条。交互语义由 SEA-INTERACT-R24 统一定义；业务规则（缺水暂停生长、满包留地、成熟再生）不变。数据侧：作物表扩到 6 种（生菜/番茄/南瓜 + 蓝星花/晨光花/珊瑚花），笔记种植页按 6 条一页自动分页，页面数由条目数决定、不得写死。 |
+
+证据：`D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json`（keyboard-farm-loop / keyboard-panels / initial-planters / farm-day-change / harvest-receive 全 PASS）；`D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json`（visual-keyboard-farm-loop PASS，实景确认无底部提示条与进度条）。详见[本轮总交付](../../development/2026-11-07_trigger_interaction.md)。整体仍 partial。

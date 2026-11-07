@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/crops/flower_view.gd" id="1"]
+
+[node name="FlowerSun" type="Node3D"]
+script = ExtResource("1")
+flower_style = "sun"
+
+[node name="Stage0Seed" type="Node3D" parent="."]
+visible = false
+
+[node name="Stage1Sprout" type="Node3D" parent="."]
+visible = false
+
+[node name="Stage2Leaf" type="Node3D" parent="."]
+visible = false
+
+[node name="Stage3Harvest" type="Node3D" parent="."]

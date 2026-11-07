@@ -1,0 +1,58 @@
+{
+  "key": "back_panel",
+  "name": "奶黄后墙设备板",
+  "family": "wall",
+  "group": "structure",
+  "asset_id": "SEA-SCENE-GKS-BACK-PANEL",
+  "building_class": "above_water",
+  "loaded_responsibility": "references/above-water.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BACK-PANEL",
+  "design_pivot": [
+    0.0,
+    0.006999999284744263,
+    0.0
+  ],
+  "bounds_min": [
+    -1.2000000476837158,
+    -0.15700000524520874,
+    0
+  ],
+  "bounds_size": [
+    2.4000000953674316,
+    0.3140000104904175,
+    4.900000095367432
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/back_panel/back_panel.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 4,
+  "instances": 3,
+  "triangles": 752,
+  "polygons": 392,
+  "roles": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "36f34d4367b243a86ba015f18a9ae097a9cb908021886024d77162a8718e01de",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BACK-PANEL",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/back_panel/back_panel.glb",
+  "runtime_sha256": "f5221c0b11378a430dcd4028b33efe77a0add9a8bebbabc0f0ef73c45a8275d0",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/back_panel.tscn",
+  "prefab_sha256": "c4f1259f0e375551803a5c3c3bce195c14268662c1cfece4fc4f85a1a8d6c022",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 752,
+  "triangles_after": 752,
+  "geometry_fingerprint": "6837eba14c554612f234533eac96f9f3dd06281b59a53db494827c17a9091c06"
+}

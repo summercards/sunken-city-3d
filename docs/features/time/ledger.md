@@ -21,6 +21,7 @@
     "minimum-loop",
     "visual-plot-shipping",
     "sleep-cycle",
+    "npc-clock",
     "visual-home-lighting"
   ]
 }
@@ -109,3 +110,17 @@ SEA-TIME-R01/R08/R09继续由同一WorldClock与预设表驱动。本轮只改SE
 | SEA-TIME-R11 | 已实现；累计日不变，纯查询派生月日，无快照迁移；月末/跨年/午夜/恢复专项覆盖 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
 
 当前新增公开查询字段month/day_of_month与静态calendar_date；快照仍仅day/seconds/day_length。显示从1月1日起按365日循环，不引入闰年或新年份状态。
+
+## 2026-11-07 单推进修复与最新证据
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证边界 |
+|---|---|---|
+| SEA-TIME-R12 | 已实现；Main第二次clock.tick已移除，仅sleep_cycle.advance内部至多推进一次并cap到23:00；06:00醒/07:00晨次不变；clock.changed只轻量notify，不同步解析NPC | npc-clock 301/0、sleep-cycle 42/0，均exit0/PASS；[主时钟报告](../../../../sea-work/verification/20261107-212152-npc-clock-once-cc6ca7/report.json)。force恢复保留；全量天台integration/save/seed/restart/visual已由214439五项2277/0独立通过，设备发行/持续性能不签完整 |
+
+真实渲染函数探针sleep median 0.017ms、clock 0.012ms；仅为对应隔离工作树五次调用，不等于每帧固定耗时。完整命令、快照版本、性能与未验项见[本轮修复记录](../../development/2026-11-07_npc_performance_fix.md)。登记头JSON及原implemented状态保持，不将单项通过扩大为整工程验收。
+
+## 最终天台联合签署补充
+
+[214439最终报告](../../../../sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/report.json)五项668/618/408/202/381 checks均0失败，总2277/0，exit0/PASS且unexpected_errors空。R12单推进与既有301/0+sleep42/0结论保留；shop最终259/0已解决七项UI失败。14PNG已产出；后续主线程原图/联系图补审与最新回归见下。当前设备59.943FPS不等于发行包/其他设备/持续性能验收。
+
+主线程最终[221054回归](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/report.json)再次覆盖npc-clock301/0、sleep42/0，11专项全部PASS；[222551正式存档复验](../../../../sea-work/verification/20261107-222551-npc-final-live-worktree-6eb68a/report.json)集成/存档/跨进程均PASS。当前全局合同sync17/check18问题未擅改哈希，详[最终性能记录](../../development/2026-11-07_npc_performance_fix.md#9-主线程最终回归视觉审阅与门禁)。

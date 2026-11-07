@@ -1,0 +1,60 @@
+{
+  "key": "bench",
+  "name": "厚木条长凳",
+  "family": "bench",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-BENCH",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-BENCH",
+  "design_pivot": [
+    0.0,
+    0.012500002980232239,
+    0.0
+  ],
+  "bounds_min": [
+    -1.5,
+    -0.4674999862909317,
+    0
+  ],
+  "bounds_size": [
+    3.0,
+    0.934999942779541,
+    1.5750000476837158
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/bench/bench.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "meshes": 9,
+  "instances": 2,
+  "triangles": 1692,
+  "polygons": 882,
+  "roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "8c380bb9f68c5c0bbc3b4a34269f5e3baacb6df4b8234666ac0cf82adcfbb6f9",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-BENCH",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/bench/bench.glb",
+  "runtime_sha256": "124b6dfd7553192999f537a1f4cf82a28b75c512a20a2fe7e137ffa15b857a81",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/bench.tscn",
+  "prefab_sha256": "d030dd0204efe8aeb1cc1722bcee23c4efdcdd43a4f9e86e685665622033f43d",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1692,
+  "triangles_after": 1692,
+  "geometry_fingerprint": "185a4622910ec95a87aebdfbad4f64064de273bbc8c3f563401c5574d4e814d7"
+}

@@ -1,0 +1,58 @@
+{
+  "key": "thruster_glow",
+  "name": "推进器暖黄灯芯",
+  "family": "emission",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-THRUSTER-GLOW",
+  "building_class": "underwater",
+  "loaded_responsibility": "references/underwater-scenery.md",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-THRUSTER-GLOW",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.8550000190734863,
+    -0.8550000190734863,
+    0
+  ],
+  "bounds_size": [
+    1.7100000381469727,
+    1.7100000381469727,
+    0.4150000214576721
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/thruster_glow/thruster_glow.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Emission"
+  ],
+  "meshes": 2,
+  "instances": 1,
+  "triangles": 1500,
+  "polygons": 714,
+  "roles": [
+    "SEA_Emission"
+  ],
+  "source_sha256": "5cf1158c7393b103ab989ce28f5caf4320e7afe651d013bfdb230b45db575188",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-THRUSTER-GLOW",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/thruster_glow/thruster_glow.glb",
+  "runtime_sha256": "10d1680b62758a8f20ba41561e2c0193e474e0267881d4df93286098ba6802a4",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/thruster_glow.tscn",
+  "prefab_sha256": "abe99c7c5cb8997c0a2320182ac9a1da3a50e0160206e7f164bf7d0ea59b290a",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1500,
+  "triangles_after": 1500,
+  "geometry_fingerprint": "01ae71b57ec1e3c59b60bbfa4693aee46e7780d0d779c4beb5ed189e10cd0c63"
+}

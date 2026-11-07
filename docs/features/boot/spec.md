@@ -63,3 +63,11 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 | 条款 ID | 规则 |
 |---|---|
 | SEA-BOOT-R06 | 通过注入装配AvatarProfile、AvatarSession和ArrivalFlow；新档点击开始后在真实主泊位创建角色，已完成及兼容旧档维持原继续流程。开场与编辑期间阻断玩法、经营、时间与自动存档；恢复/失败/取消不残留输入或镜头接管。 |
+
+## 2026-11-07 潜水地图会话挂起与返回
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-BOOT-R07 | Main只装配稳定DiveSession轻节点及来源/奖励端口，不挂海底地图几何。地图preflight后把同一Main实例移出场景树缓存，不free、不重建、不重新读取存档；SceneTree.current_scene切到唯一海底runtime。海面时钟、天气、经营与自动存档暂停，挂起退出不得清空注册表/端口；返回恢复原Main的船人姿态、角色模式、相机与环境，并恢复外部信号、可见性及因出树释放的GroundSpace/表现端口，不重跑Main._ready；实际结束会话才执行原清理。失败应留在或回滚到同一海面实例，不能留下半切换态。 |
+
+本条与 SEA-DIVE-R08/R09、SEA-SAVE-R19 交接，不在装配层复制潜水规则。功能仍 `partial`；`dive-maps / visual-dive-maps` 运行验证 pending，待父线程补充。[完整机制与验收占位](../../development/2026-11-07_dive_map_switch.md)。

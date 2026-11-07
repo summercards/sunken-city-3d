@@ -141,7 +141,12 @@ func run() -> void:
 	check(note.action_button.has_focus() and note.detail_title.text=="我的小菜园","实时查询刷新保留详情焦点与选中 ID")
 	await key(KEY_SPACE)
 	check(note.category=="plant","详情动作切换种植分类")
-	check(note.entries.size()==economy.farm.crop_definitions().size()+7 and note.page_count()==2,"笔记读取三作物与家园加六浮台地格，形成两页")
+	# 页数由条目数决定，不能写死：作物表从 3 种扩到 6 种（花类）后，
+	# 13 条就翻成 3 页了。这里只验「条目对不对、页数算得对」。
+	var expected_entries: int = int(economy.farm.crop_definitions().size()) + 7
+	check(note.entries.size() == expected_entries
+		and note.page_count() == ceili(expected_entries / 6.0),
+		"笔记读取全部作物与家园加六浮台地格，页数按 6 条一页算")
 	await key(KEY_PAGEDOWN)
 	check(note.page==1,"笔记 PgDn 真正翻到第二页")
 	await key(KEY_PAGEUP)
@@ -214,11 +219,26 @@ func run() -> void:
 	check(not hud.is_panel_open(),"Tab 从服务面板关闭，无返回断路")
 	await key(KEY_N)
 	await category("plant")
-	await key(KEY_PAGEDOWN)
+	# 翻到「有正式地格」的那一页。作物数量会随品种扩充而变（3 → 6 种花菜后
+	# 就是第 2 页变第 3 页），页号不能写死；这里要验的是翻页后卡片仍保住
+	# 正式稳定 plot ID 与焦点，而不是「第二页恰好是浮台」。
+	var plot_page := -1
+	for attempt in int(note.page_count()):
+		var start: int = int(note.page) * 6
+		for i in range(start, mini(start + 6, int(note.entries.size()))):
+			if str(note.entries[i].get("id", "")).begins_with("plot/"):
+				plot_page = int(note.page)
+				break
+		if plot_page >= 0: break
+		await key(KEY_PAGEDOWN)
+	check(plot_page >= 0, "笔记里翻得到正式地格卡")
 	for attempt in 6:
 		if note.selected.begins_with("plot/") and not note.action_button.disabled: break
 		await key(KEY_RIGHT)
-	check(note.page==1 and note.selected=="plot/platform_plot:2" and note.cards[0].has_focus(),"第二页首卡保留正式浮台稳定 ID 与焦点")
+	check(note.page == plot_page and note.selected.begins_with("plot/")
+		and note.selected == str(note.entries[note.page * 6].get("id", ""))
+		and note.cards[0].has_focus(),
+		"翻页后首卡保留正式地格稳定 ID 与焦点")
 	var plot_id: String=note.selected.trim_prefix("plot/")
 	await key(KEY_KP_ENTER)
 	check(note.action_button.has_focus(),"小键盘 Enter 从地格卡片进入详情动作")

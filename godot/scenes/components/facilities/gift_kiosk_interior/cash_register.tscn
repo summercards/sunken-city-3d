@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk_interior/cash_register/cash_register.glb" id="model"]
+
+[node name="cash_register" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKI-CASH-REGISTER"
+metadata/asset_version = "v001"
+metadata/interior_role = "register"
+
+[node name="Visual" parent="." instance=ExtResource("model")]

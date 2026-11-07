@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/gift_kiosk_interior/tile_cream/tile_cream.glb" id="model"]
+
+[node name="tile_cream" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-GKI-TILE-CREAM"
+metadata/asset_version = "v001"
+metadata/interior_role = "floor_tile"
+
+[node name="Visual" parent="." instance=ExtResource("model")]

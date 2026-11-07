@@ -1,0 +1,58 @@
+{
+  "key": "rail_post",
+  "name": "球头黄色护栏立柱",
+  "family": "rail_post",
+  "group": "furnishing",
+  "asset_id": "SEA-SCENE-GKS-RAIL-POST",
+  "building_class": null,
+  "loaded_responsibility": null,
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "triangle_budget": null,
+  "collision_responsibility": "Godot facility WalkArea/GroundSpace only; visual package has no gameplay nodes",
+  "collection": "SEA-SCENE-GKS-RAIL-POST",
+  "design_pivot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bounds_min": [
+    -0.23000000417232513,
+    -0.23000000417232513,
+    0
+  ],
+  "bounds_size": [
+    0.46000000834465027,
+    0.46000000834465027,
+    1.2899999618530273
+  ],
+  "component_source": "art_source/scenes/gift_kiosk/v001/component_packages/rail_post/rail_post.blend",
+  "version": "v001",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "meshes": 3,
+  "instances": 41,
+  "triangles": 1456,
+  "polygons": 692,
+  "roles": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "503f0b26528f7e5af73b698330e59b9e8c5879b5559ed3fbcd891642060e1b0a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKS-RAIL-POST",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk/rail_post/rail_post.glb",
+  "runtime_sha256": "9090593134ca69f9fac6956c588c2d883569c104fa9bfa4bccd3b39c1e3a80fc",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk/rail_post.tscn",
+  "prefab_sha256": "44c7f5127bd63df1453c5fdbed57f271d2bea85586a6a8ac1bd5495651705521",
+  "optimized_source": "art_source/scenes/gift_kiosk/v001/export/v001/gift_kiosk_optimized_v001.blend",
+  "optimized_sha256": "68ac8ac6801dae3c4b4ed11c62c30dd017b1f11f9b50a250b15900d60277795e",
+  "optimization_manifest": "art_source/scenes/gift_kiosk/v001/export/v001/optimization_manifest.json",
+  "triangles_before": 1456,
+  "triangles_after": 1456,
+  "geometry_fingerprint": "9c0ee92c4a8a327984b7a080840630355fd7a17b41478937c25a1804677ce194"
+}

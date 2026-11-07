@@ -200,6 +200,9 @@ func farm_fixture() -> void:
 	await frames(12)
 
 func lock(spot: Node3D) -> bool:
+	var focus: Vector3 = spot.focus_position()
+	actor.rotation.y = atan2(focus.x - actor.global_position.x, focus.z - actor.global_position.z)
+	await frames(10)
 	for attempt in 36:
 		if main.interactor.target == spot:
 			check(spot.focused, "世界目标获得焦点 " + str(spot.id))
@@ -228,7 +231,11 @@ func open_plot(plot: Node3D, hold_after_open := false) -> bool:
 		"Q 已锁定地格后 E 不得被上下船抢走或清除焦点")
 	var opened := await until(func(): return menu.active, 3.0, "E 按住打开地格菜单")
 	if opened:
-		check(max_progress > 0.0 and saw_character_progress, "开菜单前有真实 interactor hold 与近距进度")
+		# 2026-11-07 契约变更：种植区改**触发式**，按一下就执行，不再要求读条。
+		# 所以这里反过来验：一次按下立刻出菜单，且全程没有进度条/头顶读数。
+		# 旧的「max_progress > 0」是读条时代的断言，已经不再成立。
+		check(is_zero_approx(max_progress) and not saw_character_progress,
+			"触发式交互不读条：按一下就开菜单，没有进度条")
 		check(not main.hover._near_icon.visible and not main.hover._near_progress.visible, "菜单出现后近距图标与进度条一起收起")
 		check(farm.state(str(plot.plot_id)) == state_before and acted.size() == count_before, "E 开菜单不偷做种植业务")
 		check(menu.hint_label != null and menu.hint_label.text.contains(farm.status_text(str(plot.plot_id))), "一级标题包含当前地格状态")
@@ -269,7 +276,10 @@ func action_feedback(event: String, clip: String, before_acted: int, before_star
 	check(acted.size() == before_acted + 1 and str(acted.back()[1]) == event, "业务成功事件恰好一次 " + event)
 	check(starts.size() == before_starts + 1 and str(starts.back()[0]) == clip, "成功动作恰好一次且类型正确 " + clip)
 	check(str(actor.action_playback().get("id", "")) == clip, "角色播放成功动作 " + clip)
-	check(max_progress > 0.0 and saw_character_progress, "实际执行有 interactor 进度及角色头顶进度 " + event)
+	# 2026-11-07 契约变更：命令式动作是触发式，执行过程不压读条。
+	# 角色动作本身（上一行）仍然要播，进度条不应出现。
+	check(is_zero_approx(max_progress) and not saw_character_progress,
+		"命令式动作不读条：确认即执行，没有进度条 " + event)
 	check(main.hud.visible and main.hud._toast_box.visible, "业务反馈 HUD 可见 " + event)
 	var expected := {"planted":"播下", "watered":"浇水", "harvested":"收获"}
 	check(main.hud._toast.text.contains(expected[event]) and main.hud._toast.text.contains("生菜"), "HUD 反馈明确动作与作物 " + event)
@@ -557,15 +567,17 @@ func run() -> void:
 		farm_center += plot.global_position / float(IDS.size())
 	await farm_fixture()
 	var seen: Dictionary = {}
-	for attempt in 32:
-		var target: Node3D = main.interactor.target
-		if target != null and str(target.id) in IDS:
-			seen[str(target.id)] = true
-			check(target.focused, "Q 扫描焦点模型高亮 " + str(target.id))
-		if seen.size() == IDS.size(): break
-		await key(KEY_Q)
-		await frames(1)
-	for id: String in IDS: check(seen.has(id), "同一站位 Q 可锁定六格之一 " + id)
+	var scan_position: Vector3 = actor.global_position
+	# 新正面契约：同站位可以转身面对各格，再用真实Q逐项选择；
+	# 不能在上一次Q前采样焦点，轮换面向后凭空期望背面两格也被记录。
+	for id: String in IDS:
+		var scan_plot: Node3D = main.farm_field.find(id)
+		var selected := await lock(scan_plot)
+		check(selected and main.interactor.target == scan_plot and scan_plot.focused,
+			"转身面向后Q可锁定独立地格 " + id)
+		check(actor.global_position.distance_to(scan_position) < 0.01, "六格切换不偷移玩家 " + id)
+		if selected: seen[id] = true
+	for id: String in IDS: check(seen.has(id), "六格均有正面键盘入口 " + id)
 	check(acted.is_empty() and starts.is_empty(), "Q 切目标不触发业务或成功动作")
 	var plot: Node3D = main.farm_field.find(IDS[0])
 	var spare: Node3D = main.farm_field.find(IDS[1])

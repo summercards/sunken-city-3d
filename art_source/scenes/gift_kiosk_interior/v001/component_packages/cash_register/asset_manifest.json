@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-GKI-CASH-REGISTER",
+  "name": "复古收银机",
+  "domain": "scenes",
+  "source": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cash_register/cash_register.blend",
+  "source_sha256": "eb76ebb676296ccb5c38a382ea6491d96762420d240d6c3feb0d1e79e14472a5",
+  "manifest": "art_source/scenes/gift_kiosk_interior/v001/component_packages/cash_register/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/assets/models/facilities/gift_kiosk_interior/cash_register/cash_register.glb",
+  "runtime_sha256": "691cb439138388838d8acbad3a7cdf2951f7ecf2de1348c901ae692159042c4a",
+  "prefab": "godot/scenes/components/facilities/gift_kiosk_interior/cash_register.tscn",
+  "prefab_sha256": "028d408aaa52ee054d5913ac65cbcdb9e41669e0d8b297dc5fb2c62df7c2ee79",
+  "optimized_source": "art_source/scenes/gift_kiosk_interior/v001/export/v001/gift_kiosk_interior_optimized_v001.blend",
+  "optimized_sha256": "b6629a2210cd1bfcfffaec7352641bf7162396ca0cb0bebc2450e0b1651dd712",
+  "optimization_manifest": "art_source/scenes/gift_kiosk_interior/v001/export/v001/optimization_manifest.json",
+  "geometry_fingerprint": "1033ac6fc333c61d53db116369d8022e645f851435feb3df4b24dc1d41b1f53a",
+  "classification": {
+    "category": "scene_component",
+    "subcategory": "register"
+  },
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "facility_id": "SEA-SCENE-GKS-ASSEMBLY",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "maintenance_status": "runtime_integrated_verified",
+  "triangles": 2572,
+  "bounds_size": [
+    0.7200000286102295,
+    0.612500011920929,
+    0.6825000047683716
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "user_art_acceptance": "pending",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261107-185311-gift-kiosk-interior-release-bae2ad\\report.json",
+    "docs/development/2026-11-07_gift_kiosk_interior.md"
+  ],
+  "origin": "bottom_center",
+  "front_axis": "Godot +Z",
+  "source_collection": "SEA-SCENE-GKI-CASH-REGISTER",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "reference": "art_source/scenes/gift_kiosk/v001/reference.png",
+  "reference_sha256": "eaf5bbb65f38e681b1b50052efaafe05eeb6afed7070e57f24e933fe30481920",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-GKI-CASH-REGISTER"
+}
