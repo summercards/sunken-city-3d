@@ -1,0 +1,146 @@
+{
+  "key": "electronics_shop",
+  "slug": "electronics_shop",
+  "name": "旧电器商店_半边楼",
+  "category": "architecture",
+  "component_family": "stepped_shop",
+  "component_id": "SEA-SCENE-SCITY-TALL-ELECTRONICS-SHOP",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    15,
+    14,
+    19
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 3,
+  "color": "seafoam",
+  "damage": 0.5,
+  "style": "electronics",
+  "variant_axis": "structure_damage",
+  "variant_value": "electronics",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 5,
+  "collection": "SEA-SCENE-SCITY-ELECTRONICS-SHOP_旧电器商店_半边楼",
+  "root_object": "SEA-SCENE-SCITY-ELECTRONICS-SHOP_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-ELECTRONICS-SHOP_ROOT",
+    "旧电器商店_半边楼_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    15.078924179077148,
+    15.594999313354492,
+    18.85918426513672
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 71384,
+  "polygons": 36766,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v008/component_packages/electronics_shop/electronics_shop.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v008",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "ed9c9358481e1173011722fac379adc56bcea0689cc6c5d2568ffd9ebee9ec96",
+  "geometry_fingerprint": "4fac15634f3c75e81fab3250079b540257b8f23a4be2d9351f426fc089067faa",
+  "bounds_min": [
+    -7.539462089538574,
+    -7.797499656677246,
+    0.0
+  ],
+  "bounds_max": [
+    7.539462089538574,
+    7.797499656677246,
+    18.85918426513672
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\electronics_shop.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TALL-ELECTRONICS-SHOP",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/electronics_shop_optimized.blend",
+    "optimized_sha256": "ff6a129a3f42c3dae5dadad16dadb52c240fab7e6b815b0c757b27b5a815e417",
+    "triangles_before": 70444,
+    "triangles_after": 70442,
+    "reduction_ratio": 2.8391346317642383e-05,
+    "operations": {
+      "weld_vertices_1e_minus6": 682,
+      "zero_area_faces_removed": 2,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 224,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -7.539462089538574,
+        -7.797499656677246,
+        0.0
+      ],
+      [
+        7.539462089538574,
+        7.797499656677246,
+        18.85918426513672
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
+    "runtime_sha256": "2e129856decaf63b9bcbaf3ea62b3f4b15135afd97e43fb190ff63f2c2bfae2d",
+    "prefab": "godot/scenes/components/scenery/sunken_city/electronics_shop.tscn",
+    "prefab_sha256": "69bf53ec02004e6daca9ec22e63d2abd96066c973205f93b6129f3b64841e104",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  },
+  "runtime_path": "godot/assets/models/scenery/sunken_city_tall/electronics_shop/electronics_shop.glb",
+  "prefab": "godot/scenes/components/scenery/sunken_city_tall/electronics_shop.tscn",
+  "sealed_interior": true,
+  "interior_policy": "watertight_shell_no_enterable_space",
+  "reference_scale": 2.0,
+  "derived_from": "art_source/scenes/sunken_city/v003/component_packages/electronics_shop/electronics_shop.blend"
+}

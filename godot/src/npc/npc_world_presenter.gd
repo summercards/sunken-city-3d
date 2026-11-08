@@ -18,6 +18,8 @@ var _world: Dictionary = {}
 var _routes: Dictionary = {}
 var _rows: Dictionary = {}
 var _sync_elapsed := 0.0
+var _facing_npc := ""
+var _facing_yaw := 0.0
 const SYNC_INTERVAL := 0.5
 var _boundaries: Array = [0.0, 6.0, 21.5, 24.0]
 var _last_signature: Array = []
@@ -237,6 +239,27 @@ func _sync_npc(id: String) -> void:
 		if not body.grounded_motion_enabled: body.set_grounded_motion(true)
 	var path := _ports.path(body.global_position, target)
 	if path.is_empty():
+		# 跨区块换场：天台草地与海上结构之间没有连通的陆地，寻路必然为空。
+		# 以前这里直接判“原地停止”，于是改过日程的居民永远留在旧场地。
+		# 只在「当前站立点不在目标那块可走面内」时才直接落位，
+		# 同一区块内仍然坚持真实寻路，不把“无路可达”悄悄变成瞬移。
+		var landing: Vector3 = target.ground.surface_point(target.position)
+		var already_there: bool = target.ground.contains_position(body.global_position, 1.5)
+		if landing.is_finite() and not already_there:
+			body.global_position = landing
+			body.set_grounded_motion(true)
+			body.visible = true
+			route.path = []
+			route.target = target
+			route.anchor_id = str(target.anchor_id)
+			route.requested_anchor = requested
+			route.action = str(result.action)
+			route.fallback = false
+			route.reason = ""
+			route.stalled = 0.0
+			if not route.spawned:
+				route.spawned = true
+			return
 		reason = "目标无可行路线且住所不可用，原地停止"
 		var home := _ports.resolve(str(row.home_anchor), row, _world, "home_fallback")
 		if _valid_anchor(home):
@@ -305,6 +328,8 @@ func _physics_process(delta: float) -> void:
 		var body = actors[id]
 		if not enabled or is_modal():
 			_stop(body)
+			if enabled and is_modal() and str(id) == _facing_npc:
+				body.rotation.y = rotate_toward(body.rotation.y, _facing_yaw, delta * 14.0)
 			continue
 		_step(str(id), delta)
 
@@ -384,6 +409,14 @@ func open_npc(npc_id: String) -> Dictionary:
 
 func actor(npc_id: String):
 	return actors.get(npc_id)
+
+func face_player(npc_id: String, player_position: Vector3) -> void:
+	var body = actors.get(npc_id)
+	if not is_instance_valid(body): return
+	var offset: Vector3 = player_position - body.global_position
+	if Vector2(offset.x, offset.z).length_squared() < 0.0001: return
+	_facing_npc = npc_id
+	_facing_yaw = atan2(offset.x, offset.z)
 
 ## 仅用于观察，不参与存档；持久状态仍只有NpcService。
 func world_snapshot() -> Dictionary:

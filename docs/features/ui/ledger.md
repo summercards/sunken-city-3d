@@ -16,6 +16,8 @@
     "godot/src/building/ui"
   ],
   "verification": [
+    "npc-conversation",
+    "visual-npc-conversation",
     "keyboard-panels",
     "visual-keyboard-panels",
     "keyboard-entry",
@@ -364,3 +366,28 @@ R48本轮真实渲染36项、headless33项、操作气泡回归59项全部通过
 完整路径、截图清单、夹具与full-world/规划/设备边界见[总交付](../../development/2026-11-06_keyboard_complete.md)。四功能整体partial；本次只精确回填UI文档及总交付/GDD，不改其他账本、生产、资源哈希、用户TSCN或building文档，不运行sync。
 
 UI条款集合差异已定位：门禁按`\| (SEA-UI-R\d+) \|`提取集合，原spec56项、ledger57项，唯一ledger-only为R53，正文“R53已占用”不构成条款行。spec末尾现补R53承接SEA-BUILDING-R32，ledger保留本行；R54–R57两边均各一行。verification数组既有keyboard/visual登记保留，未添加building未知入口。主线程最新sync已消除UI集合与unknown verification命名错误，不再将building未知命名列为当前阻塞。全局仍sync13 issues、普通check加derived stale共14；40功能/881资产/1079 runtime的当前登记与定向更新4资产/4runtime事实见总交付门禁补记。本次未刷新哈希/索引、未运行sync，不宣称全绿。
+
+
+## 2026-11-08 NPC先对话再进入功能
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-UI-R58 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+
+
+### 本次最终验收签署
+
+本节新增条款已实现并完成当前交互验收。13个独立入口5040/0，均exit0且unexpected_errors为空：NPC主场景473/0、真实渲染498/0（25张最终PNG全部状态已审）、规则655/0、世界136/0、资料话题1387/0、增量性能61/0、商店260/0、整局存档702/0、seed476/0、不同进程restart202/0、最小循环112/0、开场键盘39/0、点击39/0。报告选择、截图像素、逐图审阅、过程FAIL与最终覆盖均见[开发记录最终签署](../../development/2026-11-08_npc_conversation.md#最终签署本次交互专项通过2026-11-08)。资产/运行资源哈希门禁sync45、check46项仍FAIL/exit1，原基线漂移未批量重签；不以专项通过冒充全工程通过。手柄/触屏、低端/发行包、全部剧情人工游玩未执行，整体功能非完整产品verified。
+
+
+
+
+## 2026-11-08 商店图标网格与关闭键归属
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-UI-R59 | 本条已实现并通过当前专项；SEA-UI 整体登记头仍 partial。商店改用背包同款格子语言，外部模态下右下圆键真正关闭该模态，商店自带圆键期间 HUD 那枚收起 | `visual-shop-grid`51/0（8张真实PNG逐图审阅，三种窗口+气泡1/3+购买反馈+六格+不可购）、`pocket-services`32/0、`close-hint`16/0、`click`39/0、`keyboard-entry`39/0、`visual-pocket-services`29/0、`visual-pocket-drag-buy`9/0，均exit0、completion_marker=true、unexpected_errors为空；报告见[商店账本同批记录](../shop/ledger.md#2026-11-08-商店图标网格交付) |
+
+改动点：`hud.gd` 的右下圆键在 `owned_modal_query` 为真时改调 `owned_modal_close`（旧实现落到 `back()`，而 `back()` 在 `_external_modal` 下第一句就返回，按钮可见却按不动）；`main.gd` 新增 `_on_shop_panel_opened/_on_shop_panel_closed` 与 `_set_hud_close_visible`，商店自带圆键期间隐藏 HUD 那枚，避免同一角落并排两枚关闭入口。`main.tscn` 无本次 diff，用户手摆 transform 未动。
+
+渲染口径：1280×800 与 1600×1000 按窗口原尺寸出图，1920×1080 窗口在原 KEEP 画布下输出 1728×1080，PNG 实际像素以文件为准（日志已逐个打印）。工程外副本 `D:/projects/sea-work/outputs/shop_icon_grid/final/`。全局 `check_feature_contracts` 仍 53 issues（sync 52；含本次 `hud.gd`/`main.gd` 真实漂移与 4 项与本轮无关的既有 source drift），未批量重签；架构 25服务0、手摆 3结构0警告、`git diff --check` 通过，但不宣称全工程门禁绿。

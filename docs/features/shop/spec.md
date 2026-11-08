@@ -2,7 +2,7 @@
 
 [主文档中控](../../../GDD_V1.0.md#sea-shop) · [本功能账本](ledger.md) · [NPC 功能](../resident/spec.md) · [住所空间](../residence/spec.md) · [施工文档](../../development/2026-11-07_npc_module_framework.md)
 
-设计修订：r3（2026-11-07 22:39，小花花店与阿店海上商店、经营场地和独立购买）。所属系统：经营。本轮状态 **implemented（2026-11-08当前运行签署，非verified）**，以文末22:39覆盖及R10为准，最新实测见末尾11-08签署。前置仅 SEA-INVENTORY / SEA-CROP / SEA-INTERACT，不硬依赖SEA-RESIDENT、Farm或住所；本轮使用既有天台/浮店，不恢复住房开发。
+设计修订：r4（2026-11-08，经营者先对话再开店）。所属系统：经营。本轮状态 **implemented（已实现，非完整产品verified）**；人物/场地按R10，点击经营者的入场流程按文末R11，当前验收见[开发记录](../../development/2026-11-08_npc_conversation.md)。前置仅 SEA-INVENTORY / SEA-CROP / SEA-INTERACT，不硬依赖SEA-RESIDENT、Farm或住所；本轮使用既有天台/浮店，不恢复住房开发。
 
 ### 2026-11-07 19:40 覆盖（历史：两经营者全天台，不等待住房）
 
@@ -161,3 +161,18 @@ SEA-SHOP本轮为 **implemented（已实现）**，不是 **verified**；`SEA-SH
 设备为Godot4.6.3/VulkanForward+/RTX4060Ti；1920为窗口记录，实际PNG像素以文件为准。21张人物图由独立代理逐图查看，7张业务场景图由主线程逐图打开；28张图均审阅不等于所有剧情、动作、滚动以下内容和完整商店体验均人工验收。长文底部是可滚动视口正常剪裁，未推断隐藏行。低端、发行包、完整剧情体验、资产权属和用户美术验收仍pending；本轮未测长期FPS，不继承59.943。
 
 旧FAIL历史保留：float/literal int dict严格比较误报、旧名字断言、Panel常量遮蔽native、话题局部ID误判全局唯一、UI键盘同帧/未释放；仅测试与runner修复，未改变事件数值。runner补五入口、独立套件移除autoload、集成使用`--nosave`，并修复terrain重复copy/mount缺陷。全局sync32/check35问题可能随并行变化，不锁最终数字；hash/source drift未批量重签。architecture25服务0、placed3结构0警告、gitdiffcheck通过，但不宣称全工程门禁通过。验收页为`D:/projects/sea-work/outputs/npc_names_shop_acceptance.html`及同名JSON，开发记录由主线程追加第8节；历史assets为symlink同文件，不能作为冻结内容快照比对证据。
+
+
+## 2026-11-08 经营者先对话再开店
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-SHOP-R11 | 点击小花/阿店先进入NPC底部对白，初见/满足条件剧情/偶发日常先于营业问候；营业问候右侧选“商店”才经vendor_requested打开原独立ShopPanel。退出不打开商店。NPC不读取价格或改商品；两目录、11商品、原子Inventory.exchange及无NPC独立购买能力保持。阿店初见为南边海域漂流来客、自我介绍和补给询问，之后用“今天的库存还有这些，看看吧。”承接功能选项。 |
+
+## 2026-11-08 商店改为与背包同款图标网格
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-SHOP-R12 | 独立ShopPanel不再用列表行，而是复用背包同一套 `PocketService` 格子、分页、名签与操作气泡：商品以图标成格，单价画在格内左下角标，持有数不再冒充"库存×N"；开店只摆格并把焦点落在首件商品，确认后才打开气泡，气泡给单价/当前可购/合计/购后余额与不可购买原因，数量 `− N +` 与购买一次结算后才收起。Tab 与背包一致关闭面板，Esc 先收气泡再关店；方向键只在商品行内移动，不把焦点甩到背包。价格、上限与原子结算仍全部由 ShopService/Inventory.exchange 裁决，本层不复制任何数值。 |
+
+实现与运行证据：[开发记录](../../development/2026-11-08_shop_icon_grid.md)、[本功能账本](ledger.md#2026-11-08-商店图标网格交付)。

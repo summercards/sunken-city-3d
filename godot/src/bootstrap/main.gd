@@ -203,6 +203,21 @@ var weather_service = preload("res://src/weather/weather_service.gd").new()
 var npc_service = NpcServiceScript.new()
 var shop_service = ShopServiceScript.new()
 var npc_world_presenter
+## 菜园桥招呼：台词表、气泡节点、当天是否已经喊过。
+## 「今天喊过」只活在本次运行里：NPC 存档有严格字段校验，塞新字段会让旧档拒绝加载，
+## 存档是核心资产，这里宁可不持久化。读档后当天可再喊一次，属已知取舍。
+const GARDEN_GREETINGS := "res://assets/data/npc/greetings.json"
+## 招呼触发半径（水平 XZ，米）。
+##
+## 原来 16 米要求把船贴到楼下才触发，玩家基本看不到。改为 32 米：
+## 主航道正常经过就能触发，配合放大后的气泡在远处也读得清。
+const GARDEN_GREETING_RADIUS := 32.0
+## 气泡停留秒数：从「远处看到」到「读完一句」需要更久，4.5 秒在 32 米外偏短。
+const GARDEN_GREETING_HOLD := 7.5
+var _garden_lines: Array = []
+var _garden_bubble: Control
+var _garden_spoken_day := -1
+var _garden_probe_cooldown := 0.0
 var shop_panel
 var npc_career_panel
 var _npc_previous_modal_query: Callable
@@ -997,7 +1012,7 @@ func _update_walk(delta: float) -> void:
 	actor_controller.tick(delta)
 
 func _physics_process(delta: float) -> void:
-	if _title_active or sleep_cycle.busy or actor_controller.actor == null: return
+	if _title_active or sleep_cycle.busy or (dive != null and dive.switching) or actor_controller.actor == null: return
 	_update_keyboard_move(delta)
 	_update_walk(delta)
 
@@ -3210,14 +3225,12 @@ func _try_salvage() -> void:
 
 
 func _on_dive() -> void:
-	if _title_active: return
+	if _title_active or dive.switching: return
 	if boat.starts_sailing():
 		hud.toast("先靠岸或停船再潜水")
 		return
 	if dive.active:
 		dive.surface()
-		hud.set_diving(false)
-		hud.toast("上浮")
 		return
 	if room_service != null and room_service.inside:
 		hud.toast("请先离开房间再潜水")
@@ -3233,7 +3246,7 @@ func _on_dive() -> void:
 	var entry := boat.position
 	if actor_controller.mode() == GameState.Mode.ASHORE: entry = player.global_position
 	var source: String = _dive_source_at(entry)
-	dive.dive(entry, source)
+	dive.request_dive(entry, source)
 
 
 ## 建造页直接进入前往和自动交付流程。
@@ -3309,6 +3322,7 @@ func _on_upgrade_ship() -> void:
 
 
 func _process(delta: float) -> void:
+	if dive != null and dive.switching: return
 	_t += delta
 	if _title_active:
 		_active_water_mat().set_shader_parameter("u_time",_t)
@@ -3320,6 +3334,7 @@ func _process(delta: float) -> void:
 		return
 	# SleepCycle.advance owns this frame's single, bedtime-capped clock tick.
 	props.sync_population(world_clock.query(),boat.position)
+	_tick_garden_greeting(delta)
 	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
 	if weather_view != null:
@@ -3444,14 +3459,14 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or _exhausted_rest or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or _exhausted_rest or (dive != null and dive.switching) or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
 	actor_controller.mode_changed.connect(GameState.set_mode)
 	actor_controller.configure(player,boat,self,interactor,{"landing":_current_landing,"zone":func(): return _zone_nodes.get(GameState.current_zone),"notify":func(text): hud.toast(text),"input_blocked":input_blocked})
 	GameState.mode_changed.connect(actor_controller.reconcile_mode)
-	cam.input_blocked = func(): return _title_active or _exhausted_rest or (sleep_cycle!=null and sleep_cycle.busy) or hud.camera_modal() or (salvage_panel!=null and salvage_panel.is_open()) or (order_panel!=null and order_panel.is_open()) or (cam_panel!=null and cam_panel.is_open()) or (grade!=null and grade.visible)
+	cam.input_blocked = func(): return _title_active or _exhausted_rest or (dive!=null and dive.switching) or (sleep_cycle!=null and sleep_cycle.busy) or hud.camera_modal() or (salvage_panel!=null and salvage_panel.is_open()) or (order_panel!=null and order_panel.is_open()) or (cam_panel!=null and cam_panel.is_open()) or (grade!=null and grade.visible)
 	player.rowing_query = boat.rowing_state
 	boat.speed_multiplier = func() -> float: return 1.15 if Economy.ship_level>=3 else 1.0
 	Economy.ship.upgraded.connect(func(_level): GameState.far_sea_unlocked=true)
@@ -3709,8 +3724,8 @@ func _setup_npc_systems() -> void:
 	shop_panel.name = "ShopPanel"
 	add_child(shop_panel)
 	shop_panel.configure(shop_service, Economy.inventory)
-	shop_panel.opened.connect(func(_id): _on_npc_modal_changed(true))
-	shop_panel.closed.connect(func(_id): _on_npc_modal_changed(false))
+	shop_panel.opened.connect(_on_shop_panel_opened)
+	shop_panel.closed.connect(_on_shop_panel_closed)
 	npc_career_panel = preload("res://src/npc/npc_career_panel.gd").new()
 	npc_career_panel.name = "NpcCareerPanel"
 	add_child(npc_career_panel)
@@ -3734,9 +3749,18 @@ func _setup_npc_systems() -> void:
 	var anchor_hub = preload("res://src/npc/npc_anchor_hub.gd").new()
 	anchor_hub.name = "NpcAnchorHub"
 	add_child(anchor_hub)
-	anchor_hub.configure([stations, get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations")])
+	anchor_hub.configure([stations,
+		get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations"),
+		get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations"),
+		# 霓虹花园屋顶：船员站在派生屋顶面上，不能复用花园桥那一个站点。
+		get_node_or_null("World/SeaStructures/neon_garden_quarter/RoofNpcStations")])
 	npc_world_presenter.configure(npc_service, anchor_hub, _npc_world_query, _on_npc_interaction_requested)
+	if hud.dialogue == null:
+		hud.dialogue = preload("res://src/ui/character_dialogue.gd").new()
+		hud.add_child(hud.dialogue)
+	npc_world_presenter.panel.set_dialogue_view(hud.dialogue)
 	world_clock.changed.connect(_on_npc_clock_changed)
+	_setup_garden_greetings()
 
 func _legacy_shop_snapshot() -> Dictionary:
 	var view: Dictionary = shop_service.shop_snapshot("shop_general")
@@ -3787,6 +3811,78 @@ func _on_npc_modal_changed(active: bool) -> void:
 		interactor.require_release()
 		interactor.active = false
 		if hover != null: hover.clear()
+
+func _set_hud_close_visible(on: bool) -> void:
+	if hud == null: return
+	var button: Variant = hud.command_buttons.get("close")
+	if button is Button: button.visible = on
+
+## 商店是全屏图标面板，自己带右下圆键；打开期间收起 HUD 那一枚，
+## 避免同一角落并排两枚关闭键（SEA-UI-R47 只留一枚可见关闭入口）。
+func _on_shop_panel_opened(_shop_id: String) -> void:
+	_on_npc_modal_changed(true)
+	_set_hud_close_visible(false)
+
+func _on_shop_panel_closed(_shop_id: String) -> void:
+	_on_npc_modal_changed(false)
+	_set_hud_close_visible(true)
+
+func _setup_garden_greetings() -> void:
+	var file := FileAccess.open(GARDEN_GREETINGS, FileAccess.READ)
+	if file == null:
+		push_warning("菜园桥招呼台词表读取失败：" + GARDEN_GREETINGS)
+		return
+	var data: Variant = JSON.parse_string(file.get_as_text())
+	if not data is Dictionary:
+		push_warning("菜园桥招呼台词表格式不对：" + GARDEN_GREETINGS)
+		return
+	for row in data.get("npcs", []):
+		if row is Dictionary and str(row.get("npc_id", "")) == "npc_mu_he":
+			for line in row.get("lines", []):
+				if str(line).strip_edges() != "":
+					_garden_lines.append(str(line))
+	if _garden_lines.is_empty():
+		return
+	_garden_bubble = preload("res://src/ui/speech_bubble.gd").new()
+	_garden_bubble.name = "GardenSpeechBubble"
+	hud.add_child(_garden_bubble)
+	_garden_bubble.hide()
+
+
+## 玩家在楼下的船上靠近霓虹花园时，楼顶种菜的豆豆抬头喊一句。
+##
+## 距离只算水平 XZ：她站在 28 米高的菜园桥上，用三维距离判定会让
+## 船正好从楼底下经过时反而「太远」。
+func _tick_garden_greeting(delta: float) -> void:
+	if _garden_bubble == null or _garden_lines.is_empty():
+		return
+	if _title_active:
+		return
+	# 任何模态（对话、商店、职业面板）期间都不喊，别和正在进行的谈话打架。
+	if npc_world_presenter == null or npc_world_presenter.is_modal():
+		if _garden_bubble.is_speaking():
+			_garden_bubble.dismiss()
+		return
+	if int(world_clock.day) == _garden_spoken_day:
+		return
+	_garden_probe_cooldown -= delta
+	if _garden_probe_cooldown > 0.0:
+		return
+	_garden_probe_cooldown = 0.2
+	var body = npc_world_presenter.actor("npc_mu_he")
+	if not is_instance_valid(body):
+		return
+	var traveler: Node3D = player if player != null else boat
+	if not is_instance_valid(traveler):
+		return
+	var a: Vector3 = traveler.global_position
+	var b: Vector3 = body.global_position
+	if Vector2(a.x - b.x, a.z - b.z).length() > GARDEN_GREETING_RADIUS:
+		return
+	_garden_spoken_day = int(world_clock.day)
+	var index := posmod(_garden_spoken_day - 1, _garden_lines.size())
+	_garden_bubble.speak(str(_garden_lines[index]), body, cam, GARDEN_GREETING_HOLD)
+
 
 func _on_npc_vendor_requested(npc_id: String, shop_id: String) -> void:
 	var row: Dictionary = NpcCatalog.get_npc(npc_id)
@@ -3863,6 +3959,12 @@ func _on_npc_interaction_requested(npc_id: String = "") -> Dictionary:
 	if not npc_id.is_empty():
 		actor_controller.cancel()
 		_world_press = false
+		var resident = npc_world_presenter.actor(npc_id)
+		if is_instance_valid(resident):
+			npc_world_presenter.face_player(npc_id, player.global_position)
+			var offset: Vector3 = resident.global_position - player.global_position
+			if Vector2(offset.x, offset.z).length_squared() > 0.0001:
+				player.rotation.y = atan2(offset.x, offset.z)
 	return {
 		"enabled": not _title_active and not _exhausted_rest and not actor_controller.climbing()
 			and not room_controller.busy and not dive.active and not building_controller.active
@@ -4199,6 +4301,10 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 	if unreachable != "":
 		hud.toast(unreachable)
 		return
+	# 居民点击直接接近交谈，不先弹物体操作气泡。
+	if spot.has_signal("npc_requested"):
+		_approach(spot)
+		return
 	actor_controller.cancel()
 	var options: Array = []
 	if spot.is_in_group("farm_plots"):
@@ -4359,6 +4465,7 @@ func _setup_sleep() -> void:
 	add_child(sleep_cycle)
 	sleep_cycle.clock = world_clock
 	sleep_cycle.curtain = sleep_curtain
+	if dive != null: dive.curtain = sleep_curtain
 	sleep_cycle.prepare = _prepare_sleep
 	sleep_cycle.return_home = _wake_at_home
 	sleep_cycle.woke.connect(func(_snapshot):

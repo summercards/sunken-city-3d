@@ -108,3 +108,94 @@
 | SEA-DIVE-R19 | 默认范围断言随开放更新：`PlayScope.command_enabled` 允许 `dive/lamp/rise/descend`，HUD 潜水按钮不再置灰，角落菜单在最小循环也保留潜水入口；`minimum-loop` 只断言入口可用与其余入口仍锁定，实际下潜/返回由 `dive-maps` 覆盖。`minimum-loop` 不再断言“潜水命令锁死”。 |
 
 最终实测（`D:/projects/sea-work/verification/20261108-055128-dive-home-seabed-signed2-00d74f/report.json`，九入口全部 exit0/PASS、无 unexpected，合计 1270 项 0 失败）：dive-maps 323/0、visual-dive-maps 335/0、framework-integration 52/0、minimum-loop 148/0、modules 31/0、click 39/0、sunroom-underwater 78/0、sunroom-collision 264/0、save-seed PASS。真实渲染的入水画面已目检：旧城楼房、街道、翻倒车辆与远处街区可见，镜头不贴墙、不落在空广场、不陷入基座内腔。[完整机制与踩坑记录](../../development/2026-11-08_home_seabed_and_dive_reopen.md)。低端设备、连续性能、全路线人工探索、用户美术终审仍未签；家园海底无宝箱/无独立奖励，不宣称新增收集内容。
+
+## 2026-11-08 家园海底第三人称、独立布局与 35 米深度
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-DIVE-R20 | 进入家园海底不再是第一人称：独立 `DiverVisual` 复用 `res://src/player/character.gd` 的程序化角色、`build()`、`set_diving(true)` 与 `res://src/player/animation/swimming_action.gd`；角色只负责表现，`ViewerBody` 仍是唯一移动/碰撞权威。角色跟随真实 ViewerBody 速度和朝向，潜水装备/潜水镜可见；第三人称相机距角色 5.5m、高度 1.0m、射线避障，F6 非潜水预览不接管相机。 |
+| SEA-DIVE-R21 | 家园海底作为独立可编辑布局：`sunken_city_layout.tscn`、`sunken_seabed_layout.tscn`、`solar_cabin_submerged_base_layout.tscn` 均由 shared 包装复制为本地 TSCN；`sunroom_region.tscn` 只引用这三份本地布局，Main 仍引用 shared 场景，用户可在本地布局里移动/增删旧城实例和基座而不改海面 Main。旧城 GLB 组件引用保持 shared，Terrain3D 数据暂仍为 `res://terrain/sunken_seabed`，metadata 明确 `shared_terrain_data_pending=true`，没有伪造新高度图。 |
+| SEA-DIVE-R22 | 家园海底的可游深度契约目标为 35m：水面 Y=1.12，Viewer 最低中心 `viewer_min_y=-33.88`，胶囊离海床 0.8m，局部参考 `lowest_seabed_y=-34.68`，运行时移动夹限以本地契约为准；低于边界的旧城几何保留为视觉，直到独立海床高度图正式制作。`sunken_seabed_layout.tscn` 的共享 Terrain3D 数据边界仍是 pending，不把 export 改值冒充真实新海床。 |
+| SEA-DIVE-R23 | 家园海底局部表现优化：深度/角色深度驱动水色与吸收；单一 `Camera/WaterFogPass` 做连续分层雾，避免 Environment fog 与屏幕雾双重抹黑；本地 palette 加深度吸收与轻焦散；beam 采用 16 步深度挡墙积分、上下软边、远景 fade；原确定性 192 气泡/200 悬尘/10 射光保留，未修改共享水材质、WorldEnvironment、原9图。网络技术参考 Godot 官方 Volumetric Fog/FogVolume、GPUParticles3D、Sky shader 与水体深度/Fresnel/caustics 资料；本轮选择低风险本地通道，未无条件开启高成本体积雾。 |
+
+最终专项回归：`D:/projects/sea-work/verification/20261108-123311-home-seabed-thirdperson-final-d703fe/report.json` 九入口全 PASS/exit0、无 unexpected，合计 1241 项 0 失败：dive-maps 326/0、visual-dive-maps 338/0、framework-integration 52/0、minimum-loop 112/0、modules 31/0、click 39/0、sunroom-underwater 79/0、sunroom-collision 264/0、save-seed PASS。第三人称实拍已目检：角色、潜水装备、楼房、翻倒巴士、街道与射光均可见；真实布局姿态检查通过，35m 深度契约与本地 TSCN 布局检查通过。注意：`sunken_seabed_layout.tscn` 仍共享高度数据，35m 是当前可游边界契约，不是全新 Terrain3D 高度图验收。
+## 2026-11-08 水面抬高 50 米与雾/环境对齐旧九图（现行）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-DIVE-R24 | 家园海底按用户要求再下探 50 米，实现方式为**抬高水面、不动几何**：`water_level` 1.12→51.12，`Water` Mesh Y 同步 51.12，旧城根 43.487442、388 实例、4 区海床、基座原矩阵、138 鱼、32 珊瑚、24 灯全部保持原值，Main／原 9 图／catalog 未改。旧城街面 Y≈-18 由约 19 米水深变为 69 米，头顶到水面为连续水柱。深度契约：`target_depth_m` 35→85，`viewer_min_y` 仍 −33.88（既等于 51.12−85，也等于 `lowest_seabed_y` −34.68+0.8，双重校验成立），运行时中心最高点 51.12−0.82=50.30；海床实测最低 −62、最大深 113.12 米，低于 −33.88 的旧城几何仍只作视觉。metadata 记 `depth_basis=sea_surface_raised_50m_geometry_unchanged`、`city_deepened_by_m=50`、`water_level=51.12`，asset_version v002→v003。 |
+| SEA-DIVE-R25 | 入水占位改按旧城街面而非水面：新增 `entry_street_y=-18`、`entry_rise=10`，`begin_dive` 占位取 (x, −8, z)，`_entry_spot` 的路面搜索同引用该常量。水面抬高后若仍用「水面下 6 米」（=45.12）占位，碰撞提交前的若干帧镜头会停在 51 米空白水柱里、再瞬移 50 米落到街上，观感等于切错场景。选区判据（16~30 米环、12 角度、路面 +6/8/10/12、半径 12 米球形净空、头顶 16 米无楼板、某方向 18~38 米楼体、取 26 米最接近者）全部保留，不因变深放宽。 |
+| SEA-DIVE-R26 | 家园海底雾与环境改为与 zone1 逐行同源，替换此前自算模型（公式、参数与取舍见 SEA-AMBIENT-R26）。`region_fog_amount` 由 `pow(smoothstep(6,110,d),1.3)` 改为 `1−exp(−(d×density)^1.8)`，30 米处浓度 0.08→0.48；背景／水面／终端雾统一 `uw_gradient_display(SCREEN_UV, 深度)`，删除方向渐变、水平分层、XZ 448..500 米边缘吸收三处叠加；环境光改回 SKY 半球双色并按 `1.9/π×(1−deep×0.6)` 衰减；glow／SSAO 关闭、两条方向光归零、FOV 68→55。不改共享水材质、`world_env.tres`、原 9 图。 |
+| SEA-DIVE-R27 | 家园海底布局用同一批旧城组件搭「回字型深沟」：**沿矩形四边直线摆放**，外框半宽 112 m（每边 7 个／间距 37.33 m，共 24 个）、内框半宽 72 m（每边 5 个／间距 36.00 m，共 16 个），合计 40 栋，沟宽 40 m；引用 `sunken_city_tall` 的 v008 封闭组件，尺度 2.0 倍。每条边上的楼 X 或 Z 必须完全相同，朝向只允许 0/90/180/270 且朝框内，不加随机抖动。楼基取最近地面组件顶面，行内相邻楼体平面重叠不得超过 1 m。**新增实例不得删除或改动任何已有实例**——位置归用户，重叠处由用户手工取舍。 |
+| SEA-DIVE-R28 | 沟壁节点（`tall_*`）不参与生态接地：`_build_surface_index` 必须跳过它们，珊瑚与设施灯只能贴在旧城街面与坡地上，不得被抬到塔身或塔顶。 |
+| SEA-DIVE-R29 | 家园海底水面 = 上街面 + **120.0 m**，当前 `water_level = 101.587442`（上街面 −18.412558）。**「底部」一律指上街面**，不取最低海床台面。`target_depth_m` = 120.0，`viewer_min_y = water_level − 120.0 = lowest_seabed_y + 0.8`，两项必须同时成立。改水面时 Water 节点、atmosphere 的 `WATER_LEVEL` 与深度契约必须同步。 |
+| SEA-DIVE-R30 | 入水点停在**水面下 1.0 m**（`entry_depth_below_surface`），不再落在街面层。因为 `DiveAir` 的换气带是 5 m、会让入水点永远满氧，家园海底必须把可覆盖的 `surface_depth` 设成 0.5 m；其它地图保持默认 5.0。浅水层被占满时才允许回退到原街面搜索。 |
+| SEA-DIVE-R31 | 雾密度曲线只按前 85 m 水深取密度（`min(region_view_depth, 85.0)`），深水不得比浅水更稀，否则远景海床会从雾里浮出。 |
+
+本地专项 `tests/test_sunroom_underwater_region.gd` 已按新契约改写（水面 51.12、最深 113.12 米、target 85 米、viewer_min −33.88），结果为 80 项 0 失败；真实渲染器加载本场景无着色器编译错误。**九入口批量回归未在本轮重跑**，低端设备、持续性能、全路线人工探索与用户美术终审仍未签署，本轮不据此宣称全工程绿。深度仍以 `lowest_seabed_y=-34.68` 这一共享海床引用为参照，独立 Terrain3D 高度图继续 pending。
+
+## 2026-11-08 统一潜水 3C（最终口径覆盖，验收 PENDING）
+
+本节覆盖前文“家园与旧九图分别拥有阶段/输入/氧气/相机”及旧 5.5m/FOV55 等 3C 口径；历史条款和结果保留，不重新签署。R27/R28 已用于高楼布局/生态排除，本次从 R29 连续新增，不借用或重编号旧 ID。功能仍为 `partial`。开发与验收回填见 [统一潜水 3C 记录](../../development/2026-11-08_unified_dive_3c.md)。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-DIVE-R29 | 海面/陆地共用一套独立 `ActorController`；潜水共用另一套独立 **Shared DiveRuntimeController**，实际脚本 `godot/src/diving/dive_runtime_controller.gd`。家园 + 旧九图均使用同一 `surface → enter → swim → exit → surface` 生命周期，不是海面/家园/旧图三套状态机，也不是每图复制一份潜水逻辑。两域只经 DiveSession 挂起/恢复交接，不同时推进。 |
+| SEA-DIVE-R30 | Map 适配只提供内容、入口、位置、碰撞执行、route、camera_clip、env、explore：`dive_begin/entry_tick/exit_begin/exit_tick/end`、`dive_position/set_position/move/water_level`、`dive_route/cancel_content/content_tick/camera_clip/zone_label`。控制器唯一解释潜水输入、推进阶段/运动意图、潜水耗氧、相机姿态和角色表现；Map 不再独立 tick 潜水输入/氧气/相机。`phase/phase_machine` 仅兼容旧测试并转发当前控制器；无控制器夹具的兼容对象不得变成生产第二状态机。旧 enter/surface/finish_exit/swim/camera/diver_pose actions 及旧阶段驱动不得继续运行；`search_action` 仅可作为 explore 内容搜索执行，不得接管 3C。 |
+| SEA-DIVE-R31 | `DiveSession` 保持事务切图：preflight/setup 失败回滚；挂起并恢复**同一 Main 身份**及原船人姿态/模式/相机/环境，不 free/rebuild/read-save 代替恢复。active/switching 的直接写盘门禁继续有效。根 v4 `dive:{found:int[],opened:int[]}` 不变，固定宝箱 ID、未知 ID 与未加载图进度保留，from_dict 全量替换；奖励通过 give_rewards 原子提交，满包不部分发奖/不标开启。共享 DiveAir 由稳定 Session 持有；潜水控制器推进潜水耗氧，Session 仅在海面推进换气/cooldown，切图或卸载不得重置冷却、不建立第二份 air。 |
+| SEA-DIVE-R32 | InputMap 使用 `dive_left/right/forward/back/up/down/sprint`：A/D/W/S + 对应方向键；Q 或 Ctrl 下潜，E 或 Space 上升，Shift 加速。巡航 4.2m/s、加速 7m/s；ACCEL_TAU=0.22s、BRAKE_TAU=0.16s、反向 tau=0.13s，为指数平滑时间常数而非精确到速/停止时长。WASD 无需右键；右键只环视，不是游动使能键。手动输入取消自动路线。 |
+| SEA-DIVE-R33 | 自动游动仅在左键 release 时判定：按下至释放位移 ≤8px 且期间未超过 8px 才作短点击；拖拽不误触。目标经 Map.dive_route 拒绝不可达路径，不退化为穿墙直线；受阻停止并反馈。滚轮调整第三人称距离 4..13m，默认 7.5m。 |
+| SEA-DIVE-R34 | 潜水广角 FOV72°、加速渐变至78°；pitch 限 [-1.1,1.15] 弧度，yaw 平滑 tau=0.07s。镜头直接继承主体位移，速度前视 0.10s，避免阻尼追赶角色；无镜头滚转。防墙调用半径 0.32m 的 camera_clip：收回立即、离墙缓出，插值后再做最终 clip，不能用平滑跨越阻挡。Map 提供空间裁剪，不拥有第二套镜头状态。 |
+| SEA-DIVE-R35 | 复用 Character 模型/骨骼，但潜水创建**独立实例**，不挪用或改写海面角色实例。动画消费碰撞后的实际速度，不以按键/期望速度假游；float / cruise / sprint 连续混合，垂直速度驱动上升/下降 pitch，转向驱动 turnbank。hat/mask 由潜水装备生命周期切换：入水保存帽子可见性、隐藏 hat/显示 mask，退出还原；海面 idle/walk/rowing 等动画不改，模型表现不写位移/奖励。 |
+| SEA-DIVE-R36 | 家园与旧九图统一 `godot/src/diving/dive_map_hud.gd`：海底墨绿半透明板 + 奶油按钮；氧气 bar/百分比、深度、地图/游动状态、键位 hint、头灯及消息统一展示，30%/15% 告警不回退；无宝箱不展示虚假发现总数。Esc 打开暂停菜单，暂停不耗氧，可继续或上浮；UI 只读状态并经 Session 发命令，不直接改 air/phase/位置。 |
+| SEA-DIVE-R37 | 本批只改 3C 文档，不改家园水面 51.12m、可游深度 85m、viewer_min_y=-33.88，也不动用户手摆 layout、Base2（SolarCabinBase2）与现有 40 栋高楼。位置/数量以当前 TSCN 为准，历史“388 实例”仅为当时快照，不作当前固定断言；不得为通过测试回退手摆布局。真正独立的 Terrain3D 海床高度数据仍 pending，不把包装或移动边界当独立海床验收。 |
+| SEA-DIVE-R38 | 当前统一 3C 验收独立登记，不能借旧 PASS：behaviour 暂报 [403 或 396]/0，准确入口名/批次/计数由主线程最终回填；初批 dive-maps326/0、click39/0、framework-integration52/0 虽断言零失败，但 resource leak 导致批次 FAIL、修复中，不宣称通过。curved collision 3448/42 为必须保留的 FAIL 历史，未获本轮精确复测不得签通过。最终报告、exit/unexpected/leak、截图审阅和全局检查分别 PENDING。 |
+
+主线程唯一最终运行签署位置：[开发记录第 5 节](../../development/2026-11-08_unified_dive_3c.md#unified-dive-3c-acceptance)。本分支只作源码核对和文档追加，不执行 Godot，不升级历史结果；真实 3C 手感、全十图、设备/连续性能及用户终审仍须按实测签署。
+
+## 2026-11-08 统一潜水 3C 最终验收结果
+
+本批已按 SEA-DIVE-R29–R38 完成隔离回归与真实渲染验收。最终报告：`D:/projects/sea-work/verification/20261108-202515-dive-unified-final-edbd96/report.json`。
+
+| 入口 | 结果 |
+|---|---:|
+| dive-control | 396/0 |
+| dive-maps | 326/0 |
+| visual-dive-maps | 338/0，真实渲染 |
+| sunroom-underwater | 83/0 |
+| sunroom-collision | 3313/0 |
+| click | 39/0 |
+| framework-integration | 52/0 |
+| minimum-loop | 112/0 |
+| modules | 31/0 |
+| keyboard-control | 30/0 |
+| control-feel | 31/0 |
+| character-motor | 42/0 |
+
+上述入口均 exit0、无 unexpected。操控专项实际验证了十张海底地图共用同一控制器、WASD 无需右键、点击游/拖拽区分、4.2/7m/s、加速/刹停/反向、FOV72/78、4..13m镜头距离、相机防墙、实际氧气一次消耗、float/cruise/sprint 动画、角色正Z朝运动方向、hat/mask 生命周期和 HUD。真实输出位于该 run_dir 的 `project/outputs`，包含 home/zone1 等运行画面与 `dive-control-report.json`。
+
+边界仍保持：低端 GPU、连续运行性能、全路线人工探索、用户美术终审和独立 Terrain3D 海床高度图未签；旧 `curved collision 3448/42` 失败报告保留为历史证据，不被本批 3313/0 覆盖或抹除。
+
+## 2026-11-08 统一潜水3C最后修正与签署
+
+以`D:/projects/sea-work/verification/20261108-205037-dive-unified-signed-2f2292/report.json`为当前有效证据，覆盖前述中间批次和PENDING状态但不删除历史。13个计数入口合计5196/0，另save-seed前置PASS；报告14项全部exit0/PASS、无unexpected。dive-control为396/0，visual-dive-control为403/0（真实渲染增加7项），dive-maps326/0、visual-dive-maps338/0、sunroom-underwater83/0、sunroom-collision3313/0及海面/基础回归均通过。
+
+家园入水保底点不再放进基座内腔或仅以“净空”跳到空水柱；按真实街面与净空在落水XZ附近搜索，允许水平避让，不承诺XZ零偏移。实际生产入水图显示旧城街区而非封闭窗墙内腔。水面51.12、可游85m、viewer_min-33.88与用户手摆布局保持，操控统一不改城市或Main的布局。
+
+实测巡航约4.20m/s、冲刺约6.99m/s，当前固定步工况冲刺松键刹停约1.06m；广角72°至78°、镜头4..13m、动画按碰撞后实际速度、HUD/暂停/返回行为已验。海面ActorController独立，家园与旧九图只使用同一潜水控制器。低端设备、持续性能、全路线人工体验、用户美术终审与独立海床仍未签，功能总体仍partial。完整逐项签署见[开发记录第8节](../../development/2026-11-08_unified_dive_3c.md#8-最后修正后签署当前有效结果覆盖第5节待填和第7节中间批次)。
+
+## 2026-11-08 水下光学与双向无文字圆幕（本轮规则，验收 PENDING）
+
+先只读核对功能归属复用，再实施仰视海面、深度暗光/阳光、双向黑圈遮加载及呼气/环境泡增鱼。历史已有 R29–R31 的重复语义，本轮保留、不重编号，核对最大 R38 后从 R39 续写。家园采用最新 120m 口径，旧 51.12/85m/街景入水与旧 5196/0 仅为历史，不证明本轮通过；功能保持 `partial`。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-DIVE-R39 | 稳定 DiveSession 拥有双向切图装配事务；Main 注入既有 SleepCurtain，复用 SEA-SLEEP-R05 / SEA-UI-R24 的像素圆幕和 cover_blank/uncover_blank，不造第二套幕或睡眠流程。关 0.85s、开 1.05s，全程无文字、不跳日。生产 request_dive(point,source)->bool 仅表示请求接受，结果经 transition_started/transition_phase/transition_completed/transition_failed 反馈；重入拒绝，低级同步 dive/enter_map 保留给原测试/工具，不冒充生产过场。 |
+| SEA-DIVE-R40 | 合拢后等待真实 RenderingServer.frame_post_draw 已绘制全黑，才允许 load_threaded_request/get、instantiate、建树与碰撞装配；入口 verified（地图提供时）及共享控制器 swim 就绪，再提交角色/环境/相机准备帧才展开。上浮/缺氧返回亦先全黑再卸载 runtime、恢复 Main。headless process_frame 只算逻辑屏障，不签真实全黑；加载/校验/准备失败须在遮黑事务内回滚，不露半初始化场景。 |
+| SEA-DIVE-R41 | switching 从接受至完全展开全程有效：锁玩法输入、点击游/镜头操作、耗氧与海面换气/cooldown推进、保存及日期/经营；黑幕内只放行必要 entry 物理准备。直接 SaveGame.write 与 SnapshotRegistry.capture 同受 busy 门禁。返回/失败恢复同一 Main 及原 curtain 的身份、parent/index、focus_query、处理模式、船人姿态/模式、相机/环境和 Economy ticking；不 free/rebuild/read-save、不重跑 Main._ready，不残留 runtime/借幕。 |
+| SEA-DIVE-R42 | 家园保持 water_level=101.587442、target_depth_m=120.0、viewer_min_y=-18.412558、lowest_seabed_y=-19.212558、clearance=0.8，满足 water−120=viewer_min=lowest+0.8。入水优先水面下 1.0m、surface_depth=0.5m；仅浅层无净空才沿原安全搜索兜底，不回退常规街景入水。Water/氛围/材质消费同一水位；九图保留各自水位/换气带。用户 Main/ExistingModels/Base2 及原手摆布局不动，不用旧参考位/历史实例数修测试。 |
+| SEA-DIVE-R43 | 本轮只记源码已接入与验收 PENDING；已存在入口 dive-transition、visual-dive-transition、underwater-experience、visual-underwater-experience 分列实测。transition 初始 Parse black、Main 子类引用 Autoload Zones 编译阻断、visual timeout，以及水下体验真实视觉 195/8、195/4 均保留 FAIL 历史；后续修复正在跑，不预签 PASS。最终报告/计数/exit/unexpected/leak、全黑与展开截图及人工审阅由主线程回填开发记录第 5 节，不借旧签署。 |
+
+共享光学归 SEA-OCEAN-R26–R29；环境泡、呼气和鱼归 SEA-AMBIENT-R28–R31，不新增 Air 或玩法所有者。[本轮开发记录与最终待填](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)。
+
+主线程最终结果已另追加至记录第7节：双向圆幕真实149/0、行为226/0，光学生态真实195/0/行为65/0；地图329/0、3C396/0、家园85/0、碰撞2824/0、切日42/0、房间112/0等通过。本轮请求功能专项完成，但框架第二代写盘52/1独立复跑仍失败，全局sync69/只读70资源门禁未过，不能宣称全批全绿。历史PENDING为委派阶段，不覆盖当前签署；低端/持续性能/历史远雾边界/独立海床等未签范围仍见记录。

@@ -11,7 +11,7 @@ mote_count = 200
 beam_count = 10
 metadata/visual_only = true
 metadata/coordinate_space = "region_local_identity_parent"
-metadata/water_level = 1.12
+metadata/water_level = 101.587442
 metadata/collision = false
 metadata/interactive = false
 metadata/blocks_water = false
@@ -22,7 +22,7 @@ metadata/local_materials_only = true
 
 [node name="BubbleColumns" type="Node3D" parent="."]
 metadata/max_horizontal_radius_m = 0.8
-metadata/top_y = 0.47
+metadata/top_y = 100.817442
 metadata/clearance_basis = "authored_fixed_columns_validate_against_city_and_base"
 
 [node name="WestCoralWalk" type="Marker3D" parent="BubbleColumns"]
@@ -59,55 +59,58 @@ position = Vector3(-79, -16.7, 64)
 metadata/start_depth_m = 1.0
 metadata/axis_down = Vector3(0.12, -1, 0.065)
 metadata/placement = "open_street_corridors_not_building_roofs"
+metadata/top_basis = "water_level_101.587442_minus_1m"
+metadata/runtime_top_y = 100.587442
+metadata/authored_y_policy = "marker_positions_preserved_runtime_configure_water"
 
 [node name="WestWalk" type="Marker3D" parent="RayEntries"]
-position = Vector3(-81, 0.12, 23)
-metadata/length_m = 22.0
+position = Vector3(-81, 50.12, 23)
+metadata/length_m = 120.0
 metadata/radius_m = 2.6
 
 [node name="WestWorkshop" type="Marker3D" parent="RayEntries"]
-position = Vector3(-81.5, 0.12, -47)
-metadata/length_m = 24.0
+position = Vector3(-81.5, 50.12, -47)
+metadata/length_m = 120.0
 metadata/radius_m = 2.8
 
 [node name="NorthCanal" type="Marker3D" parent="RayEntries"]
-position = Vector3(-44.5, 0.12, -82)
-metadata/length_m = 28.0
+position = Vector3(-44.5, 50.12, -82)
+metadata/length_m = 120.0
 metadata/radius_m = 3.4
 
 [node name="NorthLower" type="Marker3D" parent="RayEntries"]
-position = Vector3(5, 0.12, -81)
-metadata/length_m = 27.0
+position = Vector3(5, 50.12, -81)
+metadata/length_m = 120.0
 metadata/radius_m = 3.0
 
 [node name="EastWalk" type="Marker3D" parent="RayEntries"]
-position = Vector3(76.5, 0.12, -30)
-metadata/length_m = 23.0
+position = Vector3(76.5, 50.12, -30)
+metadata/length_m = 120.0
 metadata/radius_m = 2.5
 
 [node name="EastSouth" type="Marker3D" parent="RayEntries"]
-position = Vector3(86.5, 0.12, 50)
-metadata/length_m = 22.0
+position = Vector3(86.5, 50.12, 50)
+metadata/length_m = 120.0
 metadata/radius_m = 2.8
 
 [node name="SouthLower" type="Marker3D" parent="RayEntries"]
-position = Vector3(19, 0.12, 77)
-metadata/length_m = 29.0
+position = Vector3(19, 50.12, 77)
+metadata/length_m = 120.0
 metadata/radius_m = 3.2
 
 [node name="HomeWest" type="Marker3D" parent="RayEntries"]
-position = Vector3(-16, 0.12, 7)
-metadata/length_m = 27.0
+position = Vector3(-16, 50.12, 7)
+metadata/length_m = 120.0
 metadata/radius_m = 2.7
 
 [node name="HomeEast" type="Marker3D" parent="RayEntries"]
-position = Vector3(18, 0.12, -19)
-metadata/length_m = 26.0
+position = Vector3(18, 50.12, -19)
+metadata/length_m = 120.0
 metadata/radius_m = 2.4
 
 [node name="WestSlope" type="Marker3D" parent="RayEntries"]
-position = Vector3(-81.5, 0.12, 62)
-metadata/length_m = 21.0
+position = Vector3(-81.5, 50.12, 62)
+metadata/length_m = 120.0
 metadata/radius_m = 2.3
 
 [node name="LightShafts" type="Node3D" parent="."]

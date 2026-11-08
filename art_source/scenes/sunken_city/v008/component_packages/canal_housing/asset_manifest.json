@@ -1,0 +1,146 @@
+{
+  "key": "canal_housing",
+  "slug": "canal_housing",
+  "name": "运河侧白楼_阶梯屋顶",
+  "category": "architecture",
+  "component_family": "canal_housing",
+  "component_id": "SEA-SCENE-SCITY-TALL-CANAL-HOUSING",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    39
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 7,
+  "color": "cloud",
+  "damage": 0.23,
+  "style": "canal",
+  "variant_axis": "structure_damage",
+  "variant_value": "canal",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-CANAL-HOUSING_运河侧白楼_阶梯屋顶",
+  "root_object": "SEA-SCENE-SCITY-CANAL-HOUSING_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-CANAL-HOUSING_ROOT",
+    "运河侧白楼_阶梯屋顶_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    19.751792907714844,
+    16.187000274658203,
+    39.25918197631836
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 215132,
+  "polygons": 111676,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v008/component_packages/canal_housing/canal_housing.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v008",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "62154ec86a0a7400817f1c04ab2a7f5dec5944d94dd212be813aaed60016eb77",
+  "geometry_fingerprint": "27431938d45a2b972c61258a4456c8bdbb7ffe2a186917b3e9b39cb43a7c982b",
+  "bounds_min": [
+    -9.875896453857422,
+    -8.093500137329102,
+    0.0
+  ],
+  "bounds_max": [
+    9.875896453857422,
+    8.093500137329102,
+    39.25918197631836
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\canal_housing.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TALL-CANAL-HOUSING",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_housing_optimized.blend",
+    "optimized_sha256": "407a3872b98ea18edbabd099d84ba75d521800b20855e795c384f16a4d257bab",
+    "triangles_before": 214408,
+    "triangles_after": 214408,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 682,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 35,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 94,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -9.875896453857422,
+        -8.093500137329102,
+        0.0
+      ],
+      [
+        9.875896453857422,
+        8.093500137329102,
+        39.25918197631836
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
+    "runtime_sha256": "728a68c387e3ae4559014376ca682f451f96c2f5dcbaee0f314b0a8c02b89463",
+    "prefab": "godot/scenes/components/scenery/sunken_city/canal_housing.tscn",
+    "prefab_sha256": "3ed657f7d6bea595fb54d72fc4bd4a8c9a38790e9763d9902ba38fd77b67e488",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  },
+  "runtime_path": "godot/assets/models/scenery/sunken_city_tall/canal_housing/canal_housing.glb",
+  "prefab": "godot/scenes/components/scenery/sunken_city_tall/canal_housing.tscn",
+  "sealed_interior": true,
+  "interior_policy": "watertight_shell_no_enterable_space",
+  "reference_scale": 2.0,
+  "derived_from": "art_source/scenes/sunken_city/v003/component_packages/canal_housing/canal_housing.blend"
+}

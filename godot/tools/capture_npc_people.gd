@@ -53,7 +53,7 @@ func run() -> void:
 		var before: Dictionary = main.npc_service.to_dict()
 		var coins: int = economy.inventory.count("coins")
 		var count: int = economy.inventory.count(quote.item)
-		if check(quote.ok and not panel._buy.disabled, "海店真实报价可购"):
+		if check(panel.open_actions() and quote.ok and not panel._buy.disabled, "海店图标格选中后气泡报价可购"):
 			panel._buy.pressed.emit()
 			await frames(3)
 			check(economy.inventory.count("coins") == coins - int(quote.total_cost)

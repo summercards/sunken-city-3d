@@ -1,18 +1,34 @@
 shader_type spatial;
-// Same local waterline/extent; no fog bypass. At long distances the water ceiling
-// meets exactly the environment's teal water, never a dark horizontal cut line.
-render_mode cull_disabled, unshaded, depth_draw_opaque;
+// 家园水面与旧海域共用同一条表面光学：波纹法线、Snell 折射窗、掠视内反射。
+render_mode cull_disabled, unshaded, depth_draw_opaque, fog_disabled;
+
+#include "res://shaders/uw_water_color.gdshaderinc"
+uniform float water_level = 101.587442;
 uniform float elapsed = 0.0;
-float wave(vec2 p) {
- return sin(p.x*1.43+p.y*0.71+elapsed*0.32)*0.44
-  +sin(p.x*-0.63+p.y*1.87-elapsed*0.23)*0.31
-  +sin(p.x*2.79-p.y*1.31+sin(p.y*0.81)*0.8+elapsed*0.18)*0.16;
+uniform float view_depth = -1.0;
+uniform float region_view_depth = 10.0;
+uniform float dive_depth = -1.0;
+varying vec3 v_world;
+
+float surface_wave(vec2 p, float t) {
+	return sin(p.x * 0.23 + p.y * 0.11 + t * 0.52) * 0.12
+		+ sin(p.x * -0.17 + p.y * 0.31 - t * 0.43) * 0.075
+		+ sin(p.x * 0.47 - p.y * 0.29 + sin(p.y * 0.13) * 0.8 + t * 0.68) * 0.025;
 }
+
+void vertex() {
+	v_world = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+}
+
 void fragment() {
- vec2 p=UV*190.0;
- vec2 warp=vec2(wave(p*0.41),wave(p.yx*0.37+vec2(5.1,2.7)));
- float line=pow(1.0-smoothstep(0.015,0.20,abs(wave(p+warp))),3.0);
- float broad=wave(p*0.19)*0.5+0.5;
- float near_fade=1.0-smoothstep(18.0,65.0,length(VERTEX));
- ALBEDO=mix(vec3(0.055,0.26,0.29),vec3(0.12,0.37,0.37),broad)+vec3(0.08,0.13,0.10)*line*near_fade*0.18;
+	float t = elapsed == 0.0 ? TIME : elapsed;
+	vec2 p = v_world.xz;
+	float e = 0.02;
+	float h_x0 = surface_wave(p - vec2(e, 0.0), t);
+	float h_x1 = surface_wave(p + vec2(e, 0.0), t);
+	float h_z0 = surface_wave(p - vec2(0.0, e), t);
+	float h_z1 = surface_wave(p + vec2(0.0, e), t);
+	vec3 n = normalize(vec3(-(h_x1 - h_x0) / (2.0 * e), 1.0, -(h_z1 - h_z0) / (2.0 * e)));
+	vec3 v = normalize(CAMERA_POSITION_WORLD - v_world);
+	ALBEDO = uw_surface_optics(v_world, n, v, t, max(0.0, water_level - CAMERA_POSITION_WORLD.y));
 }

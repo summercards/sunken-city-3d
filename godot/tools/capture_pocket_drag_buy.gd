@@ -50,7 +50,8 @@ func click(node: Control) -> void:
 
 
 func slot(pool: int, id: String) -> Control:
-	for tile in main.hud.services.slots[pool]:
+	if not main.hud.pockets.visible: return null
+	for tile in main.hud.pockets.slots:
 		if str(tile.get_meta("item_id")) == id: return tile
 	return null
 
@@ -76,43 +77,42 @@ func run() -> void:
 		economy.inventory.add(id, 2)
 	economy.inventory.set_count("coins", 162)
 
+	# --- 购买数量选择器：正式路由已交给独立图标面板 ---
 	main._on_click_command("shop")
-	await create_timer(0.3).timeout
-	var view = main.hud.services
-	ok(view.visible, "补给口袋打开了")
-
-	# --- 购买数量选择器 ---
-	var seed_tile := slot(1, "tomato_seed")
+	await create_timer(0.4).timeout
+	var shop_panel = main.shop_panel
+	ok(shop_panel.is_open(), "商店图标面板打开了")
+	var seed_tile: Control = null
+	for tile in shop_panel._product_buttons:
+		if str(tile.get_meta("item_id")) == "tomato_seed": seed_tile = tile
 	ok(seed_tile != null, "商店目录里有番茄种子")
 	if seed_tile == null:
 		_finish()
 		return
 	await click(seed_tile)
 	await create_timer(0.25).timeout
-	ok(view.actions.visible, "点种子弹出购买气泡")
-
-	var plus: Button = null
-	var counter: Label = null
-	for node in view.action_body.get_children():
-		if node is HBoxContainer:
-			for child in node.get_children():
-				if child is Button and child.text == "+": plus = child
-				elif child is Label: counter = child
+	ok(shop_panel._view.actions.visible, "点种子弹出购买气泡")
+	await shot("buy-grid")
+	var plus: Button = shop_panel._plus
+	var counter: Label = shop_panel._quantity
 	ok(plus != null and counter != null, "气泡里有 + 和数量")
 	if plus == null or counter == null:
 		_finish()
 		return
-
 	await shot("buy-1")
 	for i in 2:
 		await click(plus)
 		await create_timer(0.1).timeout
 	ok(counter.text == "3", "点两次 + 后是 3（实测 %s）" % counter.text)
 	await shot("buy-3")
-
-	# --- 拖拽整理 ---
-	view.back()
+	shop_panel.close()
 	await create_timer(0.2).timeout
+
+	# --- 拖拽整理：背包自己的口袋 ---
+	main.hud.open_tab("bag")
+	await create_timer(0.3).timeout
+	var view = main.hud.pockets
+	ok(view.visible, "背包口袋打开了")
 	var from := slot(0, "fish")
 	var to := slot(0, "tomato")
 	ok(from != null and to != null, "背包里有可拖的两格")
@@ -160,7 +160,7 @@ func run() -> void:
 
 	# 落下后顺序真的换了（鱼的格子在番茄之后）。
 	var live: Array = []
-	for tile in view.slots[0]:
+	for tile in view.slots:
 		if not tile.empty_slot: live.append(str(tile.get_meta("item_id")))
 	ok(live.find("tomato") < live.find("fish"), "拖拽后顺序真的换了（%s）" % str(live))
 

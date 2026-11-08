@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/scenery/sunken_city_tall/slender_tower/slender_tower.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/metal.tres" id="metal"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/gloss.tres" id="gloss"]
+
+[node name="竖窗高楼_局部崩角" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-SCITY-SLENDER-TOWER"
+metadata/key = "slender_tower"
+metadata/asset_version = "v008"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+metadata/sealed_interior = true
+metadata/source_height_m = 59.6592
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Mesh_slender_tower" parent="Visual/Root_slender_tower" index="0"]
+surface_material_override/0 = ExtResource("matte")
+surface_material_override/1 = ExtResource("metal")
+surface_material_override/2 = ExtResource("gloss")
+cast_shadow = 1

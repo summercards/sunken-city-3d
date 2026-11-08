@@ -154,3 +154,18 @@ R18按用户后续澄清，取代开发中以程序波纹与手动灯位合成�
 | 条款 ID | 规则 |
 |---|---|
 | SEA-OCEAN-R25 | 环境基准提供柔和泛光：强度 0.65、光晕 0.08、阈值 1.4；P 光照环境组保留原有泛光参数并开放扩散强度，按季节、天气和时段保存偏移。已有用户配置不覆盖。真实渲染观感待用户确认。 |
+
+## 2026-11-08 共享水下表面光学、深度暗光与阳光（验收 PENDING）
+
+核对既有最大 R25 后从 R26 续写。家园与旧九图共用光学/include；此前“不改共享shader/旧九图”仅属旧批边界，本轮明确允许共享水下渲染路径深化，不改海面两套水材质或用户布局，功能保持 `partial`。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-OCEAN-R26 | uw_water_color.gdshaderinc 唯一共享水下表面光学，家园 sunroom_underwater_surface 与旧 uw_ceiling 共同消费 uw_surface_optics；水下仰视要读出 Snell 折射窗、窗外掠视内反射、随波法线变化的太阳盘/碎光，不能以整屏白膜或静态贴片替代。折射采用水到空气IOR方向，近法线与临界/掠视角及 time0/2 真实图分别验，不以存在uniform/函数判通过。 |
+| SEA-OCEAN-R27 | 每个活动地图仅一个屏幕 WaterFogPass，Environment fog关闭；背景、实体、水面在同一显示色/HDR/ACES链合成。命中水面的仰视射线仅弱吸收、其它几何继续指数距离雾，不能无差别削弱雾或叠第二层方向/水平/边缘雾。深度暗光需实际作用于背景/实体/环境能量，头灯/设施灯仍可读；不得只改曝光冒充深度吸收。远雾接缝与水窗可见性须像素/目检分别签署。 |
+| SEA-OCEAN-R28 | water_level 为地图提供的绝对世界水位，view_depth/dive_depth 为 max(0,water_level−实际观察主体Y) 的米制水深；家园当前101.587442，旧图保持各自水位，不把1.12或旧51.12写死为共享公式。活动Map向水面/天空/fog/实体缓存及粒子注入；晚创建材质必须继承当前水位、深度和日照。家园当前view_depth优先于dive_depth再兼容region_view_depth；shader水柱以实际相机Y计算，不能把世界Y本身当深度。密度曲线85m封顶不等于将120m真实深度截为85m，吸收与参数仍用实际深度。 |
+| SEA-OCEAN-R29 | 日照唯一来源仍是 Main 的 World/Lights/Sun 与既有 DaylightRig；DiveSession 在Main挂起前只读方向、颜色、强度快照，经 configure_underwater_light 注入当前Map，再投影到共享材质/天空/表面/光束。潜水不造时钟、不推进日期、不反写海面Sun/光照配置。夜间强度0时日光盘/碎光/日照beam消退，保持冷暗水体、既有头灯与设施灯；白天/零日照及深浅水真实对照待验。 |
+
+源码可见共享光学、单fogpass、参数与日照注入，非运行签署。水下体验真实视觉195/8、195/4保持FAIL历史，修复后最终报告/截图审阅PENDING；已存在 underwater-experience / visual-underwater-experience，见[本轮最终待填](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)。
+
+主线程当前签署见记录第7节：真实195/0、行为65/0通过，仰视水面/波纹time0/2/太阳1与0/六深度图像已实测。5/30/70/115m灰样板亮度约0.09120/0.08082/0.04239/0.01040，天空cubemap亦实际衰减而非只调ambient_light_energy；头灯/设施灯不乘全屏曝光。历史远景far-fog-edge阈值、全昼夜天气/低端持续性能未在本轮重新签署，原FAIL仍保留。

@@ -144,3 +144,34 @@ R23无碰撞是上一轮历史，本轮物体阻挡由SEA-DIVE-R14承接；气�
 | SEA-AMBIENT-R24 | 与旧海域同一清新水下语言，参考主#edffe3/环境#b9e9e2/辅#a1f7ef，局部PBR palette override保留色板/顶点色、roughness/metallic，朝上焦散gain=0.075，不改共享GLB/源。runtime禁用Environment fog，按旧地图同序使用一个opaque WaterFogPass（render_priority=-128）做屏幕统一混合；局部sunroom_underwater_color include共享6..110米/curve1.3距离吸收，天空/水顶/地形使用同一相机方向上下渐变，worldXZ448..500额外fade遮有限海床边缘，仅视觉衰减不缩小可动范围。透明粒子自雾且alpha衰减；beam加色、16steps采深度挡不透明墙、density基值0.085（按束增加0/0.008/0.016）、soft cap0.23，继承同距离fade，不叠双雾。环境能量随深度0.48→0.29，Sun0.60→0.30，Cool0.13；压下旧泛白地板，水顶texture gain0.18并保正常水色。保留138鱼/32珊瑚/24实灯（Omni16/Spot8、局部阴影0），10条水面下1米起/21..29米软体积代理光、192泡/200尘、2MultiMesh与sample/snapshot。旧Environment fog＋aerial1曾产生角落三角块，现改单通道，当前已审边角纯渐变无边；不以标志位替代实拍。原9图/旧源/高度源及toplevel、位置、范围、深度不变，仍F6、未接生产路由/存档；本任务不改Main。Main 可能被并行修改，不要求 Main 字节不变。 |
 
 **最终独立验收**：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`。结构78/0、碰撞264/0、真实渲染118/0，新区域460/0；dive-maps302/0、modules31/0回归333/0，总793/0，五入口全PASS/exit0，无unexpected。local Environment/Sky/material均resource_local_to_scene，保护多实例。RTX4060Ti/Vulkan Forward+真实18机位，home-base/ray-street/coral/fish/far-edge/corner-close已目检，最终远角pure gradient无边；默认射光、气泡、珊瑚、鱼与低照灯分列审阅，近处实体边缘不是远雾cut。像素far-fog-edge max0.0078431517、corner0.0039215982、west0.0039215982均<0.025；射光shader开关差分lit_samples5365>150，证明确实可见，不止node计数。225915为历史中间批，不再是latest final。低端/连续performance、rights/user acceptance/完整02b/production仍pending；定向登记和静态门禁由父线程回填真实结果，不以专项PASS代签。[最终开发记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。
+
+## 2026-11-08 家园海底技术深化
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R25 | 家园海底只使用本地效果链，不回写共享水材质/世界环境：角色深度驱动局部雾色与吸收；`Camera/WaterFogPass` 仍为唯一屏幕水雾通道，Environment fog 关闭，避免普通雾与体积/屏幕雾双重抹黑；palette 本地 wrapper 增加深度吸收、饱和度与轻焦散；beam 保留 16-step 深度挡墙采样并增加上下软边与远景 fade；192 bubbles/200 motes/10 beams 既有确定性数量不变。方案参考 Godot 官方 Volumetric Fog/FogVolume、GPUParticles3D、Sky shader 与水体 depth/Fresnel/caustics 资料；本轮不无条件开启高成本体积雾，保持项目现有 Forward+低风险本地路径。第三人称角色、独立布局和35m可游边界归 SEA-DIVE-R20–R23。 |
+
+当前真实回归：`D:/projects/sea-work/verification/20261108-123311-home-seabed-thirdperson-final-d703fe/report.json` 的 visual-dive-maps338/0、sunroom-underwater79/0、sunroom-collision264/0，均 exit0/PASS；完整批次合计1241/0。实拍已确认角色、潜水装备、楼房、街道与方向射光可见。低端GPU、连续性能和完整用户美术终审仍未签；不把网络资料或结构计数当成性能/观感替代验收。
+## 2026-11-08 家园海底水雾与环境对齐旧九图（SEA-AMBIENT-R26）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-AMBIENT-R26 | 家园海底的水雾／天空／环境光改为与 zone1 同一套公式，替换此前的区域自算模型——旧模型在中近景几乎无雾（30 米 0.08），远景却不分层，导致楼群扁平、海床一路亮到天边。现行：`region_fog_amount(d)=1−exp(−(d×density)^1.8)`，`density=mix(0.026,0.012,smoothstep(65,210,区域深度))`，与 `uw_common` 的 `uw_fog_amount` 逐字一致；`region_water_display(SCREEN_UV)=uw_gradient_display(SCREEN_UV, 区域深度)`，使背景、水面、终端雾在同一像素取同一显示色。删除三处会变成第二层雾的叠加：方向渐变、`smoothstep(14,92)` 水平分层、`smoothstep(448,500)` 的 XZ 边缘吸收。天空着色器补 `AT_CUBEMAP_PASS` 分支返回上下双色（天顶 `(0.733,1.0,0.937)`、底部 `(0.188,0.325,0.545)`），可见背景仍走屏幕渐变；Environment 的 `ambient_light_source` 改回 SKY、能量 `1.9/π` 并按 `1.0−deep×0.6`（deep 在 12..76 米归一）随深度衰减。关闭 glow（原 intensity 0.4）与 SSAO（原 0.7），`SunRays`／`CoolFill` 能量归零保留节点（避免改动节点路径），相机 FOV 68→55。palette 本地 wrapper 去掉逐材质深度染色与饱和度增益，只保留与 `uw_emission` 同式的焦散项，避免在指数雾之上再压一层青色。 |
+| SEA-AMBIENT-R27 | 粒子与光柱随水深 69 米同步适配，数量与确定性种子不变：10 条光柱顶部抬到新水面（Y=50.12，长度 60~70 米），`density` 按 `22/长度` 反比缩放，否则积分路径变长会把光柱糊成实心柱；192 气泡改为升至 50.47 米的新水面，`custom_aabb` 纵向由 27 米扩到 76 米覆盖全程；200 悬尘改用 `MOTE_BAND=17` 限高带，只挂在旧城上方，不再沿 67 米水柱摊薄成静止噪点。光柱仍为 16 步深度挡墙积分 + 上下软边 + 远景 fade，未开启全局体积雾。 |
+
+验证：`tests/test_sunroom_underwater_region.gd` 80 项 0 失败（含「气泡不越过水面」「光柱 on/off 有实照亮像素」在原断言内），真实渲染器加载无着色器编译错误。雾浓度曲线对数：10 米 0.085、20 米 0.264、30 米 0.480、40 米 0.658、60 米 0.892、110 米 1.0，与 zone1 同式同参数。未签：低端 GPU、连续运行性能、全路线观感与用户美术终审。
+
+## 2026-11-08 环境泡、呼气泡与鱼群复用（验收 PENDING）
+
+本节从已核对的 R27 后续写，不改旧条款。光学与深度暗光归 SEA-OCEAN，装配/过场归 SEA-DIVE；本功能只拥有纯表现，整体 `partial`。
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R28 | 复用现有 MultiMesh 环境泡，不另建重型粒子系统。家园保持 seed73191、192泡/200尘/10beam；configure_water(level) 同步泡顶、材质、光柱入口/位置及 AABB，升降水位后可恢复、不重复建节点，不能继续用旧 50.47/51.12 顶界。旧九图环境泡保持96，修复 mesh/use_colors 在 instance_count 之前分配、实例变换与颜色实际写入；节点数不等于真实可见，须 time0/2 轨迹及像素差分。 |
+| SEA-AMBIENT-R29 | 新轻量 DiverBreathBubbles 复用既有粒子 shader，固定48池；从独立潜水角色可见 mask（否则 head）世界挂点发出，每簇4..7个、基础间隔2..3秒，运动可提高频率。2..3秒是发簇间隔，不是单泡寿命（当前源码3.0..4.7秒）。已发泡保存世界轨迹，不能粘着移动角色；上浮、微漂、长大、淡出并在水面/到期回收，动态 AABB 覆盖头部和余迹；未使用槽以alpha=0隐藏，避免零scale奇异矩阵。 |
+| SEA-AMBIENT-R30 | Shared DiveRuntimeController 仅注入角色、实际水位、实际速度比、深度与表现dt，呼气组件不持有/修改 DiveAir、不驱动阶段、输入、物理位移、奖励或存档。暂停/transition_frozen 不推进呼气；随runtime卸载回收，不自开第二tick。呼气与环境泡分别采样/关开对照，纯表现不得改变同一步长 Air 结果。 |
+| SEA-AMBIENT-R31 | 鱼继续复用 fish_school.tscn / decorative_fish_school.gd。家园原8群138条的数量、稳定ID和手摆变换保持，只追加 ShallowShoal18、MidwaterShoal22，合计10群178条；新增浅/中层提供入水附近读法，新增位置仅带入参考位，用户后续手摆优先，不回写原群/Main/ExistingModels/Base2。旧九图按既有内容子集将每群18增至24，不谎称每图固定7群。观赏鱼不成为捕捞点，不新增碰撞/交互/库存/存档。 |
+
+源码已见上述组件与装配，真实视觉曾195/8、195/4失败；后续修复正在跑，最终仍 PENDING，不继承旧美术PASS。已存在 runner underwater-experience / visual-underwater-experience；主线程在[开发记录第5节](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)回填实际池/轨迹/鱼/像素与审阅结果。
+
+主线程最终回填已在记录第7节：真实195/0、行为65/0通过，家园浅水呼气/旧图环境泡/实际鱼像素差已实测；首轮195/8、195/4/195/1仍为历史失败。soft-contact环境0.45m、呼气0.08m分离，呼气在真实mask前下方出生，浅水贴面不会完全淡没；原鱼8群/138保持，新增至178纯观赏。性能/用户美术终审及全工程门禁未签，不扩展为所有模块通过。

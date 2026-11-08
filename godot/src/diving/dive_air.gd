@@ -17,6 +17,9 @@ class_name DiveAir
 const MAX := 100.0
 ## 高于这个深度算「在水面」，可以换气（单位：米，正数 = 水面以下多深）。
 const SURFACE_DEPTH := 5.0
+## 单张地图可覆盖的换气带。家园海底是 120 米深沟、入水点就在水下 1 米，
+## 沿用 5 米换气带会让贴着水面的玩家永远满氧，深潜成本形同虚设。
+var surface_depth := SURFACE_DEPTH
 ## 静止悬浮、浅水时的每秒消耗。
 const BASE_RATE := 0.85
 ## 每下潜 1 米额外增加的消耗比例。75m 处约 1.7 倍。
@@ -79,7 +82,7 @@ func seconds_left(depth: float, moving: bool, sprint: bool) -> float:
 func update(delta: float, depth: float, moving: bool, sprint: bool) -> String:
 	if recover > 0.0:
 		recover = maxf(0.0, recover - delta)
-	if depth <= SURFACE_DEPTH:
+	if depth <= surface_depth:
 		# 水面换气：快速回满，并清掉告警状态。
 		air = minf(MAX, air + REFILL_RATE * delta)
 		if air >= MAX - 0.01:

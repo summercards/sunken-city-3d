@@ -49,7 +49,7 @@ func run() -> void:
 	if await vendor("npc_hua_yi", "shop_flower"):
 		var panel = main.shop_panel
 		var quote: Dictionary = main.shop_service.quote("shop_flower", panel._selected_id, 1)
-		if check(quote.ok and not panel._buy.disabled, "花店购买面板实际可购买"):
+		if check(panel.open_actions() and quote.ok and not panel._buy.disabled, "花店图标格选中后打开购买气泡且实际可购买"):
 			var coins: int = economy.inventory.count("coins")
 			var owned: int = economy.inventory.count(quote.item)
 			panel._buy.pressed.emit()
@@ -60,7 +60,8 @@ func run() -> void:
 			await shot("flower-purchase")
 	await close_modals()
 	if await vendor("npc_bao_he", "shop_general"):
-		check(main.shop_panel._product_buttons.size() >= 6 and main.shop_panel._details.is_visible_in_tree(), "综合面板有真实商品与报价")
+		check(main.shop_panel._product_buttons.size() == 6 and main.shop_panel._product_buttons[0].price >= 0, "综合面板六件商品都在格内标价")
+		check(main.shop_panel.open_actions() and main.shop_panel._details.is_visible_in_tree(), "综合面板气泡给出真实报价")
 		await shot("general-shop")
 	await close_modals()
 	var durable: Dictionary = main.npc_service.to_dict()

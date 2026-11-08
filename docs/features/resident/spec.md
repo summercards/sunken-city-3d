@@ -2,7 +2,7 @@
 
 [主文档中控](../../../GDD_V1.0.md#sea-resident) · [本功能账本](ledger.md) · [商店功能](../shop/spec.md) · [住所功能](../residence/spec.md) · [施工文档](../../development/2026-11-07_npc_module_framework.md)
 
-设计修订：r5（2026-11-07 22:39，生活化称呼、人物内容与六天台/一海店）。所属系统：生活。本轮状态 **implemented（2026-11-08当前运行签署，非verified）**；当前规则以文末“22:39 当前覆盖”及 R15–R18 为准，最新实测见末尾11-08签署，旧七人全天台签署仅对原快照有效。人物内容见[七名居民人物设定](characters.md)，交接见[本轮开发记录](../../development/2026-11-07_npc_names_and_shop.md)。
+设计修订：r6（2026-11-08，NPC先对话、右侧选项后进入功能）。所属系统：生活。本轮状态 **implemented（已实现，非完整产品verified）**；人物与场地仍按R15–R18，交互与展示由文末“点击居民先对话”及R19–R21覆盖旧入场方案。人物内容见[七名居民人物设定](characters.md)，当前实现和验收见[本轮开发记录](../../development/2026-11-08_npc_conversation.md)。旧七人全天台签署仅对原快照有效。
 
 ### 2026-11-07 19:40 覆盖声明（历史：七人全天台）
 
@@ -341,3 +341,57 @@ npc {
 旧FAIL历史保留：JSON数值float与literal int dict严格比较误报（改为逐字段数值相等并保留精确字段数）、旧名字断言、Panel常量遮蔽native、话题局部ID误判全局唯一、UI键盘同帧/未释放；仅修测试与runner，未改变事件数值。runner补齐五个入口，独立套件移除autoload，集成使用`--nosave`，并修复terrain重复copy/mount缺陷。全局门禁当前sync32/check35问题可能随并行变化，不锁定最终数字；hash/source drift未批量重签。architecture25服务0、placed3结构0警告、gitdiffcheck通过，但不宣称全工程门禁通过。
 
 本轮验收页为`D:/projects/sea-work/outputs/npc_names_shop_acceptance.html`及同名JSON；开发记录`../development/2026-11-07_npc_names_and_shop.md`由主线程追加第8节。`npc.version=1`未变，固定旧v1数据、严格坏档及跨进程验证；历史工程assets为symlink（同文件），不能作为冻结内容快照比对证据。
+
+
+## 2026-11-08 点击居民先对话（覆盖旧独立大面板入场）
+
+本节按用户最新要求覆盖第5.3节和R11的旧展示方案。NPC状态仍由NpcService/DialogueRunner拥有，展示复用HUD已有CharacterDialogue底部壳；不复制商店交易或存档状态。七人的人物资料、话题、礼物、故事、请求与关系仍可从“聊聊”主动进入，点击居民本身不打开这些资料。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-RESIDENT-R19 | 点击NPC或近距E走同一approach/Interactor链，无前置物体气泡、无交谈读条；到位后NPC停步以角速度14rad/s转向玩家，玩家同步面向NPC。对话期间停日程与世界操作，关闭恢复。建筑与Marker的用户手摆transform不变。 |
+| SEA-RESIDENT-R20 | 入场优先未听完的intro，再按既有conditions选择未完成剧情，再25%日常（hash(npc_id+":"+day)模4为0），否则功能问候；同NPC同日结果稳定，不新增随机存档字段。初见听完才由既有talk登记last_talk_day和每日+16；中途取消下次重听；已相识但未交谈的旧档仍能听初见，已听完旧档不重播。个人/关系剧情保留原条件、分支与单次提交。 |
+| SEA-RESIDENT-R21 | 台词逐句在屏幕底部显示，首确认补全、次确认推进，分支也在右侧；intro/剧情/偶发日常结束才出现功能问候和右侧“商店或职业功能 / 聊聊 / 退出”。点功能才发vendor/action事件。聊聊保留原资料与业务入口；关闭、暂停、睡眠、室内、读档及销毁清会话与选项；键盘去重、过期会话和按钮戳有效。 |
+
+概率为按游戏日确定性取样的25%分流，不宣称每四次交互必触发一次。NPC.version仍1，见面/介绍沿既有met与last_talk_day，无第二份seen_intro。普通开场多段台词与单行体力提示保持既有生命周期。新专项npc-conversation及visual-npc-conversation覆盖正式Main与三个窗口尺寸；最终当前实测见账本末节。
+
+## 2026-11-08 NPC 体系一套与功能出口三档
+
+NPC 不是一个 NPC 一个模块：七名居民共用同一套会话、呈现、世界投影与存档实现，差异只在「功能出口」。本节把这件事写成可校验的约束，避免后续加人时在共用层里长出一堆 `if npc_id == ...`。
+
+### 体系分层
+
+| 层 | 文件 | 说明 |
+|---|---|---|
+| 数据 | `npcs.json` + `npc_catalog.gd` | 七行同构：`profile`、`schedule`、`appearance`、`morphs`、`tastes`、`accessory_id`，可选 `shop_id` |
+| 状态 | `npc_service.gd` | 好感、剧情、关系网、礼物、请求、话题；不按 npc_id 分支业务 |
+| 流程 | `npc_session.gd`、`npc_dialogue_runner.gd` | 会话状态机与多段对白 |
+| 呈现 | `npc_panel.gd`、`npc_actor.gd`、`npc_accessories.gd` | 底部对话、右侧选项、模型与七件专用配件 |
+| 世界 | `npc_world_presenter.gd`、`npc_anchor_hub.gd`、`npc_site_anchors.gd`、`npc_schedule_resolver.gd` | 站位、日程、走近、转身、支撑 |
+| 存档 | `npc_save_codec.gd` | `npc.version=1` 单一格式，七人共用 |
+
+### 功能出口三档
+
+| 档 | 判定 | 出口 | 当前成员 |
+|---|---|---|---|
+| 经营型 | `npcs.json` 有 `shop_id` | `vendor` → 独立 `ShopPanel`（SEA-SHOP-R11） | 小花 `shop_flower`、阿店 `shop_general` |
+| 职能型 | 无 `shop_id`，命中职能映射 | `function` → `NpcCareerPanel`，只向外发功能意图 | 船老大 `ship`、豆豆 `cultivation`、阿海 `salvage`、木头叔 `building`、灯伯 `archive` |
+| 无功能 | 两者皆无 | 只剩聊聊与退出 | 当前无（保留档位供后续加人） |
+
+职能型不复制外部业务规则：船升级仍归 SEA-SHIP、种植归 SEA-FARM/CROP、打捞归 SEA-SALVAGE、建造归 SEA-BUILDING、档案只读 SEA-RESIDENT 自己的事件。加人只应新增一行数据与一个对外意图，不应改动共用层。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-RESIDENT-R22 | 七名居民共用同一套会话/呈现/世界/存档实现；共用层（`npc_service`、`npc_session`、`npc_panel`、`npc_world_presenter`、`npc_save_codec`）不得按 `npc_id` 分支业务规则，差异只能落在功能出口三档。每个 NPC 的身份、日程、外观、配件与出口均由 `npcs.json` 数据驱动；`npc.version=1` 不为新增居民而改格式。 |
+| SEA-RESIDENT-R23 | 功能出口必须来自 `npcs.json` 单一真源，代码里不得维护第二份 npc→action 映射。**当前 pending**：`function` 出口仍硬编码在五处——`npc_session.gd:6-12`（FUNCTIONS 表）、`npc_session.gd:98-100`（五人问候语）、`main.gd:3819`（正向校验 expected）、`main.gd:3826`（反向 ids 查表）、`main.gd:3875`（硬编码 `npc_bai_shi` 开档案）；`shop` 出口已是单点（`npcs.json` 的 `shop_id`）。收口前新增职能 NPC 需同步改五处，漏改 `expected` 会导致功能按钮静默无响应。 |
+
+## 2026-11-08 豆豆迁到霓虹花园菜园桥与头顶招呼
+
+豆豆从「天台草地暂驻」迁到用户手摆的霓虹花园菜园桥种菜。她的交互方式随之改变：玩家在楼下船上经过时，她抬头喊一句（头顶气泡，与底部对话框同一风格），而不是走「走近交谈」。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-RESIDENT-R24 | 豆豆的日程锚点指向霓虹花园菜园桥的五个站位（`residence_garden_bridge` + `_work`/`_social`/`_rest`/`_door`），由 `neon_garden_quarter.tscn` 的 `NpcStations` 提供、`NpcAnchorHub` 聚合第三处 provider。`home_anchor`/`residence_id` 保持 `residence_sunroom_greenhouse`（`npc_catalog` 硬校验两者相等，住所仍 deferred，不在本轮改）。跨区块换场没有连通陆地，`NpcWorldPresenter` 只在「当前站立点不在目标可走面内」时直接落位到目标支撑点；同一区块内仍坚持真实寻路，不得把「无路可达」悄悄变成瞬移。 |
+| SEA-RESIDENT-R25 | 玩家与豆豆的水平 XZ 距离 ≤ 32 米、且无 NPC 模态时，触发头顶招呼气泡：用与底部对话框同一张奶白纸面（`Cozy.surface(#fbf6e8, 28)`）加一个指向角色头顶的小三角，三角横向跟随角色屏幕投影。**尺寸按「船上抬头也读得清」定**：字号 30、内边距 28×20、圆角 30、文本宽上限 468 且不超过视口宽 42%（1280×800 下自动收窄），停留 7.5 秒后淡出。角色出画（含在相机背后、或屏幕坐标越界 48 像素）时只隐藏气泡、不结束这次招呼，回到画面即恢复，不得在屏幕边缘挂一张指向画外的纸条。台词按游戏日轮换（`posmod(day-1, n)`），同一天只喊一次、每天不同。台词表在 `godot/assets/data/npc/greetings.json`。**「今天已喊过」不写进存档**：NPC 快照有严格字段校验，加字段会让旧档拒绝加载，存档优先；读档后当天可再喊一次。 |
+
+代价必须写明：菜园桥离街面约 28 米且**没有上楼路径**（用户明确只让豆豆在楼上），所以玩家走不到她身边、无法走近交谈；能看到、能收到招呼。想让玩家上去聊需要单独一轮做楼梯。

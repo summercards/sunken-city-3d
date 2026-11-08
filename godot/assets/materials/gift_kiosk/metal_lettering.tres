@@ -1,11 +1,11 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dnv5lp1sdovtu"]
 
-[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cozy_8x8_512.png" id="palette"]
+[ext_resource type="Texture2D" uid="uid://bjb6787rwo7uo" path="res://assets/textures/shared/sea_cozy_8x8_512.png" id="palette"]
 
 [resource]
 resource_name = "SEA_Metal"
 albedo_texture = ExtResource("palette")
-texture_filter = 0
-roughness = 0.28
 metallic = 0.12
+roughness = 0.28
+texture_filter = 0
 disable_receive_shadows = true

@@ -13,6 +13,8 @@ const TERRAIN_FULL_GAME := 3
 
 var stats: Dictionary = {}
 var viewer: CharacterBody3D
+var trace_enabled := false
+var motion_trace: Array = []
 var _region: Node3D
 var _camera: Camera3D
 var _mesh_faces: Dictionary = {}
@@ -28,7 +30,11 @@ func setup(region: Node3D) -> void:
 		"empty_meshes": 0, "roles": {}, "assemblies": {}, "terrain_mode": TERRAIN_FULL_GAME}
 	for assembly in region.get_node("ExistingModels/SunkenCity").get_children():
 		_add_assembly(assembly, _city_role(assembly))
-	_add_assembly(region.get_node("ExistingModels/SolarCabinBase"), "solar_base")
+	var base := region.get_node_or_null("ExistingModels/SolarCabinBase")
+	if base == null:
+		base = region.get_node_or_null("ExistingModels/SolarCabinBase2")
+	if base != null:
+		_add_assembly(base, "solar_base")
 	for assembly in region.get_node("Ecology/FacilityLights").get_children():
 		_add_assembly(assembly, "facility_light")
 	for assembly in region.get_node("Ecology/CoralClusters").get_children():
@@ -226,10 +232,20 @@ func try_set_viewer_position(world_position: Vector3) -> bool:
 func set_viewer_position(world_position: Vector3) -> void:
 	viewer.global_position = world_position
 	viewer.velocity = Vector3.ZERO
-	_camera.global_position = world_position
+	_sync_preview_camera()
+
+
+func _sync_preview_camera() -> void:
+	# 潜水时相机由 DiveRuntimeController 独占；F6 预览仍跟随 ViewerBody。
+	if _region != null and _region.has_method("uses_underwater_environment") and _region.call("uses_underwater_environment"):
+		return
+	if _camera != null and is_instance_valid(viewer):
+		_camera.global_position = viewer.global_position
 
 
 func move_viewer(displacement: Vector3) -> Vector3:
+	if trace_enabled:
+		motion_trace.clear()
 	var start := viewer.global_position
 	var local_target := _region.to_local(start + displacement)
 	var bounds: Rect2 = _region.get("terrain_bounds")
@@ -248,14 +264,53 @@ func move_viewer(displacement: Vector3) -> Vector3:
 			if remaining.length_squared() < 0.00000001 or motion_tests >= MAX_MOTION_TESTS:
 				break
 			motion_tests += 1
-			var hit := viewer.move_and_collide(remaining, false, SWEEP_MARGIN)
+			var trace: Dictionary = {}
+			if trace_enabled:
+				trace = {"step": step, "slide": slide, "position": viewer.global_position, "request": remaining}
+			# 凹珊瑚邻面处 native move_and_collide 的 recovery 可能超过独立扫掠首碰。
+			# 先以同一胶囊限制本段安全长度，再执行物理移动；不靠终点净空替代连续检测。
+			var query := PhysicsShapeQueryParameters3D.new()
+			query.shape = (viewer.get_node("ViewerCapsule") as CollisionShape3D).shape
+			query.transform = viewer.global_transform
+			query.motion = remaining
+			query.margin = SWEEP_MARGIN
+			query.collision_mask = STATIC_LAYER
+			query.exclude = [viewer.get_rid()]
+			var fractions := get_world_3d().direct_space_state.cast_motion(query)
+			var safe_fraction := float(fractions[0]) if fractions.size() == 2 else 1.0
+			var clipped := safe_fraction < 0.99999
+			var contact = viewer.move_and_collide(remaining, true, SWEEP_MARGIN) if clipped else null
+			var safe_motion := remaining
+			if clipped:
+				safe_motion = remaining * maxf(0.0, safe_fraction - 0.002 / maxf(remaining.length(), 0.001))
+			var segment_pose := viewer.global_transform
+			var hit := viewer.move_and_collide(safe_motion, false, SWEEP_MARGIN)
+			query.transform = viewer.global_transform
+			query.motion = Vector3.ZERO
+			query.margin = 0.0
+			if not get_world_3d().direct_space_state.intersect_shape(query, 1).is_empty():
+				viewer.global_transform = segment_pose
+				safe_motion = Vector3.ZERO
+			if hit == null and contact != null: hit = contact
+			if trace_enabled:
+				trace["travel"] = viewer.global_position - segment_pose.origin
+				trace["after"] = viewer.global_position
+				trace["contact"] = {}
+				trace["remainder"] = hit.get_remainder() if hit != null else Vector3.ZERO
+				trace["slide_remainder"] = hit.get_remainder().slide(hit.get_normal()) if hit != null else Vector3.ZERO
+				if hit != null:
+					var source := hit.get_collider()
+					trace["contact"] = {"point": hit.get_position(), "normal": hit.get_normal(),
+						"collider": str((source as Node).get_path()) if source is Node else str(source),
+						"source_path": str(source.get_meta("proxy_source_path", "")) if source is Node else ""}
+				motion_trace.append(trace)
 			if hit == null:
 				break
 			remaining = hit.get_remainder().slide(hit.get_normal())
 		# 只在整段无进展时停止；法向被挡但切向能滑动的斜切仍推进下一段。
 		if viewer.global_position.distance_squared_to(segment_start) < 0.00000001 or motion_tests >= MAX_MOTION_TESTS:
 			break
-	_camera.global_position = viewer.global_position
+	_sync_preview_camera()
 	return viewer.global_position - start
 
 

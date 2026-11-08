@@ -117,6 +117,32 @@ func play_receive_item(crop_id: String) -> int:
 
 var _walking := false
 var _climbing := false
+var _diving := false
+var _hat_visible_before_diving := true
+
+## 主线程每帧提交的潜水运动量；实际表现值在 swimming action 中平滑跟随。
+var swim_speed_ratio := 0.0
+var swim_vertical_ratio := 0.0
+var swim_turn_ratio := 0.0
+var swim_sprint_blend := 0.0
+var _swim_phase := 0.0
+var _swim_speed_target := 0.0
+var _swim_vertical_target := 0.0
+var _swim_turn_target := 0.0
+var _swim_sprint_target := 0.0
+const SWIM_MOTION_TAU := 0.18
+const SWIM_SPRINT_TAU := 0.14
+
+func set_swim_motion(speed_ratio: float, vertical_ratio: float, turn_ratio: float, sprint: bool) -> void:
+	_swim_speed_target = clampf(speed_ratio if is_finite(speed_ratio) else 0.0, 0.0, 1.65)
+	_swim_vertical_target = clampf(vertical_ratio if is_finite(vertical_ratio) else 0.0, -1.0, 1.0)
+	_swim_turn_target = clampf(turn_ratio if is_finite(turn_ratio) else 0.0, -1.0, 1.0)
+	_swim_sprint_target = 1.0 if sprint else 0.0
+
+func swim_snapshot() -> Dictionary:
+	return {"action":_action,"speed_ratio":swim_speed_ratio,"vertical_ratio":swim_vertical_ratio,
+		"turn_ratio":swim_turn_ratio,"sprint":_swim_sprint_target > 0.5,
+		"phase":_swim_phase,"blend":swim_sprint_blend,"sprint_blend":swim_sprint_blend}
 
 func set_climbing(on: bool) -> void:
 	_climbing = on
@@ -255,6 +281,9 @@ func set_boat_seated(on: bool) -> void:
 	if leaving_seat: _reset_action_pose()
 
 func set_diving(on: bool) -> void:
+	if on and not _diving:
+		_hat_visible_before_diving = hat != null and hat.visible
+	_diving = on
 	_base_action = "swimming" if on else "idle"
 	set_sprinting(false)
 	cancel_action("diving" if on else "restore")
@@ -262,6 +291,18 @@ func set_diving(on: bool) -> void:
 		gear.visible = on
 	if mask:
 		mask.visible = on
+	if hat:
+		hat.visible = _hat_visible_before_diving if not on else false
+	if not on:
+		swim_speed_ratio = 0.0
+		swim_vertical_ratio = 0.0
+		swim_turn_ratio = 0.0
+		swim_sprint_blend = 0.0
+		_swim_phase = 0.0
+		_swim_speed_target = 0.0
+		_swim_vertical_target = 0.0
+		_swim_turn_target = 0.0
+		_swim_sprint_target = 0.0
 
 
 var rowing_query: Callable
@@ -391,6 +432,16 @@ func _process(delta: float) -> void:
 		_walk_phase = 0.0
 		_sprinting = false
 		_run_blend = 0.0
+	# 潜水输入由控制器每帧提交；只有真正处于 swimming 表现状态时才追赶目标并推进相位。
+	if _action == "swimming":
+		var swim_k := 1.0 - exp(-delta / SWIM_MOTION_TAU)
+		var sprint_k := 1.0 - exp(-delta / SWIM_SPRINT_TAU)
+		swim_speed_ratio = lerpf(swim_speed_ratio,_swim_speed_target,swim_k)
+		swim_vertical_ratio = lerpf(swim_vertical_ratio,_swim_vertical_target,swim_k)
+		swim_turn_ratio = lerpf(swim_turn_ratio,_swim_turn_target,swim_k)
+		swim_sprint_blend = lerpf(swim_sprint_blend,_swim_sprint_target,sprint_k)
+		if swim_speed_ratio > 0.001:
+			_swim_phase = fmod(_swim_phase + delta * lerpf(1.15,5.8,clampf(swim_speed_ratio / 1.65,0.0,1.0)) * lerpf(1.0,1.18,swim_sprint_blend),TAU)
 	_actions[_action].sample(self,delta)
 	var visible_progress:=action_progress()
 	if not playback.is_empty(): visible_progress=clampf((float(playback.elapsed)+delta)/float(playback.duration),0.0,1.0)

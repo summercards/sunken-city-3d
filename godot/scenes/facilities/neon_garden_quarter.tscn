@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
 [ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="Script" path="res://src/navigation/derived_walk_area.gd" id="derived_walk"]
+[ext_resource type="Script" path="res://src/npc/npc_site_anchors.gd" id="npc_stations"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/left_building.tscn" id="module_left_building"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/rear_building.tscn" id="module_rear_building"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/right_building.tscn" id="module_right_building"]
@@ -38,7 +40,7 @@ position = Vector3(-2.1499996185302734, 0.10000000149011612, -2.3496336936950684
 
 [node name="Blockers" type="Node3D" parent="."]
 script = ExtResource("blockers")
-target_path = NodePath("../Visual/Foundation/GroundMesh")
+target_path = NodePath("../Visual")
 cell = 0.5
 
 [node name="WalkAreas" type="Node3D" parent="."]
@@ -52,13 +54,112 @@ span_min = 1.30
 span_max = 1.56
 rects = [Rect2(1, 7.45, 6.5, 2.95)]
 
-[node name="Landing_main" type="Marker3D" parent="WalkAreas/WalkStreetLanding"]
-position = Vector3(4.5, 0.3, 9.25)
+; 街口铺地在世界 -14.45（水下 15.6 米），泊位不可用；可活动区已改到左楼屋顶
+[node name="WalkLeftRoof" type="Node3D" parent="WalkAreas"]
+script = ExtResource("derived_walk")
+area_id = "neon_garden_left_roof"
+zone_id = "neon_garden_quarter"
+source_path = NodePath("../../Visual/LeftBuilding")
+precision = 0.5
+select = "nearest"
+target_y = 31.10
+surface_y = 31.1
+span_min = 30.6
+span_max = 31.6
+
+[node name="Landing_main" type="Marker3D" parent="WalkAreas/WalkLeftRoof"]
+position = Vector3(-16.5, 31.1, 1)
 script = ExtResource("landing")
-landing_label = "霓虹花园街口"
+landing_label = "霓虹花园屋顶"
 
-[node name="BoatPark" type="Marker3D" parent="WalkAreas/WalkStreetLanding/Landing_main"]
-position = Vector3(0, -0.3, 5.5)
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/WalkLeftRoof/Landing_main"]
+position = Vector3(-7, -14.11, 0)
+rotation = Vector3(0, -1.5707964, 0)
 
-[node name="DockEdge" type="Marker3D" parent="WalkAreas/WalkStreetLanding/Landing_main"]
-position = Vector3(0, 0, 1.55)
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/WalkLeftRoof/Landing_main"]
+position = Vector3(-4, 0, 0)
+
+[node name="WalkRearRoof" type="Node3D" parent="WalkAreas"]
+script = ExtResource("derived_walk")
+area_id = "neon_garden_rear_roof"
+zone_id = "neon_garden_quarter"
+source_path = NodePath("../../Visual/RearBuilding")
+precision = 0.5
+select = "nearest"
+target_y = 26.00
+surface_y = 26.0
+span_min = 25.5
+span_max = 26.5
+
+[node name="WalkRightRoof" type="Node3D" parent="WalkAreas"]
+script = ExtResource("derived_walk")
+area_id = "neon_garden_right_roof"
+zone_id = "neon_garden_quarter"
+source_path = NodePath("../../Visual/RightBuilding")
+precision = 0.5
+select = "nearest"
+target_y = 36.20
+surface_y = 36.2
+span_min = 35.7
+span_max = 36.7
+
+[node name="WalkGardenDeck" type="Node3D" parent="WalkAreas"]
+script = ExtResource("derived_walk")
+area_id = "neon_garden_garden_deck"
+zone_id = "neon_garden_quarter"
+source_path = NodePath("../../Visual/GardenBridge")
+precision = 0.5
+select = "nearest"
+target_y = 27.4
+band_tolerance = 1.35
+surface_y = 27.4
+span_min = 26.05
+span_max = 28.75
+
+[node name="RoofNpcStations" type="Node3D" parent="."]
+script = ExtResource("npc_stations")
+zone_path = NodePath("..")
+walk_path = NodePath("WalkAreas/WalkLeftRoof")
+
+[node name="residence_dock_workshop" type="Node3D" parent="RoofNpcStations"]
+position = Vector3(-17, 31.1, 5)
+metadata/npc_id = "npc_luo_yan"
+metadata/home_label = "霓虹花园屋顶 · 船老大"
+
+[node name="Home" type="Marker3D" parent="RoofNpcStations/residence_dock_workshop"]
+
+[node name="Work" type="Marker3D" parent="RoofNpcStations/residence_dock_workshop"]
+position = Vector3(0.8, 0, -0.5)
+
+[node name="Social" type="Marker3D" parent="RoofNpcStations/residence_dock_workshop"]
+position = Vector3(1, 0, -1.5)
+
+[node name="Rest" type="Marker3D" parent="RoofNpcStations/residence_dock_workshop"]
+position = Vector3(-0.3, 0, 1)
+
+[node name="Door" type="Marker3D" parent="RoofNpcStations/residence_dock_workshop"]
+position = Vector3(0, 0, -0.3)
+
+[node name="NpcStations" type="Node3D" parent="."]
+script = ExtResource("npc_stations")
+zone_path = NodePath("..")
+walk_path = NodePath("WalkAreas/WalkGardenDeck")
+
+[node name="residence_garden_bridge" type="Node3D" parent="NpcStations"]
+position = Vector3(-5.5, 28.4, 1.7)
+metadata/npc_id = "npc_mu_he"
+metadata/home_label = "霓虹花园 · 菜园桥"
+
+[node name="Home" type="Marker3D" parent="NpcStations/residence_garden_bridge"]
+
+[node name="Work" type="Marker3D" parent="NpcStations/residence_garden_bridge"]
+position = Vector3(0, 0, 0.4)
+
+[node name="Social" type="Marker3D" parent="NpcStations/residence_garden_bridge"]
+position = Vector3(1.2, 0, 0)
+
+[node name="Rest" type="Marker3D" parent="NpcStations/residence_garden_bridge"]
+position = Vector3(2.4, 0, 0)
+
+[node name="Door" type="Marker3D" parent="NpcStations/residence_garden_bridge"]
+position = Vector3(3.2, 0, -0.4)

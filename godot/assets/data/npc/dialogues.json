@@ -115,7 +115,7 @@
       {"id":"friends","title":"花摊都受过谁的帮忙","pages":[{"id":"friends_1","speaker":"小花","text":"船老大帮我捎瓶子，阿海找旧杯子，木头叔改花架。灯伯写的价签大，隔几步也能看清。"},{"id":"friends_2","speaker":"小花","text":"豆豆跟我一起算过用土。阿店愿意代摆花，就是怕水碰干货，我们约好我在天台装盘，再托船送过去。"}]},
       {"id":"plans","title":"花摊接下来怎么弄","pages":[{"id":"plans_1","speaker":"小花","text":"先把花盆排水弄好，再分清哪瓶留天台、哪瓶托船给阿店。货单写清，我不用跨海跑来跑去。"},{"id":"plans_2","speaker":"小花","text":"想再做几张能反复用的价签。有人只想买一小枝，也好明明白白地挑，不必怕问价。"}]}
     ]},
-    {"npc_id":"npc_bao_he","intro":[{"speaker":"阿店","text":"叫我阿店就行，我搬到东南浮店这边看店了。"},{"speaker":"阿店","text":"常用的绳子、零件都放柜台附近，缺什么就写在单子上。"},{"speaker":"阿店","text":"我白天理货，晚上也在店边核单，不往天台来回跑。"}],"daily":[
+    {"npc_id":"npc_bao_he","intro":[{"speaker":"阿店","text":"嗨，你好！叫我阿店就行。我从南边的海域漂流过来，带了一船日用补给。"},{"speaker":"阿店","text":"这家海上小店会在这里待上一阵子。缺什么就来找我，没事也欢迎来聊聊天。"},{"speaker":"阿店","text":"种子、土壤和日常要用的东西，我都整理好了。你需要什么吗？"}],"daily":[
       {"id":"shelf_morning_normal","period":"morning","context":"normal","text":"先查底层纸箱干不干，再开箱点货。","variants":["早饭刚吃完，柜台这块油渍我先擦掉。","零钱点齐了，今天不用临时翻口袋找零。"]},
       {"id":"shelf_morning_rain","period":"morning","context":"rain","text":"雨飘进来了，纸箱再垫高一点。","variants":["湿伞靠外放，别挨着装纸袋的箱子。","门边有干布，手上都是水就先擦一下再翻单。"]},
       {"id":"shelf_morning_night","period":"morning","context":"night","text":"还没亮，我先点大件，小零件等会儿数。","variants":["早到的货先靠边，留条路给人走。","我这壶水刚烧好，清单还没开始核。"]},

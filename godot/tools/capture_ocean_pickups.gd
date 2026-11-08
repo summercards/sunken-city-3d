@@ -30,7 +30,7 @@ func run() -> void:
 	var home_bundles := 0
 	for item in main.props.crates:
 		if preload("res://src/core/play_scope.gd").HOME_WATER.has_point(Vector2(item.base.x,item.base.z)): home_bundles+=1
-	check(home_bundles==6,"native sunroom water keeps exactly six bundles")
+	check(home_bundles==3,"native sunroom water keeps exactly three bundles (half of six)")
 	main.cam.target=Vector3(9.5,1.12,12)
 	main.cam.distance=100
 	main.cam.orbit_dir=Vector3(-0.45,0.8,0.6)
@@ -40,7 +40,7 @@ func run() -> void:
 	var at:=Vector3(220,1.12,220)
 	main.boat.place_at(at,0)
 	main.props.sync_population(main.world_clock.query(),at)
-	check(main.props.crates.size()>=16 and main.props.crates.size()<=17 and main.props.schools.size()==36,"native distant water has 30 percent wood and unchanged fish")
+	check(main.props.crates.size()>=8 and main.props.crates.size()<=9 and main.props.schools.size()==18,"native distant water has halved wood and fish")
 	main.cam.target=main.player.global_position
 	main.cam.distance=36
 	main.cam.orbit_dir=Vector3(-0.45,0.8,0.6)

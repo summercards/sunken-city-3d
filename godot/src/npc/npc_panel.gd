@@ -1,10 +1,15 @@
 extends CanvasLayer
-## 独立奶油色居民面板，不访问Main/HUD或其他玩法的界面。
+## 底部对话 + 右侧小选项；人物资料等只在玩家主动选择后打开。
 signal action_requested(npc_id: String, action_id: String)
 signal modal_changed(active: bool)
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 const Session = preload("res://src/npc/npc_session.gd")
+const DialogueView = preload("res://src/ui/character_dialogue.gd")
 var session = Session.new()
+var dialogue_view
+var _owns_dialogue := false
+var _paper: PanelContainer
+var _shade: ColorRect
 var _overlay: Control
 var _title: Label
 var _identity: Label
@@ -25,6 +30,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 24
 	_ensure_ui()
+	set_dialogue_view(null)
 	session.changed.connect(_render)
 	session.modal_changed.connect(_on_modal)
 	session.action_requested.connect(_on_action)
@@ -32,6 +38,33 @@ func _ready() -> void:
 func configure(service, home_labels: Dictionary = {}) -> void:
 	_ensure_ui()
 	session.configure(service, home_labels)
+
+## 正式装配注入HUD已有的底部对话框；独立模块测试使用同一个类的本地实例。
+func set_dialogue_view(view) -> void:
+	if view != null and view == dialogue_view: return
+	if is_instance_valid(dialogue_view):
+		dialogue_view.conversation_advance.disconnect(_advance_conversation)
+		dialogue_view.conversation_option.disconnect(_conversation_option)
+		if _owns_dialogue: dialogue_view.queue_free()
+	if view == null:
+		dialogue_view = DialogueView.new()
+		add_child(dialogue_view)
+		_owns_dialogue = true
+	else:
+		dialogue_view = view
+		_owns_dialogue = false
+	dialogue_view.conversation_advance.connect(_advance_conversation)
+	dialogue_view.conversation_option.connect(_conversation_option)
+
+func _advance_conversation() -> void:
+	if not is_modal(): return
+	var state: Dictionary = session.service.dialogue_state()
+	if state.get("active", false):
+		_command("advance", {"npc_id":session.npc_id, "session_id":state.session_id}, _render_serial)
+
+func _conversation_option(action: String, payload: Dictionary) -> void:
+	if int(payload.get("render_serial", -1)) != _render_serial: return
+	_command(action, payload, _render_serial)
 
 func open_npc(npc_id: String) -> Dictionary:
 	return session.open(npc_id)
@@ -56,6 +89,7 @@ func _on_modal(active: bool) -> void:
 		_typing_elapsed = 0.0
 	else:
 		for button in _buttons: button.release_focus()
+		if is_instance_valid(dialogue_view) and dialogue_view.conversation_mode: dialogue_view.close_line()
 	modal_changed.emit(active)
 
 func _on_action(npc_id: String, action_id: String) -> void:
@@ -87,7 +121,8 @@ func handle_input(event: InputEvent) -> bool:
 		KEY_ESCAPE:
 			if frame == _activation_frame: return true
 			_activation_frame = frame
-			session.back()
+			if session.section == "home": session.cancel()
+			else: session.back()
 		KEY_UP, KEY_LEFT:
 			_move_focus(-1)
 		KEY_DOWN, KEY_RIGHT:
@@ -106,7 +141,7 @@ func _move_focus(step: int) -> void:
 		var next := posmod(index + step * offset, _buttons.size())
 		if not _buttons[next].disabled:
 			_buttons[next].grab_focus()
-			_scroll.ensure_control_visible(_buttons[next])
+			if _scroll.is_ancestor_of(_buttons[next]): _scroll.ensure_control_visible(_buttons[next])
 			return
 
 func _process(delta: float) -> void:
@@ -133,11 +168,13 @@ func _ensure_ui() -> void:
 	theme.default_font_size = 22
 	_overlay.theme = theme
 	var shade := ColorRect.new()
+	_shade = shade
 	shade.color = Color(0.12, 0.19, 0.18, 0.27)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_overlay.add_child(shade)
 	var paper := PanelContainer.new()
+	_paper = paper
 	paper.name = "ResidentPaper"
 	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	paper.anchor_left = 0.16
@@ -211,6 +248,13 @@ func _render() -> void:
 	_title.text = "%s · %s" % [npc.display_name, npc.role]
 	_identity.text = "关系心  %d / 10   ·   亲近度 %d\n常在  %s" % [npc.runtime.hearts, npc.runtime.affinity, state.home]
 	var dialogue: Dictionary = state.dialogue
+	var conversational: bool = dialogue.get("active", false) or (state.section in ["home", "services", "chat", "topics"] and state.confirmation.is_empty())
+	_paper.visible = not conversational
+	_shade.visible = not conversational
+	if conversational:
+		_render_conversation(state)
+		return
+	if is_instance_valid(dialogue_view) and dialogue_view.conversation_mode: dialogue_view.close_line()
 	if dialogue.get("active", false):
 		_render_dialogue(dialogue)
 	elif not state.confirmation.is_empty():
@@ -252,6 +296,55 @@ func _render() -> void:
 			button.grab_focus()
 			break
 	_scroll.set_deferred("scroll_vertical", 0)
+
+func _render_conversation(state: Dictionary) -> void:
+	var dialogue: Dictionary = state.dialogue
+	var options: Array = []
+	var text := session.greeting()
+	var speaker := str(state.npc.display_name)
+	var page_label := ""
+	var typing := false
+	var advance_label := "继续 ▸"
+	if dialogue.get("active", false):
+		var stamp := "%s:%s" % [dialogue.session_id, dialogue.index]
+		if stamp != _page_stamp:
+			_typing_elapsed = 0.0
+			_page_stamp = stamp
+		text = str(dialogue.page.text)
+		speaker = str(dialogue.page.speaker)
+		typing = bool(dialogue.typing)
+		page_label = "%d / %d" % [int(dialogue.index) + 1, int(dialogue.total)]
+		if not typing and dialogue.page.has("choices"):
+			for choice in dialogue.page.choices:
+				options.append({"text":choice.text, "action":"choice", "payload":{"id":choice.id, "session_id":dialogue.session_id}})
+		advance_label = "继续 ▸" if int(dialogue.index) + 1 < int(dialogue.total) else "嗯，听完了"
+	elif state.section == "topics":
+		text = "想聊点什么？"
+		for topic in state.topics: options.append({"text":topic.title, "action":"topic", "payload":{"id":topic.id}})
+		options.append({"text":"返回", "action":"home"})
+	elif state.section == "chat":
+		text = "别急，咱们慢慢聊。"
+		for entry in [["随便聊聊","talk"], ["聊点别的","topics"], ["居民故事","events"], ["送一份礼物","gifts"],
+			["有事要帮忙吗？","requests"], ["认识一下","profile"], ["说说大家","relationships"], ["返回","home"]]:
+			options.append({"text":entry[0], "action":entry[1]})
+	else:
+		if state.npc.has("shop_id"): options.append({"text":"商店", "action":"vendor"})
+		elif not state.function.is_empty(): options.append({"text":state.function[1], "action":"function"})
+		options.append({"text":"聊聊", "action":"chat"})
+		options.append({"text":"退出", "action":"close"})
+	for option in options:
+		var payload: Dictionary = option.get("payload", {}).duplicate(true)
+		payload["npc_id"] = session.npc_id
+		payload["render_serial"] = _render_serial
+		option["payload"] = payload
+	dialogue_view.present_conversation(speaker, text, page_label, typing, options, advance_label)
+	_text = dialogue_view.line_label
+	if dialogue_view.close_button.visible: _buttons.append(dialogue_view.close_button)
+	_buttons.append_array(dialogue_view.choice_buttons)
+	for button in _buttons:
+		if not button.disabled:
+			button.grab_focus()
+			break
 
 func _render_dialogue(state: Dictionary) -> void:
 	var page: Dictionary = state.page

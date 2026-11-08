@@ -33,6 +33,8 @@ uniform float lamp_outer = 0.70;
 uniform vec3 lamp_color = vec3(0.80, 1.0, 0.98);
 uniform float lamp_gain = 2.4;
 
+#include "res://shaders/uw_water_color.gdshaderinc"
+
 float uw_time() {
 	return time_override < 0.0 ? TIME : time_override;
 }
@@ -98,7 +100,7 @@ float uw_sparkle() {
 // 不取反的话，双面的海床/岩盆从内侧看会让「只有朝上的面才有焦散高光」整片失效，
 // 岩壁会变成一块没有明暗变化的灰板。
 vec3 uw_emission(vec3 base, vec3 n_w) {
-	float depth = max(0.0, -v_world.y);
+	float depth = max(0.0, water_level - v_world.y);
 	float atten = mix(1.0, 0.18, smoothstep(65.0, 170.0, dive_depth));
 	float shallow = 1.0 - smoothstep(12.0, 55.0, depth);
 	float lit_top = max(n_w.y, 0.0);
@@ -106,8 +108,8 @@ vec3 uw_emission(vec3 base, vec3 n_w) {
 	// 头灯不受深度衰减影响（否则深沟里开灯也看不见），反而在深处更明显。
 	float lamp = uw_lamp(n_w) * lamp_gain * mix(0.85, 1.35, smoothstep(25.0, 150.0, depth));
 	return emissive_color * emissive_strength
-		+ base * vec3(0.45, 1.0, 0.88) * light * atten
-		+ vec3(0.5, 0.65, 0.5) * uw_sparkle() * lit_top * shallow * 0.16 * caustic_gain
+		+ base * vec3(0.45, 1.0, 0.88) * light * atten * shallow * sun_strength
+		+ vec3(0.5, 0.65, 0.5) * uw_sparkle() * lit_top * shallow * 0.16 * caustic_gain * sun_strength
 		+ base * lamp_color * lamp;
 }
 
@@ -118,7 +120,6 @@ vec3 uw_face_normal(bool front) {
 	return front ? normalize(v_normal_w) : -normalize(v_normal_w);
 }
 
-#include "res://shaders/uw_water_color.gdshaderinc"
 vec3 uw_water_color(vec2 screen_uv) {
     return uw_gradient(screen_uv, dive_depth);
 }

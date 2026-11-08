@@ -1,6 +1,7 @@
 extends Button
 ## Procedural icon tile. All state here is presentation-only.
 const Cozy = preload("res://src/ui/cozy_ui.gd")
+const ItemDB = preload("res://src/inventory/item_db.gd")
 const INK := Cozy.INK
 const BLUE := Color("#4E9FC4")
 var kind := "fish"
@@ -16,6 +17,9 @@ var shown_amount := 0.0
 var amount_offset := 0.0
 var flash := 0.0
 var phase := 0.0
+## 价格角标（瓶盖）。>=0 时画在格子左下角；-1 表示这件不是商品。
+## 画在格子里而不是格外的子 Label：格子只有 84 见方，溢出的价格会和名签叠字。
+var price := -1
 var font: Font
 var hover_tween: Tween
 var count_tween: Tween
@@ -166,6 +170,15 @@ func _draw() -> void:
 		if not pocket: _box(Rect2(98-w,87+amount_offset,w,23),Color("#fff7e7"),11)
 		draw_string(font,Vector2(104-w,82+amount_offset if pocket else 103+amount_offset),txt,HORIZONTAL_ALIGNMENT_LEFT,-1,badge_size,INK)
 
+	# 价格与持有数各占一角：价格左下、数量右下，两个都留在格子内。
+	if price >= 0 and font:
+		var text := "%d" % price
+		var font_size := 18 if pocket else 16
+		var width := font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x+14
+		var origin := Vector2(2,72) if pocket else Vector2(4,73)
+		_box(Rect2(origin,Vector2(width,22)),Color("#fff7e7"),10)
+		draw_string(font,origin+Vector2(7,17),text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
+
 	if selected:
 		preload("res://src/ui/island_pointer.gd").paint(self,Vector2(66,28 if pocket else 59)*(size.x/96.0),(0.85 if pocket else 0.55)*(size.x/96.0))
 
@@ -211,6 +224,33 @@ func _draw_symbol(id: String, p: Vector2) -> void:
 			_circle(p+Vector2(0,6),13,Cozy.MINT)
 			draw_line(p+Vector2(0,18),p+Vector2(0,-2),Color("#45876b"),3,true)
 			_circle(p+Vector2(-6,1),6,Color("#629c67"));_circle(p+Vector2(6,4),6,Color("#45876b"))
+		# 三种花种：袋式样与普通种子一致，封条取品种花色，一眼分得开。
+		"flower_seed_blue", "flower_seed_sun", "flower_seed_coral":
+			var bloom := ItemDB.color(id)
+			_box(Rect2(p+Vector2(-19,-25),Vector2(38,51)),cream,5)
+			_box(Rect2(p+Vector2(-16,-21),Vector2(32,9)),bloom,2)
+			_circle(p+Vector2(0,6),13,Color(bloom,0.35))
+			draw_line(p+Vector2(0,18),p+Vector2(0,-2),Color("#45876b"),3,true)
+			_petal_ring(p+Vector2(0,3),bloom,6,5)
+		# 花材与成束鲜花：五瓣小花，花色来自物品表，不另存一套配色。
+		"flower_blue", "flower_sun", "flower_coral", "flower_bundle":
+			var petal := ItemDB.color(id)
+			var stems := 1 if id == "flower_bundle" else 0
+			if stems == 0:
+				draw_line(p+Vector2(0,26),p+Vector2(0,2),Color("#45876b"),4,true)
+				draw_line(p+Vector2(0,12),p+Vector2(-12,2),Color("#629c67"),3,true)
+			_petal_ring(p if stems == 0 else p+Vector2(-8,-4),petal,9,5)
+			_petal_ring(p+Vector2(11,-9),petal if id != "flower_bundle" else ItemDB.color("flower_sun"),8,5)
+			if id == "flower_bundle":
+				draw_line(p+Vector2(-9,14),p+Vector2(10,24),Color("#d59bdc"),4,true)
+				draw_line(p+Vector2(-6,20),p+Vector2(3,25),Color("#c98ccf"),3,true)
+		"flower_ribbon":
+			var silk := ItemDB.color(id)
+			_polygon(PackedVector2Array([p+Vector2(-26,-10),p+Vector2(-2,-2),p+Vector2(-26,10)]),silk)
+			_polygon(PackedVector2Array([p+Vector2(26,-10),p+Vector2(2,-2),p+Vector2(26,10)]),Color(silk,0.82))
+			_circle(p+Vector2(0,-2),7,silk.darkened(0.18))
+			draw_line(p+Vector2(-3,4),p+Vector2(-9,24),Color(silk,0.9),5,true)
+			draw_line(p+Vector2(3,4),p+Vector2(10,22),Color(silk,0.72),5,true)
 		"vegetable", "plant":
 			draw_line(p+Vector2(0,20),p+Vector2(0,-14),Color("#45876b"),4,true)
 			for i in 3:
@@ -268,6 +308,13 @@ func _draw_symbol(id: String, p: Vector2) -> void:
 
 func _circle(center: Vector2, radius: float, color: Color) -> void:
 	draw_circle(center,radius,color,true,-1.0,true)
+
+## 花瓣环绕的小花：先铺花瓣再叠奶白花心，任何花色都能看清轮廓。
+func _petal_ring(center: Vector2, color: Color, radius: float, petals: int) -> void:
+	for i in petals:
+		var angle := TAU * i / petals - PI / 2
+		_circle(center+Vector2(cos(angle),sin(angle))*radius*0.62,radius*0.6,color)
+	_circle(center,radius*0.42,Color("#fff3d0"))
 
 func _polygon(points: PackedVector2Array, color: Color) -> void:
 	draw_colored_polygon(points,color)

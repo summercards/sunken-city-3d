@@ -1,14 +1,13 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d0yoc5hkdo72l"]
 
-[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cozy_8x8_512.png" id="palette"]
+[ext_resource type="Texture2D" uid="uid://bjb6787rwo7uo" path="res://assets/textures/shared/sea_cozy_8x8_512.png" id="palette"]
 
 [resource]
 resource_name = "SEA_Emission"
 albedo_texture = ExtResource("palette")
-texture_filter = 0
 roughness = 0.35
-metallic = 0
 emission_enabled = true
-emission_texture = ExtResource("palette")
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.65
+emission_texture = ExtResource("palette")
+texture_filter = 0

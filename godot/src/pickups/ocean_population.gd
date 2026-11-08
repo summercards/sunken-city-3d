@@ -6,6 +6,11 @@ const RADIUS := 1
 const HOME_WATER := preload("res://src/core/play_scope.gd").HOME_WATER
 const HOME_CELL := Vector2i.ZERO
 const OUTSIDE_WOOD_PERCENT := 30
+## 2026-11-08 全海域密度：鱼群与浮木各留一半。主人实机反馈「周边的可打捞的鱼和
+## 木材数量太多」。按容量生成后统一减半，而不是把每格容量 9/7 直接改成 4/3 ——
+## 生成一次布局再筛减，原 slot 编号不变，旧档里那一格的冷却与已采记录仍指向同一束。
+## 鱼与木走同一条筛减（append 时先木后鱼），鱼群筛选不消耗木材随机流。
+const KEEP_PERCENT := 50
 const MORNING := preload("res://src/time/day_schedule.gd").MORNING_SECONDS / 3600.0
 var cycle := -1
 var now := 0.0
@@ -73,7 +78,7 @@ func desired(focus: Vector2, wood_count: int, fish_count: int, clear: Callable) 
 
 func _make_cell(cell: Vector2i, wood_count: int, fish_count: int, clear: Callable) -> Dictionary:
 	# Generate the previous layout first: thinning wood must not reroll fish.
-	var result := _make_base_cell(cell, wood_count, fish_count, clear)
+	var result := _thin(_make_base_cell(cell, wood_count, fish_count, clear), cell)
 	var outside: Array[String] = []
 	for slot in result.keys():
 		if result[slot].fish: continue
@@ -106,16 +111,47 @@ func _make_cell(cell: Vector2i, wood_count: int, fish_count: int, clear: Callabl
 			break
 		if not placed: result.erase(slot)
 	if cell == HOME_CELL:
-		_add_home_wood(result, wood_count, fish_count, clear)
+		_add_home_wood(result, _keep_quota(wood_count, HOME_CELL), fish_count, clear)
+	return result
+
+
+## 某一格某类资源保留多少个。整数余数按「坐标 + 日次」交替：6 束正好留 3，
+## 9 束十格里五格留 5、五格留 4（平均 4.5），7 群同理 3/4。统一向下取整会把
+## 「减半」做成 44%，连续十格就少一成。
+func _keep_quota(count: int, cell: Vector2i) -> int:
+	var scaled := count * KEEP_PERCENT
+	var quota := floori(scaled / 100.0)
+	if posmod(cell.x + 3 * cell.y + cycle, 100) < scaled % 100: quota += 1
+	return quota
+
+
+## 按坐标与日次确定性地筛掉多余的槽位。保留哪些不看插入顺序，而是按 slot 名
+## 散列排序后取前 N 个 —— 否则浮木永远占本格前半段、鱼永远压在后半段，同一天
+## 回访同一格会看出「一边挤一边空」。读档、卸载回访、日更同种子结果一致，
+## 跨天才重排。鱼群的 RNG 在 _make_base_cell 里已经跑完，筛减只删不改点。
+func _thin(result: Dictionary, cell: Vector2i) -> Dictionary:
+	for fish in [false, true]:
+		var keys: Array[String] = []
+		for slot in result:
+			if bool(result[slot].fish) == fish: keys.append(slot)
+		if keys.size() < 2: continue
+		var quota := _keep_quota(keys.size(), cell)
+		if quota >= keys.size(): continue
+		keys.sort_custom(func(a: String, b: String) -> bool:
+			var ha := (a + ":thin:" + str(cycle)).hash()
+			var hb := (b + ":thin:" + str(cycle)).hash()
+			return a < b if ha == hb else ha < hb)
+		for index in range(quota, keys.size()): result.erase(keys[index])
 	return result
 
 func _add_home_wood(result: Dictionary, count: int, fish_count: int, clear: Callable) -> void:
 	var points: Array[Vector2] = []
 	# The original home rectangle straddles four grid cells. Include their fish
-	# when placing the six home bundles, and retain the existing slot identities.
+	# when placing the home bundles, and retain the existing slot identities.
+	# 避让点用筛减后的鱼位 —— 否则按满编 4 群/格避让，留下的木比实际鱼少。
 	for y in [-1,0]:
 		for x in [-1,0]:
-			for item in _make_base_cell(Vector2i(x,y), count, fish_count, clear).values():
+			for item in _thin(_make_base_cell(Vector2i(x,y), count, fish_count, clear), Vector2i(x,y)).values():
 				if item.fish: points.append(item.point)
 	var area := HOME_WATER.grow(-3.0)
 	for index in count:

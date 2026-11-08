@@ -65,11 +65,25 @@ func run() -> void:
 	await action(1,"lettuce_seed")
 	check(economy.warehouse.count("lettuce_seed")==0 and economy.count("lettuce_seed")==3,"warehouse withdrawal from tray")
 	await shot("warehouse-pockets")
+	# 正式路由已把 shop 命令交给独立ShopPanel；HUD 旧种子页退役，不能再断言它打开。
 	main.hud.close_card();main._on_click_command("shop");await process_frame
-	check(view.visible and not main.hud._panel.visible,"shop also uses pockets")
-	await action(1,"tomato_seed")
-	check(economy.count("tomato_seed")==1 and economy.coins==coins-int(economy.farm.crop_def("tomato").seed_price),"shop illustration invokes actual seed purchase")
+	check(main.shop_panel.is_open() and not main.hud._panel.visible and not view.visible,"shop command opens standalone icon grid, not the retired HUD page")
+	var shop_panel = main.shop_panel
+	var tomato_tile: Control = null
+	for tile in shop_panel._product_buttons:
+		if str(tile.get_meta("item_id"))=="tomato_seed": tomato_tile=tile
+	check(tomato_tile!=null and shop_panel._title.text==main.shop_service.shop_snapshot("shop_general").display_name,"shop grid lists the real tomato seed under the general store title")
+	if tomato_tile!=null:
+		await click(tomato_tile);await create_timer(0.24).timeout
+		check(shop_panel._buy!=null and not shop_panel._buy.disabled,"shop grid selection opens a purchasable bubble")
+		if shop_panel._buy!=null:
+			await click(shop_panel._buy);await process_frame
+			check(economy.count("tomato_seed")==1 and economy.coins==coins-int(economy.farm.crop_def("tomato").seed_price),"shop grid invokes actual seed purchase through Inventory.exchange")
+	check(not main.hud.command_buttons.close.visible,"商店自带右下关闭键时HUD那枚收起，同角落不并排两枚")
+	check(shop_panel._close_button.is_visible_in_tree(),"商店自己的圆键是唯一可见关闭入口")
 	await shot("shop-pockets")
+	shop_panel.close();await process_frame
+	check(main.hud.command_buttons.close.visible,"关店后HUD关闭键恢复")
 	main.hud.close_card();main._on_click_command("shipping")
 	for extent in [Vector2i(1280,800),Vector2i(1600,1000),Vector2i(1920,1080)]:
 		if DisplayServer.get_name()!="headless": root.size=extent

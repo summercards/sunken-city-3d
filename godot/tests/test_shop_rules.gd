@@ -377,34 +377,49 @@ func _panel_tests() -> void:
 	await process_frame
 	await process_frame
 	check(Engine.get_process_frames() > panel._opened_frame, "真实跨过开店帧后才测试操作")
-	check(panel._title.text == "小花花店" and panel._product_buttons.size() == 5, "花店标题及真实商品")
-	check(panel._name.text == Items.label("flower_seed_blue"), "新物品名正确")
-	check(Items.get_item("flower_seed_blue").get("desc", "").contains("小花") and Items.get_item("flower_seed_coral").get("desc", "").contains("小花"), "花种说明使用当前经营者称呼且固定商品名不重命名")
-	check(panel._product_buttons[0].has_focus() and root.gui_get_focus_owner() == panel._product_buttons[0], "开店获得真实商品焦点")
-	check(panel._details.text.contains("单价") and panel._details.text.contains("当前可购") and panel._wallet.text.contains("背包"), "购买前价格余额背包上限可见")
+	check(panel._title.text == "小花花店" and panel._product_buttons.size() == 5, "花店标题及真实商品格")
+	check(panel._product_buttons[0].get_meta("product_id") == "flower_seed_blue", "商品格绑定稳定product_id而非物品名")
+	var priced := 0
+	for tile in panel._product_buttons:
+		if tile.price == int(Catalog.product("shop_flower", str(tile.get_meta("product_id"))).price): priced += 1
+	check(priced == 5, "五格都在格内画单价角标，不用列表行")
+	check(panel._name.text == "蓝星花种子 · 8 瓶盖", "名签显示商品名与单价，不谎称为已有库存")
+	check(panel._product_buttons[0].has_focus() and root.gui_get_focus_owner() == panel._product_buttons[0], "开店焦点落在首件商品")
+	check(panel._details == null and not panel._view.actions.visible, "开店只摆格子，不替玩家打开购买气泡")
+	check(panel._wallet.text.contains("背包"), "底部余额与背包格数可见")
+	await _press_key(KEY_ENTER)
+	check(panel._view.actions.visible and panel._details != null, "确认键在选中商品后打开购买气泡")
+	check(panel._details.text.contains("单价") and panel._details.text.contains("当前可购") and panel._details.text.contains("合计"), "气泡显示单价、可购数与合计")
+	check(panel._quantity.text == "1" and panel._buy.text.contains("8 瓶盖"), "气泡默认数量1并显示总价")
+	check(bag.exchanges == 0, "打开气泡本身不结算")
 	await _press_key(KEY_RIGHT)
-	check(panel._amount == 2, "键盘增加数量")
+	check(panel._amount == 2 and panel._details.text.contains("合计  16 瓶盖"), "键盘增加数量并同步合计")
 	await _click(panel._plus)
 	check(panel._amount == 3, "鼠标按钮增加数量")
 	await _click(panel._minus)
 	check(panel._amount == 2, "鼠标按钮减少数量")
 	await _click(panel._product_buttons[0])
-	check(panel._product_buttons[0].has_focus() and bag.exchanges == 0, "鼠标选择商品抓焦点但不购买")
+	check(panel._view.actions.visible and panel._view.selected_index == 0 and bag.exchanges == 0 and panel._amount == 1, "鼠标选择商品重开气泡但不购买")
 	await _press_key(KEY_ENTER)
-	check(bag.count("flower_seed_blue") == 2 and bag.count("coins") == 84 and bag.exchanges == 1 and panel.is_open(), "Enter购买成功不关闭且只结算一次")
+	check(bag.count("flower_seed_blue") == 1 and bag.count("coins") == 92 and bag.exchanges == 1 and panel.is_open(), "Enter购买成功不关闭且只结算一次")
 	var calls: int = bag.exchanges
 	_send_key(KEY_E, true, true)
 	await process_frame
 	_send_key(KEY_E, false)
 	check(bag.exchanges == calls, "按住确认不连买")
-	await _press_key(KEY_DOWN)
+	await _press_key(KEY_RIGHT)
 	var sun: Dictionary = Catalog.product("shop_flower", "flower_seed_sun")
-	check(panel._selected_id == "flower_seed_sun" and panel._product_buttons[1].has_focus(), "向下选择下一商品并移动真实焦点")
-	check(panel._name.text == Items.label("flower_seed_sun") and panel._description.text == sun.description and panel._details.text.contains("单价  %d" % sun.price) and panel._quantity.text == "1", "Down同步名称描述价格并重置数量")
+	check(panel._selected_id == "flower_seed_sun" and panel._product_buttons[1].has_focus(), "向右选择下一商品并移动真实焦点")
+	check(panel._name.text == "晨光花种子 · 10 瓶盖" and not panel._view.actions.visible and panel._view.buy_amount == 1, "换商品收起旧气泡并重置数量")
 	await _press_key(KEY_E)
-	check(bag.count("flower_seed_sun") == 1 and bag.count("coins") == 74 and bag.exchanges == calls + 1, "E确认购买所选商品一次")
-	await _press_key(KEY_UP)
-	check(panel._selected_id == "flower_seed_blue" and panel._product_buttons[0].has_focus(), "向上选择商品")
+	check(panel._view.actions.visible and bag.exchanges == calls, "E只打开气泡不扣款")
+	await _press_key(KEY_E)
+	check(bag.count("flower_seed_sun") == 1 and bag.count("coins") == 82 and bag.exchanges == calls + 1, "E确认后购买所选商品一次")
+	await _press_key(KEY_LEFT)
+	check(panel._selected_id == "flower_seed_blue" and panel._product_buttons[0].has_focus(), "向左选择商品")
+	await _press_key(KEY_DOWN)
+	check(panel._selected_id == "flower_seed_blue" and panel._product_buttons[0].has_focus(), "商品区上下键不会把焦点甩到背包")
+	await _press_key(KEY_ENTER)
 	bag.reject_exchange = true
 	var before: Dictionary = bag.state()
 	await _press_key(KEY_E)
@@ -412,14 +427,17 @@ func _panel_tests() -> void:
 	bag.reject_exchange = false
 	bag.counts.coins = 0
 	bag.changed.emit("coins", -1)
-	check(panel._buy.disabled and panel._wallet.text.contains("0"), "外部库存事件刷新余额和资格")
+	check((panel._buy == null or panel._buy.disabled) and panel._wallet.text.contains("0") and panel._availability.text.contains("瓶盖不足"), "外部库存事件刷新余额和资格")
+	await _press_key(KEY_ESCAPE)
+	await create_timer(0.25).timeout
+	check(panel.is_open() and not panel._view.actions.visible, "Esc先收起气泡不关店")
 	before = bag.state()
 	calls = bag.exchanges
 	await _press_key(KEY_ESCAPE)
-	panel.close()
-	check(not panel.is_open() and closed == ["shop_flower"] and bag.state() == before and bag.exchanges == calls, "Esc关闭只发一次关闭信号且不扣款")
+	check(not panel.is_open() and closed == ["shop_flower"] and bag.state() == before and bag.exchanges == calls, "再次Esc关闭只发一次关闭信号且不扣款")
 	check(not panel.open_shop("missing").ok and not panel.is_open(), "未知商店不打开旧页")
 	check(panel.open_shop("shop_general").ok and panel._title.text == "阿店海上商店", "综合商店独立目录")
+	check(panel._product_buttons.size() == 6, "综合商店六件商品同页图标")
 	await process_frame
 	await process_frame
 	await _click(panel._close_button)
@@ -441,7 +459,7 @@ func _panel_input_guard_tests() -> void:
 	for code in [KEY_ENTER, KEY_KP_ENTER, KEY_E, KEY_SPACE]:
 		_send_key(code, true)
 		_send_key(code, false)
-	check(panel.is_open() and bag.state() == before and bag.exchanges == 0, "开店同帧全部确认键均不扣钱不入包")
+	check(panel.is_open() and bag.state() == before and bag.exchanges == 0 and not panel._view.actions.visible, "开店同帧确认键既不开气泡也不扣钱")
 	# 在真实 _process 中捕获首个后继帧；不假设协程恢复时计数恰好加一。
 	var next_frame_confirm: NextFrameConfirm = NextFrameConfirm.new()
 	next_frame_confirm.opened_frame = panel._opened_frame
@@ -449,11 +467,15 @@ func _panel_input_guard_tests() -> void:
 	await process_frame
 	await process_frame
 	check(next_frame_confirm.sent_frame == panel._opened_frame + 1, "真实下一计数帧注入确认输入")
-	check(bag.count("coins") == 992 and bag.count("flower_seed_blue") == 1 and bag.exchanges == 1, "开店下一帧Enter立即可用且仅一次购买")
+	check(panel._view.actions.visible and bag.state() == before and bag.exchanges == 0, "开店下一帧Enter只打开购买气泡")
+	await _press_key(KEY_ENTER)
+	check(bag.count("coins") == 992 and bag.count("flower_seed_blue") == 1 and bag.exchanges == 1, "气泡内Enter购买一次")
 	next_frame_confirm.queue_free()
 	# 使用正式 HUD 的委托端口，复现装配层转发同一事件后面板 _input 再收到它。
 	var hud = preload("res://src/ui/hud.gd").new()
 	hud.owned_modal_input = panel.handle_input
+	await _press_key(KEY_ENTER)
+	check(panel._view.actions.visible, "再次确认先重开气泡")
 	var event: InputEventKey = _key(KEY_E)
 	var calls: int = bag.exchanges
 	check(hud.owned_modal_input.call(event), "HUD端口消费商店确认事件")
@@ -464,53 +486,30 @@ func _panel_input_guard_tests() -> void:
 	hud.free()
 	before = bag.state()
 	calls = bag.exchanges
+	# 真实按键不会和上一枚确认键同帧；先跨一帧，避免撞上去重窗口。
+	await process_frame
 	var held_frame: int = Engine.get_process_frames()
 	_send_key(KEY_ENTER, true)
-	check(bag.exchanges == calls + 1 and bag.count("flower_seed_blue") == 3 and bag.count("coins") == 976, "长按起始按下一次仅购买一次")
+	check(bag.exchanges == calls, "长按起始不购买")
+	check(panel._view.actions.visible, "长按起始重开气泡")
+	check(panel._view.selected_pool == 1 and str(panel._view.selected_data.get("product_id","")) != "", "长按起始选中商品仍在")
 	var held_state: Dictionary = bag.state()
 	for repeat in 3:
 		await process_frame
 		await process_frame
 		_send_key(KEY_ENTER, true, true)
-	check(Engine.get_process_frames() > held_frame and bag.exchanges == calls + 1 and bag.state() == held_state, "跨真实帧持续按住的echo不会重复购买")
+	check(Engine.get_process_frames() > held_frame and bag.exchanges == calls and bag.state() == held_state, "跨真实帧持续按住的echo不会重复打开或购买")
 	_send_key(KEY_ENTER, false)
+	before = bag.state()
 	await _press_key(KEY_ENTER)
-	check(bag.exchanges == calls + 2 and bag.count("flower_seed_blue") == 4 and bag.count("coins") == 968, "松开后新的Enter可再次购买一次")
+	check(bag.exchanges == calls + 1 and bag.count("flower_seed_blue") == 3 and bag.count("coins") == 976, "松开后新的Enter可再购买一次")
+	await _press_key(KEY_ENTER)
+	check(panel._view.actions.visible and panel._amount == 1, "购买后再次确认重开数量为1的气泡")
 	await _press_key(KEY_RIGHT)
-	check(panel._amount == 2 and not panel._minus.disabled, "Tab遍历夹具数量为2且减号可用")
-	for button in [panel._close_button, panel._buy, panel._plus, panel._minus]:
-		await _press_key(KEY_TAB, true)
-		check(root.gui_get_focus_owner() == button and button.has_focus(), "Shift+Tab真实焦点可达：" + button.name)
-	await _press_key(KEY_ENTER)
-	check(panel._amount == 1, "减号真实聚焦时Enter减少数量而不购买")
-	for button in [panel._plus, panel._buy, panel._close_button, panel._product_buttons[0]]:
-		await _press_key(KEY_TAB)
-		check(root.gui_get_focus_owner() == button and button.has_focus(), "Tab真实焦点可达：" + button.name)
-	# 切换商品会重置数量，禁用的减号应被跳过，其余控件仍逐一可达。
-	var reachable: Array[Button] = panel._product_buttons.duplicate()
-	reachable.append_array([panel._buy, panel._close_button])
-	for button in reachable:
-		check(root.gui_get_focus_owner() == button and button.has_focus(), "Tab商品与操作真实焦点可达：" + button.name)
-		await _press_key(KEY_TAB)
-	check(panel._product_buttons[0].has_focus(), "Tab遍历全部可用控件后回到首商品")
-	await _press_key(KEY_TAB, true)
-	check(panel._close_button.has_focus(), "Shift+Tab可反向到关闭按钮")
-	await _press_key(KEY_TAB, true)
-	check(panel._buy.has_focus(), "Shift+Tab可反向到购买按钮")
-	calls = bag.exchanges
-	var coins: int = bag.count("coins")
-	var owned: int = bag.count("flower_seed_blue")
-	await _press_key(KEY_ENTER)
-	check(bag.exchanges == calls + 1 and bag.count("flower_seed_blue") == owned + 1 and bag.count("coins") == coins - 8, "购买按钮真实聚焦时Enter只结算一次")
-	await _click(panel._product_buttons[0])
-	calls = bag.exchanges
-	coins = bag.count("coins")
-	owned = bag.count("flower_seed_blue")
-	await _click(panel._buy)
-	check(bag.exchanges == calls + 1 and bag.count("flower_seed_blue") == owned + 1 and bag.count("coins") == coins - 8, "真实鼠标购买按钮仅结算一次")
+	check(panel._amount == 2 and not panel._minus.disabled, "气泡内右方向键把数量调到2")
 	before = bag.state()
 	calls = bag.exchanges
-	await _press_key(KEY_ESCAPE)
-	check(not panel.is_open() and bag.state() == before and bag.exchanges == calls, "有余额时Esc取消也绝不扣钱或入包")
+	await _press_key(KEY_TAB)
+	check(not panel.is_open() and bag.state() == before and bag.exchanges == calls, "Tab与背包一致关闭商店且不结算")
 	panel.queue_free()
 	await process_frame

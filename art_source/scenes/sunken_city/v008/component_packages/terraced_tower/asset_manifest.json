@@ -1,0 +1,146 @@
+{
+  "key": "terraced_tower",
+  "slug": "terraced_tower",
+  "name": "退台高楼_破顶机房",
+  "category": "architecture",
+  "component_family": "tower",
+  "component_id": "SEA-SCENE-SCITY-TALL-TERRACED-TOWER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    54
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 10,
+  "color": "plaster",
+  "damage": 0.34,
+  "style": "tower_terrace",
+  "variant_axis": "structure_damage",
+  "variant_value": "tower_terrace",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-TERRACED-TOWER_退台高楼_破顶机房",
+  "root_object": "SEA-SCENE-SCITY-TERRACED-TOWER_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-TERRACED-TOWER_ROOT",
+    "退台高楼_破顶机房_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    18.078922271728516,
+    16.077999114990234,
+    54.55918502807617
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 287166,
+  "polygons": 149238,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v008/component_packages/terraced_tower/terraced_tower.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v008",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "04d4f15af37360e3de2db6b9bee6790d2fbd6278d3f6dd21cc7d279cee5e1a27",
+  "geometry_fingerprint": "0e741c161e353bf934ba7c2ebd7097972c8ed4a8b1b5b1ddf39ba48b6c5a6ff6",
+  "bounds_min": [
+    -9.039461135864258,
+    -8.038999557495117,
+    0.0
+  ],
+  "bounds_max": [
+    9.039461135864258,
+    8.038999557495117,
+    54.55918502807617
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\terraced_tower.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TALL-TERRACED-TOWER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terraced_tower_optimized.blend",
+    "optimized_sha256": "698fdb92d3a9a41d989f8e2296810a44b2bfc1e29f776bba75d48a12fe587e7e",
+    "triangles_before": 286592,
+    "triangles_after": 286592,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 723,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 88,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -9.039461135864258,
+        -8.038999557495117,
+        0.0
+      ],
+      [
+        9.039461135864258,
+        8.038999557495117,
+        54.55918502807617
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
+    "runtime_sha256": "aec15b62c6aa630166add26d5c1cf885a73cb9febe2119195922666a5775fdb5",
+    "prefab": "godot/scenes/components/scenery/sunken_city/terraced_tower.tscn",
+    "prefab_sha256": "5f06f5a93c973a13e98214b0900bcde9c882c10e49d22b6b51436933098809da",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  },
+  "runtime_path": "godot/assets/models/scenery/sunken_city_tall/terraced_tower/terraced_tower.glb",
+  "prefab": "godot/scenes/components/scenery/sunken_city_tall/terraced_tower.tscn",
+  "sealed_interior": true,
+  "interior_policy": "watertight_shell_no_enterable_space",
+  "reference_scale": 2.0,
+  "derived_from": "art_source/scenes/sunken_city/v003/component_packages/terraced_tower/terraced_tower.blend"
+}

@@ -121,7 +121,9 @@ func _register() -> void:
 			plants = child
 		elif child.name == "WalkAreas":
 			for walk in child.get_children():
-				if walk.get_script() == WalkArea:
+				# 用可走面的能力判定，而不是「脚本文件恰好等于 walk_area.gd」：
+				# 派生型可走面（DerivedWalkArea）继承同一套接口，按文件比会把它漏掉。
+				if walk.has_method("surface_faces") and walk.has_method("outlines"):
 					walk_areas.append(walk)
 
 

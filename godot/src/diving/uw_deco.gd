@@ -3,7 +3,7 @@ extends Node3D
 ##
 ## 静态几何在 region_*.tscn 里（glb 资产），这里只放「每帧要动」的东西。
 ## 数值全部对齐网页版 underwater-art.js：
-##   鱼群 7 群 × 18 条，绕群心做椭圆巡游；
+##   鱼群 7 群 × 24 条，绕群心做椭圆巡游；
 ##   气泡 96 个，从 6 个热泉口升起，13 秒一循环；
 ##   光柱 9 道，始终朝向相机；
 ##   微粒 180 颗，缓慢上浮到水面后回到 -75m。
@@ -11,13 +11,14 @@ extends Node3D
 const MaterialLib = preload("res://src/diving/uw_materials.gd")
 const WATER_LEVEL := 1.12
 
-const FISH_COUNT := 18
+const FISH_COUNT := 24
 const BUBBLE_COUNT := 96
 const MOTE_COUNT := 180
+const PARTICLE_SHADER = preload("res://shaders/sunroom_underwater_particles.gdshader")
 
 ## 网页版里的 vents 常量（热泉口）。
 const VENTS := [
-	Vector3(-7, -18, 3), Vector3(7, -31, -7), Vector3(-6, -46, -19),
+	Vector3(-12, -18, 17), Vector3(7, -31, -7), Vector3(-6, -46, -19),
 	Vector3(7, -59, 12), Vector3(1, -74, -27), Vector3(-8, -14, -10),
 ]
 
@@ -31,6 +32,17 @@ var _ceiling: MeshInstance3D
 var _key: DirectionalLight3D
 var _fill: OmniLight3D
 var _t := 0.0
+var _sun_strength := 1.0
+
+func configure_underwater_light(profile: Dictionary) -> void:
+	_sun_strength = clampf(float(profile.get("strength",1.0)),0.0,1.0)
+	if _ceiling != null:
+		var mat: ShaderMaterial = _ceiling.material_override
+		mat.set_shader_parameter("sun_direction",profile.get("direction",Vector3(0.5191,0.7787,-0.3523)))
+		mat.set_shader_parameter("sun_color",profile.get("color",Color(1.0,0.955,0.8)))
+		mat.set_shader_parameter("sun_strength",_sun_strength)
+	for beam in _beams:
+		beam.material_override.set_shader_parameter("sun_strength",_sun_strength)
 
 var _rng := RandomNumberGenerator.new()
 
@@ -51,7 +63,9 @@ func _build_fish(specs: Array) -> void:
 		var spec: Dictionary=specs[i]
 		var school=scene.instantiate()
 		school.name="FishSchool%d" % i;school.instance_id="dive/fish/%02d" % i
-		school.autonomous=false;school.orbit_radius=Vector2(6,3);school.spread_radius=6.2
+		school.autonomous=false;school.count=FISH_COUNT
+		school.orbit_radius=Vector2(7.0,3.8);school.spread_radius=7.0
+		school.size_scale=1.12 if i < 3 else (1.06 if i < 5 else 1.0)
 		school.seed_value=71+i
 		# 配色按网页版 underwater-art.js 轮换；材质由水下材质库注入，保留深度雾与头灯。
 		school.palette="dive";school.palette_index=i
@@ -63,20 +77,26 @@ func _build_fish(specs: Array) -> void:
 
 
 func _build_bubbles() -> void:
-	var sphere := SphereMesh.new()
-	sphere.radius = 0.5
-	sphere.height = 1.0
-	sphere.radial_segments = 9
-	sphere.rings = 7
+	var mat := ShaderMaterial.new()
+	mat.shader = PARTICLE_SHADER
+	mat.set_shader_parameter("bubble", true)
+	mat.set_shader_parameter("opacity", 0.50)
+	mat.set_shader_parameter("tint", Color(0.72, 0.98, 0.91))
+	mat.set_shader_parameter("water_level", WATER_LEVEL)
+	mat.set_shader_parameter("region_view_depth", 10.0)
 
-	var mat := MaterialLib.from_color(Color("#d3fff1"), {
-		"alpha": true, "opacity": 0.38, "roughness": 0.1, "metallic": 0.15,
-	})
-
+	var quad := QuadMesh.new()
+	quad.size = Vector2.ONE
+	_bubble_mm = MultiMesh.new()
+	_bubble_mm.transform_format = MultiMesh.TRANSFORM_3D
+	_bubble_mm.use_colors = true
+	_bubble_mm.mesh = quad
+	_bubble_mm.instance_count = BUBBLE_COUNT
 	_bubbles = MultiMeshInstance3D.new()
 	_bubbles.name = "VentBubbles"
 	_bubbles.multimesh = _bubble_mm
 	_bubbles.material_override = mat
+	_bubbles.custom_aabb = AABB(Vector3(-18.0, -76.0, -36.0), Vector3(36.0, 78.0, 72.0))
 	_bubbles.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_bubbles.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
 	add_child(_bubbles)
@@ -216,7 +236,10 @@ func update(dt: float, t: float, diver: Vector3, cam: Camera3D) -> void:
 	_update_beams(cam)
 	_update_motes(dt)
 	_update_lights(diver)
+	if _bubbles != null:
+		_bubbles.material_override.set_shader_parameter("region_view_depth", maxf(0.0, WATER_LEVEL-diver.y))
 	if _ceiling != null:
+		_ceiling.material_override.set_shader_parameter("elapsed",t)
 		# 水膜跟着人走，潜到海沟深处也能看到头顶的水面。
 		_ceiling.global_position = Vector3(diver.x, WATER_LEVEL, diver.z)
 
@@ -237,6 +260,7 @@ func _update_bubbles(t: float) -> void:
 			v.z + cos(t * 0.65 + float(i)) * 0.14)
 		var s: float = 0.035 + float(i % 4) * 0.018 + age * 0.006
 		_bubble_mm.set_instance_transform(i, Transform3D(Basis().scaled(Vector3.ONE * s), pos))
+		_bubble_mm.set_instance_color(i, Color(0.86, 1.0, 0.96, 0.78))
 
 
 func _update_beams(cam: Camera3D) -> void:
@@ -262,6 +286,6 @@ func _update_motes(dt: float) -> void:
 func _update_lights(diver: Vector3) -> void:
 	var deep: float = clampf((-diver.y - 12.0) / 64.0, 0.0, 1.0)
 	if _key != null:
-		_key.light_energy = (3.0 / PI) * (1.0 - deep * 0.75)
+		_key.light_energy = (3.0 / PI) * (1.0 - deep * 0.75) * _sun_strength
 	if _fill != null:
 		_fill.global_position = diver + Vector3(0, 2, 3)

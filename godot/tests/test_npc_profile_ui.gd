@@ -41,6 +41,7 @@ class FakeService extends RefCounted:
 	func meet(id: String) -> Dictionary:
 		rows[id].runtime.met = true
 		return {"ok": true}
+	func start_conversation(_id: String) -> Dictionary: return {"ok": true, "greeting_only": true}
 	func npc_snapshot(id: String) -> Dictionary: return rows.get(id, {}).duplicate(true)
 	func character_profile(id: String) -> Dictionary:
 		queries.profile += 1
@@ -111,11 +112,20 @@ func button(action: String, id := "") -> Button:
 
 func press(action: String, id := "") -> void:
 	await process_frame
+	if action in ["profile", "topics", "events", "gifts", "requests", "relationships", "talk"] and button(action, id) == null:
+		if panel.session.service.dialogue_state().get("active", false): panel.session.command("home")
+		await press("chat")
+		await process_frame
+	if action == "back" and panel.session.service.dialogue_state().get("active", false):
+		panel.session.command("back")
+		return
 	var target := button(action, id)
+	if action == "back" and target == null: target = button("home")
 	if check(target != null and not target.disabled, "实际按钮可用 " + action + " " + id): target.pressed.emit()
 
 func labels() -> String:
 	var out: String = panel._title.text + "\n" + panel._identity.text + "\n"
+	if panel.dialogue_view.panel.visible: out += panel.dialogue_view.line_label.text + "\n"
 	for child in panel._body.get_children():
 		if child is Label: out += child.text + "\n"
 	return out
@@ -134,7 +144,7 @@ func tap(code: Key) -> void:
 
 func mouse_click(target: Button) -> void:
 	await process_frame
-	panel._scroll.ensure_control_visible(target)
+	if panel._scroll.is_ancestor_of(target): panel._scroll.ensure_control_visible(target)
 	await process_frame
 	var point := target.get_global_rect().get_center()
 	check(target.is_visible_in_tree() and target.get_global_rect().has_point(point), "鼠标目标实际可见")
@@ -267,6 +277,9 @@ func exercise_roster(service, source: String) -> void:
 		check(panel.open_npc(id).ok, source + "打开 " + id)
 		check(panel._title.text.begins_with(NAMES[id]), source + "显示地气姓名 " + id)
 		check(labels().contains("东南海上商店暂驻" if id == "npc_bao_he" else "天台草地暂驻"), source + "活动点来自注入标签 " + id)
+		# 资料/话题属于显式“聊聊”子菜单，默认入场由npc-conversation专项覆盖。
+		if service.dialogue_state().get("active", false): panel.session.command("home")
+		await press("chat")
 		check(button("profile").text == "认识一下" and button("topics").text == "聊点别的", source + "主页两个新入口")
 		await press("profile")
 		var character: Dictionary = panel.panel_snapshot().profile
@@ -319,6 +332,7 @@ func navigation(fake) -> void:
 	panel.handle_input(opening)
 	panel.handle_input(key(KEY_ENTER, false))
 	check(panel.panel_snapshot().section == "home", "打开同帧交互键不误入新页")
+	await press("chat")
 	await process_frame
 	button("profile").grab_focus()
 	var event := key(KEY_ENTER)
@@ -334,7 +348,8 @@ func navigation(fake) -> void:
 	check(panel.panel_snapshot().section == "profile", "长按回声不触发新页按钮")
 	await tap(KEY_ESCAPE)
 	check(panel.panel_snapshot().section == "home", "Esc资料返回主页")
-	button("profile").grab_focus()
+	await press("chat")
+	button("talk").grab_focus()
 	await tap(KEY_DOWN)
 	check(root.gui_get_focus_owner() == button("topics"), "方向键移动到话题入口")
 	await tap(KEY_TAB)
@@ -345,7 +360,7 @@ func navigation(fake) -> void:
 	var stale_topic: Callable = button("topic", topic_id).pressed.get_connections()[0].callable
 	await press("topic", topic_id)
 	var first: Dictionary = fake.dialogue_state()
-	var stale_advance: Callable = button("advance").pressed.get_connections()[0].callable
+	var stale_advance: Callable = panel._command.bind("advance", {"npc_id":panel.session.npc_id,"session_id":first.session_id}, panel._render_serial)
 	var queries: Dictionary = fake.queries.duplicate()
 	panel._process(0.01)
 	check(fake.dialogue_state().typing and panel._text.visible_characters == 0, "文字按打字速度逐步显示")
@@ -391,7 +406,6 @@ func vendors(service, source: String) -> void:
 		await press("back")
 		await press("topics")
 		await press("back")
-		await press("services")
 		check(not shop_panel.is_open(), source + "浏览资料、话题、服务页均未自动开商店")
 		await press("vendor")
 		check(not panel.is_modal() and shop_panel.is_open(), source + "vendor先关NPC再打开独立商店")

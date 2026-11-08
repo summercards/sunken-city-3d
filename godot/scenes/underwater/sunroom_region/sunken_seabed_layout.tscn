@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Terrain3DMaterial" path="res://assets/materials/sunken_city/seabed_material.tres" id="1_y7lel"]
+[ext_resource type="Texture2D" path="res://terrain/sunken_seabed/albedo.res" id="2_2h5hx"]
+[ext_resource type="Texture2D" path="res://terrain/sunken_seabed/normal.res" id="3_x54nc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3kfx"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+metadata/terrain3d_generated_material = true
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_4i24o"]
+generated_type = 1
+height_offset = 0.5
+density = 10.0
+material_override = SubResource("StandardMaterial3D_c3kfx")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_h3td4"]
+name = "海床哑光"
+albedo_texture = ExtResource("2_2h5hx")
+normal_texture = ExtResource("3_x54nc")
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_7c0m5"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_4i24o")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_h3td4")])
+
+[node name="SunkenSeabed" type="Terrain3D"]
+data_directory = "res://terrain/sunken_seabed"
+show_checkered = false
+material = ExtResource("1_y7lel")
+assets = SubResource("Terrain3DAssets_7c0m5")
+mesh_size = 256
+vertex_spacing = 2.0
+collision_mode = 0
+displacement_sharpness = 0.5
+free_editor_textures = false
+top_level = true
+metadata/visual_only = true
+metadata/source_scene = "res://scenes/world/sunken_seabed.tscn"
+metadata/local_layout = true
+metadata/shared_terrain_data_pending = true
+metadata/terrain_data_source = "res://terrain/sunken_seabed"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "none"
+metadata/collision = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+metadata/_edit_lock_ = true

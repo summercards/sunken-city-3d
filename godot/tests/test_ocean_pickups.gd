@@ -34,7 +34,7 @@ func run() -> void:
 	check(props.ocean_enabled and not props.spawn_area.has_area(),"formal world no longer confines resources to HOME_WATER")
 	for point in [Vector3(400,1.12,400),Vector3(-400,1.12,400),Vector3(-400,1.12,-400),Vector3(400,1.12,-400),Vector3(1400,1.12,1400)]:
 		sync(1,7,point)
-		check(props.crates.size()>=16 and props.crates.size()<=17 and props.schools.size()==36,"30 percent offshore wood and unchanged fish populate distant water at "+str(point))
+		check(props.crates.size()>=8 and props.crates.size()<=9 and props.schools.size()==18,"30 percent offshore wood and halved fish populate distant water at "+str(point))
 		var spread := {}
 		var clear := true
 		for item in props.crates+props.schools:
@@ -73,7 +73,7 @@ func run() -> void:
 	sync(2,6.999)
 	check(not has_slot(fish_slot,true),"midnight and 06:00 wake do not add a second fish refresh")
 	sync(2,7)
-	check(has_slot(fish_slot,true) and props.crates.size()>=16 and props.crates.size()<=17 and props.schools.size()==36,"07:00 renews reduced wood population and fish once")
+	check(has_slot(fish_slot,true) and props.crates.size()>=8 and props.crates.size()<=9 and props.schools.size()==18,"07:00 renews reduced wood population and halved fish once")
 	var positions: Array = props.to_dict().schools
 	sync(2,7)
 	check(props.to_dict().schools==positions,"reobserving the same morning does not reroll resources")

@@ -1,74 +1,68 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cc0766d1flxq7"]
 
-[ext_resource type="Script" path="res://src/diving/sunroom_region.gd" id="region"]
-[ext_resource type="PackedScene" path="res://scenes/world/sunken_city.tscn" id="city"]
-[ext_resource type="PackedScene" path="res://scenes/world/sunken_seabed.tscn" id="seabed"]
-[ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_submerged_base.tscn" id="base"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/sunroom_region/atmosphere.tscn" id="atmosphere"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/sunroom_region/solar_cabin_submerged_base_layout.tscn" id="base_layout"]
+[ext_resource type="PackedScene" uid="uid://broushxet0rao" path="res://scenes/underwater/sunroom_region/sunken_city_layout.tscn" id="city_layout"]
+[ext_resource type="Script" uid="uid://dwcg3ftw4kv3m" path="res://src/diving/sunroom_diver_visual.gd" id="diver_visual"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/sunroom_region/ecology.tscn" id="ecology"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fish"]
-[ext_resource type="Shader" path="res://shaders/sunroom_underwater_surface.gdshader" id="water_shader"]
-[ext_resource type="PackedScene" path="res://scenes/underwater/sunroom_region/atmosphere.tscn" id="atmosphere"]
-
-[ext_resource type="Shader" path="res://shaders/sunroom_underwater_sky.gdshader" id="water_sky"]
+[ext_resource type="Script" uid="uid://ctrgq6wp1ooml" path="res://src/diving/sunroom_region.gd" id="region"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/sunroom_region/sunken_seabed_layout.tscn" id="seabed_layout"]
+[ext_resource type="Shader" uid="uid://bs7s55kjedw8c" path="res://shaders/sunroom_underwater_surface.gdshader" id="water_shader"]
+[ext_resource type="Shader" uid="uid://d0jmyfd226ad0" path="res://shaders/sunroom_underwater_sky.gdshader" id="water_sky"]
 
 [sub_resource type="ShaderMaterial" id="Material_sky"]
 resource_local_to_scene = true
 shader = ExtResource("water_sky")
-shader_parameter/view_depth = 10.0
+shader_parameter/water_exposure = 1.0185186
+shader_parameter/region_view_depth = 10.0
 
 [sub_resource type="Sky" id="Sky_underwater"]
 resource_local_to_scene = true
 sky_material = SubResource("Material_sky")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_underwater"]
 resource_local_to_scene = true
 background_mode = 2
-sky = SubResource("Sky_underwater")
 background_color = Color(0.12, 0.43, 0.52, 1)
-ambient_light_source = 2
+sky = SubResource("Sky_underwater")
+ambient_light_source = 3
 ambient_light_color = Color(0.725, 0.914, 0.886, 1)
-ambient_light_energy = 0.48
+ambient_light_energy = 0.6047898
 reflected_light_source = 2
 tonemap_mode = 3
-tonemap_exposure = 1.0185185
+tonemap_exposure = 1.0185184
 tonemap_white = 14.260244
-glow_enabled = true
-glow_intensity = 0.4
-glow_bloom = 0.03
-glow_hdr_threshold = 1.8
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.12, 0.43, 0.52, 1)
-fog_light_energy = 1.0
-fog_sun_scatter = 0.0
-fog_density = 1.0
-fog_depth_begin = 6.0
-fog_depth_end = 110.0
-fog_depth_curve = 1.3
-fog_sky_affect = 0.0
-fog_aerial_perspective = 1.0
-ssao_enabled = true
 ssao_radius = 1.4
 ssao_intensity = 0.7
 ssao_power = 1.25
 ssao_light_affect = 0.2
+glow_intensity = 0.4
+glow_bloom = 0.03
+glow_hdr_threshold = 1.8
+fog_mode = 1
+fog_light_color = Color(0.12, 0.43, 0.52, 1)
+fog_density = 1.0
+fog_aerial_perspective = 1.0
+fog_sky_affect = 0.0
+fog_depth_curve = 1.3
+fog_depth_begin = 6.0
+fog_depth_end = 110.0
 
 [sub_resource type="ShaderMaterial" id="Material_surface"]
 resource_local_to_scene = true
+render_priority = 0
 shader = ExtResource("water_shader")
 shader_parameter/elapsed = 0.0
 
 [sub_resource type="PlaneMesh" id="Mesh_surface"]
 size = Vector2(1280, 1280)
 
-[node name="SunroomUnderwaterRegion" type="Node3D"]
+[node name="SunroomUnderwaterRegion" type="Node3D" unique_id=702955557]
 script = ExtResource("region")
-water_level = 1.12
-city_bounds = Rect2(-120, -120, 240, 240)
-terrain_bounds = Rect2(-512, -512, 1024, 1024)
-lowest_seabed_y = -62.0
 metadata/asset_id = "SEA-SCENE-SUNROOM-UNDERWATER-REGION"
-metadata/asset_version = "v002"
+metadata/asset_version = "v003"
 metadata/source_scene = "res://scenes/main.tscn"
 metadata/standalone_only = true
 metadata/replaces_existing_dive_map = false
@@ -76,198 +70,211 @@ metadata/collision = true
 metadata/interactive = false
 metadata/visual_only = false
 metadata/collision_scope = "standalone_region_only_not_surface_prefabs"
+metadata/local_layout = true
+metadata/depth_contract = "viewer_min_y=-18.41m; target_depth=120.0m; water_level=101.587442 m; entry=surface_minus_1m; lower_geometry_visual_only"
+metadata/viewer_min_y = -18.412558
+metadata/target_depth_m = 120.0
+metadata/water_level = 101.587442
+metadata/city_deepened_by_m = 50.0
+metadata/depth_basis = "sea_surface_raised_50m_geometry_unchanged"
+metadata/lower_geometry_visual_only = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=939902223]
 environment = SubResource("Environment_underwater")
 
-[node name="SunRays" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-62, -28, 0)
+[node name="SunRays" type="DirectionalLight3D" parent="." unique_id=1757930468]
+transform = Transform3D(0.88294756, 0.41451877, -0.22040357, 0, 0.4694716, 0.88294756, 0.46947157, -0.7795964, 0.4145188, 0, 0, 0)
 light_color = Color(0.9294, 1, 0.8902, 1)
-light_energy = 0.60
+light_energy = 0.0
 light_angular_distance = 1.6
-shadow_enabled = true
-shadow_blur = 1.0
 directional_shadow_max_distance = 160.0
+metadata/role = "aligned_with_zone1_ambient_only_no_direct_sun"
 
-[node name="CoolFill" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-28, 145, 0)
+[node name="CoolFill" type="DirectionalLight3D" parent="." unique_id=996225654]
+transform = Transform3D(-0.81915206, -0.26927784, 0.50643796, 0, 0.88294756, 0.46947157, -0.57357645, 0.3845686, -0.72326833, 0, 0, 0)
 light_color = Color(0.6314, 0.9686, 0.9373, 1)
-light_energy = 0.13
+light_energy = 0.0
+metadata/role = "aligned_with_zone1_ambient_only_no_fill"
 
-[node name="ExistingModels" type="Node3D" parent="."]
+[node name="ExistingModels" type="Node3D" parent="." unique_id=1880772371]
 
-[node name="SunkenCity" parent="ExistingModels" instance=ExtResource("city")]
+[node name="SunkenCity" parent="ExistingModels" unique_id=1652659817 instance=ExtResource("city_layout")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.487442, 0)
 
-[node name="SunkenSeabed" parent="ExistingModels" instance=ExtResource("seabed")]
+[node name="SunkenSeabed" parent="ExistingModels" unique_id=1491073859 instance=ExtResource("seabed_layout")]
 
-[node name="SolarCabinBase" parent="ExistingModels" instance=ExtResource("base")]
-transform = Transform3D(1.4501, 0, 0, 0, 1, 0, 0, 0, 1.4308, -1.5113, -0.3, 1.5988)
+[node name="SolarCabinBase2" parent="ExistingModels" unique_id=244096627 instance=ExtResource("base_layout")]
+transform = Transform3D(3, 0, 0, 0, 4, 0, 0, 0, 3, -1.9797206, 44.123947, 1.8911695)
+excluded_components = PackedStringArray()
 
-[node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
-mesh = SubResource("Mesh_surface")
+[node name="Water" type="MeshInstance3D" parent="." unique_id=1154992585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 101.587442, 0)
 material_override = SubResource("Material_surface")
 cast_shadow = 0
 extra_cull_margin = 3.0
+mesh = SubResource("Mesh_surface")
 metadata/role = "same_water_level_local_underwater_view_surface"
 
-[node name="Ecology" parent="." instance=ExtResource("ecology")]
+[node name="Ecology" parent="." unique_id=1590693995 instance=ExtResource("ecology")]
 
-[node name="Atmosphere" parent="." instance=ExtResource("atmosphere")]
+[node name="Atmosphere" parent="." unique_id=2066796425 instance=ExtResource("atmosphere")]
 
-[node name="FishSchools" type="Node3D" parent="."]
+[node name="FishSchools" type="Node3D" parent="." unique_id=791962318]
 
-[node name="HomeShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(7, -8, 19)
-instance_id = "sunroom_underwater/fish/00"
-palette = "dive"
-profile = "slim"
-palette_index = 0
+[node name="HomeShoal" parent="FishSchools" unique_id=220258694 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -8, 19)
 count = 14
 orbit_radius = Vector2(4, 2.4)
 spread_radius = 3.5
-size_scale = 0.65
-swim_speed = 0.100
-phase = 0.000
+swim_speed = 0.1
 seed_value = 3700
-autonomous = true
-ride_water = false
+size_scale = 0.65
+instance_id = "sunroom_underwater/fish/00"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="CoralShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(-24, -14, 25)
-instance_id = "sunroom_underwater/fish/01"
-palette = "dive"
-profile = "slim"
+[node name="CoralShoal" parent="FishSchools" unique_id=1730591115 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -14, 25)
 palette_index = 2
-count = 18
-orbit_radius = Vector2(5, 3.0)
+orbit_radius = Vector2(5, 3)
 spread_radius = 4
-size_scale = 0.8
 swim_speed = 0.106
-phase = 0.730
+phase = 0.73
 seed_value = 3717
-autonomous = true
-ride_water = false
+size_scale = 0.8
+instance_id = "sunroom_underwater/fish/01"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="StreetShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(-68, -12, 65)
-instance_id = "sunroom_underwater/fish/02"
-palette = "dive"
-profile = "slim"
+[node name="StreetShoal" parent="FishSchools" unique_id=2022167224 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68, -12, 65)
 palette_index = 1
 count = 16
 orbit_radius = Vector2(6, 3.2)
 spread_radius = 4.5
-size_scale = 0.8
 swim_speed = 0.112
-phase = 1.460
+phase = 1.46
 seed_value = 3734
-autonomous = true
-ride_water = false
+size_scale = 0.8
+instance_id = "sunroom_underwater/fish/02"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="BridgeShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(35, -12, 33)
-instance_id = "sunroom_underwater/fish/03"
-palette = "dive"
-profile = "slim"
+[node name="BridgeShoal" parent="FishSchools" unique_id=153245017 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, -12, 33)
 palette_index = 3
 count = 20
 orbit_radius = Vector2(7, 3.5)
 spread_radius = 5
-size_scale = 0.8
 swim_speed = 0.118
-phase = 2.190
+phase = 2.19
 seed_value = 3751
-autonomous = true
-ride_water = false
+size_scale = 0.8
+instance_id = "sunroom_underwater/fish/03"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="CanalShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(-40, -20, -28)
-instance_id = "sunroom_underwater/fish/04"
-palette = "dive"
-profile = "slim"
+[node name="CanalShoal" parent="FishSchools" unique_id=138492230 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -20, -28)
 palette_index = 2
-count = 18
 orbit_radius = Vector2(5, 2.8)
 spread_radius = 4
-size_scale = 0.7
 swim_speed = 0.124
-phase = 2.920
+phase = 2.92
 seed_value = 3768
-autonomous = true
-ride_water = false
+size_scale = 0.7
+instance_id = "sunroom_underwater/fish/04"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="NorthShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(58, -13, -71)
-instance_id = "sunroom_underwater/fish/05"
-palette = "dive"
-profile = "slim"
-palette_index = 0
+[node name="NorthShoal" parent="FishSchools" unique_id=523430337 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, -13, -71)
 count = 14
 orbit_radius = Vector2(5.5, 3)
 spread_radius = 4
-size_scale = 0.8
-swim_speed = 0.130
-phase = 3.650
+phase = 3.65
 seed_value = 3785
-autonomous = true
-ride_water = false
-water_layer = "submerged"
-water_layer_role = "none"
-
-[node name="EastShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(90, -12, 60)
-instance_id = "sunroom_underwater/fish/06"
-palette = "dive"
-profile = "slim"
-palette_index = 3
-count = 18
-orbit_radius = Vector2(6, 3)
-spread_radius = 4.5
 size_scale = 0.8
-swim_speed = 0.136
-phase = 4.380
-seed_value = 3802
-autonomous = true
-ride_water = false
+instance_id = "sunroom_underwater/fish/05"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="DeepShoal" parent="FishSchools" instance=ExtResource("fish")]
-position = Vector3(-140, -32, 45)
-instance_id = "sunroom_underwater/fish/07"
-palette = "dive"
-profile = "slim"
+[node name="EastShoal" parent="FishSchools" unique_id=1177881001 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90, -12, 60)
+palette_index = 3
+spread_radius = 4.5
+swim_speed = 0.136
+phase = 4.38
+seed_value = 3802
+size_scale = 0.8
+instance_id = "sunroom_underwater/fish/06"
+water_layer = "submerged"
+water_layer_role = "none"
+
+[node name="DeepShoal" parent="FishSchools" unique_id=1256730542 instance=ExtResource("fish")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140, -32, 45)
 palette_index = 2
 count = 20
 orbit_radius = Vector2(8, 4)
 spread_radius = 5.5
-size_scale = 1.0
 swim_speed = 0.142
-phase = 5.110
+phase = 5.11
 seed_value = 3819
-autonomous = true
-ride_water = false
+instance_id = "sunroom_underwater/fish/07"
 water_layer = "submerged"
 water_layer_role = "none"
 
-[node name="Camera" type="Camera3D" parent="."]
-position = Vector3(18, -8, 40)
-rotation_degrees = Vector3(-10, 18, 0)
+[node name="ShallowShoal" parent="FishSchools" instance=ExtResource("fish")]
+position = Vector3(7, 91.587442, 0)
+palette = "dive"
+profile = "slim"
+palette_index = 0
+count = 18
+orbit_radius = Vector2(3.4, 2.0)
+spread_radius = 3.2
+swim_speed = 0.108
+phase = 5.84
+seed_value = 3836
+size_scale = 0.65
+ride_water = false
+instance_id = "sunroom_underwater/fish/08"
+water_layer = "submerged"
+water_layer_role = "none"
+metadata/depth_below_surface_m = 10.0
+metadata/clearance_radius_m = 6.5
+
+[node name="MidwaterShoal" parent="FishSchools" instance=ExtResource("fish")]
+position = Vector3(26, 61.587442, -24)
+palette = "dive"
+profile = "slim"
+palette_index = 2
+count = 22
+orbit_radius = Vector2(3.8, 2.3)
+spread_radius = 3.5
+swim_speed = 0.12
+phase = 6.57
+seed_value = 3853
+size_scale = 0.7
+ride_water = false
+instance_id = "sunroom_underwater/fish/09"
+water_layer = "submerged"
+water_layer_role = "none"
+metadata/depth_below_surface_m = 40.0
+metadata/clearance_radius_m = 7.5
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1175308597]
+transform = Transform3D(0.95105654, -0.05366024, 0.30432233, 0, 0.9848077, 0.17364818, -0.309017, -0.16514924, 0.93660784, 18, -8, 40)
 current = true
-fov = 68.0
+fov = 55.0
 near = 0.15
 far = 480.0
 
-[node name="RegionHUD" type="CanvasLayer" parent="."]
+[node name="DiverVisual" type="Node3D" parent="." unique_id=201636478]
+script = ExtResource("diver_visual")
+
+[node name="CameraRig" type="Node3D" parent="DiverVisual" unique_id=91500942]
+
+[node name="Target" type="Marker3D" parent="DiverVisual/CameraRig" unique_id=964945925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+
+[node name="RegionHUD" type="CanvasLayer" parent="." unique_id=1555432663]

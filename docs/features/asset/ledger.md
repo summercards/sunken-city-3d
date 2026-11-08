@@ -714,3 +714,11 @@ FAIL: derived feature index stale; use --sync
 | SEA-ASSET-R60 | 唯一总成SEA-SCENE-SUNROOM-UNDERWATER-REGION拟升级v002，总源15=原6＋atmosphere场景/脚本/collision三文件＋palette/beam/particles/sky/fog/color include六文件；统一WaterFogPass与局部色彩/透明自雾替代旧环境雾，16steps光束、local env/sky/material均resource_local_to_scene，758proxy/85uniqueMeshes/3115351instanceTriangles精确碰撞；physicsrun缓存99、visual158（同精确Basis key因启动浮点拆分而不同，各角色数量/assemblies/triangles一致）；无新Blend/优化源/GLB、不重复登记旧件，50城市源GLB不动 | 最终232826-signed：sunroom-underwater78/0、sunroom-collision264/0、visual118/0，新区域460/0；dive-maps302/0、modules31/0回归333/0，总793/0全PASS/exit0、无unexpected。远雾像素max0.0078431517/0.0039215982/0.0039215982均<0.025，射光开关lit_samples5365>150。v002白名单工具已写入成功，仅4JSON、15源/17runtime含2tests，backup/回滚及old history保留，无旧GLB导出；第二次dry-run为0项变更，不把旧6文件登记当r2完成。原9图/旧城/base/海床/原GLB70保护项最终核对70/70保持；toplevel/位置范围深度不变，本任务不改Main。Main 可能被并行修改，不要求 Main 字节不变。setup1834.253ms/load256.285ms仅单次、不签FPS；低端/连续运行、来源rights/完整02b和产品接入仍pending，production_route_integrated=false。[15文件及实测记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。 |
 
 最终报告：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`。verification关联三项新区域＋dive-maps/modules，最终793/0运行签署已完成；225915仅过程历史。定向登记实际写成功、4JSON事务备份/回滚信息、70保护项与sync/check真实output由父线程补入开发记录第8节，不编造成功。本次只改docs，不改登记JSON、不运行命令或registry。
+
+## 2026-11-08 水下建筑封闭（v006 限高版 / v008 高楼版）
+
+| 对应条款 | 实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R61 | 20 栋 `sunken_city` 建筑组件补封盖后另存 `v006`，GLB 原地覆盖运行时路径（`.import`、50 个包装场景、实例变换均未动）；另从未限高的 `v003` 生成本轮 `v008` 封闭高楼 20 栋，导出到新目录 `godot/assets/models/scenery/sunken_city_tall/` 并新增 20 个包装 `godot/scenes/components/scenery/sunken_city_tall/*.tscn`。v003 源与其 v003 运行时导出未改 | Blender 独立重开审计两套均 `passed=True problems=0`（面数只增不减、包围盒三轴不变、材质槽不变、GLB 面数与网格一致、无内嵌贴图）：`art_source/scenes/sunken_city/v006/seal_report.json`、`v008/seal_report.json`。17 栋处理到 `boundary_edges=0` 且 `nonmanifold_edges=0`（水密）；`frame_construction` 原本水密；`collapsed_residence`/`fallen_hall` 是废墟块堆（13 万+ 边界边），保留原状并明确未封闭。`sunken-city` PASS 33928/0；`water-layer` PASS。[交付记录](../../development/2026-11-08_sealed_buildings_and_canyon_ring.md) |
+
+边界：封闭判据是「网格水密」，即闭合流形曲面几何上不可穿过；不以碰撞体挡人代替。封盖面沿用相邻面的材质槽与 PaletteUV 格，未新增材质或贴图。`v003` 仅作几何来源，`v008` 组件按 2.0 倍引用时的层高/朝向仍是参考位，待用户手摆后更新。参考图商业权属仍 pending，未宣称原创授权通过。

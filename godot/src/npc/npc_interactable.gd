@@ -13,7 +13,7 @@ func configure(id_value: String, label_value: String, vendor_shop := "") -> void
 	verb = "交谈"
 	priority = 8
 	focus_radius = 2.4
-	hold_time = 0.12
+	hold_time = 0.0
 	focus_anchor = "node"
 	auto_radius = false
 

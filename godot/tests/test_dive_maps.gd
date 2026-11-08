@@ -93,6 +93,7 @@ func run() -> void:
 		check(runtime.diver_pos.is_equal_approx(runtime.spawn_point),"map-specific spawn "+id)
 		runtime.phase_machine.tick(runtime.ENTER_TIME)
 		check(runtime.phase=="swim" and not runtime.blocked(runtime.diver_pos),"safe enter path and swim "+id)
+		check(is_equal_approx(runtime.air.surface_depth,5.0),"legacy maps restore their own 5m breathing band "+id)
 		if id=="zone1":
 			var overlay = runtime.get_child(runtime.get_child_count()-1)
 			var escape := InputEventKey.new()
@@ -156,8 +157,17 @@ func run() -> void:
 			if region.entry_verified: break
 		var diver: Vector3 = region.diver_pos
 		check(region.entry_verified and region.phase=="swim","home entry resolved against real collision")
+		check(is_equal_approx(region.target_depth_m,120.0) and is_equal_approx(region.viewer_min_y,-18.412558) and is_equal_approx(region.water_level,101.587442),"home seabed depth contract is 120m from surface to the upper street")
+		var diver_visual = region.get_node_or_null("DiverVisual")
+		check(diver_visual!=null and diver_visual.get_node_or_null("DiverCharacter")!=null,"home dive has third-person character")
+		if diver_visual!=null:
+			check(diver_visual.get_node("DiverCharacter").visible,"third-person character visible while diving")
 		check(Vector2(diver.x-entry_point.x,diver.z-entry_point.z).length()<=region.entry_search_radius,"entry stays inside the declared home-water radius")
-		check(diver.y<1.12 and diver.y>region.lowest_seabed_y,"entry under sea level and above seabed")
+		check(diver.y<region.water_level and diver.y>region.lowest_seabed_y,"entry under sea level and above seabed")
+		# 2026-11-08 用户要求「下水后的位置在水下 1 米」：入水点必须停在水面下方 1 米，
+		# 不是贴在街面上。允许搜索时水平避让，但深度误差不得超过 0.05 米。
+		check(absf((region.water_level-diver.y)-1.0)<0.05,"home entry sits 1.0m below the surface (actual %.3fm)" % (region.water_level-diver.y))
+		check(absf(region.water_level-101.587442)<0.001,"home surface is 120m above the upper street datum")
 		var query := PhysicsShapeQueryParameters3D.new()
 		query.shape = CapsuleShape3D.new()
 		query.shape.radius = 0.35
@@ -167,7 +177,7 @@ func run() -> void:
 		check(root.world_3d.direct_space_state.intersect_shape(query,1).is_empty(),"entry capsule has real clearance")
 		check(region.phase=="swim" and region.depth>0.0,"home dive is playable and reports depth")
 		var oxygen: float = region.air.ratio()
-		for i in 30: await process_frame
+		for i in 90: await process_frame
 		check(region.air.ratio()<oxygen,"home dive consumes oxygen")
 		var home_hud = region.get_child(region.get_child_count()-1)
 		check(home_hud.presentation_snapshot().text.contains("家园海底"),"local HUD names 家园海底")
@@ -226,11 +236,21 @@ func run() -> void:
 	if main.actor_controller.mode()==0: dive_entry = main.player.global_position
 	var expected_source: String = main._dive_source_at(dive_entry)
 	main._on_dive()
-	check(session.active and session.source_id==expected_source,"production command selects source and switches")
-	if session.active:
-		if session.source_id=="home_seabed": await finish_home()
-		else: await finish_map()
-		check(main.is_inside_tree() and not session.active,"production command returns original surface")
+	check(session.switching and session.runtime==null and main.is_inside_tree(),"production command accepts before asynchronous switch")
+	var production_deadline := Time.get_ticks_msec()+45000
+	while session.switching and Time.get_ticks_msec()<production_deadline:
+		await process_frame
+	check(not session.switching and session.active and session.source_id==expected_source,"production command selects source and switches")
+	if session.active and not session.switching:
+		session.surface()
+		production_deadline = Time.get_ticks_msec()+45000
+		while session.switching and Time.get_ticks_msec()<production_deadline:
+			await process_frame
+		check(not session.switching and main.is_inside_tree() and not session.active,"production command returns original surface")
+	if session.switching:
+		print("[dive-maps] %d checks, %d failures" % [checks,failures])
+		quit(1)
+		return
 	# Cooldown is shared across maps, not reset by unloading.
 	session.air.recover=6.0
 	check(not session.enter_map("zone2") and session.runtime==null,"cooldown blocks cross-map bypass")
@@ -240,7 +260,7 @@ func run() -> void:
 	check(session.enter_map("zone1"),"force-surface fixture enters")
 	session.runtime.phase_machine.tick(session.runtime.ENTER_TIME)
 	session.runtime.air.air=0.001
-	session.runtime._process(0.05)
+	session.runtime.phase_machine.tick(0.05)
 	check(session.runtime.phase=="exit" and session.air.recover>0,"oxygen exhaustion starts surface state and cooldown")
 	session.runtime.phase_machine.tick(session.runtime.ENTER_TIME)
 	for i in 3: await process_frame

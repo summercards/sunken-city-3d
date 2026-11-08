@@ -5,23 +5,7 @@
 [node name="NpcStations" type="Node3D"]
 script = ExtResource("provider")
 
-[node name="residence_dock_workshop" type="Node3D" parent="."]
-position = Vector3(-8.5, 60.05, 8.5)
-metadata/npc_id = "npc_luo_yan"
-metadata/home_label = "天台草地 · 船老大暂驻"
-
-[node name="Home" type="Marker3D" parent="residence_dock_workshop"]
-
-[node name="Work" type="Marker3D" parent="residence_dock_workshop"]
-
-[node name="Social" type="Marker3D" parent="residence_dock_workshop"]
-position = Vector3(-0.8, 0, 0)
-
-[node name="Rest" type="Marker3D" parent="residence_dock_workshop"]
-
-[node name="Door" type="Marker3D" parent="residence_dock_workshop"]
-position = Vector3(0, 0, -0.3)
-
+; 船老大 2026-11-08 迁到霓虹花园屋顶（RoofNpcStations），此处不再保留站点
 [node name="residence_sunroom_greenhouse" type="Node3D" parent="."]
 position = Vector3(-5, 60.05, 7)
 metadata/npc_id = "npc_mu_he"

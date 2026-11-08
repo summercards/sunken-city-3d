@@ -184,6 +184,11 @@ func _ready() -> void:
 	_hints.custom_minimum_size = Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
 	var close := CloseButton.new();close.position = Vector2.ZERO
 	close.pressed.connect(func():
+		# 外部模态（商店/职业/建造）打开时，这枚圆键必须关掉**他们**：
+		# 旧实现直接落到 back()，而 back() 在 `_external_modal` 下第一句就返回，
+		# 于是按钮摆在最显眼的位置却按不动。
+		if owned_modal_query.is_valid() and owned_modal_query.call() and owned_modal_close.is_valid():
+			owned_modal_close.call();return
 		if menu: menu.back()
 		else: back())
 	command_buttons.close = close;_hints.add_child(close);_hints.hide()

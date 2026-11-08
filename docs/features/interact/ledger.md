@@ -15,6 +15,8 @@
     "godot/src/interaction"
   ],
   "verification": [
+    "npc-conversation",
+    "visual-npc-conversation",
     "facing-interaction",
     "visual-facing-interaction",
     "keyboard-farm-loop",
@@ -267,3 +269,15 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 | SEA-INTERACT-R27 | 已实现并通过：`_near_action()` 为唯一仲裁源，`_activate_near_action()` 替换原匿名 lambda（原来 `"leave"` 会掉进 else 误触打捞）；`_boat_shortcut_text()` 与 `_press_boat_key()` 对远距 pick 同源；`markers.suppress_query` 让码头标记在上船档让位 | `D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json` visual-keyboard-farm-loop PASS；实景目检：种植格旁只出种植图标、底部无提示条与进度条，水面锚图标为常驻码头路标（不同目标，非重影）。 |
 
 复用证据边界：`selftest` 仍 508 passed / 24 failed，失败集合与 2026-11-07 基线（190002-dive-map-switch-final）逐条比对只差三项浮动项（打捞冷却读数、航路长度数值、泊位两两可达条数），属既有历史失败，非本节引入；`keyboard-panels` 与 `minimum-loop` 的两处失败已定位为**范围外的前序改动**（作物表由 3 种扩到 6 种导致笔记页数变化；shop 命令改为独立商店面板）并已按新事实修正断言，非本节回归。整体仍 `partial`。
+
+
+## 2026-11-08 NPC先对话再进入功能
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INTERACT-R28 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+
+
+### 本次最终验收签署
+
+本节新增条款已实现并完成当前交互验收。13个独立入口5040/0，均exit0且unexpected_errors为空：NPC主场景473/0、真实渲染498/0（25张最终PNG全部状态已审）、规则655/0、世界136/0、资料话题1387/0、增量性能61/0、商店260/0、整局存档702/0、seed476/0、不同进程restart202/0、最小循环112/0、开场键盘39/0、点击39/0。报告选择、截图像素、逐图审阅、过程FAIL与最终覆盖均见[开发记录最终签署](../../development/2026-11-08_npc_conversation.md#最终签署本次交互专项通过2026-11-08)。资产/运行资源哈希门禁sync45、check46项仍FAIL/exit1，原基线漂移未批量重签；不以专项通过冒充全工程通过。手柄/触屏、低端/发行包、全部剧情人工游玩未执行，整体功能非完整产品verified。

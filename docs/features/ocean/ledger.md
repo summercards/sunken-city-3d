@@ -206,3 +206,22 @@ R12/R13的旧全暗夜景已被R15–R17替代。新增world_night全局与Water
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-OCEAN-R25 | 已接入，视觉定版待用户确认 | 环境资源提供基准；P 面板新增泛光扩散滑杆。验证及限制见 [记录](../../development/2026-11-07_soft_glow.md)。 |
+
+## 2026-11-08 水下共享光学与深度暗光承接（partial / PENDING）
+
+登记头status/owner保留；共享shader/include仍归 WaterSurface / ShaderMaterial，Map与Session只装配/注入，不新增光照时钟。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-OCEAN-R26 | 已读uw_water_color共享uw_surface_optics、家园surface及旧ceiling：水到空气Snell窗/内反射、随波太阳盘与碎光 | 近法线/掠视及time0/2真实像素和目检PENDING，不因shader已实现签观感 |
+| SEA-OCEAN-R27 | 已读两类单一WaterFogPass、Environment fog关闭、水面方向弱吸收、显示色/HDR转换及深度环境减光 | 深浅实体/背景亮度、仰视水窗、远雾接缝、日照/头灯分离真实验收PENDING；历史far-fog-edge失败不抹除 |
+| SEA-OCEAN-R28 | 家园注入绝对水位101.587442及实际view/dive depth；MaterialLib缓存set_water_level/set_depth与晚创建继承已接 | 旧图使用自身水位；85m只夹密度曲线，不夹120m真实深度。水位变化/跨图/新材质及全通道参数实测PENDING |
+| SEA-OCEAN-R29 | Session读取Main现有Sun方向/颜色/能量快照，configure_underwater_light传两类Map，再传材质/天空/表面/beam | 无新时钟/日期推进，不反写Sun；白天/零日照、深度减光和局部灯可读性PENDING |
+
+已核实统一runner中 `underwater-experience`、`visual-underwater-experience` 存在，追加关联但不改登记头。195/8、195/4为本轮真实视觉FAIL历史，修复后运行中，不能预签PASS或借旧5196/0。最终报告/计数/exit/unexpected/leak、像素差分、逐图审阅由主线程填[开发记录第5节](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)。本分支未运行测试/sync/check，设备/连续性能/全局门禁另列PENDING。
+
+### 本轮主线程最终验收
+
+SEA-OCEAN-R26–R29专项通过：`D:/projects/sea-work/verification/20261109-030908-underwater-breath-contact-db6f99/report.json`，visual-underwater-experience195/0、exit0、无unexpected；行为65/0在`20261109-031605-underwater-regression-final-2513b4`通过。启用Water、共享Snell窗/内反射/低频波纹与太阳；水面time0/2、sun1/0、water显隐真实像素对照均通过。修正首版过密波纹与天空辐照不随ambient_light_energy衰减的问题，按真实深度缩放cubemap：中性灰实体5/30/70/115m亮度0.09120/0.08082/0.04239/0.01040，水面ROI0.30625/0.25882/0.21393/0.12002，均单调变暗；单fogpass且无Environment fog、无新增白蒙层或volumetric fog。相机水柱只用于表面光学，Air仍按真实角色深度。
+
+旧195/8、195/4、195/1与timeout/exit-1保留失败历史；本轮未重新签历史far-fog-edge阈值、完整昼夜天气、低端/持续性能或用户终审。框架写盘52/1与全局资源门禁sync69/只读70问题独立保留，不称全工程通过。[完整签署](../../development/2026-11-08_underwater_optics_and_transition.md)。

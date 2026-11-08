@@ -1,0 +1,2356 @@
+[gd_scene format=3 uid="uid://broushxet0rao"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/coffee_steps.tscn" id="c0"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/electronics_shop.tscn" id="c1"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/terrace_residence.tscn" id="c2"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/tram_tenement.tscn" id="c3"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/balcony_tenement.tscn" id="c4"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/cutaway_tenement.tscn" id="c5"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/slender_tower.tscn" id="c6"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/terraced_tower.tscn" id="c7"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/half_tower.tscn" id="c8"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/canal_housing.tscn" id="c9"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/canal_shell.tscn" id="c10"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/rounded_corner.tscn" id="c11"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/cinema_ruin.tscn" id="c12"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/station_hall.tscn" id="c13"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/workshop_shell.tscn" id="c14"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/frame_construction.tscn" id="c15"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/roof_garden_shell.tscn" id="c16"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/low_foundation.tscn" id="c17"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/street_intact.tscn" id="c18"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/street_split.tscn" id="c19"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/junction.tscn" id="c20"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/canal_segment.tscn" id="c21"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/plaza_tile.tscn" id="c22"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/viaduct_intact.tscn" id="c23"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/viaduct_broken.tscn" id="c24"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/stair_link.tscn" id="c25"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/car_sedan.tscn" id="c26"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/car_van.tscn" id="c27"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/tram_wreck.tscn" id="c28"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/scooter.tscn" id="c29"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/utility_pole.tscn" id="c30"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/leaning_pole.tscn" id="c31"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/cable_span.tscn" id="c32"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/street_lamp.tscn" id="c33"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/traffic_light.tscn" id="c34"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/vending.tscn" id="c35"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/bus_shelter.tscn" id="c36"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/sign_board.tscn" id="c37"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/rubble_cluster.tscn" id="c38"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/corrosion_patch.tscn" id="c39"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/moss_patch.tscn" id="c40"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/kelp_clump.tscn" id="c41"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/collapsed_residence.tscn" id="c42"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/fallen_hall.tscn" id="c43"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/retaining_wall_ruin.tscn" id="c44"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/pump_cabinet.tscn" id="c45"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/kiosk_ruin.tscn" id="c46"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/bench.tscn" id="c47"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/terrain_ramp.tscn" id="c48"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city/viaduct_curve.tscn" id="c49"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/slender_tower.tscn" id="t0"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/terrace_residence.tscn" id="t1"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/tram_tenement.tscn" id="t2"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/rounded_corner.tscn" id="t3"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/terraced_tower.tscn" id="t4"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/cutaway_tenement.tscn" id="t5"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/balcony_tenement.tscn" id="t6"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/half_tower.tscn" id="t7"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/frame_construction.tscn" id="t8"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/roof_garden_shell.tscn" id="t9"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/canal_shell.tscn" id="t10"]
+[ext_resource type="PackedScene" path="res://scenes/components/scenery/sunken_city_tall/canal_housing.tscn" id="t11"]
+
+[node name="SunkenCity" type="Node3D" unique_id=1348944465]
+metadata/asset_id = "SEA-SCENE-SCITY-ASSEMBLY"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/source_scene = "res://scenes/world/sunken_city.tscn"
+metadata/local_layout = true
+metadata/layout_editable = true
+metadata/geometry_below_viewer_min = "visual_only_until_local_terrain_data_is_authored"
+metadata/asset_version = "v006"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "entity"
+metadata/collision = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="coffee_steps_instance_001" parent="." unique_id=1420496257 instance=ExtResource("c0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -110.87569, -61.3, 111.57679)
+metadata/instance_id = "coffee_steps_instance_001"
+metadata/urban_role = "south_boulevard_coffee_corner"
+
+[node name="electronics_shop_instance_001" parent="." unique_id=1631113118 instance=ExtResource("c1")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -43.706276, -66.45125, 125.76849)
+metadata/instance_id = "electronics_shop_instance_001"
+metadata/urban_role = "attached_shopping_frontage"
+
+[node name="terrace_residence_instance_001" parent="." unique_id=1324946883 instance=ExtResource("c2")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7, -66.1, 113.59057)
+metadata/instance_id = "terrace_residence_instance_001"
+metadata/urban_role = "setback_stair_residence"
+
+[node name="collapsed_residence_instance_001" parent="." unique_id=52536777 instance=ExtResource("c42")]
+transform = Transform3D(-2, 0, -3.019916e-07, -2.7390212e-07, 0.8423223, 1.8139718, 1.271871e-07, 1.8139718, -0.8423223, 30.007175, -62.84475, 95.50296)
+metadata/instance_id = "collapsed_residence_instance_001"
+metadata/urban_role = "collapsed_lowrise_empty_plot"
+
+[node name="canal_shell_instance_001" parent="." unique_id=1156326576 instance=ExtResource("c10")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 63, -61.606655, 106)
+metadata/instance_id = "canal_shell_instance_001"
+metadata/urban_role = "half_building_after_collapse"
+
+[node name="cinema_ruin_instance_001" parent="." unique_id=516843528 instance=ExtResource("c12")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 104, -64.24341, 105)
+metadata/instance_id = "cinema_ruin_instance_001"
+metadata/urban_role = "cinema_plaza_facing_boulevard"
+
+[node name="slender_tower_instance_001" parent="." unique_id=1049322083 instance=ExtResource("c6")]
+transform = Transform3D(1.4579488, 0.2805441, -0.2137287, -0.25094217, 1.4639097, 0.20975308, 0.24781635, -0.16811715, 1.4698042, -58, -67.98356, 100)
+metadata/instance_id = "slender_tower_instance_001"
+metadata/urban_role = "rear_tower_settlement"
+
+[node name="balcony_tenement_instance_001" parent="." unique_id=2102681200 instance=ExtResource("c4")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, -116.885765, -61.3, 64.804245)
+metadata/instance_id = "balcony_tenement_instance_001"
+metadata/urban_role = "west_residential_frontage"
+
+[node name="tram_tenement_instance_001" parent="." unique_id=560607744 instance=ExtResource("c3")]
+transform = Transform3D(-8.742278e-08, -0.10467191, 1.997259, 0, 1.997259, 0.10467191, -2, 4.5753543e-09, -8.7302965e-08, -16.696815, -61.124226, 54.33087)
+metadata/instance_id = "tram_tenement_instance_001"
+metadata/urban_role = "tram_station_housing"
+
+[node name="cutaway_tenement_instance_001" parent="." unique_id=1626957093 instance=ExtResource("c5")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -107.713715, -61.3, 6.134325)
+metadata/instance_id = "cutaway_tenement_instance_001"
+metadata/urban_role = "collapsed_courtyard_edge"
+
+[node name="workshop_shell_instance_001" parent="." unique_id=1776149705 instance=ExtResource("c14")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -106, -61.3, -52)
+metadata/instance_id = "workshop_shell_instance_001"
+metadata/urban_role = "western_industrial_yard"
+
+[node name="fallen_hall_instance_001" parent="." unique_id=310754402 instance=ExtResource("c43")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -98.892395, -61.3, -24)
+metadata/instance_id = "fallen_hall_instance_001"
+metadata/urban_role = "fallen_factory_grounded"
+
+[node name="canal_housing_instance_001" parent="." unique_id=713247572 instance=ExtResource("c9")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -27.012829, -66.1, -40.709995)
+metadata/instance_id = "canal_housing_instance_001"
+metadata/urban_role = "canal_north_housing"
+
+[node name="canal_shell_instance_002" parent="." unique_id=1980180211 instance=ExtResource("c10")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -29.972984, -64.18121, -1.4664497)
+metadata/instance_id = "canal_shell_instance_002"
+metadata/urban_role = "canal_partial_shell"
+
+[node name="station_hall_instance_001" parent="." unique_id=1396735316 instance=ExtResource("c13")]
+transform = Transform3D(0.063867114, 0, -1.99898, 0, 2, 0, 1.99898, 0, 0.063867114, -94.73148, -61.3, -68.731445)
+metadata/instance_id = "station_hall_instance_001"
+metadata/urban_role = "station_court"
+
+[node name="rounded_corner_instance_001" parent="." unique_id=1424397306 instance=ExtResource("c11")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -82.62253, -63.50227, -105)
+metadata/instance_id = "rounded_corner_instance_001"
+metadata/urban_role = "corner_department_frontage"
+
+[node name="terrace_residence_instance_002" parent="." unique_id=1980503115 instance=ExtResource("c2")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -47, -66.1, -102)
+metadata/instance_id = "terrace_residence_instance_002"
+metadata/urban_role = "north_lane_residence"
+
+[node name="frame_construction_instance_001" parent="." unique_id=932805917 instance=ExtResource("c15")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -13.465496, -66.1, -111.94186)
+metadata/instance_id = "frame_construction_instance_001"
+metadata/urban_role = "unfinished_block"
+
+[node name="terraced_tower_instance_002" parent="." unique_id=1787999318 instance=ExtResource("c7")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, 22.702549, -68.29776, -111.4734)
+metadata/instance_id = "terraced_tower_instance_002"
+metadata/urban_role = "northern_tower_cluster"
+
+[node name="slender_tower_instance_002" parent="." unique_id=1427026707 instance=ExtResource("c6")]
+transform = Transform3D(-1.854696, -0.7484001, -2.8005132e-07, -0.7484001, 1.854696, -1.1300527e-07, 3.019916e-07, 0, -2, 60.1224, -67.889595, -109.655975)
+metadata/instance_id = "slender_tower_instance_002"
+metadata/urban_role = "northern_tower_cluster"
+
+[node name="low_foundation_instance_001" parent="." unique_id=968680059 instance=ExtResource("c17")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, 108.234726, -61.29999, -107.44752)
+metadata/instance_id = "low_foundation_instance_001"
+metadata/urban_role = "demolished_corner_lot"
+
+[node name="roof_garden_shell_instance_002" parent="." unique_id=199903128 instance=ExtResource("c16")]
+transform = Transform3D(1.509958e-07, 0, -2, 0, 2, 0, 2, 0, 1.509958e-07, 108.937, -61.3, -54.41382)
+metadata/instance_id = "roof_garden_shell_instance_002"
+metadata/urban_role = "east_lane_low_shop"
+
+[node name="electronics_shop_instance_002" parent="." unique_id=1425957831 instance=ExtResource("c1")]
+transform = Transform3D(1.509958e-07, 0, -2, 0, 2, 0, 2, 0, 1.509958e-07, 108, -61.3, -8)
+metadata/instance_id = "electronics_shop_instance_002"
+metadata/urban_role = "eastern_retail_node"
+
+[node name="balcony_tenement_instance_002" parent="." unique_id=1056107511 instance=ExtResource("c4")]
+transform = Transform3D(1.1262647e-07, 1.1837519e-08, -1.5, -0.15679269, 1.4917829, -1.6562117e-16, 1.4917829, 0.15679269, 1.13246855e-07, 59.629303, -60.71743, -29.320503)
+metadata/instance_id = "balcony_tenement_instance_002"
+metadata/urban_role = "tilted_residential_settlement"
+
+[node name="workshop_shell_instance_002" parent="." unique_id=1397323582 instance=ExtResource("c14")]
+transform = Transform3D(1.509958e-07, 0, -2, 0, 2, 0, 2, 0, 1.509958e-07, 109, -61.3, 17)
+metadata/instance_id = "workshop_shell_instance_002"
+metadata/urban_role = "east_service_court"
+
+[node name="half_tower_instance_002" parent="." unique_id=1724429924 instance=ExtResource("c8")]
+transform = Transform3D(1.498703e-07, -1.840176e-08, -2, 0.2437387, 1.9850923, 0, 1.9850923, -0.2437387, 1.509958e-07, 103.881, -66.31249, 59.948334)
+metadata/instance_id = "half_tower_instance_002"
+metadata/urban_role = "leaning_tower_away_from_home"
+
+[node name="low_foundation_instance_002" parent="." unique_id=1406903059 instance=ExtResource("c17")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11, -66.1, 62)
+metadata/instance_id = "low_foundation_instance_002"
+metadata/urban_role = "southern_clearance_court"
+
+[node name="cutaway_tenement_instance_002" parent="." unique_id=1271186624 instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, -66.1, 62)
+metadata/instance_id = "cutaway_tenement_instance_002"
+metadata/urban_role = "south_lane_exposed_rooms"
+
+[node name="electronics_shop_instance_003" parent="." unique_id=179317975 instance=ExtResource("c1")]
+transform = Transform3D(-1.5, 0, -2.2649371e-07, 0, 1.5, 0, 2.2649371e-07, 0, -1.5, -34, -68.06657, 56)
+metadata/instance_id = "electronics_shop_instance_003"
+metadata/urban_role = "inner_south_retail_alley"
+
+[node name="canal_shell_instance_003" parent="." unique_id=535794681 instance=ExtResource("c10")]
+transform = Transform3D(-1.8, 0, -2.7179243e-07, 0, 1.8, 0, 2.7179243e-07, 0, -1.8, -32.04843, -64.35709, -34)
+metadata/instance_id = "canal_shell_instance_003"
+metadata/urban_role = "collapsed_side_of_alley"
+
+[node name="coffee_steps_instance_002" parent="." unique_id=644285963 instance=ExtResource("c0")]
+transform = Transform3D(0.1307602, 0.032329217, 1.995459, 0.14100829, 1.9945902, -0.04155526, -1.9907331, 0.14340496, 0.12812716, 52.75016, -65.48984, 2.2428856)
+metadata/instance_id = "coffee_steps_instance_002"
+metadata/urban_role = "south_east_shop_court"
+
+[node name="roof_garden_shell_instance_003" parent="." unique_id=1801417416 instance=ExtResource("c16")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.812708, -67.94003, -6.233162)
+metadata/instance_id = "roof_garden_shell_instance_003"
+metadata/urban_role = "inner_north_small_shop"
+
+[node name="DETAIL2_canal_shell_001" parent="." unique_id=345827400 instance=ExtResource("c10")]
+transform = Transform3D(-1.0251707, 1.095, -4.7863967e-08, 3.1763736e-22, -6.556708e-08, -1.5, -1.095, -1.0251707, 4.4811635e-08, -128.92213, -53.359844, 26.63034)
+metadata/instance_id = "DETAIL2_canal_shell_001"
+metadata/urban_role = "horizontal_road_wreck"
+
+[node name="DETAIL2_electronics_shop_002" parent="." unique_id=1548775346 instance=ExtResource("c1")]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 27.440277, -61.656982, 48.20474)
+metadata/instance_id = "DETAIL2_electronics_shop_002"
+metadata/urban_role = "horizontal_road_wreck"
+
+[node name="DETAIL2_electronics_shop_003" parent="." unique_id=1792732194 instance=ExtResource("c1")]
+transform = Transform3D(0.9960332, -1.734335, -7.5810185e-08, 0, -8.742278e-08, 2, -1.734335, -0.9960332, -4.3537995e-08, 48.323196, -55.614105, -34.67334)
+metadata/instance_id = "DETAIL2_electronics_shop_003"
+metadata/urban_role = "horizontal_road_wreck"
+
+[node name="plaza_tile_instance_001" parent="." unique_id=1823461836 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, 108)
+metadata/instance_id = "plaza_tile_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_001" parent="." unique_id=630386068 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, 84)
+metadata/instance_id = "street_intact_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_002" parent="." unique_id=986527539 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, 60)
+metadata/instance_id = "plaza_tile_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_003" parent="." unique_id=282846039 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, 36)
+metadata/instance_id = "plaza_tile_instance_003"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_004" parent="." unique_id=1915566607 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, 12)
+metadata/instance_id = "plaza_tile_instance_004"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_005" parent="." unique_id=481085980 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, -12)
+metadata/instance_id = "plaza_tile_instance_005"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_006" parent="." unique_id=1369341178 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, -36)
+metadata/instance_id = "plaza_tile_instance_006"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_007" parent="." unique_id=670333836 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, -60)
+metadata/instance_id = "plaza_tile_instance_007"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_002" parent="." unique_id=438284631 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, -84)
+metadata/instance_id = "street_intact_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_008" parent="." unique_id=1728190313 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -61.9, -108)
+metadata/instance_id = "plaza_tile_instance_008"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_003" parent="." unique_id=1411389871 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, 108)
+metadata/instance_id = "street_intact_instance_003"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="junction_instance_001" parent="." unique_id=240639092 instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84, -61.9, 84)
+metadata/instance_id = "junction_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_004" parent="." unique_id=880120968 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, 60)
+metadata/instance_id = "street_intact_instance_004"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_005" parent="." unique_id=100752250 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, 36)
+metadata/instance_id = "street_intact_instance_005"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_006" parent="." unique_id=1947471266 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, 12)
+metadata/instance_id = "street_intact_instance_006"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_007" parent="." unique_id=855915309 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, -12)
+metadata/instance_id = "street_intact_instance_007"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_split_instance_001" parent="." unique_id=1884321725 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, -36)
+metadata/instance_id = "street_split_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_008" parent="." unique_id=1921605726 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, -60)
+metadata/instance_id = "street_intact_instance_008"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="junction_instance_002" parent="." unique_id=1648684839 instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84, -61.9, -84)
+metadata/instance_id = "junction_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_009" parent="." unique_id=1573710645 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -84, -61.9, -108)
+metadata/instance_id = "street_intact_instance_009"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_009" parent="." unique_id=845934210 instance=ExtResource("c48")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, -60, -66.7, 108)
+metadata/instance_id = "plaza_tile_instance_009"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_010" parent="." unique_id=1834779496 instance=ExtResource("c19")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, -60, -66.7, 84)
+metadata/instance_id = "street_intact_instance_010"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_end_instance_001" parent="." unique_id=1380267327 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, 60)
+metadata/instance_id = "canal_end_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_segment_instance_001" parent="." unique_id=739031582 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, 36)
+metadata/instance_id = "canal_segment_instance_001"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_segment_instance_002" parent="." unique_id=2140079907 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, 12)
+metadata/instance_id = "canal_segment_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_segment_instance_003" parent="." unique_id=80427068 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, -12)
+metadata/instance_id = "canal_segment_instance_003"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_segment_instance_004" parent="." unique_id=671252616 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, -36)
+metadata/instance_id = "canal_segment_instance_004"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="canal_end_instance_002" parent="." unique_id=512742527 instance=ExtResource("c21")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -60, -68.1, -60)
+metadata/instance_id = "canal_end_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_011" parent="." unique_id=1543966212 instance=ExtResource("c19")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, -60, -66.7, -84)
+metadata/instance_id = "street_intact_instance_011"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_010" parent="." unique_id=1482503436 instance=ExtResource("c48")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, -60, -66.7, -108)
+metadata/instance_id = "plaza_tile_instance_010"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_011" parent="." unique_id=779440487 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, 108)
+metadata/instance_id = "plaza_tile_instance_011"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_012" parent="." unique_id=1803456140 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, 84)
+metadata/instance_id = "street_intact_instance_012"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_012" parent="." unique_id=396201106 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, 60)
+metadata/instance_id = "plaza_tile_instance_012"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_013" parent="." unique_id=1391825807 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, 36)
+metadata/instance_id = "plaza_tile_instance_013"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_014" parent="." unique_id=663576422 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, 12)
+metadata/instance_id = "plaza_tile_instance_014"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_015" parent="." unique_id=1763729616 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, -12)
+metadata/instance_id = "plaza_tile_instance_015"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_016" parent="." unique_id=1530700237 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, -36)
+metadata/instance_id = "plaza_tile_instance_016"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_017" parent="." unique_id=1032938347 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, -60)
+metadata/instance_id = "plaza_tile_instance_017"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_013" parent="." unique_id=735883057 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, -84)
+metadata/instance_id = "street_intact_instance_013"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_018" parent="." unique_id=1841866832 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -66.700005, -108)
+metadata/instance_id = "plaza_tile_instance_018"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_019" parent="." unique_id=452015688 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, 108)
+metadata/instance_id = "plaza_tile_instance_019"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_014" parent="." unique_id=1476869316 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, 84)
+metadata/instance_id = "street_intact_instance_014"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_020" parent="." unique_id=1576830017 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, 60)
+metadata/instance_id = "plaza_tile_instance_020"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_021" parent="." unique_id=1436884554 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, 36)
+metadata/instance_id = "plaza_tile_instance_021"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_022" parent="." unique_id=493249206 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, 12)
+metadata/instance_id = "plaza_tile_instance_022"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_023" parent="." unique_id=1330515873 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, -12)
+metadata/instance_id = "plaza_tile_instance_023"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_024" parent="." unique_id=2006253731 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, -36)
+metadata/instance_id = "plaza_tile_instance_024"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_025" parent="." unique_id=1401016407 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, -60)
+metadata/instance_id = "plaza_tile_instance_025"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_015" parent="." unique_id=1079423829 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, -84)
+metadata/instance_id = "street_intact_instance_015"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_026" parent="." unique_id=795412731 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -66.700005, -108)
+metadata/instance_id = "plaza_tile_instance_026"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_027" parent="." unique_id=507644348 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, 108)
+metadata/instance_id = "plaza_tile_instance_027"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_016" parent="." unique_id=1936408289 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, 84)
+metadata/instance_id = "street_intact_instance_016"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_028" parent="." unique_id=1062292770 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, 60)
+metadata/instance_id = "plaza_tile_instance_028"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_029" parent="." unique_id=1438901499 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, 36)
+metadata/instance_id = "plaza_tile_instance_029"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_030" parent="." unique_id=1338155512 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, 12)
+metadata/instance_id = "plaza_tile_instance_030"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_031" parent="." unique_id=619672834 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, -12)
+metadata/instance_id = "plaza_tile_instance_031"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_032" parent="." unique_id=443889774 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, -36)
+metadata/instance_id = "plaza_tile_instance_032"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_033" parent="." unique_id=1992532511 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, -60)
+metadata/instance_id = "plaza_tile_instance_033"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_017" parent="." unique_id=1082388796 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, -84)
+metadata/instance_id = "street_intact_instance_017"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_034" parent="." unique_id=1285023817 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -66.700005, -108)
+metadata/instance_id = "plaza_tile_instance_034"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_035" parent="." unique_id=43113257 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, 108)
+metadata/instance_id = "plaza_tile_instance_035"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_split_instance_002" parent="." unique_id=1564964259 instance=ExtResource("c19")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, 84)
+metadata/instance_id = "street_split_instance_002"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_036" parent="." unique_id=1968642711 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, 60)
+metadata/instance_id = "plaza_tile_instance_036"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_037" parent="." unique_id=1035402321 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, 36)
+metadata/instance_id = "plaza_tile_instance_037"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_038" parent="." unique_id=1737895757 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, 12)
+metadata/instance_id = "plaza_tile_instance_038"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_039" parent="." unique_id=2025681473 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, -12)
+metadata/instance_id = "plaza_tile_instance_039"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_040" parent="." unique_id=638127875 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, -36)
+metadata/instance_id = "plaza_tile_instance_040"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_041" parent="." unique_id=1637345222 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, -60)
+metadata/instance_id = "plaza_tile_instance_041"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_split_instance_003" parent="." unique_id=1672619084 instance=ExtResource("c19")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, -84)
+metadata/instance_id = "street_split_instance_003"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_042" parent="." unique_id=226893927 instance=ExtResource("c48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -66.7, -108)
+metadata/instance_id = "plaza_tile_instance_042"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_043" parent="." unique_id=668571139 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, 108)
+metadata/instance_id = "plaza_tile_instance_043"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_018" parent="." unique_id=157567176 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, 84)
+metadata/instance_id = "street_intact_instance_018"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_044" parent="." unique_id=2098638062 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, 60)
+metadata/instance_id = "plaza_tile_instance_044"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_045" parent="." unique_id=993025802 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, 36)
+metadata/instance_id = "plaza_tile_instance_045"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_046" parent="." unique_id=1343832928 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, 12)
+metadata/instance_id = "plaza_tile_instance_046"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_047" parent="." unique_id=823545850 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, -12)
+metadata/instance_id = "plaza_tile_instance_047"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_048" parent="." unique_id=763612437 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, -36)
+metadata/instance_id = "plaza_tile_instance_048"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_049" parent="." unique_id=1202925783 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, -60)
+metadata/instance_id = "plaza_tile_instance_049"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_019" parent="." unique_id=1531884288 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, -84)
+metadata/instance_id = "street_intact_instance_019"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_050" parent="." unique_id=1302217079 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -61.9, -108)
+metadata/instance_id = "plaza_tile_instance_050"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_020" parent="." unique_id=1963688646 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, 108)
+metadata/instance_id = "street_intact_instance_020"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="junction_instance_003" parent="." unique_id=986028978 instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, -61.9, 84)
+metadata/instance_id = "junction_instance_003"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_021" parent="." unique_id=514903307 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, 60)
+metadata/instance_id = "street_intact_instance_021"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_022" parent="." unique_id=1804164529 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, 36)
+metadata/instance_id = "street_intact_instance_022"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_023" parent="." unique_id=534335323 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, 12)
+metadata/instance_id = "street_intact_instance_023"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_024" parent="." unique_id=603701749 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, -12)
+metadata/instance_id = "street_intact_instance_024"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_split_instance_004" parent="." unique_id=347802253 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, -36)
+metadata/instance_id = "street_split_instance_004"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_025" parent="." unique_id=1268403780 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, -60)
+metadata/instance_id = "street_intact_instance_025"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="junction_instance_004" parent="." unique_id=320372130 instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, -61.9, -84)
+metadata/instance_id = "junction_instance_004"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_026" parent="." unique_id=912938325 instance=ExtResource("c18")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 84, -61.9, -108)
+metadata/instance_id = "street_intact_instance_026"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_051" parent="." unique_id=1132461399 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, 108)
+metadata/instance_id = "plaza_tile_instance_051"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_027" parent="." unique_id=1196867102 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, 84)
+metadata/instance_id = "street_intact_instance_027"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_052" parent="." unique_id=364926502 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, 60)
+metadata/instance_id = "plaza_tile_instance_052"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_053" parent="." unique_id=1222905296 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, 36)
+metadata/instance_id = "plaza_tile_instance_053"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_054" parent="." unique_id=75959258 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, 12)
+metadata/instance_id = "plaza_tile_instance_054"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_055" parent="." unique_id=111767001 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, -12)
+metadata/instance_id = "plaza_tile_instance_055"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_056" parent="." unique_id=1875180549 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, -36)
+metadata/instance_id = "plaza_tile_instance_056"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_057" parent="." unique_id=2133499130 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, -60)
+metadata/instance_id = "plaza_tile_instance_057"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="street_intact_instance_028" parent="." unique_id=358616603 instance=ExtResource("c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, -84)
+metadata/instance_id = "street_intact_instance_028"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="plaza_tile_instance_058" parent="." unique_id=768877886 instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, -61.9, -108)
+metadata/instance_id = "plaza_tile_instance_058"
+metadata/urban_role = "aligned_ground_domain"
+
+[node name="viaduct_intact_instance_001" parent="." unique_id=1180361744 instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, -66.1, 48)
+metadata/instance_id = "viaduct_intact_instance_001"
+metadata/urban_role = "tram_branch"
+
+[node name="stair_link_instance_001" parent="." unique_id=454048343 instance=ExtResource("c25")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -109, -61.3, 36)
+metadata/instance_id = "stair_link_instance_001"
+metadata/urban_role = "station_stair_access"
+
+[node name="V3_viaduct_curve_000" parent="." unique_id=1879959831 instance=ExtResource("c49")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.29662, -71.36081, 44.8514)
+metadata/instance_id = "V3_viaduct_curve_000"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_intact_001" parent="." unique_id=1277991862 instance=ExtResource("c23")]
+transform = Transform3D(0.42426407, 0, 0.70710677, 0, 1, 0, -0.4242641, 0, 0.70710677, -55.372585, -70.98093, 36.142136)
+metadata/instance_id = "V3_viaduct_intact_001"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_curve_002" parent="." unique_id=41888683 instance=ExtResource("c49")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, -43.448544, -73.78872, 27.432875)
+metadata/instance_id = "V3_viaduct_curve_002"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_broken_003" parent="." unique_id=697116777 instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.745163, -74.60485, 24.284273)
+metadata/instance_id = "V3_viaduct_broken_003"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_intact_004" parent="." unique_id=116887484 instance=ExtResource("c23")]
+transform = Transform3D(0.98247933, -0.18637161, 0, 0.18637161, 0.98247933, 0, 0, 0, 1, 12.254837, -80.27319, 24.284273)
+metadata/instance_id = "V3_viaduct_intact_004"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_curve_005" parent="." unique_id=1761471038 instance=ExtResource("c49")]
+transform = Transform3D(-0.704565, -0.084713094, 0.704565, -0.059901204, 0.99640536, 0.059901204, -0.70710677, 0, -0.70710677, 30.844784, -77.84683, 26.55746)
+metadata/instance_id = "V3_viaduct_curve_005"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_curve_006" parent="." unique_id=1759344601 instance=ExtResource("c49")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 45.106236, -74.972206, 39.58089)
+metadata/instance_id = "V3_viaduct_curve_006"
+metadata/urban_role = "rail_extension"
+
+[node name="V3_viaduct_intact_007" parent="." unique_id=1148026500 instance=ExtResource("c23")]
+transform = Transform3D(-5.2359876e-08, 0, -1, 0, 1, 0, 1, 0, -5.2359876e-08, 48.254837, -69.04891, 60.28427)
+metadata/instance_id = "V3_viaduct_intact_007"
+metadata/urban_role = "rail_extension"
+
+[node name="viaduct_intact_instance_002" parent="." unique_id=888644873 instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, -68.62615, 48)
+metadata/instance_id = "viaduct_intact_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="tram_wreck_instance_001" parent="." unique_id=351516599 instance=ExtResource("c28")]
+transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.052335955, 0, -0.052335955, 0.9986295, -105.91625, -50.75, 48)
+metadata/instance_id = "tram_wreck_instance_001"
+metadata/urban_role = "wreck_on_tracks"
+
+[node name="car_sedan_instance_001" parent="." unique_id=29204400 instance=ExtResource("c26")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -100, -61.3, 84)
+metadata/instance_id = "car_sedan_instance_001"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_van_instance_001" parent="." unique_id=1124898994 instance=ExtResource("c27")]
+transform = Transform3D(0.06975639, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, 0.06975639, -47, -66.1, 84)
+metadata/instance_id = "car_van_instance_001"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_002" parent="." unique_id=2038968999 instance=ExtResource("c26")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, 10, -66.1, 79)
+metadata/instance_id = "car_sedan_instance_002"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_003" parent="." unique_id=909686534 instance=ExtResource("c26")]
+transform = Transform3D(-0.06975647, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, -0.06975647, 59, -61.3, 84)
+metadata/instance_id = "car_sedan_instance_003"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_004" parent="." unique_id=654757060 instance=ExtResource("c26")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, 99, -61.3, 84)
+metadata/instance_id = "car_sedan_instance_004"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_005" parent="." unique_id=1182793767 instance=ExtResource("c26")]
+transform = Transform3D(0.9986295, 0, -0.052335955, 0, 1, 0, 0.052335955, 0, 0.9986295, -84, -61.3, 58)
+metadata/instance_id = "car_sedan_instance_005"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_006" parent="." unique_id=749022394 instance=ExtResource("c26")]
+transform = Transform3D(0.990268, 0, 0.13917312, 0, 1, 0, -0.13917312, 0, 0.990268, -84, -61.3, -9)
+metadata/instance_id = "car_sedan_instance_006"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_van_instance_002" parent="." unique_id=1326878678 instance=ExtResource("c27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84, -61.3, -67)
+metadata/instance_id = "car_van_instance_002"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_007" parent="." unique_id=165686065 instance=ExtResource("c26")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -28, -66.1, -84)
+metadata/instance_id = "car_sedan_instance_007"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_008" parent="." unique_id=1086182666 instance=ExtResource("c26")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, 29, -65.35223, -84)
+metadata/instance_id = "car_sedan_instance_008"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_van_instance_003" parent="." unique_id=1303683690 instance=ExtResource("c27")]
+transform = Transform3D(0.17364798, 0, 0.9848077, 0, 1, 0, -0.9848077, 0, 0.17364798, 94, -61.3, -84)
+metadata/instance_id = "car_van_instance_003"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_009" parent="." unique_id=1025031630 instance=ExtResource("c26")]
+transform = Transform3D(1.4979442, 0, 0.07850394, 0, 1.5, 0, -0.07850394, 0, 1.4979442, 84, -61.3, 35)
+metadata/instance_id = "car_sedan_instance_009"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="car_sedan_instance_010" parent="." unique_id=112092015 instance=ExtResource("c26")]
+transform = Transform3D(1.494292, 0, -0.13073361, 0, 1.5, 0, 0.13073361, 0, 1.494292, 84, -61.3, -30)
+metadata/instance_id = "car_sedan_instance_010"
+metadata/urban_role = "abandoned_traffic"
+
+[node name="bus_shelter_instance_001" parent="." unique_id=38573965 instance=ExtResource("c36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, -61.1, 91)
+metadata/instance_id = "bus_shelter_instance_001"
+metadata/urban_role = "transit_node"
+
+[node name="vending_instance_001" parent="." unique_id=670058665 instance=ExtResource("c35")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, -61.1, 91)
+metadata/instance_id = "vending_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="scooter_instance_001" parent="." unique_id=1822544616 instance=ExtResource("c29")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, -61.1, 91)
+metadata/instance_id = "scooter_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="bus_shelter_instance_002" parent="." unique_id=2129082990 instance=ExtResource("c36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, -65.9, 92)
+metadata/instance_id = "bus_shelter_instance_002"
+metadata/urban_role = "transit_node"
+
+[node name="vending_instance_002" parent="." unique_id=1805332799 instance=ExtResource("c35")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -65.9, 92)
+metadata/instance_id = "vending_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="scooter_instance_002" parent="." unique_id=1735570782 instance=ExtResource("c29")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, -65.9, 92)
+metadata/instance_id = "scooter_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="bus_shelter_instance_003" parent="." unique_id=1028820557 instance=ExtResource("c36")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -92, -61.1, -46)
+metadata/instance_id = "bus_shelter_instance_003"
+metadata/urban_role = "transit_node"
+
+[node name="vending_instance_003" parent="." unique_id=1879416065 instance=ExtResource("c35")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -88, -61.1, -46)
+metadata/instance_id = "vending_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="scooter_instance_003" parent="." unique_id=685228217 instance=ExtResource("c29")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -97, -61.1, -46)
+metadata/instance_id = "scooter_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="bus_shelter_instance_004" parent="." unique_id=528226864 instance=ExtResource("c36")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 101, -61.1, -91)
+metadata/instance_id = "bus_shelter_instance_004"
+metadata/urban_role = "transit_node"
+
+[node name="vending_instance_004" parent="." unique_id=1927308214 instance=ExtResource("c35")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 105, -61.1, -91)
+metadata/instance_id = "vending_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="scooter_instance_004" parent="." unique_id=1733717967 instance=ExtResource("c29")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 96, -61.1, -91)
+metadata/instance_id = "scooter_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="traffic_light_instance_001" parent="." unique_id=1077943886 instance=ExtResource("c34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, -61.1, 72)
+metadata/instance_id = "traffic_light_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="sign_board_instance_001" parent="." unique_id=822390630 instance=ExtResource("c37")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76, -61.1, 70)
+metadata/instance_id = "sign_board_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="traffic_light_instance_002" parent="." unique_id=2057324207 instance=ExtResource("c34")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -76, -61.1, -76)
+metadata/instance_id = "traffic_light_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="sign_board_instance_002" parent="." unique_id=2125508707 instance=ExtResource("c37")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -72, -61.199997, -78)
+metadata/instance_id = "sign_board_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="traffic_light_instance_003" parent="." unique_id=1798839746 instance=ExtResource("c34")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 76, -61.1, -76)
+metadata/instance_id = "traffic_light_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="sign_board_instance_003" parent="." unique_id=1456776582 instance=ExtResource("c37")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 80, -61.1, -78)
+metadata/instance_id = "sign_board_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="traffic_light_instance_004" parent="." unique_id=636407982 instance=ExtResource("c34")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 76, -61.1, 76)
+metadata/instance_id = "traffic_light_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="sign_board_instance_004" parent="." unique_id=1592164845 instance=ExtResource("c37")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 80, -61.1, 74)
+metadata/instance_id = "sign_board_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_001" parent="." unique_id=370625757 instance=ExtResource("c33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, -61.1, 91)
+metadata/instance_id = "street_lamp_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_002" parent="." unique_id=1770528804 instance=ExtResource("c33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, -62.975, 91)
+metadata/instance_id = "street_lamp_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_003" parent="." unique_id=1722671640 instance=ExtResource("c33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -65.9, 86)
+metadata/instance_id = "street_lamp_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_004" parent="." unique_id=363128706 instance=ExtResource("c33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, -63.425, 91)
+metadata/instance_id = "street_lamp_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_005" parent="." unique_id=40565664 instance=ExtResource("c33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103, -61.1, 91)
+metadata/instance_id = "street_lamp_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_006" parent="." unique_id=1517198261 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -92, -61.1, 42)
+metadata/instance_id = "street_lamp_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_007" parent="." unique_id=972606803 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -92, -61.1, -14)
+metadata/instance_id = "street_lamp_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_008" parent="." unique_id=1006527806 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -92, -61.1, -73)
+metadata/instance_id = "street_lamp_instance_008"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_009" parent="." unique_id=1973106321 instance=ExtResource("c33")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, -55, -64.825, -92)
+metadata/instance_id = "street_lamp_instance_009"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_010" parent="." unique_id=131058957 instance=ExtResource("c33")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 13, -65.9, -92)
+metadata/instance_id = "street_lamp_instance_010"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_011" parent="." unique_id=149020292 instance=ExtResource("c33")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 69, -61.1, -92)
+metadata/instance_id = "street_lamp_instance_011"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_012" parent="." unique_id=1312331629 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 92, -61.1, -47)
+metadata/instance_id = "street_lamp_instance_012"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_013" parent="." unique_id=209219131 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 92, -61.1, 7)
+metadata/instance_id = "street_lamp_instance_013"
+metadata/urban_role = "inherited"
+
+[node name="street_lamp_instance_014" parent="." unique_id=1840992946 instance=ExtResource("c33")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 92, -61.1, 63)
+metadata/instance_id = "street_lamp_instance_014"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_001" parent="." unique_id=33931213 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, -61.1, 77)
+metadata/instance_id = "utility_pole_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_002" parent="." unique_id=741639822 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89, -61.1, 72)
+metadata/instance_id = "utility_pole_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="leaning_pole_instance_001" parent="." unique_id=366046887 instance=ExtResource("c31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, -62.306053, 77)
+metadata/instance_id = "leaning_pole_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_003" parent="." unique_id=2069658326 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -65.9, 72)
+metadata/instance_id = "utility_pole_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_004" parent="." unique_id=888544019 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -65.9, 77)
+metadata/instance_id = "utility_pole_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_005" parent="." unique_id=1374251840 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -65.338, 77)
+metadata/instance_id = "utility_pole_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="leaning_pole_instance_002" parent="." unique_id=1409074832 instance=ExtResource("c31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, -61.1, -32)
+metadata/instance_id = "leaning_pole_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_006" parent="." unique_id=1360187157 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, -61.1, -52)
+metadata/instance_id = "utility_pole_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="utility_pole_instance_007" parent="." unique_id=395830571 instance=ExtResource("c30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, -61.1, -72)
+metadata/instance_id = "utility_pole_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="cable_span_instance_001" parent="." unique_id=1846072547 instance=ExtResource("c32")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99, -54.26, 72)
+metadata/instance_id = "cable_span_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="cable_span_instance_002" parent="." unique_id=168675814 instance=ExtResource("c32")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -59.059998, 72)
+metadata/instance_id = "cable_span_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="cable_span_instance_003" parent="." unique_id=1999983076 instance=ExtResource("c32")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -59.059998, 77)
+metadata/instance_id = "cable_span_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_001" parent="." unique_id=122728784 instance=ExtResource("c39")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, -55.6, 109.8)
+metadata/instance_id = "corrosion_patch_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_001" parent="." unique_id=1389893684 instance=ExtResource("c38")]
+transform = Transform3D(0.7547096, 0, 0.656059, 0, 1, 0, -0.656059, 0, 0.7547096, -85, -61.3, 101)
+metadata/instance_id = "rubble_cluster_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_002" parent="." unique_id=2125534149 instance=ExtResource("c38")]
+transform = Transform3D(0.13917297, 0, 0.99026805, 0, 1, 0, -0.99026805, 0, 0.13917297, -24, -66.1, 98)
+metadata/instance_id = "rubble_cluster_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_003" parent="." unique_id=312579810 instance=ExtResource("c38")]
+transform = Transform3D(-0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, -0.9612617, 29, -65.67387, 99)
+metadata/instance_id = "rubble_cluster_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_002" parent="." unique_id=1585755310 instance=ExtResource("c39")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 25, -60.08696, 110.8)
+metadata/instance_id = "corrosion_patch_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_004" parent="." unique_id=1315602391 instance=ExtResource("c38")]
+transform = Transform3D(-0.90630776, 0, -0.42261833, 0, 1, 0, 0.42261833, 0, -0.90630776, 68, -61.3, 99)
+metadata/instance_id = "rubble_cluster_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_005" parent="." unique_id=1084265707 instance=ExtResource("c38")]
+transform = Transform3D(0.29237142, 0, -0.95630485, 0, 1, 0, 0.95630485, 0, 0.29237142, -54, -65.29642, 95)
+metadata/instance_id = "rubble_cluster_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_006" parent="." unique_id=815479994 instance=ExtResource("c38")]
+transform = Transform3D(0.8480481, 0, -0.52991927, 0, 1, 0, 0.52991927, 0, 0.8480481, -104, -61.3, 56)
+metadata/instance_id = "rubble_cluster_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_003" parent="." unique_id=1743094235 instance=ExtResource("c39")]
+transform = Transform3D(6.981317e-08, 0, 1, 0, 1, 0, -1, 0, 6.981317e-08, -108, -55.6, 67.8)
+metadata/instance_id = "corrosion_patch_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_007" parent="." unique_id=1266051426 instance=ExtResource("c38")]
+transform = Transform3D(0.6427876, 0, 0.7660445, 0, 1, 0, -0.7660445, 0, 0.6427876, -103, -61.3, 1)
+metadata/instance_id = "rubble_cluster_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_008" parent="." unique_id=1031971799 instance=ExtResource("c38")]
+transform = Transform3D(-0.017452477, 0, 0.9998477, 0, 1, 0, -0.9998477, 0, -0.017452477, -102, -61.3, -57)
+metadata/instance_id = "rubble_cluster_instance_008"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_004" parent="." unique_id=82267565 instance=ExtResource("c39")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, -55.6, -17.2)
+metadata/instance_id = "corrosion_patch_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_009" parent="." unique_id=1803087292 instance=ExtResource("c38")]
+transform = Transform3D(-0.9925461, 0, 0.121869266, 0, 1, 0, -0.121869266, 0, -0.9925461, -54, -64.9786, 54)
+metadata/instance_id = "rubble_cluster_instance_009"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_010" parent="." unique_id=1535633757 instance=ExtResource("c38")]
+transform = Transform3D(-0.8290375, 0, -0.559193, 0, 1, 0, 0.559193, 0, -0.8290375, -49, -65.899345, -60)
+metadata/instance_id = "rubble_cluster_instance_010"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_011" parent="." unique_id=809765793 instance=ExtResource("c38")]
+transform = Transform3D(0.43837106, 0, -0.8987941, 0, 1, 0, 0.8987941, 0, 0.43837106, -97, -61.3, -97)
+metadata/instance_id = "rubble_cluster_instance_011"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_005" parent="." unique_id=1997593778 instance=ExtResource("c39")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, -101, -55.6, -95.2)
+metadata/instance_id = "corrosion_patch_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_012" parent="." unique_id=291188476 instance=ExtResource("c38")]
+transform = Transform3D(0.92050487, 0, -0.39073107, 0, 1, 0, 0.39073107, 0, 0.92050487, -66, -63.08076, -100)
+metadata/instance_id = "rubble_cluster_instance_012"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_013" parent="." unique_id=388465049 instance=ExtResource("c38")]
+transform = Transform3D(0.5150381, 0, 0.8571673, 0, 1, 0, -0.8571673, 0, 0.5150381, -14, -66.1, -101)
+metadata/instance_id = "rubble_cluster_instance_013"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_014" parent="." unique_id=952848662 instance=ExtResource("c38")]
+transform = Transform3D(-0.17364818, 0, 0.98480767, 0, 1, 0, -0.98480767, 0, -0.17364818, 13, -66.1, -98)
+metadata/instance_id = "rubble_cluster_instance_014"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_006" parent="." unique_id=1310031495 instance=ExtResource("c39")]
+transform = Transform3D(-1, 0, -1.5707964e-07, 0, 1, 0, 1.5707964e-07, 0, -1, 9, -60.399998, -96.2)
+metadata/instance_id = "corrosion_patch_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_015" parent="." unique_id=1537871672 instance=ExtResource("c38")]
+transform = Transform3D(-0.99939084, 0, -0.034899443, 0, 1, 0, 0.034899443, 0, -0.99939084, 70, -61.3, -100)
+metadata/instance_id = "rubble_cluster_instance_015"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_016" parent="." unique_id=45201616 instance=ExtResource("c38")]
+transform = Transform3D(-0.7313537, 0, -0.68199825, 0, 1, 0, 0.68199825, 0, -0.7313537, 97, -61.3, -100)
+metadata/instance_id = "rubble_cluster_instance_016"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_007" parent="." unique_id=740791077 instance=ExtResource("c39")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 107, -55.6, -61.2)
+metadata/instance_id = "corrosion_patch_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_017" parent="." unique_id=496938607 instance=ExtResource("c38")]
+transform = Transform3D(0.5735764, 0, -0.81915206, 0, 1, 0, 0.81915206, 0, 0.5735764, 104, -61.3, -13)
+metadata/instance_id = "rubble_cluster_instance_017"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_018" parent="." unique_id=1520139019 instance=ExtResource("c38")]
+transform = Transform3D(0.9702957, 0, -0.24192178, 0, 1, 0, 0.24192178, 0, 0.9702957, 103, -61.3, -39)
+metadata/instance_id = "rubble_cluster_instance_018"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_019" parent="." unique_id=1787382998 instance=ExtResource("c38")]
+transform = Transform3D(0.37460664, 0, 0.9271838, 0, 1, 0, -0.9271838, 0, 0.37460664, 104, -61.3, 60)
+metadata/instance_id = "rubble_cluster_instance_019"
+metadata/urban_role = "inherited"
+
+[node name="corrosion_patch_instance_008" parent="." unique_id=1674839591 instance=ExtResource("c39")]
+transform = Transform3D(6.981317e-08, 0, -1, 0, 1, 0, 1, 0, 6.981317e-08, 108, -55.6, 71.8)
+metadata/instance_id = "corrosion_patch_instance_008"
+metadata/urban_role = "inherited"
+
+[node name="rubble_cluster_instance_020" parent="." unique_id=774712381 instance=ExtResource("c38")]
+transform = Transform3D(-0.3255681, 0, 0.9455186, 0, 1, 0, -0.9455186, 0, -0.3255681, 15, -66.1, 57)
+metadata/instance_id = "rubble_cluster_instance_020"
+metadata/urban_role = "inherited"
+
+[node name="DETAIL2_rubble_cluster_004" parent="." unique_id=1829049146 instance=ExtResource("c38")]
+transform = Transform3D(0.9563048, 0, 0.2923717, 0, 1, 0, -0.2923717, 0, 0.9563048, -78.02172, -61.3, 86.72517)
+metadata/instance_id = "DETAIL2_rubble_cluster_004"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_005" parent="." unique_id=1113501986 instance=ExtResource("c38")]
+transform = Transform3D(0.32556814, 0, 0.94551855, 0, 1, 0, -0.94551855, 0, 0.32556814, -91.95081, -61.3, 69.85259)
+metadata/instance_id = "DETAIL2_rubble_cluster_005"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_leaning_pole_006" parent="." unique_id=552121369 instance=ExtResource("c31")]
+transform = Transform3D(0.88294756, 0, 0.46947157, 0, 1, 0, -0.46947157, 0, 0.88294756, -68.00419, -61.932102, 75.98379)
+metadata/instance_id = "DETAIL2_leaning_pole_006"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_van_008" parent="." unique_id=1193327513 instance=ExtResource("c27")]
+transform = Transform3D(-0.10452852, 0, 0.9945219, 0, 1, 0, -0.9945219, 0, -0.10452852, 12.99493, -66.1, 91.994514)
+metadata/instance_id = "DETAIL2_car_van_008"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_sedan_009" parent="." unique_id=115330862 instance=ExtResource("c26")]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, 18.013597, -66.1, 85.99123)
+metadata/instance_id = "DETAIL2_car_sedan_009"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_010" parent="." unique_id=1482159765 instance=ExtResource("c44")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 5.013872, -66.1, 96.106575)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_010"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_013" parent="." unique_id=101460706 instance=ExtResource("c44")]
+transform = Transform3D(0.99254614, 0, 0.12186934, 0, 1, 0, -0.12186934, 0, 0.99254614, 8.019398, -66.1, 43.105305)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_013"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_pump_cabinet_014" parent="." unique_id=1560619227 instance=ExtResource("c45")]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 15, -66.1, 38)
+metadata/instance_id = "DETAIL2_pump_cabinet_014"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_015" parent="." unique_id=2086937846 instance=ExtResource("c47")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 1.0002179, -66.1, 35.000217)
+metadata/instance_id = "DETAIL2_bench_015"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_016" parent="." unique_id=1931352211 instance=ExtResource("c47")]
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, 6.9992537, -66.1, 34.000748)
+metadata/instance_id = "DETAIL2_bench_016"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_017" parent="." unique_id=388834000 instance=ExtResource("c38")]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 14.143173, -66.1, 44.77046)
+metadata/instance_id = "DETAIL2_rubble_cluster_017"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kiosk_ruin_020" parent="." unique_id=1539924290 instance=ExtResource("c46")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, 12, -66.1, -66)
+metadata/instance_id = "DETAIL2_kiosk_ruin_020"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_vending_021" parent="." unique_id=1862314814 instance=ExtResource("c35")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, 17, -66.1, -64)
+metadata/instance_id = "DETAIL2_vending_021"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_022" parent="." unique_id=1186276395 instance=ExtResource("c47")]
+transform = Transform3D(-0.9455186, 0, 0.3255681, 0, 1, 0, -0.3255681, 0, -0.9455186, 7.0007653, -66.1, -61.000767)
+metadata/instance_id = "DETAIL2_bench_022"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_scooter_023" parent="." unique_id=2145954064 instance=ExtResource("c29")]
+transform = Transform3D(0.7431448, 0, 0.6691306, 0, 1, 0, -0.6691306, 0, 0.7431448, 18, -66.1, -59.995293)
+metadata/instance_id = "DETAIL2_scooter_023"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_024" parent="." unique_id=149901523 instance=ExtResource("c38")]
+transform = Transform3D(0.34202015, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.34202015, 11.048806, -66.1, -58.15196)
+metadata/instance_id = "DETAIL2_rubble_cluster_024"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_026" parent="." unique_id=1252308380 instance=ExtResource("c44")]
+transform = Transform3D(0.9781476, 0, 0.20791169, 0, 1, 0, -0.20791169, 0, 0.9781476, 32.033092, -65.30965, -61.89842)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_026"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_pump_cabinet_027" parent="." unique_id=236158879 instance=ExtResource("c45")]
+transform = Transform3D(0.9396926, 0, 0.34202012, 0, 1, 0, -0.34202012, 0, 0.9396926, 34, -64.50745, -56)
+metadata/instance_id = "DETAIL2_pump_cabinet_027"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_028" parent="." unique_id=1719892750 instance=ExtResource("c44")]
+transform = Transform3D(-0.087155774, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, -0.087155774, 39.10657, -63.34677, -55.013874)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_028"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kiosk_ruin_031" parent="." unique_id=211961517 instance=ExtResource("c46")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 54, -61.3, -52)
+metadata/instance_id = "DETAIL2_kiosk_ruin_031"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bus_shelter_032" parent="." unique_id=1756178775 instance=ExtResource("c36")]
+transform = Transform3D(-1, 0, -8.7266464e-08, 0, 1, 0, 8.7266464e-08, 0, -1, 64, -61.3, -39)
+metadata/instance_id = "DETAIL2_bus_shelter_032"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_033" parent="." unique_id=1052637239 instance=ExtResource("c47")]
+transform = Transform3D(-0.087155774, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, -0.087155774, 53.000217, -61.3, -43.000217)
+metadata/instance_id = "DETAIL2_bench_033"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_034" parent="." unique_id=1758455768 instance=ExtResource("c44")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 70.995895, -61.3, -46.888084)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_034"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_pump_cabinet_035" parent="." unique_id=1829835486 instance=ExtResource("c45")]
+transform = Transform3D(0.99026805, 0, 0.1391731, 0, 1, 0, -0.1391731, 0, 0.99026805, 62, -61.3, -58)
+metadata/instance_id = "DETAIL2_pump_cabinet_035"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_van_036" parent="." unique_id=1029182855 instance=ExtResource("c27")]
+transform = Transform3D(1.4265848, 0, -0.4635255, 0, 1.5, 0, 0.4635255, 0, 1.4265848, 71.01712, -61.848377, -57.985012)
+metadata/instance_id = "DETAIL2_car_van_036"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_037" parent="." unique_id=109313223 instance=ExtResource("c38")]
+transform = Transform3D(0.6819984, 0, 0.7313537, 0, 1, 0, -0.7313537, 0, 0.6819984, 71.09242, -61.3, -69.23849)
+metadata/instance_id = "DETAIL2_rubble_cluster_037"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_040" parent="." unique_id=1586164042 instance=ExtResource("c44")]
+transform = Transform3D(0.9335804, 0, -0.35836798, 0, 1, 0, 0.35836798, 0, 0.9335804, 50.98422, -61.4969, 16.110874)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_040"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_041" parent="." unique_id=2023384393 instance=ExtResource("c38")]
+transform = Transform3D(0.9563048, 0, 0.2923717, 0, 1, 0, -0.2923717, 0, 0.9563048, 57.97828, -61.3, 10.725168)
+metadata/instance_id = "DETAIL2_rubble_cluster_041"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_042" parent="." unique_id=541911493 instance=ExtResource("c38")]
+transform = Transform3D(0.34202015, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.34202015, 57.048805, -61.3, 18.848042)
+metadata/instance_id = "DETAIL2_rubble_cluster_042"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_043" parent="." unique_id=1617606152 instance=ExtResource("c47")]
+transform = Transform3D(0.92050487, 0, -0.39073113, 0, 1, 0, 0.39073113, 0, 0.92050487, 46.99916, -61.77061, 9.000839)
+metadata/instance_id = "DETAIL2_bench_043"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_van_046" parent="." unique_id=1474965947 instance=ExtResource("c27")]
+transform = Transform3D(0.94551855, 0, 0.32556817, 0, 1, 0, -0.32556817, 0, 0.94551855, 56.01875, -61.3, 69.98421)
+metadata/instance_id = "DETAIL2_car_van_046"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_047" parent="." unique_id=2008351209 instance=ExtResource("c44")]
+transform = Transform3D(0.9781476, 0, 0.20791169, 0, 1, 0, -0.20791169, 0, 0.9781476, 49.033092, -61.909645, 72.101585)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_047"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_vending_048" parent="." unique_id=732893347 instance=ExtResource("c35")]
+transform = Transform3D(0.98162717, 0, -0.190809, 0, 1, 0, 0.190809, 0, 0.98162717, 59.98378, -61.3, 67.03681)
+metadata/instance_id = "DETAIL2_vending_048"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_049" parent="." unique_id=979974640 instance=ExtResource("c38")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 55.97364, -61.3, 75.715225)
+metadata/instance_id = "DETAIL2_rubble_cluster_049"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_051" parent="." unique_id=809659136 instance=ExtResource("c44")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 69, -61.3, 46)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_051"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_sedan_052" parent="." unique_id=1891861832 instance=ExtResource("c26")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 76.0066, -61.3, 50.988613)
+metadata/instance_id = "DETAIL2_car_sedan_052"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_van_053" parent="." unique_id=1207123087 instance=ExtResource("c27")]
+transform = Transform3D(0.98768836, 0, -0.15643446, 0, 1, 0, 0.15643446, 0, 0.98768836, 76.00821, -61.3, 37.007587)
+metadata/instance_id = "DETAIL2_car_van_053"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_054" parent="." unique_id=352306505 instance=ExtResource("c38")]
+transform = Transform3D(0.6819984, 0, 0.7313537, 0, 1, 0, -0.7313537, 0, 0.6819984, 72.09242, -61.3, 57.761513)
+metadata/instance_id = "DETAIL2_rubble_cluster_054"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_pump_cabinet_055" parent="." unique_id=35306432 instance=ExtResource("c45")]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 67, -61.3, 35)
+metadata/instance_id = "DETAIL2_pump_cabinet_055"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_street_lamp_057" parent="." unique_id=641561546 instance=ExtResource("c33")]
+transform = Transform3D(0.81915206, 0.57217926, 0.04001069, 0, 0.06975651, -0.9975641, -0.57357645, 0.8171566, 0.057141185, 66.968475, -60.801216, 52.58607)
+metadata/instance_id = "DETAIL2_street_lamp_057"
+metadata/urban_role = "fallen_street_fixture"
+
+[node name="DETAIL2_kiosk_ruin_058" parent="." unique_id=2054771907 instance=ExtResource("c46")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 102, -61.3, 43)
+metadata/instance_id = "DETAIL2_kiosk_ruin_058"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_retaining_wall_ruin_059" parent="." unique_id=765816217 instance=ExtResource("c44")]
+transform = Transform3D(0.034899496, 0, 0.99939084, 0, 1, 0, -0.99939084, 0, 0.034899496, 104.031166, -61.3, 34.98092)
+metadata/instance_id = "DETAIL2_retaining_wall_ruin_059"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_car_van_060" parent="." unique_id=1829839971 instance=ExtResource("c27")]
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, 98.00912, -61.3, 50.991577)
+metadata/instance_id = "DETAIL2_car_van_060"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_bench_061" parent="." unique_id=908563443 instance=ExtResource("c47")]
+transform = Transform3D(0.20791166, 0, 0.9781476, 0, 1, 0, -0.9781476, 0, 0.20791166, 98.00052, -61.3, 39.00052)
+metadata/instance_id = "DETAIL2_bench_061"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_rubble_cluster_062" parent="." unique_id=897998354 instance=ExtResource("c38")]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 109.14317, -61.3, 44.77046)
+metadata/instance_id = "DETAIL2_rubble_cluster_062"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_DENSE_000_rubble_cluster" parent="." unique_id=1118156231 instance=ExtResource("c38")]
+transform = Transform3D(0.9781476, 0, 0.20791169, 0, 1, 0, -0.20791169, 0, 0.9781476, -72.0179, -61.831676, 83.76771)
+metadata/instance_id = "DETAIL2_DENSE_000_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_001_rubble_cluster" parent="." unique_id=1174665656 instance=ExtResource("c38")]
+transform = Transform3D(0.2419219, 0, 0.9702957, 0, 1, 0, -0.9702957, 0, 0.2419219, -70.94913, -61.86811, 78.87524)
+metadata/instance_id = "DETAIL2_DENSE_001_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_002_rubble_cluster" parent="." unique_id=9992844 instance=ExtResource("c38")]
+transform = Transform3D(0.8571673, 0, 0.5150381, 0, 1, 0, -0.5150381, 0, 0.8571673, -90.02665, -61.3, 64.71755)
+metadata/instance_id = "DETAIL2_DENSE_002_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_003_rubble_cluster" parent="." unique_id=2066201556 instance=ExtResource("c38")]
+transform = Transform3D(-0.39073116, 0, 0.92050487, 0, 1, 0, -0.92050487, 0, -0.39073116, -95.295555, -61.3, 78.0241)
+metadata/instance_id = "DETAIL2_DENSE_003_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_005_rubble_cluster" parent="." unique_id=1926024093 instance=ExtResource("c38")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 7.9797907, -66.1, 84.74197)
+metadata/instance_id = "DETAIL2_DENSE_005_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_006_rubble_cluster" parent="." unique_id=421351359 instance=ExtResource("c38")]
+transform = Transform3D(0.48480958, 0, 0.8746197, 0, 1, 0, -0.8746197, 0, 0.48480958, 9.063026, -66.1, 92.80936)
+metadata/instance_id = "DETAIL2_DENSE_006_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_009_rubble_cluster" parent="." unique_id=377742844 instance=ExtResource("c38")]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, -18.948835, -66.1, 87.87968)
+metadata/instance_id = "DETAIL2_DENSE_009_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_010_retaining_wall_ruin" parent="." unique_id=362843487 instance=ExtResource("c44")]
+transform = Transform3D(0.034899496, 0, 0.99939084, 0, 1, 0, -0.99939084, 0, 0.034899496, -0.9688345, -66.1, 38.98092)
+metadata/instance_id = "DETAIL2_DENSE_010_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_011_retaining_wall_ruin" parent="." unique_id=1002148687 instance=ExtResource("c44")]
+transform = Transform3D(0.99026805, 0, 0.1391731, 0, 1, 0, -0.1391731, 0, 0.99026805, 5.022152, -66.1, 31.104624)
+metadata/instance_id = "DETAIL2_DENSE_011_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_012_rubble_cluster" parent="." unique_id=393356797 instance=ExtResource("c38")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 7.9873705, -66.1, 35.862007)
+metadata/instance_id = "DETAIL2_DENSE_012_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_013_rubble_cluster" parent="." unique_id=179106776 instance=ExtResource("c38")]
+transform = Transform3D(0.48480958, 0, 0.8746197, 0, 1, 0, -0.8746197, 0, 0.48480958, 15.063026, -66.1, 32.809353)
+metadata/instance_id = "DETAIL2_DENSE_013_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_014_car_sedan" parent="." unique_id=678165796 instance=ExtResource("c26")]
+transform = Transform3D(0.98162717, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.98162717, 18.004866, -66.1, 47.991604)
+metadata/instance_id = "DETAIL2_DENSE_014_car_sedan"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_017_retaining_wall_ruin" parent="." unique_id=178225606 instance=ExtResource("c44")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 4, -66.1, -56)
+metadata/instance_id = "DETAIL2_DENSE_017_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_018_rubble_cluster" parent="." unique_id=1070096933 instance=ExtResource("c38")]
+transform = Transform3D(0.98162717, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.98162717, 17.982883, -66.1, -56.223568)
+metadata/instance_id = "DETAIL2_DENSE_018_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_019_rubble_cluster" parent="." unique_id=553829283 instance=ExtResource("c38")]
+transform = Transform3D(0.48480958, 0, 0.8746197, 0, 1, 0, -0.8746197, 0, 0.48480958, 7.0630264, -66.1, -70.19064)
+metadata/instance_id = "DETAIL2_DENSE_019_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_020_car_sedan" parent="." unique_id=1021776036 instance=ExtResource("c26")]
+transform = Transform3D(-0.20791174, 0, 0.97814757, 0, 1, 0, -0.97814757, 0, -0.20791174, 21.990852, -66.1, -68.0053)
+metadata/instance_id = "DETAIL2_DENSE_020_car_sedan"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_022_rubble_cluster" parent="." unique_id=1924169638 instance=ExtResource("c38")]
+transform = Transform3D(0.92050487, 0, 0.39073113, 0, 1, 0, -0.39073113, 0, 0.92050487, 31.975899, -64.514244, -65.295555)
+metadata/instance_id = "DETAIL2_DENSE_022_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_023_rubble_cluster" parent="." unique_id=1169469163 instance=ExtResource("c38")]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 38.051167, -63.424313, -51.120323)
+metadata/instance_id = "DETAIL2_DENSE_023_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_024_retaining_wall_ruin" parent="." unique_id=1133781962 instance=ExtResource("c44")]
+transform = Transform3D(0.9781476, 0, -0.20791169, 0, 1, 0, 0.20791169, 0, 0.9781476, 27.001757, -66.1, -51.88802)
+metadata/instance_id = "DETAIL2_DENSE_024_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_026_retaining_wall_ruin" parent="." unique_id=2134356428 instance=ExtResource("c44")]
+transform = Transform3D(1.9923894, 0, -0.17431147, 0, 2, 0, 0.17431147, 0, 1.9923894, 52.01539, -61.30129, -64.92217)
+metadata/instance_id = "DETAIL2_DENSE_026_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_027_retaining_wall_ruin" parent="." unique_id=1463032422 instance=ExtResource("c44")]
+transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, 46, -61.901833, -58)
+metadata/instance_id = "DETAIL2_DENSE_027_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_028_rubble_cluster" parent="." unique_id=1680854884 instance=ExtResource("c38")]
+transform = Transform3D(1.9405915, 0, 0.4838438, 0, 2, 0, -0.4838438, 0, 1.9405915, 52.980556, -61.3, -58.24953)
+metadata/instance_id = "DETAIL2_DENSE_028_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_029_rubble_cluster" parent="." unique_id=2097462330 instance=ExtResource("c38")]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 59.051167, -61.3, -63.120323)
+metadata/instance_id = "DETAIL2_DENSE_029_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_030_rubble_cluster" parent="." unique_id=1292330525 instance=ExtResource("c38")]
+transform = Transform3D(-0.39073116, 0, 0.92050487, 0, 1, 0, -0.92050487, 0, -0.39073116, 68.704445, -61.3, -42.9759)
+metadata/instance_id = "DETAIL2_DENSE_030_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_031_rubble_cluster" parent="." unique_id=1889470149 instance=ExtResource("c38")]
+transform = Transform3D(0.9063078, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.9063078, 72.97521, -61.3, -50.292957)
+metadata/instance_id = "DETAIL2_DENSE_031_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_032_car_sedan" parent="." unique_id=252998870 instance=ExtResource("c26")]
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, 61.00443, -61.3, -46.00764)
+metadata/instance_id = "DETAIL2_DENSE_032_car_sedan"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_033_bench" parent="." unique_id=1003573504 instance=ExtResource("c47")]
+transform = Transform3D(0.017452389, 0, 0.9998477, 0, 1, 0, -0.9998477, 0, 0.017452389, 47.000042, -61.586784, -48.999958)
+metadata/instance_id = "DETAIL2_DENSE_033_bench"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_036_rubble_cluster" parent="." unique_id=943137265 instance=ExtResource("c38")]
+transform = Transform3D(0.8571673, 0, 0.5150381, 0, 1, 0, -0.5150381, 0, 0.8571673, 87.97335, -61.3, -54.28245)
+metadata/instance_id = "DETAIL2_DENSE_036_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_037_rubble_cluster" parent="." unique_id=871604779 instance=ExtResource("c38")]
+transform = Transform3D(0.57357645, 0, 0.81915206, 0, 1, 0, -0.81915206, 0, 0.57357645, 51.10906, -61.3, 9.786752)
+metadata/instance_id = "DETAIL2_DENSE_037_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_038_retaining_wall_ruin" parent="." unique_id=222434067 instance=ExtResource("c44")]
+transform = Transform3D(0.9961947, 0, -0.087155744, 0, 1, 0, 0.087155744, 0, 0.9961947, 57.01539, -61.3, 23.077831)
+metadata/instance_id = "DETAIL2_DENSE_038_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_040_rubble_cluster" parent="." unique_id=425302760 instance=ExtResource("c38")]
+transform = Transform3D(0.7193398, 0, 0.6946584, 0, 1, 0, -0.6946584, 0, 0.7193398, 62.036602, -61.3, 69.7527)
+metadata/instance_id = "DETAIL2_DENSE_040_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_041_rubble_cluster" parent="." unique_id=1163645636 instance=ExtResource("c38")]
+transform = Transform3D(-0.35836795, 0, 0.9335804, 0, 1, 0, -0.9335804, 0, -0.35836795, 51.702206, -61.3, 64.02339)
+metadata/instance_id = "DETAIL2_DENSE_041_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_042_retaining_wall_ruin" parent="." unique_id=1508030349 instance=ExtResource("c44")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 57.01387, -61.3, 60.10657)
+metadata/instance_id = "DETAIL2_DENSE_042_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_044_retaining_wall_ruin" parent="." unique_id=359567418 instance=ExtResource("c44")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 62.041195, -61.3, 49.098976)
+metadata/instance_id = "DETAIL2_DENSE_044_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_045_rubble_cluster" parent="." unique_id=1945073078 instance=ExtResource("c38")]
+transform = Transform3D(0.9063078, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.9063078, 63.975216, -61.3, 55.707043)
+metadata/instance_id = "DETAIL2_DENSE_045_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_046_rubble_cluster" parent="." unique_id=1250831795 instance=ExtResource("c38")]
+transform = Transform3D(0.2419219, 0, 0.9702957, 0, 1, 0, -0.9702957, 0, 0.2419219, 72.05087, -61.3, 36.875237)
+metadata/instance_id = "DETAIL2_DENSE_046_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_047_rubble_cluster" parent="." unique_id=14853988 instance=ExtResource("c38")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 80.054344, -61.3, 57.755745)
+metadata/instance_id = "DETAIL2_DENSE_047_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_049_retaining_wall_ruin" parent="." unique_id=173151451 instance=ExtResource("c44")]
+transform = Transform3D(0.9986295, 0, -0.052335955, 0, 1, 0, 0.052335955, 0, 0.9986295, 98.01925, -61.3, 33.046738)
+metadata/instance_id = "DETAIL2_DENSE_049_retaining_wall_ruin"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_050_rubble_cluster" parent="." unique_id=1251698347 instance=ExtResource("c38")]
+transform = Transform3D(0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, 0.9612617, 104.979034, -61.3, 48.733536)
+metadata/instance_id = "DETAIL2_DENSE_050_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_052_rubble_cluster" parent="." unique_id=158345270 instance=ExtResource("c38")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 114.054344, -61.3, 38.755745)
+metadata/instance_id = "DETAIL2_DENSE_052_rubble_cluster"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_053_pump_cabinet" parent="." unique_id=1527334894 instance=ExtResource("c45")]
+transform = Transform3D(0.9986295, 0, -0.052335955, 0, 1, 0, 0.052335955, 0, 0.9986295, 111, -61.3, 32)
+metadata/instance_id = "DETAIL2_DENSE_053_pump_cabinet"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="V3_TRAM_ADDITION_01" parent="." unique_id=212677864 instance=ExtResource("c28")]
+transform = Transform3D(0.70710677, 0, 0.70710677, -0.14934047, 0.97744304, 0.14934047, -0.69115657, -0.21119931, 0.69115657, -51.173897, -55.268143, 32.202682)
+metadata/instance_id = "V3_TRAM_ADDITION_01"
+metadata/urban_role = "tram_on_track"
+
+[node name="V3_TRAM_ADDITION_02" parent="." unique_id=1625892763 instance=ExtResource("c28")]
+transform = Transform3D(1.2948008, 0.7572916, 0, -0.7572916, 1.2948008, 0, 0, 0, 1.4999999, -7.4932623, -62.947525, 28.601526)
+metadata/instance_id = "V3_TRAM_ADDITION_02"
+metadata/urban_role = "tram_on_track"
+
+[node name="V3_rubble_cluster_010" parent="." unique_id=1853385710 instance=ExtResource("c38")]
+transform = Transform3D(0.921061, 0, 0.38941833, 0, 1, 0, -0.38941833, 0, 0.921061, -9.745163, -66.1, 24.284273)
+metadata/instance_id = "V3_rubble_cluster_010"
+metadata/urban_role = "broken_bridge_fall_debris"
+
+[node name="V3_rubble_cluster_011" parent="." unique_id=1386207425 instance=ExtResource("c38")]
+transform = Transform3D(0.4535961, 0, 0.8912074, 0, 1, 0, -0.8912074, 0, 0.4535961, -5.245163, -66.1, 24.284273)
+metadata/instance_id = "V3_rubble_cluster_011"
+metadata/urban_role = "broken_bridge_fall_debris"
+
+[node name="V3_rubble_cluster_012" parent="." unique_id=1837657806 instance=ExtResource("c38")]
+transform = Transform3D(-0.22720204, 0, 0.9738476, 0, 1, 0, -0.9738476, 0, -0.22720204, -0.74516296, -66.1, 24.284273)
+metadata/instance_id = "V3_rubble_cluster_012"
+metadata/urban_role = "broken_bridge_fall_debris"
+
+[node name="kelp_clump_instance_001" parent="." unique_id=1324292427 instance=ExtResource("c41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111, -61.27, 98)
+metadata/instance_id = "kelp_clump_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_001" parent="." unique_id=925781356 instance=ExtResource("c40")]
+transform = Transform3D(0.8746197, 0, 0.4848096, 0, 1, 0, -0.4848096, 0, 0.8746197, -93, -61.27, 101)
+metadata/instance_id = "moss_patch_instance_001"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_002" parent="." unique_id=1658653346 instance=ExtResource("c40")]
+transform = Transform3D(0.52991927, 0, 0.8480481, 0, 1, 0, -0.8480481, 0, 0.52991927, -32, -66.07, 98)
+metadata/instance_id = "moss_patch_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_003" parent="." unique_id=820207042 instance=ExtResource("c40")]
+transform = Transform3D(0.052335974, 0, 0.9986295, 0, 1, 0, -0.9986295, 0, 0.052335974, -11, -66.07, 101)
+metadata/instance_id = "moss_patch_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_002" parent="." unique_id=1464991578 instance=ExtResource("c41")]
+transform = Transform3D(-0.43837112, 0, 0.89879405, 0, 1, 0, -0.89879405, 0, -0.43837112, 21, -66.07, 99)
+metadata/instance_id = "kelp_clump_instance_002"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_004" parent="." unique_id=951445398 instance=ExtResource("c40")]
+transform = Transform3D(-0.819152, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, -0.819152, 60, -61.27, 99)
+metadata/instance_id = "moss_patch_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_005" parent="." unique_id=499845110 instance=ExtResource("c40")]
+transform = Transform3D(-0.9945219, 0, 0.1045285, 0, 1, 0, -0.1045285, 0, -0.9945219, 105, -61.27, 99)
+metadata/instance_id = "moss_patch_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_006" parent="." unique_id=951903714 instance=ExtResource("c40")]
+transform = Transform3D(-0.92050487, 0, -0.3907311, 0, 1, 0, 0.3907311, 0, -0.92050487, -62, -63.544483, 95)
+metadata/instance_id = "moss_patch_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_003" parent="." unique_id=1812711751 instance=ExtResource("c41")]
+transform = Transform3D(-0.6156615, 0, -0.7880107, 0, 1, 0, 0.7880107, 0, -0.6156615, -112, -61.27, 56)
+metadata/instance_id = "kelp_clump_instance_003"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_007" parent="." unique_id=1294566372 instance=ExtResource("c40")]
+transform = Transform3D(-0.15643452, 0, -0.9876883, 0, 1, 0, 0.9876883, 0, -0.15643452, -114, -61.27, 29)
+metadata/instance_id = "moss_patch_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_008" parent="." unique_id=960074313 instance=ExtResource("c40")]
+transform = Transform3D(0.3420201, 0, -0.9396926, 0, 1, 0, 0.9396926, 0, 0.3420201, -111, -61.27, 1)
+metadata/instance_id = "moss_patch_instance_008"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_009" parent="." unique_id=746212608 instance=ExtResource("c40")]
+transform = Transform3D(0.75470954, 0, -0.6560591, 0, 1, 0, 0.6560591, 0, 0.75470954, -110, -61.27, -57)
+metadata/instance_id = "moss_patch_instance_009"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_004" parent="." unique_id=633971728 instance=ExtResource("c41")]
+transform = Transform3D(0.97814757, 0, -0.20791176, 0, 1, 0, 0.20791176, 0, 0.97814757, -109, -61.27, -29)
+metadata/instance_id = "kelp_clump_instance_004"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_010" parent="." unique_id=717986950 instance=ExtResource("c40")]
+transform = Transform3D(0.9563048, 0, 0.2923717, 0, 1, 0, -0.2923717, 0, 0.9563048, -62, -63.547977, 54)
+metadata/instance_id = "moss_patch_instance_010"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_011" parent="." unique_id=1032871960 instance=ExtResource("c40")]
+transform = Transform3D(0.6946584, 0, 0.7193398, 0, 1, 0, -0.7193398, 0, 0.6946584, -57, -64.52574, -60)
+metadata/instance_id = "moss_patch_instance_011"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_012" parent="." unique_id=1168874280 instance=ExtResource("c40")]
+transform = Transform3D(0.25881907, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881907, -62, -63.5212, -12)
+metadata/instance_id = "moss_patch_instance_012"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_005" parent="." unique_id=1907592053 instance=ExtResource("c41")]
+transform = Transform3D(-0.24192186, 0, 0.9702957, 0, 1, 0, -0.9702957, 0, -0.24192186, -105, -61.27, -97)
+metadata/instance_id = "kelp_clump_instance_005"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_013" parent="." unique_id=1694433166 instance=ExtResource("c40")]
+transform = Transform3D(-0.6819983, 0, 0.7313537, 0, 1, 0, -0.7313537, 0, -0.6819983, -74, -61.27, -100)
+metadata/instance_id = "moss_patch_instance_013"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_014" parent="." unique_id=1258054718 instance=ExtResource("c40")]
+transform = Transform3D(-0.9510565, 0, 0.30901703, 0, 1, 0, -0.30901703, 0, -0.9510565, -51, -65.70862, -97)
+metadata/instance_id = "moss_patch_instance_014"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_015" parent="." unique_id=380735432 instance=ExtResource("c40")]
+transform = Transform3D(-0.98162717, 0, -0.19080894, 0, 1, 0, 0.19080894, 0, -0.98162717, -22, -66.07, -101)
+metadata/instance_id = "moss_patch_instance_015"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_006" parent="." unique_id=1601660111 instance=ExtResource("c41")]
+transform = Transform3D(-0.7660445, 0, -0.6427876, 0, 1, 0, 0.6427876, 0, -0.7660445, 5, -66.07, -98)
+metadata/instance_id = "kelp_clump_instance_006"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_016" parent="." unique_id=1735235180 instance=ExtResource("c40")]
+transform = Transform3D(-0.3583678, 0, -0.9335805, 0, 1, 0, 0.9335805, 0, -0.3583678, 41, -62.918266, -100)
+metadata/instance_id = "moss_patch_instance_016"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_017" parent="." unique_id=922003730 instance=ExtResource("c40")]
+transform = Transform3D(0.13917327, 0, -0.99026805, 0, 1, 0, 0.99026805, 0, 0.13917327, 62, -61.27, -100)
+metadata/instance_id = "moss_patch_instance_017"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_018" parent="." unique_id=73517566 instance=ExtResource("c40")]
+transform = Transform3D(0.60181516, 0, -0.7986354, 0, 1, 0, 0.7986354, 0, 0.60181516, 105, -61.27, -100)
+metadata/instance_id = "moss_patch_instance_018"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_007" parent="." unique_id=1115517107 instance=ExtResource("c41")]
+transform = Transform3D(0.91354555, 0, -0.4067365, 0, 1, 0, 0.4067365, 0, 0.91354555, 111, -61.27, -73)
+metadata/instance_id = "kelp_clump_instance_007"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_019" parent="." unique_id=1963516791 instance=ExtResource("c40")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 112, -61.27, -13)
+metadata/instance_id = "moss_patch_instance_019"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_020" parent="." unique_id=49916856 instance=ExtResource("c40")]
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, 111, -61.27, -39)
+metadata/instance_id = "moss_patch_instance_020"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_021" parent="." unique_id=370293491 instance=ExtResource("c40")]
+transform = Transform3D(0.45399052, 0, 0.8910065, 0, 1, 0, -0.8910065, 0, 0.45399052, 113, -61.27, 12)
+metadata/instance_id = "moss_patch_instance_021"
+metadata/urban_role = "inherited"
+
+[node name="kelp_clump_instance_008" parent="." unique_id=612420620 instance=ExtResource("c41")]
+transform = Transform3D(-0.034899462, 0, 0.99939084, 0, 1, 0, -0.99939084, 0, -0.034899462, 112, -61.27, 60)
+metadata/instance_id = "kelp_clump_instance_008"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_022" parent="." unique_id=344506671 instance=ExtResource("c40")]
+transform = Transform3D(-0.5150381, 0, 0.8571673, 0, 1, 0, -0.8571673, 0, -0.5150381, 7, -66.07, 57)
+metadata/instance_id = "moss_patch_instance_022"
+metadata/urban_role = "inherited"
+
+[node name="moss_patch_instance_023" parent="." unique_id=883309974 instance=ExtResource("c40")]
+transform = Transform3D(-0.8660254, 0, 0.50000006, 0, 1, 0, -0.50000006, 0, -0.8660254, -22, -66.07, 57)
+metadata/instance_id = "moss_patch_instance_023"
+metadata/urban_role = "inherited"
+
+[node name="DETAIL2_kelp_clump_007" parent="." unique_id=461699674 instance=ExtResource("c41")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -69.94999, -61.82687, 70.03647)
+metadata/instance_id = "DETAIL2_kelp_clump_007"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_011" parent="." unique_id=766739865 instance=ExtResource("c40")]
+transform = Transform3D(0.9335804, 0, 0.35836798, 0, 1, 0, -0.35836798, 0, 0.9335804, 8.9794855, -66.1, 90.922935)
+metadata/instance_id = "DETAIL2_moss_patch_011"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_012" parent="." unique_id=2070362692 instance=ExtResource("c41")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 17.089859, -66.1, 97.09661)
+metadata/instance_id = "DETAIL2_kelp_clump_012"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_018" parent="." unique_id=246323806 instance=ExtResource("c40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -66.1, 42)
+metadata/instance_id = "DETAIL2_moss_patch_018"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_019" parent="." unique_id=1911287852 instance=ExtResource("c41")]
+transform = Transform3D(0.7193398, 0, 0.6946584, 0, 1, 0, -0.6946584, 0, 0.7193398, 16.134222, -66.1, 43.16941)
+metadata/instance_id = "DETAIL2_kelp_clump_019"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_025" parent="." unique_id=1137515246 instance=ExtResource("c41")]
+transform = Transform3D(0.9063078, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.9063078, 5.081659, -66.1, -67.90538)
+metadata/instance_id = "DETAIL2_kelp_clump_025"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_029" parent="." unique_id=1312767778 instance=ExtResource("c40")]
+transform = Transform3D(0.83867055, 0, 0.54463905, 0, 1, 0, -0.54463905, 0, 0.83867055, 29.055122, -65.38134, -57.046387)
+metadata/instance_id = "DETAIL2_moss_patch_029"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_030" parent="." unique_id=1174421295 instance=ExtResource("c41")]
+transform = Transform3D(0.34202015, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.34202015, 39.054543, -63.162476, -60.933914)
+metadata/instance_id = "DETAIL2_kelp_clump_030"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_038" parent="." unique_id=688413275 instance=ExtResource("c41")]
+transform = Transform3D(0.97437006, 0, 0.22495106, 0, 1, 0, -0.22495106, 0, 0.97437006, 59.043465, -61.3, -45.968307)
+metadata/instance_id = "DETAIL2_kelp_clump_038"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_039" parent="." unique_id=800754162 instance=ExtResource("c40")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 68.11344, -61.3, -52.040432)
+metadata/instance_id = "DETAIL2_moss_patch_039"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_044" parent="." unique_id=772928674 instance=ExtResource("c41")]
+transform = Transform3D(0.83867055, 0, 0.54463905, 0, 1, 0, -0.54463905, 0, 0.83867055, 48.105236, -61.378033, 20.152012)
+metadata/instance_id = "DETAIL2_kelp_clump_044"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_045" parent="." unique_id=2123745350 instance=ExtResource("c40")]
+transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, 59.966557, -61.3, 15.91349)
+metadata/instance_id = "DETAIL2_moss_patch_045"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_050" parent="." unique_id=2016652384 instance=ExtResource("c41")]
+transform = Transform3D(0.76604444, 0, 0.6427876, 0, 1, 0, -0.6427876, 0, 0.76604444, 48.1242, -61.372063, 68.19068)
+metadata/instance_id = "DETAIL2_kelp_clump_050"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_056" parent="." unique_id=231139377 instance=ExtResource("c41")]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 74.02877, -61.3, 43.043465)
+metadata/instance_id = "DETAIL2_kelp_clump_056"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_kelp_clump_063" parent="." unique_id=1523188276 instance=ExtResource("c41")]
+transform = Transform3D(0.92050487, 0, 0.39073113, 0, 1, 0, -0.39073113, 0, 0.92050487, 111.0755, -61.3, 37.07994)
+metadata/instance_id = "DETAIL2_kelp_clump_063"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_moss_patch_064" parent="." unique_id=922765976 instance=ExtResource("c40")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 99.14214, -61.3, 45.985508)
+metadata/instance_id = "DETAIL2_moss_patch_064"
+metadata/urban_role = "red_box_detail"
+
+[node name="DETAIL2_DENSE_004_moss_patch" parent="." unique_id=1985477418 instance=ExtResource("c40")]
+transform = Transform3D(0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, 0.9612617, -71.03876, -61.769985, 73.907326)
+metadata/instance_id = "DETAIL2_DENSE_004_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_015_kelp_clump" parent="." unique_id=1358224261 instance=ExtResource("c41")]
+transform = Transform3D(0.8571673, 0, 0.5150381, 0, 1, 0, -0.5150381, 0, 0.8571673, -2.9004836, -66.1, 35.137897)
+metadata/instance_id = "DETAIL2_DENSE_015_kelp_clump"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_016_moss_patch" parent="." unique_id=1768480867 instance=ExtResource("c40")]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 13.081314, -66.1, 39.00684)
+metadata/instance_id = "DETAIL2_DENSE_016_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_021_moss_patch" parent="." unique_id=537441707 instance=ExtResource("c40")]
+transform = Transform3D(0.9986295, 0, 0.052335955, 0, 1, 0, -0.052335955, 0, 0.9986295, 16.992641, -66.1, -69.021)
+metadata/instance_id = "DETAIL2_DENSE_021_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_025_kelp_clump" parent="." unique_id=284106929 instance=ExtResource("c41")]
+transform = Transform3D(0.9702957, 0, 0.2419219, 0, 1, 0, -0.2419219, 0, 0.9702957, 25.046745, -66.00546, -60.965916)
+metadata/instance_id = "DETAIL2_DENSE_025_kelp_clump"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_034_moss_patch" parent="." unique_id=1871057446 instance=ExtResource("c40")]
+transform = Transform3D(0.9961947, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.9961947, 56.987747, -61.3, -55.034973)
+metadata/instance_id = "DETAIL2_DENSE_034_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_035_kelp_clump" parent="." unique_id=1850183390 instance=ExtResource("c41")]
+transform = Transform3D(0.6293204, 0, 0.777146, 0, 1, 0, -0.777146, 0, 0.6293204, 74.12942, -61.3, -53.86974)
+metadata/instance_id = "DETAIL2_DENSE_035_kelp_clump"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_039_moss_patch" parent="." unique_id=837751874 instance=ExtResource("c40")]
+transform = Transform3D(0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, 0.9612617, 51.961243, -61.3, 21.907322)
+metadata/instance_id = "DETAIL2_DENSE_039_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_043_moss_patch" parent="." unique_id=1163343678 instance=ExtResource("c40")]
+transform = Transform3D(0.29237166, 0, 0.9563048, 0, 1, 0, -0.9563048, 0, 0.29237166, 60.096478, -61.3, 72.00889)
+metadata/instance_id = "DETAIL2_DENSE_043_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_048_kelp_clump" parent="." unique_id=188591052 instance=ExtResource("c41")]
+transform = Transform3D(0.98162717, 0, 0.190809, 0, 1, 0, -0.190809, 0, 0.98162717, 65.036865, -61.3, 40.026882)
+metadata/instance_id = "DETAIL2_DENSE_048_kelp_clump"
+metadata/urban_role = "clustered_low_ruin"
+
+[node name="DETAIL2_DENSE_054_moss_patch" parent="." unique_id=1534749018 instance=ExtResource("c40")]
+transform = Transform3D(0.83867055, 0, 0.54463905, 0, 1, 0, -0.54463905, 0, 0.83867055, 108.05512, -61.3, 41.953613)
+metadata/instance_id = "DETAIL2_DENSE_054_moss_patch"
+metadata/urban_role = "clustered_low_ruin"
+
+
+
+[node name="tall_outer_00_slender_tower" parent="." instance=ExtResource("t0")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, -112, -61.9, 112)
+metadata/instance_id = "tall_outer_00_slender_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 59.6592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_01_terrace_residence" parent="." instance=ExtResource("t1")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, -74.66667, -61.9, 112)
+metadata/instance_id = "tall_outer_01_terrace_residence"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_02_tram_tenement" parent="." instance=ExtResource("t2")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, -37.33333, -66.70001, 112)
+metadata/instance_id = "tall_outer_02_tram_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_03_rounded_corner" parent="." instance=ExtResource("t3")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 0, -66.70001, 112)
+metadata/instance_id = "tall_outer_03_rounded_corner"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_04_terraced_tower" parent="." instance=ExtResource("t4")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 37.33333, -66.7, 112)
+metadata/instance_id = "tall_outer_04_terraced_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 54.5592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_05_cutaway_tenement" parent="." instance=ExtResource("t5")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 74.66667, -61.9, 112)
+metadata/instance_id = "tall_outer_05_cutaway_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 33.8342
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_06_balcony_tenement" parent="." instance=ExtResource("t6")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 112, -61.9, 112)
+metadata/instance_id = "tall_outer_06_balcony_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_07_terrace_residence" parent="." instance=ExtResource("t1")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -112, -61.9, -112)
+metadata/instance_id = "tall_outer_07_terrace_residence"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_08_tram_tenement" parent="." instance=ExtResource("t2")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -74.66667, -61.9, -112)
+metadata/instance_id = "tall_outer_08_tram_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_09_rounded_corner" parent="." instance=ExtResource("t3")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -37.33333, -66.70001, -112)
+metadata/instance_id = "tall_outer_09_rounded_corner"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_10_terraced_tower" parent="." instance=ExtResource("t4")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -66.70001, -112)
+metadata/instance_id = "tall_outer_10_terraced_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 54.5592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_11_cutaway_tenement" parent="." instance=ExtResource("t5")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 37.33333, -66.7, -112)
+metadata/instance_id = "tall_outer_11_cutaway_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 33.8342
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_12_balcony_tenement" parent="." instance=ExtResource("t6")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 74.66667, -61.9, -112)
+metadata/instance_id = "tall_outer_12_balcony_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_13_slender_tower" parent="." instance=ExtResource("t0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 112, -61.9, -112)
+metadata/instance_id = "tall_outer_13_slender_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 59.6592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_14_rounded_corner" parent="." instance=ExtResource("t3")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 112, -61.9, -74.66667)
+metadata/instance_id = "tall_outer_14_rounded_corner"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_15_terraced_tower" parent="." instance=ExtResource("t4")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 112, -61.9, -37.33333)
+metadata/instance_id = "tall_outer_15_terraced_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 54.5592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_16_cutaway_tenement" parent="." instance=ExtResource("t5")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 112, -61.9, 0)
+metadata/instance_id = "tall_outer_16_cutaway_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 33.8342
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_17_balcony_tenement" parent="." instance=ExtResource("t6")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 112, -61.9, 37.33333)
+metadata/instance_id = "tall_outer_17_balcony_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_18_slender_tower" parent="." instance=ExtResource("t0")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 112, -61.9, 74.66667)
+metadata/instance_id = "tall_outer_18_slender_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 59.6592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_19_terraced_tower" parent="." instance=ExtResource("t4")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -112, -61.9, -74.66667)
+metadata/instance_id = "tall_outer_19_terraced_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 54.5592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_20_cutaway_tenement" parent="." instance=ExtResource("t5")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -112, -61.9, -37.33333)
+metadata/instance_id = "tall_outer_20_cutaway_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 33.8342
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_21_balcony_tenement" parent="." instance=ExtResource("t6")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -112, -61.9, 0)
+metadata/instance_id = "tall_outer_21_balcony_tenement"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_22_slender_tower" parent="." instance=ExtResource("t0")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -112, -61.9, 37.33333)
+metadata/instance_id = "tall_outer_22_slender_tower"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 59.6592
+metadata/reference_scale = 2.0
+
+[node name="tall_outer_23_terrace_residence" parent="." instance=ExtResource("t1")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -112, -61.9, 74.66667)
+metadata/instance_id = "tall_outer_23_terrace_residence"
+metadata/urban_role = "canyon_wall_outer"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 34.1592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_24_half_tower" parent="." instance=ExtResource("t7")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, -72, -61.9, 72)
+metadata/instance_id = "tall_inner_24_half_tower"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_25_frame_construction" parent="." instance=ExtResource("t8")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, -36, -66.70001, 72)
+metadata/instance_id = "tall_inner_25_frame_construction"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 31.8692
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_26_roof_garden_shell" parent="." instance=ExtResource("t9")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 0, -66.70001, 72)
+metadata/instance_id = "tall_inner_26_roof_garden_shell"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 26.0067
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_27_canal_shell" parent="." instance=ExtResource("t10")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 36, -66.7, 72)
+metadata/instance_id = "tall_inner_27_canal_shell"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 29.0592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_28_canal_housing" parent="." instance=ExtResource("t11")]
+transform = Transform3D(-2, 0, 0, 0, 2, 0, 0, 0, -2, 72, -61.9, 72)
+metadata/instance_id = "tall_inner_28_canal_housing"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_29_frame_construction" parent="." instance=ExtResource("t8")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -72, -61.9, -72)
+metadata/instance_id = "tall_inner_29_frame_construction"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 31.8692
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_30_roof_garden_shell" parent="." instance=ExtResource("t9")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -36, -66.70001, -72)
+metadata/instance_id = "tall_inner_30_roof_garden_shell"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 26.0067
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_31_canal_shell" parent="." instance=ExtResource("t10")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -66.70001, -72)
+metadata/instance_id = "tall_inner_31_canal_shell"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 29.0592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_32_canal_housing" parent="." instance=ExtResource("t11")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 36, -66.7, -72)
+metadata/instance_id = "tall_inner_32_canal_housing"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_33_half_tower" parent="." instance=ExtResource("t7")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 72, -61.9, -72)
+metadata/instance_id = "tall_inner_33_half_tower"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_z"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_34_canal_shell" parent="." instance=ExtResource("t10")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 72, -61.9, -36)
+metadata/instance_id = "tall_inner_34_canal_shell"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 29.0592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_35_canal_housing" parent="." instance=ExtResource("t11")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 72, -61.9, 0)
+metadata/instance_id = "tall_inner_35_canal_housing"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_36_half_tower" parent="." instance=ExtResource("t7")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, 72, -61.9, 36)
+metadata/instance_id = "tall_inner_36_half_tower"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_37_canal_housing" parent="." instance=ExtResource("t11")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -72, -61.9, -36)
+metadata/instance_id = "tall_inner_37_canal_housing"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 39.2592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_38_half_tower" parent="." instance=ExtResource("t7")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -72, -61.9, 0)
+metadata/instance_id = "tall_inner_38_half_tower"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 44.3592
+metadata/reference_scale = 2.0
+
+[node name="tall_inner_39_frame_construction" parent="." instance=ExtResource("t8")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, -72, -61.9, 36)
+metadata/instance_id = "tall_inner_39_frame_construction"
+metadata/urban_role = "canyon_wall_inner"
+metadata/ring_axis = "edge_x"
+metadata/placement_authority = "reference_edge_pending_user_adjust"
+metadata/source_component_height_m = 31.8692
+metadata/reference_scale = 2.0

@@ -21,7 +21,7 @@
     "godot/src/shop/shop_panel.gd",
     "godot/assets/data/shop/shops.json"
   ],
-  "verification": ["shop-rules", "npc-integration", "npc-save", "visual-npc-release", "pocket-drag-buy", "npc-shop-site", "npc-relocation", "visual-npc-people"]
+  "verification": ["shop-rules", "npc-integration", "npc-save", "visual-npc-release", "pocket-drag-buy", "npc-shop-site", "npc-relocation", "visual-npc-people", "npc-conversation", "visual-npc-conversation"]
 }
 ```
 
@@ -141,3 +141,32 @@ NPC独立、Shop独立；两商店11商品、三花各四stage已实现，flower
 ### 2026-11-08 最后校对覆盖
 
 `items.json`两花种desc使用“小花”，固定“花序缎带”商品名不动。最新shop-rules**260/0**（新增说明断言）、people3054/0、flower1233/0，报告`20261108-043507-npc-label-polish-final-21bea3`；该合批visual航程278/1不签绿。仅追加超时只读诊断后`20261108-044915-npc-visual-route-diagnosis-03bb1f`visual**348/0**、28图重拍且全部逐图审阅，两店标题/小花说明正确。最终19入口合计**13178/0**覆盖上方13177；无生产导航阈值/建筑位置修改。一次120秒航程超时根因未稳定复现，保留任务149持续跟踪，implemented不升verified。
+
+
+## 2026-11-08 NPC先对话再进入功能
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-SHOP-R11 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+
+
+### 本次最终验收签署
+
+本节新增条款已实现并完成当前交互验收。13个独立入口5040/0，均exit0且unexpected_errors为空：NPC主场景473/0、真实渲染498/0（25张最终PNG全部状态已审）、规则655/0、世界136/0、资料话题1387/0、增量性能61/0、商店260/0、整局存档702/0、seed476/0、不同进程restart202/0、最小循环112/0、开场键盘39/0、点击39/0。报告选择、截图像素、逐图审阅、过程FAIL与最终覆盖均见[开发记录最终签署](../../development/2026-11-08_npc_conversation.md#最终签署本次交互专项通过2026-11-08)。资产/运行资源哈希门禁sync45、check46项仍FAIL/exit1，原基线漂移未批量重签；不以专项通过冒充全工程通过。手柄/触屏、低端/发行包、全部剧情人工游玩未执行，整体功能非完整产品verified。
+
+
+## 2026-11-08 商店图标网格交付
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-SHOP-R12 | implemented；独立ShopPanel改为复用背包PocketService格子/分页/名签/气泡，价格角标画在格内，选中后才开气泡；官方入口新增`visual-shop-grid` | `shop-rules`252/0、`visual-shop-grid`51/0（9张真实PNG）、`pocket-services`32/0、`pocket-drag-buy`44/0、`visual-pocket-services`29/0、`visual-pocket-drag-buy`9/0、`npc-shop`18/0、`npc-shop-site`335/0、`npc-integration`780/0、`npc-save`702/0、`minimum-loop`112/0、`close-hint`16/0、`click`39/0、`keyboard-entry`39/0，合计**2458/0**，全部exit0、completion_marker=true、unexpected_errors为空 |
+
+报告根目录 `D:/projects/sea-work/verification/`，逐个为 `20261108-120301-sg-rules-3-87979f`（shop-rules）、`20261108-120703-sg-visual-6-54a036`（visual-shop-grid）、`20261108-120714-sg-pocket-svc-3-860739`、`20261108-115553-sg-pocket-drag-b46e50`、`20261108-115754-sg-pocket-visual-d66221`、`20261108-120021-sg-pocket-drag-visual2-39b6ce`、`20261108-115544-sg-npc-shop-cdad1b`、`20261108-115547-sg-npc-shop-site-c29d64`、`20261108-120956-sg-int-3-aebfcd`、`20261108-121433-sg-save-3-8607bb`、`20261108-121527-sg-min-3-985416`、`20261108-120919-sg-close-hint-72baab`、`20261108-120749-sg-click-e1df25`、`20261108-120830-sg-keyboard-51c4a4`。
+
+画面：8张量产图（1280×800、1600×1000各按实，1920×1080窗口在原KEEP画布下输出1728×1080；含三种窗口、气泡数量1与3、真实购买反馈、阿店六格、余额0不可购）+1张正式主场景实拍，全部逐图打开核对：商品格8列图标、价格角标在格内左下、名签在商品行下方不压瓶盖行、气泡在右上纸面区不压任何商品格、购买反馈独占底部一行、右下只有一枚关闭键。工程外副本：`D:/projects/sea-work/outputs/shop_icon_grid/final/`。
+
+实现边界：商品格不再写持有数量（`tile.amount=0`），持有数只出现在名签与气泡，避免"×N"被读成背包行话；`pocket_service.gd` 新增 `detailed_shop` 区块专用的 `lock_pool`（方向键不跨池）、`cancel_actions()`、`_update_shop_quote()`；`ac_icon.gd` 新增 `price` 角标与三种花种/花材/缎带的手绘图形（花色取自 `ItemDB.color`，不另存配色）；`shop_panel.gd` 整文件重写为适配层，新增对外 `open_actions()`。原子交易、token 去重、`max_buy` 公式、11 商品与两店标题均未改。
+
+过程失败保留：`20261108-104457-shop-grid-compile-152038`（继承的 codex 半成品，列表契约 219/10）、`20261108-111211-shop-grid-panel-fix-2185f9`（238/29，Tab 遍历旧断言）、`20261108-111417..111714` 五次迭代（气泡焦点/动画等待/按键跨帧）、`20261108-112452/112752` 两次渲染（1280下扫描采样过稀、气泡压反馈行）、`20261108-114153-shop-grid-npc-release-587a67` 170/2 与 `20261108-114505-shop-grid-npc-people-38b9d3` 385/13：经 `20261108-115045-baseline-head-people-8bcdc9` 用 HEAD 原版对照证实为既有取景/身份断言失败（同一13项、同一 `visual_blocker`），不由本次商店改动引入，本次未修、未重签，`visual-npc-release`/`visual-npc-people` 保持既有失败不冒充通过。
+
+全局门禁仍未通过：`check_feature_contracts.py --sync` 52 issues、普通检查 53 issues（另加 derived index stale）。其中 48 项 runtime hash drift 含本次真实改动的 `shop_panel.gd`、`pocket_service.gd`、`hud.gd`、`main.gd`（已用「去 CRLF 后与 `git show HEAD` 比」确认是真内容漂移，非行尾幻影），其余为并行任务与历史漂移（如 `items.json` 来自上一轮花种说明）；4 项 source hash drift 分别是 SEA-DECO-ANIMAL-FISH-SCHOOL、SEA-FARM-SOIL-CELL、SEA-SCENE-SUNROOM-UNDERWATER-REGION、UI-HUD-CORNERS-001（源为 `corner_hud.gd`，登记哈希既不等于当前字节也不等于 HEAD，属上游漏登记），均与本次改动无关。按既有口径不批量重签、不冒签；`--sync` 在有 issues 时不写派生索引。`check_architecture.py` exit0（25服务0 issues）、`check_placed_positions.py` exit0（3结构0警告）、`git diff --check` exit0，`main.tscn` 无本次 diff。低端设备、发行包、手柄/触屏、完整商店购物体验与长期 FPS 仍未执行，整体功能保持 implemented，不升 verified。

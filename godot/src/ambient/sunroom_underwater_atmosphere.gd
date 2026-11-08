@@ -5,12 +5,20 @@ extends Node3D
 
 const BEAM_SHADER = preload("res://shaders/sunroom_underwater_beam.gdshader")
 const PARTICLE_SHADER = preload("res://shaders/sunroom_underwater_particles.gdshader")
-const WATER_LEVEL := 1.12
-const BUBBLE_TOP := WATER_LEVEL - 0.65
+## 2026-11-08 第二轮把上街面到水面做到 120 米，气泡必须一路升到新水面。
+const DEFAULT_WATER_LEVEL := 101.587442
+const BUBBLE_SURFACE_CLEARANCE := 0.65
+const BUBBLE_TOP_MARGIN := 0.12
+
+## 悬浮颗粒不跟着气泡升到水面：它只挂在旧城上方这一层，否则摊到 67 米里会静止成噪点。
+const MOTE_BAND := 17.0
+## 光柱基准长度。密度按长度反比缩放，长光柱才不会因为积分路径变长而糊成实心柱。
+const BEAM_REFERENCE_LENGTH := 22.0
 const BEAM_DOWN := Vector3(0.12, -1.0, 0.065)
 const COLUMN_RADIUS := 0.8
 
 @export var autonomous := true
+@export var water_level := DEFAULT_WATER_LEVEL
 @export var seed_value := 73191
 @export_range(150, 240, 1) var bubble_count := 192
 @export_range(120, 280, 1) var mote_count := 200
@@ -32,7 +40,17 @@ var _mote_material: ShaderMaterial
 var _beams: Array[MeshInstance3D] = []
 var _bubble_specs: Array[Dictionary] = []
 var _mote_specs: Array[Dictionary] = []
+var _sunlight_strength := 1.0
 
+func configure_water(level: float) -> void:
+	water_level = level if is_finite(level) else DEFAULT_WATER_LEVEL
+	if _built:
+		_rebuild_water_dependent_state()
+
+func set_sunlight(strength: float) -> void:
+	_sunlight_strength = clampf(strength if is_finite(strength) else 0.0, 0.0, 2.0)
+	if _built:
+		_apply_sunlight()
 
 func _ready() -> void:
 	_ensure_built()
@@ -53,6 +71,7 @@ func _ensure_built() -> void:
 	rng.seed = seed_value
 	_bubble_material = _particle_material(true)
 	_mote_material = _particle_material(false)
+	_apply_sunlight()
 	_bubble_mm = _make_multimesh($Bubbles, bubble_count, _bubble_material)
 	_mote_mm = _make_multimesh($Motes, mote_count, _mote_material)
 	var columns := $BubbleColumns.get_children()
@@ -82,8 +101,9 @@ func _ensure_built() -> void:
 	var entries := $RayEntries.get_children()
 	for i in mini(beam_count, entries.size()):
 		var entry := entries[i] as Marker3D
-		var length_m: float = entry.get_meta("length_m", 24.0)
+		var length_m := 120.0
 		var radius: float = entry.get_meta("radius_m", 3.0)
+		entry.position.y = water_level - 1.0
 		var mesh := CylinderMesh.new()
 		mesh.top_radius = radius
 		mesh.bottom_radius = radius
@@ -101,7 +121,7 @@ func _ensure_built() -> void:
 		material.set_shader_parameter("radius", radius)
 		material.set_shader_parameter("beam_length", length_m)
 		material.set_shader_parameter("phase", float(i) * 2.399963)
-		material.set_shader_parameter("density", 0.085 + float(i % 3) * 0.008)
+		material.set_shader_parameter("density", (0.085 + float(i % 3) * 0.008) * BEAM_REFERENCE_LENGTH / length_m)
 		material.set_shader_parameter("tint", Color(0.46, 0.77, 0.69).lerp(Color(0.40, 0.69, 0.78), float(i % 4) / 3.0))
 		beam.material_override = material
 		_prepare_geometry(beam)
@@ -109,12 +129,36 @@ func _ensure_built() -> void:
 		_beams.append(beam)
 
 
+func _bubble_top() -> float:
+	return water_level - BUBBLE_SURFACE_CLEARANCE - BUBBLE_TOP_MARGIN
+
+func _rebuild_water_dependent_state() -> void:
+	var top := _bubble_top()
+	for material in [_bubble_material, _mote_material]:
+		if material != null:
+			material.set_shader_parameter("water_level", water_level)
+	for i in _beams.size():
+		var entry := $RayEntries.get_child(i) as Marker3D
+		entry.position.y = water_level - 1.0
+		var beam := _beams[i]
+		beam.position = entry.position + BEAM_DOWN.normalized() * 120.0 * 0.5
+		beam.material_override.set_shader_parameter("beam_length", 120.0)
+	for node in [$Bubbles, $Motes]:
+		if node != null:
+			node.custom_aabb = AABB(Vector3(-98.0, -25.0, -95.0), Vector3(202.0, maxf(76.0, top + 25.0), 190.0))
+	sample(_clock)
+
+func _apply_sunlight() -> void:
+	beam_gain = _sunlight_strength
+
 func _particle_material(is_bubble: bool) -> ShaderMaterial:
 	var material := ShaderMaterial.new()
 	material.shader = PARTICLE_SHADER
 	material.set_shader_parameter("bubble", is_bubble)
 	material.set_shader_parameter("opacity", 0.42 if is_bubble else 0.23)
 	material.set_shader_parameter("tint", Color(0.57, 0.80, 0.78) if is_bubble else Color(0.43, 0.71, 0.66))
+	material.set_shader_parameter("water_level", water_level)
+	material.set_shader_parameter("region_view_depth", 10.0)
 	return material
 
 
@@ -129,8 +173,8 @@ func _make_multimesh(node: MultiMeshInstance3D, count: int, material: ShaderMate
 	node.multimesh = mm
 	node.material_override = material
 	_prepare_geometry(node)
-	# 完整覆盖固定列、低频摆动及 billboard 半径，不使用巨大强制可见包围盒。
-	node.custom_aabb = AABB(Vector3(-98.0, -25.0, -95.0), Vector3(202.0, 27.0, 190.0))
+	# 完整覆盖固定列、低频摆动及 billboard 半径；纵向上界按实际水位构建。
+	node.custom_aabb = AABB(Vector3(-98.0, -25.0, -95.0), Vector3(202.0, maxf(76.0, water_level + 1.0 + 25.0), 190.0))
 	return mm
 
 
@@ -141,10 +185,13 @@ func _prepare_geometry(node: GeometryInstance3D) -> void:
 
 
 func set_view_depth(depth: float) -> void:
+	_ensure_built()
 	for beam in _beams:
-		beam.material_override.set_shader_parameter("region_view_depth",depth)
-	_bubble_material.set_shader_parameter("region_view_depth",depth)
-	_mote_material.set_shader_parameter("region_view_depth",depth)
+		beam.material_override.set_shader_parameter("region_view_depth", depth)
+	if _bubble_material != null:
+		_bubble_material.set_shader_parameter("region_view_depth", depth)
+	if _mote_material != null:
+		_mote_material.set_shader_parameter("region_view_depth", depth)
 
 func sample(time: float) -> void:
 	_ensure_built()
@@ -163,11 +210,13 @@ func sample(time: float) -> void:
 		material.set_shader_parameter("gain", beam_gain)
 	_bubble_material.set_shader_parameter("gain", particle_gain)
 	_mote_material.set_shader_parameter("gain", particle_gain)
+	_bubble_material.set_shader_parameter("water_level", water_level)
+	_mote_material.set_shader_parameter("water_level", water_level)
 
 
 func _bubble_state(spec: Dictionary, time: float) -> Dictionary:
 	var origin: Vector3 = spec.origin
-	var height := BUBBLE_TOP - origin.y
+	var height := _bubble_top() - origin.y
 	var age := fposmod(float(spec.phase) * height + time * float(spec.speed), height)
 	var angle := float(spec.angle) + time * 0.31
 	var orbit: float = spec.orbit
@@ -180,7 +229,7 @@ func _bubble_state(spec: Dictionary, time: float) -> Dictionary:
 
 func _mote_state(spec: Dictionary, time: float) -> Dictionary:
 	var origin: Vector3 = spec.origin
-	var height := BUBBLE_TOP - 0.8 - origin.y
+	var height := minf(_bubble_top() - 0.8 - origin.y, MOTE_BAND)
 	var age := fposmod(float(spec.phase) * height + time * float(spec.speed), height)
 	var angle := float(spec.angle) + time * 0.12
 	var p := origin + Vector3(sin(angle) * 0.65, age, cos(angle * 0.74) * 0.55)
@@ -216,7 +265,9 @@ func statistics() -> Dictionary:
 		"multimeshes": 2,
 		"draw_submissions": 2 + _beams.size(),
 		"lights": 0,
-		"particle_ceiling_y": BUBBLE_TOP,
+		"particle_ceiling_y": _bubble_top(),
+		"water_level": water_level,
+		"sunlight_strength": _sunlight_strength,
 		"column_clearance_radius": COLUMN_RADIUS,
 	}
 
@@ -225,5 +276,5 @@ func statistics() -> Dictionary:
 func column_envelopes() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for column in $BubbleColumns.get_children():
-		result.append({"id": str(column.name), "bottom": column.position, "top_y": BUBBLE_TOP, "radius": COLUMN_RADIUS})
+		result.append({"id": str(column.name), "bottom": column.position, "top_y": _bubble_top(), "radius": COLUMN_RADIUS})
 	return result

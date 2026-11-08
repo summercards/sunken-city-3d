@@ -16,6 +16,10 @@ const FACING_DEBUG := "res://shaders/uw_facing_debug.gdshader"
 
 static var _cache: Dictionary = {}
 static var _depth := 10.0
+static var _water_level := 1.12
+static var _sun_direction := Vector3(0.5191, 0.7787, -0.3523)
+static var _sun_color := Color(1.0, 0.955, 0.8, 1.0)
+static var _sun_strength := 1.0
 static var _time := -1.0
 ## 头灯状态。新建材质时也要立刻带上，否则灯开着但新材质是黑的。
 static var _lamp := {
@@ -53,6 +57,10 @@ static func get_material(slot: Dictionary) -> ShaderMaterial:
 			value = Color(float(value[0]), float(value[1]), float(value[2]))
 		mat.set_shader_parameter(param, value)
 	mat.set_shader_parameter("dive_depth", _depth)
+	mat.set_shader_parameter("water_level", _water_level)
+	mat.set_shader_parameter("sun_direction", _sun_direction)
+	mat.set_shader_parameter("sun_color", _sun_color)
+	mat.set_shader_parameter("sun_strength", _sun_strength)
 	mat.set_shader_parameter("time_override", _time)
 
 	_apply_lamp(mat)
@@ -84,6 +92,23 @@ static func set_depth(depth: float) -> void:
 	_depth = depth
 	for mat in _cache.values():
 		(mat as ShaderMaterial).set_shader_parameter("dive_depth", depth)
+
+
+static func set_water_level(level: float) -> void:
+	_water_level = level
+	for mat in _cache.values():
+		(mat as ShaderMaterial).set_shader_parameter("water_level", level)
+
+
+static func set_sun(direction: Vector3, color: Color, strength: float = 1.0) -> void:
+	_sun_direction = direction.normalized()
+	_sun_color = color
+	_sun_strength = clampf(strength, 0.0, 1.0)
+	for mat in _cache.values():
+		var sm: ShaderMaterial = mat
+		sm.set_shader_parameter("sun_direction", _sun_direction)
+		sm.set_shader_parameter("sun_color", _sun_color)
+		sm.set_shader_parameter("sun_strength", _sun_strength)
 
 
 ## 把焦散/闪光的相位冻在某一时刻（诊断闪动用；负值恢复成跟 TIME 走）。
@@ -137,6 +162,10 @@ static func clear_cache() -> void:
 	_cache.clear()
 	_facing_mat = null
 	_depth = 10.0
+	_water_level = 1.12
+	_sun_direction = Vector3(0.5191, 0.7787, -0.3523)
+	_sun_color = Color(1.0, 0.955, 0.8, 1.0)
+	_sun_strength = 1.0
 	_time = -1.0
 
 

@@ -2,6 +2,8 @@ extends CanvasLayer
 ## Only explicit character dialogue uses this bottom panel. System notices use HUD.toast.
 ## Supports single lines and multi-line narrative sequences with indie typewriter reveal.
 signal closed
+signal conversation_advance
+signal conversation_option(action: String, payload: Dictionary)
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 const Fonts = preload("res://src/ui/ui_font.gd")
 var panel: PanelContainer
@@ -15,9 +17,13 @@ var _reveal_tween: Tween
 var _entry_tween: Tween
 var _font: Font
 var _input_shield: Control
+var conversation_mode := false
+var choice_panel: PanelContainer
+var choice_buttons: Array[Button] = []
+var _choice_body: VBoxContainer
 
 func is_blocking() -> bool:
-	return is_instance_valid(panel) and panel.visible and _queue.size() > 1
+	return not conversation_mode and is_instance_valid(panel) and panel.visible and _queue.size() > 1
 
 func _ready() -> void:
 	layer = 70
@@ -82,6 +88,22 @@ func _ready() -> void:
 	close_button.add_theme_stylebox_override("pressed", Cozy.surface(Cozy.MINT, 18))
 	close_button.pressed.connect(_advance)
 	footer.add_child(close_button)
+	choice_panel = PanelContainer.new()
+	choice_panel.name = "ConversationChoices"
+	choice_panel.set_meta("cozy_skip", true)
+	var choice_style := Cozy.surface(Color("#f4e8bd"), 24)
+	choice_style.content_margin_left = 16
+	choice_style.content_margin_right = 16
+	choice_style.content_margin_top = 14
+	choice_style.content_margin_bottom = 14
+	choice_panel.add_theme_stylebox_override("panel", choice_style)
+	choice_panel.custom_minimum_size.x = 248
+	add_child(choice_panel)
+	_choice_body = VBoxContainer.new()
+	_choice_body.add_theme_constant_override("separation", 6)
+	choice_panel.add_child(_choice_body)
+	choice_panel.hide()
+	panel.gui_input.connect(_panel_input)
 	get_viewport().size_changed.connect(_place)
 	panel.hide()
 
@@ -93,13 +115,78 @@ func _place() -> void:
 	var fit := minf(1.0, minf(vp.x / 1600.0, vp.y / 1000.0))
 	panel.scale = Vector2.ONE * fit
 	var extent := panel.get_combined_minimum_size().max(panel.size) * fit
-	panel.position = Vector2((vp.x - extent.x) * 0.5, vp.y - extent.y - 32.0 * fit)
+	var reserved := (266.0 * fit) if conversation_mode else 0.0
+	panel.position = Vector2((vp.x - extent.x - reserved) * 0.5, vp.y - extent.y - 32.0 * fit)
+	if is_instance_valid(choice_panel):
+		choice_panel.scale = Vector2.ONE * fit
+		choice_panel.reset_size()
+		var choice_extent := choice_panel.get_combined_minimum_size() * fit
+		choice_panel.position = Vector2(panel.position.x + extent.x + 18.0 * fit,
+			vp.y - choice_extent.y - 48.0 * fit)
+
+## NPC会话只借用原底部壳；翻页、选项与持久结算由NPC模块拥有。
+func present_conversation(speaker: String, text: String, page: String, typing: bool,
+		options: Array, advance_label := "继续") -> void:
+	conversation_mode = true
+	if _reveal_tween and _reveal_tween.is_valid(): _reveal_tween.kill()
+	if _entry_tween and _entry_tween.is_valid(): _entry_tween.kill()
+	_queue.clear()
+	_input_shield.show()
+	panel.custom_minimum_size.x = 880
+	line_label.custom_minimum_size.x = 816
+	panel.reset_size()
+	speaker_label.text = "✦  " + speaker
+	line_label.text = text
+	line_label.visible_characters = 0 if typing else -1
+	page_label.text = page
+	close_button.text = advance_label
+	close_button.set_meta("npc_action", "advance")
+	close_button.visible = options.is_empty()
+	choice_buttons.clear()
+	for child in _choice_body.get_children():
+		_choice_body.remove_child(child)
+		child.queue_free()
+	for option in options:
+		var button := Button.new()
+		button.set_meta("cozy_skip", true)
+		button.text = str(option.text)
+		button.set_meta("npc_action", str(option.action))
+		button.set_meta("npc_payload", option.get("payload", {}).duplicate(true))
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		button.custom_minimum_size = Vector2(216, 42)
+		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		button.add_theme_font_override("font", _font)
+		button.add_theme_font_size_override("font_size", 22)
+		for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+			button.add_theme_color_override(key, Cozy.INK)
+		button.add_theme_stylebox_override("normal", Cozy.surface(Color(0,0,0,0), 16))
+		button.add_theme_stylebox_override("hover", Cozy.surface(Cozy.GOLD, 16))
+		button.add_theme_stylebox_override("focus", Cozy.surface(Cozy.GOLD, 16))
+		button.pressed.connect(func(): conversation_option.emit(str(option.action), option.get("payload", {})))
+		_choice_body.add_child(button)
+		choice_buttons.append(button)
+	choice_panel.visible = not options.is_empty()
+	panel.modulate.a = 1.0
+	panel.show()
+	_place()
+	_place.call_deferred()
+
+func _panel_input(event: InputEvent) -> void:
+	if conversation_mode and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		conversation_advance.emit()
+		panel.accept_event()
 
 func show_line(speaker: String, text: String) -> void:
 	if speaker.strip_edges().is_empty() or text.strip_edges().is_empty(): return
 	show_sequence([{"speaker": speaker, "text": text}])
 
 func show_sequence(lines: Array) -> void:
+	conversation_mode = false
+	choice_panel.hide()
+	panel.custom_minimum_size.x = 680
+	line_label.custom_minimum_size.x = 616
+	close_button.show()
+	panel.reset_size()
 	_queue.clear()
 	for entry in lines:
 		if entry is Dictionary:
@@ -147,6 +234,9 @@ func _present_current() -> void:
 
 func _advance() -> void:
 	if not panel.visible: return
+	if conversation_mode:
+		conversation_advance.emit()
+		return
 	if line_label.visible_ratio < 0.999:
 		if _reveal_tween and _reveal_tween.is_valid(): _reveal_tween.kill()
 		line_label.visible_ratio = 1.0
@@ -166,6 +256,8 @@ func close_line() -> void:
 	_queue.clear()
 	_index = 0
 	panel.hide()
+	choice_panel.hide()
+	conversation_mode = false
 	_input_shield.hide()
 	closed.emit()
 

@@ -228,6 +228,20 @@ NPC 的关系图查询、对白查询和日程查询都返回副本。Shop 的�
 
 最终证据：`D:/projects/sea-work/verification/20261108-055128-dive-home-seabed-signed2-00d74f/report.json`，九入口 exit0/PASS、合计 1270 项 0 失败。[机制与踩坑](../development/2026-11-08_home_seabed_and_dive_reopen.md)。
 
+## 2026-11-08 家园海底水深与水域参数契约（覆盖上节水深数值）
+
+覆盖上节 `SunroomRegion` 的水面／深度数值，其余端口、状态机与返回路径不变。对应 SEA-DIVE-R24–R26、SEA-AMBIENT-R26–R27。
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| SunroomRegion → 水面 | `water_level` 与 `Water` Mesh 的 Y 同为 **51.12**（原 1.12 + 50）。海面世界、Main、原 9 图的水面仍为 1.12；本图是独立世界对齐场景，抬高的只是本图水面，XZ 对齐契约不变。改水面必须同时改这两处，否则 `_process` 的区域深度、入水占位与移动夹限会互相矛盾。 |
+| SunroomRegion → 深度 | `target_depth_m=85.0`、`viewer_min_y=-33.88`、`lowest_seabed_y=-34.68`、`viewer_floor_clearance=0.8`。`_verify_depth_contract` 要求 `water_level − target_depth_m == viewer_min_y == lowest_seabed_y + clearance` 同时成立，任一项改值必须四项同改并重跑专项。运行时移动夹限为 `[−33.88, water_level − 0.82]`。 |
+| SunroomRegion → 入水 | 占位取旧城街面层：`entry_street_y=-18.0` + `entry_rise=10.0`，不是水面。任何新增的选区／落地逻辑都按该常量，不得再写「水面下 N 米」，否则会在真正落点上方留出 50 米空白水柱后再瞬移。`entry_drop` 仅作候选点上限与换气层判断。 |
+| SunroomRegion → 水域表现 | 雾、天空、环境光与 zone1 同源：指数雾 `1−exp(−(d×density)^1.8)`、屏幕垂直渐变、SKY 半球双色、`1.9/π×(1−deep×0.6)` 衰减；`Camera/WaterFogPass` 仍是唯一整屏水雾通道，Environment fog 关闭。不允许再往 `sunroom_underwater_color.gdshaderinc` 里加第二层雾（方向渐变／水平分层／XZ 边缘吸收已删）。 |
+| Atmosphere → 水面 | `WATER_LEVEL=51.12`、`BUBBLE_TOP=50.47` 必须与 `water_level` 同步；光柱顶部 `Y=50.12`、长度 60~70 米且 `density` 按 `22/长度` 反比缩放；悬尘限 `MOTE_BAND=17` 米带。数量／种子（192 泡、200 尘、10 束、seed 73191）不变。 |
+
+证据：`tests/test_sunroom_underwater_region.gd` 80 项 0 失败；真实渲染器加载无着色器编译错误。九入口批量回归未在本轮重跑，低端设备／持续性能／用户美术终审仍 pending。
+
 ## 2026-11-07 19:40 NPC世界站位覆盖（历史）：天台暂驻，住所deferred
 
 本节覆盖前文下午“NPC增加RESIDENCE输入”“住所唯一真值”对本轮的强制接入要求，保留历史，不改所有者。用户要求“先不用做他们的住所，先全部放到那个天台草地上去”。
@@ -281,3 +295,55 @@ NPC 的关系图查询、对白查询和日程查询都返回副本。Shop 的�
 ShopCatalog显示标题目标“小花花店/阿店海上商店”，由主线程改shops.json；文档分支读到的仍为旧标题，不把计划写成已落。ShopService/Catalog/Panel继续独立、可无NPC购买，vendor_npc_id只作可选展示元数据；NPC只发vendor_requested，世界provider不引入价格/商品规则。两目录11商品ID、price/max_amount及CropCatalog来源不变，不顺带改flower_ribbon商品标签。跨海送花是叙事，不自动改Inventory/订单或强迫NPC跨海。
 
 主线程计划跑npc-people、npc-profile-ui、npc-shop-site、npc-relocation、visual-npc-people及rules/performance/save，实际入口是否注册须核实；命令、head+working_tree、退出码/计数、日志、真实截图与逐图审阅见[本轮开发记录第6节](../development/2026-11-07_npc_names_and_shop.md#6-主线程实测回填)，同时回填[Resident账本](../features/resident/ledger.md#2026-11-07-2239-当前覆盖与新增条款承接)和[Shop账本](../features/shop/ledger.md#2026-11-07-2239-当前覆盖与-r10-承接)。本分支不执行global sync/hash/运行，不复用历史全天台PASS证明6roof/1sea；未验项保持pending。
+
+## 2026-11-08 统一潜水 3C：两域控制器、十图共用运行时（现行覆盖）
+
+对应 SEA-DIVE-R29–R38。R27/R28 保持原布局条款；本节覆盖上方“UnderwaterWorld/家园各自拥有潜水阶段/动作/相机/氧气”的历史职责，不修改其它功能契约。**海面/陆地 ActorController 一套独立；潜水 Shared DiveRuntimeController 一套独立，家园 + 旧九图同一 surface/enter/swim/exit，不是三套状态机。**
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| 海面/陆地 `ActorController` | 只拥有海面/陆地角色生命周期；DiveSession 挂起 Main 后不与潜水控制器同时推进，不向潜水 Map 复制状态机，也不借潜水动作改海面动画。 |
+| Shared `DiveRuntimeController` | 实际路径 `godot/src/diving/dive_runtime_controller.gd`。唯一潜水阶段、输入、运动意图、潜水耗氧、第三人称相机状态及角色表现所有者；`begin/request_surface/swim_to/navigate_path/cancel_navigation/toggle_lamp/snapshot` 为公开入口/查询。物理帧推进 machine/实际运动，渲染帧更新镜头，Map 不重复推进。 |
+| Map 适配：`underwater_world.gd` / `sunroom_region.gd` | 仅提供内容/入口/位置/碰撞/route/camera_clip/env/explore。`dive_begin/entry_tick/exit_begin/exit_tick/end` 提供地图入出水执行与完成反馈，不另建阶段循环；`dive_position/set_position/move/water_level` 提供物理位置/实际位移；`dive_route` 返回安全路径或空表；`dive_cancel_content/content_tick/zone_label` 管本图搜索/环境/展示。`dive_camera_clip(target,desired,radius)` 只作空间安全裁剪，不持镜头方向/距离/阻尼状态。 |
+| phase 兼容层与旧 actions | Map 的 `phase/phase_machine` 兼容旧测试、指向控制器 machine；未装控制器的兼容夹具不得进入生产第二 tick。旧 states 及 enter/surface/finish_exit/swim/camera/diver_pose actions 不得继续驱动；旧 search_action 仅作为 explore 内容搜索，不是恢复旧 3C 的许可。 |
+| `DiveSession` / `DiveAir` | Session 稳定持有全局进度与同一 air 对象；控制器绑定注入对象、仅潜水期间耗氧，Session 仅海面恢复/cooldown，Map 的 air 只是同对象引用/只读投影，不是第二 owner。切图、卸载或重选地图不能清 cooldown。preflight/setup失败回滚、同 Main 身份与船人/相机/环境恢复、active/switching直接写盘拒绝仍有效，不free/rebuild/read-save代替恢复。 |
+| 存档/奖励 | 根v4 `dive:{found:int[],opened:int[]}`不变；固定全局ID不改，未知ID/未加载图进度保留，from_dict全量替换不叠加；不新增 map_id 必填或中途氧气字段。give_rewards 原子入包，满包不部分发奖/不标开启，重复开箱不重奖。 |
+| Character / 动画 | 模型复用、实例独立；控制器只给独立潜水 Character 传碰撞后实际速度、垂直比与转向比。float/cruise/sprint、升降pitch/turnbank；潜水隐藏hat显示mask、退出恢复帽子原可见性。表现不写物理或业务奖励，海面动画保持。 |
+| `dive_map_hud.gd` | 十图同一墨绿半透明板+奶油按钮；只读氧气bar/深度/状态/键位hint及告警，命令经Session。Esc暂停停止潜水耗氧，可继续/上浮；无箱不显示虚假发现总数，不增HUD输入/氧气/相机owner。 |
+
+### 统一操控与镜头参数
+
+- InputMap：`dive_left/right/forward/back` = A/D/W/S + arrow；`dive_down` = Q/Ctrl，`dive_up` = E/Space，`dive_sprint` = Shift。巡航4.2/加速7m/s；ACCEL/BRAKE/反向指数时间常数0.22/0.16/0.13s，不是精确到速或刹停时长。右键仅环视，WASD无需右键，手动输入取消自动路线。
+- 左键 release≤8px 且期间未越阈值才点击自动游；route无路拒绝/受阻停止，不退化穿墙。滚轮4..13m、默认7.5m。
+- FOV72°→加速78°，pitch[-1.1,1.15]弧度、yaw平滑0.07s；主体位移直接继承、速度前视0.10s；防墙球半径0.32m，立即收回/缓出，插值后最终clip，不靠阻尼掩盖穿墙。
+
+本批不改家园水面51.12/可游85m/viewer_min-33.88，不动手摆layout/Base2/40高楼；历史388实例不作固定断言，真正独立海床仍pending。当前behaviour暂报[403或396]/0待主线程精确回填；初批dive-maps326/0、click39/0、framework52/0因resource leak为FAIL且正在修复；curved collision3448/42保持FAIL历史，不宣称已通过。所有最终运行/视觉/泄漏与全局签署见[本轮记录第5节](../development/2026-11-08_unified_dive_3c.md#unified-dive-3c-acceptance)，本节不借旧PASS预签。
+
+### 统一潜水 3C 最终回归
+
+最终报告 `D:/projects/sea-work/verification/20261108-202515-dive-unified-final-edbd96/report.json`：dive-control396/0、dive-maps326/0、visual-dive-maps338/0、sunroom-underwater83/0、sunroom-collision3313/0、click39/0、framework-integration52/0、minimum-loop112/0、modules31/0、keyboard-control30/0、control-feel31/0、character-motor42/0；全部 exit0/PASS、无 unexpected。真实渲染入口通过；旧 curved collision3448/42 继续作为历史失败，不被覆盖。设备/连续性能/全路线人工探索/用户美术终审/独立海床仍 pending。
+
+### 统一潜水3C当前签署快照
+
+上方为中间批次；最后入水选点修正及界面收尾后的当前报告为`D:/projects/sea-work/verification/20261108-205037-dive-unified-signed-2f2292/report.json`。13个计数入口合计5196/0，save-seed另列前置，14项全部exit0/PASS、unexpected=[]；dive-control396/0、visual-dive-control403/0、dive-maps326/0、visual-dive-maps338/0、sunroom-underwater83/0、sunroom-collision3313/0及基础回归通过。核心14文件与测试工程快照一致，状态/氧气/相机仍是Shared DiveRuntimeController唯一推进者，海面ActorController独立；Map不复活旧3C actions。家园落点按真实街面/净空避让，未改变水位深度或用户布局。登记头owner与操控验收入口已同步到功能账本。全局资源门禁另记，低端/连续性能/用户终审/独立海床仍pending。
+
+## 2026-11-08 水下光学与双向圆幕契约（本轮，验收 PENDING）
+
+对应 SEA-DIVE-R39–R43、SEA-OCEAN-R26–R29、SEA-AMBIENT-R28–R31。保留全部历史与历史重复编号，本节覆盖旧51.12/85m/街面常规入水、各图分立效果及旧批不改共享水下shader的阶段边界；不回退两域控制器与稳定Session所有权，三功能总体partial。
+
+| 所有者 / 端口 | 本轮契约 |
+|---|---|
+| Main → DiveSession | 装配注入同一SleepCurtain、来源与奖励端口；生产调用request_dive仅返回请求接受。Session独占双向异步切图事务，transition_started/transition_phase/transition_completed/transition_failed报告阶段与结果；原dive/enter_map同步API保持给低级测试/工具。 |
+| SEA-SLEEP/UI → SleepCurtain | 仍只拥有像素圆幕、caption及输入消费，复用cover_blank/uncover_blank，0.85关/1.05开，无文字。Session临时借到root、保存原parent/index/focus_query，结束还原原实例；不能建第二套幕、调用SleepCycle跳日或修改睡觉文字规则。 |
+| Session → ResourceLoader / SceneTree | 先合拢并等真实frame_post_draw全黑，后load_threaded/instantiate/碰撞建树；入口verified（有此字段时）+swim、角色/环境/相机准备后才展开。返回/缺氧也先黑后commit_return；失败遮黑回滚。headless process_frame不是绘制证据。 |
+| Session → Main / Shared DiveRuntimeController / Save | switching覆盖整段关/加载/准备/开；冻结海面及非继承处理子节点、经营/日期、输入、潜水游动/耗氧与海面air推进。transition_frozen只允许必要entry准备，不开第二FSM；active/switching都进busy_query，直接写盘与capture拒绝。正常/失败恢复同Main/原curtain身份与parent/index/focus/处理模式/船人姿态/相机环境及ticking，不读档、不重建Main、不重跑_ready。 |
+| SEA-OCEAN → 活动Map | uw_water_color共享Snell窗/内反射/随波太阳；Map注入绝对water_level及米制view/dive_depth，单WaterFogPass、Environment fog关、同HDR/显示色链。晚创建材质继承当前水位/深度/太阳；85m密度封顶不取代120m实际水深，不加第二层雾。 |
+| 既有Main Sun → Session → Map | Main挂起前只读World/Lights/Sun方向/颜色/强度，经configure_underwater_light投影，不造时钟/不改日期/不反写海面配置；夜间日光盘/碎光/beam消退，局部头灯与设施灯保留。 |
+| SEA-AMBIENT → Map / 潜水角色 | 家园192泡/200尘/10beam沿用，configure_water更新泡顶/光柱/材质/AABB；旧96泡修分配/颜色。呼气固定48池从mask/head每簇4..7、基础2..3秒发簇、世界余迹，控制器仅传实际速度/水位深度/dt，不写Air/物理/奖励/存档，暂停/过场停采样、卸载回收。 |
+| FishSchool / 本地布局 | 家园原8群138手摆保持，只增浅18/中22至10群178；旧每群18→24，不改各图内容子集。鱼纯观赏无碰撞/捕捞/库存职责；新增坐标只是参考位，原Main/ExistingModels/Base2不动。 |
+
+家园最新water_level=101.587442、target=120、viewer_min=−18.412558、lowest=−19.212558、clearance0.8，入水优先水下1m、换气带0.5m；原九图各自水位/默认换气带保持，常规不得退回旧街面入口。独立Terrain3D高度数据仍pending。
+
+本轮runner已存在underwater-experience / visual-underwater-experience / dive-transition / visual-dive-transition。transition初始Parse black、Main子类Autoload Zones编译阻断及visual timeout，水下体验真实视觉195/8和195/4全部保留FAIL历史；修复正在跑，最终PENDING，不借旧5196/0。主线程唯一最终回填入口为[开发记录第5节](../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)，全局sync/check留主线程，本分支不执行。
+
+当前主线程签署已在记录第7节：圆幕真实149/0/行为226/0、光学生态真实195/0/行为65/0，3C/十图/家园/碰撞/切日/房间等11计数通过入口合计4462/0，另save-seed通过。生产绘制屏障记录后先让出至普通process帧再重切树/导航，采证PNG编码不在post-draw信号栈执行；天空cubemap随真实深度减光，呼气soft-contact0.08m不改Air。失败边界：framework52/1第二代写盘独立复跑仍FAIL，全局sync69/只读70资源登记未过；历史远雾阈值/性能/全路线/用户终审等未重签，不声明全工程通过。

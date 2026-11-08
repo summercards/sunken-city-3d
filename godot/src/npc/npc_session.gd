@@ -37,6 +37,10 @@ func open(id: String) -> Dictionary:
 	npc_id = id
 	section = "home"
 	feedback = ""
+	result = service.start_conversation(id)
+	if not result.get("ok", false):
+		npc_id = ""
+		return result
 	modal_changed.emit(true)
 	changed.emit()
 	return {"ok": true}
@@ -87,6 +91,14 @@ func snapshot() -> Dictionary:
 		state["topics"] = service.conversation_topics(npc_id) if service.has_method("conversation_topics") else []
 	return state
 
+func greeting() -> String:
+	var npc: Dictionary = service.npc_snapshot(npc_id)
+	if npc.has("shop_id"):
+		return "今天的花种和花材都在这里，慢慢看看吧。" if npc.shop_id == "shop_flower" else "今天的库存还有这些，看看吧。"
+	return {"npc_luo_yan":"船的事有什么要问的？咱们慢慢说。", "npc_mu_he":"想种点什么？我陪你看看。",
+		"npc_ji_chen":"东西都理好了，有什么需要我帮忙的？", "npc_nan_zhi":"想给家里添点什么？坐下来商量商量。",
+		"npc_bai_shi":"灯还亮着呢。想听故事，还是翻翻旧记录？"}.get(npc_id, "你好呀，要一起聊会儿吗？")
+
 ## 命令表是UI的唯一入口，旧按钮携带的npc/session戳不得作用到新会话。
 func command(action: String, payload: Dictionary = {}) -> Dictionary:
 	if not is_modal() or service == null or _executing: return {"ok": false, "reason": "会话不可用"}
@@ -98,6 +110,10 @@ func command(action: String, payload: Dictionary = {}) -> Dictionary:
 		cancel()
 		return {"ok": true}
 	var dialogue: Dictionary = service.dialogue_state()
+	# 档案等显式阅读入口可以中止入场对白；服务操作必须等对白完整结束。
+	if action in ["home", "profile", "topics", "events", "gifts", "requests", "relationships", "services", "event"] and dialogue.get("active", false):
+		service.close_dialogue()
+		dialogue = service.dialogue_state()
 	var result := {"ok": false, "reason": "当前操作不可用"}
 	_executing = true
 	if dialogue.get("active", false):
@@ -112,7 +128,7 @@ func command(action: String, payload: Dictionary = {}) -> Dictionary:
 			confirmation.clear()
 			if pending.kind == "gift": result = service.give_gift(npc_id, pending.id)
 			elif pending.kind == "request": result = service.fulfill_request(pending.id)
-	elif action in ["home", "profile", "topics", "events", "gifts", "requests", "relationships", "services"]:
+	elif action in ["home", "chat", "profile", "topics", "events", "gifts", "requests", "relationships", "services"]:
 		section = action
 		result = {"ok": true}
 	elif action == "topic" and section == "topics":

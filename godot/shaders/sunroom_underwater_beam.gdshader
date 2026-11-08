@@ -57,18 +57,19 @@ void fragment() {
 	for (int i = 0; i < 16; i++) {
 		float distance_along = enter + (float(i) + 0.5) * step_length;
 		vec3 p = local_camera + direction * distance_along;
-		float height = clamp(0.5 - p.y / beam_length, 0.0, 1.0);
-		float taper = mix(0.42, 0.96, height);
+	float height = clamp(0.5 - p.y / beam_length, 0.0, 1.0);
+	float taper = mix(0.42, 0.96, height);
+	float vertical_soft = smoothstep(0.02, 0.16, height) * (1.0 - smoothstep(0.78, 0.98, height));
 		float radial = length(p.xz) / (radius * taper);
 		float edge = pow(max(0.0, 1.0 - radial * radial), 2.0);
 		float ends = smoothstep(0.0, 0.09, height) * (1.0 - smoothstep(0.64, 1.0, height));
 		float flow = 0.84 + 0.10 * sin(height * 7.1 + elapsed * 0.31 + phase)
 			+ 0.06 * sin(p.x * 0.63 + p.z * 0.41 - elapsed * 0.19 + phase);
 		float intersection = smoothstep(0.0, 1.25, opaque_distance - distance_along);
-		integrated += edge * ends * flow * intersection * step_length;
+		integrated += edge * ends * vertical_soft * flow * intersection * step_length;
 	}
 	vec3 world_center=MODEL_MATRIX[3].xyz;
-	float far_fade = 1.0-region_fog_amount(length(world_center-CAMERA_POSITION_WORLD),world_center.xz);
+	float far_fade = 1.0-region_fog_amount(length(world_center-CAMERA_POSITION_WORLD));
 	ALBEDO = vec3(0.58, 0.88, 0.74) * mix(vec3(1.0), tint, 0.15);
 	ALPHA = 0.23 * (1.0 - exp(-integrated * density * gain / 0.23)) * far_fade;
 }

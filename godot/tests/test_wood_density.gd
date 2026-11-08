@@ -14,6 +14,11 @@ func wood_count(data: Dictionary) -> int:
 	for item in data.values():
 		if not item.fish: count += 1
 	return count
+func fish_count(data: Dictionary) -> int:
+	var count := 0
+	for item in data.values():
+		if item.fish: count += 1
+	return count
 func home_count(props: Node) -> int:
 	var count := 0
 	for item in props.crates:
@@ -21,23 +26,33 @@ func home_count(props: Node) -> int:
 	return count
 func run() -> void:
 	# Count a fixed area against the original six-per-cell population. Exact
-	# quotas across ten cells verify 30%, rather than accepting 2/6 everywhere.
+	# quotas across ten cells verify the two compounded steps: halve first
+	# (60→30), then the 30% offshore rule (30→9). 9 is exactly 15%, not 30%
+	# of 30 rounded up.
 	for cycle in [1,2,69]:
 		var population := Population.new()
 		population.cycle=cycle
 		var before := 0
 		var after := 0
-		var fish_unchanged := true
+		var fish_before := 0
+		var fish_after := 0
+		var fish_thinned := true
 		for x in range(40,50):
 			var cell := Vector2i(x,50)
 			var baseline: Dictionary=population._make_base_cell(cell,6,4,Callable())
 			var reduced: Dictionary=population._make_cell(cell,6,4,Callable())
 			before += wood_count(baseline)
 			after += wood_count(reduced)
+			fish_before += fish_count(baseline)
 			for slot in baseline:
-				if baseline[slot].fish: fish_unchanged = fish_unchanged and reduced.get(slot,{})==baseline[slot]
-		check(before==60 and after==18,"day %d: offshore keeps exactly 18 of 60 bundles in equal open water" % cycle)
-		check(fish_unchanged,"day %d: thinning wood retains original fish positions and counts" % cycle)
+				if not baseline[slot].fish: continue
+				if reduced.has(slot):
+					fish_after += 1
+					fish_thinned = fish_thinned and reduced[slot]==baseline[slot]
+			for slot in reduced:
+				if reduced[slot].fish: fish_thinned = fish_thinned and baseline.has(slot)
+		check(before==60 and after==9,"day %d: halving then 30 percent keeps exactly 9 of 60 bundles in equal open water" % cycle)
+		check(fish_thinned and fish_before==40 and fish_after==20,"day %d: fish keeps exactly half (20 of 40) original positions, thinned without rerolling" % cycle)
 	var main: Node=load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main._autosave_on=false
@@ -48,7 +63,7 @@ func run() -> void:
 	main.world_clock.paused=true
 	var inventory=root.get_node("Economy").inventory
 	root.get_node("Economy").set_process(false)
-	check(home_count(main.props)==6,"sunroom home rectangle retains the original six bundles")
+	check(home_count(main.props)==3,"sunroom home rectangle keeps half of the original six bundles")
 	var clear := true
 	for item in main.props.crates:
 		clear=clear and main.props._ocean_point_clear(Vector2(item.base.x,item.base.z),false)
@@ -67,27 +82,27 @@ func run() -> void:
 		for x in range(center.x-1,center.x+2):
 			var baseline: Dictionary=main.props.ocean._make_base_cell(Vector2i(x,y),6,4,main.props._ocean_point_clear)
 			for slot in baseline:
-				if baseline[slot].fish or slot=="0:0:wood:4": continue
+				if baseline[slot].fish or slot=="0:0:wood:1": continue
 				var p: Vector2=baseline[slot].point
 				dense.pickups.crates.append({"id":next_id,"slot":slot,"kind":"planks","base":[p.x,1.12,p.y],"phase":0.0,"yaw":0.0})
 				next_id+=1
 	dense.pickups.next_id=next_id
-	dense.pickups.ocean.missing["0:0:wood:4"]=float(dense.pickups.ocean.now)+8
+	dense.pickups.ocean.missing["0:0:wood:1"]=float(dense.pickups.ocean.now)+8
 	var bag_before: Dictionary=inventory.to_dict()
 	var restored: Dictionary=Save.restore(main,dense)
 	check(restored.ok,"existing dense save loads: "+str(restored.get("reason","")))
-	check(main.props.crates.size()<dense.pickups.crates.size() and home_count(main.props)==5,"dense save immediately thins outside and retains five uncollected home bundles")
-	check(main.props.ocean.missing["0:0:wood:4"]==dense.pickups.ocean.missing["0:0:wood:4"] and inventory.to_dict()==bag_before,"density adjustment preserves cooldown and inventory")
+	check(main.props.crates.size()<dense.pickups.crates.size() and home_count(main.props)==2,"dense save immediately thins outside and retains two uncollected home bundles of three")
+	check(main.props.ocean.missing["0:0:wood:1"]==dense.pickups.ocean.missing["0:0:wood:1"] and inventory.to_dict()==bag_before,"density adjustment preserves cooldown and inventory")
 	var reduced: Dictionary=Save.encode(main)
 	check(Save.write("user://wood-density.json",main).ok,"reduced population saves normally")
 	var disk_restore: Dictionary=Save.restore(main,Save.read("user://wood-density.json").snapshot)
 	check(disk_restore.ok and JSON.stringify(main.props.to_dict())==JSON.stringify(reduced.pickups),"reduced population and depletion roundtrip without rerolling: "+str(disk_restore.get("reason","")))
 	main.world_clock.rest_to_morning()
-	check(home_count(main.props)==6,"next 07:00 refresh keeps six at home")
+	check(home_count(main.props)==3,"next 07:00 refresh keeps three at home")
 	main.props.sync_population(main.world_clock.query(),Vector3(1400,1.12,1400))
-	check(main.props.crates.size()>=16 and main.props.crates.size()<=17 and main.props.schools.size()==36,"next morning keeps offshore at 30 percent and fish unchanged")
+	check(main.props.crates.size()>=8 and main.props.crates.size()<=9 and main.props.schools.size()==18,"next morning keeps offshore at half density and fish halved too")
 	main.props.sync_population(main.world_clock.query(),main.boat.position)
-	check(home_count(main.props)==6,"sailing away and back does not duplicate home bundles")
+	check(home_count(main.props)==3,"sailing away and back does not duplicate home bundles")
 	print("[wood-density] %d checks, %d failures" % [checks,failures])
 	main.queue_free()
 	await process_frame

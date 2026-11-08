@@ -286,3 +286,16 @@ P 面板从三页变四页：滤镜 / 光照 / 水面 / **测试**。前 3 条�
 | SEA-UI-R53 | 集中建筑UI只承接表现与返回链：手册、搬移、拆除、高度、自动识别、吸附、旋转、退出及进度展示由 `godot/src/building/ui` 的既有 view/progress_presenter 组织，锤子仅在建筑模块内显示。业务资格、扣费/退款、布局与存档仍归SEA-BUILDING所有者；本条引用[SEA-BUILDING-R32](../building/spec.md)及[建筑交付记录](../../development/2026-11-06_building_5m_and_ui.md)，不复制或新增建造实现。本任务范围的最终报告`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`确认`building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0，均exit0；既有`visual-keyboard-building`43/0真实渲染保留为其对应范围证据，不把UI专项外推为全局门禁通过。 |
 
 登记修复说明：`scripts/check_feature_contracts.py:121`与`:122`只提取精确表格形式的requirement ID；此前ledger已有R53，而spec只在正文提及“R53已占用”，不被计入，造成集合差一项。保留R53并补本行后，两边R01–R57集合一致；R54–R57在两份文档中各一行，无需改号或复制。仅修UI文档承接，本次不运行sync。主线程最新sync已消除UI ID集合及unknown verification命名错误；当前仍13 issues，普通check另加derived stale为14。全局哈希/并发登记边界与定向登记事实见[总交付门禁补记](../../development/2026-11-06_keyboard_complete.md)，不宣称门禁全绿。
+
+
+## 2026-11-08 NPC底部对话与右侧选项
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-UI-R58 | NPC复用现有CharacterDialogue的奶油底部对话框，显示说话人、台词、页码和继续；右侧独立小纸片承接剧情分支与功能选项，默认不出现中央资料面板或变暗遮罩。功能选项在入场对白读完后出现。1280×800、1600×1000、1920×1080按实际逻辑画布缩放，台词与菜单不重叠、不出屏；鼠标点继续/台词、键盘确认与方向选项一致且不穿透。NPC会话锁定归NPC模态，不能误判成开场叙事而自行取消。离开后原开场序列、单行提示仍能使用同一实例。 |
+
+## 2026-11-08 商店图标网格与关闭键归属
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-UI-R59 | 商店使用与背包一致的格子语言：图标 84 见方、8 列、分页箭头、压格名签与纸面区；1280×800、1600×1000、1920×1080 下面板、气泡、关闭键均完整入镜，气泡不压商品格、名签不压底部瓶盖行、购买反馈另占一行。外部模态打开时 HUD 右下圆键必须调 `owned_modal_close` 关闭该模态，不能落到 `back()` 空转；商店自带圆键期间收起 HUD 那一枚，同一角落始终只有一枚可见关闭入口。 |

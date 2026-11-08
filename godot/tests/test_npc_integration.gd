@@ -180,7 +180,13 @@ func check_rooftop_anchors() -> void:
 	var area = harbor.get_node("WalkAreas/Walk_rooftop_ranch_access")
 	var markers: Array = roof_provider.find_children("*", "Marker3D", true, false)
 	check(markers.size() == 30 and anchors.size() == 30 and roof_provider.get_child_count() == 6, "六草地站位30个真实 Marker 全部有效")
-	check(sea_provider.anchor_snapshot().size() == 5 and provider.anchor_snapshot().size() == 35, "浮店5锚点与天台30锚点聚合")
+	# 2026-11-08 起豆豆在霓虹花园菜园桥，正式主场景挂了三处场地：
+	# 天台 30 + 浮店 5 + 花园 5。
+	var garden_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations")
+	check(garden_provider != null and garden_provider.anchor_snapshot().size() == 5,
+		"霓虹花园菜园桥5锚点来自正式站台")
+	check(sea_provider.anchor_snapshot().size() == 5 and provider.anchor_snapshot().size() == 40,
+		"浮店5 + 天台30 + 花园5 共40锚点聚合")
 	for point_marker: Marker3D in markers:
 		var station = point_marker.get_parent()
 		var kind := str(point_marker.name).to_lower()
@@ -199,14 +205,23 @@ func check_rooftop_anchors() -> void:
 			and grass_support(point), "锚点位于真实天台草皮而非消防梯或水面 " + anchor.anchor_id)
 		check(roof_provider.resolve_anchor(anchor.anchor_id) == anchor, "稳定ID解析回同一天台锚点 " + anchor.anchor_id)
 	for id in Catalog.ids():
-		check(owners.has(id) == (id != "npc_bao_he"), "六人草地、阿店不留天台站位 " + id)
+		if id == "npc_mu_he":
+			# 她的天台站台仍在场景里（用户没删），但当前日程已指向霓虹花园，
+			# 所以断言的是「不在天台日程里」，不是「场景里没有她的 Marker」。
+			var muhe_routes: Array = []
+			for rule in Catalog.get_npc(id).get("schedule", []):
+				muhe_routes.append(str(rule.anchor))
+			check(not muhe_routes.has("anchor_planter") and muhe_routes.has("residence_garden_bridge_work"),
+				"豆豆的日程锚点已指向霓虹花园菜园桥 " + id)
+			continue
+		check(owners.has(id) == (id != "npc_bao_he"), "五人草地、阿店浮店不留天台站位 " + id)
 		check(Catalog.get_npc(id).display_name == NAMES[id] and world.actor(id).display_name == NAMES[id], "正式目录与世界姓名一致 " + id)
 	for anchor in sea_provider.anchor_snapshot().values():
 		check(anchor.npc_id == "npc_bao_he" and anchor.zone_id == "sea_supply"
 			and anchor.ground_space == sea_site.ground_space and anchor.support_frame == sea_site.get_node("Objects")
 			and anchor.position.distance_to(anchor.ground.surface_point(anchor.position)) < 0.003,
 			"阿店锚点复用浮店支撑 " + anchor.anchor_id)
-	check(provider.home_labels().size() == 7, "七人暂驻标签来自聚合 provider 而非住所目录")
+	check(provider.home_labels().size() == 8, "七人暂驻标签来自聚合 provider（天台6+浮店1+花园1，含站台自身标签）而非住所目录")
 
 func grass_support(point: Vector3) -> bool:
 	var grass = harbor.get_node("Models/ORF3_中央草皮基底")
@@ -275,6 +290,13 @@ func walk_to(point: Vector3, label: String) -> bool:
 	return check(main.player.global_position.distance_to(point) < 0.25 and not main.actor_controller.walking(), label + " 实际到位")
 
 func npc_press(action: String, id := "") -> bool:
+	if action in ["talk", "profile", "topics", "events", "gifts", "requests", "relationships"]:
+		var visible := false
+		for candidate: Button in world.panel._buttons:
+			if candidate.get_meta("npc_action", "") == action: visible = true
+		if not visible:
+			if not await finish_dialogue() or not await npc_press("chat"): return false
+			await process_frame
 	for button: Button in world.panel._buttons:
 		if button.get_meta("npc_action", "") == action and (id == "" or button.get_meta("npc_payload", {}).get("id", "") == id):
 			if not check(not button.disabled, "NPC 按钮可用 " + action + " " + id): return false
@@ -317,14 +339,14 @@ func finish_dialogue() -> bool:
 
 func open_career(id: String, action: String) -> bool:
 	if not await open_npc(id): return false
-	if not await npc_press("services") or not await npc_press("function"): return false
+	if not await finish_dialogue() or not await npc_press("function"): return false
 	var snapshot: Dictionary = main.npc_career_panel.panel_snapshot()
 	return check(snapshot.open and snapshot.npc_id == id and snapshot.action_id == action
 		and not world.is_modal() and main.hud._external_modal, "Main 路由至实际职业面板 " + action)
 
 func buy(id: String, product_id: String, amount := 1) -> bool:
 	if not await open_npc(id): return false
-	if not await npc_press("services") or not await npc_press("vendor"): return false
+	if not await finish_dialogue() or not await npc_press("vendor"): return false
 	var shop_id: String = Catalog.get_npc(id).shop_id
 	var panel = main.shop_panel
 	var shop: Dictionary = main.shop_service.shop_snapshot(shop_id)
@@ -395,7 +417,7 @@ func homes_and_interactions() -> void:
 		check(false, "旅行失败不能用天台瞬移掩盖"); return
 	var anchors: Dictionary = provider.anchor_snapshot()
 	var hub: Vector3 = harbor.to_global(Vector3(0, harbor.ROOF_Y, 11.5))
-	check(roof_provider.get_child_count() == 6 and anchors.size() == 35, "六天台一浮店35锚点来自正式聚合 provider")
+	check(roof_provider.get_child_count() == 6 and anchors.size() == 40, "天台六站台 + 浮店 + 花园共40锚点来自正式聚合 provider")
 	# 日钟冻结后等待真实 NPC 走完，不改 actor 坐标/路线。
 	if not await until(func():
 		for row in world.world_snapshot().residents.values():
@@ -408,6 +430,14 @@ func homes_and_interactions() -> void:
 	# 阿店最后验：先沿原消防梯回泊位，再由 HUD 真实航行到浮店。
 	for index in roster.size():
 		var npc: Dictionary = roster[index]
+		# 豆豆 2026-11-08 起在霓虹花园菜园桥种菜，不在这条天台走访链上。
+		# 她的站位/点击由 test_garden_npc.gd 在真实主场景里单独验。
+		if npc.id == "npc_mu_he":
+			var garden_body = world.actor("npc_mu_he")
+			check(is_instance_valid(garden_body) and garden_body.visible
+				and not world.world_snapshot().residents["npc_mu_he"].fallback,
+				"豆豆在霓虹花园菜园桥落位且无静默回退")
+			continue
 		if npc.id == "npc_bao_he":
 			if not await sail_to_supply(): continue
 			anchors = provider.anchor_snapshot()
@@ -444,16 +474,14 @@ func homes_and_interactions() -> void:
 		actor_states.clear()
 		var approach_start: Vector3 = main.player.global_position
 		await click(point)
-		if not check(main.hud.world_actions.active and main.hud.world_actions.entries.size() == 1, "点击 NPC 出现交谈气泡"): continue
-		await frames(3)
-		await click(main.hud.world_actions.buttons[0].get_global_rect().get_center())
+		if not check(not main.hud.world_actions.active, "点击NPC直接接近，不出现物体菜单"): continue
 		if not await until(func(): return world.is_modal(), 35.0, "点击交谈经实际 approach/Interactor 打开 " + row.npc_id): continue
 		check(completions.size() == before + 1 and completions.back().spot == spot
 			and completions.back().result.get("npc_id") == row.npc_id, "点击完整执行真实交互链 " + row.npc_id)
 		check("approaching" in actor_states and "interacting" in actor_states
 			and main.player.global_position.distance_to(approach_start) > 0.15, "点击确实移动且经过 approach/interacting，而非直接打开面板 " + row.npc_id)
 		check(world.panel.panel_snapshot().npc_id == row.npc_id and not main.shop_panel.is_open(), "商店居民也先打开 NPC 而非货架")
-		if not await npc_press("talk") or not await finish_dialogue(): continue
+		if not await finish_dialogue(): continue
 		check(main.npc_service.npc_snapshot(row.npc_id).runtime.last_talk_day == main.world_clock.day, "七人实际交谈结算 " + row.npc_id)
 		await close_modals()
 		var delta: Vector3 = spot.focus_position() - main.player.global_position
@@ -474,15 +502,25 @@ func homes_and_interactions() -> void:
 		await close_modals()
 		if row.npc_id == "npc_bao_he": await verify_heave()
 		interactions += 1
-	if check(homes == 7, "六草地一浮店 home 站位全部经公共路径实际走到"): completed_sections.append("two-site-stations")
-	if check(interactions == 7, "七人全部完成点击/approach/对白/E"): completed_sections.append("seven-click-e")
+	if check(homes == 6, "五人草地+阿店浮店 home 站位全部经公共路径实际走到（豆豆在花园另验）"): completed_sections.append("two-site-stations")
+	if check(interactions == 6, "天台五人+阿店完成点击/approach/对白/E（豆豆在花园另验）"): completed_sections.append("seven-click-e")
 
 func npc_site_position(id: String) -> Vector3:
 	var body = world.actor(id)
-	return sea_site.get_node("Objects").to_local(body.global_position) if id == "npc_bao_he" else harbor.to_local(body.global_position)
+	if id == "npc_bao_he": return sea_site.get_node("Objects").to_local(body.global_position)
+	if id == "npc_mu_he":
+		# 豆豆在霓虹花园菜园桥，用那座楼的局部坐标衡量，才不受楼体世界摆位影响。
+		var garden: Node3D = main.get_node("World/SeaStructures/neon_garden_quarter")
+		return garden.to_local(body.global_position)
+	return harbor.to_local(body.global_position)
 
 func npc_supported(id: String) -> bool:
 	var body = world.actor(id)
+	if id == "npc_mu_he":
+		# 菜园桥的支撑来自从模型派生的 DerivedWalkArea，不是天台草皮。
+		var garden: Node3D = main.get_node("World/SeaStructures/neon_garden_quarter")
+		var deck: Node3D = garden.get_node("WalkAreas/WalkGardenDeck")
+		return deck.contains_position(body.global_position, 0.6)
 	if id != "npc_bao_he": return grass_support(body.global_position)
 	var area = sea_site.area_at(body.global_position, 0.05)
 	return area != null and body.global_position.distance_to(area.surface_point(body.global_position)) < 0.01

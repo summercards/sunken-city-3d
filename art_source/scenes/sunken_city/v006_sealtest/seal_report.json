@@ -1,0 +1,38 @@
+{
+  "suite": "sunken_city",
+  "source_version": "v005",
+  "sealed_version": "v006_sealtest",
+  "inset_m": 0.35,
+  "components": [
+    {
+      "key": "cutaway_tenement",
+      "name": "半栋住宅_楼层剖露",
+      "source": "art_source/scenes/sunken_city/v005/component_packages/cutaway_tenement/cutaway_tenement.blend",
+      "source_sha256": "17ec306ff6bd89fbcd23114bdcce8a15d2331a77488717db17b9ff0e29af0f62",
+      "sealed_blend": "art_source/scenes/sunken_city/v006_sealtest/component_packages/cutaway_tenement/cutaway_tenement.blend",
+      "sealed_sha256": "925a9724836bababf35feb9fe2a9f0c01ccb2ab7ce99fec70ceefb39cbada2ee",
+      "runtime_path": "godot/assets/models/scenery/_sealtest/cutaway_tenement/cutaway_tenement.glb",
+      "loops": 10,
+      "boundary_before": 70,
+      "boundary_after": 0,
+      "faces_before": 13632,
+      "faces_after": 13702,
+      "patched_faces": 70,
+      "loops_unsealed": 0,
+      "glb": "godot/assets/models/scenery/_sealtest/cutaway_tenement/cutaway_tenement.glb",
+      "glb_sha256": "6620551a15cb5089d395c5bf86d62f8a1c9ce1f54f7717405c50879a24c13c24",
+      "glb_bytes": 1514384,
+      "exported_triangles": 26314,
+      "mesh_nodes": [
+        "Mesh_cutaway_tenement"
+      ],
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss"
+      ]
+    }
+  ],
+  "total_patched_faces": 70,
+  "unsealed_boundary_total": 0
+}

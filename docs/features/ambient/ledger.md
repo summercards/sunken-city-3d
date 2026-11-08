@@ -199,3 +199,38 @@ SEA-AMBIENT-R17及本轮R07/R08/R10/R11/R16覆盖项：六项统一runner实测�
 | SEA-AMBIENT-R24 | runtime禁用环境fog，按旧图同序one opaque WaterFogPass、render_priority=-128；sunroom_underwater_color include统一6..110/curve1.3，天空/水顶/地形同一相机方向上下渐变，worldXZ448..500额外fade。透明粒子自雾＋alpha衰减；beam加色16steps/density基值0.085（每束增0/0.008/0.016）/soft cap0.23，采深度挡墙并继承同距离fade，不叠双雾。ambient0.48→深0.29、Sun0.60→0.30、Cool0.13、palette caustic0.075；压下泛白地板，水顶纹理gain0.18、正常水色。保留138鱼/32珊瑚/24实灯与10光束/192泡/200尘及sample/snapshot | 最终232826-signed：结构78/0、碰撞264/0、视觉118/0，新区域460/0；dive-maps302/0与modules31/0回归333/0，五入口总793/0全PASS/exit0、无unexpected。local env/sky/material均resource_local_to_scene保护多实例；far-fog-edge max0.0078431517、corner/west各0.0039215982均<0.025；射光shader开关lit_samples5365>150，已证实际可见，不止node计数。RTX4060Ti/Vulkan Forward+、18机位；父线程已目检home-base/ray-street/coral/fish/far-edge/corner-close，旧环境fog＋aerial1角落三角块改单通道后已审边角纯渐变无边，不冒称18图全细节人工签署。原9图/旧源/高度源、toplevel/位置范围深度保持，70保护项最终核对待父回填。本任务不改Main；Main 可能被并行修改，不要求 Main 字节不变。低端/连续性能、rights/完整02b及产品验收仍pending，未接生产路由/存档。[r2记录](../../development/2026-11-07_sunroom_underwater_art_r2.md)。 |
 
 最终报告：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`；verification关联三项新区域及dive-maps/modules回归，总793/0全PASS。默认射光、气泡、珊瑚、鱼与低照灯分列审阅，最终远角pure gradient已目检，近处实体边缘不等于远雾cut。225915为中间历史，不再称latest final待验；登记实际写入及sync/check真实输出由父线程补到开发记录静态门禁节。本次不改登记头/登记JSON，不运行命令。
+
+## 2026-11-08 家园海底技术深化（SEA-AMBIENT-R25）
+
+| 对应条款 | 当前实施 | 当前证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R25 | 本地 `WaterFogPass` 单通道；Environment fog关闭；palette本地深度吸收/饱和度/轻焦散；beam 16-step深度挡墙、上下软边、远景fade；角色深度驱动雾色；既有192泡/200尘/10束保留。参考官方Volumetric Fog/FogVolume、GPUParticles3D、Sky shader及水体depth/Fresnel/caustics资料，但未无条件开启体积雾、不改共享水/世界环境/原9图 | `D:/projects/sea-work/verification/20261108-123311-home-seabed-thirdperson-final-d703fe/report.json`：visual338/0、sunroom-underwater79/0、collision264/0，完整1241/0；第三人称实拍确认角色/潜水装备/旧城/街道/射光可见。低端GPU/连续性能/完整美术终审pending，不以资料或节点计数替代性能验收 |
+
+家园海底 third-person/depth/layout 规则归 SEA-DIVE-R20–R23；技术链只拥有独立场景的本地材质与氛围，不得回写 `water.tres`、`world_env.tres`、shared city/seabed/base 或原9图。
+## 2026-11-08 家园海底雾/环境对齐旧九图（SEA-AMBIENT-R26／R27）
+
+| 对应条款 | 当前实施 | 当前证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R26 | 单通道 `WaterFogPass` 改用 zone1 同式指数雾与屏幕渐变；天空补 `AT_CUBEMAP_PASS` 双色；环境光 SKY 双色 + 深度衰减；glow/SSAO 关、方向光 0、FOV 55；palette 去逐材质深度染色只留焦散。删除方向渐变、`smoothstep(14,92)` 分层与 448..500 米 XZ 边缘吸收三处叠加 | 30 米处雾浓度 0.08→0.48，10/20/40/60/110 米分别为 0.085/0.264/0.658/0.892/1.0，与 zone1 同式同参数；`tests/test_sunroom_underwater_region.gd` 80/0；真实渲染器无着色器编译错误 |
+| SEA-AMBIENT-R27 | 10 光柱顶到 50.12、长度 60~70 米、density 按 `22/长度` 反比；192 气泡升至 50.47；200 悬尘限 17 米带；粒子 `custom_aabb` 纵向 27→76 米。数量、种子、16 步深度挡墙积分不变 | 同上 80/0 覆盖气泡不越水面与光柱 on/off 实照亮像素；未开启全局体积雾 |
+
+边界：本轮为参数与公式对齐，未新增粒子数、未改共享水材质/`world_env.tres`/原 9 图；低端 GPU 与连续运行性能、整段下潜观感、用户美术终审仍 pending。
+
+## 2026-11-08 环境泡/呼气/增鱼承接（partial / PENDING）
+
+登记头与原owner原样保留；本节补充 SunroomUnderwaterAtmosphere / UwDeco / DiverBreathBubbles / FishSchool 的纯表现职责，不取代已有植被/飞鸟所有者。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-AMBIENT-R28 | 已读家园192泡/200尘/10beam、configure_water动态泡顶/材质/光柱/AABB，旧图96泡mesh/use_colors先于count与颜色写入 | sunroom_underwater_atmosphere.gd / uw_deco.gd；真实实例回读、time0/2上升、升降水位恢复与像素可见性PENDING，不据数量签视觉 |
+| SEA-AMBIENT-R29 | 已有diver_breath_bubbles.gd固定48池、mask/head世界挂点、每簇4..7、基础间隔2..3秒、世界轨迹/动态AABB/alpha隐藏 | 当前寿命3.0..4.7秒，与发簇间隔区分；真实发出/脱离角色/回收/浅水可见PENDING |
+| SEA-AMBIENT-R30 | Shared DiveRuntimeController创建并注入呼气，sample_effects消费实际速度比/水位深度，transition_frozen跳过 | 不持有或写Air，不写物理/输入/存档；暂停/切图卸载/同dt氧气无差别实测PENDING |
+| SEA-AMBIENT-R31 | 家园TSCN保留原8群138，新增浅18+中22=10群178，新增ID08/09；旧UwDeco每群18→24、内容子集不改 | 复用fish_school，原群手摆变换不动；真实泳动、入水近浅层与纯装饰/无碰撞/非捕捞验收PENDING |
+
+已核实本轮 runner `underwater-experience` / `visual-underwater-experience` 存在，仅在末尾关联，不重写登记头。真实视觉195/8、195/4均FAIL历史，后续修复正在跑，最终PENDING；不借旧793/0、1241/0或5196/0。主线程在[开发记录第5节](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)回填报告、像素对照与目检；本分支未跑测试/sync/check，低端/连续性能与用户终审未签。
+
+### 本轮主线程最终验收
+
+SEA-AMBIENT-R28–R31当前专项通过：`D:/projects/sea-work/verification/20261109-030908-underwater-breath-contact-db6f99/report.json`的visual-underwater-experience195/0、exit0/PASS；`20261109-031605-underwater-regression-final-2513b4`的underwater-experience65/0通过。旧96泡分配/颜色和实际像素可见已修，家园192泡/200尘/10束水位/AABB动态复验通过；呼气池48非奇异矩阵、真实mask前方出生、上升/膨胀/世界轨迹/退出清空/暂停过场冻结均通过。浅水呼气soft-contact0.08m，家园on/off差分300像素/peak0.04706，zone1为1090像素/0.18431，不仅计节点。家园原8群138保留，浅18中22总178、旧图每群24均实际实例/动画与像素差分通过，无捕捞或碰撞职责。旧195/8、195/4和195/1过程失败保留。
+
+总体partial；低端/持续性能、完整昼夜/全路线/用户美术终审未签。全局sync69/只读70资源哈希门禁失败与框架52/1 second generation write另外记录，不写全工程通过。[完整签署](../../development/2026-11-08_underwater_optics_and_transition.md)。

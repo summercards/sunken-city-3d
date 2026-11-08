@@ -1,0 +1,38 @@
+{
+  "suite": "sunken_city",
+  "source_version": "v003",
+  "sealed_version": "v007_sealtest",
+  "inset_m": 0.35,
+  "components": [
+    {
+      "key": "slender_tower",
+      "name": "竖窗高楼_局部崩角",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/slender_tower/slender_tower.blend",
+      "source_sha256": "f364ba2e518fb5b9238d9f7d8a9113b9a295399b8f620a0b0304761049522cbd",
+      "sealed_blend": "art_source/scenes/sunken_city/v007_sealtest/component_packages/slender_tower/slender_tower.blend",
+      "sealed_sha256": "55be2f8fa5f1dbf00777ec9bb235fcc8dda61d004cdb9bce3fe08ab65f7954e8",
+      "runtime_path": "godot/assets/models/scenery/_sealtest_tall/slender_tower/slender_tower.glb",
+      "loops": 83,
+      "boundary_before": 342,
+      "boundary_after": 0,
+      "faces_before": 114953,
+      "faces_after": 115295,
+      "patched_faces": 342,
+      "loops_unsealed": 0,
+      "glb": "godot/assets/models/scenery/_sealtest_tall/slender_tower/slender_tower.glb",
+      "glb_sha256": "072d0764f556c80e81b4326845023844bfe8b914553a7c1d6ed86142c6c6344e",
+      "glb_bytes": 13978032,
+      "exported_triangles": 221168,
+      "mesh_nodes": [
+        "Mesh_slender_tower"
+      ],
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss"
+      ]
+    }
+  ],
+  "total_patched_faces": 342,
+  "unsealed_boundary_total": 0
+}

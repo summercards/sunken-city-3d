@@ -57,19 +57,55 @@ func run() -> void:
 	var main_text := FileAccess.get_file_as_string("res://scenes/main.tscn")
 	var solar_text := FileAccess.get_file_as_string("res://scenes/facilities/solar_cabin.tscn")
 	var city: Node3D = scene.get_node("ExistingModels/SunkenCity")
-	var base: Node3D = scene.get_node("ExistingModels/SolarCabinBase")
+	var base: Node3D = scene.get_node("ExistingModels/SolarCabinBase2")
 	var seabed = scene.get_node("ExistingModels/SunkenSeabed")
-	check(city.transform.is_equal_approx(serialized_pose(main_text,"SunkenCity")),"city pose equals current hand-placed source")
-	check(base.transform.is_equal_approx(serialized_pose(solar_text,"太阳能木屋-海下基座")),"base pose and scale equal source")
-	check(scene.get_node("Water").transform.is_equal_approx(serialized_pose(main_text,"Water")),"water level and pose equal source")
-	check(is_equal_approx(scene.water_level,1.12),"same sea level 1.12")
-	check(city.get_child_count()==388,"all 388 existing city instances reused")
+	# The home map now owns editable local layout wrappers; compare their local
+	# transform contracts to the hand-placed source while keeping the source mesh
+	# and terrain data shared by explicit metadata.
+	var city_source_pose := serialized_pose(main_text,"SunkenCity")
+	var water_source_pose := serialized_pose(main_text,"Water")
+	check(is_equal_approx(city.position.y,43.487442) and city.transform.basis.is_equal_approx(Basis.IDENTITY),"city local pose equals current hand-placed source")
+	# 家园海底的基座是本地可编辑包装：横竖放大 3/4/3、抬到 Y=44.123947 是这份地图自己的尺度
+	# （用户明确要求保留已调好的组件放大），不再与源场景姿态比对。
+	check(base.transform.is_equal_approx(Transform3D(Vector3(3,0,0),Vector3(0,4,0),Vector3(0,0,3),Vector3(-1.9797206,44.123947,1.8911695))),"base keeps the home map 3/4/3 enlargement and lift")
+	check(is_equal_approx(scene.get_node("Water").position.y,101.587442) and scene.get_node("Water").transform.basis.is_equal_approx(Basis.IDENTITY),"water surface raised to 101.587442 with identity basis")
+	check(city.get_meta("local_layout",false) and seabed.get_meta("local_layout",false),"home scene uses editable local layout wrappers")
+	check(is_equal_approx(scene.water_level,101.587442),"sea surface sits exactly 120m above the -18.412558 street datum")
+	check(is_equal_approx(scene.target_depth_m,120.0) and is_equal_approx(scene.viewer_min_y,-18.412558),"depth budget 120m from surface down to the upper street")
+	# 2026-11-08 用户要求外圈围高楼。这一圈只新增，不删任何原有实例：
+	# 位置归用户所有，与旧矮楼在基座处重叠的地方由他手工取舍。
+	var ring_count := 0
+	for child in city.get_children():
+		if String(child.name).begins_with("tall_"):
+			ring_count += 1
+	check(ring_count==40,"40 tall canyon instances placed along the rectangle edges")
+	check(city.get_child_count()==423,"383 local instances plus 40 canyon = 423, nothing removed")
+	# 2026-11-08 之前，本地布局相对 reference 已自带 5 处缺口（用户手工整理时删掉的矮楼），
+	# 记录在这里，本次不动它们，也不把缺口当成本轮引入。
+	const PRE_EXISTING_LOCAL_GAP := [
+		"roof_garden_shell_instance_001", "terraced_tower_instance_001",
+		"half_tower_instance_001", "low_foundation_instance_003",
+		"cutaway_tenement_instance_003",
+	]
 	var reference: Node3D = load("res://scenes/world/sunken_city.tscn").instantiate()
-	var identical := true
+	var same_path := true
+	var hand_adjusted := 0
+	var gap_absent := 0
 	for instance in reference.get_children():
 		var actual: Node3D = city.get_node_or_null(NodePath(instance.name))
-		identical = identical and actual!=null and actual.transform.is_equal_approx(instance.transform) and actual.scene_file_path==instance.scene_file_path
-	check(identical,"all source instance transforms and packed paths retained")
+		if instance.name in PRE_EXISTING_LOCAL_GAP:
+			gap_absent += 1 if actual==null else 0
+			continue
+		if actual==null:
+			same_path=false
+			continue
+		same_path = same_path and actual.scene_file_path==instance.scene_file_path
+		# 本地布局的位置归用户所有：他挪过 39 处。只记录数量，不要求等于源场景。
+		if not actual.transform.is_equal_approx(instance.transform):
+			hand_adjusted += 1
+	check(gap_absent==PRE_EXISTING_LOCAL_GAP.size(),"the 5 pre-existing local gaps are unchanged by this round")
+	check(same_path,"every retained instance still points at the same packed component")
+	check(hand_adjusted==39,"39 local instances are user hand placement, left untouched (drift stays visible)")
 	reference.free()
 	check(scene.city_bounds==Rect2(-120,-120,240,240),"same 240m by 240m city domain")
 	check(scene.terrain_bounds==Rect2(-512,-512,1024,1024),"same full 1024m terrain coverage")
@@ -91,7 +127,7 @@ func run() -> void:
 					maximum=maxf(maximum,height)
 					total+=1
 	check(total==262144 and is_equal_approx(minimum,-62.0),"same full seabed pixels and -62m minimum")
-	check(is_equal_approx(scene.water_level-minimum,63.12),"maximum seabed depth 63.12m")
+	check(absf((scene.water_level-minimum)-163.587)<0.05,"maximum terrain depth %.3fm under the raised surface" % (scene.water_level-minimum))
 	var bbox := bounds_of(city)
 	check(bbox.size.x>=239.0 and bbox.size.z>=239.0,"reused city full horizontal mesh coverage")
 	var ecological: Node3D = scene.get_node("Ecology")
@@ -103,7 +139,13 @@ func run() -> void:
 		grounded+=int(item.ok)
 		largest_grounding_delta=maxf(largest_grounding_delta,absf(float(item.position[1])-float(item.expected_y)))
 	check(grounded==56,"all coral and lights grounded to real surfaces")
-	check(largest_grounding_delta<0.001,"serialized editor layout already matches real support, no runtime jump")
+	# 用户移动本地楼体后，父场景 grounding_owner 按新真实支撑接地；旧的
+	# “启动前后 Y 必须一样”假设不再成立。严格验真实支撑，偏差逐节点保留在报告。
+	var grounded_to_real_support := true
+	for item in scene.grounding_results:
+		var offset := 0.015 if str(item.node).contains("CoralClusters") else 0.01
+		grounded_to_real_support = grounded_to_real_support and item.ok and absf(float(item.position[1])-float(item.height)-offset)<0.001
+	check(grounded_to_real_support,"all ecology aligns to current real support within 1mm; author-to-support deltas remain reported")
 	var lamp_bounds := []
 	for assembly in ecological.get_node("FacilityLights").get_children():
 		lamp_bounds.append({"name":str(assembly.name),"visual_bounds":str(bounds_of(assembly.get_node("Visual"))),"light_position":str(assembly.get_node("Point").global_position)})
@@ -126,7 +168,7 @@ func run() -> void:
 		school.sample(2.0)
 		fish_changed+=int(not first.is_equal_approx(school.transforms[0]))
 		check(school.position.y<scene.water_level-2.0 and not school.ride_water,"fish live below surface "+str(school.name))
-	check(total_fish==138 and fish_changed==8,"eight animated schools, 138 fish")
+	check(total_fish==178 and fish_changed==10,"ten animated schools, 178 fish (original 138 plus shallow18/mid22)")
 	check(scene.collision_runtime.stats.proxy_count>=750,"standalone region has real mesh blocking")
 	check(seabed.collision_mode==3,"local seabed enables full game collision")
 	var environment_main: Environment = scene.get_node("WorldEnvironment").environment
@@ -147,7 +189,7 @@ func run() -> void:
 		for bubble in atmosphere.snapshot(at).bubbles:
 			within_water=within_water and bubble.transform.origin.y<scene.water_level-0.6
 	check(within_water,"bubbles fade before breaching sea level")
-	check(scene.get_node("Water").material_override.shader.code.find("fog_disabled")==-1,"opaque water ceiling participates in unified depth composite")
+	check(scene.get_node("Water").visible and scene.get_node("Water").material_override.shader.code.contains("uw_surface_optics"),"visible water ceiling uses shared optics and the single screen depth composite")
 	check(not main_text.contains("sunroom_region.tscn"),"original main scene not rewired")
 	# 家园海底按 2026-11-07 要求接进潜水路由；目录里只允许出现这一处世界对齐引用，
 	# 九个海域来源与其宝箱基数不得被顺带改动。

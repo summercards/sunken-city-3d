@@ -133,6 +133,14 @@ func _physical_routes(anchors: Dictionary) -> void:
 	world.sync_world(ports.clock())
 	for npc in service.roster():
 		var route_row: Dictionary = world._routes[npc.id]
+		# 豆豆的日程 2026-11-08 起改到霓虹花园菜园桥（residence_garden_bridge_*）。
+		# 本夹具只挂旧住所港，不含那个区块，她在这里只能回退 —— 那是夹具边界。
+		# 正式主场景挂有两处场地，锚点可解析；实测见
+		# docs/development/2026-11-08_neon_garden_garden.md。
+		if npc.id == "npc_mu_he":
+			check(route_row.fallback and route_row.target.zone_id == "resident_harbor",
+				"豆豆在仅含旧住所港的夹具里回退到住所港")
+			continue
 		check(not route_row.fallback, "正常工作日程不得以回家掩盖缺失alias " + npc.id)
 		check(route_row.target.zone_id == "resident_harbor", "日程仍在住所港 " + npc.id)
 
@@ -163,14 +171,16 @@ func _ui_loop() -> void:
 	check(world.open_npc(id).ok and world.is_modal(), "世界交互打开独立NPC面板")
 	check(not world.actor(id).get_node("NpcInteractable").can_interact(), "模态时隐藏世界交互")
 	var before: Dictionary = service.to_dict()
+	command("talk") # to_dict按存档契约取消活动对白，显式重开后测补全/取消。
 	await process_frame
-	await key(KEY_ENTER)
 	var state: Dictionary = service.dialogue_state()
-	check(state.get("active", false) and state.get("typing", false) and world.panel._text.text == state.get("page", {}).get("text", ""), "Enter进入对白，page/text/typing一致")
+	check(state.get("active", false) and state.get("typing", false) and world.panel._text.text == state.get("page", {}).get("text", ""), "入场对白在底部，page/text/typing一致")
 	await key(KEY_E)
 	check(not service.dialogue_state().get("typing", false), "E只补全文字，不偷结算")
 	await key(KEY_ESCAPE)
 	check(not service.dialogue_state().get("active", false) and service.to_dict() == before, "Esc中止对白不增加亲密或完成记录")
+	world.open_npc(id)
+	service.close_dialogue()
 	command("talk")
 	var stale_serial: int = service.dialogue_state().session_id
 	_finish_dialogue()
@@ -221,9 +231,8 @@ func _ui_loop() -> void:
 	for pair in [["npc_hua_yi", "shop_flower"], ["npc_bao_he", "shop_general"]]:
 		var count := vendors.size()
 		check(world.open_npc(pair[0]).ok and vendors.size() == count, "商店人物不自动变货架")
-		command("talk")
 		check(service.dialogue_state().active, "商店人物拥有对白")
-		command("back")
+		_finish_dialogue()
 		command("services")
 		command("vendor")
 		check(vendors.back() == pair and not world.is_modal(), "request_vendor交给Main的ShopPanel")

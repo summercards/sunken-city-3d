@@ -60,32 +60,89 @@
 1. **长潜水后返回海面时的信号重连报错**。原先捕获的外部信号在返回时无条件重连，若持有者在潜水期间被释放，会抛 `Parameter "obj" is null`；Terrain3D 的原生信号本来就会随重新进树自动恢复，手工再连会报「already connected」。现在只重连仍存活、且尚未连接的脚本信号。
 2. **触发式交互的测试口径**。`framework-integration` 里的「按住一次就开气泡」是在旧“按住读条”语义下写的；现在是「按下即发起、动作自动推进」，测试改为调用两帧动作推进，断言不变（不种下种子、动作气泡打开）。
 
-## 7. 验证
+## 8. 第三人称角色、独立布局、35 米契约与水下技术深化
 
-最终签署批次：`D:/projects/sea-work/verification/20261108-055128-dive-home-seabed-signed2-00d74f/report.json`。九个入口全部 exit 0 / PASS、无 unexpected，合计 **1270 项检查、0 失败**：
+### 8.1 第三人称角色
+
+原问题是家园海底把 `$Camera` 直接同步到 `ViewerBody`，因此进入后是第一人称。现在新增独立表现层：
+
+```text
+res://src/diving/sunroom_diver_visual.gd
+```
+
+并挂载到：
+
+```text
+res://scenes/underwater/sunroom_region.tscn
+└─ DiverVisual
+   └─ CameraRig/Target
+```
+
+实现边界：
+
+- `ViewerBody` 仍是唯一移动/碰撞权威；角色不加入水下碰撞层，不会出现双重物理。
+- 角色复用 `res://src/player/character.gd` 的程序化角色、`build()`、`set_diving(true)` 和 `swimming_action.gd`。
+- 潜水时显示潜水瓶和面罩，角色跟随 ViewerBody 的真实速度与朝向。
+- 相机改为角色后方第三人称：距离 5.5m、高度 1.0m，并用水下碰撞射线做避障。
+- F6 非潜水自由预览仍保持原相机，不由角色表现层接管。
+
+### 8.2 独立可编辑布局与深度
+
+家园海底现在使用独立布局包装，不再直接把 Main 使用的三个 shared 场景作为本地布局入口：
+
+```text
+res://scenes/underwater/sunroom_region/sunken_city_layout.tscn
+res://scenes/underwater/sunroom_region/sunken_seabed_layout.tscn
+res://scenes/underwater/sunroom_region/solar_cabin_submerged_base_layout.tscn
+```
+
+用户以后可直接编辑这三份 TSCN 的实例位置、旋转、增删和本地包装，而不改 `main.tscn` 的海面布局。
+
+边界必须如实区分：
+
+- 旧城组件 GLB 与组件 PackedScene 仍复用 shared 资产；本地布局是布局副本，不是新美术导出。
+- `sunken_seabed_layout.tscn` 仍读取 `res://terrain/sunken_seabed`，并标记 `shared_terrain_data_pending=true`；这保证不会误称已经制作了全新的高度图。
+- 家园海底的**可游深度契约**已改为目标 35m：水面 Y=1.12、Viewer 最低中心 Y=-33.88、本地参考海床 Y=-34.68、胶囊保留 0.8m 离地余量。
+- 低于 -33.88 的旧城视觉几何仍可见，但不代表角色可以继续游到那里；真正独立的 35m Terrain3D 高度图仍是后续美术/关卡制作项。
+
+### 8.3 水下技术深化
+
+已查阅并采用的技术方向：
+
+- Godot 官方 Volumetric Fog / FogVolume：作为体积介质和局部雾的参考，但本轮没有直接开启高成本全局体积雾，避免和既有单通道 WaterFogPass 双重抹黑。
+- Godot 官方 GPUParticles3D：确认气泡/悬浮颗粒应使用确定性粒子或 MultiMesh、合理可见性包围和透明叠绘预算；本场景保留 192 气泡、200 悬尘。
+- Godot 官方 Sky shader：保留本地天空方向渐变，不改共享世界环境。
+- 水体深度吸收、Fresnel/caustics、深度纹理与软边射光：落到本场景的 palette、fog、beam shader。
+
+当前本地表现链：
+
+- `Camera/WaterFogPass` 是唯一屏幕水雾合成通道，Environment fog 关闭；
+- 角色真实深度驱动雾色和氧气深度，不再用第三人称相机的后置高度计算耗氧；
+- 材质 wrapper 增加深度吸收、轻焦散与饱和度恢复；
+- 射光代理使用 16 步深度挡墙积分、上下软边和远景 fade；
+- 不改 `water.tres`、`world_env.tres`、原9图或 shared 城市/海床/基座资源。
+
+### 8.4 最新验证
+
+最终完整批次：
+
+```text
+D:/projects/sea-work/verification/20261108-123311-home-seabed-thirdperson-final-d703fe/report.json
+```
+
+九入口全部 PASS、exit0、无 unexpected，合计 **1241 项检查、0 失败**：
 
 | 入口 | 计数 |
-|---|---|
-| dive-maps | 323 / 0 |
-| visual-dive-maps | 335 / 0 |
+|---|---:|
+| dive-maps | 326 / 0 |
+| visual-dive-maps | 338 / 0 |
 | framework-integration | 52 / 0 |
-| minimum-loop | 148 / 0 |
+| minimum-loop | 112 / 0 |
 | modules | 31 / 0 |
 | click | 39 / 0 |
-| sunroom-underwater | 78 / 0 |
+| sunroom-underwater | 79 / 0 |
 | sunroom-collision | 264 / 0 |
 | save-seed | PASS |
 
-命令：
+实拍已确认：角色完整可见、带潜水装备、第三人称相机位于角色后上方；旧城楼房、街道、翻倒巴士、珊瑚、灯光和水下雾光均可见。`sunken_seabed_layout.tscn` 的共享 Terrain3D 数据仍是 pending，不把“35m 可游边界”写成“独立新高度图已完成”。
 
-```text
-python3 scripts/run_verification.py dive-maps visual-dive-maps framework-integration minimum-loop modules click sunroom-underwater sunroom-collision --label dive-home-seabed-signed2
-```
-
-入水画面（真实渲染，玩家朝向，非测试强转镜头）：
-
-```text
-<run>/project/outputs/dive-map-home-seabed.png
-```
-
-契约检查现状：`check_feature_contracts.py` 仍有 34 项问题（33 项 runtime/source 哈希漂移 + 派生功能索引 stale）。漂移包含其他并行会话的历史改动，本轮未批量刷哈希。派生索引未更新是因为该脚本只在**零问题时**才写文件；新增条款 ID 因此暂时体现为 stale，已如实记录而非手工改 `docs/generated/feature_index.json`。

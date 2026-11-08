@@ -161,7 +161,7 @@ func run() -> void:
 	saves.restore(main,good)
 	# Views use the real command route and remain separate from character dialogue.
 	main.hud.toast("已存入仓库")
-	check(main.hud.dialogue==null and main.hud._toast_box.custom_minimum_size.y<60,"system notice is compact")
+	check((main.hud.dialogue==null or not main.hud.dialogue.panel.visible) and main.hud._toast_box.custom_minimum_size.y<60,"system notice is compact")
 	# 商店从「HUD 的一个页签」升级成独立的商店面板（NPC 商店模块接入后，
 	# shop 命令走 shop_panel.open_shop，不再开 HUD 页签）。其余三个仍是页签。
 	main._on_click_command("shop")

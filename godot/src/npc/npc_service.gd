@@ -199,6 +199,22 @@ func start_npc_dialogue(npc_id: String, kind := "daily", context: Dictionary = {
 	if result.ok: _pending = {"kind": kind, "npc_id": npc_id, "day": world.day}
 	return result
 
+## 入场优先级：未读完的初见 > 已满足条件的未完成剧情 > 偶发日常 > 功能问候。
+## 概率按游戏日/居民稳定取样，重开与读档不刷随机；不新增存档写入者。
+func start_conversation(npc_id: String) -> Dictionary:
+	var npc := npc_snapshot(npc_id)
+	if npc.is_empty(): return _fail("未知NPC")
+	if int(npc.runtime.last_talk_day) < 1:
+		return start_npc_dialogue(npc_id, "intro")
+	for event in list_events(npc_id):
+		if event.available and not event.completed:
+			return start_event(str(event.id))
+	var world := _world()
+	if not world.ok: return world
+	if posmod((npc_id + ":" + str(world.day)).hash(), 4) == 0:
+		return start_npc_dialogue(npc_id, "daily")
+	return {"ok": true, "greeting_only": true}
+
 ## 只用现有时钟和剧情进度轮换；同一天重开及读档保持一致，不保存随机种子。
 func _daily_text(entry: Dictionary, world: Dictionary) -> String:
 	var count: int = entry.variants.size() + 1

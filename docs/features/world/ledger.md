@@ -335,3 +335,29 @@ SEA-WORLD-R27最终签署：185311统一runner中室内349/0、实拍28/0、原�
 
 
 SEA-WORLD-R28最终签署：190758的shop-sightline968/0、实际GPU20/0和191040的roof-reveal364/0、gift-kiosk-interior349/0、camera12/0，五项合计1713/0、全部exit0/runner PASS。实际日夜/中间态/反向镜头及走出恢复已目视审阅，6份运行资源及Main与已验副本一致；60源文件和58GLB未改。全局契约26/27条并行问题另记，摆位4项与diff检查通过。见[最终交付](../../development/2026-11-07_gift_kiosk_sightline.md#最终实测与交付)。
+
+## 2026-11-08 霓虹花园可走面与阻挡
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-WORLD-R29 | implemented；左楼顶/后楼顶/右楼顶/菜园桥四个派生可走面已接入，源为各模块真实几何 | `garden-npc`14/0（主场景实测：菜园桥 42 矩形、surface_y 世界 12.53、豆豆站桥面、5 锚点可解析）；`minimum-loop`112/0、`npc-integration`749/0、`npc-save`702/0 均未回退 |
+| SEA-WORLD-R30 | implemented；阻挡改为覆盖三个楼体与桥 | 探针实测 93 ms / 63644 三角形 / 116 实例 / 51 矩形 / 152.3 m²，包围盒 x[-23, 18.5] z[-17.5, 12.5]；逐楼投影抽样左 24% / 后 28% / 右 14% 被挡 |
+
+新增文件：`godot/src/navigation/derived_walk_area.gd`。改动：`godot/scenes/facilities/neon_garden_quarter.tscn`（四个 `WalkAreas` 节点 + `Blockers.target_path` + `NpcStations`）、`godot/src/world/zone_scene.gd`（可走面按能力收集，继承脚本不再被漏掉）。
+
+`main.tscn` 本次无 diff，用户手摆 `transform` 未动；`placed_positions.md` 现有霓虹花园一行仍与 TSCN 一致（`Y=-15.869949`），新增的 `NpcStations` 是它的子节点，不改变该 root 的台账数值。`check_placed_positions.py` PASS（3 结构 0 警告）。
+
+未做：玩家上楼路径（用户明确只让豆豆在楼上）、楼顶种植玩法、三栋楼的独立主场景拆分（用户确认现状「左右独立、后独立」已经符合要求）。
+
+## 2026-11-08 绞盘打捞台朝向与霓虹花园屋顶可活动区
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-WORLD-R31 | implemented；打捞台甲板绕几何中心绕 Y 转 −45°（对齐默认相机屏幕轴），行走面同轴同角，电线杆反向补偿保持世界位姿，野捕渔场与交互点同步 | `visual-walk-deck`：zone1_salvage cover=**1.000**（基线 0.890，提升）；`visual-blockers`：**zone1 OK，44 条矩形、空=0、漏 5.2%**；实拍 `outputs/salvage_angle_top.png` 目视甲板边缘平行画面 |
+| SEA-WORLD-R32 | implemented；霓虹花园可活动区改到左楼屋顶（世界 y15.20），设屋顶泊位（船位实际水面 y1.12），撤销水下街口泊位，船老大迁入独立 `RoofNpcStations` | `probe_neon_roof_landing`：屋顶泊位 1 个、站立点 y15.20、船位 y1.12、垂直差 14.08；`residence_dock_workshop` / `_work` / `_social` 三锚点全部 `support_validated=true`；实拍 `outputs/neon_roof.png` 目视船老大站在屋顶面 |
+
+改动文件：`godot/scenes/zones/zone1_home_harbor.tscn`、`godot/scenes/facilities/neon_garden_quarter.tscn`、`godot/scenes/npc/rooftop_npc_stations.tscn`、`godot/src/bootstrap/main.gd`。屋顶牧场 `rooftop_ranch_zone.gd` **未改**（复核结论为一致，中途的错误放宽已回退）。
+
+`walk-deck-fit` PASS exit=0。两项失败（`sunroom_upper_deck` 0.892 vs 基线 1.000、`zone4` 阻挡漏 29.6%）已用 HEAD 版 `zone1_home_harbor.tscn` 临时回退做对照，结果逐行相同，属工作区原有未提交改动，非本轮回归。契约检查 73→69（正好是本轮 4 个文件），未做批量哈希更新，只定向更新自己改过的 4 项并写 `audit_note`。
+
+未做：霓虹花园水面到屋顶的物理通路（用户明确选择「直接上岸到屋顶」，属已知偏离 SEA-MOVE-R10）；屋顶派生面漂移的常态化断言。详见[本轮记录](../../development/2026-11-08_salvage_rotate_and_neon_roof.md)。

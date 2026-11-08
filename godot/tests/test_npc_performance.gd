@@ -307,7 +307,7 @@ func _pause_restore(durable: Dictionary) -> void:
 	var before: Vector3 = body.global_position
 	check(world.open_npc("npc_luo_yan").ok, "保留面板会话入口")
 	var after_meet: Dictionary = service._state.duplicate(true)
-	check(world.panel.session.command("talk").ok, "保留对白状态")
+	check(service.dialogue_state().active, "入场自动开始对白并保留状态")
 	clock.value.sleeping = true
 	world.notify_world(clock.query())
 	world._physics_process(0.01)

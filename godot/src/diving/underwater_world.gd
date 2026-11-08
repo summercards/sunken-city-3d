@@ -47,7 +47,6 @@ const DISCOVER_DOT := 0.55
 
 const SWIM_DATA := "res://assets/baked/underwater/swim.json"
 const MaterialLib = preload("res://src/diving/uw_materials.gd")
-const CharacterScript = preload("res://src/player/character.gd")
 const DiveAirLib = preload("res://src/diving/dive_air.gd")
 
 @export var map_id := "dive_zone1"
@@ -72,24 +71,18 @@ const DiveAirLib = preload("res://src/diving/dive_air.gd")
 @onready var chests_root: Node3D = get_node_or_null("Chests") as Node3D
 
 var active := false
-var phase_machine = preload("res://src/core/state_machine.gd").new()
+var _compat_phase_machine = preload("res://src/core/state_machine.gd").new()
+var dive_controller: Node = null
+var phase_machine:
+	get: return dive_controller.machine if is_instance_valid(dive_controller) else _compat_phase_machine
 var phase: String:
-	get: return phase_machine.current if phase_machine.current != "" else "surface"
+	get:
+		var machine = phase_machine
+		return machine.current if machine.current != "" else "surface"
 	set(value): phase_machine.change(value)
-var swim_action = preload("res://src/diving/actions/swim_action.gd").new()
-var search_action = preload("res://src/diving/actions/search_action.gd").new()
-var camera_action = preload("res://src/diving/actions/camera_action.gd").new()
-var diver_pose_action = preload("res://src/diving/actions/diver_pose_action.gd").new()
-var enter_action = preload("res://src/diving/actions/enter_action.gd").new()
-var surface_action = preload("res://src/diving/actions/surface_action.gd").new()
-var finish_exit_action = preload("res://src/diving/actions/finish_exit_action.gd").new()
 var diver_pos := Vector3.ZERO
 var depth := 0.0
 
-var _yaw := 0.0
-var _pitch := 1.21
-var _distance := 10.0
-var _velocity := Vector3.ZERO
 var _t := 0.0
 var _enter_t := 0.0
 var _exit_y := 0.0
@@ -100,6 +93,23 @@ var _saved_env: Environment
 var _uw_env: Environment
 var _sky_material: ShaderMaterial
 var _fog_material: ShaderMaterial
+var _sun_profile := {"direction":Vector3(0.5191,0.7787,-0.3523), "color":Color(1.0,0.955,0.8), "strength":1.0}
+
+func configure_underwater_light(profile: Dictionary) -> void:
+	_sun_profile = {"direction":profile.get("direction",Vector3(0.5191,0.7787,-0.3523)),
+		"color":profile.get("color",Color(1.0,0.955,0.8)), "strength":clampf(float(profile.get("strength",1.0)),0.0,1.0)}
+	if _sky_material != null: _apply_underwater_light()
+
+func _apply_underwater_light() -> void:
+	for mat in [_sky_material, _fog_material]:
+		if mat == null: continue
+		mat.set_shader_parameter("sun_direction",_sun_profile.direction)
+		mat.set_shader_parameter("sun_color",_sun_profile.color)
+		mat.set_shader_parameter("sun_strength",_sun_profile.strength)
+	MaterialLib.set_water_level(WATER_LEVEL)
+	MaterialLib.set_sun(_sun_profile.direction,_sun_profile.color,_sun_profile.strength)
+	if deco != null and deco.has_method("configure_underwater_light"):
+		deco.configure_underwater_light(_sun_profile)
 var _surface_zone := ""
 
 var _solids: Array = []
@@ -107,10 +117,10 @@ var _terraces: Array = []
 var _trench := []
 var _chests: Array = []
 var _chest_markers: Array = []
+var search_action = preload("res://src/diving/actions/search_action.gd").new()
 var _search: Dictionary = {}
 var _search_t := 0.0
 var _route: Array = []
-var _drag := false
 var _marker_layer: CanvasLayer
 var _diver: Node3D
 var _heading := 0.0
@@ -131,7 +141,6 @@ func setup(surface_nodes: Array, world_env: WorldEnvironment) -> bool:
 	if not error.is_empty():
 		push_error("潜水地图 %s 初始化失败: %s" % [map_id, error])
 		return false
-	phase_machine.configure(self,{"surface":preload("res://src/diving/states/surface.gd").new(),"enter":preload("res://src/diving/states/enter.gd").new(),"swim":preload("res://src/diving/states/swim.gd").new(),"exit":preload("res://src/diving/states/exit.gd").new()},{"surface":["enter"],"enter":["swim","exit"],"swim":["exit"],"exit":["surface"]},"surface")
 	_surface_nodes = surface_nodes
 	_world_env = world_env
 	_saved_env = world_env.environment
@@ -139,32 +148,45 @@ func setup(surface_nodes: Array, world_env: WorldEnvironment) -> bool:
 	_build_fog_pass()
 	if basin_closure_enabled:
 		_build_basin_closure()
-	_build_diver()
+	var controller_script = load("res://src/diving/dive_runtime_controller.gd")
+	if controller_script == null:
+		push_error("缺少 DiveRuntimeController")
+		return false
+	dive_controller = controller_script.new()
+	dive_controller.name = "DiveRuntimeController"
+	add_child(dive_controller)
+	dive_controller.configure(self, camera, self, "Diver")
+	var configured_air: Variant = dive_controller.get("air")
+	if configured_air != null:
+		air = configured_air
+	_diver = dive_controller.character
 	_build_chests()
 	# 独立地图完成初始化后由 enter 状态显示，海面不持有此几何实例。
 	visible = false
 	_build_markers()
 	deco.setup(_fish_specs)
+	_apply_underwater_light()
 	return true
 
 
 # ---------------------------------------------------------------- 进入 / 离开
 func dive(_boat_pos: Vector3, zone_label := "") -> void:
-	if active:
+	if active or dive_controller == null:
 		return
-	# 氧气耗尽被强制上浮后，得先在水面喘几秒 —— 失败有代价，但不扣资源。
 	if not air.can_dive():
 		message.emit("刚上浮，先喘口气（%.0f 秒）" % ceil(air.recover))
 		return
-	phase_machine.change("enter",{"zone":zone_label})
+	dive_controller.begin({"zone": zone_label})
 
 
 func surface() -> void:
-	if active: phase_machine.change("exit")
+	if active and dive_controller != null:
+		dive_controller.request_surface()
 
 
 func _finish_exit() -> void:
-	phase_machine.change("surface")
+	if dive_controller != null and dive_controller.has_method("request_surface"):
+		dive_controller.request_surface()
 
 
 func _set_surface_visible(on: bool) -> void:
@@ -200,12 +222,14 @@ func _build_environment() -> void:
 
 
 func _update_sky(depth_now: float) -> void:
+	var actual_depth := maxf(0.0, WATER_LEVEL - diver_pos.y)
 	if _sky_material != null:
-		_sky_material.set_shader_parameter("dive_depth", maxf(0.0, -diver_pos.y))
-	_fog_material.set_shader_parameter("dive_depth", maxf(0.0, -diver_pos.y))
-	MaterialLib.set_depth(maxf(0.0, -diver_pos.y))
-	var deep := clampf((-diver_pos.y - 12.0) / 64.0, 0.0, 1.0)
-	_uw_env.ambient_light_energy = (1.9 / PI) * (1.0 - deep * 0.6)
+		_sky_material.set_shader_parameter("dive_depth", actual_depth)
+	_fog_material.set_shader_parameter("dive_depth", actual_depth)
+	_fog_material.set_shader_parameter("water_level", WATER_LEVEL)
+	MaterialLib.set_depth(actual_depth)
+	var depth_light := lerpf(1.0,0.26,smoothstep(5.0,120.0,actual_depth))
+	_uw_env.ambient_light_energy = (1.9 / PI) * depth_light * lerpf(0.24,1.0,float(_sun_profile.strength))
 
 
 # ---------------------------------------------------------------- 数据 / 碰撞
@@ -453,123 +477,221 @@ func blocked(p: Vector3, margin := 0.35) -> bool:
 	return false
 
 
-# ---------------------------------------------------------------- 输入
-func cancel_navigation() -> void:
+# ---------------------------------------------------------------- 控制器适配
+func dive_water_level() -> float:
+	return WATER_LEVEL
+
+func dive_begin(payload: Dictionary) -> void:
+	# Session shares one Air model; returning from the 1m home entry must not
+	# leak its local 0.5m breathing band into the original nine maps.
+	air.surface_depth = DiveAirLib.SURFACE_DEPTH
+	_surface_zone = str(payload.get("zone", ""))
+	active = true
+	_enter_t = 0.0
+	visible = true
+	_set_surface_visible(false)
+	_world_env.environment = _uw_env
+	camera.fov = dive_controller.FOV
+	camera.near = 0.12
+	camera.current = true
+	deco.visible = true
+	chests_root.visible = true
+	if _marker_layer != null:
+		_marker_layer.visible = true
+	diver_pos = spawn_point
 	_route.clear()
 	_route_target_chest = {}
 	_search = {}
 	_search_t = 0.0
-	_velocity = Vector3.ZERO
+	_refresh_chest_visibility()
+	_update_lamp()
+	depth = 0.0
+	depth_changed.emit(depth)
+	_emit_air()
 
-func swim_to(destination: Vector3) -> bool:
-	if not active or phase != "swim": return false
-	destination.y = clampf(destination.y,MOVE_MIN_Y,MOVE_MAX_Y)
-	if not _inside_basin(destination,1.0) or blocked(destination):
-		message.emit("这里有障碍，请点击附近的开阔水域")
-		return false
-	var points := _plan_route(destination)
-	if points.is_empty():
-		message.emit("这里暂时游不过去，请换个目标")
-		return false
-	cancel_navigation()
-	_route = points
-	message.emit("正在游向目标 · 可点取消停止")
-	return true
+func dive_entry_tick(dt: float) -> bool:
+	_enter_t += dt
+	var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
+	diver_pos.y = lerpf(WATER_LEVEL, ENTER_DEPTH, blend)
+	return blend >= 1.0
 
-func swim_to_screen(screen: Vector2) -> bool:
-	var origin := camera.project_ray_origin(screen)
-	var direction := camera.project_ray_normal(screen)
-	if absf(direction.y) < 0.001: return false
-	var distance := (diver_pos.y-origin.y)/direction.y
-	if distance <= 0.0: return false
-	return swim_to(origin+direction*distance)
+func dive_exit_begin() -> void:
+	_enter_t = 0.0
+	_exit_y = diver_pos.y
+	_route.clear()
+	_route_target_chest = {}
+	_search = {}
+	_search_t = 0.0
+	if _marker_layer != null:
+		_marker_layer.visible = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not active:
-		return
-	if event is InputEventMouseButton:
-		var mb := event as InputEventMouseButton
-		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			swim_to_screen(mb.position)
-		elif mb.button_index == MOUSE_BUTTON_RIGHT:
-			_drag = mb.pressed
-		elif mb.button_index == MOUSE_BUTTON_WHEEL_UP and mb.pressed:
-			_distance = clampf(_distance - 0.8, CAM_MIN, CAM_MAX)
-		elif mb.button_index == MOUSE_BUTTON_WHEEL_DOWN and mb.pressed:
-			_distance = clampf(_distance + 0.8, CAM_MIN, CAM_MAX)
-	elif event is InputEventMouseMotion and _drag and phase == "swim":
-		var mm := event as InputEventMouseMotion
-		_yaw -= mm.relative.x * 0.005
-		_pitch = clampf(_pitch + mm.relative.y * 0.008, 0.35, 1.55)
-	elif event is InputEventKey:
-		var k := event as InputEventKey
-		if k.pressed and not k.echo and k.keycode == KEY_ESCAPE and phase == "swim":
-			surface()
-		elif k.pressed and not k.echo and k.keycode == KEY_F and phase == "swim":
-			# F 开头灯。开着能照见 26m 内的宝箱，但每秒额外烧氧。
-			_toggle_lamp()
+func dive_exit_tick(dt: float) -> bool:
+	_enter_t += dt
+	var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
+	diver_pos.y = lerpf(_exit_y, WATER_LEVEL, blend)
+	return blend >= 1.0
 
+func dive_end() -> void:
+	active = false
+	_route.clear()
+	_route_target_chest = {}
+	MaterialLib.set_lamp(false, Vector3.ZERO, Vector3(0, 0, -1))
+	visible = false
+	_set_surface_visible(true)
+	_world_env.environment = _saved_env
+	camera.current = false
+	deco.visible = false
+	chests_root.visible = false
+	depth = 0.0
+	exited.emit()
 
-func _process(delta: float) -> void:
-	if not active:
-		# 上浮之后氧气照样回、恢复冷却照样走。否则「被强制上浮 → 想再潜」
-		# 会永远卡在冷却里（_process 在 inactive 时早退）。
-		if air != null:
-			air.update(delta, 0.0, false, false)
-		return
-	_t += delta
-	var dt := minf(delta, 0.05)
+func dive_position() -> Vector3:
+	return diver_pos
 
-	phase_machine.tick(dt)
-	if not active: return
-
+func dive_set_position(p: Vector3) -> void:
+	diver_pos = p
 	depth = maxf(0.0, WATER_LEVEL - diver_pos.y)
-	_update_camera(dt, phase == "enter" or phase == "exit")
+
+func dive_move(displacement: Vector3) -> Vector3:
+	var before := diver_pos
+	if not displacement.is_finite(): return Vector3.ZERO
+	# 连续小段检测，不用终点检查冒充扫掠；低帧/冲刺也不能越过薄障碍。
+	var steps := clampi(ceili(displacement.length() / 0.12), 1, 4096)
+	var segment := displacement / float(steps)
+	for i in steps:
+		var next := diver_pos + segment
+		next.y = clampf(next.y, MOVE_MIN_Y, MOVE_MAX_Y)
+		next.x = clampf(next.x, -50.0, 50.0)
+		next.z = clampf(next.z, -170.5, 48.0)
+		if not blocked(next):
+			diver_pos = next
+		else:
+			var probe_y := Vector3(diver_pos.x, next.y, diver_pos.z)
+			if not blocked(probe_y): diver_pos.y = next.y
+			var probe_x := Vector3(next.x, diver_pos.y, diver_pos.z)
+			if not blocked(probe_x): diver_pos.x = next.x
+			var probe_z := Vector3(diver_pos.x, diver_pos.y, next.z)
+			if not blocked(probe_z): diver_pos.z = next.z
+	return diver_pos - before
+
+func dive_route(destination: Vector3) -> Array:
+	destination.y = clampf(destination.y, MOVE_MIN_Y, MOVE_MAX_Y)
+	if not _inside_basin(destination, 1.0) or blocked(destination):
+		return []
+	return _plan_route(destination)
+
+func dive_cancel_content() -> void:
+	_route.clear()
+	_route_target_chest = {}
+	_search = {}
+	_search_t = 0.0
+
+func dive_content_tick(dt: float) -> void:
+	_t += dt
+	depth = maxf(0.0, WATER_LEVEL - diver_pos.y)
+	_sync_controller_route()
+	if phase == "swim": _update_search(dt)
 	_update_lamp()
 	deco.update(dt, _t, diver_pos, camera)
-	_update_diver(dt)
 	_update_sky(depth)
-	_update_air(dt)
 	_update_markers()
 	depth_changed.emit(depth)
-	zone_changed.emit(_zone_name())
-
-
-func _update_swim(dt: float) -> void:
-	swim_action.execute(self,dt)
-
-
-func _update_camera(dt: float, snap: bool) -> void:
-	camera_action.execute(self,dt, snap)
-
-
-## 氧气推进。归零不是扣资源，而是强制上浮 —— 失败有代价，但不清空背包。
-func _update_air(dt: float) -> void:
-	var moving := _velocity.length() > 0.45
-	var sprint := Input.is_physical_key_pressed(KEY_SHIFT) and moving
-	var event := air.update(dt, depth, moving, sprint)
-	match event:
-		"low":
-			message.emit("余气不多 · 还剩 %d%%" % int(round(air.ratio() * 100.0)))
-		"crit":
-			message.emit("氧气见底！按 E 或点上浮回水面")
-		"empty":
-			message.emit("氧气耗尽 · 强制上浮")
-			surface()
+	zone_changed.emit(dive_zone_label())
 	_air_emit_t += dt
 	if _air_emit_t >= 0.12:
 		_air_emit_t = 0.0
 		_emit_air()
 
+func _sync_controller_route() -> void:
+	if dive_controller == null:
+		return
+	var route: Variant = dive_controller.get("route")
+	if not (route is Array):
+		route = dive_controller.get("_route")
+	if route is Array:
+		_route = route.duplicate()
+
+func _update_search(dt: float) -> void:
+	search_action.execute(self, dt)
+
+func dive_camera_clip(target: Vector3, desired: Vector3, radius: float) -> Vector3:
+	var distance := target.distance_to(desired)
+	if distance <= 0.001:
+		return desired
+	var direction := (desired - target) / distance
+	var steps := maxi(1, int(ceil(distance / 0.35)))
+	var last := target
+	for i in range(1, steps + 1):
+		var sample := target + direction * (distance * float(i) / float(steps))
+		if blocked(sample, radius):
+			return last
+		last = sample
+	return desired
+
+func dive_zone_label() -> String:
+	return _zone_name()
+
+func cancel_navigation() -> void:
+	if dive_controller != null:
+		dive_controller.cancel_navigation()
+	else:
+		dive_cancel_content()
+
+func swim_to(destination: Vector3) -> bool:
+	if dive_controller == null: return false
+	var accepted: bool = dive_controller.swim_to(destination)
+	_sync_controller_route()
+	return accepted
+
+func swim_to_screen(screen: Vector2) -> bool:
+	return dive_controller.swim_to_screen(screen) if dive_controller != null else false
+
+func _unhandled_input(_event: InputEvent) -> void:
+	pass
+
+func _process(delta: float) -> void:
+	# Session owns surface recovery when this map is hosted transactionally.
+	if not active and not has_meta("session_owned") and air != null:
+		air.update(delta, 0.0, false, false)
+
+func _update_swim(dt: float) -> void:
+	if dive_controller != null:
+		dive_controller.step_swim(dt)
+
+func _update_camera(dt: float, snap: bool) -> void:
+	if dive_controller != null:
+		dive_controller.update_camera(dt, snap)
+
+func _update_diver(dt: float) -> void:
+	if dive_controller != null and dive_controller.has_method("update_character"):
+		dive_controller.update_character(dt)
+
+
+func _air_state():
+	if dive_controller != null:
+		var controller_air: Variant = dive_controller.get("air")
+		if controller_air != null:
+			return controller_air
+	return air
+
+func _controller_velocity() -> Vector3:
+	if dive_controller != null:
+		var value: Variant = dive_controller.get("velocity")
+		if value is Vector3:
+			return value
+	return Vector3.ZERO
 
 func _emit_air() -> void:
-	air_changed.emit(air.ratio(), air.lamp, discovered_count(), _chests.size())
+	var air_state = _air_state()
+	air_changed.emit(air_state.ratio(), air_state.lamp, discovered_count(), _chests.size())
 
 
 ## 头灯：位置与朝向跟着相机走（右键拖拽环视时灯也跟着扫）。
 ## 主光和补光走 PBR；这里推送额外头灯散射项。
 func _update_lamp() -> void:
-	var on: bool = bool(air.lamp) and phase != "surface"
+	var on: bool = bool(_air_state().lamp) and phase != "surface"
+	if camera == null:
+		return
 	var basis := camera.global_transform.basis
 	var pos := camera.global_position + basis * Vector3(0.34, -0.22, -0.1)
 	var dir := -basis.z
@@ -577,21 +699,16 @@ func _update_lamp() -> void:
 
 
 func _toggle_lamp() -> void:
-	air.lamp = not air.lamp
-	message.emit("头灯 " + ("开" if air.lamp else "关"))
+	var air_state = _air_state()
+	air_state.lamp = not air_state.lamp
+	message.emit("头灯 " + ("开" if air_state.lamp else "关"))
 	_emit_air()
-
-
-func _update_diver(dt: float) -> void:
-	diver_pose_action.execute(self,dt)
 
 
 ## 调试用：把潜点瞬间挪到某处（回归截图用）。
 func debug_teleport(p: Vector3) -> void:
-	phase_machine.change("swim",{},true)
-	diver_pos = p
-	_velocity = Vector3.ZERO
-	_update_camera(0.0, true)
+	if dive_controller != null:
+		dive_controller.debug_teleport(p)
 
 
 ## 诊断：冻住焦散/闪光的相位（负值恢复成跟 TIME 走）。
@@ -622,21 +739,6 @@ func _zone_name() -> String:
 
 
 # ---------------------------------------------------------------- 宝箱
-## 水里的那个小人：另起一个角色实例，戴上潜水镜与氧气瓶。
-## 不复用海面那个 —— 它挂在船锚下，潜水时整条船都隐藏了。
-func _build_diver() -> void:
-	_diver = CharacterScript.new()
-	_diver.name = "Diver"
-	add_child(_diver)
-	_diver.build()
-	_diver.set_diving(true)
-	_diver.hat.visible = false
-	MaterialLib.apply_to_standard_meshes(_diver)
-	_diver.scale = Vector3.ONE * 1.25
-	_diver.position = spawn_point
-	_diver.rotation.y = PI
-
-
 func _build_chests() -> void:
 	for spec in _chest_specs:
 		var chest_id := int(spec.id) + chest_id_base
@@ -723,7 +825,7 @@ func _on_marker_input(event: InputEvent, chest: Dictionary) -> void:
 func _scan_chests() -> void:
 	var basis := camera.global_transform.basis
 	var fwd := -basis.z
-	var lamp_on: bool = bool(air.lamp) and phase == "swim"
+	var lamp_on: bool = bool(_air_state().lamp) and phase == "swim"
 	for chest in _chests:
 		if bool(chest.discovered):
 			continue
@@ -804,21 +906,26 @@ func _visit_chest(chest: Dictionary) -> void:
 		return
 	if _search.get("id", -1) == chest.id:
 		return
-	cancel_navigation()
 	if diver_pos.distance_to(chest.pos) <= SEARCH_RADIUS:
+		if dive_controller != null and dive_controller.has_method("cancel_navigation"):
+			dive_controller.cancel_navigation()
 		_search = chest
 		_search_t = 0.0
 		message.emit("搜索 " + chest.name)
 		return
 	var destination: Vector3 = chest.pos + Vector3(
 		1.6 if chest.pos.x < 0.0 else (-1.6 if chest.pos.x > 0.0 else 0.0), 1.45, 1.1)
-	var points := _plan_route(destination)
+	var points := dive_route(destination)
 	if points.is_empty():
 		message.emit("前方礁石较密，先游到开阔水域")
 		return
-	_route = points
+	if dive_controller == null or not dive_controller.navigate_path(points):
+		message.emit("前方礁石较密，先游到开阔水域")
+		return
+	_route = points.duplicate()
 	_route_target_chest = chest
 	_search = chest
+	_search_t = 0.0
 	message.emit("正在游向 " + chest.name)
 
 
@@ -898,6 +1005,8 @@ func _open_chest(chest: Dictionary) -> void:
 	_search = {}
 	_search_t = 0.0
 	_route.clear()
+	if dive_controller != null and dive_controller.has_method("cancel_navigation"):
+		dive_controller.cancel_navigation()
 	var reward: Dictionary = chest.reward
 	if give_rewards.is_valid():
 		if not bool(give_rewards.call(reward)):

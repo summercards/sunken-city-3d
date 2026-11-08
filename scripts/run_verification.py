@@ -15,6 +15,12 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 GODOT_ROOT = ROOT / 'godot'
 TESTS = {
+    'underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
+    'visual-underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
+    'dive-transition': ('tests/test_dive_transition.gd', r'\[dive-transition\] \d+ checks, 0 failures'),
+    'visual-dive-transition': ('tests/test_dive_transition.gd', r'\[dive-transition\] \d+ checks, 0 failures'),
+    'dive-control': ('tests/test_dive_control.gd', r'\[dive-control\] \d+ checks, 0 failures'),
+    'visual-dive-control': ('tests/test_dive_control.gd', r'\[dive-control\] \d+ checks, 0 failures'),
     'sunroom-collision': ('tests/test_sunroom_underwater_collision.gd', r'\[sunroom-collision\] \d+ checks, 0 failures'),
     'sunroom-underwater': ('tests/test_sunroom_underwater_region.gd', r'\[sunroom-underwater\] \d+ checks, 0 failures'),
     'visual-sunroom-underwater': ('tests/test_sunroom_underwater_region.gd', r'\[sunroom-underwater\] \d+ checks, 0 failures'),
@@ -45,11 +51,19 @@ TESTS = {
     'visual-sunken-city': ('tools/capture_sunken_city.gd', r'\[sunken-city-render\] \d+ checks, 0 failures'),
     'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
     'npc-shop': ('tests/test_npc_shop.gd', r'\[npc-shop\] \d+ checks, 0 failures'),
+    'npc-conversation': ('tests/test_npc_conversation.gd', r'\[npc-conversation\] \d+ checks, 0 failures'),
+    'visual-npc-conversation': ('tests/test_npc_conversation.gd', r'\[npc-conversation\] \d+ checks, 0 failures'),
     'npc-people': ('tests/test_npc_people.gd', r'\[npc-people\] \d+ checks, 0 failures'),
     'npc-profile-ui': ('tests/test_npc_profile_ui.gd', r'\[npc-profile-ui\] \d+ checks, 0 failures'),
     'npc-shop-site': ('tests/test_npc_shop_site.gd', r'\[npc-shop-site\] \d+ checks, 0 failures'),
     'npc-rules': ('tests/test_npc_rules.gd', r'\[npc-rules\] \d+ checks, 0 failures'),
     'shop-rules': ('tests/test_shop_rules.gd', r'\[shop-rules\] \d+ checks, 0 failures'),
+    # 商店图标网格真实渲染：与背包同款格子/分页/气泡，三种窗口各一张。
+    'visual-shop-grid': ('tools/capture_shop_grid.gd', r'\[shop-grid-render\] \d+ checks, 0 failures'),
+    # 霓虹花园菜园桥：可走面从模型派生、豆豆站上去、靠近时头顶招呼一句。
+    'garden-npc': ('tests/test_garden_npc.gd', r'\[garden-npc\] \d+ checks, 0 failures'),
+    # 角色头顶招呼气泡（与底部对话框同风格）：真实渲染，验形状/换行/尾巴指向。
+    'visual-garden-bubble': ('tools/capture_garden_bubble.gd', r'\[bubble-render\] \d+ checks, 0 failures'),
     'npc-world': ('tests/test_npc_world.gd', r'\[npc-world\] \d+ checks, 0 failures'),
     'npc-performance': ('tests/test_npc_performance.gd', r'\[npc-performance\] \d+ checks, 0 failures'),
     'npc-clock': ('tests/test_npc_clock.gd', r'\[npc-clock\] \d+ checks, 0 failures'),
@@ -542,6 +556,10 @@ def user_data_root(user_name):
 
 
 def release_user_data(user_name, run_dir):
+    # Verification evidence is retained. Never recursively delete an AppData
+    # tree; temporary user slots may be reviewed/removed explicitly by the user.
+    (run_dir / 'user-data-retained.txt').write_text(user_name, encoding='utf-8')
+    return
     """把这一轮 Godot 的用户目录收掉，只留日志。
 
     2026-11-07：C 盘被写满的根因就在这里。每跑一次验证，Godot 都会在
@@ -692,7 +710,7 @@ def main():
         if name == 'building-open-seed':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--building-open-seed')
-        if name in ['npc-integration','npc-relocation','npc-save','npc-save-seed','npc-save-restart','visual-npc-release','visual-npc-people']:
+        if name in ['npc-conversation','visual-npc-conversation','npc-integration','npc-relocation','npc-save','npc-save-seed','npc-save-restart','visual-npc-release','visual-npc-people']:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--nosave')
             if name in ['npc-save-seed','npc-save-restart']:

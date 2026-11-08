@@ -330,7 +330,7 @@
 > **现状对照（2026-11-06，不改上面的目标）。** 按各功能账本的 `status` 与 `main.tscn` 实际挂载：
 > - **0–3 分钟**：入场已改为「主泊位甲板 + 朝向阳光房 + 新建档捏人」，不再「乘船抵达圆弧楼」——圆弧农场（zone3）已从主场景移除。修缮建筑归 SEA-BUILD，`partial`，25 配方与拆除已有专项，但「修好两格农田」这一步目前是初始六格直接给齐（2026-10-29），不是修出来的。
 > - **3–7 分钟**：种植／收获（SEA-FARM / SEA-CROP）已 `implemented`；绞盘打捞台存在且可用，但 SEA-SALVAGE 仍 `partial`，打捞走场景内绞盘交互点，`salvage` 菜单入口在默认范围被 `command_enabled` 禁用。
-> - **7–12 分钟**：「增加居民」**没有实现** —— SEA-RESIDENT 是 `planned`、零代码路径。当前这条只能落到「屋顶种植位/房间」上，居民与聚落关系仍是纯规划。
+> - **7–12 分钟**：「增加居民」~~没有实现~~ —— 该判断已于 2026-11-08 过期，SEA-RESIDENT 现为 `implemented`，七人已接入；原文保留作历史对照。当前这条只能落到「屋顶种植位/房间」上，居民与聚落关系仍是纯规划。
 > - **12–20 分钟**：「航行至远海沉没街町」**当前走不通** —— zone4 已从 `main.tscn` 移除。SEA-SHIP 为 `partial`，船升级只到航速与区域资格适配，没有「木船变帆船」的可见改造。
 > - 已具备但目标里没写的：室内房间与床（SEA-ROOM/SEA-SLEEP）、角色捏人与表情（SEA-AVATAR）、站立划船（SEA-MOVE/NAV）、相机 77.8 米上限、键盘操控。
 >
@@ -413,6 +413,8 @@
 > | P3-3 性能、兼容、视觉回归 | 已建：SEA-QUALITY（隔离 runner + 静态架构门禁） |
 >
 > 也就是说：**P0 只剩 zone3/zone4 与船体改造三件缺件**，P2-2 与 P3-1（居民、任务）是当前最大的两个空白，且都是 `planned` 状态。
+>
+> **注（2026-11-08 补）：本块是 2026-11-06 的快照，已不再准确。** SEA-RESIDENT 现为 `implemented` —— 七名居民已接入（一套实现、三类功能出口，见[居民设计](docs/features/resident/spec.md)与[本轮核对](docs/development/2026-11-08_npc_system_model.md)），第 5 节上方「SEA-RESIDENT 是 planned、零代码路径」与下方 P2-2 行同样过期。功能状态一律以功能导航表的 status 与各功能账本登记头为准，历史评估段落保留原文不改。
 
 ### P0：完成首个 20 分钟垂直切片
 
@@ -638,6 +640,30 @@
 
 新增条款 SEA-DIVE-R15–R19。最终 `20261108-055128-dive-home-seabed-signed2-00d74f` 九入口全 exit0/PASS、无 unexpected，合计 **1270 项 0 失败**：dive-maps 323/0、visual-dive-maps 335/0、framework-integration 52/0、minimum-loop 148/0、modules 31/0、click 39/0、sunroom-underwater 78/0、sunroom-collision 264/0、save-seed PASS；真实渲染入水画面已目检（旧城楼房、街道、翻倒车辆与远处街区可见，不贴墙、不落空广场、不陷基座）。顺带修复长潜水返回时 `Parameter "obj" is null` 与 Terrain3D `already connected` 两处原生报错。低端设备、连续性能、全路线人工探索与用户美术终审未签。[机制、坐标对齐与踩坑记录](docs/development/2026-11-08_home_seabed_and_dive_reopen.md)。
 
+## 2026-11-08 家园海底第三人称、独立布局与 35 米深度
+
+家园海底进入后改为第三人称：复用现有程序化旅人角色与游泳动作，显示潜水瓶/面罩，角色跟随水下 ViewerBody 的真实速度和朝向；ViewerBody 仍是唯一碰撞与移动权威。相机位于角色后上方并做水下射线避障，非潜水 F6 预览仍保留自由查看。
+
+家园海底的模型布局已从 Main/shared 场景中拆出本地可编辑包装：`godot/scenes/underwater/sunroom_region/sunken_city_layout.tscn`、`sunken_seabed_layout.tscn`、`solar_cabin_submerged_base_layout.tscn`。以后编辑这些本地 TSCN 即可改变家园海底的旧城实例、海床包装和基座布局，不会改海面 Main；旧城组件仍复用稳定 GLB/Prefab，Terrain3D 高度数据目前仍共享 `res://terrain/sunken_seabed`，明确标记为后续独立高度图待制作。
+
+可游深度目标调整为约 35 米：海面 Y=1.12、Viewer 最低中心 Y=-33.88、局部参考海床 Y=-34.68，低于边界的旧城几何保留为视觉，真正独立的新 Terrain3D 高度图不在本轮冒称完成。
+
+水下表现采用本场景本地效果链：角色深度驱动水色/吸收；单一 WaterFogPass 连续分层雾；本地材质 wrapper 深度吸收、饱和度和轻焦散；射光使用16步深度挡墙积分、上下软边与远景fade；既有192泡、200悬尘、10射光不变。参考 Godot 官方 Volumetric Fog/FogVolume、GPUParticles3D、Sky shader 和水体 depth/Fresnel/caustics 资料，但未无条件开启高成本全局体积雾，也未改共享水/环境/原9图。
+
+最终批次 `20261108-123311-home-seabed-thirdperson-final-d703fe` 九入口全部 PASS/exit0、无unexpected，合计1241项0失败：dive-maps326/0、visual-dive-maps338/0、framework52/0、minimum112/0、modules31/0、click39/0、sunroom-underwater79/0、sunroom-collision264/0、save-seed PASS。实拍已目检角色/装备/旧城/街道/翻倒巴士/射光；低端设备、持续性能、完整用户美术终审仍未签。[完整记录](docs/development/2026-11-08_home_seabed_and_dive_reopen.md)。
+
+## 2026-11-08 家园海底变深 50 米与雾/环境对齐旧九图
+
+按用户要求把家园海底的旧城再往下 50 米，做法是**抬高水面**而不是搬动几何：`water_level` 由 1.12 改为 51.12，水面 Mesh 同步到 51.12，旧城 388 实例、4 区海床、基座、鱼/珊瑚/灯全部原地不动。结果与原意一致——旧城街面（Y≈-18）从约 19 米水深变成 **69 米水深**，头顶 51 米到水面之间是连续水柱。世界对齐的 XZ 契约不变，Main、原九图、catalog 均未改。
+
+可游深度契约随之由 35 米扩到 85 米：`viewer_min_y` 仍为 -33.88（= 51.12 − 85，也 = `lowest_seabed_y` −34.68 + 0.8），运行时移动夹限的最高点变成 51.12 − 0.82 = 50.30。入水占位不再按「水面下 6 米」，改用旧城街面高度（`entry_street_y=-18` + 10 米），否则镜头会先在 45 米空白水柱里停几帧再瞬移 50 米；`_entry_spot` 的路面搜索同步引用同一常量。
+
+同时把家园海底的雾与环境改成与 zone1 同一条公式，此前那套是自算模型，观感对不上：`region_fog_amount` 由 `pow(smoothstep(6,110,d),1.3)` 换成 `1 - exp(-(d × density)^1.8)`，`density = mix(0.026, 0.012, smoothstep(65,210,区域深度))`；背景/水面/终端雾统一取屏幕垂直渐变 `uw_gradient_display(SCREEN_UV, 深度)`，删掉方向渐变、水平分层和 XZ 448..500 米边缘吸收三处额外叠加；天空着色器补 `AT_CUBEMAP_PASS` 双色分支（天顶薄荷 `#BBFFEF`、底部蓝 `#30538B`），环境光改回 `AMBIENT_SOURCE_SKY` 并按 `1.9/π × (1 − deep × 0.6)` 随深度衰减；关掉 glow 与 SSAO、两条方向光能量归零、相机 FOV 68 改 55，palette 去掉逐材质深度染色只保留焦散。30 米处雾浓度因此由 0.08 提到 0.48，中远景第一次真正退进蓝里。
+
+配套：10 条光柱顶到新水面（Y=50.12、长度 60~70 米），密度按长度反比缩放，避免积分路径变长糊成实心柱；192 气泡改为升到 50.47 米的新水面；200 悬尘限制在旧城上方 17 米带内，不再摊到 67 米里静止成噪点；粒子与光柱自定义 AABB 纵向同步加长。
+
+本地自检 `tests/test_sunroom_underwater_region.gd` 已按新契约改写并通过 80 项 0 失败；真实渲染器加载无着色器编译错误。完整九入口批量回归、低端设备、持续性能与用户美术终审尚未重跑/签署，本轮不据此宣称全工程绿。
+
 ## 2026-11-07 按海域切换独立潜水地图
 
 > 该节的“默认 PlayScope 继续屏蔽潜水”已被 2026-11-08 条款取代，以下内容保留为历史机制说明。
@@ -749,3 +775,82 @@ C盘空间恢复后继续完成22:39分支：七人称呼为船老大、豆豆�
 架构25服务/0问题、手摆3结构/0警告、diff检查通过。全局source/runtime hash仍有本轮及并行改动漂移，未批量重签；已运行sync及check，原检查脚本遇其他问题不写派生摘要，故全工程门禁与derived index另待核验，不用本轮绿项冒签全局。完整命令、旧FAIL与修复、当前报告和逐图边界见[开发记录第8节](docs/development/2026-11-07_npc_names_and_shop.md#8-2026-11-08-磁盘恢复后主线程最终签署)；可视验收页位于工程外`sea-work/outputs/npc_names_shop_acceptance.html`。
 
 最后校对覆盖：蓝星/珊瑚花种说明改“小花”，固定商品名“花序缎带”不变；shop-rules新增1断言后260/0，最终19入口合计**13178/0**。真实画面最终`20261108-044915-npc-visual-route-diagnosis-03bb1f`348/0、28图已全部逐图审阅；此前一次航行120秒超时278/1原报告保留，未稳定复现，生产船/坐标/阈值未改，不能冒签偶发根因已消除。详开发记录8.5。
+
+
+## 2026-11-08 NPC点击先对话再进入功能
+
+按用户要求，居民点击绕过物体菜单，沿原接近/交互链到位后NPC朝玩家，复用现有屏幕底部对话框。未听完的初见、满足条件的未完成剧情及按游戏日25%取样的日常先于功能问候；台词结束右侧小菜单提供商店/职业功能、聊聊和退出，选择后才进入原业务面板。人物资料/话题/礼物/请求/关系网保留在主动聊聊路径；既有存档与单次结算保持。归SEA-RESIDENT-R19–R21、SEA-INTERACT-R28、SEA-UI-R58、SEA-SHOP-R11。[实现与本轮验收](docs/development/2026-11-08_npc_conversation.md)。
+
+## 2026-11-08 周边可打捞密度减半
+
+按用户反馈「周边的可打捞的鱼和木材数量太多了，减掉一半」：全海域鱼群与浮木各留一半。每格先按原容量生成，再按 `KEEP_PERCENT=50` 确定性筛减，容量与槽位编号不变，旧档冷却与库存记录继续有效；整数余数按坐标与日次交替（6→3 精确一半，9→4/5、7→3/4 平均一半），不做统一向下取整。家园浮木 6→3 束，外海在减半后再乘既有的 30%（十格 60→30→9）。单群 3–6 条、三档产出与距离权重、07:00 日更、6–10 游戏小时补货、打捞范围与计时、进度条、`pickups.ocean` 存档字段均未改；`web/` 原型保持原密度作旧算法对照。实测十格浮木 60→9、鱼群 40→20，`wood-density`／`ocean-pickups`／`visual-ocean-pickups`／`framework-integration`／`visual-fish-schools` 通过。归SEA-PICKUP-R21/R22。[设计与实测](docs/development/2026-11-08_pickup_density_half.md)。
+
+## 2026-11-08 商店改为图标网格（与背包同款）
+
+按用户反馈「商店的 UI 现在是列表式的，需要改成和背包一样，是图标样式的，对应的功能和体验也要一起修改」：独立 `ShopPanel` 不再用列表行，改成复用背包同一套 `PocketService` 的格子、分页、名签与操作气泡。商品以 84 见方图标成格、8 列，单价画在格内左下角标（不再挂会溢出格子压住名签的子 Label），商品格不再显示持有数量以免与背包「×N」行话撞车；开店只摆格并把焦点落在首件商品，确认后才开气泡，气泡给单价/当前可购/合计/购后余额/不可购买原因，数量 `− N +` 与购买一次结算后收起。`Tab` 与背包一致关面板，`Esc` 先收气泡再关店，方向键只在商品行内。价格、上限与原子 `Inventory.exchange` 仍全部由 ShopService 裁决，11 商品、两店标题、token 去重与 `max_buy` 公式均未改。
+
+同时修掉两处关闭键问题：HUD 右下圆键在外部模态（商店/职业/建造）打开时改调 `owned_modal_close`——旧实现落到 `back()`，而 `back()` 在 `_external_modal` 下第一句就返回，按钮可见却按不动；商店自带圆键期间收起 HUD 那枚，同一角落始终只有一枚可见关闭入口。
+
+归 SEA-SHOP-R12、SEA-UI-R59。14 个独立入口合计 **2458/0**，均 exit0、`unexpected_errors=[]`；新增官方入口 `visual-shop-grid`（51/0，8 张真实 PNG 逐图审阅，1280×800 / 1600×1000 / 1920 窗口实际 1728×1080）。`visual-npc-release` 170/2 与 `visual-npc-people` 385/13 经 HEAD 版本对照证实为既有取景/遮挡断言问题，不由本次引入，保持失败不冒签。全局 `check_feature_contracts` 仍 sync 52 / check 53 issues（含本次 4 个文件的真实 runtime 漂移、4 项与本轮无关的既有 source 漂移、derived stale），未批量重签；架构 25 服务 0、手摆 3 结构 0 警告。完整命令、过程 FAIL、像素口径与未执行项见[开发记录](docs/development/2026-11-08_shop_icon_grid.md)。
+
+## 2026-11-08 NPC 体系核对：一套实现、三类出口
+
+七个居民是**一套实现**，不是七个模块。`godot/src/npc/` 19 个文件 3280 行里，数据（`npcs.json`）、状态（`npc_service`）、流程（`npc_session`/`npc_dialogue_runner`）、呈现（`npc_panel`/`npc_actor`/`npc_accessories`）、世界（`npc_world_presenter`/`anchor_hub`/`site_anchors`/`schedule_resolver`）、存档（`npc_save_codec`，`npc.version=1`）六层七人共用，差异只落在功能出口三档：经营型（`npcs.json` 有 `shop_id` → 独立 ShopPanel，小花/阿店）、职能型（无 `shop_id`、命中职能映射 → `NpcCareerPanel`，船老大/豆豆/阿海/木头叔/灯伯）、无功能（只剩聊聊，当前无成员）。职能型只向外发功能意图，船升级仍归 SEA-SHIP、种植归 SEA-FARM/CROP、打捞归 SEA-SALVAGE、建造归 SEA-BUILDING。
+
+同一件事的两档实现口径不一致，已登记为技术债：`shop` 出口是单点（`shop_id` 一行），`function` 出口分散在五处硬编码——`npc_session.gd:6-12`（FUNCTIONS 表）、`npc_session.gd:98-100`（五人问候语）、`main.gd:3819`（正向校验 `expected`）、`main.gd:3826`（反向 `ids` 查表）、`main.gd:3875`（硬编码 `npc_bai_shi`）。漏改 `expected` 会让功能按钮静默无响应且不报错。`npcs.json` 已是七人唯一真源，但 `function` 仍有第二份真源，不符第 6 条单一写入者。
+
+新增 SEA-RESIDENT-R22（implemented，共用层不得按 npc_id 分支业务）与 SEA-RESIDENT-R23（**pending**，出口须收口为 `npcs.json` 单一真源）。本轮为只读核对与文档承接，未改代码、未运行 Godot；R22 的实施依据是源码核对，运行证据沿用既有 NPC 专项，不签发新绿项。详见[本轮记录](docs/development/2026-11-08_npc_system_model.md)、[居民设计](docs/features/resident/spec.md)、[居民账本](docs/features/resident/ledger.md)。
+
+## 2026-11-08 霓虹花园楼顶可走、豆豆上桥种菜与头顶招呼
+
+按用户要求改霓虹花园的行动范围：**可走区域绑定模型，不额外制作**。新增 `godot/src/navigation/derived_walk_area.gd`，从各模块真实三角形派生可站面——左楼顶（局部 31.10）、后楼顶（26.00）、右楼顶（36.20）、菜园桥种植面（27.40 ±1.35），实测分别 18/10/21/42 个矩形。派生必须只按 `absf(normal.y)` 判坡度（模块板面绕序不统一，用有符号判据会把整片楼顶误杀）、格号走 `to_local`（楼体被用户转了约 72°）、`target_y` 比较前加 `global_position.y`（楼体摆在 y=-15.87）。原街口手写上岸点不变；三栋楼的模块分组（左右独立、后独立、桥为连接体）改前已核对，与用户描述一致，不再拆。
+
+水面阻挡此前只挡街面底板，船能穿楼；改为 `Blockers.target_path = ../Visual`，覆盖三栋楼与桥（实测 51 矩形 / 152.3 m² / 93 ms）。`ZoneScene` 收集可走面改按能力判定，继承脚本不再被漏掉。
+
+豆豆从「天台草地暂驻」迁到菜园桥：`npcs.json` 仅改她 6 处日程锚点与 `activity_anchor`，`home_anchor`/`residence_id` 不动（`npc_catalog` 硬校验两者相等，住所仍 deferred）。`neon_garden_quarter.tscn` 新增 `NpcStations` 五个 Marker，`NpcAnchorHub` 聚合第三处 provider。跨区块换场没有连通陆地，`NpcWorldPresenter` 只在「当前站立点不在目标可走面内」时直接落位到支撑点，同区块内仍走真实寻路。
+
+新增 `godot/src/ui/speech_bubble.gd`：与底部对话框同一张奶白纸面（`Cozy.surface(#fbf6e8, 28)`）+ 指向头顶的小三角，三角横向跟随角色屏幕投影。台词表 `godot/assets/data/npc/greetings.json` 12 句，按游戏日轮换，同一天只喊一次；玩家与豆豆水平 XZ 距离 ≤ 32 米、无 NPC 模态时触发。气泡尺寸按「船上抬头也读得清」定：字号 30、内边距 28×20、文本宽上限 468 且不超过视口宽 42%，停留 7.5 秒；角色出画时只隐藏不结束，回到画面即恢复。**「今天已喊过」不写存档**——NPC 快照严格字段校验不接受新字段，加字段会让旧档拒绝加载，存档优先，读档后当天可再喊一次。
+
+**代价必须记明**：菜园桥离街面约 28 米且按用户要求不做上楼路径，所以玩家走不到豆豆身边、无法走近交谈，只能看到与收到招呼；`npc-conversation` 里她的「走近交谈」已改为断言「楼顶可见」。豆豆在楼上的动作是日程锚点落位 + 既有动画，**没有新增播种/浇水/收获行为树**，与本轮「NPC 的 AI 行为」字面要求有差距。
+
+归 SEA-WORLD-R29/R30、SEA-RESIDENT-R24/R25。12 个入口合计 **3867/0**，均 exit0、`unexpected_errors=[]`；新增官方入口 `garden-npc`（14/0，主场景实测）与 `visual-garden-bubble`（13/0，两张真实 PNG 逐图审阅）。布局变化导致 `npc-integration`（锚点 35→40 等）、`npc-save`、`npc-conversation`、`npc-world` 的场地断言同步更新，清单见开发记录第 6 节。`main.tscn` 无本次 diff，用户手摆 transform 未动，`check_placed_positions` PASS。全局 `check_feature_contracts` 升到 109 issues（本次真实 runtime 漂移 + 新增文件未登记），按口径未批量重签。详见[本轮记录](docs/development/2026-11-08_neon_garden_garden.md)。
+
+## 2026-11-08 水下建筑封闭与回字型深沟（沿矩形四边）
+
+用户要求「破碎可以，楼房必须封闭，不可以有空间进入」：`sunken_city` 20 栋建筑组件补封盖后另存 `v006`，网格改为水密闭合曲面（18/20 `boundary_edges=0`，`collapsed_residence`／`fallen_hall` 是废墟块堆、明确未封闭），GLB 原地覆盖运行时路径，`.import`、50 个包装场景与全部实例变换未动；`v003` 未限高源另存 `v008` 并单独导出到 `sunken_city_tall`（2.0 倍引用用）。家园海底按用户要求**沿矩形四边直线摆放**回字型沟壁：外框半宽 112 m／每边 7 个（间距 37.33 m，共 24 个），内框半宽 72 m／每边 5 个（间距 36.00 m，共 16 个），共 40 栋，沟宽 40 m；行内严格共线、朝向只取 0/90/180/270 且朝框内、无抖动，行内最大平面重叠 0.83 m，40/40 落在真实街面上。**一栋原有实例都不删**（位置归用户）。新增 6.42M 三角面，整城约 2.46M → 8.9M，未做 LOD。`sunken-city` PASS 33928/0、`water-layer` PASS 1613/0；`sunroom-underwater` 83 项 1 失败为改动前既有的 2.4160 m 生态接地漂移。[交付记录](docs/development/2026-11-08_sealed_buildings_and_canyon_ring.md) · [参考位清单](docs/features/world/canyon_ring_reference.md)
+
+## 2026-11-08 统一潜水 3C（最终口径，验收待主线程回填）
+
+海面/陆地仍由一套独立 `ActorController` 管理；潜水由另一套独立 **Shared DiveRuntimeController** 管理，实际脚本为 `godot/src/diving/dive_runtime_controller.gd`。家园 + 旧九图共用同一 `surface/enter/swim/exit` 生命周期，不是海面、家园、旧图三套状态机。Map 只适配内容/入口/位置/碰撞/route/camera_clip/env/explore，不再各自拥有潜水输入、耗氧或镜头；phase 接口兼容旧测试，旧 3C actions 不得继续运行。
+
+`DiveSession` 保持事务切图、失败回滚与同一 Main 身份恢复；根 v4 `dive.found/opened`、稳定与未知 ID 保留、全量恢复、奖励原子和共享 air cooldown 不变，切图不能清冷却。统一 dive_ InputMap：WASD+arrow、Q/Ctrl下潜、E/Space上升、Shift加速，巡航4.2/加速7m/s；加速/刹停/反向指数时间常数0.22/0.16/0.13s。右键仅环视，WASD无需右键；左键release≤8px且期间未拖过阈值才点击自动游，滚轮4..13m默认7.5m。广角72°/加速78°，pitch[-1.1,1.15]、yaw平滑0.07s，镜头继承主体位移+0.10s前视，防墙球0.32m立即收回/缓出并做最终clip。
+
+Character模型复用但潜水实例独立，以实际速度驱动float/cruise/sprint及升降pitch/turnbank，潜水隐藏hat/显示mask、退出恢复帽子；海面动画不改。十图共用dive_map_hud海底墨绿半透明板+奶油按钮、氧气bar/深度/状态/键位hint/Esc暂停与上浮。家园现行水面51.12/85m/viewer_min-33.88、用户手摆layout/Base2/40高楼不动，历史388实例不作固定断言；真正独立海床数据仍pending。
+
+新增 **SEA-DIVE-R29–R38**（R27/R28已为高楼布局条款，原文不改、不复用ID）。当前behaviour暂报[403或396]/0，主线程最终精确回填；初批dive-maps326/0、click39/0、framework-integration52/0虽断言零失败，但resource leak导致FAIL、正在修复。curved collision3448/42必须保留为FAIL历史，不宣称通过；不借旧PASS签本次，功能仍partial。此处只追加，不重写功能摘要或历史结果。[细则](docs/features/dive/spec.md) · [逐条账本](docs/features/dive/ledger.md) · [模块契约](docs/architecture/module_contracts.md) · [开发记录与最终验收PENDING位置](docs/development/2026-11-08_unified_dive_3c.md#unified-dive-3c-acceptance)
+
+最终回归已完成：`D:/projects/sea-work/verification/20261108-202515-dive-unified-final-edbd96/report.json`。dive-control396/0、dive-maps326/0、visual-dive-maps338/0、sunroom-underwater83/0、sunroom-collision3313/0、click39/0、framework-integration52/0、minimum-loop112/0、modules31/0、keyboard-control30/0、control-feel31/0、character-motor42/0，全部 exit0/PASS、无 unexpected；真实渲染入口通过。统一潜水 3C 专项通过，但低端设备、连续性能、全路线人工探索、用户美术终审与独立 Terrain3D 海床高度图仍未签，功能总体保持 partial。
+
+### 2026-11-08 统一潜水3C最后修正与当前签署
+
+当前有效报告为`D:/projects/sea-work/verification/20261108-205037-dive-unified-signed-2f2292/report.json`：13个计数入口合计5196项、0失败，另save-seed前置通过，14项全部exit0/PASS、无unexpected。dive-control396/0与visual-dive-control403/0分别为无显示/真实渲染入口，不再是待定二选一；dive-maps326/0、visual-dive-maps338/0、sunroom-underwater83/0、sunroom-collision3313/0及海面/基础回归通过。最后修正了家园保底入水选点进入基座内腔的问题，实际进入旧城街区，允许按真实净空水平避让，不改用户建筑布局。实测巡航约4.20m/s、冲刺约6.99m/s、固定步松键刹停约1.06m，72°至78°第三人称广角。海面/陆地与潜水两套独立控制，家园和旧九图同一潜水状态机/输入/镜头/动画/HUD。设计条款SEA-DIVE-R29–R38及登记头已回填，低端/持续性能/全路线人工/用户终审/独立海床边界不变。[当前完整签署](docs/development/2026-11-08_unified_dive_3c.md)。
+
+## 2026-11-08 家园海底：水面 120 米、入水点在水下 1 米
+
+主人要求「先把从海水水平面到底部的高度做成 120 米，然后下水后的位置在水下 1 米」。两件事互为验证地锁死了一组数：上街面 Y = **−18.412558**（城市根 43.487442 + 局部 −61.9），水面取 **101.587442**，于是水深正好 120.0 m；最高塔顶世界 Y = 100.906 落在这水面下 **0.68 m**，与主人「最高的地方应该在海水水平面下面一点」一致。**「底部」口径明文取上街面**，不取最低海床台面——取最低台面的话水面只有 43.6，塔顶会露出水面 57 m，与「贴着水面下方」直接冲突。同步 `target_depth_m` 85→120、`viewer_min_y` −33.88→−18.412558、`lowest_seabed_y` −34.68→−19.212558，深度契约两项仍同时成立。入水点从「街面 +10 m」改为**水面下 1.0 m**；因为 `DiveAir` 换气带是 5 m 会让入水点永远满氧，给 `DiveAir` 加了可覆盖的 `surface_depth`（默认 5.0 不变，九张旧图不受影响），家园海底设 0.5 m，代价是水下 0.5 m 内仍回氧。另把雾密度曲线按前 85 m 夹住，深水不再比浅水更稀（远景雾连续性 0.094→0.051，仍超 0.025 阈值，A/B 证明剩余部分是既有问题：水面回退 51.12 时同样 0.043）。`sunroom-underwater` 83/0、`dive-maps` 328/0、`dive-control` PASS、`water-layer` 1613/0、`sunken-city` 33928/0；`visual-sunroom-underwater` 123 项 1 失败（far-fog-edge，既有），未据此宣称视觉通过。归 SEA-DIVE-R29/R30/R31。[交付记录](docs/development/2026-11-08_surface_120m_and_entry_depth.md)
+
+## 2026-11-08 水下光学与双向无文字圆幕（本轮，验收 PENDING）
+
+本轮先只读核对 AGENTS、功能归属/复用、sleep/ui 及 dive/ambient/ocean 规范账本，再按现有模块承接，不新增功能所有者。**SEA-DIVE-R39–R43**：稳定 DiveSession 装配双向事务，复用 SEA-SLEEP/UI 原 SleepCurtain，无文字0.85秒关/1.05秒开；真实 frame_post_draw 全黑之后才 threaded load/instantiate/碰撞建树，verified/swim 与相机/环境准备后展开。switching 全程锁输入、耗氧/海面air推进、保存、日期/经营，成功/失败均恢复原 Main 和 curtain 身份及处理/父级/焦点，不读档重建；低级同步API保留给原测试。
+
+**SEA-OCEAN-R26–R29**：家园与旧九图共用 shader/include 的 Snell 窗、内反射、随波太阳盘/碎光和深度暗光；单一 fogpass、Environment fog关闭，绝对 water_level/实际米制 view/dive depth 同源注入、晚创建材质继承，不硬编码共享水位。日照只读取现有 Main Sun 快照，不另造时钟、不改日期。**SEA-AMBIENT-R28–R31**：复用家园192环境泡/200尘/10beam、旧96泡修分配与实例色；新增48池呼气从mask/head每簇4..7、基础2..3秒发簇、世界轨迹，纯表现不改Air；鱼复用fish_school，原8群138手摆保持，只增浅18/中22至10群178，旧图每群18→24。
+
+家园保持最新120m、水位101.587442、viewer_min−18.412558、lowest−19.212558、入水优先水下1m/换气0.5m，不退旧51.12/85m或常规街景入水。用户 Main/ExistingModels/Base2 及原手摆布局不动；新增摆位只是参考位。原dive R29–R31重复语义不重编号，本轮核对最大R38后续写；ambient最大R27、ocean最大R25。三功能仍 `partial`、登记头owner不回退。
+
+当前仅记录源码接入与设计规则，**本轮最终验收 PENDING**。已有runner underwater-experience、visual-underwater-experience、dive-transition、visual-dive-transition；transition初始Parse black、Main子类Autoload Zones编译及visual timeout保留，水下体验真实视觉195/8、195/4均为FAIL历史，后续修复正在跑，不预签PASS、不借旧5196/0。本分支不运行测试/sync/check；主线程回填[开发记录第5节](docs/development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)后再追加最终结论。[潜水账本](docs/features/dive/ledger.md) · [环境账本](docs/features/ambient/ledger.md) · [光学账本](docs/features/ocean/ledger.md) · [模块契约](docs/architecture/module_contracts.md)。
+
+### 本轮主线程最终签署
+
+用户三项水下优化专项完成：A`20261109-023938-underwater-render-boundary-f5c046`圆幕真实149/0；B`20261109-030908-underwater-breath-contact-db6f99`光学生态真实195/0；C`20261109-031605-underwater-regression-final-2513b4`行为65/0、圆幕226/0、3C396/0、地图329/0、家园85/0、碰撞2824/0、点击39/0、切日42/0、房间112/0。上述11计数入口共4462/0，另save-seed通过，均有真实report.json；**不是整批全绿**：C框架52/1 second generation write在D`20261109-032433-underwater-framework-recheck-7d457d`独立复跑仍失败，未改SaveGame保护逻辑。全局sync69/只读70资源哈希/派生索引问题未过。现水面能仰视、深度灰样板与背景单调减光、浅水呼气/环境泡/鱼像素可见，日切同幕双向遮加载且日期耗氧冻结。当前120m/入水1m及用户布局不改，三功能partial；历史远雾阈值、低端/持续性能/全路线/用户美术终审/独立海床未签。[完整签署、失败修正与交付](docs/development/2026-11-08_underwater_optics_and_transition.md)。
+
+最后补验：旧图显式恢复共享Air默认5m换气带，避免家园0.5m残留。`20261109-033631-underwater-air-band-final-4cba0b/report.json`的dive-maps338/0、underwater-experience65/0均通过；最终通过入口汇总4471/0，不重复计补跑65，框架52/1仍另列。渲染源码未变，原视觉报告继续有效。

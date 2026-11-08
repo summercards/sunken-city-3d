@@ -8,7 +8,14 @@ signal close_requested
 ## 拖拽整理：把 `from_id` 放到 `to_id` 的位置（空串=挪到末尾）。
 ## 本界面不算账，只把意图转给宿主（hud → Inventory）。
 signal sort_requested(from_id: String, to_id: String)
+signal selection_changed
+signal actions_changed
 var query: Callable
+## 独立商店借用口袋外观；报价仍由其ShopService端口提供。
+var detailed_shop := false
+## >=0 时方向键只在指定池内环绕（商店的商品区），不跨到背包行。
+var lock_pool := -1
+var purchase_quote: Callable
 var font: Font
 var mode := "shipping"
 var snapshot: Dictionary = {}
@@ -33,6 +40,11 @@ var _buy_minus: Button
 var _buy_plus: Button
 var _buy_button: Button
 var _buy_counter: Label
+var _buy_info: Label
+var _buy_description: Label
+var _buy_availability: Label
+var _buy_back: Button
+var _action_serial := 0
 var _buy_limit := 0
 var _page_counts := [1,1]
 var _restore_id := ""
@@ -91,6 +103,7 @@ func _button(text: String) -> Button:
 	return button
 
 func refresh(service: String) -> void:
+	_action_serial += 1
 	if action_tween: action_tween.kill()
 	action_closing=false
 	var previous_id:=str(selected_data.get("id",_restore_id))
@@ -100,6 +113,7 @@ func refresh(service: String) -> void:
 		pages=[0,0];previous_index=0;previous_id="";previous_pool=1 if service=="shop" else 0
 	mode=service
 	_action_buttons.clear();_buy_minus=null;_buy_plus=null;_buy_button=null;_buy_limit=0
+	_buy_counter=null;_buy_info=null;_buy_description=null;_buy_availability=null;_buy_back=null
 	if not query.is_valid(): return
 	snapshot=query.call(mode)
 	get_node("ServiceName").text=str(snapshot.get("shop_name",{"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]))
@@ -174,7 +188,10 @@ func _stacks(counts: Dictionary, capacity: int, order: Array = []) -> Array:
 func _add_tile(pool: int, index: int, data: Dictionary) -> void:
 	var tile:=Tile.new();tile.pocket=true;tile.managed_selection=true;tile.font=font
 	tile.kind=str(data.id);tile.empty_slot=tile.kind=="";tile.amount=int(data.count);tile.shown_amount=tile.amount
-	tile.set_meta("item_id",tile.kind);tile.set_meta("pool",pool);tile.set_meta("slot_count",tile.amount)
+	# 商品格的数字只有一个含义：价格。持有数由名签与气泡说明，
+	# 两个数字并排会被读成"这堆有几个"，和背包的行话撞车。
+	if pool==1 and mode=="shop": tile.amount=0;tile.shown_amount=0.0
+	tile.set_meta("item_id",tile.kind);tile.set_meta("pool",pool);tile.set_meta("slot_count",int(data.count))
 	grids[pool].add_child(tile);tile.custom_minimum_size=Vector2(84,84);tile.size=Vector2(84,84)
 	tile.focus_mode=Control.FOCUS_ALL
 	var focus:=Cozy.surface(Color.TRANSPARENT,18);focus.border_color=Cozy.INK;focus.set_border_width_all(3)
@@ -191,9 +208,9 @@ func _add_tile(pool: int, index: int, data: Dictionary) -> void:
 		tile.drag_sortable=true;tile.drag_pool=pool
 		tile.drag_sorted.connect(func(from_id:String,to_id:String): sort_requested.emit(from_id,to_id))
 	tile.set_meta("entry",data.duplicate(true))
-	if data.has("price"):
-		var price:=_label("%d 瓶盖" % int(data.price),20,Cozy.INK)
-		price.position=Vector2(-8,72);price.size=Vector2(100,28);price.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;tile.add_child(price)
+	if data.has("product_id"): tile.set_meta("product_id",str(data.product_id))
+	# 价格画进格子里的角标，不再挂一个会溢出格子、压住名签的子 Label。
+	if data.has("price"): tile.price=int(data.price)
 
 func select(pool: int, index: int) -> void:
 	if index<0 or index>=slots[pool].size(): return
@@ -203,11 +220,23 @@ func select(pool: int, index: int) -> void:
 		for i in slots[p].size(): slots[p][i].selected=p==pool and i==index
 	name_tag.show()
 	page_labels[1].visible=not (pool==1 and name_tag.visible)
-	name_tag.text="空格" if str(selected_data.id)=="" else "%s · ×%d" % [Items.label(str(selected_data.id)),int(selected_data.count)]
+	# 商店的格子里是商品，不是背包里已有的东西：显示单价，不谎称"库存"。
+	if pool==1 and detailed_shop:
+		name_tag.text="空格" if str(selected_data.id)=="" else "%s · %d 瓶盖" % [Items.label(str(selected_data.id)),int(selected_data.get("price",0))]
+	else:
+		name_tag.text="空格" if str(selected_data.id)=="" else "%s · ×%d" % [Items.label(str(selected_data.id)),int(selected_data.count)]
 	name_tag.reset_size()
 	_restore_id=str(selected_data.id)
 	var point:=grids[pool].position+Vector2((index%8)*106+42,(index/8)*92)
-	name_tag.position=Vector2(clampf(point.x-name_tag.size.x/2,12,size.x-name_tag.size.x-12),point.y-44 if pool==0 else point.y+86)
+	if detailed_shop and pool==1:
+		# 商店名签挂在商品行**下方**的空白处：右上角是购买气泡，格内左下是价格，
+		# 放上面或右边都会被这两者之一压住。
+		var below:=grids[pool].position.y+92
+		name_tag.position=Vector2(clampf(point.x-name_tag.size.x/2,12,size.x-name_tag.size.x-12),below)
+	else:
+		# 背包/出货/仓库沿用原名签位置：格子上沿外侧；下方行保持既有 +86 摆法。
+		name_tag.position=Vector2(clampf(point.x-name_tag.size.x/2,12,size.x-name_tag.size.x-12),point.y-44 if pool==0 else point.y+86)
+	selection_changed.emit()
 
 
 ## 购买数量选择器：`[−] N [+]` 加一个「购买 N」。
@@ -221,9 +250,24 @@ func select(pool: int, index: int) -> void:
 func _buy_picker() -> void:
 	var limit:=maxi(0,int(selected_data.get("max_buy",0)))
 	_buy_limit=limit
+	var serial := _action_serial
+	var command_id := str(selected_data.get("product_id",selected_data.get("crop",selected_data.id)))
+	if detailed_shop:
+		_buy_description=_label(str(selected_data.get("description","")),20,Cozy.INK)
+		_buy_description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+		_buy_description.custom_minimum_size.x=260
+		action_body.add_child(_buy_description)
+		_buy_info=_label("",20,Cozy.INK);action_body.add_child(_buy_info)
+		_buy_availability=_label("",20,Cozy.INK)
+		_buy_availability.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+		_buy_availability.custom_minimum_size.x=260
 	if limit<=0:
-		var short_coins:=int(snapshot.get("coins",0))<int(selected_data.get("price",0))
-		action_body.add_child(_label("瓶盖不足" if short_coins else "背包已满",22,Cozy.INK))
+		if detailed_shop:
+			action_body.add_child(_buy_availability)
+			_update_shop_quote()
+		else:
+			var short_coins:=int(snapshot.get("coins",0))<int(selected_data.get("price",0))
+			action_body.add_child(_label("瓶盖不足" if short_coins else "背包已满",22,Cozy.INK))
 		return
 	buy_amount=clampi(buy_amount,1,limit)
 	var row:=HBoxContainer.new()
@@ -245,9 +289,14 @@ func _buy_picker() -> void:
 	minus.disabled=buy_amount<=1
 	plus.disabled=buy_amount>=limit
 	action_body.add_child(_label("上限 %d · 余额 %d 瓶盖" % [limit,int(snapshot.coins)],18,Cozy.INK))
-	minus.pressed.connect(func(): adjust_buy_amount(-1))
-	plus.pressed.connect(func(): adjust_buy_amount(1))
-	buy.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",selected_data.id)),"buy",buy_amount))
+	minus.pressed.connect(func(): if serial==_action_serial: adjust_buy_amount(-1))
+	plus.pressed.connect(func(): if serial==_action_serial: adjust_buy_amount(1))
+	buy.pressed.connect(func():
+		if serial==_action_serial and actions.visible and not action_closing:
+			operation_requested.emit(command_id,"buy",buy_amount))
+	if detailed_shop:
+		action_body.add_child(_buy_availability)
+		_update_shop_quote()
 	buy.grab_focus.call_deferred()
 	buy.set_meta("action_hotkey",1)
 
@@ -264,16 +313,20 @@ func show_actions() -> void:
 	if selected_data.is_empty() or str(selected_data.id)=="": return
 	# 每次重新开气泡都从 1 起：上一件商品选到 7，换一件还是 7 会误买。
 	buy_amount=1
+	_action_serial += 1
 	_action_buttons.clear();_buy_minus=null;_buy_plus=null;_buy_button=null;_buy_limit=0
+	_buy_counter=null;_buy_info=null;_buy_description=null;_buy_availability=null;_buy_back=null
 	action_closing=false;actions.mouse_filter=Control.MOUSE_FILTER_STOP
 	for node in action_body.get_children(): action_body.remove_child(node);node.queue_free()
 	var id:=str(selected_data.id)
-	action_body.add_child(_label(Items.label(id)+" · 库存 ×%d" % int(snapshot.bag.get(id,0)),20,Cozy.INK))
+	# 商店里是商品格：显示"持有"而不是"库存"，避免把货架当成自己的背包。
+	var owned_caption: String="持有" if mode=="shop" else "库存"
+	action_body.add_child(_label(Items.label(id)+" · %s ×%d" % [owned_caption,int(snapshot.bag.get(id,0))],20,Cozy.INK))
 	var action: String="deposit" if selected_pool==0 else ("buy" if mode=="shop" else "withdraw")
 	var verb: String="放入" if selected_pool==0 else ("购买" if mode=="shop" else "取回")
 	var blocked: bool=selected_pool==0 and ((mode=="shipping" and not id in snapshot.accepts) or mode=="shop")
 	if blocked:
-		var info:=_label("出货箱只收鱼和农产品" if mode=="shipping" else "在下方选择种子购买",22,Cozy.INK);action_body.add_child(info)
+		var info:=_label("出货箱只收鱼和农产品" if mode=="shipping" else ("在下方商品区选择购买" if detailed_shop else "在下方选择种子购买"),22,Cozy.INK);action_body.add_child(info)
 	elif action=="buy":
 		_buy_picker()
 	else:
@@ -283,7 +336,14 @@ func show_actions() -> void:
 			button.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",id)),action,amount))
 			action_body.add_child(button);_action_buttons.append(button)
 		if not _action_buttons.is_empty(): _action_buttons[0].grab_focus.call_deferred()
+	if detailed_shop:
+		_buy_back=_button("返回")
+		_buy_back.pressed.connect(back)
+		action_body.add_child(_buy_back);_action_buttons.append(_buy_back)
+		if _buy_button==null: _buy_back.grab_focus.call_deferred()
 	actions.reset_size();actions.position=Vector2(750,428 if selected_pool==1 else 226);actions.show()
+	if detailed_shop: _place_shop_actions.call_deferred()
+	actions_changed.emit()
 	if Cozy.motion_enabled:
 		if action_tween: action_tween.kill()
 		actions.scale=Vector2.ONE*0.86;actions.modulate.a=0
@@ -292,6 +352,26 @@ func show_actions() -> void:
 		action_tween.tween_property(actions,"modulate:a",1.0,0.12)
 	else: actions.scale=Vector2.ONE;actions.modulate.a=1
 
+## 商店气泡固定在面板右上角（背包纸面区），不贴底：
+## 底部那一行是瓶盖/格数与购买反馈，气泡压上去会把结果吃掉。
+func _place_shop_actions() -> void:
+	if not detailed_shop or not actions.visible: return
+	actions.reset_size()
+	actions.position=Vector2(size.x-actions.size.x-22,92)
+
+func _update_shop_quote() -> void:
+	if not detailed_shop or not purchase_quote.is_valid() or _buy_info==null: return
+	var estimate: Dictionary=purchase_quote.call(str(selected_data.get("product_id","")),buy_amount)
+	var affordable:=bool(estimate.get("ok",false))
+	# 不可购时合计与余额都没意义：写“—”而不是把单价当总价，别让玩家以为能买。
+	var total_text: String="%d" % int(estimate.get("total_cost",0)) if affordable else "—"
+	var left_text: String=str(int(estimate.get("coins",0))-int(estimate.get("total_cost",0))) if affordable else "—"
+	_buy_info.text="单价  %d 瓶盖 · 当前可购 %d 件\n合计  %s 瓶盖\n购买后余额  %s" % [estimate.get("unit_price",0),maxi(0,int(estimate.get("max_buy",0))),total_text,left_text]
+	_buy_availability.text="" if affordable else str(estimate.get("reason","暂时无法购买"))
+	if _buy_button!=null:
+		_buy_button.text="购买 %d · %s 瓶盖" % [buy_amount,total_text]
+		_buy_button.disabled=not affordable
+
 func turn(pool: int, step: int) -> void:
 	var target:=clampi(pages[pool]+step,0,int(_page_counts[pool])-1)
 	if target==pages[pool]: return
@@ -299,6 +379,19 @@ func turn(pool: int, step: int) -> void:
 
 func move_selection(step: int) -> void:
 	if actions.visible: return
+	if lock_pool>=0:
+		# 商店的商品区只有一行：左右在商品间环绕；上下只在多行时换行，
+		# 单行时不把焦点甩到背包，也不做无意义的整行跳转。
+		var locked: int=lock_pool
+		if slots[locked].is_empty(): return
+		var size: int=slots[locked].size()
+		var current: int=clampi(maxi(0,selected_index),0,size-1)
+		var target: int=current
+		if absi(step)==1:
+			target=posmod(current+step,size)
+		elif ceili(float(size)/maxi(1,grids[locked].columns))>1:
+			target=clampi(current+step,0,size-1)
+		select(locked,target);slots[locked][target].grab_focus();return
 	var pool:=selected_pool
 	var index:=maxi(0,selected_index)+step
 	if index<0:
@@ -351,11 +444,22 @@ func adjust_buy_amount(delta: int) -> void:
 	_buy_plus.disabled=buy_amount>=_buy_limit
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused is Button and focused.disabled: _buy_button.grab_focus()
+	_update_shop_quote()
+	actions_changed.emit()
+
+## 立即收起气泡并作废其闭包，不播放回退动画。供宿主关闭整面板时使用。
+func cancel_actions() -> void:
+	_action_serial += 1
+	if action_tween: action_tween.kill()
+	_action_buttons.clear()
+	action_closing=false
+	actions.hide()
 
 func back() -> bool:
 	if not actions.visible: return false
 	if action_closing: return true
 	if action_tween: action_tween.kill()
+	_action_serial += 1
 	_action_buttons.clear()
 	if selected_index>=0 and selected_index<slots[selected_pool].size(): slots[selected_pool][selected_index].grab_focus()
 	if not Cozy.motion_enabled: actions.hide();return true

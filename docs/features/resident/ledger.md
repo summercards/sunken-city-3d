@@ -23,7 +23,7 @@
     "godot/assets/data/npc/events.json",
     "godot/assets/data/npc/requests.json"
   ],
-  "verification": ["npc-shop", "npc-rules", "npc-world", "npc-appearance", "npc-careers", "npc-performance", "npc-clock", "npc-integration", "npc-save", "npc-save-restart", "visual-npc-release", "npc-people", "npc-profile-ui", "npc-shop-site", "npc-relocation", "visual-npc-people"]
+  "verification": ["npc-shop", "npc-rules", "npc-world", "npc-appearance", "npc-careers", "npc-performance", "npc-clock", "npc-integration", "npc-save", "npc-save-restart", "visual-npc-release", "npc-people", "npc-profile-ui", "npc-shop-site", "npc-relocation", "visual-npc-people", "npc-conversation", "visual-npc-conversation"]
 }
 ```
 
@@ -183,3 +183,55 @@
 ### 2026-11-08 最后校对覆盖
 
 两花种说明旧人物名改“小花”，固定“花序缎带”不改。最终`20261108-043507-npc-label-polish-final-21bea3`中shop-rules260/0、people3054/0、flower1233/0；该轮视觉航行120秒超时278/1保留，不隐去。仅加强超时诊断、不改生产船/坐标/抵达阈值后，`20261108-044915-npc-visual-route-diagnosis-03bb1f`视觉348/0并重拍28PNG；最终28图逐图已审无空图/破图/重叠。最终19入口合计**13178/0**，覆盖上方13177计数；一次航程超时未稳定复现，根因仍留持续性能跟踪，不冒签彻底解决，详开发记录8.5。
+
+
+## 2026-11-08 NPC先对话再进入功能
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-RESIDENT-R19 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+| SEA-RESIDENT-R20 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+| SEA-RESIDENT-R21 | implemented；最终验收回填见本节后续记录 | `npc-conversation`、`visual-npc-conversation`及相关规则/存档回归；实现与验收路径见[开发记录](../../development/2026-11-08_npc_conversation.md)。 |
+
+
+### 本次最终验收签署
+
+本节新增条款已实现并完成当前交互验收。13个独立入口5040/0，均exit0且unexpected_errors为空：NPC主场景473/0、真实渲染498/0（25张最终PNG全部状态已审）、规则655/0、世界136/0、资料话题1387/0、增量性能61/0、商店260/0、整局存档702/0、seed476/0、不同进程restart202/0、最小循环112/0、开场键盘39/0、点击39/0。报告选择、截图像素、逐图审阅、过程FAIL与最终覆盖均见[开发记录最终签署](../../development/2026-11-08_npc_conversation.md#最终签署本次交互专项通过2026-11-08)。资产/运行资源哈希门禁sync45、check46项仍FAIL/exit1，原基线漂移未批量重签；不以专项通过冒充全工程通过。手柄/触屏、低端/发行包、全部剧情人工游玩未执行，整体功能非完整产品verified。
+
+## 2026-11-08 NPC 体系一套与功能出口三档
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待办 |
+|---|---|---|
+| SEA-RESIDENT-R22 | implemented；七人共用 `npc/` 全套实现，差异只在出口三档；共用层无按 npc_id 的业务分支 | 源码核对：`godot/src/npc/` 19 文件 3280 行，`npc_service`/`npc_session`/`npc_panel`/`npc_world_presenter`/`npc_save_codec` 内除 `FUNCTIONS` 与问候语表外无 npc_id 业务分支；`npcs.json` 七行同构。运行证据沿用 `npc-rules`、`npc-world`、`npc-careers`、`npc-integration`、`npc-save`、`npc-conversation`、`visual-npc-conversation` 既有通过结果，本轮未重跑。 |
+| SEA-RESIDENT-R23 | **pending**；`function` 出口仍五处硬编码，未收口为 `npcs.json` 单一真源 | 硬编码位置：`godot/src/npc/npc_session.gd:6-12`、`:98-100`、`godot/src/bootstrap/main.gd:3819`、`:3826`、`:3875`。风险：新增职能 NPC 漏改 `main.gd:3819` 的 `expected` 会让 `_on_npc_career_requested` 静默 `return`，按钮点了没反应且不报错。收口属重构，需改 `npc_session.gd` 与 `main.gd` 接线并重跑 `npc-rules`/`npc-careers`/`npc-integration`/`npc-save`，本轮未做。 |
+
+结构与数据事实（本轮只读核对，未改代码、未运行）：七人稳定 ID、七件配件、`npc.version=1` 与 `npcs.json` 七行字段均未变；`shop` 出口已是单点（`shop_id` 一行），`function` 出口尚未。本条不改变 R19–R21 的对话交互口径，也不改变 SEA-SHOP-R11/R12 的商店归属。
+
+本轮的商店图标网格改动（SEA-SHOP-R12、SEA-UI-R59）不动 NPC 侧任何文件；相关运行证据见[商店账本](../shop/ledger.md#2026-11-08-商店图标网格交付)。
+
+## 2026-11-08 豆豆迁场与头顶招呼
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-RESIDENT-R24 | implemented；豆豆日程指向霓虹花园菜园桥，第三处 provider 已聚合，跨区落位走支撑点而非寻路 | `garden-npc`14/0（5 锚点可解析、work=(106.2377, 12.52529, 83.00532)、豆豆世界位置在桥面）；`npc-integration`749/0、`npc-save`702/0、`npc-save-seed`476/0、`npc-save-restart`202/0、`npc-world`135/0、`npc-rules`655/0 均通过 |
+| SEA-RESIDENT-R25 | implemented；头顶气泡组件与按日轮换台词已接入，真实渲染已验 | `garden-npc`14/0（靠近显示台词、同日不换句、换日换句）；`visual-garden-bubble`13/0（两张真实 PNG：单句/长句换行，逐图审阅：纸面、三角、文字、视口内、尾巴指向头顶） |
+
+新增文件：`godot/src/ui/speech_bubble.gd`、`godot/assets/data/npc/greetings.json`、`godot/tests/test_garden_npc.gd`、`godot/tools/capture_garden_bubble.gd`。改动：`npcs.json`（豆豆 6 处锚点）、`neon_garden_quarter.tscn`（`NpcStations` 五 Marker）、`main.gd`（第三 provider、`_tick_garden_greeting`、气泡装配）、`npc_world_presenter.gd`（跨区落位）。
+
+明确取舍：**玩家走不到豆豆身边**（菜园桥约 28 米高、无上楼路径，用户选择只让她在楼上）。`npc-conversation` 里她的「走近交谈」已改为断言「楼顶可见」，不是放宽而是承认该链路在她身上不成立。**「今天已喊过」不持久化**：`npc_save_codec` 严格字段校验不接受新字段，加字段会让旧档加载失败；读档后当天可再喊一次。
+
+连带更新的断言：`test_npc_integration.gd`（锚点 35→40、`home_labels` 7→8、`owners` 豆豆改判日程、`homes`/`interactions` 7→6、`npc_site_position`/`npc_supported` 加花园分支）、`test_npc_save.gd`（新进程 `zone_id` 三选一）、`test_npc_conversation.gd`（豆豆跳过走近）、`test_npc_world.gd`（豆豆在仅含旧住所港的夹具里允许回退，已注明夹具边界）。这些是布局真实变化后的必要同步，不是掩盖。
+
+未验：豆豆在楼上的动作是日程锚点落位 + 既有 `set_action` 动画，**没有新增播种/浇水/收获的行为树**——与本轮「NPC 的 AI 行为」的字面要求有差距。
+
+## 2026-11-08 晚 招呼气泡放大与触发半径放宽
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 |
+|---|---|---|
+| SEA-RESIDENT-R25 | implemented；气泡放大到字号 30 / 宽上限 468（且不超过视口宽 42%）/ 停留 7.5 秒，触发半径 16→32 米；角色出画只隐藏不结束 | `garden-npc`17/0（含「抬头看向楼顶时气泡显示台词」「气泡按远读尺寸排版 524×122」「角色出画时收起」「回到画面恢复」）、`visual-garden-bubble`21/0（4 张 PNG：近景单句、长句换行、30 米远景、1280×800 小窗）、`minimum-loop`112/0，均 exit0 |
+
+起因：用户反馈首版「对话框太小、得靠这么近才能看到」。首版字号 21、宽上限 292、半径 16 米，实际要贴到楼底才触发且仍偏小。
+
+补记一处必须写明的实现细节：`is_speaking()` 的语义从「可见」改为「还在这次招呼里」（`_target` 有效且 `_alpha > 0`）。放大后角色常在镜头外，若仍按「可见」判定，上层会把「她出画」当成「已经说完」，镜头转回来就再也不显示了。
+
+只改 `speech_bubble.gd` 与 `main.gd` 两个常量。`main.tscn` 无 diff，用户手摆 transform 未动。详见[开发记录第 12 节](../../development/2026-11-08_neon_garden_garden.md#12-当晚修订气泡放大触发半径放宽用户反馈)。

@@ -199,7 +199,8 @@ func legacy_policy() -> void:
 
 func roundtrip() -> void:
 	var durable: Dictionary = main.npc_service.to_dict()
-	if not await open_npc("npc_luo_yan") or not await npc_press("talk"): return
+	if not await open_npc("npc_luo_yan"): return
+	if not main.npc_service.dialogue_state().active and not await npc_press("talk"): return
 	check(main.npc_service.dialogue_state().active and main.npc_service.dialogue_state().typing, "保存时存在真实未提交 typing 会话")
 	var path := "user://npc-tests/roundtrip.json"
 	var saved: Dictionary = main.save_game(path, true)
@@ -238,7 +239,7 @@ func roundtrip() -> void:
 		await frames(2)
 		check(not world.is_modal() and not main.npc_service.dialogue_state().active
 			and economy.inventory.to_dict() == expected.economy.inventory, "读档撤销礼物确认，不扣库存、不复活面板")
-	if await open_npc("npc_hua_yi") and await npc_press("services") and await npc_press("vendor"):
+	if await open_npc("npc_hua_yi") and await finish_dialogue() and await npc_press("vendor"):
 		check(main.shop_panel.is_open(), "读档前存在真实商店会话")
 		check(main.load_game(path).ok, "商店打开时正式读档")
 		await frames(2)
@@ -302,12 +303,17 @@ func restart() -> void:
 		and equivalent(main.world_clock.to_dict(), expected.time) and equivalent(main.capture_world_state(), expected.game), "跨进程 profile/建筑/钟/天台草地稳定现场一致")
 	check(expected.game.zone == "rooftop_ranch" and expected.game.landing == "main"
 		and main.actor_controller.state_id() == "ashore_idle" and grass_support(main.player.global_position), "跨进程恢复天台草地稳定现场及合法 landing，不回退旧社区")
+	var expected_zone := {"npc_bao_he": "sea_supply", "npc_mu_he": "neon_garden_quarter"}
 	for id in Catalog.ids():
-		check(npc_supported(id) and world._routes[id].target.zone_id == ("sea_supply" if id == "npc_bao_he" else "rooftop_ranch"), "新进程六roof一sea由所属 Marker 恢复而非存档坐标 " + id)
+		# 三处场地：天台五人、阿店浮店、豆豆霓虹花园菜园桥。
+		check(npc_supported(id) and world._routes[id].target.zone_id == str(expected_zone.get(id, "rooftop_ranch")),
+			"新进程由所属 Marker 恢复而非存档坐标 " + id)
 	check(not world.is_modal() and not main.shop_panel.is_open() and not main.npc_career_panel.is_open()
 		and not main.npc_service.dialogue_state().active, "跨进程只恢复稳定 UI，不复活 typing/路径/确认")
+	if not await open_career("npc_bai_shi", "archive"): return
+	# 入场可先触发一段新的条件剧情；回看无副作用从进入档案后开始核对。
 	var durable: Dictionary = main.npc_service.to_dict()
-	if not await open_career("npc_bai_shi", "archive") or not await career_press("replay_event", "route_1") or not await finish_dialogue(): return
+	if not await career_press("replay_event", "route_1") or not await finish_dialogue(): return
 	check(main.npc_service.to_dict() == durable, "新进程档案回看不重复请求奖励")
 	await close_modals()
 	check(FileAccess.get_sha256(SLOT) == expected.slot_sha256, "restart 全程不回写 seed 槽位")

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "已跟踪运行资源路径与内容基线；不凭路径自动发明生产 AssetID，不等于资产制作验收。",
+  "note": "已跟踪运行资源路径与内容基线；不凭路径自动发明生产 AssetID，不等于资产制作验收。 2026-11-08 仅刷新封闭相关的运行时资源；其它并行改动的 drift 保留不掩盖。 2026-11-08 仅刷新封闭相关的运行时资源；其它并行改动的 drift 保留不掩盖。 2026-11-08 仅刷新封闭相关的运行时资源；其它并行改动的 drift 保留不掩盖。 2026-11-08 仅刷新封闭相关的运行时资源；其它并行改动的 drift 保留不掩盖。",
   "runtime_verification_evidence": {
     "runtime_verified_npc_rooftop_20261107": {
       "report": "D:/projects/sea-work/verification/20261107-214439-npc-rooftop-delivery-f2b50f/report.json",
@@ -36,11 +36,11 @@
     {
       "path": "godot/scenes/npc/rooftop_npc_stations.tscn",
       "asset_id": null,
-      "sha256": "e5886712ea5e4a89d3f76b08abe64b2fa1a66daefcfd1b4a8b76ad2b1e15b438",
-      "bytes": 4826,
+      "sha256": "6f9ca4e0bb5500fb0bbb7a957b7002783fa1a7ac4344fd61fae765abfe36d63c",
+      "bytes": 3732,
       "status": "runtime_verified_npc_rooftop_20261107",
       "runtime_verification": "runtime_verified_npc_rooftop_20261107",
-      "audit_note": "2026-11-07 新增 NPC-owned 原生七人暂驻站位场景：仅 Node3D 与 Marker3D，挂载 npc_rooftop_anchors.gd；与正式验收快照一致。非新住宅资产，不声明 Blender/GLB 或用户美术验收。"
+      "audit_note": "2026-11-08 船老大站点迁到霓虹花园屋顶 RoofNpcStations，此处移除重复站点避免同一 npc_id 双处登记。"
     },
     {
       "path": "godot/scenes/facilities/rooftop_ranch.tscn",
@@ -4195,16 +4195,18 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "807263c225ca7b3532d3a9e6bd1eb7a59d20682aa976171e1d946376714fb52a",
-      "bytes": 2717672
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "425e99cbd85e135baedea1bccf8515f67b446dce81cdb98b22043077fc55c17b",
+      "bytes": 2769992,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb.import",
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "6a756c702975c5cb75a39fccf7421929a099ac9504f4cd92be72c1e227f68a55",
-      "bytes": 1216
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "d0bb7a134db89ae34a3f8017e9cf05b79768630beca523251cb0af3090f4c8b6",
+      "bytes": 1216,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/bench/bench.glb",
@@ -4251,16 +4253,18 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b204e33137edb7794cbd950a0da9542568fa1af4a482cc578dee1f37ba08083c",
-      "bytes": 4163340
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "0a3c38e3704ee4f2ce9a6d64088e5e88d0df3b04a2c24d41561126b1ead5f535",
+      "bytes": 4210564,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb.import",
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
-      "status": "source_verified_runtime_verified",
-      "sha256": "ad7a59ebb680ab8cd8e53fbb9de73937e702b39ca18c9b91437fe7793e540bdb",
-      "bytes": 1205
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "ee3ccefffcb735326952af1d091b2d887eaa776a724398219d8a759eec5931f0",
+      "bytes": 1205,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_segment/canal_segment.glb",
@@ -4279,9 +4283,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a14a195c3a5d808c47c8b48bb5f0ca99815beabfde492843b28a3381a92826e2",
-      "bytes": 1752660
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a6bfe6a307faa217d12c0b5223007200b2941cefec434ece1a5f48dc95838984",
+      "bytes": 1768892,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb.import",
@@ -4321,9 +4326,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
       "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "4fdc0ea1d5912a2dc592222b7871ac703c7c5f022aa672c65f755dfbf2e38ead",
-      "bytes": 3206520
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "b759aed5d1e98e36da1854508701e6ee01382837abd5bc3aeb2a02286ff00fff",
+      "bytes": 3266552,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb.import",
@@ -4335,23 +4341,26 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
-      "status": "source_verified_runtime_verified",
-      "sha256": "03380ea30e538939f79b5cb4728bea8402fe0e8bb6f571fb484e704972df6813",
-      "bytes": 2804264
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "94a9d8f363fba090e51b14d0856485c9db28cf216e761e4e06f82ed3a3120475",
+      "bytes": 2870232,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb.import",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
-      "status": "source_verified_runtime_verified",
-      "sha256": "782af3ba19bcd4f33f0496225f852557e048c1b6f6d8488981f86d63fd204d32",
-      "bytes": 1200
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "c460e012a48e1b08ad2a338a975dbe1a676ad55f76c11a187a9c0b308461045b",
+      "bytes": 1200,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
       "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "5c2dae0dbbc009ea1f81d2ecdf65426ed546c3ad0ca87eb5dbbfee54ca1affc3",
-      "bytes": 4263572
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "bbc97c02ff1a32bc362574f6856a2fbdf5d3ec0d14c3c5b5d312b1ec061551e9",
+      "bytes": 5171732,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb.import",
@@ -4377,37 +4386,42 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a3efc436885598202a33128c07c25a3874d39519e3482d26471472aab7abb492",
-      "bytes": 1505388
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "8dbece2d059e3b1b2e9649ea5c4615dd696a8d1c3916bb41247d1911988d245c",
+      "bytes": 1514384,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb.import",
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "71b114283a86a5ef51c0a1a679628b345fed923ad2d925135a2e298e7608b017",
-      "bytes": 1217
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "67deadb962f79b132757d1e4b2a771e4c52783259b63f94bb623131b8fd413b5",
+      "bytes": 1217,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "e396806c30284cb1fa3002102ff76d1800f4f4232e876f9056d5a1de2b92e7ba",
-      "bytes": 3081880
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "007f886d81b937e46a7ff5118118ff6f0d57a929835bdb7db760712cf9d81343",
+      "bytes": 3169136,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb.import",
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "df92d764a5c9330f095da932b18a3a4a91ba7070dfdf61af7e81a4d7c6688e3b",
-      "bytes": 1216
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "632d9235eeec089a552f63e5940ff0f02b61443bc88cad5c80f6489930ac20f1",
+      "bytes": 1216,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
       "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "481daf42c035be9b014e1e486f5adecba8e4796740630df1926071fa554217ea",
-      "bytes": 3744536
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "fa64117b9504da9eb08c225958ded0a74303231a56ca644c6d9a181dafe45f29",
+      "bytes": 4533720,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb.import",
@@ -4433,16 +4447,18 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "df087384745e530183073dbf4d6d9ae99ea7999e9b10c759282fd396c55dfdbf",
-      "bytes": 1346680
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a028e3942ed041419fc73492603b4e3cf9034361a4571228e761956ea0e9072c",
+      "bytes": 1374624,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb.import",
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "e6501a3e0afc7e1dd34c08c6b3c2a3c79ab910f5960809fdbf0eb7f9bf9ba142",
-      "bytes": 1192
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "b431a24de6ddf70fb47738f32f3bffdef8cd7ee6615ec201fdd4742683796ce4",
+      "bytes": 1192,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/junction/junction.glb",
@@ -4503,9 +4519,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/low_foundation/low_foundation.glb",
       "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
-      "status": "source_verified_runtime_verified",
-      "sha256": "2011cab0d14390b98badfa6fd264e1bc4106674efd0adb651acae00038393e1b",
-      "bytes": 813248
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "c045f08a74bff7e1fe74404316cdb70edaea214adaefdb1bcb30d8279944aa2a",
+      "bytes": 815288,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/low_foundation/low_foundation.glb.import",
@@ -4573,9 +4590,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb",
       "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "47ef5dd533d8a381d20a49df144fad7dc101c174191e736b299f16c20a023f4b",
-      "bytes": 2053076
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a92c99e46f97ed0bcedd922c80824edfeff170d13109e450ee4f8f99b6673054",
+      "bytes": 2100252,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb.import",
@@ -4587,9 +4605,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb",
       "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "6d9b9e1eddf0b9318a38cac417e6a8468f16e68ebeb8e2e07d8380ad2ff5009b",
-      "bytes": 4153728
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "06701efeaca182c5bca4f9250a92f3b28865abf280e6b252180e2e1873260d12",
+      "bytes": 4224964,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb.import",
@@ -4615,9 +4634,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/runtime_manifest.json",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
-      "status": "source_verified_runtime_verified",
-      "sha256": "d239a06e43fb9f5d91b50eb8060e8406bc8e8ff57ef2f2fa730be990c340b162",
-      "bytes": 409646
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "7ffb45b6e105fcc1843785cc68aa1ea7521cac4a86b7b2095d5745f1deb007e3",
+      "bytes": 411820,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb",
@@ -4650,16 +4670,18 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "6d2358d92b6e33871eb9a10536795825c9878b06591f66a1f5f660e8211e7533",
-      "bytes": 2383772
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "49e49219155017c6e43897f45c9948f92146d426c9b6873d69259314d58d65d8",
+      "bytes": 2393204,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb.import",
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "e6b01bf162c8922685217109c08d8e431d887f2c788b8a819745120fcfec57c6",
-      "bytes": 1205
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "17c9ddac24c34715e5eb52f7f95b5ae5fc54bbf8e8dcda2eb01a921651001401",
+      "bytes": 1205,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/stair_link/stair_link.glb",
@@ -4678,9 +4700,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb",
       "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b862420bc9bba7c6dd0b42b3e07e3eb32187dd59e592046986deaa24aecaef91",
-      "bytes": 4149704
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "6e1b10c56702fbe7ca787a218c1c4f628258726baf9ac98073df96061e38787f",
+      "bytes": 4222240,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb.import",
@@ -4734,30 +4757,34 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb",
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "821057def3543103486e46566c10a5edb96fc388147bc6c979aa1e98a9b19bbb",
-      "bytes": 4429636
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "2e6fcf3225bec87656b2211a59bd6245977242a91a120a6ba194314aa22d5bd4",
+      "bytes": 4473524,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb.import",
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "435aea95ea04116d9ada74342696a45e8e2b115d5588831dc20f85767f32737b",
-      "bytes": 1221
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "b4689a11e714f9e24b3595b52e495396a251436135475e713d4f919506e94ecb",
+      "bytes": 1221,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "aa2bbc8f2fb0033a2eee284dca5066ced5ac509a11a31ba92e088546df0aeaf1",
-      "bytes": 3496116
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "e8b417970d02da904c665a19fc3c1aa4452b4df586dba073af28873dafd88373",
+      "bytes": 3519988,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb.import",
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "9542f34de91b14d86b7d48a1b29cb6a8e2aaee781fbb89a065d51940729b9f08",
-      "bytes": 1209
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "27d9b53cf9f15d5189ad547e1878c2c39ab55b103143d7958e8bb5d3940534d0",
+      "bytes": 1209,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb",
@@ -4790,16 +4817,18 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a23da4f41da04b325d3f863624fda03036238b1da4210490c1f62a973c7ec32b",
-      "bytes": 3311052
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "104aa9de153d092a40caab360a75de79f8e4bbfac1bbc3a295cd210862f6de15",
+      "bytes": 3362020,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb.import",
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "3d129b2d5b0d16fdff43b21813d18637c88d5dcc005568746acdb28eeb9d43d3",
-      "bytes": 1205
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a489dd2e9fd2da12babdde2cce117ee4df57bf844a22972100bf09484dc137d1",
+      "bytes": 1205,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/tram_wreck/tram_wreck.glb",
@@ -4888,9 +4917,10 @@
     {
       "path": "godot/assets/models/scenery/sunken_city/workshop_shell/workshop_shell.glb",
       "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "33d6de50cb39116c3d0edbbd5e5e954f022dc2923225777bb4e82a5f9608c4e7",
-      "bytes": 2762160
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "bb093be1254f86b92c807e11df9ab8d6b2587a6698ca8676ad1efa09f7437871",
+      "bytes": 2802968,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/workshop_shell/workshop_shell.glb.import",
@@ -8014,352 +8044,402 @@
     {
       "path": "godot/scenes/components/scenery/sunken_city/balcony_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "bd76e013a0cffa67f22f81ab260deca25bc69e34b1092e55612c900d0eaea318",
-      "bytes": 1221
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "2fe828bf73a3d1665e7417a4c314a43bec921917fd30e4b1498e29417a74141a",
+      "bytes": 1221,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/bench.tscn",
       "asset_id": "SEA-SCENE-SCITY-BENCH",
-      "status": "source_verified_runtime_verified",
-      "sha256": "8dcc8f8b4fdb902bc7a52a9915eb7ed8d4a7b12eb51094612db361928415a97e",
-      "bytes": 1007
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a3162542aa8bd1956a9edbbcfd7816e391776f3955e647b255ee0227609544aa",
+      "bytes": 1007,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/bus_shelter.tscn",
       "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "7c5f3c20f7444bf6edf0cd97d355aa3268a897688c1f8424a4679ce99612d3ef",
-      "bytes": 1185
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "78d18245738f0f0e5dd228d24c77838b1cc9a206f708e4302e3f12c683c650af",
+      "bytes": 1185,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cable_span.tscn",
       "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "d88ffbd36f26c29e9790b42b0e39561c5cd7ce75f24cd301060249b6c0c7f275",
-      "bytes": 888
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "be854eec99943f3275677adfb267d82ebb419eff2e5130f95191c8e39df238d7",
+      "bytes": 888,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_housing.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
-      "status": "source_verified_runtime_verified",
-      "sha256": "e1e4e025f7a7e5b008cc0ddb9cbe7c90d2bac01c1ba5299b4cea7b1b6f20a6f5",
-      "bytes": 1206
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "420711b54d16c7d8288cba61713bd40585d1e62040a7309ba0292cecaa288384",
+      "bytes": 1206,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_segment.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "82ba3d8fa9fc46014dbc4d4f257773783ee4f4920161451ffc373f992defb566",
-      "bytes": 907
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "30343c4b4c65a6f410757e0b77581a1c7d06cb3812fda776384b0d0a3a680ffe",
+      "bytes": 907,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "9738f8e764abb384f3773cfafc02ea263b6222e909325f340ba72c565d1215db",
-      "bytes": 1142
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "06de6cd4d2d90a39d842471d28d2b9796da65e8b60553c237b7743f79791df9f",
+      "bytes": 1142,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/car_sedan.tscn",
       "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "0e4eacb6efb03844c3ca7cfc5d7c7e96f8acd9030d041b557bdf07f06a929d15",
-      "bytes": 1179
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "d96f4e7018877fef52d2ec06b1ea499d462de55616cc8e9e32fb7baefada6866",
+      "bytes": 1179,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/car_van.tscn",
       "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "3734468e8817e13bd27519f7e96573589e91f56348a49486885d53c748f68192",
-      "bytes": 1164
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "3a1dda98e6a09e57fba71a75ea2c749333eaa186acefcafbfc891f4ad11d3481",
+      "bytes": 1164,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cinema_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "74d49787eb5097afc4ee26d47df82e930f668c3c7c69a4aea04f4abb7ffedc7c",
-      "bytes": 1188
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "19aecff8fd9871a746465ffa468e23a4d57d6d30f6c2dd1f1b578d8f8302b6be",
+      "bytes": 1188,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/coffee_steps.tscn",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
-      "status": "source_verified_runtime_verified",
-      "sha256": "3d8b8869c6846486f90b1a750542d888157cba9b1210931259950e001a470f13",
-      "bytes": 1194
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "090495af0b929130a7335483e1ce6ec0eefcb53a4e6a775e6aef188bfb6004ba",
+      "bytes": 1194,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/collapsed_residence.tscn",
       "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b3a00f732562948de52efc44f390bc70a0ea723778daee3cbb0b58649af4de7a",
-      "bytes": 1239
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "9caffe9e40911be44df01a8c1a534854ec55300238e2d45af95f339241189317",
+      "bytes": 1239,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/corrosion_patch.tscn",
       "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
-      "status": "source_verified_runtime_verified",
-      "sha256": "5c8a5e0148fa065889724a9303fd41b679547ebdeba96effd2f5db120d9d76a6",
-      "bytes": 919
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "544a862d58d1507e8bf3c061c2c160ace5ca5a7d200f155a7bae527e7b25af17",
+      "bytes": 919,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cutaway_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "c680f551981810fabca47f164b798f9383a1d1219e1e080a9e041309a8d52eac",
-      "bytes": 1221
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "f4c8b3ba413e1e399fa9a2e2aea74f74f9d13d3bac203130e233fd25d74c638f",
+      "bytes": 1221,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/electronics_shop.tscn",
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "1b893ababd1962c820b1f93229629357ca203e84fe987f8ad3100e5e3318ecab",
-      "bytes": 1221
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "471f94505f015c2245057b204ab164e81216b8f0c4df9e95f70b26f3f4234662",
+      "bytes": 1221,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/fallen_hall.tscn",
       "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "218c0da8885462bf1116cff88cb7a32b9b90b864b7b876a5cf672ee6aea41998",
-      "bytes": 1200
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "17a66f90a91fe914be0fc1a67115d40e3725cf5bcfc34b510c127eda613a6272",
+      "bytes": 1200,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/frame_construction.tscn",
       "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
-      "status": "source_verified_runtime_verified",
-      "sha256": "21ff5d935763c308daf81ee1fe9440fdc1a1727c39372bf37f5052353dec0c21",
-      "bytes": 1027
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "e1d9c02e12b01883a1605483ada0d9194f4555c661917f4f4522ac8ae497c66b",
+      "bytes": 1027,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/half_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a2e7f7ee4fc01fe0bae63b2d97b3ed26e9d8d5af26c77f693c9a83f5c52b02ef",
-      "bytes": 1133
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "9022be286c3ce349f00496841579bce222a56bc45dc8d62b5d27d30b6a677372",
+      "bytes": 1133,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/junction.tscn",
       "asset_id": "SEA-SCENE-SCITY-JUNCTION",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b0237d1117ac57396be5e5363fb398f2a8e742eda500f031f6c852ba4f156aec",
-      "bytes": 874
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "0a3cb004b95909c3cd37b08f9275e67c3b2f4e8704020bf600aa8baeb817dc26",
+      "bytes": 874,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/kelp_clump.tscn",
       "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "cad69c582c0e0386cc52f771a6a983e19d0374df14892fe313683db8fb215e2d",
-      "bytes": 886
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "34cc5da8649b34fe88967ac9d988a3454faa72f89fe14e7f1c796f04cfc089e0",
+      "bytes": 886,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/kiosk_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a42092ba5ce6252c8f87e32e0b486c2eb9c0d9c0f77083948592f29a53b552bf",
-      "bytes": 889
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "81ba6cbd10a441329989b1202c6c876ad36bb4334f546519e835e474b28886ca",
+      "bytes": 889,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/leaning_pole.tscn",
       "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "2dffab05787f2fc68092d8678b2e28e0f1f5ce52d36ceb5150f2a1e3929e87b6",
-      "bytes": 1043
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "fe6521743ffda9e685a94e7cacf2b5d2704dd9f4f237f0f85083ea275709a030",
+      "bytes": 1043,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/low_foundation.tscn",
       "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
-      "status": "source_verified_runtime_verified",
-      "sha256": "ebdabf63536bef3e625a7cdefae37011c5b76603894bec9642aad0209975ebe1",
-      "bytes": 1061
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "e6937b17555cbf1826eec61be933ed73801f3155e906dd7b76a9aae76926342d",
+      "bytes": 1061,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/moss_patch.tscn",
       "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
-      "status": "source_verified_runtime_verified",
-      "sha256": "c4a05c9dbd9e5a7f4917a83e0154915241647d7560c4f15958fa55df34ec1d0e",
-      "bytes": 889
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "6817ab03ce75c036753de3b2b1ee4108df2a4ed0f15dcd5699112e359108dd3e",
+      "bytes": 889,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/plaza_tile.tscn",
       "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "075c019b89b9df4045c4bc6f9c4b26252741589629524f1ddab908b44bf4a7c8",
-      "bytes": 892
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "ab4294ad6238b616fff2b797f976ceb3202eb78da4d5e74b9b617642c9712c2f",
+      "bytes": 892,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/pump_cabinet.tscn",
       "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
-      "status": "source_verified_runtime_verified",
-      "sha256": "5837efb32c6ad85df218d0423e561bef379d53012432f931bcba88b745f05a2e",
-      "bytes": 1052
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "64f6fb42df2a0ed1f7f6e3d449a91303d2d752ef9109c35c9081b10edc01c053",
+      "bytes": 1052,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/retaining_wall_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "68c1ea92f317cb871a35cbbc8f37526560da36e3ce87d42841f57faa419ae522",
-      "bytes": 1097
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "46fecb7e6501fe07fcae2ef0b5525f644df605791448a4f4502c2f3f82053501",
+      "bytes": 1097,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/roof_garden_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "7e914ce4f9e66cd94eacc9dc843b5daa5405fc1cfb96dc085c6f829dcff15c08",
-      "bytes": 1233
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "3a3d71ae3e2be8e8f831f154307e221a11a1ad8944a3591900a734e5767106ed",
+      "bytes": 1233,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/rounded_corner.tscn",
       "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "d5d4177cde9221b89b4c1fdfe170484f40bf59d9e114a3be020a08af79c5ea6b",
-      "bytes": 1206
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "f2bf2f7b99f54bd67577402a47ebf53c0fd96ed6bd4ef87a3554eff8a91a3f8a",
+      "bytes": 1206,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/rubble_cluster.tscn",
       "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "54e62d461815ea85527871ebe8783a46fb20b6859c7a20f0568dd2b845286fdd",
-      "bytes": 1061
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a320b1c0f29a724f135e5429b23a8f2c12a1bead551ecb63b3808ad29ed04c8f",
+      "bytes": 1061,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/scooter.tscn",
       "asset_id": "SEA-SCENE-SCITY-SCOOTER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "c4763fa61d3e349cdbbaf397055db973b773f0a233e0a583ba484ddf1cceefca",
-      "bytes": 1013
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "f3bc7ff4e8b8981243456c4f5962fc43ea8634d207f3403da685a95bc44edecf",
+      "bytes": 1013,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/sign_board.tscn",
       "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
-      "status": "source_verified_runtime_verified",
-      "sha256": "eb15a5d6d398afd4fd5593e845b4eb84e95b005960704b501c7063914b66c2f9",
-      "bytes": 1030
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "5b7eebcb28c91297a8309c2c4434144a220133aa98d619e3184930365ffdcee0",
+      "bytes": 1030,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/slender_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "fac1195096752dac69fd9efde62bfe45039e10e3c941152d9c8180e4ab84c928",
-      "bytes": 1203
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "37702c92df749c815ce1b5360383cf61fa8278630c33aaa4556f01ee6565c82a",
+      "bytes": 1203,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/stair_link.tscn",
       "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a7571fe1c870268f4d474cc17a8e14357f3c2f1be635a9e2caf2b3209b5b1445",
-      "bytes": 1037
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "1741a408e2490e0fb1c043504f6a0d2670cf2ef8745d93fd45b80267fcbab1f5",
+      "bytes": 1037,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/station_hall.tscn",
       "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b8a8a0e7d48e42278875a89f4f80fe82733d10b85e4408d16b6848911506b106",
-      "bytes": 1200
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "d1e271d49687814713256cef45064ef374ac786820ae9192256389d7d46c9bbf",
+      "bytes": 1200,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_intact.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "5641d310b490c67084d6420e48c7d9639d34f1f0db511f03cfb406ffc9513476",
-      "bytes": 910
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "aec10e7ad9df83ac47d3d78bbea6525cc7e0376f40837f68431b4efbdc1e838b",
+      "bytes": 910,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_lamp.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "53aec383d92fec2e565ae76d85ea0d81a97f0e57925138e84ecb87808b34654a",
-      "bytes": 1034
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "0b764d394e3df9183b036358fb4de3ff9a97cadf9f3a5b3bd53574355666da8b",
+      "bytes": 1034,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_split.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "fd07b72f00331b62ed093bc1b48fdb06ddf78a3abd21be36af54ffbb3a5fd110",
-      "bytes": 912
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "5ad2ab918e27a722f8b80d694bf723537ccb94362060875c2ed0c4346a1421e3",
+      "bytes": 912,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terrace_residence.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "29be8cbc0f1cd812f62e7bd50a4bd1e802637335d7967911b4da68d58e7c25c8",
-      "bytes": 1227
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a3ac9856d162026f77ec0215883aa3fda7a363b6f9f95bdd1f72b0963d6275b1",
+      "bytes": 1227,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terraced_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
-      "status": "source_verified_runtime_verified",
-      "sha256": "50913d6fbc10fea527d1567bdc409a2ce0daa7780d02403c73860b40e84b06c7",
-      "bytes": 1209
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "4c0dfea02443f14ca4394f02557bfb817f40ea7a6e4797a9a7c4ac1aa805af76",
+      "bytes": 1209,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terrain_ramp.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
-      "status": "source_verified_runtime_verified",
-      "sha256": "08ef5df29615bdec84611d5a42c80a5e0f257adedc587abc91f3a7a8219b2f70",
-      "bytes": 906
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "b078f6b0e783347c3b7f3ffb3c1d27dfdf12e8d167c4a5142585527cc5b1749f",
+      "bytes": 906,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/traffic_light.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "ffd3806873b57474b4ab180632ac942e8707e6f1edf016dbbbbd9603780f9cc2",
-      "bytes": 1052
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "b20da54ba1887ad0526f0d4df8f930b50c39986f846bf9b021b580234fe9adc5",
+      "bytes": 1052,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/tram_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "3678736181f17fd5bdd696276268fa399219828436929d803eff75722b0e8aa4",
-      "bytes": 1206
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "fb93a5286df39430be0cfe52f5067fe9f39c89407b09e4728b4a459f8661fc52",
+      "bytes": 1206,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/tram_wreck.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
-      "status": "source_verified_runtime_verified",
-      "sha256": "b738c44996b0cfcc4b899647339861af020acd621b48291c3743b15954150d69",
-      "bytes": 1182
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "6ce18c2a745719293389585d14668b250b01cdb6799df6bc10e904671a94a1d8",
+      "bytes": 1182,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/utility_pole.tscn",
       "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "18a8fcb9df6fb2acbc8c926a76bd5ba9a0b06a49757b6963602d7903de68f498",
-      "bytes": 1046
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "f1a68c4189ccb11193f922a0b5cf3659d19ac84b84071f9714e1ad4d71c2aa06",
+      "bytes": 1046,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/vending.tscn",
       "asset_id": "SEA-SCENE-SCITY-VENDING",
-      "status": "source_verified_runtime_verified",
-      "sha256": "a051b2284394330c25c382ceb60df8c5e060b41ffef600ed2cb651754c3476e9",
-      "bytes": 1012
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "5f684e11cf4876180c872f2d69cbb49d69356c40b33b3728666664b28d459c8d",
+      "bytes": 1012,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_broken.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
-      "status": "source_verified_runtime_verified",
-      "sha256": "2974fea1f900da9d67da7ffc845515073292890726f3d239b9de749c4d2d787a",
-      "bytes": 1061
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "a64f2f34c0c00483b787709793ec9e907ce8e702b8f77013633484517ea88e7e",
+      "bytes": 1061,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_curve.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
-      "status": "source_verified_runtime_verified",
-      "sha256": "67869440c0f3813b16a904e08a7178721d99539cb51144b5aa3fbe271ce81f39",
-      "bytes": 1065
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "f837af1223924d1e3693a09fd3ee1deed8ef007841a18399845899ed7a261f22",
+      "bytes": 1065,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_intact.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
-      "status": "source_verified_runtime_verified",
-      "sha256": "31d0bffd868812e8c57523b5bdb72045e39c39d5e20049e2a2587915bde97546",
-      "bytes": 1061
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "314c1f36f9dd5331d3686e2d675faa5dcd5c675aaadf28eeef31665693b5da00",
+      "bytes": 1061,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/workshop_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
-      "status": "source_verified_runtime_verified",
-      "sha256": "2bfc2e34298490fdc2cad48262c97c34961f2dfb55d5df4278c2a7b50ca859c0",
-      "bytes": 1209
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "7682ea3e6e2fe442af9f4343c6bb3c6c0ff3b40b288ea3a4d82504be4adf5da9",
+      "bytes": 1209,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/components/vegetation/grass_soft.tscn",
@@ -8544,10 +8624,11 @@
     },
     {
       "path": "godot/scenes/facilities/neon_garden_quarter.tscn",
-      "bytes": 3228,
-      "sha256": "3a8f9e694bf8050bd33d0d5792ff682ea7804fd1478be110b6e8f44e84a55f7a",
+      "bytes": 6555,
+      "sha256": "1750e3c7faea3f5eb7013a48b90675defa8b485cf7cea9779df2cda2367ede4f",
       "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
-      "status": "runtime_component_verified_provenance_pending"
+      "status": "runtime_component_verified_provenance_pending",
+      "audit_note": "2026-11-08 用户要求把可活动区改到屋顶：WalkLeftRoof 挂 Landing_main（站立点屋顶世界 y15.20，船位水面 y1.12），新增 RoofNpcStations（船老大 npc_luo_yan）；移除街口 Landing_main（铺地在水下 15.6 米，泊位不可用）。实测三锚点 validated=true。"
     },
     {
       "path": "godot/scenes/facilities/salvage_station.tscn",
@@ -8758,9 +8839,10 @@
     {
       "path": "godot/scenes/world/sunken_city.tscn",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
-      "status": "source_verified_runtime_verified",
-      "sha256": "af1364435c2391bc5388cb1beead6c42fc65944d57e1a18e6132b1b08eb224cd",
-      "bytes": 119810
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "18f8927c51be4a19ec889efd0d3b09837965d1e309673798f8b42f16b7251a73",
+      "bytes": 119810,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/scenes/world/sunken_seabed.tscn",
@@ -8771,12 +8853,13 @@
     },
     {
       "path": "godot/scenes/zones/zone1_home_harbor.tscn",
-      "bytes": 7069,
-      "sha256": "a563888346f06c0809122e02fd40fd4b3441e3ba2400052bd512245bca413c8d",
+      "bytes": 7836,
+      "sha256": "9e85357cb37062960111e9bd07163ca40d57cd46e4b7c9c1a5ebca84c60641be",
       "asset_id": null,
       "status": "runtime_resource_verified",
       "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040"
+      "previous_sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040",
+      "audit_note": "2026-11-08 用户要求按截图中养殖平台的画面朝向旋转甲板：绞盘打捞台绕甲板中心 (-13.45,11.955) 绕 Y 转 -45°，WildFishery 同步转动，电线杆 PoleAndFlowers 反向补偿保持世界位姿 (-2.8,0,6.55) 不动。Walk_zone1_salvage 同步旋转，Landing_salvage 落点与泊位随行走面走。实测：甲板中心仍在 (-13.456,12.664)，渔场 11 个陆上部件全部落在甲板局部 ±4.47/±3.54 内。"
     },
     {
       "path": "godot/shaders/avatar_eye.gdshader",
@@ -9007,8 +9090,8 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 177155,
-      "sha256": "bc20dec613b9bf64f916efebe9c98f22d6444ad975ef1c6b6229f6cf2bd1a6bd",
+      "bytes": 207081,
+      "sha256": "1042e8d57fb61a52b410163e1bed6fac6be919ca9d7b8ac13848027cf74b2c08",
       "note": "SEA-ROOM bedroom v001 runtime",
       "previous_sha256": "0d66a2887003403ad3b726620ab8ba38b673f60b30985e8cfeec9221499d138f",
       "hash_history": [
@@ -9027,7 +9110,8 @@
           "previous_sha256": "920073e7b124d2b9cb35026bf1b356bd782c9131e6cea4a4c94797f8d1c1bbd4",
           "review": "2026-11-06 keyboard reach: gather scope, dock-shore intent, sea pick/dock E, bubble keys, prompt re-enabled (docs/development/2026-11-06_keyboard_reach.md)"
         }
-      ]
+      ],
+      "audit_note": "2026-11-08 NpcAnchorHub 追加霓虹花园 RoofNpcStations，使屋顶站点进入锚点快照；屋顶与花园桥是两个不同派生面，不能复用同一站点。"
     },
     {
       "path": "godot/src/building/assembly_rules.gd",
@@ -10161,9 +10245,10 @@
     {
       "path": "godot/tests/test_sunken_city.gd",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
-      "status": "source_verified_runtime_verified",
-      "sha256": "676312df3df3aefad26f59da5fc7fd716c06b145d6268fbc11d4788b79972935",
-      "bytes": 27512
+      "status": "runtime_verified_sealed_interior_20261108",
+      "sha256": "8ebff8e033f0f010c363cd745966476cd47a4ddba8798d3042f2a122c751fec6",
+      "bytes": 28034,
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/tests/test_water_layer.gd",
@@ -10333,10 +10418,11 @@
     },
     {
       "path": "godot/src/diving/sunroom_region.gd",
-      "bytes": 9244,
-      "sha256": "708be3989ecefa73f3ea25dbb7e9eb6f466588f82476f29f6b1f7d92dd495ee3",
+      "bytes": 30750,
+      "sha256": "bf2ac237ed3543c26b5ea7cbb92425835763bbab73e071a2f8842b2f0c92d3fe",
       "asset_id": "SEA-SCENE-SUNROOM-UNDERWATER-REGION",
-      "status": "standalone_verified_production_and_rights_pending"
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/src/ambient/sunroom_underwater_ecology.gd",
@@ -10424,10 +10510,11 @@
     },
     {
       "path": "godot/tests/test_sunroom_underwater_region.gd",
-      "bytes": 13026,
-      "sha256": "68213cf168963f5d1e98feff380c352afb64f3762845e384b31bad1f9d9cb7ca",
+      "bytes": 16474,
+      "sha256": "aac2fa94e9d925a70da4622985eefebc0e5fab0373e8d7beea160e994e199f0e",
       "asset_id": "SEA-SCENE-SUNROOM-UNDERWATER-REGION",
-      "status": "standalone_verified_production_and_rights_pending"
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     },
     {
       "path": "godot/tests/test_sunroom_underwater_collision.gd",
@@ -10435,6 +10522,334 @@
       "sha256": "f88532a749647888784fff48e37f1d940480d7c5cfc43bc482b305d68ca35a7b",
       "asset_id": "SEA-SCENE-SUNROOM-UNDERWATER-REGION",
       "status": "standalone_verified_production_and_rights_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/balcony_tenement/balcony_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-BALCONY-TENEMENT",
+      "sha256": "ab04641fef912cd079899efff2b44f39f347ecf2261023c708d6f3a565388fde",
+      "bytes": 10184916,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/canal_housing/canal_housing.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CANAL-HOUSING",
+      "sha256": "43839c44cec8f38939c239bee889645bd633cba9d24ff409dad6ad5224980575",
+      "bytes": 13619756,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/canal_shell/canal_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CANAL-SHELL",
+      "sha256": "ea5aa3a23710bd214554ad33174a33fe8032271e8a37d2b6945ea4072cc3133f",
+      "bytes": 4956592,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/cinema_ruin/cinema_ruin.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CINEMA-RUIN",
+      "sha256": "6a9155edc75979d4799aaff7e315b8753880b0f2064aadd46f73607ec2632582",
+      "bytes": 5032996,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/coffee_steps/coffee_steps.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-COFFEE-STEPS",
+      "sha256": "5cf160236c3aa8fa26dc875b2ab406044d887d8d310afc948eedcec002607b67",
+      "bytes": 8380892,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/collapsed_residence/collapsed_residence.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-COLLAPSED-RESIDENCE",
+      "sha256": "3ad703ee5344625f20181b688ec34c3ac7946e56d76c809d672654bddf9061a6",
+      "bytes": 5705100,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/cutaway_tenement/cutaway_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CUTAWAY-TENEMENT",
+      "sha256": "ad78b2534c72e5f43a76acb0f2f20400712a41003d0bd34a1b747cfe18d6eac5",
+      "bytes": 4936360,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/electronics_shop/electronics_shop.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ELECTRONICS-SHOP",
+      "sha256": "40db3242f7ff0f3faebeaeab837d09f890b12192e828077ee98fe5f574da14ae",
+      "bytes": 4564576,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/fallen_hall/fallen_hall.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-FALLEN-HALL",
+      "sha256": "d20cb2a99ad4ed89dad7d3d84b27944de72416785b00aff431061e550bdfada1",
+      "bytes": 5761416,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/frame_construction/frame_construction.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-FRAME-CONSTRUCTION",
+      "sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
+      "bytes": 865480,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/half_tower/half_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-HALF-TOWER",
+      "sha256": "294ea2c910aa18ccd05ca8e88af68c633c67493c7c73f9976ef06e2ca650e132",
+      "bytes": 8018824,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/low_foundation/low_foundation.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-LOW-FOUNDATION",
+      "sha256": "c045f08a74bff7e1fe74404316cdb70edaea214adaefdb1bcb30d8279944aa2a",
+      "bytes": 815288,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/roof_garden_shell/roof_garden_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ROOF-GARDEN-SHELL",
+      "sha256": "7ac75799ada93e6a280c3d54401a16f45de2720ed4c41206bc85cc3552958ed9",
+      "bytes": 7084228,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/rounded_corner/rounded_corner.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ROUNDED-CORNER",
+      "sha256": "d96933ef0c581c7d98f385f34d4cb73cc0e7e112cc6b12c55a4144f07b2d677a",
+      "bytes": 11613564,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/slender_tower/slender_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-SLENDER-TOWER",
+      "sha256": "a8a33e84d2e0287f7bb95c4a84d0a10c886cbbd462297c06dc6037b2bdb1b555",
+      "bytes": 13978032,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/station_hall/station_hall.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-STATION-HALL",
+      "sha256": "d6d48398e5a2bc2b4bb35ac1cf0a90d7452386ce3050722eda00eab1effdac81",
+      "bytes": 7940500,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/terrace_residence/terrace_residence.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TERRACE-RESIDENCE",
+      "sha256": "e96331d17d3672ac0592ef980d44b4732f5c6869ea9aee72337e52b572ccf0b9",
+      "bytes": 12162516,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/terraced_tower/terraced_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TERRACED-TOWER",
+      "sha256": "4bf6c03c068dfc86d0f4e96f15f80009ca19e333b82600ae247d67746da9d30a",
+      "bytes": 18156720,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/tram_tenement/tram_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TRAM-TENEMENT",
+      "sha256": "40fa0d706badbf3266318c9c6df8854461e979f1d0b88e9d98a7a8f8bce1d144",
+      "bytes": 13754148,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city_tall/workshop_shell/workshop_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-TALL-WORKSHOP-SHELL",
+      "sha256": "bb093be1254f86b92c807e11df9ab8d6b2587a6698ca8676ad1efa09f7437871",
+      "bytes": 2802968,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/balcony_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-BALCONY-TENEMENT",
+      "sha256": "3c41948b5346fd23ed8bf864d4f76e7aa3aea2061b4a099f30a4a81e9bbf9afd",
+      "bytes": 1295,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/canal_housing.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CANAL-HOUSING",
+      "sha256": "d74856e4ce0904d7f921421995713450e3d3011fa11140721c2ea9895ef3b28b",
+      "bytes": 1280,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/canal_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CANAL-SHELL",
+      "sha256": "f6496bb8e4bd8fd7fc9a47115d64bcc656931683793f07d97895ce660d11ce64",
+      "bytes": 1268,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/cinema_ruin.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CINEMA-RUIN",
+      "sha256": "a5cec256a1278103e3b9ef22e8fd924d519a0cf00cdcb73ddc18b05f0999cd97",
+      "bytes": 1262,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/coffee_steps.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-COFFEE-STEPS",
+      "sha256": "663aad9ed955e847864ac72189012e53195ccc2c30f0d8a450d580783e2dafc5",
+      "bytes": 1268,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/collapsed_residence.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-COLLAPSED-RESIDENCE",
+      "sha256": "74434868013916c041a50a30884ebf54acf899eb1cdc44cb31b52d7b90bbd140",
+      "bytes": 1313,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/cutaway_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-CUTAWAY-TENEMENT",
+      "sha256": "561194d0a00c6a5faec4f183b7128a854f25b27d7223f681f19b886ecd19c1cf",
+      "bytes": 1295,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/electronics_shop.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ELECTRONICS-SHOP",
+      "sha256": "7f7d8427e366906ffaaef2d715d582bf0809ceade95ec4c14e1ffd1492814220",
+      "bytes": 1295,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/fallen_hall.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-FALLEN-HALL",
+      "sha256": "b8b791aac5de7f6fe2680594d34f5e18fc9ac73af6291fa9f7cee15780d07231",
+      "bytes": 1274,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/frame_construction.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-FRAME-CONSTRUCTION",
+      "sha256": "0903fa5dc5f79226ece9bf52d8f583a2af53b6128442c2c10cb3998d41fd7d64",
+      "bytes": 1153,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/half_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-HALF-TOWER",
+      "sha256": "4fe0e7b30a868c674f1cafdb9f3a1f55a9b10e4e606be51b79bf0d05aeb4a110",
+      "bytes": 1259,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/low_foundation.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-LOW-FOUNDATION",
+      "sha256": "90c7b5f8478ee5e3656f006bd5a6fb798fa2c559acc7a1ff79302124fdafa49a",
+      "bytes": 1134,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/roof_garden_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ROOF-GARDEN-SHELL",
+      "sha256": "5daf27d19a43eeb9be75188e9be1c2767710e80f14a9b48a519e2f5fba2bcabe",
+      "bytes": 1307,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/rounded_corner.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-ROUNDED-CORNER",
+      "sha256": "c56ca8b6f37a8dfec31152a9ebe0c9f21d36bf72c86a10cd14324cad00756b4c",
+      "bytes": 1280,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/slender_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-SLENDER-TOWER",
+      "sha256": "e55cc1cce59d5c8f446405ba76f7fa1890baca90234d5f32c49dd879a1f1c327",
+      "bytes": 1277,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/station_hall.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-STATION-HALL",
+      "sha256": "b06e0c6d72b6b662df8f78d33f425234cbbab9e4ffb2b25e4163390cd432a4bc",
+      "bytes": 1274,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/terrace_residence.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TERRACE-RESIDENCE",
+      "sha256": "ee2ab471aa655b05e750c53340b1b09be778b58b84f6543c25a18b8fd04ecde3",
+      "bytes": 1301,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/terraced_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TERRACED-TOWER",
+      "sha256": "2bbd53a15e87b4bb2dd81953a758a71f89eec6948cf948685afce4dfcd2efafc",
+      "bytes": 1283,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/tram_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-TRAM-TENEMENT",
+      "sha256": "6f770c5fd42082e612f9c5f837b2511d6fc67e07e680f4d7b6f928feb1914458",
+      "bytes": 1280,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city_tall/workshop_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TALL-WORKSHOP-SHELL",
+      "sha256": "6462531147e95119e8826c91d808607a4bf589e293e287e4b5d837f8eb0df9c2",
+      "bytes": 1283,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭与回字型高楼环：本轮新增或改写的运行时资源。"
+    },
+    {
+      "path": "godot/scenes/underwater/sunroom_region/sunken_city_layout.tscn",
+      "asset_id": null,
+      "sha256": "1fab92ca40a59f084d27d699a92f623199810fdf54835de2fc28929a8750bf00",
+      "bytes": 137876,
+      "status": "runtime_verified_sealed_interior_20261108",
+      "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
     }
   ]
 }

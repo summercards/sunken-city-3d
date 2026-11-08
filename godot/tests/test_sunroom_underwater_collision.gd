@@ -9,6 +9,8 @@ const REJECTION_DETAIL_LIMIT := 3
 const MASK := 1
 const TOLERANCE := 0.1
 const FINAL_CONTACT_TOLERANCE := 0.03
+const TRACE_CAST_TOLERANCE := 0.02
+const CLEARANCE_SHRINK := 0.001
 var checks := 0
 var failures := 0
 var scene: Node3D
@@ -23,6 +25,7 @@ var failure_labels: Array[String] = []
 var report: Dictionary = {}
 var wall_candidate: Dictionary = {}
 var bridge_samples: Array = []
+var verified_starts: Array[Vector3] = []
 
 
 func _init() -> void:
@@ -259,6 +262,70 @@ func candidate(key: String, samples: Array, shape: Shape3D, horizontal_only := f
 	return {}
 
 
+func verify_motion_trace(key: String, start: Vector3, finish: Vector3, trace: Array) -> Dictionary:
+	var valid := not trace.is_empty()
+	check(valid, key + "：实际 move_viewer 轨迹非空")
+	var previous := start
+	var first_contact: Dictionary = {}
+	var evidence: Array = []
+	var clearance_shape := CapsuleShape3D.new()
+	clearance_shape.radius = capsule.radius - CLEARANCE_SHRINK
+	clearance_shape.height = capsule.height - CLEARANCE_SHRINK * 2.0
+	for index in trace.size():
+		var item: Dictionary = trace[index]
+		var position: Vector3 = item["position"]
+		var request: Vector3 = item["request"]
+		var travel: Vector3 = item["travel"]
+		var after: Vector3 = item["after"]
+		var actual := after - position
+		var contact: Dictionary = item["contact"]
+		var fractions := cast(capsule, position, request)
+		var cast_valid := fractions.size() == 2 and fractions[0] >= 0.0 and fractions[0] <= fractions[1] and fractions[1] <= 1.0
+		var safe_distance := float(fractions[0]) * request.length() if cast_valid else -1.0
+		var unsafe_distance := float(fractions[1]) * request.length() if cast_valid else -1.0
+		var interval_ok := cast_valid and actual.length() <= unsafe_distance + TRACE_CAST_TOLERANCE
+		# 保守早停不构成穿越；cast_motion 会忽略初始接触，不能要求它复现恢复碰撞。
+		# safe/unsafe 均保留为证据，但任何超过 unsafe 的实际旅行仍必须失败。
+		var conservative_stop := cast_valid and actual.length() < safe_distance - TRACE_CAST_TOLERANCE
+		if first_contact.is_empty() and not contact.is_empty():
+			interval_ok = interval_ok and cast_valid and fractions[0] < 1.0 and not conservative_stop
+		# 另扫实际走过的线段，即使薄 mesh 后方的终点已净空，也不能放过中途穿越。
+		var travel_fractions := cast(capsule, position, actual)
+		var travel_ok := travel_fractions.size() == 2 and actual.length() <= float(travel_fractions[1]) * actual.length() + TRACE_CAST_TOLERANCE
+		var recovery := actual - travel
+		var continuous := position.distance_to(previous) < 0.0001 and recovery.length() <= 0.005
+		var along_request := actual.distance_to(request.normalized() * actual.dot(request.normalized())) <= TRACE_CAST_TOLERANCE and actual.dot(request.normalized()) >= -0.005
+		var clearance_query := query_shape(clearance_shape, after)
+		clearance_query.margin = 0.0
+		var overlaps := space.intersect_shape(clearance_query, 8)
+		var clear := overlaps.is_empty()
+		check(continuous, key + "：轨迹段%d连续且接触恢复量<=5mm" % index)
+		check(along_request, key + "：轨迹段%d实际位移沿本次请求" % index)
+		check(interval_ok, key + "：轨迹段%d实际 travel 在独立请求cast首碰范围内；travel=%.6f safe=%.6f unsafe=%.6f" % [index, actual.length(), safe_distance, unsafe_distance])
+		check(travel_ok, key + "：轨迹段%d实际路径独立cast无穿越（包括薄mesh）" % index)
+		check(clear, key + "：轨迹段%d终点缩小1mm胶囊真实净空" % index)
+		valid = valid and continuous and along_request and interval_ok and travel_ok and clear
+		var entry := {"step": item["step"], "slide": item["slide"], "position": vector_data(position),
+			"request": vector_data(request), "travel": vector_data(travel), "after": vector_data(after),
+			"contact": {}, "remainder": vector_data(item["remainder"]), "slide_remainder": vector_data(item["slide_remainder"]),
+			"request_cast": Array(fractions), "safe_distance": safe_distance, "unsafe_distance": unsafe_distance,
+			"actual_path_cast": Array(travel_fractions), "interval_ok": interval_ok, "path_clear": travel_ok,
+			"endpoint_clear": clear, "conservative_stop": conservative_stop,
+			"recovery": vector_data(recovery), "overlaps": []}
+		for overlap: Dictionary in overlaps:
+			entry["overlaps"].append(hit_data(overlap))
+		if not contact.is_empty():
+			entry["contact"] = {"point": vector_data(contact["point"]), "normal": vector_data(contact["normal"]),
+				"collider": contact["collider"], "source_path": contact["source_path"]}
+			if first_contact.is_empty():
+				first_contact = entry.duplicate(true)
+		evidence.append(entry)
+		previous = after
+	var complete := previous.distance_to(finish) < 0.0001
+	check(complete, key + "：全轨迹覆盖实际终点")
+	return {"valid": valid and complete, "motion_trace": evidence, "first_contact": first_contact}
+
+
 func blocked_case(key: String, sample: Dictionary, use_sphere := false) -> bool:
 	var record := category(key)
 	record["tested"] += 1
@@ -312,9 +379,28 @@ func blocked_case(key: String, sample: Dictionary, use_sphere := false) -> bool:
 	if not clear:
 		reject(key, "执行时起点失去净空")
 		return false
+	if not verified_starts.has(start):
+		verified_starts.append(start)
 	var finish: Vector3
 	var movement: Vector3
 	var source_confirmed := true
+	var trace_result: Dictionary = {}
+	var short_body_details: Dictionary = {}
+	var curved := key == "coral" and not use_sphere
+	if not use_sphere and sample.has("expected_distance"):
+		viewer.global_position = start
+		var short_collision := viewer.move_and_collide(-normal * 3.0, true, 0.001)
+		var short_precise := false
+		if short_collision != null:
+			var short_center := start + short_collision.get_travel()
+			var short_error := short_center.distance_to(point + normal * support(shape, normal))
+			short_precise = short_collision.get_collider() == sample["body"] and short_error <= FINAL_CONTACT_TOLERANCE
+			short_body_details = hit_data({"collider": short_collision.get_collider(), "position": short_collision.get_position(), "normal": short_collision.get_normal()})
+			short_body_details["travel"] = vector_data(short_collision.get_travel())
+			short_body_details["center"] = vector_data(short_center)
+			short_body_details["ideal_error"] = short_error
+		check(short_precise, key + "：首次3m短扫同源且接触中心精度<=0.03m")
+		high_valid = high_valid and short_precise
 	if use_sphere:
 		sphere_body.global_position = start
 		var collision := sphere_body.move_and_collide(motion)
@@ -324,8 +410,14 @@ func blocked_case(key: String, sample: Dictionary, use_sphere := false) -> bool:
 		check(source_confirmed, key + "：真实球刚体扫掠首碰目标来源")
 	else:
 		scene.call("set_viewer_position", start)
+		runtime.set("trace_enabled", true)
 		movement = scene.call("move_viewer", motion)
+		runtime.set("trace_enabled", false)
 		finish = viewer.global_position
+		trace_result = verify_motion_trace(key, start, finish, runtime.get("motion_trace"))
+		var first_contact: Dictionary = trace_result["first_contact"]
+		source_confirmed = not first_contact.is_empty() and first_contact["contact"]["collider"] == str((sample["body"] as Node).get_path())
+		check(source_confirmed, key + "：实际全轨迹首次contact仍是目标源")
 		check(movement.distance_to(finish - start) < 0.0001, key + "：move_viewer 返回真实位移")
 		check((scene.get_node("Camera") as Camera3D).global_position.distance_to(finish) < 0.0001, key + "：相机跟随真实胶囊")
 	var signed_plane := (finish - point).dot(normal)
@@ -336,15 +428,21 @@ func blocked_case(key: String, sample: Dictionary, use_sphere := false) -> bool:
 	var ideal_center := point + normal * projected_support
 	var ideal_distance := finish.distance_to(ideal_center)
 	var reached_surface := absf(support_error) <= final_tolerance
-	if not use_sphere and sample.has("expected_distance"):
+	if not use_sphere and not curved and sample.has("expected_distance"):
 		check(ideal_distance <= FINAL_CONTACT_TOLERANCE, key + "：分段move_viewer末位距理想接触中心<=0.03m，实际 %.6f" % ideal_distance)
 		reached_surface = reached_surface and ideal_distance <= FINAL_CONTACT_TOLERANCE
 	var penetration_tolerance := TOLERANCE if use_sphere else 0.005
 	var not_through := signed_plane >= projected_support - penetration_tolerance
-	var blocked := high_valid and source_confirmed and not_through and reached_surface and distance < 2.0 and distance > 0.02 and distance < motion.length() - 0.02
-	check(reached_surface, key + "：最终实际位置距理想support<=%.3fm，不能用原生长扫早停冒充，误差=%.6f" % [final_tolerance, support_error])
-	check(not_through, key + "：%.3fm 请求后不穿首面，signed=%.4f support=%.4f" % [motion.length(), signed_plane, projected_support])
-	check(distance < 2.0, key + "：实际移动不足 2m，实际 %.4f" % distance)
+	var trace_valid := use_sphere or bool(trace_result.get("valid", false))
+	var geometry_valid := not_through and reached_surface and distance < 2.0
+	if curved:
+		# 凹曲面可合法沿切线离开首次三角面的无限平面；是否穿越由逐段真实扫掠裁决。
+		geometry_valid = trace_valid
+	else:
+		check(reached_surface, key + "：最终实际位置距理想support<=%.3fm，不能用原生长扫早停冒充，误差=%.6f" % [final_tolerance, support_error])
+		check(not_through, key + "：%.3fm 请求后不穿首面，signed=%.4f support=%.4f" % [motion.length(), signed_plane, projected_support])
+		check(distance < 2.0, key + "：实际移动不足 2m，实际 %.4f" % distance)
+	var blocked := high_valid and source_confirmed and trace_valid and geometry_valid and distance > 0.02 and distance < motion.length() - 0.02
 	check(distance < motion.length() - 0.02, key + "：实际位移被物理首面截短")
 	check(distance > 0.02, key + "：净空中真实接近表面，不是假静止")
 	if blocked:
@@ -361,7 +459,9 @@ func blocked_case(key: String, sample: Dictionary, use_sphere := false) -> bool:
 		"unsafe_fraction": sample["unsafe_fraction"], "source_path": sample["source_path"],
 		"proxy_path": sample["proxy_path"], "triangle_index": sample["triangle_index"], "normal_side": sample["side"],
 		"short_fractions": sample.get("short_fractions", []), "high_body_hit": high_body_details,
-		"candidate_details": sample.get("candidate_details", {})})
+		"short_body_hit": short_body_details, "curved_path_criterion": curved,
+		"motion_trace": trace_result.get("motion_trace", []), "first_contact": trace_result.get("first_contact", {}),
+		"trace_valid": trace_valid, "candidate_details": sample.get("candidate_details", {})})
 	return blocked
 
 
@@ -449,14 +549,20 @@ func test_position_entry() -> void:
 	check(fixture_clear, key + "：raw fixture起点在范围内且真实净空")
 	if not fixture_clear:
 		return
-	# raw set仅用于已验证的合法fixture；安全入口必须自行拒绝非法请求。
-	scene.call("set_viewer_position", start)
-	check(viewer.global_position.distance_to(start) < 0.0001, key + "：raw set设置合法净空fixture")
-	var valid := start + normal * 0.1
-	var valid_clear := in_viewer_bounds(valid) and empty_at(capsule, valid)
-	check(valid_clear, key + "：安全入口有效目标真实净空")
-	if not valid_clear:
+	var valid := start
+	var origin := Vector3.ZERO
+	var origin_found := false
+	for verified: Vector3 in verified_starts:
+		if verified.distance_to(valid) > 0.1 and in_viewer_bounds(verified) and empty_at(capsule, verified):
+			origin = verified
+			origin_found = true
+			break
+	check(origin_found, key + "：另一已verified point作为起点，不假设法线偏移净空")
+	if not origin_found:
 		return
+	# raw set仅用于另一已验证的合法fixture；合法目标复用已验证的墙面start。
+	scene.call("set_viewer_position", origin)
+	check(viewer.global_position.distance_to(origin) < 0.0001, key + "：raw set设置另一合法净空fixture")
 	viewer.velocity = Vector3(0.2, 0.3, 0.4)
 	var accepted: bool = runtime.call("try_set_viewer_position", valid)
 	category(key)["tested"] += 1
@@ -608,6 +714,8 @@ func test_terrain() -> void:
 	var terrain := scene.get_node("ExistingModels/SunkenSeabed")
 	var city_bounds: Rect2 = scene.get("city_bounds")
 	var selected := false
+	var reachable_candidates := 0
+	var boundary_candidates: Array[Dictionary] = []
 	for x in [-160.0, 160.0, -240.0, 240.0, -320.0, 320.0, -400.0, 400.0]:
 		for z in [-160.0, 0.0, 160.0, -280.0, 280.0, -400.0, 400.0]:
 			if city_bounds.has_point(Vector2(x, z)):
@@ -622,17 +730,21 @@ func test_terrain() -> void:
 				reject(key, "城外地形实际法线非朝上")
 				continue
 			var start := point + normal * 2.0
+			var motion := -normal * 3.0
+			var boundary_sample := {"point": point, "normal": normal}
 			if not in_viewer_bounds(start) or not in_viewer_bounds(point + normal * (support(capsule, normal) + 0.03)):
-				reject(key, "Terrain 首面低于 viewer 有效边界")
-				continue
-			if not empty_at(capsule, start):
-				reject(key, "Terrain 起点胶囊非净空")
+				boundary_candidates.append(boundary_sample)
+				reject(key, "Terrain 首面低于 viewer 有效边界", {"point": vector_data(point), "viewer_min_y": scene.get("viewer_min_y")})
 				continue
 			# 城外地形额外做沿真实法线的 3m 向下扫掠，不把坡面滑移或最低限位
 			# 当成碰撞。100m 高速回归由各网格角色和两个墙轴独立执行。
-			var motion := -normal * 3.0
 			if not in_viewer_bounds(start + motion):
+				boundary_candidates.append(boundary_sample)
 				reject(key, "Terrain 扫掠终点受最低边界裁剪，不能作为物理证据")
+				continue
+			reachable_candidates += 1
+			if not empty_at(capsule, start):
+				reject(key, "Terrain 起点胶囊非净空")
 				continue
 			var approach := 2.0 - support(capsule, normal)
 			var fractions := cast(capsule, start, motion)
@@ -659,7 +771,145 @@ func test_terrain() -> void:
 			break
 		if selected:
 			break
+	category(key)["reachable_candidates"] = reachable_candidates
+	category(key)["boundary_candidates"] = boundary_candidates.size()
+	if not selected and reachable_candidates == 0 and not boundary_candidates.is_empty():
+		# 仅合法边界使所有有效候选不可达时启用；可达候选物理失败不能改走底层探针。
+		category(key)["coverage"] = "仅底层 Terrain 碰撞，不证明玩家可到；viewer 下界另测"
+		selected = terrain_probe_case(terrain, boundary_candidates)
+		test_terrain_viewer_boundary(boundary_candidates)
+	else:
+		category(key)["coverage"] = "真实 scene.move_viewer 可达地形首碰"
 	check(selected and int(category(key)["blocked"]) >= 1, key + "：至少一处城外 Terrain3D 真实向下扫掠阻挡")
+
+
+func terrain_probe_case(terrain: Node, samples: Array[Dictionary]) -> bool:
+	var key := "seabed"
+	var fixture: Dictionary = {}
+	for sample: Dictionary in samples:
+		var point: Vector3 = sample["point"]
+		var normal: Vector3 = sample["normal"]
+		var start := point + normal * 2.0
+		var aligned := ray(start, point - normal * 0.1)
+		if aligned.is_empty() or aligned.get("collider") != terrain or (aligned["position"] as Vector3).distance_to(point) > 0.02:
+			reject(key, "底层球探针沿法线首碰不能复现同源 Terrain 点")
+			continue
+		if not empty_at(sphere, start):
+			reject(key, "底层球探针起点非净空")
+			continue
+		fixture = {"point": point, "normal": normal, "start": start}
+		break
+	check(not fixture.is_empty(), key + "：边界外仍须有同源且净空的真实物理探针样本")
+	if fixture.is_empty():
+		return false
+	# 使用已同步的独立球体，不借用 viewer，不调用区域裁剪，也不改变地形或边界。
+	var before_failures := failures
+	var same_space := sphere_body.get_world_3d() == scene.get_world_3d() and (terrain as Node3D).get_world_3d() == scene.get_world_3d()
+	check(same_space, key + "：独立球探针与目标 Terrain 在同一真实物理空间")
+	var point: Vector3 = fixture["point"]
+	var normal: Vector3 = fixture["normal"]
+	var start: Vector3 = fixture["start"]
+	var motion := -normal * 3.0
+	var expected := 2.0 - sphere.radius
+	var fractions := cast(sphere, start, motion)
+	var cast_hit := fractions.size() == 2 and fractions[0] >= 0.0 and fractions[0] < 1.0 and fractions[1] >= fractions[0] and fractions[1] <= 1.0
+	check(cast_hit, key + "：底层球探针 cast_motion 必须实际命中；不命中仍 fail")
+	var safe_distance := float(fractions[0]) * motion.length() if cast_hit else -1.0
+	var unsafe_distance := float(fractions[1]) * motion.length() if cast_hit else -1.0
+	check(cast_hit and expected >= safe_distance - TRACE_CAST_TOLERANCE and expected <= unsafe_distance + TRACE_CAST_TOLERANCE, key + "：底层首碰区间包含同源 Terrain 支撑距离")
+	sphere_body.global_position = start
+	var collision := sphere_body.move_and_collide(motion, false, 0.001)
+	var finish := sphere_body.global_position
+	var actual := finish - start
+	var same_source := collision != null and collision.get_collider() == terrain
+	check(same_source, key + "：底层球体实际 move_and_collide 首碰必须是目标 Terrain")
+	var contact: Dictionary = {}
+	if collision != null:
+		contact = hit_data({"collider": collision.get_collider(), "position": collision.get_position(), "normal": collision.get_normal()})
+		contact["travel"] = vector_data(collision.get_travel())
+		check(actual.distance_to(collision.get_travel()) <= 0.005, key + "：底层球体实际位移匹配碰撞 travel，恢复量<=5mm")
+		check(collision.get_normal().dot(normal) >= 0.99, key + "：底层球体接触法线匹配同源射线实面")
+		check(collision.get_position().distance_to(point) <= FINAL_CONTACT_TOLERANCE, key + "：底层球体实际接触点距同源实面点<=0.03m")
+	var ideal := point + normal * sphere.radius
+	var signed_plane := (finish - point).dot(normal)
+	check(actual.length() > 0.02 and actual.length() < motion.length() - 0.02, key + "：底层球体真实接近并被物理截短，不是假静止")
+	check(cast_hit and actual.length() >= safe_distance - TRACE_CAST_TOLERANCE and actual.length() <= unsafe_distance + TRACE_CAST_TOLERANCE, key + "：底层实际位移不越独立 cast 首碰区间")
+	check(finish.distance_to(ideal) <= FINAL_CONTACT_TOLERANCE, key + "：底层球体实际接触中心精度<=0.03m")
+	check(signed_plane >= sphere.radius - 0.005, key + "：底层球体不越过 Terrain 首面，穿透容差<=5mm")
+	var actual_cast := cast(sphere, start, actual)
+	check(actual_cast.size() == 2 and actual.length() <= float(actual_cast[1]) * actual.length() + TRACE_CAST_TOLERANCE, key + "：底层球体实际经过路径独立 cast 无穿越")
+	var clearance_shape := SphereShape3D.new()
+	clearance_shape.radius = sphere.radius - CLEARANCE_SHRINK
+	var clearance_query := query_shape(clearance_shape, finish)
+	clearance_query.margin = 0.0
+	check(space.intersect_shape(clearance_query, 8).is_empty(), key + "：底层球体终点缩小1mm后真实净空")
+	var blocked := failures == before_failures
+	category(key)["tested"] += 1
+	category(key)["blocked"] += int(blocked)
+	remember_source(key, "ExistingModels/SunkenSeabed")
+	category(key)["cases"].append({"kind": "terrain_physics_only_sphere_move_and_collide",
+		"coverage": "仅底层 Terrain 碰撞，不证明玩家可到", "uses_viewer_bounds": false,
+		"same_physics_space": same_space, "start": vector_data(start), "surface": vector_data(point),
+		"normal": vector_data(normal), "motion": vector_data(motion), "finish": vector_data(finish),
+		"actual_travel": vector_data(actual), "expected_distance": expected, "cast_fractions": Array(fractions),
+		"safe_distance": safe_distance, "unsafe_distance": unsafe_distance, "actual_path_cast": Array(actual_cast),
+		"contact": contact, "ideal_center": vector_data(ideal), "ideal_distance": finish.distance_to(ideal),
+		"signed_plane": signed_plane, "support_error": signed_plane - sphere.radius,
+		"final_contact_tolerance": FINAL_CONTACT_TOLERANCE, "penetration_tolerance": 0.005,
+		"source_path": "ExistingModels/SunkenSeabed", "blocked": blocked})
+	return blocked
+
+
+func test_terrain_viewer_boundary(samples: Array[Dictionary]) -> void:
+	var key := "terrain_viewer_lower_boundary"
+	category(key)["coverage"] = "仅证明 viewer 下潜受设定边界拦截，不作为 Terrain 碰撞证据"
+	var minimum := float(scene.get("viewer_min_y"))
+	check(is_equal_approx(minimum, float(scene.get("lowest_seabed_y")) + capsule.height * 0.5), key + "：声明下界与实际胶囊限位一致")
+	var fixture: Dictionary = {}
+	for sample: Dictionary in samples:
+		var local := scene.to_local(sample["point"])
+		local.y = minimum + 2.0
+		var start := scene.to_global(local)
+		local.y = minimum - 1.0
+		var motion := scene.to_global(local) - start
+		# 未裁剪请求本身也真实净空，才能把提前截停归因于边界，而非地形或其它代理。
+		var fractions := cast(capsule, start, motion)
+		if not in_viewer_bounds(start) or not empty_at(capsule, start) or not empty_at(capsule, start + motion) or fractions.size() != 2 or fractions[0] < 1.0:
+			reject(key, "跨下界请求不是完整真实净空通道")
+			continue
+		fixture = {"start": start, "motion": motion, "fractions": Array(fractions)}
+		break
+	check(not fixture.is_empty(), key + "：必须找到跨下界的真实净空通道，不可整类跳过")
+	if fixture.is_empty():
+		return
+	var before_failures := failures
+	var start: Vector3 = fixture["start"]
+	var motion: Vector3 = fixture["motion"]
+	scene.call("set_viewer_position", start)
+	runtime.set("trace_enabled", true)
+	var moved: Vector3 = scene.call("move_viewer", motion)
+	runtime.set("trace_enabled", false)
+	var finish := viewer.global_position
+	var trace: Array = runtime.get("motion_trace")
+	var trace_result := verify_motion_trace(key, start, finish, trace)
+	var no_contact := true
+	var within_boundary := true
+	for item: Dictionary in trace:
+		no_contact = no_contact and (item["contact"] as Dictionary).is_empty()
+		within_boundary = within_boundary and scene.to_local(item["position"]).y >= minimum - 0.0001 and scene.to_local(item["after"]).y >= minimum - 0.0001
+	var expected_local := scene.to_local(start)
+	expected_local.y = minimum
+	check(finish.distance_to(scene.to_global(expected_local)) < 0.0001, key + "：scene.move_viewer 恰停在设定下界")
+	check(within_boundary, key + "：实际全轨迹均不越 viewer 下界")
+	check(no_contact and bool(trace_result["valid"]), key + "：净空轨迹没有物理 contact，边界截停不是 Terrain 证据")
+	check(moved.distance_to(finish - start) < 0.0001 and moved.length() > 0.02 and moved.length() < motion.length() - 0.02, key + "：返回真实非零位移且请求确被边界截短")
+	check((scene.get_node("Camera") as Camera3D).global_position.distance_to(finish) < 0.0001, key + "：边界截停后相机同步真实 viewer")
+	category(key)["tested"] += 1
+	category(key)["blocked"] += int(failures == before_failures)
+	category(key)["cases"].append({"kind": "viewer_lower_boundary_only", "terrain_collision_evidence": false,
+		"viewer_min_y": minimum, "start": vector_data(start), "motion": vector_data(motion),
+		"finish": vector_data(finish), "moved": vector_data(moved), "unclipped_cast": fixture["fractions"],
+		"no_physics_contact": no_contact, "within_boundary": within_boundary, "motion_trace": trace_result["motion_trace"]})
 
 
 func check_sources(terrain: Node, original_data: Variant, original_directory: String) -> void:

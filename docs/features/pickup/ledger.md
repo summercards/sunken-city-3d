@@ -165,3 +165,14 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-PICKUP-R20 | 已实现；`ANCHOR_LIFT = 1.35×SCALE = 2.025 m` 引用 `avatar_dimensions.gd`，`SCREEN_GAP` 16 px 不变 | `progress-bars` exit0；发顶 1.869 m，原 1.35 m 会把条压进头发。[本轮交付](../../development/2026-11-05_character_scale_150.md) |
+
+## 2026-11-08 周边可打捞密度减半
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R21 | 已实现：`ocean_population.gd` 新增 `KEEP_PERCENT = 50` 与 `_keep_quota` / `_thin`，每格按容量生成后统一筛减鱼与木；家园浮木 6→3，避让点取筛减后的鱼位。`wood-density` 与 `ocean-pickups` 均 exit0 | 十日三十次计数：十格浮木 `60→30→9`、鱼群 `40→20`；家园 `6→3`；九格内实体 `10 木 / 18 群`，远处 `8 木 / 18 群`。断言同步改口径（非放宽）：`test_wood_density.gd` 的 `18→9`、`6→3`、`5→2`、`16–17/36→8–9/18`；`test_ocean_pickups.gd` 与 `tools/capture_ocean_pickups.gd` 同口径 |
+| SEA-PICKUP-R22 | 已保持：三档产出、距离权重、07:00 日更、6–10 游戏小时补货、打捞范围与计时、进度条、`pickups.ocean` 存档字段与校验均未改；`framework-integration`、`visual-fish-schools`、`visual-ocean-pickups` 通过 | 旧密集档载入即按新密度呈现，冷却与库存保留；`web/` 原型保持原密度作旧算法对照 |
+
+本轮未计入通过的项（如实记录）：`selftest` 23 条为场景/种植链数据漂移，其中无一条落在 pickup；`progress-bars` 1 条「建造控制器引用共享细条」属建造侧既有漂移，本轮未触碰 `construction`。
+
+[本轮交付与实测](../../development/2026-11-08_pickup_density_half.md)
