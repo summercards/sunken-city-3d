@@ -1,0 +1,72 @@
+{
+  "key": "antenna",
+  "id": "SEA-SCENE-B1109A-ANTENNA",
+  "asset_id": "SEA-SCENE-B1109A-ANTENNA",
+  "name": "天线",
+  "component_family": "aerial",
+  "family": "aerial",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/antenna/antenna.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    3.0,
+    0.8930000066757202,
+    4.25
+  ],
+  "taper_along": "z",
+  "attached_to": "SEA-SCENE-B1109A-SLAB",
+  "collection": "SEA-SCENE-B1109A-ANTENNA",
+  "bounds_size": [
+    3.0,
+    0.8930000066757202,
+    4.25
+  ],
+  "triangles": 84,
+  "polygons": 84,
+  "meshes": 8,
+  "geometry_fingerprint": "4c7a137f4774d56b74eebe018424ee1e064dc719b302eda248f879b41b6654f3",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "source_sha256": "09900a558b0df5d927c4602644dd7f23039c7becc411e6337ca57579d0eda54f",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/antenna/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 58,
+  "mesh_names": [
+    "BLDA_天线主杆",
+    "BLDA_天线横担",
+    "BLDA_天线振子",
+    "BLDA_天线振子.002",
+    "BLDA_天线振子.004",
+    "BLDA_天线振子.006",
+    "BLDA_天线振子.008",
+    "BLDA_天线振子.010"
+  ],
+  "lowpoly": true
+}

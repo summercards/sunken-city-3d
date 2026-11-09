@@ -1,0 +1,66 @@
+{
+  "key": "backdoor",
+  "id": "SEA-SCENE-B1109A-BACKDOOR",
+  "asset_id": "SEA-SCENE-B1109A-BACKDOOR",
+  "name": "背面门",
+  "component_family": "door",
+  "family": "door",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "opening",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/backdoor/backdoor.blend",
+  "form_layer": "ordinary",
+  "rho": 0.025,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.799346685409546,
+    0.369338721036911,
+    3.0999999046325684
+  ],
+  "taper_along": "z",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-BACKDOOR",
+  "bounds_size": [
+    1.799346685409546,
+    0.369338721036911,
+    3.0999999046325684
+  ],
+  "triangles": 88,
+  "polygons": 88,
+  "meshes": 3,
+  "geometry_fingerprint": "b07a38f0c594b9bc38a9c78dfb252605153eaa323d971c597a9c79091230223d",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "b3cdb58d1f56ce96a348414df4c4bf711b0c7d8295eda0883f249d50d857a44a",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/backdoor/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 50,
+  "mesh_names": [
+    "BLDA_背门框",
+    "BLDA_背面门板",
+    "BLDA_门把手"
+  ],
+  "lowpoly": true
+}

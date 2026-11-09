@@ -1,0 +1,63 @@
+{
+  "key": "roof_sheet",
+  "id": "SEA-SCENE-B1109A-ROOF-SHEET",
+  "asset_id": "SEA-SCENE-B1109A-ROOF-SHEET",
+  "name": "波纹屋顶",
+  "component_family": "roofing",
+  "family": "roofing",
+  "group": "structure",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "rho": 0.035,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/roof_sheet/roof_sheet.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    7.299454689025879,
+    4.278343200683594,
+    0.6616053581237793
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-ROOF-SHEET",
+  "bounds_size": [
+    7.299454689025879,
+    4.278343200683594,
+    0.6616053581237793
+  ],
+  "triangles": 560,
+  "polygons": 560,
+  "meshes": 1,
+  "geometry_fingerprint": "4dfe37651f8a5fc9988fc45a64cada1f275604d2933deca59f56ca6b63b1ac6b",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "source_sha256": "745997504771773004450b03f71c16e1e354e84e047a30059a41025b4ec3ecec",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/roof_sheet/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 282,
+  "mesh_names": [
+    "BLDA_青蓝真实波纹铁顶"
+  ],
+  "lowpoly": true
+}

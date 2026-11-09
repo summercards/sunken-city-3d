@@ -1,0 +1,68 @@
+{
+  "key": "pipe_set",
+  "id": "SEA-SCENE-B1109A-PIPE-SET",
+  "asset_id": "SEA-SCENE-B1109A-PIPE-SET",
+  "name": "转角排水管",
+  "component_family": "pipe",
+  "family": "pipe",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/pipe_set/pipe_set.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    7.100000381469727,
+    0.1937866508960724,
+    4.75
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-PIPE-SET",
+  "bounds_size": [
+    7.100000381469727,
+    0.1937866508960724,
+    4.75
+  ],
+  "triangles": 86,
+  "polygons": 86,
+  "meshes": 5,
+  "geometry_fingerprint": "0108a8d3e90ddede1368c5615bb103ad3d42ebaeb09a02a156c30b2a1fb4a7db",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 2,
+  "source_sha256": "7cce80606167b2eadb885d34cb3becd6dc3dbeda75f0004fe76d70473460b56d",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/pipe_set/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 53,
+  "mesh_names": [
+    "BLDA_弯折排水主管",
+    "BLDA_空调支管",
+    "BLDA_管道固定卡",
+    "BLDA_管道固定卡.002",
+    "BLDA_管道固定卡.003"
+  ],
+  "lowpoly": true
+}

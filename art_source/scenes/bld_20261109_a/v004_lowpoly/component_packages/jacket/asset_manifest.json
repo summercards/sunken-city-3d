@@ -1,0 +1,69 @@
+{
+  "key": "jacket",
+  "id": "SEA-SCENE-B1109A-JACKET",
+  "asset_id": "SEA-SCENE-B1109A-JACKET",
+  "name": "黄色外套",
+  "component_family": "garment",
+  "family": "garment",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "soft",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/jacket/jacket.blend",
+  "form_layer": "soft",
+  "rho": 0.0,
+  "role": "attachment",
+  "no_volume": false,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.6775200366973877,
+    0.3035420775413513,
+    2.1479597091674805
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-JACKET",
+  "bounds_size": [
+    1.6775200366973877,
+    0.3035420775413513,
+    2.1479597091674805
+  ],
+  "triangles": 74,
+  "polygons": 74,
+  "meshes": 6,
+  "geometry_fingerprint": "17292aa11ae409352c4a2c9ef105ad7c5fdb618d3527bed511fd520bc0037aab",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "ac915db495c5c9820d519d697e61c85b470dd7c5537e403e1d764e77521d1003",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/jacket/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 49,
+  "mesh_names": [
+    "BLDA_柔软圆边衣服.001",
+    "BLDA_金属衣架.001",
+    "BLDA_衣架钩.001",
+    "BLDA_衣服拉链",
+    "BLDA_外套口袋",
+    "BLDA_外套口袋.001"
+  ],
+  "lowpoly": true
+}

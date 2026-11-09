@@ -1,0 +1,64 @@
+{
+  "key": "planter_trough",
+  "id": "SEA-SCENE-B1109A-PLANTER-TROUGH",
+  "asset_id": "SEA-SCENE-B1109A-PLANTER-TROUGH",
+  "name": "长花槽",
+  "component_family": "planter",
+  "family": "planter",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/planter_trough/planter_trough.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    2.3232529163360596,
+    0.6709583401679993,
+    0.6361081600189209
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-PLANTER-TROUGH",
+  "bounds_size": [
+    2.3232529163360596,
+    0.6709583401679993,
+    0.6361081600189209
+  ],
+  "triangles": 60,
+  "polygons": 60,
+  "meshes": 2,
+  "geometry_fingerprint": "687ae339e940772c9a1ebde219176c6374695671f8eea5836c8f76a6fc969ff7",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 2,
+  "source_sha256": "32126dd9de379738613415bfc003b7ba256e119578627f890580176493d9ce2b",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/planter_trough/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 34,
+  "mesh_names": [
+    "BLDA_长盆",
+    "BLDA_长盆土"
+  ],
+  "lowpoly": true
+}

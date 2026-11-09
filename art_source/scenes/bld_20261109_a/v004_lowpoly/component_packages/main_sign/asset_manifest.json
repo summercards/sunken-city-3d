@@ -1,0 +1,66 @@
+{
+  "key": "main_sign",
+  "id": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "asset_id": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "name": "参考主招牌",
+  "component_family": "sign",
+  "family": "sign",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "flat_attached",
+  "rho": 0.025,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/main_sign/main_sign.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 6,
+  "tilt_kind": "sign_board",
+  "form_contract": "zero_square_v002",
+  "extent": [
+    9.093523025512695,
+    0.4658817648887634,
+    2.279592752456665
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "bounds_size": [
+    9.093523025512695,
+    0.4658817648887634,
+    2.279592752456665
+  ],
+  "triangles": 872,
+  "polygons": 872,
+  "meshes": 3,
+  "geometry_fingerprint": "3fd0a463243e9ded0029bfe488d8d4020f385674c979299b7442b520a4a9e75b",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "89203050957fb93bc93962d67dbb42aadeffc9e384cd59826c211bf5ec9774ea",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/main_sign/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 856,
+  "mesh_names": [
+    "BLDA_字.001",
+    "BLDA_主招牌黄色外框",
+    "BLDA_主招牌红底"
+  ],
+  "lowpoly": true
+}

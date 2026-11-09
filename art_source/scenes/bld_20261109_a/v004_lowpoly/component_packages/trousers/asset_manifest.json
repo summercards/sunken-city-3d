@@ -1,0 +1,67 @@
+{
+  "key": "trousers",
+  "id": "SEA-SCENE-B1109A-TROUSERS",
+  "asset_id": "SEA-SCENE-B1109A-TROUSERS",
+  "name": "晾晒长裤",
+  "component_family": "garment",
+  "family": "garment",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "soft",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/trousers/trousers.blend",
+  "form_layer": "soft",
+  "rho": 0.0,
+  "role": "attachment",
+  "no_volume": false,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.7013154625892639,
+    0.2532869577407837,
+    1.7990211248397827
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-TROUSERS",
+  "bounds_size": [
+    0.7013154625892639,
+    0.2532869577407837,
+    1.7990211248397827
+  ],
+  "triangles": 58,
+  "polygons": 58,
+  "meshes": 4,
+  "geometry_fingerprint": "108f240bde307e3652e2bf24ed6e9ec943afb0b4d2fac17a01bae026f549513c",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "a632fb924b5d2617b8122b08c384b73f5d6697d4947674d8c48eddd128c17031",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/trousers/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 37,
+  "mesh_names": [
+    "BLDA_长裤左腿",
+    "BLDA_长裤右腿",
+    "BLDA_长裤腰",
+    "BLDA_裤衣架"
+  ],
+  "lowpoly": true
+}

@@ -1,0 +1,66 @@
+{
+  "key": "clothesline",
+  "id": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "asset_id": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "name": "晾衣架",
+  "component_family": "clothesline",
+  "family": "clothesline",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/clothesline/clothesline.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    4.880000114440918,
+    0.07608452439308167,
+    2.700000047683716
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SLAB",
+  "collection": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "bounds_size": [
+    4.880000114440918,
+    0.07608452439308167,
+    2.700000047683716
+  ],
+  "triangles": 58,
+  "polygons": 58,
+  "meshes": 3,
+  "geometry_fingerprint": "8f3c3eca6481ee8b1cc4122c4d8a3e2cc25df5caea0bbc0cf3b5003cf93ecb90",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "eef972647510bdd261bfcc9bb9953fda8653eff1e4cb370841cec6913d082a9c",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/clothesline/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 35,
+  "mesh_names": [
+    "BLDA_晾衣两杆",
+    "BLDA_晾衣两杆.001",
+    "BLDA_晾衣绳"
+  ],
+  "lowpoly": true
+}

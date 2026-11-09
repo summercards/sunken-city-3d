@@ -1,0 +1,65 @@
+{
+  "key": "blade_sign",
+  "id": "SEA-SCENE-B1109A-BLADE-SIGN",
+  "asset_id": "SEA-SCENE-B1109A-BLADE-SIGN",
+  "name": "侧挑挂牌",
+  "component_family": "sign",
+  "family": "sign",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.97,
+  "kind": "flat_attached",
+  "rho": 0.03,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/blade_sign/blade_sign.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 8,
+  "tilt_kind": "sign_board",
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.897965431213379,
+    0.6779625415802002,
+    0.8394030928611755
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-BLADE-SIGN",
+  "bounds_size": [
+    1.897965431213379,
+    0.6779625415802002,
+    0.8394030928611755
+  ],
+  "triangles": 116,
+  "polygons": 116,
+  "meshes": 2,
+  "geometry_fingerprint": "51e66bf0d798d06e6e2efcb91ce0b7a16552aa0a1508be838cdcbaf43711809e",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "0eb4e9406c9841856af2c5cf38c029401497fec43569bdbaa26a83ff0be9cdc1",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/blade_sign/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 62,
+  "mesh_names": [
+    "BLDA_挂牌托架",
+    "BLDA_小挑挂牌"
+  ],
+  "lowpoly": true
+}

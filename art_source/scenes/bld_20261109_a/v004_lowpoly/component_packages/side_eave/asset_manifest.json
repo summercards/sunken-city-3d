@@ -1,0 +1,64 @@
+{
+  "key": "side_eave",
+  "id": "SEA-SCENE-B1109A-SIDE-EAVE",
+  "asset_id": "SEA-SCENE-B1109A-SIDE-EAVE",
+  "name": "侧窗波纹檐",
+  "family": "roofing",
+  "component_family": "roofing",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/side_eave/side_eave.blend",
+  "form_layer": "stylized",
+  "rho": 0.035,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    8.279999732971191,
+    0.7799547910690308,
+    0.3109738230705261
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-SIDE-EAVE",
+  "bounds_size": [
+    8.279999732971191,
+    0.7799547910690308,
+    0.3109738230705261
+  ],
+  "triangles": 420,
+  "polygons": 420,
+  "meshes": 1,
+  "geometry_fingerprint": "26a25406e63934824ba2e56228c4981c8328c9137db5806f9c0137c1fc573431",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "source_sha256": "a92d68b642e4675abfcf77328ca5441fdea0e75e5fc459d70b046becc4b3132b",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/side_eave/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 212,
+  "mesh_names": [
+    "BLDA_侧窗青蓝波纹遮檐"
+  ],
+  "lowpoly": true
+}

@@ -1,0 +1,67 @@
+{
+  "key": "display_fan",
+  "id": "SEA-SCENE-B1109A-DISPLAY-FAN",
+  "asset_id": "SEA-SCENE-B1109A-DISPLAY-FAN",
+  "name": "天台风扇",
+  "component_family": "fan",
+  "family": "fan",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/display_fan/display_fan.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.0176117420196533,
+    0.5275999903678894,
+    1.4644160270690918
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-DISPLAY-FAN",
+  "bounds_size": [
+    1.0176117420196533,
+    0.5275999903678894,
+    1.4644160270690918
+  ],
+  "triangles": 106,
+  "polygons": 106,
+  "meshes": 5,
+  "geometry_fingerprint": "8437f697d85df794f7c14efb9d0f5daa67b950c2a6a882a874976a503e0d507d",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "3372ead276964499875ae659a23845b50680e817901db3c7eb937d021592841e",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/display_fan/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 63,
+  "mesh_names": [
+    "BLDA_风扇座",
+    "BLDA_风扇颈",
+    "BLDA_风扇叶",
+    "BLDA_风扇叶.001",
+    "BLDA_风扇叶.002"
+  ],
+  "lowpoly": true
+}

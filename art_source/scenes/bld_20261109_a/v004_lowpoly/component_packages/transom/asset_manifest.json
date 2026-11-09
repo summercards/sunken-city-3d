@@ -1,0 +1,72 @@
+{
+  "key": "transom",
+  "id": "SEA-SCENE-B1109A-TRANSOM",
+  "asset_id": "SEA-SCENE-B1109A-TRANSOM",
+  "name": "横亮窗",
+  "component_family": "window",
+  "family": "window",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "opening",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/transom/transom.blend",
+  "form_layer": "ordinary",
+  "rho": 0.025,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    7.599999904632568,
+    0.2249683141708374,
+    0.9299644827842712
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-TRANSOM",
+  "bounds_size": [
+    7.599999904632568,
+    0.2249683141708374,
+    0.9299644827842712
+  ],
+  "triangles": 128,
+  "polygons": 128,
+  "meshes": 8,
+  "geometry_fingerprint": "b3fd956eb5fc9f56fedea6bc00b99b0bf96d7adb12ce5350af5dd41484b37de4",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "96f511e9da79fada54463397a7a01fd1863edca354174e5c37230f267314e6b1",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/transom/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 80,
+  "mesh_names": [
+    "BLDA_深凹亮窗",
+    "BLDA_深凹亮窗.001",
+    "BLDA_深凹亮窗.002",
+    "BLDA_亮窗竖隔",
+    "BLDA_亮窗竖隔.002",
+    "BLDA_亮窗竖隔.003",
+    "BLDA_亮窗横档",
+    "BLDA_亮窗横档.001"
+  ],
+  "lowpoly": true
+}

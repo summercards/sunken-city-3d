@@ -1,0 +1,65 @@
+{
+  "key": "planter_round",
+  "id": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "asset_id": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "name": "圆花盆",
+  "component_family": "planter",
+  "family": "planter",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/planter_round/planter_round.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.9783440828323364,
+    0.9500000476837158,
+    0.618748664855957
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "bounds_size": [
+    0.9783440828323364,
+    0.9500000476837158,
+    0.618748664855957
+  ],
+  "triangles": 66,
+  "polygons": 66,
+  "meshes": 3,
+  "geometry_fingerprint": "5b4a37b7932d71a1e1e87371416597762b4f226b9457e6a36e3406d086f9f0ea",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 5,
+  "source_sha256": "c7356e791cd46139d7b220058a4e5f1176699f824455d693246f33c444ac81e2",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/planter_round/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 39,
+  "mesh_names": [
+    "BLDA_圆盆",
+    "BLDA_圆盆唇口",
+    "BLDA_盆土"
+  ],
+  "lowpoly": true
+}

@@ -1,0 +1,63 @@
+{
+  "key": "deck",
+  "id": "SEA-SCENE-B1109A-DECK",
+  "asset_id": "SEA-SCENE-B1109A-DECK",
+  "name": "平台",
+  "component_family": "platform",
+  "family": "platform",
+  "group": "structure",
+  "layer": "body",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.98,
+  "kind": "shell",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/deck/deck.blend",
+  "form_layer": "body",
+  "rho": 0.02,
+  "role": "structure",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    11.0,
+    10.599133491516113,
+    0.2054918110370636
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-DECK",
+  "bounds_size": [
+    11.0,
+    10.599133491516113,
+    0.2054918110370636
+  ],
+  "triangles": 172,
+  "polygons": 172,
+  "meshes": 1,
+  "geometry_fingerprint": "97d1cc1029135732bab6bdfa71f8b9ccdbf9ff11078c5b732f63024fa60cefee",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "06bc32fa40a1788afd607e35d83e1f95193ec2f36e536ae78ce7d8707ea2ea45",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/deck/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 88,
+  "mesh_names": [
+    "BLDA_海上平台"
+  ],
+  "lowpoly": true
+}

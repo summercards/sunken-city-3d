@@ -1,0 +1,66 @@
+{
+  "key": "jar",
+  "id": "SEA-SCENE-B1109A-JAR",
+  "asset_id": "SEA-SCENE-B1109A-JAR",
+  "name": "罐装货品",
+  "component_family": "jar",
+  "family": "jar",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/jar/jar.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.4048488736152649,
+    0.4175364375114441,
+    0.6333978772163391
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-JAR",
+  "bounds_size": [
+    0.4048488736152649,
+    0.4175364375114441,
+    0.6333978772163391
+  ],
+  "triangles": 30,
+  "polygons": 30,
+  "meshes": 3,
+  "geometry_fingerprint": "a0ddf338440c4b33f26c518adc7c3c0199f75cef7cf2e153589f9f49d1aedea9",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "instance_count": 16,
+  "source_sha256": "b96a37af83e8cd9c15d418200466ca0d555494c6414ae5c4c1bb10ea1e8aaa9d",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_packages/jar/asset_manifest.json",
+  "source_version": "v004_lowpoly",
+  "vertices": 21,
+  "mesh_names": [
+    "BLDA_罐装瓶身",
+    "BLDA_红瓶盖",
+    "BLDA_奶白纸标签"
+  ],
+  "lowpoly": true
+}
