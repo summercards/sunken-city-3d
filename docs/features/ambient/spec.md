@@ -175,3 +175,19 @@ R23无碰撞是上一轮历史，本轮物体阻挡由SEA-DIVE-R14承接；气�
 源码已见上述组件与装配，真实视觉曾195/8、195/4失败；后续修复正在跑，最终仍 PENDING，不继承旧美术PASS。已存在 runner underwater-experience / visual-underwater-experience；主线程在[开发记录第5节](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)回填实际池/轨迹/鱼/像素与审阅结果。
 
 主线程最终回填已在记录第7节：真实195/0、行为65/0通过，家园浅水呼气/旧图环境泡/实际鱼像素差已实测；首轮195/8、195/4/195/1仍为历史失败。soft-contact环境0.45m、呼气0.08m分离，呼气在真实mask前下方出生，浅水贴面不会完全淡没；原鱼8群/138保持，新增至178纯观赏。性能/用户美术终审及全工程门禁未签，不扩展为所有模块通过。
+
+## 2026-11-09 水下环境泡尘表现承接（AmbientR32+，验收 PENDING）
+
+本节只追加 AMBIENT 的泡尘表现，不改变 Dive FSM、保存、鱼群规则或用户布局；呼气仍归既有48池，鱼仍为纯观赏。
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-AMBIENT-R32 | 家园固定192泡拆为96固定列 + 96邻域泡，另有200邻域尘；旧图固定96泡拆为48 vent + 48邻域泡，另有180邻域尘。环境泡尘复用 Quad 共享 particles，不改呼气48池。 |
+| SEA-AMBIENT-R33 | 邻域场在 world-space 连续 `mod` wrap，围 observer 的 XZ ±12m、Y ±8m；观测移动不把泡黏在角色上，边缘 fade 1.5m，泡顶至少在水面下0.77m。 |
+| SEA-AMBIENT-R34 | `Sunroom.set_observer` 读取 Camera；旧 `deco.update` 同样以 Camera 更新 observer。环境粒子使用共享 Quad，不用小 sphere；环境 soft contact 0.18m，呼气 soft contact 0.08m 保持清晰分离。 |
+| SEA-AMBIENT-R35 | 周围应有可读浮游泡与细尘，作为深度与机位验收约束：10/20/41/80m四 yaw、72° FOV、0.5m移动 world position、泡/尘独立开关均需分列对照；不可用节点数代替实际像素表现。 |
+| SEA-AMBIENT-R36 | 本轮只验环境表现，不扩展到 Dive FSM、保存、鱼、用户布局、低端设备、长期性能或用户终审；状态保持 `partial` / PENDING。最新179/32与436/35失败批次不转为通过，当前新批由主线程回填。 |
+
+源码核对入口：`sunroom_underwater_atmosphere.gd:4-29,62-68,225-238,290-324`、`uw_deco.gd:1-20,85-164,241-361`、`sunroom_underwater_particles.gdshader:5-52`。完整矩阵与最终签署见 [开发记录第8节](../../development/2026-11-09_underwater_middepth_visibility.md)。
+
+本轮最终：真实436/0、行为179/0通过，整合4834/0；家园/旧图10/20/41m正常72度机位的泡尘独立开关均有实际像素差，10/20/41/80m四yaw周围12m>=6泡>=20尘。连续世界场不粘相机，预算和呼气不变；用户终审、低端及长时性能未签。

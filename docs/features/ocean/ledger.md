@@ -225,3 +225,43 @@ R12/R13的旧全暗夜景已被R15–R17替代。新增world_night全局与Water
 SEA-OCEAN-R26–R29专项通过：`D:/projects/sea-work/verification/20261109-030908-underwater-breath-contact-db6f99/report.json`，visual-underwater-experience195/0、exit0、无unexpected；行为65/0在`20261109-031605-underwater-regression-final-2513b4`通过。启用Water、共享Snell窗/内反射/低频波纹与太阳；水面time0/2、sun1/0、water显隐真实像素对照均通过。修正首版过密波纹与天空辐照不随ambient_light_energy衰减的问题，按真实深度缩放cubemap：中性灰实体5/30/70/115m亮度0.09120/0.08082/0.04239/0.01040，水面ROI0.30625/0.25882/0.21393/0.12002，均单调变暗；单fogpass且无Environment fog、无新增白蒙层或volumetric fog。相机水柱只用于表面光学，Air仍按真实角色深度。
 
 旧195/8、195/4、195/1与timeout/exit-1保留失败历史；本轮未重新签历史far-fog-edge阈值、完整昼夜天气、低端/持续性能或用户终审。框架写盘52/1与全局资源门禁sync69/只读70问题独立保留，不称全工程通过。[完整签署](../../development/2026-11-08_underwater_optics_and_transition.md)。
+
+## 2026-11-09 OceanR30+ 水下中层可见性承接（partial / PENDING）
+
+登记头、owner、验证入口与既有 R26–R29 历史保持不变；本节只追加 OCEAN 渲染事实，不改登记 JSON、不运行 sync。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-OCEAN-R30 | 源码已核对 sky cubemap 深度增益、CPU `2.6/PI` 恒定环境基准；不重复深度日照、不改曝光 | `underwater_world.gd:210-235`、`sunroom_region.gd:165-181`、`uw_water_color.gdshaderinc:28-36`；10/20m暗水、灰样板>0.1及深层递减待新批真实图 |
+| SEA-OCEAN-R31 | surface match 0.22–0.32m连续，140–190m收口；Forward reverse-Z sky epsilon `1e-7`，兼容反判保留；普通建筑指数雾 | `uw_fog.gdshader:26-51`、`sunroom_underwater_fog.gdshader:19-40`；41m建筑切边、220/400m黑盒远fog待主线程回填 |
+| SEA-OCEAN-R32 | 透明雾统一85m密度封顶，实际深度不截断 | `uw_common.gdshaderinc:127-131`、`sunroom_underwater_color.gdshaderinc:25-29`、`sunroom_underwater_particles.gdshader:48-52`；待真实画面确认连续性 |
+| SEA-OCEAN-R33 | `uw_surface_optics` 保留兼容函数名，当前产品口径为统一屏幕水色底、低频波纹、柔和日光；不再宣称完整物理折射窗 | `uw_water_color.gdshaderinc:79-137`；旧 R26 强窗口读法由本条覆盖，10/20/41/80m四 yaw与水面切边待签 |
+| SEA-OCEAN-R34 | 设计验收矩阵已写入：四深度×四 yaw、0.5m移动 world position、72° FOV、泡尘开关分列 | 新批 `D:/projects/sea-work/verification/20261109-145508-underwater-targeted-depth-5b715a` 为179/32与436/35失败；旧195/0不继承，本轮新批仍运行 |
+| SEA-OCEAN-R35 | 保持 `partial` / PENDING | 4096水面尺寸试验无效，已恢复1280；夹具box错配、节点入树前global赋值、远sky epsilon已修；低端/长期性能/用户终审未签 |
+
+`run_verification.py:392-396` 已使用临时文件后 `os.replace` 处理 Windows `PermissionError`；safe-delete 拒绝保留无删除。全局已知框架写盘与哈希问题不作为本轮成功。最终签署见 [开发记录第8节](../../development/2026-11-09_underwater_middepth_visibility.md)。
+
+### 本轮最终回填
+
+SEA-OCEAN-R30–R35专项通过，功能总体partial。报告`D:/projects/sea-work/verification/20261109-151955-underwater-middepth-signed-e09520/report.json`：8入口4834/0、全部exit0/PASS、unexpected=[]。真实光学436/0、行为179/0；10/20m灰样板0.157101/0.153103，41/70/115m为0.128497/0.080820/0.018255，浅层提亮而深层递减。220/400m黑box与water−0.68m样板在家园peak0.003922、旧图0.0，符合<0.025；reverse-Z天空阈值误判远建筑已修。水面尺寸恢复1280，取消强Snell/反射圆盖，采用同屏水色低频波纹柔光；不再宣称完整物理折射。正常视野10/20/41m、低角远景、仰视与十图生产图已审阅，近层浪纹仍有低对比分界，不扩展为所有角度色差绝对清零。原179/32、436/35及195/1失败保留；低端、持续性能、全昼夜、用户终审及全工程门禁未签。最新sync70/只读71个资源登记问题阻断派生索引，不改未知hash来隐藏漂移。
+
+## 2026-11-09 水下共享水上波场复用承接（SEA-OCEAN-R36–R39，partial / FINAL PENDING）
+
+登记头、owner、验证入口和 R26–R35 历史保持不变；本节只追加水下表面复用事实，不改登记 JSON，不运行 sync，不改代码以外的账本或布局。官方资产参考 [BoujieMIT Asset Library #2070](https://godotengine.org/asset-library/asset/2070) 已查阅；因本地已有相同基础，不下载、不安装，商业 4.7 方案不引入，仍以 Godot 4.6.3 为准。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-OCEAN-R36 | 已核对共享波场入口：`ocean_sample_at(p, clock)` 为显式时钟入口，原 `ocean_sample(p)` 仍走 `u_time` wrapper；波公式、CPU浮力和水上材质口径不变 | `godot/shaders/ocean_waves.gdshaderinc:8-35`；不得以函数存在替代最终视觉签署 |
+| SEA-OCEAN-R37 | `uw_surface_shared.gdshaderinc` 复用水上波场、`wave_scale` 与既有 `large_wave_normals`；约28m纹理使用 G/B 居中法线、双滚动，R均值约0.995不作RG | `godot/shaders/uw_surface_shared.gdshaderinc:1-20,35-42`；不直接复用岸线/SSR/深度吸收，材质/纹理细节仍待主线程最终录制 |
+| SEA-OCEAN-R38 | 波脊由共享波场导数的正向阈值生成，颜色干净蓝、亮纹仅加亮；水上同源导数过滤太阳 lobe，无硬Snell圆窗；`underside_wave_light`/`underside_sun_light` 分开供 A/B | `godot/shaders/uw_surface_shared.gdshaderinc:22-80`；初法线切岛视觉不合格与波包473/2历史保留，不回填为通过 |
+| SEA-OCEAN-R39 | Surface profile 只读注入 `ocean_waves`/`wave_scale`/`large_wave_normals`，不共享liveMat、不动Main/shore/布局/air/FSM；单fogpass、140–190m收口、泡/鱼、120m水深与水下1m入水边界保持 | 主线程装配与最终录制待填；低端长时、用户终审、完整物理折射、全局资源门禁不由本包签署 |
+
+最新专项包：`D:/projects/sea-work/verification/20261109-183519-underwater-surface-packets-verified-0cd7f3`，headless179/0、visual473/0。失败历史包括初夹具类型 Parse、`CAMERA_POSITION_WORLD` helper 全局不可用后改为参数传入、法线切岛密集初版473/0但目检不合格、波包版473/2（shader字符串过窄并污染同ROI深度亮纹）；测试改为关闭wave/sun验基准衰减，同时保留动态独立 A/B。最终整合/录制签署位置：[开发记录第6节](../../development/2026-11-09_underwater_surface_wave_reuse.md)。
+
+### SEA-OCEAN-R36–R39 本轮最终回填
+
+主报告`D:/sea-visual-check/verification/20261109-185449-underwater-surface-reuse-signed-6d7336/report.json`，真实475/0、行为179/0、sunroom85/0、3C396/0、maps338/0、transition226/0、visual-maps350/0；伴随原水上海面实机报告`D:/projects/sea-work/verification/20261109-185519-surface-wave-compatibility-683760/report.json`为ocean148/0。8入口2197/0、exit0/PASS、unexpected=[]。11份运行/测试文件与签署快照一致，未改水上波公式/CPU浮力/岸线/Main布局/Air/FSM。
+
+55m实际水面mean0.433972，亮纹14.23%、71.46%的亮纹位于太阳中心以外，white_fraction0；clock0→4变化385573像素，wave独立开关210469像素/peak0.49804、sun开关231473/0.58431。FlatNormal与真实GB纹理差分及恢复图通过，水位/深度/单fog/远边界/原泡尘回归保留。固定表现时钟72帧/18fps/4秒实机MP4已产出并目检，不称玩家操作录像。
+
+用户美术终审、低端持续性能、全昼夜和完整物理折射未签。sync69/只读69资源登记问题仍失败，未批量重签未知hash。初Parse、helper内建变量、纸片岛初版和波包473/2保留为失败/返工过程。交付`D:/projects/sea-work/outputs/underwater-surface-reuse-20261109/`。

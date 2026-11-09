@@ -14,6 +14,17 @@ const ALPHA := "res://shaders/underwater_alpha.gdshader"
 const ALPHA_CULLED := "res://shaders/underwater_alpha_culled.gdshader"
 const FACING_DEBUG := "res://shaders/uw_facing_debug.gdshader"
 
+## Bind read-only surface inputs to an independent underside material. Never
+## duplicate the whole ocean material (shore/refraction expect the surface scene).
+static func configure_underside(mat: ShaderMaterial, profile: Dictionary = {}) -> void:
+	var water = preload("res://src/rendering/water_surface.gd").new()
+	mat.set_shader_parameter("ocean_waves", profile.get("ocean_waves", water.ocean_waves))
+	mat.set_shader_parameter("wave_scale", profile.get("wave_scale", water.wave_scale))
+	water.free()
+	mat.set_shader_parameter("large_wave_normals", profile.get("large_wave_normals", preload("res://assets/textures/water/large_waves.png")))
+	if mat.get_shader_parameter("underside_wave_light") == null: mat.set_shader_parameter("underside_wave_light", 0.85)
+	if mat.get_shader_parameter("underside_sun_light") == null: mat.set_shader_parameter("underside_sun_light", 0.80)
+
 static var _cache: Dictionary = {}
 static var _depth := 10.0
 static var _water_level := 1.12

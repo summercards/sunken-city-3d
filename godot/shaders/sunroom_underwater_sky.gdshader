@@ -4,7 +4,7 @@ shader_type sky;
 
 void sky() {
 	if (AT_CUBEMAP_PASS) {
-		COLOR = region_hemisphere_linear(EYEDIR) * uw_depth_light(region_active_depth()) * mix(0.24, 1.0, sun_strength);
+		COLOR = region_hemisphere_linear(EYEDIR) * uw_irradiance_gain(region_active_depth());
 	} else {
 		COLOR = uw_display_to_hdr(region_water_display(SCREEN_UV));
 	}

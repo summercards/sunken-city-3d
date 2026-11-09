@@ -5,9 +5,9 @@ uniform vec3 sun_color : source_color = vec3(1.0, 0.955, 0.8);
 uniform float sun_strength : hint_range(0.0, 1.0, 0.01) = 1.0;
 uniform float surface_ior : hint_range(1.0, 1.5, 0.001) = 1.333;
 uniform float surface_window_strength : hint_range(0.0, 1.5, 0.01) = 1.0;
-uniform float surface_reflection_strength : hint_range(0.0, 2.0, 0.01) = 0.85;
-uniform float sun_disk_strength : hint_range(0.0, 2.0, 0.01) = 0.75;
-uniform float sun_glint_strength : hint_range(0.0, 2.0, 0.01) = 0.65;
+uniform float surface_reflection_strength : hint_range(0.0, 2.0, 0.01) = 0.78;
+uniform float sun_disk_strength : hint_range(0.0, 2.0, 0.01) = 0.14;
+uniform float sun_glint_strength : hint_range(0.0, 2.0, 0.01) = 0.28;
 
 vec3 uw_srgb_to_linear(vec3 c) {
     return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)), step(vec3(0.04045), c));
@@ -27,6 +27,12 @@ vec3 uw_display_to_hdr(vec3 c) {
 
 float uw_depth_light(float depth) {
     return mix(1.0, 0.26, smoothstep(5.0, 120.0, max(depth, 0.0)));
+}
+// Sky-source ambient energy is not a reliable scale for sky irradiance.
+// Apply the artistic shallow-water lift once, in the cubemap itself.
+float uw_irradiance_gain(float depth) {
+    return mix(1.8, 0.34, smoothstep(5.0, 120.0, max(depth, 0.0)))
+        * mix(0.32, 1.0, sun_strength);
 }
 
 vec3 uw_gradient_display(vec2 screen_uv, float depth) {
@@ -59,7 +65,7 @@ vec3 uw_above_water_sky_display(vec3 direction) {
     vec3 sky = mix(horizon, zenith, h);
     vec3 s = normalize(sun_direction);
     float sun_dot = max(dot(d, s), 0.0);
-    float halo = pow(sun_dot, 12.0) * 0.10;
+    float halo = pow(sun_dot, 12.0) * 0.018;
     float disk = pow(sun_dot, 180.0) * sun_disk_strength * sun_strength;
     return sky * mix(0.36, 1.0, sun_strength) + sun_color * (halo * sun_strength + disk);
 }
@@ -67,25 +73,18 @@ vec3 uw_above_water_sky(vec3 direction) {
     return uw_display_to_hdr(uw_above_water_sky_display(direction));
 }
 
-// 共享的海面光学：水下视线先经过 Snell 折射进入上方解析天空，掠视角再由
-// Fresnel 内反射接管；碎散高光由波相位和太阳方向共同决定，不是整屏发白。
-vec3 uw_surface_optics(vec3 world_position, vec3 normal, vec3 view_direction, float t, float water_column) {
+// 共享水面表现：统一屏幕水色底、低频波纹与柔和日光。
+// 折射方向仅用于定位阳光，不再切换整片天空/内反射色，防止临界角形成蓝色圆盖。
+vec3 uw_surface_optics(vec3 world_position, vec3 normal, vec3 view_direction, float t, float water_column, vec2 screen_uv) {
     vec3 v = normalize(view_direction);
     vec3 n = normalize(normal);
-    float cos_theta = abs(dot(n, v));
-    float fresnel = 0.02 + 0.98 * pow(1.0 - cos_theta, 5.0);
+    float n_water = max(surface_ior, 1.001);
     // Incident ray travels from the underwater camera toward the air interface.
     // Water -> air uses n_water/n_air (>1), so grazing rays become total internal reflection.
     vec3 incident = -v;
-    vec3 transmitted = refract(incident, -n, max(surface_ior, 1.001));
+    vec3 transmitted = refract(incident, -n, n_water);
     float transmitted_length = length(transmitted);
-    float snell_window = smoothstep(0.0, 0.08, transmitted_length);
     vec3 sky_direction = transmitted_length > 0.001 ? normalize(transmitted) : vec3(0.0, 1.0, 0.0);
-    fresnel = mix(1.0, fresnel, snell_window);
-    vec3 window = uw_above_water_sky(sky_direction);
-    vec3 reflected_direction = reflect(-v, n);
-    float reflected_down = smoothstep(0.0, 1.0, -reflected_direction.y);
-    vec3 internal_reflection = vec3(0.008, 0.032, 0.055) + vec3(0.012, 0.050, 0.060) * reflected_down;
 
     vec2 p = world_position.xz * 0.18;
     float band_a = sin(p.x * 1.2 + sin(p.y * 0.9 + t * 0.58));
@@ -93,12 +92,17 @@ vec3 uw_surface_optics(vec3 world_position, vec3 normal, vec3 view_direction, fl
     float fragments = pow(max(0.0, band_a * band_b), 4.0);
     float wave_sun = pow(max(dot(n, normalize(sun_direction)), 0.0), 7.0);
     float sun_dot = max(dot(sky_direction, normalize(sun_direction)), 0.0);
-    float disk = pow(sun_dot, 96.0) * sun_disk_strength;
+    float disk = pow(sun_dot, 96.0) * sun_disk_strength * smoothstep(0.0, 0.08, transmitted_length);
     vec3 scattered_sun = sun_color * sun_strength * (fragments * wave_sun * sun_glint_strength + disk);
 
-    vec3 result = window * (1.0 - fresnel) * surface_window_strength;
-    result += internal_reflection * fresnel * surface_reflection_strength;
-    result += scattered_sun * (1.0 - fresnel * 0.65);
+    vec3 gradient_hdr = uw_display_to_hdr(uw_gradient_display(screen_uv, water_column));
+    // A finite water plane must not become a separate circular window. Keep
+    // the same water gradient as the fog/background and express the surface
+    // only through low-amplitude animated wave modulation and sunlight.
+    float wave_phase = world_position.x * 0.11 + world_position.z * 0.073 + t * 0.42;
+    float wave_modulation = 0.86 + (0.5 + 0.5 * sin(wave_phase)) * 0.22 + fragments * 0.10;
+    vec3 result = gradient_hdr * wave_modulation;
+    result += scattered_sun * (0.18 + fragments * 0.16);
     // Surface stays legible at depth, but sunlight is absorbed through the water column.
     result *= mix(0.22, 1.0, exp(-max(water_column, 0.0) * 0.012));
     return max(result, vec3(0.0));

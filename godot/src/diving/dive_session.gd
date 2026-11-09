@@ -395,6 +395,18 @@ func _surface_sunlight() -> Dictionary:
 		profile.direction = sun.global_basis.z.normalized()
 		profile.color = sun.light_color
 		profile.strength = clampf(sun.light_energy, 0.0, 1.0)
+	# Read the active surface before detaching Main. Only optical inputs cross
+	# the boundary; never share the live material or shore/depth dependencies.
+	var water := _host.get_node_or_null("World/Water") as MeshInstance3D
+	if water != null:
+		var surface := {}
+		if water.get("ocean_waves") != null: surface.ocean_waves = water.get("ocean_waves")
+		if water.get("wave_scale") != null: surface.wave_scale = water.get("wave_scale")
+		var material := water.material_override as ShaderMaterial
+		if material != null:
+			var normal_texture: Variant = material.get_shader_parameter("large_wave_normals")
+			if normal_texture is Texture2D: surface.large_wave_normals = normal_texture
+		profile.surface = surface
 	return profile
 
 func _air_snapshot() -> Dictionary:

@@ -234,3 +234,21 @@ SEA-AMBIENT-R17及本轮R07/R08/R10/R11/R16覆盖项：六项统一runner实测�
 SEA-AMBIENT-R28–R31当前专项通过：`D:/projects/sea-work/verification/20261109-030908-underwater-breath-contact-db6f99/report.json`的visual-underwater-experience195/0、exit0/PASS；`20261109-031605-underwater-regression-final-2513b4`的underwater-experience65/0通过。旧96泡分配/颜色和实际像素可见已修，家园192泡/200尘/10束水位/AABB动态复验通过；呼气池48非奇异矩阵、真实mask前方出生、上升/膨胀/世界轨迹/退出清空/暂停过场冻结均通过。浅水呼气soft-contact0.08m，家园on/off差分300像素/peak0.04706，zone1为1090像素/0.18431，不仅计节点。家园原8群138保留，浅18中22总178、旧图每群24均实际实例/动画与像素差分通过，无捕捞或碰撞职责。旧195/8、195/4和195/1过程失败保留。
 
 总体partial；低端/持续性能、完整昼夜/全路线/用户美术终审未签。全局sync69/只读70资源哈希门禁失败与框架52/1 second generation write另外记录，不写全工程通过。[完整签署](../../development/2026-11-08_underwater_optics_and_transition.md)。
+
+## 2026-11-09 AmbientR32+ 环境泡尘承接（partial / PENDING）
+
+登记头与原 owner 原样保留；本节仅登记环境表现，不改登记 JSON、不运行 sync。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-AMBIENT-R32 | 家园192泡=96固定列+96邻域泡、200邻域尘；旧图96泡=48 vent+48邻域泡、180邻域尘；呼气48池不变 | `sunroom_underwater_atmosphere.gd:4-29,90-119`、`uw_deco.gd:1-20,85-164`；数量源码已核对，实际可见性待新批 |
+| SEA-AMBIENT-R33 | world-space 连续mod wrap：observer XZ±12m/Y±8m，移动不粘泡，边缘fade1.5m，水面下至少0.77m | `sunroom_underwater_atmosphere.gd:187-194,290-324`、`uw_deco.gd:265-324`；0.5m移动 world position与边缘像素待签 |
+| SEA-AMBIENT-R34 | Sunroom 由 Camera 设置 observer，旧 deco.update 由 Camera 更新；环境 Quad共享particles，环境soft contact0.18m，呼气0.08m | `sunroom_region.gd:165-178`、`underwater_world.gd:598`、`sunroom_underwater_atmosphere.gd:213-238`、`uw_deco.gd:85-164`、`diver_breath_bubbles.gd:42-56`；待真实画面对照 |
+| SEA-AMBIENT-R35 | 验收矩阵含10/20/41/80m四 yaw、72°FOV、泡尘开关、正常视野周围应有可读浮游泡/尘 | 最新 `D:/projects/sea-work/verification/20261109-145508-underwater-targeted-depth-5b715a` 为179/32与436/35失败；当前新批仍运行，不借旧195/0 |
+| SEA-AMBIENT-R36 | 保持 `partial` / PENDING；不扩展至 FSM/保存/鱼/布局/低端/长期性能/用户终审 | 4096水面尺寸试验无效并恢复1280；夹具box错配、节点入树前global赋值、远sky epsilon已修；全局框架写盘/哈希问题独立保留 |
+
+最终签署见 [开发记录第8节](../../development/2026-11-09_underwater_middepth_visibility.md)。
+
+### 本轮最终回填
+
+SEA-AMBIENT-R32–R36专项通过，功能总体partial。最终报告`D:/projects/sea-work/verification/20261109-151955-underwater-middepth-signed-e09520/report.json`：underwater-experience179/0、visual-underwater-experience436/0；整合8入口4834/0、exit0/PASS、unexpected=[]。家园正常10/20/41m泡变化像素924/1069/1359、尘179/183/208，旧图泡339/505/426、尘67/50/86；四yaw及80m周围覆盖通过。移动0.5m家园87/87泡与167/167尘稳定，旧45/46泡与150/150尘稳定；边缘回卷不粘角色。192/200/10与96/180预算、48呼气池、用户摆位不变。动态AABB/真实回读/水面下边界通过。低端、持续性能、用户终审与全局门禁未签，首批179/32、436/35保留，不借旧样板签本轮。最新sync70/只读71登记问题阻断派生索引，同专项通过分列。

@@ -97,7 +97,8 @@ var _sun_profile := {"direction":Vector3(0.5191,0.7787,-0.3523), "color":Color(1
 
 func configure_underwater_light(profile: Dictionary) -> void:
 	_sun_profile = {"direction":profile.get("direction",Vector3(0.5191,0.7787,-0.3523)),
-		"color":profile.get("color",Color(1.0,0.955,0.8)), "strength":clampf(float(profile.get("strength",1.0)),0.0,1.0)}
+		"color":profile.get("color",Color(1.0,0.955,0.8)), "strength":clampf(float(profile.get("strength",1.0)),0.0,1.0),
+		"surface":profile.get("surface", _sun_profile.get("surface", {})).duplicate()}
 	if _sky_material != null: _apply_underwater_light()
 
 func _apply_underwater_light() -> void:
@@ -210,7 +211,9 @@ func _build_environment() -> void:
 	# 可见水色与环境辐照分开；天空 cubemap 提供网页版半球光的上下两色。
 	_uw_env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	_uw_env.ambient_light_color = Color("#b9e9e2")
-	_uw_env.ambient_light_energy = (1.9 / PI)
+	# 天空 cubemap 已经乘 uw_depth_light 与 sun_strength；环境能量只保留固定基准。
+	# 深度与夜间系数不在 CPU 侧重复相乘，避免浅层被二次压暗。
+	_uw_env.ambient_light_energy = 2.6 / PI
 	_uw_env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
 	_uw_env.tonemap_mode = Environment.TONE_MAPPER_ACES
 	# Three ACES 输入倍率为 exposure/0.6，Godot 为 exposure*1.8。
@@ -228,8 +231,9 @@ func _update_sky(depth_now: float) -> void:
 	_fog_material.set_shader_parameter("dive_depth", actual_depth)
 	_fog_material.set_shader_parameter("water_level", WATER_LEVEL)
 	MaterialLib.set_depth(actual_depth)
-	var depth_light := lerpf(1.0,0.26,smoothstep(5.0,120.0,actual_depth))
-	_uw_env.ambient_light_energy = (1.9 / PI) * depth_light * lerpf(0.24,1.0,float(_sun_profile.strength))
+	# 天空 cubemap 已经乘 uw_depth_light 与 sun_strength；这里不重复乘深度/夜间系数。
+	# 仅提升固定环境基准，实际深层衰减由天空辐照一次控制；曝光、头灯和设施灯不变。
+	_uw_env.ambient_light_energy = 2.6 / PI
 
 
 # ---------------------------------------------------------------- 数据 / 碰撞

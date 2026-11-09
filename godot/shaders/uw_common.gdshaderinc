@@ -125,6 +125,8 @@ vec3 uw_water_color(vec2 screen_uv) {
 }
 
 float uw_fog_amount() {
-    float density = mix(0.026, 0.012, smoothstep(65.0, 210.0, dive_depth));
+    // 与屏幕 WaterFogPass 一致：85m 后只封顶密度曲线，不截断真实水深。
+    float density_depth = min(dive_depth, 85.0);
+    float density = mix(0.026, 0.012, smoothstep(65.0, 210.0, density_depth));
     return clamp(1.0 - exp(-pow(max(v_view_depth, 0.0) * density, 1.8)), 0.0, 1.0);
 }

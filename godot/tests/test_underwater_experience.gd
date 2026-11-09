@@ -6,12 +6,19 @@ const DT: float = 1.0 / 60.0
 const PREFIX: String = "res://outputs/underwater-experience-"
 const SUN: Vector3 = Vector3(0.5191, 0.7787, -0.3523)
 const ZERO_TIME: float = 0.000001 # elapsed=0 在现有 shader 中表示 TIME，近零正数才是冻结的 time0。
+const DIRECTIONAL_DEPTHS: Array = [10.0, 20.0, 41.0, 80.0]
+const NORMAL_RENDER_DEPTHS: Array = [10.0, 20.0, 41.0]
+const NORMAL_YAWS: Array = [0.0, PI * 0.5, PI, PI * 1.5]
+const NORMAL_PITCH := deg_to_rad(10.0)
+const LOW_WATER_PITCH := deg_to_rad(3.0)
 var checks: int = 0
 var failures: int = 0
 var report: Dictionary = {"test": "underwater-experience", "fixed_dt": DT,
 	"maps": {}, "images": [], "failure_labels": [],
 	"isolation": "统一 runner 工程副本；无 Main、无存档访问",
-	"time0_shader_value": ZERO_TIME}
+	"time0_shader_value": ZERO_TIME,
+	"acceptance_contract": "10/20/41/80m四yaw邻域；0.5m observer世界稳定；AABB/水面/矩阵/预算；正常72FOV仰10度泡尘像素；220/400m黑box真实fog；低角度Water ROI",
+	"known_limitations": ["真实renderer PNG与像素阈值不在headless分支执行", "水面ROI仅保存on/off供目检，不以源码字符串判定远clip", "动态粒子行为使用snapshot而非逐帧海量断言"]}
 
 func _init() -> void:
 	call_deferred("run")
@@ -86,6 +93,166 @@ func update_view(map, id: String) -> void:
 
 func water_node(map, id: String) -> MeshInstance3D:
 	return map.get_node("Water") as MeshInstance3D if id == "home" else map.deco._ceiling as MeshInstance3D
+
+func particle_nodes(map, id: String) -> Array:
+	if id == "home":
+		return [map.get_node("Atmosphere/Bubbles"), map.get_node("Atmosphere/Motes")]
+	return [map.deco._bubbles, map.deco._motes]
+
+func particle_snapshot(map, id: String, observer: Vector3, camera: Camera3D, time: float) -> Dictionary:
+	if id == "home":
+		map.get_node("Atmosphere").set_observer(observer)
+		map.get_node("Atmosphere").sample(time)
+		return map.get_node("Atmosphere").snapshot(time)
+	camera.global_position = observer
+	map.deco.update(0.0, time, map.diver_pos, camera)
+	return map.deco.suspended_snapshot(time)
+
+func particle_snapshot_contract(snapshot: Dictionary, id: String) -> void:
+	var valid := true
+	for key in ["bubbles", "motes"]:
+		for state in snapshot.get(key, []):
+			valid = valid and state.has("world_position") and state.has("alpha")
+			if id == "home":
+				valid = valid and state.has("transform")
+	check(valid, id + "：snapshot含每项world_position/alpha，home额外含transform")
+
+func particle_count(snapshot: Dictionary, key: String, observer: Vector3, id: String) -> int:
+	var count := 0
+	var states: Array = snapshot.get(key, [])
+	if id == "home" and key == "bubbles":
+		states = states.slice(96)
+	for state in states:
+		var p: Vector3 = state.world_position
+		count += int(float(state.alpha) > 0.05 and p.distance_to(observer) <= 12.0)
+	return count
+
+func projected_particle_count(snapshot: Dictionary, key: String, camera: Camera3D) -> int:
+	var count := 0
+	var viewport_size: Vector2 = camera.get_viewport().get_visible_rect().size
+	var forward: Vector3 = -camera.global_basis.z
+	for state in snapshot.get(key, []):
+		if float(state.alpha) <= 0.05:
+			continue
+		var p: Vector3 = state.world_position
+		if (p - camera.global_position).dot(forward) <= 0.0:
+			continue
+		var screen: Vector2 = camera.unproject_position(p)
+		count += int(screen.x >= 0.0 and screen.y >= 0.0 and screen.x < viewport_size.x and screen.y < viewport_size.y)
+	return count
+
+func particle_inside_box(p: Vector3, observer: Vector3, level: float) -> bool:
+	var center := Vector3(observer.x, minf(observer.y, level - 0.77 - 8.0 - 0.25), observer.z)
+	return absf(p.x - center.x) <= 12.0 and absf(p.z - center.z) <= 12.0 \
+		and absf(p.y - center.y) <= 8.0 and p.y < level - 0.5
+
+func compare_particle_world_positions(before: Dictionary, after: Dictionary, key: String, id: String,
+		observer: Vector3, level: float) -> Dictionary:
+	var stable := 0
+	if id == "home" and key == "bubbles":
+		before[key] = before.get(key, []).slice(96)
+		after[key] = after.get(key, []).slice(96)
+	var eligible := 0
+	var old_states: Array = before.get(key, [])
+	var new_states: Array = after.get(key, [])
+	for i in range(mini(old_states.size(), new_states.size())):
+		var old_state: Dictionary = old_states[i]
+		var new_state: Dictionary = new_states[i]
+		if float(old_state.alpha) <= 0.05 or float(new_state.alpha) <= 0.05:
+			continue
+		if not particle_inside_box(old_state.world_position, observer, level) \
+			or not particle_inside_box(new_state.world_position, observer + Vector3(0.5, 0.0, 0.0), level):
+			continue
+		eligible += 1
+		stable += int((old_state.world_position as Vector3).distance_to(new_state.world_position) < 0.001)
+	return {"eligible": eligible, "stable": stable,
+		"fraction": float(stable) / maxi(eligible, 1)}
+
+func particle_field_contract(snapshot: Dictionary, observer: Vector3, level: float, id: String, depth: float) -> Dictionary:
+	var center := Vector3(observer.x, minf(observer.y, level - 0.77 - 8.0 - 0.25), observer.z)
+	var states: Array = snapshot.get("bubbles", [])
+	if id == "home":
+		states = states.slice(96)
+	var bounded := true
+	var finite_alpha := true
+	for state in states:
+		var p: Vector3 = state.world_position
+		bounded = bounded and absf(p.x - center.x) <= 12.35 and absf(p.z - center.z) <= 12.35
+		bounded = bounded and absf(p.y - center.y) <= 8.35 and p.y < level - 0.5
+		finite_alpha = finite_alpha and is_finite(float(state.alpha))
+	check(bounded and finite_alpha, id + "：深度" + str(int(depth)) + "m悬浮场落在observer连续box±12/±8且低于水面-.5")
+	return {"center": vector(center), "bounded": bounded, "finite_alpha": finite_alpha,
+		"states": states.size()}
+
+func particle_instance_contract(map, id: String, values: Dictionary) -> void:
+	var level: float = map.dive_water_level()
+	var all_in_aabb := true
+	var all_below_water := true
+	var nonsingular := true
+	var total := 0
+	for node in particle_nodes(map, id):
+		var mm: MultiMesh = node.multimesh
+		check(mm != null and mm.mesh != null, id + "：动态粒子MultiMesh仍存在")
+		if mm == null:
+			continue
+		total += mm.instance_count
+		for i in mm.instance_count:
+			var pose: Transform3D = mm.get_instance_transform(i)
+			var world_position: Vector3 = node.to_global(pose.origin)
+			all_in_aabb = all_in_aabb and node.custom_aabb.grow(0.01).has_point(pose.origin)
+			all_below_water = all_below_water and world_position.y < level - 0.5
+			nonsingular = nonsingular and world_position.is_finite() and absf(pose.basis.determinant()) > 0.000000000001
+	var expected: int = 392 if id == "home" else 276
+	check(total == expected, id + "：动态粒子预算不变，总实例=" + str(total))
+	check(all_in_aabb, id + "：所有动态粒子实例均在当前customAABB内")
+	check(all_below_water, id + "：所有动态粒子世界Y低于water-.5")
+	check(nonsingular, id + "：所有动态粒子无0scale/singular矩阵")
+	values.particle_contract = {"instances": total, "expected": expected,
+		"aabb": all_in_aabb, "below_water": all_below_water, "nonsingular": nonsingular}
+
+func test_directional_particles(map, id: String, values: Dictionary) -> void:
+	var camera: Camera3D = map.dive_controller.camera
+	var level: float = map.dive_water_level()
+	var column: Vector2 = Vector2(0.0, -35.0) if id == "home" else Vector2(0.0, 12.0)
+	var rows: Array = []
+	var stable_row: Dictionary = {}
+	for depth in DIRECTIONAL_DEPTHS:
+		var observer := Vector3(column.x, level - float(depth), column.y)
+		var yaw_rows: Array = []
+		for yaw in NORMAL_YAWS:
+			var forward := Vector3(sin(float(yaw)), sin(NORMAL_PITCH), -cos(float(yaw))).normalized()
+			camera.global_position = observer
+			camera.look_at(observer + forward, Vector3.UP)
+			var snap: Dictionary = particle_snapshot(map, id, observer, camera, ZERO_TIME)
+			particle_snapshot_contract(snap, id)
+			particle_field_contract(snap, observer, level, id, float(depth))
+			var bubble_count_near := particle_count(snap, "bubbles", observer, id)
+			var mote_count_near := particle_count(snap, "motes", observer, id)
+			var bubble_projection := projected_particle_count(snap, "bubbles", camera)
+			var mote_projection := projected_particle_count(snap, "motes", camera)
+			check(bubble_count_near >= 6 and mote_count_near >= 20 and bubble_projection > 0 and mote_projection > 0,
+				id + "：深度" + str(int(depth)) + "m/yaw" + str(int(roundf(float(yaw) * 180.0 / PI)))
+				+ "周围12m泡>=6且尘>=20(alpha>.05)")
+			yaw_rows.append({"yaw_deg": float(yaw) * 180.0 / PI,
+				"near_bubbles": bubble_count_near, "near_motes": mote_count_near,
+				"observer": vector(observer)})
+		rows.append({"depth": depth, "yaw_rows": yaw_rows})
+	# observer中心连续移动，绝对粒子仅在边缘渐隐回卷；非回卷元素世界位置应保持不变。
+	var stable_observer := Vector3(column.x, level - 20.0, column.y)
+	var stable_before: Dictionary = particle_snapshot(map, id, stable_observer, camera, 17.0)
+	var stable_after: Dictionary = particle_snapshot(map, id, stable_observer + Vector3(0.5, 0.0, 0.0), camera, 17.0)
+	particle_snapshot_contract(stable_before, id)
+	particle_snapshot_contract(stable_after, id)
+	var bubble_stability := compare_particle_world_positions(stable_before, stable_after, "bubbles", id, stable_observer, level)
+	var mote_stability := compare_particle_world_positions(stable_before, stable_after, "motes", id, stable_observer, level)
+	check(float(bubble_stability.fraction) > 0.5 and float(mote_stability.fraction) > 0.5,
+		id + "：observer平移0.5m后剩余alpha>.05元素世界坐标过半稳定")
+	stable_row = {"bubble": bubble_stability, "mote": mote_stability,
+		"before_observer": vector(stable_observer),
+		"after_observer": vector(stable_observer + Vector3(0.5, 0.0, 0.0))}
+	particle_instance_contract(map, id, values)
+	values.directional_particles = {"column_xz": [column.x, column.y], "depths": rows,
+		"observer_shift": stable_row}
 
 func material_contract(map, id: String, values: Dictionary) -> void:
 	var water: MeshInstance3D = water_node(map, id)
@@ -414,6 +581,83 @@ func difference(a: Image, b: Image, area: Rect2) -> Dictionary:
 	return {"mean_abs_rgb": sum / maxi(count, 1), "peak": peak, "changed_pixels": changed,
 		"changed_fraction": float(changed) / maxi(count, 1), "pixels": count, "rect": str(rect)}
 
+func surface_readability(image: Image, area: Rect2) -> Dictionary:
+	var rect: Rect2i = Rect2i(Vector2i(area.position * Vector2(image.get_size())),
+		Vector2i(area.size * Vector2(image.get_size()))).intersection(Rect2i(Vector2i.ZERO, image.get_size()))
+	var base: Dictionary = roi(image, area)
+	var bright: int = 0
+	var bright_outside_sun: int = 0
+	var cells: Dictionary = {}
+	var count: int = 0
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			var c: Color = image.get_pixel(x, y)
+			var is_bright := c.b > 0.55 and c.g > 0.48 and c.r > 0.30
+			if is_bright:
+				bright += 1
+				var u := (float(x) + 0.5 - float(rect.position.x)) / maxf(float(rect.size.x), 1.0)
+				var v := (float(y) + 0.5 - float(rect.position.y)) / maxf(float(rect.size.y), 1.0)
+				var outside_sun := Vector2(u - 0.5, v - 0.5).length() > 0.18
+				bright_outside_sun += int(outside_sun)
+				var cell := str(mini(2, int(u * 3.0)), ":", mini(2, int(v * 3.0)))
+				cells[cell] = true
+			count += 1
+	base["bright_ridge_fraction"] = float(bright) / maxi(count, 1)
+	base["bright_ridge_outside_sun_fraction"] = float(bright_outside_sun) / maxi(count, 1)
+	base["bright_ridge_outside_sun_of_bright"] = float(bright_outside_sun) / maxi(bright, 1)
+	base["bright_ridge_cells"] = cells.size()
+	base["bright_ridge_pixels"] = bright
+	base["bright_ridge_threshold"] = "B>.55,G>.48,R>.30"
+	base["sun_dot_exclusion_radius"] = 0.18
+	return base
+
+func packed_vector4_array(values: Variant) -> Array:
+	var result: Array = []
+	if values is PackedVector4Array:
+		for value: Vector4 in values:
+			result.append([value.x, value.y, value.z, value.w])
+	return result
+
+func nearby_surface_structures(map, column: Vector2, radius: float) -> int:
+	var seen: Dictionary = {}
+	if not map.has_method("surface_height"):
+		return 0
+	for record in map._surfaces:
+		var bounds: AABB = record.bounds
+		var closest_x := clampf(column.x, bounds.position.x, bounds.end.x)
+		var closest_z := clampf(column.y, bounds.position.z, bounds.end.z)
+		if Vector2(closest_x, closest_z).distance_to(column) > radius:
+			continue
+		var node: Node = record.get("node")
+		if node != null:
+			seen[node.get_instance_id()] = true
+	return seen.size()
+
+func surface_column(map, depths: Array, require_structure: bool) -> Vector2:
+	var candidates: Array = [Vector2(0.0, -35.0), Vector2(25.0, -35.0),
+		Vector2(-25.0, -35.0), Vector2(0.0, -60.0), Vector2(-60.0, -60.0),
+		Vector2(60.0, -60.0)]
+	for candidate in candidates:
+		var valid: bool = map.city_bounds.has_point(candidate)
+		for depth in depths:
+			var observer := Vector3(candidate.x, map.dive_water_level() - float(depth), candidate.y)
+			valid = valid and clear_view(map, observer, view_direction(), map.dive_water_level())
+		if valid and (not require_structure or nearby_surface_structures(map, candidate, 48.0) > 0):
+			return candidate
+	check(false, "home：找不到满足楼体/仰视净空的生产式海面机位")
+	return candidates[0]
+
+func open_surface_column(map, depth: float) -> Vector2:
+	var candidates: Array = [Vector2(-260.0, -260.0), Vector2(260.0, 260.0),
+		Vector2(260.0, -260.0), Vector2(-260.0, 260.0)]
+	for candidate in candidates:
+		var observer := Vector3(candidate.x, map.dive_water_level() - depth, candidate.y)
+		if map.terrain_bounds.has_point(candidate) and nearby_surface_structures(map, candidate, 72.0) == 0 \
+			and clear_view(map, observer, view_direction(), map.dive_water_level()):
+			return candidate
+	check(false, "home：找不到开阔仰视海面比较机位")
+	return candidates[0]
+
 func shot(tag: String) -> Image:
 	# 所有调用均在renderer分支；headless绝不等待frame_post_draw。
 	for _i in 5:
@@ -463,7 +707,7 @@ func clear_view(map, from: Vector3, direction: Vector3, level: float) -> bool:
 
 func choose_column(map, id: String, depths: Array) -> Vector2:
 	var candidates: Array = [Vector2(0, -35), Vector2(25, -35), Vector2(-25, -35),
-		Vector2(0, -60), Vector2(-60, -60), Vector2(60, -60), Vector2(-180, -180), Vector2(-260, -260)]
+		Vector2(0, -60), Vector2(-60, -60), Vector2(60, -60), Vector2(-160, -160), Vector2(-180, -180), Vector2(-260, -260)]
 	if id == "zone1":
 		candidates = [Vector2(0, 12), Vector2(0, 0), Vector2(-5, 15)]
 	for candidate in candidates:
@@ -478,6 +722,159 @@ func choose_column(map, id: String, depths: Array) -> Vector2:
 			return candidate
 	check(false, id + "：找不到跨深度仰视净空机位")
 	return candidates[0]
+
+func test_readable_surface(map, id: String, camera: Camera3D, values: Dictionary) -> void:
+	if id != "home":
+		return
+	var water: MeshInstance3D = water_node(map, id)
+	var material: ShaderMaterial = map._surface_material
+	var level: float = map.dive_water_level()
+	var production_depths: Array = [20.0, 55.0]
+	var column: Vector2 = surface_column(map, production_depths, true)
+	var open_column: Vector2 = open_surface_column(map, 55.0)
+	var surface_area := Rect2(0.08, 0.08, 0.84, 0.84)
+	var original_fov := camera.fov
+	if material == null:
+		check(false, "home：仰视海面材质不存在，跳过sampler读取避免null误报")
+		return
+	var original_normal: Texture2D = material.get_shader_parameter("large_wave_normals") as Texture2D
+	var original_waves: Variant = material.get_shader_parameter("ocean_waves")
+	var original_wave_scale: float = float(material.get_shader_parameter("wave_scale"))
+	var original_wave_light: float = float(material.get_shader_parameter("underside_wave_light"))
+	var original_sun_light: float = float(material.get_shader_parameter("underside_sun_light"))
+	var shader_source := FileAccess.get_file_as_string("res://shaders/uw_surface_shared.gdshaderinc")
+	var shader_contract := shader_source.contains("ocean_sample_at(world.xz") \
+		and shader_source.contains("large_wave_normals, uv - drift).gb")
+	Materials.configure_underside(material)
+	original_normal = material.get_shader_parameter("large_wave_normals") as Texture2D
+	original_waves = material.get_shader_parameter("ocean_waves")
+	original_wave_scale = float(material.get_shader_parameter("wave_scale"))
+	check(material != null and original_normal != null and shader_contract,
+		"home：仰视海面材质由MaterialLib绑定真实large_wave_normals且共享显式clock/GB采样")
+	check(original_waves is PackedVector4Array and (original_waves as PackedVector4Array).size() == 4,
+		"home：仰视海面材质装配四组ocean_waves")
+	var ocean_rows: Array = []
+	if original_waves is PackedVector4Array:
+		ocean_rows = packed_vector4_array(original_waves)
+	var texture_path := original_normal.resource_path if original_normal != null else ""
+	var report_surface: Dictionary = {
+		"shader_resource_path": material.shader.resource_path if material.shader != null else "",
+		"texture_resource_path": texture_path,
+		"ocean_waves": ocean_rows,
+		"wave_scale": original_wave_scale,
+		"normal_channels": "GB centred slope; R excluded",
+		"production_column_xz": [column.x, column.y],
+		"production_nearby_structures": nearby_surface_structures(map, column, 48.0),
+		"open_column_xz": [open_column.x, open_column.y],
+		"open_nearby_structures": nearby_surface_structures(map, open_column, 72.0),
+		"clocks": [ZERO_TIME, 2.0, 4.0]}
+	check(not texture_path.is_empty() and report_surface.production_nearby_structures > 0
+		and report_surface.open_nearby_structures == 0,
+		"home：55m生产式机位周围有楼且开阔比较机位无楼")
+	var old_lamp: bool = map.air.lamp
+	map.air.lamp = false
+	if map.has_method("_build_dive_lamp") and map.get("_lamp") != null:
+		map._lamp.hide()
+	hide_particle_kind(map, id, "all")
+	water.show()
+	camera.fov = 72.0
+	var by_depth: Dictionary = {}
+	var base_image: Image = null
+	var time_zero_image: Image = null
+	for depth in production_depths:
+		var observer := Vector3(column.x, level - depth, column.y)
+		camera.global_position = observer
+		camera.look_at(observer + view_direction(), Vector3.UP)
+		check(observer.y < level and camera.fov == 72.0 and (-camera.global_basis.z).y > 0.65,
+			"home：仰视海面" + str(int(depth)) + "m相机在水下、太阳方向、72FOV")
+		var clocks: Array = []
+		var images: Array = []
+		for clock in [ZERO_TIME, 2.0, 4.0]:
+			material.set_shader_parameter("underside_wave_light", original_wave_light)
+			material.set_shader_parameter("underside_sun_light", original_sun_light)
+			optical_view(map, id, camera, float(clock))
+			var image: Image = await shot("home-readable-" + str(int(depth)) + "m-clock-" + str(clock))
+			clocks.append(clock)
+			images.append(image)
+			if depth == 55.0 and clock == ZERO_TIME:
+				time_zero_image = image
+				base_image = image
+		var first: Image = images[0]
+		var last: Image = images[2]
+		var time_delta: Dictionary = difference(first, last, surface_area)
+		var stats: Dictionary = surface_readability(first, surface_area)
+		if depth == 55.0:
+			check(float(stats.mean_luminance) > 0.25 and float(stats.bright_ridge_fraction) >= 0.05
+				and float(stats.bright_ridge_outside_sun_of_bright) >= 0.35
+				and int(stats.bright_ridge_cells) >= 3 and float(stats.white_fraction) < 0.15,
+				"home：55m表面ROI可读为浅蓝亮纹而非近全白/单太阳圆点")
+		check(float(time_delta.mean_abs_rgb) > 0.01,
+			"home：" + str(int(depth)) + "m冻结clock0/4真实表面像素变化>0.01")
+		by_depth[str(int(depth))] = {"camera": vector(camera.global_position),
+			"forward": vector(-camera.global_basis.z), "clocks": clocks,
+			"surface_roi": stats, "time_0_to_4": time_delta}
+	# 55m 同一机位分别只关 wave/sun，保持 sun_strength=1，不把日夜切换误当高光。
+	var wave_off: Image
+	var sun_off: Image
+	camera.global_position = Vector3(column.x, level - 55.0, column.y)
+	camera.look_at(camera.global_position + view_direction(), Vector3.UP)
+	optical_view(map, id, camera, ZERO_TIME)
+	material.set_shader_parameter("underside_wave_light", 0.0)
+	wave_off = await shot("home-readable-55m-wave-light-off")
+	material.set_shader_parameter("underside_wave_light", original_wave_light)
+	material.set_shader_parameter("underside_sun_light", 0.0)
+	sun_off = await shot("home-readable-55m-sun-light-off")
+	material.set_shader_parameter("underside_sun_light", original_sun_light)
+	var wave_delta: Dictionary = difference(base_image, wave_off, surface_area)
+	var sun_delta: Dictionary = difference(base_image, sun_off, surface_area)
+	check(int(wave_delta.changed_pixels) > 12 and float(wave_delta.peak) > 0.01,
+		"home：55m underside_wave_light 0/默认 A-B差异>12px且peak>.01")
+	check(int(sun_delta.changed_pixels) > 12 and float(sun_delta.peak) > 0.01,
+		"home：55m underside_sun_light 0/默认 A-B差异>12px且peak>.01")
+	# 非null中性FlatNormal：RGB(1,.5,.5)，只用GB作中性坡度对照，绝不传null触发hintnormal白。
+	var flat_image := Image.create(4, 4, false, Image.FORMAT_RGB8)
+	flat_image.fill(Color(1.0, 0.5, 0.5, 1.0))
+	var flat_compress_error: int = flat_image.compress(Image.COMPRESS_S3TC, Image.COMPRESS_SOURCE_GENERIC)
+	check(flat_compress_error == OK, "home：FlatNormal testImage已压缩，shader使用GB通道对照")
+	var flat_texture := ImageTexture.create_from_image(flat_image)
+	flat_texture.resource_name = "FlatNormal_RGB1_GBNeutral"
+	material.set_shader_parameter("large_wave_normals", flat_texture)
+	optical_view(map, id, camera, ZERO_TIME)
+	var flat_image_shot: Image = await shot("home-readable-55m-flat-normal")
+	var normal_delta: Dictionary = difference(time_zero_image, flat_image_shot, surface_area)
+	check(int(normal_delta.changed_pixels) > 0 and float(normal_delta.peak) > 0.001,
+		"home：55m真实normal texture与FlatNormal GB中性对照存在像素差")
+	Materials.configure_underside(material, {"ocean_waves": original_waves,
+		"wave_scale": original_wave_scale, "large_wave_normals": original_normal})
+	material.set_shader_parameter("underside_wave_light", original_wave_light)
+	material.set_shader_parameter("underside_sun_light", original_sun_light)
+	optical_view(map, id, camera, ZERO_TIME)
+	var restored_image: Image = await shot("home-readable-55m-real-normal-restored")
+	var restored_delta: Dictionary = difference(time_zero_image, restored_image, surface_area)
+	var open_observer := Vector3(open_column.x, level - 55.0, open_column.y)
+	check(open_observer.y < level, "home：55m开阔比较相机仍在水下")
+	camera.global_position = open_observer
+	camera.look_at(open_observer + view_direction(), Vector3.UP)
+	optical_view(map, id, camera, ZERO_TIME)
+	var open_image: Image = await shot("home-readable-55m-open-water")
+	var open_stats: Dictionary = surface_readability(open_image, surface_area)
+	report_surface["depths"] = by_depth
+	report_surface["wave_light_on_off"] = wave_delta
+	report_surface["sun_light_on_off"] = sun_delta
+	report_surface["flat_normal"] = {"resource_name": flat_texture.resource_name,
+		"rgb": [1.0, 0.5, 0.5], "normal_channels": "GB", "on_off": normal_delta}
+	report_surface["restored_real_normal"] = restored_delta
+	report_surface["open_water_55m"] = {"camera": vector(camera.global_position), "surface_roi": open_stats}
+	var restored_texture: Texture2D = material.get_shader_parameter("large_wave_normals") as Texture2D
+	report_surface["restored_texture_resource_path"] = restored_texture.resource_path if restored_texture != null else ""
+	check(restored_texture != null and not report_surface.restored_texture_resource_path.is_empty(),
+		"home：FlatNormal对照后恢复真实large_wave_normals sampler")
+	values.readable_surface = report_surface
+	check(float(open_stats.mean_luminance) > 0.0 and open_image != null,
+		"home：55m开阔水面比较PNG已保存")
+	map.air.lamp = old_lamp
+	show_particle_kind(map, id, "all")
+	camera.fov = original_fov
 
 func test_surface_pixels(map, id: String, camera: Camera3D, values: Dictionary) -> void:
 	var depths: Array = [5.0, 30.0, 70.0, 115.0] if id == "home" else [10.0, 60.0]
@@ -545,14 +942,23 @@ func test_gray_sample(map, id: String, camera: Camera3D, values: Dictionary) -> 
 	for light in map.find_children("*", "Light3D", true, false):
 		light_masks[light] = light.light_cull_mask
 		light.light_cull_mask = int(light.light_cull_mask) & ~2
-	var depths: Array = [5.0, 30.0, 70.0, 115.0] if id == "home" else [10.0, 60.0]
+	var depths: Array = [5.0, 10.0, 20.0, 30.0, 41.0, 70.0, 115.0] if id == "home" else [10.0, 20.0, 41.0, 60.0]
+	# Compare depth attenuation with moving crest/sun highlights disabled. A
+	# crest can cross an ROI at a different world position at another depth;
+	# that is motion, not a broken ambient attenuation curve.
+	var surface_material: ShaderMaterial = water_node(map, id).material_override
+	var saved_wave: float = surface_material.get_shader_parameter("underside_wave_light")
+	var saved_sun: float = surface_material.get_shader_parameter("underside_sun_light")
+	surface_material.set_shader_parameter("underside_wave_light", 0.0)
+	surface_material.set_shader_parameter("underside_sun_light", 0.0)
+	var column: Vector2 = choose_column(map, id, depths)
 	var previous_sample: float = INF
 	var previous_background: float = INF
+	var sample_lights: Array[float] = []
 	var rows: Array = []
 	for depth in depths:
-		# 离开城区，在同scene/environment中保持同朝向、同物体、相机相对3m。
-		camera.global_position = Vector3(360.0 if id == "home" else 140.0,
-			map.dive_water_level() - float(depth), -300.0 if id == "home" else 140.0)
+		# 同scene、同一开阔XZ与同一相对机位，避免用换地方的背景伪造深度递减。
+		camera.global_position = Vector3(column.x, map.dive_water_level() - float(depth), column.y)
 		camera.look_at(camera.global_position + view_direction())
 		sample.global_transform = Transform3D(camera.global_basis, camera.global_position - camera.global_basis.z * 3.0)
 		optical_view(map, id, camera, ZERO_TIME)
@@ -569,7 +975,11 @@ func test_gray_sample(map, id: String, camera: Camera3D, values: Dictionary) -> 
 		var background_stats: Dictionary = roi(image, Rect2(0.1, 0.08, 0.8, 0.20))
 		var sample_light: float = float(sample_stats.mean_luminance)
 		var background_light: float = float(background_stats.mean_luminance)
-		check(sample_light > 0.005 and sample_light < previous_sample - 0.0005
+		sample_lights.append(sample_light)
+		# 5→10m是浅层保亮段，8bit量化后的实测下降约0.00028；
+		# 保持严格递减但不误要求该5m区间也达到深水大跨度的0.0005。
+		var minimum_drop: float = 0.0001 if depth == 10.0 and id == "home" else 0.0005
+		check(sample_light > 0.005 and sample_light < previous_sample - minimum_drop
 			and float(sample_stats.white_fraction) < 0.001,
 			id + "：不透明中性灰样板ambient单调减光且不过曝 depth=" + str(depth))
 		check(background_light < previous_background - 0.0005,
@@ -582,7 +992,15 @@ func test_gray_sample(map, id: String, camera: Camera3D, values: Dictionary) -> 
 	for light in light_masks:
 		light.light_cull_mask = light_masks[light]
 	sample.free()
+	if id == "home" and sample_lights.size() >= 7:
+		check(sample_lights[1] > 0.1 and sample_lights[2] > 0.1,
+			"home：10/20m真实灰样板luminance均>0.1，避免近距过暗")
+		check(sample_lights[6] < sample_lights[0] * 0.7,
+			"home：115m真实灰样板luminance低于5m的70%")
+	surface_material.set_shader_parameter("underside_wave_light", saved_wave)
+	surface_material.set_shader_parameter("underside_sun_light", saved_sun)
 	values.gray_optical_sample = rows
+	values.gray_sample_luminance = sample_lights
 
 func test_particle_pixels(map, id: String, camera: Camera3D, values: Dictionary) -> void:
 	var runtime = map.dive_controller
@@ -637,16 +1055,19 @@ func test_particle_pixels(map, id: String, camera: Camera3D, values: Dictionary)
 	if selected < 0 and mm.instance_count > 0:
 		selected = 0
 	if selected >= 0:
-		var center: Vector3 = bubble_node.to_global(mm.get_instance_transform(selected).origin)
-		camera.global_position = center + Vector3(0, 0.05, -1.6)
-		camera.look_at(center)
+		# 保持正常20m机位，不追逐某一颗泡；这里的on/off只证明正常视线内的环境泡投影。
+		var level: float = map.dive_water_level()
+		var column: Vector2 = normal_render_column(map, id)
+		camera.global_position = Vector3(column.x, level - 20.0, column.y)
+		camera.look_at(camera.global_position + Vector3(0.0, sin(NORMAL_PITCH), -cos(NORMAL_PITCH)), Vector3.UP)
+		particle_snapshot(map, id, camera.global_position, camera, 2.0 + ZERO_TIME)
 		var on: Image = await shot(id + "-ambient-bubble-on")
 		bubble_node.hide()
 		var off: Image = await shot(id + "-ambient-bubble-off")
 		bubble_node.show()
-		var delta: Dictionary = difference(on, off, Rect2(0.2, 0.2, 0.6, 0.6))
+		var delta: Dictionary = difference(on, off, Rect2(0.1, 0.1, 0.8, 0.8))
 		check(int(delta.changed_pixels) >= 6 and float(delta.peak) > 0.01,
-			id + "：环境泡实际on/off像素差")
+			id + "：正常机位环境泡实际on/off像素差")
 		values.ambient_bubble_pixels = delta
 	var schools: Array = fish_schools(map, id)
 	var school = map.get_node("FishSchools/ShallowShoal") if id == "home" else schools[0]
@@ -667,20 +1088,229 @@ func test_particle_pixels(map, id: String, camera: Camera3D, values: Dictionary)
 	values.fish_pixels = fish_delta
 	check(runtime.character.global_transform.is_equal_approx(model_pose), id + "：全部视觉取样不移动用户模型")
 
+func hide_particle_kind(map, id: String, kind: String) -> void:
+	if id == "home":
+		if kind == "bubble":
+			map.get_node("Atmosphere/Bubbles").hide()
+		elif kind == "mote":
+			map.get_node("Atmosphere/Motes").hide()
+		elif kind == "all":
+			map.get_node("Atmosphere/Bubbles").hide()
+			map.get_node("Atmosphere/Motes").hide()
+			map.get_node("FishSchools").hide()
+			map.get_node("Atmosphere/LightShafts").hide()
+			if map.dive_controller.breath_bubbles != null:
+				map.dive_controller.breath_bubbles.hide()
+	else:
+		map.deco.hide_kind(kind)
+
+func show_particle_kind(map, id: String, kind: String) -> void:
+	if id == "home":
+		if kind == "bubble":
+			map.get_node("Atmosphere/Bubbles").show()
+		elif kind == "mote":
+			map.get_node("Atmosphere/Motes").show()
+		elif kind == "all":
+			map.get_node("Atmosphere/Bubbles").show()
+			map.get_node("Atmosphere/Motes").show()
+			map.get_node("FishSchools").show()
+			map.get_node("Atmosphere/LightShafts").show()
+			if map.dive_controller.breath_bubbles != null:
+				map.dive_controller.breath_bubbles.show()
+	else:
+		if kind == "bubble":
+			map.deco._bubbles.show()
+		elif kind == "mote":
+			map.deco._motes.show()
+		elif kind == "all":
+			map.deco._bubbles.show()
+			map.deco._motes.show()
+			map.deco.show()
+
+func normal_render_column(map, id: String) -> Vector2:
+	if id == "zone1":
+		return Vector2(0.0, 12.0)
+	var direction := Vector3(0.0, sin(NORMAL_PITCH), -cos(NORMAL_PITCH)).normalized()
+	var primary := Vector2(0.0, -35.0)
+	for depth in NORMAL_RENDER_DEPTHS:
+		if not clear_view(map, Vector3(primary.x, map.dive_water_level() - float(depth), primary.y),
+			direction, map.dive_water_level()):
+			return Vector2(-160.0, -160.0)
+	return primary
+
+func test_normal_particle_pixels(map, id: String, camera: Camera3D, values: Dictionary) -> void:
+	var level: float = map.dive_water_level()
+	var column: Vector2 = normal_render_column(map, id)
+	var rows: Array = []
+	for depth in NORMAL_RENDER_DEPTHS:
+		var observer := Vector3(column.x, level - float(depth), column.y)
+		camera.global_position = observer
+		var forward := Vector3(0.0, sin(NORMAL_PITCH), -cos(NORMAL_PITCH)).normalized()
+		camera.look_at(observer + forward, Vector3.UP)
+		camera.fov = 72.0
+		check(is_equal_approx(camera.fov, 72.0) and absf((-camera.global_basis.z).y - sin(NORMAL_PITCH)) < 0.001,
+			id + "：正常粒子图使用72FOV、水平上仰10度 depth=" + str(int(depth)))
+		particle_snapshot(map, id, observer, camera, 2.0 + ZERO_TIME)
+		optical_view(map, id, camera, 2.0 + ZERO_TIME)
+		show_particle_kind(map, id, "all")
+		var all_on: Image = await shot(id + "-normal-depth-" + str(int(depth)) + "-particles-on")
+		hide_particle_kind(map, id, "bubble")
+		var bubble_off: Image = await shot(id + "-normal-depth-" + str(int(depth)) + "-bubble-off")
+		show_particle_kind(map, id, "bubble")
+		hide_particle_kind(map, id, "mote")
+		var mote_off: Image = await shot(id + "-normal-depth-" + str(int(depth)) + "-mote-off")
+		show_particle_kind(map, id, "mote")
+		hide_particle_kind(map, id, "all")
+		var both_off: Image = await shot(id + "-normal-depth-" + str(int(depth)) + "-particles-off")
+		show_particle_kind(map, id, "all")
+		var bubble_delta: Dictionary = difference(all_on, bubble_off, Rect2(0.1, 0.1, 0.8, 0.8))
+		var mote_delta: Dictionary = difference(all_on, mote_off, Rect2(0.1, 0.1, 0.8, 0.8))
+		var all_delta: Dictionary = difference(all_on, both_off, Rect2(0.1, 0.1, 0.8, 0.8))
+		check(int(bubble_delta.changed_pixels) >= 10 and float(bubble_delta.peak) > 0.008,
+			id + "：正常相机深度" + str(int(depth)) + "m泡on/off真实投影>=10px且peak>.008")
+		check(int(mote_delta.changed_pixels) >= 10 and float(mote_delta.peak) > 0.008,
+			id + "：正常相机深度" + str(int(depth)) + "m尘on/off真实投影>=10px且peak>.008")
+		rows.append({"depth": depth, "camera": vector(camera.global_position),
+			"forward": vector(-camera.global_basis.z), "bubble_on_off": bubble_delta,
+			"mote_on_off": mote_delta, "particles_on_off": all_delta,
+			"particle_projection": roi(all_on, Rect2(0.1, 0.1, 0.8, 0.8))})
+	values.normal_particle_pixels = {"column_xz": [column.x, column.y], "depths": rows,
+		"fov": camera.fov, "pitch_degrees": 10.0}
+
+func add_fog_test_box(map, camera: Camera3D, distance: float) -> MeshInstance3D:
+	var box := MeshInstance3D.new()
+	box.name = "TestOnlyFarFogBox_%d" % int(distance)
+	var mesh := BoxMesh.new()
+	mesh.size = Vector3(34.0, 24.0, 0.15)
+	box.mesh = mesh
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color.BLACK
+	material.roughness = 1.0
+	material.metallic = 0.0
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	box.material_override = material
+	box.layers = 1
+	map.add_child(box)
+	box.global_position = camera.global_position - camera.global_basis.z * distance
+	box.global_basis = camera.global_basis
+	return box
+
+func test_far_fog_clip(map, id: String, camera: Camera3D, values: Dictionary) -> void:
+	var level: float = map.dive_water_level()
+	var column: Vector2 = Vector2(0.0, -35.0) if id == "home" else Vector2(0.0, 12.0)
+	var observer := Vector3(column.x, level - 20.0, column.y)
+	camera.global_position = observer
+	camera.fov = 72.0
+	camera.look_at(observer + Vector3(0.0, sin(LOW_WATER_PITCH), -cos(LOW_WATER_PITCH)), Vector3.UP)
+	particle_snapshot(map, id, observer, camera, ZERO_TIME)
+	optical_view(map, id, camera, ZERO_TIME)
+	hide_particle_kind(map, id, "all")
+	var water: MeshInstance3D = water_node(map, id)
+	water.hide()
+	var boxes: Array[MeshInstance3D] = []
+	var far_rows: Array = []
+	for distance in [220.0, 400.0]:
+		var box := add_fog_test_box(map, camera, distance)
+		boxes.append(box)
+		for other in boxes:
+			other.visible = other == box
+		var far_on: Image = await shot(id + "-far-clip-blackbox-" + str(int(distance)) + "m-on")
+		box.hide()
+		var far_off: Image = await shot(id + "-far-clip-blackbox-" + str(int(distance)) + "m-off")
+		var far_delta: Dictionary = difference(far_on, far_off, Rect2(0.15, 0.15, 0.7, 0.7))
+		check(float(far_delta.peak) < 0.025 and float(far_delta.changed_fraction) < 0.20,
+			id + "：" + str(int(distance)) + "m测试黑box真实fog后clip ROI接近背景")
+		far_rows.append({"distance_m": distance, "on_off": far_delta})
+	for box in boxes:
+		box.free()
+	# 同一视线的水面下0.68m黑box必须仍进入真实fog路径，不能因为接近water_level被测试逻辑豁免。
+	var surface_box := add_fog_test_box(map, camera, 380.0)
+	surface_box.global_position.y = level - 0.68
+	var surface_on: Image = await shot(id + "-far-clip-surface-box-on")
+	surface_box.hide()
+	var surface_off: Image = await shot(id + "-far-clip-surface-box-off")
+	var surface_delta: Dictionary = difference(surface_on, surface_off, Rect2(0.15, 0.15, 0.7, 0.7))
+	check(float(surface_delta.peak) < 0.025 and float(surface_delta.changed_fraction) < 0.20,
+		id + "：water-.68处黑box也经过真实fog而非surface豁免")
+	surface_box.free()
+	show_particle_kind(map, id, "all")
+	# 同位置低角度水面ROI保留on/off值：只作为远clip带目检证据，不以源码字符串替代真实画面。
+	water.show()
+	camera.global_position = observer
+	camera.look_at(observer + Vector3(0.0, sin(LOW_WATER_PITCH), -cos(LOW_WATER_PITCH)), Vector3.UP)
+	optical_view(map, id, camera, ZERO_TIME)
+	var water_on: Image = await shot(id + "-far-clip-water-on")
+	water.hide()
+	var water_off: Image = await shot(id + "-far-clip-water-off")
+	water.show()
+	values.far_clip = {"blackbox_rows": far_rows, "surface_box_on_off": surface_delta,
+		"water_on_off": difference(water_on, water_off, Rect2(0.05, 0.05, 0.9, 0.35)),
+		"water_roi_on": roi(water_on, Rect2(0.05, 0.05, 0.9, 0.35)),
+		"water_roi_off": roi(water_off, Rect2(0.05, 0.05, 0.9, 0.35)),
+		"pitch_degrees": 3.0, "distances": [220.0, 400.0], "surface_box_depth": 0.68}
+
+func capture_surface_motion(map, id: String, camera: Camera3D, values: Dictionary) -> void:
+	if id != "home": return
+	var controller = map.dive_controller
+	var previous := map.dive_position() as Vector3
+	var old_yaw: float = controller.yaw
+	var old_pitch: float = controller.pitch
+	var old_distance: float = controller.distance
+	var level: float = map.dive_water_level()
+	var point := Vector3(0.0, level - 55.0, -35.0)
+	check(map.collision_runtime.try_set_viewer_position(point), "home：55m动态预览实际胶囊起点净空")
+	controller.yaw = -atan2(SUN.x, -SUN.z)
+	controller.pitch = -0.90
+	controller.distance = 7.5
+	controller.debug_teleport(point)
+	controller.character.show()
+	map.air.refill()
+	map.depth = 55.0
+	map._update_underwater_view()
+	show_particle_kind(map, id, "all")
+	var saved: int = 0
+	for i in 72:
+		var clock := 0.000001 + float(i) / 18.0
+		map._surface_material.set_shader_parameter("elapsed", clock)
+		map.get_node("Atmosphere").sample(clock)
+		controller.character._process(1.0 / 18.0)
+		for school in map.get_node("FishSchools").get_children(): school.sample(clock)
+		await process_frame
+		await RenderingServer.frame_post_draw
+		var image: Image = root.get_texture().get_image()
+		if image != null and not image.is_empty():
+			if image.save_png("res://outputs/surface-motion-%03d.png" % i) == OK: saved += 1
+	check(saved == 72, "home：55m第三人称海面动态预览72帧已保存")
+	values.surface_motion = {"frames": saved, "fps": 18, "seconds": 4.0,
+		"depth":55.0, "camera":vector(camera.global_position), "pitch":controller.pitch,
+		"sequence":"res://outputs/surface-motion-%03d.png", "fixed_step_visual":true,
+		"note":"固定表现时钟的实机渲染预览；非玩家连续操作录像"}
+	controller.yaw = old_yaw
+	controller.pitch = old_pitch
+	controller.distance = old_distance
+	controller.debug_teleport(previous)
+	update_view(map, id)
+
 func render_map(map, id: String, values: Dictionary) -> void:
 	if DisplayServer.get_name() == "headless":
 		values.visual_mode = "headless仅行为；不等待frame_post_draw，不声称视觉通过"
 		return
 	var camera: Camera3D = map.dive_controller.camera
 	var original_camera: Transform3D = camera.global_transform
+	var original_fov: float = camera.fov
 	camera.make_current()
 	map.air.lamp = false
 	map.configure_underwater_light({"direction": SUN.normalized(), "strength": 1.0})
 	update_view(map, id)
+	await test_readable_surface(map, id, camera, values)
 	await test_surface_pixels(map, id, camera, values)
 	await test_gray_sample(map, id, camera, values)
+	await test_normal_particle_pixels(map, id, camera, values)
+	await test_far_fog_clip(map, id, camera, values)
 	await test_particle_pixels(map, id, camera, values)
+	await capture_surface_motion(map, id, camera, values)
 	camera.global_transform = original_camera
+	camera.fov = original_fov
 	values.visual_mode = "真实renderer，PNG已在脚本内执行ROI验收"
 
 func finish() -> void:
@@ -718,6 +1348,7 @@ func run() -> void:
 		if id == "home":
 			test_atmosphere(map, values)
 		test_fish(map, id, values)
+		test_directional_particles(map, id, values)
 		await test_breath(map, id, values)
 		await render_map(map, id, values)
 		current_scene = null
@@ -725,5 +1356,7 @@ func run() -> void:
 		await process_frame
 		Materials.clear_cache()
 	if DisplayServer.get_name() != "headless":
-		check(report.maps.size() == 2 and report.images.size() == 36, "真实渲染覆盖两图六深度与光学/粒子/鱼对照PNG")
+		check(report.images.size() >= 36, "真实渲染保留原有PNG数量下限36")
+		check(report.maps.size() == 2 and report.images.size() == 92,
+			"真实渲染固定92张：保留既有81张，新增home 20/55m三clock、wave/sun toggle、FlatNormal、恢复纹理和55m开阔比较共11张")
 	finish()

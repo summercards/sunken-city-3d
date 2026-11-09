@@ -5,7 +5,9 @@ uniform vec4 ocean_waves[4]; // direction x/z, amplitude in metres, wavelength
 uniform float wave_scale = 1.0;
 uniform vec4 u_boat = vec4(0.0);
 
-vec3 ocean_sample(vec2 p) {
+// Explicit clock entry also serves the underside material; the surface/boat
+// wrapper below keeps its original u_time contract.
+vec3 ocean_sample_at(vec2 p, float clock) {
 	vec3 result = vec3(0.0); // height, dh/dx, dh/dz
 	for (int i = 0; i < 4; i++) {
 		vec4 w = ocean_waves[i];
@@ -15,10 +17,10 @@ vec3 ocean_sample(vec2 p) {
 		// Include envelope and phase derivatives so lighting still matches geometry.
 		vec2 cross_dir = vec2(-d.y, d.x);
 		float cross_k = k * 0.61;
-		float cross_phase = cross_k * dot(cross_dir, p) + float(i) * 2.31 - u_time * 0.19;
+		float cross_phase = cross_k * dot(cross_dir, p) + float(i) * 2.31 - clock * 0.19;
 		float envelope = 0.72 + 0.28 * sin(cross_phase);
 		vec2 envelope_grad = cross_dir * (0.28 * cross_k * cos(cross_phase));
-		float phase = k * dot(d, p) - sqrt(9.81 * k) * u_time + float(i) * 1.73
+		float phase = k * dot(d, p) - sqrt(9.81 * k) * clock + float(i) * 1.73
 			+ 0.85 * sin(cross_phase * 0.83 + 0.7);
 		vec2 phase_grad = k * d + cross_dir * (0.85 * 0.83 * cross_k * cos(cross_phase * 0.83 + 0.7));
 		float height = sin(phase) + 0.18 * sin(phase * 2.0);
@@ -27,6 +29,10 @@ vec3 ocean_sample(vec2 p) {
 		result.yz += w.z * (envelope_grad * height + envelope * phase_grad * derivative);
 	}
 	return result * wave_scale;
+}
+
+vec3 ocean_sample(vec2 p) {
+	return ocean_sample_at(p, u_time);
 }
 
 // Boat points toward -Z, matching Boat._forward(). Bow shoulders displace water.

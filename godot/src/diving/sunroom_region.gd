@@ -95,6 +95,7 @@ func _ready() -> void:
 	_localize_underwater_materials()
 	_environment = $WorldEnvironment.environment
 	_surface_material = $Water.material_override as ShaderMaterial
+	MaterialLib.configure_underside(_surface_material)
 	_sky_material = _environment.sky.sky_material as ShaderMaterial
 	_environment.sky.process_mode = Sky.PROCESS_MODE_REALTIME
 	_build_water_fog()
@@ -147,11 +148,14 @@ func configure_underwater_light(profile: Dictionary) -> void:
 	_sun_color = profile.get("color", DAY_SUN_COLOR)
 	var strength: float = profile.get("strength", 1.0)
 	_sun_strength = clampf(strength, 0.0, 1.0) if is_finite(strength) else 0.0
+	if not profile.get("surface", {}).is_empty(): set_meta("underside_surface_profile", profile.surface.duplicate())
 	if Engine.is_editor_hint() or _surface_material == null: return
 	_apply_underwater_light()
 	_update_underwater_view()
 
 func _apply_underwater_light() -> void:
+	if has_meta("underside_surface_profile"):
+		MaterialLib.configure_underside(_surface_material, get_meta("underside_surface_profile"))
 	for mat in [_surface_material, _sky_material, _fog_material]:
 		mat.set_shader_parameter("water_level", water_level)
 		mat.set_shader_parameter("sun_direction", _sun_direction)
@@ -170,9 +174,11 @@ func _update_underwater_view() -> void:
 		mat.set_shader_parameter("region_view_depth", view_depth)
 		mat.set_shader_parameter("dive_depth", view_depth)
 	$Atmosphere.set_view_depth(view_depth)
-	# 与 shader 的 uw_depth_light 相同，不调整曝光、设施灯或头灯。
-	var depth_light := lerpf(1.0, 0.26, smoothstep(5.0, 120.0, view_depth))
-	_environment.ambient_light_energy = (1.9 / PI) * depth_light * lerpf(0.24, 1.0, _sun_strength)
+	# 天空 cubemap 已经乘 uw_depth_light 与 sun_strength；环境能量只保留一次固定的浅层基准。
+	# 不在 CPU 侧重复乘深度/夜间系数，避免 10–20m 被二次压暗；曝光、头灯和设施灯不变。
+	_environment.ambient_light_energy = 2.6 / PI
+	var camera: Camera3D = $Camera
+	$Atmosphere.set_observer(camera.global_position)
 	# 仅活动地图更新共享缓存，不向海面鱼群替换材质。
 	MaterialLib.set_depth(view_depth)
 	MaterialLib.set_water_level(water_level)
@@ -191,6 +197,9 @@ func _build_water_fog() -> void:
 	mat.render_priority = -128
 	pass_node.material_override = mat
 	_fog_material = mat
+	# Forward+ 使用 Reverse-Z，Compatibility 使用常规深度；shader 保留兼容 uniform 接口。
+	var rendering_method: String = RenderingServer.get_current_rendering_method()
+	_fog_material.set_shader_parameter("u_reverse_z", 0.0 if rendering_method.begins_with("gl_compatibility") else 1.0)
 	pass_node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	pass_node.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
 	pass_node.extra_cull_margin = 16384.0

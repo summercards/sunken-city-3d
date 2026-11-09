@@ -169,3 +169,35 @@ R18按用户后续澄清，取代开发中以程序波纹与手动灯位合成�
 源码可见共享光学、单fogpass、参数与日照注入，非运行签署。水下体验真实视觉195/8、195/4保持FAIL历史，修复后最终报告/截图审阅PENDING；已存在 underwater-experience / visual-underwater-experience，见[本轮最终待填](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)。
 
 主线程当前签署见记录第7节：真实195/0、行为65/0通过，仰视水面/波纹time0/2/太阳1与0/六深度图像已实测。5/30/70/115m灰样板亮度约0.09120/0.08082/0.04239/0.01040，天空cubemap亦实际衰减而非只调ambient_light_energy；头灯/设施灯不乘全屏曝光。历史远景far-fog-edge阈值、全昼夜天气/低端持续性能未在本轮重新签署，原FAIL仍保留。
+
+## 2026-11-09 水下中层可见性（OceanR30+，验收 PENDING）
+
+本节覆盖 R29 后续，只管理 OCEAN 渲染；不改 Dive FSM、保存、鱼群、用户布局或海面玩法。水面尺寸试增 4096 的验证无效，已恢复 1280。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-OCEAN-R30 | 10–20m 的水下画面保持暗但可读：sky cubemap 使用 `uw_irradiance_gain(depth)=mix(1.8,.34,smoothstep(5..120,depth))*mix(.32,1,sun_strength)`；CPU ambient 固定 `2.6/PI`，不重复深度日照、不改曝光。灰样板应大于0.1并随深度递减，头灯/设施灯不被全屏曝光一并压暗。 |
+| SEA-OCEAN-R31 | 远景 fog 以 `abs(world_point.y-water_level)` 的 0.22–0.32m 连续 surface match 处理，140–190m 连续收口；普通建筑继续指数雾。Forward Reverse-Z sky epsilon 使用 `1e-7`，兼容后端保留反判，水面下约0.68m的远建筑不得被误认作 sky。 |
+| SEA-OCEAN-R32 | 透明材质与屏幕水雾使用统一 85m 密度封顶；封顶只约束密度曲线，不截断实际 view/depth，远景 220m/400m 黑盒仍须由连续 fog 处理。 |
+| SEA-OCEAN-R33 | `uw_surface_optics` 函数名保留兼容，但产品读法改为统一屏幕水色底 + 低频波纹 + 柔和日光；取消独立 Snell/反射色块的强窗口表达。本条覆盖旧 R26 的完整物理折射窗宣称，不得以旧描述或函数存在代替真实观感验收。 |
+| SEA-OCEAN-R34 | 验收覆盖 10/20/41/80m 四 yaw、0.5m 移动后的 world position、正常72° FOV，以及 41m 海面建筑切边；只验 OCEAN 渲染，不把周围泡尘归入本条。 |
+| SEA-OCEAN-R35 | 本轮状态保持 `partial` / PENDING。旧195/0仅为旧样板；最新目标批 `20261109-145508-underwater-targeted-depth-5b715a` 的179/32与436/35失败、修复记录和新批结果必须由主线程在开发记录唯一位置回填，不预签低端、长期性能或用户终审。 |
+
+源码核对入口：`godot/shaders/uw_water_color.gdshaderinc:28-36,79-137`、`godot/shaders/uw_sky.gdshader:10-17`、`godot/shaders/uw_fog.gdshader:26-51`、`godot/shaders/sunroom_underwater_fog.gdshader:19-40`。runner 临时写盘修复在 `scripts/run_verification.py:392-396`。完整专项矩阵见 [开发记录](../../development/2026-11-09_underwater_middepth_visibility.md)。
+
+本轮最终签署：`20261109-151955-underwater-middepth-signed-e09520/report.json`，真实光学436/0、行为179/0，整合8入口4834/0。10/20m灰样板0.157101/0.153103，115m0.018255；远景blackbox peak<=0.003922。普通远建筑和水面逐层收口、正常机位泡尘可见，不是完整物理折射窗；低端/长时/用户终审未签。历史失败和精确数据见记录第8节。
+
+## 2026-11-09 水下共享水上波场复用（SEA-OCEAN-R36–R39，FINAL PENDING）
+
+本节承接 R35，针对用户反馈的 55m 抬头画面过脏，先以复用和 A/B 验证为主，不硬做新的水面系统。官方资产参考为 [BoujieMIT Asset Library #2070](https://godotengine.org/asset-library/asset/2070)，其支持 Godot 4.1+并含 Snell/tools；本地已有同类基础，本轮不下载、不安装，商业 4.7 方案不引入，项目不升级 Godot 4.6.3。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-OCEAN-R36 | 水下表面优先复用水上已有波场与动态波光，不另造第二套水面。`ocean_waves.gdshaderinc` 提供 `ocean_sample_at(p, clock)`；原 `ocean_sample(p)` 仍以同一 `u_time` wrapper 调用。波公式、水上材质与 CPU 浮力不变。 |
+| SEA-OCEAN-R37 | 新 `uw_surface_shared.gdshaderinc` 只共享 `ocean_waves`、`wave_scale` 与既有 `large_wave_normals`。法线纹理约28m尺度使用居中的 G/B 通道（R 均值约0.995，不能当 RG），双滚动采样；不得将水上原材质的岸线、SSR或深度吸收直接套入水下。 |
+| SEA-OCEAN-R38 | 水下读法为明亮干净蓝海面：波脊来自 `ocean_sample_at(world.xz * vec2(.42,.82), clock*.55)` 的导数与正向阈值，不做纹理等值线纸片岛；浅白亮纹只加亮、不乘黑污纹。太阳高光复用水上同导数过滤公式；无硬 Snell 圆窗，`underside_wave_light` 与 `underside_sun_light` 独立供 A/B。 |
+| SEA-OCEAN-R39 | Surface profile 在 Session 脱树前只读注入 `ocean_waves`、`wave_scale`、`large_wave_normals`，不共享 liveMat，不修改 Main/shore/布局/air/FSM。单 fogpass、140–190m远景收口、泡/鱼、家园120m水深与水下1m入水保持不变；低端长时、用户终审、完整物理折射与全局资源门禁不得由本专项预签。 |
+
+专项验证包为 `20261109-183519-underwater-surface-packets-verified-0cd7f3`，headless 179/0、visual 473/0。初夹具类型 Parse、shader helper 的 `CAMERA_POSITION_WORLD` 全局不可用、法线切岛密集初版 473/0 但目检不合格、波包版 473/2（shader 字符串过窄且同 ROI 深度亮纹污染）均保留为失败/返工历史；后续改为关闭 wave/sun 验证基准衰减，同时保留动态独立 A/B。本句为过程状态；最终整合与动态预览已完成，见[开发记录第6节](../../development/2026-11-09_underwater_surface_wave_reuse.md)。
+
+最终签署：主批`20261109-185449-underwater-surface-reuse-signed-6d7336`，真实475/0（92张专项图+72帧动态预览）、行为179/0及十图/操控/过场等均通过；原海面实机回归`20261109-185519-surface-wave-compatibility-683760`为148/0。8入口合计2197/0、全部exit0/PASS、unexpected=[]。55m水面ROI亮度0.43397、亮纹占14.23%、近全白0；0→4s变化53.37%像素，wave/sun独立开关可见。新增共享波面实际复用已验证，初版纸片岛虽473/0但视觉不合格，保留返工历史。全局sync/只读均69资源问题，低端长时/完整物理折射/用户终审未签，不借旧4834签本轮。

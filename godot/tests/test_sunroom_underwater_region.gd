@@ -189,7 +189,7 @@ func run() -> void:
 		for bubble in atmosphere.snapshot(at).bubbles:
 			within_water=within_water and bubble.transform.origin.y<scene.water_level-0.6
 	check(within_water,"bubbles fade before breaching sea level")
-	check(scene.get_node("Water").visible and scene.get_node("Water").material_override.shader.code.contains("uw_surface_optics"),"visible water ceiling uses shared optics and the single screen depth composite")
+	check(scene.get_node("Water").visible and scene.get_node("Water").material_override.shader.code.contains("underside_surface"),"visible water ceiling uses shared optics and the single screen depth composite")
 	check(not main_text.contains("sunroom_region.tscn"),"original main scene not rewired")
 	# 家园海底按 2026-11-07 要求接进潜水路由；目录里只允许出现这一处世界对齐引用，
 	# 九个海域来源与其宝箱基数不得被顺带改动。
