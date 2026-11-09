@@ -1,0 +1,687 @@
+{
+  "schema": "sea.stylized.form",
+  "version": "2026-11-09f",
+  "status": "planning: 尚无资产按本表制作；在役资产不受影响",
+  "units": "metres at final runtime scale; decimals = 1 unless the value is a ratio",
+  "scope": "海上主场景中一切可见建筑件；船、独立植物、纯水下远景不适用",
+  "reference": {
+    "kind": "user reference render 2026-11-09",
+    "subject": "城市转角两层店铺：收分红墙+青绿裙墙、转角隅石、三层叠涩檐带单峰山花、屋顶桁架水塔、条纹遮阳篷、成组歪挂件",
+    "borrow": [
+      "倒梯形反锥",
+      "隅石",
+      "三层叠涩檐口",
+      "单峰山花",
+      "桁架锥台水塔",
+      "条纹遮阳篷",
+      "砖块嵌入",
+      "挂件倾斜"
+    ],
+    "reject": [
+      "锈迹色",
+      "污渍流挂",
+      "暗沉灰调",
+      "破损玻璃",
+      "街头垃圾堆"
+    ]
+  },
+  "doctrine": {
+    "mode": "zero_square",
+    "summary": "任何有体量的构件，上下必须不对称。没有默认方正的件，没有整体豁免。",
+    "rule": "把这一件单独拎出来，轮廓会读成方盒或直筒吗？会就必须改。",
+    "rho_zero": "forbidden",
+    "square_count_target": 0,
+    "why_not_selective": "上一版'挑 15%-30% 的件'实测只补了两件，剩下全是方盒，整体仍是方块搭的。方盒数量决定观感，风格件数量不决定。",
+    "neatness_comes_from": [
+      "同族同向：同栋结构族必须同符号",
+      "幅度克制：结构族 1%-3%，肉眼几乎不察但消除直筒感",
+      "直角不倒置：不做上大下小的墙"
+    ],
+    "history": {
+      "v1": "全件带锥度（ρ 必为 0.02-0.06）—— 幅度过大，整栋锥形",
+      "v2": "筛选制（挑 15%-30%）—— 太松，实测只补两件",
+      "v3_current": "零方正（每件 1%-10%，无豁免除微件）"
+    },
+    "flat_axis_rule": {
+      "principle": "扁平件的锥度必须施加在平面短边上，长边保持不变",
+      "plate_test": "min(extent) < max(extent) / 5",
+      "trigger_ratio": 2.0,
+      "why": "9.09m 招牌宽收 2% = 18cm，左右边不平行一眼是梯形；同样 2% 放在 2.28m 高度只有 5.7cm，读作手工感",
+      "slender_exception": "细长体（柱/杆/梯）：min/middle >= 1/3 且 max/min > 3，变形轴取截面，不是长度",
+      "user_reference": "2026-11-09 主招牌截图标注"
+    },
+    "taper_along_rule": {
+      "principle": "锥度沿最长轴渐变，改变的是垂直于它的截面；长边长度不变",
+      "formula": "taper_along = argmax(extent); scale = cross-section perpendicular to it",
+      "why": "同样 2%，落在截面且摊在最长轴上角度最小。9.09x2.28 招牌：改高度 5.7cm 摊 9m = 0.36°，正确；改宽度 18cm 摊 2.28m = 4.5°，一眼是歪梯形",
+      "tie_rule": "最长轴并列（正方平面）时任选，判定为「该轴尺寸等于最大值」",
+      "user_reference": "2026-11-09 主招牌截图标注「长短边超过1:2，取短边进行长短变形」"
+    }
+  },
+  "locked_by_building_scale": {
+    "note": "以下由 building_scale.json 与 SKILL.md 拥有，本表不得覆盖",
+    "keys": [
+      "ground_clear_height",
+      "ground_floor_to_floor",
+      "slab_thickness",
+      "main_column_width",
+      "bevel_segments",
+      "palette",
+      "material_roles"
+    ]
+  },
+  "rho": {
+    "definition": "rho = 1 - top / bottom",
+    "sign": "rho > 0 上小下大(正梯形/收分)；rho < 0 上大下小(倒梯形)",
+    "measured_on": "对应边长，不按面积（边长差 10% ≈ 面积差 19%）",
+    "axes": [
+      "z: 竖向体量",
+      "x: 横向面宽",
+      "y: 进深"
+    ],
+    "abs_min": 0.01,
+    "abs_max": 0.1,
+    "min_readable_note": "1080p / 20m 机位下 6m 宽件 1% ≈ 6cm ≈ 2px，低于 1% 等于没做，判失败"
+  },
+  "classification": {
+    "volume": {
+      "examples": [
+        "墙",
+        "柱",
+        "楼板",
+        "窗",
+        "门",
+        "水塔",
+        "招牌",
+        "顶棚",
+        "箱",
+        "盆",
+        "桶",
+        "缸",
+        "杆"
+      ],
+      "rule": "必须 0.01 <= |rho| <= 0.10",
+      "exempt_allowed": false
+    },
+    "no_volume": {
+      "examples": [
+        "贴片",
+        "线缆",
+        "螺栓",
+        "把手",
+        "铰链",
+        "平面图形",
+        "厚度<=0.02 的纯贴附薄板"
+      ],
+      "rule": "豁免锥度，但必须声明 no_volume: true 且倒角 0.008-0.02",
+      "exempt_allowed": true,
+      "max_thickness": 0.02
+    }
+  },
+  "families": {
+    "shell": {
+      "examples": [
+        "墙壳",
+        "楼层体量",
+        "基座",
+        "平台"
+      ],
+      "axis": "z|y",
+      "rho": [
+        0.01,
+        0.03
+      ],
+      "sign": "structure_unified",
+      "mandatory": true
+    },
+    "vertical_structure": {
+      "examples": [
+        "柱",
+        "栏杆立柱",
+        "门框"
+      ],
+      "axis": "z",
+      "rho": [
+        0.02,
+        0.05
+      ],
+      "sign": "structure_unified",
+      "mandatory": true
+    },
+    "horizontal_cover": {
+      "examples": [
+        "楼板",
+        "屋面",
+        "檐口",
+        "顶棚",
+        "遮阳篷"
+      ],
+      "axis": "y",
+      "rho": [
+        0.02,
+        0.05
+      ],
+      "sign": "free",
+      "mandatory": true
+    },
+    "opening": {
+      "examples": [
+        "窗",
+        "门洞",
+        "通风口"
+      ],
+      "axis": "z",
+      "rho": [
+        0.015,
+        0.04
+      ],
+      "sign": "same_as_structure",
+      "mandatory": true,
+      "note": "梯形窗：上口略窄于下口，玻璃随之梯形，不做正交矩形"
+    },
+    "freestanding": {
+      "examples": [
+        "水塔",
+        "烟囱",
+        "箱体",
+        "花池",
+        "桶",
+        "缸"
+      ],
+      "axis": "z",
+      "rho": [
+        -0.1,
+        -0.06
+      ],
+      "sign": "negative",
+      "mandatory": true
+    },
+    "flat_attached": {
+      "examples": [
+        "招牌",
+        "海报",
+        "铭牌"
+      ],
+      "axis": "z",
+      "rho": [
+        0.015,
+        0.04
+      ],
+      "sign": "positive",
+      "mandatory": true
+    },
+    "linear": {
+      "examples": [
+        "杆",
+        "管",
+        "扶手",
+        "灯杆",
+        "天线杆"
+      ],
+      "rho_exempt": false,
+      "via": "diameter_ratio",
+      "diameter_ratio_max": 0.953,
+      "rho_equivalent_min": 0.047,
+      "note": "直筒杆判失败；圆柱必须变径"
+    },
+    "plant": {
+      "examples": [
+        "树",
+        "灌木",
+        "叶簇",
+        "藤蔓",
+        "花束",
+        "多肉"
+      ],
+      "rho_exempt": true,
+      "note": "独立植物按植被视效规范做有机曲面，不是刚体，不套建筑锥度；但轮廓不得是方盒"
+    },
+    "soft": {
+      "examples": [
+        "衣物",
+        "布帘",
+        "网",
+        "绳",
+        "晾晒织物"
+      ],
+      "rho_exempt": true,
+      "note": "柔性件不做刚体锥度，但必须有下垂/褶皱轮廓，不许做成平板矩形"
+    }
+  },
+  "sign_rules": {
+    "structure_unified": "同栋结构族（shell/vertical_structure）必须同一符号",
+    "non_structure_mix_required": true,
+    "positive_min": 0.5,
+    "note": "全正变金字塔，全负变喇叭塔；结构族内部必须统一，族与族之间可不同"
+  },
+  "tilt": {
+    "pivot": "绕底部接触边旋转",
+    "min_clearance": 0.005,
+    "min_adjacent_gap": 0.01,
+    "abs_max_deg": 12,
+    "state_exception_deg": 30,
+    "min_angle_delta_adjacent_deg": 2,
+    "coverage_min": 0.3,
+    "coverage_floor": 1,
+    "structural_forbidden": [
+      "shell",
+      "vertical_structure",
+      "slab",
+      "tank",
+      "floor_volume"
+    ],
+    "by_kind": {
+      "sign_board": [
+        4,
+        10
+      ],
+      "canopy": [
+        2,
+        6
+      ],
+      "canopy_pitch": [
+        26,
+        36
+      ],
+      "leaning_panel": [
+        6,
+        14
+      ],
+      "box_lid": [
+        20,
+        30
+      ],
+      "door": [
+        0,
+        6
+      ],
+      "hvac_box": [
+        2,
+        5
+      ]
+    },
+    "no_new_collision": true,
+    "structural_forbidden_note": "英文 kind/role 名；墙壳、竖向结构、楼板、水塔罐体、楼层体量一律不倾斜。篷与顶棚属 horizontal_cover 但可以倾斜，不在此列。"
+  },
+  "relief": {
+    "layer_max": 3,
+    "presence_required": true,
+    "brick": {
+      "block_height": [
+        0.25,
+        0.4
+      ],
+      "block_length": [
+        0.5,
+        0.6
+      ],
+      "protrusion": [
+        0.03,
+        0.08
+      ],
+      "stagger_offset_factor": 0.5,
+      "alternate_depth": 0.3,
+      "scope": "只做前立面 1-2 面、前 2 米可见高度；其余用色格暗示"
+    },
+    "quoin": {
+      "protrusion": [
+        0.08,
+        0.16
+      ],
+      "long_short_ratio": 1.6,
+      "vertical_gap": [
+        0.02,
+        0.04
+      ],
+      "pairs_formula": "H_wall / 1.2 取整",
+      "head_chamfer_deg": 30
+    },
+    "cornice": {
+      "layers": 3,
+      "layer_ratio": [
+        0.45,
+        0.33,
+        0.22
+      ],
+      "overhang_max_abs": 0.45,
+      "overhang_vs_slab_max": 2.25,
+      "cap_thickness_factor": 0.5,
+      "cap_thickness_min": 0.08,
+      "bracket_rise_factor": 1.6,
+      "bracket_top_width_ratio": 0.5,
+      "bracket_bottom_width_ratio": 0.25
+    },
+    "protrusion_vs_wall_thickness_max": 0.8,
+    "low_poly_alternative": "整片挤出凹槽，每槽 3 个面（底+两侧），优于逐块 188 tri"
+  },
+  "surface": {
+    "albedo_texture_channel": false,
+    "allowed": [
+      "色格替换",
+      "4-7 边薄贴片",
+      "几何缺口"
+    ],
+    "patch": {
+      "sides": [
+        4,
+        7
+      ],
+      "thickness": [
+        0.01,
+        0.02
+      ],
+      "protrusion": 0.004,
+      "per_face_max": 3
+    },
+    "notch_depth": [
+      0.02,
+      0.06
+    ],
+    "coverage_max": 0.05
+  },
+  "tower": {
+    "tank_height_factor": "k * D",
+    "bottom_diameter_factor": "c * D (c<1, 上宽下窄)",
+    "leg_height_factor": 0.42,
+    "lip_flare": 0.06,
+    "lip_height": 0.05,
+    "hoop_count": 2,
+    "hoop_z": [
+      0.3,
+      0.72
+    ],
+    "hoop_thickness": 0.035,
+    "hoop_protrusion": 0.02,
+    "legs": 4,
+    "leg_splay_deg": 12,
+    "leg_top_ratio": 0.78,
+    "leg_bottom_ratio": 1.12,
+    "leg_section": 0.06,
+    "brace_groups": 2,
+    "brace_diameter": 0.035,
+    "total_vs_building_height_max": 0.55
+  },
+  "awning": {
+    "stripe_width": "W_a / stripes",
+    "sag_factor": 0.04,
+    "valance": 0.12,
+    "cap_thickness": 0.06,
+    "cap_overhang": 0.04,
+    "side_flaps": 2
+  },
+  "triangle_cost": {
+    "beveled_cube_3seg": 188,
+    "beveled_cube_3seg_source": "building_scale.json bevels.source_evidence (measured)",
+    "brick_embedded_block": 188,
+    "groove": 3,
+    "cylinder_12side_segment_with_caps": 48,
+    "thin_patch": "6-10",
+    "striped_awning_9": "60-90",
+    "form_extra_vs_body_max": 0.35,
+    "taper_cost_note": "锥度不花面数：方盒改锥台只移动顶点，三角面不变。不许拿预算当不做锥度的理由。",
+    "authority": "预算估算；验收以实际三角化计数为准"
+  },
+  "limits": {
+    "rho_abs_min": 0.01,
+    "rho_abs_max": 0.1,
+    "rho_zero_forbidden": true,
+    "square_count_target": 0,
+    "structure_sign_consistency": true,
+    "tilt_abs_max_deg": 12.0,
+    "tilt_coverage_min": 0.3,
+    "tilt_coverage_floor": 1,
+    "wall_tilt_max_deg": 4.0,
+    "relief_protrusion_vs_wall_thickness_max": 0.8,
+    "relief_presence_required": true,
+    "relief_layer_max": 3,
+    "tower_total_vs_building_height_max": 0.55,
+    "form_extra_tri_vs_body_max": 0.35,
+    "patch_coverage_abs_max": 0.05,
+    "cylinder_diameter_ratio_max": 0.953,
+    "no_volume_max_thickness": 0.02,
+    "soft_required_note": "plant 与 soft 豁免 ρ，但仍要在视觉验收里确认轮廓非矩形",
+    "flat_axis_ratio": 2.0,
+    "plate_min_vs_max": 0.2,
+    "plate_min_vs_max_denom": 5.0,
+    "contact_gap_min": 0.002,
+    "contact_gap_max": 0.02
+  },
+  "presets": {
+    "SF-A": {
+      "label": "克制",
+      "structure_rho": [
+        0.01,
+        0.02
+      ],
+      "opening_rho": [
+        0.015,
+        0.025
+      ],
+      "stylized_rho": [
+        0.02,
+        0.05
+      ],
+      "tower_rho": -0.06,
+      "cylinder_ratio_max": 0.97,
+      "quoin_protrusion": 0.08,
+      "quoin_pairs": 3,
+      "quoin_gap": 0.02,
+      "cornice_overhang": 0.28,
+      "bracket_pitch": 0.75,
+      "pediment_rise_ratio": 0.0,
+      "tower_height_ratio": 0.45,
+      "awning_stripes": 7,
+      "awning_pitch_deg": 26,
+      "tilt_deg": [
+        4,
+        6
+      ],
+      "patch_coverage": 0.02
+    },
+    "SF-B": {
+      "label": "标准",
+      "structure_rho": [
+        0.015,
+        0.025
+      ],
+      "opening_rho": [
+        0.02,
+        0.03
+      ],
+      "stylized_rho": [
+        0.03,
+        0.06
+      ],
+      "tower_rho": -0.08,
+      "cylinder_ratio_max": 0.953,
+      "quoin_protrusion": 0.12,
+      "quoin_pairs": 4,
+      "quoin_gap": 0.03,
+      "cornice_overhang": 0.36,
+      "bracket_pitch": 0.6,
+      "pediment_rise_ratio": 0.12,
+      "tower_height_ratio": 0.55,
+      "awning_stripes": 9,
+      "awning_pitch_deg": 32,
+      "tilt_deg": [
+        6,
+        9
+      ],
+      "patch_coverage": 0.035
+    },
+    "SF-C": {
+      "label": "强风格",
+      "structure_rho": [
+        0.02,
+        0.03
+      ],
+      "opening_rho": [
+        0.025,
+        0.04
+      ],
+      "stylized_rho": [
+        0.04,
+        0.08
+      ],
+      "tower_rho": -0.1,
+      "cylinder_ratio_max": 0.93,
+      "quoin_protrusion": 0.16,
+      "quoin_pairs": 5,
+      "quoin_gap": 0.04,
+      "cornice_overhang": 0.45,
+      "bracket_pitch": 0.5,
+      "pediment_rise_ratio": 0.16,
+      "tower_height_ratio": 0.62,
+      "awning_stripes": 11,
+      "awning_pitch_deg": 36,
+      "tilt_deg": [
+        9,
+        12
+      ],
+      "patch_coverage": 0.05,
+      "note": "仅远景塔楼/地标；6m 墙宽下 structure_rho 0.03 仍在 4° 倾角限内"
+    }
+  },
+  "defaults": {
+    "form_style": "SF-B",
+    "quoin_block_length": 0.52,
+    "patch_sides": [
+      4,
+      7
+    ]
+  },
+  "formulas": {
+    "rho": "1 - top / bottom",
+    "wall_tilt_deg": "atan(abs(rho) * W_base / H_floor)",
+    "rho_max_from_tilt": "tan(4deg) * H_floor / W_base",
+    "cylinder_rho": "1 - d_top / d_bottom",
+    "quoin_short_height": "(H_wall - pairs * gap) / (2.6 * pairs)",
+    "brick_rows": "floor(H_visible / block_height)",
+    "brick_row_offset": "0.5 * block_length * (row mod 2)",
+    "cornice_cap_thickness": "max(0.5 * O, 0.08)",
+    "bracket_count": "floor(L / pitch) + 1",
+    "pediment_peak": "rise_ratio * L / 2",
+    "tower_tank_height": "k * D",
+    "tower_leg_height": "0.42 * tank_height",
+    "awning_stripe_width": "W_a / stripes",
+    "extra_triangles": "188*(N_quoin+N_bracket+N_brick_3d) + 3*N_groove + 48*N_brace + 8*N_patch",
+    "flat_plate_test": "min(extent) < max(extent) / 5",
+    "flat_trigger": "long_plan / short_plan > flat_axis_ratio -> axis = short_plan_axis",
+    "slender_test": "min/middle >= 1/3 and max/min > 3 -> axis = section",
+    "taper_along": "argmax(extent_x, extent_y, extent_z)",
+    "contact_gap_ok": "0.002 <= gap_m <= 0.02"
+  },
+  "validation": {
+    "script": "scripts/check_stylized_form.py",
+    "plan_key": "stylized_form",
+    "modes": [
+      "--plan <component_plan.json>",
+      "--selftest"
+    ],
+    "assertions": [
+      "no_square_volume",
+      "cylinder_taper",
+      "sign_consistency",
+      "tilt_coverage",
+      "tilt",
+      "structural_tilt_forbidden",
+      "relief_presence",
+      "relief_protrusion",
+      "relief_layers",
+      "wall_tilt",
+      "tri_budget",
+      "micro_bevel",
+      "no_volume_declared",
+      "flat_axis_rule",
+      "taper_along_rule",
+      "no_overlap"
+    ],
+    "selftest_cases": 33,
+    "example": {
+      "stylized_form": {
+        "form_style": "SF-B",
+        "wall_thickness": 0.2,
+        "slab_thickness": 0.2,
+        "cornice_length": 8.0,
+        "body": {
+          "width_base": 6.0,
+          "width_top": 5.86,
+          "depth_base": 5.0,
+          "depth_top": 4.88,
+          "height": 9.8,
+          "triangles": 40000
+        },
+        "components": [
+          {
+            "id": "wall_front",
+            "kind": "shell",
+            "axis": "z",
+            "bottom": 6.0,
+            "top": 5.86,
+            "role": "structure"
+          },
+          {
+            "id": "post_a",
+            "kind": "vertical_structure",
+            "bottom": 0.5,
+            "top": 0.485
+          },
+          {
+            "id": "win_a",
+            "kind": "opening",
+            "bottom": 1.2,
+            "top": 1.17
+          },
+          {
+            "id": "tower",
+            "kind": "freestanding",
+            "bottom": 1.6,
+            "top": 1.73
+          },
+          {
+            "id": "sign",
+            "kind": "flat_attached",
+            "bottom": 1.8,
+            "top": 1.76,
+            "tilt_deg": 7,
+            "tilt_kind": "sign_board"
+          },
+          {
+            "id": "rail_post",
+            "kind": "linear",
+            "d_bottom": 0.06,
+            "d_top": 0.056
+          },
+          {
+            "id": "bolt_01",
+            "kind": "no_volume",
+            "no_volume": true,
+            "bevel": 0.01
+          }
+        ]
+      }
+    }
+  },
+  "contacts": {
+    "required_when": "component 声明 attached_to 时必须有一条记录",
+    "allowed": {
+      "inset": "宿主开槽，子件嵌入",
+      "clearance": "留实缝",
+      "boolean_cut": "宿主开洞，需 cut_verified",
+      "miter": "斜接对拼"
+    },
+    "forbidden": {
+      "coplanar": "共面 → 深度冲突，着色闪",
+      "face_to_face": "面贴面 → 同上，拆件互相切",
+      "interpenetrate": "穿插 → 假交界线，优化必出错",
+      "overlap": "重叠 → 同上",
+      "flush": "齐平 → 无缝无槽，读作两块板叠着"
+    },
+    "gap_m": [
+      0.002,
+      0.02
+    ],
+    "gap_note": "小于 2mm 一米外仍是共面；大于 20mm 改为开槽或布尔",
+    "resolve_as_assembly": "贴角功能件（梯子/管/栏）由宿主开槽或开洞，做成真实总成，不做两盒相叠"
+  }
+}
