@@ -74966,6 +74966,42 @@
       "navigation": "pending",
       "runtime_path": null,
       "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-WATER-BUILDING-001",
+      "name": "水上普通建筑001",
+      "domain": "scenes",
+      "stage": "runtime_integrated_pending_visual_review",
+      "source": "art_source/scenes/bld_20261109_a/v004_lowpoly/bld_20261109_a_v004_lowpoly.blend",
+      "source_sha256": "7b709696615f82888eb27e8103ce727056cc9d11faa8ab1b9f3e87d9cd3d4598",
+      "manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_plan.json",
+      "version": "v004_lowpoly",
+      "runtime_path": "godot/assets/models/facilities/water_building_001/water_building_001.glb",
+      "prefab": "godot/scenes/facilities/water_building_001.tscn",
+      "license": "pending_user_reference_commercial_rights_review",
+      "geometry_fingerprint": "lowpoly_face_count_bound_to_source_sha_7b709696",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "category": "building",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "entity",
+      "classification": {
+        "category": "building",
+        "subcategory": "ordinary_water_building",
+        "display_number": "001"
+      },
+      "triangles": 9736,
+      "instances": 92,
+      "runtime_glb_sha256": "dd8c58d309af5f5cfddefaa94909d3d87061839dd2fbaa068e26e72fa1afaef2",
+      "runtime": "pending_godot_import_and_scene_run",
+      "collision": "water_blocker_auto_pending",
+      "navigation": "not_owned_by_ordinary_building",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "note": "编号001普通水上建筑，标准按above_water；参考位放在floating_shop东侧，不增加商店交互，不替换商店或正式主源。"
     }
   ]
 }

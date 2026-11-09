@@ -742,3 +742,9 @@ FAIL: derived feature index stale; use --sync
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-ASSET-R62 | 新增未登记的 `v004_lowpoly` 衍生源：49 个组件、92 个实例。按用户要求删除一楼及瓶罐/告示/菜单/侧面广告 3D 字体，保留上方主招牌；一楼砖缝、格栅、库存细件优先简化；空调外机与细碎圆件改为方形/低边数结构；上层屋顶、小屋、主招牌、篷面和植物主轮廓保留。母版 7694 三角面，依赖图展开 **9736 三角面 / 9736 多边形**，49/49 独立组件包重开，低面数专项 `lowpoly_verification.json` 0 errors。仅为性能候选，不替换 R62 主源，不改 Godot；接缝、运行、碰撞、导航、泊位、商业授权和最终美术验收仍 pending。详见[低面数制作记录](../../development/2026-11-09_bld_20261109_a_lowpoly.md)。 |
+
+## 2026-11-09 编号001水上普通建筑游戏接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R62 | 编号 `001` 作为新增普通水上建筑接入：稳定 AssetID `SEA-SCENE-WATER-BUILDING-001`，`category=building`、`building_class=above_water`、`water_layer=surface/entity`。使用 `v004_lowpoly` 源，49组件/92实例，源展开9736三角面；导出运行GLB独立重开成功，633网格、9527三角面、3材质角色、0内嵌图片。新增稳定包装 `godot/scenes/facilities/water_building_001.tscn`，新增 `World/SeaStructures/water_building_001`，参考位为水上商店东侧 `(165.07135, 1.12, 143.89136)`，位置台账已登记；不拥有商店交互或生产，只声明视觉与水面阻挡。`check_placed_positions.py` 3结构/0失败/0警告。Godot正式重新导入未执行（当前机器未发现Godot可执行文件，GLB `.import`待生成），故 runtime/collision/user acceptance/commercial rights 仍 pending；不刷新既有69项工程哈希漂移。详见[游戏接入记录](../../development/2026-11-09_bld_20261109_a_game_integration.md)。 |

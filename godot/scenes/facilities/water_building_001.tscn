@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/water_building_001/water_building_001.glb" id="model"]
+[ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+[ext_resource type="Material" path="res://assets/materials/gift_kiosk/matte.tres" id="matte"]
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="palette_binding"]
+
+[node name="WaterBuilding001" type="Node3D"]
+script = ExtResource("structure")
+asset_id = "SEA-SCENE-WATER-BUILDING-001"
+role = "ordinary_building"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-001"
+metadata/display_number = "001"
+metadata/label = "水上普通建筑001"
+metadata/classification = "building/ordinary_water_building"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+metadata/source_version = "v004_lowpoly"
+metadata/triangles = 9736
+metadata/instances = 92
+metadata/deck_top_local = 0.3
+metadata/deck_size_xz = Vector2(11, 10.6)
+metadata/role = "visual_and_water_blocker_only"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+script = ExtResource("palette_binding")
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-001"
+metadata/visual_only = false
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "auto"
+target_path = NodePath("../Visual")
+blocks_water = true
+cell = 0.4
