@@ -875,10 +875,37 @@ func _current_landing() -> Node3D:
 	var zone: Node3D = _zone_nodes.get(GameState.current_zone)
 	return zone.landing_point(GameState.landing_id) if zone != null else null
 
+## 泊位数据的唯一出口。**返回的 `boatPark` 一定是合法水面** —— 本轮修的就是这条保证。
+##
+## BoatPark 是手摆的 Marker（静态泊位）或按边推导的点（自建平台），两者都可能落进
+## 岸线的 0.9 m 缓冲里：zone1 的绞盘泊位实测 park=(-9.95, 18.21) 就在缓冲里，于是
+## 「按 E 靠岸」走完整条链路后报「无法到达该泊位」，而船其实早就贴在那儿了。
+## 这里把 park 挪到最近的开阔水（≤3.5 m）并缓存；挪不出去才原样返回，让上层如实报错。
+const PARK_ESCAPE := 3.5
+var _park_cache := {}
+
 func _landing_data(zone_id: String,landing_id: String) -> Dictionary:
+	var data: Dictionary
 	if building_access!=null and building_access.is_dynamic(landing_id):
-		return building_access.landing_data(landing_id) if zone_id=="zone5" else {}
-	return Zones.landing(zone_id,landing_id)
+		data = building_access.landing_data(landing_id) if zone_id=="zone5" else {}
+	else:
+		data = Zones.landing(zone_id,landing_id)
+	if data.is_empty() or not data.has("boatPark") or navigation == null:
+		return data
+	var raw := Vector2(float(data.boatPark[0]), float(data.boatPark[2]))
+	var key := zone_id + "/" + landing_id
+	var legal: Variant = _park_cache.get(key)
+	# 自建平台会随着木板增删换边，缓存按原始 park 值失效。
+	if legal == null or (legal as Vector2).distance_to(raw) > 0.01:
+		var found: Variant = navigation.nearest_open_water(raw.x, raw.y, PARK_ESCAPE)
+		legal = raw if found == null else found
+		if _park_cache.size() > 64: _park_cache.clear()
+		_park_cache[key] = legal
+	if (legal as Vector2).distance_to(raw) < 0.01:
+		return data
+	var fixed := data.duplicate()
+	fixed["boatPark"] = [legal.x, float(data.boatPark[1]), legal.y]
+	return fixed
 
 
 func _start_walk(area: Node3D, target: Vector3) -> bool:
@@ -2012,6 +2039,12 @@ func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String, then_a
 	if path.is_empty():
 		hud.toast("无法到达该泊位")
 		return false
+	# 规划器可能把落点抬出岸线缓冲（落点本身压在缓冲里时）：以路径终点为准。
+	# 否则 `boat.sail_to` 会把真正的 goal 补在路径末端，船朝一个开不进去的点冲，
+	# 最后自己撞停在半路 —— 又一次「明明在这儿却靠不了岸」。
+	var end: Vector2 = path[path.size() - 1]
+	if Vector2(goal.x, goal.z).distance_to(end) > 0.01:
+		goal = Vector3(end.x, WATER_LEVEL, end.y)
 	_cancel_pending_pick()
 	_ashore_on_arrival = then_ashore
 	return _depart(func() -> void:
@@ -2411,7 +2444,7 @@ func _on_destination(zone_id: String) -> void:
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
-	if not _sail_to_landing(Zones.landing(zone_id, "main"), zone_id, "main"):
+	if not _sail_to_landing(_landing_data(zone_id, "main"), zone_id, "main"):
 		return
 
 
@@ -2604,13 +2637,22 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 
 
-## 点登陆标记：在船与岸之间来回。
+## 点登陆标记 / 键盘靠岸：在船与岸之间来回。
 ##
 ## 一个标记承担两个方向，用「角色现在在哪」决定，而不是再分两个按钮：
 ##   · 已经在岸上 → 走回泊位、上船（"坐在船上"）；
 ##   · 已经在船上且就在这个泊位 → 上岸；
 ##   · 船还没停到这个泊位（含别的区块）→ 开过去，**靠妥后自动上岸**。
 ## 第三种是本次改动的重点：以前开到就跑完了，玩家还得再点一次标记。
+##
+## **2026-11-09 补「已经在旁边」这一档**（主人：「我明明停在这里，标记都出来了，
+## 按 E 却说无法到达」）。键盘划船不走航线网格，船可以贴到岸线 0.9 m 缓冲以内；
+## 而旧实现只认「身份 + 1.6 m」才算靠妥，于是键盘划回来的船身份还是上一个泊位，
+## 掉进规划分支、规划又因起点在缓冲里失败，弹出「无法到达该泊位」。
+## 现在：船没在航行、就在 park 的 `DOCK_ADOPT_TOLERANCE` 内、且直线能滑到位 ——
+## 认领这个泊位的身份并直着滑进去，**不寻路**，也就不会有这句谎话。
+const DOCK_ADOPT_TOLERANCE := 3.0
+
 func _select_landing(hit: Dictionary) -> void:
 	var zone_id: String = hit.zone
 	var landing_id: String = hit.landing
@@ -2620,8 +2662,10 @@ func _select_landing(hit: Dictionary) -> void:
 	# 显式写 bool：boat 声明为 Node3D，starts_sailing() 不在基类上，
 	# 这里一旦用 `:=`，整条表达式就是 Variant，Godot 推不出类型会直接报解析错误，
 	# 而 main.gd 解析失败会让整个游戏加载不了。2026-10-28 改鲸的场景后重导入时踩到过。
+	var sailing: bool = boat.starts_sailing()
+	var reach := boat.position.distance_to(park)
 	var docked: bool = zone_id == GameState.current_zone and landing_id == GameState.landing_id \
-		and not boat.starts_sailing() and boat.position.distance_to(park) < DOCK_SETTLE_TOLERANCE
+		and not sailing and reach < DOCK_SETTLE_TOLERANCE
 	if docked:
 		if GameState.mode == GameState.Mode.ASHORE:
 			_ashore_on_arrival = false
@@ -2633,10 +2677,31 @@ func _select_landing(hit: Dictionary) -> void:
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
-	var l := _landing_data(zone_id, landing_id)
-	if not _sail_to_landing(l, zone_id, landing_id, true):
+	# 已经贴着这个泊位：认领身份 + 最后一小段直着滑进去，不走路径规划。
+	if not sailing and reach <= DOCK_ADOPT_TOLERANCE and _park_glide_clear(park):
+		GameState.landing_id = landing_id
+		GameState.enter_zone(zone_id)
+		_ashore_on_arrival = true
+		var yaw := float(selected.get("boatYaw", boat.rotation.y))
+		_depart(func() -> void:
+			boat.sail_to(park, yaw, zone_id, landing_id, [])
+			actor_controller.request_mode(GameState.Mode.SAILING)
+			markers.set_highlight(zone_id))
+		return
+	if not _sail_to_landing(selected, zone_id, landing_id, true):
 		return
 	# 同上：目标水纹由 ribbon 负责，不再额外放一圈落点环。
+
+
+## 「最后一小段能不能直着滑进泊位」——只看物理水面，不看航线网格。
+##
+## 起点可能就在缓冲里（船贴着码头停），所以先抬到最近的开阔水再判线段，
+## 抬不出去（离岸超过 2.6 m）视为不能滑，交回正常规划。
+func _park_glide_clear(park: Vector3) -> bool:
+	if navigation == null: return false
+	var from: Variant = navigation.nearest_open_water(boat.position.x, boat.position.z)
+	if from == null: return false
+	return navigation.segment_clear(from, Vector2(park.x, park.z))
 
 
 ## 靠泊后上岸的唯一入口：站在泊位上走过去，到位即 ashore_idle。
@@ -2872,22 +2937,25 @@ func _near_landing_key() -> Dictionary:
 		if zone == null or not zone.has_method("landing_points"):
 			continue
 		for point in zone.landing_points():
-			var data: Dictionary = point.data()
+			var lid := str(point.landing_id)
+			var data: Dictionary = _landing_data(zone_id, lid)
 			if not data.has("boatPark"):
 				continue
 			var park := Vector3(float(data.boatPark[0]), WATER_LEVEL, float(data.boatPark[2]))
 			var d := Vector2(park.x - boat.position.x, park.z - boat.position.z).length()
 			if d >= best_d:
 				continue
-			# 已经在当前泊位中心：方向与可航都没有意义，一定允许（上岸/上船入口）。
-			if d <= 1.0:
+			# 已经贴在这个泊位上：方向、航线都没有意义，只要直线滑得进去就一定允许。
+			# 判据必须和 `_select_landing` 的「认领 + 滑入」那一档同源，
+			# 否则会出现「提示写着靠岸、按下去报无法到达」。
+			if d <= DOCK_ADOPT_TOLERANCE and _park_glide_clear(park):
 				best_d = d
-				best = {"zone": str(zone_id), "landing": str(data.get("id", "main")), "dist": d}
+				best = {"zone": str(zone_id), "landing": lid, "dist": d}
 				continue
 			if not _dock_route_ok(park):
 				continue
 			best_d = d
-			best = {"zone": str(zone_id), "landing": str(data.get("id", "main")), "dist": d}
+			best = {"zone": str(zone_id), "landing": lid, "dist": d}
 	return best
 
 

@@ -11,11 +11,13 @@ func run() -> void:
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	var cam: Node = main.cam
-	# SEA-CAMERA-R11（2026-11-05 修订）：主人指认截图那一档就是最远 = 77.8 m，
-	# 也就是旧区间 9~190 m 的 38%（9+0.38×181）。开局仍是原来的 54.25 m。
-	check(is_equal_approx(cam.zoom_max,77.8),"缩放上限77.8")
-	check(is_equal_approx(cam.distance,54.25),"开局54.25")
-	check(absf(cam.zoom_ratio()-(54.25-9.0)/(77.8-9.0))<.001,"开局比例%.3f"%cam.zoom_ratio())
+	# SEA-CAMERA-R11（2026-11-09 修订）：主人指认「最远 = 视野 38%」「最近 = 视野 7%」，
+	# 百分比刻度沿用 9–77.8 的参照区间，反解得 35.14 m 与 13.82 m。
+	# 开局 54.25 已超出新上限，重取新区间的 66%（=27.9，与旧值同一百分比档）。
+	check(absf(cam.zoom_max-35.14)<.001,"缩放上限35.14 实际=%.2f"%cam.zoom_max)
+	check(absf(cam.zoom_min-13.82)<.001,"缩放下限13.82 实际=%.2f"%cam.zoom_min)
+	check(absf(cam.distance-27.9)<.001,"开局27.9（两端之间）实际=%.2f"%cam.distance)
+	check(absf(cam.zoom_ratio()-0.275)<.01,"开局读作 27.5%% 实际=%.3f"%cam.zoom_ratio())
 	check(cam.follow_enabled and cam.follow_subject==main.player,"默认跟随角色")
 	cam._process(.1)
 	check(cam.target.distance_to(main.player.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<.001,"跟随世界坐标 aim=%.3fm"%main.BodyScale.CAMERA_FOCUS)
@@ -45,7 +47,7 @@ func run() -> void:
 		for i in fps: cam._process(1.0/fps)
 		outputs.append(cam._cur_target)
 	check(outputs[0].distance_to(outputs[2])<.001,"阻尼帧率一致")
-	# 连续往外滚：被 zoom_max 钉在 77.8 m（主人截图的取景），拉不出更远的画面。
+	# 连续往外滚：被 zoom_max 钉在 35.14 m（主人截图那一档），拉不出更远的画面。
 	cam.suspend_follow()
 	for i in 12:
 		cam.zoom_action.execute(cam,1.0/0.86,Vector2(500,400))
@@ -53,14 +55,15 @@ func run() -> void:
 	# 平滑要收敛：ZOOM_DAMP=9，0.2 s 只走 83%，单帧不够。
 	for i in 12:
 		cam._process(0.1)
-	check(absf(cam.distance-77.8)<.001 and absf(cam._cur_distance-77.8)<.05,"滚轮停在77.8m 实际=%.2f/%.2f"%[cam.distance,cam._cur_distance])
-	# 往里仍能到 9 m，说明收紧上限没把缩放整体压死。
+	check(absf(cam.distance-cam.zoom_max)<.001 and absf(cam._cur_distance-cam.zoom_max)<.05,"滚轮停在上限 实际=%.2f/%.2f"%[cam.distance,cam._cur_distance])
+	# 往里能到 13.82 m，读数停在 7% —— 与主人给的第二张图一致。
 	for i in 24:
 		cam.zoom_action.execute(cam,0.86,Vector2(500,400))
 	for i in 12:
 		cam._process(0.1)
-	check(absf(cam.distance-9.0)<.001,"内侧仍到9m 实际=%.2f"%cam.distance)
-	print("[camera-follow] 12 checks, failures=",failures)
+	check(absf(cam.distance-cam.zoom_min)<.001,"内侧停在下限 实际=%.2f"%cam.distance)
+	check(absf(cam.zoom_ratio()-0.07)<.01,"最近读作 7%% 实际=%.3f"%cam.zoom_ratio())
+	print("[camera-follow] 14 checks, failures=",failures)
 	main.queue_free()
 	await process_frame
 	quit(0 if failures==0 else 1)

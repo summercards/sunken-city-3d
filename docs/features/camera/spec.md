@@ -137,3 +137,12 @@
 | SEA-CAMERA-R15 | `[` / `]` 通过既有 orbit 动作旋转，`-` / `=` 通过 `set_distance` 缩放；F 由 Main 恢复角色跟随，与正式跟随命令同源。不得抢用WASD/方向/Q/E、绕过模态/过场/固定机位输入限制或新增一份相机状态。室内仍沿 orbit-only 取景和原距离/俯角约束；范围、跟随/手动交接与室内实际手感需专项核验，不因按键分支存在就认定通过。 |
 
 源码定位：`godot/src/camera/orbit_camera.gd:261` 的输入门禁与独立取景键，`godot/src/bootstrap/main.gd:2294` 的F跟随。X退出复用正式room_exit，不新增相机状态。`.abs()`修复后194828与200446最终报告keyboard-travel均374/0、exit0、passed=true；`test_keyboard_travel.gd:201`在家泊位与六格菜单退出后用真键复验室外旋转/缩放/F跟随；200446同批camera12/0、keyboard-control30/0、control-feel31/0通过。旧负Rect runner FAIL保留为过程，不再写修后待跑；室内全部缩放边界/设备与所有组合仍未据此验收，整体partial。报告完整路径与矩阵见[总交付](../../development/2026-11-06_keyboard_complete.md)。
+## 2026-11-09 缩放区间收窄到 7%–38%
+
+主人给两张截图：「最远视角调整到 image2 这个位置，最近调整到 image3」。两张都是当前版本拍的，读数是 **视野 38%** 与 **视野 7%**，因此百分比按现行刻度反解：`d = 9 + pct × (77.8 − 9)` → 最远 35.14 m、最近 13.82 m。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-CAMERA-R16 | 玩家可达区间从 9–77.8 m 收窄为 **13.82–35.14 m**（显示刻度 7%–38%）。`zoom_ratio()` 的刻度锚定新增字段 `zoom_ref_min = 9` / `zoom_ref_max = 77.8`，**不跟着 `zoom_min / zoom_max` 走**：主人用这个百分比指认机位，刻度一动，同一句话就换个画面。开局 54.25 m 已越界，改为 **27.9 m**（新区间 66%，与旧值在 9–77.8 里的 65.8% 同档；显示读 27.5%），两端都留余量、不钉在最远。滚轮/捏合、C 面板滑杆与四个预设全读同一对字段；需要更宽机位的证据脚本仍在自己文件里临时抬高 `zoom_max`，玩家上限不跟着放开。 |
+
+真实渲染证据：`camera-zoom-far.png`（拉到顶=35.14 m，读数 38%）、`camera-zoom-near.png`（拉到最近=13.82 m，读数 7%）。断言见 `tests/test_camera_follow.gd` 与 `tools/capture_camera_zoom.gd`；交付记录见[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。

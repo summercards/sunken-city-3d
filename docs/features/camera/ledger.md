@@ -157,3 +157,9 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | SEA-CAMERA-R15 | `[`/`]`旋转、`-`/`=`缩放、F恢复跟随的正式室外键盘路径已通过；复用门禁与既有状态 | `test_keyboard_travel.gd:201`；`20261106-200446-keyboard-release-regression-eae88a/report.json`：travel374/0、camera12/0、keyboard-control30/0、control-feel31/0，均exit0、passed=true |
 
 证据根`D:/projects/sea-work/verification/`，`20261106-194828-keyboard-visual-travel-final-09cca9/report.json`同样travel374/0通过，visual-farm617/0为真实渲染种植链，不冒称室内镜头边界视觉专项。旧374/0因负Rect导致runner FAIL保留为过程，`.abs()`修后已两轮通过，不再pending。200446完整报告14通过/4失败，其中interaction-reach/dock-seed/minimum-loop/harvest-receive旧契约失败保留为过程；201957适配报告已分别35/0、22/0、147/0、92/0，均exit0、passed=true，不再待填。主线程keyboard-final-contracts最终批次待附，不以旧批次冒称新批次通过。完整路径、室内/设备/组合边界见[总交付](../../development/2026-11-06_keyboard_complete.md)；整体partial。没有改用户TSCN、资产/哈希或运行新检查。
+
+## 2026-11-09 缩放区间收窄到 7%–38%
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-CAMERA-R16 | implemented；`zoom_min/zoom_max` 9–77.8 → **13.82–35.14**，显示刻度改锚 `zoom_ref_min/zoom_ref_max = 9/77.8`，开局 `distance` 54.25 → **27.9**（区间 66%，显示读 27.5%）；抓图工具机位改锚**船**（原锚甲板点，13.82 m 时会被屋体挡住）并按目标屏幕位置取滚轮锚点（原固定 (540,337)，滚满 20 档把 target 拖走 21 m，近景拍成空水面） | `camera` 14/0 PASS（`D:/projects/sea-work/verification/20261109-172516-final-dock-cam-9ef8a4/report.json`）；`visual-camera-zoom` 18/0 PASS、真实渲染 1280×800 三张（最远/顶到上限/最近，`D:/projects/sea-work/verification/20261109-174222-camzoom-fix-5cae98/report.json`）。两端读数为 38% / 7%，与主人截图一致。本条覆盖 R11 的两端值，R11 其余内容（工具侧临高 `zoom_max`）保留。[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。 |

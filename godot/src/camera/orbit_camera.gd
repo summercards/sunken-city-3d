@@ -7,16 +7,32 @@ const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
-@export var distance := 54.25
-## 缩放下限/上限。不再复用 min_distance / max_distance（那两个是旧接口的相容字段）。
-## 上限 77.8 米（SEA-CAMERA-R11，2026-11-05 修订）：主人指认截图那一档就是最远，
-## 反解得 77.8 m —— 正是旧区间 9~190 m 的 38%（9+0.38×181=77.8），
-## 与截图里小屋占画面宽约 29% 的实测吻合（同构图 78 m 渲染得 29.1%）。
-## 抓图/探针工具若需要更宽取景，在自己脚本里临时抬高 zoom_max，不改这里的玩家上限。
-@export var zoom_min := 9.0
-@export var zoom_max := 77.8
+## 开局机位。区间收窄到 13.82–35.14 之后，原来的 54.25 已在界外，必须重取一个。
+##
+## 取新区间的 66%（13.82 + 0.66 × 21.32 = 27.9）：旧 54.25 正是 9–77.8 区间的 65.8%，
+## 同一个「区间内位置」—— 开局既不钉在最远（2026-11-05 那版「一进游戏就是最远、
+## 只能往近处看」已被推翻），也不钉在最近，两端都留出余量。
+## 注意两种百分比不是一回事：27.9 m 在**显示刻度**上是 27.5%，在**可到区间**里是 66%。
+@export var distance := 27.9
+## 缩放下限/上限（**玩家能到的两头**，2026-11-09 按主人截图重新定档）。
+##
+## 主人给了两张图：最远 = 面板「视野 38%」，最近 = 「视野 7%」。这两张图都是
+## 现在这版（区间 9–77.8 m）拍的，所以百分比的含义是
+## `d = 9 + pct × (77.8 − 9)`，反解得：
+##   最近 9 + 0.07 × 68.8 = 13.82 m
+##   最远 9 + 0.38 × 68.8 = 35.14 m
+## 区间收窄到这两个值：滚轮再转也不会穿出主人指定的取景。
+## 抓图/探针工具若需要更宽取景，在自己脚本里临时抬高 zoom_max，不改玩家上限。
+@export var zoom_min := 13.82
+@export var zoom_max := 35.14
+## 百分比刻度的参照区间：**故意不跟着 zoom_min/zoom_max 走**。
+##
+## 「视野 %」是主人用来指认机位的语言（38% / 7% 就是他说的那两个位置），
+## 所以刻度必须保持稳定：换档只换能到的距离，不换百分比的含义。
+@export var zoom_ref_min := 9.0
+@export var zoom_ref_max := 77.8
 @export var min_distance := 30.0
-@export var max_distance := 77.8
+@export var max_distance := 35.14
 @export var cam_fov := 31.0
 @export var cam_near := 0.5
 @export var cam_far := 600.0
@@ -447,8 +463,12 @@ func _keep_pitch_valid() -> void:
 
 
 ## 给 UI 显示当前缩放百分比（滚轮改变时 HUD 可以闪一下）。
+##
+## 分母用 `zoom_ref_*`（9–77.8），不是 `zoom_min/zoom_max`：
+## 主人是拿这个百分比指认机位的（「最远到 38%」），刻度一动，同一句话就换个画面。
+## 于是收窄可以到的区间之后，两头仍显示 7% 与 38%，而不是 0% 与 100%。
 func zoom_ratio() -> float:
-	return clampf((_cur_distance - zoom_min) / maxf(zoom_max - zoom_min, 0.001), 0.0, 1.0)
+	return clampf((_cur_distance - zoom_ref_min) / maxf(zoom_ref_max - zoom_ref_min, 0.001), 0.0, 1.0)
 
 var orbit_action = preload("res://src/camera/actions/orbit_action.gd").new()
 

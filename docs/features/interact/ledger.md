@@ -281,3 +281,10 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 ### 本次最终验收签署
 
 本节新增条款已实现并完成当前交互验收。13个独立入口5040/0，均exit0且unexpected_errors为空：NPC主场景473/0、真实渲染498/0（25张最终PNG全部状态已审）、规则655/0、世界136/0、资料话题1387/0、增量性能61/0、商店260/0、整局存档702/0、seed476/0、不同进程restart202/0、最小循环112/0、开场键盘39/0、点击39/0。报告选择、截图像素、逐图审阅、过程FAIL与最终覆盖均见[开发记录最终签署](../../development/2026-11-08_npc_conversation.md#最终签署本次交互专项通过2026-11-08)。资产/运行资源哈希门禁sync45、check46项仍FAIL/exit1，原基线漂移未批量重签；不以专项通过冒充全工程通过。手柄/触屏、低端/发行包、全部剧情人工游玩未执行，整体功能非完整产品verified。
+
+
+## 2026-11-09 靠泊热点（park 合法化 + 已在旁边认领）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INTERACT-R29 | implemented；`_landing_data()` 归一化 park（≤3.5 m，带按原始值失效的缓存）、`building_access.landing_data()` 同规则、`_select_landing()` 新增「认领 + 滑入」一档（≤3.0 m 且直线可滑）、`_near_landing_key()` 与其同源、`_sail_to_landing()` 以路径终点为航行目标 | `dock-hotspot` 31/0 PASS，exit0，`D:/projects/sea-work/verification/20261109-171130-dock-hotspot-r6-f1015c/report.json`；终版复跑 `D:/projects/sea-work/verification/20261109-181016-final-regress-b44d74/report.json`（`dock-hotspot`/`camera`/`dock-seed`/`board-click`/`interaction-reach`/`interact-focus` 全 PASS）；改动前同用例 11 项失败且报「无法到达该泊位」（`D:/projects/sea-work/verification/20261109-171040-dock-hotspot-baseline3-836e50/report.json`）。同批 `dock-seed`、`board-click`、`interaction-reach`、`interact-focus`、`sea-supply`、`ocean` 复跑 PASS；`click` 的 runner FAIL 来自在飞的水下 shader（`CAMERA_POSITION_WORLD` 未知标识符，39 checks 0 failures），与本条无关。[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。 |

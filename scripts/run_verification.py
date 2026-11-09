@@ -358,6 +358,7 @@ TESTS.update({
     'visual-plot-menu': ('tools/capture_plot_menu.gd', r'\[visual-plot-menu\] complete'),
     'visual-salvage': ('tools/capture_salvage.gd', r'\[visual-salvage\] complete'),
     'dock-seed': ('tests/test_dock_and_seed.gd', r'\[dock-seed\] \d+ checks, 0 failures'),
+    'dock-hotspot': ('tests/test_dock_hotspot.gd', r'\[dock-hotspot\] \d+ checks, 0 failures'),
     # 出货箱与码头缆绳的间距：箱子落点在场景，缆绳在组件 GLB 里，改任一边都可能重新穿模。
     'dock-rope-clearance': ('tools/verify_box_rope.gd', r'\[dock-rope\] complete'),
     # SEA-NAV-R11：150m 可航区横跨可航区常量、几何硬界、相机范围、存档回位四处，
@@ -387,6 +388,13 @@ TESTS.update({
     'visual-save-reset': ('tools/capture_save_reset.gd', r'\[save-reset-render\] 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
+
+
+def write_project_config(path, text):
+    """Windows 隔离副本中 project.godot 偶发不能原地覆盖，使用临时文件原子替换。"""
+    temp = path.with_name(path.name + '.tmp')
+    temp.write_text(text)
+    os.replace(temp, path)
 
 
 def inspect_log(name, code, text, marker):
@@ -422,7 +430,7 @@ def run_minimum_loop_baseline(exe, project, full_config, run_dir, user_name, arg
         config = re.sub(r'^config/custom_user_dir_name=.*$',
                         'config/custom_user_dir_name="' + user_name + '/' + name + '"',
                         full_config, flags=re.M)
-        (project / 'project.godot').write_text(config)
+        write_project_config(project / 'project.godot', config)
         cmd = [exe, '--path', str(project), '--headless', '--script', 'res://' + script,
                '--', '--skip-title']
         log = run_dir / (name + '.log')
@@ -531,7 +539,7 @@ def isolated_project(run_dir):
     text = re.sub(r'^config/(?:use_custom_user_dir|custom_user_dir_name)=.*\n?', '', text, flags=re.M)
     text = text.replace('[application]', '[application]\nconfig/use_custom_user_dir=true\n'
                         + 'config/custom_user_dir_name="' + user_name + '"')
-    (project / 'project.godot').write_text(text)
+    write_project_config(project / 'project.godot', text)
     (project / 'outputs').mkdir()
     camera_baseline = GODOT_ROOT / 'outputs/uw-standard-web-cameras.json'
     if camera_baseline.is_file():
@@ -684,7 +692,7 @@ def main():
         check_user_name = user_name + '/' + group
         config = re.sub(r'^config/custom_user_dir_name=.*$',
                         'config/custom_user_dir_name="' + check_user_name + '"', config, flags=re.M)
-        (project / 'project.godot').write_text(config)
+        write_project_config(project / 'project.godot', config)
         script, marker = TESTS[name]
         cmd = [exe, '--path', str(project)]
         if args.engine_verbose:

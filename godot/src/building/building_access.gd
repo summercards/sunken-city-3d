@@ -82,6 +82,12 @@ func landing_data(id: String, rows: Variant = null, walk_override: Variant = nul
 	var park:=edge+normal*1.65
 	var origin:=Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 	stand+=origin;park+=origin;edge+=origin
+	# 泊位点落进岸线 0.9 m 缓冲就等于「开不过去」，标记会被 `is_open_water` 过滤掉，
+	# 玩家只能看着平台没有登陆点。挪到最近的开阔水 —— 与 main._landing_data
+	# 的 PARK_ESCAPE 同一条规则，两处口径必须一致，否则标记与按键各说一套。
+	if navigation != null and not navigation.is_open_water(park.x, park.y):
+		var legal: Variant = navigation.nearest_open_water(park.x, park.y, 3.5)
+		if legal != null: park = legal
 	return {"id":id,"name":"自建平台","ground_id":world.area.area_id,
 		"landStand":[stand.x,Catalog.ORIGIN.y,stand.y],"boatPark":[park.x,1.12,park.y],
 		"boatYaw":atan2(tangent.x,tangent.y),"dockEdge":[edge.x,Catalog.ORIGIN.y,edge.y]}

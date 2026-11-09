@@ -2,6 +2,12 @@ extends RefCounted
 ## Legal water area -> route planning -> segment validation. No scene or global dependencies.
 const SailNavLib = preload("res://src/navigation/sail_nav.gd")
 const BLOCK_INDEX_CELL := 6.0
+## 端点落在岸线缓冲里时，抬出缓冲最多允许走多远。
+##
+## 起点给得比船体半宽大一点（船贴岸时不会超出一个船宽），落点只给一小步：
+## 落点是玩家点的地方，挪太远就成了「点这儿、船停别处」。
+const START_ESCAPE := 2.6
+const GOAL_ESCAPE := 1.8
 ## Historical bounds retained for old tooling; geometric ocean queries are now
 ## unbounded. An explicit allowed_area may still restrict a particular scenario.
 const WORLD_WATER := Rect2(-80.0, -80.0, 160.0, 160.0)
@@ -117,17 +123,48 @@ func nav_grid() -> Dictionary:
 	_nav_grid = grid
 	return _nav_grid
 
+## 离这个点最近的合法水面；本身就在开阔水面时原样返回，找不到返回 null。
+##
+## 0.9 m 外扩是**规划缓冲**，不是物理边界：船体半径就大于它，所以贴着码头停的船
+## 一定落在缓冲里（键盘划船更是可以直接划进去）。旧实现遇到这种情况一律 return []，
+## 于是玩家明明停在泊位旁边，点标记 / 按 E 却得到「无法到达该泊位」。
+## 这里把越界的端点抬出缓冲再规划：位置不变，只把起点（或落点）挪几十厘米。
+func nearest_open_water(x: float, z: float, max_radius := 2.6) -> Variant:
+	if is_open_water(x, z):
+		return Vector2(x, z)
+	var step := 0.25
+	var radius := step
+	while radius <= max_radius + 0.001:
+		var count := maxi(8, int(ceil(TAU * radius / step)))
+		for i in count:
+			var angle := TAU * float(i) / float(count)
+			var p := Vector2(x + cos(angle) * radius, z + sin(angle) * radius)
+			if is_open_water(p.x, p.y):
+				return p
+		radius += step
+	return null
+
+
 func plan_route_to(from: Vector2, x: float, z: float) -> Array:
+	var start := from
+	if not is_open_water(start.x, start.y):
+		var escape: Variant = nearest_open_water(start.x, start.y, START_ESCAPE)
+		if escape == null:
+			return []
+		start = escape
 	var goal := Vector2(x, z)
-	if not is_open_water(from.x, from.y) or not is_open_water(x, z):
-		return []
+	if not is_open_water(goal.x, goal.y):
+		var shore: Variant = nearest_open_water(goal.x, goal.y, GOAL_ESCAPE)
+		if shore == null:
+			return []
+		goal = shore
 	# Open ocean has no fixed world box. Most distant trips need no grid at all.
-	if segment_clear(from,goal): return [from,goal]
-	if not allowed_area.has_area(): return _local_route(from,goal)
+	if segment_clear(start,goal): return [start,goal]
+	if not allowed_area.has_area(): return _local_route(start,goal)
 	var grid := nav_grid()
 	if grid.is_empty():
 		return []
-	var path: Variant = SailNavLib.plan_route(grid, from, goal)
+	var path: Variant = SailNavLib.plan_route(grid, start, goal)
 	if valid_route(path):
 		return path
 	if _safe_nav.is_empty():
@@ -140,7 +177,7 @@ func plan_route_to(from: Vector2, x: float, z: float) -> Array:
 				var p := SailNavLib.cell_center(_safe_nav, i, j)
 				blocked[j * int(_safe_nav.cols) + i] = 0 if is_open_water(p.x, p.y) else 1
 		_safe_nav.blocked = blocked
-	path = SailNavLib.plan_route(_safe_nav, from, goal)
+	path = SailNavLib.plan_route(_safe_nav, start, goal)
 	return path if valid_route(path) else []
 
 func valid_route(path: Variant) -> bool:
