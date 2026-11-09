@@ -1,0 +1,61 @@
+{
+  "key": "clothesline",
+  "id": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "asset_id": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "name": "晾衣架",
+  "component_family": "clothesline",
+  "family": "clothesline",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/clothesline/clothesline.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    4.880000114440918,
+    0.07608452439308167,
+    2.700000047683716
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SLAB",
+  "collection": "SEA-SCENE-B1109A-CLOTHESLINE",
+  "bounds_size": [
+    4.880000114440918,
+    0.07608452439308167,
+    2.700000047683716
+  ],
+  "triangles": 116,
+  "polygons": 42,
+  "meshes": 3,
+  "geometry_fingerprint": "45774bb31877005b19b0f640a66dad2f03e65a19faeab4f02e278704473188b6",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "64c4bb9fe20fe592d6b08aeef8e580f7174da5099a68c9d7fc05cb9184405768",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/clothesline/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

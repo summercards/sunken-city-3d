@@ -1,0 +1,117 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-B1109A-ASSEMBLY",
+  "name": "B1109A",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "scope": "scene_local",
+  "category": "building_assembly",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "source": "art_source/scenes/bld_20261109_a/v001/bld_20261109_a.blend",
+  "source_sha256": "b3d5a26b561be4890410d524ffacffc3972ae2234380cd35b7f9880d150e7cb5",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/asset_manifest.json",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "version": "v001",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "stage": "source_verified_runtime_integration_pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "component_count": 49,
+  "instance_count": 92,
+  "expanded_triangles": 390194,
+  "expanded_polygons": 204526,
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-ASSEMBLY",
+  "component_plan": "art_source/scenes/bld_20261109_a/v001/component_plan.json",
+  "catalog": "art_source/scenes/bld_20261109_a/v001/catalog.json",
+  "instances": "art_source/scenes/bld_20261109_a/v001/component_instances.json",
+  "reference": "art_source/scenes/bld_20261109_a/v001/reference.jpg",
+  "reference_sha256": "96dd2efff6ce397ad15943454cfa3f0dd2df0460fe605f17edb7ff2543b57195",
+  "dimensions": {
+    "body_width_m": 8.6,
+    "body_depth_m": 8.2,
+    "deck_width_m": 11.0,
+    "deck_depth_m": 10.6,
+    "platform_bottom_m": 0.1,
+    "platform_top_m": 0.3,
+    "floor_tops_m": [
+      0.3,
+      5.4,
+      10.5
+    ],
+    "clear_height_m": 4.9,
+    "floor_pitch_m": 5.1,
+    "slab_m": 0.2,
+    "main_post_m": 0.5,
+    "upper_room_m": [
+      6.6,
+      3.7,
+      3.1
+    ],
+    "main_sign_m": [
+      9.1,
+      0.32,
+      2.35
+    ],
+    "ac_m": [
+      2.5,
+      0.72,
+      1.65
+    ],
+    "front_axis": "-Y",
+    "main_post_bevel_m": 0.095,
+    "coping_bevel_m": 0.121,
+    "slab_bevel_m": 0.045,
+    "roof_coping_bevel_m": 0.164,
+    "bevel_segments": 3,
+    "awning_reach_m": 1.5,
+    "main_sign_visible_text_m": [
+      7.3,
+      1.6
+    ]
+  },
+  "source_report": "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+  "visual_review": "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json",
+  "pending": [
+    "Godot integration",
+    "runtime collision",
+    "navigation",
+    "commercial rights",
+    "user final art acceptance"
+  ]
+}

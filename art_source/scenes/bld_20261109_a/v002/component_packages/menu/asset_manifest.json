@@ -1,0 +1,51 @@
+{
+  "key": "menu",
+  "id": "SEA-SCENE-B1109A-V002-MENU",
+  "asset_id": "SEA-SCENE-B1109A-V002-MENU",
+  "name": "桌面目录板",
+  "component_family": "menu",
+  "family": "menu",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "flat_attached",
+  "rho": 0.025,
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/menu/menu.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 7,
+  "tilt_kind": "sign_board",
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-MENU",
+  "bounds_size": [
+    1.5991798639297485,
+    0.109300896525383,
+    1.180577278137207
+  ],
+  "triangles": 12532,
+  "polygons": 6871,
+  "meshes": 32,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "9cb677c9f85d2c5a7b1cc21cd0911840b26cff37519e50ae90e6cdca140e2696",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "b6b531f9994d51881a5865c97496b620c1c13f45ef5e0599a2aaa4e877a7b464",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/menu/asset_manifest.json"
+}

@@ -1,0 +1,51 @@
+{
+  "key": "shop_lintel",
+  "id": "SEA-SCENE-B1109A-V002-SHOP-LINTEL",
+  "asset_id": "SEA-SCENE-B1109A-V002-SHOP-LINTEL",
+  "name": "店面门楣",
+  "component_family": "shop_lintel",
+  "family": "shop_lintel",
+  "group": "structure",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.97,
+  "kind": "vertical_structure",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/shop_lintel/shop_lintel.blend",
+  "form_layer": "ordinary",
+  "rho": 0.03,
+  "role": "structure",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-SHOP-LINTEL",
+  "bounds_size": [
+    8.434789657592773,
+    0.506199300289154,
+    1.2999999523162842
+  ],
+  "triangles": 7364,
+  "polygons": 4025,
+  "meshes": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "7bf084283c740344127e1d13ac11ad55e733c0df045a8cfa2b79f36891dc940b",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "fcd99b1b956c9a0d090a026c6ea722f2496f1f816dec2d6e5d44a4451e2a1f71",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/shop_lintel/asset_manifest.json"
+}

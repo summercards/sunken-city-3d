@@ -1,0 +1,1852 @@
+{
+  "schema": "sea.component_instances",
+  "coordinate_contract": {
+    "plane": "XY",
+    "up": "+Z",
+    "rotation": "Euler XYZ radians; Z is vertical",
+    "godot_mapping": "(x,y,z)->(x,z,-y)",
+    "placement_owner": "Godot TSCN after future integration"
+  },
+  "instances": [
+    {
+      "name": "BLDA_I_deck_001",
+      "key": "deck",
+      "asset_id": "SEA-SCENE-B1109A-V002-DECK",
+      "position": [
+        0.0,
+        0.0,
+        0.10000000149011612
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_shell_001",
+      "key": "shell",
+      "asset_id": "SEA-SCENE-B1109A-V002-SHELL",
+      "position": [
+        0.0,
+        0.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_slab_001",
+      "key": "slab",
+      "asset_id": "SEA-SCENE-B1109A-V002-SLAB",
+      "position": [
+        0.0,
+        0.0,
+        5.199999809265137
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_slab_002",
+      "key": "slab",
+      "asset_id": "SEA-SCENE-B1109A-V002-SLAB",
+      "position": [
+        0.0,
+        0.0,
+        10.300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_coping_001",
+      "key": "coping",
+      "asset_id": "SEA-SCENE-B1109A-V002-COPING",
+      "position": [
+        0.0,
+        0.0,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_post_001",
+      "key": "post",
+      "asset_id": "SEA-SCENE-B1109A-V002-POST",
+      "position": [
+        -4.050000190734863,
+        -3.8499999046325684,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_post_002",
+      "key": "post",
+      "asset_id": "SEA-SCENE-B1109A-V002-POST",
+      "position": [
+        -4.050000190734863,
+        -3.8499999046325684,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_post_003",
+      "key": "post",
+      "asset_id": "SEA-SCENE-B1109A-V002-POST",
+      "position": [
+        4.050000190734863,
+        -3.8499999046325684,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_post_004",
+      "key": "post",
+      "asset_id": "SEA-SCENE-B1109A-V002-POST",
+      "position": [
+        4.050000190734863,
+        -3.8499999046325684,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_roof_hut_001",
+      "key": "roof_hut",
+      "asset_id": "SEA-SCENE-B1109A-V002-ROOF-HUT",
+      "position": [
+        0.0,
+        1.165000081062317,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_roof_sheet_001",
+      "key": "roof_sheet",
+      "asset_id": "SEA-SCENE-B1109A-V002-ROOF-SHEET",
+      "position": [
+        0.0,
+        1.2000000476837158,
+        13.599184036254883
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_shop_lintel_001",
+      "key": "shop_lintel",
+      "asset_id": "SEA-SCENE-B1109A-V002-SHOP-LINTEL",
+      "position": [
+        0.0,
+        -4.193479061126709,
+        3.240000009536743
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_barred_window_001",
+      "key": "barred_window",
+      "asset_id": "SEA-SCENE-B1109A-V002-BARRED-WINDOW",
+      "position": [
+        0.0,
+        -4.042500019073486,
+        5.90500020980835
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_barred_window_002",
+      "key": "barred_window",
+      "asset_id": "SEA-SCENE-B1109A-V002-BARRED-WINDOW",
+      "position": [
+        -4.242499828338623,
+        9.835063874419347e-10,
+        5.90500020980835
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_transom_001",
+      "key": "transom",
+      "asset_id": "SEA-SCENE-B1109A-V002-TRANSOM",
+      "position": [
+        -4.317500114440918,
+        -1.0927853066888815e-10,
+        4.265000343322754
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_main_sign_001",
+      "key": "main_sign",
+      "asset_id": "SEA-SCENE-B1109A-V002-MAIN-SIGN",
+      "position": [
+        0.0,
+        -4.533090591430664,
+        9.380001068115234
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_awning_001",
+      "key": "awning",
+      "asset_id": "SEA-SCENE-B1109A-V002-AWNING",
+      "position": [
+        0.0,
+        -4.871537208557129,
+        4.785539150238037
+      ],
+      "rotation_euler_xyz": [
+        0.06981316953897476,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_fascia_001",
+      "key": "fascia",
+      "asset_id": "SEA-SCENE-B1109A-V002-FASCIA",
+      "position": [
+        0.0,
+        -5.657290458679199,
+        3.890000104904175
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_blade_sign_001",
+      "key": "blade_sign",
+      "asset_id": "SEA-SCENE-B1109A-V002-BLADE-SIGN",
+      "position": [
+        5.059999942779541,
+        -4.559999942779541,
+        3.1500000953674316
+      ],
+      "rotation_euler_xyz": [
+        0.13962633907794952,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_poster_panel_001",
+      "key": "poster_panel",
+      "asset_id": "SEA-SCENE-B1109A-V002-POSTER-PANEL",
+      "position": [
+        -4.461930274963379,
+        0.05000000819563866,
+        0.41999998688697815
+      ],
+      "rotation_euler_xyz": [
+        0.10471975803375244,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_ac_unit_001",
+      "key": "ac_unit",
+      "asset_id": "SEA-SCENE-B1109A-V002-AC-UNIT",
+      "position": [
+        -4.8525004386901855,
+        -2.299999952316284,
+        5.450000286102295
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_ac_unit_002",
+      "key": "ac_unit",
+      "asset_id": "SEA-SCENE-B1109A-V002-AC-UNIT",
+      "position": [
+        -4.8525004386901855,
+        -2.299999952316284,
+        9.710000038146973
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_pipe_set_001",
+      "key": "pipe_set",
+      "asset_id": "SEA-SCENE-B1109A-V002-PIPE-SET",
+      "position": [
+        -4.453500270843506,
+        0.1499999761581421,
+        0.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_pipe_set_002",
+      "key": "pipe_set",
+      "asset_id": "SEA-SCENE-B1109A-V002-PIPE-SET",
+      "position": [
+        -4.453500270843506,
+        0.1499999761581421,
+        5.599999904632568
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_vent_duct_001",
+      "key": "vent_duct",
+      "asset_id": "SEA-SCENE-B1109A-V002-VENT-DUCT",
+      "position": [
+        -4.679999828338623,
+        3.4383718967437744,
+        1.347567081451416
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_antenna_001",
+      "key": "antenna",
+      "asset_id": "SEA-SCENE-B1109A-V002-ANTENNA",
+      "position": [
+        -3.6500000953674316,
+        3.0,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_clothesline_001",
+      "key": "clothesline",
+      "asset_id": "SEA-SCENE-B1109A-V002-CLOTHESLINE",
+      "position": [
+        -3.9000000953674316,
+        0.20000000298023224,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jacket_001",
+      "key": "jacket",
+      "asset_id": "SEA-SCENE-B1109A-V002-JACKET",
+      "position": [
+        -4.038559436798096,
+        1.2000000476837158,
+        11.050000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_trousers_001",
+      "key": "trousers",
+      "asset_id": "SEA-SCENE-B1109A-V002-TROUSERS",
+      "position": [
+        -4.0,
+        -0.44999998807907104,
+        11.15999984741211
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_washer_001",
+      "key": "washer",
+      "asset_id": "SEA-SCENE-B1109A-V002-WASHER",
+      "position": [
+        -3.25,
+        1.0,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_shirt_001",
+      "key": "shirt",
+      "asset_id": "SEA-SCENE-B1109A-V002-SHIRT",
+      "position": [
+        -4.504510402679443,
+        0.5,
+        6.550000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_table_001",
+      "key": "table",
+      "asset_id": "SEA-SCENE-B1109A-V002-TABLE",
+      "position": [
+        0.6000000238418579,
+        -2.5,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_menu_001",
+      "key": "menu",
+      "asset_id": "SEA-SCENE-B1109A-V002-MENU",
+      "position": [
+        0.699999988079071,
+        -2.7147605419158936,
+        11.800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_display_fan_001",
+      "key": "display_fan",
+      "asset_id": "SEA-SCENE-B1109A-V002-DISPLAY-FAN",
+      "position": [
+        -1.550033688545227,
+        -0.75,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_thermos_001",
+      "key": "thermos",
+      "asset_id": "SEA-SCENE-B1109A-V002-THERMOS",
+      "position": [
+        -0.4000000059604645,
+        -2.799999952316284,
+        11.864999771118164
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_cup_001",
+      "key": "cup",
+      "asset_id": "SEA-SCENE-B1109A-V002-CUP",
+      "position": [
+        0.27433377504348755,
+        -3.0,
+        11.800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_cup_002",
+      "key": "cup",
+      "asset_id": "SEA-SCENE-B1109A-V002-CUP",
+      "position": [
+        -0.9256662130355835,
+        -2.0,
+        11.800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_carton_001",
+      "key": "carton",
+      "asset_id": "SEA-SCENE-B1109A-V002-CARTON",
+      "position": [
+        2.5999999046325684,
+        -1.907487154006958,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_shelf_001",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-B1109A-V002-SHELF",
+      "position": [
+        0.3499999940395355,
+        -3.2750000953674316,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_001",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -1.350000023841858,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_002",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -0.8799999952316284,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_003",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -0.4099999964237213,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_004",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        0.05999999865889549,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_005",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        0.5299999713897705,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_006",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.0,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_007",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.4700000286102295,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_008",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.940000057220459,
+        -4.380000114440918,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_009",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -1.350000023841858,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_010",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -0.8799999952316284,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_011",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        -0.4099999964237213,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_012",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        0.05999999865889549,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_013",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        0.5299999713897705,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_014",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.0,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_015",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.4700000286102295,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jar_016",
+      "key": "jar",
+      "asset_id": "SEA-SCENE-B1109A-V002-JAR",
+      "position": [
+        1.940000057220459,
+        -3.9200000762939453,
+        2.7899999618530273
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_carton_002",
+      "key": "carton",
+      "asset_id": "SEA-SCENE-B1109A-V002-CARTON",
+      "position": [
+        -2.9000000953674316,
+        -3.407487392425537,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_carton_003",
+      "key": "carton",
+      "asset_id": "SEA-SCENE-B1109A-V002-CARTON",
+      "position": [
+        -2.799999952316284,
+        -3.407487392425537,
+        1.340000033378601
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_carton_004",
+      "key": "carton",
+      "asset_id": "SEA-SCENE-B1109A-V002-CARTON",
+      "position": [
+        -2.5999999046325684,
+        -2.157487392425537,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_carton_005",
+      "key": "carton",
+      "asset_id": "SEA-SCENE-B1109A-V002-CARTON",
+      "position": [
+        2.9000000953674316,
+        -2.0074872970581055,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_stool_stack_001",
+      "key": "stool_stack",
+      "asset_id": "SEA-SCENE-B1109A-V002-STOOL-STACK",
+      "position": [
+        -3.450000047683716,
+        -4.619999885559082,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0872664600610733,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_bin_001",
+      "key": "bin",
+      "asset_id": "SEA-SCENE-B1109A-V002-BIN",
+      "position": [
+        -2.1500000953674316,
+        -4.467499732971191,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0872664600610733,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_basket_001",
+      "key": "basket",
+      "asset_id": "SEA-SCENE-B1109A-V002-BASKET",
+      "position": [
+        -4.25,
+        -4.519999980926514,
+        0.3100000023841858
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_basket_002",
+      "key": "basket",
+      "asset_id": "SEA-SCENE-B1109A-V002-BASKET",
+      "position": [
+        -3.0999999046325684,
+        -3.450000047683716,
+        2.4200000762939453
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_handtruck_001",
+      "key": "handtruck",
+      "asset_id": "SEA-SCENE-B1109A-V002-HANDTRUCK",
+      "position": [
+        2.930000066757202,
+        -4.081515312194824,
+        0.3113722801208496
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_jerrycan_001",
+      "key": "jerrycan",
+      "asset_id": "SEA-SCENE-B1109A-V002-JERRYCAN",
+      "position": [
+        1.7999999523162842,
+        -3.9700000286102295,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_mailbox_001",
+      "key": "mailbox",
+      "asset_id": "SEA-SCENE-B1109A-V002-MAILBOX",
+      "position": [
+        4.349999904632568,
+        -4.240000247955322,
+        2.049999952316284
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_shrine_001",
+      "key": "shrine",
+      "asset_id": "SEA-SCENE-B1109A-V002-SHRINE",
+      "position": [
+        4.329999923706055,
+        -4.199999809265137,
+        0.4000000059604645
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_notice_001",
+      "key": "notice",
+      "asset_id": "SEA-SCENE-B1109A-V002-NOTICE",
+      "position": [
+        -3.5799999237060547,
+        -4.226431846618652,
+        2.5999999046325684
+      ],
+      "rotation_euler_xyz": [
+        0.06981316953897476,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_notice_002",
+      "key": "notice",
+      "asset_id": "SEA-SCENE-B1109A-V002-NOTICE",
+      "position": [
+        -3.5799999237060547,
+        -4.226431846618652,
+        3.4200000762939453
+      ],
+      "rotation_euler_xyz": [
+        0.06981316953897476,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_notice_003",
+      "key": "notice",
+      "asset_id": "SEA-SCENE-B1109A-V002-NOTICE",
+      "position": [
+        3.700000047683716,
+        -4.236432075500488,
+        3.1500000953674316
+      ],
+      "rotation_euler_xyz": [
+        0.06981316953897476,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_round_001",
+      "key": "planter_round",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-ROUND",
+      "position": [
+        -3.5301570892333984,
+        2.25,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_round_002",
+      "key": "planter_round",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-ROUND",
+      "position": [
+        -3.6501572132110596,
+        3.450000047683716,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_round_003",
+      "key": "planter_round",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-ROUND",
+      "position": [
+        -4.43015718460083,
+        2.5999999046325684,
+        5.550000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_round_004",
+      "key": "planter_round",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-ROUND",
+      "position": [
+        -4.43015718460083,
+        1.7000000476837158,
+        5.550000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_round_005",
+      "key": "planter_round",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-ROUND",
+      "position": [
+        -4.43015718460083,
+        0.10000000149011612,
+        5.550000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.12217304855585098,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_trough_001",
+      "key": "planter_trough",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-TROUGH",
+      "position": [
+        3.0,
+        -2.700000047683716,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.10471975803375244,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_planter_trough_002",
+      "key": "planter_trough",
+      "asset_id": "SEA-SCENE-B1109A-V002-PLANTER-TROUGH",
+      "position": [
+        3.5,
+        -0.6499999761581421,
+        10.5
+      ],
+      "rotation_euler_xyz": [
+        0.10471975803375244,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_backdoor_001",
+      "key": "backdoor",
+      "asset_id": "SEA-SCENE-B1109A-V002-BACKDOOR",
+      "position": [
+        1.100000023841858,
+        4.215000152587891,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_stair_ladder_001",
+      "key": "stair_ladder",
+      "asset_id": "SEA-SCENE-B1109A-V002-STAIR-LADDER",
+      "position": [
+        3.299999952316284,
+        4.420000076293945,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_side_eave_001",
+      "key": "side_eave",
+      "asset_id": "SEA-SCENE-B1109A-V002-SIDE-EAVE",
+      "position": [
+        -4.599999904632568,
+        7.4309367548153205e-09,
+        9.39946460723877
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_citrus_001",
+      "key": "citrus",
+      "asset_id": "SEA-SCENE-B1109A-V002-CITRUS",
+      "position": [
+        -3.536870241165161,
+        2.254019021987915,
+        11.067719459533691
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_leaf_cluster_001",
+      "key": "leaf_cluster",
+      "asset_id": "SEA-SCENE-B1109A-V002-LEAF-CLUSTER",
+      "position": [
+        -3.7256534099578857,
+        3.5238606929779053,
+        11.085000038146973
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_leaf_cluster_002",
+      "key": "leaf_cluster",
+      "asset_id": "SEA-SCENE-B1109A-V002-LEAF-CLUSTER",
+      "position": [
+        -4.356139183044434,
+        2.6756532192230225,
+        6.134999752044678
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_001",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        -4.429999828338623,
+        1.7000000476837158,
+        6.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_leaf_cluster_003",
+      "key": "leaf_cluster",
+      "asset_id": "SEA-SCENE-B1109A-V002-LEAF-CLUSTER",
+      "position": [
+        -4.356139183044434,
+        0.17565327882766724,
+        6.134999752044678
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_002",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.0,
+        -3.4000000953674316,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_003",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.0,
+        -2.700000047683716,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_004",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.0,
+        -2.0,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_005",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.5,
+        -1.350000023841858,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_006",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.5,
+        -0.6499999761581421,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_succulent_007",
+      "key": "succulent",
+      "asset_id": "SEA-SCENE-B1109A-V002-SUCCULENT",
+      "position": [
+        3.5,
+        0.05000000074505806,
+        11.125
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "BLDA_I_vine_001",
+      "key": "vine",
+      "asset_id": "SEA-SCENE-B1109A-V002-VINE",
+      "position": [
+        -4.5,
+        1.598173975944519,
+        5.115000247955322
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "key": "awning",
+  "id": "SEA-SCENE-B1109A-V002-AWNING",
+  "asset_id": "SEA-SCENE-B1109A-V002-AWNING",
+  "name": "条纹遮阳篷",
+  "component_family": "awning",
+  "family": "awning",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "rho": 0.035,
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/awning/awning.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 4,
+  "tilt_kind": "canopy",
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-AWNING",
+  "bounds_size": [
+    9.100000381469727,
+    1.5030750036239624,
+    0.7106499075889587
+  ],
+  "triangles": 33372,
+  "polygons": 16752,
+  "meshes": 19,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "3bae1e040b26cdf9faccaf3a4f7d849a4060bc80fc9cc7b6bc805d36052ff6c5",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "a290e63a4ffb1ec002cbabac42999b77f931ea5d3efe7df5d4277dc930473057",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/awning/asset_manifest.json"
+}

@@ -1,0 +1,60 @@
+{
+  "key": "slab",
+  "id": "SEA-SCENE-B1109A-SLAB",
+  "asset_id": "SEA-SCENE-B1109A-SLAB",
+  "name": "楼板",
+  "component_family": "floor_slab",
+  "family": "floor_slab",
+  "group": "structure",
+  "layer": "body",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.98,
+  "kind": "shell",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/slab/slab.blend",
+  "form_layer": "body",
+  "rho": 0.02,
+  "role": "structure",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    8.600000381469727,
+    8.199141502380371,
+    0.19997908174991608
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-SLAB",
+  "bounds_size": [
+    8.600000381469727,
+    8.199141502380371,
+    0.19997908174991608
+  ],
+  "triangles": 188,
+  "polygons": 98,
+  "meshes": 1,
+  "geometry_fingerprint": "a82c8bd1e1da5e554225236db6e662916f123c916ec08135a6648e6d9ad7906f",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 2,
+  "source_sha256": "f6f2bab1d6a57a428851c24e1623848839fe05b69c73e92ecafc2e2085d2fd3e",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/slab/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

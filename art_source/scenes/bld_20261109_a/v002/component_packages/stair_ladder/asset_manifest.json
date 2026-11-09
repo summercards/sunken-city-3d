@@ -1,0 +1,51 @@
+{
+  "key": "stair_ladder",
+  "id": "SEA-SCENE-B1109A-V002-STAIR-LADDER",
+  "asset_id": "SEA-SCENE-B1109A-V002-STAIR-LADDER",
+  "name": "背面检修梯",
+  "component_family": "stair_ladder",
+  "family": "stair_ladder",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/stair_ladder/stair_ladder.blend",
+  "form_layer": "ordinary",
+  "rho": 0.1,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.108,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-STAIR-LADDER",
+  "bounds_size": [
+    1.2100000381469727,
+    0.10461621731519699,
+    10.699999809265137
+  ],
+  "triangles": 1296,
+  "polygons": 432,
+  "meshes": 36,
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "geometry_fingerprint": "bb86a80da19597817ea7a7f51057401e1a5c9fa0ea09b1165b9943837b964c8c",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "11e0b05fc4333c8cc2158aec70a622df07a69988548dfcad7eb0a037dbfd3fea",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/stair_ladder/asset_manifest.json"
+}

@@ -1,0 +1,51 @@
+{
+  "key": "table",
+  "id": "SEA-SCENE-B1109A-V002-TABLE",
+  "asset_id": "SEA-SCENE-B1109A-V002-TABLE",
+  "name": "天台木桌",
+  "component_family": "table",
+  "family": "table",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/table/table.blend",
+  "form_layer": "stylized",
+  "rho": 0.035,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-TABLE",
+  "bounds_size": [
+    3.8952226638793945,
+    2.0,
+    1.2999999523162842
+  ],
+  "triangles": 940,
+  "polygons": 490,
+  "meshes": 5,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "ad6a3a756fbeaf2c511d1420b21c56ebed09eee8b860aaa31477674d7ca7c1f9",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "b16367a6c40cb4351eec600c263a3f08afda39340f8aef16be180c293eddbf79",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/table/asset_manifest.json"
+}

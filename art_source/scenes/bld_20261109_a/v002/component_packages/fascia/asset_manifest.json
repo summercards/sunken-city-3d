@@ -1,0 +1,51 @@
+{
+  "key": "fascia",
+  "id": "SEA-SCENE-B1109A-V002-FASCIA",
+  "asset_id": "SEA-SCENE-B1109A-V002-FASCIA",
+  "name": "雨棚文字檐牌",
+  "component_family": "fascia",
+  "family": "fascia",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "flat_attached",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/fascia/fascia.blend",
+  "form_layer": "stylized",
+  "rho": 0.025,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-FASCIA",
+  "bounds_size": [
+    9.091706275939941,
+    0.21422269940376282,
+    0.9600000381469727
+  ],
+  "triangles": 14816,
+  "polygons": 8111,
+  "meshes": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "71ad17abf2385803da26327e0ea3e8a771c42617bf58f319c658d2bab850c593",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "93f777e18da85f35a074a46c2f910f37271433a6768489e73aa163387f3de8ef",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/fascia/asset_manifest.json"
+}

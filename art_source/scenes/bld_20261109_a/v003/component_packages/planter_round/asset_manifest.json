@@ -1,0 +1,60 @@
+{
+  "key": "planter_round",
+  "id": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "asset_id": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "name": "圆花盆",
+  "component_family": "planter",
+  "family": "planter",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/planter_round/planter_round.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.9783440828323364,
+    0.9500000476837158,
+    0.618748664855957
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-PLANTER-ROUND",
+  "bounds_size": [
+    0.9783440828323364,
+    0.9500000476837158,
+    0.618748664855957
+  ],
+  "triangles": 1892,
+  "polygons": 926,
+  "meshes": 3,
+  "geometry_fingerprint": "f0042419ec4dd056f54304a23c8c339d202f7980f3e2b7ff8bb68af94a65b3bb",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 5,
+  "source_sha256": "49b036bb8e7c8f76c89eec1804a471455d1092f66648a424a2185f5c10508cbb",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/planter_round/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

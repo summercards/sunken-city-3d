@@ -9090,10 +9090,10 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 207081,
-      "sha256": "1042e8d57fb61a52b410163e1bed6fac6be919ca9d7b8ac13848027cf74b2c08",
+      "bytes": 215734,
+      "sha256": "278e680fc56050114a06ca0b1f009d4e7362312420911c806c2511cbfb6544c2",
       "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "0d66a2887003403ad3b726620ab8ba38b673f60b30985e8cfeec9221499d138f",
+      "previous_sha256": "1042e8d57fb61a52b410163e1bed6fac6be919ca9d7b8ac13848027cf74b2c08",
       "hash_history": [
         {
           "sha256": "1273a08f5f8724da9f07bb23da802bd036feb797c45f8a3b7ee0a7d932a8047e",
@@ -9109,6 +9109,11 @@
           "sha256": "0d66a2887003403ad3b726620ab8ba38b673f60b30985e8cfeec9221499d138f",
           "previous_sha256": "920073e7b124d2b9cb35026bf1b356bd782c9131e6cea4a4c94797f8d1c1bbd4",
           "review": "2026-11-06 keyboard reach: gather scope, dock-shore intent, sea pick/dock E, bubble keys, prompt re-enabled (docs/development/2026-11-06_keyboard_reach.md)"
+        },
+        {
+          "sha256": "278e680fc56050114a06ca0b1f009d4e7362312420911c806c2511cbfb6544c2",
+          "previous_sha256": "1042e8d57fb61a52b410163e1bed6fac6be919ca9d7b8ac13848027cf74b2c08",
+          "review": "2026-11-09 靠泊热点：_landing_data 归一化 boatPark、_select_landing 认领后直滑、_near_landing_key 同源、_sail_to_landing 走路径终点；dock-hotspot 31/0 PASS"
         }
       ],
       "audit_note": "2026-11-08 NpcAnchorHub 追加霓虹花园 RoofNpcStations，使屋顶站点进入锚点快照；屋顶与花园桥是两个不同派生面，不能复用同一站点。"
@@ -9137,10 +9142,10 @@
       "path": "godot/src/building/building_access.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 11158,
-      "sha256": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
+      "bytes": 11654,
+      "sha256": "79a499ca09f725f03e5f381f14d6f27328113e9ced9e15ab7393d2b0531a046a",
       "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。",
-      "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+      "verification": "docs/development/2026-11-09_dock_hotspot_and_zoom_range.md"
     },
     {
       "path": "godot/src/building/building_boundary.gd",
@@ -9343,11 +9348,11 @@
     {
       "path": "godot/src/camera/orbit_camera.gd",
       "asset_id": null,
-      "sha256": "dda3e21c8657f4a106ffa8548e34901166b6910154bf7d2162c40cb94438e363",
-      "bytes": 18029,
+      "sha256": "8514c0f37a5c2f8cdbddf041f35464c74f3c251111f673bdc04d6d6773b2dd63",
+      "bytes": 19305,
       "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "9661875505f073002699d8e3bdaeec33b52803b2441db193d8a90d2318f0d41a",
-      "verification": "docs/development/2026-11-06_keyboard_complete.md",
+      "previous_sha256": "dda3e21c8657f4a106ffa8548e34901166b6910154bf7d2162c40cb94438e363",
+      "verification": "docs/development/2026-11-09_dock_hotspot_and_zoom_range.md",
       "hash_history": [
         {
           "sha256": "85904e1f0d0fedcf2317ac9d05659fc6bd5be90b3f4ad4ee965142f0187957dd",
@@ -9365,6 +9370,11 @@
             "D:/projects/sea-work/verification/20261106-200446-keyboard-release-regression-eae88a/report.json",
             "D:/projects/sea-work/verification/20261106-203447-keyboard-final-contracts-ff6d9f/report.json"
           ]
+        },
+        {
+          "sha256": "8514c0f37a5c2f8cdbddf041f35464c74f3c251111f673bdc04d6d6773b2dd63",
+          "previous_sha256": "dda3e21c8657f4a106ffa8548e34901166b6910154bf7d2162c40cb94438e363",
+          "review": "2026-11-09 缩放区间 13.82–35.14、显示刻度锚定 9–77.8、开局 27.9；camera 14/0 与 visual-camera-zoom 18/0 PASS"
         }
       ]
     },

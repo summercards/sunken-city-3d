@@ -715,6 +715,7 @@ FAIL: derived feature index stale; use --sync
 
 最终报告：`D:/projects/sea-work/verification/20261107-232826-sunroom-art-r2-signed-5f3e30/report.json`。verification关联三项新区域＋dive-maps/modules，最终793/0运行签署已完成；225915仅过程历史。定向登记实际写成功、4JSON事务备份/回滚信息、70保护项与sync/check真实output由父线程补入开发记录第8节，不编造成功。本次只改docs，不改登记JSON、不运行命令或registry。
 
+
 ## 2026-11-08 水下建筑封闭（v006 限高版 / v008 高楼版）
 
 | 对应条款 | 实施状态 | 证据 / 边界 |
@@ -722,3 +723,16 @@ FAIL: derived feature index stale; use --sync
 | SEA-ASSET-R61 | 20 栋 `sunken_city` 建筑组件补封盖后另存 `v006`，GLB 原地覆盖运行时路径（`.import`、50 个包装场景、实例变换均未动）；另从未限高的 `v003` 生成本轮 `v008` 封闭高楼 20 栋，导出到新目录 `godot/assets/models/scenery/sunken_city_tall/` 并新增 20 个包装 `godot/scenes/components/scenery/sunken_city_tall/*.tscn`。v003 源与其 v003 运行时导出未改 | Blender 独立重开审计两套均 `passed=True problems=0`（面数只增不减、包围盒三轴不变、材质槽不变、GLB 面数与网格一致、无内嵌贴图）：`art_source/scenes/sunken_city/v006/seal_report.json`、`v008/seal_report.json`。17 栋处理到 `boundary_edges=0` 且 `nonmanifold_edges=0`（水密）；`frame_construction` 原本水密；`collapsed_residence`/`fallen_hall` 是废墟块堆（13 万+ 边界边），保留原状并明确未封闭。`sunken-city` PASS 33928/0；`water-layer` PASS。[交付记录](../../development/2026-11-08_sealed_buildings_and_canyon_ring.md) |
 
 边界：封闭判据是「网格水密」，即闭合流形曲面几何上不可穿过；不以碰撞体挡人代替。封盖面沿用相邻面的材质槽与 PaletteUV 格，未新增材质或贴图。`v003` 仅作几何来源，`v008` 组件按 2.0 倍引用时的层高/朝向仍是参考位，待用户手摆后更新。参考图商业权属仍 pending，未宣称原创授权通过。
+
+## 2026-11-09 B1109A 当前实施项
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R62 | 源级登记完成：`bld_20261109_a/v001` 共 49 件组件、92 个实例、1 个总成，登记 50 行；量尺 8.6×8.2 米，floor pitch 5.1 米、slab 0.2 米、clear height 4.9 米。主源 source verification 通过（1321844 checks、exit 0、49 包独立重开），全实例展开 390194 三角面 / 204526 多边形；visual review 已按主源 SHA 签署。植物四件为 `building_class=null` / `none/none`，其余为 `above_water` / `surface/part`，总成为 `above_water` / `surface/entity`。组件与总成 manifest 已补齐，source index 与两类 building view 从存储记录派生，其他旧行及哈希保持。仅 source；未做 Godot、GLB、02b、运行、碰撞、导航、商业授权和用户验收。无新纹理登记。 | [B1109A 登记记录](../../development/2026-11-09_bld_20261109_a.md)；主源 `art_source/scenes/bld_20261109_a/v001/bld_20261109_a.blend`；报告 `D:/projects/sea-work/bld_20261109_a/v001/source_verification.json`、`visual_review.json`。 |
+
+## 2026-11-09f B1109A 返工候选（未验收）
+
+- 沿用 R62 与50条稳定AssetID，不把v002/v003另登记成重复资产。v003仅候选，不提升分账本主源/阶段，不改Godot。
+- 实际164次切槽/开孔，20条具体附着关系；独立槽孔探针4,440点和20附着对零错误；49包重开、1,338,419项技术检查零错误，但总体`passed=false`/exit2。
+- 全场景扫描1,006网格实例／505,515总对，3,097对三角面相交（524跨组件），且尚未证明全场景闭合包含与共面；不以植物交叠解释全部刚性问题。
+- 返工派工单要求v001原位迭代与92实例摆位锁定；候选的部分实际位移及4隅石+4托架不满足其8+8要求。当前未完成，保留v001/v002与候选，详见[本轮失败与未完边界](../../development/2026-11-09_bld_20261109_a.md)。

@@ -1,0 +1,63 @@
+{
+  "key": "succulent",
+  "id": "SEA-SCENE-B1109A-SUCCULENT",
+  "asset_id": "SEA-SCENE-B1109A-SUCCULENT",
+  "name": "莲座多肉",
+  "component_family": "succulent",
+  "family": "succulent",
+  "group": "plant",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": null,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "plant",
+  "exempt": true,
+  "bevel": 0.008,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/succulent/succulent.blend",
+  "form_layer": "plant",
+  "rho": 0.0,
+  "role": "attachment",
+  "no_volume": false,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.8537048697471619,
+    0.9800000190734863,
+    0.4395095109939575
+  ],
+  "taper_along": "y",
+  "collection": "SEA-SCENE-B1109A-SUCCULENT",
+  "bounds_size": [
+    0.8537048697471619,
+    0.9800000190734863,
+    0.4395095109939575
+  ],
+  "triangles": 1392,
+  "polygons": 696,
+  "meshes": 12,
+  "geometry_fingerprint": "eb7d9280dc06167e7a140fb9793f204b392c95226eae6db0b042dea736d28442",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 7,
+  "source_sha256": "382e94d817382bd5b2f519a42b0683dffbdfdd0545c09fc242c6fe76dd67a999",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/succulent/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

@@ -1,0 +1,61 @@
+{
+  "key": "vent_duct",
+  "id": "SEA-SCENE-B1109A-VENT-DUCT",
+  "asset_id": "SEA-SCENE-B1109A-VENT-DUCT",
+  "name": "圆角通风管",
+  "component_family": "vent",
+  "family": "vent",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/vent_duct/vent_duct.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.2355738878250122,
+    0.7886220216751099,
+    3.282433032989502
+  ],
+  "taper_along": "z",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-VENT-DUCT",
+  "bounds_size": [
+    1.2355738878250122,
+    0.7886220216751099,
+    3.282433032989502
+  ],
+  "triangles": 984,
+  "polygons": 388,
+  "meshes": 18,
+  "geometry_fingerprint": "74786d93535e479aa7dda3db047fdb29440487b07ef02f3b10d20e25eb1c5e33",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "ec2ba24e131c222dbbc8344a76f37e9ce9ae438f47e2a3f3f284a5abb5c96c45",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/vent_duct/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

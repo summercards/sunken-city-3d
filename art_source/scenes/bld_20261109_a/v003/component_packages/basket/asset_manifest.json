@@ -1,0 +1,60 @@
+{
+  "key": "basket",
+  "id": "SEA-SCENE-B1109A-BASKET",
+  "asset_id": "SEA-SCENE-B1109A-BASKET",
+  "name": "塑料周转筐",
+  "component_family": "basket",
+  "family": "basket",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/basket/basket.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.144697904586792,
+    0.9000727534294128,
+    0.9501442313194275
+  ],
+  "taper_along": "x",
+  "collection": "SEA-SCENE-B1109A-BASKET",
+  "bounds_size": [
+    1.144697904586792,
+    0.9000727534294128,
+    0.9501442313194275
+  ],
+  "triangles": 7708,
+  "polygons": 4018,
+  "meshes": 41,
+  "geometry_fingerprint": "af4d08daf026d0127cf918870028d88b4eea8c967e85595eecd13e4ff65a72b1",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 2,
+  "source_sha256": "f702f3e4bc7fd3abf6b9b08d5dccf050d05036882225c0223c52cea109325864",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/basket/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

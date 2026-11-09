@@ -1,0 +1,97 @@
+{
+  "key": "citrus",
+  "id": "SEA-SCENE-B1109A-CITRUS",
+  "asset_id": "SEA-SCENE-B1109A-CITRUS",
+  "name": "柑橘枝",
+  "component_family": "fruit_branch",
+  "family": "fruit_branch",
+  "group": "plant",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": null,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "micro",
+  "exempt": true,
+  "bevel": 0.008,
+  "collection": "SEA-SCENE-B1109A-CITRUS",
+  "design_pivot": [
+    -0.006870239973068237,
+    0.004018932580947876,
+    -0.0022799058351665735
+  ],
+  "bounds_size": [
+    1.8344810009002686,
+    1.350677251815796,
+    2.21994686126709
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/citrus/citrus.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 36,
+  "triangles": 3796,
+  "polygons": 1922,
+  "geometry_fingerprint": "57cb55d9e52b14f972bdf5c235ca33fad102ad35c451f74294c120d65d00ff7e",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "b7d7f05409b431f2387d36e859c8f064d6e636752f364b4db0b0e3277a7a7cfc",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/citrus/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "plant",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "plants"
+  },
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/citrus/citrus.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    1.8344810009002686,
+    1.350677251815796,
+    2.21994686126709
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-CITRUS",
+  "component_key": "citrus"
+}

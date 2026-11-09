@@ -1,0 +1,95 @@
+{
+  "key": "mailbox",
+  "id": "SEA-SCENE-B1109A-MAILBOX",
+  "asset_id": "SEA-SCENE-B1109A-MAILBOX",
+  "name": "墙挂信箱",
+  "component_family": "mailbox",
+  "family": "mailbox",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "vertical_enclosure",
+  "collection": "SEA-SCENE-B1109A-MAILBOX",
+  "design_pivot": [
+    0.0,
+    -0.01000000536441803,
+    0.0
+  ],
+  "bounds_size": [
+    0.7599999904632568,
+    0.4399999976158142,
+    1.024999976158142
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/mailbox/mailbox.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "triangles": 564,
+  "polygons": 294,
+  "geometry_fingerprint": "f782adeb01bd2d7c8f1828903a336c00a552b2b37cba500c551ead8c6b727d88",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "5106f8776d9a2931576ba1baba9514bfca183234cc853fe2648d720848a0db5a",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/mailbox/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/mailbox/mailbox.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    0.7599999904632568,
+    0.4399999976158142,
+    1.024999976158142
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-MAILBOX",
+  "component_key": "mailbox"
+}

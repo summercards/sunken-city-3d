@@ -1,0 +1,51 @@
+{
+  "key": "shelf",
+  "id": "SEA-SCENE-B1109A-V002-SHELF",
+  "asset_id": "SEA-SCENE-B1109A-V002-SHELF",
+  "name": "店铺柜台与货架",
+  "component_family": "shelf",
+  "family": "shelf",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/shelf/shelf.blend",
+  "form_layer": "stylized",
+  "rho": 0.035,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-SHELF",
+  "bounds_size": [
+    4.227620601654053,
+    2.8000001907348633,
+    3.5250000953674316
+  ],
+  "triangles": 1128,
+  "polygons": 588,
+  "meshes": 6,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "63badcf13b6bb42b63e6f8fe9aae06b7803b774c997278327d7e1283682a771e",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "a944ade041cccc8d538a8e03ebbe372448cb177a32469d7ed8e9f5a7dfe5b153",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/shelf/asset_manifest.json"
+}

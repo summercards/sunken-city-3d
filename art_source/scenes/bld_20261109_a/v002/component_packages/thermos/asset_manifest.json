@@ -1,0 +1,51 @@
+{
+  "key": "thermos",
+  "id": "SEA-SCENE-B1109A-V002-THERMOS",
+  "asset_id": "SEA-SCENE-B1109A-V002-THERMOS",
+  "name": "保温瓶",
+  "component_family": "thermos",
+  "family": "thermos",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/thermos/thermos.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-THERMOS",
+  "bounds_size": [
+    0.3975771963596344,
+    0.3975771963596344,
+    0.7950000166893005
+  ],
+  "triangles": 3444,
+  "polygons": 1734,
+  "meshes": 3,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "867e5459aebb0fbecc0114beece8ab93f743696657252b7ba2bf18f89ecef833",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "2f84a99bbe0ae5f8a6c1e3015e1a47b45a8419bf9c68b8dcb1c6d9006bfd35e9",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/thermos/asset_manifest.json"
+}

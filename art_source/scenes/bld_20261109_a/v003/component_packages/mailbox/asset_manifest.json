@@ -1,0 +1,60 @@
+{
+  "key": "mailbox",
+  "id": "SEA-SCENE-B1109A-MAILBOX",
+  "asset_id": "SEA-SCENE-B1109A-MAILBOX",
+  "name": "墙挂信箱",
+  "component_family": "mailbox",
+  "family": "mailbox",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/mailbox/mailbox.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.7599999904632568,
+    0.4653578996658325,
+    1.0287460088729858
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-MAILBOX",
+  "bounds_size": [
+    0.7599999904632568,
+    0.4653578996658325,
+    1.0287460088729858
+  ],
+  "triangles": 564,
+  "polygons": 294,
+  "meshes": 3,
+  "geometry_fingerprint": "7df2897c861e554d5a5e41b5aaed6b0356e147894ba7839fc6c7f1ff30ffab64",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "20e1201cdfea2be1825c3c6cfb10cf94bf550231f21563aea4cee58f4918b187",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/mailbox/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

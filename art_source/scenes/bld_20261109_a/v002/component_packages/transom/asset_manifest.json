@@ -1,0 +1,52 @@
+{
+  "key": "transom",
+  "id": "SEA-SCENE-B1109A-V002-TRANSOM",
+  "asset_id": "SEA-SCENE-B1109A-V002-TRANSOM",
+  "name": "横亮窗",
+  "component_family": "transom",
+  "family": "transom",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "opening",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/transom/transom.blend",
+  "form_layer": "ordinary",
+  "rho": 0.025,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-TRANSOM",
+  "bounds_size": [
+    7.593870639801025,
+    0.22451914846897125,
+    0.9300000071525574
+  ],
+  "triangles": 1692,
+  "polygons": 882,
+  "meshes": 9,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "c0eac27a649654a7fe3cb077dd0dc7090290d0b9484c15b847255879c2a6e99c",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "f0227b625e49d760da50d1f836d2f884f5c3814fca26e82980aa1b889cb53b34",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/transom/asset_manifest.json"
+}

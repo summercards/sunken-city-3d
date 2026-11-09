@@ -1,0 +1,51 @@
+{
+  "key": "washer",
+  "id": "SEA-SCENE-B1109A-V002-WASHER",
+  "asset_id": "SEA-SCENE-B1109A-V002-WASHER",
+  "name": "天台洗衣机",
+  "component_family": "washer",
+  "family": "washer",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/washer/washer.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-WASHER",
+  "bounds_size": [
+    1.4215935468673706,
+    1.2573677897453308,
+    1.5499999523162842
+  ],
+  "triangles": 1616,
+  "polygons": 840,
+  "meshes": 5,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "2b94357a147296fb48c5e81bba6a25bbe13aca970ec0fa7dda73e611b8ed383c",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "eb37a1e1c12543d72bd36ed1bcd7add0a59ffe38018fd28af9f471c9d65d507a",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/washer/asset_manifest.json"
+}

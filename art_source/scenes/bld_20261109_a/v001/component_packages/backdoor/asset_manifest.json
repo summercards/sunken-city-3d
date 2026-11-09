@@ -1,0 +1,95 @@
+{
+  "key": "backdoor",
+  "id": "SEA-SCENE-B1109A-BACKDOOR",
+  "asset_id": "SEA-SCENE-B1109A-BACKDOOR",
+  "name": "背面门",
+  "component_family": "door",
+  "family": "door",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "vertical_enclosure",
+  "collection": "SEA-SCENE-B1109A-BACKDOOR",
+  "design_pivot": [
+    0.0,
+    -0.08500000834465027,
+    0.0
+  ],
+  "bounds_size": [
+    1.7999999523162842,
+    0.3700000047683716,
+    3.0999999046325684
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/backdoor/backdoor.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "triangles": 496,
+  "polygons": 268,
+  "geometry_fingerprint": "fa3195b700100a85633691b20eafd07b4f6b72ec2999be0797c85ef4e35527d4",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "89ca2d6a563ea669b8e984ac141fe409f6cf8432e014bcc6752a20daca071b02",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/backdoor/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/backdoor/backdoor.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    1.7999999523162842,
+    0.3700000047683716,
+    3.0999999046325684
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-BACKDOOR",
+  "component_key": "backdoor"
+}

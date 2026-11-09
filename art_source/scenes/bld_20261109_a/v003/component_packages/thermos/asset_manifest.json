@@ -1,0 +1,60 @@
+{
+  "key": "thermos",
+  "id": "SEA-SCENE-B1109A-THERMOS",
+  "asset_id": "SEA-SCENE-B1109A-THERMOS",
+  "name": "保温瓶",
+  "component_family": "thermos",
+  "family": "thermos",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/thermos/thermos.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.37654638290405273,
+    0.3875482678413391,
+    0.8000711798667908
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-THERMOS",
+  "bounds_size": [
+    0.37654638290405273,
+    0.3875482678413391,
+    0.8000711798667908
+  ],
+  "triangles": 3444,
+  "polygons": 1734,
+  "meshes": 3,
+  "geometry_fingerprint": "28ea1c16ac9223468e8382e0d3213230b77fdd1282c073b1c4179d7bcc62c9ea",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "7236faff7de394c634a710e7df73ea3e914aff27c10f768fca6216d4fbb92eb3",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/thermos/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

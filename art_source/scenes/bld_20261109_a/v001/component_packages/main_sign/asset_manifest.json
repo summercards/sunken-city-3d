@@ -1,0 +1,96 @@
+{
+  "key": "main_sign",
+  "id": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "asset_id": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "name": "参考主招牌",
+  "component_family": "sign",
+  "family": "sign",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "flat_attached",
+  "rho": 0.025,
+  "collection": "SEA-SCENE-B1109A-MAIN-SIGN",
+  "design_pivot": [
+    0.0,
+    -0.05309015512466431,
+    0.0
+  ],
+  "bounds_size": [
+    9.093523025512695,
+    0.4659237563610077,
+    2.2799999713897705
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/main_sign/main_sign.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "triangles": 7552,
+  "polygons": 4123,
+  "geometry_fingerprint": "e44347db2ee180555ed9a832a204ca997fbdd986c15554918e0bf3e201ae58d6",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "555db33d12ccdfa1953da31afe55d5b1eb064502a7a8d835ca10efa740922088",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/main_sign/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/main_sign/main_sign.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    9.093523025512695,
+    0.4659237563610077,
+    2.2799999713897705
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-MAIN-SIGN",
+  "component_key": "main_sign"
+}

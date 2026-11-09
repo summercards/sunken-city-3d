@@ -1,0 +1,52 @@
+{
+  "key": "roof_hut",
+  "id": "SEA-SCENE-B1109A-V002-ROOF-HUT",
+  "asset_id": "SEA-SCENE-B1109A-V002-ROOF-HUT",
+  "name": "天台小间",
+  "component_family": "roof_hut",
+  "family": "roof_hut",
+  "group": "structure",
+  "layer": "body",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.98,
+  "kind": "shell",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/roof_hut/roof_hut.blend",
+  "form_layer": "body",
+  "rho": 0.02,
+  "role": "structure",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-ROOF-HUT",
+  "bounds_size": [
+    6.598938941955566,
+    3.7692726850509644,
+    3.109999895095825
+  ],
+  "triangles": 2444,
+  "polygons": 1274,
+  "meshes": 13,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "45ba0fbc8d7b40c712da919809226bac570b642497192c545b15c8b291f79936",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "42913ee25ae00e8946e2f0610999e548b1861a7ccd637976ff612a1351dda10a",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/roof_hut/asset_manifest.json"
+}

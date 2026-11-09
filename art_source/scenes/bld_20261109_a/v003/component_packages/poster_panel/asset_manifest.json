@@ -1,0 +1,61 @@
+{
+  "key": "poster_panel",
+  "id": "SEA-SCENE-B1109A-POSTER-PANEL",
+  "asset_id": "SEA-SCENE-B1109A-POSTER-PANEL",
+  "name": "侧面几何广告画",
+  "component_family": "poster",
+  "family": "poster",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.975,
+  "kind": "flat_attached",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/poster_panel/poster_panel.blend",
+  "form_layer": "stylized",
+  "rho": 0.025,
+  "role": "attachment",
+  "tilt_deg": 4,
+  "tilt_kind": "leaning_panel",
+  "form_contract": "zero_square_v002",
+  "extent": [
+    7.5,
+    0.4238445460796356,
+    4.099179744720459
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-POSTER-PANEL",
+  "bounds_size": [
+    7.5,
+    0.4238445460796356,
+    4.099179744720459
+  ],
+  "triangles": 44394,
+  "polygons": 24598,
+  "meshes": 139,
+  "geometry_fingerprint": "b21d89dabdf1c131e6c1945fdb77087e1d9e92b2fd3e22fa280814b7ba77ab71",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "3d13607a08a67ff34036057c68ec097099021e673600c6b6b829476ba2c78911",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/poster_panel/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

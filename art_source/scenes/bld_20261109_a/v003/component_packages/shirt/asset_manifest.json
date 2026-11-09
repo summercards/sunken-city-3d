@@ -1,0 +1,61 @@
+{
+  "key": "shirt",
+  "id": "SEA-SCENE-B1109A-SHIRT",
+  "asset_id": "SEA-SCENE-B1109A-SHIRT",
+  "name": "花衬衣",
+  "component_family": "garment",
+  "family": "garment",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "soft",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/shirt/shirt.blend",
+  "form_layer": "soft",
+  "rho": 0.0,
+  "role": "attachment",
+  "no_volume": false,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.6775200366973877,
+    0.3254243731498718,
+    2.1479597091674805
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-SHIRT",
+  "bounds_size": [
+    1.6775200366973877,
+    0.3254243731498718,
+    2.1479597091674805
+  ],
+  "triangles": 3924,
+  "polygons": 2354,
+  "meshes": 53,
+  "geometry_fingerprint": "6f8530b027a6bcb61c51caf1e3e16b48e94997f48c1e1ca53fd4dda771a97a89",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "ae4f846d8a696b105473c927247036f2e4e916b8bb872c28a13ff75c04643c81",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/shirt/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

@@ -1,0 +1,60 @@
+{
+  "key": "shrine",
+  "id": "SEA-SCENE-B1109A-SHRINE",
+  "asset_id": "SEA-SCENE-B1109A-SHRINE",
+  "name": "小壁龛",
+  "component_family": "shrine",
+  "family": "shrine",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/shrine/shrine.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    0.7055328488349915,
+    0.5285849571228027,
+    1.492906093597412
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-SHRINE",
+  "bounds_size": [
+    0.7055328488349915,
+    0.5285849571228027,
+    1.492906093597412
+  ],
+  "triangles": 1724,
+  "polygons": 898,
+  "meshes": 6,
+  "geometry_fingerprint": "f8adf3c50bf2932e87dcbf1ef5ccbd6ce6e40dbd50bed30c5b044acbddf45980",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "56a3fcb0e77c7b96fe970a5071d33d78edef7e7f034a0c851e451867b90f540e",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/shrine/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

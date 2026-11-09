@@ -1,0 +1,96 @@
+{
+  "key": "barred_window",
+  "id": "SEA-SCENE-B1109A-BARRED-WINDOW",
+  "asset_id": "SEA-SCENE-B1109A-BARRED-WINDOW",
+  "name": "竖栅窗",
+  "component_family": "window",
+  "family": "window",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "vertical_enclosure",
+  "collection": "SEA-SCENE-B1109A-BARRED-WINDOW",
+  "design_pivot": [
+    0.0,
+    -0.02250000461935997,
+    -0.0949999988079071
+  ],
+  "bounds_size": [
+    7.599999904632568,
+    0.2849999964237213,
+    3.549999952316284
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/barred_window/barred_window.blend",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "meshes": 23,
+  "triangles": 4324,
+  "polygons": 2254,
+  "geometry_fingerprint": "3f030a9fc022268524712a9870af54728bd740dffffe5b9771463dcf7b6e4d09",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 2,
+  "source_sha256": "9ca03eaf8cc8856e8d1308600da264d3c731f6f2b06e4f273cb5896b9fcbc463",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/barred_window/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/barred_window/barred_window.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    7.599999904632568,
+    0.2849999964237213,
+    3.549999952316284
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-BARRED-WINDOW",
+  "component_key": "barred_window"
+}

@@ -1,0 +1,95 @@
+{
+  "key": "jacket",
+  "id": "SEA-SCENE-B1109A-JACKET",
+  "asset_id": "SEA-SCENE-B1109A-JACKET",
+  "name": "黄色外套",
+  "component_family": "garment",
+  "family": "garment",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "vertical_enclosure",
+  "collection": "SEA-SCENE-B1109A-JACKET",
+  "design_pivot": [
+    0.0,
+    -0.03855951130390167,
+    0.0
+  ],
+  "bounds_size": [
+    1.6775200366973877,
+    0.29711902141571045,
+    2.1479597091674805
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/jacket/jacket.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 6,
+  "triangles": 1136,
+  "polygons": 562,
+  "geometry_fingerprint": "261990eb1cd9c288bea556b58d40c0204810ff1af29acac241dfb06b8a94b7b9",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "5a744dc86d250df5809a4e904d4b481aab3786071dfd4f088d3ec1aae49f66e8",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/jacket/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/jacket/jacket.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    1.6775200366973877,
+    0.29711902141571045,
+    2.1479597091674805
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-JACKET",
+  "component_key": "jacket"
+}

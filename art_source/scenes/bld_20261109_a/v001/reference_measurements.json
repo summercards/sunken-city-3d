@@ -1,0 +1,117 @@
+{
+  "image_size_px": [
+    1080,
+    1080
+  ],
+  "uncertainty_px": 6,
+  "method": "Manual landmark sampling; parallel-edge rectification; metric scale anchored to project floor pitch, not real-world photogrammetry.",
+  "landmarks": {
+    "corner_ground": [
+      548,
+      966
+    ],
+    "corner_floor_1": [
+      548,
+      666
+    ],
+    "corner_roof_deck": [
+      548,
+      370
+    ],
+    "side_ground": [
+      230,
+      871
+    ],
+    "side_floor_1": [
+      230,
+      571
+    ],
+    "side_roof_deck": [
+      230,
+      275
+    ],
+    "facade_ground": [
+      871,
+      877
+    ],
+    "hut_roof_outline": [
+      [
+        309,
+        129
+      ],
+      [
+        537,
+        52
+      ],
+      [
+        653,
+        116
+      ],
+      [
+        429,
+        189
+      ]
+    ],
+    "main_sign_outline": [
+      [
+        551,
+        381
+      ],
+      [
+        881,
+        288
+      ],
+      [
+        881,
+        403
+      ],
+      [
+        551,
+        499
+      ]
+    ],
+    "ac_upper_bbox": [
+      389,
+      324,
+      519,
+      444
+    ],
+    "ac_lower_bbox": [
+      387,
+      533,
+      512,
+      650
+    ]
+  },
+  "pixel_basis": {
+    "width": [
+      323,
+      -89
+    ],
+    "depth": [
+      -318,
+      -95
+    ],
+    "vertical_floor": [
+      0,
+      -298
+    ]
+  },
+  "scale_formula": "normalized vertical_px_per_m = 298/5.1 = 58.43; floor pitch comes from the project specification. Adopted width/depth 8.6/8.2 m are perspective-informed proportion estimates, not direct px/58.43 horizontal conversion.",
+  "floor_pitch_m": 5.1,
+  "floor_pitch_px": 298,
+  "inferred_width_m": 8.6,
+  "inferred_depth_m": 8.2,
+  "limitations": [
+    "Reference is a single stylized image; concealed depth/roof back slope are inferred.",
+    "Project standard equal storey pitch overrides uneven apparent facade bands.",
+    "Reference people omitted: requested buildings/facilities/plants only.",
+    "Illustrated advertisement reconstructed as palette-coloured geometry, no extra image texture."
+  ],
+  "original_image_size_px": [
+    1200,
+    1200
+  ],
+  "coordinate_space": "Reference resized to 1080x1080 for every landmark; multiply normalized pixel coordinates by 1200/1080 for original image coordinates.",
+  "uncertainty_note": "Point-selection tolerance only. Perspective, stylization and occlusion introduce additional unknown metric uncertainty; inferred dimensions are adopted modelling dimensions, not physically calibrated survey measurements."
+}

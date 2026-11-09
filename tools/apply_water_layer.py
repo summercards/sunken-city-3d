@@ -151,6 +151,11 @@ def classify(asset_id):
         return 'surface', 'entity'
     if asset_id in KIT_FURNITURE:
         return 'none', 'none'
+    if asset_id.startswith('SEA-SCENE-B1109A-'):
+        key = asset_id.removeprefix('SEA-SCENE-B1109A-')
+        if key in {'LEAF-CLUSTER', 'SUCCULENT', 'VINE', 'CITRUS'}:
+            return 'none', 'none'
+        return 'surface', 'entity' if key == 'ASSEMBLY' else 'part'
     for prefix, layer, role in FAMILIES:
         if not asset_id.startswith(prefix):
             continue

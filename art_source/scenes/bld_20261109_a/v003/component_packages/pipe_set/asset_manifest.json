@@ -1,0 +1,61 @@
+{
+  "key": "pipe_set",
+  "id": "SEA-SCENE-B1109A-PIPE-SET",
+  "asset_id": "SEA-SCENE-B1109A-PIPE-SET",
+  "name": "转角排水管",
+  "component_family": "pipe",
+  "family": "pipe",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "kind": "linear",
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/pipe_set/pipe_set.blend",
+  "form_layer": "ordinary",
+  "rho": 0.06,
+  "role": "attachment",
+  "d_bottom": 0.12,
+  "d_top": 0.1128,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    7.100000381469727,
+    0.1937866508960724,
+    4.75
+  ],
+  "taper_along": "x",
+  "attached_to": "SEA-SCENE-B1109A-SHELL",
+  "collection": "SEA-SCENE-B1109A-PIPE-SET",
+  "bounds_size": [
+    7.100000381469727,
+    0.1937866508960724,
+    4.75
+  ],
+  "triangles": 944,
+  "polygons": 476,
+  "meshes": 6,
+  "geometry_fingerprint": "c00dc955ffaae91d323dcb2ef3f4ab18d013ac2249ac6bebef3dbddf960c2832",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 2,
+  "source_sha256": "30fe08954737ee1c34381e2738435cdd4a3ddcb15eddba5e2ac3127a0608f124",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/pipe_set/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

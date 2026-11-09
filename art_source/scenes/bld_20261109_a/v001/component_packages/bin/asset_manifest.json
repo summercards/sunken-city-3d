@@ -1,0 +1,96 @@
+{
+  "key": "bin",
+  "id": "SEA-SCENE-B1109A-BIN",
+  "asset_id": "SEA-SCENE-B1109A-BIN",
+  "name": "带盖收纳桶",
+  "component_family": "bin",
+  "family": "bin",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "collection": "SEA-SCENE-B1109A-BIN",
+  "design_pivot": [
+    0.0,
+    -0.037500008940696716,
+    0.0
+  ],
+  "bounds_size": [
+    1.1399999856948853,
+    1.034999966621399,
+    1.2549999952316284
+  ],
+  "component_source": "art_source/scenes/bld_20261109_a/v001/component_packages/bin/bin.blend",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "meshes": 3,
+  "triangles": 564,
+  "polygons": 294,
+  "geometry_fingerprint": "8f2bd8aa413a7c87783a286d64419eca40c93418cafe32c208d744824bb36513",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "dcca2146a6a395dc2fb2798113f3b58e59f2b5f15c98e39753fa23dcbc887b54",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_integration_pending",
+  "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/bin/asset_manifest.json",
+  "display_name": "B1109A",
+  "domain": "scenes",
+  "suite": "bld_20261109_a",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source": "art_source/scenes/bld_20261109_a/v001/component_packages/bin/bin.blend",
+  "version": "v001",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "bounds_size_m": [
+    1.1399999856948853,
+    1.034999966621399,
+    1.2549999952316284
+  ],
+  "verification": [
+    "docs/development/2026-11-09_bld_20261109_a.md",
+    "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+    "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+  ],
+  "source_verification": "source_verification_passed_visual_review_signed",
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "user_final_art_acceptance"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "pending",
+  "collision": "pending",
+  "navigation": "pending",
+  "runtime_path": null,
+  "prefab": null,
+  "schema": "sea.scene.component_manifest",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-B1109A-BIN",
+  "component_key": "bin"
+}

@@ -380,3 +380,10 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 | SEA-ASSET-R61 | 水下旧城建筑组件必须可封闭：破口、窗洞与缺楼板处补封盖，使网格成为水密闭合曲面（`boundary_edges=0` 且 `nonmanifold_edges=0`），玩家无法进入楼体内部；封盖沿用相邻面的材质槽与 PaletteUV 格，不新增材质、贴图或峰点，且**不得改变顶点包围盒**。限高版另存 `v006` 原地替换运行时 GLB；高楼版另存 `v008` 并单独导出到 `sunken_city_tall`。`v003` 源与 `v003` 运行时导出不得被改动。 |
 
 [最终运行证据、15源/17runtime、定向登记与静态门禁回填](../../development/2026-11-07_sunroom_underwater_art_r2.md)。
+
+## 2026-11-09 B1109A 矩形建筑源级登记
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-ASSET-R62 | `bld_20261109_a/v001` 仅完成源级登记：49 个组件、92 个实例、1 个总成，共 50 行写入 `scenes` 分账本；display name 暂用 `B1109A`，不视为正式命名。源报告 `passed=true`、exit 0、1321844 checks，49 个独立包重开；全实例展开为 390194 三角面 / 204526 多边形。组件植物 `LEAF-CLUSTER` / `SUCCULENT` / `VINE` / `CITRUS` 的 `building_class=null`、`none/none`，其余组件为 `above_water`、`surface/part`，总成为 `above_water`、`surface/entity`。登记保留主源报告哈希与各包 catalog 哈希，补齐组件/总成 `asset_manifest.json`；无新纹理，不登记纹理。阶段为 `source_verified_runtime_integration_pending`，Godot、GLB、运行、碰撞、导航、商业权属和用户最终美术验收均 pending；未修改 Godot、GDD 或主线程 development 文件。详见本轮开发记录链接： [B1109A 登记记录](../../development/2026-11-09_bld_20261109_a.md)。 |
+

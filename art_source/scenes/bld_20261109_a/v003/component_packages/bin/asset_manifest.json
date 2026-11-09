@@ -1,0 +1,60 @@
+{
+  "key": "bin",
+  "id": "SEA-SCENE-B1109A-BIN",
+  "asset_id": "SEA-SCENE-B1109A-BIN",
+  "name": "带盖收纳桶",
+  "component_family": "bin",
+  "family": "bin",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/bin/bin.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.1399999856948853,
+    1.0651578903198242,
+    1.2593224048614502
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-BIN",
+  "bounds_size": [
+    1.1399999856948853,
+    1.0651578903198242,
+    1.2593224048614502
+  ],
+  "triangles": 564,
+  "polygons": 294,
+  "meshes": 3,
+  "geometry_fingerprint": "99bc2849b992cd2f48a8cb33ff2a9395b74c82d26f2df53f2d6c068e997db5cd",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "56d93c6145895e491f7c6b852d42e12bac788507d01769d20c4dfae33901d7f2",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/bin/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

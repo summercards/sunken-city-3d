@@ -1,0 +1,51 @@
+{
+  "key": "side_eave",
+  "id": "SEA-SCENE-B1109A-V002-SIDE-EAVE",
+  "asset_id": "SEA-SCENE-B1109A-V002-SIDE-EAVE",
+  "name": "侧窗波纹檐",
+  "family": "side_eave",
+  "component_family": "side_eave",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.965,
+  "kind": "horizontal_cover",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/side_eave/side_eave.blend",
+  "form_layer": "stylized",
+  "rho": 0.035,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-SIDE-EAVE",
+  "bounds_size": [
+    8.277027130126953,
+    0.7800000905990601,
+    0.31113022565841675
+  ],
+  "triangles": 15420,
+  "polygons": 7714,
+  "meshes": 1,
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "geometry_fingerprint": "e403a54efe69a4a96d756f2b4e15eb25519c4d21cc94cca6998bae712b54c19d",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "5ea2f186ed693f8a59931c1d9aa82d7e97f2287199725f6176455f0461efa5c1",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/side_eave/asset_manifest.json"
+}

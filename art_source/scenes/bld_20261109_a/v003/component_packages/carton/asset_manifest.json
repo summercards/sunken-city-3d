@@ -1,0 +1,60 @@
+{
+  "key": "carton",
+  "id": "SEA-SCENE-B1109A-CARTON",
+  "asset_id": "SEA-SCENE-B1109A-CARTON",
+  "name": "纸箱",
+  "component_family": "carton",
+  "family": "carton",
+  "group": "furnishing",
+  "layer": "stylized",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "rho": -0.06,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/carton/carton.blend",
+  "form_layer": "stylized",
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.0789097547531128,
+    0.9935661554336548,
+    1.0999387502670288
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-CARTON",
+  "bounds_size": [
+    1.0789097547531128,
+    0.9935661554336548,
+    1.0999387502670288
+  ],
+  "triangles": 564,
+  "polygons": 294,
+  "meshes": 3,
+  "geometry_fingerprint": "4b90edecdb366b50bcabeca449acec544f45ac31325b500a618eb91c1a39026d",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 5,
+  "source_sha256": "ddb1758c73c4addf613b5c3dd4b265eb0ce41a7308c8edeb92487b150a8f87ba",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/carton/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

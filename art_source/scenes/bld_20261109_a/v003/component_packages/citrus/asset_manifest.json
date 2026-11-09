@@ -1,0 +1,63 @@
+{
+  "key": "citrus",
+  "id": "SEA-SCENE-B1109A-CITRUS",
+  "asset_id": "SEA-SCENE-B1109A-CITRUS",
+  "name": "柑橘枝",
+  "component_family": "fruit_branch",
+  "family": "fruit_branch",
+  "group": "plant",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": null,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.0,
+  "kind": "plant",
+  "exempt": true,
+  "bevel": 0.008,
+  "version": "v003",
+  "component_source": "art_source/scenes/bld_20261109_a/v003/component_packages/citrus/citrus.blend",
+  "form_layer": "plant",
+  "rho": 0.0,
+  "role": "attachment",
+  "no_volume": false,
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "extent": [
+    1.8344810009002686,
+    1.350677251815796,
+    2.21994686126709
+  ],
+  "taper_along": "z",
+  "collection": "SEA-SCENE-B1109A-CITRUS",
+  "bounds_size": [
+    1.8344810009002686,
+    1.350677251815796,
+    2.21994686126709
+  ],
+  "triangles": 3796,
+  "polygons": 1922,
+  "meshes": 36,
+  "geometry_fingerprint": "57cb55d9e52b14f972bdf5c235ca33fad102ad35c451f74294c120d65d00ff7e",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 1,
+  "source_sha256": "6e2218f767a26a8fc8aca78f362098b4fcb509b1b76dc0621d46b4d4c694dc6b",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v003/component_packages/citrus/asset_manifest.json",
+  "candidate_only": true,
+  "stage": "partial_candidate_not_accepted",
+  "overall_latest_contract_passed": false
+}

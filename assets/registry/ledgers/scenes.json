@@ -71913,6 +71913,3059 @@
       "source_height_m": 16.8187,
       "reference_scale": 2.0,
       "placement_owner": "godot/scenes/underwater/sunroom_region/sunken_city_layout.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-DECK",
+      "name": "平台",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/deck/deck.blend",
+      "source_sha256": "b38c8329afc4234fba69d15ee2142dc9423faf2caf83f7a02e5f1a94a24ab280",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/deck/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        11.0,
+        10.600000381469727,
+        0.20550000667572021
+      ],
+      "geometry_fingerprint": "73751c981738326c55545e0684cdeda3f9bc83d3a9a91d129f1a6ebc4b02c341",
+      "polygons": 4214,
+      "triangles": 8084,
+      "meshes": 43,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SHELL",
+      "name": "两层墙壳",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/shell/shell.blend",
+      "source_sha256": "0134155d3a0570cb340ddb8ee848f9f51522237f5131756e0cd7c8a317ce0617",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/shell/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        8.600000381469727,
+        8.199999809265137,
+        10.0
+      ],
+      "geometry_fingerprint": "6b48ec955141d9be7640bef83ef83aa132e20ad911cd18396ac93c76f5cd52a3",
+      "polygons": 1078,
+      "triangles": 2068,
+      "meshes": 11,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SLAB",
+      "name": "楼板",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/slab/slab.blend",
+      "source_sha256": "a2228a053c7c816a181f2d376105e423922a796a131bf69d2e328042ad26ab3a",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/slab/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        8.600000381469727,
+        8.199999809265137,
+        0.20000000298023224
+      ],
+      "geometry_fingerprint": "a55e3d74718719810737551a49e84766000b816e091a17148438ad320b441f98",
+      "polygons": 98,
+      "triangles": 188,
+      "meshes": 1,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-COPING",
+      "name": "压顶",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/coping/coping.blend",
+      "source_sha256": "83c8bb54b7781f41a4f3978ccdcceefa023e5115c3deca91cc4695a9eca56aaa",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/coping/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        8.600000381469727,
+        8.199999809265137,
+        0.8999999761581421
+      ],
+      "geometry_fingerprint": "4de5fd624aaa0982831681b0f47d4628aeb430becbd28a3f9efec5c1912082bc",
+      "polygons": 294,
+      "triangles": 564,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-POST",
+      "name": "主柱",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/post/post.blend",
+      "source_sha256": "42412ab32e018727609665f5c0ff242d06b50477345f7f6e9aa2ceb3fe865193",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/post/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.5,
+        0.5,
+        4.900000095367432
+      ],
+      "geometry_fingerprint": "bc0c5f10c1602dea92ccca5101b6aaab7594ad28e2a9840b932f3da3fb0adb87",
+      "polygons": 98,
+      "triangles": 188,
+      "meshes": 1,
+      "instance_count": 4,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-BARRED-WINDOW",
+      "name": "竖栅窗",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/barred_window/barred_window.blend",
+      "source_sha256": "9ca03eaf8cc8856e8d1308600da264d3c731f6f2b06e4f273cb5896b9fcbc463",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/barred_window/asset_manifest.json",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        7.599999904632568,
+        0.2849999964237213,
+        3.549999952316284
+      ],
+      "geometry_fingerprint": "3f030a9fc022268524712a9870af54728bd740dffffe5b9771463dcf7b6e4d09",
+      "polygons": 2254,
+      "triangles": 4324,
+      "meshes": 23,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-TRANSOM",
+      "name": "横亮窗",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/transom/transom.blend",
+      "source_sha256": "4e2baae43a06d31729d57fd32abf05d44d414314c9a8e46ef82de8b84918af75",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/transom/asset_manifest.json",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        7.599999904632568,
+        0.22499999403953552,
+        0.9300000071525574
+      ],
+      "geometry_fingerprint": "0bc53a64c187e56f963300b8dbd77a7b31e137557010bb6afeaf5212c0851f6f",
+      "polygons": 882,
+      "triangles": 1692,
+      "meshes": 9,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-ROOF-HUT",
+      "name": "天台小间",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/roof_hut/roof_hut.blend",
+      "source_sha256": "83c7a7b57a7678c9ccd0dcffba2a5881345174e60f9f78e20f3de210bb016657",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/roof_hut/asset_manifest.json",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        6.599999904632568,
+        3.7699999809265137,
+        3.109999895095825
+      ],
+      "geometry_fingerprint": "ec012dff515189895fb6c453a77761f3a303d5811be1fc463a1ddc1dce8f1b6f",
+      "polygons": 1274,
+      "triangles": 2444,
+      "meshes": 13,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-ROOF-SHEET",
+      "name": "波纹屋顶",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/roof_sheet/roof_sheet.blend",
+      "source_sha256": "cd7ef4f76233ce3727fe8de9226248ddfacc5e7204068688b1a8d2f67a69c6aa",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/roof_sheet/asset_manifest.json",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        7.299454689025879,
+        4.280000686645508,
+        0.6620516777038574
+      ],
+      "geometry_fingerprint": "205ce25820245691e1c3a3a3fc15750a8ea68bf4554e3b4cbf2191d0cfc96e32",
+      "polygons": 6946,
+      "triangles": 13884,
+      "meshes": 1,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SHOP-LINTEL",
+      "name": "店面门楣",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "structure",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/shop_lintel/shop_lintel.blend",
+      "source_sha256": "e9625bb1e01ac205434979a8fcbb318259e4929a88d96f42b5044a4ad9b43515",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/shop_lintel/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        8.449999809265137,
+        0.506959080696106,
+        1.2999999523162842
+      ],
+      "geometry_fingerprint": "08cca0c659f76b64ed0290229ed79c8a310fadb1c2b471f519ebb1de5770450f",
+      "polygons": 4025,
+      "triangles": 7364,
+      "meshes": 2,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-MAIN-SIGN",
+      "name": "参考主招牌",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/main_sign/main_sign.blend",
+      "source_sha256": "555db33d12ccdfa1953da31afe55d5b1eb064502a7a8d835ca10efa740922088",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/main_sign/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        9.093523025512695,
+        0.4659237563610077,
+        2.2799999713897705
+      ],
+      "geometry_fingerprint": "e44347db2ee180555ed9a832a204ca997fbdd986c15554918e0bf3e201ae58d6",
+      "polygons": 4123,
+      "triangles": 7552,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-AWNING",
+      "name": "条纹遮阳篷",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/awning/awning.blend",
+      "source_sha256": "cbe8dbc866a879a8c1d58adcbe7037013546203b97149c82e961f69e51007a7f",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/awning/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        9.100000381469727,
+        1.5030750036239624,
+        0.7106499075889587
+      ],
+      "geometry_fingerprint": "390f870fec68883ed6e92666ba61ce51080e6fa0dc61499d8b339bf5b580a587",
+      "polygons": 16752,
+      "triangles": 33372,
+      "meshes": 19,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-FASCIA",
+      "name": "雨棚文字檐牌",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/fascia/fascia.blend",
+      "source_sha256": "eefacd312a72eb68102950fe16c01345ea4d8d56b4e82434308a1f83c9aa3837",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/fascia/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        9.100000381469727,
+        0.21458232402801514,
+        0.9600000381469727
+      ],
+      "geometry_fingerprint": "948bd222bd24b6d7b7266a02f5a125e403c9fc21776fc432b7e2f24aa26f9dc8",
+      "polygons": 8111,
+      "triangles": 14816,
+      "meshes": 2,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-BLADE-SIGN",
+      "name": "侧挑挂牌",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/blade_sign/blade_sign.blend",
+      "source_sha256": "b425ac49647986224a0d22c6147ab5e9e2138e03a293b1bdb876aaf90162244d",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/blade_sign/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.897965431213379,
+        0.6779642105102539,
+        0.8399999737739563
+      ],
+      "geometry_fingerprint": "8ce5f03125672fef089824d53f7f69361481daa41cda4e43c5bfe1ebb8bc3b68",
+      "polygons": 4037,
+      "triangles": 7400,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-POSTER-PANEL",
+      "name": "侧面几何广告画",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/poster_panel/poster_panel.blend",
+      "source_sha256": "141ad9cce9c921ec8af151e0d5812139c66c919d62cc13116e2d8353c7c39ddc",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/poster_panel/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        7.5,
+        0.4238608479499817,
+        4.099999904632568
+      ],
+      "geometry_fingerprint": "1f7e4c92c69990177aac28cc136620c8d6a9c9735cfc84cc77bc71c44498aa0a",
+      "polygons": 24598,
+      "triangles": 44394,
+      "meshes": 139,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-AC-UNIT",
+      "name": "空调外机",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/ac_unit/ac_unit.blend",
+      "source_sha256": "c227d2bd6c5f716127e6327e655161b5e4eb775211b7924e41bc597288cf577a",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/ac_unit/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        2.5,
+        0.925000011920929,
+        1.7699999809265137
+      ],
+      "geometry_fingerprint": "7556f05f9458a04ca3e87af73eff57797a97a49a9bb7ae2c255d0b043f37ceb9",
+      "polygons": 3462,
+      "triangles": 6692,
+      "meshes": 35,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-PIPE-SET",
+      "name": "转角排水管",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/pipe_set/pipe_set.blend",
+      "source_sha256": "09d6eeb366d33c1b584431461da802ff3e68d8a916e1d21a9922404115bbba78",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/pipe_set/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        7.100000381469727,
+        0.19699999690055847,
+        4.75
+      ],
+      "geometry_fingerprint": "051639c322cb52e0a3ac66b95f09e85b94951f7eeeee9c8d0f7dba1f3f7e5246",
+      "polygons": 476,
+      "triangles": 944,
+      "meshes": 6,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-VENT-DUCT",
+      "name": "圆角通风管",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/vent_duct/vent_duct.blend",
+      "source_sha256": "88968da93221a6c5a8fe8c89216c947e13d503881e55c9c5b3543609c0005385",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/vent_duct/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.242743968963623,
+        0.7899999618530273,
+        3.282433032989502
+      ],
+      "geometry_fingerprint": "636009416528481f3c2f1a06712a2ad43958aeef89d3ce044bf8629e7b135c08",
+      "polygons": 388,
+      "triangles": 984,
+      "meshes": 18,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-ANTENNA",
+      "name": "天线",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/antenna/antenna.blend",
+      "source_sha256": "a5c73ae1597bcb80de0fd1a30bd4409f01a27b676010300685a461fd2fe7908a",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/antenna/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        3.0,
+        0.8930000066757202,
+        4.25
+      ],
+      "geometry_fingerprint": "27737a7260df50b3efd831b330dfbbf841e4f35f057431ac4eecb10558ad765c",
+      "polygons": 524,
+      "triangles": 1184,
+      "meshes": 16,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-CLOTHESLINE",
+      "name": "晾衣架",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/clothesline/clothesline.blend",
+      "source_sha256": "a7abc07aa3c43778edc9bb2b3eb2539a90e54e47749c4fa9d6a64f7721640464",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/clothesline/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        4.880000114440918,
+        0.07608452439308167,
+        2.700000047683716
+      ],
+      "geometry_fingerprint": "6554e409e1c0662836fcd616e75857702a9cc82ff6a0e7dbaf0543e1ae94615f",
+      "polygons": 42,
+      "triangles": 116,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SHIRT",
+      "name": "花衬衣",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/shirt/shirt.blend",
+      "source_sha256": "94ec37785133129f800285168ecf467883d10800d2b91f8e70b3e3001ed2ad4f",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/shirt/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.6775200366973877,
+        0.30902111530303955,
+        2.1479597091674805
+      ],
+      "geometry_fingerprint": "917427219838100908d8282ccc5df6ff533d746d49426c09a0bf77875a201db6",
+      "polygons": 2354,
+      "triangles": 3924,
+      "meshes": 53,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-JACKET",
+      "name": "黄色外套",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/jacket/jacket.blend",
+      "source_sha256": "5a744dc86d250df5809a4e904d4b481aab3786071dfd4f088d3ec1aae49f66e8",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/jacket/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.6775200366973877,
+        0.29711902141571045,
+        2.1479597091674805
+      ],
+      "geometry_fingerprint": "261990eb1cd9c288bea556b58d40c0204810ff1af29acac241dfb06b8a94b7b9",
+      "polygons": 562,
+      "triangles": 1136,
+      "meshes": 6,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-TROUSERS",
+      "name": "晾晒长裤",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/trousers/trousers.blend",
+      "source_sha256": "169e008114eae9502e500756147efe3ac737e17d30ba04dc171c261b1667bed7",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/trousers/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.7013154625892639,
+        0.2199999988079071,
+        1.7990211248397827
+      ],
+      "geometry_fingerprint": "159c7520cfcda88e5001f85b15be01602ca9dae000c029f65939700ed0d8b00f",
+      "polygons": 316,
+      "triangles": 620,
+      "meshes": 4,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-WASHER",
+      "name": "天台洗衣机",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/washer/washer.blend",
+      "source_sha256": "a74d139822b68ede8faf5c9b054f5a448a4b0eff187f748d817761029eb4f42d",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/washer/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.350000023841858,
+        1.2000000476837158,
+        1.5499999523162842
+      ],
+      "geometry_fingerprint": "873be65eee4312e0b522beb61e2feaf10407177512c519a15be409ec54614f72",
+      "polygons": 840,
+      "triangles": 1616,
+      "meshes": 5,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-TABLE",
+      "name": "天台木桌",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/table/table.blend",
+      "source_sha256": "22b55727a1477f387a7f62b51ff9643e8991ece190b0ac66ada38fe6cbea7d0f",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/table/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        3.9000000953674316,
+        2.0,
+        1.2999999523162842
+      ],
+      "geometry_fingerprint": "b2e6bf97f16ea8cad0541627ae3627994ff205c8070fa24cfa5a1cbd609a1f06",
+      "polygons": 490,
+      "triangles": 940,
+      "meshes": 5,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SHELF",
+      "name": "店铺柜台与货架",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/shelf/shelf.blend",
+      "source_sha256": "7dc56e910dd78a57a3904690be4c1d3f30b12c7e82703a4225790f6977e2ed83",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/shelf/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        4.230000019073486,
+        2.8000001907348633,
+        3.5250000953674316
+      ],
+      "geometry_fingerprint": "493427f2fe8f9d8e6d7a3e21bd01c597d8a7c58b6f0c430a9b4a9272d78daf8c",
+      "polygons": 588,
+      "triangles": 1128,
+      "meshes": 6,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-JAR",
+      "name": "罐装货品",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/jar/jar.blend",
+      "source_sha256": "60260fe4a7a3492ad69186802f6ff1f624cd253f2f5d1fce2ffd39c913ea933d",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/jar/asset_manifest.json",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.4048488736152649,
+        0.4057709276676178,
+        0.6300000548362732
+      ],
+      "geometry_fingerprint": "fe8904594dd306755bd317dbb57b6c96f102773e63e83a25b30277cc7e919a38",
+      "polygons": 3014,
+      "triangles": 5732,
+      "meshes": 4,
+      "instance_count": 16,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-CARTON",
+      "name": "纸箱",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/carton/carton.blend",
+      "source_sha256": "c55205e4c46979d1967a27a1493bad00f1ece6291a75b3b8e50957663506917a",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/carton/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.0789097547531128,
+        0.9540255069732666,
+        1.0549999475479126
+      ],
+      "geometry_fingerprint": "4068e385ffe7728276aa9eced63f67a460ca49ee44a209f52867adff8d369bc0",
+      "polygons": 294,
+      "triangles": 564,
+      "meshes": 3,
+      "instance_count": 5,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-STOOL-STACK",
+      "name": "套叠塑料凳",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/stool_stack/stool_stack.blend",
+      "source_sha256": "50fbdef1aa184472511d524a6d78f097f73c5c9579ddec31cad2421be3cb2bbe",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/stool_stack/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.9676697254180908,
+        0.8787932395935059,
+        1.7000000476837158
+      ],
+      "geometry_fingerprint": "e2510005dd0dee8e61131079a4371022582f479e2528eda52a5fcda5597d0617",
+      "polygons": 3430,
+      "triangles": 6580,
+      "meshes": 35,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-BIN",
+      "name": "带盖收纳桶",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/bin/bin.blend",
+      "source_sha256": "dcca2146a6a395dc2fb2798113f3b58e59f2b5f15c98e39753fa23dcbc887b54",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/bin/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.1399999856948853,
+        1.034999966621399,
+        1.2549999952316284
+      ],
+      "geometry_fingerprint": "8f2bd8aa413a7c87783a286d64419eca40c93418cafe32c208d744824bb36513",
+      "polygons": 294,
+      "triangles": 564,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-BASKET",
+      "name": "塑料周转筐",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/basket/basket.blend",
+      "source_sha256": "a35dd7e01c83e1973e893a3c5b9a12fb68516217681b5f7a80e89802499e20b7",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/basket/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.1399999856948853,
+        0.8500000238418579,
+        0.9474999904632568
+      ],
+      "geometry_fingerprint": "b6f6fef121f145fd45462f6a216f85079bcc35120bc56a36aade3625cd13eda3",
+      "polygons": 4018,
+      "triangles": 7708,
+      "meshes": 41,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-HANDTRUCK",
+      "name": "手推车",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/handtruck/handtruck.blend",
+      "source_sha256": "443dfb9c874131909aafd7029740d4a65fce40a5a19c60deb6a95b9627f395c8",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/handtruck/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.1200000047683716,
+        0.9069697856903076,
+        1.9481196403503418
+      ],
+      "geometry_fingerprint": "058bc20866bca3e9c37a1eebe881a22caef856ea27feb17f0524a47f611ca506",
+      "polygons": 1066,
+      "triangles": 2168,
+      "meshes": 8,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-JERRYCAN",
+      "name": "水壶",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/jerrycan/jerrycan.blend",
+      "source_sha256": "25b55b77a2a04add8a830287ec875e17595dd961ec7f5a89aca18cb43b9bafde",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/jerrycan/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.8799999952316284,
+        0.5,
+        1.2381408214569092
+      ],
+      "geometry_fingerprint": "2107c88553db2d2806436d86479d5f4c4bcf69406309c6c2ad9a989a43ecc94c",
+      "polygons": 516,
+      "triangles": 1028,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-MAILBOX",
+      "name": "墙挂信箱",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/mailbox/mailbox.blend",
+      "source_sha256": "5106f8776d9a2931576ba1baba9514bfca183234cc853fe2648d720848a0db5a",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/mailbox/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.7599999904632568,
+        0.4399999976158142,
+        1.024999976158142
+      ],
+      "geometry_fingerprint": "f782adeb01bd2d7c8f1828903a336c00a552b2b37cba500c551ead8c6b727d88",
+      "polygons": 294,
+      "triangles": 564,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SHRINE",
+      "name": "小壁龛",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/shrine/shrine.blend",
+      "source_sha256": "dd6f0aeb99e2651b20d34479c4714bebcb3940bc0bdda7fc645fd60220d7bdd4",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/shrine/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.7055328488349915,
+        0.5,
+        1.4801373481750488
+      ],
+      "geometry_fingerprint": "1bfd68b5746a48586c3e33a735771d0ac10ea17964edb8eec7b04b9659fb3cc7",
+      "polygons": 898,
+      "triangles": 1724,
+      "meshes": 6,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-NOTICE",
+      "name": "墙面告示",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/notice/notice.blend",
+      "source_sha256": "95ce17d400352f83fb5ac9be29602ca3e286dccdf0b8c1526c8400b5a801da02",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/notice/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.5400000214576721,
+        0.05286440625786781,
+        0.7599999904632568
+      ],
+      "geometry_fingerprint": "c71637fe72445ac71c9c538b0b9b310968e286b246f6d657d6cee212b8648a63",
+      "polygons": 3539,
+      "triangles": 6464,
+      "meshes": 2,
+      "instance_count": 3,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-PLANTER-ROUND",
+      "name": "圆花盆",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/planter_round/planter_round.blend",
+      "source_sha256": "ced7627ee8e62228c0999294113c03a8902e0fbf4aab394ade1e21c2725be1eb",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/planter_round/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.9496856331825256,
+        0.9500000476837158,
+        0.6000000238418579
+      ],
+      "geometry_fingerprint": "fbbbc49b78481dac7335bba4408a391e93adf991a6926dfb060f637c60a4c32f",
+      "polygons": 926,
+      "triangles": 1892,
+      "meshes": 3,
+      "instance_count": 5,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-PLANTER-TROUGH",
+      "name": "长花槽",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/planter_trough/planter_trough.blend",
+      "source_sha256": "df3bd2679e1340d6b1726cdf8841c31b758bee44cbf5ab980966484ee5c53904",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/planter_trough/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        2.3232529163360596,
+        0.6336011290550232,
+        0.6179999709129333
+      ],
+      "geometry_fingerprint": "f9030cc34f0858762406f3d989f52dd348d924b193c2ad085e05f49ab5bff197",
+      "polygons": 196,
+      "triangles": 376,
+      "meshes": 2,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-LEAF-CLUSTER",
+      "name": "宽叶簇",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "plant",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "plants"
+      },
+      "building_class": null,
+      "water_layer": "none",
+      "water_layer_role": "none",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+      "source_sha256": "50db45f8c3e1245a33cf199ea3e8eaf7ce2f8e72ea482871ed61530a3407980e",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/leaf_cluster/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.5059726238250732,
+        1.5872769355773926,
+        0.6173717975616455
+      ],
+      "geometry_fingerprint": "e34f2e3f5fe91de35befb1dd0266ef6cbf57c3b24f144e4c98c57c65b8bdc643",
+      "polygons": 522,
+      "triangles": 1044,
+      "meshes": 9,
+      "instance_count": 3,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SUCCULENT",
+      "name": "莲座多肉",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "plant",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "plants"
+      },
+      "building_class": null,
+      "water_layer": "none",
+      "water_layer_role": "none",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/succulent/succulent.blend",
+      "source_sha256": "a4be3ededc9212cbab450a1a7c74b301d2a9d7abf6dde62856e52b0d0682f0db",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/succulent/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.8537048697471619,
+        0.9800000190734863,
+        0.4395095109939575
+      ],
+      "geometry_fingerprint": "eb7d9280dc06167e7a140fb9793f204b392c95226eae6db0b042dea736d28442",
+      "polygons": 696,
+      "triangles": 1392,
+      "meshes": 12,
+      "instance_count": 7,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-VINE",
+      "name": "垂藤",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "plant",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "plants"
+      },
+      "building_class": null,
+      "water_layer": "none",
+      "water_layer_role": "none",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/vine/vine.blend",
+      "source_sha256": "e5ae6851f81483eaa781a4135c36a6eef8c487efb3e2776c6af16584a6b7b8f7",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/vine/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.7737939357757568,
+        0.20786820352077484,
+        1.5787779092788696
+      ],
+      "geometry_fingerprint": "e0daba152d135eb62ec3b2ddf746b04f0760dd1ae2dbcdb328fc95092534469e",
+      "polygons": 530,
+      "triangles": 1068,
+      "meshes": 9,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-CITRUS",
+      "name": "柑橘枝",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "plant",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "plants"
+      },
+      "building_class": null,
+      "water_layer": "none",
+      "water_layer_role": "none",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/citrus/citrus.blend",
+      "source_sha256": "b7d7f05409b431f2387d36e859c8f064d6e636752f364b4db0b0e3277a7a7cfc",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/citrus/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.8344810009002686,
+        1.350677251815796,
+        2.21994686126709
+      ],
+      "geometry_fingerprint": "57cb55d9e52b14f972bdf5c235ca33fad102ad35c451f74294c120d65d00ff7e",
+      "polygons": 1922,
+      "triangles": 3796,
+      "meshes": 36,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-DISPLAY-FAN",
+      "name": "天台风扇",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/display_fan/display_fan.blend",
+      "source_sha256": "03c66951e0badbf38ebc66455079d5762232539921d68d03043cf3fff914749d",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/display_fan/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.987932562828064,
+        0.5,
+        1.4600000381469727
+      ],
+      "geometry_fingerprint": "e4ea6798b87c8821a77ed8ca10535e5a7286202d220d297378c4e1eb1ed78df1",
+      "polygons": 1292,
+      "triangles": 2564,
+      "meshes": 17,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-THERMOS",
+      "name": "保温瓶",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/thermos/thermos.blend",
+      "source_sha256": "56a6a18fb959ed8279988856936cf62afe53506b945e560ba04c4c4ca2f3649e",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/thermos/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.3757362961769104,
+        0.3757362961769104,
+        0.7950000166893005
+      ],
+      "geometry_fingerprint": "00c3371905840f6cade9e03ad09b6a7366a2dd7036de7309fd719f86de678ea3",
+      "polygons": 1734,
+      "triangles": 3444,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-CUP",
+      "name": "杯子",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/cup/cup.blend",
+      "source_sha256": "500258305d7a89ca09d15da65a807a0ba56bc76e5e3c7a425f932753f543f61e",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/cup/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        0.5446676015853882,
+        0.3960000276565552,
+        0.42800000309944153
+      ],
+      "geometry_fingerprint": "d2eec3396d383ad5c5bf1572cd067a500d6315f9f763d43ef3f5931366118b66",
+      "polygons": 1024,
+      "triangles": 2096,
+      "meshes": 4,
+      "instance_count": 2,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-MENU",
+      "name": "桌面目录板",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/menu/menu.blend",
+      "source_sha256": "5bac79b5c5dd9464e435714fe8c7354620907e450598770f2834aa59cf2f67e4",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/menu/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.5995862483978271,
+        0.1095002144575119,
+        1.180577278137207
+      ],
+      "geometry_fingerprint": "4d15e1f7eaab77009cecf42c5d848c8fbf999c315658f7697db3c8df49205706",
+      "polygons": 6871,
+      "triangles": 12532,
+      "meshes": 32,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-BACKDOOR",
+      "name": "背面门",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/backdoor/backdoor.blend",
+      "source_sha256": "89ca2d6a563ea669b8e984ac141fe409f6cf8432e014bcc6752a20daca071b02",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/backdoor/asset_manifest.json",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.7999999523162842,
+        0.3700000047683716,
+        3.0999999046325684
+      ],
+      "geometry_fingerprint": "fa3195b700100a85633691b20eafd07b4f6b72ec2999be0797c85ef4e35527d4",
+      "polygons": 268,
+      "triangles": 496,
+      "meshes": 3,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-STAIR-LADDER",
+      "name": "背面检修梯",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/stair_ladder/stair_ladder.blend",
+      "source_sha256": "898b27631690aa06eac7d876276da7b0365e3c1be503fc39328dd442bc395e35",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/stair_ladder/asset_manifest.json",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        1.2100000381469727,
+        0.10461621731519699,
+        10.699999809265137
+      ],
+      "geometry_fingerprint": "53f9131a3bcec4009ba39b7d13233e29483e4b7f1f8f7ce474f7f997262e6e06",
+      "polygons": 432,
+      "triangles": 1296,
+      "meshes": 36,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-SIDE-EAVE",
+      "name": "侧窗波纹檐",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "furnishing",
+      "classification": {
+        "category": "upgrade_attachment",
+        "subcategory": "decoration"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "source": "art_source/scenes/bld_20261109_a/v001/component_packages/side_eave/side_eave.blend",
+      "source_sha256": "4b92556dcfe2ecfde2bd30145d4b1c46c61a7fc7d1809c3b8653bd9743cd7d1e",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/component_packages/side_eave/asset_manifest.json",
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "bounds_size_m": [
+        8.279999732971191,
+        0.7800000905990601,
+        0.31113022565841675
+      ],
+      "geometry_fingerprint": "093749c7acb9068535f2962edb0c006caec97e14ee4db42f4a06abfbb24d14f3",
+      "polygons": 7714,
+      "triangles": 15420,
+      "meshes": 1,
+      "instance_count": 1,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-B1109A-ASSEMBLY",
+      "name": "B1109A",
+      "display_name": "B1109A",
+      "domain": "scenes",
+      "suite": "bld_20261109_a",
+      "scope": "scene_local",
+      "category": "building_assembly",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "entity",
+      "source": "art_source/scenes/bld_20261109_a/v001/bld_20261109_a.blend",
+      "source_sha256": "b3d5a26b561be4890410d524ffacffc3972ae2234380cd35b7f9880d150e7cb5",
+      "manifest": "art_source/scenes/bld_20261109_a/v001/asset_manifest.json",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "version": "v001",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "stage": "source_verified_runtime_integration_pending",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "component_count": 49,
+      "instance_count": 92,
+      "expanded_triangles": 390194,
+      "expanded_polygons": 204526,
+      "verification": [
+        "docs/development/2026-11-09_bld_20261109_a.md",
+        "D:/projects/sea-work/bld_20261109_a/v001/source_verification.json",
+        "D:/projects/sea-work/bld_20261109_a/v001/visual_review.json"
+      ],
+      "source_verification": "source_verification_passed_visual_review_signed",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "user_final_art_acceptance"
+      ],
+      "license": "pending_user_reference_commercial_rights_review",
+      "commercial_rights": "pending",
+      "user_acceptance": "pending",
+      "runtime": "pending",
+      "collision": "pending",
+      "navigation": "pending",
+      "runtime_path": null,
+      "prefab": null
     }
   ]
 }

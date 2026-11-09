@@ -1,0 +1,51 @@
+{
+  "key": "cup",
+  "id": "SEA-SCENE-B1109A-V002-CUP",
+  "asset_id": "SEA-SCENE-B1109A-V002-CUP",
+  "name": "杯子",
+  "component_family": "cup",
+  "family": "cup",
+  "group": "furnishing",
+  "layer": "ordinary",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 1.06,
+  "kind": "freestanding",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/cup/cup.blend",
+  "form_layer": "stylized",
+  "rho": -0.06,
+  "role": "attachment",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-CUP",
+  "bounds_size": [
+    0.5692625343799591,
+    0.4187607765197754,
+    0.42800000309944153
+  ],
+  "triangles": 2096,
+  "polygons": 1024,
+  "meshes": 4,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "db0f44b01ae8912c59acd2a547c78e9744348ea6b93e19afbe1c5505535bb8a8",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 2,
+  "source_sha256": "eb77a9af036e346b34513104eb19cef0a1fb7d6b09b0efde4d948147e155ba8c",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/cup/asset_manifest.json"
+}

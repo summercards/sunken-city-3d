@@ -1,0 +1,51 @@
+{
+  "key": "shell",
+  "id": "SEA-SCENE-B1109A-V002-SHELL",
+  "asset_id": "SEA-SCENE-B1109A-V002-SHELL",
+  "name": "两层墙壳",
+  "component_family": "shell",
+  "family": "shell",
+  "group": "structure",
+  "layer": "body",
+  "scope": "scene_local",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "loaded_responsibility": "references/above-water.md",
+  "collision_responsibility": "pending_Godot_facility_projections_not_in_Blender",
+  "bottom": 1.0,
+  "top": 0.98,
+  "kind": "shell",
+  "version": "v002",
+  "component_source": "art_source/scenes/bld_20261109_a/v002/component_packages/shell/shell.blend",
+  "form_layer": "body",
+  "rho": 0.02,
+  "role": "structure",
+  "tilt_deg": 0,
+  "tilt_kind": null,
+  "form_contract": "zero_square_v002",
+  "collection": "SEA-SCENE-B1109A-V002-SHELL",
+  "bounds_size": [
+    8.920000076293945,
+    8.489638805389404,
+    10.0
+  ],
+  "triangles": 2416,
+  "polygons": 1252,
+  "meshes": 40,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "479daf39d019cd1dcc490854eab971439a09c0a288bfef2e0841047d722fff77",
+  "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+  "instance_count": 1,
+  "source_sha256": "f7cbe98071957dc582a88c1848aefa1a4d67ed35cf5f4ac5b99822e7527593f3",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "manifest": "art_source/scenes/bld_20261109_a/v002/component_packages/shell/asset_manifest.json"
+}
