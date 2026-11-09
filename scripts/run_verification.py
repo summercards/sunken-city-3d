@@ -17,6 +17,7 @@ GODOT_ROOT = ROOT / 'godot'
 TESTS = {
     'underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
     'visual-underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
+    'underwater-surface-debug': ('tests/test_underwater_surface_debug.gd', r'\[underwater-surface-debug\] \d+ checks, 0 failures'),
     'dive-transition': ('tests/test_dive_transition.gd', r'\[dive-transition\] \d+ checks, 0 failures'),
     'visual-dive-transition': ('tests/test_dive_transition.gd', r'\[dive-transition\] \d+ checks, 0 failures'),
     'dive-control': ('tests/test_dive_control.gd', r'\[dive-control\] \d+ checks, 0 failures'),

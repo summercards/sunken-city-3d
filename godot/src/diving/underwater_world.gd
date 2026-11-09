@@ -95,6 +95,17 @@ var _sky_material: ShaderMaterial
 var _fog_material: ShaderMaterial
 var _sun_profile := {"direction":Vector3(0.5191,0.7787,-0.3523), "color":Color(1.0,0.955,0.8), "strength":1.0}
 
+func underwater_surface_debug_materials() -> Array:
+	var out: Array = []
+	if deco != null and deco.has_method("underwater_surface_debug_materials"):
+		out.append_array(deco.underwater_surface_debug_materials())
+	return out
+
+func underwater_surface_debug_runtime() -> Dictionary:
+	return {"map": map_label if not map_label.is_empty() else map_id,
+		"water_level": WATER_LEVEL, "view_depth": maxf(0.0, WATER_LEVEL - diver_pos.y),
+		"sun_strength": float(_sun_profile.get("strength", 0.0))}
+
 func configure_underwater_light(profile: Dictionary) -> void:
 	_sun_profile = {"direction":profile.get("direction",Vector3(0.5191,0.7787,-0.3523)),
 		"color":profile.get("color",Color(1.0,0.955,0.8)), "strength":clampf(float(profile.get("strength",1.0)),0.0,1.0),

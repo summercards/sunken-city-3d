@@ -142,6 +142,14 @@ func _verify_depth_contract() -> void:
 		push_error("sunroom depth contract mismatch: viewer_min_y=%.3f expected=%.3f configured=%.3f" % [viewer_min_y,expected_viewer_min,configured_viewer_min])
 
 ## 日光注入：direction 是指向太阳的世界方向；缺省键恢复白天配置。
+func underwater_surface_debug_materials() -> Array:
+	return [_surface_material] if is_instance_valid(_surface_material) else []
+
+func underwater_surface_debug_runtime() -> Dictionary:
+	var viewer_y: float = dive_position().y if _diving else $Camera.global_position.y
+	return {"map": map_label, "water_level": water_level,
+		"view_depth": maxf(0.0, water_level - viewer_y), "sun_strength": _sun_strength}
+
 func configure_underwater_light(profile: Dictionary) -> void:
 	var direction: Vector3 = profile.get("direction", DAY_SUN_DIRECTION)
 	_sun_direction = direction.normalized() if direction.is_finite() and direction.length_squared() > 0.000001 else DAY_SUN_DIRECTION.normalized()

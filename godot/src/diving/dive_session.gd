@@ -2,6 +2,7 @@ extends Node3D
 ## Stable save owner and transactional surface <-> independent dive-map router.
 const Catalog = preload("res://src/diving/dive_map_catalog.gd")
 const Air = preload("res://src/diving/dive_air.gd")
+const UnderwaterSurfaceDebugScript = preload("res://src/rendering/underwater_surface_debug.gd")
 signal depth_changed(depth: float)
 signal zone_changed(label: String)
 signal air_changed(ratio: float, lamp_on: bool, found: int, total: int)
@@ -47,10 +48,14 @@ var _surface_frozen := false
 var _surface_modes: Array = []
 var _air_before_entry: Dictionary = {}
 var _closed_draw: Dictionary = {}
+var underwater_surface_debug
 
 func configure(host: Node3D) -> void:
 	_host = host
 	assert(Catalog.validate() == "", Catalog.validate())
+	underwater_surface_debug = UnderwaterSurfaceDebugScript.new()
+	underwater_surface_debug.name = "UnderwaterSurfaceDebug"
+	add_child(underwater_surface_debug)
 
 func _get(property: StringName) -> Variant:
 	if is_instance_valid(runtime): return runtime.get(property)
@@ -212,6 +217,8 @@ func _enter_map_core(id: String, entry: Dictionary, candidate: Node3D, productio
 			return false
 	else:
 		runtime.dive(Vector3.ZERO,str(entry.label))
+	if underwater_surface_debug != null:
+		underwater_surface_debug.bind_runtime(runtime)
 	if not production: switching = false
 	return true
 
@@ -517,6 +524,8 @@ func _return_with_curtain() -> void:
 
 func _commit_return(finish := true, merge := true) -> void:
 	if not active or not is_instance_valid(runtime): return
+	if underwater_surface_debug != null:
+		underwater_surface_debug.clear_runtime()
 	if _curtain_session: _trace("commit_return")
 	if merge: _merge_progress(runtime.to_dict())
 	var tree := get_tree()
@@ -614,6 +623,9 @@ func from_dict(data: Dictionary) -> void:
 	_progress = {"found":[],"opened":[]}
 	_merge_progress(data)
 	if is_instance_valid(runtime): runtime.from_dict(_progress)
+
+func underwater_surface_debug_is_open() -> bool:
+	return underwater_surface_debug != null and underwater_surface_debug.is_open()
 
 func _runtime_tree_exited() -> void:
 	# Unexpected scene replacement must not leave a detached live Main or owner.

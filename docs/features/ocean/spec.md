@@ -200,4 +200,17 @@ R18按用户后续澄清，取代开发中以程序波纹与手动灯位合成�
 
 专项验证包为 `20261109-183519-underwater-surface-packets-verified-0cd7f3`，headless 179/0、visual 473/0。初夹具类型 Parse、shader helper 的 `CAMERA_POSITION_WORLD` 全局不可用、法线切岛密集初版 473/0 但目检不合格、波包版 473/2（shader 字符串过窄且同 ROI 深度亮纹污染）均保留为失败/返工历史；后续改为关闭 wave/sun 验证基准衰减，同时保留动态独立 A/B。本句为过程状态；最终整合与动态预览已完成，见[开发记录第6节](../../development/2026-11-09_underwater_surface_wave_reuse.md)。
 
-最终签署：主批`20261109-185449-underwater-surface-reuse-signed-6d7336`，真实475/0（92张专项图+72帧动态预览）、行为179/0及十图/操控/过场等均通过；原海面实机回归`20261109-185519-surface-wave-compatibility-683760`为148/0。8入口合计2197/0、全部exit0/PASS、unexpected=[]。55m水面ROI亮度0.43397、亮纹占14.23%、近全白0；0→4s变化53.37%像素，wave/sun独立开关可见。新增共享波面实际复用已验证，初版纸片岛虽473/0但视觉不合格，保留返工历史。全局sync/只读均69资源问题，低端长时/完整物理折射/用户终审未签，不借旧4834签本轮。
+最终签署：主批`20261109-185449-underwater-surface-reuse-signed-6d7336`，真实475/0（92张专项图+72帧动态预览）、行为179/0及十图/操控/过场等均通过；原海面实机回归`20261109-185519-surface-wave-compatibility-683760`为147/0。8入口合计2197/0、全部exit0/PASS、unexpected=[]。55m水面ROI亮度0.43397、亮纹占14.23%、近全白0；0→4s变化53.37%像素，wave/sun独立开关可见。新增共享波面实际复用已验证，初版纸片岛虽473/0但视觉不合格，保留返工历史。全局sync/只读均69资源问题，低端长时/完整物理折射/用户终审未签，不借旧4834签本轮。
+
+## 2026-11-09 P键水下海面调试工具（SEA-OCEAN-R40–R43）
+
+本节追加水下表面调参工具，不改变水上 `水面` 页的所有权，也不把水位、当前深度或主场景太阳复制成第二套可写状态。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-OCEAN-R40 | 潜水运行时按 P 打开独立「水下海面」面板；面板只在 DiveSession 绑定活动水下地图时生效，覆盖家园 Water 与旧图 WaterCeiling。面板打开期间暂停游动、自动路线和潜水员输入；Esc/P 可关闭并恢复。海面状态机、Air、存档和过场不被面板抢写。 |
+| SEA-OCEAN-R41 | 面板参数清单是 `underwater_surface_params.gd` 的唯一源，当前48项，覆盖波场/法线、波脊亮纹、蓝面颜色、太阳高光、边界淡出与时间相关表现；每项有中文名、范围、步长和默认值。运行时参数写入活动水下 ShaderMaterial，动态水位、view_depth、sun_direction、sun_strength 保持地图/Session 只读注入。 |
+| SEA-OCEAN-R42 | 调试值独立保存到 `user://underwater_surface.cfg` 的 `[underwater_surface]` 段，支持保存当前、加载已保存、恢复默认、复制全部参数；不写 `water.tres`、`water.cfg`、Main 场景、玩家存档或 `light_slots.cfg`。隔离 runner 中验证新面板实例可恢复波光、远端边界和默认值。 |
+| SEA-OCEAN-R43 | 默认参数化不得改变已签水下观感：显示色参数不使用额外 `source_color` 转换；真实 Vulkan 渲染保持水下默认亮度/深度递减，且面板行为、潜水过场、操控、地图和原海面回归均通过。低端设备、长时性能、完整物理折射、用户终审和全局资源门禁仍不由本条签署。 |
+
+实现入口：`godot/src/rendering/underwater_surface_params.gd`、`godot/src/rendering/underwater_surface_debug.gd`、`godot/src/diving/dive_session.gd`、`godot/src/diving/sunroom_region.gd`、`godot/src/diving/underwater_world.gd`、`godot/src/diving/uw_deco.gd` 与 `godot/shaders/uw_surface_shared.gdshaderinc`。参数面板行为为110/0；整合批`20261109-213426-underwater-surface-debug-signed-82ad44/report.json`含7入口、真实水下475/0、行为179/0、调试面板110/0，全部exit0/PASS；`ocean`原海面回归仍通过。

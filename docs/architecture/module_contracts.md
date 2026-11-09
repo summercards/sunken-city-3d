@@ -379,4 +379,14 @@ ShopCatalog显示标题目标“小花花店/阿店海上商店”，由主线�
 | 既有环境/边界 | 单 fogpass、140–190m远景收口、泡/鱼、家园120m水深和水下1m入水保持；本契约不触碰原水面布局、shore distance、SSR、深度吸收或CPU浮力。 |
 | 验收与证据 | `20261109-183519-underwater-surface-packets-verified-0cd7f3`：headless179/0、visual473/0。此为过程专项包，最终签署见[开发记录第6节](../development/2026-11-09_underwater_surface_wave_reuse.md)。低端长时、用户终审、完整物理折射及全局资源门禁不由专项包签署。 |
 
-最终整合已完成：主批20261109-185449-underwater-surface-reuse-signed-6d7336含真实475/0、179/0行为及十图/操控/过场回归；原海面20261109-185519-surface-wave-compatibility-683760为实机148/0。共8入口2197/0，全部exit0、unexpected=[]。11核心文件与签署快照一致，4秒固定表现时钟的第三人称55m动态预览已产出；不是连续玩家操作录像。sync/只读69资源问题仍阻断全局登记，未批量重签未知资产。
+最终整合已完成：主批20261109-185449-underwater-surface-reuse-signed-6d7336含真实475/0、179/0行为及十图/操控/过场回归；原海面20261109-185519-surface-wave-compatibility-683760为实机147/0。共8入口2197/0，全部exit0、unexpected=[]。11核心文件与签署快照一致，4秒固定表现时钟的第三人称55m动态预览已产出；不是连续玩家操作录像。sync/只读69资源问题仍阻断全局登记，未批量重签未知资产。
+
+## 2026-11-09 水下海面调试工具模块契约（SEA-OCEAN-R40–R43）
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| `DiveSession` → `UnderwaterSurfaceDebug` | 潜水运行时创建唯一面板实例；P/Esc负责打开/关闭。面板只消费活动 runtime 的材质查询与只读水位/深度/日照快照，不拥有 Dive FSM、Air、存档、地图切换。 |
+| `UnderwaterSurfaceDebug` → 活动水面材质 | 通过 `underwater_surface_debug_materials()` 接收家园 `Water` 或旧图 `UwDeco._ceiling` 的 ShaderMaterial；48项参数来自 `underwater_surface_params.gd`，不直接扫描 uniform、不复制水上 `water.cfg`。 |
+| 调试保存 | `user://underwater_surface.cfg` `[underwater_surface]`；保存/加载/默认/复制均为表现调试操作，不写 `water.tres`、Main、玩家存档或 `light_slots.cfg`。 |
+| 模态边界 | 面板打开时 runtime meta `underwater_surface_debug_open=true`；`DiveRuntimeController`暂停位移/导航/输入，关闭后恢复。海面 ColorGradePanel检测 `session_owned`，不在脱树的水下地图后面误响应 P。 |
+| 验收 | `underwater-surface-debug` 110/0；整合批`20261109-213426-underwater-surface-debug-signed-82ad44`：调试110/0、真实水下475/0、行为179/0、过场226/0、操控396/0、地图338/0、ocean147/0，全部exit0/PASS。低端、长时、完整物理折射、用户终审和全局资源门禁未签。 |

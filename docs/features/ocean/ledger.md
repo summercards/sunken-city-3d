@@ -260,8 +260,21 @@ SEA-OCEAN-R30–R35专项通过，功能总体partial。报告`D:/projects/sea-w
 
 ### SEA-OCEAN-R36–R39 本轮最终回填
 
-主报告`D:/sea-visual-check/verification/20261109-185449-underwater-surface-reuse-signed-6d7336/report.json`，真实475/0、行为179/0、sunroom85/0、3C396/0、maps338/0、transition226/0、visual-maps350/0；伴随原水上海面实机报告`D:/projects/sea-work/verification/20261109-185519-surface-wave-compatibility-683760/report.json`为ocean148/0。8入口2197/0、exit0/PASS、unexpected=[]。11份运行/测试文件与签署快照一致，未改水上波公式/CPU浮力/岸线/Main布局/Air/FSM。
+主报告`D:/sea-visual-check/verification/20261109-185449-underwater-surface-reuse-signed-6d7336/report.json`，真实475/0、行为179/0、sunroom85/0、3C396/0、maps338/0、transition226/0、visual-maps350/0；伴随原水上海面实机报告`D:/projects/sea-work/verification/20261109-185519-surface-wave-compatibility-683760/report.json`为ocean147/0。8入口2197/0、exit0/PASS、unexpected=[]。11份运行/测试文件与签署快照一致，未改水上波公式/CPU浮力/岸线/Main布局/Air/FSM。
 
 55m实际水面mean0.433972，亮纹14.23%、71.46%的亮纹位于太阳中心以外，white_fraction0；clock0→4变化385573像素，wave独立开关210469像素/peak0.49804、sun开关231473/0.58431。FlatNormal与真实GB纹理差分及恢复图通过，水位/深度/单fog/远边界/原泡尘回归保留。固定表现时钟72帧/18fps/4秒实机MP4已产出并目检，不称玩家操作录像。
 
 用户美术终审、低端持续性能、全昼夜和完整物理折射未签。sync69/只读69资源登记问题仍失败，未批量重签未知hash。初Parse、helper内建变量、纸片岛初版和波包473/2保留为失败/返工过程。交付`D:/projects/sea-work/outputs/underwater-surface-reuse-20261109/`。
+
+## 2026-11-09 P键水下海面调试工具承接（SEA-OCEAN-R40–R43）
+
+登记头、owner 与水上参数页保持不变；本节只追加水下调试工具事实。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-OCEAN-R40 | 已实现；DiveSession 创建独立 `UnderwaterSurfaceDebug`，P/Esc只在活动水下地图打开/关闭，打开时通过 runtime meta 暂停游动、自动路线和输入 | 家园 Water 与旧图 `UwDeco._ceiling` 都暴露活动 ShaderMaterial；水下调试面板不让海面 ColorGradePanel 在脱树地图后误开 |
+| SEA-OCEAN-R41 | 已实现；`underwater_surface_params.gd` 当前48项，按波场/波脊/颜色/太阳/边界分组；即时写入活动材质，水位/深度/太阳运行时真值只读 | `underwater_surface_debug.gd` 按清单生成 float/color/vec2 控件；共享 shader uniform 与清单逐项断言 |
+| SEA-OCEAN-R42 | 已实现；保存/加载/恢复默认/复制参数，独立 `user://underwater_surface.cfg` `[underwater_surface]` | `tests/test_underwater_surface_debug.gd` 110/0；不写 `water.tres`、`water.cfg`、Main 场景、玩家存档、`light_slots.cfg` |
+| SEA-OCEAN-R43 | 已实现并完成整合回归；参数化显示色去掉额外 `source_color` 转换，保持签署默认亮度与深度递减 | 主批`D:/sea-visual-check/verification/20261109-213426-underwater-surface-debug-signed-82ad44/report.json`：调试110/0、真实水下475/0、行为179/0、过场226/0、操控396/0、地图338/0、原海面ocean147/0；全部exit0/PASS、unexpected=[]。低端/长时/完整物理折射/用户终审/全局资源门禁未签 |
+
+本轮新增源码/测试文件：`godot/src/rendering/underwater_surface_params.gd`、`godot/src/rendering/underwater_surface_debug.gd`、`godot/tests/test_underwater_surface_debug.gd`；runner新增入口`underwater-surface-debug`。真实水下初次参数化批次曾出现`zone1 41m`背景单调减光断言失败，原因是 `source_color` 对默认显示色再次转换；已改为原始显示色uniform并复跑通过，未放宽断言。

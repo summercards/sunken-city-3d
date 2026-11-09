@@ -196,6 +196,12 @@ func _motion_input() -> Vector3:
 func step_swim(dt: float) -> void:
 	if transition_frozen: return
 	if machine.current != "swim" or map == null or dt <= 0.0 or not is_finite(dt): return
+	if bool(map.get_meta("underwater_surface_debug_open", false)):
+		cancel_navigation()
+		velocity = Vector3.ZERO
+		motion = "调试面板"
+		update_character(0.0)
+		return
 	var axis := _motion_input()
 	var desired := Vector3.ZERO
 	sprinting = (_test_sprint if _test_input_enabled else Input.is_action_pressed("dive_sprint")) and axis.length_squared() > 0.001
@@ -326,6 +332,8 @@ func _process(dt: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if transition_frozen or Engine.is_editor_hint() or machine.current != "swim": return
+	if map != null and bool(map.get_meta("underwater_surface_debug_open", false)):
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			_drag = event.pressed

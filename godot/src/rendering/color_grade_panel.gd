@@ -217,6 +217,11 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Main is detached during a dive. P belongs to the underwater surface tool
+	# there; do not let the surface color/light panel open behind it.
+	var scene := get_tree().current_scene
+	if scene != null and scene.has_meta("session_owned"):
+		return
 	var key := event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return

@@ -881,3 +881,11 @@ OceanR30–R35 与 AmbientR32–R36 的逐条证据、失败边界及主线程�
 最新专项包 `20261109-183519-underwater-surface-packets-verified-0cd7f3`：headless 179/0、visual 473/0；这是波面包验证，不等于最终整合或录制完成。低端长时、用户终审、完整物理折射与全局资源门禁不签。最终签署：[水下波面复用开发记录](docs/development/2026-11-09_underwater_surface_wave_reuse.md) 第6节。
 
 本轮最终回填：主批`D:/sea-visual-check/verification/20261109-185449-underwater-surface-reuse-signed-6d7336/report.json`与原海面回归`D:/projects/sea-work/verification/20261109-185519-surface-wave-compatibility-683760/report.json`，8入口2197/0、全部exit0/PASS、unexpected=[]，其中真实水下475/0、原海面实机148/0。55m波面亮度0.43397、亮纹14.23%、wave/sun独立开关与clock变化通过；4秒第三人称55m动态预览已产出，非玩家操作录像。11核心文件快照一致，未改原波公式/CPU浮力/用户布局。全局sync/只读各69资源问题，低端长时、完整物理折射、用户终审未签，不称全工程通过。
+
+## 2026-11-09 P键水下海面调试工具（SEA-OCEAN-R40–R43）
+
+针对「把所有水下海面数值放进 P 键工具，调完可以保存」追加独立调试链：潜水时 P 打开「水下海面」页，覆盖家园与旧九图的活动水面材质；当前清单48项，分为波场/法线、波脊亮纹、蓝面颜色、太阳高光、边界与时间。面板即时写活动 ShaderMaterial，P/Esc开关，打开时暂停游动与路线，关闭恢复；动态水位、观察深度、太阳方向和日照强度仍由活动 Map/Session 注入，只读。
+
+保存使用`user://underwater_surface.cfg`的`[underwater_surface]`段，支持保存当前、加载已保存、恢复默认、复制参数。不写`water.tres`、`water.cfg`、Main、玩家存档或`light_slots.cfg`。实现为`godot/src/rendering/underwater_surface_params.gd`、`underwater_surface_debug.gd`，接入`DiveSession`、`sunroom_region`、`underwater_world`、`uw_deco`和`uw_surface_shared`；专用`underwater-surface-debug`入口110/0。
+
+最终整合批：`D:/sea-visual-check/verification/20261109-213426-underwater-surface-debug-signed-82ad44/report.json`。7入口全部exit0/PASS、unexpected=[]：调试110/0、真实水下475/0、行为179/0、过场226/0、操控396/0、地图338/0、原海面147/0。首次参数化曾因显示色uniform标记`source_color`导致默认颜色被二次转换，造成zone1 41m单调减光失败；已去掉额外颜色空间转换并复跑通过，没有放宽断言。低端设备、长时性能、完整物理折射、用户终审和全局资源登记门禁仍未签。

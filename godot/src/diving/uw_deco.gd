@@ -40,6 +40,9 @@ var _fill: OmniLight3D
 var _t := 0.0
 var _sun_strength := 1.0
 
+func underwater_surface_debug_materials() -> Array:
+	return [_ceiling.material_override] if is_instance_valid(_ceiling) else []
+
 func configure_underwater_light(profile: Dictionary) -> void:
 	_sun_strength = clampf(float(profile.get("strength",1.0)),0.0,1.0)
 	if _ceiling != null:
