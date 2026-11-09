@@ -854,3 +854,30 @@ Character模型复用但潜水实例独立，以实际速度驱动float/cruise/s
 用户三项水下优化专项完成：A`20261109-023938-underwater-render-boundary-f5c046`圆幕真实149/0；B`20261109-030908-underwater-breath-contact-db6f99`光学生态真实195/0；C`20261109-031605-underwater-regression-final-2513b4`行为65/0、圆幕226/0、3C396/0、地图329/0、家园85/0、碰撞2824/0、点击39/0、切日42/0、房间112/0。上述11计数入口共4462/0，另save-seed通过，均有真实report.json；**不是整批全绿**：C框架52/1 second generation write在D`20261109-032433-underwater-framework-recheck-7d457d`独立复跑仍失败，未改SaveGame保护逻辑。全局sync69/只读70资源哈希/派生索引问题未过。现水面能仰视、深度灰样板与背景单调减光、浅水呼气/环境泡/鱼像素可见，日切同幕双向遮加载且日期耗氧冻结。当前120m/入水1m及用户布局不改，三功能partial；历史远雾阈值、低端/持续性能/全路线/用户美术终审/独立海床未签。[完整签署、失败修正与交付](docs/development/2026-11-08_underwater_optics_and_transition.md)。
 
 最后补验：旧图显式恢复共享Air默认5m换气带，避免家园0.5m残留。`20261109-033631-underwater-air-band-final-4cba0b/report.json`的dive-maps338/0、underwater-experience65/0均通过；最终通过入口汇总4471/0，不重复计补跑65，框架52/1仍另列。渲染源码未变，原视觉报告继续有效。
+
+## 2026-11-09 水下中层可见性：OceanR30 + AmbientR32（当前批次，FINAL PENDING）
+
+本轮只追加 **SEA-OCEAN / SEA-AMBIENT 的渲染与环境表现**，不改 Dive FSM、保存、鱼群职责或用户手动布局；不改登记头、登记 JSON，也不执行 sync。目标是覆盖用户 10–20m 的暗水观感、照片中 41m 海面建筑切边，以及修复周围缺少浮游气泡/细尘的问题。水面尺寸曾试增到 4096 验证无效，现已恢复 1280；该试验不作为新成功。
+
+当前源码核对：sky cubemap 的 `uw_irradiance_gain(depth)` 为 `mix(1.8, 0.34, smoothstep(5, 120, depth)) * mix(0.32, 1.0, sun_strength)`；CPU 端 `ambient_light_energy = 2.6 / PI` 恒定，不重复乘深度日照，不改曝光。远景 surface fog 按 `abs(world_point.y - water_level)` 的 0.22–0.32m 连续匹配，140–190m 收口；Forward Reverse-Z sky 判别 epsilon 为 `1e-7`，兼容后端保留反判，普通建筑继续指数雾。透明粒子雾统一以 85m 密度曲线封顶，不截断实际深度。
+
+`uw_surface_optics` 保留函数名兼容，但本轮取消独立 Snell/反射色块的产品读法，改为统一屏幕水色底、低频波纹与柔和日光；不得再宣称完整物理折射窗。本节覆盖旧 R26 的“强窗口”读法。家园环境为 96 固定列 + 96 邻域泡、200 邻域尘；旧图为 48 vent + 48 邻域泡、180 邻域尘。邻域为 world-space 连续 `mod` wrap，围 observer 的 XZ ±12m、Y ±8m，观测移动不粘泡，边缘 fade 1.5m，泡顶至少在水面下 0.77m；旧 `mote` 使用 Quad 共享 particles，不使用小球。`Sunroom.set_observer` 读取 Camera，旧 `deco.update` 亦以 Camera 更新 observer；环境泡 soft contact 0.18m，呼气泡池 48、soft contact 0.08m 保持不变。
+
+本轮专项覆盖 10/20/41/80m 四 yaw、0.5m 移动后的 world position、正常 72° FOV 下泡/尘开关、灰样板亮度 >0.1 且随深度递减、220/400m 黑盒远 fog，以及 `water - 0.68m` 不被误判为 sky 豁免。旧 195/0 只是旧样板，不证明本轮；最新 `D:/projects/sea-work/verification/20261109-145508-underwater-targeted-depth-5b715a` 为 179/32 与 436/35 失败，夹具量化 box 错配、节点入树前 global 赋值、远 sky epsilon 已修；当前新批仍在运行。`run_verification.py:392-396` 的 `write_project_config` 已改为临时文件后 `os.replace`，safe-delete 拒绝保留无删除；全局已知框架写盘与哈希问题不计为本轮成功。
+
+OceanR30–R35 与 AmbientR32–R36 的逐条证据、失败边界及主线程唯一最终回填位置见 [开发记录](docs/development/2026-11-09_underwater_middepth_visibility.md)。本轮未签低端设备、长期/连续性能或用户终审。
+
+最终回填：`D:/projects/sea-work/verification/20261109-151955-underwater-middepth-signed-e09520/report.json`，8入口4834/0、全部exit0/PASS、unexpected=[]；真实光学436/0与行为179/0覆盖10/20/41m正常视野、80m四yaw、灰样板递减、220/400m远fog和世界稳定泡尘。10/20m灰样板0.157101/0.153103，115m0.018255；固定粒子预算不变。强折射圆盖改统一水色低频波纹柔光，14份核心文件与签署快照一致。历史失败仍保留，框架写盘/哈希门禁不被专项通过掩盖。交付与签署详见上方开发记录第8节。
+
+## 2026-11-09 水下共享水上波场复用（SEA-OCEAN-R36–R39，FINAL PENDING）
+
+本轮针对用户反馈的「55m抬头太脏」先做复用审计，不硬做第二套水面：参考明亮蓝海面动态波光与太阳高光，优先复用水上海面已有波场与材质约束。已核对官方资产库 BoujieMIT（支持 Godot 4.1+，含 Snell/tools）：[Asset Library #2070](https://godotengine.org/asset-library/asset/2070)；本地已有相同基础，本轮不下载、不安装，商业 4.7 方案不引入，项目仍保持 Godot 4.6.3。
+
+- `ocean_waves.gdshaderinc` 增加显式 `ocean_sample_at(p, clock)`，原 `ocean_sample(p)` 继续以 `u_time` wrapper 调用；波公式、CPU 浮力和水上原材质均不改。
+- 水下仅经新的 `uw_surface_shared.gdshaderinc` 复用 `ocean_waves` 与既有 `large_wave_normals`。当前纹理按约28m尺度读取，实际法线信息使用居中的 G/B（R 均值约0.995，不误当作 RG），双滚动采样；不把水上岸线、SSR或深度吸收材质直接套到水下。
+- 水下表面采用共享波场导数形成正向波脊，颜色保持干净蓝，浅白亮纹只加亮、不乘黑污纹；太阳高光沿水上同源导数过滤 lobe，取消硬 Snell 圆窗。`underside_wave_light` 与 `underside_sun_light` 独立作为 A/B 参数。
+- Surface profile 在 Session 脱树前只读注入 `ocean_waves`、`wave_scale`、`large_wave_normals`；不共享 liveMat，不修改 Main、shore、布局、air 或 FSM。单 fogpass、140–190m 远景收口、泡/鱼、120m入水1m不改。
+
+最新专项包 `20261109-183519-underwater-surface-packets-verified-0cd7f3`：headless 179/0、visual 473/0；这是波面包验证，不等于最终整合或录制完成。低端长时、用户终审、完整物理折射与全局资源门禁不签。最终签署：[水下波面复用开发记录](docs/development/2026-11-09_underwater_surface_wave_reuse.md) 第6节。
+
+本轮最终回填：主批`D:/sea-visual-check/verification/20261109-185449-underwater-surface-reuse-signed-6d7336/report.json`与原海面回归`D:/projects/sea-work/verification/20261109-185519-surface-wave-compatibility-683760/report.json`，8入口2197/0、全部exit0/PASS、unexpected=[]，其中真实水下475/0、原海面实机148/0。55m波面亮度0.43397、亮纹14.23%、wave/sun独立开关与clock变化通过；4秒第三人称55m动态预览已产出，非玩家操作录像。11核心文件快照一致，未改原波公式/CPU浮力/用户布局。全局sync/只读各69资源问题，低端长时、完整物理折射、用户终审未签，不称全工程通过。

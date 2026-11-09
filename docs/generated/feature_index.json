@@ -61,7 +61,10 @@
         "avatar-proportions",
         "visual-avatar-proportions",
         "avatar-skinning",
-        "visual-avatar-skinning"
+        "visual-avatar-skinning",
+        "npc-appearance",
+        "npc-integration",
+        "visual-npc-release"
       ]
     },
     {
@@ -104,6 +107,15 @@
         "godot/assets/data/zones.json"
       ],
       "verification": [
+        "shop-sightline",
+        "visual-shop-sightline",
+        "gift-kiosk-interior",
+        "visual-gift-kiosk-interior",
+        "roof-reveal-component",
+        "roof-reveal",
+        "visual-roof-reveal",
+        "gift-kiosk",
+        "visual-gift-kiosk",
         "water-layer",
         "submerged-neighborhood",
         "visual-submerged-neighborhood",
@@ -119,7 +131,44 @@
         "sea-supply",
         "sea-supply-probe",
         "fishery-environment",
-        "visual-fishery-environment"
+        "visual-fishery-environment",
+        "seabed-scene",
+        "visual-sunken-seabed",
+        "sunken-city"
+      ]
+    },
+    {
+      "feature_id": "SEA-SUNROOM",
+      "name": "阳光房分阶段修缮、攀爬与季节表现",
+      "group": "世界/经营/3C/表现",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-INVENTORY",
+        "SEA-MOVE",
+        "SEA-SAVE",
+        "SEA-AMBIENT"
+      ],
+      "spec": "docs/features/sunroom/spec.md",
+      "ledger": "docs/features/sunroom/ledger.md",
+      "status": "partial",
+      "owner": "SunroomService / ActorController / SunroomView",
+      "code_paths": [
+        "godot/src/facilities/sunroom_service.gd",
+        "godot/src/facilities/sunroom_view.gd",
+        "godot/src/facilities/sunroom_repair_interactable.gd",
+        "godot/src/facilities/sunroom_upper_interactable.gd",
+        "godot/src/facilities/sunroom_ladder_interactable.gd",
+        "godot/src/player/actions/climb_ladder_action.gd",
+        "godot/src/player/states/climbing.gd",
+        "godot/scenes/facilities/solar_cabin_surface.tscn",
+        "godot/scenes/zones/zone1_home_harbor.tscn"
+      ],
+      "verification": [
+        "sunroom-repair",
+        "sunroom-runtime",
+        "solar-components",
+        "visual-solar-cabin",
+        "save-protection"
       ]
     },
     {
@@ -140,6 +189,12 @@
         "godot/src/navigation/landing_point.gd"
       ],
       "verification": [
+        "shift-jog",
+        "visual-shift-jog",
+        "facing-interaction",
+        "visual-facing-interaction",
+        "gift-kiosk",
+        "interaction-reach",
         "control-feel",
         "keyboard-control",
         "rowing-fit",
@@ -184,6 +239,11 @@
         "godot/src/navigation/route_ribbon.gd"
       ],
       "verification": [
+        "boat-unstick",
+        "visual-boat-unstick",
+        "facing-interaction",
+        "visual-facing-interaction",
+        "gift-kiosk",
         "control-feel",
         "keyboard-control",
         "rowing-fit",
@@ -221,6 +281,8 @@
         "godot/src/camera"
       ],
       "verification": [
+        "keyboard-travel",
+        "visual-keyboard-farm-loop",
         "control-feel",
         "keyboard-control",
         "visual-corner-notebook",
@@ -248,6 +310,14 @@
         "godot/src/interaction"
       ],
       "verification": [
+        "npc-conversation",
+        "visual-npc-conversation",
+        "facing-interaction",
+        "visual-facing-interaction",
+        "keyboard-farm-loop",
+        "visual-keyboard-farm-loop",
+        "keyboard-travel",
+        "interaction-reach",
         "control-feel",
         "keyboard-control",
         "visual-corner-notebook",
@@ -280,6 +350,8 @@
         "godot/assets/data/gather_spots.json"
       ],
       "verification": [
+        "interaction-reach",
+        "visual-interaction-reach",
         "selftest",
         "framework-integration"
       ]
@@ -306,7 +378,10 @@
         "visual-pocket-bubbles",
         "visual-pocket-services",
         "pocket-drag-buy",
-        "visual-pocket-drag-buy"
+        "visual-pocket-drag-buy",
+        "shop-rules",
+        "npc-integration",
+        "npc-save"
       ]
     },
     {
@@ -367,7 +442,10 @@
       "owner": "BuildingService / BuildingWorld / BuildingController",
       "code_paths": [
         "godot/src/building",
+        "godot/src/building/ui",
+        "godot/src/navigation/ground_space.gd",
         "godot/assets/data/building_kit.json",
+        "godot/assets/data/building_kit_5m.json",
         "godot/scenes/buildables/kit",
         "godot/assets/models/building_kit",
         "godot/assets/materials/building_kit"
@@ -403,7 +481,15 @@
         "building-perf",
         "building-surfaces",
         "visual-building-surfaces",
-        "building-demolition"
+        "building-demolition",
+        "building-5m-rules",
+        "building-5m-experience",
+        "visual-building-5m-experience",
+        "building-ui-unified",
+        "visual-building-ui-unified",
+        "keyboard-building",
+        "visual-keyboard-building",
+        "building-scale-reference"
       ]
     },
     {
@@ -475,7 +561,8 @@
         "harvest-receive",
         "visual-harvest-receive",
         "modules",
-        "structure"
+        "structure",
+        "flower-crops"
       ]
     },
     {
@@ -499,6 +586,10 @@
         "godot/scenes/props/farm_cell.tscn"
       ],
       "verification": [
+        "keyboard-farm-loop",
+        "visual-keyboard-farm-loop",
+        "keyboard-travel",
+        "keyboard-panels",
         "visual-corner-notebook",
         "farming",
         "management",
@@ -537,21 +628,30 @@
     },
     {
       "feature_id": "SEA-DIVE",
-      "name": "潜水探索与宝箱",
+      "name": "按海域切换独立地图的潜水探索与宝箱",
       "group": "探索",
       "dependencies": [
         "SEA-WORLD",
-        "SEA-INVENTORY"
+        "SEA-INVENTORY",
+        "SEA-SAVE",
+        "SEA-BOOT"
       ],
       "spec": "docs/features/dive/spec.md",
       "ledger": "docs/features/dive/ledger.md",
       "status": "partial",
-      "owner": "UnderwaterWorld / DiveAir / 阶段状态机",
+      "owner": "DiveSession / DiveAir / Shared DiveRuntimeController / Map适配器",
       "code_paths": [
         "godot/src/diving",
         "godot/scenes/underwater"
       ],
       "verification": [
+        "dive-control",
+        "visual-dive-control",
+        "sunroom-collision",
+        "dive-maps",
+        "visual-dive-maps",
+        "sunroom-underwater",
+        "visual-sunroom-underwater",
         "selftest",
         "modules",
         "framework-integration",
@@ -619,6 +719,38 @@
       ]
     },
     {
+      "feature_id": "SEA-SHOP",
+      "name": "花店与综合商店",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-CROP",
+        "SEA-INTERACT"
+      ],
+      "spec": "docs/features/shop/spec.md",
+      "ledger": "docs/features/shop/ledger.md",
+      "status": "implemented",
+      "owner": "ShopService / ShopCatalog / ShopPanel",
+      "code_paths": [
+        "godot/src/shop/shop_catalog.gd",
+        "godot/src/shop/shop_service.gd",
+        "godot/src/shop/shop_panel.gd",
+        "godot/assets/data/shop/shops.json"
+      ],
+      "verification": [
+        "shop-rules",
+        "npc-integration",
+        "npc-save",
+        "visual-npc-release",
+        "pocket-drag-buy",
+        "npc-shop-site",
+        "npc-relocation",
+        "visual-npc-people",
+        "npc-conversation",
+        "visual-npc-conversation"
+      ]
+    },
+    {
       "feature_id": "SEA-GOAL",
       "name": "小目标追踪与引导",
       "group": "成长",
@@ -640,19 +772,71 @@
       ]
     },
     {
+      "feature_id": "SEA-RESIDENCE",
+      "name": "七人住所社区与生活锚点",
+      "group": "世界/生活",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-ASSET",
+        "SEA-INTERACT"
+      ],
+      "spec": "docs/features/residence/spec.md",
+      "ledger": "docs/features/residence/ledger.md",
+      "status": "partial",
+      "owner": "ResidentHarbor / 静态TSCN / GroundSpace派生空间",
+      "code_paths": [
+        "godot/src/residence/resident_harbor.gd",
+        "godot/scenes/residence",
+        "godot/assets/data/npc/residences.json"
+      ],
+      "verification": []
+    },
+    {
       "feature_id": "SEA-RESIDENT",
-      "name": "居民与生活行为",
+      "name": "NPC 居民、对话与关系网",
       "group": "生活",
       "dependencies": [
         "SEA-WORLD",
-        "SEA-BUILD"
+        "SEA-BUILD",
+        "SEA-MOVE",
+        "SEA-TIME",
+        "SEA-WEATHER",
+        "SEA-INTERACT",
+        "SEA-INVENTORY",
+        "SEA-AVATAR"
       ],
       "spec": "docs/features/resident/spec.md",
       "ledger": "docs/features/resident/ledger.md",
-      "status": "planned",
-      "owner": "规划：ResidentService",
-      "code_paths": [],
-      "verification": []
+      "status": "implemented",
+      "owner": "NpcService / NpcWorldPresenter / AvatarVisual",
+      "code_paths": [
+        "godot/src/npc",
+        "godot/assets/data/npc/npcs.json",
+        "godot/assets/data/npc/residences.json",
+        "godot/assets/data/npc/dialogues.json",
+        "godot/assets/data/npc/events.json",
+        "godot/assets/data/npc/requests.json"
+      ],
+      "verification": [
+        "npc-shop",
+        "npc-rules",
+        "npc-world",
+        "npc-appearance",
+        "npc-careers",
+        "npc-performance",
+        "npc-clock",
+        "npc-integration",
+        "npc-save",
+        "npc-save-restart",
+        "visual-npc-release",
+        "npc-people",
+        "npc-profile-ui",
+        "npc-shop-site",
+        "npc-relocation",
+        "visual-npc-people",
+        "npc-conversation",
+        "visual-npc-conversation"
+      ]
     },
     {
       "feature_id": "SEA-TIME",
@@ -677,6 +861,7 @@
         "minimum-loop",
         "visual-plot-shipping",
         "sleep-cycle",
+        "npc-clock",
         "visual-home-lighting"
       ]
     },
@@ -860,11 +1045,20 @@
       "owner": "HUD / UI presenters",
       "code_paths": [
         "godot/src/ui",
-        "godot/src/building/building_book.gd",
-        "godot/src/building/recipe_card.gd",
-        "godot/src/building/recipe_thumbnail.gd"
+        "godot/src/building/ui"
       ],
       "verification": [
+        "npc-conversation",
+        "visual-npc-conversation",
+        "keyboard-panels",
+        "visual-keyboard-panels",
+        "keyboard-entry",
+        "keyboard-farm-loop",
+        "visual-keyboard-farm-loop",
+        "keyboard-travel",
+        "keyboard-building",
+        "visual-keyboard-building",
+        "interaction-reach",
         "visual-corner-notebook",
         "visual-title-screen-day",
         "visual-title-screen-night",
@@ -947,7 +1141,14 @@
         "visual-vegetation",
         "visual-vegetation-performance",
         "visual-proton-scatter",
-        "visual-proton-preview"
+        "visual-proton-preview",
+        "sea-fauna",
+        "visual-sea-fauna",
+        "scenic-fish-distribution",
+        "visual-scenic-fish-structure",
+        "visual-scenic-fish-distribution",
+        "sunroom-underwater",
+        "visual-sunroom-underwater"
       ]
     },
     {
@@ -1027,6 +1228,10 @@
         "tools/blender"
       ],
       "verification": [
+        "gift-kiosk-interior",
+        "visual-gift-kiosk-interior",
+        "gift-kiosk",
+        "visual-gift-kiosk",
         "water-layer",
         "submerged-neighborhood",
         "visual-submerged-neighborhood",
@@ -1042,7 +1247,9 @@
         "floating-shop",
         "sea-supply",
         "fishery-environment",
-        "visual-fishery-environment"
+        "visual-fishery-environment",
+        "sunroom-underwater",
+        "visual-sunroom-underwater"
       ]
     },
     {

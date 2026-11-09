@@ -347,3 +347,36 @@ ShopCatalog显示标题目标“小花花店/阿店海上商店”，由主线�
 本轮runner已存在underwater-experience / visual-underwater-experience / dive-transition / visual-dive-transition。transition初始Parse black、Main子类Autoload Zones编译阻断及visual timeout，水下体验真实视觉195/8和195/4全部保留FAIL历史；修复正在跑，最终PENDING，不借旧5196/0。主线程唯一最终回填入口为[开发记录第5节](../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)，全局sync/check留主线程，本分支不执行。
 
 当前主线程签署已在记录第7节：圆幕真实149/0/行为226/0、光学生态真实195/0/行为65/0，3C/十图/家园/碰撞/切日/房间等11计数通过入口合计4462/0，另save-seed通过。生产绘制屏障记录后先让出至普通process帧再重切树/导航，采证PNG编码不在post-draw信号栈执行；天空cubemap随真实深度减光，呼气soft-contact0.08m不改Air。失败边界：framework52/1第二代写盘独立复跑仍FAIL，全局sync69/只读70资源登记未过；历史远雾阈值/性能/全路线/用户终审等未重签，不声明全工程通过。
+
+## 2026-11-09 水下中层可见性模块契约（OceanR30 + AmbientR32，PENDING）
+
+本节只补充 OCEAN 渲染与 AMBIENT 表现的跨模块边界，不新增所有者，不改 Dive FSM、保存、鱼或用户布局。
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| Main Sun → 活动 Map | 仍只读 Main 的 Sun 方向/颜色/强度快照，经既有 `configure_underwater_light` 注入；sky cubemap 负责 `uw_irradiance_gain` 深度与日照系数，CPU ambient 固定 `2.6/PI`，不重复乘深度、不改曝光。 |
+| SEA-OCEAN → 水下表面 | `uw_surface_optics` 函数名保留兼容；当前表现是统一屏幕水色底、低频波纹与柔和日光，不再以独立 Snell/反射色块宣称完整物理折射窗。家园与旧图仍共用渲染 include。 |
+| SEA-OCEAN → WaterFogPass | surface match 使用 `abs(world_y-water_level)` 0.22–0.32m连续带，140–190m收口；Reverse-Z sky epsilon `1e-7`，兼容后端反判；普通建筑指数雾，透明雾密度曲线85m封顶但不截断实际深度。 |
+| SunroomUnderwaterAtmosphere → 环境粒子 | 家园192泡=96固定+96邻域、200尘；邻域 world-space wrap 围 observer XZ±12/Y±8，fade1.5m，水面下至少0.77m；`Sunroom.set_observer` 使用 Camera。 |
+| UwDeco → 旧九图 | 旧图96泡=48 vent+48邻域泡、180尘；`deco.update` 使用 Camera 更新 observer；环境粒子走 Quad共享particles，保留兼容更新入口，不把邻域粒子改成角色子节点。 |
+| Ambient → 呼气 | 环境 soft contact 0.18m；DiverBreathBubbles 固定48池、soft contact0.08m、世界轨迹与暂停/过场语义不变。Ambient 不写 DiveAir、FSM、物理、鱼或存档。 |
+| 验收 / runner | 目标覆盖10/20/41/80m四 yaw、72°FOV、0.5m移动 world position、泡尘开关、灰样板>0.1并随深度递减、220/400m远fog及water−0.68m不误sky。`write_project_config` 采用临时文件+`os.replace`，safe-delete拒绝保留无删除；全局框架写盘/哈希问题不构成本轮成功。 |
+
+4096水面尺寸试验无效后已恢复1280。最新失败批为`D:/projects/sea-work/verification/20261109-145508-underwater-targeted-depth-5b715a`（179/32、436/35）；夹具量化box错配、节点入树前global赋值、远sky epsilon已修，当前新批仍运行。低端、长期性能、用户终审未签。最终签署见 [开发记录第8节](../development/2026-11-09_underwater_middepth_visibility.md)。
+
+最终回填：20261109-151955-underwater-middepth-signed-e09520八入口4834/0，全部exit0/PASS、unexpected=[]。本轮仅OCEAN/AMBIENT改动与验收runner原子配置写入，14核心文件快照一致，未修改DiveSession/FSM/Air/用户布局。真实436/0包含10/20/41m正常72度机位、0.5m世界粒子稳定、灰样板及220/400m远雾；本次水下专项产出81张PNG，数量不外推为其它测试通过。强Snell圆盖读法由统一水色波纹替代，近层浪纹仍允许低对比分界；不签全设备、全昼夜、长时性能、用户终审或全工程资源门禁。
+
+## 2026-11-09 水下共享水上波场复用模块契约（SEA-OCEAN-R36–R39，FINAL PENDING）
+
+本节只新增 OCEAN 水下表面复用边界，不新增所有者，不改 Dive FSM、保存、鱼、用户布局、Main、shore 或海面两套材质。官方资产 [BoujieMIT Asset Library #2070](https://godotengine.org/asset-library/asset/2070) 仅作已查阅参考；本地已有相同基础，不下载、不安装，也不引入商业 4.7 方案。
+
+| 所有者 / 端口 | 现行契约 |
+|---|---|
+| WaterSurface → 水下共享波场 | `godot/shaders/ocean_waves.gdshaderinc` 提供 `ocean_sample_at(p, clock)`；原 `ocean_sample(p)` 继续以 `u_time` wrapper 调用。水上波公式、CPU 浮力、波幅与既有材质所有权不复制、不改写。 |
+| Surface profile → DiveSession/活动 Map | Session 脱树前只读注入 `ocean_waves`、`wave_scale`、`large_wave_normals`；不共享 liveMat，不修改 Main、shore、布局、air 或 FSM。晚创建材质只消费显式 profile，不反向写水上状态。 |
+| `uw_surface_shared.gdshaderinc` → 水下表面 | 新共享 include 使用既有约28m `large_wave_normals` 的 G/B 居中通道，双滚动采样；R均值约0.995不作RG。复用波场导数形成正向波脊，亮纹只加亮干净蓝底，不乘黑污纹；不直接套水上岸线、SSR或深度吸收。 |
+| 水下 A/B 光照 | `underside_wave_light` 与 `underside_sun_light` 是独立参数；太阳高光沿水上同导数过滤 lobe，无硬 Snell 圆窗。水下不以旧 `uw_surface_optics` 仍被调用作为技术口径，旧函数名仅属兼容历史。 |
+| 既有环境/边界 | 单 fogpass、140–190m远景收口、泡/鱼、家园120m水深和水下1m入水保持；本契约不触碰原水面布局、shore distance、SSR、深度吸收或CPU浮力。 |
+| 验收与证据 | `20261109-183519-underwater-surface-packets-verified-0cd7f3`：headless179/0、visual473/0。此为过程专项包，最终签署见[开发记录第6节](../development/2026-11-09_underwater_surface_wave_reuse.md)。低端长时、用户终审、完整物理折射及全局资源门禁不由专项包签署。 |
+
+最终整合已完成：主批20261109-185449-underwater-surface-reuse-signed-6d7336含真实475/0、179/0行为及十图/操控/过场回归；原海面20261109-185519-surface-wave-compatibility-683760为实机148/0。共8入口2197/0，全部exit0、unexpected=[]。11核心文件与签署快照一致，4秒固定表现时钟的第三人称55m动态预览已产出；不是连续玩家操作录像。sync/只读69资源问题仍阻断全局登记，未批量重签未知资产。
