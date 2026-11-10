@@ -26,17 +26,24 @@ static func enforce() -> int:
 	var entries := _load_contract()
 	if entries.is_empty():
 		return 0
+	# 导出包里 .tres 一律被重映射成 .godot/exported 下的二进制资源，
+	# `FileAccess.get_file_as_string()` 拿不到 `shader_parameter/` 文本行，
+	# 于是每个材质都判成「全部参数被清空」——判据本身在模板环境失效，不是真丢值。
+	# 2026-11-10 实测：导出包每次运行刷 10 条假 ERROR（10 个材质的全量参数），
+	# 真错误全被淹掉。模板环境只补内存不报警；编辑器里照旧严格检查。
+	var can_check_disk := not OS.has_feature("template")
 	var repaired := 0
 	for rel in entries:
 		var spec: Dictionary = entries[rel]
 		var path := _to_res_path(rel)
 		var params: Dictionary = spec.get("params", {})
 
-		var on_disk := _params_on_disk(path)
+		var on_disk := _params_on_disk(path) if can_check_disk else {}
 		var lost: Array[String] = []
-		for name in params:
-			if not on_disk.has(String(name)):
-				lost.append(String(name))
+		if can_check_disk:
+			for name in params:
+				if not on_disk.has(String(name)):
+					lost.append(String(name))
 
 		var mat := load(path) as ShaderMaterial
 		if mat == null:

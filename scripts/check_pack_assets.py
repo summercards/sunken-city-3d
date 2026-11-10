@@ -18,6 +18,7 @@
 退出码：0 通过，1 契约不成立，2 无法解析包。
 """
 import argparse
+import os
 import re
 import struct
 import sys
@@ -36,10 +37,37 @@ CONST_DEF = re.compile(r'^\s*(?:static\s+)?const\s+(\w+)\s*(?::\s*\w+\s*)?:?=\s*
 IDENT = re.compile(r'^[A-Za-z_]\w*$')
 
 
+def read_pack_bytes(pack: Path) -> bytes:
+    """读包体；单文件导出（embed_pck）的 exe 要跳过 PE 头找到内嵌段。
+
+    单文件导出的 exe 布局是 [PE 模板][pck 数据][uint64 长度]["GDPC"]，
+    2026-11-10 实测：模板 104659456 B + pck 275032724 B。
+    """
+    with pack.open('rb') as f:
+        if f.read(4) == b'GDPC':
+            f.seek(0)
+            return f.read()
+        f.seek(0, os.SEEK_END)
+        total = f.tell()
+        if total < 16:
+            raise ValueError('文件太小，不是 Godot 包')
+        f.seek(total - 12)
+        tail = f.read(12)
+        if tail[-4:] != b'GDPC':
+            raise ValueError('不是 Godot 包（缺少 GDPC 头，尾部也没有内嵌包标记）')
+        size, = struct.unpack_from('<Q', tail, 0)
+        start = total - 12 - size
+        if start < 0 or size <= 0:
+            raise ValueError(f'内嵌包长度不合法：{size}')
+        f.seek(start)
+        data = f.read(size)
+        if data[:4] != b'GDPC':
+            raise ValueError(f'内嵌包定位失败（offset {start} 处不是 GDPC）')
+        return data
+
+
 def read_entries(pack: Path):
-    d = pack.read_bytes()
-    if d[:4] != b'GDPC':
-        raise ValueError('不是 Godot 包（缺少 GDPC 头）')
+    d = read_pack_bytes(pack)
     version, = struct.unpack_from('<I', d, 4)
     size = len(d)
     if version >= 3:

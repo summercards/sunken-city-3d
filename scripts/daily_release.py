@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""每日发布：git 推送 → 导出 Web / Windows → 发布到 sofunny 内网链接。
+"""每日发布：git 推送 → 导出 Windows 单文件 → 发布到 sofunny 内网链接。
+
+默认只做 Windows 单文件版（`Windows Desktop (单文件)` 预设，embed_pck）：
+网页版要加 `--with-web` 才导出。单文件 exe 仍需携带 GDExtension 原生库
+（libterrain.windows.release.x86_64.dll），这是 Godot 的硬限制 —— pck 能嵌，
+dll 不能，所以发布物是「exe + dll」的 zip，不是单个裸 exe。
 
 顺序固定为 git → 导出 → 发布：
 - git 先行，导出失败也不影响当天代码留档；
@@ -7,7 +12,8 @@
 - 站点用固定 Site ID 原地更新，链接跨天不变。
 
 用法：
-    python3 scripts/daily_release.py               # 全流程
+    python3 scripts/daily_release.py               # Windows 单文件全流程
+    python3 scripts/daily_release.py --with-web    # 顺便发网页版
     python3 scripts/daily_release.py --skip-git    # 只打包发布
     python3 scripts/daily_release.py --skip-publish  # 只打包
 """
@@ -27,8 +33,13 @@ GODOT_DIR = ROOT / 'godot'
 BUILD = GODOT_DIR / 'build'
 WEB_DIR = BUILD / 'web'
 WIN_DIR = BUILD / 'windows'
+SINGLE_DIR = BUILD / 'windows_single'
 DIST = BUILD / 'dist'
 WIN_ZIP = DIST / 'sea-windows.zip'
+
+WEB_PRESET = 'Web'
+WIN_PRESET = 'Windows Desktop'
+SINGLE_PRESET = 'Windows Desktop (单文件)'
 
 WORK = Path(os.environ.get('SEA_WORK_ROOT', ROOT / 'sea-work'))
 RELEASE_DIR = WORK / 'release'
@@ -117,8 +128,17 @@ def save_state(state):
 
 
 def clean(path):
+    """清空目录。失败必须报出来 —— 静默失败会让旧产物混进新包。
+
+    2026-10-31 发生过：rmtree 静默失败，旧 index.bin 留在目录里，日志里
+    产物体积虚高到 309.5 MiB。体积异常还能肉眼发现，若哪天是 exe 残留、
+    打包时又按目录收集，就会把旧 exe 发上去。
+    """
     if path.exists():
         shutil.rmtree(path, ignore_errors=True)
+        if path.exists():
+            leftover = sum(1 for _ in path.rglob('*'))
+            raise OSError(f'目录清理失败，仍剩 {leftover} 项：{path}')
     path.mkdir(parents=True, exist_ok=True)
 
 
@@ -306,28 +326,97 @@ def export_platform(godot, preset, out_path, timeout, result, key):
     return code == 0
 
 
-def zip_windows(result):
-    """把 exe + pck 打成一个固定文件名的 zip，链接才能原地更新。"""
-    files = [p for p in (WIN_DIR / 'sea.exe', WIN_DIR / 'sea.pck') if p.exists()]
-    if len(files) < 2:
-        result['package']['windows_zip'] = '缺少 exe 或 pck'
+# ---------------------------------------------------------------- Windows 打包
+
+# 导出目录里这些后缀不进包：.import 是编辑器元数据，.uid 是 Godot 生成的资源
+# 标识，两者对运行都没用（.import 里有 dev 绝对路径）。
+PACK_SKIP_SUFFIX = {'.import', '.uid'}
+README_NAME = '运行说明.txt'
+
+README_SINGLE = (
+    'sea（Windows 版）\n\n'
+    '1. sea.exe 是单文件版，游戏包已内嵌在 exe 里，不需要额外的 .pck。\n'
+    '2. 同目录的 libterrain.windows.release.x86_64.dll 必须保留 —— 海床地形是\n'
+    '   GDExtension 原生插件，缺它游戏会加载失败（不是可选组件）。\n'
+    '3. 双击 sea.exe 即可运行。\n'
+)
+README_SPLIT = (
+    'sea（Windows 版）\n\n'
+    '1. 解压后双击 sea.exe 即可运行。\n'
+    '2. sea.pck 必须与 sea.exe 放在同一目录。\n'
+    '3. libterrain.windows.release.x86_64.dll 必须保留 —— 海床地形是 GDExtension\n'
+    '   原生插件，缺它游戏会加载失败（不是可选组件）。\n'
+)
+
+GDE_SECTION = 'windows.release.x86_64'
+
+
+def gdextension_libs():
+    """项目里 GDExtension 在 Windows x86_64 上要求的动态库文件名。
+
+    Godot 只能把 .pck 内嵌进 exe，原生库永远外置。所以「单文件 exe」严格说
+    是 exe + 每个 GDExtension 一个 dll。这里从 .gdextension 声明反查，避免
+    打包时漏库（2026-11-10 线上 zip 就是漏了 libterrain，整包跑不起来）。
+    """
+    libs = []
+    for gde in sorted(GODOT_DIR.rglob('*.gdextension')):
+        if 'build' in gde.parts:
+            continue
+        for line in gde.read_text(encoding='utf-8', errors='replace').splitlines():
+            head, sep, tail = line.partition('=')
+            if sep and head.strip() == GDE_SECTION:
+                rel = tail.strip().strip('"').replace('res://', '')
+                if rel:
+                    libs.append(rel)
+    return libs
+
+
+def assert_gdextension_libs(src_dir, result):
+    """导出目录必须含所有 GDExtension 原生库，缺一个就发不出去。"""
+    libs = gdextension_libs()
+    if not libs:
+        return True
+    missing = [lib for lib in libs if not (src_dir / Path(lib).name).exists()]
+    result.setdefault('package', {}).setdefault('gdextension', {
+        'required': libs,
+        'missing': missing,
+    })
+    if missing:
+        result['problems'].append(
+            f'GDExtension 原生库没被导出：{", ".join(missing)}（缺它游戏加载不了主场景）')
         return False
-    extra = None
-    extra_path = WIN_DIR / '运行说明.txt'
-    extra_path.write_text(
-        'sea（Windows 版）\n\n1. 解压后双击 sea.exe 即可运行。\n2. sea.pck 必须与 sea.exe 放在同一目录。\n',
-        encoding='utf-8',
-    )
-    extra = extra_path
+    return True
+
+
+def zip_windows(result, src_dir, readme_text):
+    """把导出目录里所有运行所需文件打成固定文件名的 zip。
+
+    不硬编码文件名 —— 2026-11-06 引入 Terrain3D 后，导出目录多了一个
+    libterrain dll，而打包仍按 sea.exe / sea.pck 白名单收集，dll 就被静默丢弃，
+    线上 Windows 包从此一律 `Failed loading scene: main.tscn`。
+    """
+    files = [p for p in sorted(src_dir.rglob('*'))
+             if p.is_file() and p.suffix.lower() not in PACK_SKIP_SUFFIX]
+    exes = [p for p in files if p.suffix.lower() == '.exe']
+    if not exes:
+        result['package']['windows_zip'] = f'缺少 exe：{src_dir}'
+        return False
+
+    readme = src_dir / README_NAME
+    readme.write_text(readme_text, encoding='utf-8')
+    if readme not in files:
+        files.append(readme)
+
     DIST.mkdir(parents=True, exist_ok=True)
     started = time.time()
     with zipfile.ZipFile(WIN_ZIP, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
-        for p in files + ([extra] if extra else []):
-            zf.write(p, arcname=p.name)
+        for p in files:
+            zf.write(p, arcname=str(p.relative_to(src_dir)).replace('\\', '/'))
     result['package']['windows_zip'] = {
         'path': str(WIN_ZIP),
         'mib': round(WIN_ZIP.stat().st_size / 1048576, 1),
         'seconds': round(time.time() - started, 1),
+        'files': [str(p.relative_to(src_dir)).replace('\\', '/') for p in files],
     }
     return True
 
@@ -511,6 +600,10 @@ def main():
     ap.add_argument('--skip-git', action='store_true')
     ap.add_argument('--skip-publish', action='store_true')
     ap.add_argument('--no-export', action='store_true', help='复用已有 build 产物，只发布')
+    ap.add_argument('--with-web', action='store_true',
+                    help='同时导出并发布网页版（默认只发 Windows 单文件版）')
+    ap.add_argument('--windows-split', action='store_true',
+                    help='改用 exe + pck 分离版预设（默认用单文件预设 embed_pck）')
     args = ap.parse_args()
 
     RELEASE_DIR.mkdir(parents=True, exist_ok=True)
@@ -534,36 +627,53 @@ def main():
         result['problems'].append('git rebase 被拒（工作区不干净），已中止导出与发布，需人工检查后重跑')
 
     godot = find_godot()
+    win_dir = WIN_DIR if args.windows_split else SINGLE_DIR
+    win_preset = WIN_PRESET if args.windows_split else SINGLE_PRESET
+    readme_text = README_SPLIT if args.windows_split else README_SINGLE
+    pack_target = (WIN_DIR / 'sea.pck') if args.windows_split else (SINGLE_DIR / 'sea.exe')
+
     if not args.no_export and not blocked:
         if not godot:
             result['problems'].append('找不到 godot 可执行文件')
             log('找不到 godot，跳过导出')
         else:
-            log(f'导出 Web（godot {godot}）')
-            clean(WEB_DIR)
-            if not export_platform(godot, 'Web', WEB_DIR / 'index.html',
-                                   WEB_EXPORT_TIMEOUT, result, 'web'):
-                result['problems'].append('Web 导出失败')
-            else:
-                result['export']['web']['mib'] = web_size_mib()
-                log(f'  Web 产物 {web_size_mib()} MiB')
-                if not patch_web_pack(result):
-                    result['problems'].append('Web 游戏包改名失败')
+            if args.with_web:
+                log(f'导出 Web（{WEB_PRESET}）')
+                try:
+                    clean(WEB_DIR)
+                except OSError as exc:
+                    result['problems'].append(f'Web 导出目录清理失败：{exc}')
                 else:
-                    check_pack_assets(result, WEB_DIR / 'index.bin', 'web')
-                    patch_web_tone(result)
-
-            log('导出 Windows')
-            clean(WIN_DIR)
-            if not export_platform(godot, 'Windows Desktop', WIN_DIR / 'sea.exe',
-                                   WIN_EXPORT_TIMEOUT, result, 'windows'):
-                result['problems'].append('Windows 导出失败')
+                    if not export_platform(godot, WEB_PRESET, WEB_DIR / 'index.html',
+                                           WEB_EXPORT_TIMEOUT, result, 'web'):
+                        result['problems'].append('Web 导出失败')
+                    else:
+                        result['export']['web']['mib'] = web_size_mib()
+                        log(f'  Web 产物 {web_size_mib()} MiB')
+                        if not patch_web_pack(result):
+                            result['problems'].append('Web 游戏包改名失败')
+                        else:
+                            check_pack_assets(result, WEB_DIR / 'index.bin', 'web')
+                            patch_web_tone(result)
             else:
-                check_pack_assets(result, WIN_DIR / 'sea.pck', 'windows')
+                log('跳过 Web 导出（默认只发 Windows 单文件版，需要时加 --with-web）')
 
-    if not blocked and (WEB_DIR / 'index.html').exists() and (WIN_DIR / 'sea.exe').exists():
+            log(f'导出 Windows（{win_preset}）')
+            try:
+                clean(win_dir)
+            except OSError as exc:
+                result['problems'].append(f'Windows 导出目录清理失败：{exc}')
+            else:
+                if not export_platform(godot, win_preset, win_dir / 'sea.exe',
+                                       WIN_EXPORT_TIMEOUT, result, 'windows'):
+                    result['problems'].append('Windows 导出失败')
+                else:
+                    check_pack_assets(result, pack_target, 'windows')
+
+    if not blocked and (win_dir / 'sea.exe').exists():
+        assert_gdextension_libs(win_dir, result)
         log('打包 Windows zip')
-        if not zip_windows(result):
+        if not zip_windows(result, win_dir, readme_text):
             result['problems'].append('Windows 打包失败')
     elif not blocked:
         result['problems'].append('缺少导出产物，跳过打包')
@@ -573,7 +683,7 @@ def main():
         if not publish_py:
             result['problems'].append('找不到 publish.py')
         else:
-            if (WEB_DIR / 'index.html').exists():
+            if args.with_web and (WEB_DIR / 'index.html').exists():
                 log('发布 Web 版')
                 if not publish(publish_py, WEB_DIR, state, 'web', result):
                     result['problems'].append('Web 发布失败')
