@@ -109,3 +109,19 @@ SEA-QUALITY-R01/R03/R04：阅读分享诊断并核对正式移动、航行、动
 ## 2026-11-07 主场景帧率诊断
 
 SEA-QUALITY-R03：隔离实景约 5.7–6.0 FPS，泛光开关差别小；时钟信号每帧两次触发居民日程同步，单次约 75–78 ms。渲染、普通处理和函数级对照、失败记录与未执行项见[诊断记录](../../development/2026-11-07_frame_diagnosis.md)。仅诊断，待后续修复及真实玩家档验证。
+
+## 2026-11-11 当前性能深审与无损优化方案
+
+SEA-QUALITY-R01/R02/R03/R04/R05：通过统一runner隔离当前Godot4.7.2/Forward+/RTX4060Ti工作树，正式Main函数、真实海面/室内/潜水消融与微基准均已重测。1600×1000关闭VSync海面帧p50约9.77–9.89ms、GPU7.28–7.32ms/绘制2410–2450；正常限速p95约31–32ms尚需线程/呈现追踪。室内诊断停室外处理A/B/A为5.357→3.940→5.349ms，绘制259、图元65691、GPU约1.627ms不变，支持纯表现停机优先；诊断粗停不是正式可直接接入方案。工坊隐藏SubViewport实际0→打开4→关闭0，排除持续后台渲染误判。水下Main保留同一身份，20/41/80m机位不签全地图；单次内存往返未据此判泄漏。
+
+visual-frame-functions、visual-frame-diagnosis、两轮visual-performance-audit与修正微基准均PASS/exit0；building-perf239/0、npc-performance61/0亦PASS/exit0。首次类型推断exit1与首次微探针字段错误exit0但runner FAIL均保留，错误样本不进入结论。Performance TIME计数滞后被明确排除归因。只新增审计探针、runner登记及文档，不改正式效果/玩法/存档/手摆transform，不接入性能改造；27项实施方案、证据路径、截图目检、警告、失败及未执行项见[完整审计记录](../../development/2026-11-11_performance_audit.md)。状态保持partial，发行包、真实玩家档、低端机、功耗及10次资源往返仍待测。最终契约同步exit1/75项、无参数exit1/77项（资产承接/哈希漂移/并发工坊摘要索引），未接受未知哈希；摆放6处/0警告与架构25服务/0问题均exit0。
+
+## 2026-11-11 无损优化第一批实施
+
+SEA-QUALITY-R01–R05：用户授权后落地14个正式源文件的等价范围，主场景transform、项目默认渲染配置、存档codec/schema及Boat/RoomController保持前快照。室内只裁纯表现提交，不停冷却/经营/时钟和公开资源root查询；CropView同阶段免遍历仍发公开信号；Interactor同轮reach与Main同次仲裁复用；HUD事件合并/笔记显示签名、晴天停重绘但模拟相位连续；Water静态dirty、BakeStore同t去重；1536原算法岸线单slot SHA256缓存。
+
+串行两轮室内三组p50中位6.222→4.782ms（23.14%）、5.236→4.458ms（14.86%），最终版本4.664ms；259draw/65691图元保持。海面收益波动，不签稳定FPS增加。1536岸线最终冷1397.965→热71.886ms，18MiB原始RGF字节相等、热EDT0；首次冷算仍在。海面/室内同相位1600×1000对照差异像素0。真实房间、天气与原生MultiMesh缓存118/0均通过，35PNG产出但仅指定图目检。
+
+最终functional-final12项PASS/exit0：equivalence19/0、room112/0、sleep42/0、npc-clock303/0、npc-perf61/0、building-perf239/0、坏档seed/protection、save-seed、framework-integration52/0、ocean-pickups48/0、fishery33/0；输入click/keyboard-panels/pick-mesh/facing/boat-contact和单测UI19/0、reach15/0、headless cache119/0、crops96/0亦通过。water-params与visual-corner-notebook仍失败，但工程外优化前src反向对照证实完全相同的10缺参/5旧UI标签，未新增或掩盖。初夹具错误及宿主中断日志保留、最终独立重跑补齐。
+
+仅登记本轮改前hash与原账本一致且已审阅验证的Notebook source和WaterSurface runtime两处，不接受Main/HUD/Fishery等既有未知漂移。最终契约sync76项/exit1、无参数78项/exit1；新增断链已消除，摆放6/0与架构25/0 exit0。完整源码范围、前后证据、27项逐条状态、未执行/回退见[实施记录](../../development/2026-11-11_performance_optimization.md)。整体保持partial，不签release/Web/低端机、功耗或完整27项已完成。

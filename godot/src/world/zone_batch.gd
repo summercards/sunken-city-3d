@@ -81,8 +81,7 @@ func build() -> void:
 
 ## 区块自己的时间（水下焦散/泡沫）。共享材质按批去重，这里统一推。
 func update_time(t: float) -> void:
-	for mat in BakeStore.timed_materials():
-		mat.set_shader_parameter("u_time", t)
+	BakeStore.update_time(t)
 
 
 func _build_lines(lines: Array) -> void:

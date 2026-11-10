@@ -158,3 +158,11 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
 |---|---|---|
 | SEA-FARM-R17 | 已实现并通过：`farm_plot.gd` 的 `hold_time = 0`（原读条），六个入口全部瞬发；作物表 6 种，笔记按 6 条一页自动分页 | `D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json` keyboard-farm-loop、keyboard-panels、initial-planters、farm-day-change、harvest-receive 全 PASS/exit0；`D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json` visual-keyboard-farm-loop PASS。测试侧两处旧契约断言已按事实修正：`keyboard-farm-loop` 由「开菜单前必须有 hold 进度」改为「触发式不读条、按一下就开菜单」；`keyboard-panels` 由「恰好两页」改为「按条目数算页数」。[总交付](../../development/2026-11-07_trigger_interaction.md)。功能仍 `partial`。 |
+
+## 2026-11-10 种植集合归档与 Farm 所有权边界（引用 SEA-ASSET-R63）
+
+本节只引用原有 `SEA-FARM-R11`、`SEA-FARM-R13`、`SEA-FARM-R17`，不新增 Farm 条款，也不把 Blender 集合当成玩法、存档或代码实现。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R63；SEA-FARM-R11/R13/R17 | 种植库包含24个四阶段组件、2设施、6手持、2装配，共34 Collection；其职责仍是可追溯的美术源归档。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`；最终源验证9047 checks/0 failures、`passed=true`，登记只给原AssetID增加 `library_refs`。Farm 规则、地格状态、播种/浇水/换天/收获、存档与手持动作的所有权仍由既有 Godot/Farm 与 Crop 条款持有；本轮代码变化仅为生产提取脚本与 runner 入口，JSON变化仅为三域既有记录增加 `library_refs`，未改玩法、运行资源、GDD或 `current_source_index`。`farm_plot` 实际 hash 与登记 hash 的既有差异按 `preserved_drift` 保留，不改原 `stage` / `source` / `hash`。 | [最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)；[最终源验证](../../../../sea-work/botanical_libraries/v001/source_verification.json)；[登记结果](../../../../sea-work/botanical_libraries/v001/registration.json)；[最终提取报告](../../../../sea-work/verification/20261110-095851-botanical-final-8de438/report.json)实际292/0、exit0。8个Cycles PNG已生成，两个overview与植被top已审阅但不冒称8图全细节目视通过；用户美术终审、性能、运行接入仍未签。全库sync/check日志因既有 manifest `asset_ledger` KeyError exit1且无同步写入。 |

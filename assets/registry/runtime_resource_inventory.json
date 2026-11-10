@@ -21,6 +21,54 @@
       "performance_log": "D:/projects/sea-work/verification/20261107-211435-npc-fps-after-fix-6e7a56/visual-frame-diagnosis.log",
       "performance_observation": "历史真实性能证据：glow_on 59.9434733046737 FPS，泛光保留；这是独立较早快照，不冒充本次重新测量。",
       "audit_note": "2026-11-07 仅签本轮 NPC 运行接线和天台站位内容；不签 Main、save/schema、水体、world_env、seabed、zone1、walk_area、actor/character、sunroom、鱼等其他并行变更。住宅 source/deferred 记录仅为历史，当前 main.tscn 无 resident_harbor 引用；不声明住宅仍挂主游戏，不升级既有 pending 资产状态，不授予原创增量以外的版权或源资产验收。"
+    },
+    "runtime_verified_002_v003": {
+      "external_reports": [
+        {
+          "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/report.json",
+          "sha256": "ac40c88a46711d566cce61907b846b447ca767e260a1f6ed85ef1a37cd73058f"
+        },
+        {
+          "path": "D:/projects/sea-work/verification/20261110-150026-wb002-neighbor-regression-fb097a/report.json",
+          "sha256": "a1212fcc2d7d66f0778c290905981ae4f1fb9600f449b96d3c36fa2d2a92392c"
+        }
+      ],
+      "report_labels": [
+        "wb002-v003-final",
+        "wb002-neighbor-regression"
+      ],
+      "scope": "仅签 water_building_002/v003 runtime 交付文件；不批量签源资产，不签商业/版权权益，不刷新 main 或旧001。",
+      "status": "runtime_verified_002_v003",
+      "counts": {
+        "target_file_count": 88,
+        "categories": {
+          "component_glb": 28,
+          "component_import": 28,
+          "component_wrapper": 28,
+          "assembly_glb": 0,
+          "assembly_import": 0,
+          "assembly_scene": 1,
+          "runtime_instances_json": 1,
+          "test_gd": 1,
+          "capture_gd": 1
+        },
+        "registered_new_file_count": 0
+      },
+      "verification": {
+        "ledger_rows": 29,
+        "manifest_backlinks": 29,
+        "package_sha256": 28,
+        "glb_sha256": 28,
+        "component_wrappers": 28,
+        "asset_import_exit_code": 0,
+        "external_reports_have_zero_failures": true
+      },
+      "global_runtime_inventory_drift": {
+        "drift_count": 61,
+        "missing_count": 0,
+        "reported_only": true,
+        "delivery_not_signed_green": true
+      }
     }
   },
   "resources": [
@@ -9859,10 +9907,15 @@
     },
     {
       "path": "godot/src/rendering/water_surface.gd",
-      "bytes": 8482,
-      "sha256": "e557d447d353144370b84e15b5fceb945005130de772ba2349c910013290f017",
+      "bytes": 9285,
+      "sha256": "088357ced297de9aca3dd185ecf824b1446950a55618622ed7f201b3878ad4be",
       "asset_id": null,
-      "status": "runtime_resource_verified"
+      "status": "runtime_resource_verified",
+      "performance_revision_20261111": {
+        "previous_sha256": "e557d447d353144370b84e15b5fceb945005130de772ba2349c910013290f017",
+        "verification": "docs/development/2026-11-11_performance_optimization.md",
+        "scope": "仅静态参数dirty提交，wave/scale修改和材质切换测试通过，海面冻结配对截图零像素差；不接受Main/hud/fishery等改前已漂移的哈希。"
+      }
     },
     {
       "path": "godot/src/residence/resident_harbor.gd",
@@ -10860,6 +10913,798 @@
       "bytes": 137876,
       "status": "runtime_verified_sealed_interior_20261108",
       "audit_note": "2026-11-08 水下建筑封闭（v006 封闭版 / v008 高楼版）后的实测哈希。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/story_wall/story_wall.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-STORY-WALL",
+      "sha256": "701ea67ac60896cfc3c2c2e95e4ff385866afee23dc6b5d01e647c820e8f7685",
+      "bytes": 16416,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/story_wall/story_wall.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-STORY-WALL",
+      "sha256": "ffaea8c20f2193a9ae32ac05193f12a3d8f8113135d422e533af7055bd8c557c",
+      "bytes": 1211,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/story_wall.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-STORY-WALL",
+      "sha256": "f5ec7dd45c26400288772aa820d5bb812e1dc3224489446ff2f56b92f4408742",
+      "bytes": 855,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/ground_wall/ground_wall.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-GROUND-WALL",
+      "sha256": "8cb92841a839939fb8b52e6c660b8961bad6e0c2bd610e57ea596de55d02d1fd",
+      "bytes": 13828,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/ground_wall/ground_wall.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-GROUND-WALL",
+      "sha256": "dd4d9691e0e20e3b2ce7a72c11d22a0315af2b67ba703e2eb6bdcc1a0cdca4c1",
+      "bytes": 1216,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/ground_wall.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-GROUND-WALL",
+      "sha256": "43c7cfb9f0df065b687d76b8f5ff8216c6f23fd68e5ad8de1f33ac78006811cc",
+      "bytes": 860,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/deck/deck.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "sha256": "531be6985ec47892f7555f3dd13175590a8758bcb9c48fb375e162bba7b7cff8",
+      "bytes": 4624,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/deck/deck.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "sha256": "aab8c91e8b5bd8550a83d8275c0d695b94a7b1733d0f0f3faed569b3ab47de3d",
+      "bytes": 1188,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/deck.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "sha256": "db5407b1f9105ab1a2cd9320eef3d153e87765b82ab92fb7b21cf566a9a8439d",
+      "bytes": 825,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/floor_slab/floor_slab.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB",
+      "sha256": "55b7fe9562c65b005e7dd82dc6e58799315b5ad5853ee5efb1becc6c6832c2e4",
+      "bytes": 4628,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/floor_slab/floor_slab.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB",
+      "sha256": "9b9d82af94aed5f23058d6497acd257ccc912dc046bd754fb74fa3402cc0e9d8",
+      "bytes": 1212,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/floor_slab.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB",
+      "sha256": "5324c5c0c4b285f9931ccea252e21a91751dc7dacd523e71323357854cf7dab1",
+      "bytes": 854,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/parapet/parapet.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PARAPET",
+      "sha256": "60ebc9e80deef609807aba58c03f8ed182b50b960d21a24e6f21672f3db000b1",
+      "bytes": 4620,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/parapet/parapet.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PARAPET",
+      "sha256": "07fe90c57bb96125c08b2578e2cd7a61b0e0dc9662d86e159855764d160ca016",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/parapet.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PARAPET",
+      "sha256": "dd09df4797b471bbe6817a98b7d40f7692ee8fb77a147e19f4535fde97794067",
+      "bytes": 837,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/front_window/front_window.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW",
+      "sha256": "e7c762306e466850d1d5ef86d9d20fb89de7ab4a6767ebf8e073e2978441b375",
+      "bytes": 7892,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/front_window/front_window.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW",
+      "sha256": "da3573a0b760fd88eb7548585cb75d8240dbbb1d01f1f220bcf6c4254678fe9d",
+      "bytes": 1219,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/front_window.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW",
+      "sha256": "eba9233e3e4826f11927d437297f716e216364f41f970576e54103f417efb417",
+      "bytes": 1087,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/side_window/side_window.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW",
+      "sha256": "5faf050739b3b5026c174716f2b271524a4259057631be3621efe60dd5752553",
+      "bytes": 5404,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/side_window/side_window.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW",
+      "sha256": "ed45dbd928b19acbd0efa55573edb0f8f523f0fe6d85031735c46277dff8ba52",
+      "bytes": 1215,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/side_window.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW",
+      "sha256": "378e4337721b20e72f0ede131dd474b12b0f79c6f55a99f11cea851a5cb5fbde",
+      "bytes": 1086,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/entry/entry.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY",
+      "sha256": "3dc7ae96862935391834653e9d0bdb50dcd148291a0da1a0e43b59f0928d4da3",
+      "bytes": 7904,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/entry/entry.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY",
+      "sha256": "75bbc60dafea3274dd2e1d7b481f904465a32edad0df5ae58aa76cf77fc86bfa",
+      "bytes": 1191,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/entry.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY",
+      "sha256": "9463d886a53654552cb91fde76bdeef0fd9353749234368144e04bc684c964e6",
+      "bytes": 1060,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/balcony/balcony.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "sha256": "e280fe58fd7d666f579320a138b44446f3f87d1e746d941dbf8e8f95f1d4d69f",
+      "bytes": 14040,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/balcony/balcony.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "sha256": "88eb108e85852236ade9d8cb13f489475b16bedd16f852ca049884c5898b5dd3",
+      "bytes": 1199,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/balcony.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "sha256": "a76d543de51fbbb26db85ce797931f2b8bd19c4e9dfcaf2fe2a1cd7321451eab",
+      "bytes": 1068,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/ac_unit/ac_unit.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-AC-UNIT",
+      "sha256": "203d6c87b42dd79bca8aaf19f704a30b7466430f288a5c5b3ed9c4a0cde64cd0",
+      "bytes": 3816,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/ac_unit/ac_unit.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-AC-UNIT",
+      "sha256": "ea5691c499cb7e41deced6af9988992ed235d638fd5a22bec77c7e78a44a46d4",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/ac_unit.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-AC-UNIT",
+      "sha256": "1563aea78621fe5891dfc5da8833734b895b5184c5ca88987d39ebb92511ae47",
+      "bytes": 843,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/pipe/pipe.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "sha256": "cdae1557a52da0b53112e2cc20abe8d02b4d3ec625d1237cc7b6bb3b4b2800a4",
+      "bytes": 4168,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/pipe/pipe.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "sha256": "b3a076b6b5e78cbb22633922a22df5488c6d36410f765074b4c6bee1db4a9a74",
+      "bytes": 1188,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/pipe.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "sha256": "daecde8581c66f6e03ff9c32ba6ae02b45af897ba47b8a9675a03e370429a861",
+      "bytes": 827,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/switchbox/switchbox.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX",
+      "sha256": "fad4cd3010f178e85d325927f08bc5434704fe99c8068f1dabe69099c937aa6a",
+      "bytes": 2976,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/switchbox/switchbox.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX",
+      "sha256": "e8fd3f3406ebcab8f96b6c8b4df1f2f992c23fdd1cf057b090b84a902a939f23",
+      "bytes": 1208,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/switchbox.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX",
+      "sha256": "2bbc32ac9c5058be082eb173589b416c4bd1adef8f7629c3c6795516d32729f9",
+      "bytes": 852,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/solar_panel/solar_panel.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL",
+      "sha256": "f2708758d26ad615a474e3a8f5fe29ce8f6c97ee2251f23286116233d13b3aeb",
+      "bytes": 6460,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/solar_panel/solar_panel.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL",
+      "sha256": "ac0a8940ec77b1381a93c7c1248a64ac892a431d89cb3237e7c55aeed51c0918",
+      "bytes": 1216,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/solar_panel.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL",
+      "sha256": "49a3e21b82e273ea10936a58d56921f1e0a69af026c862aafc41e2c13c72bafb",
+      "bytes": 1302,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/solar_frame/solar_frame.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-FRAME",
+      "sha256": "8a515f732e41d52eee2e539d592d5e9ba1f9114f1f1945659b92324790ab8839",
+      "bytes": 4656,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/solar_frame/solar_frame.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-FRAME",
+      "sha256": "d271ebbc9439fdbcd5f76385faf0dd092679016c674d3b127aba04d1e28c25e4",
+      "bytes": 1214,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/solar_frame.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-FRAME",
+      "sha256": "40328bab216f6bcf378a687a168a9a24638a7ba7aec9b3119013717f670a12d1",
+      "bytes": 861,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+      "sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e",
+      "bytes": 6696,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+      "sha256": "468f7acd5868f6dfa540093e518e667834a5a33c660a1f8206ae54a13f475692",
+      "bytes": 1227,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/roof_utilities.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+      "sha256": "a2ddb53ee8ffc1a6abfb4570fed262be75d1b4a3791348ecd846b4fa9198fea4",
+      "bytes": 879,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/antenna/antenna.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ANTENNA",
+      "sha256": "753011e3c0671b3b02d5d90759bb01cdbfb7a1ffb81220c9fb8751af16cb40bb",
+      "bytes": 3692,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/antenna/antenna.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ANTENNA",
+      "sha256": "447c7868a3f3f09b9479df43110a00843491e349cc80939384e8cd5cb46d3d28",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/antenna.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ANTENNA",
+      "sha256": "ed022e61848de11b8ba66d598daa17f9ce4cbaa4588e8adae833443b5a48854d",
+      "bytes": 841,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/trunk_a/trunk_a.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-A",
+      "sha256": "b04e460a2ea1426e09d7b7d123730ca21aca5c546eb9de8791419b2fa11138e7",
+      "bytes": 19840,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/trunk_a/trunk_a.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-A",
+      "sha256": "aa988e5812cd6708759077e0c3af3b69e5372db04bdcd6da9294e279842a4013",
+      "bytes": 1198,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/trunk_a.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-A",
+      "sha256": "d54941148916f1f0e7c27b7a04e71053ddfac2b28644620f9cab9a2467c5ba5c",
+      "bytes": 794,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/trunk_b/trunk_b.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+      "sha256": "a7408d1e114c1507c49d4cd283e90007464e3d38199574a7fef04b8cad07b0a2",
+      "bytes": 12824,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/trunk_b/trunk_b.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+      "sha256": "21385a412904d27c35a3a81960c5c319d45d8b8099b1310bb10b31235e506c66",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/trunk_b.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+      "sha256": "851ab07b714759dab177b0ea4547c9fbda9554bd7c7e8f25207bc435249a3c6f",
+      "bytes": 793,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/crown_a/crown_a.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-A",
+      "sha256": "125cb63aa7c961c72afd74a86f3c19c17db8a32e7d381133ba4c41f84ca09218",
+      "bytes": 5876,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/crown_a/crown_a.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-A",
+      "sha256": "b6d0ac901c0d3d5439a1b21a724eaa4f59255d913f7caa4536916bdeb8d22cc7",
+      "bytes": 1199,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/crown_a.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-A",
+      "sha256": "55fc53a3088ecb2bf23b7170035b166e83444e18074ace354b13bfacb8a48eca",
+      "bytes": 792,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+      "sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f",
+      "bytes": 4728,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+      "sha256": "4295859cff2591dee84f8a6be1bd519e2558dcc627f362ada011259aec496fef",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/crown_b.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+      "sha256": "f6fbc0c4b3db348e54732be6fa0db8bb5e043eccaf48f5dc0f1f9bd388f2e850",
+      "bytes": 794,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/vine/vine.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-VINE",
+      "sha256": "cf927ffdbe0704da104486bb037834e6bfcd881a3407b5f585bcc9b79c230096",
+      "bytes": 6188,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/vine/vine.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-VINE",
+      "sha256": "177438ac3e5e12363989a50f2a3d4f2d4ae20f025b7ee597d06e19e8109d8d15",
+      "bytes": 1188,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/vine.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-VINE",
+      "sha256": "fdd5fe726922ab93fec2998c246fdbba86f490a52b6fb02dc16d72a2070befca",
+      "bytes": 778,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/planter/planter.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "sha256": "312a44009f9979b121d8a2fc0667109aec93d66320a2b4f6aac8386b8e0d6caf",
+      "bytes": 5476,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/planter/planter.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "sha256": "71827b88e983972e4380e310c38239fc2eb5546123e0d8d85b36a1d0b27c4c67",
+      "bytes": 1200,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/planter.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "sha256": "846e15b9062cfe5151b2407126050067217ce2497f88c16c5015f411c5e22f0e",
+      "bytes": 841,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/flower/flower.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOWER",
+      "sha256": "f59449efdc5618351c6d31b95b357d53e96ef92ee500005a11927c0c2855f648",
+      "bytes": 5828,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/flower/flower.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOWER",
+      "sha256": "696e1468da84d8255143c3dd71ec600a0af987cf5e4c245c9b8a741cd080d919",
+      "bytes": 1196,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/flower.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOWER",
+      "sha256": "2065261cfb8ceaa490aa5d3e4e8831e255dec57c178776dcb0d5179cfb917a95",
+      "bytes": 784,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/wall_patch/wall_patch.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH",
+      "sha256": "d121666f373fe6ef8abc61bb66f8fc0d80201b9ecbc80640761ea2017d52226a",
+      "bytes": 1428,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/wall_patch/wall_patch.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH",
+      "sha256": "1cdbc345ff7446641a58edf680601c73ad1341cd5d6df2d62e2868c45618ede4",
+      "bytes": 1212,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/wall_patch.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH",
+      "sha256": "ba2b7f4a4fba4f9890b68b61b9f1f592b9a9feec4d2415be470a9c305d05cc30",
+      "bytes": 857,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/brace/brace.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BRACE",
+      "sha256": "5aa920f86acc8168acb3aaafaaaadc2f6d0481f5de700cf3420ad11524cbbbd7",
+      "bytes": 4640,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/brace/brace.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BRACE",
+      "sha256": "9f0d91c6dcaf49e1a1b60fe9dee1147eab3320dab0a5078ad5e61ebe3f33a6f8",
+      "bytes": 1192,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/brace.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BRACE",
+      "sha256": "d2777461f80cee9338502c8d5d0aa88e9ea2632339d696b505256229289c511a",
+      "bytes": 833,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/orange_tank/orange_tank.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ORANGE-TANK",
+      "sha256": "5cfa12fa0b5820924441adaf934bb84ee1d3db3783aedb24e3e49ade47f74bd6",
+      "bytes": 5452,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/orange_tank/orange_tank.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ORANGE-TANK",
+      "sha256": "ddff3dc1c9ab350ae09e2b5d35eb688571a69feca260b883b5ec59f50879b32e",
+      "bytes": 1216,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/orange_tank.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ORANGE-TANK",
+      "sha256": "4643f0b45d013cb43e34027dfd4b88f08a619a3c292394b000fefc219a766df4",
+      "bytes": 865,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/small_sign/small_sign.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN",
+      "sha256": "ff2b60bb9a125c92431e810ee15c013552262ad38cb8c8d4b37f571c49116de4",
+      "bytes": 5492,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/small_sign/small_sign.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN",
+      "sha256": "64e02746b3785790c4fd14fe752c8d4cc31ace2ff436a2dbe3563d704f7af736",
+      "bytes": 1212,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/small_sign.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN",
+      "sha256": "1b3b8d19ac04ee56a4090f6b6c5d5ffb5a65e8cfb8bb96602db1df7a03935410",
+      "bytes": 863,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/entry_step/entry_step.glb",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+      "sha256": "341ddfb428503ad171add9753f4de6d6d71f76c2b026133f33d8f4c2673a206f",
+      "bytes": 4636,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/models/facilities/water_building_002/components/entry_step/entry_step.glb.import",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+      "sha256": "4ce8517f2c1457b73e0fb6a617e20016ef98e4e45f45a8c948b42f7b989194ca",
+      "bytes": 1212,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/components/facilities/water_building_002/entry_step.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+      "sha256": "6b207a60adf5d12d6114688e04e2ae71f44c9d3b11dc11540388695b0ee6aee4",
+      "bytes": 857,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/scenes/facilities/water_building_002.tscn",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+      "sha256": "f6c490f2e4b19981238c9d68a69ce59b5a658293355bd5c7fd37bad619d43d87",
+      "bytes": 78898,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/assets/data/water_building_002_instances.json",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+      "sha256": "807b853b131adf9917cbe7813b4c97b4711e4f3955d8832c3f0ce3dc738c716d",
+      "bytes": 118697,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/tests/test_water_building_002.gd",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+      "sha256": "40dd4cb88f71063c128126e179d8d85a432a93f912c5203fec8d272f6f7e167c",
+      "bytes": 11325,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
+    },
+    {
+      "path": "godot/tools/capture_water_building_002.gd",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+      "sha256": "5095b2dbff6e42002ab57e2829ead2bf66986adb21529426a5ecba83bdeeac08",
+      "bytes": 5658,
+      "status": "runtime_verified_002_v003",
+      "runtime_verification": "runtime_verified_002_v003",
+      "audit_note": "002 v003 runtime 交付；仅登记本次 002 运行文件，不批量签源资产，不签商业/版权权益。"
     }
   ]
 }

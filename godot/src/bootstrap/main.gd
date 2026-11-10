@@ -46,6 +46,7 @@ const SaveGameLib = preload("res://src/save/save_game.gd")
 const NpcServiceScript = preload("res://src/npc/npc_service.gd")
 const NpcCatalog = preload("res://src/npc/npc_catalog.gd")
 const ShopServiceScript = preload("res://src/shop/shop_service.gd")
+const WorkshopHostScript = preload("res://src/workshop/host.gd")
 
 ## 自动存档间隔（秒）：太勤会在航行中反复写盘，太稀又容易丢进度。
 const AUTOSAVE_SECONDS := 120.0
@@ -220,9 +221,11 @@ var _garden_spoken_day := -1
 var _garden_probe_cooldown := 0.0
 var shop_panel
 var npc_career_panel
+var workshop_host
 var _npc_previous_modal_query: Callable
 var _npc_previous_modal_close: Callable
 var _npc_previous_modal_input: Callable
+var _npc_previous_modal_camera_query: Callable
 var weather_view: Node2D
 ## 昼夜光照。时段不再靠屏幕叠加伪造，而是真的去动太阳、环境光、天空与水面反射；
 ## 资源里的值是它的09:00基准，见 `src/rendering/daylight_rig.gd`。
@@ -304,12 +307,14 @@ func _ready() -> void:
 	_apply_play_scope()
 	hud.presenter_sources = {"camera":cam_panel,"grade":grade,"orders":order_panel,"salvage":salvage_panel,"prompt":prompt,"hover":hover}
 	_setup_actor_controller()
+	_setup_ladders()
 	ensure_move_keys()
 	_setup_calendar()
 	_setup_sleep()
 	_setup_room()
 	_setup_building()
 	_setup_npc_systems()
+	_setup_workshop()
 	_setup_save_registry()
 	_setup_avatar()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
@@ -1198,10 +1203,10 @@ var _near_landing_id := ""
 ## 图标 = 「这里现在能操作」的唯一提示，所以**每一个可执行的入口都要出图标**：
 ## 岸上贴着船、船上开进泊位、站在采集点旁、海面上够得着漂流物。缺了哪一处，
 ## 玩家就只会读到「东西在那儿但我点不动」。
-func _update_near_interaction() -> void:
+func _update_near_interaction(arbitrated: Variant = null) -> void:
 	if hover == null:
 		return
-	var action := _near_action()
+	var action: Dictionary = _near_action() if arbitrated == null else arbitrated
 	_near_kind = str(action.get("kind", ""))
 	_near_landing_id = str(action.get("dock", {}).get("landing", ""))
 	if action.is_empty():
@@ -2384,6 +2389,10 @@ func _on_click_command(command: String) -> void:
 		hud.toast("请先关闭当前操作面板")
 		return
 	match command:
+		"building_workshop":
+			if workshop_host != null:
+				var opened: Dictionary = workshop_host.open()
+				if not opened.get("ok", false): hud.toast(str(opened.get("reason", "当前状态不允许打开楼房工坊")))
 		"craft":
 			cam_panel.set_open(false);grade.set_open(false);building_controller.open()
 		"follow":
@@ -2489,6 +2498,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if hud.narrative_active():
 		_world_press=false
+		return
+	if workshop_host != null and workshop_host.is_open():
+		_world_press = false
 		return
 	# 潜水时输入归海底世界（游动 / 环视 / 宝箱），海面这边一律不响应。
 	if dive != null and dive.active:
@@ -3007,10 +3019,10 @@ func _landing_is_docked() -> bool:
 ## 隔着几米没法出发就断手了。既然 E 会开船，提示就不能空着：
 ## 旧实现在 3 米处提示为空、按 E 船却直奔漂流物，正是「提示 ≠ 按键」。
 ## 这里补上与 `_press_boat_key()` 兜底同源的判断。
-func _boat_shortcut_text() -> String:
+func _boat_shortcut_text(arbitrated: Variant = null) -> String:
 	if hud == null or not is_instance_valid(hud) or input_blocked():
 		return ""
-	var action := _near_action()
+	var action: Dictionary = _near_action() if arbitrated == null else arbitrated
 	match str(action.get("kind", "")):
 		"boat_board": return "上船"
 		"boat_leave": return "上岸"
@@ -3392,8 +3404,10 @@ func _on_upgrade_ship() -> void:
 func _process(delta: float) -> void:
 	if dive != null and dive.switching: return
 	_t += delta
+	# The public CPU wave clock remains continuous even with hidden rendering.
+	if water_node != null: water_node.time = _t
+	if weather_view != null: weather_view.advance_time(delta)
 	if _title_active:
-		_active_water_mat().set_shader_parameter("u_time",_t)
 		if water_node.has_method("update_surface"): water_node.update_surface(_t,boat,cam.target)
 		return
 	sleep_cycle.advance(delta)
@@ -3401,39 +3415,46 @@ func _process(delta: float) -> void:
 		if building_controller!=null and building_controller.active: building_controller.close()
 		return
 	# SleepCycle.advance owns this frame's single, bedtime-capped clock tick.
-	props.sync_population(world_clock.query(),boat.position)
+	var clock_snapshot: Dictionary = world_clock.query()
+	var inside_room: bool = room_service != null and room_service.inside
+	props.sync_population(clock_snapshot,boat.position)
 	_tick_garden_greeting(delta)
 	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
 	if weather_view != null:
-		weather_view.present(world_clock.query(),weather_service.query(),dive.active)
-		# 同一份时钟查询驱动真实光照；屏幕层只负责雨线。
+		var weather_snapshot: Dictionary = weather_service.query()
+		weather_view.present(clock_snapshot,weather_snapshot,dive.active)
+		# 连续时间仍驱动屋内日照；HUD 仅在显示文字改变时提交。
 		if daylight_rig != null:
-			daylight_rig.apply(world_clock.query().hour)
-		_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
+			daylight_rig.apply(clock_snapshot.hour)
+		var calendar_text: String = clock_snapshot.text + " · " + weather_snapshot.label
+		if _calendar_label.text != calendar_text: _calendar_label.text = calendar_text
 		_calendar_label.visible = not dive.active
 	if _autosave_on:
 		_autosave_left -= delta
 		if _autosave_left <= 0.0:
 			# 自动存档静默执行，不打断操作；F5 手动存档才有提示。
 			save_game("", true)
-	if environment != null and environment.has_method("update_time"):
-		environment.update_time(_t)
-	for zone in _zone_nodes.values():
-		if zone.has_method("update_time"):
-			zone.update_time(_t)
+	if not inside_room:
+		if environment != null and environment.has_method("update_time"):
+			environment.update_time(_t)
+		for zone in _zone_nodes.values():
+			if zone.has_method("update_time"):
+				zone.update_time(_t)
 	# 交互只在岸上、站定时开放：船上/航行中/潜水都不该出现采集提示。
 	if interactor != null:
 		interactor.active = (not dive.active) and (not _walking) \
 			and GameState.mode == GameState.Mode.ASHORE and not input_blocked()
+	# One read-only arbitration per presentation update; actual input paths still
+	# re-query immediately and never consume a cross-frame target cache.
+	var near_action := _near_action()
 	if prompt != null:
-		prompt.shortcut = _boat_shortcut_text()
+		prompt.shortcut = _boat_shortcut_text(near_action)
 		prompt.update_from(interactor)
 	_update_pointer_ui()
-	_update_near_interaction()
+	_update_near_interaction(near_action)
 	_update_camera_feedback(delta)
-	_active_water_mat().set_shader_parameter("u_time", _t)
-	if water_node.has_method("update_surface") and not dive.active:
+	if water_node.has_method("update_surface") and not dive.active and not inside_room:
 		water_node.update_surface(_t, boat, cam.target)
 	# 拾取：推进当前这一轮（航行→打捞→结算都在里面）。
 	_update_pickup_progress(delta)
@@ -3441,8 +3462,6 @@ func _process(delta: float) -> void:
 	# 顺序在推进之后：先让上一轮结算/收条，再考虑开新一轮。
 	if props != null and not dive.active:
 		_start_idle_pick()
-	if boat != null:
-		_active_water_mat().set_shader_parameter("u_boat", boat.wake_uniform())
 
 
 ## 调试用：切换静态几何来源（baked / models），用于两条路径的画面比对。
@@ -3527,7 +3546,7 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or _exhausted_rest or (dive != null and dive.switching) or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or _exhausted_rest or (workshop_host != null and workshop_host.is_open()) or (dive != null and dive.switching) or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
@@ -3552,6 +3571,31 @@ func _setup_actor_controller() -> void:
 		var was: int = int(_last_mode.value)
 		_last_mode.value = mode
 		if mode == 0 and was != 0 and Economy.farm != null: Economy.farm.refill())
+
+## 街区里的既有直梯（目前只有霓虹花园左楼检修梯脚下那一架）。
+##
+## 为什么必须由 Bootstrap 注入：climb_ladder 是 ActorController 的方法，而
+## ActorController 是主场景持有的 RefCounted、不在节点树上 —— 交互物顺着
+## parent 找不到它。阳光房那架梯子同样是在这里 configure 的。
+##
+## 这里只补世界高度：两个交互点已经在场景里摆好（浮台上 / 第一级平台上），
+## 缺的只是「从 1.12 爬到 4.83」这两个数。
+const NEON_LADDER_BOTTOM := 1.12
+const NEON_LADDER_TOP := 4.83
+
+func _setup_ladders() -> void:
+	var quarter: Node = _zone_nodes.get("neon_garden_quarter")
+	if quarter == null:
+		return
+	var bottom: Node = quarter.get_node_or_null("Ladders/StairFootBottom")
+	var top: Node = quarter.get_node_or_null("Ladders/StairFootTop")
+	if bottom == null or top == null:
+		return
+	if not bottom.has_method("attach") or not top.has_method("attach"):
+		return
+	var climb := Callable(actor_controller, "climb_ladder")
+	bottom.attach(climb, "up", NEON_LADDER_BOTTOM, NEON_LADDER_TOP, bottom)
+	top.attach(climb, "down", NEON_LADDER_BOTTOM, NEON_LADDER_TOP, top)
 
 func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
@@ -3808,9 +3852,11 @@ func _setup_npc_systems() -> void:
 	_npc_previous_modal_query = hud.owned_modal_query
 	_npc_previous_modal_close = hud.owned_modal_close
 	_npc_previous_modal_input = hud.owned_modal_input
+	_npc_previous_modal_camera_query = hud.owned_modal_camera_query
 	hud.owned_modal_query = _npc_owned_modal
 	hud.owned_modal_close = _npc_close_modal
 	hud.owned_modal_input = _npc_modal_input
+	hud.owned_modal_camera_query = _npc_owned_modal_camera_query
 	npc_world_presenter.modal_changed.connect(_on_npc_modal_changed)
 	npc_world_presenter.action_requested.connect(_on_npc_career_requested)
 	var stations: Node3D = get_node_or_null("World/SeaStructures/rooftop_ranch/NpcStations") as Node3D
@@ -3829,6 +3875,48 @@ func _setup_npc_systems() -> void:
 	npc_world_presenter.panel.set_dialogue_view(hud.dialogue)
 	world_clock.changed.connect(_on_npc_clock_changed)
 	_setup_garden_greetings()
+
+func _setup_workshop() -> void:
+	workshop_host = WorkshopHostScript.new()
+	workshop_host.name = "WorkshopHost"
+	add_child(workshop_host)
+	workshop_host.configure({
+		"hud": hud,
+		"parentNode": self,
+		"can_open": _workshop_can_open,
+		"before_open": _workshop_before_open,
+		"after_close": _workshop_after_close})
+
+func _workshop_can_open() -> String:
+	if _title_active: return "标题或开场流程进行中"
+	if sleep_cycle != null and sleep_cycle.busy: return "睡觉过场进行中"
+	if dive != null and (dive.active or dive.switching): return "潜水或地图切换进行中"
+	if avatar_session != null and avatar_session.active(): return "角色档案编辑进行中"
+	if hud != null and hud.narrative_active(): return "对话或新手引导进行中"
+	if arrival_flow != null and arrival_flow.phase != "idle": return "登岸流程进行中"
+	if room_service != null and room_service.inside: return "室内不能打开楼房工坊"
+	if save_registry != null and save_registry.is_busy(): return "正在结算或恢复，请稍后再试"
+	if building != null and building.busy(): return "建筑状态正在处理"
+	if _npc_owned_modal(): return "请先关闭当前操作面板"
+	return ""
+
+func _workshop_before_open() -> void:
+	_world_press = false
+	_dragged = false
+	actor_controller.cancel()
+	interactor.require_release()
+	interactor.active = false
+	if hud != null:
+		hud.close_card()
+	if cam_panel != null: cam_panel.set_open(false)
+	if grade != null: grade.set_open(false)
+	if hover != null: hover.clear()
+	if hud != null and hud.menu != null and hud.menu.active: hud.menu.close_menu()
+
+func _workshop_after_close() -> void:
+	_world_press = false
+	if hud != null:
+		hud.set_external_modal(_npc_owned_modal() or hud.menu.external_open(), false)
 
 func _legacy_shop_snapshot() -> Dictionary:
 	var view: Dictionary = shop_service.shop_snapshot("shop_general")
@@ -3869,6 +3957,9 @@ func _npc_modal_input(event: InputEvent) -> bool:
 	if npc_career_panel != null and npc_career_panel.is_open(): return npc_career_panel.handle_input(event)
 	if npc_world_presenter != null and npc_world_presenter.is_modal(): return npc_world_presenter.handle_input(event)
 	return _npc_previous_modal_input.is_valid() and _npc_previous_modal_input.call(event)
+
+func _npc_owned_modal_camera_query() -> bool:
+	return (workshop_host != null and workshop_host.is_open()) or (_npc_previous_modal_camera_query.is_valid() and _npc_previous_modal_camera_query.call())
 
 func _on_npc_modal_changed(active: bool) -> void:
 	hud.set_external_modal(active or _npc_owned_modal() or hud.menu.external_open(), false)

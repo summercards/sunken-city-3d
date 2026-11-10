@@ -124,7 +124,9 @@ func run() -> void:
 		check(not route.is_empty(), "起点在缓冲里也能规划到泊位（路径 %d 点）" % route.size())
 
 	# ---- 3. 停在泊位旁边、身份还是上一个泊位：按 E 不许报「无法到达」 ----
-	var spot := berth_spot_near(salvage, 1.6, 2.8)
+	# 取样半径必须大于 DOCK_SETTLE_TOLERANCE（1.6 m）：探针按 1.6 取点时正好压在
+	# 「已靠妥」的边界上，船只要不漂就恒判失败（zone1 绞盘泊位挪远后即如此）。
+	var spot := berth_spot_near(salvage, 1.7, 2.8)
 	check(spot.is_finite(), "绞盘泊位旁边有可停的合法水面")
 	if not spot.is_finite():
 		spot = salvage + Vector3(2.2, 0.0, 0.0)

@@ -1,0 +1,327 @@
+{
+  "schema": "sea.scene.component_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+  "key": "crown_b",
+  "source_blend": "art_source/scenes/water_building_002/v003/component_packages/crown_b/crown_b.blend",
+  "source_version": "v003",
+  "source_sha256": "04ef2f7542a227df433e2689dd1d599d622a8146b05f05ee32ff4ab72e785223",
+  "source_28_components": 28,
+  "source_plant_or_null": true,
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-CROWN-B.004",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 3,
+    "mesh_names": [
+      "WB002V2_SunnyFoliage.016",
+      "WB002V2_SunnyFoliage.017",
+      "WB002V2_SunnyFoliage.018"
+    ],
+    "vertices": 36,
+    "polygons": 60,
+    "triangles": 60,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -2.246020793914795,
+        -1.6776306629180908,
+        0.0
+      ],
+      "max": [
+        2.246020793914795,
+        1.6776306629180908,
+        1.804013729095459
+      ],
+      "size": [
+        4.49204158782959,
+        3.3552613258361816,
+        1.804013729095459
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "bottom_center_transform": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "bottom_center_transform": {
+    "passed": true,
+    "contract": "component mesh masters retain identity object transforms; placement belongs to collection instances",
+    "expected_design_pivot": [
+      0.24383652210235596,
+      -0.1181134581565857,
+      -0.7088301777839661
+    ],
+    "instance_offset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "non_identity_mesh_objects": []
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "package_sha256_before_reopen": "04ef2f7542a227df433e2689dd1d599d622a8146b05f05ee32ff4ab72e785223",
+  "package_sha256_after_reopen": "04ef2f7542a227df433e2689dd1d599d622a8146b05f05ee32ff4ab72e785223",
+  "reopen_stats": {
+    "meshes": 3,
+    "mesh_names": [
+      "WB002V2_SunnyFoliage.016",
+      "WB002V2_SunnyFoliage.017",
+      "WB002V2_SunnyFoliage.018"
+    ],
+    "vertices": 36,
+    "polygons": 60,
+    "triangles": 60,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -2.246020793914795,
+        -1.6776306629180908,
+        0.0
+      ],
+      "max": [
+        2.246020793914795,
+        1.6776306629180908,
+        1.804013729095459
+      ],
+      "size": [
+        4.49204158782959,
+        3.3552613258361816,
+        1.804013729095459
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "bottom_center_transform": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true,
+  "name": "树冠B",
+  "display_name": "002",
+  "domain": "scenes",
+  "suite": "water_building_002",
+  "scope": "scene_local",
+  "category": "plant",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "plants"
+  },
+  "source": "art_source/scenes/water_building_002/v003/component_packages/crown_b/crown_b.blend",
+  "manifest": "art_source/scenes/water_building_002/v003/component_packages/crown_b/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "stage": "runtime_integrated_user_art_review_pending",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "bounds_size_m": [
+    4.49204158782959,
+    3.3552613258361816,
+    1.804013729095459
+  ],
+  "geometry_fingerprint": "23173c68af59d56d9c1b1ebc8623b80fe53ffe970008d3f22253f900b77dc390",
+  "polygons": 60,
+  "triangles": 60,
+  "meshes": 3,
+  "instance_count": 6,
+  "package_sha256": "04ef2f7542a227df433e2689dd1d599d622a8146b05f05ee32ff4ab72e785223",
+  "runtime_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+  "runtime_sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f",
+  "export_manifest": "art_source/scenes/water_building_002/v003/export/v003/export_manifest.json",
+  "verification": [
+    "D:/projects/sea-work/water_building_002/v003/source_verification.json",
+    "art_source/scenes/water_building_002/v003/export/v003/export_manifest.json"
+  ],
+  "source_verification": "passed_0_failures",
+  "verification_pending": [
+    "user_final_art_acceptance",
+    "commercial_authorization",
+    "global_seams_exhaustive",
+    "performance_playtest"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "passed_current_import_and_specialist_tests",
+  "collision": "no_actor_n/a",
+  "navigation": "assembly_owned_no_component_navigation",
+  "prefab": "godot/scenes/components/facilities/water_building_002/crown_b.tscn",
+  "runtime_integrated": true,
+  "component_key": "crown_b",
+  "component_family": "canopy",
+  "parent_source": {
+    "path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+    "source_sha256": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+    "source_version": "v003"
+  },
+  "runtime_prefab_sha256": "3a488f565c3bfa996d1a361c7cacfa69c75fad7df719bacdb43eaf3a06c5a232",
+  "runtime_flags": {
+    "standalone_load": "passed",
+    "material": "passed",
+    "shadow": "passed"
+  },
+  "import_settings": {
+    "images": 0,
+    "lod": false,
+    "shadow_mesh": true
+  },
+  "water_blocker_validated": false,
+  "nav_footprint_collected": false,
+  "boat_blocking": "not_applicable_component_no_independent_blocker",
+  "boat_route_e2e": "not_run",
+  "evidence": {
+    "optimization_manifest": {
+      "path": "art_source/scenes/water_building_002/v003/export/v003/optimization_manifest.json",
+      "sha256": "248afa43d110026c68aed54dceadbe0f1416a8bce921c36406a1a8eb98f9f91f"
+    },
+    "runtime_integration": "D:/projects/sea-work/water_building_002/v003/runtime_integration.json",
+    "runner_report": {
+      "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/report.json",
+      "sha256": "ac40c88a46711d566cce61907b846b447ca767e260a1f6ed85ef1a37cd73058f"
+    },
+    "commands": {
+      "water-building-002": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--headless",
+          "--script",
+          "res://tests/test_water_building_002.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/water-building-002.log",
+        "renderer": "headless",
+        "exit_code": 0,
+        "checks": {
+          "checks": 1441,
+          "failures": 0
+        }
+      },
+      "visual-water-building-002": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--resolution",
+          "1280x800",
+          "--fixed-fps",
+          "60",
+          "--script",
+          "res://tools/capture_water_building_002.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/visual-water-building-002.log",
+        "renderer": "real",
+        "exit_code": 0,
+        "checks": {
+          "checks": 12,
+          "failures": 0
+        }
+      },
+      "water-layer": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--headless",
+          "--script",
+          "res://tests/test_water_layer.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/water-layer.log",
+        "renderer": "headless",
+        "exit_code": 0,
+        "checks": {
+          "checks": 1794,
+          "failures": 0
+        }
+      }
+    },
+    "screenshots": [
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-hero.png",
+        "sha256": "765e6890278b5977886936391b17d293f1323aac3dd88e947f7ffefbd4e98b72"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-back.png",
+        "sha256": "3579858decb29cd0055a0df2ba0b3e7b83067fae01d9c3b5f3e88cd25350043f"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-roof.png",
+        "sha256": "163d423c01dc9bceac87082373a953cfbed3a243a4923956bcb11f2680268464"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-shop-context.png",
+        "sha256": "0aea7cea62241ed4e1f7a6493be457ad752a34e5b4c09d0f6c7d10585decd0e0"
+      }
+    ],
+    "evidence": {
+      "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-evidence.json",
+      "sha256": "3864cff123e843ba5677c219d49b0ab7163216a712e6d045628eefcf5a410ef1"
+    },
+    "runtime_prefab": {
+      "path": "godot/scenes/components/facilities/water_building_002/crown_b.tscn",
+      "sha256": "3a488f565c3bfa996d1a361c7cacfa69c75fad7df719bacdb43eaf3a06c5a232"
+    },
+    "component": {
+      "key": "crown_b",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+      "glb_sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f"
+    },
+    "import_settings": {
+      "component_key": "crown_b",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+      "import_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb.import",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+      "glb_sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f",
+      "images": 0,
+      "lod": false,
+      "shadow_mesh": true,
+      "settings": {
+        "meshes/generate_lods": "false",
+        "meshes/create_shadow_meshes": "true",
+        "meshes/ensure_tangents": "true",
+        "materials/extract": "0"
+      }
+    }
+  },
+  "runtime_manifest_binding": {
+    "source": "art_source/scenes/water_building_002/v003/component_packages/crown_b/crown_b.blend",
+    "source_sha256": "04ef2f7542a227df433e2689dd1d599d622a8146b05f05ee32ff4ab72e785223",
+    "runtime_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+    "prefab": "godot/scenes/components/facilities/water_building_002/crown_b.tscn"
+  }
+}

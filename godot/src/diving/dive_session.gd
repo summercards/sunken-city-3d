@@ -265,7 +265,7 @@ func _begin_production_dive(id: String) -> void:
 	if not ready:
 		await _fail_transition("海底入口准备失败或超时，已返回海面")
 		return
-	# entry_tick 已完成选点；再提交一帧环境、镜头与角色，才开始展开。
+	# 碰撞与入口选点已准备，但尚未播放下沉；提交初始角色/相机后展开。
 	await get_tree().process_frame
 	if _closing: return
 	await _await_curtain_draw()
@@ -273,6 +273,18 @@ func _begin_production_dive(id: String) -> void:
 	_trace("entry_ready")
 	_transition_phase("opening")
 	await curtain.uncover_blank()
+	if _closing: return
+	# 圆幕完全打开才释放可见入水；仍属于同一 enter 阶段和切图事务。
+	# 玩家能看见扑通/下沉，期间输入、日期、耗氧和写盘继续冻结。
+	_transition_phase("entering")
+	var controller: Node = runtime.get("dive_controller") if is_instance_valid(runtime) else null
+	if controller != null: controller.release_entry()
+	if not await _await_entry_complete():
+		if _closing: return
+		await curtain.cover_blank()
+		await _await_curtain_draw()
+		await _fail_transition("入水动作未完成，已返回海面")
+		return
 	if _closing: return
 	_set_runtime_transition_frozen(false)
 	_air_before_entry.clear()
@@ -288,12 +300,22 @@ func _await_runtime_ready() -> bool:
 		var controller: Node = runtime.get("dive_controller")
 		var phase := str(controller.machine.current) if controller != null else str(runtime.get("phase"))
 		if phase in ["surface","exit"]: return false
-		var ready := phase == "swim"
+		var ready: bool = controller.entry_is_prepared() if controller != null else phase == "swim"
 		var verified: Variant = runtime.get("entry_verified")
 		if verified != null: ready = ready and bool(verified)
 		if ready: return true
 		await get_tree().process_frame
 	trace.events.append({"event":"runtime_ready_timeout","phase":str(runtime.get("phase")) if is_instance_valid(runtime) else "freed"})
+	return false
+
+func _await_entry_complete() -> bool:
+	var deadline := Time.get_ticks_msec() + 15000
+	while Time.get_ticks_msec() < deadline:
+		if _closing or not is_instance_valid(runtime) or not runtime.is_inside_tree(): return false
+		var controller: Node = runtime.get("dive_controller")
+		if controller == null or controller.machine.current in ["surface", "exit"]: return false
+		if controller.machine.current == "swim": return true
+		await get_tree().process_frame
 	return false
 
 func _await_curtain_draw() -> void:
@@ -572,7 +594,10 @@ func _commit_return(finish := true, merge := true) -> void:
 		exited.emit()
 
 func surface() -> void:
-	if not is_instance_valid(runtime) or switching: return
+	if switching:
+		_return_requested = true
+		return
+	if not is_instance_valid(runtime): return
 	runtime.surface()
 	if _curtain_session: _request_return()
 func abort_to_surface() -> void:

@@ -15,6 +15,7 @@ var _root: Control
 var _shade: ColorRect
 var _paper: PanelContainer
 var _body: VBoxContainer
+var _body_scroll: ScrollContainer
 var _title: Label
 var _subtitle: Label
 var _hint: Label
@@ -38,7 +39,12 @@ func _ready() -> void:
 	var tag := label("S E A   /   海 上 慢 生 活",14,Cozy.TEAL);outer.add_child(tag)
 	_title = label("歇一会儿吧",32);outer.add_child(_title)
 	_subtitle = label("风景会等你，慢慢来。",17,Cozy.DIM);outer.add_child(_subtitle)
-	_body = VBoxContainer.new();_body.add_theme_constant_override("separation",12);outer.add_child(_body)
+	_body_scroll = ScrollContainer.new()
+	_body_scroll.custom_minimum_size = Vector2(0, 360)
+	_body_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	outer.add_child(_body_scroll)
+	_body = VBoxContainer.new();_body.add_theme_constant_override("separation",12);_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL;_body_scroll.add_child(_body)
 	_hint = label("Esc 返回   ·   Enter 选择",15,Cozy.DIM);outer.add_child(_hint)
 	Cozy.paper(_paper,Cozy.TEAL,false)
 	var margins: StyleBox=_paper.get_theme_stylebox("panel")
@@ -161,7 +167,10 @@ func back() -> void:
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	if hud and hud.owned_modal_query.is_valid() and hud.owned_modal_query.call():
-		if hud.owned_modal_input.call(event): get_viewport().set_input_as_handled();return
+		var handled: bool = hud.owned_modal_input.call(event)
+		if handled: get_viewport().set_input_as_handled()
+		# 模态仍由GUI接收未消费的导航/文本键；不再进入F9/P等备援路由。
+		return
 	var key: int = event.physical_keycode if event.physical_keycode else event.keycode
 	if key == KEY_ESCAPE:
 		back();get_viewport().set_input_as_handled()
@@ -197,6 +206,8 @@ func _render() -> void:
 			button("save","记下今天的进度",func(): command_requested.emit("save"))
 			button("load","读取上次的记录",func(): show_menu("load"))
 			button("appearance","我的模样 · 姓名与外观",func(): close_menu();command_requested.emit("appearance"))
+			# 入口路径：暂停菜单 → 楼房工坊；由Main装配WorkshopHost。
+			button("building_workshop","楼房工坊",func(): close_menu();command_requested.emit("building_workshop"))
 			button("reset","重新开始（重置存档）",func(): show_menu("reset"))
 			button("settings","偏好设置",func(): show_menu("settings"))
 			button("help","操作小手册",func(): show_menu("help"))

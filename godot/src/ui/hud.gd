@@ -100,6 +100,11 @@ var _note_tick:=0.0
 var _activation_frame := -1
 var _panel_keys := {}
 var _panel_feedback: Label
+var _refresh_pending := false
+var _refresh_deferred := false
+## PERF-AUTH: diagnostic counters keep coalescing and synchronous refresh behavior testable.
+var _refresh_request_count := 0
+var _actual_refresh_count := 0
 var _map_buttons: Array[Button] = []
 var _map_zone_id := ""
 var _map_scroll_pending := false
@@ -730,6 +735,8 @@ func presentation_snapshot() -> Dictionary:
 	return {"open":_panel_open,"page":_panel.page,"diving":_diving,"depth":_depth,"oxygen":_air_ratio,"clock":"—","tide":"—","turning":_panel.turning}
 
 func _refresh() -> void:
+	_refresh_pending = false
+	_actual_refresh_count += 1
 	if _res_label == null: return
 	_res_label.text = "瓶盖 %d" % economy.count("coins")
 	corner.capacity.text="背包 %d / %d" % [economy.inventory.slots_used(),economy.inventory.capacity()]
@@ -741,6 +748,19 @@ func _refresh() -> void:
 		_counts[id] = count
 	_initialized_counts = true
 	if _panel_open: _refresh_panel()
+
+func _queue_refresh() -> void:
+	_refresh_request_count += 1
+	_refresh_pending = true
+	if _refresh_deferred: return
+	_refresh_deferred = true
+	call_deferred("_flush_refresh")
+
+func _flush_refresh() -> void:
+	_refresh_deferred = false
+	if not _refresh_pending: return
+	_refresh_pending = false
+	_refresh()
 
 func _process(delta: float) -> void:
 	if _root.size != _layout_size: _layout()
@@ -1025,9 +1045,9 @@ func refresh_after_restore() -> void:
 func bind_models() -> void:
 	if pockets != null: pockets.inventory=economy.inventory
 	if not economy.sites_changed.is_connected(_refresh_panel): economy.sites_changed.connect(_refresh_panel)
-	if not economy.resources_changed.is_connected(_refresh): economy.resources_changed.connect(_refresh)
-	if not economy.daily.changed.is_connected(_refresh): economy.daily.changed.connect(_refresh)
-	if not economy.farm.plots_changed.is_connected(_refresh): economy.farm.plots_changed.connect(_refresh)
+	if not economy.resources_changed.is_connected(_queue_refresh): economy.resources_changed.connect(_queue_refresh)
+	if not economy.daily.changed.is_connected(_queue_refresh): economy.daily.changed.connect(_queue_refresh)
+	if not economy.farm.plots_changed.is_connected(_queue_refresh): economy.farm.plots_changed.connect(_queue_refresh)
 	_refresh()
 
 ## Public command/query boundary for scene composition and input routing.

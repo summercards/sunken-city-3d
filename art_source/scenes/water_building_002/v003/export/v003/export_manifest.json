@@ -1,0 +1,1392 @@
+{
+  "schema": "sea.component_export_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+  "source": {
+    "path": "D:/projects/sea/art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+    "sha256": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+    "expanded_instances": 167,
+    "expanded_triangles_depsgraph": 10342,
+    "expanded_polygons_depsgraph": 6293
+  },
+  "optimized": {
+    "path": "D:/projects/sea/art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+    "sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+    "hash_protected": true
+  },
+  "components": {
+    "story_wall": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/story_wall/story_wall.glb",
+      "sha256": "701ea67ac60896cfc3c2c2e95e4ff385866afee23dc6b5d01e647c820e8f7685",
+      "triangles": 216,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -7.550000190734863,
+          -5.550000190734863,
+          0.0
+        ],
+        "max": [
+          7.550000190734863,
+          5.550000190734863,
+          4.900000095367432
+        ],
+        "size": [
+          15.100000381469727,
+          11.100000381469727,
+          4.900000095367432
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_FacadeBand.001",
+            "triangles": 216,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 216,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "ground_wall": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/ground_wall/ground_wall.glb",
+      "sha256": "8cb92841a839939fb8b52e6c660b8961bad6e0c2bd610e57ea596de55d02d1fd",
+      "triangles": 168,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -7.54999303817749,
+          -5.549997329711914,
+          0.0
+        ],
+        "max": [
+          7.54999303817749,
+          5.549997329711914,
+          4.900000095367432
+        ],
+        "size": [
+          15.09998607635498,
+          11.099994659423828,
+          4.900000095367432
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_GroundSide.001",
+            "triangles": 168,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 168,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.001"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "deck": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/deck/deck.glb",
+      "sha256": "531be6985ec47892f7555f3dd13175590a8758bcb9c48fb375e162bba7b7cff8",
+      "triangles": 44,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -9.199999809265137,
+          -7.199559688568115,
+          0.0
+        ],
+        "max": [
+          9.199999809265137,
+          7.199559688568115,
+          0.19998778402805328
+        ],
+        "size": [
+          18.399999618530273,
+          14.39911937713623,
+          0.19998778402805328
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_Foundation.005",
+            "triangles": 44,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.002"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "floor_slab": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/floor_slab/floor_slab.glb",
+      "sha256": "55b7fe9562c65b005e7dd82dc6e58799315b5ad5853ee5efb1becc6c6832c2e4",
+      "triangles": 44,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -7.650000095367432,
+          -5.649750709533691,
+          0.0
+        ],
+        "max": [
+          7.650000095367432,
+          5.649750709533691,
+          0.19999118149280548
+        ],
+        "size": [
+          15.300000190734863,
+          11.299501419067383,
+          0.19999118149280548
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_FloorSlab.005",
+            "triangles": 44,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.003"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "parapet": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/parapet/parapet.glb",
+      "sha256": "60ebc9e80deef609807aba58c03f8ed182b50b960d21a24e6f21672f3db000b1",
+      "triangles": 48,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -7.75,
+          -5.739999771118164,
+          0.0
+        ],
+        "max": [
+          7.75,
+          5.739999771118164,
+          0.8999999761581421
+        ],
+        "size": [
+          15.5,
+          11.479999542236328,
+          0.8999999761581421
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_Parapet.001",
+            "triangles": 48,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 48,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.004"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "front_window": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/front_window/front_window.glb",
+      "sha256": "e7c762306e466850d1d5ef86d9d20fb89de7ab4a6767ebf8e073e2978441b375",
+      "triangles": 80,
+      "meshes": 2,
+      "bounds": {
+        "min": [
+          -5.400000095367432,
+          -0.10000000894069672,
+          0.0
+        ],
+        "max": [
+          5.400000095367432,
+          0.10000000149011612,
+          2.799999952316284
+        ],
+        "size": [
+          10.800000190734863,
+          0.20000001788139343,
+          2.799999952316284
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_GreenPane.001",
+            "triangles": 12,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_WindowFrame.005",
+            "triangles": 68,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 2,
+        "triangles": 80,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Gloss.005",
+          "SEA_Matte.005"
+        ]
+      },
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "side_window": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/side_window/side_window.glb",
+      "sha256": "5faf050739b3b5026c174716f2b271524a4259057631be3621efe60dd5752553",
+      "triangles": 44,
+      "meshes": 2,
+      "bounds": {
+        "min": [
+          -1.350000023841858,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          1.350000023841858,
+          0.09000000357627869,
+          2.799999952316284
+        ],
+        "size": [
+          2.700000047683716,
+          0.18000000715255737,
+          2.799999952316284
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_SideGlass.005",
+            "triangles": 12,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_SideWindowFrame.005",
+            "triangles": 32,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 2,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Gloss.006",
+          "SEA_Matte.006"
+        ]
+      },
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "entry": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/entry/entry.glb",
+      "sha256": "3dc7ae96862935391834653e9d0bdb50dcd148291a0da1a0e43b59f0928d4da3",
+      "triangles": 80,
+      "meshes": 2,
+      "bounds": {
+        "min": [
+          -1.75,
+          -0.1290000081062317,
+          0.0
+        ],
+        "max": [
+          1.75,
+          0.1289999932050705,
+          3.700000047683716
+        ],
+        "size": [
+          3.5,
+          0.2580000162124634,
+          3.700000047683716
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_EntryDoorFrame.005",
+            "triangles": 56,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_EntryDoorGlass.001",
+            "triangles": 24,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 2,
+        "triangles": 80,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.007",
+          "SEA_Gloss.007"
+        ]
+      },
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "balcony": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/balcony/balcony.glb",
+      "sha256": "e280fe58fd7d666f579320a138b44446f3f87d1e746d941dbf8e8f95f1d4d69f",
+      "triangles": 164,
+      "meshes": 2,
+      "bounds": {
+        "min": [
+          -5.75,
+          -0.6899669766426086,
+          0.0
+        ],
+        "max": [
+          5.75,
+          0.6899669170379639,
+          1.139990210533142
+        ],
+        "size": [
+          11.5,
+          1.3799338340759277,
+          1.139990210533142
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_BalconyDeck.005",
+            "triangles": 44,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_BalconyRailSide.001",
+            "triangles": 120,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 2,
+        "triangles": 164,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.008",
+          "SEA_Metal.008"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "ac_unit": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/ac_unit/ac_unit.glb",
+      "sha256": "203d6c87b42dd79bca8aaf19f704a30b7466430f288a5c5b3ed9c4a0cde64cd0",
+      "triangles": 36,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.699999988079071,
+          -0.2929999828338623,
+          0.0
+        ],
+        "max": [
+          0.699999988079071,
+          0.2929999828338623,
+          0.9599999785423279
+        ],
+        "size": [
+          1.399999976158142,
+          0.5859999656677246,
+          0.9599999785423279
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_SquareACBody.005",
+            "triangles": 36,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 36,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.009"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "pipe": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/pipe/pipe.glb",
+      "sha256": "cdae1557a52da0b53112e2cc20abe8d02b4d3ec625d1237cc7b6bb3b4b2800a4",
+      "triangles": 44,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.21309411525726318,
+          -0.056291647255420685,
+          0.0
+        ],
+        "max": [
+          0.21309411525726318,
+          0.056291647255420685,
+          5.0
+        ],
+        "size": [
+          0.42618823051452637,
+          0.11258329451084137,
+          5.0
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_ExposedPipe.005",
+            "triangles": 44,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.010"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "switchbox": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/switchbox/switchbox.glb",
+      "sha256": "fad4cd3010f178e85d325927f08bc5434704fe99c8068f1dabe69099c937aa6a",
+      "triangles": 24,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.4000000059604645,
+          -0.19700001180171967,
+          0.0
+        ],
+        "max": [
+          0.4000000059604645,
+          0.19699999690055847,
+          1.100000023841858
+        ],
+        "size": [
+          0.800000011920929,
+          0.39399999380111694,
+          1.100000023841858
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_WallCabinet.005",
+            "triangles": 24,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 24,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.011"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "solar_panel": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/solar_panel/solar_panel.glb",
+      "sha256": "f2708758d26ad615a474e3a8f5fe29ce8f6c97ee2251f23286116233d13b3aeb",
+      "triangles": 48,
+      "meshes": 3,
+      "bounds": {
+        "min": [
+          -1.4500000476837158,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          1.4500000476837158,
+          1.0,
+          0.13899999856948853
+        ],
+        "size": [
+          2.9000000953674316,
+          2.0,
+          0.13899999856948853
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_PanelFrame.005",
+            "triangles": 12,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_SolarFace.005",
+            "triangles": 12,
+            "primitives": 1
+          },
+          {
+            "name": "WB002V2_SolarGridX.001",
+            "triangles": 24,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 3,
+        "triangles": 48,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Metal.012",
+          "SEA_Gloss.012",
+          "SEA_Matte.012"
+        ]
+      },
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "solar_frame": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/solar_frame/solar_frame.glb",
+      "sha256": "8a515f732e41d52eee2e539d592d5e9ba1f9114f1f1945659b92324790ab8839",
+      "triangles": 48,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -4.579999923706055,
+          -2.799999952316284,
+          0.0
+        ],
+        "max": [
+          4.579999923706055,
+          2.799999952316284,
+          0.20000000298023224
+        ],
+        "size": [
+          9.15999984741211,
+          5.599999904632568,
+          0.20000000298023224
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_CanopyBeam.001",
+            "triangles": 48,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 48,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Metal.013"
+        ]
+      },
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "roof_utilities": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+      "sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e",
+      "triangles": 76,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.800000011920929,
+          -0.7419999837875366,
+          0.0
+        ],
+        "max": [
+          0.800000011920929,
+          0.7419999837875366,
+          2.7378857135772705
+        ],
+        "size": [
+          1.600000023841858,
+          1.4839999675750732,
+          2.7378857135772705
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_RoofEquipment.005",
+            "triangles": 76,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 76,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.014"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "antenna": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/antenna/antenna.glb",
+      "sha256": "753011e3c0671b3b02d5d90759bb01cdbfb7a1ffb81220c9fb8751af16cb40bb",
+      "triangles": 40,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.8999999761581421,
+          -0.03897114470601082,
+          0.0
+        ],
+        "max": [
+          0.8999999761581421,
+          0.03897114470601082,
+          4.0
+        ],
+        "size": [
+          1.7999999523162842,
+          0.07794228941202164,
+          4.0
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_AerialMast.005",
+            "triangles": 40,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 40,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.015"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "trunk_a": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/trunk_a/trunk_a.glb",
+      "sha256": "b04e460a2ea1426e09d7b7d123730ca21aca5c546eb9de8791419b2fa11138e7",
+      "triangles": 284,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -4.083434581756592,
+          -1.2078616619110107,
+          0.0
+        ],
+        "max": [
+          4.083434581756592,
+          1.2078616619110107,
+          40.13657760620117
+        ],
+        "size": [
+          8.166869163513184,
+          2.4157233238220215,
+          40.13657760620117
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_OrganicTrunk.005",
+            "triangles": 284,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 284,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.016"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "trunk_b": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/trunk_b/trunk_b.glb",
+      "sha256": "a7408d1e114c1507c49d4cd283e90007464e3d38199574a7fef04b8cad07b0a2",
+      "triangles": 176,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -3.7009286880493164,
+          -0.6857048273086548,
+          0.0
+        ],
+        "max": [
+          3.7009286880493164,
+          0.6857048273086548,
+          38.027557373046875
+        ],
+        "size": [
+          7.401857376098633,
+          1.3714096546173096,
+          38.027557373046875
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_SecondTrunk.005",
+            "triangles": 176,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 176,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.017"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "crown_a": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/crown_a/crown_a.glb",
+      "sha256": "125cb63aa7c961c72afd74a86f3c19c17db8a32e7d381133ba4c41f84ca09218",
+      "triangles": 80,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -2.2983195781707764,
+          -1.8069088459014893,
+          0.0
+        ],
+        "max": [
+          2.2983195781707764,
+          1.8069088459014893,
+          2.808633327484131
+        ],
+        "size": [
+          4.596639156341553,
+          3.6138176918029785,
+          2.808633327484131
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_CanopyCore.005",
+            "triangles": 80,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 80,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.018"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "crown_b": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+      "sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f",
+      "triangles": 60,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -2.246020793914795,
+          -1.6776306629180908,
+          0.0
+        ],
+        "max": [
+          2.246020793914795,
+          1.6776306629180908,
+          1.804013729095459
+        ],
+        "size": [
+          4.49204158782959,
+          3.3552613258361816,
+          1.804013729095459
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_SunnyFoliage.001",
+            "triangles": 60,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 60,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.019"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "vine": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/vine/vine.glb",
+      "sha256": "cf927ffdbe0704da104486bb037834e6bfcd881a3407b5f585bcc9b79c230096",
+      "triangles": 68,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.3959999978542328,
+          -0.09999999403953552,
+          0.0
+        ],
+        "max": [
+          0.3959999978542328,
+          0.09999999403953552,
+          2.6052684783935547
+        ],
+        "size": [
+          0.7919999957084656,
+          0.19999998807907104,
+          2.6052684783935547
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_HangingVine.005",
+            "triangles": 68,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 68,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.020"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "planter": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/planter/planter.glb",
+      "sha256": "312a44009f9979b121d8a2fc0667109aec93d66320a2b4f6aac8386b8e0d6caf",
+      "triangles": 56,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.8999999761581421,
+          -0.3970625102519989,
+          0.0
+        ],
+        "max": [
+          0.8999999761581421,
+          0.3970625102519989,
+          0.6485499739646912
+        ],
+        "size": [
+          1.7999999523162842,
+          0.7941250205039978,
+          0.6485499739646912
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_BoxPlanter.005",
+            "triangles": 56,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 56,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.021"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "flower": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/flower/flower.glb",
+      "sha256": "f59449efdc5618351c6d31b95b357d53e96ef92ee500005a11927c0c2855f648",
+      "triangles": 84,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.9651505351066589,
+          -0.2831903100013733,
+          0.0
+        ],
+        "max": [
+          0.9651505351066589,
+          0.2831903100013733,
+          0.7797172665596008
+        ],
+        "size": [
+          1.9303010702133179,
+          0.5663806200027466,
+          0.7797172665596008
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_Foliage.001",
+            "triangles": 84,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 84,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.022"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "wall_patch": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/wall_patch/wall_patch.glb",
+      "sha256": "d121666f373fe6ef8abc61bb66f8fc0d80201b9ecbc80640761ea2017d52226a",
+      "triangles": 3,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.6000000238418579,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.6000000238418579,
+          0.0,
+          0.800000011920929
+        ],
+        "size": [
+          1.2000000476837158,
+          0.0,
+          0.800000011920929
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_PlasterWear.004",
+            "triangles": 3,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 3,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.023"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "brace": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/brace/brace.glb",
+      "sha256": "5aa920f86acc8168acb3aaafaaaadc2f6d0481f5de700cf3420ad11524cbbbd7",
+      "triangles": 44,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.3400000035762787,
+          -0.20978382229804993,
+          0.0
+        ],
+        "max": [
+          0.3400000035762787,
+          0.20978382229804993,
+          0.47950586676597595
+        ],
+        "size": [
+          0.6800000071525574,
+          0.41956764459609985,
+          0.47950586676597595
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_ConcreteQuoin.004",
+            "triangles": 44,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.024"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "orange_tank": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/orange_tank/orange_tank.glb",
+      "sha256": "5cfa12fa0b5820924441adaf934bb84ee1d3db3783aedb24e3e49ade47f74bd6",
+      "triangles": 56,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -1.0,
+          -0.9539999961853027,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.9539999961853027,
+          1.9763209819793701
+        ],
+        "size": [
+          2.0,
+          1.9079999923706055,
+          1.9763209819793701
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_OrangeRoofTank.004",
+            "triangles": 56,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 56,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.025"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "small_sign": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/small_sign/small_sign.glb",
+      "sha256": "ff2b60bb9a125c92431e810ee15c013552262ad38cb8c8d4b37f571c49116de4",
+      "triangles": 56,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -0.4000000059604645,
+          -0.05998437479138374,
+          0.0
+        ],
+        "max": [
+          0.4000000059604645,
+          0.05998437479138374,
+          0.799500048160553
+        ],
+        "size": [
+          0.800000011920929,
+          0.11996874958276749,
+          0.799500048160553
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_BlankOrangePlaque.004",
+            "triangles": 56,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 56,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.026"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    },
+    "entry_step": {
+      "path": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components/entry_step/entry_step.glb",
+      "sha256": "341ddfb428503ad171add9753f4de6d6d71f76c2b026133f33d8f4c2673a206f",
+      "triangles": 44,
+      "meshes": 1,
+      "bounds": {
+        "min": [
+          -2.200000047683716,
+          -0.6748772859573364,
+          0.0
+        ],
+        "max": [
+          2.200000047683716,
+          0.6748772859573364,
+          0.19996364414691925
+        ],
+        "size": [
+          4.400000095367432,
+          1.3497545719146729,
+          0.19996364414691925
+        ]
+      },
+      "binary_parse": {
+        "version": 2,
+        "meshes": [
+          {
+            "name": "WB002V2_EntranceStep.004",
+            "triangles": 44,
+            "primitives": 1
+          }
+        ],
+        "mesh_count": 1,
+        "triangles": 44,
+        "images": 0,
+        "textures": 0,
+        "materials": [
+          "SEA_Matte.027"
+        ]
+      },
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "export_image_format": "NONE",
+      "images": 0,
+      "textures": 0,
+      "export_active_scene": true
+    }
+  },
+  "export_contract": {
+    "only_component_glbs": true,
+    "export_root": "D:/projects/sea/godot/assets/models/facilities/water_building_002/components",
+    "export_image_format": "NONE",
+    "images": 0,
+    "textures": 0,
+    "export_active_scene": true,
+    "max_meshes_per_component": 3,
+    "plants_cross_component_merge": false,
+    "semantic_material_roles": [
+      "SEA_Gloss",
+      "SEA_Matte",
+      "SEA_Metal"
+    ]
+  },
+  "failures": []
+}

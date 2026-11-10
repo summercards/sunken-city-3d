@@ -101,3 +101,13 @@
 R10本轮换为独立FisheryMarker CanvasLayer，复用现有action_bubble和白色action_fish图，不再有3D图标/文字。FisheryHarvest只持交互锚点与注入命令；模型仍独占业务状态。前节“无鱼时商店可用”为上一轮记录，本轮明确取消该地点服务入口。
 
 本次圆按钮最终：fishery-production 33项、visual-fishery-production 36项、fishery 26项、fishery-environment 42项均0失败；pocket-bubbles 59项、minimum-loop 141项相关回归通过。实际鼠标、镜头拉近、仅建造/收获、背包/存档均覆盖。全工程--sync被并行水层资产哈希登记阻挡；详见本轮交付。
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-AQUA-R07/R08/R09；登记 JSON、status、原产鱼及收获条款与历史结果保持。
+
+- FisheryVisual 隐藏时只推进 `_time`，跳过隐藏表现提交；这仅涉及视觉时基，不把 FisheryModel 的周期生产停掉或迁入表现层。
+- 升级、pending/next_hour、唯一 WorldClock、满包保留和原子收获仍由原业务所有者管理；第五区特殊养殖、投苗/投喂的规划边界不升级。
+- 主线程已提供 `performance-equivalence` 19/0；本次仅回填该批结果，不新增测试或复跑，不将历史 `fishery-production` 结果冒充本批完整经营回归。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

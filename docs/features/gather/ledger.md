@@ -74,3 +74,13 @@ GatherField.to_dict / from_dict；GatherSpot.interact / seconds_left；collected
 |---|---|---|
 | SEA-GATHER-R05 | 已实现；`_apply_play_scope` 不再隐藏整个 `GatherField`，改由 `_apply_gather_scope()` 按 spot 的 `zone` 元数据启停，并删除了「不可见即永久离组」那一段 | `interaction-reach`（全部装配点在组内、在可走面上）、`probe-control-gaps`（改前 10 点 `in_group=false`，改后 `/采集` 10 项）、`selftest` 采集段；[本轮交付](../../development/2026-11-06_keyboard_reach.md)。 |
 | SEA-GATHER-R06 | 已实现；`GatherField.zone_query` + `_snap_to_ground()` 在装配时回算高度，表内 `y` 降级为参考值；顺带把表格里 4 个过期高度（`zone1_shell/wood` 2.15、`zone5_*` 1.25）和挡住渔场板的 `zone1_rope` 一并修正 | 同 `interaction-reach`；`probe-gather-reach` 改前 `on=false` 两点，改后全部 `on=true`；[本轮交付](../../development/2026-11-06_keyboard_reach.md)。 |
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-GATHER-R01/R02/R04/R05；登记 JSON、status、原条款和既有验收历史保持。
+
+- GatherSpot 仅在隐藏时跳过浮动表现提交，冷却继续推进；不停止整个采集逻辑，不以隐藏为由重置或延长剩余冷却。
+- 原稳定 ID、所属区块启停、交互组保留、采集奖励及 GatherField 快照所有权不变。
+- 主线程已提供 `performance-equivalence` 19/0、interactor 15/0；本次仅回填这些已提供结果，未新增测试或本地复跑，不借历史采集测试签本轮完整恢复验收。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签。

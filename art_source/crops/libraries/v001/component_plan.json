@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "shared_plan": "art_source/vegetation/libraries/v001/component_plan.json",
+  "library": {
+    "library_id": "SEA-LIB-PLANTING-V001",
+    "name": "种植系统组件库",
+    "path": "art_source/crops/libraries/v001/planting_library.blend",
+    "components": [
+      {
+        "asset_id": "SEA-CROP-LETTUCE",
+        "name": "生菜·四阶段",
+        "source": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+        "source_sha256": "9f339103de81ca4f002a8e81292c1b4bc448ee8ab5351c70e2fd2d32b73d5172",
+        "ledger_source": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+        "ledger_source_sha256": "9f339103de81ca4f002a8e81292c1b4bc448ee8ab5351c70e2fd2d32b73d5172",
+        "domain": "crops",
+        "original_stage": "runtime_component_verified",
+        "group": "01_六品种四阶段",
+        "mode": "blend_crop"
+      },
+      {
+        "asset_id": "SEA-CROP-TOMATO",
+        "name": "番茄·四阶段",
+        "source": "art_source/crops/tomato/v001/tomato_v001.blend",
+        "source_sha256": "542941146c77e27453cff3f11e1bb93d4f277d9c4cce6f6640efbb3094ce8573",
+        "ledger_source": "art_source/crops/tomato/v001/tomato_v001.blend",
+        "ledger_source_sha256": "542941146c77e27453cff3f11e1bb93d4f277d9c4cce6f6640efbb3094ce8573",
+        "domain": "crops",
+        "original_stage": "runtime_component_verified",
+        "group": "01_六品种四阶段",
+        "mode": "blend_crop"
+      },
+      {
+        "asset_id": "SEA-CROP-PUMPKIN",
+        "name": "南瓜·四阶段",
+        "source": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
+        "source_sha256": "4e9374628bce45681147f66e3db296a58b27412b1315979947105fd1d7845bef",
+        "ledger_source": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
+        "ledger_source_sha256": "4e9374628bce45681147f66e3db296a58b27412b1315979947105fd1d7845bef",
+        "domain": "crops",
+        "original_stage": "runtime_component_verified",
+        "group": "01_六品种四阶段",
+        "mode": "blend_crop"
+      },
+      {
+        "asset_id": "SEA-CROP-FLOWER-BLUE",
+        "name": "蓝星花 · 四阶段",
+        "source": "godot/src/crops/flower_view.gd",
+        "source_sha256": "249bda214997e90c23dda1da07112151a2ef144f21f565df540bded9d4561428",
+        "ledger_source": "godot/src/crops/flower_view.gd",
+        "ledger_source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+        "domain": "crops",
+        "original_stage": "source_registered_runtime_visual_pending",
+        "group": "01_六品种四阶段",
+        "mode": "native_flower"
+      },
+      {
+        "asset_id": "SEA-CROP-FLOWER-SUN",
+        "name": "晨光花 · 四阶段",
+        "source": "godot/src/crops/flower_view.gd",
+        "source_sha256": "249bda214997e90c23dda1da07112151a2ef144f21f565df540bded9d4561428",
+        "ledger_source": "godot/src/crops/flower_view.gd",
+        "ledger_source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+        "domain": "crops",
+        "original_stage": "source_registered_runtime_visual_pending",
+        "group": "01_六品种四阶段",
+        "mode": "native_flower"
+      },
+      {
+        "asset_id": "SEA-CROP-FLOWER-CORAL",
+        "name": "珊瑚花 · 四阶段",
+        "source": "godot/src/crops/flower_view.gd",
+        "source_sha256": "249bda214997e90c23dda1da07112151a2ef144f21f565df540bded9d4561428",
+        "ledger_source": "godot/src/crops/flower_view.gd",
+        "ledger_source_sha256": "8c48cce5b8bd1fd41fa35e2f40e1282dcb46873911fc132140019a4fe6da3fb1",
+        "domain": "crops",
+        "original_stage": "source_registered_runtime_visual_pending",
+        "group": "01_六品种四阶段",
+        "mode": "native_flower"
+      },
+      {
+        "asset_id": "SEA-FARM-SOIL-CELL",
+        "name": "木框培养土·独立种植格",
+        "source": "godot/src/farming/farm_plot.gd",
+        "source_sha256": "1ac2ececd12c3b8c0c58c1b14450be1b3b2a6e56843266a26e079ebccc47b165",
+        "ledger_source": "godot/src/farming/farm_plot.gd",
+        "ledger_source_sha256": "7c456bb425e2a01761dbf190ec95bc4466874de2e61ecc0eed3c95da0334d36f",
+        "domain": "scenes",
+        "original_stage": "runtime_component_verified",
+        "group": "02_种植设施",
+        "mode": "native_facility"
+      },
+      {
+        "asset_id": "SEA-FARM-CULTIVATION-DECK",
+        "name": "浅水种植平台·木板面",
+        "source": "godot/src/farming/cultivation_deck.gd",
+        "source_sha256": "18f80d0b139ce3bbba7d827635435a8001d201d3b2762ecf1122d0b877d7e992",
+        "ledger_source": "godot/src/farming/cultivation_deck.gd",
+        "ledger_source_sha256": "18f80d0b139ce3bbba7d827635435a8001d201d3b2762ecf1122d0b877d7e992",
+        "domain": "scenes",
+        "original_stage": "runtime_component_verified",
+        "group": "02_种植设施",
+        "mode": "native_facility"
+      }
+    ]
+  }
+}

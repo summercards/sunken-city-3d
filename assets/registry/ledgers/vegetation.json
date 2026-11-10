@@ -83,7 +83,43 @@
           "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
           "docs/development/2026-11-05_vegetation_meadow.md"
         ]
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-VEGETATION-V001",
+          "path": "art_source/vegetation/libraries/v001/vegetation_library.blend",
+          "sha256": "8703643aaae74e092401d97660621f9f9c70929e14cb11321055247657f4f407",
+          "manifest": "art_source/vegetation/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-VEG-GRASS-SOFT"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-VEGETATION-GROWTH-V002",
+          "path": "art_source/vegetation/libraries/v002/vegetation_library.blend",
+          "sha256": "eb3341d9b3c380701231e5dcfea5073f36fc320429d3e3cf918ce491a7531199",
+          "manifest": "art_source/vegetation/libraries/v002/library_manifest.json",
+          "collections": [
+            "柔叶草簇_小__SEA-VEG-GRASS-SOFT",
+            "柔叶草簇_中__SEA-VEG-GRASS-SOFT",
+            "柔叶草簇_大__SEA-VEG-GRASS-SOFT"
+          ],
+          "growth_forms": {
+            "small": "柔叶草簇_小__SEA-VEG-GRASS-SOFT",
+            "medium": "柔叶草簇_中__SEA-VEG-GRASS-SOFT",
+            "large": "柔叶草簇_大__SEA-VEG-GRASS-SOFT"
+          },
+          "display_name": "柔叶草簇",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     },
     {
       "asset_id": "SEA-VEG-MOSS-SOFT",
@@ -143,7 +179,43 @@
           "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
           "docs/development/2026-11-05_vegetation_soft_cards.md"
         ]
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-VEGETATION-V001",
+          "path": "art_source/vegetation/libraries/v001/vegetation_library.blend",
+          "sha256": "8703643aaae74e092401d97660621f9f9c70929e14cb11321055247657f4f407",
+          "manifest": "art_source/vegetation/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-VEG-MOSS-SOFT"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-VEGETATION-GROWTH-V002",
+          "path": "art_source/vegetation/libraries/v002/vegetation_library.blend",
+          "sha256": "eb3341d9b3c380701231e5dcfea5073f36fc320429d3e3cf918ce491a7531199",
+          "manifest": "art_source/vegetation/libraries/v002/library_manifest.json",
+          "collections": [
+            "柔片细苔_小__SEA-VEG-MOSS-SOFT",
+            "柔片细苔_中__SEA-VEG-MOSS-SOFT",
+            "柔片细苔_大__SEA-VEG-MOSS-SOFT"
+          ],
+          "growth_forms": {
+            "small": "柔片细苔_小__SEA-VEG-MOSS-SOFT",
+            "medium": "柔片细苔_中__SEA-VEG-MOSS-SOFT",
+            "large": "柔片细苔_大__SEA-VEG-MOSS-SOFT"
+          },
+          "display_name": "柔片细苔",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     },
     {
       "asset_id": "SEA-TEX-VEGETATION-SOFT-ATLAS",
@@ -255,7 +327,43 @@
           "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
           "docs/development/2026-11-05_vegetation_meadow.md"
         ]
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-VEGETATION-V001",
+          "path": "art_source/vegetation/libraries/v001/vegetation_library.blend",
+          "sha256": "8703643aaae74e092401d97660621f9f9c70929e14cb11321055247657f4f407",
+          "manifest": "art_source/vegetation/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-VEG-MOUND-SOFT"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-VEGETATION-GROWTH-V002",
+          "path": "art_source/vegetation/libraries/v002/vegetation_library.blend",
+          "sha256": "eb3341d9b3c380701231e5dcfea5073f36fc320429d3e3cf918ce491a7531199",
+          "manifest": "art_source/vegetation/libraries/v002/library_manifest.json",
+          "collections": [
+            "柔叶层叠草堆_小__SEA-VEG-MOUND-SOFT",
+            "柔叶层叠草堆_中__SEA-VEG-MOUND-SOFT",
+            "柔叶层叠草堆_大__SEA-VEG-MOUND-SOFT"
+          ],
+          "growth_forms": {
+            "small": "柔叶层叠草堆_小__SEA-VEG-MOUND-SOFT",
+            "medium": "柔叶层叠草堆_中__SEA-VEG-MOUND-SOFT",
+            "large": "柔叶层叠草堆_大__SEA-VEG-MOUND-SOFT"
+          },
+          "display_name": "柔叶层叠草堆",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     },
     {
       "asset_id": "SEA-TEX-VEGETATION-MEADOW-ATLAS",

@@ -18,6 +18,8 @@
   "verification": [
     "dive-control",
     "visual-dive-control",
+    "dive-transition",
+    "visual-dive-transition",
     "sunroom-collision",
     "dive-maps",
     "visual-dive-maps",
@@ -299,3 +301,37 @@ dive / surface / swim_to / cancel_navigation / to_dict / from_dict；phase_machi
 A=`20261109-023938-underwater-render-boundary-f5c046`，B=`20261109-030908-underwater-breath-contact-db6f99`，C=`20261109-031605-underwater-regression-final-2513b4`，均位于`D:/projects/sea-work/verification/`且各有report.json。通过计数入口合计4462/0，另save-seed通过；框架52/1另列不计入。全局sync69问题/只读70问题未通过，派生索引未写，不重签未知资产；功能partial。完整失败、像素与未签范围见[记录第7节](../../development/2026-11-08_underwater_optics_and_transition.md)。
 
 收尾补验：旧图显式恢复默认5m换气带，避免家园0.5m留在共享Air。`20261109-033631-underwater-air-band-final-4cba0b/report.json`中dive-maps338/0、underwater-experience65/0均PASS；最终通过入口共4471/0，不重复计65，框架52/1仍另列。
+
+## 2026-11-10 可见入水 R44–R51 承接（现行设计 / 运行 PENDING）
+
+本次经用户明确授权更新设计，从既有最大 R43 后连续新增 R44–R51；旧 R30/R42 水下1m与 R40 等必须 swim 才开幕的规则由本轮覆盖，历史条款、重复编号及全部 PASS/FAIL 原文保留。登记头结构、status=`partial`、owner 和 code_paths 不变，verification 仅精确增加已存在的 `dive-transition` / `visual-dive-transition`，不表示通过。主线程创建并回填 [入水表现开发记录](../../development/2026-11-10_dive_entry_splash.md)；本次不创建该文件。
+
+| 对应设计条款 | 当前承接状态 | 预计证据 / 待验证要求 |
+|---|---|---|
+| SEA-DIVE-R44 | 现行设计已登记，运行 pending：cover0.85s/真实全黑post-draw后加载及碰撞选点；prepared enter且entry_verified（如存在）后准备角色/镜头，uncover1.05s；opening位置/Air冻结；幕idle且不可见后Session phase entering并release_entry | `dive-transition`、`visual-dive-transition`：精确事件顺序/全黑像素/加载边界/完整opening零位移，不能再用swim作开幕前置 |
+| SEA-DIVE-R45 | 现行设计已登记，运行 pending：home1.65s从水下1.6→4.8m，f=1-(1-u)^3、s=3.2f、v=3*3.2/1.65*(1-u)^2、末速0；move_viewer执行完整胶囊扫掠，水平避让只在黑幕，浅层不通保留街面安全兜底 | 过场/地图/碰撞专项：时长/深度/速度曲线、整段净空与运行扫掠、受阻不强制到点、opening及可见段不横跳；不是修改TSCN迁就测试 |
+| SEA-DIVE-R46 | 现行设计已登记，运行 pending：old9仍2.2s、终点世界Y=-10、完整段预检；统一ease-out末速0，各自水位/默认5m换气带保持 | `dive-transition`、`dive-maps`：旧九图逐图验证，不套家园1.6→4.8m数值 |
+| SEA-DIVE-R47 | 现行设计已登记，运行 pending：控制器唯一surface/enter/swim/exit四态、无Splash FSM；Map提供dive_entry_ready/progress及entry_tick执行，controller提供entry_is_prepared/release_entry/set_entry_view | 过场/3C专项：prepared是enter内握手、Session entering不是第五态、只在原幕退尽后释放、无Map第二tick/镜头owner |
+| SEA-DIVE-R48 | 现行设计已登记，运行 pending：实际位置差/dt驱动velocity动画；swim边界清零入水残速/历史，相机不snap | 行为/真实渲染：受阻实速、opening零位移不假游、末速0与阶段边界、连续镜头，不以期望曲线速度代替碰撞结果 |
+| SEA-DIVE-R49 | 现行设计已登记，运行 pending：同控制器镜头6.3→7.5m、76→72°、略仰回基础pitch、≤0.08m单次heave/无roll，保留0.32m双clip；常规72/78及4..13m不变 | [SEA-CAMERA-R17跨链](../camera/ledger.md#2026-11-10-潜水入水镜头-r17-跨链运行-pending)；`visual-dive-transition`/操控回归，不修改OrbitCam/海面镜头 |
+| SEA-DIVE-R50 | 现行设计已登记，运行 pending：40池预算、一次16颗、复用shader、世界尾迹；swim后继续到自然回收，无Air/物理/奖励/存档写入 | 行为计数与真实连续表现：只发一次/不随角色粘连/不在swim截断，卸载清理；不把既有环境泡/呼气验收当本轮证据 |
+| SEA-DIVE-R51 | 现行设计已登记，运行 pending：switching/transition_frozen持续到swim；整个entry输入/save/capture/日期/经营/氧气及海面air推进冻结；仅释放必要入水表现 | 过场/集成回归：opening完成但仍busy、进入swim才解锁、直接write/capture拒绝、失败/返回恢复同Main和原curtain；v4/用户TSCN/120m/101.587442不变 |
+
+### 本轮待回填验证矩阵
+
+优先入口为既有 `dive-transition` / `visual-dive-transition`；预计相关回归为 `dive-control` / `visual-dive-control`、`dive-maps` / `visual-dive-maps`、`sunroom-underwater`、`sunroom-collision`、`framework-integration`。主线程按实际运行回填命令/工程快照、报告路径、计数/退出码、unexpected/leak、全黑/opening/entering/swim的连续证据、镜头及气泡审阅与未验项；真实渲染与headless分别签署。
+
+**当前运行测试 PENDING，未取得本轮最终报告，不预签 PASS，不复用旧149/0、226/0、5196/0等通过数。** 本次只做五份指定文档的追加及登记头verification精确增补，不运行runner/Godot/sync，不改GDD、代码、其他文档或用户场景。低端/持续性能/用户终审/独立海床等既有未签范围不变。
+
+## 2026-11-10 可见入水最终签署（覆盖上方委派 PENDING）
+
+| 条款 | 当前实施状态 | 当前证据 |
+|---|---|---|
+| SEA-DIVE-R44/R47/R51 | 已实现并验收：prepared enter后开幕，幕完全不可见后才释放，swim后解锁；黑帧、输入/日期/Air/save/capture冻结和同Main/原幕恢复 | A transition500/0、B真实transition404/0；readiness与release后两类失败遮黑回滚，排队上浮/缺氧通过 |
+| SEA-DIVE-R45/R46/R48 | 已实现并验收：家园1.6→4.8m/1.65s，旧九图2.2s/Y=-10，cubic ease-out；实际速度与零残速、正常夹具完整胶囊段安全 | A maps857/0、control396/0、collision2824/0；未穷举每个街面兜底几何 |
+| SEA-DIVE-R49 | 已实现并验收：6.3→7.5m、76→72°、0.08m heave；家园最终pitch0.16rad/入水偏移−0.22，opening固定、双clip/首swim连续 | B真实control403/0、transition404/0；21帧已审阅头顶与水面投影边缘分离 |
+| SEA-DIVE-R50 | 已实现并验收：16颗/40池、release幂等、世界尾迹，swim继续更新至自然归零 | A/B transition、真实中段关键帧 |
+
+A=`20261110-233501-dive-entry-polish-core-cc526e`，B=`20261110-233501-dive-entry-polish-visual-6a99e7`，C=`20261110-233926-dive-entry-final-integration-222f98`；报告均在`D:/projects/sea-work/verification/<批次>/report.json`。C水下体验179/0、家园85/0、camera14/0、modules31/0、minimum112/0、framework52/0及3个存档入口通过。12个计数入口5857/0，15项全exit0/PASS、unexpected=[]；5核心脚本与B快照一致。完整命令、帧轨迹、失败历史与交付见[开发记录](../../development/2026-11-10_dive_entry_splash.md)。
+
+全局sync exit1/79、只读exit1/81，派生索引同步受阻；含本次sunroom_region.gd已修改资源待定向哈希签署，及SEA-ASSET/并行SEA-WORKSHOP和既有资源漂移，不批量重签。没有DIVE/CAMERA新增条款漏行/未知入口。功能专项完成但总体partial，未改用户TSCN/水位120m/v4；低端、长时、全路线/全部三角面、独立海床和用户终审未签。

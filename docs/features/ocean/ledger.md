@@ -278,3 +278,15 @@ SEA-OCEAN-R30–R35专项通过，功能总体partial。报告`D:/projects/sea-w
 | SEA-OCEAN-R43 | 已实现并完成整合回归；参数化显示色去掉额外 `source_color` 转换，保持签署默认亮度与深度递减 | 主批`D:/sea-visual-check/verification/20261109-213426-underwater-surface-debug-signed-82ad44/report.json`：调试110/0、真实水下475/0、行为179/0、过场226/0、操控396/0、地图338/0、原海面ocean147/0；全部exit0/PASS、unexpected=[]。低端/长时/完整物理折射/用户终审/全局资源门禁未签 |
 
 本轮新增源码/测试文件：`godot/src/rendering/underwater_surface_params.gd`、`godot/src/rendering/underwater_surface_debug.gd`、`godot/tests/test_underwater_surface_debug.gd`；runner新增入口`underwater-surface-debug`。真实水下初次参数化批次曾出现`zone1 41m`背景单调减光断言失败，原因是 `source_color` 对默认显示色再次转换；已改为原始显示色uniform并复跑通过，未放宽断言。
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-OCEAN-R01/R02/R03/R05/R24；登记 JSON、status、原波场/岸线/渲染条款和历史保持。
+
+- WaterSurface 的静态 waves/scale 按 dirty 更新，Main 为动态参数唯一写入者，避免重复提交；室内不提交 zone/water 表现更新，但 `water.time` 与 weather 模拟相位继续推进。
+- BakeStore 对同一 `t` 只推送一次共享时间；本批不改波场公式、CPU 浮力或岸线算法。
+- `shore_distance` 采用版本化单 slot、20 MiB 上限、SHA256 校验的最终 RGF 缓存；仍为 1536 分辨率与原算法。headless 单测通过；真实 1536 冷 1384.704 ms→热 70.763 ms，输出字节相等，后续最终数据由主线程回填，不以降分辨率或近似结果冒充无损。
+- 主线程已提供 cache 通过（不填写未经确认的精确项数）、`ocean`、`boat-water-contact` 通过及 `performance-equivalence` 19/0。本次仅回填，不新增测试或本地复跑，不以 headless 通过代签真实渲染。
+- `boat.gd` 已还原，不宣称本批修改船实现；`roof_reveal`、`shop_sightline` 门控尝试已撤回。海面收益波动，不承诺稳定帧耗时改善。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

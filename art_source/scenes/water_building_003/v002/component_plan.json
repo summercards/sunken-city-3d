@@ -1,0 +1,1032 @@
+{
+  "schema": "sea.component_plan",
+  "status": "source_built_visual_revision_pending",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-003",
+  "display_number": "003",
+  "version": "v002",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "category": "通用海上建筑",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "reference_image": "reference.jpg",
+  "reference_sha256": "48f90df3ed482e1d34d7ec3045ffe7ebad28b33e12bf70ef27cf7569cfa64a04",
+  "loaded_differences": [
+    "references/above-water.md"
+  ],
+  "size_assumptions": {
+    "method": "pixel_ratio_from_reference",
+    "reference_px": 1024,
+    "calibration": "lower floor pitch approx 240 px / 5.1 m = 47 px/m",
+    "ground_deck_top_m": 0.3,
+    "slab_thickness_m": 0.2,
+    "lower": {
+      "width": 9.2,
+      "depth": 7.0,
+      "clear_height": 4.9,
+      "floor_z": 0.3
+    },
+    "middle": {
+      "width": 7.0,
+      "depth": 5.9,
+      "clear_height": 4.9,
+      "floor_z": 5.4
+    },
+    "upper": {
+      "width": 5.0,
+      "depth": 4.5,
+      "clear_height": 3.1,
+      "floor_z": 10.5
+    },
+    "roof_top_m": 14.0
+  },
+  "budget": {
+    "basis": "depsgraph evaluated instances",
+    "target_triangles": 14000,
+    "max_triangles": 20000,
+    "bevel_segments_exception": 1,
+    "preserve": [
+      "old_plaster",
+      "orange_tile_roofs",
+      "dark_green_windows",
+      "large_wrapped_tree",
+      "front_porches",
+      "utility_pole"
+    ],
+    "omit": [
+      "photographic_ink",
+      "background_swoosh",
+      "3D_text"
+    ]
+  },
+  "components": [
+    {
+      "key": "foundation",
+      "id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+      "group": "structure",
+      "kind": "shell",
+      "rho": 0.015,
+      "family": "platform",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "lower_shell",
+      "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+      "group": "structure",
+      "kind": "shell",
+      "rho": 0.02,
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "middle_shell",
+      "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+      "group": "structure",
+      "kind": "shell",
+      "rho": 0.02,
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "upper_shell",
+      "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+      "group": "structure",
+      "kind": "shell",
+      "rho": 0.02,
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "lower_slab",
+      "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.02,
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "middle_slab",
+      "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.02,
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "upper_slab",
+      "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.02,
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "roof_lower",
+      "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.03,
+      "family": "gable_roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "roof_middle",
+      "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.03,
+      "family": "gable_roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "roof_upper",
+      "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+      "group": "structure",
+      "kind": "horizontal_cover",
+      "rho": 0.03,
+      "family": "gable_roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "roof_ridge",
+      "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+      "group": "structure",
+      "kind": "vertical_structure",
+      "rho": 0.03,
+      "family": "ridge",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "lower_quoin",
+      "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+      "group": "structure",
+      "kind": "vertical_structure",
+      "rho": 0.025,
+      "family": "quoin",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "middle_quoin",
+      "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+      "group": "structure",
+      "kind": "vertical_structure",
+      "rho": 0.025,
+      "family": "quoin",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "upper_quoin",
+      "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+      "group": "structure",
+      "kind": "vertical_structure",
+      "rho": 0.025,
+      "family": "quoin",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "door",
+      "id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.025,
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "window_large",
+      "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.025,
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "window_small",
+      "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.02,
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "window_upper",
+      "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.025,
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "shutter",
+      "id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.025,
+      "family": "shutter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "balcony_lower",
+      "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+      "group": "furnishing",
+      "kind": "horizontal_cover",
+      "rho": 0.025,
+      "family": "balcony",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "balcony_middle",
+      "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+      "group": "furnishing",
+      "kind": "horizontal_cover",
+      "rho": 0.025,
+      "family": "balcony",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "balcony_rail",
+      "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+      "group": "furnishing",
+      "kind": "vertical_structure",
+      "rho": 0.03,
+      "family": "rail",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "awning",
+      "id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+      "group": "furnishing",
+      "kind": "horizontal_cover",
+      "rho": 0.03,
+      "family": "awning",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "ladder",
+      "id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+      "group": "furnishing",
+      "kind": "linear",
+      "rho": 0.06,
+      "family": "ladder",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002",
+      "d_bottom": 0.2,
+      "d_top": 0.18
+    },
+    {
+      "key": "drainpipe",
+      "id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+      "group": "furnishing",
+      "kind": "linear",
+      "rho": 0.06,
+      "family": "pipe",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002",
+      "d_bottom": 0.2,
+      "d_top": 0.18
+    },
+    {
+      "key": "utility_box",
+      "id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+      "group": "furnishing",
+      "kind": "flat_attached",
+      "rho": 0.03,
+      "family": "cabinet",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "sign",
+      "id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+      "group": "furnishing",
+      "kind": "flat_attached",
+      "rho": 0.025,
+      "family": "sign",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "bench",
+      "id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+      "group": "furnishing",
+      "kind": "freestanding",
+      "rho": -0.06,
+      "family": "bench",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "pot",
+      "id": "SEA-SCENE-WATER-BUILDING-003-POT",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-POT",
+      "group": "furnishing",
+      "kind": "freestanding",
+      "rho": -0.06,
+      "family": "pot",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "stone_steps",
+      "id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+      "group": "furnishing",
+      "kind": "shell",
+      "rho": 0.02,
+      "family": "step",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "pole",
+      "id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+      "group": "furnishing",
+      "kind": "linear",
+      "rho": 0.06,
+      "family": "pole",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002",
+      "d_bottom": 0.2,
+      "d_top": 0.18
+    },
+    {
+      "key": "wire",
+      "id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+      "group": "furnishing",
+      "kind": "no_volume",
+      "rho": 0,
+      "family": "wire",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002",
+      "no_volume": true,
+      "thickness": 0.01,
+      "bevel": 0.012
+    },
+    {
+      "key": "trunk_main",
+      "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "tree_trunk",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "trunk_branch",
+      "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "tree_trunk",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "canopy_left",
+      "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "canopy",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "canopy_top",
+      "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "canopy",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "canopy_right",
+      "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "canopy",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "vine",
+      "id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "vine",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "moss",
+      "id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "moss",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    },
+    {
+      "key": "flower_cluster",
+      "id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0,
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "source_version": "v002"
+    }
+  ],
+  "stylized_form": {
+    "form_style": "SF-B",
+    "wall_thickness": 0.2,
+    "slab_thickness": 0.2,
+    "cornice_length": 9.2,
+    "body": {
+      "width_base": 9.2,
+      "width_top": 8.85,
+      "height": 13.7,
+      "triangles": 12000
+    },
+    "relief": {
+      "quoin_blocks": 12,
+      "brackets": 6,
+      "grooves": 0,
+      "brick_blocks": 0,
+      "layers": 2,
+      "quoin_protrusion": 0.12
+    },
+    "contacts": [
+      {
+        "a": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+        "b": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+        "relation": "clearance",
+        "gap_m": 0.006
+      },
+      {
+        "a": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+        "b": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+        "relation": "clearance",
+        "gap_m": 0.006
+      },
+      {
+        "a": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+        "b": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+        "relation": "clearance",
+        "gap_m": 0.006
+      }
+    ],
+    "components": [
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+        "kind": "shell",
+        "extent": [
+          14.0,
+          9.998992919921875,
+          0.29996979236602783
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.985
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+        "kind": "shell",
+        "extent": [
+          9.196510314941406,
+          7.138628005981445,
+          4.899999618530273
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+        "kind": "shell",
+        "extent": [
+          6.998642921447754,
+          6.038823127746582,
+          4.900000095367432
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+        "kind": "shell",
+        "extent": [
+          4.9954047203063965,
+          4.627996921539307,
+          3.09999942779541
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+        "kind": "horizontal_cover",
+        "extent": [
+          9.700000762939453,
+          7.499304294586182,
+          0.1999821662902832
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+        "kind": "horizontal_cover",
+        "extent": [
+          7.5,
+          6.399231910705566,
+          0.19997501373291016
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+        "kind": "horizontal_cover",
+        "extent": [
+          5.599999904632568,
+          5.099180221557617,
+          0.1999683380126953
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+        "kind": "horizontal_cover",
+        "extent": [
+          11.200000762939453,
+          8.78526496887207,
+          1.5300183296203613
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+        "kind": "horizontal_cover",
+        "extent": [
+          8.800000190734863,
+          7.2848219871521,
+          1.230544090270996
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+        "kind": "horizontal_cover",
+        "extent": [
+          6.0,
+          5.35468053817749,
+          0.827540397644043
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+        "kind": "vertical_structure",
+        "extent": [
+          5.449999809265137,
+          0.17998018860816956,
+          0.17998123168945312
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+        "kind": "vertical_structure",
+        "extent": [
+          9.259964942932129,
+          7.47996187210083,
+          3.7599997520446777
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+        "kind": "vertical_structure",
+        "extent": [
+          7.059964656829834,
+          6.379961967468262,
+          3.760000228881836
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+        "kind": "vertical_structure",
+        "extent": [
+          5.059943199157715,
+          4.97993803024292,
+          2.320000648498535
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+        "kind": "opening",
+        "extent": [
+          2.1599743366241455,
+          0.21996451914310455,
+          3.0999999046325684
+        ],
+        "taper_along": "z",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+        "kind": "opening",
+        "extent": [
+          2.7599692344665527,
+          0.21995769441127777,
+          2.5999999046325684
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+        "kind": "opening",
+        "extent": [
+          1.759935975074768,
+          0.2199312448501587,
+          1.25
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+        "kind": "opening",
+        "extent": [
+          2.659951686859131,
+          0.21995599567890167,
+          1.649999976158142
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+        "kind": "opening",
+        "extent": [
+          2.059969186782837,
+          0.2349753975868225,
+          2.5999999046325684
+        ],
+        "taper_along": "z",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+        "kind": "horizontal_cover",
+        "extent": [
+          1.549696683883667,
+          4.649979591369629,
+          2.0
+        ],
+        "taper_along": "y",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+        "kind": "horizontal_cover",
+        "extent": [
+          1.549696683883667,
+          4.649979591369629,
+          2.0
+        ],
+        "taper_along": "y",
+        "bottom": 1.0,
+        "top": 0.975
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+        "kind": "vertical_structure",
+        "extent": [
+          4.5,
+          0.11998400092124939,
+          1.0199919939041138
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+        "kind": "horizontal_cover",
+        "extent": [
+          3.4,
+          2.39,
+          0.4
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.97,
+        "tilt_deg": 7.0,
+        "tilt_kind": "canopy"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+        "kind": "linear",
+        "d_bottom": 0.2,
+        "d_top": 0.18
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+        "kind": "linear",
+        "d_bottom": 0.2,
+        "d_top": 0.18
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+        "kind": "flat_attached",
+        "extent": [
+          0.9992499947547913,
+          0.46983271837234497,
+          1.2000000476837158
+        ],
+        "taper_along": "z",
+        "bottom": 1.0,
+        "top": 0.97
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+        "kind": "flat_attached",
+        "extent": [
+          0.7639236450195312,
+          0.07996873557567596,
+          0.5598987340927124
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.975,
+        "tilt_deg": 5.0,
+        "tilt_kind": "sign_board"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+        "kind": "freestanding",
+        "extent": [
+          2.0,
+          0.5825049877166748,
+          0.9441369771957397
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 1.06
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-POT",
+        "kind": "freestanding",
+        "extent": [
+          0.7749119997024536,
+          0.7749119997024536,
+          0.75
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 1.06
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+        "kind": "shell",
+        "extent": [
+          4.0,
+          1.4747717380523682,
+          0.7299360036849976
+        ],
+        "taper_along": "x",
+        "bottom": 1.0,
+        "top": 0.98
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+        "kind": "linear",
+        "d_bottom": 0.2,
+        "d_top": 0.18
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+        "kind": "no_volume",
+        "no_volume": true,
+        "thickness": 0.01,
+        "bevel": 0.012
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+        "kind": "plant"
+      },
+      {
+        "id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+        "kind": "plant"
+      }
+    ]
+  }
+}

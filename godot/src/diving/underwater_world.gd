@@ -524,11 +524,20 @@ func dive_begin(payload: Dictionary) -> void:
 	depth_changed.emit(depth)
 	_emit_air()
 
+func dive_entry_ready() -> bool:
+	# setup 已复核完整入水段，旧九图无需等待 Terrain3D 延迟提交。
+	return active
+
+func dive_entry_progress() -> float:
+	return clampf(_enter_t / ENTER_TIME, 0.0, 1.0)
+
 func dive_entry_tick(dt: float) -> bool:
-	_enter_t += dt
-	var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
-	diver_pos.y = lerpf(WATER_LEVEL, ENTER_DEPTH, blend)
-	return blend >= 1.0
+	_enter_t = minf(_enter_t + maxf(dt, 0.0), ENTER_TIME)
+	var blend := 1.0 - pow(1.0 - dive_entry_progress(), 3.0)
+	# setup 已验证同 XZ 的完整连续通道；此处不走游泳夹限，避免第一帧被
+	# MOVE_MAX_Y=-4.8 强行压入水中。旧九图 2.2s / Y=-10 终点保持。
+	diver_pos.y = lerpf(spawn_point.y, ENTER_DEPTH, blend)
+	return dive_entry_progress() >= 1.0
 
 func dive_exit_begin() -> void:
 	_enter_t = 0.0

@@ -21,6 +21,8 @@
     "visual-gift-kiosk-interior",
     "gift-kiosk",
     "visual-gift-kiosk",
+    "water-building-002",
+    "visual-water-building-002",
     "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
@@ -748,3 +750,56 @@ FAIL: derived feature index stale; use --sync
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-ASSET-R62 | 编号 `001` 作为新增普通水上建筑接入：稳定 AssetID `SEA-SCENE-WATER-BUILDING-001`，`category=building`、`building_class=above_water`、`water_layer=surface/entity`。使用 `v004_lowpoly` 源，49组件/92实例，源展开9736三角面；导出运行GLB独立重开成功，633网格、9527三角面、3材质角色、0内嵌图片。新增稳定包装 `godot/scenes/facilities/water_building_001.tscn`，新增 `World/SeaStructures/water_building_001`，参考位为水上商店东侧 `(165.07135, 1.12, 143.89136)`，位置台账已登记；不拥有商店交互或生产，只声明视觉与水面阻挡。`check_placed_positions.py` 3结构/0失败/0警告。Godot正式重新导入未执行（当前机器未发现Godot可执行文件，GLB `.import`待生成），故 runtime/collision/user acceptance/commercial rights 仍 pending；不刷新既有69项工程哈希漂移。详见[游戏接入记录](../../development/2026-11-09_bld_20261109_a_game_integration.md)。 |
+
+## 2026-11-10 两份专用 Blender 模型组件集合存放
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R63 | 承接 SEA-ASSET-R49；两份 Blender 集合已完成 source-only 归档与源级验证：植被库98 AssetID/98 Collection/332网格/149036 triangles/80328 polygons，最终 SHA-256 `8703643aaae74e092401d97660621f9f9c70929e14cb11321055247657f4f407`；种植库8原资产ID/34 Collection/459网格/13364 triangles/11000 polygons，最终 SHA-256 `dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249`。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`，均有 `AssetMark`；展示缩放不写回母版，未接入源单独标注。`source_verification.json` 最终9047 checks/0 failures、`passed=true`，保护109项原生来源输入与230项计划输入。`register.py --write` 已实际成功，`registration.json` 记录106个原AssetID仅新增 `library_refs`（`scenes=97`、`crops=6`、`vegetation=3`），旧 source/hash/stage/runtime 字段、主记录数量及 `current_source_index` 均未变，不重复登记库成员。8个四视图PNG已完成Cycles生成，两个overview与植被top已实际审阅；土框/平台白模材质提取问题已修，矩阵口径、sRGB→linear和共用色板引用已统一，但不把8图所有细节写成全目视通过。用户美术终审、性能、Godot运行接入仍 pending。 | [最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)；[最终源验证](../../../../sea-work/botanical_libraries/v001/source_verification.json)；[登记结果](../../../../sea-work/botanical_libraries/v001/registration.json)；[最终提取报告](../../../../sea-work/verification/20261110-095851-botanical-final-8de438/report.json)。全库 `contracts_sync.log` 与 `contracts_check.log` 均因既有 `SEA-SCENE-WATER-BUILDING-001` manifest 缺 `asset_ledger` 的 KeyError exit1，未发生同步写入；不以日志末尾 shell 状态冒称全库 check 通过。 |
+
+## 2026-11-10 植物命名与三形态模型范围（SEA-ASSET-R64）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R64 | v002 模型交付、源验证、登记审计与预览已完成，登记不新增 AssetID 主记录。植被 98 种×3=294 模型；种植 6 种×3=18 模型，共312个模型。中文名为管理名，不作物种鉴定；每种 small/medium/large 均通过叶、分枝、花蕾、果实等适用器官的拓扑、数量或展开变化验证，非整体缩放。藤蔓采用 `top_center_attachment`，其余为 `bottom_center`；无季节；纯植物不含盆/土/平台/手持。v001 原作物四阶段与原主 source 保留，不被 v002 覆盖。棕榈羽叶密度、柑橘/番茄果梗、花冠花蕾接枝、瓜果连藤与 XY 底心修正已包含在最终源。 | 植被源 `art_source/vegetation/libraries/v002/vegetation_library.blend`：7093/0、325114 triangles、164044 polygons、SHA-256 `eb3341d9b3c380701231e5dcfea5073f36fc320429d3e3cf918ce491a7531199`；种植源 `art_source/crops/libraries/v002/planting_library.blend`：1921/0、13276 triangles、7382 polygons（manifest meshes 汇总）、SHA-256 `8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d`。两库源验证合计9014/0；`D:/projects/sea-work/botanical_growth/v002/delivery_audit.json` 为2077/0，覆盖104个计划成员、旧字段/v001 refs保护、R64账本追加与29图。登记 `registration.json` 已写入104个原AssetID的 v002 refs（scenes=95、crops=6、vegetation=3），主记录新增0、index不变；`changed_asset_ids=6`仅表示最终作物 hash 刷新。全库 contracts sync/check 均因旧 `SEA-SCENE-WATER-BUILDING-001` manifest 缺 `asset_ledger` 于 line 232 KeyError、exit1，未写同步；运行接入、性能与用户审美仍按边界保留。 |
+
+## 2026-11-10 编号002水上普通建筑制作、体量修订与正式接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R65 | 已完成v003制作与运行接入：28组件/167实例，18现有树冠仅改体积位置，113母版网格顶点和拓扑与v002一致、非树冠149实例矩阵零变化；整栋10342三角面/6293多边形。源与色板哈希不变，28独立包及持久优化源重开，逐组件GLB无内嵌图片，28稳定组件包装和总成已写入正式main。新增29行主登记，23 above_water/6植物null，运行状态为 `runtime_integrated_user_art_review_pending`；运行资源清单只登记本次88个文件，不将旧v001整栋GLB签为当前运行资源。 | 当前真实runner：002结构/材质/矩阵/面数1441/0，四视图12/0，水层1794/0，邻店7129/0，最小流程112/0，全部exit0；28导入配置image0/LODfalse、公共暖木色板三角色。完整路径与SHA、曾出现的白模/矩阵转置问题及修复见[开发记录](../../development/2026-11-10_water_building_002.md)；专项与登记证据在工程外 `sea-work/water_building_002/v003`。用户美术终审、商业授权、全局接缝穷举、性能和专门绕002的端到端航线仍pending。 |
+
+001登记补正：新增身份匹配的独立manifest，修复旧 `component_plan.json` 缺 `asset_ledger` 的回链错误；未改001或B1109A源路径/哈希。001包装只补 `activity_role=navigation_only`，位置和模型不变；当前水层专项通过不升级001独立运行验收状态。形体计划0超限/1项面数占比跳过；33反例与1正例自测符合预期。最终全工程契约sync exit1/69项、check exit1/70项：8项旧source哈希漂移、61项runtime哈希漂移，无参检查另有1项派生功能索引stale；不批量刷新旧哈希。002定向登记、面数、材质与运行检查均通过，不能冒称全库已绿。
+
+
+## 2026-11-10 菜园桥装饰件退出走域遮挡
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R66 | 霓虹花园 `garden_bridge.tscn` 的 106 个装饰件（herb 52 / cabbage 30 / tomato 15 / trellis 5 / vine 2 / flowers 2）补 `metadata/visual_only = true`；桥面 `garden_bridge`、土面 `roof_soil`、菜床 `crop_bed`、路牌与支架保留几何身份。渲染与收获交互不变，只退出 `DerivedWalkArea` 的遮挡判定与 `BlockerSet` 的水面派生。 | 派生复检：菜园桥走域 47.5→67.4 m²、岛 15→8、悬空 47.9%→3.9%、主岛占 86%。模块由 Blender 导出脚本产出，重跑导出需在模板里一并写入 visual_only，否则会覆盖本轮标记；本轮只改产物未改导出脚本，已在该条 spec 中写明此边界。 |
+
+## 2026-11-10 霓虹花园检修梯浮台（手工建 Godot 场景，非 Blender 管线）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R67 | 新增 `SEA-SCENE-NGQ-054 v001`：`godot/scenes/components/facilities/neon_garden_quarter/stair_foot.tscn`，23 个网格（甲板 1 / 横梁 3 / 浮筒 4 / 直梯 15：两侧立杆 + 13 级踏板按 0.27 m 分布）。甲板上表面正好落在水面 `y = 1.12`，直梯顶到 `4.83`，与 `WalkLeftFloat` 走域同高。整套为手工建的 Godot 场景，**没有 Blender 源、没有 GLB、不进 `art_source/scenes/neon_garden_quarter` 的组件目录**，所以未向 NGQ 组件目录（当前最大编号 046）登记 manifest，不以管线口径声称已制作完成。节点标 `metadata/visual_only = true`，不参与 `BlockerSet` 水面派生。 | `neon-roof-access` 41 项含「甲板上表面 1.12 ±0.05」「造型贴攀爬竖线 < 0.45 m」「浮台所在水面不挡船」；`visual-blockers` 复跑 zone3（霓虹街区）`rects=40 空=0 漏=0.5%`，与本轮前一致，浮台未新增阻挡矩形。编号 054 在当前 NGQ 占位中空闲（最大 046），无冲突。用户美术终审、性能、是否补 Blender 源仍 pending。 |
+
+## 2026-11-10 参数楼房工坊候选资产规则（SEA-ASSET-R68）
+
+| 对应条款 | 当前实施状态 | 证据 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R68 | implemented_pending_acceptance；两个工坊样例已按 SEA-ASSET 唯一路由定向登记为 `SEA-SCENE-WORKSHOP-SAMPLE-001` / `SEA-SCENE-WORKSHOP-SAMPLE-002`，正式主记录与当前源索引均已回链；每楼候选保留 recipe、静态 TSCN、catalog snapshot、candidate manifest、ledger 五件。 | `assets/registry/manifests/sea-scene-workshop-sample-001.json`、`sea-scene-workshop-sample-002.json`；正式源为 `art_source/scenes/building_workshop/v001/workshop_sample_001/` 与 `workshop_sample_002/`；每楼5件候选文件。`runtime_path=null`，不接主场景，不宣称运行资产已接入。 |
+| SEA-ASSET-R68a | implemented_pending_acceptance；工坊候选明确为 project-authored native Godot 参数化来源，不伪造 Blender/GLB/02b 链；catalog 内部10组件ID仅为当前 scope 稳定 key，不拆成独立正式主记录。真实 UV 共享色板、8px safe inset、Native 圆角、`partial_source_style` 与三空间 profile 作为工程边界记录。 | `godot/src/workshop/`、`godot/data/workshop/`、`godot/scenes/tools/building_workshop.tscn`；规则/深度/视觉/样例专项见 [工坊账本](../workshop/ledger.md)。正式世界/导航接入、性能、用户美术终验和无 stairs 的全楼可达仍 pending。 |
+
+## 2026-11-10 22:45 编辑器工坊候选与正式登记隔离（R68 / R68a 补充）
+
+本节追加承接现行编辑器主目标，不删除上节两个sample登记与原生来源历史，不新增AssetID，不改原source/timing身份或任何资产JSON。对应 [SEA-WORKSHOP-R13–R18](../workshop/spec.md) 与 [编辑器体系记录](../../development/2026-11-10_building_workshop_editor.md)。
+
+| 对应条款 | 当前实施状态 | 证据 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R68 | implemented_pending_acceptance；编辑器楼房候选根为 `res://scenes/workshop_buildings/<building_id>/revision_NNNN/`，五件仍为recipe/TSCN/catalog_snapshot/candidate_manifest/ledger；`authoring_context=editor`、`noMain=true`、`formal_registry_written=false` 区分生产环境和正式登记。`user://building_workshop_editor/recovery.json` 只是草稿恢复，不是正式源、候选登记或游戏存档 | 最新 `D:/projects/sea-work/verification/20261111-003009-editor-workshop-deliver-4b9df3/project/outputs/workshop_editor_report.json`：两revision五件、recipe/catalog往返、静态重载、hash与旧revision保护通过；EditorStore实际building目录仍是下划线 `revision_NNNN`。正式资产登记、runtime_path与主场景接入不因编辑器通过自动改变 |
+| SEA-ASSET-R68 | implemented_pending_acceptance；单槽模块两件候选输出 `res://scenes/components/workshop_modules/<building_id>/<slot_id>/revisionNNNN/component.tscn`、`component_manifest.json`；记录source_slot/source_component、building、实际bounds/pivot/轴向/hash。模块revision实际无下划线，独立componentID不是正式AssetID，不连带改变原组件或其他槽 | `catalog_adapter.gd` 的真实editor-workshop证据已通过：单槽component导出/reload、真正独立prefab替换及全局多尺寸不兼容拒绝；不重写原source/timing或已登记来源，不自动正式入库 |
+| SEA-ASSET-R68 | 现行登记边界：候选 `ledger.json` 不是仓库正式账本；用户确认使用工具产物后才经register工具和SEA-ASSET唯一路由正式登记，不后台自动入库/替换主场景 | 当前 `tools/workshop/register_samples.py` 为两个sample专用，不宣称任意楼/模块自动登记已实现；`SEA-SCENE-WORKSHOP-SAMPLE-001`、`SEA-SCENE-WORKSHOP-SAMPLE-002` 两个原主记录保留，`runtime_path=null` 不变，新增主记录0 |
+| SEA-ASSET-R68a | 原生程序构件仍为native/project-authored与 `partial_source_style`，共享色板/UV/圆角不等于完整美术终验或Blender/02b链 | 复杂根系贴墙、墙面苔、楼梯与正式导航/全楼可达、用户美术终审和性能仍pending/未支持，不因编辑器入口或runtime专项PASS升级 |
+
+运行版报告 `D:/projects/sea-work/verification/20261110-224023-workshop-game-acceptance-00ec43/report.json` 已实际读取：integration25/0（日志）、integration/visual均exit0/PASS且unexpected为空，只证明运行版域。最新编辑器 `editor-workshop` 已真实通过：`D:/projects/sea-work/verification/20261111-003009-editor-workshop-deliver-4b9df3/report.json` exit0/passed=true，inner report 327 checks/0 failures；真实--editor无Main/Autoload且仅启用plugin，屏幕重建恢复快照/catalog/未应用输入/UI dirty，四张真实截图已审阅。完整插件卸载重载、跨进程恢复、美术、性能及正式入库仍不代签。全库contracts sync/check仍exit1：sync为75 issues、check为77 issues，日志实际source hash drift=8、runtime hash drift=66；另有SEA-ASSET条款集合问题与派生索引问题。本轮不批量刷新旧hash，不修他人SEA-ASSET-R67。

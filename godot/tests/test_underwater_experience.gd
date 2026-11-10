@@ -72,11 +72,11 @@ func load_map(id: String):
 		if not map.entry_verified:
 			map.free()
 			return null
-		map.dive_controller.machine.tick(DT)
+		for _step in 100: map.dive_controller.machine.tick(DT)
 		check(absf(float(map.water_level) - 101.587442) < 0.0001
 			and is_equal_approx(float(map.target_depth_m), 120.0)
-			and absf(float(map.water_level) - map.dive_position().y - 1.0) < 0.001,
-			"home：当前水位101.587442、target120、实际入场深度1m")
+			and absf(float(map.water_level) - map.dive_position().y - float(map.entry_depth_below_surface)) < 0.001,
+			"home：当前水位101.587442、target120、可见入水完成于4.8m")
 	else:
 		map.dive(Vector3.ZERO, "zone1")
 		check(map.phase == "enter", "zone1：公开 dive 进入 enter")

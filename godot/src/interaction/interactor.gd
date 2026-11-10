@@ -67,18 +67,28 @@ func facing_alignment(point: Vector3) -> float:
 	forward.y = 0.0
 	return forward.normalized().dot(offset.normalized())
 
-func candidates() -> Array[Node3D]:
-	var result: Array[Node3D] = []
+func _scan_candidates() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
 	for node in get_tree().get_nodes_in_group("interactable"):
 		if not node is Node3D or not is_instance_valid(node) or not node.is_visible_in_tree(): continue
 		if not node.can_interact(): continue
 		if reachable_query.is_valid() and not bool(reachable_query.call(node)): continue
-		var offset: Vector3 = node.focus_position() - global_position
+		var focus: Vector3 = node.focus_position()
+		var offset: Vector3 = focus - global_position
 		if absf(offset.y) > 2.5: continue
 		offset.y = 0.0
-		if offset.length() <= minf(radius, float(node.effective_focus_radius())) + 0.9:
-			result.append(node)
-	result.sort_custom(func(a: Node3D, b: Node3D): return str(a.get_path()) < str(b.get_path()))
+		var distance := offset.length()
+		if distance <= minf(radius, float(node.effective_focus_radius())) + 0.9:
+			result.append({"node": node, "focus": focus, "distance": distance})
+	result.sort_custom(func(a: Dictionary, b: Dictionary):
+		return str((a["node"] as Node3D).get_path()) < str((b["node"] as Node3D).get_path()))
+	return result
+
+
+func candidates() -> Array[Node3D]:
+	var result: Array[Node3D] = []
+	for entry: Dictionary in _scan_candidates():
+		result.append(entry["node"] as Node3D)
 	return result
 
 ## 手动往返的旧名：现在等于「这一按已经用掉，松开前不再触发」。
@@ -90,11 +100,14 @@ func require_release() -> void:
 
 func cycle_target(direction := 1) -> bool:
 	if not active: return false
-	var nearby := candidates()
-	if nearby.is_empty(): return false
+	var scanned := _scan_candidates()
+	if scanned.is_empty(): return false
+	var nearby: Array[Node3D] = []
+	for entry: Dictionary in scanned:
+		nearby.append(entry["node"] as Node3D)
 	var index := nearby.find(target)
 	keyboard_target = nearby[posmod(index + direction, nearby.size())]
-	_refresh_target()
+	_refresh_target_from_scan(scanned)
 	return true
 
 
@@ -268,35 +281,26 @@ func refresh_now() -> void:
 ## 上船口时，面朝谁就选谁；朝向差在 FACING_TIE 以内视为「同等正对」，
 ## 这时更近/优先级更高的一方赢，避免玩家左右微微一晃就换目标。
 func _refresh_target() -> void:
+	_refresh_target_from_scan(_scan_candidates())
+
+
+func _refresh_target_from_scan(scanned: Array[Dictionary]) -> void:
 	var best: Node3D = null
 	var best_align := -INF
 	var best_score := INF
-	var origin := global_position
-	var facing := global_transform.basis.z
-	facing.y = 0.0
-	facing = facing.normalized() if facing.length_squared() > 0.000001 else Vector3.FORWARD
-	var nearby := candidates()
+	var nearby: Array[Node3D] = []
+	for entry: Dictionary in scanned:
+		nearby.append(entry["node"] as Node3D)
 	if is_instance_valid(keyboard_target) and not nearby.has(keyboard_target):
 		keyboard_target = null
-	for spot: Node3D in nearby:
+	for entry: Dictionary in scanned:
+		var spot: Node3D = entry["node"] as Node3D
+		var focus: Vector3 = entry["focus"]
+		var dist: float = float(entry["distance"])
 		if spot == null or not is_instance_valid(spot):
 			continue
-		if not spot.is_visible_in_tree():
-			continue
-		if reachable_query.is_valid() and not bool(reachable_query.call(spot)):
-			continue
-		# 位置一律走 focus_position()：它跟着视觉几何走，而不是节点原点。
-		# 曾经硬编码 global_position，导致给视觉加了偏移的物件（出货箱偏 2.07 米）
-		# 要站回原始锚点才能交互。
-		var to: Vector3 = spot.focus_position() - origin
-		to.y = 0.0
-		var dist := to.length()
-		if dist > minf(radius, float(spot.effective_focus_radius())) + 0.9:
-			continue
-		if not spot.can_interact():
-			continue
-		var align := facing_alignment(spot.focus_position())
 		# 显式选择（Q 键盘切目标、点击落下）压过一切自然排序。
+		var align := facing_alignment(focus)
 		if (is_instance_valid(keyboard_target) and spot == keyboard_target) \
 				or (is_instance_valid(preferred_target) and spot == preferred_target):
 			align = INF

@@ -65,7 +65,9 @@ func _process(delta: float) -> void:
 	if not is_equal_approx(growth, _target_growth):
 		var step := clampf(delta / 0.38, 0.0, 1.0)
 		_apply_growth(lerpf(growth, _target_growth, step))
-	if _mesh_node == null:
+	# Growth and phase continue while the owning outdoor zone is hidden; only
+	# invisible transform submissions are skipped. The next visible frame resamples.
+	if _mesh_node == null or not is_visible_in_tree():
 		return
 	var amp := sway_amplitude * wind_strength
 	rotation.z = sin(_t * 0.9 + _phase) * amp

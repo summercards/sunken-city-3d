@@ -1,0 +1,101 @@
+{
+  "schema": "sea.component_package_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-BRACE",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-BRACE",
+  "key": "brace",
+  "source_blend": "D:/projects/sea/art_source/scenes/water_building_002/v002/water_building_002_v002.blend",
+  "source_sha256": "3a2a1853b7ffa7ba8866be89237bca63cc893a216d23daa5e64c25c8ebd95489",
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-BRACE.003",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 1,
+    "mesh_names": [
+      "WB002V2_ConcreteQuoin.003"
+    ],
+    "vertices": 24,
+    "polygons": 26,
+    "triangles": 44,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -0.3400000035762787,
+        -0.20978382229804993,
+        0.0
+      ],
+      "max": [
+        0.3400000035762787,
+        0.20978382229804993,
+        0.47950586676597595
+      ],
+      "size": [
+        0.6800000071525574,
+        0.41956764459609985,
+        0.47950586676597595
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "package_sha256_before_reopen": "c31c63c16d70c27bffe9833e3b96f2943f169fd0dcd3ed08ecd9e4da1ba81a77",
+  "package_sha256_after_reopen": "c31c63c16d70c27bffe9833e3b96f2943f169fd0dcd3ed08ecd9e4da1ba81a77",
+  "reopen_stats": {
+    "meshes": 1,
+    "mesh_names": [
+      "WB002V2_ConcreteQuoin.003"
+    ],
+    "vertices": 24,
+    "polygons": 26,
+    "triangles": 44,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -0.3400000035762787,
+        -0.20978382229804993,
+        0.0
+      ],
+      "max": [
+        0.3400000035762787,
+        0.20978382229804993,
+        0.47950586676597595
+      ],
+      "size": [
+        0.6800000071525574,
+        0.41956764459609985,
+        0.47950586676597595
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true
+}

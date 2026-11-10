@@ -198,7 +198,11 @@ func run() -> void:
 	main.cam.distance = 60.0
 	main.cam.refresh()
 	check(main.cam.distance <= main.cam.orbit_zoom_max + 0.001, "拉太远会被室内上限挡住")
-	check(main.cam.orbit_zoom_max < main.cam.zoom_max, "室内缩放上限比室外更近")
+	# Outdoor zoom_max was independently revised to 35.14m on 2026-11-09;
+	# room's authored scale-relative range remains 8..24 * 1.5 = 12..36m.
+	# Compare the owning room contract, never change either camera to satisfy a
+	# stale cross-domain ordering assumption.
+	check(is_equal_approx(main.cam.orbit_zoom_min,room.orbit_zoom_range().x) and is_equal_approx(main.cam.orbit_zoom_max,room.orbit_zoom_range().y), "室内缩放上下限与房间scale派生契约一致")
 	# 左键在室内不平移：按住拖动不该改视点（左键留给点地面/点家具）。
 	var before_left: Vector3 = main.cam.target
 	main.cam.panning = false

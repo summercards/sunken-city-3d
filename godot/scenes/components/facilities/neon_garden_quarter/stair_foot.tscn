@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=3]
+
+; 检修梯脚下的浮台 + 一架直梯（SEA-SCENE-NGQ-054）。
+;
+; 这是「霓虹花园屋顶上下通路」的最后一段：屋顶 → 折返检修梯 → 第一级可用平台
+; （世界 4.83）→ 这架直梯 → 浮台（水面 1.12）→ 泊位上的船。
+;
+; 坐标约定：**甲板上表面 = 本节点 y 0**，浮台中心 = 本节点原点。
+; 场景里把本节点摆到 quarter 局部 (-23.113, 16.99, -1.882)，甲板面就正好落在
+; 世界水面 1.12（quarter 在 y=-15.87）。这样竖着改水面高度只需动一个位置。
+;
+; 直梯在组件局部 (0.25, 0, 0.21)：横坐标 0.25 是让梯心刚好卡在上方平台
+; （楼体局部 x -7.09..-2.69）的边缘内侧 4 厘米，视觉上像螺栓固定在平台边上。
+; 立杆顶端做到 3.83（世界 4.95），比平台面高 12 厘米，当扶手用。
+
+[sub_resource type="BoxMesh" id="mesh_deck"]
+size = Vector3(2.2, 0.08, 1.8)
+
+[sub_resource type="BoxMesh" id="mesh_beam"]
+size = Vector3(2.24, 0.1, 0.14)
+
+[sub_resource type="CylinderMesh" id="mesh_drum"]
+top_radius = 0.28
+bottom_radius = 0.28
+height = 0.55
+
+[sub_resource type="BoxMesh" id="mesh_rail"]
+size = Vector3(0.05, 3.83, 0.05)
+
+[sub_resource type="BoxMesh" id="mesh_rung"]
+size = Vector3(0.5, 0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="mat_plank"]
+albedo_color = Color(0.545, 0.388, 0.259, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="mat_drum"]
+albedo_color = Color(0.42, 0.36, 0.27, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_steel"]
+albedo_color = Color(0.318, 0.306, 0.278, 1)
+metallic = 0.55
+roughness = 0.55
+
+[node name="StairFoot" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-054"
+metadata/asset_version = "v001"
+
+[node name="Deck" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.04, 0)
+mesh = SubResource("mesh_deck")
+material_override = SubResource("mat_plank")
+
+[node name="BeamNorth" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.13, -0.62)
+mesh = SubResource("mesh_beam")
+material_override = SubResource("mat_plank")
+
+[node name="BeamMid" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.13, 0)
+mesh = SubResource("mesh_beam")
+material_override = SubResource("mat_plank")
+
+[node name="BeamSouth" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.13, 0.62)
+mesh = SubResource("mesh_beam")
+material_override = SubResource("mat_plank")
+
+[node name="DrumNW" type="MeshInstance3D" parent="."]
+position = Vector3(-0.82, -0.38, -0.58)
+mesh = SubResource("mesh_drum")
+material_override = SubResource("mat_drum")
+
+[node name="DrumNE" type="MeshInstance3D" parent="."]
+position = Vector3(0.82, -0.38, -0.58)
+mesh = SubResource("mesh_drum")
+material_override = SubResource("mat_drum")
+
+[node name="DrumSW" type="MeshInstance3D" parent="."]
+position = Vector3(-0.82, -0.38, 0.58)
+mesh = SubResource("mesh_drum")
+material_override = SubResource("mat_drum")
+
+[node name="DrumSE" type="MeshInstance3D" parent="."]
+position = Vector3(0.82, -0.38, 0.58)
+mesh = SubResource("mesh_drum")
+material_override = SubResource("mat_drum")
+
+[node name="Ladder" type="Node3D" parent="."]
+position = Vector3(0.25, 0, 0.21)
+
+[node name="RailWest" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(-0.25, 1.915, 0)
+mesh = SubResource("mesh_rail")
+material_override = SubResource("mat_steel")
+
+[node name="RailEast" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0.25, 1.915, 0)
+mesh = SubResource("mesh_rail")
+material_override = SubResource("mat_steel")
+
+[node name="Rung01" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 0.3, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung02" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 0.57, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung03" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 0.84, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung04" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 1.11, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung05" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 1.38, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung06" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 1.65, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung07" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 1.92, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung08" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 2.19, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung09" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 2.46, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung10" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 2.73, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung11" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 3, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung12" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 3.27, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")
+
+[node name="Rung13" type="MeshInstance3D" parent="Ladder"]
+position = Vector3(0, 3.54, 0)
+mesh = SubResource("mesh_rung")
+material_override = SubResource("mat_steel")

@@ -2,6 +2,11 @@ extends RefCounted
 ## Derive waterline contours from visible scene triangles, including MultiMeshes.
 ## A distance atlas is geometry data; all wave shape, motion and shading live in GLSL.
 const RESOLUTION := 1536
+const CACHE_ALGORITHM_VERSION := "shore-distance-edt-v1"
+const CACHE_FORMAT_VERSION := 1
+const CACHE_MAGIC := "SHRCACHE1"
+const CACHE_SLOT_FILE := "shore_distance.slot"
+const CACHE_MAX_PAYLOAD_BYTES := 20 * 1024 * 1024
 var segments: Array[Vector4] = []
 var _segment_scale := PackedFloat32Array()
 var _nearest := PackedInt32Array()
@@ -11,9 +16,17 @@ var _triangles: Dictionary = {}
 var _level := 1.12
 var _region := Rect2()
 var _field := PackedFloat32Array()
+var cache_enabled := true
+var cache_directory := "user://shore_distance_cache"
+var metrics := {"cache_hit": false, "build_ms": 0.0, "edt_ms": 0.0}
+# 全进程只保留一个有上限的原始图条目；不按地图/几何建立大图字典。
+static var _process_cache_key := ""
+static var _process_cache_directory := ""
+static var _process_cache_bytes := PackedByteArray()
 
 func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rect2(), outline_rects: Array = []) -> void:
-	var started := Time.get_ticks_msec()
+	var started := Time.get_ticks_usec()
+	metrics = {"cache_hit": false, "build_ms": 0.0, "edt_ms": 0.0}
 	segments.clear()
 	_segment_scale.clear()
 	_triangles.clear()
@@ -37,6 +50,22 @@ func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rec
 	var span := maxf(bounds.size.x, bounds.size.y)
 	bounds = Rect2(bounds.get_center() - Vector2.ONE * span * 0.5, Vector2.ONE * span)
 	var cell := span / float(resolution - 1)
+	var cache_key := _make_cache_key(resolution, outline_rects) if cache_enabled else ""
+	if cache_enabled:
+		if cache_key == _process_cache_key and cache_directory == _process_cache_directory and not _process_cache_bytes.is_empty() and _load_payload(_process_cache_bytes, resolution):
+			metrics.cache_hit = true
+		else:
+			var disk_payload := _read_cache(cache_key, resolution)
+			if not disk_payload.is_empty() and _load_payload(disk_payload, resolution):
+				_process_cache_key = cache_key
+				_process_cache_directory = cache_directory
+				_process_cache_bytes = disk_payload
+				metrics.cache_hit = true
+		if metrics.cache_hit:
+			metrics.build_ms = float(Time.get_ticks_usec() - started) / 1000.0
+			_triangles.clear()
+			print("[shore-atlas] resolution=", resolution, " cache_hit=1 build_ms=", metrics.build_ms, " edt_ms=0.0")
+			return
 	_field.resize(resolution * resolution)
 	_field.fill(1.0e12)
 	var scales := PackedFloat32Array()
@@ -57,6 +86,7 @@ func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rec
 	line.resize(resolution)
 	var scale_line := PackedFloat32Array()
 	scale_line.resize(resolution)
+	var edt_started := Time.get_ticks_usec()
 	for y in resolution:
 		for x in resolution:
 			line[x] = _field[y * resolution + x]
@@ -73,16 +103,100 @@ func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rec
 		for y in resolution:
 			_field[y * resolution + x] = minf(sqrt(result[y]) * cell, 100.0)
 			scales[y * resolution + x] = scale_line[_nearest[y]]
+	metrics.edt_ms = float(Time.get_ticks_usec() - edt_started) / 1000.0
 	var pixels := PackedFloat32Array()
 	pixels.resize(resolution * resolution * 2)
 	for i in _field.size():
 		pixels[i * 2] = _field[i]
 		pixels[i * 2 + 1] = scales[i]
-	var img := Image.create_from_data(resolution, resolution, false, Image.FORMAT_RGF, pixels.to_byte_array())
-	texture = ImageTexture.create_from_image(img)
-	print("[shore-atlas] resolution=",resolution," build_ms=",Time.get_ticks_msec()-started)
+	var image_bytes := pixels.to_byte_array()
+	_set_image(image_bytes, resolution)
+	if cache_enabled and image_bytes.size() <= CACHE_MAX_PAYLOAD_BYTES:
+		_process_cache_key = cache_key
+		_process_cache_directory = cache_directory
+		_process_cache_bytes = image_bytes
+		_write_cache(cache_key, resolution, image_bytes)
+	metrics.build_ms = float(Time.get_ticks_usec() - started) / 1000.0
+	print("[shore-atlas] resolution=", resolution, " cache_hit=0 build_ms=", metrics.build_ms, " edt_ms=", metrics.edt_ms)
 	_triangles.clear()
 
+
+func _sha256(bytes: PackedByteArray) -> PackedByteArray:
+	var context := HashingContext.new()
+	context.start(HashingContext.HASH_SHA256)
+	context.update(bytes)
+	return context.finish()
+
+func _make_cache_key(resolution: int, outline_rects: Array) -> String:
+	# Variant 编码保留输入精度、类型、长度和顺序；不得量化水位或排序线段。
+	# transform/visibility/mesh/MultiMesh 的有效影响已由本次重新提取的线段与尺度承接。
+	return _sha256(var_to_bytes([CACHE_ALGORITHM_VERSION, CACHE_FORMAT_VERSION,
+		Engine.get_version_info().string, Image.FORMAT_RGF, false,
+		segments, _segment_scale, bounds, _level, resolution, _region, outline_rects])).hex_encode()
+
+func _cache_file_path() -> String:
+	# 只写派生缓存专用文件，不允许越过 user:// 或指向项目资源。
+	if not cache_directory.begins_with("user://") or cache_directory.contains("..") or cache_directory.contains("\\"):
+		return ""
+	return cache_directory.path_join(CACHE_SLOT_FILE)
+
+func _read_cache(cache_key: String, resolution: int) -> PackedByteArray:
+	var expected := resolution * resolution * 8
+	var path := _cache_file_path()
+	if expected <= 0 or expected > CACHE_MAX_PAYLOAD_BYTES or path.is_empty() or not FileAccess.file_exists(path): return PackedByteArray()
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null: return PackedByteArray()
+	# 固定头：magic、版本、宽、高、Image 格式、mipmaps、长度、内容 key、payload SHA-256。
+	var header_size := CACHE_MAGIC.length() + 5 * 4 + 8 + 32 + 32
+	if file.get_length() != header_size + expected: return PackedByteArray()
+	if file.get_buffer(CACHE_MAGIC.length()) != CACHE_MAGIC.to_utf8_buffer(): return PackedByteArray()
+	if file.get_32() != CACHE_FORMAT_VERSION or file.get_32() != resolution or file.get_32() != resolution: return PackedByteArray()
+	if file.get_32() != Image.FORMAT_RGF or file.get_32() != 0 or file.get_64() != expected: return PackedByteArray()
+	if file.get_buffer(32).hex_encode() != cache_key: return PackedByteArray()
+	var payload_digest := file.get_buffer(32)
+	var payload := file.get_buffer(expected)
+	if payload.size() != expected or _sha256(payload) != payload_digest: return PackedByteArray()
+	return payload
+
+func _load_payload(payload: PackedByteArray, resolution: int) -> bool:
+	if payload.size() != resolution * resolution * 8 or payload.size() > CACHE_MAX_PAYLOAD_BYTES: return false
+	var pixels := payload.to_float32_array()
+	if pixels.size() != resolution * resolution * 2: return false
+	_field.resize(resolution * resolution)
+	for i in _field.size(): _field[i] = pixels[i * 2]
+	_set_image(payload, resolution)
+	return texture != null
+
+func _set_image(payload: PackedByteArray, resolution: int) -> void:
+	var image := Image.create_from_data(resolution, resolution, false, Image.FORMAT_RGF, payload)
+	texture = ImageTexture.create_from_image(image)
+
+func _write_cache(cache_key: String, resolution: int, payload: PackedByteArray) -> void:
+	var path := _cache_file_path()
+	if path.is_empty() or payload.size() != resolution * resolution * 8 or payload.size() > CACHE_MAX_PAYLOAD_BYTES: return
+	var dir_path := cache_directory
+	if FileAccess.file_exists(dir_path) or FileAccess.file_exists(dir_path.get_base_dir()): return
+	var make_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir_path))
+	if make_error != OK and make_error != ERR_ALREADY_EXISTS: return
+	var temp_path := path + ".tmp"
+	var file := FileAccess.open(temp_path, FileAccess.WRITE)
+	if file == null: return
+	file.store_buffer(CACHE_MAGIC.to_utf8_buffer())
+	file.store_32(CACHE_FORMAT_VERSION)
+	file.store_32(resolution)
+	file.store_32(resolution)
+	file.store_32(Image.FORMAT_RGF)
+	file.store_32(0)
+	file.store_64(payload.size())
+	file.store_buffer(cache_key.hex_decode())
+	file.store_buffer(_sha256(payload))
+	file.store_buffer(payload)
+	file.flush()
+	var write_error := file.get_error()
+	file.close()
+	if write_error != OK: return
+	# 固定临时文件；中断/写失败保留旧 slot，下次读取仍须完整校验，不删除任何文件。
+	DirAccess.rename_absolute(ProjectSettings.globalize_path(temp_path), ProjectSettings.globalize_path(path))
 
 ## 把一组占地矩形的**外轮廓**边作为距离场种子。
 ##
@@ -150,8 +264,11 @@ func _visit(node: Node) -> void:
 		var mm: MultiMesh = node.multimesh
 		if mm.mesh != null:
 			var count := mm.instance_count if mm.visible_instance_count < 0 else mm.visible_instance_count
-			for i in count: _slice(mm.mesh, node.global_transform * mm.get_instance_transform(i))
+			for i in count: _slice(mm.mesh, node.global_transform * _multimesh_instance_transform(mm, i))
 	for child in node.get_children(): _visit(child)
+
+func _multimesh_instance_transform(mm: MultiMesh, index: int) -> Transform3D:
+	return mm.get_instance_transform(index)
 
 func _slice(mesh: Mesh, transform: Transform3D) -> void:
 	var box: AABB = transform * mesh.get_aabb()

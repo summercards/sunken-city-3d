@@ -36,6 +36,46 @@
         "c949eca5326f409fe4ea3790c0a02c64183dc27694437e67f3e90f6e769f6d0b",
         "181e7fbbf1d982911a5ad89e1e7dbee40d1ad5718a3bea60c574ea0c34d1b4ed",
         "3b831b249e1257bf0983dac6e3ff13f2ad7b578ef3a59e2afde6ceb023865720"
+      ],
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-LETTUCE__stage_0_seed",
+            "SEA-CROP-LETTUCE__stage_1_sprout",
+            "SEA-CROP-LETTUCE__stage_2_leaf",
+            "SEA-CROP-LETTUCE__stage_3_harvest",
+            "SEA-CROP-LETTUCE__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "生菜_小__SEA-CROP-LETTUCE",
+            "生菜_中__SEA-CROP-LETTUCE",
+            "生菜_大__SEA-CROP-LETTUCE"
+          ],
+          "growth_forms": {
+            "small": "生菜_小__SEA-CROP-LETTUCE",
+            "medium": "生菜_中__SEA-CROP-LETTUCE",
+            "large": "生菜_大__SEA-CROP-LETTUCE"
+          },
+          "display_name": "生菜",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
       ]
     },
     {
@@ -71,6 +111,46 @@
         "2190363c5b6799f1552f47932bfd4560ce0a62fa901b6c4d8bb5f72e5facdc64",
         "1de02679bbb6926155dde1bb432fe15b830a6be7bebd29659a61d0a424204cc7",
         "a075d15557dac5bfed7bc0713b9b82712944e96520d98fb01b95b5b8187468ba"
+      ],
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-TOMATO__stage_0_seed",
+            "SEA-CROP-TOMATO__stage_1_sprout",
+            "SEA-CROP-TOMATO__stage_2_leaf",
+            "SEA-CROP-TOMATO__stage_3_harvest",
+            "SEA-CROP-TOMATO__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "番茄_小__SEA-CROP-TOMATO",
+            "番茄_中__SEA-CROP-TOMATO",
+            "番茄_大__SEA-CROP-TOMATO"
+          ],
+          "growth_forms": {
+            "small": "番茄_小__SEA-CROP-TOMATO",
+            "medium": "番茄_中__SEA-CROP-TOMATO",
+            "large": "番茄_大__SEA-CROP-TOMATO"
+          },
+          "display_name": "番茄",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
       ]
     },
     {
@@ -106,6 +186,46 @@
         "b55191e578a7c4a2edae87c0cddaf5f669c3435f80029eabc590e3696db8f7b1",
         "95b0bfe0189f234c60e7932800885fb0e839a77d90f9ca94682c6ea7af707ea1",
         "31527dcd9d2cce9b03db2527034975c7af4dfac414b5a7473dd9eb546c909616"
+      ],
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-PUMPKIN__stage_0_seed",
+            "SEA-CROP-PUMPKIN__stage_1_sprout",
+            "SEA-CROP-PUMPKIN__stage_2_leaf",
+            "SEA-CROP-PUMPKIN__stage_3_harvest",
+            "SEA-CROP-PUMPKIN__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "南瓜_小__SEA-CROP-PUMPKIN",
+            "南瓜_中__SEA-CROP-PUMPKIN",
+            "南瓜_大__SEA-CROP-PUMPKIN"
+          ],
+          "growth_forms": {
+            "small": "南瓜_小__SEA-CROP-PUMPKIN",
+            "medium": "南瓜_中__SEA-CROP-PUMPKIN",
+            "large": "南瓜_大__SEA-CROP-PUMPKIN"
+          },
+          "display_name": "南瓜",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
       ]
     },
     {
@@ -148,7 +268,47 @@
         "path": "godot/assets/data/crops.json",
         "collection": "crops",
         "id": "flower_blue"
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-FLOWER-BLUE__stage_0_seed",
+            "SEA-CROP-FLOWER-BLUE__stage_1_sprout",
+            "SEA-CROP-FLOWER-BLUE__stage_2_leaf",
+            "SEA-CROP-FLOWER-BLUE__stage_3_harvest",
+            "SEA-CROP-FLOWER-BLUE__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "蓝星花_小__SEA-CROP-FLOWER-BLUE",
+            "蓝星花_中__SEA-CROP-FLOWER-BLUE",
+            "蓝星花_大__SEA-CROP-FLOWER-BLUE"
+          ],
+          "growth_forms": {
+            "small": "蓝星花_小__SEA-CROP-FLOWER-BLUE",
+            "medium": "蓝星花_中__SEA-CROP-FLOWER-BLUE",
+            "large": "蓝星花_大__SEA-CROP-FLOWER-BLUE"
+          },
+          "display_name": "蓝星花",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     },
     {
       "asset_id": "SEA-CROP-FLOWER-SUN",
@@ -190,7 +350,47 @@
         "path": "godot/assets/data/crops.json",
         "collection": "crops",
         "id": "flower_sun"
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-FLOWER-SUN__stage_0_seed",
+            "SEA-CROP-FLOWER-SUN__stage_1_sprout",
+            "SEA-CROP-FLOWER-SUN__stage_2_leaf",
+            "SEA-CROP-FLOWER-SUN__stage_3_harvest",
+            "SEA-CROP-FLOWER-SUN__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "晨光花_小__SEA-CROP-FLOWER-SUN",
+            "晨光花_中__SEA-CROP-FLOWER-SUN",
+            "晨光花_大__SEA-CROP-FLOWER-SUN"
+          ],
+          "growth_forms": {
+            "small": "晨光花_小__SEA-CROP-FLOWER-SUN",
+            "medium": "晨光花_中__SEA-CROP-FLOWER-SUN",
+            "large": "晨光花_大__SEA-CROP-FLOWER-SUN"
+          },
+          "display_name": "晨光花",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     },
     {
       "asset_id": "SEA-CROP-FLOWER-CORAL",
@@ -232,7 +432,47 @@
         "path": "godot/assets/data/crops.json",
         "collection": "crops",
         "id": "flower_coral"
-      }
+      },
+      "library_refs": [
+        {
+          "library_id": "SEA-LIB-PLANTING-V001",
+          "path": "art_source/crops/libraries/v001/planting_library.blend",
+          "sha256": "dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249",
+          "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+          "collections": [
+            "SEA-CROP-FLOWER-CORAL__stage_0_seed",
+            "SEA-CROP-FLOWER-CORAL__stage_1_sprout",
+            "SEA-CROP-FLOWER-CORAL__stage_2_leaf",
+            "SEA-CROP-FLOWER-CORAL__stage_3_harvest",
+            "SEA-CROP-FLOWER-CORAL__收获手持"
+          ],
+          "kind": "derived_collection_archive_not_primary_source",
+          "archive_verification": "source_archive_reopened_verified",
+          "original_stage_unchanged": true
+        },
+        {
+          "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+          "path": "art_source/crops/libraries/v002/planting_library.blend",
+          "sha256": "8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d",
+          "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+          "collections": [
+            "珊瑚花_小__SEA-CROP-FLOWER-CORAL",
+            "珊瑚花_中__SEA-CROP-FLOWER-CORAL",
+            "珊瑚花_大__SEA-CROP-FLOWER-CORAL"
+          ],
+          "growth_forms": {
+            "small": "珊瑚花_小__SEA-CROP-FLOWER-CORAL",
+            "medium": "珊瑚花_中__SEA-CROP-FLOWER-CORAL",
+            "large": "珊瑚花_大__SEA-CROP-FLOWER-CORAL"
+          },
+          "display_name": "珊瑚花",
+          "season_variants": false,
+          "kind": "derived_growth_models_not_primary_source",
+          "source_verification": "reopened_append_verified",
+          "original_stage_unchanged": true,
+          "runtime_integration": false
+        }
+      ]
     }
   ]
 }

@@ -103,3 +103,15 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 | SEA-BOOT-R07 | 源码已接入Main轻量DiveSession装配、来源/奖励注入及移出树缓存；切current_scene后只保留一张海底runtime。返回同一Main，不free/重建/读档，恢复原姿态模式、相机环境及出树清理的投影/端口；挂起期间保留save_registry并暂停海面时间/天气/经营/自动存档 | `Main._setup_dive / _exit_tree / resume_after_dive_map`、`DiveSession.enter_map / _commit_return`；`dive-maps / visual-dive-maps`结果 **pending，待父线程补充** |
 
 初填pending为过程状态；最终R07由`20261107-190643-dive-map-switch-signed-451501`签署：dive-maps312/0、真实322/0、framework-integration52/0、minimum-loop147/0，均exit0，无非预期错误。九图返回同Main/镜头环境/地面投影、缺氧及异常销毁已覆盖；破损资源setup回滚未故意损坏文件实测。功能状态保持partial。[最终实测与边界](../../development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-BOOT-R01/R02/R04；仅按本轮主线程提供的实施与已通过结果追加登记，不修改登记 JSON、status 或原条款历史。
+
+- Main 在室内不提交室外 zone/water 表现更新，但 `water.time` 与 weather 模拟相位继续推进，不能把隐藏优化解释为冻结模拟。
+- 近距交互仲裁结果只在同一次调用内复用，不新增跨调用陈旧缓存；提示、图标与动作继续同源。
+- Weather 表现相位由 Main 的 `advance_time(delta)` 推进，不读取系统墙钟；原会话暂停与生命周期所有权保留。
+- 已提供结果：`performance-equivalence` 19/0、UI 19/0、interactor 15/0；`click`、`keyboard-panels`、`pick-mesh`、facing、`boat-water-contact` 通过。这里只回填已提供结果，未新增测试或本地复跑。
+- `roof_reveal`、`shop_sightline` 的门控尝试已撤回，`boat.gd`、`farm_plot.gd` 已还原，不计为本批优化。串行两轮室内耗时为 6.222→4.782 ms、5.236→4.458 ms；海面收益波动，不承诺稳定收益。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立并回填最终数据；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

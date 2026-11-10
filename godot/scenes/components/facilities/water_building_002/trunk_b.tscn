@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/water_building_002/components/trunk_b/trunk_b.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/solar_cabin/sunny_matte.tres" id="matte"]
+
+[node name="trunk_b" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-TRUNK-B"
+metadata/component_key = "trunk_b"
+metadata/source_version = "v003"
+metadata/water_layer = "none"
+metadata/water_layer_role = "none"
+metadata/category = "plant"
+metadata/visual_only = true
+metadata/collision = false
+metadata/interactive = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="WB002V2_SecondTrunk_005" parent="Visual"]
+surface_material_override/0 = ExtResource("matte")
+cast_shadow = 1

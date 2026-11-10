@@ -29,6 +29,13 @@ TESTS = {
     'visual-frame-process': ('tools/profile_frame_process.gd', r'\[frame-process\] complete'),
     'visual-frame-subsystems': ('tools/profile_frame_subsystems.gd', r'\[frame-subsystems\] complete'),
     'visual-frame-functions': ('tools/profile_frame_functions.gd', r'\[frame-functions\] complete'),
+    'visual-performance-audit': ('tools/profile_performance_audit.gd', r'\[performance-audit\] complete'),
+    'visual-optimization-result': ('tools/profile_optimization_result.gd', r'\[optimization-result\] complete'),
+    'shore-distance-cache': ('tests/test_shore_distance_cache.gd', r'\[shore-distance-cache\] \d+ checks, 0 failures'),
+    'ui-refresh-performance': ('tests/test_ui_refresh_performance.gd', r'\[ui-refresh-performance\] \d+ checks, 0 failures'),
+    'interactor-query-reuse': ('tests/test_interactor_query_reuse.gd', r'\[interactor-query-reuse\] \d+ checks, 0 failures'),
+    'performance-equivalence': ('tests/test_performance_equivalence.gd', r'\[performance-equivalence\] \d+ checks, 0 failures'),
+    'visual-shore-distance-cache': ('tests/test_shore_distance_cache.gd', r'\[shore-distance-cache\] \d+ checks, 0 failures'),
     'shop-sightline': ('tests/test_shop_sightline.gd', r'\[shop-sightline\] \d+ checks, 0 failures'),
     'visual-shop-sightline': ('tools/capture_shop_sightline.gd', r'\[shop-sightline-render\] \d+ checks, 0 failures'),
     'gift-kiosk-interior': ('tests/test_gift_kiosk_interior.gd', r'\[gift-kiosk-interior\] \d+ checks, 0 failures'),
@@ -40,6 +47,8 @@ TESTS = {
     'visual-roof-reveal': ('tools/capture_roof_reveal.gd', r'\[roof-reveal-render\] \d+ checks, 0 failures'),
     'gift-kiosk': ('tests/test_gift_kiosk.gd', r'\[gift-kiosk\] \d+ checks, 0 failures'),
     'visual-gift-kiosk': ('tools/capture_gift_kiosk.gd', r'\[gift-kiosk-render\] \d+ checks, 0 failures'),
+    'water-building-002': ('tests/test_water_building_002.gd', r'\[water-building-002\] \d+ checks, 0 failures'),
+    'visual-water-building-002': ('tools/capture_water_building_002.gd', r'\[water-building-002-render\] \d+ checks, 0 failures'),
     'seabed-scene': ('tools/test_seabed_scene.gd', r'\[seabed-scene\] \d+ checks, 0 failures'),
     'seabed-authoring': ('tools/build_sunken_seabed.gd', r'\[seabed-authoring\] \d+ checks, 0 failures'),
     'scenic-fish-distribution': ('tests/test_scenic_fish_distribution.gd', r'\[scenic-fish-distribution\] \d+ checks, 0 failures'),
@@ -90,6 +99,9 @@ TESTS = {
     # 作物 12 阶段真实渲染：正视图 + 俯视图，作为 SEA-CROP-R06 的渲染证据。
     # 必须以 visual- 开头，harness 才会给真实渲染器；headless 下截不了图（会挂住）。
     'visual-crops': ('tools/capture_crops.gd', r'\[crops-render\] \d+ checks, 0 failures'),
+    # 两个 Blender 派生植物库只消费本入口导出的原生 Godot 网格快照；
+    # runner 负责隔离 user://，输出写到 SEA_WORK_ROOT 工程外。
+    'botanical-library-extract': ('tools/extract_botanical_libraries.gd', r'\[botanical-library-extract\] \d+ checks, 0 failures'),
     'surface': ('tests/test_surface_movement.gd', r'\[surface\].*failures=0'),
     'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
     # 键盘操控：方向键走人 / 划船、镜头不再被方向键平移、E 上下船
@@ -143,6 +155,13 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
+    'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
+    'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
+    'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
+    'workshop-deep': ('tests/test_workshop_deep.gd', r'\[workshop-deep\] \d+ checks, 0 failures'),
+    'workshop-integration': ('tests/test_workshop_integration.gd', r'\[workshop-integration\] \d+ checks, 0 failures'),
+    'visual-workshop': ('tools/capture_workshop.gd', r'\[workshop-render\] \d+ checks, 0 failures'),
     'visual-vegetation': ('tools/capture_vegetation.gd', r'\[vegetation-render\] 0 failures'),
     'visual-vegetation-study': ('tools/capture_vegetation_study.gd', r'\[vegetation-study\] complete'),
     'visual-proton-scatter': ('tools/capture_proton_scatter.gd', r'\[proton-scatter-trial\] 0 failures'),
@@ -360,6 +379,10 @@ TESTS.update({
     'visual-salvage': ('tools/capture_salvage.gd', r'\[visual-salvage\] complete'),
     'dock-seed': ('tests/test_dock_and_seed.gd', r'\[dock-seed\] \d+ checks, 0 failures'),
     'dock-hotspot': ('tests/test_dock_hotspot.gd', r'\[dock-hotspot\] \d+ checks, 0 failures'),
+    # SEA-NAV-R21：横滨铁道东西站台必须走得通（走域派生 + 跳板 + 真路径）。
+    'zone2-link': ('tests/test_zone2_platform_link.gd', r'\[zone2-link\] \d+ checks, 0 failures'),
+    # SEA-NAV-R22：霓虹花园左楼屋顶必须真的能上下（折返梯走域 + 浮台 + 直梯）。
+    'neon-roof-access': ('tests/test_neon_roof_access.gd', r'\[neon-roof-access\] \d+ checks, 0 failures'),
     # 出货箱与码头缆绳的间距：箱子落点在场景，缆绳在组件 GLB 里，改任一边都可能重新穿模。
     'dock-rope-clearance': ('tools/verify_box_rope.gd', r'\[dock-rope\] complete'),
     # SEA-NAV-R11：150m 可航区横跨可航区常量、几何硬界、相机范围、存档回位四处，
@@ -508,6 +531,42 @@ def mount_readonly(target, source):
     shutil.copytree(source, target)
 
 
+def isolated_editor_workshop_project(run_dir):
+    """Minimal real editor project: no game scripts, Autoload, mutable asset junctions or Main."""
+    project = run_dir / 'project'
+    project.mkdir()
+    for rel in ['addons/building_workshop', 'data/workshop']:
+        shutil.copytree(GODOT_ROOT / rel, project / rel)
+    (project / 'src/workshop').mkdir(parents=True)
+    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'shell_geometry', 'shell_generator']:
+        shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
+    (project / 'scenes/components').mkdir(parents=True)
+    (project / 'outputs').mkdir()
+    texture_dir = project / 'assets/textures/shared'
+    texture_dir.mkdir(parents=True)
+    for filename in ['sea_cabin_timber_8x8_512.png']:
+        shutil.copy2(GODOT_ROOT / 'assets/textures/shared' / filename, texture_dir / filename)
+        import_config = GODOT_ROOT / 'assets/textures/shared' / (filename + '.import')
+        shutil.copy2(import_config, texture_dir / import_config.name)
+        imported_match = re.search(r'^path="res://([^\"]+)"', import_config.read_text(), re.M)
+        if imported_match:
+            imported_rel = imported_match.group(1)
+            imported_dest = project / imported_rel
+            imported_dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(GODOT_ROOT / imported_rel, imported_dest)
+    shutil.copy2(GODOT_ROOT / 'icon.svg', project / 'icon.svg')
+    text = (GODOT_ROOT / 'project.godot').read_text()
+    text = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', text, flags=re.S)
+    text = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', text, flags=re.M)
+    text = re.sub(r'^theme/custom_font=.*\n?', '', text, flags=re.M)
+    text = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', r'\1enabled=PackedStringArray("res://addons/building_workshop/plugin.cfg")', text)
+    user_name = 'sea-verification/' + run_dir.name
+    text = re.sub(r'^config/(?:use_custom_user_dir|custom_user_dir_name)=.*\n?', '', text, flags=re.M)
+    text = text.replace('[application]', '[application]\nconfig/use_custom_user_dir=true\nconfig/custom_user_dir_name="' + user_name + '"')
+    write_project_config(project / 'project.godot', text)
+    return project, user_name
+
+
 def isolated_project(run_dir):
     project = run_dir / 'project'
     project.mkdir()
@@ -607,6 +666,7 @@ def main():
     parser.add_argument('--engine-verbose', action='store_true', help='Include Godot resource lifetime diagnostics in captured logs')
     parser.add_argument('--lighting-profile', type=Path, help='Stage only lighting cfg fixtures for visual atmosphere captures')
     parser.add_argument('--import-assets', action='store_true', help='Import new art in the isolated project before checks')
+    parser.add_argument('--source-overlay', type=Path, help='Read-only pre-change src snapshot applied only to the isolated project for paired performance comparisons')
     parser.add_argument('--full-world', action='store_true', help='Explicit legacy/development scope; default is the minimum playable loop')
     args = parser.parse_args()
     checks = CORE if args.checks == ['core'] else args.checks
@@ -641,16 +701,22 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    project, user_name = isolated_project(run_dir)
+    project, user_name = isolated_editor_workshop_project(run_dir) if checks == ['editor-workshop'] else isolated_project(run_dir)
     if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
         reference = ROOT / 'art_source/characters/avatar/v006'
         shutil.copy2(reference / 'shoulder_reference.png', project / 'outputs/avatar-reference.png')
         shutil.copy2(reference / 'shoulder_contract.json', project / 'outputs/avatar-reference-contract.json')
+    if args.source_overlay:
+        overlay = args.source_overlay.resolve()
+        if overlay == ROOT or ROOT in overlay.parents or not (overlay / 'godot/src').is_dir():
+            parser.error('--source-overlay must be an external snapshot containing godot/src')
+        shutil.copytree(overlay / 'godot/src', project / 'src', dirs_exist_ok=True)
     full_config = (project / 'project.godot').read_text()
     report = {'label': label, 'run_dir': str(run_dir), 'user_data_name': user_name,
               'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
               'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
-              'renderer': 'per check; visual-* always use real renderer', 'results': {}}
+              'renderer': 'per check; visual-* always use real renderer', 'results': {},
+              'source_overlay': str(args.source_overlay.resolve()) if args.source_overlay else None}
     print('Evidence:', run_dir, flush=True)
     if checks == ['minimum-loop', 'minimum-loop-visual-baseline']:
         results, baseline_report = run_minimum_loop_baseline(
@@ -681,7 +747,12 @@ def main():
             release_user_data(user_name, run_dir)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
+        is_editor_workshop = name == 'editor-workshop'
+        if is_editor_workshop:
+            config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
+            config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
+            config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', r'\1enabled=PackedStringArray("res://addons/building_workshop/plugin.cfg")', config)
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
         group = ('npc-save-restart' if name in ['npc-save-seed','npc-save-restart'] else
                  'avatar-restart' if name in ['avatar','avatar-restart'] else
@@ -698,12 +769,14 @@ def main():
         cmd = [exe, '--path', str(project)]
         if args.engine_verbose:
             cmd.append('--verbose')
-        is_visual = args.visual or name.startswith('visual-')
+        is_visual = args.visual or name.startswith('visual-') or is_editor_workshop
         if not is_visual:
             cmd.append('--headless')
         else:
             cmd += ['--resolution', '1280x800', '--fixed-fps', '60']
-        if script:
+        if is_editor_workshop:
+            cmd += ['--editor', '--', '--workshop-editor-verify']
+        elif script:
             cmd += ['--script', 'res://' + script]
         else:
             cmd += ['--', '--selftest', '--nosave']
@@ -719,7 +792,7 @@ def main():
         if name == 'building-open-seed':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--building-open-seed')
-        if name in ['npc-conversation','visual-npc-conversation','npc-integration','npc-relocation','npc-save','npc-save-seed','npc-save-restart','visual-npc-release','visual-npc-people']:
+        if name in ['workshop-integration','npc-conversation','visual-npc-conversation','npc-integration','npc-relocation','npc-save','npc-save-seed','npc-save-restart','visual-npc-release','visual-npc-people']:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--nosave')
             if name in ['npc-save-seed','npc-save-restart']:
@@ -733,6 +806,10 @@ def main():
                 check_env = os.environ.copy()
                 if args.lighting_profile:
                     check_env['SEA_CAPTURE_LIGHTING_PROFILE'] = str(args.lighting_profile.resolve())
+                if name == 'botanical-library-extract':
+                    # 提取脚本运行在隔离 Godot 副本中，但冻结计划/账本仍是只读主工程输入。
+                    check_env['SEA_SOURCE_ROOT'] = str(ROOT)
+                    check_env['SEA_WORK_ROOT'] = str(work)
                 code = subprocess.run(cmd, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, env=check_env).returncode
             except subprocess.TimeoutExpired:
                 code = 124

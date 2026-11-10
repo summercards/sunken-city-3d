@@ -299,7 +299,36 @@ func _is_land(x: float, z: float) -> bool:
 
 func _process(delta: float) -> void:
 	_t += delta
+	# Hidden surface presentation has no pixels. Keep legacy population timers and
+	# its authored drift state, but do not submit hundreds of invisible transforms.
+	if is_visible_in_tree():
+		_animate_population(delta)
+	else:
+		# Public nearest/pick queries read these roots. Keep their locations current
+		# even though expensive fish part/ripple/rotation submissions are suppressed.
+		for crate in crates:
+			var base: Vector3 = crate.base
+			var phase: float = crate.phase
+			crate.root.position = Vector3(base.x + sin(_t * 0.24 + phase) * 0.45, WATER_LEVEL + sin(_t * 1.15 + phase) * 0.07, base.z + cos(_t * 0.19 + phase) * 0.45)
+			crate.root.rotation.y = crate.yaw + sin(_t * 0.3 + phase) * 0.35
+			crate.root.rotation.z = sin(_t * 0.9 + phase) * 0.05
+		for school in schools:
+			var base: Vector3 = school.base
+			var phase: float = school.phase
+			if not ocean_enabled:
+				var candidate := Vector2(base.x + sin(_t * 0.21 + phase) * 0.12 * delta, base.z + cos(_t * 0.18 + phase) * 0.12 * delta)
+				if _school_water(candidate): school.base = Vector3(candidate.x, WATER_LEVEL, candidate.y)
+			school.root.position = school.base
+	# Relative timers are gameplay, not presentation: never pause them indoors.
+	for schedule in ([] if ocean_enabled else [_pending,_pending_fish]):
+		for i in range(schedule.size()-1,-1,-1):
+			schedule[i]=maxf(0.0,float(schedule[i])-delta)
+			if schedule[i]<=0.0:
+				schedule.remove_at(i)
+				if is_same(schedule,_pending): _spawn_crate()
+				else: _spawn_school()
 
+func _animate_population(delta: float) -> void:
 	for c in crates:
 		var phase: float = c.phase
 		var base: Vector3 = c.base
@@ -328,15 +357,6 @@ func _process(delta: float) -> void:
 		var root: Node3D = s.root
 		root.position = s.base
 		root.animate(_t, water_surface)
-
-	# Relative timers freeze while paused/offline and cannot outlive a restored snapshot.
-	for schedule in ([] if ocean_enabled else [_pending,_pending_fish]):
-		for i in range(schedule.size()-1,-1,-1):
-			schedule[i]=maxf(0.0,float(schedule[i])-delta)
-			if schedule[i]<=0.0:
-				schedule.remove_at(i)
-				if is_same(schedule,_pending): _spawn_crate()
-				else: _spawn_school()
 
 
 

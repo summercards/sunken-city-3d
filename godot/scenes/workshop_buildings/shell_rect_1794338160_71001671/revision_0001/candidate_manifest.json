@@ -1,0 +1,1494 @@
+{
+	"authoring_context": "editor",
+	"authoring_source_hashes": {
+		"res://addons/building_workshop/catalog_adapter.gd": "e8ace863f647645f2b7c08ecb03488b928a47301691f0ffeb4aad11bbad81301",
+		"res://addons/building_workshop/editor_store.gd": "5b5215fe09eb3628f818d0c6d1a1dc19c1f678019c94e071862655099c9921ff",
+		"res://data/workshop/catalog_v1.json": "444a8148c57060c7387cefad1606a9f3e531346a49ebe9632b928495a8ab22a3",
+		"res://data/workshop/palette_cells_v1.json": "f921778c8d4dc10fbc258337fa4bc0d8ffd205259cb45c6af62f942d9d1c7aa6",
+		"res://data/workshop/standards_v1.json": "a7ad17b313d5f6dcc384abf8c07d5a8ffdadc0e4a16a79f0952db502d2867591",
+		"res://src/workshop/catalog.gd": "7ab3224194233cf58a7559dc76643a44d759bf51b2a74ffd39825aa261f9abf3",
+		"res://src/workshop/generator.gd": "34c14d1d58919469b8f3d1a08b49543cae9b24c4ada163938756a8eadd5e1c8d",
+		"res://src/workshop/mesh_builder.gd": "9a2f5eb2ada9e0144d455fb3da98508c63cd3f4343b1d5d5b6c149e7e8d2da01",
+		"res://src/workshop/recipe.gd": "476ae0188189d869849d73440a6db6e4d205956f98f4145cd4cb4ff92f08439f",
+		"res://src/workshop/store.gd": "2ac247e2b78faaa83e347781b0d2be15a93bcc3442e121c0b060965db67f485c"
+	},
+	"building_id": "shell_rect_1794338160_71001671",
+	"candidate_ledger": "ledger.json",
+	"candidate_ledger_status": "exported_pending_project_registration",
+	"catalog_fingerprint": "407df5665d07334abe8ef3014a052f0f1d1b73d837f41eb13c1f2a7a25232858",
+	"catalog_id": "sea_workshop_v1",
+	"catalog_snapshot": "catalog_snapshot.json",
+	"construction_mode": "shell_v2",
+	"display_name": "海风公寓 · 连续实体",
+	"file_list": [
+		"building.recipe.json",
+		"catalog_snapshot.json",
+		"building.tscn",
+		"candidate_manifest.json",
+		"ledger.json"
+	],
+	"formal_registry_written": false,
+	"generator": "sea_workshop_continuous_shell_v2",
+	"geometry": {
+		"bounds_position": [
+			-6.1399998664856,
+			-0.200000002980232,
+			-4.6399998664856
+		],
+		"bounds_size": [
+			12.2799997329712,
+			15.4999990463257,
+			9.27999973297119
+		],
+		"collision_bounds_position": [
+			-6.13999938964844,
+			-0.199999988079071,
+			-4.6399998664856
+		],
+		"collision_bounds_size": [
+			12.2799997329712,
+			15.5000009536743,
+			9.27999973297119
+		],
+		"collision_shapes": 7,
+		"has_bounds": true,
+		"has_collision_bounds": true,
+		"metadata_meshes": 90,
+		"nodes": 109,
+		"scripts": 0,
+		"unowned_nodes": 0,
+		"visual_meshes": 90
+	},
+	"has_workshop_rebuild_script": false,
+	"hash": "509d6312e3d4f110a47c1203b3becb16dea47aa380c6ac7bacfe786444ebb3e5",
+	"instances": [
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0"
+		},
+		{
+			"component_id": "wall_sun",
+			"id": "wall_shell_0",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_shell_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1"
+		},
+		{
+			"component_id": "wall_sun",
+			"id": "wall_shell_1",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_shell_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2"
+		},
+		{
+			"component_id": "wall_sun",
+			"id": "wall_shell_2",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_shell_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_2"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_3",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_3"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_3",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_3"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_0",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_0"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_0"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_1",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_1"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_1",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_1"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_2",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_2"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_main",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_main"
+		}
+	],
+	"model_quality": {
+		"assembly": {
+			"collision": "实际mesh三角面静态凹碰撞",
+			"coordinates": "root_local；根变换恒等时与world一致",
+			"disabled_parts": "跳过整件，不自动补洞",
+			"frame_glass_offset": "非零位移明确拒绝",
+			"vegetation": "屋顶实际顶面锚点；植物独立、无碰撞",
+			"walk": "实际水平板顶轮廓的不重叠矩形分解；不填L缺口",
+			"water": "floor0实际板顶在local y=0的占地候选，不承诺物理waterline"
+		},
+		"assembly_restrictions": "连续结构禁用/排除/非零位移原子拒绝；同尺寸闭合整件替换允许",
+		"corner_bevel_width": 0.07,
+		"corner_radius_space": "变形前worldXZ；taper后按相同高度比例缩放",
+		"frame_bevel_profile": "chamfer",
+		"frame_bevel_segments": 1,
+		"frame_bevel_width": 0.018,
+		"glass_gap": 0.002,
+		"glass_thickness_before_taper": 0.02,
+		"inner_corner_profile": "锐miter",
+		"joint_intentional_inset": 0.003,
+		"known_limitations": [
+			"damage非0明确拒绝",
+			"矩形及半宽半深六角L轮廓；不支持任意多边形",
+			"凸外角仅三段实体圆弧；内角与L凹角保留锐miter，未做顶底水平边圆弧",
+			"洞口与框材每端仅单段chamfer，不是三段quarter-circle",
+			"结构槽仅允许无作用disabled:false/零offset，禁用true/非零位移/排除明确拒绝",
+			"prefab仅保留绑定和基线占位网格，本脚本不加载或实例化prefab",
+			"不生成植物、楼梯、导航或碰撞节点；collidable仅声明三角网格碰撞用途",
+			"全局taper同时缩放净孔/框材/墙厚；原配方尺寸为变形前参数",
+			"taper后的实际引擎拓扑及最终美术效果未验证"
+		],
+		"l_concave_corner_profile": "锐miter",
+		"opening_bevel_profile": "chamfer",
+		"opening_bevel_segments": 1,
+		"opening_bevel_width": 0.02,
+		"opening_depth_profile": "外侧单段chamfer→直返回面→内侧单段chamfer；不是三段圆弧",
+		"opening_dimensions": "clear_width/height为变形前净孔；变形后宽度见width_bottom/width_top",
+		"outer_corner_radius": 0.07,
+		"outer_corner_segments": 3,
+		"prefab_handling": "按catalog配色生成基线占位网格并保留component_id；shell_generator负责整件替换、安全/接口校验及实例化",
+		"slab_bevel_segments": 3,
+		"slab_bevel_width": 0.028,
+		"slab_overhang": 0.14,
+		"standard_exceptions": [
+			{
+				"parts": "slab_*及roof_main",
+				"profile": "连续结构板formed_band",
+				"reason": "不是平台装饰木板；明确采用0.028m三段外缘倒角"
+			}
+		],
+		"structural_claim": "自支撑墙壳几何；未执行建筑物理或承载计算",
+		"taper_mapping": "整栋同一worldXZ随y/totalH线性缩放；所有顶点共用映射",
+		"topology": {
+			"frame_back_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_0_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_1_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_back_2_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 60
+			},
+			"frame_front_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_0_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_1_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_front_2_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_left_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"frame_right_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 64
+			},
+			"glass_back_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_0_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_1_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_back_2_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_0_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_1_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_front_2_3": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_left_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_0_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_0_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_0_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_1_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_1_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_1_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_2_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_2_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"glass_right_2_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 12
+			},
+			"roof_main": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 60
+			},
+			"slab_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 60
+			},
+			"slab_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 60
+			},
+			"slab_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 60
+			},
+			"wall_shell_0": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 1060
+			},
+			"wall_shell_1": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 984
+			},
+			"wall_shell_2": {
+				"boundary_edges": 0,
+				"closed": true,
+				"nonmanifold_edges": 0,
+				"orientation_errors": 0,
+				"oriented": true,
+				"triangles": 984
+			}
+		},
+		"topology_scope": "仅基线网格变形前位置焊接审计；taper后实际引擎拓扑与prefab替换后几何待主线程验证",
+		"triangles": 6444,
+		"verification": "生成器已检查最终实际网格的闭合和定向；独立几何专项与真实渲染证据另行记录，不代表美术终验",
+		"wall_corner": "凸外角为三段quarter-circle实体弧面，与墙run及厚度封面连续连接"
+	},
+	"noMain": true,
+	"preview_camera_lights_packed": false,
+	"recipe_fingerprint": "59220061fbc622fd855cbff5641d53733444b46ec8d85045b25ebfad853a1c85",
+	"revision": 1,
+	"schema_version": 1,
+	"seed": {
+		"damage": 11011,
+		"structure": 11010,
+		"vegetation": 11012
+	},
+	"source_hashes": {
+		"building.recipe.json": "b0f279964ce54c194b3fe281a4ae580804b8b3024901a5d16006acb1f1785538",
+		"building.tscn": "509d6312e3d4f110a47c1203b3becb16dea47aa380c6ac7bacfe786444ebb3e5",
+		"catalog_snapshot.json": "38a5bc8328cfde4bb658856dbb30f200d6eb18c56e891948068173b7a877c9fc"
+	},
+	"space_mode": "above_water",
+	"spatial_declarations": {
+		"walk_surfaces": [
+			{
+				"coordinate_space": "root_local",
+				"floor": 0,
+				"id": "walk_slab_0_0",
+				"kind": "local_candidate_rectangle",
+				"position": "(0.0, 0.0, 0.0)",
+				"size": [
+					12.2239999771118,
+					9.22399997711182
+				],
+				"source_node_path": "GeneratedVisual/slab_0",
+				"source_slots": [
+					"slab_0"
+				]
+			},
+			{
+				"coordinate_space": "root_local",
+				"floor": 1,
+				"id": "walk_slab_1_0",
+				"kind": "local_candidate_rectangle",
+				"position": "(0.0, 5.1, 0.0)",
+				"size": [
+					12.1426000595093,
+					9.16259956359863
+				],
+				"source_node_path": "GeneratedVisual/slab_1",
+				"source_slots": [
+					"slab_1"
+				]
+			},
+			{
+				"coordinate_space": "root_local",
+				"floor": 2,
+				"id": "walk_slab_2_0",
+				"kind": "local_candidate_rectangle",
+				"position": "(0.0, 10.2, 0.0)",
+				"size": [
+					12.0609998703003,
+					9.10099983215332
+				],
+				"source_node_path": "GeneratedVisual/slab_2",
+				"source_slots": [
+					"slab_2"
+				]
+			},
+			{
+				"coordinate_space": "root_local",
+				"floor": 3,
+				"id": "walk_roof_main_0",
+				"kind": "local_candidate_rectangle",
+				"position": "(0.0, 15.3, 0.0)",
+				"size": [
+					11.9795999526978,
+					9.03959941864014
+				],
+				"source_node_path": "GeneratedVisual/roof_main",
+				"source_slots": [
+					"roof_main"
+				]
+			}
+		],
+		"water_blockers": [
+			{
+				"coordinate_space": "root_local",
+				"id": "water_floor0_0",
+				"kind": "local_candidate_floor0_footprint",
+				"note": "floor0实际板顶占地候选；不代表世界物理水线或正式水面接入",
+				"position": [
+					0.000000476837158203125,
+					0.0
+				],
+				"size": [
+					12.2239999771118,
+					9.22399997711182
+				],
+				"source_node_path": "GeneratedVisual/slab_0",
+				"source_slots": [
+					"slab_0"
+				],
+				"waterline_y": 0.0
+			}
+		]
+	},
+	"static_scene": true,
+	"stats": {
+		"collision_shapes": 7,
+		"nodes": 109,
+		"plant_meshes": 0,
+		"triangles": 6444,
+		"visual_meshes": 90
+	}
+}

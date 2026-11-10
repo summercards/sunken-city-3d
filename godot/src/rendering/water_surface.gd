@@ -30,6 +30,8 @@ var _runtime_contacts := PackedVector4Array()
 var _runtime_contact_count := 0
 var _all_runtime_contacts: Array=[]
 var _contact_focus:=Vector2.INF
+var _material_static_state := {}
+var static_sync_count := 0
 
 func set_runtime_contact_rects(rects: Array) -> void:
 	_all_runtime_contacts=rects.duplicate()
@@ -112,11 +114,18 @@ func use_scheme(id: String) -> bool:
 func current_material() -> ShaderMaterial:
 	return material_override as ShaderMaterial
 
-func _sync(mat: ShaderMaterial) -> void:
-	_sync_contacts(mat)
-	preload("res://src/rendering/night_water_params.gd").ensure_defaults(mat)
-	mat.set_shader_parameter("ocean_waves", ocean_waves)
-	mat.set_shader_parameter("wave_scale", wave_scale)
+func _sync(mat: ShaderMaterial, force_static := true) -> void:
+	if mat == null: return
+	var id := mat.get_instance_id()
+	var prior: Dictionary = _material_static_state.get(id,{})
+	var shader_id := mat.shader.get_instance_id() if mat.shader != null else 0
+	if force_static or prior.is_empty() or prior.shader_id != shader_id or prior.waves != ocean_waves or prior.scale != wave_scale:
+		_sync_contacts(mat)
+		preload("res://src/rendering/night_water_params.gd").ensure_defaults(mat)
+		mat.set_shader_parameter("ocean_waves", ocean_waves)
+		mat.set_shader_parameter("wave_scale", wave_scale)
+		_material_static_state[id] = {"shader_id":shader_id,"waves":ocean_waves.duplicate(),"scale":wave_scale}
+		static_sync_count += 1
 	mat.set_shader_parameter("u_time", time)
 
 func sample_surface(p: Vector2, at_time: float = -1.0) -> Vector3:
@@ -149,7 +158,7 @@ func update_surface(t: float, boat: Node3D, focus: Vector3) -> void:
 	position.x = snappedf(focus.x, 0.5)
 	position.z = snappedf(focus.z, 0.5)
 	var mat := material_override as ShaderMaterial
-	_sync(mat)
+	_sync(mat, false)
 	mat.set_shader_parameter("u_boat", boat.wake_uniform())
 	var moving: bool = boat.starts_sailing()
 	boat_contact.update(t,boat,self)

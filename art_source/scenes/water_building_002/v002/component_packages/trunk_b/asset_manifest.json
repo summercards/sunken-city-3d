@@ -1,0 +1,107 @@
+{
+  "schema": "sea.component_package_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+  "key": "trunk_b",
+  "source_blend": "D:/projects/sea/art_source/scenes/water_building_002/v002/water_building_002_v002.blend",
+  "source_sha256": "3a2a1853b7ffa7ba8866be89237bca63cc893a216d23daa5e64c25c8ebd95489",
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B.004",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 4,
+    "mesh_names": [
+      "WB002V2_SecondTrunk.004",
+      "WB002V2_SideBranch.012",
+      "WB002V2_SideBranch.013",
+      "WB002V2_SideBranch.014"
+    ],
+    "vertices": 96,
+    "polygons": 79,
+    "triangles": 176,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -3.7009286880493164,
+        -0.6857048273086548,
+        0.0
+      ],
+      "max": [
+        3.7009286880493164,
+        0.6857048273086548,
+        38.027557373046875
+      ],
+      "size": [
+        7.401857376098633,
+        1.3714096546173096,
+        38.027557373046875
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "package_sha256_before_reopen": "7fb54c2b39592063532fe6021b59e291d5703680dfb05609923df209ac483b2b",
+  "package_sha256_after_reopen": "7fb54c2b39592063532fe6021b59e291d5703680dfb05609923df209ac483b2b",
+  "reopen_stats": {
+    "meshes": 4,
+    "mesh_names": [
+      "WB002V2_SecondTrunk.004",
+      "WB002V2_SideBranch.012",
+      "WB002V2_SideBranch.013",
+      "WB002V2_SideBranch.014"
+    ],
+    "vertices": 96,
+    "polygons": 79,
+    "triangles": 176,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -3.7009286880493164,
+        -0.6857048273086548,
+        0.0
+      ],
+      "max": [
+        3.7009286880493164,
+        0.6857048273086548,
+        38.027557373046875
+      ],
+      "size": [
+        7.401857376098633,
+        1.3714096546173096,
+        38.027557373046875
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true
+}

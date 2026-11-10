@@ -20,6 +20,8 @@
     "godot/assets/data/zones.json"
   ],
   "verification": [
+    "water-building-002",
+    "visual-water-building-002",
     "shop-sightline",
     "visual-shop-sightline",
     "gift-kiosk-interior",
@@ -361,3 +363,31 @@ SEA-WORLD-R28最终签署：190758的shop-sightline968/0、实际GPU20/0和19104
 `walk-deck-fit` PASS exit=0。两项失败（`sunroom_upper_deck` 0.892 vs 基线 1.000、`zone4` 阻挡漏 29.6%）已用 HEAD 版 `zone1_home_harbor.tscn` 临时回退做对照，结果逐行相同，属工作区原有未提交改动，非本轮回归。契约检查 73→69（正好是本轮 4 个文件），未做批量哈希更新，只定向更新自己改过的 4 项并写 `audit_note`。
 
 未做：霓虹花园水面到屋顶的物理通路（用户明确选择「直接上岸到屋顶」，属已知偏离 SEA-MOVE-R10）；屋顶派生面漂移的常态化断言。详见[本轮记录](../../development/2026-11-08_salvage_rotate_and_neon_roof.md)。
+
+## 2026-11-10 编号002普通水上建筑接入
+
+| 对应设计条款 | 当前实施状态 | 本轮证据与边界 |
+|---|---|---|
+| SEA-WORLD-R13 | 002作为 `navigation_only` 普通水上结构接入 `World/SeaStructures/water_building_002`，不新增Zone、WalkArea、泊位、交互、产出或存档字段。Blockers只扫描Visual/Structure真实水线几何，植物独立且visual_only；派生矩形已被main._water_shapes实际收集。 | 002专项1441/0、水层1794/0，正式导入exit0，真实四视图12/0；商店7129/0、最小流程112/0。专门绕002的端到端航线与性能未做，不冒称已测。 |
+| SEA-WORLD-R21 | main只增002资源与节点，原有节点变换零变化。初次参考位 `(188.57135, 1.12, 143.89136)` 位于商店旁建筑列、001东侧，已加入位置台账；后续手改为唯一真值。 | 补齐位置校验对非Zone SeaStructures的覆盖，不靠新增假区块使检查变绿；当前6结构/0失败/0警告。树冠保留v003体积变化，游戏矩阵检查覆盖167实例。 |
+
+001只补原本应有的navigation_only元数据，未移动模型。002全局接缝穷举、用户美术终审、参考图商业授权与性能仍pending。见[制作与游戏接入记录](../../development/2026-11-10_water_building_002.md)。
+
+
+## 2026-11-10 远景岸线退役
+
+| 对应设计条款 | 当前实施状态 | 本轮证据与边界 |
+|---|---|---|
+| SEA-WORLD-R05 | 退役 `assets/baked/shore_environment.json` 的 7 条矩形（沉没塔 A–E、圆弧玻璃大厦、阳台住宅）。它们按「旧城仍露出水面」烘焙，沉没旧城接入后整城最高点世界 y=−1.64、水面 1.12，7 条在水面支撑为 0，成为隐形墙（海上凭空报「前方是岸」）。旧城阻挡改由 `World/SunkenCity` 自身的 `BlockerSet` 按可见几何派生：水面之上无三角形即自动放行。远景水街区当前无独立条目，`shapes` 为空并在 note 写明退役原因。 | `visual-blockers` 新增 baked 断言：逐条用环境场景自己派生的水面阻挡算覆盖率，低于 0.35 判 FAIL。反证把 7 条装回后 7/7 支撑 0.00、检查 FAIL（`sea-work/verification/20261110-160623-baked-negative-test-a77ba3`）；退役后 baked 行 PASS，同批 zone1/2/3/5 空阻挡均为 0。zone4 漏阻挡 29% 为既有、非主场景区块，见[本轮记录](../../development/2026-11-10_facility_access_repair.md)。 |
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-WORLD-R01/R02/R05/R07 及现有 `ZoneScene.update_time` / BakeStore 接口；仅追加本轮实施事实，登记 JSON、status、原条款及摆放历史保持。
+
+- Main 室内不提交室外 zone/water 表现更新；`water.time` 与 weather 模拟相位仍推进，不新增区块状态所有者或重摆场景。
+- BakeStore 对相同 `t` 只推送一次共享时间，避免多个区块重复提交同一时刻。
+- 岸线距离图采用版本化单 slot、20 MiB 上限、SHA256 校验的最终 RGF 缓存；分辨率仍为 1536，算法不变，不以降精度换启动收益。真实 1536 冷 1384.704 ms→热 70.763 ms，输出字节相等；后续最终数据由主线程回填。
+- `roof_reveal` 与 `shop_sightline` 门控尝试已撤回，不宣称优化或改变 SEA-WORLD-R25/R28 的消隐行为。
+- 主线程已提供 `performance-equivalence` 19/0、cache 通过、`ocean` 通过及岸线缓存 headless 单测通过；cache 不填写未经确认的精确项数，本次未新增测试或复跑。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签，海面收益波动不作承诺。

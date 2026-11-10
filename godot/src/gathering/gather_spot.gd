@@ -126,7 +126,7 @@ func _build_beacon() -> void:
 
 func _on_tick(delta: float) -> void:
 	if available:
-		if _prop != null:
+		if _prop != null and is_visible_in_tree():
 			_prop.position.y = 0.12 + sin(_t * 1.7) * 0.035
 		return
 	cooldown_left -= delta

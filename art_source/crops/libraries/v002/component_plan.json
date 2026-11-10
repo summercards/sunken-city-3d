@@ -1,0 +1,99 @@
+{
+  "schema_version": 2,
+  "library_id": "SEA-LIB-PLANTING-GROWTH-V002",
+  "name": "种植植物库v002",
+  "scope": "source_only_modeling_no_runtime_integration",
+  "growth_axis": ["small", "medium", "large"],
+  "growth_labels": {"small": "小", "medium": "中", "large": "大"},
+  "season_variants": false,
+  "coordinate_system": "Blender Z-up, metre, root at [0,0,0]",
+  "public_palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "public_palette_json": "art_source/shared/palettes/sea_cozy_8x8_512.json",
+  "palette_mapping_source": "cells[].name -> cells[].row/column; no hardcoded palette coordinates",
+  "material_roles": ["SEA_Matte", "SEA_Gloss"],
+  "material_role_limit": 2,
+  "horizontal_envelope_m": [1.30, 0.90],
+  "triangle_budget_per_plant": 1600,
+  "v001_reference": {
+    "manifest": "art_source/crops/libraries/v001/library_manifest.json",
+    "source_only": true,
+    "reference_bounds_and_triangles": {
+      "SEA-CROP-LETTUCE": {"leaf": {"height": 0.4849, "width": 1.0223, "depth": 0.7868, "triangles": 1056}, "harvest": {"height": 0.8032, "width": 1.1820, "depth": 0.8565, "triangles": 1536}},
+      "SEA-CROP-TOMATO": {"leaf": {"height": 0.8158, "width": 1.0330, "depth": 0.8097, "triangles": 732}, "harvest": {"height": 0.9311, "width": 0.9666, "depth": 0.7793, "triangles": 924}},
+      "SEA-CROP-PUMPKIN": {"leaf": {"height": 0.1626, "width": 1.1207, "depth": 0.8971, "triangles": 768}, "harvest": {"height": 0.3650, "width": 1.1643, "depth": 0.8530, "triangles": 972}},
+      "SEA-CROP-FLOWER-BLUE": {"leaf": {"height": 0.3100, "width": 0.5704, "depth": 0.5998, "triangles": 156}, "harvest": {"height": 0.5480, "width": 0.5704, "depth": 0.5998, "triangles": 300}},
+      "SEA-CROP-FLOWER-SUN": {"leaf": {"height": 0.5300, "width": 0.5994, "depth": 0.5994, "triangles": 132}, "harvest": {"height": 0.8500, "width": 0.5994, "depth": 0.5994, "triangles": 396}},
+      "SEA-CROP-FLOWER-CORAL": {"leaf": {"height": 0.3383, "width": 0.4010, "depth": 0.4216, "triangles": 264}, "harvest": {"height": 0.6336, "width": 0.6198, "depth": 0.6733, "triangles": 696}}
+    }
+  },
+  "plants": [
+    {
+      "asset_id": "SEA-CROP-LETTUCE",
+      "display_name": "生菜",
+      "source_v001": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+      "growth_forms": {
+        "small": {"label": "小", "description": "少叶幼菜", "height_m": 0.24, "crown_m": [0.34, 0.28], "organs": {"leaves": 4, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "四片幼叶围绕短茎"},
+        "medium": {"label": "中", "description": "舒展菜叶", "height_m": 0.46, "crown_m": [0.62, 0.52], "organs": {"leaves": 8, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "八片外展叶与中心叶"},
+        "large": {"label": "大", "description": "结球", "height_m": 0.72, "crown_m": [0.84, 0.68], "organs": {"leaves": 14, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "多层放射叶包裹中心球心"}
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-TOMATO",
+      "display_name": "番茄",
+      "source_v001": "art_source/crops/tomato/v001/tomato_v001.blend",
+      "growth_forms": {
+        "small": {"label": "小", "description": "三叶芽", "height_m": 0.28, "crown_m": [0.26, 0.24], "organs": {"leaves": 3, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "单主茎三叶芽"},
+        "medium": {"label": "中", "description": "分枝嫩果或花", "height_m": 0.56, "crown_m": [0.50, 0.42], "organs": {"leaves": 6, "stems": 3, "flowers": 1, "fruits": 2}, "topology": "主茎二分枝与小果/花序"},
+        "large": {"label": "大", "description": "分枝叶果", "height_m": 0.88, "crown_m": [0.74, 0.64], "organs": {"leaves": 10, "stems": 5, "flowers": 0, "fruits": 5}, "topology": "主茎四分枝、多层叶与果串"}
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-PUMPKIN",
+      "display_name": "南瓜",
+      "source_v001": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
+      "growth_forms": {
+        "small": {"label": "小", "description": "芽", "height_m": 0.18, "crown_m": [0.30, 0.24], "organs": {"leaves": 2, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "短藤双叶芽"},
+        "medium": {"label": "中", "description": "匍匐叶藤", "height_m": 0.27, "crown_m": [0.68, 0.56], "organs": {"leaves": 5, "stems": 4, "flowers": 0, "fruits": 0}, "topology": "一条匍匐藤与五片叶"},
+        "large": {"label": "大", "description": "粗藤与果", "height_m": 0.40, "crown_m": [0.88, 0.78], "organs": {"leaves": 8, "stems": 7, "flowers": 0, "fruits": 1}, "topology": "粗主藤三侧枝与瓜果"}
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-BLUE",
+      "display_name": "蓝星花",
+      "source_v001": "godot/src/crops/flower_view.gd",
+      "growth_forms": {
+        "small": {"label": "小", "description": "小叶芽，无大花", "height_m": 0.20, "crown_m": [0.22, 0.20], "organs": {"leaves": 2, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "低矮双叶芽"},
+        "medium": {"label": "中", "description": "花蕾与少花", "height_m": 0.43, "crown_m": [0.34, 0.30], "organs": {"leaves": 4, "stems": 2, "flowers": 1, "fruits": 0}, "topology": "分叉花茎与一朵小五瓣花"},
+        "large": {"label": "大", "description": "饱满成熟花", "height_m": 0.64, "crown_m": [0.52, 0.48], "organs": {"leaves": 6, "stems": 3, "flowers": 2, "fruits": 0}, "topology": "三茎双花、原蓝色五瓣辨识"}
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-SUN",
+      "display_name": "晨光花",
+      "source_v001": "godot/src/crops/flower_view.gd",
+      "growth_forms": {
+        "small": {"label": "小", "description": "小叶芽，无大花", "height_m": 0.23, "crown_m": [0.22, 0.22], "organs": {"leaves": 2, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "直立双叶芽"},
+        "medium": {"label": "中", "description": "花蕾与少花", "height_m": 0.52, "crown_m": [0.38, 0.34], "organs": {"leaves": 5, "stems": 2, "flowers": 1, "fruits": 0}, "topology": "直立茎与十瓣小花蕾"},
+        "large": {"label": "大", "description": "饱满成熟花", "height_m": 0.82, "crown_m": [0.58, 0.54], "organs": {"leaves": 8, "stems": 3, "flowers": 2, "fruits": 0}, "topology": "高直主茎双花、原sun十瓣辨识"}
+      }
+    },
+    {
+      "asset_id": "SEA-CROP-FLOWER-CORAL",
+      "display_name": "珊瑚花",
+      "source_v001": "godot/src/crops/flower_view.gd",
+      "growth_forms": {
+        "small": {"label": "小", "description": "小叶芽，无大花", "height_m": 0.21, "crown_m": [0.22, 0.20], "organs": {"leaves": 2, "stems": 1, "flowers": 0, "fruits": 0}, "topology": "三叉嫩叶芽"},
+        "medium": {"label": "中", "description": "花蕾与少花", "height_m": 0.44, "crown_m": [0.38, 0.34], "organs": {"leaves": 4, "stems": 3, "flowers": 1, "fruits": 0}, "topology": "三叉茎与一朵杯状小花"},
+        "large": {"label": "大", "description": "饱满成熟花", "height_m": 0.68, "crown_m": [0.58, 0.52], "organs": {"leaves": 7, "stems": 5, "flowers": 3, "fruits": 0}, "topology": "多叉茎与珊瑚杯状花簇"}
+      }
+    }
+  ],
+  "deliverables": {
+    "blend": "art_source/crops/libraries/v002/planting_library.blend",
+    "manifest": "art_source/crops/libraries/v002/library_manifest.json",
+    "external_output": "D:/projects/sea-work/botanical_growth/v002/crops/",
+    "scenes": ["01_小中大对照", "02_植物母版"],
+    "plant_collections": 18,
+    "runtime_integration": false
+  }
+}

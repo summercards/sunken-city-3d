@@ -387,3 +387,32 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 |---|---|
 | SEA-ASSET-R62 | `bld_20261109_a/v001` 仅完成源级登记：49 个组件、92 个实例、1 个总成，共 50 行写入 `scenes` 分账本；display name 暂用 `B1109A`，不视为正式命名。源报告 `passed=true`、exit 0、1321844 checks，49 个独立包重开；全实例展开为 390194 三角面 / 204526 多边形。组件植物 `LEAF-CLUSTER` / `SUCCULENT` / `VINE` / `CITRUS` 的 `building_class=null`、`none/none`，其余组件为 `above_water`、`surface/part`，总成为 `above_water`、`surface/entity`。登记保留主源报告哈希与各包 catalog 哈希，补齐组件/总成 `asset_manifest.json`；无新纹理，不登记纹理。阶段为 `source_verified_runtime_integration_pending`，Godot、GLB、运行、碰撞、导航、商业权属和用户最终美术验收均 pending；未修改 Godot、GDD 或主线程 development 文件。详见本轮开发记录链接： [B1109A 登记记录](../../development/2026-11-09_bld_20261109_a.md)。 |
 
+## 2026-11-10 两份专用 Blender 模型组件集合存放
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-ASSET-R63 | 建立两份只读源归档集合：`art_source/vegetation/libraries/v001/vegetation_library.blend`（`SEA-LIB-VEGETATION-V001`，98 AssetID、98 Collection、332 网格、149036 triangles / 80328 polygons，SHA-256 `8703643aaae74e092401d97660621f9f9c70929e14cb11321055247657f4f407`）与 `art_source/crops/libraries/v001/planting_library.blend`（`SEA-LIB-PLANTING-V001`，6品种×4阶段的24组件＋2设施＋6手持＋2装配、34 Collection、8原资产ID、459网格、13364 triangles / 11000 polygons，SHA-256 `dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249`）。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`，Collection 已 `AssetMark`；展示缩放不改变母版。植物按6语义族分组且每组≤50，未接入源单列，不与正式运行资产混记。三花、42原版植物、荷叶、框、平台、手持均按真实 Godot 静态编辑快照归档，原程序源保持权威，不冒称原有原创 Blend；保留 `PaletteUV` / `BotanicalUV` / 顶点色 / `WindData`，图片只外链，不迁移 Godot 风 shader 与玩法。源验证最终9047 checks/0 failures、`passed=true`；`register.py --write` 已成功，仅为106个原AssetID增加 `library_refs`（`scenes=97`、`crops=6`、`vegetation=3`），旧 `source` / `hash` / `stage` / `runtime` 字段、主记录数量与 `current_source_index` 不变，库成员不重复登记。8个四视图PNG已完成Cycles生成，两个overview与植被top已审阅；不把8图所有细节写成全目视通过。用户美术终审、性能与运行接入仍保持未签；R63不改变既有状态真值保留规则。全库sync/check均因既有 `SEA-SCENE-WATER-BUILDING-001` manifest缺 `asset_ledger` 的KeyError exit1且无同步写入。详见[最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)。 |
+
+## 2026-11-10 植物命名与三形态模型范围（R64）
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-ASSET-R64 | 植物统一按 104 个稳定 AssetID 采用管理名登记：98 个植被模型来自 `tools/blender/botanical_libraries/plant_names_v002.json`，6 个作物模型来自 `art_source/crops/libraries/v002/component_plan.json`；中文名是项目管理名，不是物种鉴定。每种只制作 `small`/`medium`/`large`（小/中/大）三种静态模型，不做季节变体。三形态必须通过叶、分枝、花蕾、果实等器官拓扑、数量、展开和冠幅变化体现，不得用整体缩放冒充生长；藤蔓使用 `top_center_attachment` 顶心吊挂原点为明确例外，其余植物使用 `bottom_center` 底心原点。v002 模型交付已完成但不接入游戏；纯植物模型不含盆、土、平台或手持表现。既有作物 v001 四阶段保留，v002 三形态不代表运行四阶段覆盖。共享色板外链 `art_source/shared/palettes/sea_cozy_8x8_512.png`，PaletteUV 逐面有面积并留 8px 安全边，使用 `SEA_Matte`/`SEA_Gloss`；原 v001 与原主 source 不迁移、不覆盖。v002 源验证、登记审计与 29 张预览已完成；运行接入、用户审美、性能仍按边界保留，契约 sync/check 仅受既有 `asset_ledger` KeyError 阻塞。 |
+
+## 2026-11-10 编号002水上普通建筑与植被体量修订
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-ASSET-R65 | 按本次原画制作编号002水上普通建筑，稳定AssetID为 `SEA-SCENE-WATER-BUILDING-002`、类别 `above_water`、普通非交互结构。七层米白旧楼、绿窗、屋顶与侧挑太阳能板、方形空调、管线、缠楼树干和分层树冠保留，细碎3D字不做，整栋目标约一万三角面。植被茂盛比例只通过现有18树冠实例体积和位置调整，不新增网格、叶片、枝条或三角形；v003相对v002母版顶点与拓扑不变，非树冠149实例矩阵不变，展开10342三角面/6293多边形。28组件分别独立包、独立优化源与逐组件GLB/PackedScene，建筑/陈设/植物分离；植物6种 `null/none/none`，建筑组件 `above_water/surface/part`，总成 `above_water/surface/entity`。总装增量放入商店旁建筑列、001东侧参考位，后续位置以手改TSCN为准。真实材质覆盖必须序列化到导入后Mesh节点，保留全部XYZ旋转与树冠缩放；正式导入、逐组件加载、实际面数/矩阵/水面阻挡和真实游戏四视图经统一runner核验，不将技术通过等同于用户美术终审、版权或全局接缝穷举。 |
+
+| SEA-ASSET-R66 | 场景模块里的装饰件（作物、藤架、花丛、藤蔓）标 `metadata/visual_only = true`：参与渲染与交互，但不进入 `DerivedWalkArea` 的遮挡判定，也不进入 `BlockerSet` 的水面派生。桥面、楼板、土面、菜床等承重面保留几何身份。模块由 Blender 导出脚本产出时，模板必须一并写入该标记，否则下次重导出会静默覆盖。 |
+
+[制作、体量修订与运行验收记录](../../development/2026-11-10_water_building_002.md)。
+
+## 2026-11-10 参数楼房工坊候选资产登记规则
+
+| 条款 ID | 规则 / 验收 |
+|---|---|
+| SEA-ASSET-R68 | SEA-WORKSHOP V1 生成的楼房是候选资产，不因工坊导出自动成为正式主场景资产。每栋保持独立 `building_id`、版本配方和 `revision_NNNN` 目录，候选固定包含 `building.recipe.json`、`building.tscn`、`catalog_snapshot.json`、`candidate_manifest.json`、`ledger.json`；正式登记由 SEA-ASSET 唯一路由，正式摆位由 SEA-WORLD 负责，`runtime_path=null` 时不得宣称已接入正式运行世界。当前正式样例仅登记 `SEA-SCENE-WORKSHOP-SAMPLE-001` 与 `SEA-SCENE-WORKSHOP-SAMPLE-002` 两个主记录，源为 `art_source/scenes/building_workshop/v001/workshop_sample_001/`、`workshop_sample_002/`，每楼5件候选文件；不得把 `catalog_v1.json` 内部10个组件ID拆作独立正式 Asset 主记录。 |
+| SEA-ASSET-R68a | 工坊的原生参数化来源必须如实标为 native/project-authored，不伪造 Blender、GLB 或 02b 生产链；真实 UV 共享色板与 8px 安全边、Native 圆角、`partial_source_style` 与局部空间声明均是当前 V1 工程事实，不等于美术终验、正式导航或全楼可达。水上功能、水下观赏、独立潜水三 profile 的碰撞/走域/水面职责分开记，walk/water 局部声明不能替代正式世界接入。 |
+

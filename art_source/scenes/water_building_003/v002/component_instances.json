@@ -1,0 +1,847 @@
+{
+  "schema": "sea.component_instances",
+  "blender_axes": "XY plane +Z up",
+  "godot_map": "(x,y,z)->(x,z,-y)",
+  "instances": [
+    {
+      "name": "WB003V2_I_foundation_001",
+      "key": "foundation",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+      "position": [
+        -0.20000000298023224,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_lower_shell_001",
+      "key": "lower_shell",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+      "position": [
+        0.20000000298023224,
+        0.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_lower_slab_001",
+      "key": "lower_slab",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+      "position": [
+        0.20000000298023224,
+        0.0,
+        5.199999809265137
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_middle_shell_001",
+      "key": "middle_shell",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+      "position": [
+        -0.25,
+        0.0,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_middle_slab_001",
+      "key": "middle_slab",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+      "position": [
+        -0.25,
+        0.0,
+        10.100000381469727
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_upper_shell_001",
+      "key": "upper_shell",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+      "position": [
+        0.25,
+        0.0,
+        10.300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_upper_slab_001",
+      "key": "upper_slab",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+      "position": [
+        0.25,
+        0.0,
+        13.399999618530273
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_roof_lower_001",
+      "key": "roof_lower",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+      "position": [
+        0.20000000298023224,
+        0.0,
+        5.449999809265137
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_roof_middle_001",
+      "key": "roof_middle",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+      "position": [
+        -0.25,
+        0.0,
+        10.350000381469727
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_roof_upper_001",
+      "key": "roof_upper",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+      "position": [
+        0.25,
+        0.0,
+        13.600000381469727
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_roof_ridge_001",
+      "key": "roof_ridge",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+      "position": [
+        0.25,
+        0.0,
+        13.949999809265137
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_lower_quoin_001",
+      "key": "lower_quoin",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+      "position": [
+        0.20000000298023224,
+        0.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_middle_quoin_001",
+      "key": "middle_quoin",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+      "position": [
+        -0.25,
+        0.0,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_upper_quoin_001",
+      "key": "upper_quoin",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+      "position": [
+        0.25,
+        0.0,
+        10.300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_door_001",
+      "key": "door",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+      "position": [
+        -0.30000001192092896,
+        -3.549999952316284,
+        0.3199999928474426
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_window_large_001",
+      "key": "window_large",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+      "position": [
+        2.299999952316284,
+        -3.559999942779541,
+        2.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_window_large_002",
+      "key": "window_large",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+      "position": [
+        -2.5,
+        -3.559999942779541,
+        2.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_window_small_001",
+      "key": "window_small",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+      "position": [
+        -0.5,
+        -2.990000009536743,
+        6.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_window_upper_001",
+      "key": "window_upper",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+      "position": [
+        0.25,
+        -2.299999952316284,
+        11.100000381469727
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_shutter_001",
+      "key": "shutter",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+      "position": [
+        2.0,
+        -2.3499999046325684,
+        6.599999904632568
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_balcony_lower_001",
+      "key": "balcony_lower",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+      "position": [
+        2.75,
+        -0.20000000298023224,
+        5.5
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_balcony_middle_001",
+      "key": "balcony_middle",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+      "position": [
+        -2.25,
+        -0.20000000298023224,
+        10.149999618530273
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_balcony_rail_001",
+      "key": "balcony_rail",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+      "position": [
+        2.75,
+        -2.5,
+        6.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_awning_001",
+      "key": "awning",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+      "position": [
+        2.4000000953674316,
+        -2.700000047683716,
+        7.099999904632568
+      ],
+      "rotation_euler_xyz": [
+        0.12,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_ladder_001",
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+      "position": [
+        -3.5,
+        -3.549999952316284,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_drainpipe_001",
+      "key": "drainpipe",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+      "position": [
+        3.75,
+        -3.5,
+        5.300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9
+      ]
+    },
+    {
+      "name": "WB003V2_I_utility_box_001",
+      "key": "utility_box",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+      "position": [
+        3.299999952316284,
+        -3.6500000953674316,
+        2.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_sign_001",
+      "key": "sign",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+      "position": [
+        3.0999999046325684,
+        -3.630000114440918,
+        3.5
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0.08,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_stone_steps_001",
+      "key": "stone_steps",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+      "position": [
+        -0.30000001192092896,
+        -3.799999952316284,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_bench_001",
+      "key": "bench",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+      "position": [
+        -4.199999809265137,
+        -3.700000047683716,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_pot_001",
+      "key": "pot",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-POT",
+      "position": [
+        4.400000095367432,
+        -3.799999952316284,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_pole_001",
+      "key": "pole",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+      "position": [
+        -5.300000190734863,
+        1.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_wire_001",
+      "key": "wire",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+      "position": [
+        -5.300000190734863,
+        1.0,
+        7.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_trunk_main_001",
+      "key": "trunk_main",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+      "position": [
+        -5.0,
+        1.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_trunk_branch_001",
+      "key": "trunk_branch",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+      "position": [
+        -5.0,
+        1.0,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_canopy_left_001",
+      "key": "canopy_left",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+      "position": [
+        -5.199999809265137,
+        1.0,
+        12.800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_canopy_top_001",
+      "key": "canopy_top",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+      "position": [
+        -2.299999952316284,
+        1.2000000476837158,
+        15.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_canopy_right_001",
+      "key": "canopy_right",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+      "position": [
+        5.199999809265137,
+        1.399999976158142,
+        9.199999809265137
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_vine_001",
+      "key": "vine",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+      "position": [
+        2.799999952316284,
+        -3.700000047683716,
+        4.599999904632568
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_moss_001",
+      "key": "moss",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+      "position": [
+        -2.0,
+        -3.799999952316284,
+        5.099999904632568
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "WB003V2_I_moss_002",
+      "key": "moss",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+      "position": [
+        1.0,
+        -2.799999952316284,
+        10.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "name": "WB003V2_I_flower_cluster_001",
+      "key": "flower_cluster",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+      "position": [
+        -4.0,
+        -3.9000000953674316,
+        0.30000001192092896
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

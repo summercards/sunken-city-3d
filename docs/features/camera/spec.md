@@ -146,3 +146,17 @@
 | SEA-CAMERA-R16 | 玩家可达区间从 9–77.8 m 收窄为 **13.82–35.14 m**（显示刻度 7%–38%）。`zoom_ratio()` 的刻度锚定新增字段 `zoom_ref_min = 9` / `zoom_ref_max = 77.8`，**不跟着 `zoom_min / zoom_max` 走**：主人用这个百分比指认机位，刻度一动，同一句话就换个画面。开局 54.25 m 已越界，改为 **27.9 m**（新区间 66%，与旧值在 9–77.8 里的 65.8% 同档；显示读 27.5%），两端都留余量、不钉在最远。滚轮/捏合、C 面板滑杆与四个预设全读同一对字段；需要更宽机位的证据脚本仍在自己文件里临时抬高 `zoom_max`，玩家上限不跟着放开。 |
 
 真实渲染证据：`camera-zoom-far.png`（拉到顶=35.14 m，读数 38%）、`camera-zoom-near.png`（拉到最近=13.82 m，读数 7%）。断言见 `tests/test_camera_follow.gd` 与 `tools/capture_camera_zoom.gd`；交付记录见[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。
+
+## 2026-11-10 潜水入水镜头跨链（现行设计，运行验收 PENDING）
+
+本轮用户明确要求更新设计，从既有最大 R16 后追加 R17，全部历史保留；本条是 SEA-CAMERA-R03 的跨域交接说明，**潜水镜头所有者仍为 SEA-DIVE 的 Shared DiveRuntimeController，不是修改 OrbitCam**。不新增相机状态机，不修改 R16 海面缩放区间、既有跟随/手动规则或登记头 owner。
+
+| 条款 ID | 现行规则 / 应验证的行为 |
+|---|---|
+| SEA-CAMERA-R17 | 潜水可见入水镜头与角色入水由同一 Shared DiveRuntimeController、同一 entry 进度推进，见 [SEA-DIVE-R44–R51](../dive/spec.md#2026-11-10-圆幕展开后可见入水现行设计运行验收-pending)。cover0.85s并经真实全黑post-draw后加载/碰撞选点，prepared enter且entry_verified（如存在）后通过 `set_entry_view` 准备初始角色/镜头，再uncover1.05s，不等swim。opening全程位置/Air及初始镜头保持，圆幕彻底idle且不可见后Session phase entering、`release_entry` 才启动可见下沉：家园1.65s/水下1.6→4.8m，旧九图2.2s/终点Y=-10，统一 `f=1-(1-u)^3` ease-out且末速0。镜头距离6.3→7.5m、FOV76→72°、初始略仰回基础pitch，单次heave≤0.08m、无roll；保留半径0.32m的候选clip与插值后最终clip、立即回缩/离墙缓出。实际位置差驱动velocity动画，swim边界清零入水残速但不snap相机。switching/transition_frozen及输入/save/日期/氧气冻结持续到swim；普通游泳72°/冲刺78°/滚轮距离4..13m不改，Map只提供camera_clip空间裁剪，不能另持镜头状态。 |
+
+预计验证入口为既有 `dive-transition` / `visual-dive-transition`，并由 `dive-control` / `visual-dive-control` 检查普通潜水参数不回退；真实连续帧需核对opening固定构图、全幕退场后才下沉、ease-out/无roll/≤0.08m单次heave、近墙双clip与swim不snap。**当前运行 PENDING，不借旧 camera 或潜水 PASS 预签。** 报告、计数/退出码、unexpected/leak及逐图/时序审阅由主线程回填 [入水表现开发记录](../../development/2026-11-10_dive_entry_splash.md)（主线程创建）；本次不运行Godot/sync，不改代码/GDD/用户TSCN，家园120m与水位101.587442不动。
+
+### 2026-11-10 当前运行签署
+
+上方为委派阶段待验，现以本轮实测覆盖：`20261110-233501-dive-entry-polish-core-cc526e`的transition500/0、control396/0；`20261110-233501-dive-entry-polish-visual-6a99e7`的真实transition404/0、control403/0；`20261110-233926-dive-entry-final-integration-222f98`的海面camera14/0，均exit0/PASS、unexpected=[]。R17的opening固定相机、全展开后可见下沉、首swim连续、原普通游泳参数及碰撞裁剪通过；最终家园pitch0.16rad、入水偏移−0.22rad，使水面边缘在终点高于头顶。真实21帧/动态预览已审阅，海面OrbitCam与用户TSCN未改。完整报告及全局sync79/只读81未过、低端/长时/用户终审边界见[开发记录第5节](../../development/2026-11-10_dive_entry_splash.md#5-最终运行验收)，不据此宣称全工程绿。

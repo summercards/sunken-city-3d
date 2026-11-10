@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/right_building.tscn" id="module_right_building"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/garden_bridge.tscn" id="module_garden_bridge"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/modules/street_ground.tscn" id="module_street_ground"]
+[ext_resource type="Script" path="res://src/interaction/site_ladder_interactable.gd" id="site_ladder"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/stair_foot.tscn" id="stair_foot"]
 
 [node name="NeonGardenQuarter" type="Node3D"]
 script = ExtResource("quarter")
@@ -38,6 +40,30 @@ position = Vector3(-0.000000476837158, 23.299999237060547, 1.2674999237060547)
 [node name="Foundation" parent="Visual" instance=ExtResource("module_street_ground")]
 position = Vector3(-2.1499996185302734, 0.10000000149011612, -2.3496336936950684)
 
+; >>> neon-stair-foot-visual（由 godot/tools/build_neon_stair_walk.py 生成，勿手改）
+[node name="StairFoot" parent="Visual" instance=ExtResource("stair_foot")]
+metadata/visual_only = true
+position = Vector3(-23.113068389892578, 16.99, -1.8820000305175781)
+
+; 直梯的两端各一个交互点。climb_ladder 只吃 Y —— 角色沿自己脚下那根竖线升降，
+; 所以两个点的 X/Z 就是「攀爬竖线」。它比梯子造型（楼体局部 x -7.05）往里收了
+; 0.2 米：站上来的人要落在平台内侧，不能半个身子悬在平台外。
+[node name="Ladders" type="Node3D" parent="."]
+
+[node name="StairFootBottom" type="Node3D" parent="Ladders"]
+position = Vector3(-22.663068389892578, 16.99, -1.6720000305175781)
+script = ExtResource("site_ladder")
+focus_offset = Vector3(0, 0.9, 0)
+ladder_label = "检修梯"
+
+[node name="StairFootTop" type="Node3D" parent="Ladders"]
+position = Vector3(-22.663068389892578, 20.7, -1.6720000305175781)
+script = ExtResource("site_ladder")
+focus_offset = Vector3(0, 0.9, 0)
+direction = "down"
+ladder_label = "检修梯"
+; <<< neon-stair-foot-visual
+
 [node name="Blockers" type="Node3D" parent="."]
 script = ExtResource("blockers")
 target_path = NodePath("../Visual")
@@ -53,6 +79,9 @@ surface_y = 1.42
 span_min = 1.30
 span_max = 1.56
 rects = [Rect2(1, 7.45, 6.5, 2.95)]
+; 整块街口已沉到世界 -15.87，这 19 m² 走域 100% 落在开阔水面上（无任何几何支撑）：
+; 留着只会接住点击与读档落点，把人放到半空。停用而不是删，回退重建街区时改回 true 即可。
+active = false
 
 ; 街口铺地在世界 -14.45（水下 15.6 米），泊位不可用；可活动区已改到左楼屋顶
 [node name="WalkLeftRoof" type="Node3D" parent="WalkAreas"]
@@ -115,6 +144,42 @@ band_tolerance = 1.35
 surface_y = 27.4
 span_min = 26.05
 span_max = 28.75
+
+; >>> neon-stair-walk（由 godot/tools/build_neon_stair_walk.py 生成，勿手改）
+;
+; 霓虹花园左楼屋顶的上下通路。这栋楼东侧本来就带一架 12 段双跑折返检修梯，
+; 模型里从楼基一路做到局部 30.60，但场景里从来没有可走面 —— 玩家只能靠下船
+; 瞬移到屋顶。这里把「水面以上、且靠船的那一侧」那一段派生为走域：
+; 5 段梯段（斜坡三角形）+ 5 个平台（平面三角形）+ 1 段搭到屋面的补桥。
+;
+; 坐标 = LeftBuilding 局部。本节点 position 与楼体一致，所以局部坐标直接可用。
+; 梯段每段升 2.55 m、进深 3.92 m（≈33°，低于 GroundSpace 的 agent_max_slope 46°）；
+; 平台每 2.55 m 一级，在 z=-8.90..-6.90（远）与 z=-2.98..-0.98（近）之间折返。
+;
+; 为什么从 20.40 起算：更低的两个平台（世界 2.28 / -0.27）在 z=-8.90 那一侧，
+; 离船位 8.7 米，中间还隔着建筑本体；近船侧这一段由「浮台 + 直梯」衔接。
+[node name="WalkLeftStair" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+position = Vector3(-15.813068389892578, 0.30000001192092896, 0.6180000305175781)
+area_id = "neon_garden_left_stair"
+zone_id = "neon_garden_quarter"
+surface_y = 15.03
+span_min = 4.6
+span_max = 15.2
+surface_triangles = PackedVector3Array(-7.09, 20.4, -2.98, -2.69, 20.4, -2.98, -2.69, 20.4, -0.98, -7.09, 20.4, -2.98, -2.69, 20.4, -0.98, -7.09, 20.4, -0.98, -6.9, 20.4, -2.98, -4.87, 20.4, -2.98, -4.87, 22.95, -6.9, -6.9, 20.4, -2.98, -4.87, 22.95, -6.9, -6.9, 22.95, -6.9, -7.09, 22.95, -8.9, -2.69, 22.95, -8.9, -2.69, 22.95, -6.9, -7.09, 22.95, -8.9, -2.69, 22.95, -6.9, -7.09, 22.95, -6.9, -4.9, 22.95, -6.9, -2.87, 22.95, -6.9, -2.87, 25.5, -2.98, -4.9, 22.95, -6.9, -2.87, 25.5, -2.98, -4.9, 25.5, -2.98, -7.09, 25.5, -2.98, -2.69, 25.5, -2.98, -2.69, 25.5, -0.98, -7.09, 25.5, -2.98, -2.69, 25.5, -0.98, -7.09, 25.5, -0.98, -6.9, 25.5, -2.98, -4.87, 25.5, -2.98, -4.87, 28.05, -6.9, -6.9, 25.5, -2.98, -4.87, 28.05, -6.9, -6.9, 28.05, -6.9, -7.09, 28.05, -8.9, -2.69, 28.05, -8.9, -2.69, 28.05, -6.9, -7.09, 28.05, -8.9, -2.69, 28.05, -6.9, -7.09, 28.05, -6.9, -4.9, 28.05, -6.9, -2.87, 28.05, -6.9, -2.87, 30.6, -2.98, -4.9, 28.05, -6.9, -2.87, 30.6, -2.98, -4.9, 30.6, -2.98, -7.09, 30.6, -2.98, -2.69, 30.6, -2.98, -2.69, 30.6, -0.98, -7.09, 30.6, -2.98, -2.69, 30.6, -0.98, -7.09, 30.6, -0.98, -2.69, 30.6, -2.62, -2.69, 30.6, -0.98, -2.3, 30.8, -0.98, -2.69, 30.6, -2.62, -2.3, 30.8, -0.98, -2.3, 30.8, -2.62, -2.3, 30.8, -2.62, -2.3, 30.8, -0.98, -1.19, 30.8, -0.98, -2.3, 30.8, -2.62, -1.19, 30.8, -0.98, -1.19, 30.8, -2.62)
+
+; 检修梯脚下的浮台：船就停在它旁边（BoatPark 世界 112.79 / 66.20），
+; 直梯从这里 1.12 m 升到第一级可用平台 4.83 m。
+[node name="WalkLeftFloat" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+position = Vector3(-15.813068389892578, 0.30000001192092896, 0.6180000305175781)
+area_id = "neon_garden_left_float"
+zone_id = "neon_garden_quarter"
+surface_y = 1.12
+span_min = 0.9
+span_max = 1.35
+rects = [Rect2(-8.4, -3.4, 2.2, 1.8)]
+; <<< neon-stair-walk
 
 [node name="RoofNpcStations" type="Node3D" parent="."]
 script = ExtResource("npc_stations")

@@ -79,7 +79,8 @@ func water_shapes(value: Variant = null) -> Array:
 	return [{"x":PEN.get_center().x,"z":PEN.get_center().y,"hx":PEN.size.x*0.5,"hz":PEN.size.y*0.5,"round":false}]
 
 func _process(delta: float) -> void:
-	animate(_time+delta)
+	_time += delta
+	if is_visible_in_tree(): animate(_time)
 
 func animate(time: float) -> void:
 	_time = time

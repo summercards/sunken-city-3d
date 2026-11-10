@@ -27,15 +27,19 @@ transform = Transform3D(0.8137333881, 0, -0.5769231417, -0, 1, -0, 0.5812383101,
 transform = Transform3D(0.8137333188, 0.5092530575, -0.5769231851, 2.595149695e-08, 0.4820353205, 1.804114712, 0.5812384071, -0.7129539068, 0.8076919307, 9.198603152837158, 3.030431742939453, 4.1320066452939453)
 
 [node name="vine_372" parent="." instance=ExtResource("vine")]
+metadata/visual_only = true
 transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -9.599999428162842, 0.000000002939453, 4.0824999812939453)
 
 [node name="flowers_373" parent="." instance=ExtResource("flowers")]
+metadata/visual_only = true
 transform = Transform3D(0.7, 0, -0, -0, 0.7, -0, -0, -0, 0.7, -9.599999428162842, 2.900001522939453, 4.0824999812939453)
 
 [node name="vine_374" parent="." instance=ExtResource("vine")]
+metadata/visual_only = true
 transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 9.300000667837158, 0.000000002939453, 4.1325001712939453)
 
 [node name="flowers_375" parent="." instance=ExtResource("flowers")]
+metadata/visual_only = true
 transform = Transform3D(0.7, 0, -0, -0, 0.7, -0, -0, -0, 0.7, 9.300000667837158, 2.900001522939453, 4.1325001712939453)
 
 [node name="garden_bridge_394" parent="." instance=ExtResource("garden_bridge")]
@@ -48,325 +52,427 @@ transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.000000476837158, 2.457
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, -8.849999428162842, 4.055000302939453, 1.9825000762939453)
 
 [node name="cabbage_398" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.212288699, 0, -0.9772069936, -0, 1, -0, 0.9772069936, 0, 0.212288699, -9.369999409162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_399" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.837622527, 0, 0.5462494873, -0, 1, -0, -0.5462494873, -0, 0.837622527, -8.329999447162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_400" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.8857163107, 0, -0.4642269025, -0, 1, -0, 0.4642269025, 0, 0.8857163107, -9.369999409162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_401" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.7589281706, 0, -0.6511743483, -0, 1, -0, 0.6511743483, 0, 0.7589281706, -8.329999447162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_402" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.4295518614, 0, 0.9030421908, -0, 1, -0, -0.9030421908, -0, 0.4295518614, -9.369999409162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_403" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.1281415956, 0, 0.991755883, -0, 1, -0, -0.991755883, -0, 0.1281415956, -8.329999447162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_404" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.9849942013, -0, -0.1725874371, -0, 1, -0, 0.1725874371, -0, -0.9849942013, -9.369999409162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_405" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.6149213313, -0, -0.7885884582, -0, 1, -0, 0.7885884582, -0, -0.6149213313, -8.329999447162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_406" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.3557569659, 0, 0.9345785046, -0, 1, -0, -0.9345785046, -0, 0.3557569659, -9.369999409162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="cabbage_407" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.8074832079, 0, -0.5898905568, -0, 1, -0, 0.5898905568, 0, 0.8074832079, -8.329999447162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="trellis_408" parent="." instance=ExtResource("trellis")]
+metadata/visual_only = true
 transform = Transform3D(0.9, 0, -0, -0, 0.9, -0, -0, -0, 0.9, -8.849999428162842, 4.668334962939453, -0.5174999237060547)
 
 [node name="tomato_409" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.6849006031, 0, 0.5838759833, -0, 0.94, -0, -0.5838759833, -0, 0.6849006031, -9.569999456162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_410" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.618131971, 0, 0.6541504922, -0, 0.94, -0, -0.6541504922, -0, 0.618131971, -8.789999485162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_411" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.6499285922, 0, 0.6225695343, -0, 0.94, -0, -0.6225695343, -0, 0.6499285922, -8.079999447162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="crop_bed_412" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, -5.899999522162842, 4.055000302939453, 1.9825000762939453)
 
 [node name="cabbage_413" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.2017049664, -0, -0.9794463265, -0, 1, -0, 0.9794463265, -0, -0.2017049664, -6.419999510162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_414" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.9994787446, 0, -0.0322837279, -0, 1, -0, 0.0322837279, 0, 0.9994787446, -5.379999518162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_415" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.05907842496, -0, -0.9982533444, -0, 1, -0, 0.9982533444, -0, -0.05907842496, -6.419999510162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_416" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.999945976, 0, -0.01039447688, -0, 1, -0, 0.01039447688, 0, 0.999945976, -5.379999518162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_417" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.6084820488, 0, 0.7935676381, -0, 1, -0, -0.7935676381, -0, 0.6084820488, -6.419999510162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_418" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.6138067857, 0, 0.7894562875, -0, 1, -0, -0.7894562875, -0, 0.6138067857, -5.379999518162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_419" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.07819033732, 0, -0.996938449, -0, 1, -0, 0.996938449, 0, 0.07819033732, -6.419999510162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_420" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.2139089075, 0, 0.976853612, -0, 1, -0, -0.976853612, -0, 0.2139089075, -5.379999518162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_421" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.9351663316, 0, 0.3542088823, -0, 1, -0, -0.3542088823, -0, -0.9351663316, -6.419999510162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="cabbage_422" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.9787708929, -0, -0.2049574082, -0, 1, -0, 0.2049574082, -0, -0.9787708929, -5.379999518162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="trellis_423" parent="." instance=ExtResource("trellis")]
+metadata/visual_only = true
 transform = Transform3D(0.9, 0, -0, -0, 0.9, -0, -0, -0, 0.9, -5.899999522162842, 4.668334962939453, -0.5174999237060547)
 
 [node name="tomato_424" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.606678151, 0, 0.664786899, -0, 0.94, -0, -0.664786899, -0, 0.606678151, -6.619999528162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_425" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8119024743, 0, 0.3883482615, -0, 0.94, -0, -0.3883482615, -0, 0.8119024743, -5.839999527162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_426" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.5036220371, 0, 0.745898682, -0, 0.94, -0, -0.745898682, -0, 0.5036220371, -5.129999518162842, 4.868333812939453, -0.3374999240060547)
 
 [node name="crop_bed_427" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, -2.949999571162842, 4.055000302939453, 1.9825000762939453)
 
 [node name="herb_428" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.4751263092, 0, 0.8799176043, -0, 1, -0, -0.8799176043, -0, 0.4751263092, -3.469999552162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_429" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.953842395, 0, 0.3003076513, -0, 1, -0, -0.3003076513, -0, 0.953842395, -2.429999590162842, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_430" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.8316219551, 0, -0.5553421682, -0, 1, -0, 0.5553421682, 0, 0.8316219551, -3.469999552162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_431" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.01620021687, -0, -0.9998687679, -0, 1, -0, 0.9998687679, -0, -0.01620021687, -2.429999590162842, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_432" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.9005041222, 0, 0.4348474742, -0, 1, -0, -0.4348474742, -0, -0.9005041222, -3.469999552162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_433" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.8031971176, -0, -0.5957133458, -0, 1, -0, 0.5957133458, -0, -0.8031971176, -2.429999590162842, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_434" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.4046929353, -0, -0.9144526385, -0, 1, -0, 0.9144526385, -0, -0.4046929353, -3.469999552162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_435" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9929977969, 0, -0.1181328717, -0, 1, -0, 0.1181328717, 0, 0.9929977969, -2.429999590162842, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_436" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.8088255068, -0, -0.5880487221, -0, 1, -0, 0.5880487221, -0, -0.8088255068, -3.469999552162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_437" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.7937114947, 0, 0.6082943886, -0, 1, -0, -0.6082943886, -0, 0.7937114947, -2.429999590162842, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_438" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.7484611299, -0, -0.6631786615, -0, 1, -0, 0.6631786615, -0, -0.7484611299, -3.599999428162842, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_439" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.9856560865, -0, -0.1687663446, -0, 1, -0, 0.1687663446, -0, -0.9856560865, -2.849999428162842, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_440" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.2586800628, 0, 0.9659630558, -0, 1, -0, -0.9659630558, -0, -0.2586800628, -2.249999523162842, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_441" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.4377821466, 0, -0.899081082, -0, 1, -0, 0.899081082, 0, 0.4377821466, -3.599999428162842, 3.608333582939453, -1.4174998999060547)
 
 [node name="herb_442" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.4066562805, -0, -0.9135812331, -0, 1, -0, 0.9135812331, -0, -0.4066562805, -2.849999428162842, 3.608333582939453, -1.4174998999060547)
 
 [node name="herb_443" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.6562410297, 0, 0.7545513309, -0, 1, -0, -0.7545513309, -0, 0.6562410297, -2.249999523162842, 3.608333582939453, -1.4174998999060547)
 
 [node name="crop_bed_444" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, 0.000000476837158, 4.055000302939453, 1.9825000762939453)
 
 [node name="herb_445" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.2254670929, 0, 0.9742507839, -0, 1, -0, -0.9742507839, -0, 0.2254670929, -0.519999504062842, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_446" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9996765765, 0, -0.02543113149, -0, 1, -0, 0.02543113149, 0, 0.9996765765, 0.520000457737158, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_447" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.2153533398, 0, 0.9765361944, -0, 1, -0, -0.9765361944, -0, 0.2153533398, -0.519999504062842, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_448" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.926177397, -0, -0.3770880922, -0, 1, -0, 0.3770880922, -0, -0.926177397, 0.520000457737158, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_449" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.4967625335, 0, -0.8678865049, -0, 1, -0, 0.8678865049, 0, 0.4967625335, -0.519999504062842, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_450" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.2866762087, -0, -0.9580275316, -0, 1, -0, 0.9580275316, -0, -0.2866762087, 0.520000457737158, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_451" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.351894452, 0, 0.9360396865, -0, 1, -0, -0.9360396865, -0, -0.351894452, -0.519999504062842, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_452" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.7903382034, -0, -0.6126708123, -0, 1, -0, 0.6126708123, -0, -0.7903382034, 0.520000457737158, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_453" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.0679045465, 0, 0.9976918224, -0, 1, -0, -0.9976918224, -0, -0.0679045465, -0.519999504062842, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_454" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.4024368965, 0, 0.9154477289, -0, 1, -0, -0.9154477289, -0, 0.4024368965, 0.520000457737158, 5.234487532939453, 0.5825001002939453)
 
 [node name="trellis_455" parent="." instance=ExtResource("trellis")]
+metadata/visual_only = true
 transform = Transform3D(0.9, 0, -0, -0, 0.9, -0, -0, -0, 0.9, 0.000000476837158, 4.668334962939453, -0.5174999237060547)
 
 [node name="tomato_456" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8711802018, 0, 0.2259315296, -0, 0.94, -0, -0.2259315296, -0, 0.8711802018, -0.719999313362842, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_457" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.5653469651, 0, 0.7002733816, -0, 0.94, -0, -0.7002733816, -0, 0.5653469651, 0.060000419617158, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_458" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8701263631, 0, 0.2299567617, -0, 0.94, -0, -0.2299567617, -0, 0.8701263631, 0.770000457737158, 4.868333812939453, -0.3374999240060547)
 
 [node name="crop_bed_459" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, 2.950000285837158, 4.055000302939453, 1.9825000762939453)
 
 [node name="cabbage_460" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.9537728544, 0, 0.3005284382, -0, 1, -0, -0.3005284382, -0, 0.9537728544, 2.430000781837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_461" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.03500310977, 0, 0.9993872034, -0, 1, -0, -0.9993872034, -0, 0.03500310977, 3.470000743837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="cabbage_462" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.8595728106, -0, -0.5110132908, -0, 1, -0, 0.5110132908, -0, -0.8595728106, 2.430000781837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_463" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.5707242508, 0, -0.8211417841, -0, 1, -0, 0.8211417841, 0, 0.5707242508, 3.470000743837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="cabbage_464" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.3843441761, 0, 0.9231898799, -0, 1, -0, -0.9231898799, -0, 0.3843441761, 2.430000781837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_465" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.7622502463, 0, 0.6472824438, -0, 1, -0, -0.6472824438, -0, -0.7622502463, 3.470000743837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="cabbage_466" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.5546856407, 0, 0.8320599978, -0, 1, -0, -0.8320599978, -0, 0.5546856407, 2.430000781837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_467" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(-0.06574273779, 0, 0.9978366061, -0, 1, -0, -0.9978366061, -0, -0.06574273779, 3.470000743837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="cabbage_468" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.5073952085, 0, -0.8617134688, -0, 1, -0, 0.8617134688, 0, 0.5073952085, 2.430000781837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="cabbage_469" parent="." instance=ExtResource("cabbage")]
+metadata/visual_only = true
 transform = Transform3D(0.4781987281, 0, -0.878251659, -0, 1, -0, 0.878251659, 0, 0.4781987281, 3.470000743837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_470" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.3938055516, -0, -0.9191937704, -0, 1, -0, 0.9191937704, -0, -0.3938055516, 2.300000667837158, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_471" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.5170617762, -0, -0.8559480823, -0, 1, -0, 0.8559480823, -0, -0.5170617762, 3.050000667837158, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_472" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.3311061839, 0, -0.9435935009, -0, 1, -0, 0.9435935009, 0, 0.3311061839, 3.650000095837158, 4.483333582939453, -0.6674999297060547)
 
 [node name="herb_473" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.7281458377, -0, -0.6854222342, -0, 1, -0, 0.6854222342, -0, -0.7281458377, 2.300000667837158, 3.608333582939453, -1.4174998999060547)
 
 [node name="herb_474" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.9905613461, 0, 0.1370701267, -0, 1, -0, -0.1370701267, -0, -0.9905613461, 3.050000667837158, 3.608333582939453, -1.4174998999060547)
 
 [node name="herb_475" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.1824224913, 0, -0.9832202371, -0, 1, -0, 0.9832202371, 0, 0.1824224913, 3.650000095837158, 3.608333582939453, -1.4174998999060547)
 
 [node name="crop_bed_476" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, 5.900000095837158, 4.055000302939453, 1.9825000762939453)
 
 [node name="herb_477" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.6954122282, -0, -0.7186110442, -0, 1, -0, 0.7186110442, -0, -0.6954122282, 5.380000590837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_478" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.6235435391, 0, 0.7817886254, -0, 1, -0, -0.7817886254, -0, 0.6235435391, 6.420000552837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_479" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.183360814, -0, -0.9830456815, -0, 1, -0, 0.9830456815, -0, -0.183360814, 5.380000590837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_480" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.8024017271, 0, 0.5967842729, -0, 1, -0, -0.5967842729, -0, 0.8024017271, 6.420000552837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_481" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.3067146417, -0, -0.9518015174, -0, 1, -0, 0.9518015174, -0, -0.3067146417, 5.380000590837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_482" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.5181615689, 0, 0.8552827535, -0, 1, -0, -0.8552827535, -0, -0.5181615689, 6.420000552837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_483" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.6374425184, 0, 0.7704979142, -0, 1, -0, -0.7704979142, -0, 0.6374425184, 5.380000590837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_484" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.9169394861, 0, 0.3990262885, -0, 1, -0, -0.3990262885, -0, -0.9169394861, 6.420000552837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_485" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.52172207, -0, -0.8531155149, -0, 1, -0, 0.8531155149, -0, -0.52172207, 5.380000590837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_486" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.195792915, 0, 0.9806452643, -0, 1, -0, -0.9806452643, -0, 0.195792915, 6.420000552837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="trellis_487" parent="." instance=ExtResource("trellis")]
+metadata/visual_only = true
 transform = Transform3D(0.9, 0, -0, -0, 0.9, -0, -0, -0, 0.9, 5.900000095837158, 4.668334962939453, -0.5174999237060547)
 
 [node name="tomato_488" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8471056374, 0, 0.3039934852, -0, 0.94, -0, -0.3039934852, -0, 0.8471056374, 5.180000781837158, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_489" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8609734236, 0, 0.2621540842, -0, 0.94, -0, -0.2621540842, -0, 0.8609734236, 5.960000514837158, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_490" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8998049052, 0, 0.01873853084, -0, 0.94, -0, -0.01873853084, -0, 0.8998049052, 6.670000552837158, 4.868333812939453, -0.3374999240060547)
 
 [node name="crop_bed_491" parent="." instance=ExtResource("crop_bed")]
 transform = Transform3D(0.94, 0, -0, -0, 0.8467762709, -0.383003421, -0, 0.5319491958, 0.6096789151, 8.850000857837158, 4.055000302939453, 1.9825000762939453)
 
 [node name="herb_492" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.9042783896, -0, -0.4269433149, -0, 1, -0, 0.4269433149, -0, -0.9042783896, 8.330000400837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_493" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9655456915, 0, 0.2602335827, -0, 1, -0, -0.2602335827, -0, 0.9655456915, 9.370000362837158, 3.475513462939453, 3.3825001712939453)
 
 [node name="herb_494" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(-0.6396370686, -0, -0.7686770586, -0, 1, -0, 0.7686770586, -0, -0.6396370686, 8.330000400837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_495" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.6370973481, 0, 0.7707833477, -0, 1, -0, -0.7707833477, -0, 0.6370973481, 9.370000362837158, 3.915256502939453, 2.6825001242939453)
 
 [node name="herb_496" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.4979089327, 0, 0.8672293207, -0, 1, -0, -0.8672293207, -0, 0.4979089327, 8.330000400837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_497" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9885090573, 0, -0.1511616474, -0, 1, -0, 0.1511616474, 0, 0.9885090573, 9.370000362837158, 4.355001452939453, 1.9825000762939453)
 
 [node name="herb_498" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.460474094, 0, -0.887673143, -0, 1, -0, 0.887673143, 0, 0.460474094, 8.330000400837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_499" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.5026602943, 0, -0.8644840245, -0, 1, -0, 0.8644840245, 0, 0.5026602943, 9.370000362837158, 4.794744492939453, 1.2825000282939453)
 
 [node name="herb_500" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9302054033, 0, 0.3670393817, -0, 1, -0, -0.3670393817, -0, 0.9302054033, 8.330000400837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="herb_501" parent="." instance=ExtResource("herb")]
+metadata/visual_only = true
 transform = Transform3D(0.9415965579, 0, 0.33674311, -0, 1, -0, -0.33674311, -0, 0.9415965579, 9.370000362837158, 5.234487532939453, 0.5825001002939453)
 
 [node name="trellis_502" parent="." instance=ExtResource("trellis")]
+metadata/visual_only = true
 transform = Transform3D(0.9, 0, -0, -0, 0.9, -0, -0, -0, 0.9, 8.850000857837158, 4.668334962939453, -0.5174999237060547)
 
 [node name="tomato_503" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.8769116123, 0, 0.2025488195, -0, 0.94, -0, -0.2025488195, -0, 0.8769116123, 8.130000590837158, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_504" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.5424653822, 0, 0.7181443512, -0, 0.94, -0, -0.7181443512, -0, 0.5424653822, 8.910000323837158, 4.868333812939453, -0.3374999240060547)
 
 [node name="tomato_505" parent="." instance=ExtResource("tomato")]
+metadata/visual_only = true
 transform = Transform3D(0.6009090631, 0, 0.6700061924, -0, 0.94, -0, -0.6700061924, -0, 0.6009090631, 9.620000362837158, 4.868333812939453, -0.3374999240060547)

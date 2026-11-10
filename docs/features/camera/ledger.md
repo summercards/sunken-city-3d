@@ -15,6 +15,8 @@
     "godot/src/camera"
   ],
   "verification": [
+    "dive-transition",
+    "visual-dive-transition",
     "keyboard-travel",
     "visual-keyboard-farm-loop",
     "control-feel",
@@ -163,3 +165,23 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-CAMERA-R16 | implemented；`zoom_min/zoom_max` 9–77.8 → **13.82–35.14**，显示刻度改锚 `zoom_ref_min/zoom_ref_max = 9/77.8`，开局 `distance` 54.25 → **27.9**（区间 66%，显示读 27.5%）；抓图工具机位改锚**船**（原锚甲板点，13.82 m 时会被屋体挡住）并按目标屏幕位置取滚轮锚点（原固定 (540,337)，滚满 20 档把 target 拖走 21 m，近景拍成空水面） | `camera` 14/0 PASS（`D:/projects/sea-work/verification/20261109-172516-final-dock-cam-9ef8a4/report.json`）；`visual-camera-zoom` 18/0 PASS、真实渲染 1280×800 三张（最远/顶到上限/最近，`D:/projects/sea-work/verification/20261109-174222-camzoom-fix-5cae98/report.json`）。两端读数为 38% / 7%，与主人截图一致。本条覆盖 R11 的两端值，R11 其余内容（工具侧临高 `zoom_max`）保留。[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。 |
+
+## 2026-11-10 潜水入水镜头 R17 跨链（运行 PENDING）
+
+核对既有最大 R16 后追加 R17，历史完整保留。登记头 status=`partial`、owner=`OrbitCam / follow、manual 状态` 和 code_paths 原样保留，verification 仅精确追加已存在的 `dive-transition` / `visual-dive-transition`，不代表新增实现或运行通过。潜水镜头归 **SEA-DIVE / Shared DiveRuntimeController**，本账本只登记 SEA-CAMERA-R03 的交接关系，不修改 OrbitCam 或海面 R16 参数。
+
+| 对应设计条款 | 当前承接状态 | 预计证据 / 待验证要求 |
+|---|---|---|
+| SEA-CAMERA-R17 | 现行设计已登记，运行 pending：同控制器/同entry进度，黑幕内prepared enter且entry_verified（如存在）即准备初始镜头并uncover，不等swim；opening位置/Air/镜头保持，幕idle不可见后进入entering/release；6.3→7.5m、76→72°、略仰回基础pitch、≤0.08m单次heave/无roll，保留0.32m双clip，swim清入水残速但镜头不snap | [DIVE R44–R51承接](../dive/ledger.md#2026-11-10-可见入水-r44r51-承接现行设计--运行-pending)；预计 `dive-transition` / `visual-dive-transition` 检验时序/碰撞/连续构图，`dive-control` / `visual-dive-control` 检验常规72/78及距离4..13m不变；当前没有本轮通过计数/最终报告 |
+
+关联时序：cover0.85s → 真实全黑post-draw → 加载/碰撞选点 → prepared enter/verified与角色镜头准备 → uncover1.05s（零位移/Air冻结）→ 原幕彻底idle且不可见 → Session phase entering / controller.release_entry → home1.65s水下1.6→4.8m或old9 2.2s至Y=-10（统一ease-out）→ swim才解除switching/transition_frozen。整个entry输入/save/日期/氧气冻结，Map只提供camera_clip，不新增Splash FSM或第二镜头owner。
+
+**运行验收 PENDING，不预签 PASS**：主线程创建并回填 [入水表现开发记录](../../development/2026-11-10_dive_entry_splash.md)，记录命令/批次/报告、计数/退出码、unexpected/leak、真实全黑与opening/entering/swim连续证据，以及近墙双clip、heave、尾迹和无snap的审阅结果。旧camera14/0、visual-camera-zoom18/0等仅为旧海面专项，不证明本轮通过。本次不运行Godot/runner/sync，不改GDD/代码/其他文档或用户TSCN；120m/水位101.587442保持，设备/持续性能/用户终审仍未签。
+
+## 2026-11-10 R17最终回填
+
+| 条款 | 当前状态 | 本轮证据 |
+|---|---|---|
+| SEA-CAMERA-R17 | 已实现并专项验收：潜水Controller统一入水镜头，opening Transform/FOV固定，幕退场后下压/拉开回稳，首swim无snap；最终家园pitch0.16rad/偏移−0.22rad，水面边缘高于头顶；不改OrbitCam所有者或海面参数 | A transition500/0、control396/0；B真实transition404/0、control403/0，21帧已审阅；C海面camera14/0 |
+
+A=`20261110-233501-dive-entry-polish-core-cc526e`、B=`20261110-233501-dive-entry-polish-visual-6a99e7`、C=`20261110-233926-dive-entry-final-integration-222f98`，报告位于工程外verification目录。三批12个计数入口合计5857/0，另3存档入口通过，均exit0/PASS、unexpected=[]。此前PENDING为文档委派阶段，现以本节和[开发记录](../../development/2026-11-10_dive_entry_splash.md)为准；全局sync79/只读81问题未过（含本轮已改脚本待定向哈希及其它登记漂移），功能保持partial，低端/长时/用户终审未签。

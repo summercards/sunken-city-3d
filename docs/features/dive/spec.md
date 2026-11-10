@@ -199,3 +199,31 @@
 共享光学归 SEA-OCEAN-R26–R29；环境泡、呼气和鱼归 SEA-AMBIENT-R28–R31，不新增 Air 或玩法所有者。[本轮开发记录与最终待填](../../development/2026-11-08_underwater_optics_and_transition.md#underwater-optics-transition-acceptance)。
 
 主线程最终结果已另追加至记录第7节：双向圆幕真实149/0、行为226/0，光学生态真实195/0/行为65/0；地图329/0、3C396/0、家园85/0、碰撞2824/0、切日42/0、房间112/0等通过。本轮请求功能专项完成，但框架第二代写盘52/1独立复跑仍失败，全局sync69/只读70资源门禁未过，不能宣称全批全绿。历史PENDING为委派阶段，不覆盖当前签署；低端/持续性能/历史远雾边界/独立海床等未签范围仍见记录。
+
+## 2026-11-10 圆幕展开后可见入水（现行设计，运行验收 PENDING）
+
+用户明确要求更新设计。本节核对既有最大 R43 后从 **R44** 连续追加，历史重复编号、原文及 PASS/FAIL 均保留；本节覆盖旧 R30/R42 的「水面下 1.0m」与 R40 等「必须 swim 才开幕」要求，不把旧批次通过视为本轮通过。功能仍为 `partial`，证据与主线程运行回填位置为 [入水表现开发记录](../../development/2026-11-10_dive_entry_splash.md)（主线程创建）。
+
+| 条款 ID | 现行规则 / 应验证的行为 |
+|---|---|
+| SEA-DIVE-R44 | 复用同一无文字圆幕，cover **0.85s**；合拢并经真实 `RenderingServer.frame_post_draw` 确认全黑已绘制后，才加载、实例化、建树及准备碰撞/选点。控制器处于 **prepared enter**，且地图提供 `entry_verified` 时该值必须为真，即可准备初始角色、环境和镜头，再以 **1.05s** uncover；不再等待 swim 或完成下沉。整个 opening 角色位置与 Air 仍冻结，不能边开幕边下沉。圆幕必须彻底 `idle` 且不可见，随后 Session `transition_phase` 进入 `entering`，调用 `controller.release_entry` 才启动可见入水；不是新增控制器状态。headless 帧屏障不算真实 post-draw 证据。 |
+| SEA-DIVE-R45 | 家园正常浅层入水：中心从水面下 **1.6m → 4.8m**，时长 **1.65s**。`u=clamp(t/1.65,0,1)`，统一 ease-out：`f=1-(1-u)^3`；向下位移 `s=3.2*f` 米，向下速率 `v=3*3.2/1.65*(1-u)^2` 米/秒，末速为 0。实际移动必须经 `move_viewer` 与胶囊完整段扫掠安全检查，不用视觉插值或位置直写穿墙；曲线是安全路径上的目标，受阻不能强制到点。横向避让/候选切换只在黑幕准备时发生，可见段不得横跳重选。浅层完整下沉段不通时保留原街面安全搜索兜底，不强迫浅层穿透或取消兜底。 |
+| SEA-DIVE-R46 | 旧九图保留 **2.2s** 入水时长、终点世界 **Y=-10** 及完整入水段预检，仅统一为 `f=1-(1-u)^3` 的 ease-out（`u=clamp(t/2.2,0,1)`），末速为 0；实际移动仍走原地图碰撞执行端口。不能套用家园 1.6→4.8m 改掉旧图终点、水位或默认 5m 换气带。 |
+| SEA-DIVE-R47 | Shared DiveRuntimeController 仍唯一拥有 `surface/enter/swim/exit` 四态，不增加 Splash FSM。Map 提供 `dive_entry_ready` 准备查询与 `dive_entry_progress` 进度查询；`dive_entry_tick` 执行已释放的入水段并反馈完成。控制器提供 `entry_is_prepared`、`release_entry`、`set_entry_view`：Session 只查询准备、设置初始视图并在原幕彻底退场后释放；prepared 是 enter 内握手，不是第五态。Map 不拥有第二份相机/输入/耗氧状态，Session 的 `entering` 仅为事务阶段。 |
+| SEA-DIVE-R48 | 入水动画由碰撞后**实际位置差/dt** 驱动 velocity 与角色运动表现，不能直接消费期望曲线速率假游。进入 swim 的边界清零入水残速/运动历史，不把下沉末端惯性带入普通游泳；相机保持当前连续姿态，不能在 swim 切换时 snap 重置。opening 时实际位移为 0，角色不得提前播放由假速度产生的游动。 |
+| SEA-DIVE-R49 | 入水镜头仍由同一 Shared DiveRuntimeController 拥有，消费同一 entry 进度：距离 **6.3→7.5m**、FOV **76→72°**、初始略仰逐步回基础 pitch；单次 heave 最大 **0.08m**，无 roll。初始视图在黑幕内准备、opening 保持，release 后才推进。沿用 **0.32m** camera_clip 的候选裁剪与插值后最终裁剪，立即收回/离墙缓出；不能为入水取消双 clip。普通游泳 FOV72°、冲刺78°、滚轮距离4..13m不动。跨链见 [SEA-CAMERA-R17](../camera/spec.md#2026-11-10-潜水入水镜头跨链现行设计运行验收-pending)：登记表现关系，不改 OrbitCam owner 或海面参数。 |
+| SEA-DIVE-R50 | 一次性入水气泡为纯表现，池预算 **40**、本次发射 **16 颗**，复用既有气泡 shader；世界空间尾迹不粘在角色上，不重复触发成持续喷泡。入水结束/切到 swim 后已有尾迹继续更新至自然回收，不在状态边界截断。它不写氧气、不参与物理、不发奖励、不写存档，不替代既有环境泡或常规呼气；卸载仍按地图表现生命周期清理。 |
+| SEA-DIVE-R51 | `switching` 与 `transition_frozen` 从接受请求持续到控制器到达 **swim** 才解除，不能在 uncover 结束即解除。整个 entry 的玩法输入（含导航/镜头操作）、save/capture、日期/经营、潜水耗氧及海面 Air 换气/cooldown 均冻结；释放后只放行入水运动/镜头/一次性表现，不放行普通游泳或耗氧。返回、缺氧、取消/失败仍走同 Main/原 curtain 恢复事务，不重建、不读档、不改身份及原处理模式。根 v4 与 `dive:{found:int[],opened:int[]}` 不改，用户 TSCN/手摆布局不动，家园120m与水位101.587442保持。 |
+
+### 本轮预计验证入口与未签范围
+
+- 已存在的 `dive-transition`：预计验证 prepared enter/verified 握手、opening 零位移与 Air 冻结、幕 idle 且不可见后才进入 entering/release、到 swim 才解锁；家园与旧九图的时长/ease-out/终点、完整胶囊扫掠与浅层失败兜底、实际速度动画、重复/失败/返回、直接 save/capture 门禁及同 Main/原 curtain 身份恢复。
+- 已存在的 `visual-dive-transition`：预计验证真实全黑 post-draw 先于加载、1.05s opening 全程不下沉、彻底退幕后可见入水、镜头6.3→7.5m/76→72°/pitch/heave/无roll、双 clip 与 swim 无 snap、16颗世界尾迹到自然回收。静帧不替代连续时序/动画验收。
+- 按影响范围预计复跑既有 `dive-control`、`visual-dive-control`、`dive-maps`、`visual-dive-maps`、`sunroom-underwater`、`sunroom-collision`、`framework-integration`；具体命令、批次、计数、退出码、unexpected/leak、截图与逐项审阅由主线程按真实结果回填。
+- **当前运行测试 PENDING，不预签 PASS**。本次仅更新上述设计及承接文档，未运行 Godot、runner、sync；未创建开发记录、不改 GDD、代码、场景或其他文档。低端设备、持续性能、全路线人工体验、用户终审及独立海床的历史未签边界继续保留。
+
+### 2026-11-10 主线程最终验收（覆盖上方委派阶段 PENDING）
+
+R44–R51已实现并完成当前专项：`20261110-233501-dive-entry-polish-core-cc526e`中transition500/0、maps857/0、control396/0、collision2824/0；`20261110-233501-dive-entry-polish-visual-6a99e7`真实transition404/0、control403/0。`20261110-233926-dive-entry-final-integration-222f98`中水下体验179/0、家园85/0、海面camera14/0、modules31/0、minimum112/0、framework52/0及3个存档入口通过。12个计数入口5857/0，15项均exit0/PASS、unexpected=[]；报告均在工程外verification目录，完整命令/报告/失败历史见[开发记录第5节](../../development/2026-11-10_dive_entry_splash.md#5-最终运行验收)。
+
+最终家园基础俯角0.16rad，起始偏移−0.22rad；21张真实帧覆盖1.6667s，实际终点水深4.799905m。opening相机固定、可见入水/实际速度/完整胶囊段、swim首帧连续与尾迹归零、readiness及释放后失败遮黑回滚均验；未改TSCN或v4存档。全局sync79/只读81问题未过，含本轮改动脚本的待定向哈希签署与其它登记漂移，不批量重签；功能整体partial，设备/长时/独立海床/用户终审未签。

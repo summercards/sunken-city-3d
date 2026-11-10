@@ -1,0 +1,208 @@
+{
+	"catalog_id": "sea_workshop_v1",
+	"components": {
+		"frame_timber": {
+			"asset_id": "SEA-WORKSHOP-FRAME-TIMBER",
+			"color": "timber_dark",
+			"family": "frame",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				0.14,
+				2.0,
+				0.12
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "frame",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"glass_blue": {
+			"asset_id": "SEA-WORKSHOP-GLASS-BLUE",
+			"color": "glass",
+			"family": "glass",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				1.4,
+				1.8,
+				0.03
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "glass",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"pillar_timber": {
+			"asset_id": "SEA-WORKSHOP-PILLAR-TIMBER",
+			"color": "timber_dark",
+			"family": "pillar",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				0.5,
+				4.9,
+				0.5
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "pillar",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"plant_moss": {
+			"asset_id": "SEA-WORKSHOP-PLANT-MOSS",
+			"color": "cozy",
+			"family": "plant",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				1.6,
+				0.25,
+				1.6
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "moss",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"plant_shrub": {
+			"asset_id": "SEA-WORKSHOP-PLANT-SHRUB",
+			"color": "cozy",
+			"family": "plant",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				1.2,
+				2.0,
+				1.2
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "shrub",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"plant_tree": {
+			"asset_id": "SEA-WORKSHOP-PLANT-TREE",
+			"color": "cozy",
+			"family": "plant",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				2.2,
+				5.5,
+				2.2
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "tree",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"plant_vine": {
+			"asset_id": "SEA-WORKSHOP-PLANT-VINE",
+			"color": "cozy",
+			"family": "plant",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				0.8,
+				2.8,
+				0.8
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "vine",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"slab_warm": {
+			"asset_id": "SEA-WORKSHOP-SLAB-WARM",
+			"color": "timber",
+			"family": "slab",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				6.0,
+				0.2,
+				4.5
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "slab",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"wall_sun": {
+			"asset_id": "SEA-WORKSHOP-WALL-SUN",
+			"color": "cozy",
+			"family": "wall",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				3.0,
+				4.9,
+				0.3
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "wall",
+			"replaceable": true,
+			"version": "1.0.0"
+		},
+		"wall_warm": {
+			"asset_id": "SEA-WORKSHOP-WALL-WARM",
+			"color": "timber",
+			"family": "wall",
+			"front_axis": "-Z",
+			"kind": "parametric",
+			"nominal_size": [
+				3.0,
+				4.9,
+				0.3
+			],
+			"pivot": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"profile": "wall",
+			"replaceable": true,
+			"version": "1.0.0"
+		}
+	},
+	"schema": "sea.workshop.component_catalog",
+	"schema_version": 1.0,
+	"source": "native_parameter"
+}

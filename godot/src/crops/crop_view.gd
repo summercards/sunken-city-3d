@@ -27,6 +27,7 @@ var _stages: Array = []
 var _tints := {}
 var _warned := false
 var _catalog = null
+var stage_apply_count := 0
 
 
 func _ready() -> void:
@@ -48,7 +49,7 @@ func show_crop(crop_id: String) -> void:
 	if crop_id == _crop_id and _models.has(crop_id):
 		return
 	if crop_id == "":
-		_clear()
+		if _crop_id != "" or _stage != -1 or not _models.is_empty(): _clear()
 		return
 	if not _models.has(crop_id):
 		var node := _instantiate(crop_id)
@@ -102,6 +103,10 @@ func _apply_stage(index: int) -> void:
 		if _stages.is_empty():
 			return
 		index = _stages.size() - 1
+	# set_stage still publishes the public signal below its caller. A stable
+	# stage needs neither visibility writes nor a full crop mesh/tint traversal.
+	if index == _shown_stage: return
+	stage_apply_count += 1
 	for i in _stages.size():
 		_stages[i].visible = (i == index)
 	_shown_stage = index

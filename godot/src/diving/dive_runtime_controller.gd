@@ -5,9 +5,14 @@ const Machine = preload("res://src/core/state_machine.gd")
 const CharacterScript = preload("res://src/player/character.gd")
 const AirScript = preload("res://src/diving/dive_air.gd")
 const BreathBubbles = preload("res://src/ambient/diver_breath_bubbles.gd")
+const EntryEffect = preload("res://src/diving/dive_entry_effect.gd")
 const CRUISE_SPEED := 4.2
 const SPRINT_SPEED := 7.0
 const FOV := 72.0
+const ENTRY_FOV := 76.0
+const ENTRY_START_DISTANCE := 6.3
+const ENTRY_HEAVE := 0.08
+const ENTRY_PITCH_LIFT := -0.22
 const SPRINT_FOV := 78.0
 const ZOOM_MIN := 4.0
 const ZOOM_MAX := 13.0
@@ -36,6 +41,7 @@ class DiveState extends RefCounted:
 var machine = Machine.new()
 var character: Character
 var breath_bubbles: Node3D
+var entry_effect: Node3D
 var velocity := Vector3.ZERO
 var yaw := 0.0
 ## 正值是俯看；负值抬头。镜头永不滚转。
@@ -60,6 +66,11 @@ var _camera_target := Vector3.ZERO
 var _last_subject := Vector3.ZERO
 var _camera_valid := false
 var _facing := 0.0
+var _entry_released := false
+var _entry_view_locked := false
+var _entry_yaw := 0.0
+var _entry_pitch := -0.03
+var _entry_effect_started := false
 var _turn_ratio := 0.0
 var _blocked_seconds := 0.0
 var _test_input_enabled := false
@@ -107,6 +118,10 @@ func configure(p_map: Node3D, p_camera: Camera3D, visual_parent: Node3D, visual_
 	breath_bubbles.name = "DiverBreathBubbles"
 	add_child(breath_bubbles)
 	breath_bubbles.configure(character, float(map.call("dive_water_level")))
+	entry_effect = EntryEffect.new()
+	entry_effect.name = "DiveEntryEffect"
+	add_child(entry_effect)
+	entry_effect.configure(character, float(map.call("dive_water_level")))
 	camera.fov = FOV
 	camera.near = 0.12
 	yaw = camera.rotation.y
@@ -119,12 +134,18 @@ func begin(payload: Dictionary = {}) -> bool:
 	route.clear()
 	velocity = Vector3.ZERO
 	sprinting = false
+	_entry_released = not transition_frozen
+	_entry_view_locked = false
+	_entry_yaw = yaw
+	_entry_pitch = -0.03
+	_entry_effect_started = false
 	_camera_valid = false
 	_drag = false
 	_left_pressed = false
 	air.refill()
 	map.call("dive_begin", payload)
 	machine.change("enter", payload)
+	if _entry_released: _start_entry_effect()
 	_emit_air()
 	return true
 
@@ -186,6 +207,41 @@ func clear_motion_input() -> void:
 	_test_input_enabled = false
 	_test_axis = Vector3.ZERO
 	_test_sprint = false
+
+func entry_is_prepared() -> bool:
+	if map == null: return false
+	return bool(map.call("dive_entry_ready")) if map.has_method("dive_entry_ready") else true
+
+func release_entry() -> void:
+	if machine.current != "enter" or not entry_is_prepared(): return
+	if _entry_released: return
+	_entry_released = true
+	_start_entry_effect()
+
+func set_entry_view(direction: Vector3, pitch_value: float = -0.03) -> void:
+	if not direction.is_finite(): return
+	var flat := Vector3(direction.x, 0.0, direction.z)
+	if flat.length_squared() < 0.0001: return
+	_entry_yaw = atan2(-flat.x, -flat.z)
+	_entry_pitch = clampf(pitch_value if is_finite(pitch_value) else -0.03, -1.1, 1.15)
+	yaw = _entry_yaw
+	pitch = _entry_pitch
+	_entry_view_locked = true
+	_facing = yaw + PI
+	update_character(0.0)
+	if machine.current == "enter" and entry_is_prepared() and not _entry_released:
+		update_camera(0.0, true)
+
+func _start_entry_effect() -> void:
+	if _entry_effect_started or not entry_is_prepared(): return
+	_entry_effect_started = true
+	if entry_effect != null: entry_effect.begin_entry()
+
+func _entry_progress() -> float:
+	if map == null: return 0.0
+	if map.has_method("dive_entry_progress"):
+		return clampf(float(map.call("dive_entry_progress")), 0.0, 1.0)
+	return 1.0
 
 func _motion_input() -> Vector3:
 	if _test_input_enabled: return _test_axis
@@ -260,15 +316,31 @@ func update_character(dt: float) -> void:
 func update_camera(dt: float, snap := false) -> void:
 	if camera == null or map == null or machine.current == "surface": return
 	var subject := _map_position()
+	var entry_view: bool = machine.current == "enter"
+	var entry_progress := _entry_progress() if entry_view else 1.0
+	var view_yaw := _entry_yaw if _entry_view_locked and entry_view else yaw
+	var view_pitch := pitch
+	var view_distance := distance
+	var view_fov := SPRINT_FOV if sprinting else FOV
+	var heave := 0.0
+	if entry_view:
+		# 准备阶段也先写入入水构图；只有 release 后才加入动态镜头。
+		view_pitch = lerpf(_entry_pitch + ENTRY_PITCH_LIFT, pitch, entry_progress)
+		view_distance = lerpf(ENTRY_START_DISTANCE, distance, entry_progress)
+		view_fov = lerpf(ENTRY_FOV, FOV, entry_progress)
+		if _entry_released:
+			heave = sin(entry_progress * PI) * ENTRY_HEAVE
 	var k := 1.0 if snap or dt <= 0.0 else 1.0 - exp(-dt / 0.07)
-	_look_yaw = lerp_angle(_look_yaw, yaw, k)
-	_look_pitch = lerpf(_look_pitch, clampf(pitch, -1.1, 1.15), k)
+	_look_yaw = lerp_angle(_look_yaw, view_yaw, k)
+	_look_pitch = lerpf(_look_pitch, clampf(view_pitch, -1.1, 1.15), k)
 	var forward := Vector3(-sin(_look_yaw), 0.0, -cos(_look_yaw))
-	var lead := velocity.limit_length(CRUISE_SPEED) * 0.10
-	var target := subject + Vector3.UP * 0.40 + lead
+	var lead := Vector3.ZERO if entry_view else velocity.limit_length(CRUISE_SPEED) * 0.10
+	var target := subject + Vector3.UP * (0.40 + heave) + lead
+	# target 与臂端同时在水下，clip/短臂缓出得到的中间点才也满足水面限制。
+	target.y = minf(target.y, float(map.call("dive_water_level")) - 0.35)
 	if not _camera_valid or snap:
 		_camera_target = target
-		_boom_length = distance
+		_boom_length = view_distance
 		_camera_valid = true
 	else:
 		# 主体位移直接继承，阻尼仅吃掉前视/方向变化，不让镜头拖着追游泳者。
@@ -276,7 +348,7 @@ func update_camera(dt: float, snap := false) -> void:
 		_camera_target = _camera_target.lerp(target, 1.0 - exp(-dt / 0.16))
 	_last_subject = subject
 	var orbit := Vector3(-forward.x * cos(_look_pitch), sin(_look_pitch), -forward.z * cos(_look_pitch)).normalized()
-	var desired := _camera_target + orbit * clampf(distance, ZOOM_MIN, ZOOM_MAX)
+	var desired := _camera_target + orbit * clampf(view_distance, ZOOM_MIN, ZOOM_MAX)
 	desired.y = minf(desired.y, float(map.call("dive_water_level")) - 0.3)
 	var safe: Vector3 = map.call("dive_camera_clip", _camera_target, desired, 0.32)
 	var safe_length := _camera_target.distance_to(safe)
@@ -286,13 +358,15 @@ func update_camera(dt: float, snap := false) -> void:
 	pose = map.call("dive_camera_clip", _camera_target, pose, 0.32)
 	camera.global_position = pose
 	if camera.global_position.distance_to(_camera_target) > 0.01: camera.look_at(_camera_target, Vector3.UP)
-	camera.fov = lerpf(camera.fov, SPRINT_FOV if sprinting else FOV, k * 0.4 if not snap else 1.0)
+	camera.fov = lerpf(camera.fov, view_fov, k * 0.4 if not snap else 1.0)
 
 func snapshot() -> Dictionary:
 	return {"phase": machine.current, "motion": motion, "position": _map_position(),
 		"velocity": velocity, "speed": velocity.length(), "speed_ratio": velocity.length() / CRUISE_SPEED,
 		"yaw": yaw, "pitch": pitch, "distance": distance, "sprinting": sprinting,
 		"navigation": not route.is_empty(), "route": route.duplicate(), "camera_fov": camera.fov if camera != null else FOV,
+		"entry_progress": _entry_progress(), "entry_released": _entry_released,
+		"entry_ready": entry_is_prepared(), "entry_effect": entry_effect.snapshot() if entry_effect != null else {},
 		"air": air.ratio(), "lamp": air.lamp, "state_owner": "shared_dive_runtime"}
 
 func toggle_lamp() -> void:
@@ -323,9 +397,14 @@ func _physics_process(dt: float) -> void:
 
 ## Pure ambient presentation: does not advance FSM, motion or oxygen.
 func sample_effects(dt: float) -> void:
-	if transition_frozen or breath_bubbles == null or map == null: return
-	breath_bubbles.update_breath(dt, machine.current in ["enter", "swim"],
-		velocity.length() / CRUISE_SPEED, maxf(0.0, float(map.call("dive_water_level")) - _map_position().y))
+	if map == null: return
+	if entry_effect != null and _entry_released and machine.current in ["enter", "swim"] \
+			and (not transition_frozen or machine.current == "enter"):
+		entry_effect.update_entry(dt, true)
+	if transition_frozen and not (machine.current == "enter" and _entry_released): return
+	if breath_bubbles == null or machine.current != "swim": return
+	breath_bubbles.update_breath(dt, true, velocity.length() / CRUISE_SPEED,
+		maxf(0.0, float(map.call("dive_water_level")) - _map_position().y))
 
 func _process(dt: float) -> void:
 	if not Engine.is_editor_hint() and machine.current != "surface": update_camera(dt)
@@ -384,10 +463,12 @@ func _state_enter(id: String, _payload: Dictionary) -> void:
 			_facing = yaw + PI
 			update_character(0.0)
 			update_camera(0.0, true)
+			if _entry_released: _start_entry_effect()
 		"swim":
+			velocity = Vector3.ZERO
 			if velocity.length_squared() < 0.01: _facing = yaw + PI
 			update_character(0.0)
-			update_camera(0.0, true)
+			# 不在状态切换瞬间重置相机；下一帧沿入水终点连续回到基础镜头。
 		"exit":
 			cancel_navigation()
 			reset_pointer()
@@ -403,7 +484,15 @@ func _state_tick(id: String, dt: float) -> void:
 	if transition_frozen and id != "enter": return
 	match id:
 		"enter":
-			if bool(map.call("dive_entry_tick", dt)): machine.change("swim")
+			var ready := entry_is_prepared()
+			if ready and (not transition_frozen or _entry_released):
+				_start_entry_effect()
+				var before := _map_position()
+				var done: bool = map.call("dive_entry_tick", dt)
+				velocity = (_map_position() - before) / maxf(dt, 0.001)
+				if done:
+					velocity = Vector3.ZERO
+					machine.change("swim")
 			_sync_depth()
 			update_character(dt)
 			map.call("dive_content_tick", 0.0)

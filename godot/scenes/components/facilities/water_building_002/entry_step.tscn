@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/water_building_002/components/entry_step/entry_step.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/solar_cabin/sunny_matte.tres" id="matte"]
+
+[node name="entry_step" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP"
+metadata/component_key = "entry_step"
+metadata/source_version = "v003"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+metadata/category = "structure"
+metadata/visual_only = false
+metadata/collision = false
+metadata/interactive = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="WB002V2_EntranceStep_004" parent="Visual"]
+surface_material_override/0 = ExtResource("matte")
+cast_shadow = 1

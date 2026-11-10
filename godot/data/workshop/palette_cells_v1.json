@@ -1,0 +1,26 @@
+{
+  "schema": "sea.workshop.palette_cells",
+  "schema_version": 1,
+  "palette_texture": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png",
+  "cell_px": 64,
+  "safe_inset_px": 16,
+  "grid": [8, 8],
+  "row_origin": "top",
+  "source_json": "art_source/shared/palettes/sea_cabin_timber_8x8_512.json",
+  "source_json_sha256": "ffbba34dafe850d003156b68384a0fbc2c6a3843e4914d89e170cbbdb4932ff2",
+  "source_texture": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_texture_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "semantics": {
+    "timber": {"name": "wood", "hex": "#BB9265", "row": 1, "column": 2},
+    "timber_dark": {"name": "wood_dark", "hex": "#AD6F3D", "row": 1, "column": 4},
+    "timber_aged": {"name": "darkwood", "hex": "#704536", "row": 1, "column": 6},
+    "slab": {"name": "wood_mid", "hex": "#AE855B", "row": 1, "column": 3},
+    "slab_aged": {"name": "stone", "hex": "#D1C5AB", "row": 0, "column": 3},
+    "cozy": {"name": "cream", "hex": "#E0DAB6", "row": 0, "column": 0},
+    "plant_leaf": {"name": "leaf_mid", "hex": "#639932", "row": 3, "column": 4},
+    "plant_leaf_aged": {"name": "leaf_dark", "hex": "#488139", "row": 3, "column": 5},
+    "plant_stem": {"name": "bark", "hex": "#8C5436", "row": 1, "column": 5},
+    "glass": {"name": "ice", "hex": "#C7F3F5", "row": 2, "column": 0},
+    "white": {"name": "white", "hex": "#D7D8BA", "row": 0, "column": 4}
+  }
+}

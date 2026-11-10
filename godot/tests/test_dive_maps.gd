@@ -4,6 +4,11 @@ const Storage = preload("res://src/save/save_game.gd")
 var checks := 0
 var failures := 0
 var main
+const ENTRY_DT := 1.0 / 60.0
+const HOME_ENTRY_TIME := 1.65
+const HOME_ENTRY_START_DEPTH := 1.6
+const HOME_ENTRY_TARGET_DEPTH := 4.8
+
 func check(ok: bool,label: String) -> void:
 	checks += 1
 	if not ok:
@@ -92,6 +97,7 @@ func run() -> void:
 		check(count>0 and runtime.region_node("basin")!=null,"visible basin and map content "+id)
 		check(runtime.diver_pos.is_equal_approx(runtime.spawn_point),"map-specific spawn "+id)
 		runtime.phase_machine.tick(runtime.ENTER_TIME)
+		check(is_equal_approx(runtime.ENTER_TIME,2.2) and absf(runtime.diver_pos.y+10.0)<0.001,"旧九图保留2.2s入水及Y=-10终点 "+id)
 		check(runtime.phase=="swim" and not runtime.blocked(runtime.diver_pos),"safe enter path and swim "+id)
 		check(is_equal_approx(runtime.air.surface_depth,5.0),"legacy maps restore their own 5m breathing band "+id)
 		if id=="zone1":
@@ -149,14 +155,70 @@ func run() -> void:
 	check(session.dive(entry_point,"home_seabed"),"enter home seabed from a surface point")
 	if session.active:
 		var region = session.runtime
+		var controller = region.dive_controller
+		# 同步工具入口会自动 release；关闭自动 tick 后用固定步独立校验整段真实碰撞。
+		controller.set_physics_process(false)
+		controller.transition_frozen = true
 		check(region.map_id=="dive_home_seabed" and region.map_label=="家园海底","home runtime identity")
 		check(current_scene==region and not main.is_inside_tree(),"home dive really switches scene")
-		# Terrain3D 与逐 Mesh 碰撞延后提交；等地图自己定位完入水点再断言净空。
+		# Terrain3D 与逐 Mesh 碰撞延后提交；等 map readiness 后再释放 entry。
 		for i in 240:
 			await physics_frame
-			if region.entry_verified: break
-		var diver: Vector3 = region.diver_pos
-		check(region.entry_verified and region.phase=="swim","home entry resolved against real collision")
+			if controller.entry_is_prepared(): break
+		check(controller.entry_is_prepared() and region.dive_entry_ready() and controller.machine.current=="enter","家园：地图物理准备完成，仍保持enter")
+		check(is_equal_approx(float(controller.snapshot().entry_progress),float(region.dive_entry_progress())),"家园：控制器进度读取map适配器")
+		var before_release: Dictionary = controller.snapshot()
+		var start: Vector3 = region.dive_position()
+		check(absf(float(before_release.get("entry_progress", -1.0))) < 0.001,"家园：固定步开始前entry_progress为0")
+		check(is_equal_approx(float(region.entry_depth_below_surface),HOME_ENTRY_TARGET_DEPTH),"home exported entry target remains 4.8m")
+		check(absf(region.water_level-start.y-HOME_ENTRY_START_DEPTH)<0.05,"家园：正常夹具从水下1.6m开始，不走街面保底")
+		var full_query := PhysicsShapeQueryParameters3D.new()
+		var full_capsule := CapsuleShape3D.new()
+		full_capsule.radius=0.35; full_capsule.height=1.6
+		full_query.shape=full_capsule
+		full_query.transform=Transform3D(Basis.IDENTITY,start)
+		full_query.collision_mask=1; full_query.collide_with_areas=false
+		full_query.exclude=[region.collision_runtime.viewer.get_rid()]
+		check(root.world_3d.direct_space_state.intersect_shape(full_query,1).is_empty(),"家园：起点胶囊真实净空")
+		full_query.motion=Vector3(0,region.water_level-float(region.entry_depth_below_surface)-start.y,0)
+		var full_cast := root.world_3d.direct_space_state.cast_motion(full_query)
+		check(full_cast.is_empty() or float(full_cast[0])>=0.999,"家园：1.6m至4.8m完整下沉段精确胶囊扫掠无阻挡")
+		controller.release_entry()
+		controller.release_entry()
+		check(bool(controller.snapshot().get("entry_released",false)),"home release_entry is idempotent")
+		var prior := start
+		var air_before: float = controller.air.air
+		var elapsed := 0.0
+		while controller.machine.current=="enter" and elapsed<3.0:
+			controller.machine.tick(ENTRY_DT)
+			elapsed+=ENTRY_DT
+			var current: Vector3 = region.dive_position()
+			var segment_query := PhysicsShapeQueryParameters3D.new()
+			var capsule := CapsuleShape3D.new()
+			capsule.radius=0.35; capsule.height=1.6
+			segment_query.shape=capsule
+			segment_query.transform=Transform3D(Basis.IDENTITY,prior)
+			segment_query.motion=current-prior
+			segment_query.collision_mask=1; segment_query.collide_with_areas=false
+			segment_query.exclude=[region.collision_runtime.viewer.get_rid()]
+			var cast := root.world_3d.direct_space_state.cast_motion(segment_query)
+			check(cast.is_empty() or float(cast[0])>=0.999,"home entry full capsule segment has no collision")
+			segment_query.motion=Vector3.ZERO
+			segment_query.transform.origin=current
+			check(root.world_3d.direct_space_state.intersect_shape(segment_query,1).is_empty(),"home entry capsule never overlaps exact geometry")
+			var blend := 1.0-pow(1.0-clampf(elapsed/HOME_ENTRY_TIME,0.0,1.0),3.0)
+			var expected_y: float = lerpf(start.y,region.water_level-float(region.entry_depth_below_surface),blend)
+			check(absf(current.y-expected_y)<0.002,"home entry fixed step cubic ease-out")
+			check(current.y<=prior.y+0.0001 and Vector2(current.x-start.x,current.z-start.z).length()<0.001,"home entry descends continuously without horizontal teleport")
+			check(controller.velocity.is_equal_approx((current-prior)/ENTRY_DT) or controller.machine.current=="swim","home entry velocity follows actual collision movement")
+			prior=current
+		check(absf(elapsed-HOME_ENTRY_TIME)<=ENTRY_DT+0.0001,"home entry duration is 1.65s within one physics tick")
+		check(controller.machine.current=="swim" and controller.velocity==Vector3.ZERO,"home entry reaches swim with zero residual velocity")
+		check(absf(controller.air.air-air_before)<0.000001,"home entry does not consume oxygen")
+		var diver: Vector3 = region.dive_position()
+		check(absf(region.water_level-diver.y-float(region.entry_depth_below_surface))<0.05,"home entry reaches the exported 4.8m depth target")
+		controller.transition_frozen=false
+		controller.set_physics_process(true)
 		check(is_equal_approx(region.target_depth_m,120.0) and is_equal_approx(region.viewer_min_y,-18.412558) and is_equal_approx(region.water_level,101.587442),"home seabed depth contract is 120m from surface to the upper street")
 		var diver_visual = region.get_node_or_null("DiverVisual")
 		check(diver_visual!=null and diver_visual.get_node_or_null("DiverCharacter")!=null,"home dive has third-person character")
@@ -164,9 +226,6 @@ func run() -> void:
 			check(diver_visual.get_node("DiverCharacter").visible,"third-person character visible while diving")
 		check(Vector2(diver.x-entry_point.x,diver.z-entry_point.z).length()<=region.entry_search_radius,"entry stays inside the declared home-water radius")
 		check(diver.y<region.water_level and diver.y>region.lowest_seabed_y,"entry under sea level and above seabed")
-		# 2026-11-08 用户要求「下水后的位置在水下 1 米」：入水点必须停在水面下方 1 米，
-		# 不是贴在街面上。允许搜索时水平避让，但深度误差不得超过 0.05 米。
-		check(absf((region.water_level-diver.y)-1.0)<0.05,"home entry sits 1.0m below the surface (actual %.3fm)" % (region.water_level-diver.y))
 		check(absf(region.water_level-101.587442)<0.001,"home surface is 120m above the upper street datum")
 		var query := PhysicsShapeQueryParameters3D.new()
 		query.shape = CapsuleShape3D.new()

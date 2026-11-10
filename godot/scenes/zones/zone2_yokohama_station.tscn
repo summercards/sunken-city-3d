@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
 [ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
@@ -17,6 +17,8 @@
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0001.tres" id="mat_tn_0001"]
 
 [ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing_script"]
+[ext_resource type="Script" path="res://src/navigation/derived_walk_area.gd" id="5_derived"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/zone2_yokohama_station/gangway.tscn" id="6_gangway"]
 
 [node name="Zone2YokohamaStation" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.000, 0, -18.000)
@@ -81,18 +83,46 @@ cast_shadow = 1
 gi_mode = 0
 ; <<< models
 
+; 东西站台之间的检修跳板。放在 Models 生成区间之外，重跑 build_zone_scenes 不会丢。
+[node name="Gangway" parent="." instance=ExtResource("6_gangway")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -3)
+
 [node name="WalkAreas" type="Node3D" parent="."]
 
+; 东西两块站台台面差 13 厘米（西 2.78 / 东 2.65），用一个派生面会被压平到同一高度 ——
+; 那 13 厘米就变成「人浮在甲板上」。各派各的，两块各自贴自己的台面。
 [node name="Walk_zone2_station" type="Node3D" parent="WalkAreas"]
-script = ExtResource("3_walk")
+script = ExtResource("5_derived")
 area_id = "zone2_station"
 zone_id = "zone2"
-surface_y = 2.600
-span_min = 1.100
+source_path = NodePath("../../Models/unit_03")
+precision = 0.5
+target_y = 2.60
+band_tolerance = 0.45
+min_layer_area = 6.0
+surface_y = 2.78
+
+[node name="Walk_zone2_east" type="Node3D" parent="WalkAreas"]
+script = ExtResource("5_derived")
+area_id = "zone2_east"
+zone_id = "zone2"
+source_path = NodePath("../../Models/unit_02")
+precision = 0.5
+target_y = 2.60
+band_tolerance = 0.45
+min_layer_area = 6.0
+surface_y = 2.65
+
+
+
+[node name="Walk_zone2_gangway" type="Node3D" parent="WalkAreas"]
+script = ExtResource("3_walk")
+area_id = "zone2_gangway"
+zone_id = "zone2"
+surface_y = 2.780
+span_min = 2.500
 span_max = 3.100
-rects = [Rect2(-3.000, -5.000, 1.000, 7.500), Rect2(-7.000, -6.500, 1.500, 4.500), Rect2(-4.500, -5.500, 1.500, 4.500), Rect2(-5.500, -6.000, 1.000, 5.000), Rect2(-8.000, -7.000, 1.000, 5.000), Rect2(1.000, -6.500, 1.000, 4.000), Rect2(2.000, -0.500, 1.500, 3.000), Rect2(3.000, -5.500, 1.500, 4.000), Rect2(4.500, -5.000, 1.500, 4.000), Rect2(6.000, -4.500, 1.500, 4.000)]
-
-
+rects = [Rect2(-1.25, -3.7, 1.9, 1.4)]
 
 [node name="Plants" type="Node3D" parent="."]
 script = ExtResource("4_plants")
@@ -100,7 +130,7 @@ zone_id = "zone2"
 placement_path = "res://assets/data/plants_zone2_yokohama_station.json"
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone2_station"]
-position = Vector3(-2.700000000000003, 2.6, -0.3000000000000007)
+position = Vector3(-2, 2.78, -0.3)
 script = ExtResource("landing_script")
 landing_id = "main"
 landing_label = "横滨铁道"

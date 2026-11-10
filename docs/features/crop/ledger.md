@@ -112,3 +112,30 @@ CropStage：SEED / SPROUT / LEAF / HARVEST / KEYS / NODE_NAMES / count / key_of 
 | [flower-crops](../../../../sea-work/verification/20261107-221054-npc-final-regression-bc8a22/flower-crops.log) | 1233 checks / 0 failures，exit0/PASS | 三花种收/缺水/换天/存档/满包/送礼，12运行阶段真实网格、每stage≤900面/框内、缺水还原，成熟手持与Character动作/取消；headless，不是source美术签署或真实四视图人工验收 |
 
 保留原R06 Blender源级“保存重开+四视图”未执行；三花程序源stage预算/source美术验收未取得独立结论，不用运行实例预算断言代签。历史visual-crops等只证明原范围，不借给三花；整体 `implemented` 不等于完整产品verified。后续其他品种、品质、耐性及既有待验仍保留。本次不运行global sync/最终门禁，由主线程统一负责。
+
+## 2026-11-10 种植专用集合归档（引用 SEA-ASSET-R63）
+
+本节承接 `SEA-ASSET-R30`、`SEA-CROP-R06` 与 `SEA-CROP-R15`，不新增作物条款，不把 Blender 静态归档升级为三花程序源或作物运行验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R63；SEA-ASSET-R30；SEA-CROP-R06；SEA-CROP-R15 | `planting_library.blend` 已完成 source-only 存放和源级验证：6品种×4阶段的24组件、2设施、6手持、2装配，共34 Collection、8原资产ID、459网格、13364 triangles / 11000 polygons，最终 SHA-256 `dbd4a94c125d775de639e5e14e76d87c1887c4815e6a2bd7fe975e5aee4e6249`。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`。三花的正式程序源仍为既有 `flower_view.gd` 与三份 Godot TSCN；本库中的静态快照不冒称原有原创 Blend。最终 `source_verification.json` 为9047 checks/0 failures、`passed=true`；`register.py --write` 成功，仅给原AssetID增加 `library_refs`，不改旧 `stage` / `source` / `hash` / `runtime`，也不重复登记库成员。原 R06 的用户美术终审、性能与运行接入不由本次归档签署；R15 已有的运行专项结论保持原样。三花/运行与 `farm_plot` 的既有 hash drift 保留。 | [最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)；[最终源验证](../../../../sea-work/botanical_libraries/v001/source_verification.json)；[登记结果](../../../../sea-work/botanical_libraries/v001/registration.json)；[最终提取报告](../../../../sea-work/verification/20261110-095851-botanical-final-8de438/report.json)实际292/0、exit0。8个Cycles PNG已生成，两个overview与植被top已审阅，不冒称8图所有细节全目视；全库sync/check因既有 manifest 缺 `asset_ledger` 的KeyError均exit1且无同步写入。 |
+
+## 2026-11-10 v002 种植三形态模型（承接 SEA-ASSET-R64）
+
+本节只记录作物 v002 的源模型交付，不把三形态源模型升级为运行四阶段覆盖或作物玩法验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R64；SEA-ASSET-R30；SEA-CROP-R06；SEA-CROP-R15 | 种植域6个管理名、18个small/medium/large模型已完成最终源交付。生菜、番茄、南瓜及蓝星花、晨光花、珊瑚花各自通过叶、分枝、花蕾、果实拓扑与器官数量变化表达三档；花冠花蕾接枝、瓜果连藤与 XY 底心修正已纳入；无季节；纯植物模型不含盆、土、平台或手持。既有作物 v001 四阶段保留，v002 三形态不表示运行四阶段被替换或完全覆盖。 | 源 `art_source/crops/libraries/v002/planting_library.blend`；组件计划/manifest为 `art_source/crops/libraries/v002/component_plan.json`、`library_manifest.json`；最终报告 `D:/projects/sea-work/botanical_growth/v002/crops/verification_report.json`：1921/0、13276 triangles、7382 polygons（manifest meshes汇总）、SHA-256 `8831430d18cb7a8d92166b407cb926c360e22109f2f8a0601796450d5665d15d`。两个作者场景名为 `01_小中大对照`、`02_植物母版`。登记、交付审计和29图均已完成；运行接入、既有四阶段覆盖关系、性能和用户审美仍按边界保留。契约全库 sync/check 受旧 manifest `asset_ledger` KeyError/exit1 阻塞，未发生同步写入。 |
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-CROP-R02/R03/R05/R07/R15 与 CropView 公开接口；登记 JSON、status、四阶段及原条款历史保持。
+
+- CropView 对同阶段免重复遍历，但每次调用 `set_stage` 仍发 signal；空状态语义保留，不能为去重吞掉原有通知或改变空地表现。
+- 阶段映射、独立阶段节点、生长与库存所有权、缺失模型降级规则不因本批优化改写。
+- `farm_plot.gd` 已还原，不宣称本批修改地格实现、缩放补偿或种植规则。
+- 主线程已提供 `performance-equivalence` 19/0、`crops` 与 `flower-crops` 通过。本次仅回填已提供结果，未新增测试或复跑；源级美术与历史待验不由这些结果升级。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

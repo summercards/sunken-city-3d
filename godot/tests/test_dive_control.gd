@@ -656,8 +656,10 @@ func test_home() -> void:
 		return
 	check(capsule_clear(map, map.dive_position()), "home：真实入水胶囊净空")
 	var air_at_entry: float = runtime.air.air
-	runtime.machine.tick(DT)
-	check(runtime.machine.current == "swim" and is_equal_approx(runtime.air.air, air_at_entry), "home：合法enter→swim，入水tick不额外扣气")
+	for _step in 100:
+		if runtime.machine.current != "enter": break
+		runtime.machine.tick(DT)
+	check(runtime.machine.current == "swim" and runtime.velocity == Vector3.ZERO and is_equal_approx(runtime.air.air, air_at_entry), "home：完整可见入水后enter→swim且零残速，期间不额外扣气")
 	runtime.character.set_process(false)
 	await test_runtime(map, "home")
 	check(base == null or base.transform.is_equal_approx(base_transform), "home：Base2手摆transform保持原样")

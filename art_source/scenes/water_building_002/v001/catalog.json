@@ -1,0 +1,410 @@
+{
+  "schema": "sea.component_catalog",
+  "components": [
+    {
+      "key": "deck",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "group": "structure",
+      "kind": "slab",
+      "rho": 0.018,
+      "bounds_size": [
+        9.199999809265137,
+        7.199999809265137,
+        0.30000001192092896
+      ],
+      "triangles": 44,
+      "polygons": 14,
+      "meshes": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "ce5160ea11e354dcaf57da6e5d3032c64711170847a95c7035ae609fc790e55a",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/deck/deck.blend",
+      "source_sha256": "2ec14d0bc73fd34e202829fdada81e2bb72696f218771e93640f7f2e12860047",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/deck/asset_manifest.json"
+    },
+    {
+      "key": "shell",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SHELL",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-SHELL",
+      "group": "structure",
+      "kind": "shell",
+      "rho": 0.018,
+      "bounds_size": [
+        8.600000381469727,
+        6.400000095367432,
+        21.0
+      ],
+      "triangles": 308,
+      "polygons": 98,
+      "meshes": 7,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "4d92d23a919bf3f5688768cfef477f50f7528d381c0a97153c4f9cee49c63420",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/shell/shell.blend",
+      "source_sha256": "57c6e667c9cd2e3aa3e238bd06638f32f42a38b7a6e94ac630dc3b25bc9eb1eb",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/shell/asset_manifest.json"
+    },
+    {
+      "key": "slab",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SLAB",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-SLAB",
+      "group": "structure",
+      "kind": "slab",
+      "rho": 0.015,
+      "bounds_size": [
+        8.800000190734863,
+        6.599999904632568,
+        0.18000000715255737
+      ],
+      "triangles": 44,
+      "polygons": 14,
+      "meshes": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "d41731a196644d96bb01d6bcc3d3012abdf1ba76c46edd34ea5a51508e857ee2",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/slab/slab.blend",
+      "source_sha256": "2ee345878d46cd5d52ac28ab4d2f9d1d20baeae470e8c1f57bce8bafffe550a0",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/slab/asset_manifest.json"
+    },
+    {
+      "key": "roof",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-ROOF",
+      "group": "structure",
+      "kind": "roof",
+      "rho": -0.025,
+      "bounds_size": [
+        9.225000381469727,
+        6.970000267028809,
+        0.23999999463558197
+      ],
+      "triangles": 44,
+      "polygons": 14,
+      "meshes": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "f228f8bc5d7205cedbd493878204c845ba02eee5add0ad683b1a5a6b164f0ff3",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/roof/roof.blend",
+      "source_sha256": "3841420b40188aa6383d6f475c2fc6095a76dfc58b3be6bd367e67447e22089b",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/roof/asset_manifest.json"
+    },
+    {
+      "key": "window",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-WINDOW",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-WINDOW",
+      "group": "furnishing",
+      "kind": "opening",
+      "rho": 0.025,
+      "bounds_size": [
+        2.7200000286102295,
+        0.1699998378753662,
+        1.7999999523162842
+      ],
+      "triangles": 220,
+      "polygons": 70,
+      "meshes": 5,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "d771e14a2663f086a1cb36a278e173c0923e779335d2196a6a0968992a31a3c5",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/window/window.blend",
+      "source_sha256": "b5fed37f66f2969b19412fc9f1201ac28943ceb24bff0a7285b0ce36cf807433",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/window/asset_manifest.json"
+    },
+    {
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "group": "furnishing",
+      "kind": "canopy",
+      "rho": -0.03,
+      "bounds_size": [
+        4.325999736785889,
+        1.133000135421753,
+        1.690000057220459
+      ],
+      "triangles": 132,
+      "polygons": 42,
+      "meshes": 3,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "3255768250eab32959454ebc9339b3c6c8ce5dd67df7d03552cc8f9687f5cd67",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/balcony/balcony.blend",
+      "source_sha256": "590956d9d09d0769384c35e9e6b891256ad4be54baac6f23c16a2d12fc291731",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/balcony/asset_manifest.json"
+    },
+    {
+      "key": "solar_panel",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR_PANEL",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL",
+      "group": "furnishing",
+      "kind": "solar",
+      "rho": 0.025,
+      "bounds_size": [
+        7.199999809265137,
+        4.550000190734863,
+        0.06000000238418579
+      ],
+      "triangles": 704,
+      "polygons": 224,
+      "meshes": 16,
+      "material_roles": [
+        "SEA_Gloss"
+      ],
+      "geometry_fingerprint": "0c666da3a6534e7afafed19f36ebe86a63183ea9a6e7b00b5332b0b8b35aace5",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/solar_panel/solar_panel.blend",
+      "roof_clearance_m": 0.28,
+      "source_sha256": "61d40e050e22619b4f2dc5bf76be8ef268b1fc354bb324761183193b3e635ab2",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/solar_panel/asset_manifest.json"
+    },
+    {
+      "key": "ac_unit",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-AC_UNIT",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-AC-UNIT",
+      "group": "furnishing",
+      "kind": "hvac",
+      "rho": 0.04,
+      "bounds_size": [
+        1.0,
+        0.5900000333786011,
+        0.9999999403953552
+      ],
+      "triangles": 88,
+      "polygons": 28,
+      "meshes": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "dfd3fd7ae9ed1aaeabff8c239e367186651f52808ee605e690a0a6103908cbbc",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/ac_unit/ac_unit.blend",
+      "source_sha256": "087d10561b55e6c51a14500a7bf47faaf84bb37198e6b7f56c4ef6f1162713a1",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/ac_unit/asset_manifest.json"
+    },
+    {
+      "key": "pipe",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "group": "furnishing",
+      "kind": "linear",
+      "rho": 0.05,
+      "bounds_size": [
+        0.33636200428009033,
+        0.12124355137348175,
+        5.804281711578369
+      ],
+      "triangles": 32,
+      "polygons": 14,
+      "meshes": 1,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "d87d5d7986ed44d640c3563413f9a2c4a6d57653758c8b96a0f267125a33d36e",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/pipe/pipe.blend",
+      "source_sha256": "b86a2318893a8a7d1c70384bc0a885dab4520689f7f68d428d5abe4bec90e7a2",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/pipe/asset_manifest.json"
+    },
+    {
+      "key": "tree_trunk",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TREE_TRUNK",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-TREE-TRUNK",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0.0,
+      "bounds_size": [
+        5.169018745422363,
+        0.9259711503982544,
+        19.859472274780273
+      ],
+      "triangles": 144,
+      "polygons": 65,
+      "meshes": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "5c7c29593e72bad5c94494fa7032c7cdb5161595401abddf8d418dc6d89b9a82",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/tree_trunk/tree_trunk.blend",
+      "source_sha256": "348ea2d3e7bf192b781e19d7072dcda54d0f46d3d18a409f8d722f0373f78c05",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/tree_trunk/asset_manifest.json"
+    },
+    {
+      "key": "tree_crown",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TREE_CROWN",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-TREE-CROWN",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0.0,
+      "bounds_size": [
+        1.788849949836731,
+        1.7012799978256226,
+        2.0
+      ],
+      "triangles": 120,
+      "polygons": 120,
+      "meshes": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "0b541863a1d1364dc83de9f699f1641f8b79b18bc6afe250b93245ae45f7f5c0",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/tree_crown/tree_crown.blend",
+      "source_sha256": "a6683301f83f324cb39427aaa203b72a9302557d789bf19ea3badc9caed2d903",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/tree_crown/asset_manifest.json"
+    },
+    {
+      "key": "planter",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "group": "furnishing",
+      "kind": "container",
+      "rho": -0.04,
+      "bounds_size": [
+        1.0399999618530273,
+        0.8320000171661377,
+        0.6499999761581421
+      ],
+      "triangles": 88,
+      "polygons": 28,
+      "meshes": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "cbd8d541162d47cc6b31cde725e7b9385b2a800247851cc1809090b3b9b7a771",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/planter/planter.blend",
+      "source_sha256": "ec9951843d30d73b84de336084a199a378d3bdab9a164c5803b5e16fcd4571cf",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/planter/asset_manifest.json"
+    },
+    {
+      "key": "flower_cluster",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOWER_CLUSTER",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-FLOWER-CLUSTER",
+      "group": "plant",
+      "kind": "plant",
+      "rho": 0.0,
+      "bounds_size": [
+        1.788849949836731,
+        1.7012799978256226,
+        2.0
+      ],
+      "triangles": 160,
+      "polygons": 160,
+      "meshes": 8,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "4feb79d3ecd7fd49397683c07c0f47f129ed6c7981cb5c3e3fceff35f1bdb1d2",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/flower_cluster/flower_cluster.blend",
+      "source_sha256": "1ef9fc8c52b47c7e5e1347f36756fe52cd9b8ef3dfef691d8091feae53c2a5d6",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/flower_cluster/asset_manifest.json"
+    },
+    {
+      "key": "roof_equipment",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF_EQUIPMENT",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-ROOF-EQUIPMENT",
+      "group": "furnishing",
+      "kind": "equipment",
+      "rho": 0.03,
+      "bounds_size": [
+        4.899999618530273,
+        0.9500000476837158,
+        1.899999976158142
+      ],
+      "triangles": 108,
+      "polygons": 36,
+      "meshes": 3,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "1932eeef2d0690c17fa926e12de0ff8a8d83e876ffc14d890fddfb0d0d9d9d1f",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/roof_equipment/roof_equipment.blend",
+      "source_sha256": "20eb84a23ab073a7793d0ff6b119e257a006b6e6beb4103a874ed1bfae86dfb8",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/roof_equipment/asset_manifest.json"
+    },
+    {
+      "key": "door",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DOOR",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-DOOR",
+      "group": "furnishing",
+      "kind": "door",
+      "rho": 0.025,
+      "bounds_size": [
+        1.5499999523162842,
+        0.1549999713897705,
+        2.5
+      ],
+      "triangles": 88,
+      "polygons": 28,
+      "meshes": 2,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "2945c47e92d18cdb80938b43156ed0004fb77acb223a45d9f8f8cc78fa0213f6",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/door/door.blend",
+      "source_sha256": "6a12bac7079aef537a6f69bbbb11bfbc49e14df79bad91d13aaba21b2a8cf7df",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/door/asset_manifest.json"
+    },
+    {
+      "key": "stair",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-STAIR",
+      "collection": "SEA-SCENE-WATER-BUILDING-002-STAIR",
+      "group": "furnishing",
+      "kind": "ladder",
+      "rho": 0.03,
+      "bounds_size": [
+        0.940000057220459,
+        0.35000014305114746,
+        20.0
+      ],
+      "triangles": 348,
+      "polygons": 114,
+      "meshes": 9,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "7f4fd7ef1a9141ff67219129bb381477a820022a20659072703e54f36242ff2f",
+      "fingerprint_algorithm": "ordered_vertices_fixed6_sha256",
+      "component_source": "art_source/scenes/water_building_002/v001/component_packages/stair/stair.blend",
+      "source_sha256": "7aef153da31ad9c2c089b3c6f2fb0cf6c9f563a720f1dd924e497f763340a95d",
+      "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "manifest": "art_source/scenes/water_building_002/v001/component_packages/stair/asset_manifest.json"
+    }
+  ]
+}

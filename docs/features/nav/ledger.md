@@ -254,3 +254,12 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
 |---|---|---|
 | SEA-NAV-R20 | implemented；`nearest_open_water()` + 起点/落点容差写入 `water_navigation.gd`；起点越界最多抬 2.6 m、落点最多抬 1.8 m，抬不出去仍如实返回空 | `dock-hotspot` 31/0 PASS（`D:/projects/sea-work/verification/20261109-171130-dock-hotspot-r6-f1015c/report.json`；终版复跑 `D:/projects/sea-work/verification/20261109-181016-final-regress-b44d74/report.json`，同批 `camera`、`dock-seed`、`board-click`、`interaction-reach`、`interact-focus` 亦全 PASS）；同一用例在改动前 11 项失败、含「无法到达该泊位」（`.../20261109-171040-dock-hotspot-baseline3-836e50/report.json`）。`ocean`、`board-click`、`sea-supply`、`interaction-reach`、`interact-focus`、`dock-seed` 复跑 PASS；`building-ocean` 的「recipe available aboard」为改动前既有失败（已用暂存还原验证）。[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。 |
+
+## 2026-11-10 走域与泊位校准
+
+| 对应设计条款 | 当前实施状态 | 最终实测证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R21 | 家园码头东侧补齐（走域 x 到 11.4，77.5→84.5 m²，仍单岛连通、悬空 1.1%）；霓虹花园菜园桥 106 个作物/藤架件标 `visual_only`，派生不再把它们当遮挡（47.5→67.4 m²、15→8 岛、悬空 47.9%→3.9%、主岛占 86%）；街口 19 m² 走域 100% 悬空，`active=false` 停用。 | `audit_facility_access` 复检 `sea-work/diag/20261110-163315-step4/facility-access-audit.json`；`dock-hotspot`、`dock-seed` PASS。zone2 四岛互不连通是站台本身断开（岛间实测 y=0.52..0.96 为水下废墟），要连通需加木桥或舷梯，属玩法改动未擅自添加。 |
+| SEA-NAV-R22 | zone1 绞盘台 `BoatPark` 沿离岸方向外移 1.1 m，gap 0.40→1.64，脱离 0.9 m 船体缓冲，`park_in_blocker` 消失；zone5 养殖台 `BoatPark` 外移 0.35 m，gap 1.27→1.61，`park_too_close` 消失。 | `dock-hotspot` 首跑 1 处失败于取样半径正好压在 `DOCK_SETTLE_TOLERANCE=1.6` 边界，把取样半径提到 1.7 m 后 PASS（容差不改）。5 处落点仍贴甲板外沿（clearance 0.00–0.36 m），收到 0.38 以上会连带 `BoatPark`，回归面大，本轮未动。 |
+| SEA-NAV-R23 | 霓虹花园左楼新增「屋顶 ↔ 水面」连续通路：`WalkLeftStair` 用 22 个三角形（5 块平台 + 4 段斜坡梯段 + 2 段补桥：一段 0.39 m 抬升、一段与屋面共面）把梯顶（世界 15.03）接到屋面（15.23，一级台阶 0.20 m），`WalkLeftFloat` 在水面 1.12 设浮台，`SiteLadderInteractable` ×2 + `climb_ladder` 补上 1.12→4.83 的 3.71 m 竖直段。整条路 14.08 m，可上可下。 | `neon-roof-access` 41 项全过；`probe_neon_stair_route.gd` 逐级求路：屋顶→梯脚 73 个航点，每级之间 12–17 点。浮台所在水面无阻挡矩形（体检 `block_area_m2 25.12` / `hole_pct 24.71` 与本轮前完全一致），用例锁了「浮台所在水面不挡船」。 |
+| SEA-NAV-R24 | 折返梯走域的梯段端点首版接反（A/B 两道的 z 端起止互换），四个梯段全部悬在两侧平台之间，Recast 烘成 8 张独立岛：每一格「最近多边形偏 0.02–0.06 m」看起来正常，但屋顶→任何一级平台的 `route()` 都返回 0 点。修正端点后 `navigation_polygons` 382→463，逐级求路全部连通。 | 教训：`map_get_closest_point` 偏移小**不能**证明连通。验收必须逐级求路，不能只看两端。见 [本轮记录](../../development/2026-11-10_neon_roof_access.md)。 |

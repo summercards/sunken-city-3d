@@ -171,6 +171,29 @@ def main():
             else:
                 warnings.append(message + ' — ledger has no 「有意」 mark, ask the user')
 
+    # Non-zone SeaStructures (ordinary buildings/retired landmarks) own no zones.json
+    # row, but their authored transform still requires the same position ledger.
+    for binding, node in nodes.items():
+        if not binding.startswith('World/SeaStructures/') or binding.count('/') != 2 or binding in zones:
+            continue
+        if node['translation'] is None:
+            problems.append('%s: non-zone structure has no explicit transform' % binding)
+            continue
+        checked += 1
+        row = rows.get(binding)
+        if row is None:
+            problems.append('%s: non-zone structure has no position ledger row' % binding)
+            continue
+        if row['actual'] is None or dist(row['actual'], node['translation']) > POS_TOL:
+            problems.append('%s: ledger actual %s != main.tscn %s' %
+                            (binding, row['actual'], node['translation']))
+        if row['ref'] is None:
+            problems.append('%s: initial reference position missing from ledger' % binding)
+        basis = node['basis']
+        lengths = [col_len(basis, i) for i in range(3)]
+        if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
+            warnings.append('%s: non-uniform scale without user confirmation' % binding)
+
     for node in rows:
         if node not in nodes:
             problems.append('ledger row %s: node no longer exists in main.tscn' % node)

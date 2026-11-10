@@ -1,0 +1,101 @@
+{
+  "schema": "sea.component_package_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+  "key": "entry_step",
+  "source_blend": "D:/projects/sea/art_source/scenes/water_building_002/v002/water_building_002_v002.blend",
+  "source_sha256": "3a2a1853b7ffa7ba8866be89237bca63cc893a216d23daa5e64c25c8ebd95489",
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP.003",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 1,
+    "mesh_names": [
+      "WB002V2_EntranceStep.003"
+    ],
+    "vertices": 24,
+    "polygons": 26,
+    "triangles": 44,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -2.200000047683716,
+        -0.6748772859573364,
+        0.0
+      ],
+      "max": [
+        2.200000047683716,
+        0.6748772859573364,
+        0.19996364414691925
+      ],
+      "size": [
+        4.400000095367432,
+        1.3497545719146729,
+        0.19996364414691925
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "package_sha256_before_reopen": "afcbf90631a8cbc7c0137b126f47e157e7c50ca6dc65983141e39d76d38efb7d",
+  "package_sha256_after_reopen": "afcbf90631a8cbc7c0137b126f47e157e7c50ca6dc65983141e39d76d38efb7d",
+  "reopen_stats": {
+    "meshes": 1,
+    "mesh_names": [
+      "WB002V2_EntranceStep.003"
+    ],
+    "vertices": 24,
+    "polygons": 26,
+    "triangles": 44,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -2.200000047683716,
+        -0.6748772859573364,
+        0.0
+      ],
+      "max": [
+        2.200000047683716,
+        0.6748772859573364,
+        0.19996364414691925
+      ],
+      "size": [
+        4.400000095367432,
+        1.3497545719146729,
+        0.19996364414691925
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true
+}

@@ -1,0 +1,1297 @@
+[
+  {
+    "key": "foundation",
+    "id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+    "group": "structure",
+    "kind": "shell",
+    "rho": 0.015,
+    "family": "platform",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-FOUNDATION",
+    "design_pivot": [
+      -0.19999980926513672,
+      0.0,
+      1.5107121726032346e-05
+    ],
+    "bounds_size": [
+      14.0,
+      9.998992919921875,
+      0.29996979236602783
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "9d0495443c4a3bfb29da96921fe12ef713970425e8af49a10252a57e1356dd7a",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/foundation/foundation.blend"
+  },
+  {
+    "key": "lower_shell",
+    "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+    "group": "structure",
+    "kind": "shell",
+    "rho": 0.02,
+    "family": "wall",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-LOWER-SHELL",
+    "design_pivot": [
+      0.20000004768371582,
+      -0.07067084312438965,
+      0.30000001192092896
+    ],
+    "bounds_size": [
+      9.196510314941406,
+      7.138628005981445,
+      4.899999618530273
+    ],
+    "triangles": 220,
+    "polygons": 130,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "b2a9041c263a9223f416b0915c14c2b0965c7fc76ea3511a40b8cdae7aca88fc",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/lower_shell/lower_shell.blend"
+  },
+  {
+    "key": "lower_slab",
+    "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.02,
+    "family": "slab",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-LOWER-SLAB",
+    "design_pivot": [
+      0.20000004768371582,
+      0.0,
+      5.200008869171143
+    ],
+    "bounds_size": [
+      9.700000762939453,
+      7.499304294586182,
+      0.1999821662902832
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "f3a6031f0c77a7a6c2f68b5a1538b3b09f19f425eca21181f089fff190e9fa3b",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/lower_slab/lower_slab.blend"
+  },
+  {
+    "key": "middle_shell",
+    "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+    "group": "structure",
+    "kind": "shell",
+    "rho": 0.02,
+    "family": "wall",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SHELL",
+    "design_pivot": [
+      -0.2493215799331665,
+      -0.07057440280914307,
+      5.400000095367432
+    ],
+    "bounds_size": [
+      6.998642921447754,
+      6.038823127746582,
+      4.900000095367432
+    ],
+    "triangles": 176,
+    "polygons": 104,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "44bda2a177ffcddc25c400f45d76b7dd69ce00cff7eb63c4d1f33845e4c143f2",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/middle_shell/middle_shell.blend"
+  },
+  {
+    "key": "middle_slab",
+    "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.02,
+    "family": "slab",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-SLAB",
+    "design_pivot": [
+      -0.25,
+      0.0,
+      10.10001277923584
+    ],
+    "bounds_size": [
+      7.5,
+      6.399231910705566,
+      0.19997501373291016
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "e8b3a8035c0e19e1a2b52a8d63f073412c16b446c5af4047ed41d54fdab6ed42",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/middle_slab/middle_slab.blend"
+  },
+  {
+    "key": "upper_shell",
+    "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+    "group": "structure",
+    "kind": "shell",
+    "rho": 0.02,
+    "family": "wall",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-UPPER-SHELL",
+    "design_pivot": [
+      0.25,
+      -0.06598997116088867,
+      10.300000190734863
+    ],
+    "bounds_size": [
+      4.9954047203063965,
+      4.627996921539307,
+      3.09999942779541
+    ],
+    "triangles": 176,
+    "polygons": 104,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "0bdae8e35e1afb66e961178e69725655d9106a44bd3dc30166a2ffd19d0cb2be",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/upper_shell/upper_shell.blend"
+  },
+  {
+    "key": "upper_slab",
+    "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.02,
+    "family": "slab",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-UPPER-SLAB",
+    "design_pivot": [
+      0.25,
+      0.0,
+      13.400015830993652
+    ],
+    "bounds_size": [
+      5.599999904632568,
+      5.099180221557617,
+      0.1999683380126953
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "00c47594c916e6904eb062fae7511f83b5da56da1150a115fbf9729dd76b1a58",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/upper_slab/upper_slab.blend"
+  },
+  {
+    "key": "roof_lower",
+    "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.03,
+    "family": "gable_roof",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-ROOF-LOWER",
+    "design_pivot": [
+      0.20000004768371582,
+      0.0,
+      5.450122833251953
+    ],
+    "bounds_size": [
+      11.200000762939453,
+      8.78526496887207,
+      1.5300183296203613
+    ],
+    "triangles": 736,
+    "polygons": 436,
+    "meshes": 17,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "daf3ea588dba8f9e3c623b988e801d68b8bed79aed57690cac22e311d41dccf0",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/roof_lower/roof_lower.blend"
+  },
+  {
+    "key": "roof_middle",
+    "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.03,
+    "family": "gable_roof",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-ROOF-MIDDLE",
+    "design_pivot": [
+      -0.25,
+      0.0,
+      10.350126266479492
+    ],
+    "bounds_size": [
+      8.800000190734863,
+      7.2848219871521,
+      1.230544090270996
+    ],
+    "triangles": 648,
+    "polygons": 384,
+    "meshes": 15,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "2e5e31496bd14df6f13091b8bfbea52e9d2eb6e2e736e9d2be2773927b0c0a13",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/roof_middle/roof_middle.blend"
+  },
+  {
+    "key": "roof_upper",
+    "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+    "group": "structure",
+    "kind": "horizontal_cover",
+    "rho": 0.03,
+    "family": "gable_roof",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-ROOF-UPPER",
+    "design_pivot": [
+      0.25,
+      0.0,
+      13.6001558303833
+    ],
+    "bounds_size": [
+      6.0,
+      5.35468053817749,
+      0.827540397644043
+    ],
+    "triangles": 472,
+    "polygons": 280,
+    "meshes": 11,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "5f990b8f4a3bc2a7471b25c6ab02208575c31c12f9ca759a69ec516488579a27",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/roof_upper/roof_upper.blend"
+  },
+  {
+    "key": "roof_ridge",
+    "id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+    "group": "structure",
+    "kind": "vertical_structure",
+    "rho": 0.03,
+    "family": "ridge",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-ROOF-RIDGE",
+    "design_pivot": [
+      0.25,
+      0.0,
+      13.9500093460083
+    ],
+    "bounds_size": [
+      5.449999809265137,
+      0.17998018860816956,
+      0.17998123168945312
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "69301adb56409a5c7b13a2438786d76a7d9a1fb0e5bf76972c1cbeed4c1207ca",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/roof_ridge/roof_ridge.blend"
+  },
+  {
+    "key": "lower_quoin",
+    "id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+    "group": "structure",
+    "kind": "vertical_structure",
+    "rho": 0.025,
+    "family": "quoin",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-LOWER-QUOIN",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.4000000059604645
+    ],
+    "bounds_size": [
+      9.259964942932129,
+      7.47996187210083,
+      3.7599997520446777
+    ],
+    "triangles": 176,
+    "polygons": 104,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "5a1ccf48b00158a710cebfab98cead561bc594965eb5735070ec894b3a972a4e",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/lower_quoin/lower_quoin.blend"
+  },
+  {
+    "key": "middle_quoin",
+    "id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+    "group": "structure",
+    "kind": "vertical_structure",
+    "rho": 0.025,
+    "family": "quoin",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-MIDDLE-QUOIN",
+    "design_pivot": [
+      0.0,
+      0.0,
+      5.5
+    ],
+    "bounds_size": [
+      7.059964656829834,
+      6.379961967468262,
+      3.760000228881836
+    ],
+    "triangles": 176,
+    "polygons": 104,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "0258d86a3cb7112f452823b136d74afd128d29da776fdf4f87cdcc5aadfdaf4c",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/middle_quoin/middle_quoin.blend"
+  },
+  {
+    "key": "upper_quoin",
+    "id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+    "group": "structure",
+    "kind": "vertical_structure",
+    "rho": 0.025,
+    "family": "quoin",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-UPPER-QUOIN",
+    "design_pivot": [
+      0.0,
+      0.0,
+      10.399999618530273
+    ],
+    "bounds_size": [
+      5.059943199157715,
+      4.97993803024292,
+      2.320000648498535
+    ],
+    "triangles": 176,
+    "polygons": 104,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "65e72d3a949674bc78b4050423d155b546bc62829a14cbb30e083369ab834b25",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/upper_quoin/upper_quoin.blend"
+  },
+  {
+    "key": "window_large",
+    "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+    "group": "furnishing",
+    "kind": "opening",
+    "rho": 0.025,
+    "family": "window",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-WINDOW-LARGE",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      2.7599692344665527,
+      0.21995769441127777,
+      2.5999999046325684
+    ],
+    "triangles": 220,
+    "polygons": 130,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Gloss",
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "dc7b564ed24b1df5f20ac14b144f509a80465139fe324f104e2aa0922071f595",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/window_large/window_large.blend"
+  },
+  {
+    "key": "window_small",
+    "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+    "group": "furnishing",
+    "kind": "opening",
+    "rho": 0.02,
+    "family": "window",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-WINDOW-SMALL",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      1.759935975074768,
+      0.2199312448501587,
+      1.25
+    ],
+    "triangles": 220,
+    "polygons": 130,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Gloss",
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "db4b7d098430fd2ffafd78449e345a56b9e3b4e929e5360075f508a8978151ce",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/window_small/window_small.blend"
+  },
+  {
+    "key": "window_upper",
+    "id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+    "group": "furnishing",
+    "kind": "opening",
+    "rho": 0.025,
+    "family": "window",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-WINDOW-UPPER",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      2.659951686859131,
+      0.21995599567890167,
+      1.649999976158142
+    ],
+    "triangles": 220,
+    "polygons": 130,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Gloss",
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "139315983dea8c4df003da3994513393a929075c2623614c516bb0e2746a3ee9",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/window_upper/window_upper.blend"
+  },
+  {
+    "key": "door",
+    "id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+    "group": "furnishing",
+    "kind": "opening",
+    "rho": 0.025,
+    "family": "door",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-DOOR",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      2.1599743366241455,
+      0.21996451914310455,
+      3.0999999046325684
+    ],
+    "triangles": 220,
+    "polygons": 130,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "9006ff14bb50e8b19f65ad0fe09c2496da7a87b66daa26d5bfee02d927d2c469",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/door/door.blend"
+  },
+  {
+    "key": "shutter",
+    "id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+    "group": "furnishing",
+    "kind": "opening",
+    "rho": 0.025,
+    "family": "shutter",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-SHUTTER",
+    "design_pivot": [
+      0.0,
+      -0.007508851587772369,
+      0.0
+    ],
+    "bounds_size": [
+      2.059969186782837,
+      0.2349753975868225,
+      2.5999999046325684
+    ],
+    "triangles": 352,
+    "polygons": 208,
+    "meshes": 8,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "ade29638cf2409f582b28d6aea52d5880ddf4445690065eca69eabd605d9b513",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/shutter/shutter.blend"
+  },
+  {
+    "key": "balcony_lower",
+    "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+    "group": "furnishing",
+    "kind": "horizontal_cover",
+    "rho": 0.025,
+    "family": "balcony",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-BALCONY-LOWER",
+    "design_pivot": [
+      0.0,
+      -0.024989962577819824,
+      0.0
+    ],
+    "bounds_size": [
+      1.549696683883667,
+      4.649979591369629,
+      2.0
+    ],
+    "triangles": 308,
+    "polygons": 182,
+    "meshes": 7,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "211704f27c10d8ffba0bb4a2d2cc55e3d4334cfa4192eed7b08a8794e628f6eb",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/balcony_lower/balcony_lower.blend"
+  },
+  {
+    "key": "balcony_middle",
+    "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+    "group": "furnishing",
+    "kind": "horizontal_cover",
+    "rho": 0.025,
+    "family": "balcony",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-BALCONY-MIDDLE",
+    "design_pivot": [
+      0.0,
+      -0.024989962577819824,
+      0.0
+    ],
+    "bounds_size": [
+      1.549696683883667,
+      4.649979591369629,
+      2.0
+    ],
+    "triangles": 308,
+    "polygons": 182,
+    "meshes": 7,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "211704f27c10d8ffba0bb4a2d2cc55e3d4334cfa4192eed7b08a8794e628f6eb",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/balcony_middle/balcony_middle.blend"
+  },
+  {
+    "key": "balcony_rail",
+    "id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+    "group": "furnishing",
+    "kind": "vertical_structure",
+    "rho": 0.03,
+    "family": "rail",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-BALCONY-RAIL",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      4.5,
+      0.11998400092124939,
+      1.0199919939041138
+    ],
+    "triangles": 264,
+    "polygons": 156,
+    "meshes": 6,
+    "material_roles": [
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "a1b01e5c0de69820615976d00a0664dd0ff7d363b0b0a3d04a2e7aee1cdcff95",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/balcony_rail/balcony_rail.blend"
+  },
+  {
+    "key": "awning",
+    "id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+    "group": "furnishing",
+    "kind": "awning",
+    "rho": 0.03,
+    "family": "awning",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-AWNING",
+    "design_pivot": [
+      0.0,
+      -0.007182717323303223,
+      -0.1400103121995926
+    ],
+    "bounds_size": [
+      3.4000000953674316,
+      2.3892910480499268,
+      0.39915764331817627
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "266d42d4abe032fcfaedc3fa7ec58175f56d2846843421b238adf9e3b657aac6",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/awning/awning.blend"
+  },
+  {
+    "key": "ladder",
+    "id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+    "group": "furnishing",
+    "kind": "linear",
+    "rho": 0.06,
+    "family": "ladder",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "d_bottom": 0.2,
+    "d_top": 0.18,
+    "collection": "SEA-SCENE-WATER-BUILDING-003-LADDER",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      0.10999999940395355,
+      0.0952627956867218,
+      3.299999952316284
+    ],
+    "triangles": 20,
+    "polygons": 8,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "fbbfe9d4d3430fd77d876866470a22d1460747c17a39806d768649a67d5d72ff",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/ladder/ladder.blend"
+  },
+  {
+    "key": "drainpipe",
+    "id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+    "group": "furnishing",
+    "kind": "linear",
+    "rho": 0.06,
+    "family": "pipe",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "d_bottom": 0.2,
+    "d_top": 0.18,
+    "collection": "SEA-SCENE-WATER-BUILDING-003-DRAINPIPE",
+    "design_pivot": [
+      0.11865385621786118,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      0.38730770349502563,
+      0.12990380823612213,
+      4.825961589813232
+    ],
+    "triangles": 32,
+    "polygons": 14,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "b2a4b019c52b9440ebcb7455749604a01023e6c5afec22c157414f0aeade96eb",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/drainpipe/drainpipe.blend"
+  },
+  {
+    "key": "utility_box",
+    "id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+    "group": "furnishing",
+    "kind": "flat_attached",
+    "rho": 0.03,
+    "family": "cabinet",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-UTILITY-BOX",
+    "design_pivot": [
+      0.0,
+      -0.025073878467082977,
+      0.0
+    ],
+    "bounds_size": [
+      0.9992499947547913,
+      0.46983271837234497,
+      1.2000000476837158
+    ],
+    "triangles": 88,
+    "polygons": 52,
+    "meshes": 2,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "fbd1ed3ba20ba996ab185a6f2d1c5b4ed2432744d3ddaca00d11e93213a042c3",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/utility_box/utility_box.blend"
+  },
+  {
+    "key": "sign",
+    "id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+    "group": "furnishing",
+    "kind": "flat_attached",
+    "rho": 0.025,
+    "family": "sign",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-SIGN",
+    "design_pivot": [
+      0.024958327412605286,
+      0.0,
+      -0.028217434883117676
+    ],
+    "bounds_size": [
+      0.7639236450195312,
+      0.07996873557567596,
+      0.5598987340927124
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "cd46f6bd47e5c0d4c52ef62feae7fb9d312016a9708907e203ed07b3b4a25880",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/sign/sign.blend"
+  },
+  {
+    "key": "bench",
+    "id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+    "group": "furnishing",
+    "kind": "freestanding",
+    "rho": -0.06,
+    "family": "bench",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-BENCH",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      2.0,
+      0.5825049877166748,
+      0.9441369771957397
+    ],
+    "triangles": 132,
+    "polygons": 78,
+    "meshes": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "8799e0cba65374958096d74c13de498c55fcb2d23b528b54aa2f1a4c0114ed2a",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/bench/bench.blend"
+  },
+  {
+    "key": "pot",
+    "id": "SEA-SCENE-WATER-BUILDING-003-POT",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-POT",
+    "group": "furnishing",
+    "kind": "freestanding",
+    "rho": -0.06,
+    "family": "pot",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-POT",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      0.7749119997024536,
+      0.7749119997024536,
+      0.75
+    ],
+    "triangles": 44,
+    "polygons": 26,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "2a4b610bca144ad38d7e09c826804a17309529c2749d79444a841d8e3cd83253",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/pot/pot.blend"
+  },
+  {
+    "key": "stone_steps",
+    "id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+    "group": "furnishing",
+    "kind": "shell",
+    "rho": 0.02,
+    "family": "step",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-STONE-STEPS",
+    "design_pivot": [
+      0.0,
+      -0.13750579953193665,
+      2.399997720203828e-05
+    ],
+    "bounds_size": [
+      4.0,
+      1.4747717380523682,
+      0.7299360036849976
+    ],
+    "triangles": 132,
+    "polygons": 78,
+    "meshes": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "39d22362118d3f3749268f504e0e861d224461682c8373b315d742aea08b274d",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/stone_steps/stone_steps.blend"
+  },
+  {
+    "key": "pole",
+    "id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-POLE",
+    "group": "furnishing",
+    "kind": "linear",
+    "rho": 0.06,
+    "family": "pole",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "d_bottom": 0.2,
+    "d_top": 0.18,
+    "collection": "SEA-SCENE-WATER-BUILDING-003-POLE",
+    "design_pivot": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_size": [
+      2.200000047683716,
+      0.16454482078552246,
+      9.399999618530273
+    ],
+    "triangles": 64,
+    "polygons": 34,
+    "meshes": 2,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "a12f11d12d32b2a1bdc9f84fc121088d61187655689b27b6f2f6b21250c40af7",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/pole/pole.blend"
+  },
+  {
+    "key": "wire",
+    "id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+    "group": "furnishing",
+    "kind": "no_volume",
+    "rho": 0,
+    "family": "wire",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "no_volume": true,
+    "thickness": 0.01,
+    "bevel": 0.012,
+    "collection": "SEA-SCENE-WATER-BUILDING-003-WIRE",
+    "design_pivot": [
+      -0.00020760297775268555,
+      -0.001718847081065178,
+      -0.01660788618028164
+    ],
+    "bounds_size": [
+      2.407888889312744,
+      0.03256230428814888,
+      0.3328709602355957
+    ],
+    "triangles": 26,
+    "polygons": 12,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "77d0cc540e05e9a6a04578c75eee719f38778abe89750a143063822cc81e5cfc",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/wire/wire.blend"
+  },
+  {
+    "key": "trunk_main",
+    "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "tree_trunk",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-TRUNK-MAIN",
+    "design_pivot": [
+      -0.2524832487106323,
+      0.06940263509750366,
+      -0.2135755717754364
+    ],
+    "bounds_size": [
+      5.975801467895508,
+      1.8308613300323486,
+      12.38404369354248
+    ],
+    "triangles": 172,
+    "polygons": 78,
+    "meshes": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "47e0aa890948525beaf3938543acba98bb31fc62a57b6bbb89b8a316a918146b",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/trunk_main/trunk_main.blend"
+  },
+  {
+    "key": "trunk_branch",
+    "id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "tree_trunk",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-TRUNK-BRANCH",
+    "design_pivot": [
+      0.6489853858947754,
+      0.5775862336158752,
+      5.865509986877441
+    ],
+    "bounds_size": [
+      12.194209098815918,
+      2.1034247875213623,
+      8.160521507263184
+    ],
+    "triangles": 120,
+    "polygons": 54,
+    "meshes": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "fe635e11eb8506b10f64f134fd1f1e84e6bd574a4bdc45049cd8c2d2e73820da",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/trunk_branch/trunk_branch.blend"
+  },
+  {
+    "key": "canopy_left",
+    "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "canopy",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-CANOPY-LEFT",
+    "design_pivot": [
+      -0.31961488723754883,
+      0.09130215644836426,
+      -1.2295233011245728
+    ],
+    "bounds_size": [
+      10.076574325561523,
+      4.184841156005859,
+      3.0277810096740723
+    ],
+    "triangles": 100,
+    "polygons": 100,
+    "meshes": 5,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "029d8320c20005e94a9cf076f9a4eb224bc18a5c1ad8ad8b0d69a71fbb5a6d34",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/canopy_left/canopy_left.blend"
+  },
+  {
+    "key": "canopy_top",
+    "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "canopy",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-CANOPY-TOP",
+    "design_pivot": [
+      0.05610382556915283,
+      0.10763520002365112,
+      -1.0362080335617065
+    ],
+    "bounds_size": [
+      6.090642929077148,
+      3.3223605155944824,
+      2.128154993057251
+    ],
+    "triangles": 60,
+    "polygons": 60,
+    "meshes": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "d3063655f6369bd6e88b6abc5d446ee0a5e816a833fa5f0eb8e3ad97927b5460",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/canopy_top/canopy_top.blend"
+  },
+  {
+    "key": "canopy_right",
+    "id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "canopy",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-CANOPY-RIGHT",
+    "design_pivot": [
+      0.03193974494934082,
+      0.06938362121582031,
+      -1.1365561485290527
+    ],
+    "bounds_size": [
+      6.754730701446533,
+      3.379751682281494,
+      2.4778590202331543
+    ],
+    "triangles": 80,
+    "polygons": 80,
+    "meshes": 4,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "624ee4ce6a6c0093f3aea88f807fce5ee5957d407aa6e585666e10a83a02e4f1",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/canopy_right/canopy_right.blend"
+  },
+  {
+    "key": "vine",
+    "id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-VINE",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "vine",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-VINE",
+    "design_pivot": [
+      -0.019872352480888367,
+      0.0,
+      0.1929362416267395
+    ],
+    "bounds_size": [
+      0.32332783937454224,
+      0.08559509366750717,
+      2.313427686691284
+    ],
+    "triangles": 36,
+    "polygons": 17,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "c4102c6771f07ad1e17d642ac43b44903996da6dcd452bb10a784e0ab685b5bb",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/vine/vine.blend"
+  },
+  {
+    "key": "moss",
+    "id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "moss",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-MOSS",
+    "design_pivot": [
+      -0.029420673847198486,
+      0.013176053762435913,
+      -0.47627905011177063
+    ],
+    "bounds_size": [
+      2.776510715484619,
+      1.832773208618164,
+      1.0125569105148315
+    ],
+    "triangles": 20,
+    "polygons": 20,
+    "meshes": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "b4c269c873197295de91c23d34e78a254ac6425b431f64f20ebc5f10be959967",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/moss/moss.blend"
+  },
+  {
+    "key": "flower_cluster",
+    "id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+    "asset_id": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+    "group": "plant",
+    "kind": "plant",
+    "rho": 0,
+    "family": "flower",
+    "origin": "bottom_center",
+    "front_axis": "-Y",
+    "scope": "scene_local",
+    "source_version": "v002",
+    "collection": "SEA-SCENE-WATER-BUILDING-003-FLOWER-CLUSTER",
+    "design_pivot": [
+      0.17949196696281433,
+      0.0002314746379852295,
+      0.0
+    ],
+    "bounds_size": [
+      0.5866249203681946,
+      0.22817513346672058,
+      0.7236542701721191
+    ],
+    "triangles": 108,
+    "polygons": 81,
+    "meshes": 6,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "44dbc3125cbc14e74548cb70f6e9d5f4c959c0cde1dd697c672efcf6035f813b",
+    "component_source": "art_source/scenes/water_building_003/v002/component_packages/flower_cluster/flower_cluster.blend"
+  }
+]

@@ -391,3 +391,14 @@ UI条款集合差异已定位：门禁按`\| (SEA-UI-R\d+) \|`提取集合，原
 改动点：`hud.gd` 的右下圆键在 `owned_modal_query` 为真时改调 `owned_modal_close`（旧实现落到 `back()`，而 `back()` 在 `_external_modal` 下第一句就返回，按钮可见却按不动）；`main.gd` 新增 `_on_shop_panel_opened/_on_shop_panel_closed` 与 `_set_hud_close_visible`，商店自带圆键期间隐藏 HUD 那枚，避免同一角落并排两枚关闭入口。`main.tscn` 无本次 diff，用户手摆 transform 未动。
 
 渲染口径：1280×800 与 1600×1000 按窗口原尺寸出图，1920×1080 窗口在原 KEEP 画布下输出 1728×1080，PNG 实际像素以文件为准（日志已逐个打印）。工程外副本 `D:/projects/sea-work/outputs/shop_icon_grid/final/`。全局 `check_feature_contracts` 仍 53 issues（sync 52；含本次 `hud.gd`/`main.gd` 真实漂移与 4 项与本轮无关的既有 source drift），未批量重签；架构 25服务0、手摆 3结构0警告、`git diff --check` 通过，但不宣称全工程门禁绿。
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-UI-R01/R02/R18/R37/R55/R56；登记 JSON、status、原 UI 条款及历史证据保持。
+
+- HUD 对重复业务信号触发的刷新以 deferred 合并；公开 `refresh` / `refresh_view` 的同步刷新契约保留，不把显式刷新改成等待下一次调度。
+- Notebook 以完整显示签名判断是否需要重建，不使用会漏掉可见内容变化的局部签名；原真实状态查询、选中项、焦点与键盘返回链仍按既有条款维护。
+- 近距仲裁同一调用内复用，提示、图标与操作保持同源；不恢复底部教程或另立业务写入者。
+- 主线程已提供 UI 19/0、`performance-equivalence` 19/0、interactor 15/0，以及 `click`、`keyboard-panels`、`pick-mesh`、facing 通过。本次仅回填已提供结果，未新增测试或本地复跑，不以逻辑通过代签最终视觉。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

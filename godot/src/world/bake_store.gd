@@ -15,6 +15,9 @@ static var _textures: Array = []
 static var _materials: Dictionary = {}
 static var _white: ImageTexture
 static var _loaded := false
+static var _timed_at := NAN
+static var _timed_count := -1
+static var timed_write_count := 0
 
 
 static func ensure_loaded() -> void:
@@ -86,6 +89,16 @@ static func line_material() -> ShaderMaterial:
 
 static func timed_materials() -> Array:
 	return _materials.values()
+
+## Shared material clock has one submission per value, not one per zone.
+## A material registered at the same time invalidates the count guard.
+static func update_time(t: float) -> void:
+	if t == _timed_at and _timed_count == _materials.size(): return
+	_timed_at = t
+	_timed_count = _materials.size()
+	for mat: ShaderMaterial in _materials.values():
+		mat.set_shader_parameter("u_time",t)
+		timed_write_count += 1
 
 
 static func _read_f32(file_name: String) -> PackedFloat32Array:

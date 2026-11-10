@@ -1,0 +1,124 @@
+{
+  "schema": "sea.component_package_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-BALCONY",
+  "key": "balcony",
+  "source_blend": "D:/projects/sea/art_source/scenes/water_building_002/v002/water_building_002_v002.blend",
+  "source_sha256": "3a2a1853b7ffa7ba8866be89237bca63cc893a216d23daa5e64c25c8ebd95489",
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-BALCONY.005",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 11,
+    "mesh_names": [
+      "WB002V2_BalconyDeck.004",
+      "WB002V2_BalconyRailSide.008",
+      "WB002V2_BalconyRailSide.009",
+      "WB002V2_BalconyHandrail.004",
+      "WB002V2_BalconySpindle.040",
+      "WB002V2_BalconySpindle.041",
+      "WB002V2_BalconySpindle.042",
+      "WB002V2_BalconySpindle.043",
+      "WB002V2_BalconySpindle.044",
+      "WB002V2_BalconySpindle.045",
+      "WB002V2_BalconySpindle.046"
+    ],
+    "vertices": 104,
+    "polygons": 86,
+    "triangles": 164,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "bounds": {
+      "min": [
+        -5.75,
+        -0.6899669766426086,
+        0.0
+      ],
+      "max": [
+        5.75,
+        0.6899669170379639,
+        1.139990210533142
+      ],
+      "size": [
+        11.5,
+        1.3799338340759277,
+        1.139990210533142
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "package_sha256_before_reopen": "8eef8a80f4cc6d2b71a0279d7af7d2c4266f49db4cc5f46e4b384ad4f4a3e47b",
+  "package_sha256_after_reopen": "8eef8a80f4cc6d2b71a0279d7af7d2c4266f49db4cc5f46e4b384ad4f4a3e47b",
+  "reopen_stats": {
+    "meshes": 11,
+    "mesh_names": [
+      "WB002V2_BalconyDeck.004",
+      "WB002V2_BalconyRailSide.008",
+      "WB002V2_BalconyRailSide.009",
+      "WB002V2_BalconyHandrail.004",
+      "WB002V2_BalconySpindle.040",
+      "WB002V2_BalconySpindle.041",
+      "WB002V2_BalconySpindle.042",
+      "WB002V2_BalconySpindle.043",
+      "WB002V2_BalconySpindle.044",
+      "WB002V2_BalconySpindle.045",
+      "WB002V2_BalconySpindle.046"
+    ],
+    "vertices": 104,
+    "polygons": 86,
+    "triangles": 164,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "bounds": {
+      "min": [
+        -5.75,
+        -0.6899669766426086,
+        0.0
+      ],
+      "max": [
+        5.75,
+        0.6899669170379639,
+        1.139990210533142
+      ],
+      "size": [
+        11.5,
+        1.3799338340759277,
+        1.139990210533142
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true
+}

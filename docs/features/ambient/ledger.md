@@ -252,3 +252,29 @@ SEA-AMBIENT-R28–R31当前专项通过：`D:/projects/sea-work/verification/202
 ### 本轮最终回填
 
 SEA-AMBIENT-R32–R36专项通过，功能总体partial。最终报告`D:/projects/sea-work/verification/20261109-151955-underwater-middepth-signed-e09520/report.json`：underwater-experience179/0、visual-underwater-experience436/0；整合8入口4834/0、exit0/PASS、unexpected=[]。家园正常10/20/41m泡变化像素924/1069/1359、尘179/183/208，旧图泡339/505/426、尘67/50/86；四yaw及80m周围覆盖通过。移动0.5m家园87/87泡与167/167尘稳定，旧45/46泡与150/150尘稳定；边缘回卷不粘角色。192/200/10与96/180预算、48呼气池、用户摆位不变。动态AABB/真实回读/水面下边界通过。低端、持续性能、用户终审与全局门禁未签，首批179/32、436/35保留，不借旧样板签本轮。最新sync70/只读71登记问题阻断派生索引，同专项通过分列。
+
+## 2026-11-10 植被专用集合归档（引用 SEA-ASSET-R63）
+
+本节只承接原有植被条款，不新增 `SEA-AMBIENT` 条款编号，不把源集合存放当作运行风、LOD、Scatter 或真实视觉验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R63；SEA-ASSET-R49；SEA-AMBIENT-R06–R16 | 植被库已完成 source-only 集合存放和源级验证：98 AssetID、98 Collection、332 网格、149036 triangles / 80328 polygons；按6语义族分组且每组≤50。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`。三花、42原版植物、荷叶、框、平台、手持中的 Godot 静态编辑快照保留来源边界，原程序源仍是权威；`PaletteUV` / `BotanicalUV` / 顶点色 / `WindData` 不被归档动作改写，图片不复制，Godot 风 shader 与玩法不迁移；旧深色 `mesh.bin` 细件保持原形态，不以归档冒称新审美通过。`source_verification.json` 为9047 checks/0 failures、`passed=true`，保护109项原生来源输入与230项计划输入；登记仅给106个原AssetID增加 `library_refs`，不改旧字段或主记录数量。既有 R06–R16 的风函数、通道、LOD、插件、空间、水域、性能、迁移和 runner 验收边界仍分别保留；用户美术终审、性能和运行接入不签。 | [最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)；[最终源验证](../../../../sea-work/botanical_libraries/v001/source_verification.json)；[最终登记](../../../../sea-work/botanical_libraries/v001/registration.json)；[最终提取报告](../../../../sea-work/verification/20261110-095851-botanical-final-8de438/report.json)实际292/0、exit0。8个Cycles PNG已生成，两个overview与植被top已审阅但不外推8图全细节目视通过；土框/平台材质提取、矩阵口径、sRGB→linear与共用色板引用已修正。全库sync/check日志均因既有 manifest `asset_ledger` KeyError exit1且无同步写入。 |
+
+## 2026-11-10 v002 植物命名与三形态模型（承接 SEA-ASSET-R64）
+
+本节只记录环境植物域的 v002 模型交付，不把模型交付扩大解释为风、LOD、Scatter、运行接入或完整用户审美验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R64；SEA-AMBIENT-R06–R16 | 植被域98个管理名、294个small/medium/large模型已完成最终源交付。棕榈羽叶密度、柑橘/番茄果梗等修正已纳入；三形态按叶、分枝、花蕾、果实拓扑与数量变化制作，非整体缩放；藤蔓仅以 `top_center_attachment` 顶心吊挂原点，其余底心。无季节；纯植物不含盆、土、平台、手持；共享外链色板、PaletteUV逐面面积与8px安全边、`SEA_Matte`/`SEA_Gloss`约束承接公共协议。 | 源 `art_source/vegetation/libraries/v002/vegetation_library.blend`；组件计划/manifest为 `art_source/vegetation/libraries/v002/component_plan.json`、`library_manifest.json`；最终报告 `D:/projects/sea-work/botanical_growth/v002/vegetation/verification_report.json`：7093/0、325114 triangles、164044 polygons、SHA-256 `eb3341d9b3c380701231e5dcfea5073f36fc320429d3e3cf918ce491a7531199`。两个作者场景名为 `01_小中大对照`、`02_植物母版`。交付审计 `D:/projects/sea-work/botanical_growth/v002/delivery_audit.json` 为2077/0，29图完整；总览与部分近景已主线程审阅，不签312模型全细节用户审美。契约 sync/check 受既有 `SEA-SCENE-WATER-BUILDING-001` manifest 缺 `asset_ledger` 的 KeyError/exit1 阻塞，未发生同步写入；风、LOD、Scatter、性能与运行接入仍另行验收。 |
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-AMBIENT-R02/R03/R04/R11；不改变原有植物生长、升级显隐、纯表现所有权或历史验收边界，登记 JSON 与 status 保持。
+
+- `plant` 隐藏时跳过 transform 提交，但仍推进成长与 phase；不可见不等于冻结生长或另建时间源。
+- 本批只裁减隐藏状态下的重复表现工作，不把装饰表现记为养殖、库存或经营完成。
+- 主线程已提供 `performance-equivalence` 19/0；此处仅回填该批结果，未新增专项名、测试或本地复跑，不借历史植被/鱼群视觉通过代签本批。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，恢复可见后的最终观感与完整验收参见主记录，本节不预签。

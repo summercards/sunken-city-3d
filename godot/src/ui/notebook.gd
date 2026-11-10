@@ -28,6 +28,10 @@ var index_label: Label
 var _action := ""
 var _focus_area := "cards"
 var _selected_index := 0
+var _display_signature := ""
+var _has_display_signature := false
+## PERF-AUTH: counts actual rebuilds without changing the public refresh contract.
+var _refresh_count := 0
 
 func _ready() -> void:
 	set_meta("cozy_skip",true)
@@ -114,15 +118,31 @@ func page_count() -> int: return maxi(1,ceili(entries.size()/float(PAGE_SIZE)))
 func refresh() -> void:
 	if not query.is_valid(): return
 	var data: Dictionary=query.call()
-	entries=data.get(category,[])
-	page=clampi(page,0,page_count()-1)
+	var next_entries: Array=data.get(category,[])
+	var next_page := clampi(page,0,maxi(0,ceili(next_entries.size()/float(PAGE_SIZE))-1))
+	var next_selected := selected
+	var selected_index := next_page*PAGE_SIZE
+	for i in range(next_page*PAGE_SIZE,mini(next_entries.size(),(next_page+1)*PAGE_SIZE)):
+		if str(next_entries[i].id)==next_selected:
+			selected_index=i
+			break
+	if not next_entries.is_empty():
+		next_selected=str(next_entries[selected_index].id)
+	var signature := _signature(data,next_page,next_selected)
+	if _has_display_signature and signature == _display_signature:
+		return
+	_display_signature=signature
+	_has_display_signature=true
+	_refresh_count+=1
+	entries=next_entries
+	page=next_page
+	selected=next_selected
 	for id in categories:
 		categories[id].add_theme_stylebox_override("normal",Cozy.surface(Cozy.GOLD if id==category else Color("#eee9d5"),18))
 		categories[id].add_theme_color_override("font_color",Cozy.INK if id==category else Cozy.DIM)
-	var selected_index:=page*PAGE_SIZE
+	selected_index=page*PAGE_SIZE
 	for i in range(page*PAGE_SIZE,mini(entries.size(),(page+1)*PAGE_SIZE)):
 		if entries[i].id==selected: selected_index=i
-	if not entries.is_empty(): selected=entries[selected_index].id
 	for i in PAGE_SIZE:
 		var tile: Button=cards[i]
 		for child in tile.get_children(): tile.remove_child(child);child.queue_free()
@@ -148,6 +168,14 @@ func refresh() -> void:
 	var focused:=get_viewport().gui_get_focus_owner()
 	if is_visible_in_tree() and (focused==null or not is_ancestor_of(focused) or not focused.is_visible_in_tree()):
 		_focus_first()
+
+func _signature(data: Dictionary, display_page: int, display_selected: String) -> String:
+	var parts: Array[String] = [category,str(display_page),display_selected]
+	for id in CATEGORIES:
+		var rows: Array=data.get(id[0],[])
+		parts.append(id[0]+":"+str(rows.size()))
+		for row in rows: parts.append(JSON.stringify(row))
+	return "|".join(parts)
 
 func _show_detail(row: Dictionary) -> void:
 	detail_tag.text=row.tag;detail_title.text=row.title;detail_body.text=row.body

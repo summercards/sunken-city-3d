@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/water_building_002/components/solar_panel/solar_panel.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/solar_cabin/sunny_gloss.tres" id="gloss"]
+[ext_resource type="Material" path="res://assets/materials/solar_cabin/sunny_matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/solar_cabin/sunny_metal.tres" id="metal"]
+
+[node name="solar_panel" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/component_key = "solar_panel"
+metadata/source_version = "v003"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+metadata/category = "furnishing"
+metadata/visual_only = false
+metadata/collision = false
+metadata/interactive = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="WB002V2_PanelFrame_005" parent="Visual"]
+surface_material_override/0 = ExtResource("metal")
+cast_shadow = 1
+[node name="WB002V2_SolarFace_005" parent="Visual"]
+surface_material_override/0 = ExtResource("gloss")
+cast_shadow = 1
+[node name="WB002V2_SolarGridX_001" parent="Visual"]
+surface_material_override/0 = ExtResource("matte")
+cast_shadow = 1

@@ -288,3 +288,14 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-INTERACT-R29 | implemented；`_landing_data()` 归一化 park（≤3.5 m，带按原始值失效的缓存）、`building_access.landing_data()` 同规则、`_select_landing()` 新增「认领 + 滑入」一档（≤3.0 m 且直线可滑）、`_near_landing_key()` 与其同源、`_sail_to_landing()` 以路径终点为航行目标 | `dock-hotspot` 31/0 PASS，exit0，`D:/projects/sea-work/verification/20261109-171130-dock-hotspot-r6-f1015c/report.json`；终版复跑 `D:/projects/sea-work/verification/20261109-181016-final-regress-b44d74/report.json`（`dock-hotspot`/`camera`/`dock-seed`/`board-click`/`interaction-reach`/`interact-focus` 全 PASS）；改动前同用例 11 项失败且报「无法到达该泊位」（`D:/projects/sea-work/verification/20261109-171040-dock-hotspot-baseline3-836e50/report.json`）。同批 `dock-seed`、`board-click`、`interaction-reach`、`interact-focus`、`sea-supply`、`ocean` 复跑 PASS；`click` 的 runner FAIL 来自在飞的水下 shader（`CAMERA_POSITION_WORLD` 未知标识符，39 checks 0 failures），与本条无关。[本轮交付](../../development/2026-11-09_dock_hotspot_and_zoom_range.md)。 |
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-INTERACT-R24–R27/R29；只追加实施与验证事实，不修改登记 JSON、status 或原有交互条款。
+
+- 近距仲裁在同一次调用内复用已得结果，避免重复查询；复用边界不扩展成跨调用缓存，提示、图标、点击与 E 键仍消费同一仲裁源。
+- 原触发一次、防连发、取消不发奖、空间可达性和模型命中语义保持，不通过削弱交互校验换取收益。
+- 主线程已提供 `performance-equivalence` 19/0、interactor 15/0；`click`、`keyboard-panels`、`pick-mesh`、facing、`boat-water-contact` 回归通过。本次仅回填，不新增测试或本地复跑。
+- `boat.gd` 已还原，不宣称本批修改船实现；`roof_reveal`、`shop_sightline` 门控尝试也已撤回。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立并补最终证据；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。

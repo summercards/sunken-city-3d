@@ -176,3 +176,14 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 本轮未计入通过的项（如实记录）：`selftest` 23 条为场景/种植链数据漂移，其中无一条落在 pickup；`progress-bars` 1 条「建造控制器引用共享细条」属建造侧既有漂移，本轮未触碰 `construction`。
 
 [本轮交付与实测](../../development/2026-11-08_pickup_density_half.md)
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-PICKUP-R04/R05/R11/R12/R19/R22；保留登记 JSON、status、原密度/奖励/冷却/存档条款与历史。
+
+- SeaProps hidden 时跳过 fish/body/ripple 的重表现工作，但资源 root 的位置、yaw、roll 仍更新；legacy drift、冷却与 elapsed 继续推进，不能把隐藏处理写成整模块停更。
+- 本批不改变资源数量、随机流、打捞范围与时长、奖励结算和补货时基；隐藏裁减不拥有第二份资源状态。
+- 主线程已提供 `performance-equivalence` 19/0，`click`、`pick-mesh`、facing、`boat-water-contact` 通过；本次仅回填，不新增测试或本地复跑，不据此宣称完整拾取/存档专项已复验。
+- `boat.gd` 已还原，不把既有船行为列为本批改动；海面收益波动，不承诺稳定改善。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签。

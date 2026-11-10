@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/sunken_seabed.tscn" id="39_sunken_seabed"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_rest_stop.tscn" id="40_rest_stop"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/water_building_001.tscn" id="41_water_building_001"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/water_building_002.tscn" id="42_water_building_002"]
 [ext_resource type="Script" uid="uid://bnlpdixomk08r" path="res://src/ambient/vegetation/wind_controller.gd" id="vegetation_wind"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_yq6so"]
@@ -119,6 +120,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.57135, 1.12, 143.89136)
 
 [node name="water_building_001" parent="World/SeaStructures" instance=ExtResource("41_water_building_001")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.07135, 1.12, 143.89136)
+
+[node name="water_building_002" parent="World/SeaStructures" instance=ExtResource("42_water_building_002")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.57135, 1.12, 143.89136)
 
 [node name="rooftop_ranch" parent="World/SeaStructures" unique_id=1142350009 instance=ExtResource("34_ranch")]
 transform = Transform3D(0.945029, 0, -0.32698637, 0, 1, 0, 0.32698637, 0, 0.945029, -87.471634, -55.92, 6.712494)

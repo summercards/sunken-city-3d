@@ -1,0 +1,67 @@
+{
+  "schema": "sea.workshop.building_standards",
+  "schema_version": 1,
+  "standards_id": "sea_building_v1",
+  "source": "skill_machine_table",
+  "source_path": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
+  "runtime_mirror_path": "res://data/workshop/standards_v1.json",
+  "source_sha256": "265ce13585b118addb6bd32c932983d5d08768aee6f0ae4818a222ab969dd13f",
+  "authoring_defaults": {
+    "version": "2026-11-02",
+    "metres": {
+      "ground_clear_height": 4.9,
+      "ground_floor_to_floor": 5.1,
+      "slab_thickness": 0.2,
+      "main_column_width": 0.5,
+      "main_column_depth": 0.5,
+      "door_frame_outer_height": 3.1,
+      "door_frame_outer_width": 1.8,
+      "upper_decorative_column_width": 0.4,
+      "upper_decorative_column_height": 3.1,
+      "surface_above_water": 0.3,
+      "slab_bottom_above_water": 0.1
+    },
+    "bevels_final_centimetres": {
+      "main_column": 9.5, "platform_board": 9.4, "dock_board": 9.4,
+      "roof_cap": 16.4, "parapet": 12.1, "canopy_post": 5.5,
+      "porch_return": 7.8, "terrace_board": 4.5, "concrete_strip": 4.4,
+      "thin_rod_reference": 0.8
+    },
+    "bevel_segments_default": 3
+  },
+  "verification_status": "native_v1_partial_not_full_style_verified",
+  "limits": {
+    "floors": [1, 8],
+    "width": [6.0, 24.0],
+    "depth": [6.0, 20.0],
+    "max_nodes": 2000,
+    "max_triangles": 180000,
+    "bevel_segments_default": 3,
+    "bevel_must_be_less_than_half_local_thickness": true
+  },
+  "bevel_policy": {
+    "wall_default": 0.06,
+    "slab_default": 0.094,
+    "pillar_default": 0.095,
+    "status": "v1_skill_profiles_with_local_thickness_validation",
+    "note": "默认0.06作为V1自动档：主柱/楼板读取机器表档位，局部厚度不足时以厚度45%限制且记录实际bevel_width；墙框仍为原生V1简化，不宣称完整原风格验收。"
+  },
+  "materials": ["SEA_Matte", "SEA_Gloss", "SEA_Metal", "SEA_Emission"],
+  "texture_palette": [
+    "res://assets/textures/shared/sea_cabin_timber_8x8_512.png",
+    "res://assets/textures/shared/sea_cozy_8x8_512.png"
+  ],
+  "spatial_profiles": {
+    "above_water": {"collision_layer": 256, "collision_mask": 0, "allow_navigation": false, "allow_walk_declarations": true},
+    "scenic_underwater": {"collision_layer": 0, "collision_mask": 0, "allow_navigation": false, "allow_walk_declarations": false},
+    "dive_static": {"collision_layer": 1024, "collision_mask": 0, "allow_navigation": false, "allow_walk_declarations": true, "layer_owner": "workshop_dive_static"}
+  },
+  "geometry": {
+    "corner_join": "rounded_box_parametric",
+    "damage_source": "same_slot_geometry_and_collision",
+    "l_shape": "occupied_union_cells_without_right_back_quadrant",
+    "opening_policy": "segmented_wall_with_real_voids_and_closed_cuts",
+    "vegetation_collision": false,
+    "floor_surface_reference": "floor_slab_top_at_y=0_and_root_origin_is_floor_surface"
+  }
+}

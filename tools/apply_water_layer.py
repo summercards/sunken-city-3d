@@ -10,6 +10,7 @@ it into a layer is exactly the mistake this is meant to stop.
 """
 import argparse
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,6 +51,8 @@ ROLES = {'entity', 'part', 'none'}
 
 # prefix -> (layer, role); role 'assembly' means "assembly id -> entity, siblings -> part".
 FAMILIES = [
+    # 工坊已登记的水上样楼；未放入主场景，空间接入仍须设施专项验收。
+    ('SEA-SCENE-WORKSHOP-SAMPLE-', 'surface', 'entity'),
     ('SEA-SCENE-SUBMERGED-', 'submerged', 'entity'),
     ('SEA-SCENE-SCITY-', 'submerged', 'assembly'),
     ('SEA-REF-01-BG-', 'backdrop', 'entity'),
@@ -103,7 +106,32 @@ KIT_FURNITURE = {
 }
 
 
+NUMBERED_BUILDING_RE = re.compile(r'^SEA-SCENE-(?:WATER-BUILDING|B)-?(?P<number>\d{3})(?:-(?P<key>[A-Z0-9-]+))?$')
+NUMBERED_PLANT_KEYS = {'TRUNK-A', 'TRUNK-B', 'CROWN-A', 'CROWN-B', 'VINE', 'FLOWER'}
+
+
+def numbered_building_family(asset_id):
+    match = NUMBERED_BUILDING_RE.fullmatch(asset_id)
+    if not match:
+        return None
+    number = match.group('number')
+    key = match.group('key')
+    if number == '002':
+        if key in NUMBERED_PLANT_KEYS:
+            return 'none', 'none'
+        return 'surface', 'entity' if key is None else 'part'
+    if number == '001':
+        return 'surface', 'entity' if key is None else 'part'
+    return None
+
+
 def classify(asset_id):
+    numbered = numbered_building_family(asset_id)
+    if numbered is not None:
+        return numbered
+    # 编号家族必须显式支持；未知编号不凭空制造分类规则。
+    if NUMBERED_BUILDING_RE.fullmatch(asset_id):
+        raise KeyError(asset_id)
     # 独立水下预览总成：不承担海上建筑空间职责。
     if asset_id == 'SEA-SCENE-SUNROOM-UNDERWATER-REGION':
         return 'none', 'none'

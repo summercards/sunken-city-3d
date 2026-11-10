@@ -22,16 +22,42 @@ var rain := 0.0
 var clouds := 0.0
 var submerged := false
 var elapsed := 0.0
+## Main supplies simulation delta even when no rain is drawn. Never use wall time:
+## pauses/fixed-step verification must not alter the rain phase.
+var _external_time := false
+var _rain_active := false
+var _queue_redraw_count := 0
 
-func present(clock: Dictionary, weather: Dictionary, underwater: bool) -> void:
+func _ready() -> void:
+	set_process(false)
+
+func advance_time(delta: float) -> void:
+	if not is_finite(delta) or delta < 0.0: return
+	_external_time = true
+	elapsed += delta
+
+func present(clock: Dictionary, weather: Dictionary, underwater: bool, simulation_delta: float = -1.0) -> void:
 	daylight = float(clock.daylight)
-	rain = float(weather.rain)
+	var next_rain := float(weather.rain)
+	var next_submerged := underwater
+	var was_visible := _rain_active and not submerged
+	rain = next_rain
 	clouds = float(weather.cloud)
-	submerged = underwater
-	queue_redraw()
+	submerged = next_submerged
+	var rain_visible := rain > 0.0 and not submerged
+	if simulation_delta >= 0.0 and is_finite(simulation_delta):
+		advance_time(simulation_delta)
+	_rain_active = rain_visible
+	set_process(rain_visible)
+	if was_visible != rain_visible:
+		_request_redraw()
 
 func _process(delta: float) -> void:
-	elapsed += delta
+	if not _external_time: elapsed += delta
+	_request_redraw()
+
+func _request_redraw() -> void:
+	_queue_redraw_count += 1
 	queue_redraw()
 
 func _draw() -> void:

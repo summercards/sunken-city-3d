@@ -498,6 +498,7 @@
 | <a id="sea-asset"></a>SEA-ASSET | 美术组件生产与登记 | 生产 | — | [文档](docs/features/asset/spec.md) | [账本](docs/features/asset/ledger.md) | 部分实现 |
 | <a id="sea-quality"></a>SEA-QUALITY | 验证与性能治理 | 工程 | SEA-BOOT | [文档](docs/features/quality/spec.md) | [账本](docs/features/quality/ledger.md) | 部分实现 |
 | <a id="sea-tool"></a>SEA-TOOL | 测试工具（P 面板测试页） | 工程 | SEA-INVENTORY, SEA-TIME, SEA-WEATHER, SEA-ENERGY | [文档](docs/features/tool/spec.md) | [账本](docs/features/tool/ledger.md) | 已实现待完整验收 |
+| <a id="sea-workshop"></a>SEA-WORKSHOP | 编辑器楼房工坊与独立制作资产（运行版保留） | 工程/内容生产 | SEA-ASSET, SEA-WORLD, SEA-AMBIENT | [文档](docs/features/workshop/spec.md) | [账本](docs/features/workshop/ledger.md) | 规划中 |
 | <a id="sea-release"></a>SEA-RELEASE | 导出与发行 | 工程 | SEA-QUALITY | [文档](docs/features/release/spec.md) | [账本](docs/features/release/ledger.md) | 部分实现 |
 <!-- FEATURE_CONTROL_END -->
 
@@ -889,3 +890,9 @@ OceanR30–R35 与 AmbientR32–R36 的逐条证据、失败边界及主线程�
 保存使用`user://underwater_surface.cfg`的`[underwater_surface]`段，支持保存当前、加载已保存、恢复默认、复制参数。不写`water.tres`、`water.cfg`、Main、玩家存档或`light_slots.cfg`。实现为`godot/src/rendering/underwater_surface_params.gd`、`underwater_surface_debug.gd`，接入`DiveSession`、`sunroom_region`、`underwater_world`、`uw_deco`和`uw_surface_shared`；专用`underwater-surface-debug`入口110/0。
 
 最终整合批：`D:/sea-visual-check/verification/20261109-213426-underwater-surface-debug-signed-82ad44/report.json`。7入口全部exit0/PASS、unexpected=[]：调试110/0、真实水下475/0、行为179/0、过场226/0、操控396/0、地图338/0、原海面147/0。首次参数化曾因显示色uniform标记`source_color`导致默认颜色被二次转换，造成zone1 41m单调减光失败；已去掉额外颜色空间转换并复跑通过，没有放宽断言。低端设备、长时性能、完整物理折射、用户终审和全局资源登记门禁仍未签。
+
+## 2026-11-10 可见扑通入水、惯性下沉与镜头回稳
+
+归 SEA-DIVE-R44–R51 / SEA-CAMERA-R17。保留既有无文字圆幕遮加载：0.85秒关幕、真实全黑后建树与验证入口，1.05秒开幕期间人物/氧气不动；完全展开后才在原 `enter` 状态播放可见下沉。家园从水下1.6米下沉到4.8米，历时1.65秒，`u=clamp(t/1.65,0,1)`、`s=3.2×[1−(1−u)^3]`，先快后慢、末速归零；覆盖历史水下1米即悬停口径，水位101.587442、120米可游深度及用户手摆布局不动。旧九图保留2.2秒与Y=-10终点。共享潜水控制器拥有实际速度与角色姿态、6.3→7.5米/76→72°的轻柔镜头回稳与一簇16颗入水泡；地图只做入口/碰撞适配，不加第五态或第二相机。整个入水事务继续锁输入、日期、耗氧与存档，直到swim才交还操作，原海面Main/船人/相机恢复机制和v4存档不变。
+
+本轮最终三批：`20261110-233501-dive-entry-polish-core-cc526e`、`20261110-233501-dive-entry-polish-visual-6a99e7`、`20261110-233926-dive-entry-final-integration-222f98`，12个计数入口5857/0，另3个存档入口通过，15项均exit0/PASS、unexpected=[]。真实21帧与逐帧动态预览已审阅，最终头顶与水面边缘分离；opening镜头固定、swim无snap及尾迹自然回收已验。设计/账本/架构已同步；全局sync79/只读81问题未过（含本次脚本待定向哈希签署及其它并行/历史登记漂移），不称全工程绿；低端/长时/用户终审未签。[设计](docs/features/dive/spec.md) · [账本](docs/features/dive/ledger.md) · [开发与实测](docs/development/2026-11-10_dive_entry_splash.md)。

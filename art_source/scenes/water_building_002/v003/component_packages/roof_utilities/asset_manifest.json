@@ -1,0 +1,327 @@
+{
+  "schema": "sea.scene.component_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+  "key": "roof_utilities",
+  "source_blend": "art_source/scenes/water_building_002/v003/component_packages/roof_utilities/roof_utilities.blend",
+  "source_version": "v003",
+  "source_sha256": "017134d5e275a868e95c20613b74f852ce8e125d2a2b433b462c8139610ff323",
+  "source_28_components": 28,
+  "source_plant_or_null": null,
+  "palette_path": "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "component_collection": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES.004",
+  "mesh_identity": "source collection objects/data copied by Blender library load; no geometry edit",
+  "stats": {
+    "meshes": 3,
+    "mesh_names": [
+      "WB002V2_RoofEquipment.004",
+      "WB002V2_RoofEquipmentCap.004",
+      "WB002V2_RoofVent.004"
+    ],
+    "vertices": 44,
+    "polygons": 40,
+    "triangles": 76,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -0.800000011920929,
+        -0.7419999837875366,
+        0.0
+      ],
+      "max": [
+        0.800000011920929,
+        0.7419999837875366,
+        2.7378857135772705
+      ],
+      "size": [
+        1.600000023841858,
+        1.4839999675750732,
+        2.7378857135772705
+      ]
+    }
+  },
+  "validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "bottom_center_transform": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "bottom_center_transform": {
+    "passed": true,
+    "contract": "component mesh masters retain identity object transforms; placement belongs to collection instances",
+    "expected_design_pivot": [
+      0.0,
+      0.0,
+      -0.03788571059703827
+    ],
+    "instance_offset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "non_identity_mesh_objects": []
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "package_sha256_before_reopen": "017134d5e275a868e95c20613b74f852ce8e125d2a2b433b462c8139610ff323",
+  "package_sha256_after_reopen": "017134d5e275a868e95c20613b74f852ce8e125d2a2b433b462c8139610ff323",
+  "reopen_stats": {
+    "meshes": 3,
+    "mesh_names": [
+      "WB002V2_RoofEquipment.004",
+      "WB002V2_RoofEquipmentCap.004",
+      "WB002V2_RoofVent.004"
+    ],
+    "vertices": 44,
+    "polygons": 40,
+    "triangles": 76,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "bounds": {
+      "min": [
+        -0.800000011920929,
+        -0.7419999837875366,
+        0.0
+      ],
+      "max": [
+        0.800000011920929,
+        0.7419999837875366,
+        2.7378857135772705
+      ],
+      "size": [
+        1.600000023841858,
+        1.4839999675750732,
+        2.7378857135772705
+      ]
+    }
+  },
+  "reopen_validation": {
+    "geometry_non_empty": true,
+    "transform_identity": true,
+    "bottom_center_transform": true,
+    "instance_offset_zero": true,
+    "uv_layers_valid": true,
+    "uv_faces_positive_area": true,
+    "uv_same_color_cell": true,
+    "uv_safe_8px": true,
+    "closest_external_palette": true,
+    "issues": []
+  },
+  "reopen_hash_protected": true,
+  "name": "屋顶设备",
+  "display_name": "002",
+  "domain": "scenes",
+  "suite": "water_building_002",
+  "scope": "scene_local",
+  "category": "furnishing",
+  "classification": {
+    "category": "upgrade_attachment",
+    "subcategory": "decoration"
+  },
+  "source": "art_source/scenes/water_building_002/v003/component_packages/roof_utilities/roof_utilities.blend",
+  "manifest": "art_source/scenes/water_building_002/v003/component_packages/roof_utilities/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "stage": "runtime_integrated_user_art_review_pending",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "bounds_size_m": [
+    1.600000023841858,
+    1.4839999675750732,
+    2.7378857135772705
+  ],
+  "geometry_fingerprint": "0e11d33724c03302a7ed663c653572df489959efb690bba199bde38dd3d756b0",
+  "polygons": 40,
+  "triangles": 76,
+  "meshes": 3,
+  "instance_count": 2,
+  "package_sha256": "017134d5e275a868e95c20613b74f852ce8e125d2a2b433b462c8139610ff323",
+  "runtime_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+  "runtime_sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e",
+  "export_manifest": "art_source/scenes/water_building_002/v003/export/v003/export_manifest.json",
+  "verification": [
+    "D:/projects/sea-work/water_building_002/v003/source_verification.json",
+    "art_source/scenes/water_building_002/v003/export/v003/export_manifest.json"
+  ],
+  "source_verification": "passed_0_failures",
+  "verification_pending": [
+    "user_final_art_acceptance",
+    "commercial_authorization",
+    "global_seams_exhaustive",
+    "performance_playtest"
+  ],
+  "license": "pending_user_reference_commercial_rights_review",
+  "commercial_rights": "pending",
+  "user_acceptance": "pending",
+  "runtime": "passed_current_import_and_specialist_tests",
+  "collision": "no_actor_n/a",
+  "navigation": "assembly_owned_no_component_navigation",
+  "prefab": "godot/scenes/components/facilities/water_building_002/roof_utilities.tscn",
+  "runtime_integrated": true,
+  "component_key": "roof_utilities",
+  "component_family": "roof_utility",
+  "parent_source": {
+    "path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+    "source_sha256": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+    "source_version": "v003"
+  },
+  "runtime_prefab_sha256": "b47c8172ca48a86cea2c5ed458634d7727793e5b0ff4c00eacdde1684615d547",
+  "runtime_flags": {
+    "standalone_load": "passed",
+    "material": "passed",
+    "shadow": "passed"
+  },
+  "import_settings": {
+    "images": 0,
+    "lod": false,
+    "shadow_mesh": true
+  },
+  "water_blocker_validated": false,
+  "nav_footprint_collected": false,
+  "boat_blocking": "not_applicable_component_no_independent_blocker",
+  "boat_route_e2e": "not_run",
+  "evidence": {
+    "optimization_manifest": {
+      "path": "art_source/scenes/water_building_002/v003/export/v003/optimization_manifest.json",
+      "sha256": "248afa43d110026c68aed54dceadbe0f1416a8bce921c36406a1a8eb98f9f91f"
+    },
+    "runtime_integration": "D:/projects/sea-work/water_building_002/v003/runtime_integration.json",
+    "runner_report": {
+      "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/report.json",
+      "sha256": "ac40c88a46711d566cce61907b846b447ca767e260a1f6ed85ef1a37cd73058f"
+    },
+    "commands": {
+      "water-building-002": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--headless",
+          "--script",
+          "res://tests/test_water_building_002.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/water-building-002.log",
+        "renderer": "headless",
+        "exit_code": 0,
+        "checks": {
+          "checks": 1441,
+          "failures": 0
+        }
+      },
+      "visual-water-building-002": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--resolution",
+          "1280x800",
+          "--fixed-fps",
+          "60",
+          "--script",
+          "res://tools/capture_water_building_002.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/visual-water-building-002.log",
+        "renderer": "real",
+        "exit_code": 0,
+        "checks": {
+          "checks": 12,
+          "failures": 0
+        }
+      },
+      "water-layer": {
+        "command": [
+          "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+          "--path",
+          "D:\\projects\\sea-work\\verification\\20261110-145440-wb002-v003-final-0984d1\\project",
+          "--headless",
+          "--script",
+          "res://tests/test_water_layer.gd",
+          "--",
+          "--skip-title"
+        ],
+        "log": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/water-layer.log",
+        "renderer": "headless",
+        "exit_code": 0,
+        "checks": {
+          "checks": 1794,
+          "failures": 0
+        }
+      }
+    },
+    "screenshots": [
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-hero.png",
+        "sha256": "765e6890278b5977886936391b17d293f1323aac3dd88e947f7ffefbd4e98b72"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-back.png",
+        "sha256": "3579858decb29cd0055a0df2ba0b3e7b83067fae01d9c3b5f3e88cd25350043f"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-roof.png",
+        "sha256": "163d423c01dc9bceac87082373a953cfbed3a243a4923956bcb11f2680268464"
+      },
+      {
+        "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-shop-context.png",
+        "sha256": "0aea7cea62241ed4e1f7a6493be457ad752a34e5b4c09d0f6c7d10585decd0e0"
+      }
+    ],
+    "evidence": {
+      "path": "D:/projects/sea-work/verification/20261110-145440-wb002-v003-final-0984d1/project/outputs/water-building-002-evidence.json",
+      "sha256": "3864cff123e843ba5677c219d49b0ab7163216a712e6d045628eefcf5a410ef1"
+    },
+    "runtime_prefab": {
+      "path": "godot/scenes/components/facilities/water_building_002/roof_utilities.tscn",
+      "sha256": "b47c8172ca48a86cea2c5ed458634d7727793e5b0ff4c00eacdde1684615d547"
+    },
+    "component": {
+      "key": "roof_utilities",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+      "glb_sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e"
+    },
+    "import_settings": {
+      "component_key": "roof_utilities",
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+      "import_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb.import",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+      "glb_sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e",
+      "images": 0,
+      "lod": false,
+      "shadow_mesh": true,
+      "settings": {
+        "meshes/generate_lods": "false",
+        "meshes/create_shadow_meshes": "true",
+        "meshes/ensure_tangents": "true",
+        "materials/extract": "0"
+      }
+    }
+  },
+  "runtime_manifest_binding": {
+    "source": "art_source/scenes/water_building_002/v003/component_packages/roof_utilities/roof_utilities.blend",
+    "source_sha256": "017134d5e275a868e95c20613b74f852ce8e125d2a2b433b462c8139610ff323",
+    "runtime_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+    "prefab": "godot/scenes/components/facilities/water_building_002/roof_utilities.tscn"
+  }
+}

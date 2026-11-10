@@ -53,3 +53,10 @@
 ## 变更记录
 
 - 2026-11-02：新增 SEA-TOOL。P 面板第四页，页面代码独立到 `godot/src/debug/`，主场景改为注入端口。见[交付记录](../../development/2026-11-02_test_tools_panel.md)。
+
+## 2026-11-10 楼房工坊入口承接
+
+SEA-TOOL 不拥有楼房工坊状态；本轮只记录它作为工程验证入口的承接关系。暂停菜单的「楼房工坊」命令由 Main 薄接线转给 `WorkshopHost`，工坊内部仍由 SEA-WORKSHOP 的 `WorkshopSession`、`WorkshopStore` 与独立预览负责。工具侧不得把 `user://building_workshop/<id>/revision_NNNN` 候选文件误写成玩家存档或 SEA-TOOL 状态。
+
+- 入口：`godot/src/ui/island_menu.gd` → `building_workshop` 命令 → `godot/src/bootstrap/main.gd` → `godot/src/workshop/host.gd`。
+- 验证：工坊专项 runner 见 [SEA-WORKSHOP 账本](../workshop/ledger.md)；主集成测试因旧的 `LineEdit Ctrl+Z` 文本假设已发现失败，待主线程修正测试后重跑，不在本条签全通过。

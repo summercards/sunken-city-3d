@@ -1,63 +1,6 @@
 {
  "waterLevel": 1.12,
  "source": "environment bake (assets/world/environment), no component scene",
- "note": "远景水街区：只有烘焙几何，没有组件场景。区块内阻挡由各组件的 BlockerSet 提供，不写在这里。",
- "shapes": [
-  {
-   "x": -19.0,
-   "z": -51.0,
-   "hx": 3.476,
-   "hz": 2.865,
-   "round": false,
-   "label": "沉没塔 A"
-  },
-  {
-   "x": 31.0,
-   "z": -22.0,
-   "hx": 3.19,
-   "hz": 2.928,
-   "round": false,
-   "label": "沉没塔 B"
-  },
-  {
-   "x": 38.998,
-   "z": 11.996,
-   "hx": 2.864,
-   "hz": 2.687,
-   "round": false,
-   "label": "沉没塔 C"
-  },
-  {
-   "x": -39.996,
-   "z": 21.696,
-   "hx": 2.838,
-   "hz": 3.18,
-   "round": false,
-   "label": "沉没塔 D"
-  },
-  {
-   "x": 19.951,
-   "z": 42.996,
-   "hx": 3.037,
-   "hz": 2.556,
-   "round": false,
-   "label": "沉没塔 E"
-  },
-  {
-   "x": -54.0,
-   "z": 12.0,
-   "hx": 5.5,
-   "hz": 4.7,
-   "round": true,
-   "label": "圆弧玻璃大厦"
-  },
-  {
-   "x": -30.0,
-   "z": 40.0,
-   "hx": 3.7,
-   "hz": 3.1,
-   "round": false,
-   "label": "阳台住宅"
-  }
- ]
+ "note": "远景水街区：只有烘焙几何、没有组件场景。区块内阻挡由各组件的 BlockerSet 提供，不写在这里。2026-11-10 退役 7 条：它们按「旧城仍露出水面」烘焙，但沉没旧城接入后整城最高点在水面下 2.76m，矩形在水面上没有任何几何支撑，成为隐形墙（海上凭空提示「前方是岸」）。旧城现有 World/SunkenCity 组件场景，阻挡由它自己的 BlockerSet 按可见几何派生，水面之上无三角形即自动放行。此后新增条目必须先通过 visual-blockers 的支撑率校验（每条须在 MIN_SUPPORT 之上）。",
+ "shapes": []
 }

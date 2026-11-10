@@ -138,7 +138,12 @@
       "domain": "ui",
       "stage": "runtime_verified_reused_license_pending",
       "source": "godot/src/ui/notebook.gd",
-      "source_sha256": "52db74c097e83f15ea0dfae083fe6093b111f8157f160af20af1100cbdf0472e",
+      "source_sha256": "d5fc5144d9ce7d9bc571ca464f5fd10e322e4dea54910586d8437e7d992716d4",
+      "performance_revision_20261111": {
+        "previous_sha256": "52db74c097e83f15ea0dfae083fe6093b111f8157f160af20af1100cbdf0472e",
+        "verification": "docs/development/2026-11-11_performance_optimization.md",
+        "review": "仅登记本轮完整显示签名去重复重建；改前LF哈希与原登记一致。UI性能19/0与keyboard-panels通过；visual-corner-notebook优化前后均92/5同名既有失败，未升级完整UI验收或授权状态。"
+      },
       "previous_source_sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
       "hash_history": [
         {

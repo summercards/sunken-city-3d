@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3]
+
+; 横滨铁道东西两块站台之间只有 0.65 米宽的破口（世界 x 从 -30.65 到 -29.95，z 约 -21）。
+; 2026-11-10：玩家上岸的西侧平台与东侧平台之间本来没有任何连接，走不过去。
+; 这块检修跳板按「用两块旧木板补上断口」做：板面与西侧台面 2.78 齐平，
+; 东端垫一块 0.13 米高的垫木落到东侧台面 2.65，两侧各一根扶手。
+;
+; 板底 2.73 —— 故意高于船顶 2.72，船从下面过不会撞到，也不需要派生水面阻挡。
+
+[sub_resource type="StandardMaterial3D" id="mat_plank"]
+albedo_color = Color(0.545098, 0.388235, 0.258824, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="mat_shim"]
+albedo_color = Color(0.462745, 0.32549, 0.211765, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="mat_rail"]
+albedo_color = Color(0.317647, 0.305882, 0.278431, 1)
+metallic = 0.55
+roughness = 0.55
+
+[sub_resource type="BoxMesh" id="mesh_deck"]
+size = Vector3(1.9, 0.05, 1.4)
+
+[sub_resource type="BoxMesh" id="mesh_shim"]
+size = Vector3(0.7, 0.13, 1.4)
+
+[sub_resource type="BoxMesh" id="mesh_rail"]
+size = Vector3(1.9, 0.06, 0.06)
+
+[sub_resource type="BoxMesh" id="mesh_post"]
+size = Vector3(0.06, 0.6, 0.06)
+
+[node name="Gangway" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-Z2-GANGWAY"
+metadata/asset_version = "v001"
+metadata/component_kind = "connector"
+
+[node name="Deck" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.755, 0)
+mesh = SubResource("mesh_deck")
+material_override = SubResource("mat_plank")
+
+[node name="ShimEast" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 2.715, 0)
+mesh = SubResource("mesh_shim")
+material_override = SubResource("mat_shim")
+
+[node name="RailNorth" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34, -0.67)
+mesh = SubResource("mesh_rail")
+material_override = SubResource("mat_rail")
+
+[node name="RailSouth" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34, 0.67)
+mesh = SubResource("mesh_rail")
+material_override = SubResource("mat_rail")
+
+[node name="PostNW" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 3.05, -0.67)
+mesh = SubResource("mesh_post")
+material_override = SubResource("mat_rail")
+
+[node name="PostNE" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 3.05, -0.67)
+mesh = SubResource("mesh_post")
+material_override = SubResource("mat_rail")
+
+[node name="PostSW" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 3.05, 0.67)
+mesh = SubResource("mesh_post")
+material_override = SubResource("mat_rail")
+
+[node name="PostSE" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 3.05, 0.67)
+mesh = SubResource("mesh_post")
+material_override = SubResource("mat_rail")

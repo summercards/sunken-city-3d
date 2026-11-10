@@ -1,0 +1,2546 @@
+{
+  "schema": "sea.component_optimization_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-002",
+  "version": "v003",
+  "source_report": "D:/projects/sea-work/water_building_002/v003/source_verification.json",
+  "source_sha256": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+  "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+  "source_protected": true,
+  "palette_protected": true,
+  "components": {
+    "story_wall": {
+      "before": {
+        "meshes": 18,
+        "mesh_names": [
+          "WB002V2_FacadeBand.016",
+          "WB002V2_FacadeBand.017",
+          "WB002V2_FacadePier.016",
+          "WB002V2_FacadePier.017",
+          "WB002V2_FacadeBand.018",
+          "WB002V2_FacadeBand.019",
+          "WB002V2_FacadePier.018",
+          "WB002V2_FacadePier.019",
+          "WB002V2_SideBand.016",
+          "WB002V2_SideBand.017",
+          "WB002V2_SidePier.024",
+          "WB002V2_SidePier.025",
+          "WB002V2_SidePier.026",
+          "WB002V2_SideBand.018",
+          "WB002V2_SideBand.019",
+          "WB002V2_SidePier.027",
+          "WB002V2_SidePier.028",
+          "WB002V2_SidePier.029"
+        ],
+        "vertices": 144,
+        "polygons": 108,
+        "triangles": 216,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.550000190734863,
+            -5.550000190734863,
+            0.0
+          ],
+          "max": [
+            7.550000190734863,
+            5.550000190734863,
+            4.900000095367432
+          ],
+          "size": [
+            15.100000381469727,
+            11.100000381469727,
+            4.900000095367432
+          ]
+        }
+      },
+      "after": {
+        "meshes": 18,
+        "mesh_names": [
+          "WB002V2_FacadeBand.016",
+          "WB002V2_FacadeBand.017",
+          "WB002V2_FacadePier.016",
+          "WB002V2_FacadePier.017",
+          "WB002V2_FacadeBand.018",
+          "WB002V2_FacadeBand.019",
+          "WB002V2_FacadePier.018",
+          "WB002V2_FacadePier.019",
+          "WB002V2_SideBand.016",
+          "WB002V2_SideBand.017",
+          "WB002V2_SidePier.024",
+          "WB002V2_SidePier.025",
+          "WB002V2_SidePier.026",
+          "WB002V2_SideBand.018",
+          "WB002V2_SideBand.019",
+          "WB002V2_SidePier.027",
+          "WB002V2_SidePier.028",
+          "WB002V2_SidePier.029"
+        ],
+        "vertices": 144,
+        "polygons": 108,
+        "triangles": 216,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.550000190734863,
+            -5.550000190734863,
+            0.0
+          ],
+          "max": [
+            7.550000190734863,
+            5.550000190734863,
+            4.900000095367432
+          ],
+          "size": [
+            15.100000381469727,
+            11.100000381469727,
+            4.900000095367432
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-STORY-WALL",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 216,
+      "triangles_after": 216,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/story_wall/story_wall.glb",
+      "glb_sha256": "701ea67ac60896cfc3c2c2e95e4ff385866afee23dc6b5d01e647c820e8f7685",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "ground_wall": {
+      "before": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_GroundSide.008",
+          "WB002V2_GroundSide.009",
+          "WB002V2_GroundBack.004",
+          "WB002V2_EntrySidePier.008",
+          "WB002V2_EntrySidePier.009",
+          "WB002V2_EntryLintel.004"
+        ],
+        "vertices": 96,
+        "polygons": 96,
+        "triangles": 168,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.54999303817749,
+            -5.549997329711914,
+            0.0
+          ],
+          "max": [
+            7.54999303817749,
+            5.549997329711914,
+            4.900000095367432
+          ],
+          "size": [
+            15.09998607635498,
+            11.099994659423828,
+            4.900000095367432
+          ]
+        }
+      },
+      "after": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_GroundSide.008",
+          "WB002V2_GroundSide.009",
+          "WB002V2_GroundBack.004",
+          "WB002V2_EntrySidePier.008",
+          "WB002V2_EntrySidePier.009",
+          "WB002V2_EntryLintel.004"
+        ],
+        "vertices": 96,
+        "polygons": 96,
+        "triangles": 168,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.54999303817749,
+            -5.549997329711914,
+            0.0
+          ],
+          "max": [
+            7.54999303817749,
+            5.549997329711914,
+            4.900000095367432
+          ],
+          "size": [
+            15.09998607635498,
+            11.099994659423828,
+            4.900000095367432
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-GROUND-WALL",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 168,
+      "triangles_after": 168,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/ground_wall/ground_wall.glb",
+      "glb_sha256": "8cb92841a839939fb8b52e6c660b8961bad6e0c2bd610e57ea596de55d02d1fd",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "deck": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_Foundation.004"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -9.199999809265137,
+            -7.199559688568115,
+            0.0
+          ],
+          "max": [
+            9.199999809265137,
+            7.199559688568115,
+            0.19998778402805328
+          ],
+          "size": [
+            18.399999618530273,
+            14.39911937713623,
+            0.19998778402805328
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_Foundation.004"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -9.199999809265137,
+            -7.199559688568115,
+            0.0
+          ],
+          "max": [
+            9.199999809265137,
+            7.199559688568115,
+            0.19998778402805328
+          ],
+          "size": [
+            18.399999618530273,
+            14.39911937713623,
+            0.19998778402805328
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-DECK",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/deck/deck.glb",
+      "glb_sha256": "531be6985ec47892f7555f3dd13175590a8758bcb9c48fb375e162bba7b7cff8",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "floor_slab": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_FloorSlab.004"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.650000095367432,
+            -5.649750709533691,
+            0.0
+          ],
+          "max": [
+            7.650000095367432,
+            5.649750709533691,
+            0.19999118149280548
+          ],
+          "size": [
+            15.300000190734863,
+            11.299501419067383,
+            0.19999118149280548
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_FloorSlab.004"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.650000095367432,
+            -5.649750709533691,
+            0.0
+          ],
+          "max": [
+            7.650000095367432,
+            5.649750709533691,
+            0.19999118149280548
+          ],
+          "size": [
+            15.300000190734863,
+            11.299501419067383,
+            0.19999118149280548
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/floor_slab/floor_slab.glb",
+      "glb_sha256": "55b7fe9562c65b005e7dd82dc6e58799315b5ad5853ee5efb1becc6c6832c2e4",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "parapet": {
+      "before": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_Parapet.008",
+          "WB002V2_Parapet.009",
+          "WB002V2_ParapetReturn.008",
+          "WB002V2_ParapetReturn.009"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.75,
+            -5.739999771118164,
+            0.0
+          ],
+          "max": [
+            7.75,
+            5.739999771118164,
+            0.8999999761581421
+          ],
+          "size": [
+            15.5,
+            11.479999542236328,
+            0.8999999761581421
+          ]
+        }
+      },
+      "after": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_Parapet.008",
+          "WB002V2_Parapet.009",
+          "WB002V2_ParapetReturn.008",
+          "WB002V2_ParapetReturn.009"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -7.75,
+            -5.739999771118164,
+            0.0
+          ],
+          "max": [
+            7.75,
+            5.739999771118164,
+            0.8999999761581421
+          ],
+          "size": [
+            15.5,
+            11.479999542236328,
+            0.8999999761581421
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PARAPET",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 48,
+      "triangles_after": 48,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/parapet/parapet.glb",
+      "glb_sha256": "60ebc9e80deef609807aba58c03f8ed182b50b960d21a24e6f21672f3db000b1",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "front_window": {
+      "before": {
+        "meshes": 5,
+        "mesh_names": [
+          "WB002V2_WindowFrame.004",
+          "WB002V2_GreenPane.010",
+          "WB002V2_WindowMullion.012",
+          "WB002V2_WindowMullion.013",
+          "WB002V2_WindowMullion.014"
+        ],
+        "vertices": 48,
+        "polygons": 40,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -5.400000095367432,
+            -0.10000000894069672,
+            0.0
+          ],
+          "max": [
+            5.400000095367432,
+            0.10000000149011612,
+            2.799999952316284
+          ],
+          "size": [
+            10.800000190734863,
+            0.20000001788139343,
+            2.799999952316284
+          ]
+        }
+      },
+      "after": {
+        "meshes": 5,
+        "mesh_names": [
+          "WB002V2_WindowFrame.004",
+          "WB002V2_GreenPane.010",
+          "WB002V2_WindowMullion.012",
+          "WB002V2_WindowMullion.013",
+          "WB002V2_WindowMullion.014"
+        ],
+        "vertices": 48,
+        "polygons": 40,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -5.400000095367432,
+            -0.10000000894069672,
+            0.0
+          ],
+          "max": [
+            5.400000095367432,
+            0.10000000149011612,
+            2.799999952316284
+          ],
+          "size": [
+            10.800000190734863,
+            0.20000001788139343,
+            2.799999952316284
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 80,
+      "triangles_after": 80,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/front_window/front_window.glb",
+      "glb_sha256": "e7c762306e466850d1d5ef86d9d20fb89de7ab4a6767ebf8e073e2978441b375",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "side_window": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_SideWindowFrame.004",
+          "WB002V2_SideGlass.004"
+        ],
+        "vertices": 24,
+        "polygons": 22,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.350000023841858,
+            -0.09000000357627869,
+            0.0
+          ],
+          "max": [
+            1.350000023841858,
+            0.09000000357627869,
+            2.799999952316284
+          ],
+          "size": [
+            2.700000047683716,
+            0.18000000715255737,
+            2.799999952316284
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_SideWindowFrame.004",
+          "WB002V2_SideGlass.004"
+        ],
+        "vertices": 24,
+        "polygons": 22,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.350000023841858,
+            -0.09000000357627869,
+            0.0
+          ],
+          "max": [
+            1.350000023841858,
+            0.09000000357627869,
+            2.799999952316284
+          ],
+          "size": [
+            2.700000047683716,
+            0.18000000715255737,
+            2.799999952316284
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/side_window/side_window.glb",
+      "glb_sha256": "5faf050739b3b5026c174716f2b271524a4259057631be3621efe60dd5752553",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "entry": {
+      "before": {
+        "meshes": 5,
+        "mesh_names": [
+          "WB002V2_EntryDoorFrame.004",
+          "WB002V2_EntryDoor.008",
+          "WB002V2_EntryDoorGlass.008",
+          "WB002V2_EntryDoor.009",
+          "WB002V2_EntryDoorGlass.009"
+        ],
+        "vertices": 48,
+        "polygons": 40,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.75,
+            -0.1290000081062317,
+            0.0
+          ],
+          "max": [
+            1.75,
+            0.1289999932050705,
+            3.700000047683716
+          ],
+          "size": [
+            3.5,
+            0.2580000162124634,
+            3.700000047683716
+          ]
+        }
+      },
+      "after": {
+        "meshes": 5,
+        "mesh_names": [
+          "WB002V2_EntryDoorFrame.004",
+          "WB002V2_EntryDoor.008",
+          "WB002V2_EntryDoorGlass.008",
+          "WB002V2_EntryDoor.009",
+          "WB002V2_EntryDoorGlass.009"
+        ],
+        "vertices": 48,
+        "polygons": 40,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.75,
+            -0.1290000081062317,
+            0.0
+          ],
+          "max": [
+            1.75,
+            0.1289999932050705,
+            3.700000047683716
+          ],
+          "size": [
+            3.5,
+            0.2580000162124634,
+            3.700000047683716
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 80,
+      "triangles_after": 80,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/entry/entry.glb",
+      "glb_sha256": "3dc7ae96862935391834653e9d0bdb50dcd148291a0da1a0e43b59f0928d4da3",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "balcony": {
+      "before": {
+        "meshes": 11,
+        "mesh_names": [
+          "WB002V2_BalconyDeck.004",
+          "WB002V2_BalconyRailSide.008",
+          "WB002V2_BalconyRailSide.009",
+          "WB002V2_BalconyHandrail.004",
+          "WB002V2_BalconySpindle.040",
+          "WB002V2_BalconySpindle.041",
+          "WB002V2_BalconySpindle.042",
+          "WB002V2_BalconySpindle.043",
+          "WB002V2_BalconySpindle.044",
+          "WB002V2_BalconySpindle.045",
+          "WB002V2_BalconySpindle.046"
+        ],
+        "vertices": 104,
+        "polygons": 86,
+        "triangles": 164,
+        "material_roles": [
+          "SEA_Matte",
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -5.75,
+            -0.6899669766426086,
+            0.0
+          ],
+          "max": [
+            5.75,
+            0.6899669170379639,
+            1.139990210533142
+          ],
+          "size": [
+            11.5,
+            1.3799338340759277,
+            1.139990210533142
+          ]
+        }
+      },
+      "after": {
+        "meshes": 11,
+        "mesh_names": [
+          "WB002V2_BalconyDeck.004",
+          "WB002V2_BalconyRailSide.008",
+          "WB002V2_BalconyRailSide.009",
+          "WB002V2_BalconyHandrail.004",
+          "WB002V2_BalconySpindle.040",
+          "WB002V2_BalconySpindle.041",
+          "WB002V2_BalconySpindle.042",
+          "WB002V2_BalconySpindle.043",
+          "WB002V2_BalconySpindle.044",
+          "WB002V2_BalconySpindle.045",
+          "WB002V2_BalconySpindle.046"
+        ],
+        "vertices": 104,
+        "polygons": 86,
+        "triangles": 164,
+        "material_roles": [
+          "SEA_Matte",
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -5.75,
+            -0.6899669766426086,
+            0.0
+          ],
+          "max": [
+            5.75,
+            0.6899669170379639,
+            1.139990210533142
+          ],
+          "size": [
+            11.5,
+            1.3799338340759277,
+            1.139990210533142
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BALCONY",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 164,
+      "triangles_after": 164,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/balcony/balcony.glb",
+      "glb_sha256": "e280fe58fd7d666f579320a138b44446f3f87d1e746d941dbf8e8f95f1d4d69f",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "ac_unit": {
+      "before": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_SquareACBody.004",
+          "WB002V2_SquareVent.004",
+          "WB002V2_SquareVentSlat.010"
+        ],
+        "vertices": 24,
+        "polygons": 18,
+        "triangles": 36,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.699999988079071,
+            -0.2929999828338623,
+            0.0
+          ],
+          "max": [
+            0.699999988079071,
+            0.2929999828338623,
+            0.9599999785423279
+          ],
+          "size": [
+            1.399999976158142,
+            0.5859999656677246,
+            0.9599999785423279
+          ]
+        }
+      },
+      "after": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_SquareACBody.004",
+          "WB002V2_SquareVent.004",
+          "WB002V2_SquareVentSlat.010"
+        ],
+        "vertices": 24,
+        "polygons": 18,
+        "triangles": 36,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.699999988079071,
+            -0.2929999828338623,
+            0.0
+          ],
+          "max": [
+            0.699999988079071,
+            0.2929999828338623,
+            0.9599999785423279
+          ],
+          "size": [
+            1.399999976158142,
+            0.5859999656677246,
+            0.9599999785423279
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-AC-UNIT",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 36,
+      "triangles_after": 36,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/ac_unit/ac_unit.glb",
+      "glb_sha256": "203d6c87b42dd79bca8aaf19f704a30b7466430f288a5c5b3ed9c4a0cde64cd0",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "pipe": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_ExposedPipe.004"
+        ],
+        "vertices": 24,
+        "polygons": 20,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.21309411525726318,
+            -0.056291647255420685,
+            0.0
+          ],
+          "max": [
+            0.21309411525726318,
+            0.056291647255420685,
+            5.0
+          ],
+          "size": [
+            0.42618823051452637,
+            0.11258329451084137,
+            5.0
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_ExposedPipe.004"
+        ],
+        "vertices": 24,
+        "polygons": 20,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.21309411525726318,
+            -0.056291647255420685,
+            0.0
+          ],
+          "max": [
+            0.21309411525726318,
+            0.056291647255420685,
+            5.0
+          ],
+          "size": [
+            0.42618823051452637,
+            0.11258329451084137,
+            5.0
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PIPE",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/pipe/pipe.glb",
+      "glb_sha256": "cdae1557a52da0b53112e2cc20abe8d02b4d3ec625d1237cc7b6bb3b4b2800a4",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "switchbox": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_WallCabinet.004",
+          "WB002V2_CabinetInset.004"
+        ],
+        "vertices": 16,
+        "polygons": 12,
+        "triangles": 24,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.4000000059604645,
+            -0.19700001180171967,
+            0.0
+          ],
+          "max": [
+            0.4000000059604645,
+            0.19699999690055847,
+            1.100000023841858
+          ],
+          "size": [
+            0.800000011920929,
+            0.39399999380111694,
+            1.100000023841858
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_WallCabinet.004",
+          "WB002V2_CabinetInset.004"
+        ],
+        "vertices": 16,
+        "polygons": 12,
+        "triangles": 24,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.4000000059604645,
+            -0.19700001180171967,
+            0.0
+          ],
+          "max": [
+            0.4000000059604645,
+            0.19699999690055847,
+            1.100000023841858
+          ],
+          "size": [
+            0.800000011920929,
+            0.39399999380111694,
+            1.100000023841858
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 24,
+      "triangles_after": 24,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/switchbox/switchbox.glb",
+      "glb_sha256": "fad4cd3010f178e85d325927f08bc5434704fe99c8068f1dabe69099c937aa6a",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "solar_panel": {
+      "before": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_PanelFrame.004",
+          "WB002V2_SolarFace.004",
+          "WB002V2_SolarGridX.008",
+          "WB002V2_SolarGridY.008"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte",
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -1.4500000476837158,
+            -1.0,
+            0.0
+          ],
+          "max": [
+            1.4500000476837158,
+            1.0,
+            0.13899999856948853
+          ],
+          "size": [
+            2.9000000953674316,
+            2.0,
+            0.13899999856948853
+          ]
+        }
+      },
+      "after": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_PanelFrame.004",
+          "WB002V2_SolarFace.004",
+          "WB002V2_SolarGridX.008",
+          "WB002V2_SolarGridY.008"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Gloss",
+          "SEA_Matte",
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -1.4500000476837158,
+            -1.0,
+            0.0
+          ],
+          "max": [
+            1.4500000476837158,
+            1.0,
+            0.13899999856948853
+          ],
+          "size": [
+            2.9000000953674316,
+            2.0,
+            0.13899999856948853
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 48,
+      "triangles_after": 48,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/solar_panel/solar_panel.glb",
+      "glb_sha256": "f2708758d26ad615a474e3a8f5fe29ce8f6c97ee2251f23286116233d13b3aeb",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "solar_frame": {
+      "before": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_CanopyBeam.008",
+          "WB002V2_CanopyBeam.009",
+          "WB002V2_CanopyCrossbar.008",
+          "WB002V2_CanopyCrossbar.009"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -4.579999923706055,
+            -2.799999952316284,
+            0.0
+          ],
+          "max": [
+            4.579999923706055,
+            2.799999952316284,
+            0.20000000298023224
+          ],
+          "size": [
+            9.15999984741211,
+            5.599999904632568,
+            0.20000000298023224
+          ]
+        }
+      },
+      "after": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_CanopyBeam.008",
+          "WB002V2_CanopyBeam.009",
+          "WB002V2_CanopyCrossbar.008",
+          "WB002V2_CanopyCrossbar.009"
+        ],
+        "vertices": 32,
+        "polygons": 24,
+        "triangles": 48,
+        "material_roles": [
+          "SEA_Metal"
+        ],
+        "bounds": {
+          "min": [
+            -4.579999923706055,
+            -2.799999952316284,
+            0.0
+          ],
+          "max": [
+            4.579999923706055,
+            2.799999952316284,
+            0.20000000298023224
+          ],
+          "size": [
+            9.15999984741211,
+            5.599999904632568,
+            0.20000000298023224
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SOLAR-FRAME",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 48,
+      "triangles_after": 48,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/solar_frame/solar_frame.glb",
+      "glb_sha256": "8a515f732e41d52eee2e539d592d5e9ba1f9114f1f1945659b92324790ab8839",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "roof_utilities": {
+      "before": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_RoofEquipment.004",
+          "WB002V2_RoofEquipmentCap.004",
+          "WB002V2_RoofVent.004"
+        ],
+        "vertices": 44,
+        "polygons": 40,
+        "triangles": 76,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.800000011920929,
+            -0.7419999837875366,
+            0.0
+          ],
+          "max": [
+            0.800000011920929,
+            0.7419999837875366,
+            2.7378857135772705
+          ],
+          "size": [
+            1.600000023841858,
+            1.4839999675750732,
+            2.7378857135772705
+          ]
+        }
+      },
+      "after": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_RoofEquipment.004",
+          "WB002V2_RoofEquipmentCap.004",
+          "WB002V2_RoofVent.004"
+        ],
+        "vertices": 44,
+        "polygons": 40,
+        "triangles": 76,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.800000011920929,
+            -0.7419999837875366,
+            0.0
+          ],
+          "max": [
+            0.800000011920929,
+            0.7419999837875366,
+            2.7378857135772705
+          ],
+          "size": [
+            1.600000023841858,
+            1.4839999675750732,
+            2.7378857135772705
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 76,
+      "triangles_after": 76,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/roof_utilities/roof_utilities.glb",
+      "glb_sha256": "15cdec13ddb2f409af7e7b3f33918b7f33c4fa048d01dc2109b3777748e5f57e",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "antenna": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_AerialMast.004",
+          "WB002V2_AerialHorizontal.004"
+        ],
+        "vertices": 24,
+        "polygons": 16,
+        "triangles": 40,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.8999999761581421,
+            -0.03897114470601082,
+            0.0
+          ],
+          "max": [
+            0.8999999761581421,
+            0.03897114470601082,
+            4.0
+          ],
+          "size": [
+            1.7999999523162842,
+            0.07794228941202164,
+            4.0
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_AerialMast.004",
+          "WB002V2_AerialHorizontal.004"
+        ],
+        "vertices": 24,
+        "polygons": 16,
+        "triangles": 40,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.8999999761581421,
+            -0.03897114470601082,
+            0.0
+          ],
+          "max": [
+            0.8999999761581421,
+            0.03897114470601082,
+            4.0
+          ],
+          "size": [
+            1.7999999523162842,
+            0.07794228941202164,
+            4.0
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ANTENNA",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 40,
+      "triangles_after": 40,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/antenna/antenna.glb",
+      "glb_sha256": "753011e3c0671b3b02d5d90759bb01cdbfb7a1ffb81220c9fb8751af16cb40bb",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "trunk_a": {
+      "before": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_OrganicTrunk.004",
+          "WB002V2_Branch.020",
+          "WB002V2_Branch.021",
+          "WB002V2_Branch.022",
+          "WB002V2_Branch.023",
+          "WB002V2_Branch.024"
+        ],
+        "vertices": 154,
+        "polygons": 128,
+        "triangles": 284,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -4.083434581756592,
+            -1.2078616619110107,
+            0.0
+          ],
+          "max": [
+            4.083434581756592,
+            1.2078616619110107,
+            40.13657760620117
+          ],
+          "size": [
+            8.166869163513184,
+            2.4157233238220215,
+            40.13657760620117
+          ]
+        }
+      },
+      "after": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_OrganicTrunk.004",
+          "WB002V2_Branch.020",
+          "WB002V2_Branch.021",
+          "WB002V2_Branch.022",
+          "WB002V2_Branch.023",
+          "WB002V2_Branch.024"
+        ],
+        "vertices": 154,
+        "polygons": 128,
+        "triangles": 284,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -4.083434581756592,
+            -1.2078616619110107,
+            0.0
+          ],
+          "max": [
+            4.083434581756592,
+            1.2078616619110107,
+            40.13657760620117
+          ],
+          "size": [
+            8.166869163513184,
+            2.4157233238220215,
+            40.13657760620117
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-A",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 284,
+      "triangles_after": 284,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/trunk_a/trunk_a.glb",
+      "glb_sha256": "b04e460a2ea1426e09d7b7d123730ca21aca5c546eb9de8791419b2fa11138e7",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "trunk_b": {
+      "before": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_SecondTrunk.004",
+          "WB002V2_SideBranch.012",
+          "WB002V2_SideBranch.013",
+          "WB002V2_SideBranch.014"
+        ],
+        "vertices": 96,
+        "polygons": 79,
+        "triangles": 176,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -3.7009286880493164,
+            -0.6857048273086548,
+            0.0
+          ],
+          "max": [
+            3.7009286880493164,
+            0.6857048273086548,
+            38.027557373046875
+          ],
+          "size": [
+            7.401857376098633,
+            1.3714096546173096,
+            38.027557373046875
+          ]
+        }
+      },
+      "after": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_SecondTrunk.004",
+          "WB002V2_SideBranch.012",
+          "WB002V2_SideBranch.013",
+          "WB002V2_SideBranch.014"
+        ],
+        "vertices": 96,
+        "polygons": 79,
+        "triangles": 176,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -3.7009286880493164,
+            -0.6857048273086548,
+            0.0
+          ],
+          "max": [
+            3.7009286880493164,
+            0.6857048273086548,
+            38.027557373046875
+          ],
+          "size": [
+            7.401857376098633,
+            1.3714096546173096,
+            38.027557373046875
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-TRUNK-B",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 176,
+      "triangles_after": 176,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/trunk_b/trunk_b.glb",
+      "glb_sha256": "a7408d1e114c1507c49d4cd283e90007464e3d38199574a7fef04b8cad07b0a2",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "crown_a": {
+      "before": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_CanopyCore.004",
+          "WB002V2_CanopyLobe.016",
+          "WB002V2_CanopyLobe.017",
+          "WB002V2_CanopyLobe.018"
+        ],
+        "vertices": 48,
+        "polygons": 80,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.2983195781707764,
+            -1.8069088459014893,
+            0.0
+          ],
+          "max": [
+            2.2983195781707764,
+            1.8069088459014893,
+            2.808633327484131
+          ],
+          "size": [
+            4.596639156341553,
+            3.6138176918029785,
+            2.808633327484131
+          ]
+        }
+      },
+      "after": {
+        "meshes": 4,
+        "mesh_names": [
+          "WB002V2_CanopyCore.004",
+          "WB002V2_CanopyLobe.016",
+          "WB002V2_CanopyLobe.017",
+          "WB002V2_CanopyLobe.018"
+        ],
+        "vertices": 48,
+        "polygons": 80,
+        "triangles": 80,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.2983195781707764,
+            -1.8069088459014893,
+            0.0
+          ],
+          "max": [
+            2.2983195781707764,
+            1.8069088459014893,
+            2.808633327484131
+          ],
+          "size": [
+            4.596639156341553,
+            3.6138176918029785,
+            2.808633327484131
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-A",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 80,
+      "triangles_after": 80,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/crown_a/crown_a.glb",
+      "glb_sha256": "125cb63aa7c961c72afd74a86f3c19c17db8a32e7d381133ba4c41f84ca09218",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "crown_b": {
+      "before": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_SunnyFoliage.016",
+          "WB002V2_SunnyFoliage.017",
+          "WB002V2_SunnyFoliage.018"
+        ],
+        "vertices": 36,
+        "polygons": 60,
+        "triangles": 60,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.246020793914795,
+            -1.6776306629180908,
+            0.0
+          ],
+          "max": [
+            2.246020793914795,
+            1.6776306629180908,
+            1.804013729095459
+          ],
+          "size": [
+            4.49204158782959,
+            3.3552613258361816,
+            1.804013729095459
+          ]
+        }
+      },
+      "after": {
+        "meshes": 3,
+        "mesh_names": [
+          "WB002V2_SunnyFoliage.016",
+          "WB002V2_SunnyFoliage.017",
+          "WB002V2_SunnyFoliage.018"
+        ],
+        "vertices": 36,
+        "polygons": 60,
+        "triangles": 60,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.246020793914795,
+            -1.6776306629180908,
+            0.0
+          ],
+          "max": [
+            2.246020793914795,
+            1.6776306629180908,
+            1.804013729095459
+          ],
+          "size": [
+            4.49204158782959,
+            3.3552613258361816,
+            1.804013729095459
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-CROWN-B",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 60,
+      "triangles_after": 60,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/crown_b/crown_b.glb",
+      "glb_sha256": "d8478c0a4f82a341e7b0e47816d3e45c9c212282336c96b5c1d1aa096baf033f",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "vine": {
+      "before": {
+        "meshes": 9,
+        "mesh_names": [
+          "WB002V2_HangingVine.004",
+          "WB002V2_VineLeaf.032",
+          "WB002V2_VineLeaf.033",
+          "WB002V2_VineLeaf.034",
+          "WB002V2_VineLeaf.035",
+          "WB002V2_VineLeaf.036",
+          "WB002V2_VineLeaf.037",
+          "WB002V2_VineLeaf.038",
+          "WB002V2_VineLeaf.039"
+        ],
+        "vertices": 60,
+        "polygons": 50,
+        "triangles": 68,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.3959999978542328,
+            -0.09999999403953552,
+            0.0
+          ],
+          "max": [
+            0.3959999978542328,
+            0.09999999403953552,
+            2.6052684783935547
+          ],
+          "size": [
+            0.7919999957084656,
+            0.19999998807907104,
+            2.6052684783935547
+          ]
+        }
+      },
+      "after": {
+        "meshes": 9,
+        "mesh_names": [
+          "WB002V2_HangingVine.004",
+          "WB002V2_VineLeaf.032",
+          "WB002V2_VineLeaf.033",
+          "WB002V2_VineLeaf.034",
+          "WB002V2_VineLeaf.035",
+          "WB002V2_VineLeaf.036",
+          "WB002V2_VineLeaf.037",
+          "WB002V2_VineLeaf.038",
+          "WB002V2_VineLeaf.039"
+        ],
+        "vertices": 60,
+        "polygons": 50,
+        "triangles": 68,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.3959999978542328,
+            -0.09999999403953552,
+            0.0
+          ],
+          "max": [
+            0.3959999978542328,
+            0.09999999403953552,
+            2.6052684783935547
+          ],
+          "size": [
+            0.7919999957084656,
+            0.19999998807907104,
+            2.6052684783935547
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-VINE",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 68,
+      "triangles_after": 68,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/vine/vine.glb",
+      "glb_sha256": "cf927ffdbe0704da104486bb037834e6bfcd881a3407b5f585bcc9b79c230096",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "planter": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_BoxPlanter.004",
+          "WB002V2_PlanterSoil.004"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.8999999761581421,
+            -0.3970625102519989,
+            0.0
+          ],
+          "max": [
+            0.8999999761581421,
+            0.3970625102519989,
+            0.6485499739646912
+          ],
+          "size": [
+            1.7999999523162842,
+            0.7941250205039978,
+            0.6485499739646912
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_BoxPlanter.004",
+          "WB002V2_PlanterSoil.004"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.8999999761581421,
+            -0.3970625102519989,
+            0.0
+          ],
+          "max": [
+            0.8999999761581421,
+            0.3970625102519989,
+            0.6485499739646912
+          ],
+          "size": [
+            1.7999999523162842,
+            0.7941250205039978,
+            0.6485499739646912
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-PLANTER",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 56,
+      "triangles_after": 56,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/planter/planter.glb",
+      "glb_sha256": "312a44009f9979b121d8a2fc0667109aec93d66320a2b4f6aac8386b8e0d6caf",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "flower": {
+      "before": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_Foliage.014",
+          "WB002V2_FlowerBud.006",
+          "WB002V2_Foliage.015",
+          "WB002V2_FlowerBud.007",
+          "WB002V2_Foliage.016",
+          "WB002V2_FlowerBud.008"
+        ],
+        "vertices": 54,
+        "polygons": 84,
+        "triangles": 84,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.9651505351066589,
+            -0.2831903100013733,
+            0.0
+          ],
+          "max": [
+            0.9651505351066589,
+            0.2831903100013733,
+            0.7797172665596008
+          ],
+          "size": [
+            1.9303010702133179,
+            0.5663806200027466,
+            0.7797172665596008
+          ]
+        }
+      },
+      "after": {
+        "meshes": 6,
+        "mesh_names": [
+          "WB002V2_Foliage.014",
+          "WB002V2_FlowerBud.006",
+          "WB002V2_Foliage.015",
+          "WB002V2_FlowerBud.007",
+          "WB002V2_Foliage.016",
+          "WB002V2_FlowerBud.008"
+        ],
+        "vertices": 54,
+        "polygons": 84,
+        "triangles": 84,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.9651505351066589,
+            -0.2831903100013733,
+            0.0
+          ],
+          "max": [
+            0.9651505351066589,
+            0.2831903100013733,
+            0.7797172665596008
+          ],
+          "size": [
+            1.9303010702133179,
+            0.5663806200027466,
+            0.7797172665596008
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-FLOWER",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 84,
+      "triangles_after": 84,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/flower/flower.glb",
+      "glb_sha256": "f59449efdc5618351c6d31b95b357d53e96ef92ee500005a11927c0c2855f648",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "wall_patch": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_PlasterWear.003"
+        ],
+        "vertices": 5,
+        "polygons": 1,
+        "triangles": 3,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.6000000238418579,
+            0.0,
+            0.0
+          ],
+          "max": [
+            0.6000000238418579,
+            0.0,
+            0.800000011920929
+          ],
+          "size": [
+            1.2000000476837158,
+            0.0,
+            0.800000011920929
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_PlasterWear.003"
+        ],
+        "vertices": 5,
+        "polygons": 1,
+        "triangles": 3,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.6000000238418579,
+            0.0,
+            0.0
+          ],
+          "max": [
+            0.6000000238418579,
+            0.0,
+            0.800000011920929
+          ],
+          "size": [
+            1.2000000476837158,
+            0.0,
+            0.800000011920929
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 3,
+      "triangles_after": 3,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/wall_patch/wall_patch.glb",
+      "glb_sha256": "d121666f373fe6ef8abc61bb66f8fc0d80201b9ecbc80640761ea2017d52226a",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "brace": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_ConcreteQuoin.003"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.3400000035762787,
+            -0.20978382229804993,
+            0.0
+          ],
+          "max": [
+            0.3400000035762787,
+            0.20978382229804993,
+            0.47950586676597595
+          ],
+          "size": [
+            0.6800000071525574,
+            0.41956764459609985,
+            0.47950586676597595
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_ConcreteQuoin.003"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.3400000035762787,
+            -0.20978382229804993,
+            0.0
+          ],
+          "max": [
+            0.3400000035762787,
+            0.20978382229804993,
+            0.47950586676597595
+          ],
+          "size": [
+            0.6800000071525574,
+            0.41956764459609985,
+            0.47950586676597595
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-BRACE",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/brace/brace.glb",
+      "glb_sha256": "5aa920f86acc8168acb3aaafaaaadc2f6d0481f5de700cf3420ad11524cbbbd7",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "orange_tank": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_OrangeRoofTank.003",
+          "WB002V2_TankLid.003"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.0,
+            -0.9539999961853027,
+            0.0
+          ],
+          "max": [
+            1.0,
+            0.9539999961853027,
+            1.9763209819793701
+          ],
+          "size": [
+            2.0,
+            1.9079999923706055,
+            1.9763209819793701
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_OrangeRoofTank.003",
+          "WB002V2_TankLid.003"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -1.0,
+            -0.9539999961853027,
+            0.0
+          ],
+          "max": [
+            1.0,
+            0.9539999961853027,
+            1.9763209819793701
+          ],
+          "size": [
+            2.0,
+            1.9079999923706055,
+            1.9763209819793701
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ORANGE-TANK",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 56,
+      "triangles_after": 56,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/orange_tank/orange_tank.glb",
+      "glb_sha256": "5cfa12fa0b5820924441adaf934bb84ee1d3db3783aedb24e3e49ade47f74bd6",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "small_sign": {
+      "before": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_BlankOrangePlaque.003",
+          "WB002V2_PlaqueSymbol.003"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.4000000059604645,
+            -0.05998437479138374,
+            0.0
+          ],
+          "max": [
+            0.4000000059604645,
+            0.05998437479138374,
+            0.799500048160553
+          ],
+          "size": [
+            0.800000011920929,
+            0.11996874958276749,
+            0.799500048160553
+          ]
+        }
+      },
+      "after": {
+        "meshes": 2,
+        "mesh_names": [
+          "WB002V2_BlankOrangePlaque.003",
+          "WB002V2_PlaqueSymbol.003"
+        ],
+        "vertices": 32,
+        "polygons": 32,
+        "triangles": 56,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -0.4000000059604645,
+            -0.05998437479138374,
+            0.0
+          ],
+          "max": [
+            0.4000000059604645,
+            0.05998437479138374,
+            0.799500048160553
+          ],
+          "size": [
+            0.800000011920929,
+            0.11996874958276749,
+            0.799500048160553
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 56,
+      "triangles_after": 56,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/small_sign/small_sign.glb",
+      "glb_sha256": "ff2b60bb9a125c92431e810ee15c013552262ad38cb8c8d4b37f571c49116de4",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    },
+    "entry_step": {
+      "before": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_EntranceStep.003"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.200000047683716,
+            -0.6748772859573364,
+            0.0
+          ],
+          "max": [
+            2.200000047683716,
+            0.6748772859573364,
+            0.19996364414691925
+          ],
+          "size": [
+            4.400000095367432,
+            1.3497545719146729,
+            0.19996364414691925
+          ]
+        }
+      },
+      "after": {
+        "meshes": 1,
+        "mesh_names": [
+          "WB002V2_EntranceStep.003"
+        ],
+        "vertices": 24,
+        "polygons": 26,
+        "triangles": 44,
+        "material_roles": [
+          "SEA_Matte"
+        ],
+        "bounds": {
+          "min": [
+            -2.200000047683716,
+            -0.6748772859573364,
+            0.0
+          ],
+          "max": [
+            2.200000047683716,
+            0.6748772859573364,
+            0.19996364414691925
+          ],
+          "size": [
+            4.400000095367432,
+            1.3497545719146729,
+            0.19996364414691925
+          ]
+        }
+      },
+      "operations": [],
+      "changed_meshes": 0,
+      "zero_change_reason": "no_confirmed_degenerate_duplicate_faces_or_orphan_vertices; bevels and silhouette retained",
+      "bevels_preserved": true,
+      "asset_id": "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP",
+      "version": "v003",
+      "source_path": "art_source/scenes/water_building_002/v003/water_building_002_v003.blend",
+      "source_sha256_before": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "source_sha256_after": "b362c1b669b5ad2a7d32705df2339182e8d2447f9fd35a53d95c76b7d8541751",
+      "optimized_path": "art_source/scenes/water_building_002/v003/export/v003/water_building_002_optimized_v003.blend",
+      "optimized_sha256": "c7258d213104fd643cab1ea9418ec6bd32a5c3b4a085e1f5b678780d47897dc9",
+      "triangles_before": 44,
+      "triangles_after": 44,
+      "reduction_ratio": 0.0,
+      "component_budget": null,
+      "budget_source": "user target approx 10000 per assembled scene; no per-component quotas supplied",
+      "glb_path": "godot/assets/models/facilities/water_building_002/components/entry_step/entry_step.glb",
+      "glb_sha256": "341ddfb428503ad171add9753f4de6d6d71f76c2b026133f33d8f4c2673a206f",
+      "fidelity": {
+        "source_vertices_and_topology": "independently_verified_no_change",
+        "actual_runtime_matrices_materials_triangles": "passed",
+        "visuals": "hero_back_roof_context_reviewed",
+        "user_art_acceptance": "pending"
+      }
+    }
+  }
+}

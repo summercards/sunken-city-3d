@@ -1,0 +1,43 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-WATER-BUILDING-001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-WATER-BUILDING-001",
+  "name": "水上普通建筑001",
+  "display_name": "001",
+  "domain": "scenes",
+  "suite": null,
+  "version": "v004_lowpoly",
+  "category": "building",
+  "classification": {
+    "category": "building",
+    "subcategory": "ordinary_water_building",
+    "display_number": "001"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "source": "art_source/scenes/bld_20261109_a/v004_lowpoly/bld_20261109_a_v004_lowpoly.blend",
+  "source_sha256": "7b709696615f82888eb27e8103ce727056cc9d11faa8ab1b9f3e87d9cd3d4598",
+  "runtime_path": "godot/assets/models/facilities/water_building_001/water_building_001.glb",
+  "runtime_glb_sha256": "dd8c58d309af5f5cfddefaa94909d3d87061839dd2fbaa068e26e72fa1afaef2",
+  "runtime_integrated": false,
+  "stage": "source_registered_runtime_validation_pending",
+  "component_plan": "art_source/scenes/bld_20261109_a/v004_lowpoly/component_plan.json",
+  "runtime_export_manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/runtime_export.json",
+  "runtime_export": {
+    "asset_id": "SEA-SCENE-WATER-BUILDING-001",
+    "source_path": "art_source/scenes/bld_20261109_a/v004_lowpoly/bld_20261109_a_v004_lowpoly.blend",
+    "source_sha256": "7b709696615f82888eb27e8103ce727056cc9d11faa8ab1b9f3e87d9cd3d4598",
+    "optimized_path": "art_source/scenes/bld_20261109_a/v004_lowpoly/bld_20261109_a_v004_lowpoly.blend",
+    "runtime_glb": "godot/assets/models/facilities/water_building_001/water_building_001.glb",
+    "runtime_glb_sha256": "dd8c58d309af5f5cfddefaa94909d3d87061839dd2fbaa068e26e72fa1afaef2",
+    "instances_expanded": 92,
+    "exported_mesh_objects": 633,
+    "source_not_saved": true,
+    "embedded_images": "none",
+    "axis": "Blender Z-up exported glTF Y-up; Godot import preserves scene-space orientation"
+  },
+  "replaced_manifest": "art_source/scenes/bld_20261109_a/v004_lowpoly/water_building_001_asset_manifest.json",
+  "source_sha256_semantics": "v004_lowpoly source blend sha256; unchanged from prior ledger row",
+  "note": "仅修复 ledger manifest 指向与运行待验状态；不改原 source/hash，不改旧 B1109A 登记。"
+}

@@ -1,0 +1,1586 @@
+[gd_scene load_steps=31 format=3]
+
+[ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/story_wall.tscn" id="c0"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/ground_wall.tscn" id="c1"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/deck.tscn" id="c2"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/floor_slab.tscn" id="c3"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/parapet.tscn" id="c4"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/front_window.tscn" id="c5"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/side_window.tscn" id="c6"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/entry.tscn" id="c7"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/balcony.tscn" id="c8"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/ac_unit.tscn" id="c9"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/pipe.tscn" id="c10"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/switchbox.tscn" id="c11"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/solar_panel.tscn" id="c12"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/solar_frame.tscn" id="c13"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/roof_utilities.tscn" id="c14"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/antenna.tscn" id="c15"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/trunk_a.tscn" id="c16"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/trunk_b.tscn" id="c17"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/crown_a.tscn" id="c18"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/crown_b.tscn" id="c19"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/vine.tscn" id="c20"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/planter.tscn" id="c21"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/flower.tscn" id="c22"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/wall_patch.tscn" id="c23"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/brace.tscn" id="c24"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/orange_tank.tscn" id="c25"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/small_sign.tscn" id="c26"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/entry_step.tscn" id="c27"]
+
+[node name="WaterBuilding002" type="Node3D"]
+script = ExtResource("structure")
+asset_id = "SEA-SCENE-WATER-BUILDING-002"
+role = "ordinary_building"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002"
+metadata/display_number = "002"
+metadata/label = "水上普通建筑002"
+metadata/asset_version = "v003"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+metadata/category = "ordinary_building"
+metadata/activity_role = "navigation_only"
+metadata/source_version = "v003"
+metadata/instances = 167
+metadata/triangles = 10342
+metadata/polygons = 6293
+metadata/plants_visual_only = true
+
+[node name="Visual" type="Node3D" parent="."]
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002"
+metadata/source_version = "v003"
+metadata/visual_only = false
+
+[node name="Structure" type="Node3D" parent="Visual"]
+metadata/category = "structure"
+metadata/source_version = "v003"
+metadata/visual_only = false
+
+[node name="Furnishings" type="Node3D" parent="Visual"]
+metadata/category = "furnishing"
+metadata/source_version = "v003"
+metadata/visual_only = false
+
+[node name="Plants" type="Node3D" parent="Visual"]
+metadata/category = "plant"
+metadata/source_version = "v003"
+metadata/visual_only = true
+
+[node name="WB002V2_I_deck_001.003" parent="Visual/Structure" instance=ExtResource("c2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1000061184, -0)
+metadata/instance_id = "WB002V2_I_deck_001.003"
+metadata/component_key = "deck"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-DECK"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ground_wall_001.003" parent="Visual/Structure" instance=ExtResource("c1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.62260437e-06)
+metadata/instance_id = "WB002V2_I_ground_wall_001.003"
+metadata/component_key = "ground_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-GROUND-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_001.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.599999905, -0)
+metadata/instance_id = "WB002V2_I_story_wall_001.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_002.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.69999981, -0)
+metadata/instance_id = "WB002V2_I_story_wall_002.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_003.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.80000019, -0)
+metadata/instance_id = "WB002V2_I_story_wall_003.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_004.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.90000153, -0)
+metadata/instance_id = "WB002V2_I_story_wall_004.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_005.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, -0)
+metadata/instance_id = "WB002V2_I_story_wall_005.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_story_wall_006.003" parent="Visual/Structure" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31.10000038, -0)
+metadata/instance_id = "WB002V2_I_story_wall_006.003"
+metadata/component_key = "story_wall"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-STORY-WALL"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_001.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3000044227, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_001.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_002.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.400004387, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_002.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_003.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.50000477, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_003.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_004.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.60000515, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_004.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_005.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.70000458, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_005.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_006.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.80000305, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_006.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_007.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.90000343, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_007.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_floor_slab_008.003" parent="Visual/Structure" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36.00000381, -0)
+metadata/instance_id = "WB002V2_I_floor_slab_008.003"
+metadata/component_key = "floor_slab"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOOR-SLAB"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_parapet_001.003" parent="Visual/Structure" instance=ExtResource("c4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36.20999908, -0)
+metadata/instance_id = "WB002V2_I_parapet_001.003"
+metadata/component_key = "parapet"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PARAPET"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_entry_001.003" parent="Visual/Furnishings" instance=ExtResource("c7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3199999928, 5.459000111)
+metadata/instance_id = "WB002V2_I_entry_001.003"
+metadata/component_key = "entry"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ENTRY"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_entry_step_001.003" parent="Visual/Structure" instance=ExtResource("c27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3000181913, 6.199999809)
+metadata/instance_id = "WB002V2_I_entry_step_001.003"
+metadata/component_key = "entry_step"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ENTRY-STEP"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_001.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.53000021, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_001.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_002.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 6.53000021, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_002.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_001.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 6.53000021, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_001.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_002.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 6.53000021, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_002.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_003.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 6.53000021, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_003.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_004.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 6.53000021, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_004.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_balcony_001.003" parent="Visual/Furnishings" instance=ExtResource("c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.415009975, 6.195033073)
+metadata/instance_id = "WB002V2_I_balcony_001.003"
+metadata/component_key = "balcony"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BALCONY"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_003.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.63000011, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_003.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_004.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 11.63000011, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_004.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_005.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 11.63000011, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_005.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_006.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 11.63000011, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_006.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_007.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 11.63000011, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_007.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_008.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 11.63000011, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_008.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_005.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.72999954, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_005.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_006.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 16.72999954, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_006.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_009.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 16.72999954, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_009.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_010.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 16.72999954, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_010.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_011.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 16.72999954, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_011.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_012.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 16.72999954, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_012.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_balcony_002.003" parent="Visual/Furnishings" instance=ExtResource("c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.61500931, 6.195033073)
+metadata/instance_id = "WB002V2_I_balcony_002.003"
+metadata/component_key = "balcony"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BALCONY"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_007.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.82999992, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_007.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_008.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 21.82999992, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_008.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_013.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 21.82999992, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_013.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_014.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 21.82999992, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_014.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_015.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 21.82999992, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_015.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_016.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 21.82999992, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_016.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_009.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26.93000031, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_009.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_010.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 26.93000031, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_010.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_017.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 26.93000031, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_017.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_018.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 26.93000031, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_018.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_019.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 26.93000031, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_019.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_020.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 26.93000031, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_020.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_011.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.02999878, 5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_011.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_front_window_012.003" parent="Visual/Furnishings" instance=ExtResource("c5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.99382241e-09, 32.02999878, -5.53000021)
+metadata/instance_id = "WB002V2_I_front_window_012.003"
+metadata/component_key = "front_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FRONT-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_021.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 32.02999878, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_021.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_022.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 32.02999878, 2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_022.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_023.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.519999981, 32.02999878, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_023.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_side_window_024.003" parent="Visual/Furnishings" instance=ExtResource("c6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.519999981, 32.02999878, -2.299999952)
+metadata/instance_id = "WB002V2_I_side_window_024.003"
+metadata/component_key = "side_window"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SIDE-WINDOW"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_001.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 6.800000191, 3.900000095)
+metadata/instance_id = "WB002V2_I_ac_unit_001.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_002.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 7.199999809, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_002.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_001.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 6, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_001.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_003.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 11.89999962, -0.1999999881)
+metadata/instance_id = "WB002V2_I_ac_unit_003.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_004.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 12.30000019, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_004.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_002.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 11.10000038, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_002.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_005.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 17, 3.900000095)
+metadata/instance_id = "WB002V2_I_ac_unit_005.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_006.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 17.39999962, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_006.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_003.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 16.20000076, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_003.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_007.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 22.10000038, -0.1999999881)
+metadata/instance_id = "WB002V2_I_ac_unit_007.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_008.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 22.5, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_008.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_004.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 21.29999924, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_004.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_009.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 27.20000076, 3.900000095)
+metadata/instance_id = "WB002V2_I_ac_unit_009.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_010.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 27.60000038, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_010.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_005.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 26.39999962, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_005.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_011.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.467999935, 32.29999924, -0.1999999881)
+metadata/instance_id = "WB002V2_I_ac_unit_011.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_ac_unit_012.003" parent="Visual/Furnishings" instance=ExtResource("c9")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.467999935, 32.70000076, -2.799999952)
+metadata/instance_id = "WB002V2_I_ac_unit_012.003"
+metadata/component_key = "ac_unit"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-AC-UNIT"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_switchbox_006.003" parent="Visual/Furnishings" instance=ExtResource("c11")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.52699995, 31.5, -3.799999952)
+metadata/instance_id = "WB002V2_I_switchbox_006.003"
+metadata/component_key = "switchbox"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SWITCHBOX"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_001.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 1, -1)
+metadata/instance_id = "WB002V2_I_pipe_001.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_002.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 1, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_002.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_003.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 7, -1)
+metadata/instance_id = "WB002V2_I_pipe_003.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_004.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 7, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_004.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_005.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 13, -1)
+metadata/instance_id = "WB002V2_I_pipe_005.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_006.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 13, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_006.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_007.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 19, -1)
+metadata/instance_id = "WB002V2_I_pipe_007.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_008.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 19, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_008.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_009.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 25, -1)
+metadata/instance_id = "WB002V2_I_pipe_009.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_010.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 25, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_010.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_011.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.048093796, 31, -1)
+metadata/instance_id = "WB002V2_I_pipe_011.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_pipe_012.003" parent="Visual/Furnishings" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751905918, 31, -4.699999809)
+metadata/instance_id = "WB002V2_I_pipe_012.003"
+metadata/component_key = "pipe"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PIPE"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_001.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.550000191, 36.22999954, 2.049999952)
+metadata/instance_id = "WB002V2_I_solar_panel_001.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_002.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.550000191, 36.22999954, -0.05000000075)
+metadata/instance_id = "WB002V2_I_solar_panel_002.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_003.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.550000191, 36.22999954, -2.150000095)
+metadata/instance_id = "WB002V2_I_solar_panel_003.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_004.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.519999981, 36.22999954, 2.049999952)
+metadata/instance_id = "WB002V2_I_solar_panel_004.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_005.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.519999981, 36.22999954, -0.05000000075)
+metadata/instance_id = "WB002V2_I_solar_panel_005.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_006.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.519999981, 36.22999954, -2.150000095)
+metadata/instance_id = "WB002V2_I_solar_panel_006.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_007.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.519999981, 36.22999954, 2.049999952)
+metadata/instance_id = "WB002V2_I_solar_panel_007.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_008.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.519999981, 36.22999954, -0.05000000075)
+metadata/instance_id = "WB002V2_I_solar_panel_008.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_009.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.519999981, 36.22999954, -2.150000095)
+metadata/instance_id = "WB002V2_I_solar_panel_009.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_010.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.550000191, 36.22999954, 2.049999952)
+metadata/instance_id = "WB002V2_I_solar_panel_010.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_011.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.550000191, 36.22999954, -0.05000000075)
+metadata/instance_id = "WB002V2_I_solar_panel_011.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_012.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.550000191, 36.22999954, -2.150000095)
+metadata/instance_id = "WB002V2_I_solar_panel_012.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_frame_001.003" parent="Visual/Furnishings" instance=ExtResource("c13")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 11.00799179, 16.05031967, -1)
+metadata/instance_id = "WB002V2_I_solar_frame_001.003"
+metadata/component_key = "solar_frame"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-FRAME"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_013.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 8, 16.11000061, 0.8999999762)
+metadata/instance_id = "WB002V2_I_solar_panel_013.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_014.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 8, 16.11000061, -1.200000048)
+metadata/instance_id = "WB002V2_I_solar_panel_014.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_015.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 11, 16.35000038, 0.8999999762)
+metadata/instance_id = "WB002V2_I_solar_panel_015.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_016.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 11, 16.35000038, -1.200000048)
+metadata/instance_id = "WB002V2_I_solar_panel_016.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_017.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 14, 16.59000015, 0.8999999762)
+metadata/instance_id = "WB002V2_I_solar_panel_017.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_solar_panel_018.003" parent="Visual/Furnishings" instance=ExtResource("c12")]
+transform = Transform3D(0.9968017064, -0.07991469219, 0, 0.07991469219, 0.9968017064, 0, 0, 0, 1, 14, 16.59000015, -1.200000048)
+metadata/instance_id = "WB002V2_I_solar_panel_018.003"
+metadata/component_key = "solar_panel"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SOLAR-PANEL"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_roof_utilities_001.003" parent="Visual/Furnishings" instance=ExtResource("c14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.699999809, 36.17211151, -3.700000048)
+metadata/instance_id = "WB002V2_I_roof_utilities_001.003"
+metadata/component_key = "roof_utilities"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_roof_utilities_002.003" parent="Visual/Furnishings" instance=ExtResource("c14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.699999809, 36.17211151, -3.700000048)
+metadata/instance_id = "WB002V2_I_roof_utilities_002.003"
+metadata/component_key = "roof_utilities"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ROOF-UTILITIES"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_orange_tank_001.003" parent="Visual/Furnishings" instance=ExtResource("c25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.599999905, 36.15727615, -2.700000048)
+metadata/instance_id = "WB002V2_I_orange_tank_001.003"
+metadata/component_key = "orange_tank"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ORANGE-TANK"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_antenna_001.003" parent="Visual/Furnishings" instance=ExtResource("c15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 36.20999908, -4.199999809)
+metadata/instance_id = "WB002V2_I_antenna_001.003"
+metadata/component_key = "antenna"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-ANTENNA"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_trunk_a_001.003" parent="Visual/Plants" instance=ExtResource("c16")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.052313805, 0.2324236333, 6.258496761)
+metadata/instance_id = "WB002V2_I_trunk_a_001.003"
+metadata/component_key = "trunk_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-TRUNK-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_trunk_b_001.003" parent="Visual/Plants" instance=ExtResource("c17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.109693527, 0.2778712511, 5.881249905)
+metadata/instance_id = "WB002V2_I_trunk_b_001.003"
+metadata/component_key = "trunk_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-TRUNK-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_001.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1.600000024, 6.800000191, 8.493525505, 5.800000191)
+metadata/instance_id = "WB002V2_I_crown_a_001.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_002.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2.200000048, 0, 0, 0, 1.600000024, 0, 0, 0, 1.899999976, 2.200000048, 9.153093338, 6.400000095)
+metadata/instance_id = "WB002V2_I_crown_a_002.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_003.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1.899999976, 5.5, 23.59352493, 5.699999809)
+metadata/instance_id = "WB002V2_I_crown_a_003.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_004.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2, 0, 0, 0, 1.399999976, 0, 0, 0, 1.899999976, 0, 25.23395729, 5.800000191)
+metadata/instance_id = "WB002V2_I_crown_a_004.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_005.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2, 0, 0, 0, 1.700000048, 0, 0, 0, 2, 8, 31.11266136, 4.300000191)
+metadata/instance_id = "WB002V2_I_crown_a_005.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_006.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(1.899999976, 0, 0, 0, 1.700000048, 0, 0, 0, 1.899999976, 9.100000381, 33.81266403, -0.6000000238)
+metadata/instance_id = "WB002V2_I_crown_a_006.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_007.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2.299999952, 0, 0, 0, 1.899999976, 0, 0, 0, 2, 3.799999952, 37.73180008, -2)
+metadata/instance_id = "WB002V2_I_crown_a_007.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_008.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2.099999905, 0, 0, 0, 1.700000048, 0, 0, 0, 2.200000048, -0.5, 39.41266251, -2.599999905)
+metadata/instance_id = "WB002V2_I_crown_a_008.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_009.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(1.799999952, 0, 0, 0, 1.5, 0, 0, 0, 1.600000024, -7.400000095, 23.7935257, 5)
+metadata/instance_id = "WB002V2_I_crown_a_009.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_010.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2.099999905, 0, 0, 0, 1.700000048, 0, 0, 0, 1.799999952, -6.699999809, 8.212661743, 5.699999809)
+metadata/instance_id = "WB002V2_I_crown_a_010.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_011.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2, 0, 0, 0, 1.600000024, 0, 0, 0, 2, -7.800000191, 33.25309372, -0.5)
+metadata/instance_id = "WB002V2_I_crown_a_011.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_a_012.003" parent="Visual/Plants" instance=ExtResource("c18")]
+transform = Transform3D(2.299999952, 0, 0, 0, 1.799999952, 0, 0, 0, 2.099999905, -3.799999952, 37.972229, -2)
+metadata/instance_id = "WB002V2_I_crown_a_012.003"
+metadata/component_key = "crown_a"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-A"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_001.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(1.899999976, 0, 0, 0, 1.799999952, 0, 0, 0, 1.899999976, 9, 9.376387596, 4.800000191)
+metadata/instance_id = "WB002V2_I_crown_b_001.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_002.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(2.299999952, 0, 0, 0, 2, 0, 0, 0, 2, -1.899999976, 8.295986176, 7)
+metadata/instance_id = "WB002V2_I_crown_b_002.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_003.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 9, 28.09598541, -3)
+metadata/instance_id = "WB002V2_I_crown_b_003.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_004.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(2.200000048, 0, 0, 0, 2, 0, 0, 0, 2, 3, 38.1959877, -4)
+metadata/instance_id = "WB002V2_I_crown_b_004.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_005.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(1.899999976, 0, 0, 0, 1.799999952, 0, 0, 0, 1.899999976, -10, 8.376387596, 3)
+metadata/instance_id = "WB002V2_I_crown_b_005.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_crown_b_006.003" parent="Visual/Plants" instance=ExtResource("c19")]
+transform = Transform3D(2.200000048, 0, 0, 0, 2, 0, 0, 0, 1.899999976, -5, 33.6959877, 4.699999809)
+metadata/instance_id = "WB002V2_I_crown_b_006.003"
+metadata/component_key = "crown_b"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-CROWN-B"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_001.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.798569202, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_001.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_002.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.199999809, 4.798569202, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_002.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_003.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 14.99856949, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_003.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_004.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.199999809, 14.99856949, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_004.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_005.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25.19857025, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_005.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_006.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.199999809, 25.19857025, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_006.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_007.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 30.29856873, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_007.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_vine_008.003" parent="Visual/Plants" instance=ExtResource("c20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.199999809, 30.29856873, 5.869999886)
+metadata/instance_id = "WB002V2_I_vine_008.003"
+metadata/component_key = "vine"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-VINE"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_001.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.300000191, 0.2823500037, 6)
+metadata/instance_id = "WB002V2_I_planter_001.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_001.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.288790226, 0.9502826929, 5.997839928)
+metadata/instance_id = "WB002V2_I_flower_001.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_002.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.300000191, 0.2823500037, 6)
+metadata/instance_id = "WB002V2_I_planter_002.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_002.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.311210155, 0.9502826929, 5.997839928)
+metadata/instance_id = "WB002V2_I_flower_002.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_003.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.800000191, 0.2823500037, 4)
+metadata/instance_id = "WB002V2_I_planter_003.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_003.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.788790226, 0.9502826929, 3.997840166)
+metadata/instance_id = "WB002V2_I_flower_003.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_004.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.599999905, 5.602349758, 6.449999809)
+metadata/instance_id = "WB002V2_I_planter_004.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_004.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.588790178, 6.270282745, 6.447839737)
+metadata/instance_id = "WB002V2_I_flower_004.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_005.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.599999905, 15.80235004, 6.449999809)
+metadata/instance_id = "WB002V2_I_planter_005.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_005.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.611209631, 16.4702816, 6.447839737)
+metadata/instance_id = "WB002V2_I_flower_005.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_planter_006.003" parent="Visual/Furnishings" instance=ExtResource("c21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.599999905, 26.00234985, 6.449999809)
+metadata/instance_id = "WB002V2_I_planter_006.003"
+metadata/component_key = "planter"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-PLANTER"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_flower_006.003" parent="Visual/Plants" instance=ExtResource("c22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.588790178, 26.67028236, 6.447839737)
+metadata/instance_id = "WB002V2_I_flower_006.003"
+metadata/component_key = "flower"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-FLOWER"
+metadata/source_version = "v003"
+metadata/source_group = "Plants"
+metadata/visual_only = true
+
+[node name="WB002V2_I_brace_001.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.599999905, 0.8002470732, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_001.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_002.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.599999905, 0.8002470732, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_002.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_003.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.599999905, 5.900247097, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_003.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_004.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.599999905, 5.900247097, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_004.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_005.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.599999905, 16.10024834, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_005.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_006.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.599999905, 16.10024834, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_006.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_007.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.599999905, 26.30024719, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_007.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_brace_008.003" parent="Visual/Structure" instance=ExtResource("c24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.599999905, 26.30024719, 5.650000095)
+metadata/instance_id = "WB002V2_I_brace_008.003"
+metadata/component_key = "brace"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-BRACE"
+metadata/source_version = "v003"
+metadata/source_group = "Structure"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_001.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.449999809, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_001.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_002.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 9.550000191, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_002.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_003.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 14.64999962, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_003.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_004.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 19.75, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_004.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_005.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 24.85000038, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_005.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_wall_patch_006.003" parent="Visual/Furnishings" instance=ExtResource("c23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 29.95000076, 5.565000057)
+metadata/instance_id = "WB002V2_I_wall_patch_006.003"
+metadata/component_key = "wall_patch"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-WALL-PATCH"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_small_sign_001.003" parent="Visual/Furnishings" instance=ExtResource("c26")]
+transform = Transform3D(0.9961946983, 0.08715574022, 0, -0.08715574022, 0.9961946983, 0, 0, 0, 1, 2.500021696, 2.8002491, 5.630015373)
+metadata/instance_id = "WB002V2_I_small_sign_001.003"
+metadata/component_key = "small_sign"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_small_sign_002.003" parent="Visual/Furnishings" instance=ExtResource("c26")]
+transform = Transform3D(0.9961946983, 0.08715574022, 0, -0.08715574022, 0.9961946983, 0, 0, 0, 1, -2.999978304, 1.800248981, 5.630015373)
+metadata/instance_id = "WB002V2_I_small_sign_002.003"
+metadata/component_key = "small_sign"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="WB002V2_I_small_sign_003.003" parent="Visual/Furnishings" instance=ExtResource("c26")]
+transform = Transform3D(0.9961946983, 0.08715574022, 0, -0.08715574022, 0.9961946983, 0, 0, 0, 1, 7.700021744, 2.8002491, -2.989984274)
+metadata/instance_id = "WB002V2_I_small_sign_003.003"
+metadata/component_key = "small_sign"
+metadata/asset_id = "SEA-SCENE-WATER-BUILDING-002-SMALL-SIGN"
+metadata/source_version = "v003"
+metadata/source_group = "Furnishings"
+metadata/visual_only = false
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "auto"
+target_path = NodePath("../Visual/Structure")
+blocks_water = true
+cell = 0.4
+metadata/target_root = "../Visual/Structure"
+metadata/waterline_source = "actual_source_mesh_intersection"
+metadata/activity_role = "navigation_only"
+metadata/actor_collision = false
+metadata/source_version = "v003"

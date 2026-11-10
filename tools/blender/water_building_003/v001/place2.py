@@ -1,0 +1,17 @@
+exec(open('D:/projects/sea/tools/blender/water_building_003/v001/lib.py',encoding='utf-8').read())
+import math
+g=.006
+put('trunk',(-5.3,.5,.3+g))
+put('crown_left',(-3.6,0,14.4))
+put('crown_right',(6.2,1.2,11.6))
+put('pole',(-7.6,-1.5,.3+g))
+put('lean_to',(-5.4,-1.5,3.0))
+put('pipe',(1.0,-2.92,5.0),scale=(1,1,.75))
+put('wall_box',(1.9,-3.5-.23-g,2.0))
+put('sign_plate',(1.8,-3.5-.04-g,3.4),rot=(0,.087,0))
+put('moss_mound',(.5,-3.8,6.3)); put('moss_mound',(-2.8,-2.0,6.6),scale=(.8,.8,.8)); put('moss_mound',(-.3,-2.5,10.7),scale=(.7,.7,.7))
+put('vine',(4.2,-4.75,2.6)); put('vine',(-3.0,-4.75,2.6))
+put('flower',(-4.0,-4.2,.3+g)); put('clay_pot',(4.8,-3.9,.3+g)); put('crate',(-6.0,-2.5,.3+g))
+put('rubble',(2.0,-4.4,.3+g)); put('rubble',(-2.5,-4.7,.3+g),rot=(0,0,.5)); put('rubble',(4.4,-3.2,.3+g),rot=(0,0,-.4))
+put('big_leaf',(3.6,-4.3,.3+g)); put('big_leaf',(-1.6,-4.9,.3+g))
+print(len(instances), sum(e['triangles'] for e in catalog))

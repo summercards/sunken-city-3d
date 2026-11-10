@@ -54,11 +54,14 @@ var _exit_surface := Vector3.ZERO
 @export var map_label := "家园海底"
 ## 入水深度要越过换气层（DiveAir 的 5 m 水面带），否则一入水就一直满氧。
 @export var entry_drop := 6.0
-## 2026-11-08 用户要求「下水后的位置在水下 1 米」：入水点直接停在水面下方这个深度，
-## 先看到 120 米深沟的全貌再往下游，而不是一进去就贴在街面上。
-## 代价必须记明：前 4 米仍在水面换气带内，满氧是预期行为，不是漏气。
-@export var entry_depth_below_surface := 1.0
-## 旧城上街面高度（= water_level - 120）。只在「水下 1 米找不到净空」时兜底落回街面。
+## 可见入水从水下 1.6m 开始，惯性下沉至 4.8m；完整轨迹必须通过胶囊扫掠。
+@export var entry_depth_below_surface := 4.8
+const ENTRY_START_DEPTH := 1.6
+const ENTRY_SECONDS := 1.65
+var _entry_start := Vector3.ZERO
+var _entry_target := Vector3.ZERO
+var _entry_elapsed := 0.0
+## 旧城上街面高度（= water_level - 120）。仅浅层无完整净空时保留安全兜底。
 @export var entry_street_y := -18.412558
 @export var entry_rise := 10.0
 @export var entry_search_radius := 60.0
@@ -359,8 +362,9 @@ func begin_dive(surface_point: Vector3) -> bool:
 func _diver_reset_for_entry(surface_point: Vector3) -> void:
 	_exit_left = -1.0
 	entry_verified = false
-	# 占位与最终落点用同一个高度（水面下 1 米），中间不再有「先空白水柱再瞬移」。
-	diver_pos = Vector3(surface_point.x, water_level - float(entry_depth_below_surface), surface_point.z)
+	_entry_elapsed = 0.0
+	# 选点、水平避让全部发生在黑幕内；可见段不再跳位置。
+	diver_pos = Vector3(surface_point.x, water_level - ENTRY_START_DEPTH, surface_point.z)
 	if collision_runtime != null:
 		collision_runtime.set_viewer_position(diver_pos)
 	if _lamp == null: _build_dive_lamp()
@@ -375,8 +379,25 @@ func dive_begin(_payload: Dictionary) -> void:
 	$Water.show()
 	_update_underwater_view()
 
-func dive_entry_tick(_dt: float) -> bool:
+func dive_entry_ready() -> bool:
 	return entry_verified
+
+func dive_entry_progress() -> float:
+	return clampf(_entry_elapsed / ENTRY_SECONDS, 0.0, 1.0)
+
+func dive_entry_tick(dt: float) -> bool:
+	if not entry_verified: return false
+	_entry_elapsed = minf(_entry_elapsed + maxf(dt, 0.0), ENTRY_SECONDS)
+	var progress := dive_entry_progress()
+	# 入水已有向下惯性，先快后慢：s=1-(1-u)^3；末速自然为零，无回弹。
+	var blend := 1.0 - pow(1.0 - progress, 3.0)
+	var desired := _entry_start.lerp(_entry_target, blend)
+	dive_move(desired - dive_position())
+	if progress >= 1.0 and dive_position().distance_to(_entry_target) > 0.08:
+		message.emit("入水通道被挡住了，已返回海面")
+		surface()
+		return false
+	return progress >= 1.0
 
 func dive_exit_begin() -> void:
 	_exit_left = 0.0
@@ -503,20 +524,24 @@ func _resolve_entry() -> void:
 		return
 	for attempt in 6:
 		var spot := _entry_spot(_surface_entry)
-		if spot.is_finite() and collision_runtime.try_set_viewer_position(spot):
-			diver_pos = spot
-			dive_set_position(spot)
-			_face_city()
+		var start := Vector3(spot.x, minf(water_level - ENTRY_START_DEPTH, spot.y + entry_depth_below_surface - ENTRY_START_DEPTH), spot.z)
+		if spot.is_finite() and _dive_segment_clear(start, spot) \
+				and collision_runtime.try_set_viewer_position(spot) and collision_runtime.try_set_viewer_position(start):
+			_entry_start = start
+			_entry_target = spot
+			_entry_elapsed = 0.0
+			dive_set_position(start)
 			entry_verified = true
-			depth_changed.emit(maxf(0.0,water_level-spot.y))
+			_face_city()
+			depth_changed.emit(maxf(0.0,water_level-start.y))
 			air_changed.emit(air.ratio(),air.lamp,0,0)
 			return
 		await get_tree().physics_frame
 	message.emit("这段水下没有可入水的空间，已返回海面")
 	surface()
 
-## 水面下 1 米的悬停点：这个高度没有路面可踩，是自由游动的起点。
-## 只做两件硬校验——胶囊不与实体重叠、头顶 3 米是水（能立刻上浮回海面）。
+## 水面下 4.8 米的稳定点。除终点净空外，还要求从水下 1.6 米至终点的
+## 完整胶囊扫掠无阻挡；不能只检查终点就穿过楼顶/横梁。
 func _entry_spot_below_surface(surface_point: Vector3) -> Vector3:
 	var entry_y: float = water_level - float(entry_depth_below_surface)
 	var space := get_world_3d().direct_space_state
@@ -530,6 +555,8 @@ func _entry_spot_below_surface(surface_point: Vector3) -> Vector3:
 			var candidate := Vector3(column.x, entry_y, column.y)
 			if _ray_distance(space, candidate, Vector3.UP, 3.0) < 2.0: continue
 			if not collision_runtime.try_set_viewer_position(candidate): continue
+			var start := Vector3(column.x, water_level - ENTRY_START_DEPTH, column.y)
+			if not collision_runtime.try_set_viewer_position(start) or not _dive_segment_clear(start, candidate): continue
 			# 朝向沟心：一入水就能看到对面的楼墙，而不是贴着一面墙。
 			var inward := Vector3(-column.x, 0.0, -column.y)
 			_entry_face = inward.normalized() if inward.length() > 1.0 else Vector3(0.0, 0.0, -1.0)
@@ -540,8 +567,7 @@ func _entry_spot_below_surface(surface_point: Vector3) -> Vector3:
 
 
 func _entry_spot(surface_point: Vector3) -> Vector3:
-	# 2026-11-08 用户要求「下水后的位置在水下 1 米」：优先用浅水悬停点，
-	# 让玩家一眼看到 120 米深沟的全貌，再自己往下游。
+	# 优先浅层的完整下沉通道；稳定点不再让放大后的角色头顶接水面。
 	var shallow := _entry_spot_below_surface(surface_point)
 	if shallow.is_finite(): return shallow
 	# 兜底：浅水层被楼体占住时，落回旧城街面层，复用原有净空/顶空判据。
@@ -563,7 +589,7 @@ func _entry_spot(surface_point: Vector3) -> Vector3:
 				if candidate.y > water_level-float(entry_drop): continue
 				# 真正的街景必须头顶是水：向上看不到楼板/屋檐。
 				if _ray_distance(space,candidate,Vector3.UP,18.0) < 16.0: continue
-				if not collision_runtime.try_set_viewer_position(candidate): continue
+				if not collision_runtime.try_set_viewer_position(candidate) or not _entry_path_clear(candidate): continue
 				# 只检查「胶囊不重叠」会放过贴着楼面的点：胶囊很细，站得下但镜头贴墙。
 				# 这里用一个半径 12 米的球做净空检查，等价于「站在街心/广场，四周有余地」。
 				if not _wide_clearance(candidate,12.0): continue
@@ -602,7 +628,7 @@ func _entry_spot(surface_point: Vector3) -> Vector3:
 			var candidate := Vector3(column.x,fallback_y,column.y)
 			if candidate.y > water_level-float(entry_drop): continue
 			if _ray_distance(space,candidate,Vector3.UP,18.0) < 16.0: continue
-			if not collision_runtime.try_set_viewer_position(candidate): continue
+			if not collision_runtime.try_set_viewer_position(candidate) or not _entry_path_clear(candidate): continue
 			# The authored city can be denser than the ideal cinematic ring. The
 			# capsule and ceiling tests above are the hard safety contract; the
 			# shared camera clip handles a close lateral wall and the player can
@@ -620,8 +646,14 @@ func _entry_spot(surface_point: Vector3) -> Vector3:
 			var candidate := Vector3(column.x, road + entry_rise if is_finite(road) else entry_street_y + entry_rise, column.y)
 			if candidate.y > water_level - float(entry_drop): continue
 			if _ray_distance(space, candidate, Vector3.UP, 18.0) < 16.0: continue
-			if collision_runtime.try_set_viewer_position(candidate): return candidate
+			if collision_runtime.try_set_viewer_position(candidate) and _entry_path_clear(candidate): return candidate
 	return Vector3(0,NAN,0)
+
+## 街面保底也必须在候选循环内排除不完整通道，不能反复选中同一坏终点。
+func _entry_path_clear(target: Vector3) -> bool:
+	var start := Vector3(target.x, minf(water_level - ENTRY_START_DEPTH,
+		target.y + entry_depth_below_surface - ENTRY_START_DEPTH), target.z)
+	return _dive_segment_clear(start, target) and collision_runtime.try_set_viewer_position(start)
 
 func _ray_distance(space: PhysicsDirectSpaceState3D,point: Vector3,direction: Vector3,length: float) -> float:
 	var query := PhysicsRayQueryParameters3D.create(point,point+direction*length,1)
@@ -649,12 +681,10 @@ func _face_city() -> void:
 	facing = facing.normalized()
 	# Godot 相机朝 -Z；yaw 让 -Z 指向该水平方向，略向下俯视街道。
 	_yaw = atan2(-facing.x,-facing.y)
-	# 略微平视：入水后先看清旧城轮廓，而不是低头看自己的脚和地砖。
-	_pitch = -0.03
+	# 稍俯看让水面边缘移到头顶以上；从略仰的入水机位柔和下压至此。
+	_pitch = 0.16
 	if dive_controller != null:
-		dive_controller.yaw = _yaw
-		dive_controller.pitch = _pitch
-		dive_controller.update_camera(0.0, true)
+		dive_controller.set_entry_view(Vector3(facing.x, 0.0, facing.y), _pitch)
 
 func _build_dive_lamp() -> void:
 	_lamp = SpotLight3D.new()

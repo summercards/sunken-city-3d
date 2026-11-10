@@ -23,6 +23,7 @@ metadata/instances = 92
 metadata/deck_top_local = 0.3
 metadata/deck_size_xz = Vector2(11, 10.6)
 metadata/role = "visual_and_water_blocker_only"
+metadata/activity_role = "navigation_only"
 
 [node name="Visual" parent="." instance=ExtResource("model")]
 script = ExtResource("palette_binding")

@@ -72,3 +72,14 @@
 接口变化：`configure` 新增 `mode` / `fixed_kind`；`to_dict` 增加 `version`。其余查询与信号未改，`framework-modules` 的 tick 分段/恢复断言仍通过。
 
 [本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。
+
+## 2026-11-11无损性能优化第一批
+
+承接 SEA-WEATHER-R02/R03/R05 及固定晴天条款；登记 JSON、status、原天气规则和历史保持。
+
+- Weather 晴天停止表现层 process 与重复重绘，不停止 WeatherService 模拟，也不丢失表现相位。
+- Main 通过 `advance_time(delta)` 推进天气表现相位，不读取墙钟；室内不提交室外 zone/water 表现时，weather 模拟相位与 `water.time` 仍保持推进。
+- 固定晴天配置、轮换与存读确定性、离线冻结、会话暂停和天气不暗中影响生产的边界不变。
+- 主线程已提供 `performance-equivalence` 19/0；本次只回填该批结果，不新增测试或复跑，不借旧 `visual-weather` 结果预签本批雨线/昼夜画面。
+
+[主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签。
