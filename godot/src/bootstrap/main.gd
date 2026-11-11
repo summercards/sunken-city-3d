@@ -1564,26 +1564,36 @@ func _setup_sunroom() -> void:
 	if sunroom_view != null and sunroom_view.has_method("configure"):
 		sunroom_view.configure(sunroom_surface)
 	var refresh := func() -> void: _apply_sunroom_state()
+	# 端点和交互锚点由阳光房场景保存；Bootstrap 只负责注入状态服务与角色命令。
+	# 这样用户调整太阳房实例/楼板时，不会留下一套脱离场景的隐形坐标。
+	var repair_anchor := runtime_parent.get_node_or_null("SunroomRepairAnchor") as Node3D
+	var bottom_anchor := runtime_parent.get_node_or_null("SunroomLadderBottomAnchor") as Node3D
+	var top_anchor := runtime_parent.get_node_or_null("SunroomLadderTopAnchor") as Node3D
+	var upper_anchor := runtime_parent.get_node_or_null("SunroomUpperRestoreAnchor") as Node3D
+	var damage_anchor := runtime_parent.get_node_or_null("SunroomDamageAnchor") as Node3D
+	if repair_anchor == null or bottom_anchor == null or top_anchor == null or upper_anchor == null or damage_anchor == null:
+		push_error("solar_cabin_surface 缺少阳光房玩法锚点")
+		return
 	var repair: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomRepair", "res://src/facilities/sunroom_repair_interactable.gd")
 	if repair != null and repair.has_method("configure"):
-		repair.position = Vector3(4.66225, 2.15, 2.708127)
+		repair.position = repair_anchor.position
 		repair.configure(Economy.sunroom, refresh)
 	var upper: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomUpperRestore", "res://src/facilities/sunroom_upper_interactable.gd")
 	if upper != null and upper.has_method("configure"):
-		upper.position = Vector3(6.83575, 7.016335, -0.814)
+		upper.position = upper_anchor.position
 		upper.configure(Economy.sunroom, refresh)
 	var bottom: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderBottom", "res://src/facilities/sunroom_ladder_interactable.gd")
 	var top: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderTop", "res://src/facilities/sunroom_ladder_interactable.gd")
 	var damage: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomDamage", "res://src/facilities/sunroom_damage_visual.gd")
 	if damage != null:
-		damage.position = Vector3(4.66225, 2.15, 2.708127)
-	var base: Vector3 = Vector3(4.66225, 2.15, 2.708127)
-	var roof: Vector3 = Vector3(base.x, 6.246335, base.z)
+		damage.position = damage_anchor.position
+	var base: Vector3 = bottom_anchor.global_position
+	var roof: Vector3 = top_anchor.global_position
 	if bottom != null and bottom.has_method("configure"):
-		bottom.position = base
+		bottom.position = bottom_anchor.position
 		bottom.configure(Economy.sunroom, Callable(actor_controller, "climb_ladder"), "up", base, roof)
 	if top != null and top.has_method("configure"):
-		top.position = roof
+		top.position = top_anchor.position
 		top.configure(Economy.sunroom, Callable(actor_controller, "climb_ladder"), "down", base, roof)
 	if not Economy.sunroom.changed.is_connected(_apply_sunroom_state):
 		Economy.sunroom.changed.connect(_apply_sunroom_state)

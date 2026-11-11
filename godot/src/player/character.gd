@@ -158,10 +158,12 @@ func swim_snapshot() -> Dictionary:
 func set_climbing(on: bool) -> void:
 	_climbing = on
 	if on:
-		_base_action = "walking"
+		# 攀爬不是地面走路的别名：必须让表现层消费 climbing_action，
+		# 否则角色虽然沿梯子移动，手脚仍会播放 walking，视觉上像悬空滑升。
+		_base_action = "climbing"
 		cancel_action("climbing")
-	elif _base_action == "walking" and not _walking:
-		_base_action = "idle"
+	elif _base_action == "climbing":
+		_base_action = "walking" if _walking else "idle"
 
 func build() -> void:
 	var sphere := SphereMesh.new()

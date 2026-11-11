@@ -263,3 +263,7 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | SEA-NAV-R22 | zone1 绞盘台 `BoatPark` 沿离岸方向外移 1.1 m，gap 0.40→1.64，脱离 0.9 m 船体缓冲，`park_in_blocker` 消失；zone5 养殖台 `BoatPark` 外移 0.35 m，gap 1.27→1.61，`park_too_close` 消失。 | `dock-hotspot` 首跑 1 处失败于取样半径正好压在 `DOCK_SETTLE_TOLERANCE=1.6` 边界，把取样半径提到 1.7 m 后 PASS（容差不改）。5 处落点仍贴甲板外沿（clearance 0.00–0.36 m），收到 0.38 以上会连带 `BoatPark`，回归面大，本轮未动。 |
 | SEA-NAV-R23 | 霓虹花园左楼新增「屋顶 ↔ 水面」连续通路：`WalkLeftStair` 用 22 个三角形（5 块平台 + 4 段斜坡梯段 + 2 段补桥：一段 0.39 m 抬升、一段与屋面共面）把梯顶（世界 15.03）接到屋面（15.23，一级台阶 0.20 m），`WalkLeftFloat` 在水面 1.12 设浮台，`SiteLadderInteractable` ×2 + `climb_ladder` 补上 1.12→4.83 的 3.71 m 竖直段。整条路 14.08 m，可上可下。 | `neon-roof-access` 41 项全过；`probe_neon_stair_route.gd` 逐级求路：屋顶→梯脚 73 个航点，每级之间 12–17 点。浮台所在水面无阻挡矩形（体检 `block_area_m2 25.12` / `hole_pct 24.71` 与本轮前完全一致），用例锁了「浮台所在水面不挡船」。 |
 | SEA-NAV-R24 | 折返梯走域的梯段端点首版接反（A/B 两道的 z 端起止互换），四个梯段全部悬在两侧平台之间，Recast 烘成 8 张独立岛：每一格「最近多边形偏 0.02–0.06 m」看起来正常，但屋顶→任何一级平台的 `route()` 都返回 0 点。修正端点后 `navigation_polygons` 382→463，逐级求路全部连通。 | 教训：`map_get_closest_point` 偏移小**不能**证明连通。验收必须逐级求路，不能只看两端。见 [本轮记录](../../development/2026-11-10_neon_roof_access.md)。 |
+
+## 2026-11-11 阳光房走域补充
+
+`sunroom-runtime` 20 项锁定阳光房的三段连续性：下层甲板到梯脚、梯顶到二楼内部、下梯返回一楼；同时锁定二楼实际 `path_between` 非空，而不是只检查 `sunroom_upper_deck.active`。阳光房下层新增梯脚通行带，竖直段仍由特殊攀爬动作负责，不把梯子伪装成普通导航面。证据：`D:/projects/sea-work/verification/20261111-150345-verification-e20c4c`。

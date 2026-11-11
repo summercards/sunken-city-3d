@@ -89,6 +89,10 @@ static func validate(data: Dictionary) -> String:
 		if npc_error != "": return npc_error
 	var fishery_error: String = preload("res://src/aqua/fishery_service.gd").validate_snapshot(data.economy.get("fishery",{}),(int(data.time.day)-1)*24.0+float(data.time.seconds)/3600.0)
 	if fishery_error != "": return fishery_error
+	# Schema 只守字段类型；阶段与兼容旗标的一致性由阳光房状态所有者再守一遍。
+	# 这是跨存档/设施模块契约的失败断言，不能只靠上层 from_dict 的降级迁移。
+	var sunroom_error: String = preload("res://src/facilities/sunroom_service.gd").validate_snapshot(data.economy.get("sunroom",{}))
+	if sunroom_error != "": return sunroom_error
 	var building_error: String=preload("res://src/building/building_service.gd").validate_snapshot(data.building)
 	if building_error!="": return building_error
 	var dynamic_ids: Dictionary={}

@@ -50,6 +50,12 @@ func run() -> void:
 	for area in zone.walk_areas:
 		if str(area.area_id) == "sunroom_upper_deck": upper_area = area
 	check(upper_area != null and upper_area.active, "restored phase enables upper walk surface")
+	var upper_target := Vector3(6.0, 6.246335, 0.0)
+	var upper_route: Array[Vector3] = upper_area.path_between(top.global_position, upper_target) if upper_area != null else []
+	check(not upper_route.is_empty(), "second-floor walk surface routes from ladder top")
+	var lower_area: Node = zone.area_at(bottom.global_position, 0.5)
+	var lower_route: Array[Vector3] = lower_area.path_between(Vector3(3.0, 1.38, 8.0), bottom.global_position) if lower_area != null else []
+	check(lower_area != null and not lower_route.is_empty(), "under-ladder lower deck routes to ladder foot")
 
 	# Exercise the real ActorController climbing state, not just the service.
 	main.actor_controller.reconcile_mode(0)
@@ -57,6 +63,8 @@ func run() -> void:
 	main.player.global_position = bottom.global_position
 	var request: Dictionary = main.actor_controller.climb_ladder(bottom.global_position, top.global_position, bottom)
 	check(request.get("event", "") == "ladder_climb_started", "actor accepts authored ladder endpoints")
+	await process_frame
+	check(main.player.animation_state() == "climbing", "climb switches the visual action to climbing")
 	for i in 420:
 		await physics_frame
 	check(not main.actor_controller.climbing(), "climb returns to ordinary ashore state")
@@ -65,6 +73,24 @@ func run() -> void:
 	# authored upper floor is 6.246335m; the capsule root rests below it by its
 	# body envelope while still being supported by the upper surface.
 	check(upper_support.is_finite() and main.player.global_position.y > 5.0, "actor reaches second-floor endpoint continuously")
+
+	# The upper deck must be a real walk destination, not only an enabled flag.
+	main.actor_controller.reconcile_mode(0)
+	var upper_walk: bool = main.actor_controller.start_walk(upper_area, upper_target) if upper_area != null else false
+	check(upper_walk, "actor accepts a second-floor walk target")
+	for i in 180:
+		await physics_frame
+	check(not main.actor_controller.walking() and main.player.global_position.y > 5.0, "actor walks on the second-floor surface")
+
+	# Downward traversal is the same authored centerline in reverse; it must not
+	# leave the actor in a hidden climbing or upper-floor state.
+	main.player.global_position = top.global_position
+	main.actor_controller.reconcile_mode(0)
+	var down_request: Dictionary = main.actor_controller.climb_ladder(top.global_position, bottom.global_position, top)
+	check(down_request.get("event", "") == "ladder_climb_started", "actor accepts the downward ladder endpoint")
+	for i in 420:
+		await physics_frame
+	check(not main.actor_controller.climbing() and main.player.global_position.y < 3.0, "actor returns to the lower deck after descending")
 
 	main.queue_free()
 	await process_frame

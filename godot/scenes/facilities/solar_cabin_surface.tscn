@@ -18,6 +18,18 @@ metadata/water_layer = "surface"
 metadata/water_layer_role = "part"
 [node name="后部方形建筑" parent="." instance=ExtResource("rear_building")]
 [node name="前部倾斜太阳能房" parent="." instance=ExtResource("solar_room")]
+; 阳光房玩法锚点（相对本模块根保存，Bootstrap 只注入服务和 ActorController）。
+; `太阳能木屋` 实例的 y 偏移为 -0.77，因此顶端局部 y=7.016335 对应当前二楼走面 y=6.246335。
+[node name="SunroomRepairAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
+position = Vector3(4.66225, 2.15, 2.708127)
+[node name="SunroomLadderBottomAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
+position = Vector3(4.66225, 2.15, 2.708127)
+[node name="SunroomLadderTopAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
+position = Vector3(4.66225, 7.016335, 2.708127)
+[node name="SunroomUpperRestoreAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
+position = Vector3(6.83575, 7.016335, -0.814)
+[node name="SunroomDamageAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
+position = Vector3(4.66225, 2.15, 2.708127)
 [node name="前方可行动平台-酒红" parent="." instance=ExtResource("front_platform")]
 [node name="栈桥-暖木" parent="." instance=ExtResource("bridge")]
 [node name="家园夜灯" parent="." instance=ExtResource("lamps")]
