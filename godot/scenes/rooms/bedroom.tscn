@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://src/room/room_scene.gd" id="room_scene"]
 [ext_resource type="Script" uid="uid://ccxkxo7n0ye11" path="res://src/navigation/walk_area.gd" id="walk"]
 [ext_resource type="Script" path="res://src/navigation/actor_collision_body.gd" id="block"]
 [ext_resource type="Script" path="res://src/room/room_bed.gd" id="bed_script"]
 [ext_resource type="Script" path="res://src/room/room_cutaway.gd" id="cutaway_script"]
+[ext_resource type="Script" path="res://src/room/room_exit_point.gd" id="exit_script"]
 [ext_resource type="PackedScene" path="res://scenes/components/room/floor_planks.tscn" id="c_floor"]
 [ext_resource type="PackedScene" path="res://scenes/components/room/wall_window.tscn" id="c_wall_window"]
 [ext_resource type="PackedScene" path="res://scenes/components/room/wall_door.tscn" id="c_wall_door"]
@@ -142,3 +143,12 @@ omni_attenuation = 1.0
 ; 剖切：相机在房顶以上时收起天花，在南侧时收起前墙。
 [node name="Cutaway" type="Node3D" parent="."]
 script = ExtResource("cutaway_script")
+
+; 出门点（SEA-ROOM-R16）：前厅正面门洞上的纯逻辑交互点，没有几何 ——
+; 靠近后出「[E] 离开房间」与近距图标，和屋外门口那颗「进入房间」对称。
+; 摆在门外一侧（局部 z 4.25，前厅可走到 4.32），因为玩家走到房间最外沿
+; 就已经想出去了；半径 1.6 米让刚进屋站在前厅里也能立刻看见。
+; 只发信号，过场仍由 room_controller 走那一条；不新增任何进出通道。
+[node name="ExitPoint" type="Node3D" parent="."]
+position = Vector3(0, 0, 4.25)
+script = ExtResource("exit_script")

@@ -4517,6 +4517,7 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 		var icon := "hand"
 		if spot.is_in_group("shipping_boxes"): icon="shipping"
 		elif str(spot.id)=="room_bed": icon="sleep"
+		elif str(spot.id)=="room_exit": icon="back"
 		elif str(spot.verb).contains("采"): icon="harvest"
 		elif str(spot.verb).contains("挖"): icon="dig"
 		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
@@ -4667,11 +4668,19 @@ func _setup_room() -> void:
 	room_controller.exit_position = door.global_position+Vector3(0,0,1.05)
 	room_controller.exit_yaw = PI
 	door.enter_requested.connect(func() -> void: room_controller.enter())
+	# 屋里门口那颗（SEA-ROOM-R16）：和屋外「进入房间」对偶的出门热区。
+	# 走的是同一条 `room_exit` 命令 —— 圆幕过场、世界显隐、存档语义都不另做一份。
+	var exit_point: Node3D = room.get_node_or_null("ExitPoint")
+	if exit_point != null:
+		exit_point.exit_requested.connect(func() -> void: _on_click_command("room_exit"))
 	room_service.changed.connect(room.apply_layout)
 	room_service.changed.connect(func() -> void:
 		if room.visible: room.apply_layout())
 	room.get_node("Furnishings/Bed").sleep_requested.connect(_rest_for_day)
 	room.set_camera(cam)
+	# 剖切要知道角色站在墙的哪一侧（SEA-ROOM-R17）：否则人还在门外，
+	# 前墙就因为「朝向镜头」被收起，走不过去就成了空气墙。
+	room.set_actor_query(func() -> Node3D: return player)
 	room.set_active(false)
 	room.apply_layout()
 

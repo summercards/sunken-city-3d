@@ -97,6 +97,11 @@ func run() -> void:
 	check(bed != null and bed.id == "room_bed", "床铺是独立可交互物")
 	check(not bed.sleep_requested.get_connections().is_empty(), "床铺绑定睡觉命令")
 	check(bed.get_node_or_null("Block") != null, "床自带角色遮挡（跟着床走）")
+	# 出门热区（SEA-ROOM-R16）：纯逻辑点，屋外时必须不在交互组里 ——
+	# 否则站在太阳房甲板上会点得到一个 200 米高处的「离开房间」。
+	var exit_point: Node3D = room.get_node_or_null("ExitPoint")
+	check(exit_point != null and str(exit_point.id) == "room_exit", "屋里门口有独立的出门交互点")
+	check(not exit_point.is_in_group("interactable"), "屋外时出门热区不在交互组")
 	check(not main._outdoor_nodes().is_empty() and not main._outdoor_nodes().has(room), "室外收起名单不含房间本身")
 
 	# ---- 从门口进屋：点得到、走得到、圆幕无文字 ---------------------------------
@@ -174,6 +179,39 @@ func run() -> void:
 	check(pane != null and bool(pane.get_shader_parameter("interior_glass")), "窗玻璃走室内玻璃（不再取色盘 ice 格）")
 	var pane_tint: Color = pane.get_shader_parameter("tint")
 	check(pane_tint.v < 0.2, "室内玻璃是近乎无彩的深色，不会读成天空")
+
+	# ---- 剖切必须看角色在哪一侧（SEA-ROOM-R17）--------------------------------
+	# 刚进屋时角色站在玻璃前厅里（ENTRY_LOCAL z=3.25），人还没进室内。
+	# 这时 +Z 前墙就是他眼前的实体边界：相机虽然在前方，墙也不能收 ——
+	# 2026-11-11 用户原话「房屋内的这面墙，还没走进屋子的时候就看不见，
+	# 会导致感觉被空气墙挡住」，就是缺了这一条。
+	check(room.to_local(main.player.global_position).z > 2.6, "进屋时角色站在前厅（局部 z > 2.6）")
+	check(room.get_node("Shell/WallDoor").visible, "人还在前厅时 +Z 前墙必须可见，不能收成空气墙")
+	var porch_shown: Array = []
+	var porch_now: Node3D = room.get_node("Shell/Porch")
+	for node in porch_now.find_children("*", "Node3D", true, false):
+		var label := String(node.name)
+		for prefix in room.PORCH_NORMALS:
+			if label.begins_with(prefix) and node.visible:
+				porch_shown.append(label)
+			break
+	# 玻璃前厅遮的是「镜头与地板之间」，和墙是两件事：相机在前厅前上方时照旧整排收，
+	# 只留一堵带门洞的墙给人看「从这里进去」。
+	check(porch_shown.is_empty(), "人还在前厅时玻璃/门框/裙墙照旧整排收起")
+	# 走进室内之后，剖切恢复「只缺朝镜头那一面」。
+	var inner_at: Vector3 = room.inner_position()
+	main.actor_controller.restore_pose({"mode": 0, "player": [inner_at.x, inner_at.y, inner_at.z]})
+	await settle(4)
+	check(room.to_local(main.player.global_position).z < 2.5, "走进室内后角色局部 z < 2.5")
+	check(not room.get_node("Shell/WallDoor").visible, "走进室内后 +Z 前墙按剖切收起")
+	porch_shown.clear()
+	for node in porch_now.find_children("*", "Node3D", true, false):
+		var label := String(node.name)
+		for prefix in room.PORCH_NORMALS:
+			if label.begins_with(prefix) and node.visible:
+				porch_shown.append(label)
+			break
+	check(porch_shown.is_empty(), "走进室内后前厅整排收起（只在镜头与屋子之间）")
 
 	# ---- 房间里的镜头自由：能转、能拉近拉远，但不能把自己转丢 -------------------
 	var home_dir: Vector3 = main.cam.orbit_dir
@@ -285,9 +323,29 @@ func run() -> void:
 	check(main.hud.is_room_mode(), "醒来界面仍是房间模式")
 
 	# ---- 出门 -------------------------------------------------------------------
-	main._on_click_command("room_exit")
+	# 门口热区（SEA-ROOM-R16）：站到前厅门洞就有焦点，按交互键即出门 ——
+	# 2026-11-11 用户报「屋里没有出去的操作热区、键盘出不去」就是这一条。
+	var porch: Vector3 = room.entry_position()
+	main.actor_controller.restore_pose({"mode": 0, "player": [porch.x, porch.y, porch.z]})
+	await settle(2)
+	check(exit_point.is_in_group("interactable") and exit_point.is_visible_in_tree(),
+		"屋里时出门热区进交互组且可见")
+	# 这一帧不按住：把上一轮的「已用掉」闸门放开，模拟真实的「先松手再按」。
+	main.interactor.active = true
+	main.interactor.update(1.0 / 60.0, false)
+	main.interactor.refresh_now()
+	check(main.interactor.target == exit_point, "站在前厅门洞选中「离开房间」热区")
+	check(str(exit_point.verb) == "离开房间", "出门热区的动作文案是离开房间")
+	var fired := false
+	for i in 90:
+		main.interactor.update(1.0 / 60.0, true)
+		if rc.busy:
+			fired = true
+			break
+	check(fired, "按交互键从门口触发出门过场")
 	await rc.exited
 	check(not service.inside, "出门后状态是「在屋外」")
+	check(not exit_point.is_in_group("interactable"), "出门后门口热区退出交互组")
 	check(gs.current_zone == "zone1", "出门后回到 zone1")
 	check(not room.visible, "房间收起")
 	check(main.zones_root.visible, "室外内容恢复")

@@ -55,6 +55,8 @@ const WALLS := {
 
 var service: Node
 var camera: Camera3D
+## 角色位置查询（`func() -> Node3D`），传给剖切。见 `set_actor_query`。
+var actor_query: Callable
 ## 每个碰撞体自己的层/掩码，进出房间时整体开关（见 set_active）。
 var _bodies: Array = []
 ## 房间里的可交互物（床）。必须在进屋时明确登记 —— 只遍历「已经在组里」的节点
@@ -113,6 +115,7 @@ func _ready() -> void:
 							"margin": CUTAWAY.PORCH_MARGIN, "porch": true})
 						break
 		_cutaway.configure(camera, entries, roofs, 2.75)
+		_cutaway.actor_query = actor_query
 
 
 ## 房间在世界里的开关。
@@ -149,6 +152,15 @@ func set_camera(cam: Camera3D) -> void:
 	camera = cam
 	if _cutaway != null:
 		_cutaway.camera = cam
+		_cutaway.refresh()
+
+
+## 剖切要同时看角色站在墙的哪一侧（见 `room_cutaway.actor_query`）。
+## 由 `room_controller` 注入 —— 房间自己不持有角色，也不该去猜。
+func set_actor_query(query: Callable) -> void:
+	actor_query = query
+	if _cutaway != null:
+		_cutaway.actor_query = query
 		_cutaway.refresh()
 
 

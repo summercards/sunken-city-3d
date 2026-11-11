@@ -68,11 +68,24 @@ func run() -> void:
 	# 机位放在房间内侧（z<0），所以前墙与门框仍然可见，玻璃厅整间露出来。
 	await shot("porch", room.to_global(Vector3(0.0, 1.15, 2.05)), 6.4, Vector3(-0.10, 0.22, -0.97))
 
-	# ⑤ 从另一侧看：藏起来的墙换成后墙（证明剖切跟着镜头，而不是写死一面墙）。
+	# ⑤ 门口热区（SEA-ROOM-R16）：站到前厅门洞 → 近距图标与「[E] 离开房间」都在。
+	# 这张图是「屋里出得去」的可见证据：热区没有几何，玩家只能靠图标与按键提示认出来。
+	var entry: Vector3 = room.entry_position()
+	main.actor_controller.restore_pose({"mode": 0, "player": [entry.x, entry.y, entry.z]})
+	main.interactor.active = true
+	main.interactor.update(1.0 / 60.0, false)
+	main.interactor.refresh_now()
+	main.prompt.update_from(main.interactor)
+	main._update_near_interaction()
+	check(main.interactor.target != null and str(main.interactor.target.id) == "room_exit",
+		"前厅门洞出现「离开房间」热区")
+	await shot("exit", room.to_global(Vector3(0.0, 0.95, 3.5)), 7.2, Vector3(0.06, 0.52, 0.85))
+
+	# ⑥ 从另一侧看：藏起来的墙换成后墙（证明剖切跟着镜头，而不是写死一面墙）。
 	await shot("cutaway-north", room.global_position + Vector3(0.0, 1.2, -1.0), 9.6,
 		Vector3(0.12, 0.58, -0.80))
 
-	# ⑥ 夜里：台灯与补光在 home_lamps 组里跟着日照曲线亮起来。
+	# ⑦ 夜里：台灯与补光在 home_lamps 组里跟着日照曲线亮起来。
 	main.world_clock.from_dict({"day": 1, "seconds": 21.0 * 3600.0, "day_length": 1200.0})
 	main.daylight_rig.apply(21.0)
 	await shot("night", pose.target, pose.distance, pose.dir)

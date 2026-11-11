@@ -13,6 +13,8 @@
     "godot/src/room/room_controller.gd",
     "godot/src/room/room_bed.gd",
     "godot/src/room/room_door.gd",
+    "godot/src/room/room_exit_point.gd",
+    "godot/src/room/room_cutaway.gd",
     "godot/src/room/room_cutaway.gd",
     "godot/scenes/rooms/bedroom.tscn",
     "godot/scenes/components/room/bed.tscn",
@@ -95,3 +97,19 @@
 - 串行两轮室内耗时为 6.222→4.782 ms、5.236→4.458 ms；仅记录这两轮，不外推到所有设备或海面，海面收益波动不承诺。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立并回填最终数据；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。
+
+## 2026-11-11 · 门口出门热区（SEA-ROOM-R16）
+
+承接 SEA-ROOM-R01/R11/R13；登记 JSON、status、原条款与历史保持，仅追加本节。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ROOM-R16 | 已实现；新增 `godot/src/room/room_exit_point.gd`（`id="room_exit"`、`verb="离开房间"`、`focus_radius=1.6`、`auto_radius=false`、`focus_anchor="node"`，无视觉几何），挂在 `bedroom.tscn` 根下 `ExitPoint`（局部 `(0, 0, 4.25)`，前厅可走面到 `z=4.32`）。`main._setup_room` 把它接到已有的 `room_exit` 命令，圆幕/世界显隐/存档语义不另做一份；`room_scene.set_active` 沿用既有 `_interactables` 开关，屋外自动退组。近距图标与气泡图标都走 `back` 图（`hover_card.show_near_focus`、`main._open_spot_bubbles`） | `room` 119 项 0 失败，含「屋里门口有独立的出门交互点」「屋外时出门热区不在交互组」「屋里时出门热区进交互组且可见」「站在前厅门洞选中『离开房间』热区」「出门热区的动作文案是离开房间」「按交互键从门口触发出门过场」「出门后门口热区退出交互组」；`visual-room` 新增 `exit` 机位实拍（人物头顶出现返回图标）；`keyboard-farm-loop` 复跑通过 |
+
+## 2026-11-11 · 剖切看角色在哪一侧（SEA-ROOM-R17）
+
+承接 SEA-ROOM-R05/R06a；登记 JSON、status、原条款与历史保持，仅追加本节。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ROOM-R17 | 已实现；`room_cutaway.gd` 新增 `actor_query`（`func() -> Node3D`）、`ACTOR_WALL_MARGIN=0.25` 与 `_actor_near_room()` 包围盒守卫。收墙条件改为「相机越过该墙 **且** 角色不在这面墙外侧」——只对人真正会撞到的**墙**生效，玻璃前厅那排构件仍按 `PORCH_FRONT_Z` 整排收。`room_scene` 新增 `set_actor_query()` 并转给剖切；`main._setup_room` 注入 `func(): return player` | `room` 125 项 0 失败，含「进屋时角色站在前厅」「人还在前厅时 +Z 前墙必须可见，不能收成空气墙」「人还在前厅时玻璃/门框/裙墙照旧整排收起」「走进室内后角色局部 z < 2.5」「走进室内后 +Z 前墙按剖切收起」「走进室内后前厅整排收起」；`visual-room` 8 机位 0 失败（`inside`/`exit` 两图可见带门洞的前墙）；`sleep-cycle`、`keyboard-farm-loop` 复跑通过 |

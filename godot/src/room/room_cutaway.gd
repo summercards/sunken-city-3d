@@ -34,8 +34,17 @@ const PORCH_MARGIN := 1.6
 ## 但东西两侧玻璃的法线朝 ±X、dot 是负的，会被判成「远侧」而留着 ——
 ## 它们一样挡在镜头和房间之间，在画面左侧斜插一块暗板（实测截图里就是它）。
 const PORCH_FRONT_Z := 2.4
-
+## 角色要越过墙外表面这么多米，才算「他真的在墙外」。
+## 与 FACING_MARGIN 同值同义：2.5 + 0.25 = 2.75，正好落在门槛外沿（2.74），
+## 于是「跨过门槛进屋」就是「墙让开」的那一步。
+const ACTOR_WALL_MARGIN := 0.25
 var camera: Camera3D
+## 角色的世界位置查询（`func() -> Node3D`）。由 `room_scene` 注入。
+##
+## 剖切只看相机是不够的 —— 那会造出空气墙：人在屋外的门口，相机在前上方，
+## 前墙按「朝向镜头」被收起，可他眼前本来是一堵真实的墙。
+## 拿不到角色（编辑器、或还没接线）时退回纯相机判据。
+var actor_query: Callable
 var walls: Array = []
 ## 顶面：天花 + 玻璃前厅的斜顶。相机高于墙顶时一律收起 ——
 ## 这两块都在「镜头与房间之间」，留着就只剩一片顶板，屋里什么都看不见。
@@ -68,6 +77,15 @@ func refresh() -> void:
 	# 转成局部之后，这些常量永远不用改。
 	var local_cam := to_local(camera.global_position)
 	var flat := Vector3(local_cam.x, 0.0, local_cam.z)
+	# 角色在房间局部空间里的位置。拿不到时 `actor_known` 为 false，
+	# 下面两条角色闸门全部跳过 —— 编辑器预览与旧调用点的行为一字不变。
+	var actor_local := Vector3.INF
+	if actor_query.is_valid():
+		var actor: Variant = actor_query.call()
+		if is_instance_valid(actor) and actor is Node3D:
+			actor_local = to_local((actor as Node3D).global_position)
+	var actor_known := actor_local.is_finite() and _actor_near_room(actor_local)
+	var actor_flat := Vector3(actor_local.x, 0.0, actor_local.z)
 	for entry in walls:
 		var node: Node3D = entry.get("node")
 		if not is_instance_valid(node):
@@ -76,7 +94,18 @@ func refresh() -> void:
 		var face: float = entry.get("offset", WALL_OFFSET)
 		var margin: float = entry.get("margin", FACING_MARGIN)
 		var visible := flat.dot(outward) < face + margin
+		# **角色闸门**：他还站在这面墙的外侧，这面墙就是他眼前的实体边界。
+		# 2026-11-11 用户报「房屋内的这面墙，还没走进屋子的时候就看不见，
+		# 会导致感觉被空气墙挡住」—— 就是这一条缺了。屋外看到的应该是房子外壳，
+		# 只有人已经在墙里面、墙才开始挡视线，那时候才该收。
+		if not visible and actor_known and actor_flat.dot(outward) > face + ACTOR_WALL_MARGIN:
+			visible = true
 		# 前厅件多一条：整座前厅压在镜头与室内之间时，全部都收。
+		#
+		# 这一条**不看角色**：玻璃、裙墙、圈梁是围在人身边的薄片，不是他能撞到的
+		# 实体边界；相机在前厅前上方时它们全在镜头与地板之间，留着就是画面下方
+		# 一个大白框（实测截图里把角色下半身和前厅地板都挡住了）。
+		# 角色闸门只对**墙**生效 —— 墙才是「为什么走不过去」的答案。
 		if visible and bool(entry.get("porch", false)) and flat.z > PORCH_FRONT_Z:
 			visible = false
 		node.visible = visible
@@ -88,6 +117,17 @@ func refresh() -> void:
 
 func _process(_delta: float) -> void:
 	refresh()
+
+
+## 角色是否真的在这间屋子里（房间局部坐标的宽松包围盒）。
+##
+## 必须有这一条：`_begin_inside` 里 `set_active(true)` 在 `restore_pose` **之前**，
+## 那一帧角色还在世界另一处（比如海面 1 米高处），房间局部坐标是几百米开外，
+## 「人在墙外侧」会被算成真 —— 于是本来该收起的墙被强行显示出来闪一帧。
+## 包围盒取宽松值（几何是 1:1 建的，净空 5×5、前厅到 z≈4.5），只要排除
+## 「人在房间外面老远处」这种情况就够。
+func _actor_near_room(local: Vector3) -> bool:
+	return absf(local.x) < 6.0 and local.z > -6.0 and local.z < 8.0 and absf(local.y) < 4.0
 
 
 func hidden_walls() -> PackedStringArray:

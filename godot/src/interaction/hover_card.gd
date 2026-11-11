@@ -69,6 +69,7 @@ func show_near_focus(spot: Node3D, ratio := 0.0) -> void:
 	if spot.is_in_group("farm_plots"):
 		var phase: String = spot.farm_model.phase(str(spot.plot_id))
 		icon = "plant" if phase == "empty" else ("harvest" if phase == "ready" else "water")
+	elif str(spot.id) == "room_exit": icon = "back"
 	elif str(spot.verb).contains("采"): icon = "harvest"
 	elif spot.is_in_group("shipping_boxes"): icon = "shipping"
 	show_near_action(spot.focus_position() + Vector3.UP * 0.85, icon, ratio)
