@@ -506,7 +506,7 @@
 | <a id="sea-asset"></a>SEA-ASSET | 美术组件生产与登记 | 生产 | — | [文档](docs/features/asset/spec.md) | [账本](docs/features/asset/ledger.md) | 部分实现 |
 | <a id="sea-quality"></a>SEA-QUALITY | 验证与性能治理 | 工程 | SEA-BOOT | [文档](docs/features/quality/spec.md) | [账本](docs/features/quality/ledger.md) | 部分实现 |
 | <a id="sea-tool"></a>SEA-TOOL | 测试工具（P 面板测试页） | 工程 | SEA-INVENTORY, SEA-TIME, SEA-WEATHER, SEA-ENERGY | [文档](docs/features/tool/spec.md) | [账本](docs/features/tool/ledger.md) | 已实现待完整验收 |
-| <a id="sea-workshop"></a>SEA-WORKSHOP | 编辑器楼房工坊与独立制作资产（运行版保留） | 工程/内容生产 | SEA-ASSET, SEA-WORLD, SEA-AMBIENT | [文档](docs/features/workshop/spec.md) | [账本](docs/features/workshop/ledger.md) | 规划中 |
+| <a id="sea-workshop"></a>SEA-WORKSHOP | 编辑器楼房工坊与独立制作资产（运行版保留） | 工程/内容生产 | SEA-ASSET, SEA-WORLD, SEA-AMBIENT | [文档](docs/features/workshop/spec.md) | [账本](docs/features/workshop/ledger.md) | 部分实现 |
 | <a id="sea-release"></a>SEA-RELEASE | 导出与发行 | 工程 | SEA-QUALITY | [文档](docs/features/release/spec.md) | [账本](docs/features/release/ledger.md) | 部分实现 |
 <!-- FEATURE_CONTROL_END -->
 

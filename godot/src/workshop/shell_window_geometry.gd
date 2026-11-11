@@ -123,7 +123,9 @@ static func validate_bay(hole: Dictionary, run: Dictionary, bay_start: float, ba
 	var envelope: Dictionary = _envelope(hole, run)
 	var low: Vector3 = envelope.min
 	var high: Vector3 = envelope.max
-	if low.x < bay_start + CLEARANCE or high.x > bay_end - CLEARANCE or low.y < base + CLEARANCE or high.y > top - CLEARANCE:
+	# 上宽下窄的洞口上沿会超出下沿矩形，开间校验要按最大外廓留边。
+	var reach: float = maxf(0.0, -float(hole.get("pull", 0.0)))
+	if low.x - reach < bay_start + CLEARANCE or high.x + reach > bay_end - CLEARANCE or low.y < base + CLEARANCE or high.y > top - CLEARANCE:
 		return "窗扇完整开合包络超出本开间或楼板安全边界，不能与相邻洞口互穿"
 	if low.x < float(hole.x0) + CLEARANCE or high.x > float(hole.x1) - CLEARANCE or low.y < float(hole.y0) + CLEARANCE or high.y > float(hole.y1) - CLEARANCE or high.z > float(run.depth) - 0.02 - CLEARANCE:
 		return "窗扇厚度的完整开合包络超出墙体净洞安全区，存在穿墙风险"
@@ -184,7 +186,8 @@ static func metadata(hole: Dictionary, run: Dictionary, geometry: Script, contex
 
 static func _glass(buffer: Dictionary, hole: Dictionary, run: Dictionary, geometry: Script) -> void:
 	var settings: Dictionary = hole.settings
-	var profile: Array[Vector2] = geometry._rectangle(float(hole.cx), float(hole.sill) + float(hole.height) * 0.5, float(hole.width) - GAP * 2.0, float(hole.height) - GAP * 2.0)
+	# 玻璃随洞口梯形：上沿与窗框同 pull 收窄，不做正交矩形。
+	var profile: Array[Vector2] = geometry._opening_quad(float(hole.cx), float(hole.sill) + GAP, float(hole.width) - GAP * 2.0, float(hole.height) - GAP * 2.0, 0.0, float(hole.get("pull", 0.0)))
 	var half: float = float(settings.glass_thickness) * 0.5
 	var a: Array[Vector3] = geometry._run_ring(profile, run, float(settings.recess) - half)
 	var b: Array[Vector3] = geometry._run_ring(profile, run, float(settings.recess) + half)

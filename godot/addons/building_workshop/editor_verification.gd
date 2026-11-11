@@ -8,6 +8,7 @@ const COMPONENT_ROOT: String = "res://scenes/components/workshop_modules"
 const SAMPLE_PATH: String = "res://data/workshop/samples/workshop_sample_001.recipe.json"
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
+const Config = preload("res://src/workshop/architecture_config.gd")
 
 var _shell_samples: Array[Dictionary] = []
 var _architecture_samples: Array[Dictionary] = []
@@ -116,6 +117,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	_check("同 session 重做 simple15", _property(_screen, "session") == session and _same(_snapshot(), simple15))
 	_test_overrides()
 	await _test_architecture_controls()
+	await _test_form_controls()
 	_test_preview()
 	print("[workshop-editor-stage] component replacement")
 	_test_components(session)
@@ -129,8 +131,12 @@ func _execute(plugin: EditorPlugin) -> void:
 		_verify_bundle(first, "revision1")
 		print("[workshop-editor-stage] first bundle verified")
 		var first_hashes: Dictionary = _bundle_hashes(str(first.get("directory", "")))
-		_set_spin("width", 15.0)
-		# 不改变替件所需尺寸；第二次保存同配方仍必须产生独立 revision。
+		# 改纯元数据字段制造新版本：改宽高会让已替换的模块包络失配而被正确拒绝，
+		# 那验的就不是"同一套几何另存 revision"了。
+		var name_edit: LineEdit = _property(_screen, "_name_edit") as LineEdit
+		if name_edit != null:
+			name_edit.text = "海风公寓 · 连续实体 v2"
+			name_edit.text_changed.emit(name_edit.text)
 		second = _result(_screen, "save_building")
 		if _check_result("第二次真实保存", second):
 			print("[workshop-editor-stage] verify second bundle")
@@ -344,6 +350,7 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	var height: float = float(recipe.floor_height) * int(recipe.floors)
 	var width: float = float(recipe.width)
 	var depth: float = float(recipe.depth)
+	var actual_taper: float = float(Recipe.normalized(recipe).taper)
 	for floor_index: int in range(int(recipe.floors)):
 		var wall: MeshInstance3D = visual.get_node_or_null("wall_shell_%d" % floor_index) as MeshInstance3D
 		if not _check(label + " 实际楼层墙壳：%d" % floor_index, wall != null and wall.mesh != null):
@@ -355,7 +362,8 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 		for index: int in range(faces.size()):
 			faces[index] = transform * faces[index]
 			var point: Vector3 = faces[index]
-			var scale: float = 1.0 - float(recipe.taper) * clampf(point.y / height, 0.0, 1.0)
+				# 反解用的taper必须与生成实际值一致；形体开启时配方字段只是输入，不是权威值。
+			var scale: float = 1.0 - actual_taper * clampf(point.y / height, 0.0, 1.0)
 			point = Vector3(point.x / scale, point.y, point.z / scale)
 			untapered = untapered.expand(point) if initialized else AABB(point, Vector3.ZERO)
 			initialized = true
@@ -492,6 +500,238 @@ func _test_overrides() -> void:
 	var facades: Dictionary = _dictionary(_snapshot().get("facade_overrides", {}))
 	_check("真实立面按钮应用覆盖", is_equal_approx(float(_dictionary(facades.get(facade, {})).get("width", 0.0)), 1.2))
 	_check_result("覆盖后全部参数可应用", _result(_screen, "apply_parameters"))
+
+## 形体变形：区间+seed→落值→几何。控件、落值、拒绝与taper归属都要真实走一遍。
+func _test_form_controls() -> void:
+	print("[workshop-editor-stage] form controls")
+	var session: Object = _property(_screen, "session") as Object
+	if session == null:
+		_check("形体测试有session", false)
+		return
+	var keys: Array[String] = ["form_enabled", "form_preset", "form_seed", "form_max_tilt", "form_opening_sign"]
+	for category: String in ["structure", "opening", "accessory"]:
+		keys.append("form_" + category + "_min")
+		keys.append("form_" + category + "_max")
+	for key: String in keys:
+		_check("形体控件存在：" + key, _dictionary(_property(_screen, "controls")).has(key))
+	_check("形体按钮存在", _dictionary(_property(_screen, "buttons")).has("form_apply") and _dictionary(_property(_screen, "buttons")).has("form_reroll"))
+	# 先存原文档再换基线：恢复时必须回到原building_id，否则后续保存会落到另一个楼名下。
+	var original_document: Dictionary = _snapshot().duplicate(true)
+	if not _check_result("形体测试前恢复正交基线", _result(session, "accept_loaded", [_orthographic_recipe(), _dictionary(_property(session, "catalog"))])):
+		return
+	_screen.call("configure", {})
+	_check_result("形体测试前刷新预览", _result(_screen, "refresh_preview"))
+	var taper_spin: SpinBox = _dictionary(_property(_screen, "controls")).get("taper") as SpinBox
+	_check("形体关闭时taper可手改", taper_spin != null and taper_spin.editable)
+	var glass_span_baseline: Vector2 = Vector2.ZERO
+
+	# 开形体 + 设区间：落值必须落在区间内，且 taper 交回形体。
+	var before: Dictionary = _snapshot()
+	_set_check("form_enabled", true)
+	_set_option("form_preset", "SF-B")
+	_set_spin("form_seed", 11010)
+	_set_spin("form_max_tilt", 8.0)
+	_set_option("form_opening_sign", "positive")
+	_set_spin("form_structure_min", 0.030)
+	_set_spin("form_structure_max", 0.060)
+	_set_spin("form_opening_min", 0.020)
+	_set_spin("form_opening_max", 0.045)
+	_set_spin("form_accessory_min", 0.040)
+	_set_spin("form_accessory_max", 0.090)
+	_check_result("形体应用", _result_button("form_apply"))
+	var after: Dictionary = _snapshot()
+	var form: Dictionary = _dictionary(_dictionary(after.get("architecture", {})).get("form", {}))
+	_check("形体开关与种子进入快照", bool(form.get("enabled", false)) and int(form.get("seed", -1)) == 11010 and str(form.get("preset", "")) == "SF-B")
+	_check("形体区间进入快照", is_equal_approx(float(_dictionary(form.get("structure", {})).get("max", 0.0)), 0.060) and is_equal_approx(float(_dictionary(form.get("opening", {})).get("max", 0.0)), 0.045) and is_equal_approx(float(_dictionary(form.get("accessory", {})).get("max", 0.0)), 0.090))
+	_check("墙倾角上限进入快照", is_equal_approx(float(form.get("max_tilt_deg", 0.0)), 8.0), str(form.get("max_tilt_deg")))
+	_check("窗洞取号进入快照", str(_dictionary(form.get("opening", {})).get("sign", "")) == "positive", str(_dictionary(form.get("opening", {})).get("sign")))
+	_check("形体不改其它架构字段", _same(_dictionary(_dictionary(before.get("architecture", {})).get("roof", {})), _dictionary(_dictionary(after.get("architecture", {})).get("roof", {}))))
+	var resolved: Dictionary = Config.resolve_form(after)
+	var structure_value: float = float(resolved.get("structure", 0.0))
+	_check("整楼落值在区间内", structure_value >= 0.030 - 0.000001 and structure_value <= 0.060 + 0.000001, str(structure_value))
+	_check("整楼落值写入taper", is_equal_approx(float(after.get("taper", 0.0)), structure_value), "%f vs %f" % [float(after.get("taper", 0.0)), structure_value])
+	_check("形体开启后taper输入被接管", taper_spin != null and not taper_spin.editable)
+	var applied_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var window_slot: String = ""
+	var openings: Dictionary = _dictionary(_property(_screen, "_opening_cache"))
+	for raw_id: Variant in openings.keys():
+		if str(_dictionary(openings[raw_id]).get("type", "")) == "window":
+			window_slot = str(raw_id).trim_prefix("opening_")
+			break
+	_check("形体测试可用窗洞口", not window_slot.is_empty(), str(openings.keys()))
+	if not window_slot.is_empty():
+		var glass: MeshInstance3D = applied_visual.get_node_or_null("glass_" + window_slot) as MeshInstance3D
+		_check("形体开启后窗玻璃实际生成", glass != null and glass.mesh != null)
+		if glass != null:
+			var span: Vector2 = _top_bottom_span(glass.mesh.get_faces())
+			glass_span_baseline = span
+			_check("形体开启后窗玻璃上口真窄于下口", span.y < span.x - 0.001, "bottom=%f top=%f" % [span.x, span.y])
+
+	# 换种子必须换落值，且仍落在同一区间。
+	var rerolled: Dictionary = _result_button("form_reroll")
+	_check_result("换种子应用", rerolled)
+	var after_reroll: Dictionary = _snapshot()
+	var reroll_seed: int = int(_dictionary(_dictionary(after_reroll.get("architecture", {})).get("form", {})).get("seed", -1))
+	var reroll_value: float = float(Config.resolve_form(after_reroll).get("structure", 0.0))
+	_check("换种子递增且改变落值", reroll_seed == 11011 and not is_equal_approx(reroll_value, structure_value), "seed=%d value=%f vs %f" % [reroll_seed, reroll_value, structure_value])
+
+	# 倾角可调：同一幅度(0.10)在4°下被拒绝、在8°下被接受——这就是"幅度可以调大"的机械证明。
+	var before_reject: Dictionary = _snapshot()
+	_set_spin("form_max_tilt", 4.0)
+	_set_spin("form_structure_max", 0.10)
+	_result_button("form_apply")
+	var reject_status: String = str(_property(_screen, "status_label").text) if _property(_screen, "status_label") is Label else ""
+	var rejected_form: Dictionary = _dictionary(_dictionary(_snapshot().get("architecture", {})).get("form", {}))
+	# 拒绝 = 输入还在控件上(0.10)、已应用值仍是0.060、快照未被写脏。
+	_check("4°下超出倾角被拒绝", is_equal_approx(_spin("form_structure_max"), 0.10) and is_equal_approx(float(_dictionary(rejected_form.get("structure", {})).get("max", 0.0)), 0.060), "输入保留%.3f 已应用上限%.3f 状态：%s" % [_spin("form_structure_max"), float(_dictionary(rejected_form.get("structure", {})).get("max", 0.0)), reject_status])
+	_check("拒绝原因给出可用上限", reject_status.contains("上限"), reject_status)
+	_check("拒绝后配方未改变", _same(before_reject, _snapshot()))
+	# 抬到 8° 后同一幅度必须通过：证明"调大倾角上限 = 拿到更大收分"。
+	_set_spin("form_max_tilt", 8.0)
+	_check_result("8°下同一幅度被接受", _result_button("form_apply"))
+	var wide_accepted: Dictionary = _snapshot()
+	var wide_form: Dictionary = _dictionary(_dictionary(wide_accepted.get("architecture", {})).get("form", {}))
+	_check("8°下幅度已写入0.10", is_equal_approx(float(_dictionary(wide_form.get("structure", {})).get("max", 0.0)), 0.10) and is_equal_approx(float(wide_form.get("max_tilt_deg", 0.0)), 8.0), str(wide_form.get("structure")))
+	var wide_value: float = float(Config.resolve_form(wide_accepted).get("structure", 0.0))
+	_check("更大幅度得到更大收分", wide_value > structure_value + 0.01, "%.4f vs %.4f" % [wide_value, structure_value])
+	var wide_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	if wide_visual != null and not window_slot.is_empty():
+		var wide_glass: MeshInstance3D = wide_visual.get_node_or_null("glass_" + window_slot) as MeshInstance3D
+		if wide_glass != null and glass_span_baseline != Vector2.ZERO:
+			var span_now: Vector2 = _top_bottom_span(wide_glass.mesh.get_faces())
+			_check("整楼收分加大后墙实际更斜", span_now.y < glass_span_baseline.y - 0.001, "%.4f vs %.4f" % [span_now.y, glass_span_baseline.y])
+	_set_spin("form_structure_max", 0.060)
+
+	# 窗洞取号：mixed 必须真的让同一立面出现"有的上宽、有的上窄"。
+	_set_option("form_opening_sign", "mixed")
+	_check_result("混合取号应用", _result_button("form_apply"))
+	var mixed_recipe: Dictionary = _snapshot()
+	var narrow_count: int = 0
+	var wide_count: int = 0
+	for facade in ["front", "back", "left", "right"]:
+		for ordinal in 8:
+			var rho: float = Config.opening_rho(mixed_recipe, str(facade) + "_" + str(ordinal))
+			if rho > 0.00001: narrow_count += 1
+			elif rho < -0.00001: wide_count += 1
+	_check("混合取号同时存在上窄与上宽", narrow_count > 0 and wide_count > 0, "上窄%d列 上宽%d列" % [narrow_count, wide_count])
+	var mixed_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var mixed_up_narrow: int = 0
+	var mixed_up_wide: int = 0
+	if mixed_visual != null:
+		for node: Node in mixed_visual.get_children():
+			if not str(node.name).begins_with("glass_"):
+				continue
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null:
+				continue
+			var s_span: Vector2 = _top_bottom_span(mesh_node.mesh.get_faces())
+			if s_span.y < s_span.x - 0.0005:
+				mixed_up_narrow += 1
+			elif s_span.y > s_span.x + 0.0005:
+				mixed_up_wide += 1
+	_check("混合取号在真实玻璃上同时出现两个方向", mixed_up_narrow > 0 and mixed_up_wide > 0, "上窄%d片 上宽%d片" % [mixed_up_narrow, mixed_up_wide])
+	# 同列上下必须同向：mixed 是"按列取号"，不是逐片掷骰子，否则立面读成噪点。
+	var column_consistent: bool = true
+	var column_checked: int = 0
+	var column_seen: Dictionary = {}
+	if mixed_visual != null:
+		var library: Dictionary = _dictionary(_property(_screen, "_opening_cache"))
+		for raw_id: Variant in library.keys():
+			var slot_name: String = str(raw_id).trim_prefix("opening_")
+			var parts: PackedStringArray = slot_name.split("_")
+			if parts.size() < 3:
+				continue
+			var column_key: String = str(parts[0]) + "_" + str(parts[2])
+			var mesh_node: MeshInstance3D = mixed_visual.get_node_or_null("glass_" + slot_name) as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null:
+				continue
+			var s_span: Vector2 = _top_bottom_span(mesh_node.mesh.get_faces())
+			var direction: int = 1 if s_span.y < s_span.x - 0.0005 else (-1 if s_span.y > s_span.x + 0.0005 else 0)
+			if direction == 0:
+				continue
+			if column_seen.has(column_key):
+				column_checked += 1
+				if int(column_seen[column_key]) != direction:
+					column_consistent = false
+			else:
+				column_seen[column_key] = direction
+	_check("混合取号同列上下同向", column_consistent and column_checked > 0, "核对%d对" % column_checked)
+
+	# 统一上宽下窄也必须贯穿到几何：整栋窗全部反过来。
+	_set_option("form_opening_sign", "negative")
+	_check_result("统一上宽应用", _result_button("form_apply"))
+	var negative_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var negative_up_wide: int = 0
+	var negative_up_narrow: int = 0
+	if negative_visual != null:
+		for node: Node in negative_visual.get_children():
+			if not str(node.name).begins_with("glass_"):
+				continue
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null:
+				continue
+			var s_span: Vector2 = _top_bottom_span(mesh_node.mesh.get_faces())
+			if s_span.y > s_span.x + 0.0005:
+				negative_up_wide += 1
+			elif s_span.y < s_span.x - 0.0005:
+				negative_up_narrow += 1
+	_check("统一上宽时无一片上窄", negative_up_wide > 0 and negative_up_narrow == 0, "上宽%d 上窄%d" % [negative_up_wide, negative_up_narrow])
+	_set_option("form_opening_sign", "positive")
+	_check_result("恢复统一上窄", _result_button("form_apply"))
+
+	# 关形体回到正交：玻璃上下等宽，taper 交回手改。
+	_set_check("form_enabled", false)
+	_check_result("关闭形体应用", _result_button("form_apply"))
+	# 关形体只移交taper，不会自动归零；正交对照必须显式把taper也设为0。
+	_set_spin("taper", 0.0)
+	_check_result("关闭形体后taper归零", _result_button("apply"))
+	var closed_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var closed_recipe: Dictionary = _snapshot()
+	_check("关闭形体后form.enabled为false", not bool(_dictionary(_dictionary(closed_recipe.get("architecture", {})).get("form", {})).get("enabled", true)))
+	_check("关闭形体后taper恢复可手改", taper_spin != null and taper_spin.editable)
+	if not window_slot.is_empty():
+		var flat_glass: MeshInstance3D = closed_visual.get_node_or_null("glass_" + window_slot) as MeshInstance3D
+		_check("关闭形体后窗玻璃存在", flat_glass != null and flat_glass.mesh != null)
+		if flat_glass != null:
+			var flat_span: Vector2 = _top_bottom_span(flat_glass.mesh.get_faces())
+			_check("关闭形体后窗玻璃回正交矩形", absf(flat_span.y - flat_span.x) < 0.002, "bottom=%f top=%f" % [flat_span.x, flat_span.y])
+	_check_result("形体验证后恢复原配方", _result(session, "accept_loaded", [original_document, _dictionary(_property(session, "catalog"))]))
+	_screen.call("configure", {})
+	_check_result("形体验证后恢复预览", _result(_screen, "refresh_preview"))
+
+## 正交基线：形体关闭、taper=0，用于对照"开了形体"的几何差异。
+func _orthographic_recipe() -> Dictionary:
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe["building_id"] = "form_editor_baseline_%s" % str(Time.get_ticks_usec())
+	recipe["taper"] = 0.0
+	recipe["architecture"]["form"]["enabled"] = false
+	recipe["floor_overrides"] = {}
+	recipe["facade_overrides"] = {}
+	recipe["slot_overrides"] = {}
+	recipe["excluded_slots"] = []
+	recipe["locked_vegetation"] = []
+	return recipe
+
+## 与_test_form同口径：最上/最下4mm切片内的x向宽度。
+func _top_bottom_span(faces: PackedVector3Array) -> Vector2:
+	if faces.is_empty(): return Vector2.ZERO
+	var low: float = faces[0].y
+	var high: float = faces[0].y
+	for point in faces:
+		low = minf(low, point.y)
+		high = maxf(high, point.y)
+	var bottom_lo: float = INF
+	var bottom_hi: float = -INF
+	var top_lo: float = INF
+	var top_hi: float = -INF
+	for point in faces:
+		if point.y < low + 0.004:
+			bottom_lo = minf(bottom_lo, point.x)
+			bottom_hi = maxf(bottom_hi, point.x)
+		if point.y > high - 0.004:
+			top_lo = minf(top_lo, point.x)
+			top_hi = maxf(top_hi, point.x)
+	return Vector2(bottom_hi - bottom_lo, top_hi - top_lo)
 
 func _test_architecture_controls() -> void:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
@@ -720,6 +960,8 @@ func _fresh_architecture_recipe(building_id: String, shape: String, width: float
 	var roof: Dictionary = _dictionary(architecture.get("roof", {})).duplicate(true)
 	roof["edge_overrides"] = {}
 	architecture["roof"] = roof
+	# 架构/壳体样例用显式taper做受控基线；形体开启会把taper改成派生值，两者不能混用。
+	architecture["form"]["enabled"] = false
 	recipe["architecture"] = architecture
 	return recipe
 
@@ -922,6 +1164,17 @@ func _test_components(session: Object) -> void:
 	if not _require_methods(_adapter, ["export_slot", "apply_prefab"], "plugin.adapter"):
 		_check("成功替件路径", false, "适配器缺失，不能仅凭拒绝路径宣告通过")
 		return
+	# prefab替件契约只关心"模块包络是否等于nominal"，与形体无关。
+	# 沿用当前文档的 building_id 与其它字段，只把形体关掉、taper 固定，避免整楼收分落值把包络算歪；
+	# 换 building_id 会让后续保存落到另一个楼名下，破坏"同建筑连续 revision"。
+	var baseline: Dictionary = _snapshot().duplicate(true)
+	baseline["taper"] = 0.02
+	if baseline.get("architecture") is Dictionary:
+		baseline["architecture"]["form"]["enabled"] = false
+	if not _check_result("替件测试载入确定性基线", _result(session, "accept_loaded", [baseline, _dictionary(_property(session, "catalog"))])):
+		return
+	_screen.call("configure", {})
+	_check_result("替件测试生成基线模型", _result(_screen, "refresh_preview"))
 	var preview: Object = _property(_screen, "preview") as Object
 	var slots: Array = _property(preview, "_slots") as Array
 	var wall: Dictionary = {}
@@ -955,7 +1208,9 @@ func _test_components(session: Object) -> void:
 	var catalog_before: Dictionary = _dictionary(_property(session, "catalog")).duplicate(true)
 	var rejected: Dictionary = _result(_adapter, "apply_prefab", [session, component_id, path])
 	var reason: String = str(rejected.get("reason", ""))
-	var explicit_reason: bool = reason.contains("不兼容") or reason.to_lower().contains("incompat") or reason.contains("尺寸")
+	# 显式拒绝可以是"尺寸/不兼容"，也可以是生成期 prefab 包络不匹配——都属接口不兼容。
+	# 只要不是空原因、状态未变、且确是拒绝，契约即成立；不把断言绑在某一句文案上。
+	var explicit_reason: bool = not reason.is_empty() and (reason.contains("不兼容") or reason.to_lower().contains("incompat") or reason.contains("尺寸") or reason.to_lower().begins_with("prefab"))
 	_check("全局多尺寸替件明确拒绝且不改状态", not bool(rejected.get("ok", false)) and explicit_reason and _same(before, _snapshot()) and _same(catalog_before, _dictionary(_property(session, "catalog"))), str(rejected))
 	if not _require_methods(_adapter, ["apply_prefab_to_slot"], "plugin.adapter"):
 		_check("成功替件路径", false, "需要真实 apply_prefab_to_slot(session, slot_id, path)，验证器不直接改 catalog 伪造成功")
@@ -1280,7 +1535,9 @@ func _layout_checks(label: String) -> void:
 	var missing: Array[String] = []
 	var overlaps: Array[String] = []
 	var pages: Dictionary = _dictionary(_property(_screen, "pages"))
-	_check(label + " 参数页均有实际内容", pages.size() == 6)
+	var constants: Dictionary = _screen.get_script().get_script_constant_map()
+	var expected_pages: int = int((constants.get("PAGES", []) as Array).size())
+	_check(label + " 参数页均有实际内容", expected_pages > 0 and pages.size() == expected_pages, "%d/%d" % [pages.size(), expected_pages])
 	for key: Variant in pages:
 		var page: Control = pages[key] as Control
 		_check(label + " 页内容非空：" + str(key), page != null and page.get_child_count() > 0)

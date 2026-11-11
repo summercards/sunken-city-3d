@@ -217,9 +217,9 @@
 - 五栋样楼、candidate 五件、源 hash 与 delivery report 当前只记待生成/待回填；不填写未读取的路径、ID、hash、面数或图像结论。
 - 楼梯导航/建筑承载/防护规范不签；候选资产不自动正式登记、不自动挂 Main 或正式世界。
 
-## 2026-11-11 工整模型 v3 · R28–R34 追加承接
+## 2026-11-11 工整模型 v3 · R28–R40 追加承接
 
-本节承接 [功能设计](spec.md) 的 R28–R34；登记头继续 `partial`，不新增正式 AssetID、不写 SEA-ASSET registry、不改正式主场景。前节「退台自动围护」「层间接头3mm」「板与墙同面」均为当时快照，当前代码事实以下述为准；历史批次结果不重写。
+本节承接 [功能设计](spec.md) 的 R28–R40；登记头继续 `partial`，不新增正式 AssetID、不写 SEA-ASSET registry、不改正式主场景。前节「退台自动围护」「层间接头3mm」「板与墙同面」均为当时快照，当前代码事实以下述为准；历史批次结果不重写。
 
 | 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
 |---|---|---|
@@ -230,6 +230,12 @@
 | SEA-WORKSHOP-R32 | partial；`Recipe.authoring_defaults()` 新增住宅比例（3.6m/0.18m/1.5×1.9/2.4m门）与窗台板、女儿墙默认；`Recipe.defaults()` 与旧配方保持原值、原 fingerprint，不做存档迁移 | `test_workshop_architecture.gd` 的 authoring 断言由"等于 Config.defaults()"改为"Config.validate 通过且含窗台板+女儿墙"，与新默认一致；旧 modular 兼容用例补 `erase("architecture")` 表示真正旧配方 |
 | SEA-WORKSHOP-R33 | partial；`editor_screen.gd` 的 `_refresh_architecture_controls` 末尾补 `_capture_window_local_baseline()`；`refresh_preview` 在非 `preserve_slot_fields` 时按重建后槽位重取基线；新增 `_pending_local_fields()` 使失败原因列出具体控件键 | 修复前 editor 因基线错位持续报"存在未应用输入"、连保存都被拦截；修复后 editor-workshop 实跑 PASS。不签"人工连续改多控件再保存"的完整交互路径 |
 | SEA-WORKSHOP-R34 | partial；`shell_geometry.gd` 新增 `_door_leaf`，门洞生成单块实体门扇（厚50mm、四周2mm缝、外皮退进60mm、倒角4mm），slot 记 `door_<suffix>`、kind=frame；不生成把手/视窗/双开门分缝 | 修复前后近景图对比：修前门洞可看穿室内、读作墙洞，修后为实体门扇。`editor_verification.gd` 新增「门洞有实际门扇而非看穿」断言（门扇数==1），并把 `door_` 从禁止节点名单放行；editor-workshop 实跑 1819 项 / 0 failures。不签门五金、防火门或无障碍门洞 |
+| SEA-WORKSHOP-R35 | partial；`architecture_config.gd` 新增 `form` schema（`enabled`/`preset`/`seed`/三档区间），`resolve_form()` 用 FNV-1a 散列落值、`_validate_form()` 校区间与未知字段；`Recipe.normalized()` 在形体开启时把 structure 落值写入 `taper`，关闭时不改写 | `test_workshop_architecture.gd` 的 `_test_form` 断言落值在区间内、非零、同 seed 可复现、换 seed 变化、越界/倒锥/反向区间/未知字段被拒；editor 专项断言控件、落值、taper 归属与换种子。编辑器「形体」页提供开关/档位/种子/六档区间与落值读数 |
+| SEA-WORKSHOP-R36 | partial；`architecture_config.gd` 新增 `tilt_limit()`（读 `form.max_tilt_deg`，1–15°、默认 8°）、`tilt_taper_limit()` = `tan(θ)·H_total/max(W,D)`、`structure_limit()` = `min(倾角限制, TAPER_CAP=0.10)`；`validate_form()` 按「哪一重在拦」分别给拒绝原因 | 实测 12×9m 三层楼：4° 时可用 0.0629，8° 时倾角允许 0.1265 但被 taper 字段封顶为 0.1000；两种拒绝文案在 editor 专项中均命中「上限」。架构专项断言 tan 线性放大（0.0629→0.1265 精确等于 tan8/tan4 倍）与被封顶值恰为 0.10 |
+| SEA-WORKSHOP-R37 | partial；`shell_geometry.gd` 新增 `_hole_poly`/`_opening_quad`/`_tapered_solid`/`_run_wedge`/`_taper_section`，洞口、返回面、窗框、玻璃、门扇共用 `pull`；`_face_grid` 补洞口肩部两块三角；勒脚/束带/雨棚只收自由边；`_vertical_accessory()` 限定只有雨棚柱做局部变径。`shell_window_geometry._glass` 同步梯形 | 拓扑审计与 workshop-shell/workshop-deep 全 PASS；实际几何断言（玻璃/窗框/柱/墙壳上下口宽度）在架构专项与 editor 专项中均通过；关闭形体后玻璃回正交矩形 |
+| SEA-WORKSHOP-R38 | partial；`FORM_BOUNDS` 提到 structure 0.01–0.10 / opening 0.01–0.12 / accessory 0.01–0.18；`Recipe.authoring_defaults()` 默认 structure 0.030–0.060、opening 0.030–0.060、accessory 0.040–0.100；编辑器三档预设同步放大 | 像素实测窗洞上下口差：关形体 0–2px（噪声级）、SF-A 5–9px、SF-B 8–11px、SF-C 12–19px；整楼收分 12m 三层落到 3.4%/5.0%/9.4% |
+| SEA-WORKSHOP-R39 | partial；`FORM_SIGNS` 加 `mixed`，新增 `Config.opening_rho(recipe, column_key)` 按「立面_序号」逐列取号；`_validate_form` 拒绝非 opening 档位使用 mixed；编辑器新增「窗洞取号」下拉 | editor 专项实测：mixed 下上窄 14 列 / 上宽 18 列，真实玻璃上窄 8 片 / 上宽 15 片，同列上下同向核对 15 对全通过；negative 下上宽 23 片、上窄 0 片；positive 下全为上窄 |
+| SEA-WORKSHOP-R40 | partial；`_opening()` 的 `pull` 允许为负并新增 `reach`；新增 `_hole_bounds()` 供网格挖空与墙垛/开间校验；`_face_grid` 按 pull 方向补上/下两组三角；`shell_window_geometry.validate_bay` 按 `-pull` 外扩校验开间 | 拓扑审计在 mixed（18 上窄 / 24 上宽）与全 negative 两种配方下均闭合；workshop-shell／deep 实跑 PASS；近景目检确认肩部无破面、框与玻璃贴合 |
 
 ### 本轮实测结果
 

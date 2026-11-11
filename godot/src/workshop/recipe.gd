@@ -117,6 +117,15 @@ static func authoring_defaults() -> Dictionary:
 	roof["cap_thickness"] = 0.1
 	roof["cap_overhang"] = 0.05
 	architecture["roof"] = roof
+	# 新建默认开启形体变形：区间落在4°墙倾角内（默认12m宽、3.6m层高上限≈0.0210）。
+	# 默认幅度按"看得见"设定：12m×3层楼在8°倾角内可用收分约12.6%，这里取3–6%留出余量。
+	# opening 用 mixed：同一栋楼里既有上窄下宽的窗，也有上宽下窄的窗，立面才有手作感。
+	architecture["form"] = {
+		"enabled": true, "preset": "SF-B", "seed": 11010, "max_tilt_deg": 8.0,
+		"structure": {"min": 0.030, "max": 0.060, "sign": "positive"},
+		"opening": {"min": 0.030, "max": 0.060, "sign": "mixed"},
+		"accessory": {"min": 0.040, "max": 0.100, "sign": "positive"}
+	}
 	result["architecture"] = architecture
 	return result
 
@@ -176,6 +185,9 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 		return "窗洞超出净层高"
 	if float(data.door_height) > float(data.floor_height) - float(data.slab_thickness):
 		return "门洞超出净层高"
+	var form_reason: String = Config.validate_form(data)
+	if not form_reason.is_empty():
+		return form_reason
 	if not architecture_windows and float(data.window_width) >= float(data.bay_width):
 		return "window_width必须小于bay_width"
 	var effective_bay: float = float(data.width) / ceilf(float(data.width) / float(data.bay_width))
@@ -237,6 +249,10 @@ static func normalized(data: Dictionary) -> Dictionary:
 	# architecture 缺失时保持缺失，不改变旧配方的默认值与指纹。
 	if result.get("architecture") is Dictionary:
 		result["architecture"] = Config.normalized(result.architecture)
+		# 形体开启时，整楼收分由「区间+seed」落值，写入taper；taper因此是派生值，手改会被覆盖。
+		var form: Dictionary = (result.architecture as Dictionary).get("form", {})
+		if bool(form.get("enabled", false)):
+			result["taper"] = Config.resolve_form(result).structure
 	for key in ["component_bindings", "floor_overrides", "facade_overrides", "slot_overrides"]:
 		if result.get(key) is Dictionary:
 			result[key] = (result[key] as Dictionary).duplicate(true)
@@ -413,6 +429,8 @@ static func _check_component(component_id: String, role: String, catalog: Dictio
 static func _slot_family(slot_id: String) -> String:
 	if slot_id.begins_with("wall_") or slot_id.begins_with("parapet_"): return "wall"
 	if slot_id.begins_with("slab_") or slot_id.begins_with("roof_") or slot_id.begins_with("roofcap_"): return "slab"
+	# 层间束带/勒脚/雨棚是板族附件，不是墙：共用wall组件会让墙的整件替换把它们一起换掉。
+	if slot_id.begins_with("belt_") or slot_id.begins_with("plinth_") or slot_id.begins_with("canopy_"): return "slab"
 	if slot_id.begins_with("pillar_") or slot_id.begins_with("railing_"): return "pillar"
 	if slot_id.begins_with("frame_") or slot_id.begins_with("sash_") or slot_id.begins_with("sill_"): return "frame"
 	if slot_id.begins_with("glass_"): return "glass"

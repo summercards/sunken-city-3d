@@ -59,6 +59,7 @@ func run() -> void:
 	_test_invalid_cases(base, catalog)
 	_test_session_atomic(base, catalog)
 	_test_store(base, catalog)
+	_test_form(base, catalog)
 	await process_frame
 	_finish()
 
@@ -72,6 +73,8 @@ func _recipe(building_id: String, shape: String, width: float, depth: float, flo
 	recipe["taper"] = 0.0
 	recipe["vegetation_density"] = 0.0
 	recipe["damage"] = 0.0
+	# 形体开启后 taper 是派生值；本文件的正交基线必须显式关掉，否则 taper=0 会被区间落值覆盖。
+	recipe["architecture"]["form"]["enabled"] = false
 	return recipe
 
 func _test_recipe_compatibility(catalog: Dictionary) -> void:
@@ -738,6 +741,205 @@ func _read_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	return parsed as Dictionary if parsed is Dictionary else {}
+
+func _test_form(base: Dictionary, catalog: Dictionary) -> void:
+	# 1) 区间 + seed 的落值必须落在区间内，且同 seed 稳定、不同 seed 会变。
+	var interval_recipe: Dictionary = base.duplicate(true)
+	interval_recipe["building_id"] = "form_interval"
+	interval_recipe["architecture"]["form"] = {
+		"enabled": true, "preset": "SF-B", "seed": 11010, "max_tilt_deg": 8.0,
+		"structure": {"min": 0.030, "max": 0.060, "sign": "positive"},
+		"opening": {"min": 0.020, "max": 0.045, "sign": "positive"},
+		"accessory": {"min": 0.040, "max": 0.090, "sign": "positive"}
+	}
+	var resolved: Dictionary = Config.resolve_form(Recipe.normalized(interval_recipe))
+	check(bool(resolved.get("enabled", false)), "形体落值已启用")
+	for category in ["structure", "opening", "accessory"]:
+		var entry: Dictionary = interval_recipe["architecture"]["form"][category]
+		var value: float = absf(float(resolved.get(category, 0.0)))
+		check(value >= float(entry["min"]) - EPS and value <= float(entry["max"]) + EPS, "形体落值在区间内：" + category, "%f not in [%f,%f]" % [value, float(entry["min"]), float(entry["max"])])
+		check(value > 0.0, "形体落值不为0（零方正）：" + category, str(value))
+	var repeat: Dictionary = Config.resolve_form(Recipe.normalized(interval_recipe.duplicate(true)))
+	check(is_equal_approx(float(repeat.structure), float(resolved.structure)) and is_equal_approx(float(repeat.opening), float(resolved.opening)) and is_equal_approx(float(repeat.accessory), float(resolved.accessory)), "同seed落值可复现")
+	var rerolled: Dictionary = interval_recipe.duplicate(true)
+	rerolled["architecture"]["form"]["seed"] = 11011
+	var other: Dictionary = Config.resolve_form(Recipe.normalized(rerolled))
+	check(not is_equal_approx(float(other.structure), float(resolved.structure)), "换seed会改变落值", "%f vs %f" % [float(other.structure), float(resolved.structure)])
+
+	# 2) 结构收分写入 taper；关闭形体时不改写 taper。
+	check(is_equal_approx(float(Recipe.normalized(interval_recipe).taper), float(resolved.structure)), "结构落值写入taper", str(Recipe.normalized(interval_recipe).taper))
+	var off: Dictionary = interval_recipe.duplicate(true)
+	off["architecture"]["form"]["enabled"] = false
+	var off_normalized: Dictionary = Recipe.normalized(off)
+	check(is_equal_approx(float(off_normalized.taper), float(base.taper)), "关闭形体退回配方taper")
+
+	# 3) 幅度越界与结构倒锥必须拒绝，并给出可执行的倾角上限。
+	var too_wide: Dictionary = interval_recipe.duplicate(true)
+	too_wide["architecture"]["form"]["max_tilt_deg"] = 4.0
+	too_wide["architecture"]["form"]["structure"] = {"min": 0.05, "max": 0.09, "sign": "positive"}
+	check(not Recipe.validate(too_wide, catalog).is_empty(), "4°下结构幅度超限被拒绝", Recipe.validate(too_wide, catalog))
+	check(Recipe.validate(too_wide, catalog).contains("上限"), "拒绝原因给出可用上限", Recipe.validate(too_wide, catalog))
+	# tan 线性只属于倾角这一项：可用收分 = min(倾角限制, taper字段上限0.10)，
+	# 所以必须用 tilt_taper_limit 验线性，用 structure_limit 验最终封顶。
+	var limit_four: float = Config.tilt_taper_limit(Recipe.normalized(too_wide))
+	check(limit_four > 0.0, "4°倾角上限为正", str(limit_four))
+	var same_at_eight: Dictionary = too_wide.duplicate(true)
+	same_at_eight["architecture"]["form"]["max_tilt_deg"] = 8.0
+	check(Recipe.validate(same_at_eight, catalog).is_empty(), "同一幅度在8°下通过", Recipe.validate(same_at_eight, catalog))
+	var tilt_eight: float = Config.tilt_taper_limit(Recipe.normalized(same_at_eight))
+	var expected_eight: float = limit_four * (tan(deg_to_rad(8.0)) / tan(deg_to_rad(4.0)))
+	check(absf(tilt_eight - expected_eight) < 0.00001, "倾角上限按tan线性放大", "%.4f vs %.4f" % [tilt_eight, expected_eight])
+	check(tilt_eight > 0.10, "8°下12m三层楼倾角允许超过10%", str(tilt_eight))
+	# 最终可用值被 taper 字段封顶，必须精确等于 cap 而不是继续放大。
+	var capped: float = Config.structure_limit(Recipe.normalized(same_at_eight))
+	check(is_equal_approx(capped, 0.10) and capped <= 0.10 + 0.000001, "可用收分被taper字段封顶0.10", str(capped))
+	check(capped < tilt_eight - 0.01, "封顶确实比倾角允许值更严", "%.4f vs %.4f" % [capped, tilt_eight])
+	# 倾角越界与非法取号必须拒绝。
+	var tilt_out: Dictionary = interval_recipe.duplicate(true)
+	tilt_out["architecture"]["form"]["max_tilt_deg"] = 40.0
+	check(not Recipe.validate(tilt_out, catalog).is_empty(), "倾角上限超出可调范围被拒绝")
+	var mixed_structure: Dictionary = interval_recipe.duplicate(true)
+	mixed_structure["architecture"]["form"]["structure"] = {"min": 0.03, "max": 0.05, "sign": "mixed"}
+	check(not Recipe.validate(mixed_structure, catalog).is_empty(), "结构族不允许mixed取号")
+	var negative: Dictionary = interval_recipe.duplicate(true)
+	negative["architecture"]["form"]["structure"] = {"min": 0.01, "max": 0.015, "sign": "negative"}
+	check(not Recipe.validate(negative, catalog).is_empty(), "结构族倒锥被拒绝")
+	var reversed_interval: Dictionary = interval_recipe.duplicate(true)
+	reversed_interval["architecture"]["form"]["opening"] = {"min": 0.03, "max": 0.02, "sign": "positive"}
+	check(not Recipe.validate(reversed_interval, catalog).is_empty(), "min大于max被拒绝")
+	var unknown_field: Dictionary = interval_recipe.duplicate(true)
+	unknown_field["architecture"]["form"]["accessory"] = {"min": 0.03, "max": 0.04, "sign": "positive", "jitter": 1.0}
+	check(not Recipe.validate(unknown_field, catalog).is_empty(), "形体未知字段被拒绝")
+
+	# 4) 实际几何：洞口真梯形、整楼真收分、配件真变径。
+	var built: Dictionary = Generator.build(interval_recipe, catalog)
+	var root: Node3D = built.get("root") as Node3D
+	check(bool(built.get("ok", false)) and root != null, "形体配方可生成真实模型", str(built.get("reason", "")))
+	if root == null:
+		return
+	var visual: Node3D = root.get_node_or_null("GeneratedVisual") as Node3D
+	var opening: Array = built.get("openings", [])
+	var window_id: String = ""
+	for entry in opening:
+		if str((entry as Dictionary).get("type", "")) == "window":
+			window_id = str((entry as Dictionary).get("id", "")).trim_prefix("opening_")
+			break
+	check(not window_id.is_empty(), "存在可核对的窗洞口")
+	if visual != null and not window_id.is_empty():
+		var glass: MeshInstance3D = visual.get_node_or_null("glass_" + window_id) as MeshInstance3D
+		var frame: MeshInstance3D = visual.get_node_or_null("frame_" + window_id) as MeshInstance3D
+		check(glass != null and frame != null, "窗玻璃与窗框存在")
+		if glass != null and frame != null:
+			var glass_span: Vector2 = _top_bottom_span(glass.mesh.get_faces())
+			var frame_span: Vector2 = _top_bottom_span(frame.mesh.get_faces())
+			# positive 取号下整栋同向：上口窄于下口。
+			check(glass_span.y < glass_span.x - 0.001, "窗玻璃实际梯形（上口窄于下口）", "bottom=%f top=%f" % [glass_span.x, glass_span.y])
+			check(frame_span.y < frame_span.x - 0.001, "窗框实际梯形（上口窄于下口）", "bottom=%f top=%f" % [frame_span.x, frame_span.y])
+			check(absf((glass_span.x - glass_span.y) - (frame_span.x - frame_span.y)) < 0.02, "玻璃与窗框梯形收分量一致（同pull派生）", "glass=%f frame=%f" % [glass_span.x - glass_span.y, frame_span.x - frame_span.y])
+		var post: MeshInstance3D = visual.get_node_or_null("canopy_post_0") as MeshInstance3D
+		if post != null:
+			var post_span: Vector2 = _top_bottom_span(post.mesh.get_faces())
+			check(post_span.y < post_span.x - 0.0005, "雨棚柱实际变径（非直筒）", "bottom=%f top=%f" % [post_span.x, post_span.y])
+		var wall: MeshInstance3D = visual.get_node_or_null("wall_shell_0") as MeshInstance3D
+		check(wall != null, "首层墙壳存在")
+		if wall != null:
+			var wall_span: Vector2 = _top_bottom_span(wall.mesh.get_faces())
+			check(wall_span.y < wall_span.x - 0.001, "墙壳随整楼收分（上口窄于下口）", "bottom=%f top=%f" % [wall_span.x, wall_span.y])
+	# 5) 关闭形体时必须退回正交：同一洞口上下等宽。
+	var orthographic: Dictionary = interval_recipe.duplicate(true)
+	orthographic["building_id"] = "form_off_orthographic"
+	orthographic["architecture"]["form"]["enabled"] = false
+	orthographic["taper"] = 0.0
+	var flat: Dictionary = Generator.build(orthographic, catalog)
+	var flat_root: Node3D = flat.get("root") as Node3D
+	check(bool(flat.get("ok", false)) and flat_root != null, "关闭形体仍可生成", str(flat.get("reason", "")))
+	if flat_root != null:
+		var flat_visual: Node3D = flat_root.get_node_or_null("GeneratedVisual") as Node3D
+		var flat_glass: MeshInstance3D = flat_visual.get_node_or_null("glass_" + window_id) as MeshInstance3D if flat_visual != null else null
+		check(flat_glass != null, "正交基线的同一窗存在")
+		if flat_glass != null:
+			var flat_span: Vector2 = _top_bottom_span(flat_glass.mesh.get_faces())
+			check(absf(flat_span.y - flat_span.x) < 0.001, "关闭形体后窗口回正交矩形", "bottom=%f top=%f" % [flat_span.x, flat_span.y])
+	# 6) 窗洞取号：mixed 必须让同一立面同时出现两个方向，且同列上下一致。
+	var mixed: Dictionary = interval_recipe.duplicate(true)
+	mixed["building_id"] = "form_mixed"
+	mixed["architecture"]["form"]["opening"] = {"min": 0.020, "max": 0.045, "sign": "mixed"}
+	var mixed_recipe: Dictionary = Recipe.normalized(mixed)
+	var narrow: int = 0
+	var wide: int = 0
+	for facade in ["front", "back", "left", "right"]:
+		for ordinal in 6:
+			var rho: float = Config.opening_rho(mixed_recipe, str(facade) + "_" + str(ordinal))
+			check(absf(absf(rho) - 0.020) >= -1.0 and absf(rho) <= 0.045 + EPS and absf(rho) >= 0.020 - EPS, "mixed每列幅度仍在区间内：" + str(facade) + "_" + str(ordinal), str(rho))
+			if rho > 0.0: narrow += 1
+			elif rho < 0.0: wide += 1
+	check(narrow > 0 and wide > 0, "mixed同时存在上窄与上宽列", "窄%d 宽%d" % [narrow, wide])
+	var repeat_rho: float = Config.opening_rho(Recipe.normalized(mixed.duplicate(true)), "front_0")
+	check(is_equal_approx(repeat_rho, Config.opening_rho(mixed_recipe, "front_0")), "mixed逐列取号同seed可复现")
+	var mixed_build: Dictionary = Generator.build(mixed, catalog)
+	var mixed_root: Node3D = mixed_build.get("root") as Node3D
+	check(bool(mixed_build.get("ok", false)) and mixed_root != null, "mixed配方可生成真实模型", str(mixed_build.get("reason", "")))
+	if mixed_root != null:
+		var mixed_visual: Node3D = mixed_root.get_node_or_null("GeneratedVisual") as Node3D
+		var up_narrow: int = 0
+		var up_wide: int = 0
+		for node: Node in mixed_visual.get_children():
+			if not str(node.name).begins_with("glass_"):
+				continue
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null: continue
+			var m_span: Vector2 = _top_bottom_span(mesh_node.mesh.get_faces())
+			if m_span.y < m_span.x - 0.0005: up_narrow += 1
+			elif m_span.y > m_span.x + 0.0005: up_wide += 1
+		check(up_narrow > 0 and up_wide > 0, "mixed在真实玻璃上两个方向都出现", "上窄%d 上宽%d" % [up_narrow, up_wide])
+		mixed_root.free()
+	# 7) 统一上宽：所有窗反转，墙仍正收分（结构族只做正锥）。
+	var inverted: Dictionary = interval_recipe.duplicate(true)
+	inverted["building_id"] = "form_inverted"
+	inverted["architecture"]["form"]["opening"] = {"min": 0.020, "max": 0.045, "sign": "negative"}
+	var inverted_build: Dictionary = Generator.build(inverted, catalog)
+	var inverted_root: Node3D = inverted_build.get("root") as Node3D
+	check(bool(inverted_build.get("ok", false)) and inverted_root != null, "统一上宽可生成真实模型", str(inverted_build.get("reason", "")))
+	if inverted_root != null:
+		var inverted_visual: Node3D = inverted_root.get_node_or_null("GeneratedVisual") as Node3D
+		var bad_up_narrow: int = 0
+		var inverted_wide: int = 0
+		for node: Node in inverted_visual.get_children():
+			if not str(node.name).begins_with("glass_"):
+				continue
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null: continue
+			var i_span: Vector2 = _top_bottom_span(mesh_node.mesh.get_faces())
+			if i_span.y > i_span.x + 0.0005: inverted_wide += 1
+			elif i_span.y < i_span.x - 0.0005: bad_up_narrow += 1
+		check(inverted_wide > 0 and bad_up_narrow == 0, "统一上宽时无一片上窄", "上宽%d 上窄%d" % [inverted_wide, bad_up_narrow])
+		inverted_root.free()
+
+	if root != null:
+		root.free()
+	if flat_root != null:
+		flat_root.free()
+
+## 取某件mesh最上/最下各4mm切片内的x向宽度，用来判定"上口是否窄于下口"。
+func _top_bottom_span(faces: PackedVector3Array) -> Vector2:
+	if faces.is_empty(): return Vector2.ZERO
+	var low: float = faces[0].y
+	var high: float = faces[0].y
+	for point in faces:
+		low = minf(low, point.y)
+		high = maxf(high, point.y)
+	var bottom_lo: float = INF
+	var bottom_hi: float = -INF
+	var top_lo: float = INF
+	var top_hi: float = -INF
+	for point in faces:
+		if point.y < low + 0.004:
+			bottom_lo = minf(bottom_lo, point.x)
+			bottom_hi = maxf(bottom_hi, point.x)
+		if point.y > high - 0.004:
+			top_lo = minf(top_lo, point.x)
+			top_hi = maxf(top_hi, point.x)
+	return Vector2(bottom_hi - bottom_lo, top_hi - top_lo)
 
 func _finish() -> void:
 	var directory_error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(REPORT_PATH.get_base_dir()))

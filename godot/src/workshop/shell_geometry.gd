@@ -84,7 +84,9 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 	var total_height: float = 0.0
 	for floor in floors:
 		total_height += _floor_value(r, floor, "floor_height")
-	var context: Dictionary = {"height": total_height, "taper": float(r.taper), "aging": float(r.aging), "cache": {}, "collidable": str(r.spatial_profile) != "scenic_underwater", "error": "", "triangles": 0, "topology": {}}
+	var form: Dictionary = Config.resolve_form(r)
+	var context: Dictionary = {"height": total_height, "taper": float(r.taper), "aging": float(r.aging), "cache": {}, "collidable": str(r.spatial_profile) != "scenic_underwater", "error": "", "triangles": 0, "topology": {},
+		"form": form, "opening_rho": float(form.get("opening", 0.0)), "accessory_rho": float(form.get("accessory", 0.0))}
 	var parts: Array = []
 	var openings: Array = []
 	var roof_surfaces: Array = []
@@ -155,7 +157,8 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 				if r.has("architecture") and not is_door:
 					var window_reason: String = WindowGeometry.validate(Config.window_settings(r, floor, facade, "opening_" + suffix), wall_depth)
 					if not window_reason.is_empty(): return _failure(result, "opening_" + suffix + ": " + window_reason)
-				var hole: Dictionary = _opening(base, bottom, length * (float(bay) + 0.5) / float(count), effective, is_door)
+				# 逐列取号（不含楼层）：同一竖列上下各层同向，mixed 才有"有些窗上大、有些下大"的立面节奏。
+				var hole: Dictionary = _opening(base, bottom, length * (float(bay) + 0.5) / float(count), effective, is_door, Config.opening_rho(r, facade + "_" + str(ordinal)))
 				if r.has("architecture") and not is_door:
 					hole["settings"] = Config.window_settings(r, floor, facade, "opening_" + suffix)
 					var envelope_reason: String = WindowGeometry.validate_bay(hole, run, length * float(bay) / float(count), length * float(bay + 1) / float(count), base, top)
@@ -163,9 +166,10 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 					var separation_reason: String = WindowGeometry.register_envelope(window_envelopes, hole, run, "opening_" + suffix, floor)
 					if not separation_reason.is_empty(): return _failure(result, separation_reason)
 				var margin: float = wall_depth + 0.08
-				if float(hole.x0) - WALL_BEVEL < margin or float(hole.x1) + WALL_BEVEL > length - margin or float(hole.y1) + WALL_BEVEL > top - 0.08 or (not is_door and float(hole.y0) - WALL_BEVEL < base + 0.08):
+				var reach: float = float(hole.get("reach", hole.x1))
+				if float(hole.cx) - reach - WALL_BEVEL < margin or float(hole.cx) + reach + WALL_BEVEL > length - margin or float(hole.y1) + WALL_BEVEL > top - 0.08 or (not is_door and float(hole.y0) - WALL_BEVEL < base + 0.08):
 					return _failure(result, "开口与墙角/楼板冲突，不能缩小净尺寸: " + facade + " floor=" + str(floor) + " bay=" + str(bay))
-				if float(hole.x1) - float(hole.x0) + WALL_BEVEL * 2.0 + 0.08 > length / float(count):
+				if reach * 2.0 + WALL_BEVEL * 2.0 + 0.08 > length / float(count):
 					return _failure(result, "统一bay无法容纳净洞、框材与墙垛: " + facade)
 				holes.append(hole)
 				accessories.append({"hole": hole, "run": run, "suffix": suffix, "facade": facade})
@@ -259,6 +263,9 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		"plan": plan, "floor_contours_before_taper": floor_contours,
 		"roof_surface_space": "变形前worldXZ/y，polygon为结构板最大外边界（板顶弧缘内收0.028m）；terrace.upper_polygon为本层墙外轮廓",
 		"roof_boundaries": roof_surfaces, "roof_edge_quality": context.get("roof_edge_quality", {}),
+		"form": context.get("form", {}),
+		"form_scope": "structure=整楼收分（写入taper，全顶点共用映射）；opening=洞口/框/玻璃/门扇梯形（pull=rho×净宽/2）；accessory=雨棚柱变径与雨棚板自由边收窄",
+		"opening_pull_scope": "每个洞口按自身净宽计算pull；未接入的配件不做局部收分，避免脱离宿主",
 		"supported_shapes": ["rectangle", "l", "t", "u"],
 		"window_policy": "architecture可选；旧配方无新扇/窗沿/屋顶附件。单窗enabled=false封实墙但保留ordinal；门不应用窗开关或尺寸。固定框净孔clear_width/height保持不变，实际玻璃净尺寸见glass_clear_*；活动扇留2mm外装配缝，sash_profile=frame_width*0.65。完整0..open_angle解析扫掠包络限制在各bay并检查相邻包络；冲突拒绝、不缩窗",
 		"window_recess_policy": "recess为外墙面到固定框中心，框前后端必须在WALL_BEVEL+3mm安全区内；窗沿背面停在墙外3mm",
@@ -285,6 +292,9 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 			return "数值字段类型非法: " + field
 	if float(r.damage) != 0.0:
 		return "连续外壳暂不支持damage非0；不能以删盒子伪造破损"
+	var form_reason: String = Config.validate_form(r)
+	if not form_reason.is_empty():
+		return form_reason
 	if str(r.shape) not in ["rectangle", "l", "t", "u"] or float(r.floors) != float(int(r.floors)) or int(r.floors) < 1 or int(r.floors) > 8:
 		return "仅支持rectangle/l/t/u及1..8整数楼层"
 	if float(r.width) < 6.0 or float(r.width) > 24.0 or float(r.depth) < 6.0 or float(r.depth) > 20.0:
@@ -352,13 +362,24 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 				if float(settings[field]) <= 0.0: return "开口尺寸必须为正值"
 	return ""
 
+## 配件自带默认材质：层间束带/勒脚/雨棚必须和墙同色（cozy）才隐形成一条腰线，
+## 但它们不是墙——共用 wall_sun 会让墙的整件替换把它们一起换掉，所以走独立的 band_cozy。
+const ACCESSORY_COMPONENTS: Dictionary = {
+	"belt_": "band_cozy", "plinth_": "band_cozy", "canopy_": "band_cozy"
+}
+
 static func _component(r: Dictionary, kind: String, id: String) -> String:
 	var family: String = Recipe._slot_family(id)
 	if family.is_empty(): family = "slab" if kind == "roof" else kind
 	var raw_override: Variant = r.slot_overrides.get(id, {})
 	var override: Dictionary = raw_override if raw_override is Dictionary else {}
+	if override.has("component_id"):
+		return str(override["component_id"])
+	for prefix in ACCESSORY_COMPONENTS:
+		if id.begins_with(str(prefix)):
+			return str(ACCESSORY_COMPONENTS[prefix])
 	var defaults: Dictionary = {"wall": "wall_sun", "slab": "slab_warm", "frame": "frame_timber", "glass": "glass_blue"}
-	return str(override.get("component_id", r.component_bindings.get(family, defaults.get(family, ""))))
+	return str(r.component_bindings.get(family, defaults.get(family, "")))
 
 static func _floor_value(r: Dictionary, floor: int, field: String) -> float:
 	var entry: Dictionary = r.floor_overrides.get(str(floor), {})
@@ -510,13 +531,41 @@ static func _point(run: Dictionary, x: float, y: float, depth: float) -> Vector3
 	var point: Vector2 = start + axis * x - outward * depth
 	return Vector3(point.x, y, point.y)
 
-static func _opening(base: float, bottom: float, center_x: float, settings: Dictionary, door: bool) -> Dictionary:
+## pull = 洞口上沿相对下沿的单边收进量（米）；正=上窄下宽，负=上宽下窄，0=正交矩形。
+## 洞口、返回面、框、玻璃、活动扇、门扇全部由同一个 pull 派生，保证层层贴合。
+## reach = 洞口最宽处的单边外廓（上沿外扩时大于 half），墙垛与开间校验必须用它。
+static func _opening(base: float, bottom: float, center_x: float, settings: Dictionary, door: bool, rho: float = 0.0) -> Dictionary:
 	var w: float = float(settings.door_width if door else settings.width)
 	var h: float = float(settings.door_height if door else settings.height)
 	var sill: float = base if door else base + float(settings.sill)
 	var profile: float = FRAME_PROFILE if door else float(settings.get("frame_width", FRAME_PROFILE))
 	var half: float = w * 0.5 + profile + CLEARANCE
-	return {"x0": center_x - half, "x1": center_x + half, "y0": bottom if door else sill - profile - CLEARANCE, "y1": sill + h + profile + CLEARANCE, "sill": sill, "cx": center_x, "width": w, "height": h, "door": door}
+	var pull: float = rho * w * 0.5
+	var reach: float = maxf(half, half - pull)
+	return {"x0": center_x - half, "x1": center_x + half, "reach": reach, "y0": bottom if door else sill - profile - CLEARANCE, "y1": sill + h + profile + CLEARANCE, "sill": sill, "cx": center_x, "width": w, "height": h, "door": door, "rho": rho, "pull": pull}
+
+## 洞口环（返回面用）：顺序 [左下, 左上, 右上, 右下]，与 _reveal 的期望法线表对应。
+## pull 为负时上沿外扩，环自然变成上宽下窄。
+static func _hole_poly(hole: Dictionary, surface: bool) -> Array[Vector2]:
+	var rect: Rect2 = _hole_rect(hole, surface)
+	var pull: float = float(hole.get("pull", 0.0))
+	return [Vector2(rect.position.x, rect.position.y), Vector2(rect.position.x + pull, rect.end.y), Vector2(rect.end.x - pull, rect.end.y), Vector2(rect.end.x, rect.position.y)]
+
+## 洞口剖面（框/玻璃用）：逆时针 [左下, 右下, 右上, 左上]，expand>0 外扩，pull>0 收上沿、pull<0 放上沿。
+static func _opening_quad(cx: float, y0: float, w: float, h: float, expand: float, pull: float) -> Array[Vector2]:
+	var half: float = w * 0.5 + expand
+	var bottom: float = y0 - expand
+	var top: float = y0 + h + expand
+	return [Vector2(cx - half, bottom), Vector2(cx + half, bottom), Vector2(cx + half - pull, top), Vector2(cx - half + pull, top)]
+
+## 洞口在XZ平面上的最大外廓：下沿矩形与上沿梯形取并集。用于网格挖空与墙垛校验。
+static func _hole_bounds(hole: Dictionary, surface: bool) -> Rect2:
+	var rect: Rect2 = _hole_rect(hole, surface)
+	var pull: float = float(hole.get("pull", 0.0))
+	if absf(pull) <= EPS: return rect
+	var left: float = minf(rect.position.x, rect.position.x + pull)
+	var right: float = maxf(rect.end.x, rect.end.x - pull)
+	return Rect2(Vector2(left, rect.position.y), Vector2(right - left, rect.size.y))
 
 static func _hole_rect(hole: Dictionary, surface: bool) -> Rect2:
 	var b: float = WALL_BEVEL if surface else 0.0
@@ -529,7 +578,8 @@ static func _face_grid(buffer: Dictionary, run: Dictionary, holes: Array, bottom
 	var ys: Array[float] = [bottom, top]
 	var rectangles: Array[Rect2] = []
 	for hole in holes:
-		var rect: Rect2 = _hole_rect(hole, true)
+		# 挖空范围必须含上沿外扩：上宽下窄的洞若只挖下沿矩形，网格会把扩出去的部分又补成墙。
+		var rect: Rect2 = _hole_bounds(hole, true)
 		rectangles.append(rect)
 		xs.append(rect.position.x); xs.append(rect.end.x)
 		ys.append(rect.position.y); ys.append(rect.end.y)
@@ -544,6 +594,21 @@ static func _face_grid(buffer: Dictionary, run: Dictionary, holes: Array, bottom
 				if rect.has_point(mid): skip = true; break
 			if not skip:
 				_quad(buffer, _point(run, xs[i], ys[j], depth), _point(run, xs[i], ys[j + 1], depth), _point(run, xs[i + 1], ys[j + 1], depth), _point(run, xs[i + 1], ys[j], depth), expected)
+	# 梯形洞与"挖空矩形"之间的左右两块三角仍是墙面实体，必须补在内外两个立面上，
+	# 其斜边与返回面同层斜边共用端点，墙与洞才不会在洞口肩部脱开。
+	# 挖空矩形取洞口最大外廓：pull>0 时上沿窄→补上部三角；pull<0 时下沿窄→补下部三角。
+	for hole in holes:
+		var pull: float = float(hole.get("pull", 0.0))
+		if absf(pull) <= EPS: continue
+		var rect: Rect2 = _hole_rect(hole, true)
+		if pull > 0.0:
+			_tri(buffer, _point(run, rect.position.x, rect.position.y, depth), _point(run, rect.position.x, rect.end.y, depth), _point(run, rect.position.x + pull, rect.end.y, depth), expected)
+			_tri(buffer, _point(run, rect.end.x, rect.position.y, depth), _point(run, rect.end.x - pull, rect.end.y, depth), _point(run, rect.end.x, rect.end.y, depth), expected)
+		else:
+			var outer_left: float = rect.position.x + pull
+			var outer_right: float = rect.end.x - pull
+			_tri(buffer, _point(run, outer_left, rect.position.y, depth), _point(run, outer_left, rect.end.y, depth), _point(run, rect.position.x, rect.position.y, depth), expected)
+			_tri(buffer, _point(run, outer_right, rect.position.y, depth), _point(run, outer_right, rect.end.y, depth), _point(run, rect.end.x, rect.position.y, depth), expected)
 
 static func _unique(values: Array[float]) -> Array[float]:
 	values.sort()
@@ -572,8 +637,11 @@ static func _reveal(buffer: Dictionary, run: Dictionary, hole: Dictionary, level
 	# 三个深度区间分别为单段chamfer、直返回面、单段chamfer，并非三段圆弧。
 	var rings: Array = []
 	for layer in 4:
-		var rect: Rect2 = _hole_rect(hole, layer == 0 or layer == 3)
-		rings.append([_point(run, rect.position.x, rect.position.y, levels[layer]), _point(run, rect.position.x, rect.end.y, levels[layer]), _point(run, rect.end.x, rect.end.y, levels[layer]), _point(run, rect.end.x, rect.position.y, levels[layer])])
+		var ring: Array[Vector2] = _hole_poly(hole, layer == 0 or layer == 3)
+		var points: Array[Vector3] = []
+		for corner: Vector2 in ring:
+			points.append(_point(run, corner.x, corner.y, levels[layer]))
+		rings.append(points)
 	var axis2: Vector2 = run.axis
 	var axis: Vector3 = Vector3(axis2.x, 0.0, axis2.y)
 	var expected: Array[Vector3] = [axis, Vector3.DOWN, -axis, Vector3.UP]
@@ -591,7 +659,7 @@ static func _public_opening(hole: Dictionary, run: Dictionary, suffix: String, f
 	var n2: Vector2 = run.outward
 	var scale: float = _scale_at(y, context)
 	var normal: Vector3 = Vector3(n2.x / scale, float(context.taper) * (center.x * n2.x + center.z * n2.y) / (float(context.height) * scale), n2.y / scale).normalized()
-	var result: Dictionary = {"id": "opening_" + suffix, "facade": facade, "floor": floor, "center": _map(center, context), "clear_width": float(hole.width), "clear_height": float(hole.height), "axis": Vector3(axis2.x, 0.0, axis2.y), "outward": normal, "wall_thickness": float(run.depth) * scale, "width_bottom": float(hole.width) * _scale_at(float(hole.sill), context), "width_top": float(hole.width) * _scale_at(float(hole.sill) + float(hole.height), context), "type": "door" if bool(hole.door) else "window"}
+	var result: Dictionary = {"id": "opening_" + suffix, "facade": facade, "floor": floor, "center": _map(center, context), "clear_width": float(hole.width), "clear_height": float(hole.height), "axis": Vector3(axis2.x, 0.0, axis2.y), "outward": normal, "wall_thickness": float(run.depth) * scale, "width_bottom": float(hole.width) * _scale_at(float(hole.sill), context), "width_top": float(hole.width) * _scale_at(float(hole.sill) + float(hole.height), context), "type": "door" if bool(hole.door) else "window", "profile_pull": float(hole.get("pull", 0.0))}
 	if hole.has("settings"):
 		result.merge(WindowGeometry.metadata(hole, run, _self_script(), context), true)
 	return result
@@ -606,8 +674,9 @@ static func _window_frame(buffer: Dictionary, hole: Dictionary, run: Dictionary)
 	var depth: float = float(settings.get("frame_depth", FRAME_DEPTH))
 	var recess: float = float(settings.get("recess", float(run.depth) * 0.5))
 	var bevel: float = minf(FRAME_BEVEL, minf(profile, depth) * 0.45)
-	var outer: Array[Vector2] = _rectangle(cx, cy, w + profile * 2.0, h + profile * 2.0)
-	var inner: Array[Vector2] = _rectangle(cx, cy, w, h)
+	var pull: float = float(hole.get("pull", 0.0))
+	var outer: Array[Vector2] = _opening_quad(cx, float(hole.sill), w, h, profile, pull)
+	var inner: Array[Vector2] = _opening_quad(cx, float(hole.sill), w, h, 0.0, pull)
 	var rings: Array = []
 	var levels: Array[float] = [-depth * 0.5, -depth * 0.5 + bevel, depth * 0.5 - bevel, depth * 0.5]
 	for layer in 4:
@@ -634,8 +703,9 @@ static func _door_frame(buffer: Dictionary, hole: Dictionary, run: Dictionary) -
 	var y0: float = float(hole.sill)
 	var y1: float = y0 + float(hole.height) + FRAME_PROFILE
 	var p: float = FRAME_PROFILE
-	# 单个U形二维实体，开口向下；没有阈板或三个相叠盒子。
-	var profile: Array[Vector2] = [Vector2(x0, y0), Vector2(x0 + p, y0), Vector2(x0 + p, y1 - p), Vector2(x1 - p, y1 - p), Vector2(x1 - p, y0), Vector2(x1, y0), Vector2(x1, y1), Vector2(x0, y1)]
+	var pull: float = float(hole.get("pull", 0.0))
+	# 单个U形二维实体，开口向下；没有阈板或三个相叠盒子。上沿随洞口收分同步内收。
+	var profile: Array[Vector2] = [Vector2(x0, y0), Vector2(x0 + p, y0), Vector2(x0 + p + pull, y1 - p), Vector2(x1 - p - pull, y1 - p), Vector2(x1 - p, y0), Vector2(x1, y0), Vector2(x1 - pull, y1), Vector2(x0 + pull, y1)]
 	_extrude_profile(buffer, profile, run)
 
 ## 门扇：单块实体板，落在洞口净尺寸内、从墙外皮退进 DOOR_LEAF_RECESS。
@@ -647,7 +717,11 @@ static func _door_leaf(buffer: Dictionary, hole: Dictionary, run: Dictionary) ->
 	var y1: float = float(hole.sill) + float(hole.height) - DOOR_LEAF_GAP
 	var near: float = DOOR_LEAF_RECESS
 	var far: float = DOOR_LEAF_RECESS + DOOR_LEAF_THICKNESS
-	_solid(buffer, _run_rect(run, cx, half, near, far), y0, y1, DOOR_LEAF_BEVEL)
+	var pull: float = float(hole.get("pull", 0.0))
+	# 门扇必须与门洞同斜：只把上沿按同一 pull 收窄，做成锥体而不是棱柱。
+	var bottom_poly: Array[Vector2] = _run_rect(run, cx, half, near, far)
+	var top_poly: Array[Vector2] = _run_rect(run, cx, maxf(half - pull, 0.02), near, far)
+	_tapered_solid(buffer, bottom_poly, top_poly, y0, y1, DOOR_LEAF_BEVEL)
 
 static func _extrude_profile(buffer: Dictionary, profile: Array[Vector2], run: Dictionary) -> void:
 	var face: Array[Vector2] = _offset(profile, FRAME_BEVEL)
@@ -684,7 +758,7 @@ static func _profile_face(buffer: Dictionary, points: Array, profile: Array[Vect
 		_tri(buffer, points[triangles[i]], points[triangles[i + 1]], points[triangles[i + 2]], normal)
 
 static func _glass(buffer: Dictionary, hole: Dictionary, run: Dictionary) -> void:
-	var profile: Array[Vector2] = _rectangle(float(hole.cx), float(hole.sill) + float(hole.height) * 0.5, float(hole.width) - GLASS_GAP * 2.0, float(hole.height) - GLASS_GAP * 2.0)
+	var profile: Array[Vector2] = _opening_quad(float(hole.cx), float(hole.sill) + GLASS_GAP, float(hole.width) - GLASS_GAP * 2.0, float(hole.height) - GLASS_GAP * 2.0, 0.0, float(hole.get("pull", 0.0)))
 	var a: Array[Vector3] = _run_ring(profile, run, float(run.depth) * 0.5 - 0.01)
 	var b: Array[Vector3] = _run_ring(profile, run, float(run.depth) * 0.5 + 0.01)
 	var n2: Vector2 = run.outward
@@ -731,7 +805,10 @@ static func _opening_canopy(parts: Array, door: Dictionary, run: Dictionary, r: 
 	if bottom + CANOPY_THICKNESS > float(context.height):
 		return
 	var slab: Dictionary = _buffer()
-	_solid(slab, _run_rect(run, float(door.cx), half, front, back), bottom, bottom + CANOPY_THICKNESS, CANOPY_BEVEL)
+	# 只收自由外缘：背边仍按原宽咬进墙体，配件收分不能把构件从墙上拉开。
+	var rho: float = absf(float(context.get("accessory_rho", 0.0)))
+	var front_half: float = maxf(half * (1.0 - rho), half * 0.7)
+	_solid(slab, _run_wedge(run, float(door.cx), half, front_half, back, front), bottom, bottom + CANOPY_THICKNESS, CANOPY_BEVEL)
 	_part(parts, slab, "canopy_front", "slab", 0, "front", r, c, context, CANOPY_BEVEL, false)
 	for side in 2:
 		var sign: float = -1.0 if side == 0 else 1.0
@@ -747,6 +824,14 @@ static func _run_rect(run: Dictionary, center_x: float, half_x: float, depth_a: 
 	var far_depth: float = maxf(depth_a, depth_b)
 	var result: Array[Vector2] = []
 	for corner in [Vector2(center_x - half_x, near_depth), Vector2(center_x + half_x, near_depth), Vector2(center_x + half_x, far_depth), Vector2(center_x - half_x, far_depth)]:
+		var point: Vector3 = _point(run, corner.x, 0.0, corner.y)
+		result.append(Vector2(point.x, point.z))
+	return _ccw(result)
+
+## 内外两条边不同半宽的四点轮廓：用于雨棚这类"靠墙边宽、自由边窄"的板件。
+static func _run_wedge(run: Dictionary, center_x: float, half_inner: float, half_outer: float, depth_inner: float, depth_outer: float) -> Array[Vector2]:
+	var result: Array[Vector2] = []
+	for corner in [Vector2(center_x - half_inner, depth_inner), Vector2(center_x + half_inner, depth_inner), Vector2(center_x + half_outer, depth_outer), Vector2(center_x - half_outer, depth_outer)]:
 		var point: Vector3 = _point(run, corner.x, 0.0, corner.y)
 		result.append(Vector2(point.x, point.z))
 	return _ccw(result)
@@ -783,6 +868,51 @@ static func _solid(buffer: Dictionary, polygon: Array[Vector2], bottom: float, t
 			var d: Vector2 = (polygon[next] - polygon[edge]).normalized()
 			var normal: Vector3 = Vector3(d.y, -1.0 if layer < 3 else (1.0 if layer > 3 else 0.0), -d.x)
 			_quad(buffer, a[edge], a[next], b[next], b[edge], normal)
+
+## 上下轮廓同点数的锥体实体（门扇等）：底面轮廓 → 倒角 → 顶面轮廓。顶面已按 pull 收窄。
+static func _tapered_solid(buffer: Dictionary, bottom_poly: Array[Vector2], top_poly: Array[Vector2], bottom: float, top: float, bevel: float) -> void:
+	if bottom_poly.size() != top_poly.size() or bottom_poly.size() < 3:
+		return
+	var b: float = minf(bevel, (top - bottom) * 0.35)
+	var lower: Array[Vector2] = _offset(bottom_poly, b)
+	var upper: Array[Vector2] = _offset(top_poly, b)
+	# 与_solid同口径：上下端面各内缩一个倒角宽，再由45°倒角外扩到完整轮廓。
+	var rings: Array = [_xz_ring(lower, bottom), _xz_ring(bottom_poly, bottom + b), _xz_ring(top_poly, top - b), _xz_ring(upper, top)]
+	_profile_face(buffer, rings[0], lower, Vector3.DOWN)
+	_profile_face(buffer, rings[3], upper, Vector3.UP)
+	for layer in 3:
+		var a: Array = rings[layer]
+		var c: Array = rings[layer + 1]
+		for edge in bottom_poly.size():
+			var next: int = (edge + 1) % bottom_poly.size()
+			var d: Vector2 = (bottom_poly[next] - bottom_poly[edge]).normalized()
+			var normal: Vector3 = Vector3(d.y, -1.0 if layer == 0 else (1.0 if layer == 2 else 0.0), -d.x)
+			_quad(buffer, a[edge], a[next], c[next], c[edge], normal)
+
+## 竖向配件（雨棚柱）的局部变径：底面不动、顶面按rho收截面，柱脚仍精确落在y=0。
+static func _taper_section(vertices: PackedVector3Array, rho: float) -> PackedVector3Array:
+	if vertices.is_empty(): return vertices
+	var low: float = vertices[0].y
+	var high: float = vertices[0].y
+	var cx: float = 0.0
+	var cz: float = 0.0
+	for point in vertices:
+		low = minf(low, point.y)
+		high = maxf(high, point.y)
+		cx += point.x
+		cz += point.z
+	var height: float = maxf(high - low, EPS)
+	cx /= float(vertices.size())
+	cz /= float(vertices.size())
+	for index in vertices.size():
+		var point: Vector3 = vertices[index]
+		var scale: float = 1.0 - rho * clampf((point.y - low) / height, 0.0, 1.0)
+		vertices[index] = Vector3(cx + (point.x - cx) * scale, point.y, cz + (point.z - cz) * scale)
+	return vertices
+
+## 只有自由竖立、不与墙体咬合的配件才做局部收分；贴墙板件收缩会脱离宿主，违反接缝契约。
+static func _vertical_accessory(id: String) -> bool:
+	return id.begins_with("canopy_post_")
 
 static func _xz_ring(polygon: Array[Vector2], y: float) -> Array[Vector3]:
 	var result: Array[Vector3] = []
@@ -826,6 +956,9 @@ static func _part(parts: Array, source: Dictionary, id: String, kind: String, fl
 	if parts.size() >= MAX_PARTS:
 		context.error = "连续外壳超过部件预算: " + str(MAX_PARTS)
 		return
+	var accessory_rho: float = float(context.get("accessory_rho", 0.0))
+	if absf(accessory_rho) > EPS and _vertical_accessory(id) and source.has("v"):
+		source["v"] = _taper_section(source.v, accessory_rho)
 	var buffer: Dictionary = _conform(source)
 	var audit: Dictionary = _topology(buffer)
 	context.topology[id] = audit

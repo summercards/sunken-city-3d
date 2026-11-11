@@ -16,6 +16,23 @@ const WINDOW_BOUNDS := {
 	"recess": [0.04, 0.5], "width": [0.25, 6.0],
 	"height": [0.25, 6.0], "sill": [0.2, 5.0]
 }
+## 形体变形三档作用域：整楼结构 / 窗洞口 / 配件。范围与SKILL的 stylized_form_variants.json 对齐。
+const FORM_CATEGORIES := ["structure", "opening", "accessory"]
+## mixed = 逐洞口独立取号：同一栋楼里既有上宽也有上窄。只对 opening / accessory 有意义。
+const FORM_SIGNS := ["positive", "negative", "mixed"]
+## 可调上限（不是SKILL原值：主人要求更大，故把语法区间放宽到可覆盖8°级收分）。
+const FORM_BOUNDS := {
+	"structure": [0.01, 0.10], "opening": [0.01, 0.12], "accessory": [0.01, 0.18]
+}
+## taper 字段自身的合法范围是 0..0.1（recipe.validate）；structure 落值写进 taper，
+## 所以结构收分的硬上限只能是这个值。倾角上限比它更严时才轮到倾角说话。
+const TAPER_CAP := 0.10
+## 墙倾角上限本身可调：SKILL 建议 4°，但体量越宽扁可用收分越小，4° 会把幅度压到看不出。
+## 主人要求"幅度更大"，故把倾角上限做成 form.max_tilt_deg（默认8°），4° 仍作为 SKILL 基线保留在文档里。
+const TILT_BOUNDS := [1.0, 15.0]
+const WALL_TILT_BASE_DEG := 4.0
+const TILT_DEFAULT_DEG := 8.0
+
 const ROOF_BOUNDS := {
 	"height": [0.4, 2.0], "thickness": [0.12, 0.6],
 	"cap_thickness": [0.06, 0.25], "cap_overhang": [0.0, 0.15],
@@ -38,6 +55,12 @@ static func defaults() -> Dictionary:
 			"cap_thickness": 0.12, "cap_overhang": 0.04,
 			"post_spacing": 1.5, "rail_spacing": 0.22, "bar_width": 0.05,
 			"edge_overrides": {}
+		},
+		"form": {
+			"enabled": false, "preset": "SF-B", "seed": 11010, "max_tilt_deg": 8.0,
+			"structure": {"min": 0.015, "max": 0.020, "sign": "positive"},
+			"opening": {"min": 0.020, "max": 0.030, "sign": "mixed"},
+			"accessory": {"min": 0.030, "max": 0.055, "sign": "positive"}
 		}
 	}
 
@@ -168,7 +191,138 @@ static func validate(architecture: Variant, floors: int) -> String:
 			if not reason.is_empty(): return reason
 		if edge.has("gap_width") and (not _number(edge.gap_width) or float(edge.gap_width) < 0.0):
 			return "屋顶边gap_width必须为非负有限数值（米）"
+	return _validate_form(config.get("form", {}), "architecture.form")
+
+static func _validate_form(form: Variant, path: String) -> String:
+	if not form is Dictionary: return path + "必须是对象"
+	for key in form:
+		if key not in ["enabled", "preset", "seed", "max_tilt_deg", "structure", "opening", "accessory"]:
+			return "未知字段: " + path + "." + str(key)
+	if form.has("enabled") and not form.enabled is bool:
+		return path + ".enabled必须为布尔值"
+	if form.has("seed") and (not _integer(form.seed) or int(form.seed) < 0):
+		return path + ".seed必须为非负整数"
+	if form.has("max_tilt_deg") and (not _number(form.max_tilt_deg) or float(form.max_tilt_deg) < TILT_BOUNDS[0] - 0.000001 or float(form.max_tilt_deg) > TILT_BOUNDS[1] + 0.000001):
+		return path + ".max_tilt_deg 必须在" + str(TILT_BOUNDS[0]) + ".." + str(TILT_BOUNDS[1]) + " 度"
+	for category in FORM_CATEGORIES:
+		if not form.has(category): continue
+		var entry: Variant = form[category]
+		if not entry is Dictionary: return path + "." + category + "必须是对象"
+		for key in entry:
+			if key not in ["min", "max", "sign"]:
+				return "未知字段: " + path + "." + category + "." + str(key)
+		for field in ["min", "max"]:
+			if entry.has(field) and not _number(entry[field]):
+				return path + "." + category + "." + field + "必须为有限JSON数值"
+		var bounds: Array = FORM_BOUNDS[category]
+		var low: float = float(entry.get("min", bounds[0]))
+		var high: float = float(entry.get("max", bounds[0]))
+		if low < float(bounds[0]) - 0.0000001 or high > float(bounds[1]) + 0.0000001:
+			return path + "." + category + " 幅度必须在" + str(bounds[0]) + ".." + str(bounds[1])
+		if high < low - 0.0000001:
+			return path + "." + category + ".max不能小于min"
+		if entry.has("sign") and (not entry.sign is String or entry.sign not in FORM_SIGNS):
+			return path + "." + category + ".sign非法"
+		# mixed 只对洞口有意义：结构与配件必须整体同向，否则立面读成随机噪声而非形体。
+		if entry.has("sign") and str(entry.sign) == "mixed" and category != "opening":
+			return path + "." + category + ".sign不允许mixed（只有opening可逐洞口取号）"
+	# SKILL sign_rules：结构族必须正锥，不做上大下小的墙。
+	if bool(form.get("enabled", false)):
+		var structure_sign: String = str((form.get("structure", {}) as Dictionary).get("sign", "positive"))
+		if structure_sign != "positive":
+			return path + ".structure.sign只允许positive（墙不做倒锥）"
 	return ""
+
+## 当前允许的墙倾角上限（度）。form.max_tilt_deg 可改；未给时用 TILT_DEFAULT_DEG。
+static func tilt_limit(recipe: Dictionary) -> float:
+	var form: Dictionary = normalized(recipe.get("architecture", {})).get("form", {})
+	var degrees: float = float(form.get("max_tilt_deg", TILT_DEFAULT_DEG))
+	return clampf(degrees, TILT_BOUNDS[0], TILT_BOUNDS[1])
+
+## 单看墙倾角允许的收分。
+## 本几何的收分摊在整栋高度上：单层墙的 ρ_floor = taper · h_floor / H_total，
+## 代入 SKILL 的 β = atan(ρ_floor·W/h_floor) 后 h_floor 约掉，得 β = atan(taper·W/H_total)。
+## 因此 taper 上限 = tan(θ)·H_total / max(W_base, D_base)，θ 取 tilt_limit()，而不是按单层高算。
+static func tilt_taper_limit(recipe: Dictionary) -> float:
+	var span: float = maxf(float(recipe.get("width", 12.0)), float(recipe.get("depth", 9.0)))
+	if span <= 0.0: return 0.0
+	var floors: float = maxf(1.0, float(recipe.get("floors", 1)))
+	var height: float = floors * float(recipe.get("floor_height", 3.6))
+	return tan(deg_to_rad(tilt_limit(recipe))) * height / span
+
+## 实际可用收分 = min(倾角限制, taper字段范围)。两者哪个在拦必须能分辨，否则用户不知道该调哪个。
+static func structure_limit(recipe: Dictionary) -> float:
+	return minf(tilt_taper_limit(recipe), TAPER_CAP)
+
+## 结构区间上限必须落在当前墙倾角内，否则给出可执行的数值而不是静默压小。
+static func validate_form(recipe: Dictionary) -> String:
+	var architecture: Dictionary = normalized(recipe.get("architecture", {}))
+	var form: Dictionary = architecture.get("form", {})
+	if not bool(form.get("enabled", false)): return ""
+	var limit: float = structure_limit(recipe)
+	var high: float = float((form.get("structure", {}) as Dictionary).get("max", 0.0))
+	if high > limit + 0.000001:
+		var span: float = maxf(float(recipe.get("width", 12.0)), float(recipe.get("depth", 9.0)))
+		var height: float = maxf(1.0, float(recipe.get("floors", 1))) * float(recipe.get("floor_height", 3.6))
+		if TAPER_CAP <= tilt_taper_limit(recipe) + 0.000001:
+			return "结构收分上限%.2f（taper字段合法范围0..%.2f 为硬上限，当前倾角%.1f°还能放到%.4f），structure.max须不大于该值" % [limit, TAPER_CAP, tilt_limit(recipe), tilt_taper_limit(recipe)]
+		return "结构收分上限%.4f（墙宽%.1fm、总高%.2fm、墙倾角上限%.1f°），structure.max须不大于该值或调大max_tilt_deg" % [limit, span, height, tilt_limit(recipe)]
+	return ""
+
+## 区间 + seed → 稳定落值。纯函数，同seed同类别永远同值，几何可复现。
+static func resolve_form(recipe: Dictionary) -> Dictionary:
+	var architecture: Dictionary = normalized(recipe.get("architecture", {}))
+	var form: Dictionary = architecture.get("form", {})
+	var result: Dictionary = {
+		"enabled": false, "seed": int(form.get("seed", 0)),
+		"structure": 0.0, "opening": 0.0, "accessory": 0.0,
+		"max_tilt_deg": tilt_limit(recipe),
+		"structure_limit": structure_limit(recipe),
+		"tilt_taper_limit": tilt_taper_limit(recipe), "taper_cap": TAPER_CAP,
+		"limits": FORM_BOUNDS.duplicate(true),
+		"opening_sign": "positive"
+	}
+	if not bool(form.get("enabled", false)):
+		return result
+	result.enabled = true
+	for category in FORM_CATEGORIES:
+		var entry: Dictionary = form.get(category, {})
+		var low: float = float(entry.get("min", FORM_BOUNDS[category][0]))
+		var high: float = float(entry.get("max", low))
+		var value: float = low if high <= low else low + (high - low) * unit_noise(int(result.seed), category)
+		var sign_mode: String = str(entry.get("sign", "positive"))
+		# mixed 的落值只报幅度（正），实际每个洞口的正负由 opening_rho 按列取号。
+		if sign_mode == "negative":
+			value = -value
+		if category == "opening":
+			result["opening_sign"] = sign_mode
+		result[category] = value
+	return result
+
+## 逐洞口收分：幅度仍由 seed 与区间稳定落值，mixed 时每列独立取号。
+## column_key 用「立面_序号」（不含楼层），使同一竖列上下各层方向一致，立面不会读成随机噪点。
+static func opening_rho(recipe: Dictionary, column_key: String) -> float:
+	var form: Dictionary = normalized(recipe.get("architecture", {})).get("form", {})
+	if not bool(form.get("enabled", false)):
+		return 0.0
+	var entry: Dictionary = form.get("opening", {})
+	var low: float = float(entry.get("min", FORM_BOUNDS["opening"][0]))
+	var high: float = float(entry.get("max", low))
+	var seed_value: int = int(form.get("seed", 0))
+	var magnitude: float = low if high <= low else low + (high - low) * unit_noise(seed_value, "opening")
+	var sign_mode: String = str(entry.get("sign", "positive"))
+	if sign_mode == "mixed":
+		sign_mode = "negative" if unit_noise(seed_value, "opening_sign|" + column_key) < 0.5 else "positive"
+	return -magnitude if sign_mode == "negative" else magnitude
+
+## FNV-1a 32位：跨版本稳定，不用引擎内置hash，避免同seed漂移。
+static func unit_noise(seed_value: int, category: String) -> float:
+	var hash_value: int = 2166136261
+	var text: String = str(seed_value) + "|" + category
+	for index in text.length():
+		hash_value = (hash_value ^ text.unicode_at(index)) & 0xFFFFFFFF
+		hash_value = (hash_value * 16777619) & 0xFFFFFFFF
+	return float(hash_value % 1000003) / 1000003.0
 
 static func _validate_window(window: Variant, path: String) -> String:
 	if not window is Dictionary: return path + "必须是对象"

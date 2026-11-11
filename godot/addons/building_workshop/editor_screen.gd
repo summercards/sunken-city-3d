@@ -9,7 +9,14 @@ const Preview = preload("res://addons/building_workshop/editor_preview.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
-const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "文件"]
+const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "形体", "文件"]
+const FORM_CATEGORIES: Array[String] = ["structure", "opening", "accessory"]
+const FORM_LABELS: Dictionary = {"structure": "整楼结构", "opening": "窗户洞口", "accessory": "配件"}
+const FORM_PRESETS: Dictionary = {
+	"SF-A": {"structure": [0.020, 0.040], "opening": [0.020, 0.038], "accessory": [0.025, 0.060]},
+	"SF-B": {"structure": [0.030, 0.060], "opening": [0.030, 0.060], "accessory": [0.040, 0.100]},
+	"SF-C": {"structure": [0.060, 0.100], "opening": [0.055, 0.095], "accessory": [0.080, 0.150]}
+}
 const PARAMETER_KEYS: Array[String] = ["construction_mode", "shape", "width", "depth", "floors", "floor_height", "wall_thickness", "slab_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "aging", "damage", "bevel_segments", "bevel_width", "vegetation_density", "taper", "structure_seed", "damage_seed", "vegetation_seed", "spatial_profile"]
 const ARCHITECTURE_WINDOW_FIELDS: Array[String] = ["enabled", "type", "open_angle", "frame_width", "frame_depth", "glass_thickness", "recess", "sill_enabled", "sill_projection", "sill_thickness", "sill_extension", "width", "height", "sill"]
 const ARCHITECTURE_WINDOW_SCOPES: Array[String] = ["global", "floor", "facade", "single"]
@@ -32,6 +39,7 @@ var export_root: String = DEFAULT_ROOT
 var _store: Variant
 var _ports: Dictionary = {}
 var _page_picker: OptionButton
+var form_readout_label: Label
 var _slot_list: ItemList
 var _saved_list: ItemList
 var _sample_picker: OptionButton
@@ -747,6 +755,26 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			for pair: Array in [["structure_seed", "结构种子"], ["damage_seed", "破损种子"], ["vegetation_seed", "植物种子"]]:
 				_spin_spec(page, [pair[0], pair[1], 0, 2147483647, 1])
 			page.add_child(_label("水下观赏无碰撞、导航或玩法功能；不会自动接入正式世界。"))
+		"形体":
+			var form_panel: VBoxContainer = _architecture_panel(page, "architecture_form_panel")
+			form_panel.add_child(_label("形体变形 · 随机幅度", 16))
+			form_panel.add_child(_label("给区间和种子，落值由种子稳定决定：同种子永远同模型。ρ = 1 − 上口/下口，正为上小下大。", 12))
+			_check("启用形体变形", "form_enabled", form_panel)
+			_add_option(form_panel, "form_preset", "强度档位", [["SF-A", "SF-A 克制"], ["SF-B", "SF-B 标准"], ["SF-C", "SF-C 强风格"]])
+			(controls["form_preset"] as OptionButton).item_selected.connect(_form_preset_changed)
+			_spin_spec(form_panel, ["form_seed", "随机种子", 0, 999999, 1])
+			_spin_spec(form_panel, ["form_max_tilt", "墙倾角上限（度）", float(Config.TILT_BOUNDS[0]), float(Config.TILT_BOUNDS[1]), 0.5])
+			_add_option(form_panel, "form_opening_sign", "窗洞取号", [["positive", "统一上窄下宽"], ["negative", "统一上宽下窄"], ["mixed", "混合（逐个窗独立）"]])
+			for category: String in FORM_CATEGORIES:
+				form_panel.add_child(_label(str(FORM_LABELS[category]) + " 幅度区间", 14))
+				var bounds: Array = Config.FORM_BOUNDS[category]
+				_spin_spec(form_panel, ["form_" + category + "_min", "下限 ρ", float(bounds[0]), float(bounds[1]), 0.001])
+				_spin_spec(form_panel, ["form_" + category + "_max", "上限 ρ", float(bounds[0]), float(bounds[1]), 0.001])
+			form_panel.add_child(_button("应用形体", "form_apply"))
+			form_panel.add_child(_button("换一个种子", "form_reroll"))
+			form_readout_label = _label("", 12)
+			form_panel.add_child(form_readout_label)
+			page.add_child(_label("结构收分受墙倾角约束：上限 = tan(倾角) × 总高 / 最大面宽。墙越宽、层越矮可用幅度越小；调大倾角上限即可得到更大的收口。SKILL 建议 4°，默认给 8°。", 12))
 		"文件":
 			page.add_child(_label("本项目已保存建筑", 16))
 			_saved_list = ItemList.new()
@@ -895,6 +923,8 @@ func _button_pressed(id: String) -> void:
 		"architecture_clear": _clear_architecture_window_scope()
 		"window_apply": _apply_window_override()
 		"roof_apply": _apply_architecture_roof()
+		"form_apply": _apply_form()
+		"form_reroll": _reroll_form()
 		"roof_clear": _clear_architecture_roof_edge()
 		"facade_clear": _apply_facade_override(true)
 		"open_scene": _open_scene()
@@ -908,7 +938,7 @@ func _button_pressed(id: String) -> void:
 			_file_dialog.popup_centered_ratio(0.75)
 		"load_sample": _request_sample(false)
 		"copy_sample":
-			_select_page(5)
+			_select_page(PAGES.find("文件"))
 			_request_sample(true)
 		"replace_component": _choose_component()
 		"export_module": export_module_component()
@@ -1233,6 +1263,7 @@ func _architecture_ui_patch(force_global: bool = false) -> Dictionary:
 		var key: String = "architecture_roof_" + field
 		roof[field] = _raw_control_value(key)
 	architecture["roof"] = roof
+	architecture["form"] = _form_values(architecture)
 	return architecture
 
 func _architecture_window_control_values() -> Dictionary:
@@ -1296,6 +1327,130 @@ func _window_selection_changed(_index: int) -> void:
 		if _window_scope() != "global":
 			_sync_architecture_window_scope()
 		_capture_window_local_baseline()
+
+func _refresh_form_controls(data: Dictionary) -> void:
+	if not controls.has("form_seed"):
+		return
+	var architecture: Dictionary = Config.normalized(data.get("architecture", {}))
+	var form: Dictionary = architecture.get("form", {})
+	_set_control_value("form_enabled", bool(form.get("enabled", false)))
+	_set_option("form_preset", str(form.get("preset", "SF-B")))
+	_set_spin("form_seed", float(form.get("seed", 0)))
+	_set_spin("form_max_tilt", float(form.get("max_tilt_deg", Config.TILT_DEFAULT_DEG)))
+	var opening: Dictionary = form.get("opening", {})
+	_set_option("form_opening_sign", str(opening.get("sign", "positive")))
+	for category: String in FORM_CATEGORIES:
+		var entry: Dictionary = form.get(category, {})
+		var bounds: Array = Config.FORM_BOUNDS[category]
+		_set_spin("form_" + category + "_min", float(entry.get("min", bounds[0])))
+		_set_spin("form_" + category + "_max", float(entry.get("max", bounds[1])))
+	_update_form_readout()
+
+## 把界面上的六个数（三类区间）+种子+开关写进给定 architecture；不改其他字段。
+func _form_values(architecture: Dictionary) -> Dictionary:
+	var form: Dictionary = architecture.get("form", {}).duplicate(true)
+	if not controls.has("form_seed"):
+		return form
+	form["enabled"] = bool(_raw_control_value("form_enabled"))
+	form["seed"] = int(_spin_value("form_seed"))
+	form["preset"] = _option_value("form_preset")
+	form["max_tilt_deg"] = _spin_value("form_max_tilt")
+	for category: String in FORM_CATEGORIES:
+		var entry: Dictionary = form.get(category, {}).duplicate(true)
+		entry["min"] = _spin_value("form_" + category + "_min")
+		entry["max"] = _spin_value("form_" + category + "_max")
+		if category == "opening":
+			entry["sign"] = _option_value("form_opening_sign")
+		elif not entry.has("sign"):
+			entry["sign"] = "positive"
+		form[category] = entry
+	return form
+
+func _form_patch() -> Dictionary:
+	var architecture: Dictionary = _architecture_snapshot()
+	architecture["form"] = _form_values(architecture)
+	return architecture
+
+func _form_preset_changed(_index: int) -> void:
+	var preset: String = _option_value("form_preset")
+	if not FORM_PRESETS.has(preset):
+		return
+	var entry: Dictionary = FORM_PRESETS[preset]
+	for category: String in FORM_CATEGORIES:
+		var bounds: Array = entry[category]
+		_set_spin("form_" + category + "_min", float(bounds[0]))
+		_set_spin("form_" + category + "_max", float(bounds[1]))
+	_update_form_readout()
+
+func _apply_form() -> Dictionary:
+	if _option_value("construction_mode") != "shell_v2":
+		return _report_failure("形体变形只在shell_v2连续实体模式生效。")
+	var result: Dictionary = session.apply_patch({"architecture": _form_patch()})
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("形体已应用 · " + _form_summary())
+	else:
+		_report_result(result, "形体参数被拒绝：幅度越界或超出当前墙倾角上限")
+	_update_form_readout()
+	return result
+
+func _reroll_form() -> Dictionary:
+	_set_spin("form_seed", float(int(_spin_value("form_seed")) + 1))
+	return _apply_form()
+
+## 落值预览：让"区间"能看到实际落在哪，而不是只有一个范围。
+func _form_summary() -> String:
+	var recipe: Dictionary = snapshot().duplicate(true)
+	recipe["architecture"] = _form_patch()
+	var resolved: Dictionary = Config.resolve_form(recipe)
+	if not bool(resolved.get("enabled", false)):
+		return "未启用形体（退化为正交模型）"
+	var sign_note: String = ""
+	if str(resolved.get("opening_sign", "positive")) == "mixed":
+		var counts: Vector2i = _opening_sign_counts(recipe)
+		sign_note = "（上窄%d列 / 上宽%d列）" % [counts.x, counts.y]
+	return "整楼%.2f%% · 窗%.2f%%%s · 配件%.2f%%" % [float(resolved.structure) * 100.0, float(resolved.opening) * 100.0, sign_note, float(resolved.accessory) * 100.0]
+
+## 数一遍当前种子下有多少列是上窄、多少列是上宽，让"混合"看得见而不只是勾选项。
+func _opening_sign_counts(recipe: Dictionary) -> Vector2i:
+	var narrow: int = 0
+	var wide: int = 0
+	for facade in ["front", "back", "left", "right"]:
+		for ordinal in 8:
+			var rho: float = Config.opening_rho(recipe, str(facade) + "_" + str(ordinal))
+			if absf(rho) <= 0.00001: continue
+			if rho > 0.0: narrow += 1
+			else: wide += 1
+	return Vector2i(narrow, wide)
+
+func _update_form_readout() -> void:
+	if form_readout_label == null or not controls.has("form_seed"):
+		return
+	var recipe: Dictionary = snapshot().duplicate(true)
+	recipe["architecture"] = _form_patch()
+	var limit: float = Config.structure_limit(recipe)
+	var tilt: float = Config.tilt_limit(recipe)
+	var span: float = maxf(float(recipe.get("width", 0.0)), float(recipe.get("depth", 0.0)))
+	var height: float = maxf(1.0, float(recipe.get("floors", 1))) * float(recipe.get("floor_height", 0.0))
+	var advice: String = ""
+	var structure_entry: Dictionary = _form_values(_architecture_snapshot()).get("structure", {})
+	var wanted: float = float(structure_entry.get("max", 0.0))
+	if span > 0.0 and height > 0.0 and wanted > limit + 0.000001:
+		# 正向求解需要的最小倾角：让"幅度不够"变成可操作的一个数字，而不是只报上限。
+		var needed: float = rad_to_deg(atan(wanted * span / height))
+		advice = "\n幅度不足：上限需 ≥ %.1f°（当前 %.1f°）" % [needed, tilt]
+	var tilt_only: float = Config.tilt_taper_limit(recipe)
+	var cap_note: String = "；taper上限%.2f" % Config.TAPER_CAP if tilt_only > Config.TAPER_CAP + 0.000001 else ""
+	form_readout_label.text = "落值：%s\n墙倾角上限 %.1f° → 结构可用收分 %.4f（面宽%.1fm × 总高%.2fm%s）%s" % [_form_summary(), tilt, limit, span, height, cap_note, advice]
+
+## taper 是派生值：形体开启时由 structure 区间落值写入。禁用输入并写明来源，不留"改了没反应"的坑。
+func _sync_taper_ownership(form_enabled: bool) -> void:
+	if not controls.has("taper"):
+		return
+	var spin: SpinBox = controls["taper"] as SpinBox
+	spin.editable = not form_enabled
+	spin.tooltip_text = "由形体「整楼结构」区间 + 种子决定" if form_enabled else "关闭形体后可手动设定"
 
 func _apply_architecture_window() -> Dictionary:
 	if _option_value("construction_mode") != "shell_v2":
@@ -1542,6 +1697,8 @@ func _refresh_architecture_controls(data: Dictionary) -> void:
 	if _window_scope() != "global":
 		_sync_architecture_window_scope()
 	_sync_architecture_roof_edge(roof)
+	_refresh_form_controls(data)
+	_sync_taper_ownership(bool((Config.normalized(data.get("architecture", {})).get("form", {}) as Dictionary).get("enabled", false)))
 	# 刷新到 session 值之后，局部基线必须跟着对齐；否则载入配方会被误判成"存在未应用输入"，连保存都拦住。
 	_capture_window_local_baseline()
 

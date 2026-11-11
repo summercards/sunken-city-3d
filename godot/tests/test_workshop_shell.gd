@@ -50,6 +50,8 @@ func run() -> void:
 	for spec: Array in [["rect_12x9_f3", "rectangle", 9.0, 3], ["l_12x12_f3", "l", 12.0, 3], ["rect_f1", "rectangle", 9.0, 1], ["rect_f5", "rectangle", 9.0, 5], ["l_f1", "l", 12.0, 1], ["l_f5", "l", 12.0, 5]]:
 		var fixture: Dictionary = recipe.duplicate(true)
 		fixture.merge({"building_id": str(spec[0]), "shape": str(spec[1]), "width": 12.0, "depth": float(spec[2]), "floors": int(spec[3]), "taper": 0.02}, true)
+		# 本文件用显式taper做受控基线；形体开启后taper是派生值，必须关掉，否则断言口径与几何不一致。
+		fixture["architecture"]["form"]["enabled"] = false
 		fixtures.append(fixture)
 	var per_floor: Dictionary = fixtures[0].duplicate(true)
 	per_floor.building_id = "floor_1_override"
