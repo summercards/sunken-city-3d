@@ -102,6 +102,11 @@ transform = Transform3D(0.9961947, -0.087155744, 0, 0.087155744, 0.9961947, 0, 0
 metadata/instance_id = "slender_tower_instance_001"
 metadata/urban_role = "rear_tower_settlement"
 
+[node name="balcony_tenement_instance_003" parent="." unique_id=1708363241 instance=ExtResource("c4")]
+transform = Transform3D(0.98424494, 0, -0.17681016, 0, 1, 0, 0.17681016, 0, 0.98424494, -1.6037245, -59.962082, -5.7451982)
+metadata/instance_id = "balcony_tenement_instance_001"
+metadata/urban_role = "west_residential_frontage"
+
 [node name="balcony_tenement_instance_001" parent="." unique_id=2102681200 instance=ExtResource("c4")]
 transform = Transform3D(-5.2359876e-08, 0, 1, 0, 1, 0, -1, 0, -5.2359876e-08, -108, -61.3, 61)
 metadata/instance_id = "balcony_tenement_instance_001"
@@ -246,6 +251,11 @@ metadata/urban_role = "inner_north_lane"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -66.1, -55)
 metadata/instance_id = "roof_garden_shell_instance_003"
 metadata/urban_role = "inner_north_small_shop"
+
+[node name="DETAIL2_canal_shell_002" parent="." unique_id=882806284 instance=ExtResource("c10")]
+transform = Transform3D(0.9994071, -0.03442754, -2.4840236e-05, 0.03442754, 0.99940735, -1.0139625e-07, 2.4974346e-05, -7.5250864e-07, 1, 40.12106, -65.25247, 14.828106)
+metadata/instance_id = "DETAIL2_canal_shell_001"
+metadata/urban_role = "horizontal_road_wreck"
 
 [node name="DETAIL2_canal_shell_001" parent="." unique_id=345827400 instance=ExtResource("c10")]
 transform = Transform3D(-5.2359876e-08, 1, -5.2359876e-08, 0, -5.2359876e-08, -1, -1, -5.2359876e-08, 2.7415568e-15, -98.529594, -53.359844, 78)
@@ -2001,4 +2011,3 @@ metadata/urban_role = "clustered_low_ruin"
 transform = Transform3D(0.83867055, 0, 0.54463905, 0, 1, 0, -0.54463905, 0, 0.83867055, 108.05512, -61.3, 41.953613)
 metadata/instance_id = "DETAIL2_DENSE_054_moss_patch"
 metadata/urban_role = "clustered_low_ruin"
-
