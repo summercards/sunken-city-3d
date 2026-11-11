@@ -33,6 +33,19 @@ const TILT_BOUNDS := [1.0, 15.0]
 const WALL_TILT_BASE_DEG := 4.0
 const TILT_DEFAULT_DEG := 8.0
 
+## 承重壁柱：贴墙外皮的竖向构件。corner=转角/边缘柱，middle=开间分界柱。
+## projection 是凸出墙皮的量，bite 是咬进墙体的量——bite 不能为 0，否则柱只"贴"在墙上，
+#  与墙无实体交叠，接缝契约会判成脱离宿主。
+const PILASTER_FIELDS := ["enabled", "corner", "middle", "width", "projection", "bite", "bevel"]
+const PILASTER_BOUNDS := {
+	"width": [0.14, 0.90], "projection": [0.02, 0.50], "bite": [0.02, 0.24], "bevel": [0.003, 0.06]
+}
+## 层间腰线：楼层处整圈凸出的水平线条，宽度与凸出都可调。thickness 是竖直方向的厚度。
+const BAND_FIELDS := ["enabled", "projection", "thickness", "bevel"]
+const BAND_BOUNDS := {
+	"projection": [0.01, 0.32], "thickness": [0.08, 0.80], "bevel": [0.003, 0.05]
+}
+
 const ROOF_BOUNDS := {
 	"height": [0.4, 2.0], "thickness": [0.12, 0.6],
 	"cap_thickness": [0.06, 0.25], "cap_overhang": [0.0, 0.15],
@@ -56,6 +69,13 @@ static func defaults() -> Dictionary:
 			"post_spacing": 1.5, "rail_spacing": 0.22, "bar_width": 0.05,
 			"edge_overrides": {}
 		},
+		# 默认关闭：defaults() 是既有配方的基线，开这两个会改变已存建筑的立面。
+		# 新建文档在 Recipe.authoring_defaults() 里显式打开。
+		"pilaster": {
+			"enabled": false, "corner": true, "middle": true,
+			"width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014
+		},
+		"band": {"enabled": false, "projection": 0.10, "thickness": 0.34, "bevel": 0.012},
 		"form": {
 			"enabled": false, "preset": "SF-B", "seed": 11010, "max_tilt_deg": 8.0,
 			"structure": {"min": 0.015, "max": 0.020, "sign": "positive"},
@@ -191,7 +211,45 @@ static func validate(architecture: Variant, floors: int) -> String:
 			if not reason.is_empty(): return reason
 		if edge.has("gap_width") and (not _number(edge.gap_width) or float(edge.gap_width) < 0.0):
 			return "屋顶边gap_width必须为非负有限数值（米）"
+	reason = _validate_pilaster(config.pilaster, "architecture.pilaster")
+	if not reason.is_empty(): return reason
+	reason = _validate_band(config.band, "architecture.band")
+	if not reason.is_empty(): return reason
 	return _validate_form(config.get("form", {}), "architecture.form")
+
+static func _validate_pilaster(pilaster: Variant, path: String) -> String:
+	if not pilaster is Dictionary: return path + "必须是对象"
+	var reason: String = _unknown(pilaster, PILASTER_FIELDS, path)
+	if not reason.is_empty(): return reason
+	for field in ["enabled", "corner", "middle"]:
+		if pilaster.has(field) and not pilaster[field] is bool:
+			return path + "." + field + "必须为布尔值"
+	for field in PILASTER_BOUNDS:
+		if pilaster.has(field):
+			reason = _range(pilaster[field], PILASTER_BOUNDS[field][0], PILASTER_BOUNDS[field][1], path + "." + field)
+			if not reason.is_empty(): return reason
+	# 柱体必须有正截面且有咬入量：projection+bite 是柱在法向的总厚度，bevel 不能吃掉它。
+	var thickness: float = float(pilaster.get("projection", 0.12)) + float(pilaster.get("bite", 0.06))
+	var bevel: float = float(pilaster.get("bevel", 0.012))
+	if thickness <= bevel * 2.5:
+		return path + "：projection+bite(%.3f)必须明显大于2.5倍bevel(%.3f)，否则柱没有实体厚度" % [thickness, bevel]
+	if float(pilaster.get("bite", 0.06)) <= 0.0:
+		return path + ".bite必须大于0：柱必须咬入墙体，不能只贴在墙皮上"
+	return ""
+
+static func _validate_band(band: Variant, path: String) -> String:
+	if not band is Dictionary: return path + "必须是对象"
+	var reason: String = _unknown(band, BAND_FIELDS, path)
+	if not reason.is_empty(): return reason
+	if band.has("enabled") and not band.enabled is bool:
+		return path + ".enabled必须为布尔值"
+	for field in BAND_BOUNDS:
+		if band.has(field):
+			reason = _range(band[field], BAND_BOUNDS[field][0], BAND_BOUNDS[field][1], path + "." + field)
+			if not reason.is_empty(): return reason
+	if float(band.get("thickness", 0.26)) <= float(band.get("bevel", 0.010)) * 2.5:
+		return path + "：thickness(%.3f)必须明显大于2.5倍bevel(%.3f)" % [float(band.get("thickness", 0.26)), float(band.get("bevel", 0.010))]
+	return ""
 
 static func _validate_form(form: Variant, path: String) -> String:
 	if not form is Dictionary: return path + "必须是对象"

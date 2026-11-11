@@ -236,8 +236,21 @@
 | SEA-WORKSHOP-R38 | partial；`FORM_BOUNDS` 提到 structure 0.01–0.10 / opening 0.01–0.12 / accessory 0.01–0.18；`Recipe.authoring_defaults()` 默认 structure 0.030–0.060、opening 0.030–0.060、accessory 0.040–0.100；编辑器三档预设同步放大 | 像素实测窗洞上下口差：关形体 0–2px（噪声级）、SF-A 5–9px、SF-B 8–11px、SF-C 12–19px；整楼收分 12m 三层落到 3.4%/5.0%/9.4% |
 | SEA-WORKSHOP-R39 | partial；`FORM_SIGNS` 加 `mixed`，新增 `Config.opening_rho(recipe, column_key)` 按「立面_序号」逐列取号；`_validate_form` 拒绝非 opening 档位使用 mixed；编辑器新增「窗洞取号」下拉 | editor 专项实测：mixed 下上窄 14 列 / 上宽 18 列，真实玻璃上窄 8 片 / 上宽 15 片，同列上下同向核对 15 对全通过；negative 下上宽 23 片、上窄 0 片；positive 下全为上窄 |
 | SEA-WORKSHOP-R40 | partial；`_opening()` 的 `pull` 允许为负并新增 `reach`；新增 `_hole_bounds()` 供网格挖空与墙垛/开间校验；`_face_grid` 按 pull 方向补上/下两组三角；`shell_window_geometry.validate_bay` 按 `-pull` 外扩校验开间 | 拓扑审计在 mixed（18 上窄 / 24 上宽）与全 negative 两种配方下均闭合；workshop-shell／deep 实跑 PASS；近景目检确认肩部无破面、框与玻璃贴合 |
+| SEA-WORKSHOP-R41 | partial；`architecture_config.gd` 新增 `pilaster` 节（`PILASTER_FIELDS`/`PILASTER_BOUNDS`、`_validate_pilaster()` 强制 `bite>0` 与 `projection+bite>2.5×bevel`）；`recipe.gd` 的 `defaults()` 保持关闭、`authoring_defaults()` 开启；`shell_geometry._append_pilasters()` 生成 | 架构专项 `_test_frame` 断言两个开关默认关闭、开关组合生效；editor 专项实测关→开柱件 0→42、只开柱时腰线 0 件；`_pilaster_clear` 单元测试命中「压到洞口」并给出 `pilaster.width` 调整项 |
+| SEA-WORKSHOP-R42 | partial；转角柱由 `_corner_pilaster_polygon()` 生成单个 L 形八边形（沿两立面各伸一条腿），窗间柱由 `_run_rect()` 生成方柱；每根柱单独 `_part()` 成件，命名 `pilaster_<floor>_c<n>`/`_m<n>` | editor 专项在 rect 12×9m 与 L 12×12m 上实测柱件逐层等量（rect 14/14/14、L 16/16/16），每件通过单连通闭合且定向审计 |
+| SEA-WORKSHOP-R43 | partial；`BAND_FIELDS`/`BAND_BOUNDS`、`_validate_band()`；`shell_geometry._append_floor_band()` 在 `floor >= floors-1` 直接返回，无柱整圈 `band_<floor>_ring`、有柱按段 `band_<floor>_<i>` | editor 专项实测 3 层楼腰线只在 0/1 层出现（rect 4/4、L 6/6），顶层 0 件，件数不超过 4×(层数-1) |
+| SEA-WORKSHOP-R44 | partial；`_append_floor_band()` 内 `projection = minf(projection, maxf(pilaster.projection-0.04, 0.03))`；`_frame_summary()` 同步显示实际凸出量并在被压回时追加「收在柱后」 | 架构专项 `_test_frame` 给腰线 0.30（大于柱 0.18）仍生成成功且被压回；editor 专项实测 post=-4.680 < band=-4.640，即柱比腰线更凸 40mm |
+| SEA-WORKSHOP-R45 | partial；`ACCESSORY_COMPONENTS` 增 `pilaster_`→`pillar_cozy`、`band_`→`band_cozy`；`catalog_v1.json` 新增两组件（family 分别为 `pillar`/`slab`）；`_slot_family()` 把 `pilaster_`→pillar、`band_/belt_/plinth_/canopy_`→slab | editor 专项连续两次真实保存通过（替件后仍能落第二个 revision），`旧 revision 内容不变`通过；未出现复用 wall_sun 导致的包络失配拒绝 |
+| SEA-WORKSHOP-R46 | partial；`editor_screen.gd` 构架页 9 个控件 + `frame_apply`；`_apply_frame()` 先 `_frame_pilaster_values()`/`_frame_band_values()` 并进 architecture 再 `apply_patch`；非 shell_v2 明确拒绝 | editor 专项 9 个控件、按钮、`shell_v2` 模式守卫、开关互不连坐（关柱后腰线仍在）全部通过；`_frame_summary()` 读数与快照一致 |
 
-### 本轮实测结果
+### 本轮实测结果（承重柱与楼层腰线）
+
+- 几何四项同批：`D:/projects/sea-work/verification/20261112-002526-frame-v004-d8ccea/report.json` —— workshop-shell、workshop-rules、workshop-deep 均 exit0/passed=true；架构专项另跑 `20261112-002417-frame-v004-77d115/report.json` 亦 exit0/passed=true。
+- 真实 editor：`D:/projects/sea-work/verification/20261112-005440-frame-v008-9cfe9f/report.json` —— editor-workshop 为 real、exit0/passed=true、unexpected_errors=[]；同批 `project/outputs/workshop_editor_report.json` 为 2214 项、failures=[]、passed=true，enginehint=true、is_playing=false、scene_unchanged=true。
+- 构架专项断言实测值：开柱后柱件 42（rect 3 层，14/层）；只开柱时腰线 0 件；开腰线后腰线 8 件（rect 4 边×2 层）；`post=-4.680 < band=-4.640`（柱比腰线更凸 40mm，即 0.18 与 0.10 之差）；关柱后腰线仍在；L 形柱 16/16/16、腰线 6/6。
+- 出图：`D:/projects/sea-work/building_workshop/ornament_v001/` —— 7 组配方 × 3 机位共 21 张（`orn_all`／`orn_none`／`orn_corner`／`orn_middle`／`orn_band_off`／`orn_deep`／`orn_flat` 的 `_three_quarter`／`_corner`／`_joint`）。主线程目检：斜角与近景下转角柱、窗间柱、楼层腰线凸出可读，腰线被压回柱后无悬挑薄片、无破面；正视不做验收机位（同色柱在平光下与墙糊成一片）。
+
+### 上一轮实测结果（形体 v2，保留为历史）
 
 - 几何四项同批：`D:/projects/sea-work/verification/20261111-165719-verification-dd2b68/report.json` —— workshop-shell、workshop-architecture、workshop-rules、workshop-deep 均 exit0/passed=true。
 - 真实 editor：`D:/projects/sea-work/verification/20261111-170241-shell-v3-doors2-55f69d/report.json` —— editor-workshop 为 real、exit0/passed=true；同批 `project/outputs/workshop_editor_report.json` 为 1819 项、failures=[]、passed=true，enginehint=true、is_playing=false、scene_unchanged=true。
@@ -253,3 +266,5 @@
 ### 未签边界
 
 完整 professional 美术终验、性能、复杂根系/墙面苔、楼梯导航、全楼可达、正式世界接入、建筑承载与防护规范均未签；女儿墙只做单圈0.9m，屋面排水坡、压顶分缝、屋面设备未做；内角圆弧与墙上下水平边圆弧未实现。详细成因、几何参数与复现步骤见 [工整模型 v3 开发记录](../../development/2026-11-11_workshop_shell_v3_structure.md)。
+
+承重柱与腰线同样的边界：柱是**立面构造件不是受力构件**，不做荷载计算、柱距结构验算、抗震或土木结构安全签认；柱头柱础、腰线分缝与断头处理、柱与室内梁的对应关系均未做。本轮的候选楼房 bundle 未重新导出（几何已变，历史候选 `shell_rect_1794387870_107701812`／`shell_l_1794387870_107701812` 与其前的两批保持原样、不删除不改写），需要新候选时在编辑器「文件」页重新保存。详细记录见 [承重柱与楼层腰线开发记录](../../development/2026-11-12_workshop_frame_columns_band.md)。

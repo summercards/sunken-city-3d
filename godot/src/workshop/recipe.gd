@@ -102,6 +102,8 @@ static func authoring_defaults() -> Dictionary:
 	result["door_width"] = 1.6
 	result["door_height"] = 2.4
 	result.component_bindings["wall"] = "wall_sun"
+	# 承重壁柱与墙同色系（cozy），但保持独立组件：与墙共用会让"替换墙"把柱一起换掉。
+	result.component_bindings["pillar"] = "pillar_cozy"
 	var architecture: Dictionary = Config.defaults()
 	# 窗台板与女儿墙作为新建默认：立面有窗台线、屋顶有收头。
 	var window: Dictionary = (architecture["window"] as Dictionary).duplicate(true)
@@ -117,6 +119,10 @@ static func authoring_defaults() -> Dictionary:
 	roof["cap_thickness"] = 0.1
 	roof["cap_overhang"] = 0.05
 	architecture["roof"] = roof
+	# 新建默认开承重柱与腰线：立面有竖向结构分节与水平楼层线。
+	architecture.pilaster = {"enabled": true, "corner": true, "middle": true,
+		"width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
+	architecture.band = {"enabled": true, "projection": 0.10, "thickness": 0.34, "bevel": 0.012}
 	# 新建默认开启形体变形：区间落在4°墙倾角内（默认12m宽、3.6m层高上限≈0.0210）。
 	# 默认幅度按"看得见"设定：12m×3层楼在8°倾角内可用收分约12.6%，这里取3–6%留出余量。
 	# opening 用 mixed：同一栋楼里既有上窄下宽的窗，也有上宽下窄的窗，立面才有手作感。
@@ -430,8 +436,8 @@ static func _slot_family(slot_id: String) -> String:
 	if slot_id.begins_with("wall_") or slot_id.begins_with("parapet_"): return "wall"
 	if slot_id.begins_with("slab_") or slot_id.begins_with("roof_") or slot_id.begins_with("roofcap_"): return "slab"
 	# 层间束带/勒脚/雨棚是板族附件，不是墙：共用wall组件会让墙的整件替换把它们一起换掉。
-	if slot_id.begins_with("belt_") or slot_id.begins_with("plinth_") or slot_id.begins_with("canopy_"): return "slab"
-	if slot_id.begins_with("pillar_") or slot_id.begins_with("railing_"): return "pillar"
+	if slot_id.begins_with("belt_") or slot_id.begins_with("plinth_") or slot_id.begins_with("canopy_") or slot_id.begins_with("band_"): return "slab"
+	if slot_id.begins_with("pillar_") or slot_id.begins_with("pilaster_") or slot_id.begins_with("railing_"): return "pillar"
 	if slot_id.begins_with("frame_") or slot_id.begins_with("sash_") or slot_id.begins_with("sill_"): return "frame"
 	if slot_id.begins_with("glass_"): return "glass"
 	if slot_id.begins_with("plant_") or slot_id.begins_with("vine_"): return "plant"

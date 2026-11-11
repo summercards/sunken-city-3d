@@ -118,6 +118,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	_test_overrides()
 	await _test_architecture_controls()
 	await _test_form_controls()
+	await _test_frame_controls()
 	_test_preview()
 	print("[workshop-editor-stage] component replacement")
 	_test_components(session)
@@ -298,6 +299,8 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	var plinths: int = 0
 	var canopies: int = 0
 	var forbidden: Array[String] = []
+	var posts_by_floor: Dictionary = {}
+	var bands_by_floor: Dictionary = {}
 	var topology: Dictionary = {}
 	for node: Node in visual.get_children():
 		var id: String = str(node.name)
@@ -317,9 +320,15 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 			plinths += 1
 		elif id.begins_with("canopy_"):
 			canopies += 1
-		elif id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_") or id.begins_with("sash_") or id.begins_with("belt_") or id.begins_with("door_"):
-			# 门扇是整件实体（不是分段墙），与窗台板/活动扇同级别放行。
-			pass
+		elif id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_") or id.begins_with("sash_") or id.begins_with("belt_") or id.begins_with("door_") or id.begins_with("pilaster_") or id.begins_with("band_"):
+			# 门扇是整件实体（不是分段墙），与窗台板/活动扇同级别放行；
+			# 承重柱与腰线是 v4 起的正式立面构件，件数与逐层一致性另有专门断言。
+			if id.begins_with("pilaster_"):
+				var post_floor: String = id.trim_prefix("pilaster_").split("_")[0]
+				posts_by_floor[post_floor] = int(posts_by_floor.get(post_floor, 0)) + 1
+			elif id.begins_with("band_"):
+				var band_floor: String = id.trim_prefix("band_").split("_")[0]
+				bands_by_floor[band_floor] = int(bands_by_floor.get(band_floor, 0)) + 1
 		else:
 			forbidden.append(id)
 		var mesh_node: MeshInstance3D = node as MeshInstance3D
@@ -338,7 +347,19 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	var expected_frames: int = openings_per_floor * int(recipe.floors)
 	_check(label + " 实际整框与玻璃数量", frames == expected_frames and glasses == expected_frames - 1, "frame=%d glass=%d expected_frame=%d" % [frames, glasses, expected_frames])
 	_check(label + " 每层一墙壳一整板及一个整屋顶", walls == int(recipe.floors) and slabs == int(recipe.floors) and roofs == 1, "wall=%d slab=%d roof=%d" % [walls, slabs, roofs])
-	_check(label + " 无legacy屋顶cell或外凸柱及分段墙", forbidden.is_empty(), str(forbidden))
+	_check(label + " 无legacy屋顶cell或分段墙", forbidden.is_empty(), str(forbidden))
+	var frame_arch: Dictionary = _dictionary(Config.normalized(recipe).get("architecture", {}))
+	var pilaster_on: bool = bool(_dictionary(frame_arch.get("pilaster", {})).get("enabled", false))
+	var band_on: bool = bool(_dictionary(frame_arch.get("band", {})).get("enabled", false))
+	var post_counts: Array = posts_by_floor.values()
+	_check(label + " 承重柱逐层等量且与开关一致",
+		(post_counts.size() == int(recipe.floors) and int(post_counts[0]) > 0 and post_counts.min() == post_counts.max()) if pilaster_on else post_counts.is_empty(),
+		str(posts_by_floor))
+	# 顶层没有上层楼板缝，不生成腰线；其余楼层逐层等段。
+	var band_counts: Array = bands_by_floor.values()
+	_check(label + " 腰线只在非顶层逐层等段",
+		(bands_by_floor.size() == int(recipe.floors) - 1 and not bands_by_floor.has(str(int(recipe.floors) - 1)) and (band_counts.is_empty() or band_counts.min() == band_counts.max())) if band_on else band_counts.is_empty(),
+		str(bands_by_floor))
 	_check(label + " 整栋一圈勒脚", plinths == 1, str(plinths))
 	_check(label + " 每窗一块窗台板", sills == glasses, "sill=%d glass=%d" % [sills, glasses])
 	_check(label + " 入口雨棚与两根落地柱", canopies == 3, str(canopies))
@@ -500,6 +521,129 @@ func _test_overrides() -> void:
 	var facades: Dictionary = _dictionary(_snapshot().get("facade_overrides", {}))
 	_check("真实立面按钮应用覆盖", is_equal_approx(float(_dictionary(facades.get(facade, {})).get("width", 0.0)), 1.2))
 	_check_result("覆盖后全部参数可应用", _result(_screen, "apply_parameters"))
+
+## 承重柱与腰线：控件存在、开关各自生效、几何真的跟着变。
+func _test_frame_controls() -> void:
+	print("[workshop-editor-stage] frame controls")
+	var session: Object = _property(_screen, "session") as Object
+	if session == null:
+		_check("构架测试有session", false)
+		return
+	var keys: Array[String] = ["pilaster_enabled", "pilaster_corner", "pilaster_middle", "pilaster_width", "pilaster_projection", "pilaster_bite", "band_enabled", "band_projection", "band_thickness"]
+	for key: String in keys:
+		_check("构架控件存在：" + key, _dictionary(_property(_screen, "controls")).has(key))
+	_check("构架应用按钮存在", _dictionary(_property(_screen, "buttons")).has("frame_apply"))
+
+	var original: Dictionary = _snapshot().duplicate(true)
+	# 基线必须自己造一份连续实体文档：不能拿"当前文档"当基线——上一个用例可能把编辑器
+	# 留在 old modular_v1 老配方上，构架会被正确地拒绝，那测的就不是构架而是模式守卫了。
+	var baseline: Dictionary = _orthographic_recipe()
+	baseline["building_id"] = str(original.get("building_id", baseline.get("building_id", "")))
+	baseline["revision"] = int(original.get("revision", 1))
+	baseline["display_name"] = str(original.get("display_name", baseline.get("display_name", "")))
+	baseline["taper"] = 0.0
+	baseline["bay_width"] = 3.0
+	baseline["door_width"] = 1.6
+	# 逐层用 get 兜底：dict["a"]["b"] 在缺键时会直接抛错并让整轮验收 124 超时。
+	var architecture: Dictionary = _dictionary(baseline.get("architecture", {}))
+	if architecture.is_empty():
+		architecture = Config.defaults()
+	var form: Dictionary = _dictionary(architecture.get("form", {}))
+	form["enabled"] = false
+	architecture["form"] = form
+	architecture["pilaster"] = {"enabled": false, "corner": true, "middle": true, "width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
+	architecture["band"] = {"enabled": false, "projection": 0.10, "thickness": 0.34, "bevel": 0.012}
+	baseline["architecture"] = architecture
+	if not _check("构架基线是连续实体", str(baseline.get("construction_mode", "")) == "shell_v2", str(baseline.get("construction_mode", ""))):
+		return
+	if not _check_result("构架测试载入基线", _result(session, "accept_loaded", [baseline, _dictionary(_property(session, "catalog"))])):
+		return
+	_screen.call("configure", {})
+	_check_result("构架测试刷新预览", _result(_screen, "refresh_preview"))
+	# 构架只在 shell_v2 生效，先确认下拉真的跟着文档回到连续实体。
+	var mode_option: OptionButton = _dictionary(_property(_screen, "controls")).get("construction_mode") as OptionButton
+	var mode_selected: int = mode_option.selected if mode_option != null else -99
+	var mode_value: String = str(mode_option.get_item_metadata(mode_selected)) if mode_option != null and mode_selected >= 0 else "<none>"
+	_check("构架测试处于连续实体模式", mode_value == "shell_v2",
+		"下拉=%s(sel=%d,items=%d) 配方=%s" % [mode_value, mode_selected, mode_option.item_count if mode_option != null else -1, str(baseline.get("construction_mode", "<missing>"))])
+	var closed_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	_check("关闭时没有柱件", _count_prefix(closed_visual, "pilaster_") == 0, str(_count_prefix(closed_visual, "pilaster_")))
+	_check("关闭时没有腰线件", _count_prefix(closed_visual, "band_") == 0, str(_count_prefix(closed_visual, "band_")))
+
+	# 1) 只开柱：柱出现、腰线仍无。
+	_set_check("pilaster_enabled", true)
+	_set_check("pilaster_corner", true)
+	_set_check("pilaster_middle", true)
+	_set_spin("pilaster_width", 0.36)
+	_set_spin("pilaster_projection", 0.18)
+	_set_spin("pilaster_bite", 0.06)
+	_check_result("开柱应用", _result_button("frame_apply"))
+	var post_status: String = _status_text()
+	var post_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var posts: int = _count_prefix(post_visual, "pilaster_")
+	var bands_only: int = _count_prefix(post_visual, "band_")
+	_check("开柱应用未被拒绝", not post_status.contains("拒绝"), post_status)
+	_check("开柱后柱件出现", posts > 0, "%d（%s）" % [posts, post_status])
+	_check("只开柱时不生成腰线", bands_only == 0, str(bands_only))
+	var post_recipe: Dictionary = _snapshot()
+	_check("柱参数进入快照", bool(_dictionary(_dictionary(post_recipe.get("architecture", {})).get("pilaster", {})).get("enabled", false)) and is_equal_approx(float(_dictionary(_dictionary(post_recipe.get("architecture", {})).get("pilaster", {})).get("width", 0.0)), 0.36), post_status)
+
+	# 2) 再开腰线：腰线出现，且必须比柱更靠墙（柱更凸）。
+	_set_check("band_enabled", true)
+	_set_spin("band_projection", 0.30)
+	_set_spin("band_thickness", 0.34)
+	_check_result("开腰线应用", _result_button("frame_apply"))
+	var both_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	var band_count: int = _count_prefix(both_visual, "band_")
+	_check("开腰线后腰线件出现", band_count > 0, str(band_count))
+	var depth_half: float = float(_snapshot().get("depth", 9.0)) * 0.5
+	var band_front: float = _front_most(both_visual, "band_", depth_half)
+	var post_front: float = _front_most(both_visual, "pilaster_", depth_half)
+	_check("腰线与柱都伸到正面之外", band_front < INF and post_front < INF, "band=%f post=%f" % [band_front, post_front])
+	_check("柱比腰线更凸（腰线收在柱后）", post_front < band_front, "post=%f band=%f" % [post_front, band_front])
+	# 顶层不重复腰线：件数不超过 4 边 × (层数-1)。
+	_check("顶层不重复生成腰线", band_count <= 4 * (int(_snapshot().get("floors", 3)) - 1), "%d" % band_count)
+
+	# 3) 关闭柱：柱消失、腰线保留（两开关互不连坐）。
+	_set_check("pilaster_enabled", false)
+	_check_result("关柱应用", _result_button("frame_apply"))
+	var band_only_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+	_check("关柱后柱件消失", _count_prefix(band_only_visual, "pilaster_") == 0)
+	_check("关柱后腰线仍在", _count_prefix(band_only_visual, "band_") > 0)
+
+	_check_result("构架测试后恢复原配方", _result(session, "accept_loaded", [original, _dictionary(_property(session, "catalog"))]))
+	_screen.call("configure", {})
+	_check_result("构架测试后恢复预览", _result(_screen, "refresh_preview"))
+
+func _count_prefix(visual: Node3D, prefix: String) -> int:
+	if visual == null:
+		return 0
+	var total: int = 0
+	for node: Node in visual.get_children():
+		if str(node.name).begins_with(prefix):
+			total += 1
+	return total
+
+## 某前缀构件在正面(-Z)最靠外的 z。mesh 顶点是局部的，必须加节点 position。
+func _front_most(visual: Node3D, prefix: String, depth_half: float) -> float:
+	if visual == null:
+		return INF
+	var extreme: float = INF
+	for node: Node in visual.get_children():
+		if not str(node.name).begins_with(prefix):
+			continue
+		var mesh_node: MeshInstance3D = node as MeshInstance3D
+		if mesh_node == null or mesh_node.mesh == null:
+			continue
+		var low: float = INF
+		for point in mesh_node.mesh.get_faces():
+			low = minf(low, point.z)
+		low += mesh_node.position.z
+		# 只认伸到正面墙皮之外的件
+		if low > -(depth_half + 0.02):
+			continue
+		extreme = minf(extreme, low)
+	return extreme
 
 ## 形体变形：区间+seed→落值→几何。控件、落值、拒绝与taper归属都要真实走一遍。
 func _test_form_controls() -> void:
@@ -1702,6 +1846,11 @@ func _spin(key: String) -> float:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
 	var spin: SpinBox = controls.get(key) as SpinBox
 	return spin.value if spin != null else NAN
+
+## 状态栏文字是真实验收产物：按钮被按到不等于操作成功，拒绝原因要能进断言细节。
+func _status_text() -> String:
+	var label: Label = _property(_screen, "status_label") as Label
+	return str(label.text) if label != null else ""
 
 func _set_check(key: String, value: bool) -> bool:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))

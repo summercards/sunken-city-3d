@@ -9,7 +9,7 @@ const Preview = preload("res://addons/building_workshop/editor_preview.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
-const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "形体", "文件"]
+const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "构架", "形体", "文件"]
 const FORM_CATEGORIES: Array[String] = ["structure", "opening", "accessory"]
 const FORM_LABELS: Dictionary = {"structure": "整楼结构", "opening": "窗户洞口", "accessory": "配件"}
 const FORM_PRESETS: Dictionary = {
@@ -40,6 +40,7 @@ var _store: Variant
 var _ports: Dictionary = {}
 var _page_picker: OptionButton
 var form_readout_label: Label
+var frame_readout_label: Label
 var _slot_list: ItemList
 var _saved_list: ItemList
 var _sample_picker: OptionButton
@@ -755,6 +756,23 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			for pair: Array in [["structure_seed", "结构种子"], ["damage_seed", "破损种子"], ["vegetation_seed", "植物种子"]]:
 				_spin_spec(page, [pair[0], pair[1], 0, 2147483647, 1])
 			page.add_child(_label("水下观赏无碰撞、导航或玩法功能；不会自动接入正式世界。"))
+		"构架":
+			var frame_panel: VBoxContainer = _architecture_panel(page, "architecture_frame_panel")
+			frame_panel.add_child(_label("承重柱与楼层腰线", 16))
+			frame_panel.add_child(_label("柱是贴墙的竖向结构件，咬入墙体；腰线是楼层处整圈凸出的水平线条。两项各自独立开关。", 12))
+			_check("承重柱", "pilaster_enabled", frame_panel)
+			_check("  转角/边缘柱", "pilaster_corner", frame_panel)
+			_check("  窗间中间柱", "pilaster_middle", frame_panel)
+			_spin_spec(frame_panel, ["pilaster_width", "柱宽（米）", float(Config.PILASTER_BOUNDS["width"][0]), float(Config.PILASTER_BOUNDS["width"][1]), 0.02])
+			_spin_spec(frame_panel, ["pilaster_projection", "柱凸出墙面（米）", float(Config.PILASTER_BOUNDS["projection"][0]), float(Config.PILASTER_BOUNDS["projection"][1]), 0.01])
+			_spin_spec(frame_panel, ["pilaster_bite", "柱咬入墙体（米）", float(Config.PILASTER_BOUNDS["bite"][0]), float(Config.PILASTER_BOUNDS["bite"][1]), 0.01])
+			_check("楼层腰线", "band_enabled", frame_panel)
+			_spin_spec(frame_panel, ["band_projection", "腰线凸出（米）", float(Config.BAND_BOUNDS["projection"][0]), float(Config.BAND_BOUNDS["projection"][1]), 0.01])
+			_spin_spec(frame_panel, ["band_thickness", "腰线厚度（米）", float(Config.BAND_BOUNDS["thickness"][0]), float(Config.BAND_BOUNDS["thickness"][1]), 0.02])
+			frame_panel.add_child(_button("应用构架", "frame_apply"))
+			frame_panel.add_child(_label("腰线始终收在柱侧：柱比腰线凸出，腰线只在窗间可见、到柱边干净收头。顶层的檐口由女儿墙压顶负责，不重复生成腰线。", 12))
+			frame_readout_label = _label("", 12)
+			frame_panel.add_child(frame_readout_label)
 		"形体":
 			var form_panel: VBoxContainer = _architecture_panel(page, "architecture_form_panel")
 			form_panel.add_child(_label("形体变形 · 随机幅度", 16))
@@ -923,6 +941,7 @@ func _button_pressed(id: String) -> void:
 		"architecture_clear": _clear_architecture_window_scope()
 		"window_apply": _apply_window_override()
 		"roof_apply": _apply_architecture_roof()
+		"frame_apply": _apply_frame()
 		"form_apply": _apply_form()
 		"form_reroll": _reroll_form()
 		"roof_clear": _clear_architecture_roof_edge()
@@ -1264,6 +1283,8 @@ func _architecture_ui_patch(force_global: bool = false) -> Dictionary:
 		roof[field] = _raw_control_value(key)
 	architecture["roof"] = roof
 	architecture["form"] = _form_values(architecture)
+	architecture["pilaster"] = _frame_pilaster_values(architecture)
+	architecture["band"] = _frame_band_values(architecture)
 	return architecture
 
 func _architecture_window_control_values() -> Dictionary:
@@ -1327,6 +1348,93 @@ func _window_selection_changed(_index: int) -> void:
 		if _window_scope() != "global":
 			_sync_architecture_window_scope()
 		_capture_window_local_baseline()
+
+func _refresh_frame_controls(data: Dictionary) -> void:
+	if not controls.has("pilaster_enabled"):
+		return
+	var architecture: Dictionary = Config.normalized(data.get("architecture", {}))
+	var pilaster: Dictionary = architecture.get("pilaster", {})
+	var band: Dictionary = architecture.get("band", {})
+	_set_control_value("pilaster_enabled", bool(pilaster.get("enabled", false)))
+	_set_control_value("pilaster_corner", bool(pilaster.get("corner", true)))
+	_set_control_value("pilaster_middle", bool(pilaster.get("middle", true)))
+	_set_spin("pilaster_width", float(pilaster.get("width", 0.36)))
+	_set_spin("pilaster_projection", float(pilaster.get("projection", 0.18)))
+	_set_spin("pilaster_bite", float(pilaster.get("bite", 0.06)))
+	_set_control_value("band_enabled", bool(band.get("enabled", false)))
+	_set_spin("band_projection", float(band.get("projection", 0.10)))
+	_set_spin("band_thickness", float(band.get("thickness", 0.34)))
+	_update_frame_readout()
+
+func _frame_pilaster_values(architecture: Dictionary) -> Dictionary:
+	var pilaster: Dictionary = architecture.get("pilaster", {}).duplicate(true)
+	if not controls.has("pilaster_width"):
+		return pilaster
+	pilaster["enabled"] = bool(_raw_control_value("pilaster_enabled"))
+	pilaster["corner"] = bool(_raw_control_value("pilaster_corner"))
+	pilaster["middle"] = bool(_raw_control_value("pilaster_middle"))
+	pilaster["width"] = _spin_value("pilaster_width")
+	pilaster["projection"] = _spin_value("pilaster_projection")
+	pilaster["bite"] = _spin_value("pilaster_bite")
+	if not pilaster.has("bevel"):
+		pilaster["bevel"] = 0.014
+	return pilaster
+
+func _frame_band_values(architecture: Dictionary) -> Dictionary:
+	var band: Dictionary = architecture.get("band", {}).duplicate(true)
+	if not controls.has("band_projection"):
+		return band
+	band["enabled"] = bool(_raw_control_value("band_enabled"))
+	band["projection"] = _spin_value("band_projection")
+	band["thickness"] = _spin_value("band_thickness")
+	if not band.has("bevel"):
+		band["bevel"] = 0.012
+	return band
+
+func _apply_frame() -> Dictionary:
+	if _option_value("construction_mode") != "shell_v2":
+		return _report_failure("承重柱与腰线只在shell_v2连续实体模式生效。")
+	# 构架页控件的值必须先并进 architecture 再提交：_architecture_snapshot() 读的是
+	# session 里的旧配方，直接拿它提交等于把用户刚拨的柱宽/腰线凸出量原样丢掉。
+	var architecture: Dictionary = _architecture_snapshot()
+	architecture["pilaster"] = _frame_pilaster_values(architecture)
+	architecture["band"] = _frame_band_values(architecture)
+	var result: Dictionary = session.apply_patch({"architecture": architecture})
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("构架已应用 · " + _frame_summary())
+	else:
+		_report_result(result, "构架参数被拒绝：柱压到洞口、咬入过深或腰线过薄")
+	_update_frame_readout()
+	return result
+
+func _frame_summary() -> String:
+	var recipe: Dictionary = snapshot().duplicate(true)
+	recipe["architecture"] = _architecture_snapshot()
+	var architecture: Dictionary = Config.normalized(recipe.get("architecture", {}))
+	var pilaster: Dictionary = architecture.get("pilaster", {})
+	var band: Dictionary = architecture.get("band", {})
+	var parts: Array[String] = []
+	if bool(pilaster.get("enabled", false)):
+		var sides: Array[String] = []
+		if bool(pilaster.get("corner", true)): sides.append("转角")
+		if bool(pilaster.get("middle", true)): sides.append("窗间")
+		parts.append("柱 %s 宽%.2fm 凸%.2fm" % ["+".join(sides) if not sides.is_empty() else "无", float(pilaster.get("width", 0.0)), float(pilaster.get("projection", 0.0))])
+	if bool(band.get("enabled", false)):
+		var band_projection: float = float(band.get("projection", 0.0))
+		var requested: float = band_projection
+		if bool(pilaster.get("enabled", false)):
+			# 腰线必须收在柱后，实际凸出量会被柱控住——读数要给出实际值，不能只报用户输入。
+			band_projection = minf(band_projection, maxf(float(pilaster.get("projection", 0.18)) - 0.04, 0.03))
+		var note: String = "" if is_equal_approx(requested, band_projection) else "（收在柱后，实际%.2fm）" % band_projection
+		parts.append("腰线 凸%.2fm 厚%.2fm%s" % [band_projection, float(band.get("thickness", 0.0)), note])
+	return " · ".join(parts) if not parts.is_empty() else "柱与腰线均关闭"
+
+func _update_frame_readout() -> void:
+	if frame_readout_label == null or not controls.has("pilaster_width"):
+		return
+	frame_readout_label.text = "当前：%s" % _frame_summary()
 
 func _refresh_form_controls(data: Dictionary) -> void:
 	if not controls.has("form_seed"):
@@ -1697,6 +1805,7 @@ func _refresh_architecture_controls(data: Dictionary) -> void:
 	if _window_scope() != "global":
 		_sync_architecture_window_scope()
 	_sync_architecture_roof_edge(roof)
+	_refresh_frame_controls(data)
 	_refresh_form_controls(data)
 	_sync_taper_ownership(bool((Config.normalized(data.get("architecture", {})).get("form", {}) as Dictionary).get("enabled", false)))
 	# 刷新到 session 值之后，局部基线必须跟着对齐；否则载入配方会被误判成"存在未应用输入"，连保存都拦住。

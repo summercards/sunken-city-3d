@@ -114,6 +114,7 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		var wall_depth: float = float(r.wall_thickness)
 		var depth_levels: Array[float] = [0.0, WALL_BEVEL, wall_depth - WALL_BEVEL, wall_depth]
 		var contours: Array = []
+		var runs_info: Array = []
 		for distance in depth_levels:
 			var contour: Array[Vector2] = _offset(polygon, distance)
 			var corners: Array = []
@@ -179,6 +180,12 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 			_caps(shell, run, holes, bottom, top, depth_levels)
 			for hole in holes:
 				_reveal(shell, run, hole, depth_levels)
+			# 展开成平铺字段：柱函数要直接用 start/axis/outward 走 _run_rect，包装一层会读不到。
+			var info: Dictionary = run.duplicate(true)
+			info["count"] = count
+			info["facade"] = facade
+			info["holes"] = holes
+			runs_info.append(info)
 		_corner_surfaces(shell, polygon, contours, bottom, top)
 		_part(parts, shell, "wall_shell_" + str(floor), "wall", floor, "", r, c, context, WALL_BEVEL, true)
 		for entry in accessories:
@@ -207,14 +214,18 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 				if bool(entry.hole.door):
 					_opening_canopy(parts, entry.hole, entry.run, r, c, context)
 					break
-		# 束带盖住本层板缘：从墙顶到下一层板顶，与墙同材质，立面才连续。
-		var belt: Dictionary = _buffer()
-		var belt_bottom: float = base + net_height + INSET
-		var belt_top: float = base + _floor_value(r, floor, "floor_height")
-		var belt_outer: Array[Vector2] = _rounded_outline(polygon, -BELT_PROJECTION)
-		var belt_inner: Array[Vector2] = _rounded_outline(polygon, wall_depth * 0.6)
-		_ring_solid(belt, belt_outer, belt_inner, belt_bottom, belt_top, BELT_BEVEL)
-		_part(parts, belt, "belt_" + str(floor), "wall", floor, "", r, c, context, BELT_BEVEL, false)
+		# 承重壁柱：先于束带，柱子贯穿本层全高（到楼板顶），相邻层在 INSET 内重叠，不断头。
+		_append_pilasters(parts, runs_info, r, c, context, floor, wall_depth, base - INSET, base + _floor_value(r, floor, "floor_height"))
+		# 层间腰线开启时由它包住板缘，束带退化为不需要；关闭时仍用 4mm 束带封缝。
+		if not _append_floor_band(parts, polygon, r, c, context, floor, base, _floor_value(r, floor, "floor_height"), wall_depth):
+			# 束带盖住本层板缘：从墙顶到下一层板顶，与墙同材质，立面才连续。
+			var belt: Dictionary = _buffer()
+			var belt_bottom: float = base + net_height + INSET
+			var belt_top: float = base + _floor_value(r, floor, "floor_height")
+			var belt_outer: Array[Vector2] = _rounded_outline(polygon, -BELT_PROJECTION)
+			var belt_inner: Array[Vector2] = _rounded_outline(polygon, wall_depth * 0.6)
+			_ring_solid(belt, belt_outer, belt_inner, belt_bottom, belt_top, BELT_BEVEL)
+			_part(parts, belt, "belt_" + str(floor), "wall", floor, "", r, c, context, BELT_BEVEL, false)
 		base += _floor_value(r, floor, "floor_height")
 	# 勒脚环：与墙皮齐平咬入，不把主体垫高、不封住门洞。
 	if str(r.shape) in ["rectangle", "l", "t", "u"]:
@@ -365,7 +376,8 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 ## 配件自带默认材质：层间束带/勒脚/雨棚必须和墙同色（cozy）才隐形成一条腰线，
 ## 但它们不是墙——共用 wall_sun 会让墙的整件替换把它们一起换掉，所以走独立的 band_cozy。
 const ACCESSORY_COMPONENTS: Dictionary = {
-	"belt_": "band_cozy", "plinth_": "band_cozy", "canopy_": "band_cozy"
+	"belt_": "band_cozy", "plinth_": "band_cozy", "canopy_": "band_cozy",
+	"band_": "band_cozy", "pilaster_": "pillar_cozy"
 }
 
 static func _component(r: Dictionary, kind: String, id: String) -> String:
@@ -793,6 +805,133 @@ static func _ring_solid(buffer: Dictionary, outer: Array[Vector2], inner: Array[
 		_quad(buffer, inner_bottom[edge], inner_bottom[next], inner_top[next], inner_top[edge], Vector3(-d.y, 0.0, d.x))
 		_quad(buffer, outer_rings[3][edge], outer_rings[3][next], inner_top[next], inner_top[edge], Vector3.UP)
 		_quad(buffer, inner_bottom[edge], inner_bottom[next], outer_rings[0][next], outer_rings[0][edge], Vector3.DOWN)
+
+## 承重壁柱：转角柱（每角一个 L 形）+ 开间分界柱。
+## 逐层生成，随整层墙一起被 _map 收分缩放，所以柱在层间不会与墙错开。
+## 柱必须咬入墙体（bite>0）：只贴墙皮的柱与墙没有实体交叠，接缝契约会判成脱离宿主。
+static func _append_pilasters(parts: Array, runs: Array, r: Dictionary, c: Dictionary, context: Dictionary, floor: int, wall_depth: float, bottom: float, top: float) -> void:
+	var pilaster: Dictionary = Config.normalized(r.get("architecture", {})).get("pilaster", {})
+	if not bool(pilaster.get("enabled", false)) or runs.is_empty():
+		return
+	var width: float = float(pilaster.get("width", 0.34))
+	var projection: float = float(pilaster.get("projection", 0.12))
+	# 咬入深度不超过半墙厚：咬穿会在室内看到柱背。
+	var bite: float = minf(float(pilaster.get("bite", 0.06)), wall_depth * 0.5)
+	var bevel: float = float(pilaster.get("bevel", 0.012))
+	# 一个 part 的网格必须单连通（保存重载后按共享边图只允许一个分量），
+	# 所以每根柱子各自成件，不能把几根柱塞进同一个 buffer。
+	var counter: int = 0
+	if bool(pilaster.get("corner", true)):
+		for index in runs.size():
+			var run: Dictionary = runs[index]
+			var previous: Dictionary = runs[(index - 1 + runs.size()) % runs.size()]
+			# 转角柱要是一个 L 形实体：叠两个方块只是空间相交，边图上是两个分量，审计会判未闭合。
+			var corner: Dictionary = _buffer()
+			_solid(corner, _corner_pilaster_polygon(run, previous, width, projection, bite), bottom, top, bevel)
+			_part(parts, corner, "pilaster_" + str(floor) + "_c" + str(index), "pillar", floor, "", r, c, context, bevel, false)
+			counter += 1
+	if bool(pilaster.get("middle", true)):
+		for run in runs:
+			var count: int = int(run.get("count", 1))
+			for bay in range(1, count):
+				var x: float = float(run.length) * float(bay) / float(count)
+				if not _pilaster_clear(run, x, width, context):
+					return
+				var single: Dictionary = _buffer()
+				_solid(single, _run_rect(run, x, width * 0.5, -projection, bite), bottom, top, bevel)
+				_part(parts, single, "pilaster_" + str(floor) + "_m" + str(counter), "pillar", floor, "", r, c, context, bevel, false)
+				counter += 1
+
+## 转角柱的 L 形平面轮廓（世界XZ）。用单一八边形做一整块实体，
+## 不能用两个相交方块拼——那样在共享边图上是两个分量，闭合审计不通过。
+## 以转角为原点、本段前进方向为 a、本段外法向为 d（d>0 向外）：
+## 沿本段伸出 width，沿上段回收 width，法向从 -bite（咬入墙）到 +projection（凸出）。
+static func _corner_pilaster_polygon(run: Dictionary, previous: Dictionary, width: float, projection: float, bite: float) -> Array[Vector2]:
+	var start: Vector2 = run.start
+	var u: Vector2 = run.axis
+	var v: Vector2 = run.outward
+	var outline: Array[Vector2] = []
+	for pair in [[-bite, -width], [projection, -width], [projection, -bite], [width, -bite], [width, projection], [0.0, projection], [0.0, 0.0], [-bite, 0.0]]:
+		outline.append(start + u * float(pair[0]) + v * float(pair[1]))
+	return _ccw(outline)
+
+## 中间柱必须落在两窗之间的墙垛上。压到洞口就明确失败，不静默挪位——
+## 挪位后的柱看起来像随机竖条，比报错更难排查。
+static func _pilaster_clear(run: Dictionary, x: float, width: float, context: Dictionary) -> bool:
+	var half: float = width * 0.5
+	for hole in run.get("holes", []):
+		var reach: float = maxf(float(hole.get("reach", 0.0)), maxf(absf(float(hole.x1) - float(hole.cx)), absf(float(hole.cx) - float(hole.x0))))
+		var left: float = float(hole.cx) - reach
+		var right: float = float(hole.cx) + reach
+		if x + half > left - 0.02 and x - half < right + 0.02:
+			context.error = "承重柱压到洞口：%s 立面 x=%.2f 柱宽%.2f。请调小 pilaster.width 或加大 bay_width。" % [str(run.facade), x, width]
+			return false
+	return true
+
+## 层间腰线：楼层处整圈凸出的水平线条，凸出量（projection）与竖直厚度（thickness）都可调。
+## 返回 true = 已生成，束带不必再建（腰线把板缘整圈包住了）。
+## 顶层不生成：屋顶已有女儿墙压顶收头，再叠一道腰线会读成两道檐口。
+static func _append_floor_band(parts: Array, polygon: Array[Vector2], r: Dictionary, c: Dictionary, context: Dictionary, floor: int, base: float, floor_height: float, wall_depth: float) -> bool:
+	var band: Dictionary = Config.normalized(r.get("architecture", {})).get("band", {})
+	if not bool(band.get("enabled", false)):
+		return false
+	if floor >= int(r.get("floors", 1)) - 1:
+		return false
+	var projection: float = float(band.get("projection", 0.09))
+	var thickness: float = float(band.get("thickness", 0.26))
+	var bevel: float = float(band.get("bevel", 0.010))
+	var center_y: float = base + floor_height
+	# 腰线整体收在壁柱之后：柱凸出更多，腰线只从柱侧之间露出来。
+	# 注意不能用"腰线略大于柱"来压过柱——哪怕只多 8mm，转角也会多出一圈悬挑薄片，
+	# 在近景里读成一个浮空小块（实测过）。
+	var pilaster: Dictionary = Config.normalized(r.get("architecture", {})).get("pilaster", {})
+	var clear: float = 0.0
+	if bool(pilaster.get("enabled", false)):
+		projection = minf(projection, maxf(float(pilaster.get("projection", 0.18)) - 0.04, 0.03))
+		clear = float(pilaster.get("width", 0.36)) * 0.5 + 0.01
+	var bottom: float = center_y - thickness * 0.5
+	var top: float = center_y + thickness * 0.5
+	var built_segments: int = 0
+	var buffer: Dictionary = _buffer()
+	if clear <= 0.0:
+		# 没有柱时整圈连续，转角随墙一起圆弧化，不会有多余面。
+		_ring_solid(buffer, _rounded_outline(polygon, -projection), _rounded_outline(polygon, minf(wall_depth * 0.55, 0.09)), bottom, top, bevel)
+		# 环形只有一件：内外壁通过顶/底面连成一体，仍是单一连通分量。
+		if not buffer.get("v", PackedVector3Array()).is_empty():
+			_part(parts, buffer, "band_" + str(floor) + "_ring", "wall", floor, "", r, c, context, bevel, false)
+			built_segments = 1
+	else:
+		# 有柱时按"段"生成：每段从本角柱内侧到下一角柱内侧，避开柱身。
+		# 整圈环形会在柱与墙的交界处留下与柱相切的碎面（近景可见浮空小块）。
+		for index in polygon.size():
+			var next: int = (index + 1) % polygon.size()
+			var start: Vector2 = polygon[index]
+			var axis: Vector2 = (polygon[next] - start).normalized()
+			var outward: Vector2 = Vector2(axis.y, -axis.x)
+			var length: float = start.distance_to(polygon[next])
+			# _solid 起方块走 _point(run,...)，只需要 start/axis/outward；ends 是分段网格用的，这里用不到。
+			var run: Dictionary = {"start": start, "axis": axis, "outward": outward, "length": length, "depth": wall_depth}
+			var from: float = clear
+			var to: float = length - clear
+			if to - from <= 0.05:
+				continue
+			# 同样受单连通约束：每段腰线各自成件。
+			var segment: Dictionary = _buffer()
+			_band_segment(segment, run, from, to, projection, minf(wall_depth * 0.55, 0.09), bottom, top, bevel)
+			if segment.get("v", PackedVector3Array()).is_empty():
+				continue
+			_part(parts, segment, "band_" + str(floor) + "_" + str(index), "wall", floor, "", r, c, context, bevel, false)
+			built_segments += 1
+	if built_segments == 0:
+		return false
+	return true
+
+## 一段腰线：沿 run 的 [from, to] 区间，法向从 -projection 到 +bite 的实体块。
+## 用 _solid 起方块而不是环形，段端就是干净的切口，不会与柱面相切成碎面。
+static func _band_segment(buffer: Dictionary, run: Dictionary, from: float, to: float, projection: float, bite: float, bottom: float, top: float, bevel: float) -> void:
+	var half: float = (to - from) * 0.5
+	var center_x: float = (from + to) * 0.5
+	_solid(buffer, _run_rect(run, center_x, half, -projection, bite), bottom, top, bevel)
 
 static func _opening_canopy(parts: Array, door: Dictionary, run: Dictionary, r: Dictionary, c: Dictionary, context: Dictionary) -> void:
 	# 门头雨棚：贴墙挑出的平板 + 两根落地柱；柱脚落在场地 y=0，不生成悬挑假构件。

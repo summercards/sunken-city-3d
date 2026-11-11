@@ -60,6 +60,7 @@ func run() -> void:
 	_test_session_atomic(base, catalog)
 	_test_store(base, catalog)
 	_test_form(base, catalog)
+	_test_frame(base, catalog)
 	await process_frame
 	_finish()
 
@@ -741,6 +742,101 @@ func _read_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	return parsed as Dictionary if parsed is Dictionary else {}
+
+## 承重柱与层间腰线：开关独立性、柱落在墙垛而非洞口、腰线收在柱后、闭合性。
+func _test_frame(base: Dictionary, catalog: Dictionary) -> void:
+	var defaults: Dictionary = Config.defaults()
+	check(defaults.has("pilaster") and defaults.has("band"), "architecture默认含pilaster与band两节")
+	check(not bool(defaults.pilaster.enabled) and not bool(defaults.band.enabled), "两个开关默认关闭，不改变既有配方外观", str(defaults.pilaster.enabled))
+
+	# 1) 开关互不影响：只开柱时没有腰线件，只开腰线时没有柱件。
+	for spec in [["pilaster", true, "band", false], ["pilaster", false, "band", true], ["pilaster", true, "band", true]]:
+		var recipe: Dictionary = base.duplicate(true)
+		recipe["building_id"] = "frame_" + str(spec[0]) + "_" + str(spec[2])
+		recipe["taper"] = 0.0
+		recipe["architecture"]["pilaster"] = {"enabled": bool(spec[1]), "corner": true, "middle": true, "width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
+		recipe["architecture"]["band"] = {"enabled": bool(spec[3]), "projection": 0.10, "thickness": 0.34, "bevel": 0.012}
+		var build: Dictionary = Generator.build(recipe, catalog)
+		check(bool(build.get("ok", false)), "构架配方可生成：" + str(spec), str(build.get("reason", "")))
+		var root: Node3D = build.get("root") as Node3D
+		if root == null: continue
+		var visual: Node3D = root.get_node_or_null("GeneratedVisual") as Node3D
+		var pilasters: int = 0
+		var bands: int = 0
+		for node: Node in visual.get_children():
+			if str(node.name).begins_with("pilaster_"): pilasters += 1
+			if str(node.name).begins_with("band_"): bands += 1
+		check((pilasters > 0) == bool(spec[1]), "柱开关生效：" + str(spec), str(pilasters))
+		check((bands > 0) == bool(spec[3]), "腰线开关生效：" + str(spec), str(bands))
+		# 顶层不生成腰线：只有 floors-1 层有腰线件（矩形4边 × 层数）。
+		if bool(spec[3]):
+			check(bands <= 4 * (int(recipe.floors) - 1), "腰线不在顶层重复生成", "%d <= %d" % [bands, 4 * (int(recipe.floors) - 1)])
+		root.free()
+
+	# 2) 柱必须落在墙垛上，压到洞口必须明确拒绝而不是静默挪位。
+	# 不走整楼生成：收窄开间会先被"开口与墙角冲突"拦下，测不出这条守卫。直接对守卫做单元验证。
+	var guard_run: Dictionary = {"facade": "front", "holes": [{"cx": 0.0, "x0": -0.86, "x1": 0.86, "reach": 0.86}]}
+	var clear_context: Dictionary = {"error": ""}
+	check(not bool(ShellGeometry._pilaster_clear(guard_run, 0.0, 0.9, clear_context)), "柱压在洞口上被判为不可放置")
+	check(str(clear_context.get("error", "")).contains("压到洞口"), "拒绝原因指出柱压到洞口", str(clear_context.get("error", "")))
+	check(str(clear_context.get("error", "")).contains("pilaster.width"), "拒绝原因给出可执行的调整项", str(clear_context.get("error", "")))
+	var ok_context: Dictionary = {"error": ""}
+	check(bool(ShellGeometry._pilaster_clear(guard_run, 2.0, 0.9, ok_context)), "柱落在墙垛上被判为可放置", str(ok_context.get("error", "")))
+	check(str(ok_context.get("error", "")).is_empty(), "可放置时不写错误")
+
+	# 3) 腰线必须收在柱后：柱凸出 > 腰线凸出，否则转角会多出悬挑薄片。
+	var both: Dictionary = base.duplicate(true)
+	both["building_id"] = "frame_order"
+	both["taper"] = 0.0
+	both["architecture"]["pilaster"] = {"enabled": true, "corner": true, "middle": true, "width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
+	# 故意给腰线一个比柱更大的凸出，生成时必须被压回去。
+	both["architecture"]["band"] = {"enabled": true, "projection": 0.30, "thickness": 0.34, "bevel": 0.012}
+	var ordered: Dictionary = Generator.build(both, catalog)
+	check(bool(ordered.get("ok", false)), "腰线凸出大于柱时可生成", str(ordered.get("reason", "")))
+	var ordered_root: Node3D = ordered.get("root") as Node3D
+	if ordered_root != null:
+		var ordered_visual: Node3D = ordered_root.get_node_or_null("GeneratedVisual") as Node3D
+		# 比"离墙面有多远"：腰线横贯整个立面，用 max|x| 会比成立面半宽，毫无意义。
+		# 只比较落在正面中段（避开转角柱）的构件，正面朝 -Z，z 越小越凸。
+		var depth_half: float = float(both.get("depth", 9.0)) * 0.5
+		var band_front: float = INF
+		var post_front: float = INF
+		for node: Node in ordered_visual.get_children():
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null: continue
+			var id: String = str(mesh_node.name)
+			# mesh 顶点是局部的，世界位移在节点 position 上；不加就等于把所有件都当成在原点。
+			var front_z: float = _front_extent(mesh_node.mesh.get_faces()) + mesh_node.position.z
+			# 只认"伸到正面墙皮之外"的件：侧立面的柱/腰线最外只到 -depth/2，不会更负。
+			if front_z > -(depth_half + 0.02):
+				continue
+			if id.begins_with("band_"): band_front = minf(band_front, front_z)
+			if id.begins_with("pilaster_"): post_front = minf(post_front, front_z)
+		check(band_front < INF and post_front < INF, "柱与腰线都实际生成", "band=%f post=%f" % [band_front, post_front])
+		check(post_front < band_front, "柱比腰线更凸（腰线收在柱后）", "post z=%f band z=%f" % [post_front, band_front])
+		ordered_root.free()
+
+	# 4) 参数越界与非法组合必须拒绝。
+	var bite_zero: Dictionary = base.duplicate(true)
+	bite_zero["architecture"]["pilaster"] = {"enabled": true, "corner": true, "middle": true, "width": 0.36, "projection": 0.18, "bite": 0.0, "bevel": 0.014}
+	check(not Recipe.validate(bite_zero, catalog).is_empty(), "柱bite为0被拒绝（必须咬入墙体）", Recipe.validate(bite_zero, catalog))
+	var thin: Dictionary = base.duplicate(true)
+	thin["architecture"]["pilaster"] = {"enabled": true, "corner": true, "middle": true, "width": 0.36, "projection": 0.05, "bite": 0.02, "bevel": 0.06}
+	check(not Recipe.validate(thin, catalog).is_empty(), "柱厚小于倒角被拒绝", Recipe.validate(thin, catalog))
+	var thin_band: Dictionary = base.duplicate(true)
+	thin_band["architecture"]["band"] = {"enabled": true, "projection": 0.10, "thickness": 0.10, "bevel": 0.05}
+	check(not Recipe.validate(thin_band, catalog).is_empty(), "腰线厚度小于倒角被拒绝", Recipe.validate(thin_band, catalog))
+	var unknown: Dictionary = base.duplicate(true)
+	unknown["architecture"]["pilaster"] = {"enabled": true, "corner": true, "middle": true, "width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014, "radius": 0.1}
+	check(not Recipe.validate(unknown, catalog).is_empty(), "柱未知字段被拒绝", Recipe.validate(unknown, catalog))
+
+## 某件 mesh 在正面(-Z)方向最靠外（z 最小）的值，用来比"谁更凸出墙面"。
+func _front_extent(faces: PackedVector3Array) -> float:
+	if faces.is_empty(): return INF
+	var extreme: float = INF
+	for point in faces:
+		extreme = minf(extreme, point.z)
+	return extreme
 
 func _test_form(base: Dictionary, catalog: Dictionary) -> void:
 	# 1) 区间 + seed 的落值必须落在区间内，且同 seed 稳定、不同 seed 会变。
