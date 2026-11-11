@@ -6,6 +6,7 @@ const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const Generator = preload("res://src/workshop/generator.gd")
 const ShellGenerator = preload("res://src/workshop/shell_generator.gd")
+const ShellGeometry = preload("res://src/workshop/shell_geometry.gd")
 const Session = preload("res://src/workshop/session.gd")
 const Store = preload("res://src/workshop/store.gd")
 const Adapter = preload("res://addons/building_workshop/catalog_adapter.gd")
@@ -107,7 +108,11 @@ func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	check(int(inventory.nodes) <= 2000 and int(inventory.triangles) <= 180000, label + " 实数节点和面数在预算内")
 	_check_audit(label, audit)
 	check(int(inventory.invalid_collision_shapes) == 0, label + " 碰撞全部来自ConcavePolygon实际三角面")
-	check(int(inventory.collision_shapes) == floors * 2 + 1, label + " 仅墙壳楼板屋顶有碰撞")
+	check(int(inventory.collision_shapes) >= floors * 2 + 1, label + " 至少每层墙壳楼板与屋顶有碰撞")
+	var non_structural: Array[String] = []
+	for collision_id: String in inventory.collisions:
+		if not _structural(collision_id): non_structural.append(collision_id)
+	check(non_structural.is_empty(), label + " 仅墙壳楼板屋顶及屋顶围护有碰撞", str(non_structural))
 	check(_collision_matches_visual(inventory), label + " 每件结构碰撞与实际视觉三角面一致")
 	check(_no_accessory_collision(inventory), label + " 窗框与玻璃均无碰撞")
 	_test_levels(label, recipe, inventory)
@@ -125,6 +130,8 @@ func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	check(JSON.stringify(recipe) == original and Catalog.fingerprint(catalog) == catalog_hash, label + " 生成不修改输入配方或目录")
 	var legacy_recipe: Dictionary = recipe.duplicate(true)
 	legacy_recipe.construction_mode = "modular_v1"
+	# 真正的旧版modular配方没有architecture；带非默认架构不允许降级成modular。
+	legacy_recipe.erase("architecture")
 	var legacy: Dictionary = Generator.build(legacy_recipe, catalog)
 	var legacy_root: Node3D = legacy.get("root") as Node3D
 	check(bool(legacy.get("ok", false)) and legacy_root != null, label + " 可生成真实legacy对照", str(legacy.get("reason", "")))
@@ -157,9 +164,11 @@ func _test_levels(label: String, recipe: Dictionary, inventory: Dictionary) -> v
 		var slab_bounds: AABB = _bounds(slab)
 		var wall_bounds: AABB = _bounds(wall)
 		var next: int = mini(floor + 1, int(recipe.floors) - 1)
-		var wall_top: float = base + _floor_value(recipe, floor, "floor_height") - _floor_value(recipe, next, "slab_thickness") + 0.003
+		# 墙与板的重叠量由 shell_geometry.INSET 决定（0.8mm，仅防浮点缝）；断言读生成器导出的实际值，不写死数字。
+		var joint: float = _joint_inset(inventory)
+		var wall_top: float = base + _floor_value(recipe, floor, "floor_height") - _floor_value(recipe, next, "slab_thickness") + joint
 		levels_ok = levels_ok and absf(slab_bounds.end.y - base) <= SAVE_EPS and absf(slab_bounds.size.y - _floor_value(recipe, floor, "slab_thickness")) <= SAVE_EPS
-		levels_ok = levels_ok and absf(wall_bounds.position.y - (base - 0.003)) <= SAVE_EPS and absf(wall_bounds.end.y - wall_top) <= SAVE_EPS
+		levels_ok = levels_ok and absf(wall_bounds.position.y - (base - joint)) <= SAVE_EPS and absf(wall_bounds.end.y - wall_top) <= SAVE_EPS
 		for y: float in [wall_bounds.position.y, wall_bounds.end.y]:
 			var extent: float = 0.0
 			for point: Vector3 in wall:
@@ -843,8 +852,14 @@ func _bounds(faces: PackedVector3Array) -> AABB:
 func _position_key(point: Vector3) -> String:
 	return "%d,%d,%d" % [roundi(point.x / WELD), roundi(point.y / WELD), roundi(point.z / WELD)]
 
+## 层间接头重叠量取生成器实际常量，不写死数字；超2mm厚会变成可见凹槽，单独设上限。
+func _joint_inset(_inventory: Dictionary) -> float:
+	var inset: float = float(ShellGeometry.INSET)
+	check(inset > 0.0 and inset <= 0.002, "层间接头重叠量在0..2mm", str(inset))
+	return inset
+
 func _structural(id: String) -> bool:
-	return id.begins_with("wall_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("pillar_")
+	return id.begins_with("wall_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("pillar_") or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
 
 func _floor_value(recipe: Dictionary, floor: int, field: String) -> float:
 	var override: Dictionary = recipe.floor_overrides.get(str(floor), {})

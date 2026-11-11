@@ -6,10 +6,14 @@ const Session = preload("res://src/workshop/session.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const Preview = preload("res://addons/building_workshop/editor_preview.gd")
+const Config = preload("res://src/workshop/architecture_config.gd")
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
 const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "文件"]
 const PARAMETER_KEYS: Array[String] = ["construction_mode", "shape", "width", "depth", "floors", "floor_height", "wall_thickness", "slab_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "aging", "damage", "bevel_segments", "bevel_width", "vegetation_density", "taper", "structure_seed", "damage_seed", "vegetation_seed", "spatial_profile"]
+const ARCHITECTURE_WINDOW_FIELDS: Array[String] = ["enabled", "type", "open_angle", "frame_width", "frame_depth", "glass_thickness", "recess", "sill_enabled", "sill_projection", "sill_thickness", "sill_extension", "width", "height", "sill"]
+const ARCHITECTURE_WINDOW_SCOPES: Array[String] = ["global", "floor", "facade", "single"]
+const ARCHITECTURE_ROOF_FIELDS: Array[String] = ["mode", "height", "thickness", "cap_thickness", "cap_overhang", "post_spacing", "rail_spacing", "bar_width"]
 const INTEGER_KEYS: Array[String] = ["floors", "bevel_segments", "structure_seed", "damage_seed", "vegetation_seed"]
 const ROLE_LABELS: Dictionary = {"wall": "墙", "slab": "楼板 / 屋顶", "frame": "门窗框", "glass": "窗玻璃", "pillar": "柱", "plant": "植物"}
 
@@ -18,6 +22,7 @@ var preview: Preview
 var buttons: Dictionary = {}
 var controls: Dictionary = {}
 var pages: Dictionary = {}
+var architecture_panels: Array[Control] = []
 var state_label: Label
 var status_label: Label
 var selected_slot_label: Label
@@ -42,6 +47,8 @@ var _last_export: Dictionary = {}
 var _slot_cache: Dictionary = {}
 var _slot_ids: Array[String] = []
 var _selected_id: String = ""
+var _selected_opening_id: String = ""
+var _last_window_scope: String = "global"
 var _ignore_fields: bool = false
 var _screen_visible: bool = false
 var _initialized: bool = false
@@ -49,6 +56,8 @@ var _pending_recovery: Dictionary = {}
 var _replacement_component_id: String = ""
 var _local_baseline: Dictionary = {}
 var _live_slot_ids: Dictionary = {}
+var _opening_cache: Dictionary = {}
+var _architecture_visibility: Array[String] = []
 
 func configure(ports: Dictionary = {}) -> void:
 	_ports.merge(ports, true)
@@ -116,6 +125,10 @@ func _collect_ui_patch() -> Dictionary:
 	var patch: Dictionary = {"building_id": _id_edit.text.strip_edges(), "display_name": _name_edit.text}
 	for key: String in PARAMETER_KEYS:
 		patch[key] = _control_value(key)
+	if _option_value("construction_mode") == "shell_v2" and controls.has("architecture_shape_variant"):
+		patch["shape"] = _option_value("architecture_shape_variant")
+	if snapshot().has("architecture"):
+		patch["architecture"] = _architecture_snapshot() if _option_value("construction_mode") != "shell_v2" else _architecture_ui_patch(true)
 	var bindings: Dictionary = snapshot().get("component_bindings", {}).duplicate(true)
 	for role: String in Recipe.COMPONENT_ROLES:
 		bindings[role] = _option_value("binding_" + role)
@@ -126,8 +139,9 @@ func _collect_ui_patch() -> Dictionary:
 func apply_parameters() -> Dictionary:
 	if not _initialized:
 		return {"ok": false, "reason": "编辑器主屏尚未初始化"}
-	if _has_pending_local_fields():
-		return _report_failure("存在尚未应用的楼层、立面或槽位输入，请先点击对应的局部应用按钮，再应用全部参数或保存。")
+	var pending: Array[String] = _pending_local_fields()
+	if not pending.is_empty():
+		return _report_failure("存在尚未应用的输入（%s），请先点击对应的局部应用按钮，再应用全部参数或保存。" % ", ".join(pending))
 	# 所有基础字段和全局绑定一次提交；失败时保留输入及原会话。
 	var result: Dictionary = session.apply_patch(_collect_ui_patch())
 	if bool(result.get("ok", false)):
@@ -189,16 +203,27 @@ func _open_recipe_now(path: String) -> Dictionary:
 func refresh_preview(preserve_slot_fields: bool = false) -> Dictionary:
 	if session == null or preview == null or not preview.is_node_ready():
 		return {"ok": false, "reason": "独立编辑器预览尚未初始化"}
-	var result: Dictionary = session.build()
-	if not bool(result.get("ok", false)):
-		return _report_result(result, "生成失败，保留上一份预览")
+	var previous_ui_values: Dictionary = _capture_ui_values()
+	var previous_baseline: Dictionary = _local_baseline.duplicate(true)
+	var previous_opening_id: String = _selected_opening_id
+	var previous_scope: String = _window_scope()
 	var slot_fields: Array[String] = ["component_id", "disabled", "offset_x", "offset_y", "offset_z", "growth_key", "vegetation_lock"]
 	var pending_slot_values: Dictionary = {}
-	var previous_baseline: Dictionary = _local_baseline.duplicate(true)
 	if preserve_slot_fields:
 		for key: String in slot_fields:
 			pending_slot_values[key] = _raw_control_value(key)
+	var result: Dictionary = session.build()
+	if not bool(result.get("ok", false)):
+		return _report_result(result, "生成失败，保留上一份预览")
 	preview.set_build_result(result)
+	var previous_openings: Dictionary = _opening_cache.duplicate(true)
+	_opening_cache.clear()
+	for raw_opening: Variant in result.get("openings", []):
+		var opening: Dictionary = raw_opening as Dictionary
+		_opening_cache[str(opening.get("id", ""))] = opening.duplicate(true)
+	for opening_id: String in previous_openings:
+		if not _opening_cache.has(opening_id):
+			_opening_cache[opening_id] = previous_openings[opening_id].duplicate(true)
 	_live_slot_ids.clear()
 	var next_cache: Dictionary = {}
 	for raw: Variant in result.get("slots", []):
@@ -220,13 +245,24 @@ func refresh_preview(preserve_slot_fields: bool = false) -> Dictionary:
 	if not _slot_ids.has(_selected_id):
 		_selected_id = ""
 	select_slot(_selected_id)
+	_ignore_fields = true
+	_selected_opening_id = previous_opening_id
+	_last_window_scope = previous_scope
+	if controls.has("window_scope"):
+		_set_option("window_scope", previous_scope)
+	_sync_window_selection(snapshot())
+	for key: Variant in previous_ui_values:
+		if controls.has(key):
+			_set_control_value(str(key), previous_ui_values[key])
 	if preserve_slot_fields:
-		_ignore_fields = true
 		for key: String in slot_fields:
 			_set_control_value(key, pending_slot_values[key])
-			if previous_baseline.has(key):
-				_local_baseline[key] = previous_baseline[key]
-		_ignore_fields = false
+	_local_baseline = previous_baseline
+	if not preserve_slot_fields:
+		# select_slot 已按重建后的槽位重填控件并捕获基线；恢复旧基线会把上一份文档的 component_id 带进来，
+		# 于是新文档永远显示"存在未应用输入"、连保存都被拦。槽位基线必须跟着实际控件走。
+		_capture_local_baseline(slot_fields)
+	_ignore_fields = false
 	var stats: Dictionary = result.get("stats", {}) as Dictionary
 	var label: Label = controls["stats"] as Label
 	label.text = "槽位 %d · 三角面 %d\n节点 %d · 碰撞 %d\n行走声明 %d · 水面声明 %d\n空间声明不等于已接入正式世界。" % [result.get("slots", []).size(), int(stats.get("triangles", 0)), int(stats.get("nodes", 0)), int(stats.get("collision_shapes", 0)), result.get("walk_surfaces", []).size(), result.get("water_blockers", []).size()]
@@ -248,10 +284,15 @@ func has_pending_fields() -> bool:
 	return _has_pending_local_fields()
 
 func _has_pending_local_fields() -> bool:
+	return not _pending_local_fields().is_empty()
+
+## 返回尚未应用的具体控件键，供状态栏与失败原因使用；不隐藏是哪一个字段在拦。
+func _pending_local_fields() -> Array[String]:
+	var result: Array[String] = []
 	for key: Variant in _local_baseline:
 		if _raw_control_value(str(key)) != _local_baseline[key]:
-			return true
-	return false
+			result.append(str(key))
+	return result
 
 func _capture_local_baseline(keys: Array) -> void:
 	for key: String in keys:
@@ -265,6 +306,10 @@ func _raw_control_value(key: String) -> Variant:
 
 func select_slot(id: String) -> void:
 	_selected_id = id
+	if id.begins_with("frame_") or id.begins_with("glass_") or id.begins_with("sash_") or id.begins_with("sill_"):
+		_selected_opening_id = "opening_" + id.trim_prefix("frame_").trim_prefix("glass_").trim_prefix("sash_").trim_prefix("sill_")
+	elif not id.is_empty():
+		_selected_opening_id = ""
 	if not _initialized:
 		return
 	preview.select_slot(id, false)
@@ -297,11 +342,91 @@ func select_slot(id: String) -> void:
 			lock.set_pressed_no_signal(true)
 			_set_option("growth_key", str(entry.get("growth_key", "medium")))
 	_ignore_fields = false
+	_sync_window_selection(data)
 	buttons["slot_apply"].disabled = not live
 	buttons["slot_restore"].disabled = id.is_empty()
 	buttons["replace_component"].disabled = not live or not _ports.get("replace_component", Callable()).is_valid()
 	buttons["export_module"].disabled = not live or not _ports.get("export_module_component", Callable()).is_valid()
 	_capture_local_baseline(["component_id", "disabled", "offset_x", "offset_y", "offset_z", "growth_key", "vegetation_lock"])
+	_sync_selected_window_controls()
+
+func _sync_selected_window_controls() -> void:
+	if controls.has("window_selection"):
+		var option: OptionButton = controls["window_selection"] as OptionButton
+		var opening_id: String = _window_override_id()
+		for index: int in option.item_count:
+			if str(option.get_item_metadata(index)) == opening_id:
+				option.select(index)
+				break
+	if _option_value("construction_mode") == "shell_v2" and _window_scope() != "global":
+		_sync_architecture_window_scope()
+
+func _architecture_base_window(data: Dictionary) -> Dictionary:
+	var result: Dictionary = Config.normalized(data.get("architecture", {})).get("window", {}).duplicate(true)
+	result["width"] = data.get("window_width", 1.4)
+	result["height"] = data.get("window_height", 1.8)
+	result["sill"] = data.get("window_sill", 1.0)
+	return result
+
+func _sync_architecture_window_scope() -> void:
+	if not controls.has("window_scope") or _option_value("construction_mode") != "shell_v2":
+		return
+	var data: Dictionary = snapshot()
+	var scope: String = _window_scope()
+	var settings: Dictionary = {}
+	if scope == "global":
+		settings = _architecture_base_window(data)
+	elif scope == "floor":
+		var floor: int = int(_spin_value("floor_override_index"))
+		var facade: String = _option_value("facade_index")
+		settings = Config.window_settings(data, floor, facade)
+		settings.merge(Config.normalized(data.get("architecture", {})).get("floor_windows", {}).get(str(floor), {}), true)
+	elif scope == "facade":
+		var floor_index: int = int(_spin_value("floor_override_index"))
+		var current_facade: String = _option_value("facade_index")
+		settings = Config.window_settings(data, floor_index, current_facade)
+		settings.merge(Config.normalized(data.get("architecture", {})).get("facade_windows", {}).get(current_facade, {}), true)
+	else:
+		var opening_id: String = _window_override_id()
+		var parts: PackedStringArray = opening_id.split("_")
+		if parts.size() == 4:
+			settings = Config.window_settings(data, int(parts[2]), str(parts[1]), opening_id)
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		if settings.has(field) and controls.has("architecture_window_" + field):
+			_set_architecture_control("architecture_window_" + field, settings[field])
+	if settings.has("width"):
+		_set_architecture_control("architecture_window_width", settings.width)
+	if settings.has("height"):
+		_set_architecture_control("architecture_window_height", settings.height)
+	if settings.has("sill"):
+		_set_architecture_control("architecture_window_sill", settings.sill)
+	_capture_window_local_baseline()
+
+func _has_pending_window_fields() -> bool:
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		var key: String = "architecture_window_" + field
+		if _local_baseline.has(key) and _raw_control_value(key) != _local_baseline[key]:
+			return true
+	for field: String in ["width", "height", "sill"]:
+		var key: String = "architecture_window_" + field
+		if _local_baseline.has(key) and _raw_control_value(key) != _local_baseline[key]:
+			return true
+	return false
+
+func _capture_window_local_baseline() -> void:
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		_local_baseline.erase("architecture_window_" + field)
+	for field: String in ["width", "height", "sill"]:
+		_local_baseline.erase("architecture_window_" + field)
+	var keys: Array[String] = []
+	if _window_scope() != "global":
+		for field: String in ARCHITECTURE_WINDOW_FIELDS:
+			keys.append("architecture_window_" + field)
+		for field: String in ["width", "height", "sill"]:
+			keys.append("architecture_window_" + field)
+		for key: String in keys:
+			if controls.has(key):
+				_local_baseline[key] = _raw_control_value(key)
 
 func export_module_component() -> Dictionary:
 	var exporter: Callable = _ports.get("export_module_component", Callable())
@@ -317,20 +442,24 @@ func export_module_component() -> Dictionary:
 		_report_result(result, "组件导出失败")
 	return result
 
+func _capture_ui_values() -> Dictionary:
+	var ui_values: Dictionary = {}
+	if not _initialized:
+		return ui_values
+	for key: Variant in controls:
+		var control: Control = controls[key] as Control
+		if control is SpinBox:
+			ui_values[key] = (control as SpinBox).value
+		elif control is OptionButton:
+			ui_values[key] = _option_value(str(key))
+		elif control is CheckButton:
+			ui_values[key] = (control as CheckButton).button_pressed
+	return ui_values
+
 func get_recovery() -> Dictionary:
 	if session == null:
 		return {}
-	var ui_values: Dictionary = {}
-	if _initialized:
-		for key: Variant in controls:
-			var control: Control = controls[key] as Control
-			if control is SpinBox:
-				ui_values[key] = (control as SpinBox).value
-			elif control is OptionButton:
-				ui_values[key] = _option_value(str(key))
-			elif control is CheckButton:
-				ui_values[key] = (control as CheckButton).button_pressed
-	return {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {}, "ui_values": ui_values, "dirty": session.is_dirty(), "selected_slot": _selected_id, "page": _page_picker.selected if _initialized else 0, "last_export": _last_export.duplicate(true), "slot_cache": _slot_cache.duplicate(true)}
+	return {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {}, "ui_values": _capture_ui_values(), "dirty": session.is_dirty(), "selected_slot": _selected_id, "selected_opening_id": _selected_opening_id, "window_scope": _window_scope() if _initialized else "global", "local_baseline": _local_baseline.duplicate(true), "page": _page_picker.selected if _initialized else 0, "last_export": _last_export.duplicate(true), "slot_cache": _slot_cache.duplicate(true), "opening_cache": _opening_cache.duplicate(true)}
 
 func restore_recovery(data: Dictionary) -> Dictionary:
 	if not _initialized:
@@ -353,6 +482,11 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 			session.changed.disconnect(_on_session_changed)
 		session = recovered
 		_connect_session()
+	_selected_opening_id = str(data.get("selected_opening_id", ""))
+	_last_window_scope = str(data.get("window_scope", "global"))
+	if _last_window_scope not in ARCHITECTURE_WINDOW_SCOPES:
+		_last_window_scope = "global"
+	_opening_cache = data.get("opening_cache", {}).duplicate(true)
 	_refresh_from_session()
 	var ui_patch: Dictionary = data.get("ui_patch", {}) as Dictionary
 	_ignore_fields = true
@@ -380,14 +514,22 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	_last_export = data.get("last_export", {}).duplicate(true)
 	_slot_cache = data.get("slot_cache", {}).duplicate(true)
 	_selected_id = str(data.get("selected_slot", ""))
+	_local_baseline = data.get("local_baseline", {}).duplicate(true)
 	_select_page(clampi(int(data.get("page", 0)), 0, PAGES.size() - 1))
 	refresh_preview()
-	# refresh_preview 会同步选中槽，最后还原尚未应用的槽位输入。
+	# 重建会重新同步选中槽和范围控件，最后还原草稿 UI 与基线。
 	_ignore_fields = true
 	for key: Variant in ui_values:
 		if controls.has(key):
 			_set_control_value(str(key), ui_values[key])
+	if data.has("local_baseline"):
+		_local_baseline = data.get("local_baseline", {}).duplicate(true)
 	_ignore_fields = false
+	_selected_opening_id = str(data.get("selected_opening_id", _selected_opening_id))
+	_last_window_scope = str(data.get("window_scope", _last_window_scope))
+	if _last_window_scope not in ARCHITECTURE_WINDOW_SCOPES:
+		_last_window_scope = "global"
+	_sync_window_selection(snapshot())
 	preview.set_wireframe(bool(controls["wireframe"].button_pressed))
 	preview.set_collision_overlay(bool(controls["collision_overlay"].button_pressed))
 	_update_state()
@@ -528,11 +670,49 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 	match page_name:
 		"结构":
 			_add_option(page, "construction_mode", "建模内核", [["shell_v2", "连续实体 · 工整模型"], ["modular_v1", "旧版拼装 · 配方兼容"]])
+			(controls["construction_mode"] as OptionButton).item_selected.connect(_construction_mode_changed)
 			page.add_child(_label("连续墙壳／真实洞口／整板屋顶。新房默认先验干净结构。", 12))
 			_add_option(page, "shape", "形状", [["rectangle", "矩形"], ["l", "L 形"]])
+			(controls["shape"] as OptionButton).item_selected.connect(func(_index: int) -> void: _refresh_roof_edge_options(_option_value("shape")))
 			for spec: Array in [["width", "宽度 m", 6, 24, 0.1], ["depth", "进深 m", 6, 20, 0.1], ["floors", "楼层", 1, 8, 1], ["floor_height", "层高 m", 1, 20, 0.1], ["wall_thickness", "墙厚 m", 0.01, 2, 0.01], ["slab_thickness", "板厚 m", 0.01, 2, 0.01], ["column_width", "柱宽 m", 0.01, 2, 0.01]]:
 				_spin_spec(page, spec)
+			var plan_panel: VBoxContainer = _architecture_panel(page, "architecture_plan_panel")
+			plan_panel.add_child(_label("连续实体建筑架构", 16))
+			_add_option(plan_panel, "architecture_shape_variant", "结构形态", [["rectangle", "矩形"], ["l", "L 形"], ["t", "T 形"], ["u", "U 形"]])
+			(controls["architecture_shape_variant"] as OptionButton).item_selected.connect(_architecture_shape_changed)
+			for spec: Array in [["wing_x", "翼部 X 比例", 0.25, 0.75, 0.01], ["wing_z", "翼部 Z 比例", 0.25, 0.75, 0.01], ["setback_start", "退台起始层", -1, 7, 1], ["setback_step", "退台步长", 0.0, 1.2, 0.01]]:
+				_spin_spec(plan_panel, spec)
+			_add_option(plan_panel, "architecture_roof_mode", "屋顶结构", [["none", "无"], ["parapet", "女儿墙"], ["railing", "栏杆"], ["mixed", "女儿墙 + 栏杆"]])
+			for spec: Array in [["architecture_roof_height", "围护总高", 0.4, 2.0, 0.01], ["architecture_roof_thickness", "女儿墙厚", 0.12, 0.6, 0.01], ["architecture_roof_cap_thickness", "压顶厚度", 0.06, 0.25, 0.01], ["architecture_roof_cap_overhang", "压顶外挑", 0.0, 0.15, 0.01], ["architecture_roof_post_spacing", "立柱间距", 0.5, 3.0, 0.01], ["architecture_roof_rail_spacing", "竖杆节距", 0.1, 0.6, 0.01], ["architecture_roof_bar_width", "杆件宽度", 0.02, 0.12, 0.01]]:
+				_spin_spec(plan_panel, spec)
+			_add_option(plan_panel, "architecture_roof_edge_index", "屋顶边", [["edge_0", "边 0"], ["edge_1", "边 1"], ["edge_2", "边 2"], ["edge_3", "边 3"]])
+			_check("启用当前边覆盖", "architecture_roof_edge_override_enabled", plan_panel)
+			_add_option(plan_panel, "architecture_roof_edge_mode", "边结构", [["none", "无"], ["parapet", "女儿墙"], ["railing", "栏杆"], ["mixed", "女儿墙 + 栏杆"]])
+			for spec: Array in [["architecture_roof_gap_center", "边开口中心", 0.0, 1.0, 0.01], ["architecture_roof_gap_width", "边开口宽度", 0.0, 24.0, 0.01]]:
+				_spin_spec(plan_panel, spec)
+			plan_panel.add_child(_button("应用屋顶构造", "roof_apply"))
+			plan_panel.add_child(_button("清除当前边覆盖", "roof_clear"))
+			(controls["architecture_roof_edge_index"] as OptionButton).item_selected.connect(_architecture_roof_edge_changed)
 		"门窗":
+			var window_panel: VBoxContainer = _architecture_panel(page, "architecture_window_panel")
+			window_panel.add_child(_label("当前架构窗构造", 16))
+			_add_option(window_panel, "window_scope", "应用范围", [["global", "全局"], ["floor", "当前楼层"], ["facade", "当前立面"], ["single", "当前窗"]])
+			(controls["window_scope"] as OptionButton).item_selected.connect(_window_scope_changed)
+			_add_option(window_panel, "window_selection", "当前窗口", [])
+			(controls["window_selection"] as OptionButton).item_selected.connect(_window_selection_changed)
+			_check("启用窗洞", "architecture_window_enabled", window_panel)
+			_add_option(window_panel, "architecture_window_type", "窗型", [["fixed", "固定窗"], ["casement_left", "左开窗"], ["casement_right", "右开窗"], ["awning", "上悬窗"]])
+			for spec: Array in [["architecture_window_open_angle", "开启角度", 0.0, 80.0, 1.0], ["architecture_window_frame_width", "框宽", 0.04, 0.24, 0.01], ["architecture_window_frame_depth", "框深", 0.04, 0.5, 0.01], ["architecture_window_glass_thickness", "玻璃厚度", 0.005, 0.08, 0.005], ["architecture_window_recess", "窗框退入", 0.04, 0.5, 0.01], ["architecture_window_width", "架构窗宽", 0.25, 6.0, 0.01], ["architecture_window_height", "架构窗高", 0.25, 6.0, 0.01], ["architecture_window_sill", "架构窗台", 0.2, 5.0, 0.01]]:
+				_spin_spec(window_panel, spec)
+			_check("启用窗沿板", "architecture_window_sill_enabled", window_panel)
+			for spec: Array in [["architecture_window_sill_projection", "窗沿外挑", 0.0, 10.0, 0.01], ["architecture_window_sill_thickness", "窗沿厚度", 0.001, 2.0, 0.001], ["architecture_window_sill_extension", "窗沿延伸", 0.0, 2.0, 0.01]]:
+				_spin_spec(window_panel, spec)
+			window_panel.add_child(_button("应用当前范围窗构造", "architecture_apply"))
+			window_panel.add_child(_button("清除此范围覆盖", "architecture_clear"))
+			window_panel.add_child(_button("应用到当前窗", "window_apply"))
+			for key: String in ["architecture_window_enabled", "architecture_window_sill_enabled"]:
+				_architecture_visibility.append(key)
+			page.add_child(_label("基础窗宽高和旧版覆盖仍保留；架构字段只在shell_v2生效。", 12))
 			for spec: Array in [["window_width", "窗宽", 0.1, 10, 0.1], ["window_height", "窗高", 0.1, 10, 0.1], ["window_sill", "窗台", 0.01, 10, 0.1], ["bay_width", "开间", 2, 6, 0.1], ["door_width", "门净宽", 0.1, 10, 0.1], ["door_height", "门净高", 0.1, 10, 0.1]]:
 				_spin_spec(page, spec)
 			page.add_child(_label("逐层覆盖（索引从0开始）", 16))
@@ -613,6 +793,15 @@ func _make_right_panel() -> ScrollContainer:
 	controls["stats"] = stats
 	body.add_child(stats)
 	return scroll
+
+func _architecture_panel(parent: Control, key: String) -> VBoxContainer:
+	var panel: VBoxContainer = VBoxContainer.new()
+	panel.name = key
+	panel.visible = false
+	panel.add_theme_constant_override("separation", 6)
+	parent.add_child(panel)
+	architecture_panels.append(panel)
+	return panel
 
 func _sidebar() -> ScrollContainer:
 	var scroll: ScrollContainer = ScrollContainer.new()
@@ -702,6 +891,11 @@ func _button_pressed(id: String) -> void:
 		"floor_apply": _apply_floor_override(false)
 		"floor_clear": _apply_floor_override(true)
 		"facade_apply": _apply_facade_override(false)
+		"architecture_apply": _apply_architecture_window()
+		"architecture_clear": _clear_architecture_window_scope()
+		"window_apply": _apply_window_override()
+		"roof_apply": _apply_architecture_roof()
+		"roof_clear": _clear_architecture_roof_edge()
 		"facade_clear": _apply_facade_override(true)
 		"open_scene": _open_scene()
 		"refresh_documents": refresh_documents()
@@ -995,24 +1189,291 @@ func _restore_slot() -> void:
 	else:
 		_report_result(result, "槽位恢复失败")
 
+func _architecture_snapshot() -> Dictionary:
+	return Config.normalized(snapshot().get("architecture", {}))
+
+func _architecture_patch_with(changes: Dictionary) -> Dictionary:
+	var architecture: Dictionary = _architecture_snapshot()
+	architecture.merge(changes, true)
+	return architecture
+
+func _architecture_ui_patch(force_global: bool = false) -> Dictionary:
+	var architecture: Dictionary = _architecture_snapshot()
+	var plan: Dictionary = architecture.get("plan", {}).duplicate(true)
+	plan["wing_x"] = _spin_value("wing_x")
+	plan["wing_z"] = _spin_value("wing_z")
+	plan["setback_start"] = int(_spin_value("setback_start"))
+	plan["setback_step"] = _spin_value("setback_step")
+	architecture["plan"] = plan
+	var scope: String = _window_scope()
+	if scope == "global":
+		var window: Dictionary = architecture.get("window", {}).duplicate(true)
+		for field: String in ARCHITECTURE_WINDOW_FIELDS:
+			if controls.has("architecture_window_" + field):
+				window[field] = _raw_control_value("architecture_window_" + field)
+		var base: Dictionary = {"width": _spin_value("architecture_window_width"), "height": _spin_value("architecture_window_height"), "sill": _spin_value("architecture_window_sill")}
+		window.merge(base, true)
+		architecture["window"] = window
+	elif scope == "floor":
+		var floor_windows: Dictionary = architecture.get("floor_windows", {}).duplicate(true)
+		floor_windows[str(int(_spin_value("floor_override_index")))] = _architecture_window_control_values()
+		architecture["floor_windows"] = floor_windows
+	elif scope == "facade":
+		var facade_windows: Dictionary = architecture.get("facade_windows", {}).duplicate(true)
+		facade_windows[_option_value("facade_index")] = _architecture_window_control_values()
+		architecture["facade_windows"] = facade_windows
+	elif scope == "single":
+		var opening_id: String = _window_override_id()
+		if not opening_id.is_empty():
+			var overrides: Dictionary = architecture.get("window_overrides", {}).duplicate(true)
+			overrides[opening_id] = _architecture_window_control_values()
+			architecture["window_overrides"] = overrides
+	var roof: Dictionary = architecture.get("roof", {}).duplicate(true)
+	for field: String in ARCHITECTURE_ROOF_FIELDS:
+		var key: String = "architecture_roof_" + field
+		roof[field] = _raw_control_value(key)
+	architecture["roof"] = roof
+	return architecture
+
+func _architecture_window_control_values() -> Dictionary:
+	var values: Dictionary = {}
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		var key: String = "architecture_window_" + field
+		if controls.has(key):
+			values[field] = _raw_control_value(key)
+	return values
+
+func _construction_mode_changed(_index: int) -> void:
+	if _ignore_fields:
+		return
+	var data: Dictionary = snapshot()
+	data["construction_mode"] = _option_value("construction_mode")
+	_refresh_architecture_controls(data)
+	_on_field_changed()
+
+func _architecture_roof_edge_changed(_index: int) -> void:
+	if not _ignore_fields:
+		_sync_architecture_roof_edge(_architecture_snapshot().get("roof", {}))
+
+func _architecture_shape_changed(_index: int) -> void:
+	if not _ignore_fields and _option_value("construction_mode") == "shell_v2":
+		_set_option("shape", _option_value("architecture_shape_variant"))
+		_refresh_roof_edge_options(_option_value("architecture_shape_variant"))
+		_on_field_changed()
+
+func _window_scope() -> String:
+	var scope: String = _option_value("window_scope") if controls.has("window_scope") else "global"
+	return scope if scope in ARCHITECTURE_WINDOW_SCOPES else "global"
+
+func _window_scope_changed(_index: int) -> void:
+	if _ignore_fields:
+		return
+	if _has_pending_window_fields():
+		_set_option("window_scope", _last_window_scope)
+		_set_status("当前窗范围存在未应用输入，请先应用或清除后再切换范围。")
+		return
+	_sync_architecture_window_scope()
+	_last_window_scope = _window_scope()
+	_update_state()
+
+func _window_selection_changed(_index: int) -> void:
+	if _ignore_fields:
+		return
+	if _has_pending_window_fields():
+		var pending_option: OptionButton = controls["window_selection"] as OptionButton
+		for pending_index: int in pending_option.item_count:
+			if str(pending_option.get_item_metadata(pending_index)) == _selected_opening_id:
+				pending_option.select(pending_index)
+				break
+		_set_status("当前窗存在未应用输入，请先应用或清除后再切换窗口。")
+		return
+	var option: OptionButton = controls["window_selection"] as OptionButton
+	if option.selected >= 0:
+		var opening_id: String = str(option.get_item_metadata(option.selected))
+		_selected_opening_id = opening_id
+		var slot_id: String = _opening_to_slot_id(opening_id)
+		_selected_id = slot_id
+		if _window_scope() != "global":
+			_sync_architecture_window_scope()
+		_capture_window_local_baseline()
+
+func _apply_architecture_window() -> Dictionary:
+	if _option_value("construction_mode") != "shell_v2":
+		return _report_failure("架构窗构造只在shell_v2连续实体模式生效。")
+	var scope: String = _window_scope()
+	if scope == "single" and _window_override_id().is_empty():
+		return _report_failure("当前没有可应用的单窗；请选择实际窗口或已关闭窗口。")
+	var result: Dictionary = session.apply_patch({"architecture": _architecture_ui_patch()})
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("%s窗构造已应用，可撤销。" % _window_scope_label(scope))
+	else:
+		_report_result(result, "架构窗构造被拒绝")
+	return result
+
+func _window_scope_label(scope: String) -> String:
+	return {"global": "全局", "floor": "楼层", "facade": "立面", "single": "当前窗"}.get(scope, scope)
+
+func _window_override_id() -> String:
+	if not _selected_opening_id.is_empty():
+		if not _opening_cache.has(_selected_opening_id) or str(_opening_cache[_selected_opening_id].get("type", "window")) != "door":
+			return _selected_opening_id
+		return ""
+	if controls.has("window_selection"):
+		var option: OptionButton = controls["window_selection"] as OptionButton
+		if option.selected >= 0:
+			var metadata: String = str(option.get_item_metadata(option.selected))
+			if metadata.begins_with("opening_"):
+				return metadata
+	var selected: String = _selected_id
+	if selected.begins_with("opening_"):
+		return selected
+	for prefix: String in ["frame_", "glass_", "sash_", "sill_"]:
+		if selected.begins_with(prefix):
+			return "opening_" + selected.trim_prefix(prefix)
+	return ""
+
+func _opening_to_slot_id(opening_id: String) -> String:
+	for prefix: String in ["frame_", "glass_", "sash_", "sill_"]:
+		var candidate: String = prefix + opening_id.trim_prefix("opening_")
+		if _slot_ids.has(candidate):
+			return candidate
+	return ""
+
+func _apply_window_override() -> Dictionary:
+	if _window_scope() != "single":
+		_set_option("window_scope", "single")
+		_sync_architecture_window_scope()
+	return _apply_architecture_window()
+
+func _clear_architecture_window_scope() -> Dictionary:
+	var architecture: Dictionary = _architecture_snapshot()
+	var patch: Dictionary = {"architecture": architecture}
+	var scope: String = _window_scope()
+	if scope == "global":
+		return _report_failure("全局没有覆盖可清除；请直接应用全局构造。")
+	if scope == "floor":
+		var index: String = str(int(_spin_value("floor_override_index")))
+		var floors: Dictionary = architecture.get("floor_windows", {}).duplicate(true)
+		floors.erase(index)
+		architecture["floor_windows"] = floors
+		var old_floors: Dictionary = snapshot().get("floor_overrides", {}).duplicate(true)
+		var old_floor: Dictionary = old_floors.get(index, {}).duplicate(true)
+		for field: String in ["window_width", "window_height", "window_sill"]:
+			old_floor.erase(field)
+		if old_floor.is_empty():
+			old_floors.erase(index)
+		else:
+			old_floors[index] = old_floor
+		patch["floor_overrides"] = old_floors
+	elif scope == "facade":
+		var facade: String = _option_value("facade_index")
+		var facades: Dictionary = architecture.get("facade_windows", {}).duplicate(true)
+		facades.erase(facade)
+		architecture["facade_windows"] = facades
+		var old_facades: Dictionary = snapshot().get("facade_overrides", {}).duplicate(true)
+		old_facades.erase(facade)
+		patch["facade_overrides"] = old_facades
+	else:
+		var opening_id: String = _window_override_id()
+		if opening_id.is_empty():
+			return _report_failure("当前没有可清除的单窗覆盖。")
+		var singles: Dictionary = architecture.get("window_overrides", {}).duplicate(true)
+		singles.erase(opening_id)
+		architecture["window_overrides"] = singles
+	patch["architecture"] = architecture
+	var result: Dictionary = session.apply_patch(patch)
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("已清除%s窗覆盖，恢复继承。" % _window_scope_label(scope))
+	else:
+		_report_result(result, "清除架构窗覆盖被拒绝")
+	return result
+
+func _apply_architecture_roof() -> Dictionary:
+	if _option_value("construction_mode") != "shell_v2":
+		return _report_failure("架构屋顶只在shell_v2连续实体模式生效。")
+	var architecture: Dictionary = _architecture_ui_patch(true)
+	var roof: Dictionary = architecture.get("roof", {}).duplicate(true)
+	var edge_overrides: Dictionary = roof.get("edge_overrides", {}).duplicate(true)
+	var edge_id: String = _option_value("architecture_roof_edge_index")
+	if bool((controls["architecture_roof_edge_override_enabled"] as CheckButton).button_pressed):
+		var edge: Dictionary = {}
+		edge["mode"] = _option_value("architecture_roof_edge_mode")
+		edge["gap_center"] = _spin_value("architecture_roof_gap_center")
+		edge["gap_width"] = _spin_value("architecture_roof_gap_width")
+		edge_overrides[edge_id] = edge
+	roof["edge_overrides"] = edge_overrides
+	architecture["roof"] = roof
+	var result: Dictionary = session.apply_patch({"architecture": architecture})
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("屋顶构造已应用，可撤销。")
+	else:
+		_report_result(result, "屋顶构造被拒绝")
+	return result
+
+func _clear_architecture_roof_edge() -> Dictionary:
+	var architecture: Dictionary = _architecture_snapshot()
+	var roof: Dictionary = architecture.get("roof", {}).duplicate(true)
+	var edge_overrides: Dictionary = roof.get("edge_overrides", {}).duplicate(true)
+	edge_overrides.erase(_option_value("architecture_roof_edge_index"))
+	roof["edge_overrides"] = edge_overrides
+	architecture["roof"] = roof
+	var result: Dictionary = session.apply_patch({"architecture": architecture})
+	if bool(result.get("ok", false)):
+		_refresh_from_session()
+		refresh_preview()
+		_set_status("已清除当前屋顶边覆盖，恢复继承。")
+	else:
+		_report_result(result, "清除屋顶边覆盖被拒绝")
+	return result
+
 func _apply_floor_override(clear: bool) -> void:
 	var index: String = str(int(_spin_value("floor_override_index")))
 	var overrides: Dictionary = snapshot().get("floor_overrides", {}).duplicate(true)
+	var architecture: Dictionary = _architecture_snapshot()
+	var floor_windows: Dictionary = architecture.get("floor_windows", {}).duplicate(true)
 	if clear:
 		overrides.erase(index)
+		floor_windows.erase(index)
 	else:
-		overrides[index] = {"floor_height": _spin_value("floor_override_height"), "window_width": _spin_value("floor_override_window_width"), "window_height": _spin_value("floor_override_window_height"), "window_sill": _spin_value("floor_override_sill")}
-	var result: Dictionary = session.apply_patch({"floor_overrides": overrides})
+		var values: Dictionary = {"floor_height": _spin_value("floor_override_height"), "window_width": _spin_value("floor_override_window_width"), "window_height": _spin_value("floor_override_window_height"), "window_sill": _spin_value("floor_override_sill")}
+		overrides[index] = values
+		floor_windows[index] = _architecture_window_control_values()
+		floor_windows[index]["width"] = _spin_value("floor_override_window_width")
+		floor_windows[index]["height"] = _spin_value("floor_override_window_height")
+		floor_windows[index]["sill"] = _spin_value("floor_override_sill")
+	var patch: Dictionary = {"floor_overrides": overrides}
+	if _option_value("construction_mode") == "shell_v2" or snapshot().has("architecture"):
+		patch["architecture"] = _architecture_patch_with({"floor_windows": floor_windows})
+	var result: Dictionary = session.apply_patch(patch)
 	_after_override(result, true)
 
 func _apply_facade_override(clear: bool) -> void:
 	var facade: String = _option_value("facade_index")
 	var overrides: Dictionary = snapshot().get("facade_overrides", {}).duplicate(true)
+	var architecture: Dictionary = _architecture_snapshot()
+	var facade_windows: Dictionary = architecture.get("facade_windows", {}).duplicate(true)
 	if clear:
 		overrides.erase(facade)
+		facade_windows.erase(facade)
 	else:
-		overrides[facade] = {"windows": bool(controls["facade_windows"].button_pressed), "width": _spin_value("facade_width"), "height": _spin_value("facade_height"), "sill": _spin_value("facade_sill")}
-	var result: Dictionary = session.apply_patch({"facade_overrides": overrides})
+		var values: Dictionary = {"windows": bool(controls["facade_windows"].button_pressed), "width": _spin_value("facade_width"), "height": _spin_value("facade_height"), "sill": _spin_value("facade_sill")}
+		overrides[facade] = values
+		facade_windows[facade] = {
+			"enabled": values.windows,
+			"width": values.width,
+			"height": values.height,
+			"sill": values.sill
+		}
+	var patch: Dictionary = {"facade_overrides": overrides}
+	if _option_value("construction_mode") == "shell_v2" or snapshot().has("architecture"):
+		patch["architecture"] = _architecture_patch_with({"facade_windows": facade_windows})
+	var result: Dictionary = session.apply_patch(patch)
 	_after_override(result, false)
 
 func _after_override(result: Dictionary, floor_changed: bool) -> void:
@@ -1037,6 +1498,7 @@ func _refresh_from_session(preserve_pending_fields: bool = false) -> void:
 		_name_edit.text = str(data.get("display_name", ""))
 		for key: String in PARAMETER_KEYS:
 			_set_control_value(key, data[key])
+		_refresh_architecture_controls(data)
 	var bindings: Dictionary = data.get("component_bindings", {}) as Dictionary
 	for role: String in Recipe.COMPONENT_ROLES:
 		_fill_component_option("binding_" + role, role, str(bindings.get(role, "")))
@@ -1054,15 +1516,105 @@ func _refresh_from_session(preserve_pending_fields: bool = false) -> void:
 	root_label.text = "保存路径：%s / <building_id> / revision_NNNN" % export_root
 	_update_state()
 
+func _refresh_architecture_controls(data: Dictionary) -> void:
+	var architecture: Dictionary = Config.normalized(data.get("architecture", {}))
+	var shell: bool = str(data.get("construction_mode", "modular_v1")) == "shell_v2"
+	for panel: Control in architecture_panels:
+		panel.visible = shell
+	if controls.has("architecture_shape_variant"):
+		_set_option("architecture_shape_variant", str(data.get("shape", "rectangle")))
+	if controls.has("window_scope"):
+		_set_option("window_scope", _last_window_scope)
+	var plan: Dictionary = architecture.get("plan", {})
+	for pair: Array in [["wing_x", "wing_x"], ["wing_z", "wing_z"], ["setback_start", "setback_start"], ["setback_step", "setback_step"]]:
+		_set_spin(str(pair[0]), float(plan.get(pair[1], 0.0)))
+	var window: Dictionary = architecture.get("window", {})
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		_set_control_value("architecture_window_" + field, window.get(field, false if field in ["enabled", "sill_enabled"] else 0.0))
+	_set_control_value("architecture_window_width", window.get("width", data.get("window_width", 1.4)))
+	_set_control_value("architecture_window_height", window.get("height", data.get("window_height", 1.8)))
+	_set_control_value("architecture_window_sill", window.get("sill", data.get("window_sill", 1.0)))
+	var roof: Dictionary = architecture.get("roof", {})
+	for field: String in ARCHITECTURE_ROOF_FIELDS:
+		_set_control_value("architecture_roof_" + field, roof.get(field, "none" if field == "mode" else 0.0))
+	_refresh_roof_edge_options(str(data.get("shape", "rectangle")))
+	_sync_window_selection(data)
+	if _window_scope() != "global":
+		_sync_architecture_window_scope()
+	_sync_architecture_roof_edge(roof)
+	# 刷新到 session 值之后，局部基线必须跟着对齐；否则载入配方会被误判成"存在未应用输入"，连保存都拦住。
+	_capture_window_local_baseline()
+
+func _sync_window_selection(data: Dictionary) -> void:
+	if not controls.has("window_selection"):
+		return
+	var option: OptionButton = controls["window_selection"] as OptionButton
+	var selected_opening: String = _window_override_id()
+	option.clear()
+	var opening_ids: Dictionary = _opening_cache.duplicate(true)
+	var architecture: Dictionary = Config.normalized(data.get("architecture", {}))
+	for raw_id: Variant in architecture.get("window_overrides", {}).keys():
+		var opening_id: String = str(raw_id)
+		if not opening_ids.has(opening_id):
+			opening_ids[opening_id] = {"id": opening_id, "type": "window"}
+	var sorted_ids: Array = opening_ids.keys()
+	sorted_ids.sort()
+	for raw_id: Variant in sorted_ids:
+		var opening_id: String = str(raw_id)
+		if not opening_id.begins_with("opening_") or str(opening_ids[opening_id].get("type", "window")) == "door":
+			continue
+		option.add_item(opening_id)
+		option.set_item_metadata(option.item_count - 1, opening_id)
+		option.set_item_tooltip(option.item_count - 1, "opening_id: " + opening_id)
+	if not selected_opening.is_empty():
+		for index: int in option.item_count:
+			if str(option.get_item_metadata(index)) == selected_opening:
+				option.select(index)
+				break
+
+func _refresh_roof_edge_options(shape: String) -> void:
+	if not controls.has("architecture_roof_edge_index"):
+		return
+	var option: OptionButton = controls["architecture_roof_edge_index"] as OptionButton
+	var current: String = _option_value("architecture_roof_edge_index")
+	var count: int = 4 if shape == "rectangle" else (6 if shape == "l" else 8)
+	option.clear()
+	for index: int in count:
+		option.add_item("边 " + str(index))
+		option.set_item_metadata(option.item_count - 1, "edge_" + str(index))
+	if current.is_empty() or int(current.trim_prefix("edge_")) >= count:
+		current = "edge_0"
+	_set_option("architecture_roof_edge_index", current)
+
+func _sync_architecture_roof_edge(roof: Dictionary) -> void:
+	if not controls.has("architecture_roof_edge_index"):
+		return
+	var edge_id: String = _option_value("architecture_roof_edge_index")
+	var overrides: Dictionary = roof.get("edge_overrides", {}) as Dictionary
+	var has_override: bool = overrides.has(edge_id)
+	var edge: Dictionary = overrides.get(edge_id, {}) as Dictionary
+	_set_control_value("architecture_roof_edge_override_enabled", has_override)
+	_set_control_value("architecture_roof_edge_mode", edge.get("mode", roof.get("mode", "none")))
+	_set_spin("architecture_roof_gap_center", float(edge.get("gap_center", 0.5)))
+	_set_spin("architecture_roof_gap_width", float(edge.get("gap_width", 0.0)))
+
 func _sync_floor_fields() -> void:
 	if not _initialized or _ignore_fields:
 		return
 	var data: Dictionary = snapshot()
 	var index: String = str(int(_spin_value("floor_override_index")))
 	var override: Dictionary = data.get("floor_overrides", {}).get(index, {}) as Dictionary
+	var architecture_floor: Dictionary = Config.normalized(data.get("architecture", {})).get("floor_windows", {}).get(index, {}) as Dictionary
 	_ignore_fields = true
 	for pair: Array in [["floor_override_height", "floor_height"], ["floor_override_window_width", "window_width"], ["floor_override_window_height", "window_height"], ["floor_override_sill", "window_sill"]]:
-		_set_spin(str(pair[0]), float(override.get(pair[1], data.get(pair[1], 1.0))))
+		var value: Variant = override.get(pair[1], data.get(pair[1], 1.0))
+		if pair[1] == "window_width":
+			value = architecture_floor.get("width", value)
+		elif pair[1] == "window_height":
+			value = architecture_floor.get("height", value)
+		elif pair[1] == "window_sill":
+			value = architecture_floor.get("sill", value)
+		_set_spin(str(pair[0]), float(value))
 	_ignore_fields = false
 	_capture_local_baseline(["floor_override_height", "floor_override_window_width", "floor_override_window_height", "floor_override_sill"])
 
@@ -1070,11 +1622,13 @@ func _sync_facade_fields() -> void:
 	if not _initialized or _ignore_fields:
 		return
 	var data: Dictionary = snapshot()
-	var override: Dictionary = data.get("facade_overrides", {}).get(_option_value("facade_index"), {}) as Dictionary
+	var facade: String = _option_value("facade_index")
+	var override: Dictionary = data.get("facade_overrides", {}).get(facade, {}) as Dictionary
+	var architecture_facade: Dictionary = Config.normalized(data.get("architecture", {})).get("facade_windows", {}).get(facade, {}) as Dictionary
 	_ignore_fields = true
-	controls["facade_windows"].set_pressed_no_signal(bool(override.get("windows", true)))
+	controls["facade_windows"].set_pressed_no_signal(bool(architecture_facade.get("enabled", override.get("windows", true))))
 	for pair: Array in [["facade_width", "width", "window_width"], ["facade_height", "height", "window_height"], ["facade_sill", "sill", "window_sill"]]:
-		_set_spin(str(pair[0]), float(override.get(pair[1], data.get(pair[2], 1.0))))
+		_set_spin(str(pair[0]), float(architecture_facade.get(pair[1], override.get(pair[1], data.get(pair[2], 1.0)))))
 	_ignore_fields = false
 	_capture_local_baseline(["facade_windows", "facade_width", "facade_height", "facade_sill"])
 
@@ -1156,7 +1710,9 @@ func _control_value(key: String) -> Variant:
 	var control: Control = controls[key] as Control
 	if control is SpinBox:
 		var value: float = (control as SpinBox).value
-		return int(value) if INTEGER_KEYS.has(key) else value
+		return int(value) if INTEGER_KEYS.has(key) or key in ["setback_start"] else value
+	if control is CheckButton:
+		return (control as CheckButton).button_pressed
 	return _option_value(key)
 
 func _set_control_value(key: String, value: Variant) -> void:
@@ -1184,6 +1740,10 @@ func _set_option(key: String, value: String) -> void:
 		if str(option.get_item_metadata(index)) == value:
 			option.select(index)
 			return
+
+func _set_architecture_control(key: String, value: Variant) -> void:
+	if controls.has(key):
+		_set_control_value(key, value)
 
 func _on_session_changed() -> void:
 	# 不在 changed 回调回填字段，避免槽位操作吞掉尚未应用的基础输入。

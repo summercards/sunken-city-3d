@@ -45,6 +45,7 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	if not bool(geometry.get("ok", false)):
 		return _fail(result, str(geometry.get("reason", "几何生成失败")))
 	result.openings = geometry.openings.duplicate(true)
+	result["roof_surfaces"] = geometry.get("roof_surfaces", []).duplicate(true)
 	var plans: Array = []
 	var seen: Dictionary = {}
 	var budget: Dictionary = {"nodes": 5, "triangles": 0, "visual_meshes": 0, "collision_shapes": 0, "plant_meshes": 0}
@@ -55,11 +56,14 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 		if _disabled(r, id):
 			result.warnings.append("整件已禁用，连续外壳完整性不再保证: " + id)
 			continue
-		var family: String = Recipe._slot_family(id)
+		var family: String = _shell_part_family(part, id)
+		if family.is_empty() or not r.component_bindings.has(family):
+			_release_plans(plans)
+			return _fail(result, "连续外壳part缺少组件族映射: " + id)
 		var override: Dictionary = r.slot_overrides.get(id, {})
 		part.component_id = str(override.get("component_id", r.component_bindings[family]))
 		part.kind = family
-		part.collidable = bool(part.collidable) and str(r.spatial_profile) != "scenic_underwater"
+		part.collidable = bool(part.collidable) and family != "plant" and str(r.spatial_profile) != "scenic_underwater"
 		var definition: Dictionary = c.components[str(part.component_id)]
 		if str(definition.kind) == "prefab":
 			var prepared: Dictionary = _prepare_prefab(part, definition)
@@ -586,6 +590,18 @@ static func _relative(node: Node3D, ancestor: Node3D) -> Transform3D:
 		result = current.transform * result
 		current = current.get_parent() as Node3D
 	return result
+
+static func _shell_part_family(part: Dictionary, id: String) -> String:
+	if id.begins_with("parapet_"): return "wall"
+	if id.begins_with("railing_"): return "pillar"
+	if id.begins_with("roofcap_"): return "slab"
+	if id.begins_with("roof_edge_"):
+		var raw_kind: String = str(part.get("kind", ""))
+		if raw_kind in ["wall", "pillar", "slab"]: return raw_kind
+	var family: String = Recipe._slot_family(id)
+	if not family.is_empty(): return family
+	var source_kind: String = str(part.get("kind", ""))
+	return source_kind if source_kind in ["wall", "slab", "frame", "glass", "pillar"] else ""
 
 static func _disabled(r: Dictionary, id: String) -> bool:
 	return r.excluded_slots.has(id) or bool(r.slot_overrides.get(id, {}).get("disabled", false))

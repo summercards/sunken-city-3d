@@ -112,3 +112,31 @@
 全库contracts_sync/check均已实跑exit1：`D:/projects/sea-work/building_workshop/continuous_v002/contracts_sync.log` 为76 issues，`contracts_check.log` 为78 issues；两者均8 source hash drift、67 runtime hash drift，另有SEA-ASSET条款账本问题；check还报SEA-WORKSHOP主表状态差异及派生索引过期。因全库失败未成功sync主表，保持partial，不批量改hash、不修其他功能SEA-ASSET-R67、不改GDD/registry。交付report的whole_project_contracts=not_provided仅表示汇总脚本未纳入该证据，不表示全库检查未执行。
 
 交付以真实模型大图与局部结构为主，不拿UI截图或历史测试数字替代professional model判断。详细五件hash、图像、使用步骤与验收边界见 [连续实体开发记录](../../development/2026-11-11_workshop_continuous_shell.md)。
+
+## 2026-11-11 建筑结构多变体、窗构造与屋顶边界追加
+
+本节承接 GDD 导航中的 SEA-WORKSHOP，并遵循 [SEA-ASSET-R68/R68a](../asset/spec.md#2026-11-10-参数楼房工坊候选资产登记规则) 的候选资产与原生参数化来源边界。以下 R23–R27 只描述建筑几何、配方、编辑器范围和候选交付契约；不把架构专项通过扩写成完整 editor、视觉、美术、性能、导航、建筑承载或防护规范通过。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R23 | `architecture` 是 schema version 1 的可选增量对象。支持 `rectangle`、`l`、`t`、`u` 平面变体；`plan.wing_x` / `wing_z` 控制翼部比例，`setback_start` / `setback_step` 控制从指定层起的上层轮廓收缩。每层按收缩后实际轮廓生成墙壳；下层与上层接口由连续结构板封合并形成可识别露台面，L/T/U 缺口不填实。`Recipe.defaults()` 和缺少 `architecture` 的旧配方保持旧 modular_v1 解释及原 fingerprint；`Recipe.authoring_defaults()` 才写入规范化 architecture，默认新建仍为 shell_v2。旧 modular 配方存在非默认 architecture 时必须拒绝，不能静默忽略。 |
+| SEA-WORKSHOP-R24 | 窗构造通过 `Config.window_settings` 合成，覆盖优先级为 global → floor → facade → single；旧配方的基础窗宽/高/窗台只作为基础值，局部覆盖不改变未覆盖字段。支持 `enabled`、`fixed` / `casement_left` / `casement_right` / `awning`，活动窗静态开角为0..80度，fixed 的开角必须为0；框宽、框深、玻璃厚度、recess、窗沿启用、窗沿 projection/thickness/extension 均为独立参数。`enabled=false` 封回实墙而不删除稳定 opening ordinal/id，编辑器保留选择与恢复入口；不得把单窗输入写入 global。 |
+| SEA-WORKSHOP-R25 | 窗尺寸验证必须以活动扇/玻璃的完整旋转扫掠包络核验开间、楼板、洞口倒角安全区、墙厚和相邻洞口，并登记同层包络冲突；开角、框/玻璃装配间隙、recess、窗沿与楼板冲突或相邻包络重叠时原子拒绝，不 silent clamp、不静默缩小净洞或移位。成功几何保留真实 reveal、独立闭合框、活动扇/玻璃实体和窗沿板；应用失败保留上一份配方、历史与预览。 |
+| SEA-WORKSHOP-R26 | 屋顶边界支持 `none`、`parapet`、`railing`、`mixed`。女儿墙、压顶和栏杆均使用实际轮廓内收后的路径；上层墙轮廓邻接处压制不应外露的边界，接口板封住下层形成的露台仍按实际 surface 处理。`mixed` 为栏杆立在女儿墙压顶之上，不穿插女儿墙；posts 与 pickets 分开建模，竖杆/横杆与立柱之间保持3mm clearance。总高、墙厚、cap 厚度/外挑、立柱间距、竖杆节距和杆宽均可配。`corner_end_cut=0.1m` 仅用于端部留间隔，不能宣称完整 guardrail safety；不签建筑承载或人群防护规范。 |
+| SEA-WORKSHOP-R27 | 屋顶边 `gap_center` / `gap_width` 仅对 `roof_main` 的 edge override 生效，不自动复用到每个 terrace；边数量按真实轮廓动态为4/6/8。gap 必须通过长度边界、两端各0.15m margin及角部约束，未知/非法/越角的 gap 直接拒绝，不 clip；屋顶及窗构造均经 `shell_geometry` / `shell_generator` 的实际几何路径生成。新增 `architecture_config.gd`、`shell_window_geometry.gd`、`roof_edge_geometry.gd` 三个 helper 只作为原生参数化工程来源，不建立正式 Asset registry 主记录。 |
+
+R23–R27 的编辑器门窗范围明确为全局、当前楼层、当前立面、当前窗四档；切换范围前若有未应用输入必须阻止切换，清除覆盖后恢复继承。架构专项的静态/实际验证与真实 editor 交互、五栋样楼候选保存、交付汇总和目视美术验收分域记录；未读到的本轮产物只记 pending，不提前签通过。楼梯导航、正式世界接入、全楼可达、建筑承载与防护规范不在本轮签署范围。
+
+## 2026-11-11 工整模型 v3 · 立面构成与转角连续性追加
+
+本节承接 GDD 导航中的 SEA-WORKSHOP，遵循 [SEA-ASSET-R68/R68a](../asset/spec.md#2026-11-10-参数楼房工坊候选资产登记规则) 的候选资产与原生参数化来源边界。R28–R34 只描述立面构成、转角接合、入口构造、退台围护默认、作者默认值与编辑器局部基线契约；不把几何修正扩写成完整艺术终验、建筑承载或防护规范通过。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R28 | 立面必须读成"基座—墙身—檐口"三段，不得出现两种材质同面的水平亮带。结构板外轮廓内收（`SLAB_BAND` 取负值，当前30mm）藏进墙壳；板缘由**与墙同材质**的层间束带包住，束带只比墙皮凸出4mm，形成一道细阴影线而非彩色腰线。整栋一圈勒脚环落在 `y∈[0, 0.42]`，外凸60mm、内咬8mm，用环形实体生成以免封底堵门。墙与板的重叠量 `INSET` 只用于防浮点缝，上限2mm。 |
+| SEA-WORKSHOP-R29 | 所有贴墙附件（勒脚、层间束带、压顶及后续同类构件）的外轮廓必须复用墙壳同源的圆角采段规则：凸外角按 `OUTER_CORNER_RADIUS` 圆弧采段、凹角保持 sharp miter。不得以直角 miter 近似贴墙轮廓——墙角会与墙壳圆弧错开成一条贯穿楼层的竖缝。环形实体的倒角只收Y方向，禁止对已圆弧化的XZ轮廓再次 offset。 |
+| SEA-WORKSHOP-R30 | 入口雨棚为独立平板，背面必须咬入墙体（不得从墙皮外侧凭空起始留缝），正面挑出并超出门洞两侧；至少两根落地柱，柱脚落到 `y=0`，柱截面不小于120mm。不生成无支撑的悬挑构件，雨棚不与门框、窗框或相邻窗洞穿插；超出净层高时明确跳过而不是压薄。 |
+| SEA-WORKSHOP-R31 | 退台等非 `roof_main` 的 surface 默认不生成屋顶边界附属结构（`none`），需要围护时在 `edge_overrides` 按 surface 显式开启。理由：把 `roof_main` 的模式套到逐段截断的退台边会生成锯齿状碎墙块。`roof_edge_quality.contacts` 顶层为各 surface contacts 的并集，编辑器与文档读同一处。 |
+| SEA-WORKSHOP-R32 | `Recipe.authoring_defaults()` 承载新建住宅比例与立面默认：层高3.6m、板厚0.18m、窗1.5×1.9m、窗台0.95m、门1.6×2.4m，并默认开启窗台板与女儿墙（`roof.mode=parapet`、高0.9m）。`Recipe.defaults()` 与缺字段旧配方保持原值与原 fingerprint，不迁移存档。 |
+| SEA-WORKSHOP-R33 | 编辑器的局部输入基线（楼层/立面/槽位/窗构造）必须在控件按 session 重建之后重新捕获，禁止把上一份文档的控件值当作基线。存在未应用输入时，失败原因必须列出具体控件键，不得只给通用一句话；未应用输入不得静默提交为已应用。 |
+| SEA-WORKSHOP-R34 | 门洞必须生成实际门扇，不得留成能看穿室内的墙洞。门扇为单块闭合实体，落在门框净尺寸内、四周留不小于2mm装配缝，从墙外皮退进不小于50mm；门扇厚度不小于40mm、倒角不大于5mm。不生成门把手、玻璃视窗或双开门分缝——无构造依据的附件一律不做。门扇与雨棚柱、勒脚、相邻窗框不得穿插。 |

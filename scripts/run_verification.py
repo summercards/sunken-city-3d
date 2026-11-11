@@ -159,6 +159,7 @@ TESTS.update({
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
     'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
     'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
+    'workshop-architecture': ('tests/test_workshop_architecture.gd', r'\[workshop-architecture\] \d+ checks, 0 failures'),
     'workshop-deep': ('tests/test_workshop_deep.gd', r'\[workshop-deep\] \d+ checks, 0 failures'),
     'workshop-integration': ('tests/test_workshop_integration.gd', r'\[workshop-integration\] \d+ checks, 0 failures'),
     'visual-workshop': ('tools/capture_workshop.gd', r'\[workshop-render\] \d+ checks, 0 failures'),
@@ -417,7 +418,7 @@ EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 def write_project_config(path, text):
     """Windows 隔离副本中 project.godot 偶发不能原地覆盖，使用临时文件原子替换。"""
     temp = path.with_name(path.name + '.tmp')
-    temp.write_text(text)
+    temp.write_text(text, encoding='utf-8')
     os.replace(temp, path)
 
 
@@ -538,7 +539,9 @@ def isolated_editor_workshop_project(run_dir):
     for rel in ['addons/building_workshop', 'data/workshop']:
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
-    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'shell_geometry', 'shell_generator']:
+    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store',
+                 'shell_geometry', 'shell_generator',
+                 'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
     (project / 'scenes/components').mkdir(parents=True)
     (project / 'outputs').mkdir()
@@ -555,7 +558,8 @@ def isolated_editor_workshop_project(run_dir):
             imported_dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(GODOT_ROOT / imported_rel, imported_dest)
     shutil.copy2(GODOT_ROOT / 'icon.svg', project / 'icon.svg')
-    text = (GODOT_ROOT / 'project.godot').read_text()
+    # project.godot 由 Godot 以 UTF-8 写出（含中文名/间隔号）；默认 locale 读取在中文 Windows 上会抛 UnicodeDecodeError。
+    text = (GODOT_ROOT / 'project.godot').read_text(encoding='utf-8')
     text = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', text, flags=re.S)
     text = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', text, flags=re.M)
     text = re.sub(r'^theme/custom_font=.*\n?', '', text, flags=re.M)

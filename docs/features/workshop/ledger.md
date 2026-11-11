@@ -33,7 +33,10 @@
     "godot/addons/building_workshop/catalog_adapter.gd",
     "godot/addons/building_workshop/editor_verification.gd",
     "godot/src/workshop/shell_geometry.gd",
-    "godot/src/workshop/shell_generator.gd"
+    "godot/src/workshop/shell_generator.gd",
+    "godot/src/workshop/architecture_config.gd",
+    "godot/src/workshop/shell_window_geometry.gd",
+    "godot/src/workshop/roof_edge_geometry.gd"
   ],
   "verification": [
     "workshop-rules",
@@ -194,3 +197,53 @@
 - **全库contracts未过**：`D:/projects/sea-work/building_workshop/continuous_v002/contracts_sync.log`、`contracts_check.log` 已各实跑exit1；两者均8 source hash drift、67 runtime hash drift。sync共76 issues（另SEA-ASSET条款ledger问题），check共78 issues（另主表SEA-WORKSHOP状态差异及派生索引过期）；44 features/1069 source assets/1510 runtime hashes。全库失败导致主表sync未成功，不能手改摘要或批量hash掩盖；交付report的whole_project_contracts=not_provided只是汇总未纳入日志，不等于没有实跑。
 
 失败历史仍按上节一简句保留，不复用旧327/0、572/0或552/0代签本轮。完整style、内角与墙上下水平边圆弧、drastic damage、complex root、楼梯/导航/全楼可达、性能、插件完整卸载重载/跨进程恢复及正式世界接入未签；不新增stage整屋blend承诺。
+
+## 2026-11-11 建筑结构多变体、窗构造与屋顶边界追加
+
+本节只追加 SEA-WORKSHOP-R23–R27 的当前工程承接；登记头仍为 `partial`。代码路径追加 `architecture_config.gd`、`shell_window_geometry.gd`、`roof_edge_geometry.gd`，不新增正式 AssetID、不写 SEA-ASSET registry。架构专项与 editor 交互、候选交付、视觉和安全边界分开记载。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R23 | partial；`architecture` 为 schema version 1 可选增量；支持 rectangle/L/T/U，`wing_x` / `wing_z`、`setback_start` / `setback_step`，按逐层收缩轮廓生成墙壳；下层接口板封合并产生 terrace surface，L/T/U 缺口不填实。`Recipe.defaults()`/旧缺字段配方保持 modular_v1 与旧 fingerprint，`authoring_defaults()` 新写 normalized architecture；旧 modular 的非默认 architecture 明确拒绝 | `architecture_config.gd`、`recipe.gd`、`shell_geometry.gd`、`shell_generator.gd`；架构专项 `D:/projects/sea-work/verification/20261111-143300-architecture-resume-regression-6e8b10/report.json` 为 exit0/passed=true，日志135/0。未签五栋最终候选和交付汇总，未签楼梯/导航/承载 |
+| SEA-WORKSHOP-R24 | partial；窗口覆盖优先级 global → floor → facade → single；支持 enabled、fixed/casement_left/casement_right/awning、0..80静态开角、框宽深、玻璃厚度、recess及窗沿 projection/thickness/extension。`enabled=false` 封实墙但保留稳定 opening id 可恢复；单窗只写 window_overrides，不误写 global；编辑器有四档范围及清除恢复继承 | `architecture_config.gd`、`shell_window_geometry.gd`、`editor_screen.gd`；同一架构专项含控件、单窗隔离、关闭/恢复和范围切换检查，但真实 editor 批次仍失败，不能把局部专项代签完整 editor |
+| SEA-WORKSHOP-R25 | partial；活动扇/玻璃完整扫掠包络核对 bay、楼板、洞口倒角/墙厚安全区、窗沿及相邻 opening；无效尺寸、穿墙、开合或包络冲突原子拒绝，不 silent clamp、不静默缩净洞；成功生成真实 reveal、闭合框、活动扇/玻璃与窗沿 | `shell_window_geometry.gd`、`shell_geometry.gd`；同批 shell 专项为716/0，rules为24/0，deep为41/0。该证据只签被测组合，不签任意参数、视觉或性能 |
+| SEA-WORKSHOP-R26 | partial；屋顶模式 none/parapet/railing/mixed；真实轮廓内收生成女儿墙/压顶/栏杆，mixed 栏杆立压顶上不穿女儿墙；posts 与 pickets 分开并保留3mm clearance；支持总高、墙厚、cap、柱距、竖杆节距和杆宽。`corner_end_cut=0.1m` 只留下角部间隔，不是完整 guardrail safety；不签建筑承载与防护规范 | `roof_edge_geometry.gd`、`shell_geometry.gd`、`editor_screen.gd`；架构专项日志135/0覆盖实际结构节点检查。当前 editor 交互日志 `D:/projects/sea-work/building_workshop/architecture_v001/editor_interaction.log` 为FAIL、1421/7，不签 editor 通过 |
+| SEA-WORKSHOP-R27 | partial；edge 动态按实际轮廓支持4/6/8；`edge_overrides` 的 gap 仅 roof_main 生效，不自动复用到每个 terrace；未知、无效或越角 gap 拒绝而非 clip，边端保留0.15m margin，端部 cut 不宣称安全护栏 | `architecture_config.gd`、`roof_edge_geometry.gd`；架构专项通过，编辑器截图捕获已记录但不等于目视验收。五栋 candidate 静态保存、源 hash 和 delivery report 待 `tools/workshop/finalize_architecture_delivery.py` 实际生成后由主线程回填，不预写通过 |
+
+### 本轮证据和交付回填约束
+
+- 已读架构专项：`D:/projects/sea-work/verification/20261111-143300-architecture-resume-regression-6e8b10/report.json`，`workshop-architecture`、`workshop-shell`、`workshop-rules`、`workshop-deep` 均 exit0/passed=true；实际日志分别为135/0、716/0、24/0、41/0。
+- 已读 editor 当前日志：`D:/projects/sea-work/building_workshop/architecture_v001/editor_interaction.log`，editor-workshop FAIL exit1，1421 checks/7 failures。此前 editor_resume 的 UI 缩进 parse error 已由主线程修复，但本轮文档不把当前失败批次签为通过。
+- 五栋样楼、candidate 五件、源 hash 与 delivery report 当前只记待生成/待回填；不填写未读取的路径、ID、hash、面数或图像结论。
+- 楼梯导航/建筑承载/防护规范不签；候选资产不自动正式登记、不自动挂 Main 或正式世界。
+
+## 2026-11-11 工整模型 v3 · R28–R34 追加承接
+
+本节承接 [功能设计](spec.md) 的 R28–R34；登记头继续 `partial`，不新增正式 AssetID、不写 SEA-ASSET registry、不改正式主场景。前节「退台自动围护」「层间接头3mm」「板与墙同面」均为当时快照，当前代码事实以下述为准；历史批次结果不重写。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R28 | partial；`shell_geometry.gd` 的 `SLAB_BAND=-0.03` 使结构板内收藏进墙壳，新增 `belt_<floor>` 层间束带（同 `wall` 组件、凸4mm、倒角4mm）包住板缘；新增 `plinth_0` 环形勒脚（外凸60mm、内咬8mm、高0.42m）由 `_ring_solid` 生成；`INSET` 由3mm改为0.8mm，仅防浮点缝 | 代码层由 workshop-shell／workshop-deep 实际通过；`test_workshop_shell.gd` 层高断言改读 `ShellGeometry.INSET` 并另断言 `0<INSET<=2mm`。主线程目检确认层间亮带消失、立面读成三段式；不签完整艺术终验 |
+| SEA-WORKSHOP-R29 | partial；新增 `_rounded_outline(polygon, inset)` 复用 `_corner_arc` 采段，勒脚与束带外轮廓改为与墙壳同源圆弧；`_ring_solid` 倒角只收Y方向，XZ 不再二次 offset | 修复前后均有近景图对比：修前墙角存在贯穿竖缝，修后连续。只签矩形/L/T/U 正交轮廓；任意多边形与内角圆弧仍未实现 |
+| SEA-WORKSHOP-R30 | partial；新增 `_opening_canopy` 生成门头平板（挑出1.05m、厚0.18m、背面咬入墙内0.06m）+ 两根0.18m落地柱（柱脚 `y=0`）；净层高不足时跳过而非压薄；柱与门框/窗框无穿插由拓扑审计与目检共同确认 | 目检确认雨棚咬墙、柱落地、无浮空件。不签雨棚排水、采光顶或门斗 |
+| SEA-WORKSHOP-R31 | partial；`roof_edge_geometry.gd` 对非 `roof_main` 的 surface 默认 `surface_mode=none`，仅在存在该 surface 的 `edge_overrides` 时显式开启；`roof_edge_quality.contacts` 改为各 surface contacts 并集 | 修复前 U 形退台出现锯齿碎墙块，修复后为干净板边；architecture 专项 exit0。不签退台自动加护栏 |
+| SEA-WORKSHOP-R32 | partial；`Recipe.authoring_defaults()` 新增住宅比例（3.6m/0.18m/1.5×1.9/2.4m门）与窗台板、女儿墙默认；`Recipe.defaults()` 与旧配方保持原值、原 fingerprint，不做存档迁移 | `test_workshop_architecture.gd` 的 authoring 断言由"等于 Config.defaults()"改为"Config.validate 通过且含窗台板+女儿墙"，与新默认一致；旧 modular 兼容用例补 `erase("architecture")` 表示真正旧配方 |
+| SEA-WORKSHOP-R33 | partial；`editor_screen.gd` 的 `_refresh_architecture_controls` 末尾补 `_capture_window_local_baseline()`；`refresh_preview` 在非 `preserve_slot_fields` 时按重建后槽位重取基线；新增 `_pending_local_fields()` 使失败原因列出具体控件键 | 修复前 editor 因基线错位持续报"存在未应用输入"、连保存都被拦截；修复后 editor-workshop 实跑 PASS。不签"人工连续改多控件再保存"的完整交互路径 |
+| SEA-WORKSHOP-R34 | partial；`shell_geometry.gd` 新增 `_door_leaf`，门洞生成单块实体门扇（厚50mm、四周2mm缝、外皮退进60mm、倒角4mm），slot 记 `door_<suffix>`、kind=frame；不生成把手/视窗/双开门分缝 | 修复前后近景图对比：修前门洞可看穿室内、读作墙洞，修后为实体门扇。`editor_verification.gd` 新增「门洞有实际门扇而非看穿」断言（门扇数==1），并把 `door_` 从禁止节点名单放行；editor-workshop 实跑 1819 项 / 0 failures。不签门五金、防火门或无障碍门洞 |
+
+### 本轮实测结果
+
+- 几何四项同批：`D:/projects/sea-work/verification/20261111-165719-verification-dd2b68/report.json` —— workshop-shell、workshop-architecture、workshop-rules、workshop-deep 均 exit0/passed=true。
+- 真实 editor：`D:/projects/sea-work/verification/20261111-170241-shell-v3-doors2-55f69d/report.json` —— editor-workshop 为 real、exit0/passed=true；同批 `project/outputs/workshop_editor_report.json` 为 1819 项、failures=[]、passed=true，enginehint=true、is_playing=false、scene_unchanged=true。
+- 交付汇总：`D:/projects/sea-work/building_workshop/shell_v3/outputs/shell_v3_delivery_report.json` —— passed=true、checks_count=43、failed_count=0；汇总脚本 `engine_executed=false`，引擎证据来自上述 runner 报告。
+
+### 已装入候选
+
+- `D:/projects/sea/godot/scenes/workshop_buildings/shell_rect_1794387870_107701812/revision_0001/`（矩形12×9m、3层、141部件、9896三角面、结构4020、节点164、碰撞9）
+- `D:/projects/sea/godot/scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/`（L形12×12m、3层、159部件、11708三角面、结构5016、节点182、碰撞9）
+
+两目录各五件 bundle。实际清单字段为 `candidate_ledger_status=exported_pending_project_registration`、`formal_registry_written=false`、`noMain=true`；不是正式登记，未挂 Main。上一批 `shell_rect_1794338160_71001671`／`shell_l_1794338160_71001671` 保留为历史候选，不删除、不改写。
+
+### 未签边界
+
+完整 professional 美术终验、性能、复杂根系/墙面苔、楼梯导航、全楼可达、正式世界接入、建筑承载与防护规范均未签；女儿墙只做单圈0.9m，屋面排水坡、压顶分缝、屋面设备未做；内角圆弧与墙上下水平边圆弧未实现。详细成因、几何参数与复现步骤见 [工整模型 v3 开发记录](../../development/2026-11-11_workshop_shell_v3_structure.md)。

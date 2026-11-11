@@ -3,6 +3,7 @@ extends RefCounted
 ## SEA-WORKSHOP V1 的版本化楼房配方契约。
 ## 这里不持有运行时状态；规范化始终返回深拷贝，供预览、保存和导出共同使用。
 
+const Config = preload("res://src/workshop/architecture_config.gd")
 const SCHEMA := "sea.workshop.building_recipe"
 const SCHEMA_VERSION := 1
 const STANDARD_FIELDS := [
@@ -13,7 +14,8 @@ const STANDARD_FIELDS := [
 	"door_height", "bevel_segments", "bevel_width", "taper", "spatial_profile",
 	"aging", "damage", "vegetation_density", "growth_weights", "structure_seed",
 	"damage_seed", "vegetation_seed", "component_bindings", "floor_overrides",
-	"facade_overrides", "slot_overrides", "excluded_slots", "locked_vegetation"
+	"facade_overrides", "slot_overrides", "excluded_slots", "locked_vegetation",
+	"architecture"
 ]
 const COMPONENT_ROLES := ["wall", "slab", "frame", "glass", "pillar", "plant"]
 const FACADE_KEYS := ["front", "back", "left", "right"]
@@ -84,13 +86,38 @@ static func defaults() -> Dictionary:
 	return result
 
 static func authoring_defaults() -> Dictionary:
+	# 仅用于新建文档。旧配方（Recipe.defaults）保持 modular 原值，不被这批作者默认值改写。
 	var result: Dictionary = defaults()
 	result["construction_mode"] = "shell_v2"
 	result["display_name"] = "海风公寓 · 连续实体"
 	result["aging"] = 0.0
 	result["damage"] = 0.0
 	result["vegetation_density"] = 0.0
+	# 住宅比例：3.6m 层高、0.18m 板厚、1.5×1.9 窗、2.4m 门；不再用 5.1m 层高留大片空白墙。
+	result["floor_height"] = 3.6
+	result["slab_thickness"] = 0.18
+	result["window_width"] = 1.5
+	result["window_height"] = 1.9
+	result["window_sill"] = 0.95
+	result["door_width"] = 1.6
+	result["door_height"] = 2.4
 	result.component_bindings["wall"] = "wall_sun"
+	var architecture: Dictionary = Config.defaults()
+	# 窗台板与女儿墙作为新建默认：立面有窗台线、屋顶有收头。
+	var window: Dictionary = (architecture["window"] as Dictionary).duplicate(true)
+	window["sill_enabled"] = true
+	window["sill_projection"] = 0.16
+	window["sill_thickness"] = 0.08
+	window["sill_extension"] = 0.06
+	architecture["window"] = window
+	var roof: Dictionary = (architecture["roof"] as Dictionary).duplicate(true)
+	roof["mode"] = "parapet"
+	roof["height"] = 0.9
+	roof["thickness"] = 0.26
+	roof["cap_thickness"] = 0.1
+	roof["cap_overhang"] = 0.05
+	architecture["roof"] = roof
+	result["architecture"] = architecture
 	return result
 
 static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
@@ -123,12 +150,20 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 		return "不支持的catalog_id"
 	if str(data.get("construction_mode", "modular_v1")) not in ["modular_v1", "shell_v2"]:
 		return "不支持的construction_mode"
-	if not ["rectangle", "l"].has(str(data.get("shape", ""))):
-		return "shape只支持rectangle或l"
+	if not ["rectangle", "l", "t", "u"].has(str(data.get("shape", ""))):
+		return "shape只支持rectangle、l、t或u"
+	if str(data.get("construction_mode", "modular_v1")) != "shell_v2" and str(data.shape) not in ["rectangle", "l"]:
+		return "t/u形只支持shell_v2连续模式"
 	if not SPATIAL_PROFILES.has(str(data.get("spatial_profile", ""))):
 		return "spatial_profile非法"
 	if not _math_integer(data.get("floors", null)) or int(data.get("floors", 0)) < 1 or int(data.get("floors", 0)) > 8:
 		return "floors必须在1..8"
+	if data.has("architecture"):
+		var architecture_reason: String = Config.validate(data.architecture, int(data.floors))
+		if not architecture_reason.is_empty():
+			return architecture_reason
+		if str(data.get("construction_mode", "modular_v1")) != "shell_v2" and Config.normalized(data.architecture) != Config.defaults():
+			return "非默认architecture只支持shell_v2连续模式，旧模式不能忽略建筑配置"
 	if float(data.get("width", 0.0)) < 6.0 or float(data.get("width", 0.0)) > 24.0:
 		return "width必须在6..24"
 	if float(data.get("depth", 0.0)) < 6.0 or float(data.get("depth", 0.0)) > 20.0:
@@ -136,11 +171,12 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 	for field in ["floor_height", "slab_thickness", "wall_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height"]:
 		if not _positive_number(data, field):
 			return field + "必须为正数"
-	if float(data.window_sill) + float(data.window_height) > float(data.floor_height) - float(data.slab_thickness):
+	var architecture_windows: bool = data.has("architecture") and str(data.get("construction_mode", "modular_v1")) == "shell_v2"
+	if not architecture_windows and float(data.window_sill) + float(data.window_height) > float(data.floor_height) - float(data.slab_thickness):
 		return "窗洞超出净层高"
 	if float(data.door_height) > float(data.floor_height) - float(data.slab_thickness):
 		return "门洞超出净层高"
-	if float(data.window_width) >= float(data.bay_width):
+	if not architecture_windows and float(data.window_width) >= float(data.bay_width):
 		return "window_width必须小于bay_width"
 	var effective_bay: float = float(data.width) / ceilf(float(data.width) / float(data.bay_width))
 	if float(data.door_width) + 0.34 + float(data.column_width) >= effective_bay:
@@ -189,7 +225,8 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 		return lock_reason
 	var cell_count := int(ceil(float(data.width) / float(data.bay_width))) * int(ceil(float(data.depth) / float(data.bay_width)))
 	var estimated_nodes := int(data.floors) * (cell_count * 10 + 90) + cell_count * 18
-	if estimated_nodes > 1900:
+	# 旧版按cell生成大量节点；连续模式不使用cell板，最终预算由实际生成器检查。
+	if str(data.get("construction_mode", "modular_v1")) == "modular_v1" and estimated_nodes > 1900:
 		return "配方可能超过2000节点预算"
 	return ""
 
@@ -197,6 +234,9 @@ static func normalized(data: Dictionary) -> Dictionary:
 	var result := defaults()
 	for key in data.keys():
 		result[key] = _copy_value(data[key])
+	# architecture 缺失时保持缺失，不改变旧配方的默认值与指纹。
+	if result.get("architecture") is Dictionary:
+		result["architecture"] = Config.normalized(result.architecture)
 	for key in ["component_bindings", "floor_overrides", "facade_overrides", "slot_overrides"]:
 		if result.get(key) is Dictionary:
 			result[key] = (result[key] as Dictionary).duplicate(true)
@@ -259,12 +299,33 @@ static func _validate_effective_openings(data: Dictionary) -> String:
 		if floor == 0 and float(data.door_height) > floor_height - slab:
 			return "楼层覆盖后的门洞超出净层高"
 		for facade in FACADE_KEYS:
-			var facade_data: Dictionary = data.facade_overrides.get(facade, {})
-			var height := float(facade_data.get("height", floor_data.get("window_height", data.window_height)))
-			var width := float(facade_data.get("width", floor_data.get("window_width", data.window_width)))
-			var sill := float(facade_data.get("sill", floor_data.get("window_sill", data.window_sill)))
-			if sill + height > floor_height - slab or width >= float(data.bay_width):
-				return "楼层与立面组合覆盖后的窗洞越界"
+			if data.has("architecture") and str(data.get("construction_mode", "modular_v1")) == "shell_v2":
+				var settings: Dictionary = Config.window_settings(data, floor, facade)
+				var reason: String = _validate_architecture_opening(settings, floor_height - slab, float(data.bay_width))
+				if not reason.is_empty(): return reason
+				# 单窗只按原 ID 的立面、楼层校验，不按当前洞口数量重绑定。
+				var overrides: Dictionary = data.architecture.get("window_overrides", {})
+				for opening_id in overrides:
+					var parts: PackedStringArray = str(opening_id).split("_")
+					if parts[1] != facade or int(parts[2]) != floor: continue
+					settings = Config.window_settings(data, floor, facade, str(opening_id))
+					reason = _validate_architecture_opening(settings, floor_height - slab, float(data.bay_width))
+					if not reason.is_empty(): return str(opening_id) + ": " + reason
+			else:
+				var facade_data: Dictionary = data.facade_overrides.get(facade, {})
+				var height := float(facade_data.get("height", floor_data.get("window_height", data.window_height)))
+				var width := float(facade_data.get("width", floor_data.get("window_width", data.window_width)))
+				var sill := float(facade_data.get("sill", floor_data.get("window_sill", data.window_sill)))
+				if sill + height > floor_height - slab or width >= float(data.bay_width):
+					return "楼层与立面组合覆盖后的窗洞越界"
+	return ""
+
+static func _validate_architecture_opening(settings: Dictionary, clear_height: float, bay_width: float) -> String:
+	var reason: String = Config._validate_window(settings, "合成窗配置")
+	if not reason.is_empty(): return reason
+	if not settings.enabled: return ""
+	if float(settings.sill) + float(settings.height) > clear_height or float(settings.width) >= bay_width:
+		return "楼层与立面组合覆盖后的窗洞越界"
 	return ""
 
 static func _validate_facade_overrides(value) -> String:
@@ -350,10 +411,10 @@ static func _check_component(component_id: String, role: String, catalog: Dictio
 	return ""
 
 static func _slot_family(slot_id: String) -> String:
-	if slot_id.begins_with("wall_"): return "wall"
-	if slot_id.begins_with("slab_") or slot_id.begins_with("roof_"): return "slab"
-	if slot_id.begins_with("pillar_"): return "pillar"
-	if slot_id.begins_with("frame_"): return "frame"
+	if slot_id.begins_with("wall_") or slot_id.begins_with("parapet_"): return "wall"
+	if slot_id.begins_with("slab_") or slot_id.begins_with("roof_") or slot_id.begins_with("roofcap_"): return "slab"
+	if slot_id.begins_with("pillar_") or slot_id.begins_with("railing_"): return "pillar"
+	if slot_id.begins_with("frame_") or slot_id.begins_with("sash_") or slot_id.begins_with("sill_"): return "frame"
 	if slot_id.begins_with("glass_"): return "glass"
 	if slot_id.begins_with("plant_") or slot_id.begins_with("vine_"): return "plant"
 	return ""

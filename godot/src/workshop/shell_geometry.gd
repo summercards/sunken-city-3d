@@ -6,6 +6,10 @@ extends RefCounted
 const MeshBuilder = preload("res://src/workshop/mesh_builder.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
+const Config = preload("res://src/workshop/architecture_config.gd")
+const RoofEdge = preload("res://src/workshop/roof_edge_geometry.gd")
+const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
+const MAX_PARTS: int = 2000
 const WALL_BEVEL: float = 0.02
 const OUTER_CORNER_RADIUS: float = 0.07
 const OUTER_CORNER_SEGMENTS: int = 3
@@ -14,33 +18,86 @@ const FRAME_DEPTH: float = 0.12
 const FRAME_BEVEL: float = 0.018
 const CLEARANCE: float = 0.003
 const GLASS_GAP: float = 0.002
-const SLAB_BAND: float = 0.14
-const SLAB_BEVEL: float = 0.028
-const INSET: float = 0.003
+# 结构板内收 30mm：板完全藏进墙壳，层间不出现"两种材质同面"的拼装亮带。
+# 板位改由同色层间束带（_floor_belt）封平，立面读成"基座—墙身—檐口"三段式。
+const SLAB_BAND: float = -0.03
+# 层间束带：与墙同色、比墙皮只凸4mm，把板缘盖成一道细阴影缝，而不是一条彩色腰线。
+const BELT_PROJECTION: float = 0.004
+const BELT_BEVEL: float = 0.004
+# 勒脚：整栋一圈基座环，让建筑落在场地上而不是浮在板面。
+const PLINTH_HEIGHT: float = 0.42
+const PLINTH_PROJECTION: float = 0.06
+const PLINTH_BITE: float = 0.008
+const PLINTH_BEVEL: float = 0.014
+# 入口雨棚与落地柱：雨棚挑出、柱脚落地，不生成悬空构件。
+const CANOPY_PROJECTION: float = 1.05
+const CANOPY_EXTENSION: float = 0.4
+const CANOPY_THICKNESS: float = 0.18
+const CANOPY_LIFT: float = 0.16
+const CANOPY_BEVEL: float = 0.018
+# 柱截面0.18、从雨棚外端起算；柱心离开门框净边0.32m，透视下才不会被读成门框延伸出来的杆。
+const CANOPY_POST: float = 0.18
+const CANOPY_POST_INSET: float = 0.16
+const CANOPY_POST_BEVEL: float = 0.014
+const CANOPY_POST_EDGE: float = 0.1
+# 门扇：厚度50mm、离门框净边2mm、从墙外皮退进60mm；倒角4mm。
+const DOOR_LEAF_THICKNESS: float = 0.05
+const DOOR_LEAF_RECESS: float = 0.06
+const DOOR_LEAF_GAP: float = 0.002
+const DOOR_LEAF_BEVEL: float = 0.004
+# 板缘倒角收紧：0.028在0.18厚板上占15%，等距视角下会读成一条亮带接缝。
+const SLAB_BEVEL: float = 0.012
+# 墙底/墙顶只与楼板重叠0.8mm防浮点缝；3mm会在层间留下一道可见凹槽。
+const INSET: float = 0.0008
 const EPS: float = 0.000001
 const WELD: float = 0.00001
 const MAX_TRIANGLES: int = 180000
+
+## 静态上下文没有 self，而 roof_edge_geometry / shell_window_geometry 需要本脚本的
+## Script 句柄回调本文件的静态方法（它们不能 preload 本文件，否则循环引用）。
+static func _self_script() -> Script:
+	return load("res://src/workshop/shell_geometry.gd")
 
 static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 	var result: Dictionary = {"ok": false, "reason": "", "parts": [], "openings": [], "footprint": [], "quality": {"verification": "未运行Godot；未签署视觉或引擎验收"}}
 	if not Recipe._finite_tree(recipe):
 		return _failure(result, "配方必须是有限JSON数据")
+	if recipe.has("architecture"):
+		var config_reason: String = Config.validate(recipe.architecture, int(recipe.get("floors", 3)))
+		if not config_reason.is_empty(): return _failure(result, config_reason)
 	var r: Dictionary = Recipe.normalized(recipe)
 	var c: Dictionary = catalog if not catalog.is_empty() else Catalog.definitions()
 	var reason: String = _validate(r, c)
 	if not reason.is_empty():
 		return _failure(result, reason)
 	var floors: int = int(r.floors)
-	var polygon: Array[Vector2] = _footprint(str(r.shape), float(r.width), float(r.depth))
+	var plan: Dictionary = _structure_plan(r)
+	var footprint_polygon: Array[Vector2] = _footprint(str(r.shape), float(r.width), float(r.depth), plan)
+	var floor_contours: Array = []
+	for floor in floors:
+		var distance: float = 0.0 if int(plan.setback_start) < 0 else float(maxi(0, floor - int(plan.setback_start) + 1)) * float(plan.setback_step)
+		var contour: Array[Vector2] = _offset(footprint_polygon, distance)
+		var contour_reason: String = _validate_contour(footprint_polygon, contour, distance, float(r.wall_thickness))
+		if not contour_reason.is_empty(): return _failure(result, "floor=" + str(floor) + ": " + contour_reason)
+		floor_contours.append(contour)
+	var polygon: Array[Vector2] = footprint_polygon
 	var total_height: float = 0.0
 	for floor in floors:
 		total_height += _floor_value(r, floor, "floor_height")
 	var context: Dictionary = {"height": total_height, "taper": float(r.taper), "aging": float(r.aging), "cache": {}, "collidable": str(r.spatial_profile) != "scenic_underwater", "error": "", "triangles": 0, "topology": {}}
 	var parts: Array = []
 	var openings: Array = []
+	var roof_surfaces: Array = []
+	var window_envelopes: Array = []
 	var base: float = 0.0
 	var band: Array[Vector2] = _offset(polygon, -SLAB_BAND)
 	for floor in floors:
+		polygon = floor_contours[floor]
+		var slab_contour: Array[Vector2] = floor_contours[maxi(0, floor - 1)]
+		band = _offset(slab_contour, -SLAB_BAND)
+		var has_terrace: bool = floor > 0 and _polygon_area(floor_contours[floor]) < _polygon_area(floor_contours[floor - 1]) - EPS
+		if has_terrace:
+			roof_surfaces.append({"id": "terrace_floor_" + str(floor), "polygon": band.duplicate(), "y": base, "upper_polygon": polygon.duplicate(), "floor": floor})
 		var thickness: float = _floor_value(r, floor, "slab_thickness")
 		var slab: Dictionary = _buffer()
 		_solid(slab, band, base - thickness, base, SLAB_BEVEL)
@@ -73,7 +130,7 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 				var start_arc: Array[Vector2] = contour[run_index]
 				var end_arc: Array[Vector2] = contour[next]
 				run.ends.append(Vector2((start_arc[-1] - start).dot(axis), (end_arc[0] - start).dot(axis)))
-			# bay_width为目标开间；整条run等分，短L臂不强塞过窄窗垛。
+			# bay_width为目标开间；整条run等分，短翼不能靠缩窗强塞。
 			var count: int = maxi(1, floori(length / float(r.bay_width)))
 			var door_bay: int = -1
 			if floor == 0 and facade == "front":
@@ -89,16 +146,28 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 				var ordinal: int = int(counters.get(facade, 0))
 				counters[facade] = ordinal + 1
 				var is_door: bool = bay == door_bay
-				if not is_door and not bool(settings.windows):
+				var suffix: String = facade + "_" + str(floor) + "_" + str(ordinal)
+				var effective: Dictionary = settings.duplicate(true)
+				if r.has("architecture") and not is_door:
+					effective.merge(Config.window_settings(r, floor, facade, "opening_" + suffix), true)
+				if not is_door and not bool(effective.get("enabled", effective.windows)):
 					continue
-				var hole: Dictionary = _opening(base, bottom, length * (float(bay) + 0.5) / float(count), settings, is_door)
+				if r.has("architecture") and not is_door:
+					var window_reason: String = WindowGeometry.validate(Config.window_settings(r, floor, facade, "opening_" + suffix), wall_depth)
+					if not window_reason.is_empty(): return _failure(result, "opening_" + suffix + ": " + window_reason)
+				var hole: Dictionary = _opening(base, bottom, length * (float(bay) + 0.5) / float(count), effective, is_door)
+				if r.has("architecture") and not is_door:
+					hole["settings"] = Config.window_settings(r, floor, facade, "opening_" + suffix)
+					var envelope_reason: String = WindowGeometry.validate_bay(hole, run, length * float(bay) / float(count), length * float(bay + 1) / float(count), base, top)
+					if not envelope_reason.is_empty(): return _failure(result, "opening_" + suffix + ": " + envelope_reason)
+					var separation_reason: String = WindowGeometry.register_envelope(window_envelopes, hole, run, "opening_" + suffix, floor)
+					if not separation_reason.is_empty(): return _failure(result, separation_reason)
 				var margin: float = wall_depth + 0.08
 				if float(hole.x0) - WALL_BEVEL < margin or float(hole.x1) + WALL_BEVEL > length - margin or float(hole.y1) + WALL_BEVEL > top - 0.08 or (not is_door and float(hole.y0) - WALL_BEVEL < base + 0.08):
 					return _failure(result, "开口与墙角/楼板冲突，不能缩小净尺寸: " + facade + " floor=" + str(floor) + " bay=" + str(bay))
 				if float(hole.x1) - float(hole.x0) + WALL_BEVEL * 2.0 + 0.08 > length / float(count):
 					return _failure(result, "统一bay无法容纳净洞、框材与墙垛: " + facade)
 				holes.append(hole)
-				var suffix: String = facade + "_" + str(floor) + "_" + str(ordinal)
 				accessories.append({"hole": hole, "run": run, "suffix": suffix, "facade": facade})
 				openings.append(_public_opening(hole, run, suffix, facade, floor, context))
 			_face_grid(shell, run, holes, bottom, top, 0, 0.0)
@@ -111,30 +180,64 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		for entry in accessories:
 			var hole: Dictionary = entry.hole
 			var run: Dictionary = entry.run
+			if hole.has("settings"):
+				WindowGeometry.append_parts(parts, hole, run, str(entry.suffix), floor, str(entry.facade), r, c, context, _self_script())
+				continue
 			var frame: Dictionary = _buffer()
 			if bool(hole.door):
 				_door_frame(frame, hole, run)
 			else:
 				_window_frame(frame, hole, run)
 			_part(parts, frame, "frame_" + str(entry.suffix), "frame", floor, str(entry.facade), r, c, context, FRAME_BEVEL, false)
-			if not bool(hole.door):
+			if bool(hole.door):
+				# 门洞必须是"门"，不是能看穿室内的墙洞：补一扇实际门扇，按框内净尺寸退进 60mm。
+				var leaf: Dictionary = _buffer()
+				_door_leaf(leaf, hole, run)
+				_part(parts, leaf, "door_" + str(entry.suffix), "frame", floor, str(entry.facade), r, c, context, DOOR_LEAF_BEVEL, false)
+			else:
 				var glass: Dictionary = _buffer()
 				_glass(glass, hole, run)
 				_part(parts, glass, "glass_" + str(entry.suffix), "glass", floor, str(entry.facade), r, c, context, 0.0, false)
+		if floor == 0:
+			for entry in accessories:
+				if bool(entry.hole.door):
+					_opening_canopy(parts, entry.hole, entry.run, r, c, context)
+					break
+		# 束带盖住本层板缘：从墙顶到下一层板顶，与墙同材质，立面才连续。
+		var belt: Dictionary = _buffer()
+		var belt_bottom: float = base + net_height + INSET
+		var belt_top: float = base + _floor_value(r, floor, "floor_height")
+		var belt_outer: Array[Vector2] = _rounded_outline(polygon, -BELT_PROJECTION)
+		var belt_inner: Array[Vector2] = _rounded_outline(polygon, wall_depth * 0.6)
+		_ring_solid(belt, belt_outer, belt_inner, belt_bottom, belt_top, BELT_BEVEL)
+		_part(parts, belt, "belt_" + str(floor), "wall", floor, "", r, c, context, BELT_BEVEL, false)
 		base += _floor_value(r, floor, "floor_height")
+	# 勒脚环：与墙皮齐平咬入，不把主体垫高、不封住门洞。
+	if str(r.shape) in ["rectangle", "l", "t", "u"]:
+		var plinth: Dictionary = _buffer()
+		var plinth_outer: Array[Vector2] = _rounded_outline(footprint_polygon, -PLINTH_PROJECTION)
+		var plinth_inner: Array[Vector2] = _rounded_outline(footprint_polygon, PLINTH_BITE)
+		_ring_solid(plinth, plinth_outer, plinth_inner, 0.0, PLINTH_HEIGHT, PLINTH_BEVEL)
+		_part(parts, plinth, "plinth_0", "slab", 0, "", r, c, context, PLINTH_BEVEL, false)
 	var roof: Dictionary = _buffer()
 	var roof_thickness: float = _floor_value(r, floors - 1, "slab_thickness")
+	band = _offset(polygon, -SLAB_BAND)
 	_solid(roof, band, total_height - roof_thickness, total_height, SLAB_BEVEL)
 	_part(parts, roof, "roof_main", "roof", floors, "", r, c, context, SLAB_BEVEL, true)
+	roof_surfaces.append({"id": "roof_main", "polygon": band.duplicate(), "y": total_height, "floor": floors})
+	if r.has("architecture"):
+		var roof_reason: String = RoofEdge.append_parts(parts, r, c, roof_surfaces, context, _self_script())
+		if not roof_reason.is_empty(): return _failure(result, roof_reason)
 	if not str(context.error).is_empty():
 		return _failure(result, str(context.error))
 	var footprint: Array = []
-	for point in polygon:
+	for point in footprint_polygon:
 		footprint.append(Vector3(point.x, 0.0, point.y))
 	result.ok = true
 	result.parts = parts
 	result.openings = openings
 	result.footprint = footprint
+	result["roof_surfaces"] = roof_surfaces
 	result.quality = {
 		"verification": "生成时执行位置焊接拓扑审计；未运行Godot，未签署视觉/引擎验收",
 		"topology": context.topology, "triangles": context.triangles,
@@ -151,10 +254,19 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		"slab_overhang": SLAB_BAND, "joint_intentional_inset": INSET,
 		"taper_mapping": "整栋同一worldXZ随y/totalH线性缩放；所有顶点共用映射",
 		"opening_dimensions": "clear_width/height为变形前净孔；变形后宽度见width_bottom/width_top",
-		"glass_gap": GLASS_GAP, "glass_thickness_before_taper": 0.02,
+		"glass_gap": GLASS_GAP, "glass_thickness_before_taper": "各洞口settings.glass_thickness" if r.has("architecture") else 0.02,
+		"part_count": parts.size(), "part_budget": MAX_PARTS,
+		"plan": plan, "floor_contours_before_taper": floor_contours,
+		"roof_surface_space": "变形前worldXZ/y，polygon为结构板最大外边界（板顶弧缘内收0.028m）；terrace.upper_polygon为本层墙外轮廓",
+		"roof_boundaries": roof_surfaces, "roof_edge_quality": context.get("roof_edge_quality", {}),
+		"supported_shapes": ["rectangle", "l", "t", "u"],
+		"window_policy": "architecture可选；旧配方无新扇/窗沿/屋顶附件。单窗enabled=false封实墙但保留ordinal；门不应用窗开关或尺寸。固定框净孔clear_width/height保持不变，实际玻璃净尺寸见glass_clear_*；活动扇留2mm外装配缝，sash_profile=frame_width*0.65。完整0..open_angle解析扫掠包络限制在各bay并检查相邻包络；冲突拒绝、不缩窗",
+		"window_recess_policy": "recess为外墙面到固定框中心，框前后端必须在WALL_BEVEL+3mm安全区内；窗沿背面停在墙外3mm",
+		"window_hinge_policy": "左右净孔边/上净孔边、中壁深铰链；窗扇与玻璃共同在world中朝外旋转，再应用全局taper",
+		"style_verification": "未签署全风格、引擎或视觉验收",
 		"standard_exceptions": [{"parts": "slab_*及roof_main", "profile": "连续结构板formed_band", "reason": "不是平台装饰木板；明确采用0.028m三段外缘倒角"}],
 		"structural_claim": "自支撑墙壳几何；未执行建筑物理或承载计算",
-		"known_limitations": ["damage非0明确拒绝", "矩形及半宽半深六角L轮廓；不支持任意多边形", "凸外角仅三段实体圆弧；内角与L凹角保留锐miter，未做顶底水平边圆弧", "洞口与框材每端仅单段chamfer，不是三段quarter-circle", "结构槽仅允许无作用disabled:false/零offset，禁用true/非零位移/排除明确拒绝", "prefab仅保留绑定和基线占位网格，本脚本不加载或实例化prefab", "不生成植物、楼梯、导航或碰撞节点；collidable仅声明三角网格碰撞用途", "全局taper同时缩放净孔/框材/墙厚；原配方尺寸为变形前参数", "taper后的实际引擎拓扑及最终美术效果未验证"]
+		"known_limitations": ["damage非0明确拒绝", "支持rectangle/l/t/u正交轮廓与wing_x/wing_z及逐层累计退台；不支持任意多边形；内缩反转/自交/翼宽耗尽直接拒绝", "凸外角仅三段实体圆弧；内角与L/T/U凹角保留锐miter，未做墙顶底水平边圆弧", "洞口与框材每端仅单段chamfer，不是三段quarter-circle", "结构槽仅允许无作用disabled:false/零offset，禁用true/非零位移/排除明确拒绝", "prefab仅保留绑定和基线占位网格，本脚本不加载或实例化prefab", "不生成植物、楼梯、导航或碰撞节点；collidable仅声明三角网格碰撞用途", "全局taper同时缩放净孔/框材/墙厚；原配方尺寸为变形前参数", "taper后的实际引擎拓扑及最终美术效果未验证"]
 	}
 	return result
 
@@ -164,6 +276,7 @@ static func _failure(result: Dictionary, reason: String) -> Dictionary:
 	result.parts = []
 	result.openings = []
 	result.footprint = []
+	result["roof_surfaces"] = []
 	return result
 
 static func _validate(r: Dictionary, c: Dictionary) -> String:
@@ -172,8 +285,8 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 			return "数值字段类型非法: " + field
 	if float(r.damage) != 0.0:
 		return "连续外壳暂不支持damage非0；不能以删盒子伪造破损"
-	if str(r.shape) not in ["rectangle", "l"] or float(r.floors) != float(int(r.floors)) or int(r.floors) < 1 or int(r.floors) > 8:
-		return "仅支持rectangle/l及1..8整数楼层"
+	if str(r.shape) not in ["rectangle", "l", "t", "u"] or float(r.floors) != float(int(r.floors)) or int(r.floors) < 1 or int(r.floors) > 8:
+		return "仅支持rectangle/l/t/u及1..8整数楼层"
 	if float(r.width) < 6.0 or float(r.width) > 24.0 or float(r.depth) < 6.0 or float(r.depth) > 20.0:
 		return "宽度必须6..24m，深度必须6..20m"
 	if float(r.wall_thickness) < 0.12 or float(r.wall_thickness) > 0.6 or float(r.bay_width) < 2.0 or float(r.bay_width) > 6.0:
@@ -231,12 +344,17 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 			return "楼层高度或结构板厚越界"
 		for facade in ["front", "back", "left", "right"]:
 			var settings: Dictionary = _settings(r, floor, facade)
+			if r.has("architecture"):
+				var merged: Dictionary = Config.window_settings(r, floor, facade)
+				var window_reason: String = Config._validate_window(merged, "合成窗配置")
+				if not window_reason.is_empty(): return window_reason
 			for field in ["width", "height", "sill", "door_width", "door_height"]:
 				if float(settings[field]) <= 0.0: return "开口尺寸必须为正值"
 	return ""
 
 static func _component(r: Dictionary, kind: String, id: String) -> String:
-	var family: String = "slab" if kind == "roof" else kind
+	var family: String = Recipe._slot_family(id)
+	if family.is_empty(): family = "slab" if kind == "roof" else kind
 	var raw_override: Variant = r.slot_overrides.get(id, {})
 	var override: Dictionary = raw_override if raw_override is Dictionary else {}
 	var defaults: Dictionary = {"wall": "wall_sun", "slab": "slab_warm", "frame": "frame_timber", "glass": "glass_blue"}
@@ -252,12 +370,74 @@ static func _settings(r: Dictionary, floor: int, facade: String) -> Dictionary:
 	for field in override: result[field] = override[field]
 	return result
 
-static func _footprint(shape: String, width: float, depth: float) -> Array[Vector2]:
+static func _structure_plan(r: Dictionary) -> Dictionary:
+	return Config.normalized(r.get("architecture", {})).plan.duplicate(true)
+
+static func _footprint(shape: String, width: float, depth: float, plan: Dictionary = {}) -> Array[Vector2]:
 	var x: float = width * 0.5
 	var z: float = depth * 0.5
-	if shape == "l":
-		return [Vector2(-x, -z), Vector2(x, -z), Vector2(x, 0.0), Vector2(0.0, 0.0), Vector2(0.0, z), Vector2(-x, z)]
+	var wing_x: float = float(plan.get("wing_x", 0.5))
+	var wing_z: float = float(plan.get("wing_z", 0.5))
+	var xcut: float = -x + width * wing_x
+	var zcut: float = -z + depth * wing_z
+	match shape:
+		"l":
+			return [Vector2(-x, -z), Vector2(x, -z), Vector2(x, zcut), Vector2(xcut, zcut), Vector2(xcut, z), Vector2(-x, z)]
+		"t":
+			var stem: float = width * wing_x * 0.5
+			return [Vector2(-x, -z), Vector2(x, -z), Vector2(x, zcut), Vector2(stem, zcut), Vector2(stem, z), Vector2(-stem, z), Vector2(-stem, zcut), Vector2(-x, zcut)]
+		"u":
+			var side: float = width * wing_x * 0.5
+			return [Vector2(-x, -z), Vector2(x, -z), Vector2(x, z), Vector2(x - side, z), Vector2(x - side, zcut), Vector2(-x + side, zcut), Vector2(-x + side, z), Vector2(-x, z)]
 	return [Vector2(-x, -z), Vector2(x, -z), Vector2(x, z), Vector2(-x, z)]
+
+static func _polygon_area(polygon: Array[Vector2]) -> float:
+	var area: float = 0.0
+	for i in polygon.size(): area += polygon[i].cross(polygon[(i + 1) % polygon.size()])
+	return area * 0.5
+
+static func _on_segment(point: Vector2, a: Vector2, b: Vector2) -> bool:
+	return absf((b - a).cross(point - a)) <= EPS and (point - a).dot(point - b) <= EPS
+
+static func _segments_intersect(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
+	if _on_segment(a, c, d) or _on_segment(b, c, d) or _on_segment(c, a, b) or _on_segment(d, a, b): return true
+	return (b - a).cross(c - a) * (b - a).cross(d - a) < 0.0 and (d - c).cross(a - c) * (d - c).cross(b - c) < 0.0
+
+static func _simple_polygon(polygon: Array[Vector2]) -> bool:
+	if polygon.size() < 3 or _polygon_area(polygon) <= EPS: return false
+	for i in polygon.size():
+		var next: int = (i + 1) % polygon.size()
+		if not polygon[i].is_finite() or polygon[i].distance_to(polygon[next]) <= EPS: return false
+		for j in range(i + 1, polygon.size()):
+			var other_next: int = (j + 1) % polygon.size()
+			if j == next or other_next == i: continue
+			if _segments_intersect(polygon[i], polygon[next], polygon[j], polygon[other_next]): return false
+	return true
+
+static func _valid_inset(source: Array[Vector2], inset: Array[Vector2], minimum_edge: float) -> bool:
+	if source.size() != inset.size() or not _simple_polygon(inset): return false
+	var packed: PackedVector2Array = PackedVector2Array(source)
+	for i in source.size():
+		var next: int = (i + 1) % source.size()
+		# 面积重新变正也可能是过度offset后绕回；对应边必须仍同向。
+		if (inset[next] - inset[i]).dot((source[next] - source[i]).normalized()) <= minimum_edge: return false
+		if not Geometry2D.is_point_in_polygon(inset[i], packed): return false
+		if not Geometry2D.is_point_in_polygon((inset[i] + inset[next]) * 0.5, packed): return false
+		# 同向内缩边仍可能在凹轮廓中越过另一翼；检查真实线段穿越。
+		for j in source.size():
+			if _segments_intersect(inset[i], inset[next], source[j], source[(j + 1) % source.size()]): return false
+	return _polygon_area(inset) <= _polygon_area(source) + EPS
+
+static func _validate_contour(source: Array[Vector2], contour: Array[Vector2], setback: float, wall_depth: float) -> String:
+	if not _simple_polygon(contour): return "退台轮廓面积无效或自相交"
+	if setback > EPS and not _valid_inset(source, contour, OUTER_CORNER_RADIUS * 2.0 + CLEARANCE):
+		return "退台导致翼宽耗尽、轮廓反转或越界"
+	var inner: Array[Vector2] = _offset(contour, wall_depth)
+	if not _valid_inset(contour, inner, CLEARANCE): return "墙内轮廓反转/自相交或翼宽不足墙厚"
+	for i in contour.size():
+		if contour[i].distance_to(contour[(i + 1) % contour.size()]) <= OUTER_CORNER_RADIUS * 2.0 + CLEARANCE:
+			return "墙段长度不足以连接真实曲角"
+	return ""
 
 static func _offset(polygon: Array[Vector2], inward: float) -> Array[Vector2]:
 	var result: Array[Vector2] = []
@@ -267,6 +447,16 @@ static func _offset(polygon: Array[Vector2], inward: float) -> Array[Vector2]:
 		var na: Vector2 = Vector2(-a.y, a.x)
 		var nb: Vector2 = Vector2(-b.y, b.x)
 		result.append(polygon[i] + (na + nb) * inward / (1.0 + na.dot(nb)))
+	return result
+
+## 与墙壳同源的圆角轮廓：凸外角按同一半径采段，凹角保持 miter。
+## 勒脚/层间束带必须用它，否则转角是直角、墙面是圆弧，两者在墙角错开成一条竖缝。
+static func _rounded_outline(polygon: Array[Vector2], inset: float) -> Array[Vector2]:
+	var contour: Array[Vector2] = _offset(polygon, inset)
+	var result: Array[Vector2] = []
+	for corner in polygon.size():
+		for point in _corner_arc(polygon, contour[corner], corner, inset):
+			result.append(point)
 	return result
 
 static func _corner_arc(polygon: Array[Vector2], point: Vector2, corner: int, depth: float) -> Array[Vector2]:
@@ -324,8 +514,9 @@ static func _opening(base: float, bottom: float, center_x: float, settings: Dict
 	var w: float = float(settings.door_width if door else settings.width)
 	var h: float = float(settings.door_height if door else settings.height)
 	var sill: float = base if door else base + float(settings.sill)
-	var half: float = w * 0.5 + FRAME_PROFILE + CLEARANCE
-	return {"x0": center_x - half, "x1": center_x + half, "y0": bottom if door else sill - FRAME_PROFILE - CLEARANCE, "y1": sill + h + FRAME_PROFILE + CLEARANCE, "sill": sill, "cx": center_x, "width": w, "height": h, "door": door}
+	var profile: float = FRAME_PROFILE if door else float(settings.get("frame_width", FRAME_PROFILE))
+	var half: float = w * 0.5 + profile + CLEARANCE
+	return {"x0": center_x - half, "x1": center_x + half, "y0": bottom if door else sill - profile - CLEARANCE, "y1": sill + h + profile + CLEARANCE, "sill": sill, "cx": center_x, "width": w, "height": h, "door": door}
 
 static func _hole_rect(hole: Dictionary, surface: bool) -> Rect2:
 	var b: float = WALL_BEVEL if surface else 0.0
@@ -400,22 +591,30 @@ static func _public_opening(hole: Dictionary, run: Dictionary, suffix: String, f
 	var n2: Vector2 = run.outward
 	var scale: float = _scale_at(y, context)
 	var normal: Vector3 = Vector3(n2.x / scale, float(context.taper) * (center.x * n2.x + center.z * n2.y) / (float(context.height) * scale), n2.y / scale).normalized()
-	return {"id": "opening_" + suffix, "facade": facade, "floor": floor, "center": _map(center, context), "clear_width": float(hole.width), "clear_height": float(hole.height), "axis": Vector3(axis2.x, 0.0, axis2.y), "outward": normal, "wall_thickness": float(run.depth) * scale, "width_bottom": float(hole.width) * _scale_at(float(hole.sill), context), "width_top": float(hole.width) * _scale_at(float(hole.sill) + float(hole.height), context), "type": "door" if bool(hole.door) else "window"}
+	var result: Dictionary = {"id": "opening_" + suffix, "facade": facade, "floor": floor, "center": _map(center, context), "clear_width": float(hole.width), "clear_height": float(hole.height), "axis": Vector3(axis2.x, 0.0, axis2.y), "outward": normal, "wall_thickness": float(run.depth) * scale, "width_bottom": float(hole.width) * _scale_at(float(hole.sill), context), "width_top": float(hole.width) * _scale_at(float(hole.sill) + float(hole.height), context), "type": "door" if bool(hole.door) else "window"}
+	if hole.has("settings"):
+		result.merge(WindowGeometry.metadata(hole, run, _self_script(), context), true)
+	return result
 
 static func _window_frame(buffer: Dictionary, hole: Dictionary, run: Dictionary) -> void:
 	var cx: float = float(hole.cx)
 	var cy: float = float(hole.sill) + float(hole.height) * 0.5
 	var w: float = float(hole.width)
 	var h: float = float(hole.height)
-	var outer: Array[Vector2] = _rectangle(cx, cy, w + FRAME_PROFILE * 2.0, h + FRAME_PROFILE * 2.0)
+	var settings: Dictionary = hole.get("settings", {})
+	var profile: float = float(settings.get("frame_width", FRAME_PROFILE))
+	var depth: float = float(settings.get("frame_depth", FRAME_DEPTH))
+	var recess: float = float(settings.get("recess", float(run.depth) * 0.5))
+	var bevel: float = minf(FRAME_BEVEL, minf(profile, depth) * 0.45)
+	var outer: Array[Vector2] = _rectangle(cx, cy, w + profile * 2.0, h + profile * 2.0)
 	var inner: Array[Vector2] = _rectangle(cx, cy, w, h)
 	var rings: Array = []
-	var levels: Array[float] = [-FRAME_DEPTH * 0.5, -FRAME_DEPTH * 0.5 + FRAME_BEVEL, FRAME_DEPTH * 0.5 - FRAME_BEVEL, FRAME_DEPTH * 0.5]
+	var levels: Array[float] = [-depth * 0.5, -depth * 0.5 + bevel, depth * 0.5 - bevel, depth * 0.5]
 	for layer in 4:
 		var face: bool = layer == 0 or layer == 3
-		var outside: Array[Vector2] = _offset(outer, FRAME_BEVEL if face else 0.0)
-		var inside: Array[Vector2] = _offset(inner, -FRAME_BEVEL if face else 0.0)
-		rings.append([_run_ring(outside, run, float(run.depth) * 0.5 + levels[layer]), _run_ring(inside, run, float(run.depth) * 0.5 + levels[layer])])
+		var outside: Array[Vector2] = _offset(outer, bevel if face else 0.0)
+		var inside: Array[Vector2] = _offset(inner, -bevel if face else 0.0)
+		rings.append([_run_ring(outside, run, recess + levels[layer]), _run_ring(inside, run, recess + levels[layer])])
 	var n2: Vector2 = run.outward
 	var n: Vector3 = Vector3(n2.x, 0.0, n2.y)
 	for layer in 4:
@@ -438,6 +637,17 @@ static func _door_frame(buffer: Dictionary, hole: Dictionary, run: Dictionary) -
 	# 单个U形二维实体，开口向下；没有阈板或三个相叠盒子。
 	var profile: Array[Vector2] = [Vector2(x0, y0), Vector2(x0 + p, y0), Vector2(x0 + p, y1 - p), Vector2(x1 - p, y1 - p), Vector2(x1 - p, y0), Vector2(x1, y0), Vector2(x1, y1), Vector2(x0, y1)]
 	_extrude_profile(buffer, profile, run)
+
+## 门扇：单块实体板，落在洞口净尺寸内、从墙外皮退进 DOOR_LEAF_RECESS。
+## 只做门扇本体，不做门把手/玻璃视窗/双开分缝——那些需要有依据的构造图，不猜。
+static func _door_leaf(buffer: Dictionary, hole: Dictionary, run: Dictionary) -> void:
+	var half: float = float(hole.width) * 0.5 - DOOR_LEAF_GAP
+	var cx: float = float(hole.cx)
+	var y0: float = float(hole.sill) + DOOR_LEAF_GAP
+	var y1: float = float(hole.sill) + float(hole.height) - DOOR_LEAF_GAP
+	var near: float = DOOR_LEAF_RECESS
+	var far: float = DOOR_LEAF_RECESS + DOOR_LEAF_THICKNESS
+	_solid(buffer, _run_rect(run, cx, half, near, far), y0, y1, DOOR_LEAF_BEVEL)
 
 static func _extrude_profile(buffer: Dictionary, profile: Array[Vector2], run: Dictionary) -> void:
 	var face: Array[Vector2] = _offset(profile, FRAME_BEVEL)
@@ -482,6 +692,73 @@ static func _glass(buffer: Dictionary, hole: Dictionary, run: Dictionary) -> voi
 	_quad(buffer, a[0], a[1], a[2], a[3], normal)
 	_quad(buffer, b[0], b[1], b[2], b[3], -normal)
 	_join_profile(buffer, a, b, profile, run, false)
+
+## 环形实体：外轮廓与内轮廓同点数，上下各一段倒角；用于勒脚这类不封住内部的整圈构件。
+static func _ring_solid(buffer: Dictionary, outer: Array[Vector2], inner: Array[Vector2], bottom: float, top: float, bevel: float) -> void:
+	if outer.size() != inner.size() or outer.size() < 3:
+		return
+	var b: float = minf(bevel, (top - bottom) * 0.35)
+	# 倒角只收y方向：外轮廓已按墙壳圆弧采段，再对XZ做offset会把它miter化，墙角重新错开。
+	var levels: Array[float] = [bottom, bottom + b, top - b, top]
+	var outer_rings: Array = []
+	for y in levels:
+		outer_rings.append(_xz_ring(outer, y))
+	var inner_bottom: Array[Vector3] = _xz_ring(inner, bottom)
+	var inner_top: Array[Vector3] = _xz_ring(inner, top)
+	for layer in range(outer_rings.size() - 1):
+		var a: Array = outer_rings[layer]
+		var c: Array = outer_rings[layer + 1]
+		for edge in outer.size():
+			var next: int = (edge + 1) % outer.size()
+			var d: Vector2 = (outer[next] - outer[edge]).normalized()
+			var normal: Vector3 = Vector3(d.y, -1.0 if layer == 0 else (1.0 if layer == 2 else 0.0), -d.x)
+			_quad(buffer, a[edge], a[next], c[next], c[edge], normal)
+	for edge in inner.size():
+		var next: int = (edge + 1) % inner.size()
+		var d: Vector2 = (inner[next] - inner[edge]).normalized()
+		_quad(buffer, inner_bottom[edge], inner_bottom[next], inner_top[next], inner_top[edge], Vector3(-d.y, 0.0, d.x))
+		_quad(buffer, outer_rings[3][edge], outer_rings[3][next], inner_top[next], inner_top[edge], Vector3.UP)
+		_quad(buffer, inner_bottom[edge], inner_bottom[next], outer_rings[0][next], outer_rings[0][edge], Vector3.DOWN)
+
+static func _opening_canopy(parts: Array, door: Dictionary, run: Dictionary, r: Dictionary, c: Dictionary, context: Dictionary) -> void:
+	# 门头雨棚：贴墙挑出的平板 + 两根落地柱；柱脚落在场地 y=0，不生成悬挑假构件。
+	# 两侧各超出门洞 CANOPY_EXTENSION；柱落在雨棚两端外侧，不能压在门洞净宽上挡门。
+	var half: float = float(door.width) * 0.5 + CANOPY_EXTENSION
+	# 正深度=向墙内：雨棚必须咬进墙体，不能从墙皮外面凭空起始留缝。
+	var back: float = 0.06
+	var front: float = back - CANOPY_PROJECTION
+	var bottom: float = float(door.y1) + CANOPY_LIFT
+	if bottom + CANOPY_THICKNESS > float(context.height):
+		return
+	var slab: Dictionary = _buffer()
+	_solid(slab, _run_rect(run, float(door.cx), half, front, back), bottom, bottom + CANOPY_THICKNESS, CANOPY_BEVEL)
+	_part(parts, slab, "canopy_front", "slab", 0, "front", r, c, context, CANOPY_BEVEL, false)
+	for side in 2:
+		var sign: float = -1.0 if side == 0 else 1.0
+		# 柱中心在雨棚端部内 CANTILEVER_POST_MARGIN 处；务必使柱内表面落在门洞净边之外。
+		var x: float = float(door.cx) + sign * (half - CANOPY_POST_BEVEL - CANOPY_POST * 0.5)
+		var post: Dictionary = _buffer()
+		var post_front: float = front + CANOPY_POST_EDGE
+		_solid(post, _run_rect(run, x, CANOPY_POST * 0.5, post_front, post_front + CANOPY_POST), 0.0, bottom - 0.01, CANOPY_POST_BEVEL)
+		_part(parts, post, "canopy_post_" + str(side), "frame", 0, "front", r, c, context, CANOPY_POST_BEVEL, false)
+
+static func _run_rect(run: Dictionary, center_x: float, half_x: float, depth_a: float, depth_b: float) -> Array[Vector2]:
+	var near_depth: float = minf(depth_a, depth_b)
+	var far_depth: float = maxf(depth_a, depth_b)
+	var result: Array[Vector2] = []
+	for corner in [Vector2(center_x - half_x, near_depth), Vector2(center_x + half_x, near_depth), Vector2(center_x + half_x, far_depth), Vector2(center_x - half_x, far_depth)]:
+		var point: Vector3 = _point(run, corner.x, 0.0, corner.y)
+		result.append(Vector2(point.x, point.z))
+	return _ccw(result)
+
+## 立面沿不同朝向映射后可能整体镜像；统一成 XZ 逆时针，_solid 的实体法线才朝外。
+static func _ccw(polygon: Array[Vector2]) -> Array[Vector2]:
+	if _polygon_area(polygon) >= 0.0:
+		return polygon
+	var reversed: Array[Vector2] = []
+	for index in range(polygon.size() - 1, -1, -1):
+		reversed.append(polygon[index])
+	return reversed
 
 static func _solid(buffer: Dictionary, polygon: Array[Vector2], bottom: float, top: float, bevel: float) -> void:
 	# 截面：底面→三段圆弧实体倒角→完整厚度外侧→三段圆弧→顶面。
@@ -546,6 +823,9 @@ static func _map(point: Vector3, context: Dictionary) -> Vector3:
 
 static func _part(parts: Array, source: Dictionary, id: String, kind: String, floor: int, facade: String, r: Dictionary, catalog: Dictionary, context: Dictionary, bevel: float, collidable: bool) -> void:
 	if not str(context.error).is_empty(): return
+	if parts.size() >= MAX_PARTS:
+		context.error = "连续外壳超过部件预算: " + str(MAX_PARTS)
+		return
 	var buffer: Dictionary = _conform(source)
 	var audit: Dictionary = _topology(buffer)
 	context.topology[id] = audit

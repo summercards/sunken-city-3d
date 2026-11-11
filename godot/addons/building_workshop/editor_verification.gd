@@ -10,6 +10,7 @@ const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 
 var _shell_samples: Array[Dictionary] = []
+var _architecture_samples: Array[Dictionary] = []
 var _legacy_check_count: int = 0
 
 var _plugin: EditorPlugin
@@ -114,6 +115,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	_emit_button("redo")
 	_check("同 session 重做 simple15", _property(_screen, "session") == session and _same(_snapshot(), simple15))
 	_test_overrides()
+	await _test_architecture_controls()
 	_test_preview()
 	print("[workshop-editor-stage] component replacement")
 	_test_components(session)
@@ -172,6 +174,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	await _capture(Vector2i(1600, 1000), "_damaged_l_plants")
 	_legacy_check_count = _checks.size()
 	await _test_shell_samples()
+	await _test_architecture_samples()
 	_finish()
 
 func _test_shell_samples() -> void:
@@ -285,6 +288,9 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	var roofs: int = 0
 	var frames: int = 0
 	var glasses: int = 0
+	var sills: int = 0
+	var plinths: int = 0
+	var canopies: int = 0
 	var forbidden: Array[String] = []
 	var topology: Dictionary = {}
 	for node: Node in visual.get_children():
@@ -299,6 +305,15 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 			frames += 1
 		elif id.begins_with("glass_"):
 			glasses += 1
+		elif id.begins_with("sill_"):
+			sills += 1
+		elif id.begins_with("plinth_"):
+			plinths += 1
+		elif id.begins_with("canopy_"):
+			canopies += 1
+		elif id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_") or id.begins_with("sash_") or id.begins_with("belt_") or id.begins_with("door_"):
+			# 门扇是整件实体（不是分段墙），与窗台板/活动扇同级别放行。
+			pass
 		else:
 			forbidden.append(id)
 		var mesh_node: MeshInstance3D = node as MeshInstance3D
@@ -318,6 +333,14 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	_check(label + " 实际整框与玻璃数量", frames == expected_frames and glasses == expected_frames - 1, "frame=%d glass=%d expected_frame=%d" % [frames, glasses, expected_frames])
 	_check(label + " 每层一墙壳一整板及一个整屋顶", walls == int(recipe.floors) and slabs == int(recipe.floors) and roofs == 1, "wall=%d slab=%d roof=%d" % [walls, slabs, roofs])
 	_check(label + " 无legacy屋顶cell或外凸柱及分段墙", forbidden.is_empty(), str(forbidden))
+	_check(label + " 整栋一圈勒脚", plinths == 1, str(plinths))
+	_check(label + " 每窗一块窗台板", sills == glasses, "sill=%d glass=%d" % [sills, glasses])
+	_check(label + " 入口雨棚与两根落地柱", canopies == 3, str(canopies))
+	var doors: int = 0
+	for node: Node in visual.get_children():
+		if str(node.name).begins_with("door_"):
+			doors += 1
+	_check(label + " 门洞有实际门扇而非看穿", doors == 1, str(doors))
 	var height: float = float(recipe.floor_height) * int(recipe.floors)
 	var width: float = float(recipe.width)
 	var depth: float = float(recipe.depth)
@@ -469,6 +492,411 @@ func _test_overrides() -> void:
 	var facades: Dictionary = _dictionary(_snapshot().get("facade_overrides", {}))
 	_check("真实立面按钮应用覆盖", is_equal_approx(float(_dictionary(facades.get(facade, {})).get("width", 0.0)), 1.2))
 	_check_result("覆盖后全部参数可应用", _result(_screen, "apply_parameters"))
+
+func _test_architecture_controls() -> void:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var original: Dictionary = _snapshot()
+	var buttons: Dictionary = _dictionary(_property(_screen, "buttons"))
+	for key: String in ["architecture_shape_variant", "wing_x", "wing_z", "setback_start", "setback_step", "window_scope", "window_selection", "architecture_window_enabled", "architecture_window_type", "architecture_window_open_angle", "architecture_window_frame_width", "architecture_window_frame_depth", "architecture_window_glass_thickness", "architecture_window_recess", "architecture_window_width", "architecture_window_height", "architecture_window_sill", "architecture_window_sill_enabled", "architecture_window_sill_projection", "architecture_window_sill_thickness", "architecture_window_sill_extension", "architecture_roof_mode", "architecture_roof_height", "architecture_roof_thickness", "architecture_roof_cap_thickness", "architecture_roof_cap_overhang", "architecture_roof_post_spacing", "architecture_roof_rail_spacing", "architecture_roof_bar_width", "architecture_roof_edge_index", "architecture_roof_edge_override_enabled", "architecture_roof_edge_mode", "architecture_roof_gap_center", "architecture_roof_gap_width"]:
+		_check("架构控件存在：" + key, controls.has(key))
+	_check("架构应用按钮存在", buttons.has("architecture_apply") and buttons.has("roof_apply") and buttons.has("window_apply"))
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe["building_id"] = "architecture_variant_%s" % str(Time.get_ticks_usec())
+	recipe["shape"] = "u"
+	# 15x12 + 0.35退台会把顶层短臂压到2.45m，刚好放不下1.5m净窗；取样改用16x13，仍是U形+退台+混合屋顶。
+	recipe["width"] = 16.0
+	recipe["depth"] = 13.0
+	recipe["floors"] = 3
+	var architecture: Dictionary = _dictionary(recipe.get("architecture", {})).duplicate(true)
+	var plan: Dictionary = _dictionary(architecture.get("plan", {})).duplicate(true)
+	plan["wing_x"] = 0.42
+	plan["wing_z"] = 0.58
+	plan["setback_start"] = 2
+	plan["setback_step"] = 0.35
+	architecture["plan"] = plan
+	var window: Dictionary = _dictionary(architecture.get("window", {})).duplicate(true)
+	window["type"] = "casement_left"
+	window["open_angle"] = 35.0
+	window["sill_enabled"] = true
+	window["sill_projection"] = 0.24
+	architecture["window"] = window
+	var roof_config: Dictionary = _dictionary(architecture.get("roof", {})).duplicate(true)
+	roof_config["mode"] = "mixed"
+	architecture["roof"] = roof_config
+	recipe["architecture"] = architecture
+	var session: Object = _property(_screen, "session") as Object
+	if not _check_result("架构变体真实载入", _result(session, "accept_loaded", [recipe, _dictionary(_property(session, "catalog"))])):
+		return
+	_screen.call("configure", {})
+	var refreshed: Dictionary = _result(_screen, "refresh_preview")
+	if not _check_result("架构变体真实生成", refreshed):
+		return
+	var current: Dictionary = _snapshot()
+	var normalized: Dictionary = _dictionary(current.get("architecture", {}))
+	_check("架构嵌套配置进入snapshot", str(_dictionary(normalized.get("window", {})).get("type", "")) == "casement_left" and bool(_dictionary(normalized.get("window", {})).get("sill_enabled", false)) and str(_dictionary(normalized.get("roof", {})).get("mode", "")) == "mixed")
+	_check("非矩形屋顶边动态发现edge_6/7", _roof_edge_available("edge_6") and _roof_edge_available("edge_7"))
+	_set_option("window_scope", "global")
+	_set_spin("wing_x", 0.5)
+	_set_spin("setback_step", 0.2)
+	_set_spin("architecture_window_open_angle", 25.0)
+	_set_spin("architecture_window_sill_projection", 0.22)
+	_set_option("architecture_window_type", "awning")
+	_check_result("全局架构窗按钮真实应用", _result_button("architecture_apply"))
+	var changed: Dictionary = _snapshot()
+	var changed_architecture: Dictionary = _dictionary(changed.get("architecture", {}))
+	var changed_window: Dictionary = _dictionary(changed_architecture.get("window", {}))
+	_check("全局窗字段写入architecture.window", float(changed_window.get("open_angle", 0.0)) == 25.0 and str(changed_window.get("type", "")) == "awning")
+	_set_option("architecture_roof_mode", "parapet")
+	_set_option("architecture_roof_edge_index", "edge_0")
+	_set_check("architecture_roof_edge_override_enabled", true)
+	_set_option("architecture_roof_edge_mode", "railing")
+	_set_spin("architecture_roof_gap_center", 0.4)
+	_set_spin("architecture_roof_gap_width", 1.2)
+	_check_result("屋顶架构按钮真实应用", _result_button("roof_apply"))
+	var roof: Dictionary = _dictionary(_dictionary(_snapshot().get("architecture", {})).get("roof", {}))
+	_check("屋顶全局与边覆盖写入", str(roof.get("mode", "")) == "parapet" and _dictionary(roof.get("edge_overrides", {})).has("edge_0"))
+	var preview: Control = _property(_screen, "preview") as Control
+	var visual: Node3D = _preview_visual(preview)
+	var has_parapet: bool = false
+	var has_railing: bool = false
+	var has_roofcap: bool = false
+	var has_sash: bool = false
+	var has_sill: bool = false
+	if visual != null:
+		for child: Node in visual.get_children():
+			var id: String = str(child.name)
+			has_parapet = has_parapet or id.begins_with("parapet_")
+			has_railing = has_railing or id.begins_with("railing_")
+			has_roofcap = has_roofcap or id.begins_with("roofcap_")
+			has_sash = has_sash or id.begins_with("sash_")
+			has_sill = has_sill or id.begins_with("sill_")
+	_check("架构屋顶实际女儿墙", has_parapet)
+	_check("架构屋顶实际栏杆", has_railing)
+	_check("架构屋顶实际压顶", has_roofcap)
+	_check("活动窗实际生成窗扇", has_sash)
+	_check("窗沿板实际生成", has_sill)
+	var window_option: OptionButton = controls.get("window_selection") as OptionButton
+	var selected_opening: String = ""
+	var other_opening: String = ""
+	if window_option != null:
+		for index: int in window_option.item_count:
+			var opening_id: String = str(window_option.get_item_metadata(index))
+			if selected_opening.is_empty():
+				selected_opening = opening_id
+			elif other_opening.is_empty() and opening_id != selected_opening:
+				other_opening = opening_id
+		if not selected_opening.is_empty():
+			for index: int in window_option.item_count:
+				if str(window_option.get_item_metadata(index)) == selected_opening:
+					window_option.select(index)
+					window_option.item_selected.emit(index)
+					break
+	_check("真实窗口选择可用", not selected_opening.is_empty())
+	_check("真实存在第二个窗口用于隔离核对", not other_opening.is_empty())
+	if not selected_opening.is_empty():
+		var before_single: Dictionary = _snapshot()
+		_set_option("window_scope", "single")
+		_set_check("architecture_window_enabled", true)
+		_set_option("architecture_window_type", "casement_right")
+		_set_spin("architecture_window_open_angle", 35.0)
+		_set_spin("architecture_window_frame_width", 0.14)
+		_set_spin("architecture_window_frame_depth", 0.18)
+		_set_spin("architecture_window_glass_thickness", 0.03)
+		_set_spin("architecture_window_recess", 0.16)
+		_set_spin("architecture_window_width", 1.3)
+		_set_spin("architecture_window_height", 1.7)
+		_set_spin("architecture_window_sill", 0.95)
+		_set_check("architecture_window_sill_enabled", true)
+		_set_spin("architecture_window_sill_projection", 0.25)
+		_set_spin("architecture_window_sill_thickness", 0.12)
+		_set_spin("architecture_window_sill_extension", 0.10)
+		_check_result("单窗完整构造按当前范围应用", _result_button("architecture_apply"))
+		var after_single: Dictionary = _snapshot()
+		var before_architecture: Dictionary = _dictionary(before_single.get("architecture", {}))
+		var after_architecture: Dictionary = _dictionary(after_single.get("architecture", {}))
+		var before_overrides: Dictionary = _dictionary(before_architecture.get("window_overrides", {})).duplicate(true)
+		var after_overrides: Dictionary = _dictionary(after_architecture.get("window_overrides", {})).duplicate(true)
+		var applied_override: Dictionary = _dictionary(after_overrides.get(selected_opening, {}))
+		before_overrides.erase(selected_opening)
+		after_overrides.erase(selected_opening)
+		_check("单窗只改变当前window_override", _same(before_overrides, after_overrides) and str(applied_override.get("type", "")) == "casement_right" and float(applied_override.get("open_angle", 0.0)) == 35.0 and is_equal_approx(float(applied_override.get("width", 0.0)), 1.3) and is_equal_approx(float(applied_override.get("height", 0.0)), 1.7) and is_equal_approx(float(applied_override.get("frame_depth", 0.0)), 0.18) and is_equal_approx(float(applied_override.get("sill", 0.0)), 0.95))
+		var selected_before_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+		var before_faces: int = _mesh_face_count(selected_before_visual, "wall_shell_0")
+		var other_frame_before: int = _mesh_face_count_by_opening(selected_before_visual, other_opening, "frame_")
+		var other_glass_before: int = _mesh_face_count_by_opening(selected_before_visual, other_opening, "glass_")
+		var selection_before_close: String = str(window_option.get_item_metadata(window_option.selected))
+		_set_check("architecture_window_enabled", false)
+		_check_result("单窗封墙按钮真实应用", _result_button("window_apply"))
+		var after_close_preview: Control = _property(_screen, "preview") as Control
+		var after_close_visual: Node3D = _preview_visual(after_close_preview)
+		var after_close_faces: int = _mesh_face_count(after_close_visual, "wall_shell_0")
+		var selection_after_close: String = str(window_option.get_item_metadata(window_option.selected))
+		var other_frame_after: int = _mesh_face_count_by_opening(after_close_visual, other_opening, "frame_")
+		var other_glass_after: int = _mesh_face_count_by_opening(after_close_visual, other_opening, "glass_")
+		_check("关闭窗保留window_selection", selection_before_close == selected_opening and selection_after_close == selected_opening)
+		_check("enabled=false 当前窗封墙且他窗不变", before_faces > 0 and after_close_faces > 0 and before_faces != after_close_faces and other_frame_before == other_frame_after and other_glass_before == other_glass_after, "wall=%d/%d other_frame=%d/%d other_glass=%d/%d" % [before_faces, after_close_faces, other_frame_before, other_frame_after, other_glass_before, other_glass_after])
+		_set_check("architecture_window_enabled", true)
+		_check_result("单窗重新开启按钮真实应用", _result_button("window_apply"))
+		var restored_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
+		_check("enabled=true 恢复当前窗且选择不变", _mesh_face_count_by_opening(restored_visual, selected_opening, "frame_") > 0 and str(window_option.get_item_metadata(window_option.selected)) == selected_opening)
+		_set_option("window_scope", "floor")
+		_set_spin("architecture_window_width", 1.41)
+		var pending_floor_width: float = _spin("architecture_window_width")
+		_set_option("window_scope", "facade")
+		_check("floor未应用输入阻止切范围", str(_option_value("window_scope")) == "floor" and is_equal_approx(_spin("architecture_window_width"), pending_floor_width))
+		_check_result("floor范围真实应用", _result_button("architecture_apply"))
+		_set_option("window_scope", "facade")
+		_set_spin("architecture_window_width", 1.42)
+		var pending_facade_width: float = _spin("architecture_window_width")
+		_set_option("window_scope", "global")
+		_check("facade未应用输入阻止切全局", str(_option_value("window_scope")) == "facade" and is_equal_approx(_spin("architecture_window_width"), pending_facade_width))
+		_check_result("facade范围真实应用", _result_button("architecture_apply"))
+		_set_option("window_scope", "global")
+	var page_picker: OptionButton = _property(_screen, "_page_picker") as OptionButton
+	if page_picker != null:
+		page_picker.select(1)
+		page_picker.item_selected.emit(1)
+		await _tree.process_frame
+		await _capture(Vector2i(1600, 1000), "_architecture_variant")
+	var restored: Dictionary = _result(session, "accept_loaded", [original, _dictionary(_property(session, "catalog"))])
+	_check_result("恢复架构验证前配方", restored)
+	_screen.call("configure", {})
+	_check_result("恢复架构验证前预览", _result(_screen, "refresh_preview"))
+
+func _option_value(key: String) -> String:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var option: OptionButton = controls.get(key) as OptionButton
+	if option == null or option.selected < 0:
+		return ""
+	return str(option.get_item_metadata(option.selected))
+
+func _roof_edge_available(edge_id: String) -> bool:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var option: OptionButton = controls.get("architecture_roof_edge_index") as OptionButton
+	if option == null:
+		return false
+	for index: int in option.item_count:
+		if str(option.get_item_metadata(index)) == edge_id:
+			return true
+	return false
+
+func _preview_root(preview: Control) -> Node3D:
+	var model: Node3D = _property(preview, "_model_root") as Node3D
+	return model.get_child(0) as Node3D if model != null and model.get_child_count() == 1 else null
+
+func _preview_visual(preview: Control) -> Node3D:
+	var root: Node3D = _preview_root(preview)
+	return root.get_node_or_null("GeneratedVisual") as Node3D if root != null else null
+
+func _mesh_face_count(visual: Node3D, node_name: String) -> int:
+	if visual == null:
+		return 0
+	var mesh_node: MeshInstance3D = visual.get_node_or_null(node_name) as MeshInstance3D
+	return mesh_node.mesh.get_faces().size() if mesh_node != null and mesh_node.mesh != null else 0
+
+func _mesh_face_count_by_opening(visual: Node3D, opening_id: String, prefix: String) -> int:
+	if visual == null or opening_id.is_empty():
+		return 0
+	var node: MeshInstance3D = visual.get_node_or_null(prefix + opening_id.trim_prefix("opening_")) as MeshInstance3D
+	return node.mesh.get_faces().size() if node != null and node.mesh != null else 0
+
+func _fresh_architecture_recipe(building_id: String, shape: String, width: float, depth: float, floors: int) -> Dictionary:
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe["building_id"] = building_id
+	recipe["display_name"] = "架构验收 · " + building_id
+	recipe["shape"] = shape
+	recipe["width"] = width
+	recipe["depth"] = depth
+	recipe["floors"] = floors
+	recipe["floor_overrides"] = {}
+	recipe["facade_overrides"] = {}
+	recipe["slot_overrides"] = {}
+	recipe["excluded_slots"] = []
+	recipe["locked_vegetation"] = []
+	var architecture: Dictionary = _dictionary(recipe.get("architecture", {})).duplicate(true)
+	architecture["floor_windows"] = {}
+	architecture["facade_windows"] = {}
+	architecture["window_overrides"] = {}
+	var roof: Dictionary = _dictionary(architecture.get("roof", {})).duplicate(true)
+	roof["edge_overrides"] = {}
+	architecture["roof"] = roof
+	recipe["architecture"] = architecture
+	return recipe
+
+func _architecture_sample_audit(root: Node3D, recipe: Dictionary, key: String) -> Dictionary:
+	var result: Dictionary = {"key": key, "meshes": {}, "roof_meshes": 0, "roof_collisions": 0, "inset_checked": false}
+	var visual: Node3D = root.get_node_or_null("GeneratedVisual") as Node3D if root != null else null
+	var spatial: Node3D = root.get_node_or_null("Spatial/Collision") as Node3D if root != null else null
+	var collision_ids: Dictionary = {}
+	if spatial != null:
+		for raw_collision: Node in spatial.get_children():
+			var collision_id: String = str(raw_collision.get_meta("slot_id", ""))
+			if not collision_id.is_empty():
+				collision_ids[collision_id] = true
+	var roof_meshes: int = 0
+	var roof_collisions: int = 0
+	var all_closed: bool = true
+	var all_oriented: bool = true
+	if visual != null:
+		for raw_node: Node in visual.get_children():
+			var mesh_node: MeshInstance3D = raw_node as MeshInstance3D
+			if mesh_node == null or mesh_node.mesh == null:
+				continue
+			var node_id: String = str(mesh_node.name)
+			var audit: Dictionary = _audit_shell_faces(mesh_node.mesh.get_faces())
+			result["meshes"][node_id] = audit
+			all_closed = all_closed and bool(audit.get("closed", false))
+			all_oriented = all_oriented and bool(audit.get("oriented", false))
+			if node_id.begins_with("parapet_") or node_id.begins_with("roofcap_") or node_id.begins_with("railing_"):
+				roof_meshes += 1
+				if collision_ids.has(node_id):
+					roof_collisions += 1
+				_check(key + " mesh闭合定向：" + node_id, bool(audit.get("closed", false)) and bool(audit.get("oriented", false)), str(audit))
+	var quality: Dictionary = _dictionary(root.get_meta("quality", {}) if root != null else {})
+	var edge_quality: Dictionary = _dictionary(quality.get("roof_edge_quality", {}))
+	var contacts: Array = edge_quality.get("contacts", []) as Array
+	# 女儿墙/压顶按centerpath_inset记录，纯栏杆按railing_edge记录；两种都不能是空数组。
+	var roof_mode: String = str(_dictionary(_dictionary(recipe.get("architecture", {})).get("roof", {})).get("mode", "none"))
+	var inset_checked: bool = false
+	var railing_seen: bool = false
+	for raw_contact: Variant in contacts:
+		if str(raw_contact).contains("centerpath_inset"):
+			inset_checked = true
+		if str(raw_contact).begins_with("railing_"):
+			railing_seen = true
+	result["roof_meshes"] = roof_meshes
+	result["roof_collisions"] = roof_collisions
+	result["inset_checked"] = inset_checked
+	_check(key + " roof cap/railing碰撞完整", roof_meshes > 0 and roof_collisions == roof_meshes, "roof_meshes=%d roof_collisions=%d" % [roof_meshes, roof_collisions])
+	var contact_ok: bool = railing_seen if roof_mode == "railing" else inset_checked
+	_check(key + " roof inset真实接触审计", contact_ok, str(contacts))
+	_check(key + " 所有实际mesh闭合定向", all_closed and all_oriented)
+	_check(key + " 允许栏杆多连通体但不允许开口", _roof_components_are_closed(result["meshes"]))
+	return result
+
+func _roof_components_are_closed(meshes: Dictionary) -> bool:
+	for node_id: String in meshes:
+		if not (node_id.begins_with("parapet_") or node_id.begins_with("roofcap_") or node_id.begins_with("railing_")):
+			continue
+		var audit: Dictionary = _dictionary(meshes[node_id])
+		if not bool(audit.get("closed", false)) or not bool(audit.get("oriented", false)):
+			return false
+	return true
+
+func _test_architecture_samples() -> void:
+	print("[workshop-editor-stage] architecture samples")
+	var session: Object = _property(_screen, "session") as Object
+	var preview: Control = _property(_screen, "preview") as Control
+	if not _require_methods(preview, ["capture_model_image"], "architecture.preview"):
+		return
+	var catalog: Dictionary = Catalog.definitions()
+	var token: String = "%s_%s" % [str(int(Time.get_unix_time_from_system())), str(Time.get_ticks_usec())]
+	var samples: Array[Dictionary] = []
+	var rect_parapet: Dictionary = _fresh_architecture_recipe("architecture_rect_parapet_" + token, "rectangle", 12.0, 9.0, 3)
+	var rect_architecture: Dictionary = _dictionary(rect_parapet.get("architecture", {})).duplicate(true)
+	var rect_window: Dictionary = _dictionary(rect_architecture.get("window", {})).duplicate(true)
+	rect_window["type"] = "fixed"
+	rect_window["sill"] = 1.0
+	rect_architecture["window"] = rect_window
+	var rect_roof: Dictionary = _dictionary(rect_architecture.get("roof", {})).duplicate(true)
+	rect_roof["mode"] = "parapet"
+	rect_architecture["roof"] = rect_roof
+	rect_parapet["architecture"] = rect_architecture
+	samples.append({"key": "architecture_rect_parapet", "recipe": rect_parapet})
+	var l_railing: Dictionary = _fresh_architecture_recipe("architecture_l_railing_" + token, "l", 12.0, 12.0, 2)
+	var l_architecture: Dictionary = _dictionary(l_railing.get("architecture", {})).duplicate(true)
+	var l_roof: Dictionary = _dictionary(l_architecture.get("roof", {})).duplicate(true)
+	l_roof["mode"] = "railing"
+	l_architecture["roof"] = l_roof
+	l_railing["architecture"] = l_architecture
+	samples.append({"key": "architecture_l_railing", "recipe": l_railing})
+	var t_terrace: Dictionary = _fresh_architecture_recipe("architecture_t_terrace_" + token, "t", 18.0, 16.0, 3)
+	var t_architecture: Dictionary = _dictionary(t_terrace.get("architecture", {})).duplicate(true)
+	var t_plan: Dictionary = _dictionary(t_architecture.get("plan", {})).duplicate(true)
+	t_plan["wing_x"] = 0.5
+	t_plan["wing_z"] = 0.5
+	t_plan["setback_start"] = 2
+	t_plan["setback_step"] = 0.45
+	t_architecture["plan"] = t_plan
+	var t_window: Dictionary = _dictionary(t_architecture.get("window", {})).duplicate(true)
+	t_window["type"] = "casement_right"
+	t_window["open_angle"] = 35.0
+	t_architecture["window"] = t_window
+	var t_roof: Dictionary = _dictionary(t_architecture.get("roof", {})).duplicate(true)
+	t_roof["mode"] = "parapet"
+	t_architecture["roof"] = t_roof
+	t_terrace["architecture"] = t_architecture
+	samples.append({"key": "architecture_t_terrace", "recipe": t_terrace})
+	var u_mixed: Dictionary = _fresh_architecture_recipe("architecture_u_mixed_" + token, "u", 18.0, 16.0, 3)
+	var u_architecture: Dictionary = _dictionary(u_mixed.get("architecture", {})).duplicate(true)
+	var u_plan: Dictionary = _dictionary(u_architecture.get("plan", {})).duplicate(true)
+	u_plan["wing_x"] = 0.6
+	u_plan["wing_z"] = 0.55
+	u_architecture["plan"] = u_plan
+	var u_window: Dictionary = _dictionary(u_architecture.get("window", {})).duplicate(true)
+	u_window["type"] = "awning"
+	u_window["open_angle"] = 25.0
+	u_window["sill"] = 1.0
+	u_architecture["window"] = u_window
+	var u_roof: Dictionary = _dictionary(u_architecture.get("roof", {})).duplicate(true)
+	u_roof["mode"] = "mixed"
+	u_architecture["roof"] = u_roof
+	u_mixed["architecture"] = u_architecture
+	samples.append({"key": "architecture_u_mixed", "recipe": u_mixed})
+	var window_detail: Dictionary = _fresh_architecture_recipe("architecture_window_detail_" + token, "rectangle", 12.0, 9.0, 1)
+	var detail_architecture: Dictionary = _dictionary(window_detail.get("architecture", {})).duplicate(true)
+	var detail_window: Dictionary = _dictionary(detail_architecture.get("window", {})).duplicate(true)
+	detail_window["type"] = "casement_left"
+	detail_window["open_angle"] = 45.0
+	detail_architecture["window"] = detail_window
+	var detail_roof: Dictionary = _dictionary(detail_architecture.get("roof", {})).duplicate(true)
+	detail_roof["mode"] = "parapet"
+	detail_architecture["roof"] = detail_roof
+	window_detail["architecture"] = detail_architecture
+	samples.append({"key": "architecture_window_detail", "recipe": window_detail})
+	for sample: Dictionary in samples:
+		var key: String = str(sample.get("key", ""))
+		var recipe: Dictionary = _dictionary(sample.get("recipe", {}))
+		var building_id: String = str(recipe.get("building_id", ""))
+		_build_ids.append(building_id)
+		var entry: Dictionary = {"key": key, "building_id": building_id, "recipe": recipe.duplicate(true), "save_result": {}, "artifacts": []}
+		if not _check_result(key + " 真实样例载入", _result(session, "accept_loaded", [recipe, catalog])):
+			_architecture_samples.append(entry)
+			continue
+		_screen.call("configure", {"export_root": OUTPUT_ROOT})
+		var built: Dictionary = _result(_screen, "refresh_preview")
+		if not _check_result(key + " 真实样例生成", built):
+			_architecture_samples.append(entry)
+			continue
+		var current_preview: Control = _property(_screen, "preview") as Control
+		var root: Node3D = _preview_root(current_preview)
+		var audit: Dictionary = _architecture_sample_audit(root, recipe, key)
+		entry["geometry_audit"] = audit
+		var save_result: Dictionary = _result(_screen, "save_building")
+		entry["save_result"] = save_result.duplicate(true)
+		if _check_result(key + " 保存五件bundle", save_result):
+			_verify_bundle(save_result, key)
+			var artifact_start: int = _artifacts.size()
+			await _capture(Vector2i(1600, 1000), "_" + key)
+			var saved_preview: Control = _property(_screen, "preview") as Control
+			await _capture_shell_model(saved_preview, key)
+			var sample_artifacts: Array[String] = []
+			for artifact_index: int in range(artifact_start, _artifacts.size()):
+				sample_artifacts.append(_artifacts[artifact_index])
+			entry["artifacts"] = sample_artifacts
+		_architecture_samples.append(entry)
+
+func _set_option(key: String, value: String) -> bool:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var option: OptionButton = controls.get(key) as OptionButton
+	if not _check("实际 OptionButton：" + key, option != null):
+		return false
+	for index: int in option.item_count:
+		if str(option.get_item_metadata(index)) == value:
+			option.select(index)
+			option.item_selected.emit(index)
+			return true
+	return _check("OptionButton 接收值：" + key, false, value)
 
 func _test_preview() -> void:
 	_check_result("真实预览生成", _result(_screen, "refresh_preview"))
@@ -916,6 +1344,7 @@ func _finish() -> void:
 		"legacy_scope": "原有modular_v1回归、替件、保存和生命周期检查保留；普通、floor_facade及damaged_l_plants截图仅为legacy兼容证据，不是shell_v2新成品",
 		"legacy_checks_before_shell": _legacy_check_count,
 		"shell_samples": _shell_samples,
+		"architecture_samples": _architecture_samples,
 		"shell_capture_scope": "continuous_*为1600x1000真实编辑器framebuffer；workshop_shell_model_*.png为1400x1100独立SubViewport的真实模型渲染；未隐藏侧栏或改变主屏stretch，未关闭阴影",
 		"game_save_connected": false,
 		"boundaries": ["仅生成和保存静态建筑，不启动 Main", "不连接或调用游戏存档", "组件 fixture 仅允许隔离副本", "缺失 API 记为失败，不模拟成功"]
@@ -1010,12 +1439,20 @@ func _set_spin(key: String, value: float) -> bool:
 	if not _check("实际 SpinBox：" + key, spin != null, str(controls.keys())):
 		return false
 	spin.value = value
-	return _check("SpinBox 接收输入：" + key, is_equal_approx(spin.value, value))
+	return _check("SpinBox 接收输入：" + key, is_equal_approx(spin.value, value), "期望 %f 实际 %f（min=%f max=%f step=%f）" % [value, spin.value, spin.min_value, spin.max_value, spin.step])
 
 func _spin(key: String) -> float:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
 	var spin: SpinBox = controls.get(key) as SpinBox
 	return spin.value if spin != null else NAN
+
+func _set_check(key: String, value: bool) -> bool:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var check: CheckButton = controls.get(key) as CheckButton
+	if not _check("实际 CheckButton：" + key, check != null):
+		return false
+	check.button_pressed = value
+	return _check("CheckButton 接收输入：" + key, check.button_pressed == value)
 
 func _set_text(key: String, text: String) -> bool:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
@@ -1033,6 +1470,11 @@ func _emit_button(key: String) -> bool:
 		return false
 	button.pressed.emit()
 	return true
+
+func _result_button(key: String) -> Dictionary:
+	if not _emit_button(key):
+		return {"ok": false, "reason": "按钮不可用：" + key}
+	return {"ok": true}
 
 func _root_transform(root: Node) -> Variant:
 	if not is_instance_valid(root):

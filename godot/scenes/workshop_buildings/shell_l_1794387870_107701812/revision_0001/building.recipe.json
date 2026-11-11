@@ -1,0 +1,104 @@
+{
+	"aging": 0.0,
+	"architecture": {
+		"facade_windows": {
+
+		},
+		"floor_windows": {
+
+		},
+		"plan": {
+			"setback_start": -1,
+			"setback_step": 0.0,
+			"wing_x": 0.5,
+			"wing_z": 0.5
+		},
+		"roof": {
+			"bar_width": 0.05,
+			"cap_overhang": 0.05,
+			"cap_thickness": 0.1,
+			"edge_overrides": {
+
+			},
+			"height": 0.9,
+			"mode": "parapet",
+			"post_spacing": 1.5,
+			"rail_spacing": 0.22,
+			"thickness": 0.26
+		},
+		"window": {
+			"enabled": true,
+			"frame_depth": 0.12,
+			"frame_width": 0.11,
+			"glass_thickness": 0.02,
+			"height": 1.9,
+			"open_angle": 0.0,
+			"recess": 0.15,
+			"sill": 0.95,
+			"sill_enabled": true,
+			"sill_extension": 0.06,
+			"sill_projection": 0.16,
+			"sill_thickness": 0.08,
+			"type": "fixed",
+			"width": 1.5
+		},
+		"window_overrides": {
+
+		}
+	},
+	"bay_width": 3.0,
+	"bevel_segments": 3,
+	"bevel_width": 0.06,
+	"building_id": "shell_l_1794387870_107701812",
+	"catalog_id": "sea_workshop_v1",
+	"column_width": 0.5,
+	"component_bindings": {
+		"frame": "frame_timber",
+		"glass": "glass_blue",
+		"pillar": "pillar_timber",
+		"plant": "plant_shrub",
+		"slab": "slab_warm",
+		"wall": "wall_sun"
+	},
+	"construction_mode": "shell_v2",
+	"damage": 0.0,
+	"damage_seed": 11011,
+	"depth": 12.0,
+	"display_name": "海风公寓 · 连续实体",
+	"door_height": 2.4,
+	"door_width": 1.6,
+	"excluded_slots": [],
+	"facade_overrides": {
+
+	},
+	"floor_height": 3.6,
+	"floor_overrides": {
+
+	},
+	"floors": 3,
+	"growth_weights": [
+		0.3,
+		0.4,
+		0.3
+	],
+	"locked_vegetation": [],
+	"revision": 1,
+	"schema": "sea.workshop.building_recipe",
+	"schema_version": 1,
+	"shape": "l",
+	"slab_thickness": 0.18,
+	"slot_overrides": {
+
+	},
+	"spatial_profile": "above_water",
+	"standards_id": "sea_building_v1",
+	"structure_seed": 11010,
+	"taper": 0.02,
+	"vegetation_density": 0.0,
+	"vegetation_seed": 11012,
+	"wall_thickness": 0.3,
+	"width": 12.0,
+	"window_height": 1.9,
+	"window_sill": 0.91,
+	"window_width": 1.5
+}
