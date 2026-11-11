@@ -67,7 +67,7 @@ func run() -> void:
 			for i in fps / 2: main.actor_controller.tick(1.0 / fps)
 			var movement: Vector3 = main.player.global_position - start
 			check(movement.normalized().dot(forward()) > 0.9999, "face follows displacement %s %d FPS moved=%s facing=%s" % [direction,fps,movement,forward()])
-			check(absf(movement.length() - 1.15) < 0.001, "walk speed preserved")
+			check(absf(movement.length() - 2.8 * 0.5) < 0.001, "walk speed preserved")
 			for i in fps: main.actor_controller.tick(1.0 / fps)
 			check(not main.actor_controller.walking() and main.player.global_position.distance_to(start + direction * 3.0) < 0.001, "arrive and stop")
 	# 正式平台上的反向改道也应平滑转身；取消后不再改朝向。

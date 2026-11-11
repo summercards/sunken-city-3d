@@ -3,6 +3,9 @@ extends RefCounted
 signal state_changed(previous: String, current: String)
 signal mode_changed(mode: int)
 const Machine = preload("res://src/core/state_machine.gd")
+## 玩家步频倍率。R29「移动动画加快一倍」定为 2.0；R30「再加快 10%」定为 2.0×1.1=2.2。
+## 只写表现层相位，不改坐标、碰撞与地速；NPC 走 `Character.walk_phase_scale` 的默认 1.0。
+const PLAYER_WALK_PHASE_SCALE := 2.2
 var machine = Machine.new()
 var actor: Node3D
 var vessel: Node3D
@@ -37,6 +40,8 @@ var _support_height := 0.0
 
 func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boundary: Dictionary) -> void:
 	actor = body
+	if "walk_phase_scale" in body:
+		body.walk_phase_scale = PLAYER_WALK_PHASE_SCALE
 	vessel = boat
 	world = root
 	interactor = interaction

@@ -81,20 +81,31 @@ var _farm_action_left := 0.0
 ##
 ## 走路动画的相位原来直接吃 `_t * 6.4`：不管人走多快，腿都按同一个频率摆。
 ## 加减速一上来，这就成了「脚在原地划水」—— 起步时脚比身体快，停下时身体
-## 还在滑。改成由 SEA-MOVE 每物理帧写 `walk_speed_ratio`（0…1.35），
+## 还在滑。改成由 SEA-MOVE 每物理帧写 `walk_speed_ratio`（0…1.50），
 ## 这里积分真实相位，脚就永远踩在地上。
 ##
 ## 6.4 rad/s 是原采样频率，满速时相位推进与旧实现逐帧一致（不改变既有观感）；
 ## 下限 0.35 让「刚起步的 0.1 秒」也还有轻微摆动，不然像滑行。
 const WALK_PHASE_RATE := 6.4
 const WALK_PHASE_FLOOR := 0.35
+## 步频倍率（纯表现，不在地速里）。1.0 = 上面的原采样频率；玩家由
+## `ActorController` 设成 2.2（R29 ×2.0，R30 再 ×1.1）。
+## NPC 保持 1.0：他们按 2.0 m/s 走，跟着翻倍会变成 4 步/秒的碎步，反而更滑。
+var walk_phase_scale := 1.0
 var walk_speed_ratio := 0.0
 var _walk_phase := 0.0
 var _sprinting := false
 var _run_blend := 0.0
 const RUN_BLEND_TAU := 0.12
-## 地速已经带来12%步频；短步再补足到约15%，而不是重复乘15%。
-const JOG_PHASE_MULTIPLIER := 1.15 / 1.12
+## 轻跑步频相对走路的**总**倍率固定为 1.15：地速倍率已经由 `walk_speed_ratio`
+## 带进来了，这里只把「额外补足到 15%」折算成当前地速倍率的除数。
+##
+## 2026-11-11 地速倍率从 1.12 提到 1.456（快跑再快 30%）后，除数必须同步：
+##   旧式 1.15/1.12 → 总倍率 1.456 × 1.027 = 1.495（轻跑步频 21.05 rad/s = 6.70 步/秒，碎步）
+##   新式 1.15/1.456 → 总倍率 1.456 × 0.790 = 1.15（轻跑步频 16.19 rad/s = 5.15 步/秒，大步）
+## 保留旧式会让「轻跑步频比走路快 15%」这条设计语义漂移成 49.5%，且等于把用户
+## 刚刚砍掉的碎步档（6.11 步/秒）又加回来。
+const JOG_PHASE_MULTIPLIER := 1.15 / 1.456
 
 func set_sprinting(on: bool) -> void:
 	# _action 要到表现帧才更新，起步只看已提交的基础动作，不能丢首帧。
@@ -425,7 +436,7 @@ func _process(delta: float) -> void:
 		var target_blend := 1.0 if _sprinting and walk_speed_ratio > 0.001 else 0.0
 		_run_blend = lerpf(_run_blend, target_blend, 1.0 - exp(-delta / RUN_BLEND_TAU))
 		if walk_speed_ratio > 0.001:
-			var phase_rate := WALK_PHASE_RATE * maxf(WALK_PHASE_FLOOR, walk_speed_ratio)
+			var phase_rate := WALK_PHASE_RATE * walk_phase_scale * maxf(WALK_PHASE_FLOOR, walk_speed_ratio)
 			phase_rate *= lerpf(1.0, JOG_PHASE_MULTIPLIER, _run_blend)
 			_walk_phase = fmod(_walk_phase + delta * phase_rate, TAU)
 	else:

@@ -13,13 +13,16 @@ extends RefCounted
 ##   v ← v + (v_target − v)·(1 − e^(−Δt/τ))
 ## 同样按住 0.25 秒，30 / 60 / 120 FPS 走出的距离一致。
 
-const SPEED := 2.3
-## Shift 小跑只提升 12%：2.3 × 1.12 = 2.576m/s，不改变转向/碰撞/体力。
-const SPRINT_MULTIPLIER := 1.12
+## 岸上行走目标速度（m/s）。2026-11-11 按用户要求「移动速度加快 0.5」由 2.3 提到 2.8；
+## 点击走路（walk_action.SPEED）同步同值，两条入口仍是同一个「最高速度」。
+const SPEED := 2.8
+## Shift 小跑倍率。2026-11-11 按「快跑速度再快 30%」由 1.12 提到 **1.456**（1.12 × 1.3）。
+## 2.8 × 1.456 = 4.0768 m/s（14.7 km/h），不改变转向/碰撞/体力，也不引入第二档冲刺。
+const SPRINT_MULTIPLIER := 1.456
 ## 起步时间常数。0.085 s ⇒ 63% 在 0.085 s、95% 在 0.25 s 达到目标速度。
 ## 取值理由：低于 0.06 像被弹出去，高于 0.12 按一下没反应，0.085 正好是「脚步先着地」。
 const ACCEL_TAU := 0.085
-## 刹车时间常数。滑行距离 = v·τ = 2.3 × 0.055 ≈ 0.13 m，收在 0.25 s 内停稳。
+## 刹车时间常数。滑行距离 = v·τ = 2.8 × 0.055 ≈ 0.15 m，收在 0.25 s 内停稳。
 ## 比 ACCEL 短：停要果断，起要柔和 —— 反过来会像冰面。
 const DECEL_TAU := 0.055
 ## 指数收敛永远到不了 0，低于这个速度且没有输入就判站定。
@@ -112,7 +115,9 @@ func step(c, delta: float) -> void:
 		var heading := atan2(face_dir.x, face_dir.z)
 		c.actor.rotation.y = lerp_angle(c.actor.rotation.y, heading, 1.0 - exp(-dt / FACING_TAU))
 	# 步频跟地速走（SEA-MOVE-R23）：脚不打滑，慢起步时步子也慢下来。
-	c.actor.walk_speed_ratio = clampf(speed_actual / SPEED, 0.0, 1.35)
+	# 上界必须 ≥ `SPRINT_MULTIPLIER`（1.456），否则轻跑稳态被截到 1.35、步频比地速
+	# 慢 7%，脚会在跑起来时明显往后拖。取 1.50 留一点余量容斜坡/推挤的瞬时超速。
+	c.actor.walk_speed_ratio = clampf(speed_actual / SPEED, 0.0, 1.50)
 
 func _rest(c) -> void:
 	c.move_intent = Vector3.ZERO

@@ -179,7 +179,7 @@ func production_checks() -> void:
 	for i in 30:
 		await physics_frame
 	var frames := Engine.get_physics_frames() - first_frame
-	var expected := 2.3 * float(frames) / float(Engine.physics_ticks_per_second)
+	var expected := 2.8 * float(frames) / float(Engine.physics_ticks_per_second)
 	var distance := Vector2(main.player.global_position.x - origin.x, main.player.global_position.z - origin.z).length()
 	check(absf(distance - expected) < 0.06, "production has one motion owner: %.3fm over %d physics frames, expected %.3f" % [distance, frames, expected])
 	check(main.actor_controller.walking(), "half second motion has not prematurely consumed the route")

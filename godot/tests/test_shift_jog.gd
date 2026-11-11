@@ -125,16 +125,16 @@ func run() -> void:
 	frames(0.8)
 	var jog_speed: float = controller.move_velocity.length()
 	metrics["jog_speed"] = jog_speed
-	check(absf(jog_speed - 2.576) < 0.003, "轻跑稳态 2.576 m/s")
-	check(absf(player.walk_speed_ratio - 1.12) < 0.003, "真实地速比仍以 2.3 为基准")
+	check(absf(jog_speed - 4.0768) < 0.003, "轻跑稳态 4.0768 m/s（2.8×1.456）")
+	check(absf(player.walk_speed_ratio - 1.456) < 0.003, "真实地速比即为 1.456，不被 1.35 截断")
 	var before: Vector3 = player.global_position
 	frames(0.3)
-	check(absf(player.global_position.distance_to(before) / 0.3 - 2.576) < 0.01, "胶囊实际位移等于轻跑地速")
+	check(absf(player.global_position.distance_to(before) / 0.3 - 4.0768) < 0.01, "胶囊实际位移等于轻跑地速")
 	var phase: float = player.walk_phase()
 	frames(0.2)
 	var jog_rate := fposmod(player.walk_phase() - phase, TAU) / 0.2
 	metrics["jog_phase_rate"] = jog_rate
-	check(absf(jog_rate - 6.4 * 1.15) < 0.015, "轻跑稳态步频约 +15%，不是幅度假跑")
+	check(absf(jog_rate - 14.08 * 1.15) < 0.015, "轻跑稳态步频约 +15%，不是幅度假跑")
 	check(player.body_pivot.rotation.x > 0.11 and player.left_elbow.rotation.x < -0.80, "微前倾和持续屈肘")
 
 	# 释放 Shift，但保持 W：速度和姿势平滑退回走路，相位连续。
@@ -144,13 +144,15 @@ func run() -> void:
 	frame()
 	check(not controller.sprint_held and not player.sprinting(), "Shift 松开立即清除目标")
 	check(player.run_blend() > 0.5 and player.run_blend() < blend_before, "松开后姿势平滑回走")
-	check(fposmod(player.walk_phase() - phase, TAU) < 0.15, "切走路不重置相位")
-	check(controller.move_velocity.length() > 2.3 and controller.move_velocity.length() < jog_speed, "松开 Shift 平滑减到走速")
+	# 单帧相位推进在 16.192 rad/s 下是 0.270 rad；真重置会给出 0 或接近一整圈。
+	var phase_step_after_release := fposmod(player.walk_phase() - phase, TAU)
+	check(phase_step_after_release > 0.02 and phase_step_after_release < 0.38, "切走路相位连续（单帧 %.2f rad，不重置）" % phase_step_after_release)
+	check(controller.move_velocity.length() > 2.8 and controller.move_velocity.length() < jog_speed, "松开 Shift 平滑减到走速")
 	frames(0.9)
-	check(absf(controller.move_velocity.length() - 2.3) < 0.002 and player.run_blend() < 0.001, "走速和姿态稳定恢复")
+	check(absf(controller.move_velocity.length() - 2.8) < 0.002 and player.run_blend() < 0.001, "走速和姿态稳定恢复")
 	phase = player.walk_phase()
 	frames(0.2)
-	check(absf(fposmod(player.walk_phase() - phase, TAU) / 0.2 - 6.4) < 0.01, "走路原步频不变")
+	check(absf(fposmod(player.walk_phase() - phase, TAU) / 0.2 - 14.08) < 0.01, "走路步频回到 14.08 rad/s")
 
 	# 原地只按 Shift 不应进入 strolling；松开方向键保留既有刹车。
 	respawn()
@@ -205,11 +207,13 @@ func run() -> void:
 	var walk_stride: float = absf(player.left_leg.rotation.x)
 	var walk_knee: float = player.right_knee.rotation.x
 	player.set_sprinting(true)
-	player.walk_speed_ratio = 1.12
+	player.walk_speed_ratio = 1.456
 	for i in 60: player._process(DT)
 	player._walk_phase = PI / 2.0
 	player._process(0.0)
-	check(absf(player.left_leg.rotation.x) < walk_stride, "轻跑步幅略短，不放大走路")
+	# 步频只补到走路的 1.15 倍，速度却是 1.456 倍，步幅因此放大 1.266 倍；
+	# 腿摆必须跟着放大，否则「腿没迈开、人滑出去」。
+	check(absf(player.left_leg.rotation.x) > walk_stride * 1.2, "轻跑步幅按地速÷步频放大（%.3f > %.3f）" % [absf(player.left_leg.rotation.x), walk_stride * 1.2])
 	check(player.right_knee.rotation.x > walk_knee + 0.3, "回收腿显著抬膝")
 	check(player.left_elbow.rotation.x < -0.8 and player.right_elbow.rotation.x < -0.8, "双肘弯曲，不是直臂快走")
 
@@ -222,7 +226,7 @@ func run() -> void:
 		frames(0.4, 1.0 / float(fps))
 		distances.append(Vector2(player.global_position.x, player.global_position.z).length())
 		blends.append(player.run_blend())
-		check(absf(controller.move_velocity.length() - 2.576 * (1.0 - exp(-0.4 / 0.085))) < 0.001, "%d FPS 共用指数积分器" % fps)
+		check(absf(controller.move_velocity.length() - 4.0768 * (1.0 - exp(-0.4 / 0.085))) < 0.001, "%d FPS 共用指数积分器" % fps)
 	metrics["distances_30_60_120"] = distances
 	check((distances.max() - distances.min()) / distances.min() < 0.05, "30/60/120 FPS 位移偏差不超过 5%")
 	check(blends.max() - blends.min() < 0.001, "混合时间常数与帧率无关")

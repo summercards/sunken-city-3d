@@ -1,5 +1,7 @@
 extends RefCounted
-const SPEED := 2.3
+## 点击走路的恒速（m/s）。2026-11-11 与 `free_walk_action.SPEED` 同步由 2.3 提到 2.8，
+## 两条移动入口的最高速度必须一致。
+const SPEED := 2.8
 ## 到站的物理安全余量（米）。胶囊贴着边界/面沿时，最后几厘米可能先被挡住；
 ## 设计条款是「物理支撑的微小安全余量不计为到达失败」，这里把它落成一个数。
 const ARRIVE_SLACK := 0.10

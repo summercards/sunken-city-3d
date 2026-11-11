@@ -12,7 +12,7 @@ extends SceneTree
 ## 这正是 `test_walk_facing` 已经在用的做法（行走面 + 独立物理地板，不是新玩法）。
 
 const WalkAreaScript = preload("res://src/navigation/walk_area.gd")
-const SPEED := 2.3
+const SPEED := 2.8
 const GROUND_LAYER := 256
 const ACTOR_LAYER := 512
 const FLOOR_Y := 10.0
@@ -106,6 +106,17 @@ func open_direction(from: Vector3) -> Vector2:
 	return Vector2.ZERO
 
 
+## 逐帧累加相位增量再平均。相位是折返到 TAU 的循环量：步频 12.8 rad/s 时
+## 0.5 秒已转满一圈，用首尾差 wrap 到 ±π 会读成 0.2 rad/s 的假值。
+func measure_walk_rate(frames: int) -> float:
+	var total := 0.0
+	for i in frames:
+		var before: float = player.walk_phase()
+		player._process(1.0 / 60.0)
+		total += fposmod(player.walk_phase() - before, TAU)
+	return total / (float(frames) / 60.0)
+
+
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
@@ -152,7 +163,7 @@ func run() -> void:
 	frames(0.30, 1.0 / 60.0)
 	var glide := Vector2(player.global_position.x - glide_from.x, player.global_position.z - glide_from.z).length()
 	metrics["glide"] = glide
-	check(glide > 0.05 and glide < 0.35, "滑行 %.2f m（期望 0.13 m 量级）" % glide)
+	check(glide > 0.05 and glide < 0.35, "滑行 %.2f m（期望 0.15 m 量级）" % glide)
 	check(controller.move_velocity.length() < 0.02, "0.35 秒内停稳")
 	check(controller.machine.current == "ashore_idle", "停稳后回到站立状态")
 	var settled: Vector3 = player.global_position
@@ -189,22 +200,18 @@ func run() -> void:
 		"30/60/120 FPS 0.4 秒位移一致 (%.3f / %.3f / %.3f)" % [travelled[0], travelled[1], travelled[2]])
 
 	# ---- 5. 步频跟地速耦合 ----------------------------------------------
+	# 相位是 fmod 到 TAU 的循环量，步频 14.08 rad/s 时 0.5 秒要转 1.12 圈，
+	# 拿首尾差再 wrap 到 ±π 会读成假值；改为逐帧累加折返增量（每帧 0.235 rad）。
 	respawn()
 	player.set_walking(true)
 	player.walk_speed_ratio = 1.0
-	var phase_start: float = player.walk_phase()
-	for i in 30:
-		player._process(1.0 / 60.0)
-	var full_rate := absf(wrapf(player.walk_phase() - phase_start, -PI, PI)) / 0.5
+	var full_rate := measure_walk_rate(30)
 	metrics["walk_rate_full"] = full_rate
-	check(absf(full_rate - 6.4) < 1.2, "满速步频 %.2f rad/s（设计 6.4）" % full_rate)
+	check(absf(full_rate - 14.08) < 1.2, "满速步频 %.2f rad/s（设计 6.4×2.2=14.08）" % full_rate)
 	player.walk_speed_ratio = 0.5
-	var phase_half: float = player.walk_phase()
-	for i in 30:
-		player._process(1.0 / 60.0)
-	var half_rate := absf(wrapf(player.walk_phase() - phase_half, -PI, PI)) / 0.5
+	var half_rate := measure_walk_rate(30)
 	metrics["walk_rate_half"] = half_rate
-	check(absf(half_rate - 3.2) < 0.8, "半速步频 %.2f rad/s（设计 3.2，脚不打滑）" % half_rate)
+	check(absf(half_rate - 7.04) < 0.8, "半速步频 %.2f rad/s（设计 7.04，即满速的一半）" % half_rate)
 	player.set_walking(false)
 	player._process(1.0 / 60.0)
 	check(absf(player.walk_phase()) < 0.0001, "停下后相位归零")

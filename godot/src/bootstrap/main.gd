@@ -134,7 +134,9 @@ var _walk_path: Array[Vector3]:
 var _after_walk: Callable:
 	get: return actor_controller.after_walk
 	set(value): actor_controller.after_walk = value
-const WALK_SPEED := 2.3
+## 岸上行走速度的参考值（与 `free_walk_action.SPEED`、`walk_action.SPEED` 同值）。
+## 2026-11-11 由 2.3 提到 2.8。真正的执行仍在这两个动作里，这里只是让文档里的数字有处可查。
+const WALK_SPEED := 2.8
 ## 上船热区·到泊位站立点的半径（米）。走进这个圈，船边就出上船图标。
 const BOAT_KEY_REACH := 2.4
 ## 上船热区·直接贴到船舷的半径（米）。码头很长、站立点在另一头时兜住玩家。

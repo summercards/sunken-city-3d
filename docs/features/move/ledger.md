@@ -241,3 +241,20 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 |---|---|---|
 | SEA-MOVE-R14/R17 | 获物时序、作物展示与收包保留，双手改自然示意，覆盖原先手掌必须追随实物的旧要求 | [本轮记录](../../development/2026-11-08_harvest_gesture.md)；成功一次性、满包拒绝、7类中断及存读均由当前harvest-receive实测 |
 | SEA-MOVE-R28 | 已移除追物拉伸；五组体型×30/60/120FPS全程保持上下臂与实际蒙皮辅助骨的原始体型长度，肩根固定，胸前屈肘抬手、左右依次收回 | `harvest-receive`137/0、`actor-presentation`31/0、`avatar-skinning`80/0、最终真实渲染150/0、`avatar-customization`重跑3559/0、`character-space-save`10/0均exit0、完成标记真、无非预期错误；12图/96帧已目检。集成52/1的菜单断言在同快照恢复旧动作后同样复现，未计通过。全局sync/check为范围外27/30项，未强刷哈希；摆位与diff检查exit0。报告、首轮超时与未执行项见[本轮记录](../../development/2026-11-08_harvest_gesture.md)及机器摘要；整体仍partial |
+
+## 2026-11-11 行走提速与步频翻倍
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R29 | 已实现；地速 2.3 → 2.8 m/s（键盘自由行走 `free_walk_action.SPEED` 与点击走路 `walk_action.SPEED` 同值；Shift 轻跑 2.8×1.12=3.136），玩家步行相位倍率 ×2.0（满速 12.8 rad/s、半速 6.4、轻跑 14.72）；倍率只写 `Character.walk_phase_scale`，NPC 保持 1.0。胶囊 0.22/1.30、+Z 朝向、加减速时间常数、地面判定、导航、上下船与存档未动 | `20261111-094932-move-speed-step-rate-r2`：`control-feel` 31/0（实测满速 12.800、半速 6.400 rad/s，滑行 0.129 m，30/60/120FPS 位移 0.927/0.907/0.896 m）、`shift-jog` 56/0（轻跑 3.135789 m/s、步频 14.720），同批 `character-motor` PASS exit0；`20261111-095049-move-speed-regression`：`click`/`keyboard-control`/`actor-presentation`/`character-space-save` 全 PASS、unexpected_errors 空，`walk-facing` 先因旧断言写死 1.15 m 失败（24 条同一断言），按 2.8×0.5 修正后复跑通过。已知代价：每米腿摆 2.78→4.57 rad/m，脚底轻微滑移；未做真实渲染目检与设备项。[本轮交付](../../development/2026-11-11_move_speed_and_step_rate.md) |
+| SEA-MOVE-R30 | 已实现；同日「再加快50%」经两次收敛（50%→20%→10%）最终定为 **10%**，相位倍率 2.0 → 2.2：满速 14.08 rad/s（4.482 步/秒、每步 0.625 m、单帧 0.235 rad）、半速 7.04、轻跑 16.192。地速 2.8、时间常数、胶囊、朝向、导航与存档全部未动；NPC 仍 1.0 | `20261111-112313-move-step-rate-x1_1-81aec9`：`control-feel` 31/0（实测满速 14.080、半速 7.040 rad/s；滑行 0.129 m 与 30/60/120FPS 位移 0.927/0.907/0.896 m 与 R29 逐位相同，证明确实只动表现层）、`shift-jog` 56/0（轻跑 3.135789 m/s、步频 16.191962）、`actor-presentation` PASS；`20261111-112410-move-step-rate-x1_1-regression-570195`：`click`/`keyboard-control`/`walk-facing`/`character-space-save` 全 PASS exit0。脚底滑移 5.029 rad/m（原始 1.81 倍）；4.482 步/秒偏小跑节奏；真实渲染目检与设备项未执行。[本轮交付](../../development/2026-11-11_move_speed_and_step_rate.md) |
+
+## 2026-11-11 Shift 快跑再快 30%
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R31 | 已实现；`SPRINT_MULTIPLIER` 1.12 → 1.456（2.8×1.456=4.0768 m/s、14.68 km/h），三处随动同时改：`walk_speed_ratio` clamp 上界 1.35→1.50（否则被截断打滑）、`JOG_PHASE_MULTIPLIER` 1.15/1.12→1.15/1.456（保住「轻跑步频=走路×1.15」，避免漂到 6.70 步/秒碎步）、`walking_action.gd` 腿摆 0.526→0.684 rad（步幅 0.625→0.791 m，+26.6%）。走路 2.8、点击走路、胶囊、朝向、时间常数、导航、存档未动 | `20261111-135227-sprint-x1_3-d2e165`：`shift-jog` 56/0（实测轻跑 **4.076526 m/s**、`walk_speed_ratio` 1.456 未被截断、步频 **16.192173 rad/s** = 走路 14.08 的 1.15 倍、30/60/120FPS 位移 1.350/1.320/1.304 m 偏差 3.5%）、`control-feel` 31/0（走路 14.08/7.04 与滑行 0.129 m 逐位不变）；`20261111-135439-sprint-x1_3-regression-a2ade9`：`actor-presentation`/`keyboard-control`/`click`/`walk-facing`/`character-space-save` 全 PASS exit0。单帧最大位移 0.204 m < 胶囊直径 0.44 m，扫掠不隧穿；相机前视 2.12 m 已顶 1.4 m 上限（既有，不改）。真实渲染目检与设备项未执行。[本轮交付](../../development/2026-11-11_move_speed_and_step_rate.md) |
+
+## 2026-11-11 阳光房通行接入补充
+
+竖直梯子使用特殊 `climbing` 状态，不进入普通 GroundSpace；梯脚下层甲板、梯顶二楼走面由 WalkArea/GroundSpace 提供实际支撑。正式 `sunroom-runtime` 20 项通过：下层梯脚可达、二楼内部目标可达、上梯、攀爬动作、二楼移动、下梯回一楼；攀爬表现由 `climbing_action.gd` 消费，根位仍由 `climb_ladder_action.gd` 执行。证据：`D:/projects/sea-work/verification/20261111-150345-verification-e20c4c`。

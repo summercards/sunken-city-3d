@@ -5,9 +5,12 @@ func sample(a, _delta: float) -> void:
 	var s := sin(phase)
 	var c := cos(phase)
 	var jog: float = a.run_blend()
-	# 轻跑靠更快的短步、回收腿与屈肘区分，不靠把走路幅度整体放大。
+	# 轻跑：步幅随「地速倍率 ÷ 步频倍率」放大，手臂反而收窄、改用回收腿与屈肘区分。
+	# 2026-11-11 地速倍率 1.12→1.456 后，若仍按 1.12 给腿摆，腿只摆 31° 而身体每步
+	# 要跨 0.79 m（走路 0.62 m），看上去就是「腿没迈开、人滑出去」。因此腿摆取
+	# 0.54 × 1.456 / 1.15 = 0.684 rad（39°），臂摆仍从 0.66 收到 0.55。
 	var arm_swing := lerpf(0.66, 0.55, jog)
-	var stride := lerpf(0.54, 0.54 * 1.12 / 1.15, jog)
+	var stride := lerpf(0.54, 0.54 * 1.456 / 1.15, jog)
 	a.left_arm.rotation.x = s * arm_swing
 	a.right_arm.rotation.x = -s * arm_swing
 	a.left_leg.rotation.x = -s * stride
