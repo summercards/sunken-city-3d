@@ -110,6 +110,8 @@ TESTS = {
     'keyboard-panels': ('tests/test_keyboard_panels.gd', r'\[keyboard-panels\] \d+ checks, 0 failures'),
     'visual-keyboard-panels': ('tests/test_keyboard_panels.gd', r'\[keyboard-panels\] \d+ checks, 0 failures'),
     'keyboard-building': ('tests/test_keyboard_building.gd', r'\[keyboard-building\] \d+ checks, 0 failures'),
+    'quick-tools': ('tests/test_quick_tools.gd', r'\[quick-tools\] \d+ checks, 0 failures'),
+    'visual-quick-tools': ('tests/test_quick_tools.gd', r'\[quick-tools\] \d+ checks, 0 failures'),
     'keyboard-farm-loop': ('tests/test_keyboard_farm_loop.gd', r'\[keyboard-farm-loop\] \d+ checks, 0 failures'),
     'visual-keyboard-farm-loop': ('tests/test_keyboard_farm_loop.gd', r'\[keyboard-farm-loop\] \d+ checks, 0 failures'),
     'visual-keyboard-building': ('tests/test_keyboard_building.gd', r'\[keyboard-building\] \d+ checks, 0 failures'),

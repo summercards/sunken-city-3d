@@ -1,7 +1,9 @@
 extends Button
 const Art = preload("res://src/ui/illustrated_icons.gd")
 const Cozy = preload("res://src/ui/cozy_ui.gd")
+const QuickGlyph = preload("res://src/ui/quick_tool_glyph.gd")
 var kind := "hand"
+var _quick_glyph: Control
 var item_icon := ""
 ## 圆下方的小胶囊文字（选种子时是「生菜 ×3」）。空串不画。
 ## 种子图标在 76px 的圆里只有 45px，生菜/番茄/南瓜几乎分不出，
@@ -18,6 +20,12 @@ var entrance: Tween
 func _ready() -> void:
 	set_meta("cozy_skip",true)
 	size = Vector2(76,76)
+	if kind.begins_with("quick_"):
+		var glyph := QuickGlyph.new()
+		glyph.kind = kind
+		glyph.position = Vector2(15, 15)
+		_quick_glyph = glyph
+		add_child(glyph)
 	custom_minimum_size = size
 	pivot_offset = size/2
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -41,8 +49,9 @@ func _draw() -> void:
 	draw_circle(Vector2(r,r+4),r,Color(0.03,0.16,0.18,0.18),true,-1,true)
 	draw_circle(Vector2(r,r),r,Color("#e6c36e") if selected else (Color("#438f83") if available else Color("#90a6a0")),true,-1,true)
 	draw_arc(Vector2(r,r),r-2,0,TAU,64,Color("#fff9e7"),2,true)
-	var icon: Texture2D = Art.texture(item_icon) if item_icon!="" else Art.texture(kind,true)
-	if icon: draw_texture_rect(icon,Rect2(size*0.20,size*0.60),false,Color.WHITE)
+	if not kind.begins_with("quick_"):
+		var icon: Texture2D = Art.texture(item_icon) if item_icon!="" else Art.texture(kind,true)
+		if icon: draw_texture_rect(icon,Rect2(size*0.20,size*0.60),false,Color.WHITE)
 	if caption != "": _draw_caption()
 	if hotkey != "": _draw_hotkey()
 

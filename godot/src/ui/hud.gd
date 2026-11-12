@@ -1031,8 +1031,8 @@ func _add_goal_button(id: String) -> void:
 	button.pressed.connect(func() -> void: economy.track_goal(id))
 	_tab_body.add_child(button)
 
-func is_modal() -> bool:
-	return narrative_active() or _panel_open or _external_modal or (corner!=null and corner.expanded) or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
+func is_modal(ignore_world_actions := false) -> bool:
+	return narrative_active() or _panel_open or _external_modal or (corner!=null and corner.expanded) or (not ignore_world_actions and world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
 
 func camera_modal() -> bool:
 	if owned_modal_camera_query.is_valid() and owned_modal_camera_query.call():

@@ -419,3 +419,13 @@ ShopCatalog显示标题目标“小花花店/阿店海上商店”，由主线�
 ### 2026-11-10 可见入水当前签署
 
 上方PENDING属于文档委派阶段。主线程已实现并运行A=`20261110-233501-dive-entry-polish-core-cc526e`、B=`20261110-233501-dive-entry-polish-visual-6a99e7`、C=`20261110-233926-dive-entry-final-integration-222f98`，12计数入口5857/0，另3存档入口通过，15项均exit0/PASS、unexpected=[]。prepared/opening/release/swim、完整胶囊段/实际速度、尾迹自然回收、opening相机固定与首swim连续、readiness及release后失败遮黑回滚、同Main/原幕和存档门禁均通过。最终家园pitch0.16rad/起始偏移−0.22rad，目标和臂端都限制水下，使clip/缓出中间点同样满足水面限制；Map只通过set_entry_view传初始朝向。5核心脚本与B快照一致，用户TSCN/v4/120m保持。全局sync79/只读81资源/登记问题未过，不批量重签哈希；低端、长时、全路线/全部三角面和用户终审未签。[完整证据与边界](../development/2026-11-10_dive_entry_splash.md#5-最终运行验收)。
+
+## 2026-11-12 SEA-QUICKTOOLS 快捷工具端口说明
+
+SEA-QUICKTOOLS 只拥有 Alt 快捷环的瞬态编排，不新增业务状态或存档字段，不改用户手摆 TSCN/场景资源；Main 通过代码创建并挂载运行时 `QuickTools` 节点，该节点真实存在。Main 通过注入 `context_query()` 提供上下文/阻断状态/角色头顶屏幕锚点，通过 `execute(action_id)` 转发既有公开入口：陆地 `craft` 与 BuildingController 拆除入口，船上最近24m鱼群进入 SEA-PICKUP 既有停船+1.6s采集链，潜水沿 SEA-DIVE 现有入口与停船提示。`notify(text)` 仅显示提示。
+
+`QuickTools` 复用 `WorldActionBubbles` 的 `presentation="quick"`；普通 `presentation="world"` 菜单保持独立，快捷模块不得误关或接管它。快捷环可在 `ashore_idle`/walking/strolling 与 `boat_idle`/sailing 打开；打开环不主动取消既有自动航线。手动键盘驾驶因菜单 modal 不再读取驾驶意图，按既有 `release_drive` 自然减速，不承诺 manual sailing 状态不变，不改 production 航行逻辑。modal、过场、潜水、攀爬、室内、睡眠、采集中以及上下文/窗口焦点失效时关闭。
+
+每次打开/关闭更新会话 token，回调先校验 token 与菜单 active，旧回调不得关闭新菜单，取消退场中及退场后均不执行；有效选中先立即关闭快捷 modal，再重新查询上下文和资格后执行。Main 读档入口立即 `close(true)` 并 invalidate 会话，不等下一帧门禁。首次 Alt release 前锁住 non-echo duplicate press，echo 不触发开关；松开后再次按下才收起。`WorldActionBubbles.open` 清除上一菜单键锁，再捕获当前 E 与本次 quick Alt，避免旧 KEY_2 release 被新建造 UI 消费后留下跨菜单锁。
+
+UI 使用两枚76px按钮、左右上弧、0.24s BACK错峰0.035s、0.16s收起和SEA-UI动效偏好；四枚剪影均为本地原创程序化 Godot 图元。架构端口不解释建造资格、鱼群奖励、潜水FSM或航行状态，依赖所有者继续持有这些规则。代码与加固已落地，final-d51e92六项PASS只是加固前证据；加固后release正由主线程运行，待最终复验，不预签。[功能规格](../features/quick_tools/spec.md) · [独立账本](../features/quick_tools/ledger.md) · [过程与证据](../development/2026-11-12_quick_tools.md#4-本次验证过程与加固边界)。

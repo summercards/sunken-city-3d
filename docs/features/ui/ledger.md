@@ -388,6 +388,12 @@ UI条款集合差异已定位：门禁按`\| (SEA-UI-R\d+) \|`提取集合，原
 |---|---|---|
 | SEA-UI-R59 | 本条已实现并通过当前专项；SEA-UI 整体登记头仍 partial。商店改用背包同款格子语言，外部模态下右下圆键真正关闭该模态，商店自带圆键期间 HUD 那枚收起 | `visual-shop-grid`51/0（8张真实PNG逐图审阅，三种窗口+气泡1/3+购买反馈+六格+不可购）、`pocket-services`32/0、`close-hint`16/0、`click`39/0、`keyboard-entry`39/0、`visual-pocket-services`29/0、`visual-pocket-drag-buy`9/0，均exit0、completion_marker=true、unexpected_errors为空；报告见[商店账本同批记录](../shop/ledger.md#2026-11-08-商店图标网格交付) |
 
+## 2026-11-12 快捷工具环关联条款
+
+| 对应设计条款 | 当前实施状态 | 本轮证据 / 待回填 |
+|---|---|---|
+| SEA-UI-R60 | 已实现待完整验收；复用 `WorldActionBubbles` 的两枚76px青绿/奶油边按钮、四种程序化白色剪影、头顶屏幕锚点、暖金 hover 与动效偏好，普通 world 菜单独立。non-echo duplicate Alt/echo、会话 token、取消退场旧命令、读档立即失效、失焦及 edge caption 当前专项通过；UI 不拥有快捷命令或依赖业务状态 | 正式 release-913ecd：`quick-tools`116/0、`visual-quick-tools`266/0，另建造40/0、潜水501/0、面板81/0、海上拾取48/0及两项存档PASS，共8入口均exit0、passed=true、completion_marker=true、unexpected_errors=[]。30张PNG覆盖3分辨率×land/boat×5状态；主线程ViewImage仅目检最终1280 land-open/1920 boat-hover及前轮1600两图，已审图无挡脸/裁切，不称30张全目检。用户最终美术确认、手柄、各体型仍pending；SEA-UI整体partial不变；见[最终验收](../../development/2026-11-12_quick_tools.md#5-正式-release-最终验收回填) |
+
 改动点：`hud.gd` 的右下圆键在 `owned_modal_query` 为真时改调 `owned_modal_close`（旧实现落到 `back()`，而 `back()` 在 `_external_modal` 下第一句就返回，按钮可见却按不动）；`main.gd` 新增 `_on_shop_panel_opened/_on_shop_panel_closed` 与 `_set_hud_close_visible`，商店自带圆键期间隐藏 HUD 那枚，避免同一角落并排两枚关闭入口。`main.tscn` 无本次 diff，用户手摆 transform 未动。
 
 渲染口径：1280×800 与 1600×1000 按窗口原尺寸出图，1920×1080 窗口在原 KEEP 画布下输出 1728×1080，PNG 实际像素以文件为准（日志已逐个打印）。工程外副本 `D:/projects/sea-work/outputs/shop_icon_grid/final/`。全局 `check_feature_contracts` 仍 53 issues（sync 52；含本次 `hud.gd`/`main.gd` 真实漂移与 4 项与本轮无关的既有 source drift），未批量重签；架构 25服务0、手摆 3结构0警告、`git diff --check` 通过，但不宣称全工程门禁绿。

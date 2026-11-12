@@ -264,6 +264,7 @@ var _title_props: Dictionary = {}
 var _title_economy_ticking := true
 const Scope = preload("res://src/core/play_scope.gd")
 const MaterialParamGuard = preload("res://src/rendering/material_param_guard.gd")
+var quick_tools: Node
 
 func _ready() -> void:
 	# 材质参数只存在 .tres 里，编辑器保存时可能整批被清空且不报错（详见该脚本注释）。
@@ -317,6 +318,7 @@ func _ready() -> void:
 	_setup_building()
 	_setup_npc_systems()
 	_setup_workshop()
+	_setup_quick_tools()
 	_setup_save_registry()
 	_setup_avatar()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
@@ -2582,6 +2584,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and not event.echo and not input_blocked():
 		var world_key: int = event.physical_keycode if event.physical_keycode else event.keycode
+		if world_key == KEY_ALT:
+			_world_press = false
+			if quick_tools != null: quick_tools.toggle()
+			get_viewport().set_input_as_handled()
+			return
 		if world_key == KEY_X and room_service.inside:
 			_on_click_command("room_exit")
 			get_viewport().set_input_as_handled()
@@ -3558,7 +3565,53 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or _exhausted_rest or (workshop_host != null and workshop_host.is_open()) or (dive != null and dive.switching) or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _gameplay_input_blocked(false)
+
+func _gameplay_input_blocked(ignore_world_actions: bool) -> bool:
+	return _title_active or _exhausted_rest or (workshop_host != null and workshop_host.is_open()) or (dive != null and dive.switching) or actor_controller.climbing() or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal(ignore_world_actions)) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+
+func _setup_quick_tools() -> void:
+	quick_tools = preload("res://src/quick_tools/quick_tools.gd").new()
+	quick_tools.name = "QuickTools"
+	quick_tools.menu = hud.world_actions
+	quick_tools.context_query = _quick_tools_context
+	quick_tools.execute = _execute_quick_tool
+	quick_tools.notify = func(text: String): hud.toast(text)
+	add_child(quick_tools)
+
+func _quick_tools_context() -> Dictionary:
+	var own_menu: bool = quick_tools != null and quick_tools.is_open()
+	var blocked := _gameplay_input_blocked(own_menu)
+	if building_controller != null and building_controller.active: blocked = true
+	if dive != null and (dive.active or dive.switching): blocked = true
+	if room_service != null and room_service.inside: blocked = true
+	if _pick_phase != PICK_PHASE_IDLE: blocked = true
+	var context := ""
+	var state: String = actor_controller.state_id()
+	if state in ["ashore_idle", "walking", "strolling"]: context = "land"
+	elif state in ["boat_idle", "sailing"]: context = "boat"
+	var anchor := Vector2.INF
+	if is_instance_valid(player) and is_instance_valid(cam):
+		var point: Vector3 = player.global_position + Vector3.UP * BodyScale.SCALE * 1.55
+		if not cam.is_position_behind(point): anchor = cam.unproject_position(point)
+	return {"context":context, "blocked":blocked, "anchor":anchor}
+
+func _execute_quick_tool(action_id: String) -> void:
+	_world_press = false
+	var snapshot := _quick_tools_context()
+	if snapshot.blocked: return
+	match action_id:
+		"build":
+			if snapshot.context == "land": _on_click_command("craft")
+		"demolish":
+			if snapshot.context == "land": building_controller.open_demolition()
+		"fish":
+			if snapshot.context != "boat": return
+			var school: Dictionary = props.nearest_school(boat.global_position, 24.0)
+			if school.is_empty(): hud.toast("附近没有鱼群 · 划到鱼群附近再试");return
+			_handle_prop_click({"type":"fish", "item":school})
+		"dive":
+			if snapshot.context == "boat": _on_dive()
 
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
@@ -4178,6 +4231,7 @@ func capture_world_state() -> Dictionary:
 	return {"zone":GameState.current_zone,"landing":GameState.landing_id,"mode":actor_controller.mode(),"far_sea":GameState.far_sea_unlocked,"boat":[b.x,b.y,b.z,boat.rotation.y],"player":[p.x,p.y,p.z] if actor_controller.mode()==0 else []}
 
 func restore_world_state(data: Dictionary) -> void:
+	if quick_tools != null: quick_tools.close(true)
 	data = data.duplicate(true)
 	# Economy is already applied while owner signals are blocked. Build its
 	# matching support before restoring the actor onto the upgraded shore.

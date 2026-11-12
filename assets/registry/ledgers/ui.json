@@ -202,6 +202,66 @@
       "verification": "docs/development/2026-11-06_keyboard_complete.md",
       "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。；2026-11-04新旅程美术/交互",
       "previous_source_sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31"
+    },
+    {
+      "asset_id": "SEA-UI-QUICKTOOLS-BUILD-001",
+      "name": "快捷工具·建造程序化剪影",
+      "domain": "ui",
+      "stage": "source_registered_runtime_pending",
+      "source": "godot/src/ui/quick_tool_glyph.gd",
+      "source_sha256": "4884bb2c3159af684500782cab908e8e40ca18ee59fd8efa4388c8584e266162",
+      "manifest": "assets/registry/manifests/sea-ui-quicktools-build-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/ui/quick_tool_glyph.gd",
+      "license": "local_original_procedural_Godot_geometry",
+      "consumer_features": ["SEA-QUICKTOOLS", "SEA-UI"],
+      "verification": "docs/development/2026-11-12_quick_tools.md",
+      "note": "quick_build 图元；同一程序化源文件中的稳定绘制种类，不是独立图片，不伪造图片生成或外部授权。"
+    },
+    {
+      "asset_id": "SEA-UI-QUICKTOOLS-DEMOLISH-001",
+      "name": "快捷工具·拆除程序化剪影",
+      "domain": "ui",
+      "stage": "source_registered_runtime_pending",
+      "source": "godot/src/ui/quick_tool_glyph.gd",
+      "source_sha256": "4884bb2c3159af684500782cab908e8e40ca18ee59fd8efa4388c8584e266162",
+      "manifest": "assets/registry/manifests/sea-ui-quicktools-demolish-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/ui/quick_tool_glyph.gd",
+      "license": "local_original_procedural_Godot_geometry",
+      "consumer_features": ["SEA-QUICKTOOLS", "SEA-UI"],
+      "verification": "docs/development/2026-11-12_quick_tools.md",
+      "note": "quick_demolish 图元；同一程序化源文件中的稳定绘制种类，不是独立图片，不伪造图片生成或外部授权。"
+    },
+    {
+      "asset_id": "SEA-UI-QUICKTOOLS-FISH-001",
+      "name": "快捷工具·钓鱼程序化剪影",
+      "domain": "ui",
+      "stage": "source_registered_runtime_pending",
+      "source": "godot/src/ui/quick_tool_glyph.gd",
+      "source_sha256": "4884bb2c3159af684500782cab908e8e40ca18ee59fd8efa4388c8584e266162",
+      "manifest": "assets/registry/manifests/sea-ui-quicktools-fish-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/ui/quick_tool_glyph.gd",
+      "license": "local_original_procedural_Godot_geometry",
+      "consumer_features": ["SEA-QUICKTOOLS", "SEA-UI"],
+      "verification": "docs/development/2026-11-12_quick_tools.md",
+      "note": "quick_fish 图元；同一程序化源文件中的稳定绘制种类，不是独立图片，不伪造图片生成或外部授权。"
+    },
+    {
+      "asset_id": "SEA-UI-QUICKTOOLS-DIVE-001",
+      "name": "快捷工具·潜水程序化剪影",
+      "domain": "ui",
+      "stage": "source_registered_runtime_pending",
+      "source": "godot/src/ui/quick_tool_glyph.gd",
+      "source_sha256": "4884bb2c3159af684500782cab908e8e40ca18ee59fd8efa4388c8584e266162",
+      "manifest": "assets/registry/manifests/sea-ui-quicktools-dive-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/ui/quick_tool_glyph.gd",
+      "license": "local_original_procedural_Godot_geometry",
+      "consumer_features": ["SEA-QUICKTOOLS", "SEA-UI"],
+      "verification": "docs/development/2026-11-12_quick_tools.md",
+      "note": "quick_dive 图元；同一程序化源文件中的稳定绘制种类，不是独立图片，不伪造图片生成或外部授权。"
     }
   ]
 }

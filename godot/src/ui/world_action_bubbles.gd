@@ -27,6 +27,8 @@ var back_action: Callable
 var _title := "操作"
 var _held_keys := {}
 var _activated_frame := -1
+## `world` 保持既有场景菜单；`quick` 是由 QuickTools 注入的快捷菜单。
+var presentation := "world"
 
 ## 在 GUI 之前路由，确保 Enter 不被原生 Button 和世界各执行一次。
 func _input(event: InputEvent) -> void:
@@ -44,6 +46,9 @@ func handle_key(event: InputEvent) -> bool:
 	if event.echo or _held_keys.has(code): return true
 	_held_keys[code] = true
 	if not active: return true
+	if presentation == "quick" and code == KEY_ALT:
+		close()
+		return true
 	if code == KEY_ESCAPE:
 		back()
 	elif code in [KEY_LEFT, KEY_UP, KEY_A, KEY_W]:
@@ -93,8 +98,9 @@ func _ready() -> void:
 	root.add_child(cluster)
 	root.hide()
 
-func open(query: Callable, options: Array, hint := "", screen_fallback := Vector2.INF) -> void:
+func open(query: Callable, options: Array, hint := "", screen_fallback := Vector2.INF, presentation := "world") -> void:
 	generation += 1
+	self.presentation = presentation
 	if animation: animation.kill()
 	for node in cluster.get_children():
 		cluster.remove_child(node);node.queue_free()
@@ -103,8 +109,11 @@ func open(query: Callable, options: Array, hint := "", screen_fallback := Vector
 	buttons.clear();entries = options.duplicate(true);anchor_query = query
 	fallback_anchor = screen_fallback
 	active = true;closing = false;root.show()
+	# 上一菜单的松开事件可能被新接管的建造/潜水界面消费，不能跨菜单保留旧键锁。
+	_held_keys.clear()
 	# 打开界面的那次长按不能同时作为界面确认；必须先松开再按。
 	if Input.is_physical_key_pressed(KEY_E): _held_keys[KEY_E] = true
+	if presentation == "quick": _held_keys[KEY_ALT] = true
 	back_action = Callable()
 	_title = hint if hint != "" else "操作"
 	selected_index = 0
@@ -177,6 +186,10 @@ func _build_hint(text: String) -> void:
 
 func _offset(i: int, count: int) -> Vector2:
 	if count == 1: return Vector2(-38,-128)
+	if presentation == "quick" and count == 2:
+		# 快捷工具像头顶两翼，左右上弧展开，不把按钮压到脸上。
+		var angle := -PI * (0.81 if i == 0 else 0.19)
+		return Vector2(cos(angle),sin(angle))*112-Vector2(38,38)
 	var angle := lerpf(-PI*0.82,-PI*0.18,float(i)/float(count-1))
 	return Vector2(cos(angle),sin(angle))*118-Vector2(38,38)
 
@@ -191,7 +204,8 @@ func activate(index: int) -> void:
 		if notify.is_valid(): notify.call(reason)
 		return
 	var command: Callable = entry.get("command",Callable())
-	close()
+	# 快捷命令自行立即撤 modal 并复验会话；取消退场不能冒充选中。
+	if presentation != "quick": close()
 	if command.is_valid(): command.call()
 
 
