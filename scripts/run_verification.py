@@ -542,7 +542,7 @@ def isolated_editor_workshop_project(run_dir):
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
     for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store',
-                 'shell_geometry', 'shell_generator',
+                 'shell_geometry', 'shell_generator', 'shell_damage_geometry',
                  'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
     (project / 'scenes/components').mkdir(parents=True)
@@ -559,6 +559,11 @@ def isolated_editor_workshop_project(run_dir):
             imported_dest = project / imported_rel
             imported_dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(GODOT_ROOT / imported_rel, imported_dest)
+    # 工坊引用正式场景的四材质与shader；隔离副本复制依赖，不用生产目录写入链接。
+    shutil.copytree(GODOT_ROOT / 'assets/materials/solar_cabin', project / 'assets/materials/solar_cabin')
+    (project / 'shaders').mkdir(exist_ok=True)
+    for filename in ['sunny_palette.gdshader', 'sunny_palette_gloss.gdshader']:
+        shutil.copy2(GODOT_ROOT / 'shaders' / filename, project / 'shaders' / filename)
     shutil.copy2(GODOT_ROOT / 'icon.svg', project / 'icon.svg')
     # project.godot 由 Godot 以 UTF-8 写出（含中文名/间隔号）；默认 locale 读取在中文 Windows 上会抛 UnicodeDecodeError。
     text = (GODOT_ROOT / 'project.godot').read_text(encoding='utf-8')

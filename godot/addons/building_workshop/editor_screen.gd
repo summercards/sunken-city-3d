@@ -80,6 +80,7 @@ func configure(ports: Dictionary = {}) -> void:
 		session = ports["session"] as Session
 		_connect_session()
 	if _initialized:
+		_ensure_editor_catalog()
 		_refresh_from_session()
 		refresh_documents()
 		if _screen_visible:
@@ -95,7 +96,7 @@ func _ready() -> void:
 		theme = EditorInterface.get_editor_theme()
 	add_theme_font_size_override("font_size", 14)
 	if session == null:
-		session = Session.new()
+		session = Session.new(Catalog.editor_catalog())
 		session.replace_recipe(Recipe.authoring_defaults())
 	_build_ui()
 	_initialized = true
@@ -109,6 +110,12 @@ func _ready() -> void:
 		_pending_recovery = {}
 		restore_recovery(recovery)
 	set_screen_visible(_screen_visible)
+
+func _ensure_editor_catalog() -> Dictionary:
+	var upgraded: Dictionary = Catalog.editor_catalog(session.catalog)
+	if Catalog.fingerprint(upgraded) == Catalog.fingerprint(session.catalog):
+		return {"ok": true}
+	return session.replace_catalog(upgraded)
 
 func _connect_session() -> void:
 	if session != null and not session.changed.is_connected(_on_session_changed):
@@ -145,9 +152,17 @@ func _collect_ui_patch() -> Dictionary:
 	patch["growth_weights"] = [_spin_value("growth_small"), _spin_value("growth_medium"), _spin_value("growth_large")]
 	return patch
 
+func generate_building() -> Dictionary:
+	if str(snapshot().get("construction_mode", "modular_v1")) != "shell_v2":
+		return _report_failure("旧版拼装已停止使用，请点击「新建」生成连续实体楼房。")
+	return apply_parameters()
+
 func apply_parameters() -> Dictionary:
 	if not _initialized:
 		return {"ok": false, "reason": "编辑器主屏尚未初始化"}
+	var catalog_ready: Dictionary = _ensure_editor_catalog()
+	if not bool(catalog_ready.get("ok", false)):
+		return _report_result(catalog_ready, "组件目录升级失败")
 	var pending: Array[String] = _pending_local_fields()
 	if not pending.is_empty():
 		return _report_failure("存在尚未应用的输入（%s），请先点击对应的局部应用按钮，再应用全部参数或保存。" % ", ".join(pending))
@@ -198,7 +213,10 @@ func _open_recipe_now(path: String) -> Dictionary:
 	var result: Dictionary = _store.load_recipe(path)
 	if not bool(result.get("ok", false)):
 		return _report_result(result, "打开失败，当前草稿未改变")
-	var accepted: Dictionary = session.accept_loaded(result.get("recipe", {}), result.get("catalog", {}))
+	var loaded_recipe: Dictionary = result.get("recipe", {})
+	if str(loaded_recipe.get("construction_mode", "modular_v1")) != "shell_v2":
+		return _report_failure("旧版拼装配方已停止编辑，原文件未修改；请新建连续实体楼房。")
+	var accepted: Dictionary = session.accept_loaded(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})))
 	if not bool(accepted.get("ok", false)):
 		return _report_result(accepted, "配方被拒绝")
 	_slot_cache.clear()
@@ -288,6 +306,12 @@ func has_pending_fields() -> bool:
 	var current: Dictionary = snapshot()
 	var candidate: Dictionary = current.duplicate(true)
 	candidate.merge(_collect_ui_patch(), true)
+	# 稀疏旧配方的全局窗尺寸继承顶层值：仅UI展开默认值不算用户修改。
+	if str(current.get("construction_mode", "")) == "shell_v2" and _window_scope() == "global":
+		var original_window: Dictionary = Config.normalized(current.get("architecture", {})).get("window", {})
+		for field: String in ["width", "height", "sill"]:
+			if not original_window.has(field) and is_equal_approx(float(candidate.architecture.window.get(field, -1.0)), float(current.get("window_" + field, -2.0))):
+				candidate.architecture.window.erase(field)
 	if Recipe.fingerprint(candidate) != Recipe.fingerprint(current):
 		return true
 	return _has_pending_local_fields()
@@ -475,7 +499,9 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 		_pending_recovery = data.duplicate(true)
 		return {"ok": true, "reason": "草稿将在主屏就绪时恢复"}
 	var recipe: Dictionary = data.get("recipe", {}) as Dictionary
-	var cat: Dictionary = data.get("catalog", {}) as Dictionary
+	if str(recipe.get("construction_mode", "modular_v1")) != "shell_v2":
+		return _report_failure("旧版拼装草稿已停止使用；原文件保留，请点击「新建」使用连续实体。")
+	var cat: Dictionary = Catalog.editor_catalog(data.get("catalog", {}) as Dictionary)
 	var reason: String = Recipe.validate(recipe, cat)
 	if not reason.is_empty():
 		return _report_failure("恢复草稿失败：" + reason)
@@ -542,6 +568,7 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	preview.set_wireframe(bool(controls["wireframe"].button_pressed))
 	preview.set_collision_overlay(bool(controls["collision_overlay"].button_pressed))
 	_update_state()
+	_set_status("连续实体草稿已恢复；缺失内置组件已检查，原有替件保持。")
 	return {"ok": true, "reason": "编辑器草稿已恢复"}
 
 func _build_ui() -> void:
@@ -549,6 +576,15 @@ func _build_ui() -> void:
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_theme_constant_override("separation", 6)
 	add_child(root)
+	# 生成操作固定在所有滚动区域之外，窄屏和参数页滚到底仍可直接点击。
+	var generate_bar: HBoxContainer = HBoxContainer.new()
+	generate_bar.name = "FixedGenerateBar"
+	root.add_child(generate_bar)
+	var generate: Button = _button("应用参数并生成楼房", "generate")
+	generate.custom_minimum_size = Vector2(260, 46)
+	generate.add_theme_font_size_override("font_size", 17)
+	generate_bar.add_child(generate)
+	generate_bar.add_child(_label("连续实体 · 基础框架 / 门窗 / 构架 / 形体在左侧编辑"))
 	var toolbar_scroll: ScrollContainer = ScrollContainer.new()
 	toolbar_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	toolbar_scroll.custom_minimum_size.y = 42
@@ -556,11 +592,11 @@ func _build_ui() -> void:
 	root.add_child(toolbar_scroll)
 	var toolbar: HBoxContainer = HBoxContainer.new()
 	toolbar_scroll.add_child(toolbar)
-	var toolbar_title: Label = _label("楼房工坊", 16)
+	var toolbar_title: Label = _label("老王场景工坊", 16)
 	toolbar_title.autowrap_mode = TextServer.AUTOWRAP_OFF
 	toolbar_title.custom_minimum_size.x = 80
 	toolbar.add_child(toolbar_title)
-	for spec: Array in [["new", "新建"], ["open", "打开"], ["save", "保存并烘焙"], ["undo", "撤销"], ["redo", "重做"], ["open_scene", "在3D打开"], ["copy_sample", "复制样例"], ["save_as", "另存新ID"], ["toggle_left", "参数栏"], ["toggle_right", "槽位栏"]]:
+	for spec: Array in [["apply", "应用全部参数"], ["new", "新建"], ["open", "打开"], ["save", "保存并烘焙"], ["undo", "撤销"], ["redo", "重做"], ["open_scene", "在3D打开"], ["copy_sample", "复制样例"], ["save_as", "另存新ID"], ["toggle_left", "参数栏"], ["toggle_right", "槽位栏"]]:
 		toolbar.add_child(_button(str(spec[1]), str(spec[0])))
 	state_label = _label("未保存")
 	root.add_child(state_label)
@@ -607,6 +643,7 @@ func _build_ui() -> void:
 	var path_label: Label = _label("保存路径：" + export_root + " / <building_id> / revision_NNNN")
 	controls["export_root_label"] = path_label
 	root.add_child(path_label)
+	root.add_child(_label("共享512×512色盘 · SEA_Matte / SEA_Metal / SEA_Gloss / SEA_Emission · UV选色，材质控制质感"))
 	root.add_child(_label("五件 bundle 仅为候选资产，尚未正式登记；不替换当前编辑场景或主场景。"))
 	status_label = _label("编辑器独立主屏；无需运行游戏。")
 	root.add_child(status_label)
@@ -672,16 +709,22 @@ func _make_left_panel() -> ScrollContainer:
 		body.add_child(page)
 		pages[page_name] = page
 		_build_page(page_name, page)
-	body.add_child(_button("应用全部参数", "apply"))
 	return scroll
 
 func _build_page(page_name: String, page: VBoxContainer) -> void:
 	match page_name:
 		"结构":
 			_add_option(page, "construction_mode", "建模内核", [["shell_v2", "连续实体 · 工整模型"], ["modular_v1", "旧版拼装 · 配方兼容"]])
+			# 旧文档解析仍留在内核，作者界面不再暴露内核切换或旧版方案。
+			(controls["construction_mode"] as OptionButton).hide()
+			(controls["construction_mode"] as Control).get_parent().get_child((controls["construction_mode"] as Control).get_index() - 1).hide()
 			(controls["construction_mode"] as OptionButton).item_selected.connect(_construction_mode_changed)
-			page.add_child(_label("连续墙壳／真实洞口／整板屋顶。新房默认先验干净结构。", 12))
+			page.add_child(_label("基础框架 · 连续实体", 16))
+			page.add_child(_label("连续墙壳／真实洞口／整板屋顶。完成左侧参数后，点击顶部生成按钮。", 12))
 			_add_option(page, "shape", "形状", [["rectangle", "矩形"], ["l", "L 形"]])
+			# shape 仅保留历史绑定，统一使用下方四种结构形态，避免两处选项互相覆盖。
+			(controls["shape"] as Control).hide()
+			(controls["shape"] as Control).get_parent().get_child((controls["shape"] as Control).get_index() - 1).hide()
 			(controls["shape"] as OptionButton).item_selected.connect(func(_index: int) -> void: _refresh_roof_edge_options(_option_value("shape")))
 			for spec: Array in [["width", "宽度 m", 6, 24, 0.1], ["depth", "进深 m", 6, 20, 0.1], ["floors", "楼层", 1, 8, 1], ["floor_height", "层高 m", 1, 20, 0.1], ["wall_thickness", "墙厚 m", 0.01, 2, 0.01], ["slab_thickness", "板厚 m", 0.01, 2, 0.01], ["column_width", "柱宽 m", 0.01, 2, 0.01]]:
 				_spin_spec(page, spec)
@@ -722,7 +765,7 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			for key: String in ["architecture_window_enabled", "architecture_window_sill_enabled"]:
 				_architecture_visibility.append(key)
 			page.add_child(_label("基础窗宽高和旧版覆盖仍保留；架构字段只在shell_v2生效。", 12))
-			for spec: Array in [["window_width", "窗宽", 0.1, 10, 0.1], ["window_height", "窗高", 0.1, 10, 0.1], ["window_sill", "窗台", 0.01, 10, 0.1], ["bay_width", "开间", 2, 6, 0.1], ["door_width", "门净宽", 0.1, 10, 0.1], ["door_height", "门净高", 0.1, 10, 0.1]]:
+			for spec: Array in [["window_width", "窗宽", 0.1, 10, 0.1], ["window_height", "窗高", 0.1, 10, 0.1], ["window_sill", "窗台", 0.01, 10, 0.01], ["bay_width", "开间", 2, 6, 0.1], ["door_width", "门净宽", 0.1, 10, 0.1], ["door_height", "门净高", 0.1, 10, 0.1]]:
 				_spin_spec(page, spec)
 			page.add_child(_label("逐层覆盖（索引从0开始）", 16))
 			for spec: Array in [["floor_override_index", "层索引", 0, 7, 1], ["floor_override_height", "层高", 0.1, 20, 0.1], ["floor_override_window_width", "窗宽", 0.1, 10, 0.1], ["floor_override_window_height", "窗高", 0.1, 10, 0.1], ["floor_override_sill", "窗台", 0.01, 10, 0.1]]:
@@ -742,10 +785,11 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			controls["floor_override_index"].value_changed.connect(func(_value: float) -> void: _sync_floor_fields())
 			controls["facade_index"].item_selected.connect(func(_index: int) -> void: _sync_facade_fields())
 		"破旧":
-			page.add_child(_label("连续实体模式暂不支持结构破损，damage须为0；不靠随机删块伪造工整残楼。旧拼装配方保留原能力。", 12))
-			for spec: Array in [["aging", "表面老化", 0, 1, 0.01], ["damage", "结构破损", 0, 1, 0.01], ["bevel_segments", "倒角段数", 1, 8, 1], ["bevel_width", "倒角宽", 0.001, 0.5, 0.001]]:
+			page.add_child(_label("老化改变墙面色格并生成斑驳；门窗破损产生真实玻璃破口和门下缘缺口。不改变承重墙或楼板。", 12))
+			for spec: Array in [["aging", "表面老化", 0, 1, 0.01], ["damage", "门窗破损", 0, 1, 0.01], ["bevel_segments", "倒角段数", 1, 8, 1], ["bevel_width", "倒角宽", 0.001, 0.5, 0.001]]:
 				_spin_spec(page, spec)
-			page.add_child(_label("真实破口也会移除对应碰撞；可在右侧禁用单槽。"))
+			page.add_child(_button("应用破旧并生成", "damage_apply"))
+			page.add_child(_label("破损种子控制缺口差异；0为完整门窗。承重墙破洞与残楼尚未实现。"))
 		"植物":
 			for spec: Array in [["vegetation_density", "植物密度", 0, 1, 0.01], ["growth_small", "小型比例", 0, 1, 0.01], ["growth_medium", "中型比例", 0, 1, 0.01], ["growth_large", "大型比例", 0, 1, 0.01]]:
 				_spin_spec(page, spec)
@@ -915,7 +959,9 @@ func _spin_spec(parent: Control, spec: Array) -> void:
 	spin.max_value = float(spec[3])
 	spin.step = float(spec[4])
 	spin.add_theme_font_size_override("font_size", 14)
-	spin.value_changed.connect(func(_value: float) -> void: _on_field_changed())
+	spin.value_changed.connect(func(_value: float) -> void:
+		_sync_window_dimension(str(spec[0]))
+		_on_field_changed())
 	controls[str(spec[0])] = spin
 	row.add_child(spin)
 	parent.add_child(row)
@@ -923,15 +969,16 @@ func _spin_spec(parent: Control, spec: Array) -> void:
 func _button_pressed(id: String) -> void:
 	match id:
 		"new": _guard_action(_new_document, "新建将丢弃当前未保存修改，是否继续？")
+		"generate": generate_building()
 		"open":
-			_select_page(5)
+			_select_page(PAGES.find("文件"))
 			refresh_documents()
 			_set_status("在左侧文件页选中已保存建筑，再点击打开；不必全盘查找。")
 		"save": save_building()
 		"save_as": _show_save_as()
 		"undo": _undo(false)
 		"redo": _undo(true)
-		"apply", "apply_bindings": apply_parameters()
+		"apply", "apply_bindings", "damage_apply": apply_parameters()
 		"slot_apply": _apply_slot_override()
 		"slot_restore": _restore_slot()
 		"floor_apply": _apply_floor_override(false)
@@ -1018,6 +1065,10 @@ func _confirm_discard() -> void:
 		action.call()
 
 func _new_document() -> void:
+	var catalog_ready: Dictionary = _ensure_editor_catalog()
+	if not bool(catalog_ready.get("ok", false)):
+		_report_result(catalog_ready, "内置组件目录升级失败")
+		return
 	var result: Dictionary = session.new_document("building_" + str(int(Time.get_unix_time_from_system())), Recipe.authoring_defaults())
 	if bool(result.get("ok", false)):
 		_last_export.clear()
@@ -1081,6 +1132,9 @@ func _refresh_samples() -> void:
 	names.sort()
 	for filename: String in names:
 		if filename.ends_with(".recipe.json"):
+			var sample: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAMPLE_ROOT.path_join(filename)))
+			if not sample is Dictionary or str(sample.get("construction_mode", "modular_v1")) != "shell_v2":
+				continue
 			_sample_picker.add_item(filename.trim_suffix(".recipe.json"))
 			_sample_picker.set_item_metadata(_sample_picker.item_count - 1, SAMPLE_ROOT.path_join(filename))
 
@@ -1566,11 +1620,32 @@ func _apply_architecture_window() -> Dictionary:
 	var scope: String = _window_scope()
 	if scope == "single" and _window_override_id().is_empty():
 		return _report_failure("当前没有可应用的单窗；请选择实际窗口或已关闭窗口。")
-	var result: Dictionary = session.apply_patch({"architecture": _architecture_ui_patch()})
+	var pending_ui: Dictionary = _capture_ui_values()
+	var architecture: Dictionary = _architecture_snapshot()
+	var values: Dictionary = _architecture_window_control_values()
+	var patch: Dictionary = {"architecture": architecture}
+	if scope == "global":
+		architecture["window"] = values
+		for field: String in ["width", "height", "sill"]:
+			patch["window_" + field] = values[field]
+	elif scope == "floor":
+		architecture["floor_windows"][str(int(_spin_value("floor_override_index")))] = values
+	elif scope == "facade":
+		architecture["facade_windows"][_option_value("facade_index")] = values
+	else:
+		architecture["window_overrides"][_window_override_id()] = values
+	var result: Dictionary = session.apply_patch(patch)
 	if bool(result.get("ok", false)):
 		_refresh_from_session()
 		refresh_preview()
-		_set_status("%s窗构造已应用，可撤销。" % _window_scope_label(scope))
+		# 窗按钮不吞掉用户尚未提交的楼宽、门尺寸或形体等输入。
+		_ignore_fields = true
+		for key: String in pending_ui:
+			if key.begins_with("architecture_window_") or key in ["window_width", "window_height", "window_sill", "window_scope", "window_selection"]:
+				continue
+			_set_control_value(key, pending_ui[key])
+		_ignore_fields = false
+		_set_status("%s窗构造已应用并重建；其他基础参数输入保留。" % _window_scope_label(scope))
 	else:
 		_report_result(result, "架构窗构造被拒绝")
 	return result
@@ -1605,6 +1680,8 @@ func _opening_to_slot_id(opening_id: String) -> String:
 	return ""
 
 func _apply_window_override() -> Dictionary:
+	if _window_scope() == "global":
+		return _apply_architecture_window()
 	if _window_scope() != "single":
 		_set_option("window_scope", "single")
 		_sync_architecture_window_scope()
@@ -2017,6 +2094,17 @@ func _on_session_changed() -> void:
 
 func _on_text_changed(_text: String) -> void:
 	_on_field_changed()
+
+func _sync_window_dimension(key: String) -> void:
+	if _ignore_fields or not _initialized or _option_value("construction_mode") != "shell_v2" or _window_scope() != "global":
+		return
+	for field: String in ["width", "height", "sill"]:
+		var base: String = "window_" + field
+		var advanced: String = "architecture_window_" + field
+		if key == base and controls.has(advanced):
+			_set_spin(advanced, _spin_value(base))
+		elif key == advanced and controls.has(base):
+			_set_spin(base, _spin_value(advanced))
 
 func _on_field_changed() -> void:
 	if not _ignore_fields:

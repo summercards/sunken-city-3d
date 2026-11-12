@@ -422,6 +422,29 @@ static func _encode_palette_uv(source: PackedVector2Array, palette: String, agin
 		result.append(_palette_uv_with_mapping(uv, palette, mapping))
 	return result
 
+## 连续壳专用分级老化，旧modular与植物的映射保持原样；只选公共PNG已有色格。
+## 主线程可在semantics覆盖这些键，不需要新增/复制材质或改PNG。
+static func _shell_aging_mapping(mapping: Dictionary, aging: float) -> Dictionary:
+	var result: Dictionary = _mapping_for_aging(mapping, aging)
+	if aging <= 0.0: return result
+	var stage: String = "cozy_aged_light" if aging < 0.35 else ("cozy_aged_medium" if aging < 0.70 else "cozy_aged_heavy")
+	# 坐标来自公共v008：stone / mint_white / gray / darkwood，均是现有纯色格。
+	var defaults: Dictionary = {
+		"cozy_aged_light": mapping.get("slab_aged", {"row": 0, "column": 3}),
+		"cozy_aged_medium": {"row": 0, "column": 5},
+		"cozy_aged_heavy": {"row": 7, "column": 3},
+		"cozy_weathering": mapping.get("timber_aged", {"row": 1, "column": 6})}
+	result["cozy"] = mapping.get(stage, defaults[stage])
+	result["cozy_weathering"] = mapping.get("cozy_weathering", defaults.cozy_weathering)
+	return result
+
+static func _encode_shell_palette_uv(source: PackedVector2Array, palette: String, aging: float) -> PackedVector2Array:
+	var mapping: Dictionary = _shell_aging_mapping(_load_palette_mapping(), aging)
+	var result: PackedVector2Array = PackedVector2Array()
+	for uv in source:
+		result.append(_palette_uv_with_mapping(uv, palette, mapping))
+	return result
+
 static func _palette_uv_with_mapping(source_uv: Vector2, palette: String, mapping: Dictionary) -> Vector2:
 	var cell: Dictionary = mapping.get(palette, mapping.get("cozy", {"row": 0, "column": 0}))
 	var row := clampi(int(cell.get("row", 0)), 0, 7)
@@ -432,23 +455,21 @@ static func _palette_uv_with_mapping(source_uv: Vector2, palette: String, mappin
 	var pixel_y_top := float(row) * CELL_PX + SAFE_INSET_PX + local_y * CELL_AREA_PX
 	return Vector2(pixel_x / 512.0, pixel_y_top / 512.0)
 
-static func material(palette: String, aging: float, cache: Dictionary = {}) -> StandardMaterial3D:
-	var material_role := "SEA_Gloss" if palette == "glass" else "SEA_Matte"
+## 与正式场景引用完全相同的四个 .tres，不能按色格复制材质或修改共享参数。
+static var _shared_scene_materials: Dictionary = {}
+
+static func shared_materials() -> Dictionary:
+	if _shared_scene_materials.is_empty():
+		for pair: Array in [["SEA_Matte", "res://assets/materials/solar_cabin/sunny_matte.tres"], ["SEA_Metal", "res://assets/materials/solar_cabin/sunny_metal.tres"], ["SEA_Gloss", "res://assets/materials/solar_cabin/sunny_gloss.tres"], ["SEA_Emission", "res://assets/materials/solar_cabin/sunny_emission.tres"]]:
+			_shared_scene_materials[pair[0]] = load(str(pair[1])) as ShaderMaterial
+	# 浅拷贝字典，保留四个Resource的同一身份；不允许调用者擦除公共缓存。
+	return _shared_scene_materials.duplicate()
+
+static func material(palette: String, _aging: float, cache: Dictionary = {}, role: String = "") -> ShaderMaterial:
+	var material_role: String = role if not role.is_empty() else ("SEA_Gloss" if palette == "glass" else "SEA_Matte")
 	if cache.has(material_role):
-		return cache[material_role]
-	var result := StandardMaterial3D.new()
-	result.resource_name = material_role
-	result.roughness = 0.82
-	result.metallic = 0.0
-	result.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-	if material_role == "SEA_Gloss":
-		result.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		result.albedo_color = Color.WHITE
-		result.roughness = 0.2
-	else:
-		result.albedo_color = Color.WHITE
-	var texture := load(TEXTURE_PATH) as Texture2D
-	if texture != null:
-		result.albedo_texture = texture
+		return cache[material_role] as ShaderMaterial
+	var result: ShaderMaterial = shared_materials().get(material_role) as ShaderMaterial
+	assert(result != null, "未知共享材质角色: " + material_role)
 	cache[material_role] = result
 	return result

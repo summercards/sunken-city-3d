@@ -8,7 +8,16 @@ const COMPONENT_ROOT: String = "res://scenes/components/workshop_modules"
 const SAMPLE_PATH: String = "res://data/workshop/samples/workshop_sample_001.recipe.json"
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
+const Generator = preload("res://src/workshop/generator.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
+const MeshBuilder = preload("res://src/workshop/mesh_builder.gd")
+const SHARED_MATERIAL_PATHS: Dictionary = {
+	"SEA_Matte": "res://assets/materials/solar_cabin/sunny_matte.tres",
+	"SEA_Metal": "res://assets/materials/solar_cabin/sunny_metal.tres",
+	"SEA_Gloss": "res://assets/materials/solar_cabin/sunny_gloss.tres",
+	"SEA_Emission": "res://assets/materials/solar_cabin/sunny_emission.tres"
+}
+const SHARED_PALETTE_PATH: String = "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 
 var _shell_samples: Array[Dictionary] = []
 var _architecture_samples: Array[Dictionary] = []
@@ -29,6 +38,8 @@ var _edited_transform: Variant
 var _paused: bool = false
 var _scene_unchanged: bool = false
 var _isolation_ok: bool = false
+var _shared_materials: Dictionary = {}
+var _shared_material_state: Dictionary = {}
 
 # 仅由真实编辑器中的 plugin.gd 在主线程 await；不是 --script 入口。
 static func run(plugin: EditorPlugin) -> void:
@@ -69,9 +80,9 @@ func _execute(plugin: EditorPlugin) -> void:
 	# 只覆盖导出根；保留插件注入的 open_scene / rescan / replace_component 等真实端口。
 	_screen.call("configure", {"store": _store, "export_root": OUTPUT_ROOT})
 	_plugin.call("_make_visible", true)
-	EditorInterface.set_main_screen_editor("楼房工坊")
+	EditorInterface.set_main_screen_editor("老王场景工坊")
 	await _tree.process_frame
-	_check("主屏名称", str(_plugin.call("_get_plugin_name")) == "楼房工坊")
+	_check("主屏名称", str(_plugin.call("_get_plugin_name")) == "老王场景工坊")
 	_check("主屏声明", bool(_plugin.call("_has_main_screen")))
 	_check("真实编辑器主屏可见", _screen.is_visible_in_tree() and EditorInterface.get_base_control().is_ancestor_of(_screen))
 	_check("隔离导出根已注入", str(_property(_screen, "export_root")) == OUTPUT_ROOT)
@@ -87,6 +98,10 @@ func _execute(plugin: EditorPlugin) -> void:
 	if not _require_methods(session, ["snapshot", "accept_loaded", "apply_patch", "is_dirty"], "screen.session"):
 		_finish()
 		return
+	_test_shared_scene_materials()
+	await _test_editor_repair()
+	# 专项恢复可能重建 session；历史样例仍由原 parser 继续验收。
+	session = _property(_screen, "session") as Object
 	var sample: Dictionary = _read_json(SAMPLE_PATH)
 	var catalog: Dictionary = _dictionary(_property(session, "catalog"))
 	var accepted: Dictionary = _result(session, "accept_loaded", [sample, catalog])
@@ -119,6 +134,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	await _test_architecture_controls()
 	await _test_form_controls()
 	await _test_frame_controls()
+	await _test_window_weathering()
 	_test_preview()
 	print("[workshop-editor-stage] component replacement")
 	_test_components(session)
@@ -127,6 +143,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	_screen.call("configure", {})
 	var first: Dictionary = _result(_screen, "save_building")
 	var second: Dictionary = {}
+	var legacy_document: Dictionary = {}
 	if _check_result("第一次真实保存", first):
 		print("[workshop-editor-stage] verify first bundle")
 		_verify_bundle(first, "revision1")
@@ -151,15 +168,30 @@ func _execute(plugin: EditorPlugin) -> void:
 			print("[workshop-editor-stage] reopen saved recipe")
 			var opened: Dictionary = _result(_screen, "open_recipe", [str(second.get("recipe_path", ""))])
 			print("[workshop-editor-stage] reopened recipe")
-			_check_result("主屏重新打开已保存配方", opened)
+			_check("主屏拒绝旧版配方但保留历史文件", not bool(opened.get("ok", false)) and str(opened.get("reason", "")).contains("旧版") and FileAccess.file_exists(str(second.get("recipe_path", ""))), str(opened))
 			_check("打开配方后仍为原 session", _property(_screen, "session") == session)
 			print("[workshop-editor-stage] test dirty recovery")
-			await _test_recovery(str(first.get("recipe_path", "")), session)
+			# 历史parser、替件与两个revision仍验原legacy文档；恢复入口仅允许shell。
+			legacy_document = {"recipe": _snapshot().duplicate(true), "catalog": _dictionary(_property(session, "catalog")).duplicate(true)}
+			var recovery_recipe: Dictionary = Recipe.authoring_defaults()
+			recovery_recipe["building_id"] = building_id + "_recovery"
+			_build_ids.append(str(recovery_recipe["building_id"]))
+			if _check_result("dirty与生命周期测试载入独立shell文档", _result(session, "accept_loaded", [recovery_recipe, legacy_document["catalog"]])):
+				_screen.call("configure", {})
+				var recovery_saved: Dictionary = _result(_screen, "save_building")
+				if _check_result("dirty恢复基线真实保存shell文档", recovery_saved):
+					_verify_bundle(recovery_saved, "shell_recovery_baseline")
+					await _test_recovery(str(first.get("recipe_path", "")), session)
 			print("[workshop-editor-stage] dirty recovery finished")
 	else:
 		_check("第二版本及保存后 dirty 验证", false, "首次保存失败，不能用模拟 Store 代替")
 	print("[workshop-editor-stage] lifecycle and screenshots")
 	await _test_lifecycle()
+	if not legacy_document.is_empty():
+		var restored_session: Object = _property(_screen, "session") as Object
+		_check_result("shell生命周期后原子恢复历史文档与替件catalog", _result(restored_session, "accept_loaded", [legacy_document["recipe"], legacy_document["catalog"]]))
+		_screen.call("configure", {})
+		_check("生命周期后历史recipe和替件catalog不丢失", _same(legacy_document["recipe"], _snapshot()) and _same(legacy_document["catalog"], _dictionary(_property(restored_session, "catalog"))))
 	await _capture(Vector2i(1280, 800))
 	await _capture(Vector2i(1600, 1000))
 	# 门窗页通过真实 OptionButton 信号切换，额外核对局部覆盖控件布局。
@@ -183,6 +215,287 @@ func _execute(plugin: EditorPlugin) -> void:
 	await _test_shell_samples()
 	await _test_architecture_samples()
 	_finish()
+
+func _test_shared_scene_materials() -> void:
+	if not _require_methods(MeshBuilder, ["shared_materials", "material"], "MeshBuilder"):
+		return
+	_shared_materials = _dictionary(MeshBuilder.shared_materials())
+	for role: String in SHARED_MATERIAL_PATHS:
+		var source: ShaderMaterial = load(str(SHARED_MATERIAL_PATHS[role])) as ShaderMaterial
+		if _check(role + " 正式资源可读取", source != null):
+			_shared_material_state[role] = _shared_material_snapshot(source)
+	_shared_materials = _dictionary(MeshBuilder.shared_materials())
+	_check("共享材质字典恰好四个SEA角色", _shared_materials.size() == SHARED_MATERIAL_PATHS.size())
+	var texture: Texture2D = load(SHARED_PALETTE_PATH) as Texture2D
+	_check("正式场景共享色盘为512x512", texture != null and texture.get_width() == 512 and texture.get_height() == 512)
+	var identities: Dictionary = {}
+	for role: String in SHARED_MATERIAL_PATHS:
+		var material: ShaderMaterial = _shared_materials.get(role) as ShaderMaterial
+		if not _check(role + " 为共享ShaderMaterial", material != null):
+			continue
+		identities[material.get_instance_id()] = true
+		_check(role + " identity/path/name与正式场景一致", material == load(str(SHARED_MATERIAL_PATHS[role])) and material.resource_path == str(SHARED_MATERIAL_PATHS[role]) and material.resource_name == role and not material.resource_local_to_scene)
+		_check(role + " 共用同一512色盘实例", texture != null and material.get_shader_parameter("palette") == texture)
+	var cache: Dictionary = {}
+	for role: String in SHARED_MATERIAL_PATHS:
+		for color: String in ["cozy", "glass", "timber"]:
+			for aging: float in [0.0, 0.8]:
+				_check(role + " 显式角色不随颜色或老化复制", MeshBuilder.material(color, aging, cache, role) == _shared_materials.get(role))
+	_check("四共享材质为四个不同实例", identities.size() == 4)
+	_check("glass默认Gloss，其余默认Matte", MeshBuilder.material("glass", 0.0, {}) == _shared_materials.get("SEA_Gloss") and MeshBuilder.material("cozy", 0.8, {}) == _shared_materials.get("SEA_Matte"))
+	_check_shared_materials_unchanged("首次材质调用后")
+
+func _shared_material_snapshot(material: ShaderMaterial) -> Dictionary:
+	var parameters: Dictionary = {}
+	if material.shader != null:
+		for uniform: Dictionary in material.shader.get_shader_uniform_list():
+			var key: String = str(uniform.name)
+			var value: Variant = material.get_shader_parameter(key)
+			if value == null:
+				value = {"roughness_value": 0.62, "metallic_value": 0.0, "emission_value": 0.0, "grid_role": false, "home_window": false, "home_window_recessed": false, "home_window_column": 3, "alpha_value": 0.81, "tint": Color.WHITE, "interior_glass": false}.get(key)
+			# GPU默认float为32位，归一表示误差；仍比较全部有效参数。
+			parameters[key] = snappedf(float(value), 0.000001) if value is float or value is int else value
+	return {"id": material.get_instance_id(), "path": material.resource_path, "name": material.resource_name, "local": material.resource_local_to_scene, "priority": material.render_priority, "next_pass": material.next_pass, "shader": material.shader, "shader_code": material.shader.code if material.shader != null else "", "parameters": parameters.duplicate(true), "file_hash": FileAccess.get_sha256(material.resource_path), "shader_hash": FileAccess.get_sha256(material.shader.resource_path) if material.shader != null else "", "texture_hash": FileAccess.get_sha256(SHARED_PALETTE_PATH)}
+
+func _check_shared_materials_unchanged(label: String) -> void:
+	if _shared_material_state.is_empty():
+		return
+	var current: Dictionary = _dictionary(MeshBuilder.shared_materials())
+	_check(label + " 共享材质仍恰好四项", current.size() == 4)
+	for role: String in _shared_material_state:
+		var material: ShaderMaterial = current.get(role) as ShaderMaterial
+		var state: Dictionary = _shared_material_snapshot(material) if material != null else {}
+		var differences: Array[String] = []
+		for key: String in state:
+			if state[key] != _shared_material_state[role].get(key): differences.append(key + ": " + str(_shared_material_state[role].get(key)) + " -> " + str(state[key]))
+		_check(label + " " + role + " identity/参数/文件hash不变", material != null and material == _shared_materials.get(role) and differences.is_empty(), str(differences))
+
+func _shared_material_usage(root: Node) -> Dictionary:
+	var used: Dictionary = {}
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node is MeshInstance3D:
+			var mesh_node: MeshInstance3D = node as MeshInstance3D
+			if mesh_node.mesh != null:
+				var attached: Array[Material] = [mesh_node.material_override, mesh_node.material_overlay]
+				for surface: int in mesh_node.mesh.get_surface_count():
+					attached.append(mesh_node.mesh.surface_get_material(surface))
+					attached.append(mesh_node.get_surface_override_material(surface))
+				for material: Material in attached:
+					if material == null:
+						continue
+					var role: String = material.resource_name
+					_check(str(root.get_path_to(node)) + " 底层及覆盖材质均共享identity", material is ShaderMaterial and SHARED_MATERIAL_PATHS.has(role) and material == load(str(SHARED_MATERIAL_PATHS.get(role, ""))))
+					used[role] = true
+				for surface: int in mesh_node.mesh.get_surface_count():
+					var material: Material = mesh_node.get_active_material(surface)
+					var role: String = material.resource_name if material != null else "<null>"
+					_check(str(root.get_path_to(node)) + " 仅引用正式共享四材质", material is ShaderMaterial and SHARED_MATERIAL_PATHS.has(role) and material == load(str(SHARED_MATERIAL_PATHS.get(role, ""))) and material.resource_path == str(SHARED_MATERIAL_PATHS.get(role, "")))
+					used[role] = true
+		for child: Node in node.get_children():
+			stack.append(child)
+	return used
+
+func _test_editor_repair() -> void:
+	print("[workshop-editor-stage] editor repair")
+	_check_editor_repair_ui("修复专项")
+	if not _require_methods(_screen, ["generate_building", "_new_document"], "repair.screen"):
+		return
+	var original_session: Object = _property(_screen, "session") as Object
+	var original_recipe: Dictionary = _snapshot().duplicate(true)
+	var original_catalog: Dictionary = _dictionary(_property(original_session, "catalog")).duplicate(true)
+	var original_recovery: Dictionary = _result(_screen, "get_recovery").duplicate(true)
+	var source_catalog: Dictionary = Catalog.definitions().duplicate(true)
+	var old_catalog: Dictionary = source_catalog.duplicate(true)
+	var components: Dictionary = _dictionary(old_catalog.get("components", {}))
+	components.erase("band_cozy")
+	components.erase("pillar_cozy")
+	var legacy: Dictionary = Recipe.defaults()
+	legacy["vegetation_density"] = 0.0
+	var wall_id: String = str(_dictionary(legacy.get("component_bindings", {})).get("wall", ""))
+	var wall: Dictionary = _dictionary(components.get(wall_id, {})).duplicate(true)
+	wall["version"] = str(wall.get("version", "")) + "_editor_repair_preserved"
+	components[wall_id] = wall
+	old_catalog["components"] = components
+	_check("旧catalog夹具确实缺少腰线与柱", not components.has("band_cozy") and not components.has("pillar_cozy") and Catalog.validate(old_catalog).is_empty())
+	var accepted: Dictionary = _result(original_session, "accept_loaded", [legacy, old_catalog])
+	if _check_result("修复专项通过历史parser载入旧catalog及legacy基线", accepted):
+		var legacy_snapshot: Dictionary = _snapshot().duplicate(true)
+		_screen.call("configure", {})
+		var repaired: Dictionary = _dictionary(_property(original_session, "catalog")).duplicate(true)
+		var expected_catalog: Dictionary = old_catalog.duplicate(true)
+		var expected_components: Dictionary = _dictionary(expected_catalog.get("components", {}))
+		for component_id: String in ["band_cozy", "pillar_cozy"]:
+			expected_components[component_id] = _dictionary(source_catalog.get("components", {})).get(component_id)
+		expected_catalog["components"] = expected_components
+		_check("configure只补齐缺件且完整保留旧catalog定义与替件", _same(repaired, expected_catalog), str(_dictionary(repaired.get("components", {})).keys()))
+		_check("configure补齐不丢legacy文档与session", _property(_screen, "session") == original_session and _same(legacy_snapshot, _snapshot()))
+		_check("configure保留自定义wall定义", _same(_dictionary(repaired.get("components", {})).get(wall_id), wall))
+		_check("补齐未污染全局Catalog与旧catalog入参", _same(source_catalog, Catalog.definitions()) and not _dictionary(old_catalog.get("components", {})).has("band_cozy") and not _dictionary(old_catalog.get("components", {})).has("pillar_cozy"))
+		_screen.call("_new_document")
+		await _tree.process_frame
+		var fresh: Dictionary = _snapshot().duplicate(true)
+		_check("旧catalog之后新建确实切换shell文档", str(fresh.get("construction_mode", "")) == "shell_v2" and str(fresh.get("building_id", "")) != str(legacy_snapshot.get("building_id", "")), _status_text())
+		_check("新建保留补齐catalog与自定义wall", _same(repaired, _dictionary(_property(_property(_screen, "session") as Object, "catalog"))))
+		var before_geometry: Dictionary = _check_editor_repair_geometry("旧catalog新建shell", true)
+		var preview: Control = _property(_screen, "preview") as Control
+		var before_root: Node3D = _preview_root(preview)
+		var before_root_id: int = before_root.get_instance_id() if before_root != null else 0
+		var next_width: float = float(fresh.get("width", 12.0)) + 1.0
+		var next_seed: int = int(_dictionary(_dictionary(fresh.get("architecture", {})).get("form", {})).get("seed", 11010)) + 1
+		_set_spin("width", next_width)
+		_set_spin("pilaster_width", 0.40)
+		_set_spin("band_thickness", 0.38)
+		_set_spin("form_seed", float(next_seed))
+		_check("生成前全局构架形体输入未偷偷提交", _same(fresh, _snapshot()) and bool(_screen.call("has_pending_fields")))
+		# pressed送达不是成功：必须同时查配方、实际新预览根、网格hash和包围盒。
+		_emit_button("generate")
+		await _tree.process_frame
+		var generated: Dictionary = _snapshot().duplicate(true)
+		var architecture: Dictionary = _dictionary(generated.get("architecture", {}))
+		_check("固定主按钮真实提交宽度", is_equal_approx(float(generated.get("width", 0.0)), next_width), _status_text())
+		_check("生成接受未应用全局构架与形体", is_equal_approx(float(_dictionary(architecture.get("pilaster", {})).get("width", 0.0)), 0.40) and is_equal_approx(float(_dictionary(architecture.get("band", {})).get("thickness", 0.0)), 0.38) and int(_dictionary(architecture.get("form", {})).get("seed", -1)) == next_seed, _status_text())
+		var after_geometry: Dictionary = _check_editor_repair_geometry("固定主按钮生成", true)
+		var after_root: Node3D = _preview_root(preview)
+		_check("固定主按钮确实替换实际预览根", after_root != null and after_root.get_instance_id() != before_root_id)
+		_check("固定主按钮确实改变网格及实际宽度", str(before_geometry.get("mesh_geometry_hash", "")) != str(after_geometry.get("mesh_geometry_hash", "")) and float((after_geometry.get("bounds_size", [0.0]) as Array)[0]) > float((before_geometry.get("bounds_size", [0.0]) as Array)[0]))
+		var shell_recovery: Dictionary = _result(_screen, "get_recovery").duplicate(true)
+		# 直接API也必须接收全局构架/形体，不只验按钮路由。
+		_set_check("pilaster_enabled", false)
+		_set_check("band_enabled", false)
+		_set_check("form_enabled", false)
+		_check_result("generate_building真实API接受全局未应用值", _result(_screen, "generate_building"))
+		var disabled_architecture: Dictionary = _dictionary(_snapshot().get("architecture", {}))
+		var disabled_visual: Node3D = _preview_visual(preview)
+		_check("generate_building关闭构架形体进入snapshot及geometry", not bool(_dictionary(disabled_architecture.get("pilaster", {})).get("enabled", true)) and not bool(_dictionary(disabled_architecture.get("band", {})).get("enabled", true)) and not bool(_dictionary(disabled_architecture.get("form", {})).get("enabled", true)) and _count_prefix(disabled_visual, "pilaster_") == 0 and _count_prefix(disabled_visual, "band_") == 0)
+		_check_editor_repair_geometry("生成API关闭构架形体", false)
+		# 独立验证局部窗、槽、楼层；每次都保留全局宽度输入，拒绝时不许提交任何一部分。
+		for local_key: String in ["architecture_window_width", "offset_x", "floor_override_window_width"]:
+			_screen.call("configure", {})
+			if local_key == "architecture_window_width":
+				_set_option("window_scope", "floor")
+			elif local_key == "offset_x":
+				var slot_ids: Array = _dictionary(_property(_screen, "_slot_cache")).keys()
+				_check("局部槽拒绝测试存在真实槽", not slot_ids.is_empty())
+				if not slot_ids.is_empty():
+					_screen.call("select_slot", str(slot_ids[0]))
+			var before_local: Dictionary = _snapshot().duplicate(true)
+			var before_local_catalog: Dictionary = _dictionary(_property(_property(_screen, "session") as Object, "catalog")).duplicate(true)
+			var local_root: Node3D = _preview_root(preview)
+			var local_geometry: Dictionary = _geometry(local_root) if local_root != null else {}
+			_set_spin("width", float(before_local.get("width", 12.0)) + 0.5)
+			var local_value: float = _spin(local_key) + 0.1
+			_set_spin(local_key, local_value)
+			var rejected: Dictionary = _result(_screen, "generate_building")
+			_check("生成拒绝未应用局部输入：" + local_key, not bool(rejected.get("ok", false)) and not str(rejected.get("reason", "")).is_empty(), str(rejected))
+			_emit_button("generate")
+			var unchanged_root: Node3D = _preview_root(preview)
+			_check("局部拒绝不改recipe/catalog/geometry：" + local_key, _same(before_local, _snapshot()) and _same(before_local_catalog, _dictionary(_property(_property(_screen, "session") as Object, "catalog"))) and unchanged_root != null and _same(local_geometry, _geometry(unchanged_root)))
+			_check("局部拒绝保留全局及局部未提交输入：" + local_key, is_equal_approx(_spin("width"), float(before_local.get("width", 12.0)) + 0.5) and is_equal_approx(_spin(local_key), local_value))
+		_screen.call("configure", {})
+		_set_spin("width", float(_snapshot().get("width", 12.0)) + 0.2)
+		_set_spin("floor_override_window_width", _spin("floor_override_window_width") + 0.1)
+		var live_before_legacy: Dictionary = _result(_screen, "get_recovery").duplicate(true)
+		var live_root: Node3D = _preview_root(preview)
+		var live_geometry: Dictionary = _geometry(live_root) if live_root != null else {}
+		var live_session: Object = _property(_screen, "session") as Object
+		var legacy_recovery: Dictionary = shell_recovery.duplicate(true)
+		legacy_recovery["recipe"] = legacy_snapshot
+		legacy_recovery["catalog"] = old_catalog.duplicate(true)
+		var refused: Dictionary = _result(_screen, "restore_recovery", [legacy_recovery])
+		_check("旧legacy recovery明确拒绝并提示新建", not bool(refused.get("ok", false)) and str(refused.get("reason", "")).contains("新建") and _status_text().contains("新建"), str(refused))
+		var preserved_root: Node3D = _preview_root(preview)
+		_check("拒绝旧recovery不覆盖当前现场", _property(_screen, "session") == live_session and _same(live_before_legacy, _result(_screen, "get_recovery")) and preserved_root != null and _same(live_geometry, _geometry(preserved_root)))
+		var incomplete_recovery: Dictionary = shell_recovery.duplicate(true)
+		var incomplete_catalog: Dictionary = _dictionary(incomplete_recovery.get("catalog", {}))
+		_dictionary(incomplete_catalog.get("components", {})).erase("band_cozy")
+		_dictionary(incomplete_catalog.get("components", {})).erase("pillar_cozy")
+		incomplete_recovery["catalog"] = incomplete_catalog
+		_check("shell恢复夹具确实带shell配方且缺少新增components", str(_dictionary(incomplete_recovery.get("recipe", {})).get("construction_mode", "")) == "shell_v2" and not _dictionary(incomplete_catalog.get("components", {})).has("band_cozy") and not _dictionary(incomplete_catalog.get("components", {})).has("pillar_cozy"))
+		var restored: Dictionary = _result(_screen, "restore_recovery", [incomplete_recovery])
+		_check_result("缺少新增components的shell recovery必须成功", restored)
+		_check("shell恢复原子保留recipe及完整catalog", _same(_dictionary(shell_recovery.get("recipe", {})), _snapshot()) and _same(_dictionary(shell_recovery.get("catalog", {})), _dictionary(_property(_property(_screen, "session") as Object, "catalog"))))
+		var restored_geometry: Dictionary = _check_editor_repair_geometry("补齐catalog的shell recovery", true)
+		_check("shell recovery恢复的是原真实geometry", _same(after_geometry, restored_geometry))
+		_check("shell recovery补齐不修改入参", not _dictionary(incomplete_catalog.get("components", {})).has("band_cozy") and not _dictionary(incomplete_catalog.get("components", {})).has("pillar_cozy"))
+		_screen.call("_select_page", 0)
+		await _tree.process_frame
+		await _capture(Vector2i(1600, 1000), "_laowang_framework")
+	# recipe和catalog必须在同一次accept_loaded恢复，不能先换catalog导致当前shell临时失效。
+	_check_result("修复专项原子恢复原recipe与catalog", _result(original_session, "accept_loaded", [original_recipe, original_catalog]))
+	_screen.call("configure", {"session": original_session})
+	_check_result("修复专项恢复原文档现场", _result(_screen, "restore_recovery", [original_recovery]))
+	_check("修复专项不丢原文档与catalog", _same(original_recipe, _snapshot()) and _same(original_catalog, _dictionary(_property(_property(_screen, "session") as Object, "catalog"))))
+	_check("修复专项恢复原UI未提交字段与现场", _same(original_recovery, _result(_screen, "get_recovery")))
+
+func _check_editor_repair_geometry(label: String, require_frame: bool) -> Dictionary:
+	var preview: Control = _property(_screen, "preview") as Control
+	var root: Node3D = _preview_root(preview)
+	if not _check(label + " 存在实际shell预览", root != null and str(root.get_meta("construction_mode", "")) == "shell_v2"):
+		return {}
+	var actual: Dictionary = _geometry(root)
+	_check(label + " 实际网格碰撞非空且配方指纹匹配", int(actual.get("visual_meshes", 0)) > 0 and int(actual.get("collision_shapes", 0)) > 0 and str(root.get_meta("recipe_fingerprint", "")) == Recipe.fingerprint(_snapshot()))
+	var session: Object = _property(_screen, "session") as Object
+	var expected: Dictionary = Generator.build(_snapshot(), _dictionary(_property(session, "catalog")))
+	var expected_root: Node = expected.get("root") as Node
+	_check(label + " 实际geometry匹配当前snapshot重新生成", bool(expected.get("ok", false)) and expected_root != null and _same(actual, _geometry(expected_root)), str(expected.get("reason", "")))
+	if expected_root != null:
+		expected_root.free()
+	if require_frame:
+		var visual: Node3D = _preview_visual(preview)
+		var counts: Dictionary = {"band_": 0, "pilaster_": 0}
+		if visual != null:
+			for node: Node in visual.get_children():
+				var mesh: MeshInstance3D = node as MeshInstance3D
+				if mesh == null or mesh.mesh == null or mesh.mesh.get_faces().is_empty():
+					continue
+				for prefix: String in counts:
+					if str(mesh.name).begins_with(prefix):
+						counts[prefix] += 1
+		_check(label + " 腰线与柱均有真实三角网格", int(counts["band_"]) > 0 and int(counts["pilaster_"]) > 0, str(counts))
+	return actual
+
+func _check_editor_repair_ui(label: String) -> void:
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var mode: OptionButton = controls.get("construction_mode") as OptionButton
+	# 兼容内部保留双项供历史parser回归；不依赖下拉项数或legacy项是否仍存在。
+	_check(label + " construction_mode保留但自身hidden", mode != null and not mode.visible)
+	var old_ui: Array[String] = []
+	var stack: Array[Node] = [_screen]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node is Control and (node as Control).is_visible_in_tree():
+			# 状态栏应允许解释为何拒绝历史草稿，不是旧方案选择入口。
+			var text: String = "" if node == _property(_screen, "status_label") else ((node as Label).text if node is Label else ((node as Button).text if node is Button else ""))
+			if text.contains("旧版拼装") or text.contains("建模内核") or text.contains("modular_v1"):
+				old_ui.append(text)
+			if node is OptionButton:
+				var option: OptionButton = node as OptionButton
+				for index: int in option.item_count:
+					if str(option.get_item_metadata(index)) == "modular_v1" or option.get_item_text(index).contains("旧版拼装"):
+						old_ui.append(option.get_item_text(index))
+		for child: Node in node.get_children():
+			if not child is Window:
+				stack.append(child)
+	_check(label + " 没有旧版可见方案UI", old_ui.is_empty(), str(old_ui))
+	var buttons: Dictionary = _dictionary(_property(_screen, "buttons"))
+	var generate: Button = buttons.get("generate") as Button
+	if _check(label + " 固定生成主按钮存在", generate != null):
+		_check(label + " 固定生成主按钮文案", generate.text == "应用参数并生成楼房", generate.text)
+		_check(label + " 固定生成主按钮可见且高度至少40", generate.is_visible_in_tree() and generate.size.y >= 40.0, str(generate.size))
+		_check(label + " 固定生成主按钮完整落在可见区域", _visible_rect(generate).is_equal_approx(generate.get_global_rect()) and generate.size.x > 0.0, str(_visible_rect(generate)))
+		var parent: Node = generate.get_parent()
+		var scroll_ancestors: Array[String] = []
+		while parent != null:
+			if parent is ScrollContainer:
+				scroll_ancestors.append(str(parent.get_path()))
+			parent = parent.get_parent()
+		_check(label + " 生成按钮不在任何ScrollContainer下", scroll_ancestors.is_empty(), str(scroll_ancestors))
+	var left: Control = _property(_screen, "_left_panel") as Control
+	for key: String in ["generate", "apply"]:
+		var button: Button = buttons.get(key) as Button
+		_check(label + " 按钮位于独立顶部工具栏：" + key, button != null and left != null and button.is_visible_in_tree() and button.get_global_rect().end.y <= left.get_global_rect().position.y + 1.0)
 
 func _test_shell_samples() -> void:
 	print("[workshop-editor-stage] continuous shell samples")
@@ -302,6 +615,7 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 	var posts_by_floor: Dictionary = {}
 	var bands_by_floor: Dictionary = {}
 	var topology: Dictionary = {}
+	var weathering_inventory: Dictionary = _weathering_inventory(root)
 	for node: Node in visual.get_children():
 		var id: String = str(node.name)
 		if id.begins_with("wall_shell_"):
@@ -310,6 +624,10 @@ func _verify_shell_geometry(root: Node3D, recipe: Dictionary, label: String) -> 
 			slabs += 1
 		elif id == "roof_main":
 			roofs += 1
+		elif id.begins_with("wall_weathering_"):
+			_check(label + " 斑驳仅在非零aging出现：" + id, float(recipe.get("aging", 0.0)) > 0.0)
+			# 仍走下方逐件闭合定向审计；碰撞单独审核，不能只放行名称。
+			_check(label + " 斑驳无碰撞：" + id, not weathering_inventory.collisions.has(id))
 		elif id.begins_with("frame_"):
 			frames += 1
 		elif id.begins_with("glass_"):
@@ -484,7 +802,7 @@ func _verify_isolation() -> bool:
 	_check("隔离项目没有 Main 入口", no_main)
 	var enabled: PackedStringArray = PackedStringArray(ProjectSettings.get_setting("editor_plugins/enabled", PackedStringArray()))
 	var only_plugin: bool = enabled.size() == 1 and enabled[0] == "res://addons/building_workshop/plugin.cfg"
-	_check("只启用楼房工坊插件", only_plugin, str(enabled))
+	_check("只启用老王场景工坊插件", only_plugin, str(enabled))
 	var copy_path: String = ProjectSettings.globalize_path("res://").replace("\\", "/").trim_suffix("/").to_lower()
 	var isolated_copy: bool = copy_path != "d:/projects/sea/godot"
 	_check("fixture 只能写隔离副本", isolated_copy, copy_path)
@@ -614,6 +932,279 @@ func _test_frame_controls() -> void:
 	_check_result("构架测试后恢复原配方", _result(session, "accept_loaded", [original, _dictionary(_property(session, "catalog"))]))
 	_screen.call("configure", {})
 	_check_result("构架测试后恢复预览", _result(_screen, "refresh_preview"))
+
+## 门窗/破旧必须走真实控件和按钮信号，不以patch替代待验操作。
+func _test_window_weathering() -> void:
+	print("[workshop-editor-stage] window weathering")
+	_check("门窗风化仅在主线程", OS.get_thread_caller_id() == OS.get_main_thread_id())
+	var session: Object = _property(_screen, "session") as Object
+	var original: Dictionary = _snapshot().duplicate(true)
+	var original_catalog: Dictionary = _dictionary(_property(session, "catalog")).duplicate(true)
+	var picker: OptionButton = _property(_screen, "_page_picker") as OptionButton
+	var original_page: int = picker.selected if picker != null else 0
+	var baseline: Dictionary = _orthographic_recipe()
+	baseline.merge({"building_id": "weathering_editor_%s" % str(Time.get_ticks_usec()), "width": 15.0, "depth": 10.0, "floors": 2, "aging": 0.0, "damage": 0.0, "vegetation_density": 0.0, "damage_seed": 11011}, true)
+	baseline.architecture.window.merge({"type": "fixed", "enabled": true, "open_angle": 0.0}, true)
+	_build_ids.append(str(baseline.building_id))
+	if not _check_result("门窗风化独立shell基线", _result(session, "accept_loaded", [baseline, original_catalog])):
+		return
+	_screen.call("configure", {})
+	_check_result("门窗风化基线预览", _result(_screen, "refresh_preview"))
+	if picker != null:
+		picker.select(1)
+		picker.item_selected.emit(1)
+	_set_option("window_scope", "global")
+	var preview: Control = _property(_screen, "preview") as Control
+	preview.call("set_view", "perspective")
+	var camera: Camera3D = _property(preview, "camera") as Camera3D
+	_check("门窗截图有真实相机", camera != null)
+	var view: Dictionary = {"transform": camera.transform, "projection": camera.projection, "size": camera.size, "fov": camera.fov} if camera != null else {}
+	var clean_recipe: Dictionary = _snapshot().duplicate(true)
+	var clean: Dictionary = _weathering_inventory(_preview_root(preview))
+	_verify_shell_geometry(_preview_root(preview), _snapshot(), "门窗clean")
+	await _capture(Vector2i(1600, 1000), "_clean", view)
+
+	for spec: Array in [["width", 0.9], ["height", 1.3], ["sill", 1.1]]:
+		_set_spin("window_" + str(spec[0]), float(spec[1]))
+		_check("global基本窗值即时同步架构：" + str(spec[0]), is_equal_approx(_spin("architecture_window_" + str(spec[0])), float(spec[1])))
+	_emit_button("generate")
+	_check_window_dimensions("generate基本窗提交", Vector3(0.9, 1.3, 1.1))
+	_check("仅编辑window后generate不误改其他配方", _same(_window_unrelated_parameters(clean_recipe), _window_unrelated_parameters(_snapshot())))
+	var edited: Dictionary = _weathering_inventory(_preview_root(preview))
+	_check_window_bounds("generate真实玻璃", edited, Vector3(0.9, 1.3, 1.1))
+	_check("generate确实改变实际glass bounds及hash", _weathering_hash(clean, "glass_") != _weathering_hash(edited, "glass_") and clean.bounds.get("glass_front_0_0") != edited.bounds.get("glass_front_0_0"))
+	_check("generate不重置基本建筑尺寸", is_equal_approx(float(_snapshot().width), 15.0) and is_equal_approx(float(_snapshot().depth), 10.0) and int(_snapshot().floors) == 2)
+	await _capture(Vector2i(1600, 1000), "_windows_edited", view)
+
+	for button: String in ["architecture_apply", "window_apply"]:
+		var before_window_apply: Dictionary = _window_unrelated_parameters(_snapshot())
+		_set_spin("width", 15.5)
+		var target: Vector3 = Vector3(1.1, 1.5, 1.0) if button == "architecture_apply" else Vector3(1.0, 1.4, 1.1)
+		for spec: Array in [["width", target.x], ["height", target.y], ["sill", target.z]]:
+			_set_spin("architecture_window_" + str(spec[0]), float(spec[1]))
+			_check("global架构反向同步基本：" + str(spec[0]), is_equal_approx(_spin("window_" + str(spec[0])), float(spec[1])))
+		_emit_button(button)
+		_check_window_dimensions(button + " 两处快照一致", target)
+		_check(button + " 只提交window参数，其他配方不变", _same(before_window_apply, _window_unrelated_parameters(_snapshot())))
+		_check(button + " 保持global且不吞未提交基本宽度", _option_value("window_scope") == "global" and is_equal_approx(float(_snapshot().width), 15.0) and is_equal_approx(_spin("width"), 15.5))
+		_check_window_bounds(button + " 实际玻璃", _weathering_inventory(_preview_root(preview)), target)
+		_set_spin("width", 15.0)
+
+	# local三种范围均不得串到基本全局值；测试完逐次恢复，避免局部覆盖污染后续对照。
+	var global_recipe: Dictionary = _snapshot().duplicate(true)
+	for scope: String in ["floor", "facade", "single"]:
+		_set_option("window_scope", scope)
+		for spec: Array in [["width", 0.8], ["height", 1.2], ["sill", 1.2]]:
+			_set_spin("architecture_window_" + str(spec[0]), float(spec[1]))
+			_check(scope + " 局部窗输入不串基本全局：" + str(spec[0]), is_equal_approx(_spin("window_" + str(spec[0])), float(global_recipe["window_" + str(spec[0])])))
+		_set_spin("window_width", 1.2)
+		_check(scope + " 基本输入不反串局部", is_equal_approx(_spin("architecture_window_width"), 0.8))
+		_set_spin("window_width", float(global_recipe.window_width))
+		_emit_button("architecture_apply")
+		var local_recipe: Dictionary = _snapshot()
+		_check(scope + " 局部应用成功且全局快照不变", not _same(local_recipe, global_recipe) and _same(local_recipe.architecture.window, global_recipe.architecture.window) and is_equal_approx(float(local_recipe.window_width), float(global_recipe.window_width)) and is_equal_approx(float(local_recipe.window_height), float(global_recipe.window_height)) and is_equal_approx(float(local_recipe.window_sill), float(global_recipe.window_sill)), _status_text())
+		_check_result(scope + " 后恢复全局对照", _result(session, "accept_loaded", [global_recipe, original_catalog]))
+		_screen.call("configure", {})
+		_check_result(scope + " 后刷新对照", _result(_screen, "refresh_preview"))
+	_set_option("window_scope", "global")
+	var before_door: Dictionary = _weathering_inventory(_preview_root(preview))
+	_set_spin("door_width", 1.3)
+	_set_spin("door_height", 2.2)
+	_emit_button("generate")
+	var after_door: Dictionary = _weathering_inventory(_preview_root(preview))
+	_check("generate门宽高进入快照", is_equal_approx(float(_snapshot().door_width), 1.3) and is_equal_approx(float(_snapshot().door_height), 2.2))
+	_check("generate实际door geometry变化", _weathering_hash(before_door, "door_") != _weathering_hash(after_door, "door_"))
+	var door_count: int = 0
+	for id: String in after_door.bounds:
+		if not id.begins_with("door_"): continue
+		door_count += 1
+		var box: AABB = after_door.bounds[id]
+		_check("门扇真实宽高为净门尺寸减装配缝：" + id, absf(box.size.x - 1.296) < 0.0001 and absf(box.size.y - 2.196) < 0.0001)
+	_check("门尺寸验收非空测", door_count == 1)
+
+	if picker != null:
+		picker.select(2)
+		picker.item_selected.emit(2)
+	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
+	var damage: SpinBox = controls.get("damage") as SpinBox
+	var damage_label: bool = false
+	if damage != null:
+		for sibling: Node in damage.get_parent().get_children():
+			if sibling is Label and (sibling as Label).text.contains("门窗破损"): damage_label = true
+	_check("damage文案为门窗破损", damage_label)
+	_check("damage_apply真实按钮存在", _dictionary(_property(_screen, "buttons")).has("damage_apply"))
+	var uv_hashes: Dictionary = {}
+	var patch_hashes: Dictionary = {}
+	for amount: float in [0.0, 0.2, 0.5, 0.9]:
+		_set_spin("aging", amount)
+		_set_text("display_name", "门窗风化验收 aging=" + str(amount))
+		_emit_button("damage_apply")
+		_check("damage_apply按apply_parameters语义提交基础字段", str(_snapshot().display_name) == "门窗风化验收 aging=" + str(amount) and is_equal_approx(float(_snapshot().aging), amount) and (_screen.call("_pending_local_fields") as Array).is_empty(), _status_text())
+		_check("aging按钮提交快照：" + str(amount), is_equal_approx(float(_snapshot().aging), amount), _status_text())
+		var aged: Dictionary = _weathering_inventory(_preview_root(preview))
+		var uv_hash: String = _weathering_hash(aged, "wall_shell_", "uv_hash")
+		_check("aging四档真实meshUV hash互异：" + str(amount), not uv_hashes.has(uv_hash))
+		uv_hashes[uv_hash] = true
+		_check_weathering_geometry("aging=" + str(amount), aged, amount > 0.0, 8)
+		_verify_shell_geometry(_preview_root(preview), _snapshot(), "aging=" + str(amount))
+		_check_weathering_preserved("aging=" + str(amount), after_door, aged, false)
+		if amount > 0.0:
+			var patch_hash: String = _weathering_hash(aged, "wall_weathering_")
+			_check("斑驳可见面随aging变化：" + str(amount), not patch_hashes.has(patch_hash))
+			patch_hashes[patch_hash] = true
+		else:
+			_check("aging零值mesh数量和完整hash不变", _same(after_door.hashes, aged.hashes))
+		_shared_material_usage(_preview_root(preview))
+		await _capture(Vector2i(1600, 1000), "_weathered_%02d" % roundi(amount * 100.0), view)
+		if amount == 0.9: await _capture(Vector2i(1600, 1000), "_weathered", view)
+	_set_spin("aging", 0.0)
+	_emit_button("damage_apply")
+	var undamaged: Dictionary = _weathering_inventory(_preview_root(preview))
+	var previous_glass: String = _weathering_hash(undamaged, "glass_")
+	for amount: float in [0.0, 0.4, 0.9]:
+		_set_spin("damage", amount)
+		_emit_button("damage_apply")
+		_check("damage_apply提交快照：" + str(amount), is_equal_approx(float(_snapshot().damage), amount), _status_text())
+		var damaged: Dictionary = _weathering_inventory(_preview_root(preview))
+		var glass_hash: String = _weathering_hash(damaged, "glass_")
+		_check_weathering_preserved("damage=" + str(amount), undamaged, damaged, true)
+		_verify_shell_geometry(_preview_root(preview), _snapshot(), "damage=" + str(amount))
+		if amount > 0.0:
+			_check("damage实际glass faces/hash和木门变化：" + str(amount), glass_hash != previous_glass and undamaged.faces.get("glass_front_0_0") != damaged.faces.get("glass_front_0_0") and _weathering_hash(undamaged, "door_") != _weathering_hash(damaged, "door_"))
+		else:
+			_check("damage零值严格保持完整mesh", _same(undamaged.hashes, damaged.hashes))
+		previous_glass = glass_hash
+		_shared_material_usage(_preview_root(preview))
+		_check_result("同damage_seed真实重新生成", _result(_screen, "refresh_preview"))
+		var repeated: Dictionary = _weathering_inventory(_preview_root(preview))
+		_check("damage_seed确定性：" + str(amount), damaged.hashes == repeated.hashes and damaged.collisions == repeated.collisions)
+		if amount > 0.0: await _capture(Vector2i(1600, 1000), "_damaged_%02d" % roundi(amount * 100.0), view)
+	await _capture(Vector2i(1600, 1000), "_damaged", view)
+	var seed_before: Dictionary = _weathering_inventory(_preview_root(preview))
+	_set_spin("damage_seed", 11012)
+	_emit_button("damage_apply")
+	var seed_after: Dictionary = _weathering_inventory(_preview_root(preview))
+	_check("换damage_seed真实玻璃hash改变", _weathering_hash(seed_before, "glass_") != _weathering_hash(seed_after, "glass_"))
+	_check_weathering_preserved("换damage_seed", seed_before, seed_after, true)
+	_set_spin("aging", 0.9)
+	_emit_button("damage_apply")
+	var saved: Dictionary = _result(_screen, "save_building")
+	if _check_result("风化破损真实保存", saved):
+		_verify_bundle(saved, "weathered_damaged")
+		var saved_geometry: Dictionary = _weathering_inventory(_preview_root(preview))
+		var saved_recipe: Dictionary = _snapshot().duplicate(true)
+		_check_result("保存后改回干净对照", _result(session, "accept_loaded", [baseline, original_catalog]))
+		_screen.call("configure", {})
+		var reopened: Dictionary = _result(_screen, "open_recipe", [str(saved.get("recipe_path", ""))])
+		_check_result("风化破损真实打开已存配方", reopened)
+		var reloaded: Dictionary = _weathering_inventory(_preview_root(preview))
+		_check("重载aging/damage/seed与完整门窗快照保持", _same(saved_recipe, _snapshot()))
+		_check("保存重载实际UV/斑驳/缺口/碰撞仍生效", _same(saved_geometry.hashes, reloaded.hashes) and _same(saved_geometry.collisions, reloaded.collisions))
+		_check_weathering_geometry("保存重载风化", reloaded, true, 8)
+	_check_shared_materials_unchanged("门窗风化UI结束")
+	_check_result("门窗风化后恢复original文档", _result(session, "accept_loaded", [original, original_catalog]))
+	_screen.call("configure", {})
+	_check_result("门窗风化后恢复original预览", _result(_screen, "refresh_preview"))
+	if picker != null:
+		picker.select(original_page)
+		picker.item_selected.emit(original_page)
+	_check("门窗风化不污染原文档与catalog", _same(original, _snapshot()) and _same(original_catalog, _property(session, "catalog")))
+
+func _window_unrelated_parameters(recipe: Dictionary) -> Dictionary:
+	var result: Dictionary = recipe.duplicate(true)
+	for key: String in ["window_width", "window_height", "window_sill"]: result.erase(key)
+	var architecture: Dictionary = _dictionary(result.get("architecture", {}))
+	architecture.erase("window")
+	return result
+
+func _check_window_dimensions(label: String, expected: Vector3) -> void:
+	var recipe: Dictionary = _snapshot()
+	var window: Dictionary = _dictionary(_dictionary(recipe.get("architecture", {})).get("window", {}))
+	for spec: Array in [["width", expected.x], ["height", expected.y], ["sill", expected.z]]:
+		var field: String = str(spec[0])
+		_check(label + " " + field, is_equal_approx(float(recipe.get("window_" + field, -1.0)), float(spec[1])) and is_equal_approx(float(window.get(field, -1.0)), float(spec[1])) and is_equal_approx(_spin("window_" + field), float(spec[1])) and is_equal_approx(_spin("architecture_window_" + field), float(spec[1])), _status_text())
+
+func _check_window_bounds(label: String, inventory: Dictionary, expected: Vector3) -> void:
+	var count: int = 0
+	for id: String in inventory.bounds:
+		if not id.begins_with("glass_front_0_"): continue
+		count += 1
+		var box: AABB = inventory.bounds[id]
+		_check(label + " 实际净尺寸减两侧2mm间隙：" + id, absf(box.size.x - (expected.x - 0.004)) < 0.0001 and absf(box.size.y - (expected.y - 0.004)) < 0.0001 and absf(box.position.y - (expected.z + 0.002)) < 0.0001, str(box))
+	_check(label + " 真实正立面首层玻璃非空", count > 0)
+
+func _weathering_inventory(root: Node3D) -> Dictionary:
+	var result: Dictionary = {"hashes": {}, "uv_hash": {}, "faces": {}, "bounds": {}, "visible": {}, "collisions": {}, "invalid_collisions": 0}
+	if root == null: return result
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		var id: String = str(node.get_meta("slot_id", str(node.name)))
+		var transform: Transform3D = _relative_transform(node, root)
+		if node is MeshInstance3D:
+			var instance: MeshInstance3D = node as MeshInstance3D
+			if instance.mesh != null:
+				var arrays: Array = []
+				var uvs: Array = []
+				for surface: int in instance.mesh.get_surface_count():
+					var data: Array = instance.mesh.surface_get_arrays(surface)
+					arrays.append(data)
+					uvs.append(data[Mesh.ARRAY_TEX_UV])
+				result.hashes[id] = var_to_bytes([transform, arrays]).hex_encode().sha256_text()
+				result.uv_hash[id] = var_to_bytes(uvs).hex_encode().sha256_text()
+				var faces: PackedVector3Array = instance.mesh.get_faces()
+				for index: int in faces.size(): faces[index] = transform * faces[index]
+				result.faces[id] = faces
+				result.bounds[id] = transform * instance.mesh.get_aabb()
+				result.visible[id] = instance.visible
+		if node is CollisionShape3D:
+			var collision: CollisionShape3D = node as CollisionShape3D
+			if collision.disabled or not collision.shape is ConcavePolygonShape3D:
+				result.invalid_collisions += 1
+			else:
+				var faces: PackedVector3Array = (collision.shape as ConcavePolygonShape3D).get_faces()
+				for index: int in faces.size(): faces[index] = transform * faces[index]
+				result.collisions[id] = faces
+		for child: Node in node.get_children(): stack.append(child)
+	return result
+
+func _weathering_hash(inventory: Dictionary, prefix: String, field: String = "hashes") -> String:
+	var entries: Array[String] = []
+	for id: String in inventory[field]:
+		if id.begins_with(prefix): entries.append(id + ":" + str(inventory[field][id]))
+	entries.sort()
+	return "|".join(entries).sha256_text()
+
+func _check_weathering_preserved(label: String, before: Dictionary, after: Dictionary, damage: bool) -> void:
+	var unchanged: bool = true
+	if damage:
+		_check(label + " 不随机删除整扇门窗或增加替代盒", before.faces.size() == after.faces.size())
+	for id: String in before.faces:
+		if damage and (id.begins_with("glass_") or id.begins_with("door_")):
+			_check(label + " 每件填充保留真实mesh：" + id, after.faces.has(id) and not (after.faces[id] as PackedVector3Array).is_empty())
+			continue
+		unchanged = unchanged and after.faces.has(id) and before.faces[id] == after.faces.get(id)
+	for id: String in after.faces:
+		unchanged = unchanged and (before.faces.has(id) or id.begins_with("wall_weathering_"))
+	_check(label + " 墙/门洞/楼板/屋顶及非目标原件实际面不变", unchanged)
+	_check(label + " 全部结构碰撞三角面不变", before.collisions == after.collisions and int(after.invalid_collisions) == 0)
+	var matches: bool = not after.collisions.is_empty()
+	for id: String in after.collisions:
+		matches = matches and (id.begins_with("wall_shell_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")) and after.faces.has(id) and after.collisions[id] == after.faces.get(id)
+	_check(label + " 仅结构有碰撞且与视觉真实面一致", matches)
+
+func _check_weathering_geometry(label: String, inventory: Dictionary, enabled: bool, maximum: int) -> void:
+	var count: int = 0
+	for id: String in inventory.faces:
+		if not id.begins_with("wall_weathering_"): continue
+		count += 1
+		var address: PackedStringArray = id.trim_prefix("wall_weathering_").split("_")
+		var valid_address: bool = address.size() == 2 and address[0].is_valid_int() and address[1].is_valid_int()
+		if valid_address: valid_address = int(address[0]) >= 0 and int(address[0]) < int(maximum / 4) and int(address[1]) >= 0 and int(address[1]) < 4
+		_check(label + " 斑驳唯一floor/run地址：" + id, valid_address)
+		var audit: Dictionary = _audit_shell_faces(inventory.faces[id])
+		_check(label + " 真实可见斑驳闭合/定向/单连通且无碰撞：" + id, bool(inventory.visible.get(id, false)) and bool(audit.closed) and bool(audit.oriented) and int(audit.connected_components) == 1 and not inventory.collisions.has(id), str(audit))
+	_check(label + " 每floor/run至多一片，零值不增加mesh", (count > 0 and count <= maximum) if enabled else count == 0, str(count))
 
 func _count_prefix(visual: Node3D, prefix: String) -> int:
 	if visual == null:
@@ -1437,7 +2028,7 @@ func _test_lifecycle() -> void:
 	await _tree.process_frame
 	_check("隐藏主屏停止预览更新", not _screen.visible and viewport != null and viewport.render_target_update_mode == SubViewport.UPDATE_DISABLED)
 	_plugin.call("_make_visible", true)
-	EditorInterface.set_main_screen_editor("楼房工坊")
+	EditorInterface.set_main_screen_editor("老王场景工坊")
 	await _tree.process_frame
 	_check("恢复可见恢复预览更新", _screen.is_visible_in_tree() and viewport != null and viewport.render_target_update_mode == SubViewport.UPDATE_ALWAYS)
 	_check("隐藏恢复不丢草稿", _same(before_recovery, _result(_screen, "get_recovery")))
@@ -1448,7 +2039,7 @@ func _test_lifecycle() -> void:
 		await _tree.process_frame
 	_screen = _property(_plugin, "screen") as Control
 	_plugin.call("_make_visible", true)
-	EditorInterface.set_main_screen_editor("楼房工坊")
+	EditorInterface.set_main_screen_editor("老王场景工坊")
 	await _tree.process_frame
 	var rebuilt_session: Object = _property(_screen, "session") as Object
 	var rebuilt_catalog: Dictionary = _dictionary(_property(rebuilt_session, "catalog"))
@@ -1497,6 +2088,17 @@ func _verify_bundle(result: Dictionary, label: String) -> void:
 		return
 	var instance: Node = packed.instantiate()
 	var twin: Node = packed.instantiate()
+	var used_materials: Dictionary = _shared_material_usage(instance)
+	_check(label + " 重载双实例共用原材质identity", used_materials == _shared_material_usage(twin) and not used_materials.is_empty())
+	var scene_text: String = FileAccess.get_file_as_string(directory.path_join("building.tscn"))
+	_check(label + " 序列化不内嵌ShaderMaterial或旧StandardMaterial3D", not scene_text.is_empty() and not scene_text.contains('[sub_resource type="ShaderMaterial"') and not scene_text.contains('type="StandardMaterial3D"'))
+	for role: String in used_materials:
+		var external: bool = false
+		for line: String in scene_text.split("\n"):
+			if line.begins_with("[ext_resource ") and (line.contains('type="ShaderMaterial"') or line.contains('type="Material"')) and line.contains('path="' + str(SHARED_MATERIAL_PATHS.get(role, "")) + '"'):
+				external = true
+		_check(label + " " + role + " 序列化为共享tres外链", external)
+	_check_shared_materials_unchanged(label + " 导出重载后")
 	var actual: Dictionary = _geometry(instance)
 	var duplicate: Dictionary = _geometry(twin)
 	var expected: Dictionary = _dictionary(manifest.get("geometry", {}))
@@ -1622,7 +2224,7 @@ func _unsafe_state(state: SceneState, visited: Dictionary) -> bool:
 				return true
 	return false
 
-func _capture(dimensions: Vector2i, suffix: String = "") -> void:
+func _capture(dimensions: Vector2i, suffix: String = "", fixed_view: Dictionary = {}) -> void:
 	print("[workshop-editor-stage] capture ", dimensions, suffix)
 	var label: String = "%dx%d%s" % [dimensions.x, dimensions.y, suffix]
 	if not _check(label + " 非 headless 渲染", DisplayServer.get_name() != "headless"):
@@ -1636,6 +2238,16 @@ func _capture(dimensions: Vector2i, suffix: String = "") -> void:
 	_tree.root.size = dimensions
 	for frame: int in range(5):
 		await _tree.process_frame
+	# 门窗对比图固定同一相机；尺寸变更与刷新预览可能自动fit，必须在布局稳定后覆盖。
+	if not fixed_view.is_empty():
+		var preview: Control = _property(_screen, "preview") as Control
+		var camera: Camera3D = _property(preview, "camera") as Camera3D
+		if _check(label + " 固定视角相机存在", camera != null):
+			camera.transform = fixed_view.transform
+			camera.projection = int(fixed_view.projection)
+			camera.size = float(fixed_view["size"])
+			camera.fov = float(fixed_view.fov)
+			_check(label + " 同视角/投影/缩放", camera.transform.is_equal_approx(fixed_view.transform) and camera.projection == int(fixed_view.projection) and is_equal_approx(camera.size, float(fixed_view["size"])) and is_equal_approx(camera.fov, float(fixed_view.fov)))
 	# 编辑器可能进入低处理模式，不等待一个可能永不触发的被动帧信号。
 	RenderingServer.force_draw()
 	print("[workshop-editor-stage] framebuffer ready")
@@ -1661,6 +2273,7 @@ func _wait_for_filesystem_scan(label: String) -> bool:
 	return not scanning
 
 func _layout_checks(label: String) -> void:
+	_check_editor_repair_ui(label)
 	_check(label + " 主屏实际最小宽度700", _screen.is_visible_in_tree() and _screen.size.x >= 700.0 and _screen.custom_minimum_size.x >= 700.0)
 	var editor_theme: Theme = EditorInterface.get_editor_theme()
 	_check(label + " 使用编辑器主题", _screen.theme == editor_theme)
@@ -1693,7 +2306,7 @@ func _layout_checks(label: String) -> void:
 			text = (node as Label).text
 		elif node is Button:
 			text = (node as Button).text
-		if text == "楼房工坊" and node is Control and (node as Control).is_visible_in_tree():
+		if text == "老王场景工坊" and node is Control and (node as Control).is_visible_in_tree():
 			title_found = true
 		if text.to_lower().contains("missing"):
 			missing.append(text)
@@ -1725,6 +2338,7 @@ func _visible_rect(control: Control) -> Rect2:
 	return rect
 
 func _finish() -> void:
+	_check_shared_materials_unchanged("全部编辑器验收结束")
 	var current_root: Node = EditorInterface.get_edited_scene_root()
 	_scene_unchanged = current_root == _edited_root and _root_transform(current_root) == _edited_transform
 	_check("edited scene root 及 transform 不变", _scene_unchanged)
@@ -1747,6 +2361,7 @@ func _finish() -> void:
 		"shell_samples": _shell_samples,
 		"architecture_samples": _architecture_samples,
 		"shell_capture_scope": "continuous_*为1600x1000真实编辑器framebuffer；workshop_shell_model_*.png为1400x1100独立SubViewport的真实模型渲染；未隐藏侧栏或改变主屏stretch，未关闭阴影",
+		"window_weathering_scope": "独立rectangle 15x10两层、form=false/taper=0；真实generate/window_apply/architecture_apply/damage_apply；aging=0/.2/.5/.9，damage=0/.4/.9；完整UI截图_clean/_windows_edited/_weathered/_damaged及分档图均锁定同相机，可由主线程剪裁展示；结束恢复original文档与catalog",
 		"game_save_connected": false,
 		"boundaries": ["仅生成和保存静态建筑，不启动 Main", "不连接或调用游戏存档", "组件 fixture 仅允许隔离副本", "缺失 API 记为失败，不模拟成功"]
 	}

@@ -314,6 +314,8 @@ static func _add_box_slot(root: Node3D, generated: Node3D, collision_root: Node3
 			bevel = float(standard_data.authoring_defaults.bevels_final_centimetres[profile_bevel]) * 0.01
 		applied_bevel = minf(bevel, minf(mesh_size.x, minf(mesh_size.y, mesh_size.z)) * 0.45)
 		mesh_data = MeshBuilder.rounded_box(mesh_size, applied_bevel, int(recipe.bevel_segments), palette, float(recipe.aging), material_cache, float(recipe.taper))
+	if component.has("material_role"):
+		mesh_data.mesh.surface_set_material(0, MeshBuilder.material(str(component.get("color", "cozy")), float(recipe.aging), material_cache, str(component.material_role)))
 	var mesh_instance := MeshInstance3D.new()
 	mesh_instance.name = slot_id
 	mesh_instance.mesh = mesh_data.mesh

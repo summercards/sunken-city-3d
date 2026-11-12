@@ -16,7 +16,7 @@ func _enter_tree() -> void:
 	store = StoreScript.new()
 	adapter = AdapterScript.new()
 	_create_screen()
-	add_tool_menu_item("楼房工坊", Callable(self, "_show_workshop"))
+	add_tool_menu_item("老王场景工坊", Callable(self, "_show_workshop"))
 	if OS.get_cmdline_user_args().has("--workshop-editor-verify"):
 		call_deferred("_run_verification")
 
@@ -34,7 +34,7 @@ func _create_screen(recovery: Dictionary = {}) -> void:
 		screen.restore_recovery(recovery)
 
 func _exit_tree() -> void:
-	remove_tool_menu_item("楼房工坊")
+	remove_tool_menu_item("老王场景工坊")
 	if is_instance_valid(screen):
 		_save_recovery()
 		screen.set_screen_visible(false)
@@ -45,7 +45,7 @@ func _has_main_screen() -> bool:
 	return true
 
 func _get_plugin_name() -> String:
-	return "楼房工坊"
+	return "老王场景工坊"
 
 func _get_plugin_icon() -> Texture2D:
 	return EditorInterface.get_editor_theme().get_icon("MeshInstance3D", "EditorIcons")
@@ -67,12 +67,12 @@ func _save_recovery() -> void:
 	var recovery: Dictionary = screen.get_recovery()
 	var absolute_parent: String = ProjectSettings.globalize_path(RECOVERY_PATH.get_base_dir())
 	if DirAccess.make_dir_recursive_absolute(absolute_parent) != OK:
-		push_warning("楼房工坊草稿备份目录不可写；请先保存楼房")
+		push_warning("老王场景工坊草稿备份目录不可写；请先保存楼房")
 		return
 	var temporary: String = RECOVERY_PATH + ".tmp"
 	var file: FileAccess = FileAccess.open(temporary, FileAccess.WRITE)
 	if file == null:
-		push_warning("楼房工坊草稿未备份")
+		push_warning("老王场景工坊草稿未备份")
 		return
 	file.store_string(JSON.stringify(recovery, "\t"))
 	file.close()

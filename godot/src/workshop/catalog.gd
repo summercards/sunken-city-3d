@@ -19,6 +19,22 @@ static func definitions() -> Dictionary:
 			_definitions = parsed
 	return _definitions.duplicate(true)
 
+## 编辑器升级只补缺失的内置组件，不覆盖已保存的 prefab 或同 ID 自定义定义。
+## 直接读版本化文件，避免热更新时静态缓存仍是上个版本。
+static func editor_catalog(snapshot: Dictionary = {}) -> Dictionary:
+	var latest: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	if not latest is Dictionary or not validate(latest).is_empty():
+		return snapshot.duplicate(true)
+	if snapshot.is_empty():
+		return latest.duplicate(true)
+	var result: Dictionary = snapshot.duplicate(true)
+	if not result.get("components") is Dictionary:
+		return result
+	for component_id: String in latest.components:
+		if not result.components.has(component_id):
+			result.components[component_id] = latest.components[component_id].duplicate(true)
+	return result
+
 static func validate(c: Dictionary) -> String:
 	if c.is_empty():
 		return "组件目录不能为空"
@@ -56,8 +72,10 @@ static func _validate_component(component_id: String, raw) -> String:
 	if not _safe_id(component_id) or not raw is Dictionary:
 		return "组件ID或定义非法: " + component_id
 	for field in raw:
-		if str(field) not in ["asset_id", "family", "kind", "profile", "color", "version", "front_axis", "pivot", "nominal_size", "replaceable", "prefab"]:
+		if str(field) not in ["asset_id", "family", "kind", "profile", "color", "version", "front_axis", "pivot", "nominal_size", "replaceable", "prefab", "material_role"]:
 			return "未知组件字段: " + str(field)
+	if raw.has("material_role") and str(raw.material_role) not in ["SEA_Matte", "SEA_Metal", "SEA_Gloss", "SEA_Emission"]:
+		return "未知共享材质角色: " + component_id
 	if str(raw.get("version", "")).is_empty(): return "组件缺少版本"
 	if str(raw.get("kind", "")) == "parametric":
 		var expected_profiles := ["shrub", "tree", "vine", "moss"] if str(raw.get("family", "")) == "plant" else [str(raw.get("family", ""))]

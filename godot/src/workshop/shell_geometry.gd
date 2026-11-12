@@ -9,6 +9,7 @@ const Catalog = preload("res://src/workshop/catalog.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const RoofEdge = preload("res://src/workshop/roof_edge_geometry.gd")
 const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
+const DamageGeometry = preload("res://src/workshop/shell_damage_geometry.gd")
 const MAX_PARTS: int = 2000
 const WALL_BEVEL: float = 0.02
 const OUTER_CORNER_RADIUS: float = 0.07
@@ -86,7 +87,8 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		total_height += _floor_value(r, floor, "floor_height")
 	var form: Dictionary = Config.resolve_form(r)
 	var context: Dictionary = {"height": total_height, "taper": float(r.taper), "aging": float(r.aging), "cache": {}, "collidable": str(r.spatial_profile) != "scenic_underwater", "error": "", "triangles": 0, "topology": {},
-		"form": form, "opening_rho": float(form.get("opening", 0.0)), "accessory_rho": float(form.get("accessory", 0.0))}
+		"form": form, "opening_rho": float(form.get("opening", 0.0)), "accessory_rho": float(form.get("accessory", 0.0)),
+		"damage_sources": {}, "damage_parts": [], "aging_patches": []}
 	var parts: Array = []
 	var openings: Array = []
 	var roof_surfaces: Array = []
@@ -188,9 +190,13 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 			runs_info.append(info)
 		_corner_surfaces(shell, polygon, contours, bottom, top)
 		_part(parts, shell, "wall_shell_" + str(floor), "wall", floor, "", r, c, context, WALL_BEVEL, true)
+		_append_aging_patches(parts, runs_info, floor, base, r, c, context)
 		for entry in accessories:
 			var hole: Dictionary = entry.hole
 			var run: Dictionary = entry.run
+			if float(r.damage) > 0.0:
+				var damage_id: String = ("door_" if bool(hole.door) else "glass_") + str(entry.suffix)
+				context.damage_sources[damage_id] = {"hole": hole, "run": run, "suffix": str(entry.suffix)}
 			if hole.has("settings"):
 				WindowGeometry.append_parts(parts, hole, run, str(entry.suffix), floor, str(entry.facade), r, c, context, _self_script())
 				continue
@@ -284,7 +290,14 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 		"style_verification": "未签署全风格、引擎或视觉验收",
 		"standard_exceptions": [{"parts": "slab_*及roof_main", "profile": "连续结构板formed_band", "reason": "不是平台装饰木板；明确采用0.028m三段外缘倒角"}],
 		"structural_claim": "自支撑墙壳几何；未执行建筑物理或承载计算",
-		"known_limitations": ["damage非0明确拒绝", "支持rectangle/l/t/u正交轮廓与wing_x/wing_z及逐层累计退台；不支持任意多边形；内缩反转/自交/翼宽耗尽直接拒绝", "凸外角仅三段实体圆弧；内角与L/T/U凹角保留锐miter，未做墙顶底水平边圆弧", "洞口与框材每端仅单段chamfer，不是三段quarter-circle", "结构槽仅允许无作用disabled:false/零offset，禁用true/非零位移/排除明确拒绝", "prefab仅保留绑定和基线占位网格，本脚本不加载或实例化prefab", "不生成植物、楼梯、导航或碰撞节点；collidable仅声明三角网格碰撞用途", "全局taper同时缩放净孔/框材/墙厚；原配方尺寸为变形前参数", "taper后的实际引擎拓扑及最终美术效果未验证"]
+		"damage_scope": "仅原生玻璃凹边破口/部分缺失与木门下缘缺口；不是承重结构墙破洞",
+		"damage_parts": context.damage_parts, "damage_amount": float(r.damage),
+		"damage_progression": "0严格走原几何；(0,1]从可读小缺口起步，逐洞稳定suffix+damage_seed定缺口侧/位置，缺失范围连续增大；不宣称在0处拓扑连续；无整窗/整墙/整板随机删除",
+		"damage_preserved": "墙壳/楼板/屋顶/固定框/活动窗扇及其碰撞、楼房布局与植物随机不变；门窗填充原本无碰撞，缺口不留旧玻璃碰撞",
+		"damage_prefab_policy": "仅原生基线生效；装配层整体prefab替换不做裁切，不保证外部prefab呈现damage",
+		"aging_scope": "仅shell专用cozy分级选格：0原cream，(0,0.35)stone，[0.35,0.70)mint_white，[0.70,1]gray；semantics可覆盖；旧modular/植物老化不改",
+		"aging_patches": context.aging_patches, "aging_patch_policy": "原生cozy墙每层每run至多一片窗下6边闭合薄实体、2mm离墙、4mm厚、无碰撞；净空间不足不生成",
+		"known_limitations": ["承重墙/楼板/屋顶/女儿墙压顶断裂、框/活动窗扇破坏未做；破损断边为锐边薄实体，未模拟裂纹/碎片/物理倒塌", "支持rectangle/l/t/u正交轮廓与wing_x/wing_z及逐层累计退台；不支持任意多边形；内缩反转/自交/翼宽耗尽直接拒绝", "凸外角仅三段实体圆弧；内角与L/T/U凹角保留锐miter，未做墙顶底水平边圆弧", "洞口与框材每端仅单段chamfer，不是三段quarter-circle", "结构槽仅允许无作用disabled:false/零offset，禁用true/非零位移/排除明确拒绝", "prefab仅保留绑定和基线占位网格，本脚本不加载或实例化prefab", "不生成植物、楼梯、导航或碰撞节点；collidable仅声明三角网格碰撞用途", "全局taper同时缩放净孔/框材/墙厚；原配方尺寸为变形前参数", "taper后的实际引擎拓扑及最终美术效果未验证"]
 	}
 	return result
 
@@ -301,8 +314,10 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 	for field in ["width", "depth", "floors", "floor_height", "slab_thickness", "wall_thickness", "bay_width", "window_width", "window_height", "window_sill", "door_width", "door_height", "taper", "aging", "damage"]:
 		if not (r[field] is float or r[field] is int):
 			return "数值字段类型非法: " + field
-	if float(r.damage) != 0.0:
-		return "连续外壳暂不支持damage非0；不能以删盒子伪造破损"
+	if float(r.damage) < 0.0 or float(r.damage) > 1.0:
+		return "门窗破损damage必须在0..1"
+	if not Recipe._math_integer(r.damage_seed) or int(r.damage_seed) < 0:
+		return "damage_seed必须为非负整数"
 	var form_reason: String = Config.validate_form(r)
 	if not form_reason.is_empty():
 		return form_reason
@@ -329,6 +344,15 @@ static func _validate(r: Dictionary, c: Dictionary) -> String:
 		var definition: Variant = c.components.get(component, null)
 		if not definition is Dictionary or str(definition.get("family", "")) != role or str(definition.get("kind", "")) not in ["parametric", "prefab"]:
 			return "连续外壳需要对应族的parametric/prefab组件: " + component
+	# 外部prefab由装配层整体替换，不能假称已裁坏；本版非零damage只接受原生门窗填充。
+	if float(r.damage) > 0.0:
+		for role in ["frame", "glass"]:
+			if str(c.components[_component(r, role, "")].kind) == "prefab":
+				return "门窗破损仅支持原生参数门窗；请先移除" + role + "的整件prefab绑定"
+		for id in r.slot_overrides:
+			var component: String = str(r.slot_overrides[id].get("component_id", "")) if r.slot_overrides[id] is Dictionary else ""
+			if (str(id).begins_with("glass_") or str(id).begins_with("door_")) and str(c.components.get(component, {}).get("kind", "")) == "prefab":
+				return "门窗破损不能裁切外部prefab: " + str(id)
 	for excluded in r.excluded_slots:
 		if not str(excluded).begins_with("plant_"):
 			return "连续结构不支持排除结构槽: " + str(excluded)
@@ -933,6 +957,48 @@ static func _band_segment(buffer: Dictionary, run: Dictionary, from: float, to: 
 	var center_x: float = (from + to) * 0.5
 	_solid(buffer, _run_rect(run, center_x, half, -projection, bite), bottom, top, bevel)
 
+## 每条立面至多一片窗下斑驳，避开洞口/勒脚/柱；6边闭合薄实体，离墙2mm无共面。
+static func _append_aging_patches(parts: Array, runs: Array, floor: int, base: float, r: Dictionary, c: Dictionary, context: Dictionary) -> void:
+	if float(r.aging) <= 0.0: return
+	var host: String = _component(r, "wall", "wall_shell_" + str(floor))
+	if str(c.components.get(host, {}).get("kind", "")) != "parametric" or str(c.components.get(host, {}).get("color", "")) != "cozy": return
+	for index in runs.size():
+		var run: Dictionary = runs[index]
+		var id: String = "wall_weathering_" + str(floor) + "_" + str(index)
+		var definition: Dictionary = c.components.get(_component(r, "wall", id), {})
+		if str(definition.get("kind", "")) != "parametric" or str(definition.get("color", "")) != "cozy": continue
+		for hole in run.holes:
+			if bool(hole.door): continue
+			var low: float = base + PLINTH_HEIGHT + 0.07
+			var high: float = float(hole.y0) - WALL_BEVEL - 0.04
+			var settings: Dictionary = hole.get("settings", {})
+			if bool(settings.get("sill_enabled", false)):
+				high -= float(settings.sill_thickness)
+			if high - low < 0.12: continue
+			var aging: float = float(r.aging)
+			var width: float = minf(float(hole.width) * 0.48, 0.25 + 0.45 * aging)
+			var height: float = minf(high - low, 0.06 + 0.20 * aging)
+			var cx: float = float(hole.cx)
+			var pilaster: Dictionary = Config.normalized(r.get("architecture", {})).get("pilaster", {})
+			if bool(pilaster.get("enabled", false)):
+				var pillar_width: float = float(pilaster.width)
+				if bool(pilaster.get("corner", true)) and (cx - width * 0.5 < pillar_width + 0.02 or cx + width * 0.5 > float(run.length) - pillar_width - 0.02): continue
+				var blocked: bool = false
+				if bool(pilaster.get("middle", true)):
+					for bay in range(1, int(run.count)):
+						var pillar_x: float = float(run.length) * float(bay) / float(run.count)
+						if absf(cx - pillar_x) < (width + pillar_width) * 0.5 + 0.02: blocked = true
+				if blocked: continue
+			var profile: Array[Vector2] = [Vector2(cx - width * 0.5, low + height * 0.18),
+				Vector2(cx - width * 0.18, low), Vector2(cx + width * 0.42, low + height * 0.12),
+				Vector2(cx + width * 0.5, low + height * 0.68), Vector2(cx + width * 0.12, low + height),
+				Vector2(cx - width * 0.43, low + height * 0.76)]
+			var patch: Dictionary = _buffer()
+			DamageGeometry._extrude(patch, profile, run, -0.006, -0.002, _self_script())
+			_part(parts, patch, id, "wall", floor, str(run.facade), r, c, context, 0.0, false)
+			context.aging_patches.append(id)
+			break
+
 static func _opening_canopy(parts: Array, door: Dictionary, run: Dictionary, r: Dictionary, c: Dictionary, context: Dictionary) -> void:
 	# 门头雨棚：贴墙挑出的平板 + 两根落地柱；柱脚落在场地 y=0，不生成悬挑假构件。
 	# 两侧各超出门洞 CANOPY_EXTENSION；柱落在雨棚两端外侧，不能压在门洞净宽上挡门。
@@ -1095,6 +1161,16 @@ static func _part(parts: Array, source: Dictionary, id: String, kind: String, fl
 	if parts.size() >= MAX_PARTS:
 		context.error = "连续外壳超过部件预算: " + str(MAX_PARTS)
 		return
+	# 窗helper仍保留完整clean生成路径；仅目标填充件在审计前换成真实缺口实体。
+	if float(r.damage) > 0.0 and context.get("damage_sources", {}).has(id):
+		var entry: Dictionary = context.damage_sources[id]
+		source = _buffer()
+		if id.begins_with("glass_"):
+			DamageGeometry.glass(source, entry.hole, entry.run, str(entry.suffix), float(r.damage), int(r.damage_seed), _self_script())
+		else:
+			DamageGeometry.door(source, entry.hole, entry.run, str(entry.suffix), float(r.damage), int(r.damage_seed), _self_script())
+		bevel = 0.0
+		context.damage_parts.append(id)
 	var accessory_rho: float = float(context.get("accessory_rho", 0.0))
 	if absf(accessory_rho) > EPS and _vertical_accessory(id) and source.has("v"):
 		source["v"] = _taper_section(source.v, accessory_rho)
@@ -1123,17 +1199,18 @@ static func _part(parts: Array, source: Dictionary, id: String, kind: String, fl
 		context.error = "未知组件: " + component
 		return
 	# prefab也只生成同规格基线占位网格；实际整件替换由shell_generator拥有。
-	var palette: String = str(definition.get("color", "cozy"))
+	var palette: String = "cozy_weathering" if id.begins_with("wall_weathering_") else str(definition.get("color", "cozy"))
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_NORMAL] = normals
-	arrays[Mesh.ARRAY_TEX_UV] = MeshBuilder._encode_palette_uv(buffer.uv, palette, float(context.aging))
+	arrays[Mesh.ARRAY_TEX_UV] = MeshBuilder._encode_shell_palette_uv(buffer.uv, palette, float(context.aging))
 	arrays[Mesh.ARRAY_TEX_UV2] = arrays[Mesh.ARRAY_TEX_UV]
 	arrays[Mesh.ARRAY_INDEX] = indices
 	var mesh: ArrayMesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	mesh.surface_set_material(0, MeshBuilder.material(palette, float(context.aging), context.cache))
+	var default_role: String = "SEA_Metal" if id.begins_with("railing_") else ("SEA_Gloss" if kind == "glass" else "SEA_Matte")
+	mesh.surface_set_material(0, MeshBuilder.material(palette, float(context.aging), context.cache, str(definition.get("material_role", default_role))))
 	var local_bounds: AABB = mesh.get_aabb()
 	parts.append({"id": id, "kind": kind, "floor": floor, "facade": facade, "component_id": component, "position": center, "size": local_bounds.size, "mesh": mesh, "collidable": collidable and bool(context.collidable), "bevel_width": bevel, "bounds_position": local_bounds.position, "bounds_size": local_bounds.size})
 

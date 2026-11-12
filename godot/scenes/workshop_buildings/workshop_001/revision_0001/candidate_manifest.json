@@ -1,0 +1,3678 @@
+{
+	"authoring_context": "editor",
+	"authoring_source_hashes": {
+		"res://addons/building_workshop/catalog_adapter.gd": "e8ace863f647645f2b7c08ecb03488b928a47301691f0ffeb4aad11bbad81301",
+		"res://addons/building_workshop/editor_store.gd": "fb7a45f472a75fe7c614bb01858d1aaaf0611c4bd8a8519fdb19e6d53e3423c9",
+		"res://data/workshop/catalog_v1.json": "809330b4f87c5bdb880b41239deef73a9ff7ed1b08f9299a8d2db1eabbdaea59",
+		"res://data/workshop/palette_cells_v1.json": "f921778c8d4dc10fbc258337fa4bc0d8ffd205259cb45c6af62f942d9d1c7aa6",
+		"res://data/workshop/standards_v1.json": "a7ad17b313d5f6dcc384abf8c07d5a8ffdadc0e4a16a79f0952db502d2867591",
+		"res://src/workshop/architecture_config.gd": "6092f4af058cee0ba3a0966a37f987e1059303cc48c7bddc23ca7ad86bb53cfa",
+		"res://src/workshop/catalog.gd": "7ab3224194233cf58a7559dc76643a44d759bf51b2a74ffd39825aa261f9abf3",
+		"res://src/workshop/generator.gd": "34c14d1d58919469b8f3d1a08b49543cae9b24c4ada163938756a8eadd5e1c8d",
+		"res://src/workshop/mesh_builder.gd": "9a2f5eb2ada9e0144d455fb3da98508c63cd3f4343b1d5d5b6c149e7e8d2da01",
+		"res://src/workshop/recipe.gd": "5b0b5fdc449e4a5a21fef2abe4f3d176fd407947e80e329995ba179eef636a32",
+		"res://src/workshop/roof_edge_geometry.gd": "65210374d392370be235d952536ddca7c90b3e00dab733b826357ffb4bff43b0",
+		"res://src/workshop/shell_generator.gd": "f9b3314a5b3ff7ca9bf71a61d667d1b7b4d61befaba70f943c53a93c0eb8b0a3",
+		"res://src/workshop/shell_geometry.gd": "13d5db233bc6ce44501e156487b46c1368d2bbc21e50c0f9c2e4d558a60ed3ca",
+		"res://src/workshop/shell_window_geometry.gd": "3c9816f567f7c0b758e1dd640dc38539aa71368ffa9a801411678a9834dd2104",
+		"res://src/workshop/store.gd": "2ac247e2b78faaa83e347781b0d2be15a93bcc3442e121c0b060965db67f485c"
+	},
+	"building_id": "workshop_001",
+	"candidate_ledger": "ledger.json",
+	"candidate_ledger_status": "exported_pending_project_registration",
+	"catalog_fingerprint": "407df5665d07334abe8ef3014a052f0f1d1b73d837f41eb13c1f2a7a25232858",
+	"catalog_id": "sea_workshop_v1",
+	"catalog_snapshot": "catalog_snapshot.json",
+	"construction_mode": "modular_v1",
+	"display_name": "海风公寓",
+	"file_list": [
+		"building.recipe.json",
+		"catalog_snapshot.json",
+		"building.tscn",
+		"candidate_manifest.json",
+		"ledger.json"
+	],
+	"formal_registry_written": false,
+	"generator": "sea_workshop_generator_v1",
+	"geometry": {
+		"bounds_position": [
+			-6.2479076385498,
+			-0.200000002980232,
+			-4.7479076385498
+		],
+		"bounds_size": [
+			12.4958152770996,
+			16.580379486084,
+			9.49581527709961
+		],
+		"collision_bounds_position": [
+			-6.24790000915527,
+			-0.199999988079071,
+			-4.74790000915527
+		],
+		"collision_bounds_size": [
+			12.4958000183105,
+			15.6999998092651,
+			9.49580001831055
+		],
+		"collision_shapes": 257,
+		"has_bounds": true,
+		"has_collision_bounds": true,
+		"metadata_meshes": 468,
+		"nodes": 987,
+		"scripts": 0,
+		"unowned_nodes": 0,
+		"visual_meshes": 468
+	},
+	"has_workshop_rebuild_script": false,
+	"hash": "e6d70539052b04d2ebc0b458588283cb919344b4ddf5b8fc8b7560560c258e87",
+	"instances": [
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_0_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_0_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_0_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_0_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_0_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_0_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_1_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_1_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_1_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_1_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_1_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_1_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_2_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_2_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_2_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_2_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_2_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_2_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_3_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_3_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_3_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_3_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_0_3_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_0_3_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_0_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_0_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_0_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_0_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_0_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_0_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_1_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_1_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_1_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_1_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_1_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_1_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_2_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_2_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_2_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_2_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_2_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_2_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_3_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_3_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_3_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_3_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_1_3_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_1_3_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_0_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_0_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_0_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_0_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_0_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_0_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_1_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_1_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_1_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_1_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_1_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_1_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_2_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_2_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_2_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_2_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_2_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_2_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_3_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_3_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_3_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_3_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "slab_2_3_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/slab_2_3_2"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_0_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_0_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_0_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_0_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_0_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_0_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_0_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_0_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_0_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_0_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_0_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_0_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_0_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_0_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_0_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_0_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_0"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_2_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_2_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_2_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_2_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_2_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_2_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_2_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_2_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_2_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_2_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_2_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_2_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_2_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_2_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_2_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_2_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_2"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_6_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_6_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_6_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_6_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_6_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_6_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_6_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_6_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_6_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_6_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_6_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_6_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_6_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_6_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_6_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_6_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_6",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_6"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_9_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_9_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_9_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_9_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_9_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_9_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_9_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_9_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_9_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_9_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_9_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_9_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_9_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_9_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_9_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_9_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_9",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_9"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_10_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_10_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_10_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_10_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_10_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_10_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_0_10_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_0_10_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_10_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_10_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_10_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_10_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_10_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_10_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_0_10_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_0_10_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_0_10",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_0_10"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_1024_door_left",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_1024_door_left"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_1024_door_right",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_1024_door_right"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_1024_door_lintel",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_1024_door_lintel"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_1024_door_left",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_1024_door_left"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_1024_door_right",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_1024_door_right"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_1024_door_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_1024_door_header"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_1033_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_1033_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_1033_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_1033_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_1033_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_1033_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_1033_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_1033_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_1033_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_1033_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_1033_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_1033_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_1033_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_1033_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_1033_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_1033_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_1033",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_1033"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_2048_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_2048_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_2048_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_2048_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_2048_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_2048_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_2048_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_2048_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_2048_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_2048_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_2048_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_2048_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_2048_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_2048_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_2048_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_2048_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_2048",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_2048"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_2057_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_2057_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_2057_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_2057_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_2057_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_2057_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_2057_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_2057_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_2057_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_2057_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_2057_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_2057_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_2057_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_2057_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_2057_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_2057_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_2057",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_2057"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_3072_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_3072_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_3072_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_3072_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_3072_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_3072_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_0_3072_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_0_3072_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_3072_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_3072_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_3072_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_3072_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_3072_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_3072_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_0_3072_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_0_3072_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_0_3072",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_0_3072"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3075_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3075_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3075_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3075_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3075_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3075_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3075_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3075_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3075_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3075_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3075_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3075_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3075_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3075_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3075_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3075_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_3075",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_3075"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3079_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3079_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3079_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3079_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3079_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3079_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3079_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3079_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3079_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3079_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3079_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3079_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3079_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3079_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3079_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3079_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_3079",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_3079"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_3081_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_3081_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_3081_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_3081_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_3081_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_3081_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_0_3081_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_0_3081_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_3081_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_3081_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_3081_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_3081_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_3081_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_3081_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_0_3081_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_0_3081_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_0_3081",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_0_3081"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3083_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3083_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3083_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3083_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3083_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3083_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_0_3083_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_0_3083_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3083_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3083_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3083_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3083_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3083_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3083_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_0_3083_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_0_3083_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_0_3083",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_0_3083"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_0_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_0_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_1_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_1_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_0_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_0_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_0_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_0_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_0_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_0_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_1_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_1_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_2_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_2_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_2_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_2_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_3_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_3_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_3_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_3_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_4_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_4_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_4_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_4_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_4_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_4_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_0_4_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_0_4_3"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_0_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_0_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_0_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_0_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_0_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_0_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_0_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_0_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_0_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_0_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_0_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_0_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_0_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_0_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_0_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_0_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_0"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_2_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_2_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_2_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_2_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_2_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_2_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_2_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_2_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_2_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_2_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_2_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_2_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_2_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_2_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_2_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_2_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_2"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_6_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_6_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_6_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_6_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_6_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_6_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_6_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_6_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_6_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_6_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_6_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_6_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_6_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_6_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_6_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_6_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_6",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_6"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_9_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_9_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_9_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_9_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_9_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_9_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_9_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_9_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_9_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_9_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_9_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_9_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_9_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_9_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_9_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_9_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_9",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_9"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_10_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_10_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_10_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_10_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_10_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_10_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_1_10_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_1_10_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_10_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_10_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_10_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_10_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_10_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_10_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_1_10_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_1_10_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_1_10",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_1_10"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_1024_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_1024_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_1024_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_1024_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_1024_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_1024_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_1024_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_1024_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_1024_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_1024_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_1024_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_1024_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_1024_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_1024_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_1024_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_1024_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_1024",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_1024"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_1033_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_1033_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_1033_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_1033_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_1033_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_1033_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_1033_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_1033_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_1033_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_1033_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_1033_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_1033_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_1033_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_1033_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_1033_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_1033_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_1033",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_1033"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_2048_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_2048_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_2048_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_2048_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_2048_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_2048_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_2048_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_2048_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_2048_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_2048_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_2048_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_2048_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_2048_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_2048_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_2048_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_2048_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_2048",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_2048"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_2057_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_2057_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_2057_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_2057_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_2057_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_2057_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_2057_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_2057_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_2057_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_2057_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_2057_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_2057_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_2057_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_2057_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_2057_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_2057_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_2057",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_2057"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_3072_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_3072_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_3072_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_3072_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_3072_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_3072_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_1_3072_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_1_3072_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_3072_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_3072_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_3072_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_3072_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_3072_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_3072_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_1_3072_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_1_3072_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_1_3072",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_1_3072"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3075_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3075_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3075_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3075_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3075_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3075_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3075_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3075_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3075_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3075_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3075_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3075_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3075_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3075_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3075_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3075_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_3075",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_3075"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3079_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3079_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3079_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3079_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3079_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3079_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3079_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3079_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3079_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3079_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3079_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3079_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3079_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3079_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3079_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3079_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_3079",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_3079"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_3081_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_3081_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_3081_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_3081_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_3081_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_3081_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_1_3081_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_1_3081_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_3081_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_3081_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_3081_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_3081_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_3081_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_3081_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_1_3081_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_1_3081_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_1_3081",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_1_3081"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3083_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3083_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3083_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3083_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3083_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3083_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_1_3083_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_1_3083_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3083_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3083_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3083_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3083_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3083_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3083_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_1_3083_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_1_3083_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_1_3083",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_1_3083"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_0_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_0_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_1_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_1_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_0_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_0_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_0_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_0_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_0_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_0_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_1_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_1_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_2_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_2_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_2_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_2_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_3_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_3_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_3_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_3_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_4_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_4_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_4_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_4_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_4_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_4_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_1_4_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_1_4_3"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_0_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_0_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_0_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_0_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_0_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_0_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_0_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_0_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_0_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_0_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_0_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_0_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_0_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_0_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_0_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_0_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_0",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_0"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_2_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_2_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_2_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_2_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_2_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_2_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_2_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_2_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_2_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_2_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_2_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_2_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_2_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_2_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_2_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_2_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_2",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_2"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_6_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_6_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_6_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_6_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_6_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_6_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_6_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_6_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_6_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_6_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_6_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_6_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_6_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_6_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_6_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_6_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_6",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_6"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_9_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_9_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_9_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_9_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_9_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_9_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_9_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_9_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_9_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_9_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_9_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_9_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_9_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_9_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_9_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_9_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_9",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_9"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_10_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_10_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_10_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_10_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_10_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_10_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_left_2_10_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_left_2_10_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_10_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_10_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_10_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_10_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_10_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_10_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_left_2_10_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_left_2_10_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_left_2_10",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_left_2_10"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_1024_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_1024_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_1024_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_1024_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_1024_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_1024_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_1024_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_1024_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_1024_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_1024_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_1024_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_1024_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_1024_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_1024_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_1024_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_1024_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_1024",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_1024"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_1033_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_1033_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_1033_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_1033_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_1033_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_1033_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_1033_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_1033_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_1033_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_1033_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_1033_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_1033_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_1033_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_1033_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_1033_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_1033_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_1033",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_1033"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_2048_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_2048_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_2048_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_2048_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_2048_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_2048_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_2048_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_2048_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_2048_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_2048_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_2048_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_2048_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_2048_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_2048_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_2048_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_2048_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_2048",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_2048"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_2057_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_2057_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_2057_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_2057_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_2057_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_2057_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_2057_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_2057_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_2057_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_2057_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_2057_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_2057_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_2057_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_2057_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_2057_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_2057_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_2057",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_2057"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_3072_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_3072_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_3072_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_3072_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_3072_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_3072_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_front_2_3072_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_front_2_3072_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_3072_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_3072_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_3072_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_3072_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_3072_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_3072_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_front_2_3072_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_front_2_3072_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_front_2_3072",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_front_2_3072"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3075_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3075_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3075_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3075_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3075_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3075_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3075_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3075_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3075_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3075_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3075_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3075_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3075_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3075_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3075_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3075_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_3075",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_3075"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3079_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3079_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3079_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3079_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3079_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3079_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3079_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3079_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3079_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3079_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3079_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3079_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3079_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3079_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3079_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3079_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_3079",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_3079"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_3081_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_3081_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_3081_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_3081_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_3081_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_3081_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_back_2_3081_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_back_2_3081_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_3081_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_3081_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_3081_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_3081_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_3081_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_3081_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_back_2_3081_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_back_2_3081_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_back_2_3081",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_back_2_3081"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3083_lower_a",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3083_lower_a"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3083_lower_b",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3083_lower_b"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3083_lower",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3083_lower"
+		},
+		{
+			"component_id": "wall_warm",
+			"id": "wall_right_2_3083_upper",
+			"kind": "wall",
+			"node_path": "GeneratedVisual/wall_right_2_3083_upper"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3083_sill",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3083_sill"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3083_a",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3083_a"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3083_b",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3083_b"
+		},
+		{
+			"component_id": "frame_timber",
+			"id": "frame_right_2_3083_header",
+			"kind": "frame",
+			"node_path": "GeneratedVisual/frame_right_2_3083_header"
+		},
+		{
+			"component_id": "glass_blue",
+			"id": "glass_right_2_3083",
+			"kind": "glass",
+			"node_path": "GeneratedVisual/glass_right_2_3083"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_0_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_0_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_1_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_1_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_0_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_0_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_0_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_0_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_0_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_0_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_1_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_1_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_2_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_2_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_2_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_2_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_3_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_3_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_3_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_3_3"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_4_0",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_4_0"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_4_1",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_4_1"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_4_2",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_4_2"
+		},
+		{
+			"component_id": "pillar_timber",
+			"id": "pillar_2_4_3",
+			"kind": "pillar",
+			"node_path": "GeneratedVisual/pillar_2_4_3"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_0_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_0_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_0_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_0_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_0_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_0_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_1_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_1_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_1_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_1_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_1_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_1_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_2_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_2_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_2_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_2_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_2_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_2_2"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_3_0",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_3_0"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_3_1",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_3_1"
+		},
+		{
+			"component_id": "slab_warm",
+			"id": "roof_3_2",
+			"kind": "slab",
+			"node_path": "GeneratedVisual/roof_3_2"
+		},
+		{
+			"component_id": "plant_shrub",
+			"id": "plant_roof_1_0",
+			"kind": "plant",
+			"node_path": "Vegetation/plant_roof_1_0"
+		},
+		{
+			"component_id": "plant_shrub",
+			"id": "plant_roof_1_1",
+			"kind": "plant",
+			"node_path": "Vegetation/plant_roof_1_1"
+		},
+		{
+			"component_id": "plant_shrub",
+			"id": "plant_roof_3_1",
+			"kind": "plant",
+			"node_path": "Vegetation/plant_roof_3_1"
+		}
+	],
+	"model_quality": {},
+	"noMain": true,
+	"preview_camera_lights_packed": false,
+	"recipe_fingerprint": "2e34ca0dc00bfbeb3732d4dcabf23848bc147ca3a6a3ac388a95e5e6b3475c97",
+	"revision": 1,
+	"schema_version": 1,
+	"seed": {
+		"damage": 11011,
+		"structure": 11010,
+		"vegetation": 11012
+	},
+	"source_hashes": {
+		"building.recipe.json": "4f31f815e24ce3645a25d8e4e4c59901bc3c471ffa2f9ab3b9c24af21725f555",
+		"building.tscn": "e6d70539052b04d2ebc0b458588283cb919344b4ddf5b8fc8b7560560c258e87",
+		"catalog_snapshot.json": "38a5bc8328cfde4bb658856dbb30f200d6eb18c56e891948068173b7a877c9fc"
+	},
+	"space_mode": "above_water",
+	"spatial_declarations": {
+		"walk_surfaces": [
+			{
+				"floor": 0,
+				"id": "walk_0_0_0",
+				"position": "(-4.5, 0.0, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_0_0"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_0_1",
+				"position": "(-4.5, 0.0, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_0_1"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_0_2",
+				"position": "(-4.5, 0.0, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_0_2"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_1_0",
+				"position": "(-1.5, 0.0, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_1_0"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_1_1",
+				"position": "(-1.5, 0.0, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_1_1"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_1_2",
+				"position": "(-1.5, 0.0, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_1_2"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_2_0",
+				"position": "(1.5, 0.0, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_2_0"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_2_1",
+				"position": "(1.5, 0.0, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_2_1"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_2_2",
+				"position": "(1.5, 0.0, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_2_2"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_3_0",
+				"position": "(4.5, 0.0, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_3_0"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_3_1",
+				"position": "(4.5, 0.0, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_3_1"
+				]
+			},
+			{
+				"floor": 0,
+				"id": "walk_0_3_2",
+				"position": "(4.5, 0.0, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_0_3_2"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_0_0",
+				"position": "(-4.5, 5.1, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_0_0"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_0_1",
+				"position": "(-4.5, 5.1, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_0_1"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_0_2",
+				"position": "(-4.5, 5.1, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_0_2"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_1_0",
+				"position": "(-1.5, 5.1, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_1_0"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_1_1",
+				"position": "(-1.5, 5.1, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_1_1"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_1_2",
+				"position": "(-1.5, 5.1, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_1_2"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_2_0",
+				"position": "(1.5, 5.1, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_2_0"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_2_1",
+				"position": "(1.5, 5.1, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_2_1"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_2_2",
+				"position": "(1.5, 5.1, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_2_2"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_3_0",
+				"position": "(4.5, 5.1, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_3_0"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_3_1",
+				"position": "(4.5, 5.1, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_3_1"
+				]
+			},
+			{
+				"floor": 1,
+				"id": "walk_1_3_2",
+				"position": "(4.5, 5.1, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_1_3_2"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_0_0",
+				"position": "(-4.5, 10.2, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_0_0"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_0_1",
+				"position": "(-4.5, 10.2, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_0_1"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_0_2",
+				"position": "(-4.5, 10.2, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_0_2"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_1_0",
+				"position": "(-1.5, 10.2, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_1_0"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_1_1",
+				"position": "(-1.5, 10.2, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_1_1"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_1_2",
+				"position": "(-1.5, 10.2, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_1_2"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_2_0",
+				"position": "(1.5, 10.2, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_2_0"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_2_1",
+				"position": "(1.5, 10.2, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_2_1"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_2_2",
+				"position": "(1.5, 10.2, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_2_2"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_3_0",
+				"position": "(4.5, 10.2, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_3_0"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_3_1",
+				"position": "(4.5, 10.2, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_3_1"
+				]
+			},
+			{
+				"floor": 2,
+				"id": "walk_2_3_2",
+				"position": "(4.5, 10.2, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"slab_2_3_2"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_0_0",
+				"position": "(-4.5, 15.5, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_0_0"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_0_1",
+				"position": "(-4.5, 15.5, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_0_1"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_0_2",
+				"position": "(-4.5, 15.5, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_0_2"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_1_0",
+				"position": "(-1.5, 15.5, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_1_0"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_1_1",
+				"position": "(-1.5, 15.5, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_1_1"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_1_2",
+				"position": "(-1.5, 15.5, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_1_2"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_2_0",
+				"position": "(1.5, 15.5, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_2_0"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_2_1",
+				"position": "(1.5, 15.5, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_2_1"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_2_2",
+				"position": "(1.5, 15.5, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_2_2"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_3_0",
+				"position": "(4.5, 15.5, -3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_3_0"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_3_1",
+				"position": "(4.5, 15.5, 0.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_3_1"
+				]
+			},
+			{
+				"floor": 3,
+				"id": "walk_roof_3_2",
+				"position": "(4.5, 15.5, 3.0)",
+				"size": [
+					2.72965537756681,
+					2.72965537756681
+				],
+				"source_slots": [
+					"roof_3_2"
+				]
+			}
+		],
+		"water_blockers": [
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-4.5,
+					-3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_0_0",
+				"source_slots": [
+					"slab_0_0_0"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-4.5,
+					0.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959992408752
+				],
+				"source_node_path": "GeneratedVisual/slab_0_0_1",
+				"source_slots": [
+					"slab_0_0_1"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-4.5,
+					3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_0_2",
+				"source_slots": [
+					"slab_0_0_2"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-1.5,
+					-3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_1_0",
+				"source_slots": [
+					"slab_0_1_0"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-1.5,
+					0.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959992408752
+				],
+				"source_node_path": "GeneratedVisual/slab_0_1_1",
+				"source_slots": [
+					"slab_0_1_1"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					-1.5,
+					3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_1_2",
+				"source_slots": [
+					"slab_0_1_2"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					1.49999988079071,
+					-3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_2_0",
+				"source_slots": [
+					"slab_0_2_0"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					1.49999988079071,
+					0.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959992408752
+				],
+				"source_node_path": "GeneratedVisual/slab_0_2_1",
+				"source_slots": [
+					"slab_0_2_1"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					1.49999988079071,
+					3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_2_2",
+				"source_slots": [
+					"slab_0_2_2"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					4.5,
+					-3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_3_0",
+				"source_slots": [
+					"slab_0_3_0"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					4.5,
+					0.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959992408752
+				],
+				"source_node_path": "GeneratedVisual/slab_0_3_1",
+				"source_slots": [
+					"slab_0_3_1"
+				],
+				"waterline_y": 0.0
+			},
+			{
+				"kind": "local_waterline_slice",
+				"position": [
+					4.5,
+					3.0
+				],
+				"size": [
+					2.75959968566895,
+					2.75959968566895
+				],
+				"source_node_path": "GeneratedVisual/slab_0_3_2",
+				"source_slots": [
+					"slab_0_3_2"
+				],
+				"waterline_y": 0.0
+			}
+		]
+	},
+	"static_scene": true,
+	"stats": {
+		"collision_shapes": 257,
+		"nodes": 987,
+		"plant_meshes": 3,
+		"triangles": 95460,
+		"visual_meshes": 468
+	}
+}

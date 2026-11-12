@@ -268,3 +268,41 @@
 完整 professional 美术终验、性能、复杂根系/墙面苔、楼梯导航、全楼可达、正式世界接入、建筑承载与防护规范均未签；女儿墙只做单圈0.9m，屋面排水坡、压顶分缝、屋面设备未做；内角圆弧与墙上下水平边圆弧未实现。详细成因、几何参数与复现步骤见 [工整模型 v3 开发记录](../../development/2026-11-11_workshop_shell_v3_structure.md)。
 
 承重柱与腰线同样的边界：柱是**立面构造件不是受力构件**，不做荷载计算、柱距结构验算、抗震或土木结构安全签认；柱头柱础、腰线分缝与断头处理、柱与室内梁的对应关系均未做。本轮的候选楼房 bundle 未重新导出（几何已变，历史候选 `shell_rect_1794387870_107701812`／`shell_l_1794387870_107701812` 与其前的两批保持原样、不删除不改写），需要新候选时在编辑器「文件」页重新保存。详细记录见 [承重柱与楼层腰线开发记录](../../development/2026-11-12_workshop_frame_columns_band.md)。
+
+## 2026-11-12 老王场景工坊修复
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-WORKSHOP-R47 | implemented；主屏/工具菜单/plugin.cfg改名；内核下拉隐藏、四种结构形态统一入口；旧草稿与旧配方UI拒绝并提示新建，旧样例过滤，历史parser保持 | 真实editor断言名称、无可见旧方案、旧recovery拒绝且现场不变、历史文件仍在；生产文件不删除、不迁移。 |
+| SEA-WORKSHOP-R48 | implemented；Catalog.editor_catalog从版本化JSON补缺失ID，保留原定义；configure/new/apply/恢复先校目录 | 真实editor夹具删除band_cozy与pillar_cozy，保留自定义wall版本；补齐后新建/按钮生成8段腰线42柱均有真实三角网格；shell草稿恢复geometry与原快照一致，调用入参不改。 |
+| SEA-WORKSHOP-R49 | implemented；固定顶部260×46生成按钮+工具栏应用，左侧参数、右侧槽位；打开按钮按文件页名定位 | 真实editor两档分辨率完整可见，生成按钮无ScrollContainer祖先；pressed后宽度/构架/形体进入配方且实际mesh hash与包络改变。局部输入未应用继续拒绝并保留现场。 |
+
+首批真实editor `20261112-115532-laowang-editor-repair-21d3b6`：2498项/0失败，exit0/PASS，scene_unchanged=true、enginehint=true、is_playing=false。几何回归 `20261112-115949-laowang-repair-regression-77e1ed`：shell/architecture/rules/deep四项exit0/PASS。为补基础框架页截图的中间批 `20261112-120037-laowang-framework-delivery-4ec27f` 为2532项/1失败：验收错误地把“拒绝旧草稿”的状态提示视为旧方案入口；最终批次另记，不改写该失败历史。
+
+最终 `D:/projects/sea-work/verification/20261112-120447-laowang-framework-final-7539e2/report.json`：editor-workshop真实renderer、exit0/PASS、unexpected_errors=[]；内部2532项/0失败，scene_unchanged=true。已查看 `_laowang_framework.png`，确认新名称、固定生成操作与左侧基础框架可读；原建筑/保存/替件几何断言保持。恢复成功后同步清除旧失败状态提示，不再残留“旧版草稿已停止”的过期状态。
+
+## 2026-11-12 正式场景共享四材质
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R50 | implemented；MeshBuilder.shared_materials直接持有正式solar_cabin四个共享ShaderMaterial，不再创建StandardMaterial3D；公共512色盘和原PaletteUV保持 | shell专项4239项/0失败，四实例路径/身份/单一色盘/非零UV安全区/重复生成复用验证。正式四材质、shader、PNG文件hash未修改。 |
+| SEA-WORKSHOP-R51 | implemented；默认glass=Gloss、railing=Metal、其余Matte；catalog可选material_role限定四角色，shell与legacy生成均接收 | 显式四角色逐一生成，几何/法线/UV/碰撞hash不变；栏杆fixture实际含Metal网格，Emission仅显式指定时使用，不额外虚构发光构件。 |
+| SEA-WORKSHOP-R52 | implemented；editor_store manifest新增shading_contract与四材质/shader/色盘hash，新TSCN外链共享资源；历史候选不改写 | 真实editor检查重载实际资源身份、ext_resource路径与无内嵌材质副本。Godot可把外链标成Material基类，实际实例仍须ShaderMaterial。 |
+
+shell最终证据：`D:/projects/sea-work/verification/20261112-144341-four-materials-verified-9b6305/report.json`，4239项/0失败、exit0/PASS。architecture/rules/deep在`20261112-142417-workshop-shared-materials-a37922`均通过；该批shell解析失败保留历史，不能当shell通过。材质参数验收按有效值规范化显式整数0、浮点0与shader默认null，仍严格保留非默认值、资源identity和文件hash断言。
+
+最终shell `20261112-145134-four-materials-shell-final-358bb8`：4239/0、exit0/PASS；最终真实editor `D:/projects/sea-work/verification/20261112-145134-four-materials-editor-final-d9185f/report.json`：13894/0、exit0/PASS、unexpected_errors=[]、scene_unchanged=true。复核生产四材质/两个shader/PNG的git diff为空；真实L形栏杆楼图中奶油墙、木色、冰蓝玻璃与栏杆受光正常，无着色器失败色。详细变更与中间失败成因见[开发记录](../../development/2026-11-12_workshop_shared_scene_materials.md)。
+
+## 2026-11-12 门窗与破旧实际效果
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R53 | implemented；全局双向同步尺寸、局部应用只提交window且保留其它输入；修窗台步长与缺省尺寸误dirty | 真实UI基本窗.9×1.3/窗台1.1、架构反向同步、door1.3×2.2均检查实际geometry；floor/facade/single不串全局。 |
+| SEA-WORKSHOP-R54 | implemented；cozy四档公共色格＋窗下闭合斑驳，aging0不增几何 | shell采PNG实际颜色/UV安全区与闭合；editor四档UV hash互异与斑驳形体变化，同机位实拍墙面可见变化。 |
+| SEA-WORKSHOP-R55 | implemented；新增shell_damage_geometry，真实玻璃凹边厚实体与木门下缺口 | 0/.4/.9/1接受，破口射线和缺失面积、seed重复性、结构/碰撞不变。未做承重墙洞、残板/坍塌、框扇损坏或物理碎片。 |
+| SEA-WORKSHOP-R56 | implemented；编辑器操作、同机位多档图、保存重载与原子拒绝覆盖 | 最终真实editor `20261112-162447-window-weathering-signed-9542fb`：20015项/0失败、exit0/PASS、scene_unchanged=true。 |
+
+shell最终 `20261112-161332-weathering-shell-final-606baa`：9872项/0失败、exit0/PASS。architecture/rules/deep `20261112-160656-window-weathering-kernel-593668`均通过，该批shell因新增色格缺hex字段4失败，补齐源色盘事实后重验。首批editor19999/22失败含窗台step偏移、dirty语义误断言、稀疏窗尺寸误dirty；随后一次编辑器在截图中途退出且无completion_marker，记录未通过不冒称PASS。最终20,015/0批覆盖全链。
+
+实拍clean/windows_edited/weathered/damaged保存在最终批project/outputs；无主场景改动，无新独立贴图或材质副本。另见[门窗与破旧修复记录](../../development/2026-11-12_workshop_window_weathering.md)。
+

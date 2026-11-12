@@ -10,6 +10,14 @@ const ShellGeometry = preload("res://src/workshop/shell_geometry.gd")
 const Session = preload("res://src/workshop/session.gd")
 const Store = preload("res://src/workshop/store.gd")
 const Adapter = preload("res://addons/building_workshop/catalog_adapter.gd")
+const MeshBuilder = preload("res://src/workshop/mesh_builder.gd")
+const SHARED_MATERIAL_PATHS: Dictionary = {
+	"SEA_Matte": "res://assets/materials/solar_cabin/sunny_matte.tres",
+	"SEA_Metal": "res://assets/materials/solar_cabin/sunny_metal.tres",
+	"SEA_Gloss": "res://assets/materials/solar_cabin/sunny_gloss.tres",
+	"SEA_Emission": "res://assets/materials/solar_cabin/sunny_emission.tres"
+}
+const SHARED_PALETTE_PATH: String = "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 const REPORT_PATH: String = "res://outputs/workshop_shell_report.json"
 const WELD: float = 0.00001
 const SAVE_EPS: float = 0.0001
@@ -24,6 +32,8 @@ var report: Dictionary = {"suite": "workshop-shell", "fixtures": {}, "legacy_sam
 var image_cache: Dictionary = {}
 var palette: Dictionary = {}
 var run_id: String = ""
+var shared_materials: Dictionary = {}
+var shared_material_state: Dictionary = {}
 
 func _init() -> void:
 	call_deferred("run")
@@ -46,6 +56,7 @@ func run() -> void:
 	check(str(recipe.get("component_bindings", {}).get("wall", "")) == "wall_sun", "创作默认墙为wall_sun")
 	check(float(recipe.get("aging", -1.0)) == 0.0 and float(recipe.get("damage", -1.0)) == 0.0 and float(recipe.get("vegetation_density", -1.0)) == 0.0, "创作默认为干净无损无植物")
 	_test_auditor()
+	_test_shared_scene_materials(recipe, catalog)
 	var fixtures: Array[Dictionary] = []
 	for spec: Array in [["rect_12x9_f3", "rectangle", 9.0, 3], ["l_12x12_f3", "l", 12.0, 3], ["rect_f1", "rectangle", 9.0, 1], ["rect_f5", "rectangle", 9.0, 5], ["l_f1", "l", 12.0, 1], ["l_f5", "l", 12.0, 5]]:
 		var fixture: Dictionary = recipe.duplicate(true)
@@ -65,9 +76,139 @@ func run() -> void:
 		_test_fixture(fixture, catalog)
 	_test_legacy_samples(catalog)
 	_test_damage(fixtures[0], catalog)
+	_test_window_weathering(recipe, catalog)
 	_test_store(fixtures[0], catalog, "baseline")
 	_test_prefabs(fixtures[0], catalog)
 	_finish()
+
+func _test_shared_scene_materials(recipe: Dictionary, catalog: Dictionary) -> void:
+	shared_materials = MeshBuilder.shared_materials()
+	check(not shared_materials.is_empty(), "MeshBuilder提供shared_materials；缺失不得跳过")
+	for role: String in SHARED_MATERIAL_PATHS:
+		var source: ShaderMaterial = load(str(SHARED_MATERIAL_PATHS[role])) as ShaderMaterial
+		check(source != null, role + " 正式资源可读取")
+		if source != null: shared_material_state[role] = _shared_material_snapshot(source)
+	shared_materials = MeshBuilder.shared_materials()
+	check(shared_materials.size() == 4, "shared_materials恰好四个SEA角色")
+	var texture: Texture2D = load(SHARED_PALETTE_PATH) as Texture2D
+	check(texture != null and texture.get_width() == 512 and texture.get_height() == 512, "四材质正式共享色盘为512x512")
+	var identities: Dictionary = {}
+	for role: String in SHARED_MATERIAL_PATHS:
+		var material: ShaderMaterial = shared_materials.get(role) as ShaderMaterial
+		check(material != null, role + " 为ShaderMaterial")
+		if material == null: continue
+		identities[material.get_instance_id()] = true
+		check(material == load(str(SHARED_MATERIAL_PATHS[role])) and material.resource_path == str(SHARED_MATERIAL_PATHS[role]) and material.resource_name == role and not material.resource_local_to_scene, role + " identity/path/name与正式场景一致且不按场景复制")
+		check(texture != null and material.get_shader_parameter("palette") == texture, role + " 使用同一个512texture实例")
+	check(identities.size() == 4, "四角色为四个不同共享实例")
+	var cache: Dictionary = {}
+	for role: String in SHARED_MATERIAL_PATHS:
+		for color: String in ["cozy", "glass", "timber"]:
+			for aging: float in [0.0, 0.8]:
+				check(MeshBuilder.material(color, aging, cache, role) == shared_materials.get(role), role + " 显式角色优先于配色和老化且不复制")
+	check(MeshBuilder.material("glass", 0.0, {}) == shared_materials.get("SEA_Gloss") and MeshBuilder.material("cozy", 0.8, {}) == shared_materials.get("SEA_Matte"), "默认glass为Gloss其余Matte")
+	var original: String = JSON.stringify(recipe)
+	var catalog_hash: String = Catalog.fingerprint(catalog)
+	var built: Dictionary = Generator.build(recipe, catalog)
+	var root: Node3D = built.get("root") as Node3D
+	check(bool(built.get("ok", false)) and root != null, "四材质验收生成默认shell", str(built.get("reason", "")))
+	if root != null:
+		var baseline: Dictionary = _inventory(root)
+		var used: Array = _check_shell_materials("默认shell", baseline, catalog)
+		check(used.size() > 0 and used.size() <= 4, "默认shell材质实例仅来自共享4个")
+		for iteration: int in 3:
+			var repeat: Dictionary = Generator.build(recipe, catalog)
+			var repeat_root: Node3D = repeat.get("root") as Node3D
+			check(bool(repeat.get("ok", false)) and repeat_root != null, "重复shell生成成功%d" % iteration, str(repeat.get("reason", "")))
+			if repeat_root == null: continue
+			var repeated: Dictionary = _inventory(repeat_root)
+			check(_same_geometry(baseline, repeated) and baseline.geometry_hash == repeated.geometry_hash, "重复生成全部几何/法线/UV/碰撞不变%d" % iteration)
+			check(_check_shell_materials("重复shell%d" % iteration, repeated, catalog) == used, "重复生成不新增材质实例%d" % iteration)
+			repeat_root.free()
+		for role: String in SHARED_MATERIAL_PATHS:
+			var assigned: Dictionary = catalog.duplicate(true)
+			for definition: Dictionary in assigned.components.values():
+				if str(definition.get("kind", "")) == "parametric": definition["material_role"] = role
+			var role_build: Dictionary = Generator.build(recipe, assigned)
+			var role_root: Node3D = role_build.get("root") as Node3D
+			check(bool(role_build.get("ok", false)) and role_root != null, role + " definition.material_role生成成功", str(role_build.get("reason", "")))
+			if role_root == null: continue
+			var role_inventory: Dictionary = _inventory(role_root)
+			var role_ids: Array = _check_shell_materials(role + " definition覆盖", role_inventory, assigned)
+			var expected: ShaderMaterial = shared_materials.get(role) as ShaderMaterial
+			check(expected != null and role_ids == [expected.get_instance_id()], role + " 完整SEA角色覆盖含glass的所有参数组件")
+			check(_same_geometry(baseline, role_inventory) and baseline.geometry_hash == role_inventory.geometry_hash, role + " 仅换材质不改变任何几何/法线/UV/碰撞")
+			role_root.free()
+		root.free()
+	var railing_recipe: Dictionary = recipe.duplicate(true)
+	railing_recipe["architecture"]["roof"]["mode"] = "railing"
+	var railing_build: Dictionary = Generator.build(railing_recipe, catalog)
+	var railing_root: Node3D = railing_build.get("root") as Node3D
+	check(bool(railing_build.get("ok", false)) and railing_root != null, "railing fixture生成成功", str(railing_build.get("reason", "")))
+	if railing_root != null:
+		var railing: Dictionary = _inventory(railing_root)
+		_check_shell_materials("railing fixture", railing, catalog)
+		var railing_count: int = 0
+		for record: Dictionary in railing.mesh_records:
+			if not str(record.id).begins_with("railing_"): continue
+			railing_count += 1
+			var node: MeshInstance3D = record.node
+			var mesh: Mesh = record.mesh
+			for surface: int in mesh.get_surface_count():
+				check(node.get_active_material(surface) == shared_materials.get("SEA_Metal"), str(record.id) + " 默认明确使用共享Metal")
+		check(railing_count > 0, "railing fixture确实含栏杆而非空测")
+		railing_root.free()
+	check(JSON.stringify(recipe) == original and Catalog.fingerprint(catalog) == catalog_hash, "共享材质验收不改原始配方和目录")
+	_check_shared_materials_unchanged("角色及重复生成后")
+
+func _shared_material_snapshot(material: ShaderMaterial) -> Dictionary:
+	var parameters: Dictionary = {}
+	if material.shader != null:
+		for uniform: Dictionary in material.shader.get_shader_uniform_list():
+			var key: String = str(uniform.name)
+			var value: Variant = material.get_shader_parameter(key)
+			if value == null:
+				value = {"roughness_value": 0.62, "metallic_value": 0.0, "emission_value": 0.0, "grid_role": false, "home_window": false, "home_window_recessed": false, "home_window_column": 3, "alpha_value": 0.81, "tint": Color.WHITE, "interior_glass": false}.get(key)
+			parameters[key] = snappedf(float(value), 0.000001) if value is float or value is int else value
+	return {"id": material.get_instance_id(), "path": material.resource_path, "name": material.resource_name, "local": material.resource_local_to_scene, "priority": material.render_priority, "next_pass": material.next_pass, "shader": material.shader, "shader_code": material.shader.code if material.shader != null else "", "parameters": parameters.duplicate(true), "file_hash": FileAccess.get_sha256(material.resource_path), "shader_hash": FileAccess.get_sha256(material.shader.resource_path) if material.shader != null else "", "texture_hash": FileAccess.get_sha256(SHARED_PALETTE_PATH)}
+
+func _check_shared_materials_unchanged(label: String) -> void:
+	if shared_material_state.is_empty(): return
+	var current: Dictionary = MeshBuilder.shared_materials()
+	check(current.size() == 4, label + " shared_materials仍恰好四项")
+	for role: String in shared_material_state:
+		var material: ShaderMaterial = current.get(role) as ShaderMaterial
+		var current_state: Dictionary = _shared_material_snapshot(material) if material != null else {}
+		var differences: Array[String] = []
+		for key: String in current_state:
+			if current_state[key] != shared_material_state[role].get(key): differences.append(key + ": " + str(shared_material_state[role].get(key)) + " -> " + str(current_state[key]))
+		check(material != null and material == shared_materials.get(role) and differences.is_empty(), label + " " + role + " identity/参数/文件hash前后不变", str(differences))
+
+func _check_shell_materials(label: String, inventory: Dictionary, catalog: Dictionary) -> Array:
+	var used: Dictionary = {}
+	for record: Dictionary in inventory.mesh_records:
+		var node: MeshInstance3D = record.node
+		var mesh: Mesh = record.mesh
+		var id: String = str(record.id)
+		var definition: Dictionary = catalog.components.get(str(node.get_meta("component_id", "")), {})
+		var role: String = str(definition.get("material_role", ""))
+		if role.is_empty(): role = "SEA_Gloss" if id.begins_with("glass_") else ("SEA_Metal" if id.begins_with("railing_") else "SEA_Matte")
+		var attached: Array[Material] = [node.material_override, node.material_overlay]
+		for surface: int in mesh.get_surface_count():
+			attached.append(mesh.surface_get_material(surface))
+			attached.append(node.get_surface_override_material(surface))
+		for material: Material in attached:
+			if material == null: continue
+			var attached_role: String = material.resource_name
+			check(material is ShaderMaterial and SHARED_MATERIAL_PATHS.has(attached_role) and material == shared_materials.get(attached_role), label + " " + id + " 所有底层及覆盖材质均属于共享四实例")
+			used[material.get_instance_id()] = true
+		for surface: int in mesh.get_surface_count():
+			var material: ShaderMaterial = node.get_active_material(surface) as ShaderMaterial
+			check(material != null and SHARED_MATERIAL_PATHS.has(role) and material == shared_materials.get(role) and material.resource_path == str(SHARED_MATERIAL_PATHS.get(role, "")) and material.resource_name == role, label + " " + id + " role/path/identity正确", role)
+			if material != null: used[material.get_instance_id()] = true
+	var ids: Array = used.keys()
+	ids.sort()
+	return ids
 
 func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	var label: String = str(recipe.building_id)
@@ -338,7 +479,9 @@ func _test_damage(recipe: Dictionary, catalog: Dictionary) -> void:
 		{"id": "wall_disabled", "patch": {"slot_overrides": {"wall_shell_0": {"disabled": true}}}},
 		{"id": "wall_excluded", "patch": {"excluded_slots": ["wall_shell_0"]}},
 		{"id": "wall_offset", "patch": {"slot_overrides": {"wall_shell_0": {"offset": [0.1, 0.0, 0.0]}}}},
-		{"id": "damage", "patch": {"damage": 0.2}}
+		{"id": "damage_negative", "patch": {"damage": -0.1}},
+		{"id": "damage_over_one", "patch": {"damage": 1.1}},
+		{"id": "damage_seed_negative", "patch": {"damage_seed": -1}}
 	]
 	var cases: Array[Dictionary] = []
 	for invalid: Dictionary in invalids:
@@ -380,6 +523,189 @@ func _test_damage(recipe: Dictionary, catalog: Dictionary) -> void:
 		var failed_root: Node3D = rejected.get("root") as Node3D
 		if is_instance_valid(failed_root) and failed_root != preview: failed_root.free()
 	if is_instance_valid(preview): preview.free()
+
+func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
+	check(OS.get_thread_caller_id() == OS.get_main_thread_id(), "门窗风化QA仅在主线程执行")
+	var original: String = JSON.stringify(source)
+	var recipe: Dictionary = source.duplicate(true)
+	recipe.merge({"building_id": "window_weathering", "shape": "rectangle", "width": 12.0, "depth": 9.0, "floors": 3, "taper": 0.0, "aging": 0.0, "damage": 0.0, "vegetation_density": 0.0}, true)
+	recipe.architecture.form.enabled = false
+	var built: Dictionary = Generator.build(recipe, catalog)
+	var root: Node3D = built.get("root") as Node3D
+	check(bool(built.get("ok", false)) and root != null, "门窗风化clean基线生成", str(built.get("reason", "")))
+	if root == null: return
+	var clean: Dictionary = _inventory(root)
+	_check_audit("门窗风化clean", _audit_inventory(clean))
+	var clean_glass: String = _prefix_hash(clean, "glass_")
+	var clean_door: String = _prefix_hash(clean, "door_")
+	var uv_hashes: Dictionary = {}
+	var patch_hashes: Dictionary = {}
+	report["window_weathering"] = {"aging": {}, "damage": {}}
+	for amount: float in [0.0, 0.2, 0.5, 0.9]:
+		var aged_recipe: Dictionary = recipe.duplicate(true)
+		aged_recipe.aging = amount
+		var aged_build: Dictionary = Generator.build(aged_recipe, catalog)
+		var aged_root: Node3D = aged_build.get("root") as Node3D
+		var label: String = "aging=%s" % str(amount)
+		check(bool(aged_build.get("ok", false)) and aged_root != null, label + " 生成真实网格", str(aged_build.get("reason", "")))
+		if aged_root == null: continue
+		var aged: Dictionary = _inventory(aged_root)
+		_check_audit(label, _audit_inventory(aged, amount))
+		_check_weathering_parts(label, aged, 4 * int(recipe.floors), amount > 0.0)
+		check(_preserved_parts(clean, aged, false) and _same_collision_faces(clean, aged), label + " 原件几何与全部结构碰撞不变，仅增斑驳及换UV")
+		var uv_hash: String = _prefix_hash(aged, "wall_shell_", true)
+		var patch_hash: String = _prefix_hash(aged, "wall_weathering_")
+		check(not uv_hashes.has(uv_hash), label + " 四档墙UV互异")
+		uv_hashes[uv_hash] = true
+		if amount > 0.0:
+			check(not patch_hashes.has(patch_hash), label + " 斑驳实际面随老化改变")
+			patch_hashes[patch_hash] = true
+		else:
+			check(_same_geometry(clean, aged) and clean.geometry_hash == aged.geometry_hash, label + " 零值严格保持clean几何/UV/数量")
+		_check_shell_materials(label, aged, catalog)
+		report.window_weathering.aging[str(amount)] = {"wall_uv_hash": uv_hash, "patch_geometry_hash": patch_hash, "inventory": _public_inventory(aged, {})}
+		aged_root.free()
+	var previous_glass: String = clean_glass
+	var previous_volume: float = _prefix_volume(clean, "glass_")
+	var previous_door_volume: float = _prefix_volume(clean, "door_")
+	var session: RefCounted = Session.new(catalog)
+	check(bool(session.call("accept_loaded", recipe, catalog).get("ok", false)), "damage接受测试载入shell会话")
+	for amount: float in [0.0, 0.4, 0.9, 1.0]:
+		var patched: Dictionary = session.call("apply_patch", {"damage": amount})
+		var label: String = "damage=%s" % str(amount)
+		var loaded_session: RefCounted = Session.new(catalog)
+		var candidate: Dictionary = recipe.duplicate(true)
+		candidate.damage = amount
+		var loaded: Dictionary = loaded_session.call("accept_loaded", candidate, catalog)
+		check(bool(loaded.get("ok", false)), label + " accept_loaded当场接受合法0..1", str(loaded.get("reason", "")))
+		check(bool(patched.get("ok", false)), label + " apply_patch当场接受合法0..1", str(patched.get("reason", "")))
+		var damaged_build: Dictionary = session.call("build")
+		var damaged_root: Node3D = damaged_build.get("root") as Node3D
+		check(bool(damaged_build.get("ok", false)) and damaged_root != null, label + " 实际生成", str(damaged_build.get("reason", "")))
+		if damaged_root == null: continue
+		var damaged: Dictionary = _inventory(damaged_root)
+		_check_audit(label, _audit_inventory(damaged))
+		check(damaged.parts.size() == clean.parts.size() and _preserved_parts(clean, damaged, true) and _same_collision_faces(clean, damaged), label + " 不删除整件，除玻璃门扇外全部原件及碰撞保持，门洞墙板不变")
+		for id: String in clean.parts:
+			if not id.begins_with("glass_") and not id.begins_with("door_"): continue
+			var actual_faces: PackedVector3Array = damaged.parts.get(id, PackedVector3Array())
+			check(not actual_faces.is_empty() and (amount == 0.0 or not _same_faces(clean.parts[id], actual_faces)), label + " 每件填充仍存在且非零值确实裁口：" + id)
+		check(_collision_matches_visual(damaged) and _no_accessory_collision(damaged) and int(damaged.invalid_collision_shapes) == 0, label + " 结构碰撞仍匹配实际三角面，填充件无碰撞")
+		var glass_hash: String = _prefix_hash(damaged, "glass_")
+		var door_hash: String = _prefix_hash(damaged, "door_")
+		var volume: float = _prefix_volume(damaged, "glass_")
+		var door_volume: float = _prefix_volume(damaged, "door_")
+		if amount > 0.0:
+			check(glass_hash != clean_glass and glass_hash != previous_glass and door_hash != clean_door, label + " 实际玻璃面/hash和木门缺口变化")
+			check(volume > 0.0 and volume < previous_volume and door_volume > 0.0 and door_volume < previous_door_volume, label + " 缺失量递增且仍保留完整连通实体")
+			_check_damage_profile(label, clean, damaged, "glass_front_0_0", false)
+			_check_damage_profile(label, clean, damaged, "door_front_0_1", true)
+		else:
+			check(clean.geometry_hash == damaged.geometry_hash and _same_geometry(clean, damaged), label + " 严格走原完整门窗路径")
+		previous_glass = glass_hash
+		previous_volume = volume
+		previous_door_volume = door_volume
+		_check_shell_materials(label, damaged, catalog)
+		var snapshot: Dictionary = session.call("snapshot")
+		var repeat: Dictionary = Generator.build(snapshot, catalog)
+		var repeat_root: Node3D = repeat.get("root") as Node3D
+		check(bool(repeat.get("ok", false)) and repeat_root != null, label + " 同seed重复生成")
+		if repeat_root != null:
+			var repeated: Dictionary = _inventory(repeat_root)
+			check(damaged.geometry_hash == repeated.geometry_hash and _same_geometry(damaged, repeated), label + " 同damage_seed面/UV/碰撞确定性")
+			repeat_root.free()
+		if amount == 0.9:
+			var changed_seed: Dictionary = snapshot.duplicate(true)
+			changed_seed.damage_seed = int(snapshot.damage_seed) + 1
+			var seeded_build: Dictionary = Generator.build(changed_seed, catalog)
+			var seeded_root: Node3D = seeded_build.get("root") as Node3D
+			check(bool(seeded_build.get("ok", false)) and seeded_root != null, "不同damage_seed实际生成")
+			if seeded_root != null:
+				var seeded: Dictionary = _inventory(seeded_root)
+				check(_prefix_hash(seeded, "glass_") != glass_hash and _preserved_parts(damaged, seeded, true) and _same_collision_faces(damaged, seeded), "换damage_seed仅改变填充件，不串结构")
+				seeded_root.free()
+			var combined: Dictionary = snapshot.duplicate(true)
+			combined.aging = 0.9
+			_test_store(combined, catalog, "weathered_damaged")
+		report.window_weathering.damage[str(amount)] = {"glass_hash": glass_hash, "door_hash": door_hash, "glass_volume": volume, "door_volume": door_volume, "inventory": _public_inventory(damaged, {})}
+		damaged_root.free()
+	root.free()
+	check(JSON.stringify(source) == original, "门窗风化不修改源配方")
+	_check_shared_materials_unchanged("门窗风化后")
+
+func _check_damage_profile(label: String, clean: Dictionary, damaged: Dictionary, id: String, door: bool) -> void:
+	var original: PackedVector3Array = clean.parts.get(id, PackedVector3Array())
+	var actual: PackedVector3Array = damaged.parts.get(id, PackedVector3Array())
+	check(not original.is_empty() and not actual.is_empty(), label + " 缺口射线目标存在：" + id)
+	if original.is_empty() or actual.is_empty(): return
+	var box: AABB = _bounds(original)
+	var missing: int = 0
+	var retained: int = 0
+	var intact_edges: bool = true
+	for row: int in range(1, 20):
+		for column: int in range(1, 20):
+			var u: float = float(column) / 20.0
+			var v: float = float(row) / 20.0
+			var point: Vector3 = Vector3(box.position.x + box.size.x * u, box.position.y + box.size.y * v, box.get_center().z)
+			var before_hit: bool = int(_ray(original, point + Vector3.FORWARD, point + Vector3.BACK).hits) > 0
+			var after_hit: bool = int(_ray(actual, point + Vector3.FORWARD, point + Vector3.BACK).hits) > 0
+			if before_hit and not after_hit: missing += 1
+			if after_hit: retained += 1
+			if row == 19 or (not door and row == 1): intact_edges = intact_edges and after_hit
+			if door and v >= 0.30: intact_edges = intact_edges and after_hit
+	check(missing > 0 and retained > 0 and intact_edges, label + (" 木门仅下缘真实缺口，上部保留" if door else " 玻璃侧破口真实贯穿，上下缘保留") + "：" + id, "missing=%d retained=%d" % [missing, retained])
+
+func _prefix_hash(inventory: Dictionary, prefix: String, uv_only: bool = false) -> String:
+	var entries: Array[String] = []
+	for record: Dictionary in inventory.mesh_records:
+		if not str(record.id).begins_with(prefix): continue
+		var mesh: Mesh = record.mesh
+		var data: Array = []
+		for surface: int in mesh.get_surface_count():
+			var arrays: Array = mesh.surface_get_arrays(surface)
+			data.append(arrays[Mesh.ARRAY_TEX_UV] if uv_only else arrays)
+		entries.append(str(record.id) + var_to_bytes([record.transform, data]).hex_encode().sha256_text())
+	entries.sort()
+	return "|".join(entries).sha256_text()
+
+func _prefix_volume(inventory: Dictionary, prefix: String) -> float:
+	var volume: float = 0.0
+	for id: String in inventory.parts:
+		if id.begins_with(prefix): volume += float(_topology(inventory.parts[id]).signed_volume)
+	return volume
+
+func _preserved_parts(before: Dictionary, after: Dictionary, damage: bool) -> bool:
+	for id: String in before.parts:
+		if damage and (id.begins_with("glass_") or id.begins_with("door_")): continue
+		if not after.parts.has(id) or not _same_faces(before.parts[id], after.parts[id]): return false
+	for id: String in after.parts:
+		if not before.parts.has(id) and not id.begins_with("wall_weathering_"): return false
+	return true
+
+func _same_collision_faces(before: Dictionary, after: Dictionary) -> bool:
+	if before.collisions.size() != after.collisions.size(): return false
+	for id: String in before.collisions:
+		if not after.collisions.has(id) or not _same_faces(before.collisions[id], after.collisions[id]): return false
+	return true
+
+func _check_weathering_parts(label: String, inventory: Dictionary, max_patches: int, enabled: bool) -> void:
+	var seen: Dictionary = {}
+	var count: int = 0
+	for record: Dictionary in inventory.mesh_records:
+		var id: String = str(record.id)
+		if not id.begins_with("wall_weathering_"): continue
+		count += 1
+		var address: PackedStringArray = id.trim_prefix("wall_weathering_").split("_")
+		var valid_address: bool = address.size() == 2 and address[0].is_valid_int() and address[1].is_valid_int()
+		if valid_address: valid_address = int(address[0]) >= 0 and int(address[0]) < int(max_patches / 4) and int(address[1]) >= 0 and int(address[1]) < 4
+		check(valid_address, label + " 斑驳地址属于真实floor/run：" + id)
+		check(not seen.has(id), label + " 每floor/run至多一片斑驳：" + id)
+		seen[id] = true
+		var faces: PackedVector3Array = inventory.parts[id]
+		check(_closed_single(_topology(faces)) and not inventory.collisions.has(id), label + " 斑驳单连通闭合且无碰撞：" + id)
+		var mesh_node: MeshInstance3D = record.node
+		check(mesh_node.visible and not faces.is_empty(), label + " 斑驳是可见真实几何：" + id)
+	check((count > 0 and count <= max_patches) if enabled else count == 0, label + " 斑驳数量符合每run至多一片", str(count))
 
 func _session_state(session: RefCounted) -> String:
 	return Catalog.fingerprint({"catalog": session.get("catalog"), "undo": session.get("_undo"), "redo": session.get("_redo"), "saved_fingerprint": session.get("_saved_fingerprint"), "dirty": session.call("is_dirty")})
@@ -437,7 +763,9 @@ func _test_store(recipe: Dictionary, catalog: Dictionary, label: String) -> void
 	var before_root: Node3D = before_build.get("root") as Node3D
 	check(before_root != null and bool(before_build.get("ok", false)), label + " 保存对照可重新生成", str(before_build.get("reason", "")))
 	var saved: Dictionary = _inventory(saved_root)
-	var audit: Dictionary = _audit_inventory(saved)
+	var audit: Dictionary = _audit_inventory(saved, float(exported.recipe.get("aging", 0.0)))
+	_check_shell_materials(label + " 保存重载", saved, catalog)
+	_check_weathering_parts(label + " 保存重载", saved, 4 * int(recipe.floors), float(recipe.get("aging", 0.0)) > 0.0)
 	entry["reload"] = _public_inventory(saved, audit)
 	_check_audit(label + " 保存重载", audit)
 	check(int(saved.scripts) == 0 and int(saved.unowned_nodes) == 0, label + " 重载静态树无脚本且owner完整")
@@ -447,6 +775,8 @@ func _test_store(recipe: Dictionary, catalog: Dictionary, label: String) -> void
 		var before: Dictionary = _inventory(before_root)
 		check(int(saved.collision_shapes) == int(before.collision_shapes), label + " 保存重载collision数量保持")
 		check(_same_geometry(before, saved), label + " 保存重载实际视觉及碰撞三角面保持尺寸与位置")
+		check(_prefix_hash(before, "wall_shell_", true) == _prefix_hash(saved, "wall_shell_", true), label + " 保存重载墙UV hash保持")
+		check(_prefix_hash(before, "glass_") == _prefix_hash(saved, "glass_") and _prefix_hash(before, "door_") == _prefix_hash(saved, "door_") and _prefix_hash(before, "wall_weathering_") == _prefix_hash(saved, "wall_weathering_"), label + " 保存重载玻璃缺口/门扇/斑驳mesh hash保持")
 		before_root.free()
 	var manifest: Dictionary = _read_json(str(exported.manifest_path))
 	entry["manifest_generator"] = manifest.get("generator", "")
@@ -573,7 +903,7 @@ func _inventory(building: Node3D) -> Dictionary:
 	result.geometry_hash = "\n".join(hashes).sha256_text()
 	return result
 
-func _audit_inventory(inventory: Dictionary) -> Dictionary:
+func _audit_inventory(inventory: Dictionary, aging: float = 0.0) -> Dictionary:
 	var result: Dictionary = {"parts": {}, "bad_parts": {}, "boundary_edges": 0, "nonmanifold_edges": 0, "orientation_errors": 0, "duplicate_triangles": 0, "degenerate_triangles": 0, "nonfinite_vertices": 0, "normal_errors": 0, "uv_area_errors": 0, "uv_safe_errors": 0, "colour_errors": 0, "disconnected_parts": 0, "window_ring_errors": 0, "window_frames": 0, "nonpositive_volumes": 0}
 	for id: String in inventory.parts:
 		var topology: Dictionary = _topology(inventory.parts[id])
@@ -589,7 +919,7 @@ func _audit_inventory(inventory: Dictionary) -> Dictionary:
 				result.window_frames += 1
 				_accumulate_issue(result, "window_ring_errors", 0 if _closed_single(topology) and int(topology.euler) == 0 else 1, id)
 	for record: Dictionary in inventory.mesh_records:
-		var attributes: Dictionary = _attributes(record)
+		var attributes: Dictionary = _attributes(record, aging)
 		result.parts[str(record.id)]["attributes"] = attributes
 		for field: String in ["normal_errors", "uv_area_errors", "uv_safe_errors", "colour_errors"]:
 			_accumulate_issue(result, field, int(attributes[field]), str(record.id))
@@ -661,7 +991,7 @@ func _find(parents: PackedInt32Array, start: int) -> int:
 		current = parents[current]
 	return current
 
-func _attributes(record: Dictionary) -> Dictionary:
+func _attributes(record: Dictionary, aging: float = 0.0) -> Dictionary:
 	var result: Dictionary = {"normal_errors": 0, "uv_area_errors": 0, "uv_safe_errors": 0, "colour_errors": 0, "colour_samples": []}
 	var mesh: Mesh = record.mesh
 	var node: MeshInstance3D = record.node
@@ -679,10 +1009,10 @@ func _attributes(record: Dictionary) -> Dictionary:
 			result.uv_area_errors += 1
 			result.colour_errors += 1
 			continue
-		var material: StandardMaterial3D = node.get_active_material(surface) as StandardMaterial3D
+		var material: ShaderMaterial = node.get_active_material(surface) as ShaderMaterial
+		var texture: Texture2D = material.get_shader_parameter("palette") as Texture2D if material != null else null
 		var image: Image = null
-		if material != null and material.albedo_texture != null:
-			var texture: Texture2D = material.albedo_texture
+		if texture != null:
 			var cache_key: int = texture.get_instance_id()
 			if not image_cache.has(cache_key):
 				var captured: Image = texture.get_image()
@@ -691,7 +1021,7 @@ func _attributes(record: Dictionary) -> Dictionary:
 					if decompressed != OK: captured = null
 				image_cache[cache_key] = captured
 			image = image_cache[cache_key] as Image
-		if image == null or image.is_empty(): result.colour_errors += 1
+		if image == null or image.is_empty() or image.get_size() != Vector2i(512, 512) or texture != load(SHARED_PALETTE_PATH): result.colour_errors += 1
 		var triangle_count: int = int(indices.size() / 3)
 		var sample_step: int = maxi(1, int(triangle_count / 4))
 		for start: int in range(0, indices.size() - 2, 3):
@@ -717,19 +1047,24 @@ func _attributes(record: Dictionary) -> Dictionary:
 				result.colour_errors += 1
 				continue
 			var sampled: Color = image.get_pixel(clampi(floori(center.x * image.get_width()), 0, image.get_width() - 1), clampi(floori(center.y * image.get_height()), 0, image.get_height() - 1))
-			var semantic: Dictionary = _semantic(record, cell)
+			var semantic: Dictionary = _semantic(record, cell, aging)
 			var expected: Color = Color(str(semantic.get("hex", "#FF00FF")))
 			var error: float = maxf(absf(sampled.r - expected.r), maxf(absf(sampled.g - expected.g), absf(sampled.b - expected.b)))
-			if semantic.is_empty() or error > 0.055 or material == null or material.albedo_color != Color.WHITE: result.colour_errors += 1
+			if semantic.is_empty() or error > 0.055 or material == null: result.colour_errors += 1
 			result.colour_samples.append({"cell": [cell.x, cell.y], "rgb": [sampled.r, sampled.g, sampled.b], "expected": semantic.get("hex", ""), "error": error})
 	return result
 
-func _semantic(record: Dictionary, cell: Vector2i) -> Dictionary:
-	var semantics: Dictionary = palette.get("semantics", {})
-	# 墙的创作默认明确要求cozy奶油色，其余件也必须实际采到契约色块。
+func _semantic(record: Dictionary, cell: Vector2i, aging: float = 0.0) -> Dictionary:
+	var semantics: Dictionary = palette.get("semantics", {}).duplicate(true)
+	# QA独立列举色格与RGB，不能用被测编码函数自己证明自己正确。
+	var stages: Array[Dictionary] = [semantics.get("cozy", {}), semantics.get("cozy_aged_light", semantics.get("slab_aged", {})), semantics.get("cozy_aged_medium", {"row": 0, "column": 5, "hex": "#CACEB0"}), semantics.get("cozy_aged_heavy", {"row": 7, "column": 3, "hex": "#748D97"})]
+	var cozy: Dictionary = stages[0 if aging <= 0.0 else (1 if aging < 0.35 else (2 if aging < 0.70 else 3))]
+	var weathering: Dictionary = semantics.get("cozy_weathering", semantics.get("timber_aged", {}))
+	semantics["shell_cozy"] = cozy
+	semantics["shell_weathering"] = weathering
 	if str(record.id).begins_with("wall_"):
-		var cozy: Dictionary = semantics.get("cozy", {})
-		return cozy if int(cozy.get("column", -1)) == cell.x and int(cozy.get("row", -1)) == cell.y else {}
+		var expected: Dictionary = weathering if str(record.id).begins_with("wall_weathering_") else cozy
+		return expected if int(expected.get("column", -1)) == cell.x and int(expected.get("row", -1)) == cell.y else {}
 	for semantic: Dictionary in semantics.values():
 		if int(semantic.get("column", -1)) == cell.x and int(semantic.get("row", -1)) == cell.y: return semantic
 	return {}
@@ -802,7 +1137,7 @@ func _collision_matches_visual(inventory: Dictionary) -> bool:
 
 func _no_accessory_collision(inventory: Dictionary) -> bool:
 	for id: String in inventory.collisions:
-		if id.begins_with("frame_") or id.begins_with("glass_"): return false
+		if id.begins_with("frame_") or id.begins_with("glass_") or id.begins_with("door_") or id.begins_with("wall_weathering_"): return false
 	return true
 
 func _closed_single(topology: Dictionary) -> bool:
@@ -861,6 +1196,7 @@ func _joint_inset(_inventory: Dictionary) -> float:
 	return inset
 
 func _structural(id: String) -> bool:
+	if id.begins_with("wall_weathering_"): return false
 	return id.begins_with("wall_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("pillar_") or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
 
 func _floor_value(recipe: Dictionary, floor: int, field: String) -> float:
@@ -917,6 +1253,7 @@ func _read_json(path: String) -> Dictionary:
 	return _parse_dictionary(parsed)
 
 func _finish() -> void:
+	_check_shared_materials_unchanged("全部shell验收结束")
 	var directory_error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(REPORT_PATH.get_base_dir()))
 	check(directory_error == OK, "报告输出目录可用", error_string(directory_error))
 	var file: FileAccess = FileAccess.open(REPORT_PATH, FileAccess.WRITE)
