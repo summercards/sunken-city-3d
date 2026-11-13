@@ -1,0 +1,53 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v001",
+  "feature_id": "SEA-ASSET",
+  "status": "frozen_before_geometry",
+  "reference": "art_source/scenes/<suite>/v001/reference.png",
+  "reference_sha256": "<sha256>",
+  "reference_license": "pending",
+  "source_policy": "<本轮从哪一版派生 / 是否复用旧几何 / 允许改动范围>",
+  "dimensions_assumption": {
+    "platform_m": [0.0, 0.0],
+    "main_house_m": [0.0, 0.0, 0.0],
+    "deck_top_z": 0.0,
+    "front": "-Y",
+    "note": "参考图无比例尺，以上为按玩家身高与门洞反推的假设，非实测"
+  },
+  "visual_priorities": [
+    "参考轮廓与错层体量",
+    "厚实奶油白体块与暖木铺板",
+    "所有硬边实体倒角，L0 半径 0.02-0.05 米三段",
+    "板材厚度 >= 0.16 米，栈桥铺板 0.22 米",
+    "饱满圆润的花叶，朝向朝上或斜上方",
+    "低饱和粉彩，焦点色面积 <= 10%"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "component_limit": 50,
+  "scene_triangle_limit": null,
+  "layout_revision": {
+    "assembly_scale_over_previous": 1.0,
+    "scale_pivot_blender": [0.0, 0.0, 0.0],
+    "note": "任何装配级缩放、移位、派生都要写在这里，并说明支撑面是否同步"
+  },
+  "components": [
+    {
+      "key": "<english_key>",
+      "asset_id": "SEA-SCENE-<SUITE>-<KEY>",
+      "name": "<中文设施名>",
+      "category": "structure | deck | fixture | plant",
+      "family": "<语义族>",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000,
+      "bevel": { "tier": "L0 | L1 | L2 | smooth", "radius_m": 0.03, "segments": 3 },
+      "thickness_m": 0.18
+    }
+  ],
+  "revision_note": "<本轮一句话说明>",
+  "references": [
+    { "path": "art_source/scenes/<suite>/v001/reference.png", "sha256": "<sha256>" }
+  ]
+}
