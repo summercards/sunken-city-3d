@@ -53,6 +53,7 @@ func run() -> void:
 	check(not palette.get("semantics", {}).is_empty(), "独立调色板契约可读取")
 	var recipe: Dictionary = Recipe.authoring_defaults()
 	check(str(recipe.get("construction_mode", "")) == "shell_v2", "创作默认模式为shell_v2")
+	check(ShellGenerator.GENERATOR_VERSION == "sea_workshop_structural_union_v3", "shell生成器版本为真结构union v3")
 	check(str(recipe.get("component_bindings", {}).get("wall", "")) == "wall_sun", "创作默认墙为wall_sun")
 	check(float(recipe.get("aging", -1.0)) == 0.0 and float(recipe.get("damage", -1.0)) == 0.0 and float(recipe.get("vegetation_density", -1.0)) == 0.0, "创作默认为干净无损无植物")
 	_test_auditor()
@@ -113,7 +114,7 @@ func _test_shared_scene_materials(recipe: Dictionary, catalog: Dictionary) -> vo
 	var root: Node3D = built.get("root") as Node3D
 	check(bool(built.get("ok", false)) and root != null, "四材质验收生成默认shell", str(built.get("reason", "")))
 	if root != null:
-		var baseline: Dictionary = _inventory(root)
+		var baseline: Dictionary = _inventory(root, built.get("semantic_sources", {}))
 		var used: Array = _check_shell_materials("默认shell", baseline, catalog)
 		check(used.size() > 0 and used.size() <= 4, "默认shell材质实例仅来自共享4个")
 		for iteration: int in 3:
@@ -121,7 +122,7 @@ func _test_shared_scene_materials(recipe: Dictionary, catalog: Dictionary) -> vo
 			var repeat_root: Node3D = repeat.get("root") as Node3D
 			check(bool(repeat.get("ok", false)) and repeat_root != null, "重复shell生成成功%d" % iteration, str(repeat.get("reason", "")))
 			if repeat_root == null: continue
-			var repeated: Dictionary = _inventory(repeat_root)
+			var repeated: Dictionary = _inventory(repeat_root, repeat.get("semantic_sources", {}))
 			check(_same_geometry(baseline, repeated) and baseline.geometry_hash == repeated.geometry_hash, "重复生成全部几何/法线/UV/碰撞不变%d" % iteration)
 			check(_check_shell_materials("重复shell%d" % iteration, repeated, catalog) == used, "重复生成不新增材质实例%d" % iteration)
 			repeat_root.free()
@@ -133,7 +134,7 @@ func _test_shared_scene_materials(recipe: Dictionary, catalog: Dictionary) -> vo
 			var role_root: Node3D = role_build.get("root") as Node3D
 			check(bool(role_build.get("ok", false)) and role_root != null, role + " definition.material_role生成成功", str(role_build.get("reason", "")))
 			if role_root == null: continue
-			var role_inventory: Dictionary = _inventory(role_root)
+			var role_inventory: Dictionary = _inventory(role_root, role_build.get("semantic_sources", {}))
 			var role_ids: Array = _check_shell_materials(role + " definition覆盖", role_inventory, assigned)
 			var expected: ShaderMaterial = shared_materials.get(role) as ShaderMaterial
 			check(expected != null and role_ids == [expected.get_instance_id()], role + " 完整SEA角色覆盖含glass的所有参数组件")
@@ -146,7 +147,7 @@ func _test_shared_scene_materials(recipe: Dictionary, catalog: Dictionary) -> vo
 	var railing_root: Node3D = railing_build.get("root") as Node3D
 	check(bool(railing_build.get("ok", false)) and railing_root != null, "railing fixture生成成功", str(railing_build.get("reason", "")))
 	if railing_root != null:
-		var railing: Dictionary = _inventory(railing_root)
+		var railing: Dictionary = _inventory(railing_root, railing_build.get("semantic_sources", {}))
 		_check_shell_materials("railing fixture", railing, catalog)
 		var railing_count: int = 0
 		for record: Dictionary in railing.mesh_records:
@@ -186,24 +187,38 @@ func _check_shared_materials_unchanged(label: String) -> void:
 
 func _check_shell_materials(label: String, inventory: Dictionary, catalog: Dictionary) -> Array:
 	var used: Dictionary = {}
-	for record: Dictionary in inventory.mesh_records:
+	var records: Array = inventory.mesh_records.duplicate()
+	for visible: Dictionary in inventory.visible_mesh_records:
+		if str(visible.id) == "structure_union": records.append(visible)
+	var source_roles: Array[String] = []
+	for source: Dictionary in inventory.mesh_records:
+		if source.node != null: continue
+		var definition: Dictionary = catalog.components.get(str(source.component_id), {})
+		var source_role: String = str(definition.get("material_role", ""))
+		if source_role.is_empty(): source_role = "SEA_Gloss" if str(source.id).begins_with("glass_") else ("SEA_Metal" if str(source.id).begins_with("railing_") else "SEA_Matte")
+		if not source_roles.has(source_role): source_roles.append(source_role)
+	for record: Dictionary in records:
 		var node: MeshInstance3D = record.node
 		var mesh: Mesh = record.mesh
 		var id: String = str(record.id)
-		var definition: Dictionary = catalog.components.get(str(node.get_meta("component_id", "")), {})
+		var definition: Dictionary = catalog.components.get(str(record.component_id), {})
 		var role: String = str(definition.get("material_role", ""))
 		if role.is_empty(): role = "SEA_Gloss" if id.begins_with("glass_") else ("SEA_Metal" if id.begins_with("railing_") else "SEA_Matte")
-		var attached: Array[Material] = [node.material_override, node.material_overlay]
+		var attached: Array[Material] = []
+		if node != null:
+			attached.append(node.material_override)
+			attached.append(node.material_overlay)
 		for surface: int in mesh.get_surface_count():
 			attached.append(mesh.surface_get_material(surface))
-			attached.append(node.get_surface_override_material(surface))
+			if node != null: attached.append(node.get_surface_override_material(surface))
 		for material: Material in attached:
 			if material == null: continue
 			var attached_role: String = material.resource_name
 			check(material is ShaderMaterial and SHARED_MATERIAL_PATHS.has(attached_role) and material == shared_materials.get(attached_role), label + " " + id + " 所有底层及覆盖材质均属于共享四实例")
 			used[material.get_instance_id()] = true
 		for surface: int in mesh.get_surface_count():
-			var material: ShaderMaterial = node.get_active_material(surface) as ShaderMaterial
+			var material: ShaderMaterial = (node.get_active_material(surface) if node != null else mesh.surface_get_material(surface)) as ShaderMaterial
+			if id == "structure_union" and material != null: role = material.resource_name if source_roles.has(material.resource_name) else ""
 			check(material != null and SHARED_MATERIAL_PATHS.has(role) and material == shared_materials.get(role) and material.resource_path == str(SHARED_MATERIAL_PATHS.get(role, "")) and material.resource_name == role, label + " " + id + " role/path/identity正确", role)
 			if material != null: used[material.get_instance_id()] = true
 	var ids: Array = used.keys()
@@ -220,7 +235,7 @@ func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	if building == null:
 		report.fixtures[label] = {"ok": false, "reason": str(build.get("reason", "没有root"))}
 		return
-	var inventory: Dictionary = _inventory(building)
+	var inventory: Dictionary = _inventory(building, build.get("semantic_sources", {}))
 	var audit: Dictionary = _audit_inventory(inventory)
 	var fixture_report: Dictionary = _public_inventory(inventory, audit)
 	fixture_report["recipe"] = recipe.duplicate(true)
@@ -251,7 +266,7 @@ func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	check(int(inventory.nodes) <= 2000 and int(inventory.triangles) <= 180000, label + " 实数节点和面数在预算内")
 	_check_audit(label, audit)
 	check(int(inventory.invalid_collision_shapes) == 0, label + " 碰撞全部来自ConcavePolygon实际三角面")
-	check(int(inventory.collision_shapes) >= floors * 2 + 1, label + " 至少每层墙壳楼板与屋顶有碰撞")
+	check(int(inventory.collision_shapes) >= 1 and inventory.collisions.has("structure_union"), label + " 墙壳楼板与屋顶融合结构具有真实碰撞")
 	var non_structural: Array[String] = []
 	for collision_id: String in inventory.collisions:
 		if not _structural(collision_id): non_structural.append(collision_id)
@@ -266,7 +281,7 @@ func _test_fixture(recipe: Dictionary, catalog: Dictionary) -> void:
 	var repeat_root: Node3D = repeated.get("root") as Node3D
 	check(bool(repeated.get("ok", false)) and repeat_root != null, label + " 同JSON可重复生成", str(repeated.get("reason", "")))
 	if repeat_root != null:
-		var repeat_inventory: Dictionary = _inventory(repeat_root)
+		var repeat_inventory: Dictionary = _inventory(repeat_root, repeated.get("semantic_sources", {}))
 		check(str(inventory.geometry_hash) == str(repeat_inventory.geometry_hash) and _same_geometry(inventory, repeat_inventory), label + " 同JSON实际geometry稳定hash及碰撞保持")
 		check(_slot_signature(build.get("slots", [])) == _slot_signature(repeated.get("slots", [])), label + " 同JSON槽位映射稳定")
 		repeat_root.free()
@@ -334,7 +349,7 @@ func _test_levels(label: String, recipe: Dictionary, inventory: Dictionary) -> v
 		check(accessories == 0, label + " left windows关闭后没有遗留窗框玻璃")
 		var y: float = float(recipe.window_sill) + float(recipe.window_height) * 0.5
 		var point: Vector3 = _mapped(Vector3(-float(recipe.width) * 0.5, y, -float(recipe.depth) * 0.25), recipe)
-		check(int(_ray(inventory.collisions.get("wall_shell_0", PackedVector3Array()), point - Vector3.RIGHT, point + Vector3.RIGHT).hits) >= 1, label + " 禁窗立面原窗高位置确有实墙")
+		check(int(_ray(inventory.collisions.get("structure_union", PackedVector3Array()), point - Vector3.RIGHT, point + Vector3.RIGHT).hits) >= 1, label + " 禁窗立面原窗高位置确有实墙")
 
 func _test_outer_radius(label: String, recipe: Dictionary, inventory: Dictionary) -> Dictionary:
 	var x: float = float(recipe.width) * 0.5
@@ -400,7 +415,7 @@ func _test_outer_radius(label: String, recipe: Dictionary, inventory: Dictionary
 
 func _test_rays(label: String, recipe: Dictionary, inventory: Dictionary, openings: Array) -> Dictionary:
 	var results: Dictionary = {}
-	var wall: PackedVector3Array = inventory.collisions.get("wall_shell_0", PackedVector3Array())
+	var wall: PackedVector3Array = inventory.collisions.get("structure_union", PackedVector3Array())
 	var door: Dictionary = {}
 	var window: Dictionary = {}
 	for opening: Dictionary in openings:
@@ -430,7 +445,7 @@ func _test_rays(label: String, recipe: Dictionary, inventory: Dictionary, openin
 		joined = joined and int(front_hit.hits) > 0 and int(side_hit.hits) > 0 and int(seam_hit.hits) > 0
 	check(joined, label + " 左右前墙角两相邻墙及圆弧接缝均无漏射线")
 	var roof: PackedVector3Array = inventory.parts.get("roof_main", PackedVector3Array())
-	var collision_roof: PackedVector3Array = inventory.collisions.get("roof_main", PackedVector3Array())
+	var collision_roof: PackedVector3Array = inventory.collisions.get("structure_union", PackedVector3Array())
 	var height: float = _height(recipe)
 	var thickness: float = _floor_value(recipe, int(recipe.floors) - 1, "slab_thickness")
 	var inside: Vector3 = Vector3(-float(recipe.width) * 0.23, height, -float(recipe.depth) * 0.21)
@@ -471,7 +486,7 @@ func _test_damage(recipe: Dictionary, catalog: Dictionary) -> void:
 	var preview: Node3D = good.get("root") as Node3D
 	check(bool(good.get("ok", false)) and preview != null, "原子拒绝前会话可生成预览")
 	if preview == null: return
-	var before_hash: String = str(_inventory(preview).geometry_hash)
+	var before_hash: String = str(_inventory(preview, good.get("semantic_sources", {})).geometry_hash)
 	var before_snapshot: Dictionary = session.call("snapshot")
 	var before_json: String = JSON.stringify(before_snapshot)
 	var before_state: String = _session_state(session)
@@ -515,7 +530,7 @@ func _test_damage(recipe: Dictionary, catalog: Dictionary) -> void:
 		var retained_preview: bool = is_instance_valid(preview) and retained.get("root") == preview
 		check(retained_preview, label + " 原子拒绝保持last_build.root身份")
 		var geometry_unchanged: bool = false
-		if is_instance_valid(preview): geometry_unchanged = str(_inventory(preview).geometry_hash) == before_hash
+		if is_instance_valid(preview): geometry_unchanged = str(_inventory(preview, good.get("semantic_sources", {})).geometry_hash) == before_hash
 		check(geometry_unchanged, label + " 失败不释放或改变已有预览几何")
 		var state_unchanged: bool = _session_state(session) == before_state
 		check(state_unchanged, label + " 失败不改catalog/撤销重做历史/dirty及保存身份")
@@ -534,7 +549,7 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 	var root: Node3D = built.get("root") as Node3D
 	check(bool(built.get("ok", false)) and root != null, "门窗风化clean基线生成", str(built.get("reason", "")))
 	if root == null: return
-	var clean: Dictionary = _inventory(root)
+	var clean: Dictionary = _inventory(root, built.get("semantic_sources", {}))
 	_check_audit("门窗风化clean", _audit_inventory(clean))
 	var clean_glass: String = _prefix_hash(clean, "glass_")
 	var clean_door: String = _prefix_hash(clean, "door_")
@@ -549,7 +564,7 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 		var label: String = "aging=%s" % str(amount)
 		check(bool(aged_build.get("ok", false)) and aged_root != null, label + " 生成真实网格", str(aged_build.get("reason", "")))
 		if aged_root == null: continue
-		var aged: Dictionary = _inventory(aged_root)
+		var aged: Dictionary = _inventory(aged_root, aged_build.get("semantic_sources", {}))
 		_check_audit(label, _audit_inventory(aged, amount))
 		_check_weathering_parts(label, aged, 4 * int(recipe.floors), amount > 0.0)
 		check(_preserved_parts(clean, aged, false) and _same_collision_faces(clean, aged), label + " 原件几何与全部结构碰撞不变，仅增斑驳及换UV")
@@ -583,7 +598,7 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 		var damaged_root: Node3D = damaged_build.get("root") as Node3D
 		check(bool(damaged_build.get("ok", false)) and damaged_root != null, label + " 实际生成", str(damaged_build.get("reason", "")))
 		if damaged_root == null: continue
-		var damaged: Dictionary = _inventory(damaged_root)
+		var damaged: Dictionary = _inventory(damaged_root, damaged_build.get("semantic_sources", {}))
 		_check_audit(label, _audit_inventory(damaged))
 		check(damaged.parts.size() == clean.parts.size() and _preserved_parts(clean, damaged, true) and _same_collision_faces(clean, damaged), label + " 不删除整件，除玻璃门扇外全部原件及碰撞保持，门洞墙板不变")
 		for id: String in clean.parts:
@@ -611,7 +626,7 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 		var repeat_root: Node3D = repeat.get("root") as Node3D
 		check(bool(repeat.get("ok", false)) and repeat_root != null, label + " 同seed重复生成")
 		if repeat_root != null:
-			var repeated: Dictionary = _inventory(repeat_root)
+			var repeated: Dictionary = _inventory(repeat_root, repeat.get("semantic_sources", {}))
 			check(damaged.geometry_hash == repeated.geometry_hash and _same_geometry(damaged, repeated), label + " 同damage_seed面/UV/碰撞确定性")
 			repeat_root.free()
 		if amount == 0.9:
@@ -621,7 +636,7 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 			var seeded_root: Node3D = seeded_build.get("root") as Node3D
 			check(bool(seeded_build.get("ok", false)) and seeded_root != null, "不同damage_seed实际生成")
 			if seeded_root != null:
-				var seeded: Dictionary = _inventory(seeded_root)
+				var seeded: Dictionary = _inventory(seeded_root, seeded_build.get("semantic_sources", {}))
 				check(_prefix_hash(seeded, "glass_") != glass_hash and _preserved_parts(damaged, seeded, true) and _same_collision_faces(damaged, seeded), "换damage_seed仅改变填充件，不串结构")
 				seeded_root.free()
 			var combined: Dictionary = snapshot.duplicate(true)
@@ -762,7 +777,7 @@ func _test_store(recipe: Dictionary, catalog: Dictionary, label: String) -> void
 	var before_build: Dictionary = Generator.build(exported.recipe, catalog)
 	var before_root: Node3D = before_build.get("root") as Node3D
 	check(before_root != null and bool(before_build.get("ok", false)), label + " 保存对照可重新生成", str(before_build.get("reason", "")))
-	var saved: Dictionary = _inventory(saved_root)
+	var saved: Dictionary = _inventory(saved_root, before_build.get("semantic_sources", {}))
 	var audit: Dictionary = _audit_inventory(saved, float(exported.recipe.get("aging", 0.0)))
 	_check_shell_materials(label + " 保存重载", saved, catalog)
 	_check_weathering_parts(label + " 保存重载", saved, 4 * int(recipe.floors), float(recipe.get("aging", 0.0)) > 0.0)
@@ -772,7 +787,7 @@ func _test_store(recipe: Dictionary, catalog: Dictionary, label: String) -> void
 	check(str(saved_root.get_meta("generator_version", "")) == ShellGenerator.GENERATOR_VERSION, label + " 保存根generator metadata为当前shell版本")
 	check(str(saved_root.get_meta("construction_mode", "")) == "shell_v2", label + " 保存根construction_mode仍为shell_v2")
 	if before_root != null:
-		var before: Dictionary = _inventory(before_root)
+		var before: Dictionary = _inventory(before_root, before_build.get("semantic_sources", {}))
 		check(int(saved.collision_shapes) == int(before.collision_shapes), label + " 保存重载collision数量保持")
 		check(_same_geometry(before, saved), label + " 保存重载实际视觉及碰撞三角面保持尺寸与位置")
 		check(_prefix_hash(before, "wall_shell_", true) == _prefix_hash(saved, "wall_shell_", true), label + " 保存重载墙UV hash保持")
@@ -798,7 +813,7 @@ func _test_prefabs(recipe: Dictionary, catalog: Dictionary) -> void:
 	var initial_root: Node3D = initial_build.get("root") as Node3D
 	check(initial_root != null and bool(initial_build.get("ok", false)), "prefab替换前生成成功", str(initial_build.get("reason", "")))
 	if initial_root == null: return
-	var initial: Dictionary = _inventory(initial_root)
+	var initial: Dictionary = _inventory(initial_root, initial_build.get("semantic_sources", {}))
 	var initial_slots: Dictionary = _slot_map(initial_build.get("slots", []))
 	var window_suffix: String = ""
 	for opening: Dictionary in initial_build.get("openings", []):
@@ -843,7 +858,7 @@ func _test_prefabs(recipe: Dictionary, catalog: Dictionary) -> void:
 		var replaced_root: Node3D = replaced.get("root") as Node3D
 		check(bool(replaced.get("ok", false)) and replaced_root != null, id + " 替件后真实build成功", str(replaced.get("reason", "")))
 		if replaced_root == null: continue
-		var actual: Dictionary = _inventory(replaced_root)
+		var actual: Dictionary = _inventory(replaced_root, replaced.get("semantic_sources", {}))
 		entry["rebuilt"] = _public_inventory(actual, _audit_inventory(actual))
 		check(_same_geometry(initial, actual, false), id + " 替件后整栋真实几何与碰撞位置尺寸不变")
 		check(_identity_bases(replaced_root), id + " 替件装配不scale")
@@ -858,10 +873,26 @@ func _test_prefabs(recipe: Dictionary, catalog: Dictionary) -> void:
 		var current_catalog: Dictionary = session.get("catalog")
 		_test_store(current_recipe, current_catalog, "prefab_" + id)
 
-func _inventory(building: Node3D) -> Dictionary:
-	var result: Dictionary = {"nodes": 0, "triangles": 0, "structure_triangles": 0, "visual_meshes": 0, "collision_shapes": 0, "invalid_collision_shapes": 0, "scripts": 0, "unowned_nodes": 0, "parts": {}, "collisions": {}, "mesh_records": [], "geometry_hash": ""}
+func _inventory(building: Node3D, semantic_sources: Dictionary = {}) -> Dictionary:
+	var result: Dictionary = {"nodes": 0, "triangles": 0, "structure_triangles": 0, "visual_meshes": 0, "collision_shapes": 0, "invalid_collision_shapes": 0, "scripts": 0, "unowned_nodes": 0, "parts": {}, "visible_parts": {}, "collisions": {}, "mesh_records": [], "visible_mesh_records": [], "geometry_hash": ""}
+	for id: String in semantic_sources:
+		var source: Dictionary = semantic_sources[id]
+		var slot: Node3D = building.get_node_or_null("GeneratedVisual/" + id) as Node3D
+		check(slot != null and not slot is MeshInstance3D and slot.get_child_count() == 0 and bool(slot.get_meta("semantic_source_only", false)), "融合源槽只保留无Mesh语义节点", id)
+		var faces := PackedVector3Array()
+		for record: Dictionary in source.mesh_records:
+			var transform: Transform3D = Transform3D(Basis.IDENTITY, source.position) * record.transform
+			var mesh: Mesh = record.mesh
+			faces.append_array(_transformed(mesh.get_faces(), transform))
+			result.mesh_records.append({"id": id, "node": null, "mesh": mesh, "transform": transform, "component_id": source.component_id})
+		check(not faces.is_empty(), "语义源实际母型存在三角面", id)
+		result.parts[id] = faces
 	var stack: Array[Node] = [building]
 	var hashes: Array[String] = []
+	for record: Dictionary in result.mesh_records:
+		var surface_data: Array = []
+		for surface: int in record.mesh.get_surface_count(): surface_data.append(record.mesh.surface_get_arrays(surface))
+		hashes.append("semantic_source:" + str(record.id) + ":" + var_to_bytes([record.transform, surface_data]).hex_encode().sha256_text())
 	while not stack.is_empty():
 		var node: Node = stack.pop_back()
 		result.nodes += 1
@@ -875,14 +906,16 @@ func _inventory(building: Node3D) -> Dictionary:
 			if mesh != null:
 				var transform: Transform3D = _relative(mesh_node, building)
 				var faces: PackedVector3Array = _transformed(mesh.get_faces(), transform)
-				if not result.parts.has(id): result.parts[id] = PackedVector3Array()
-				var combined: PackedVector3Array = result.parts[id]
+				var combined: PackedVector3Array = result.visible_parts.get(id, PackedVector3Array())
 				combined.append_array(faces)
-				result.parts[id] = combined
+				result.visible_parts[id] = combined
+				if id != "structure_union": result.parts[id] = combined
 				var triangles: int = int(faces.size() / 3)
 				result.triangles += triangles
 				if _structural(id): result.structure_triangles += triangles
-				result.mesh_records.append({"id": id, "node": mesh_node, "mesh": mesh, "transform": transform})
+				var record: Dictionary = {"id": id, "node": mesh_node, "mesh": mesh, "transform": transform, "component_id": node.get_meta("component_id", "")}
+				result.visible_mesh_records.append(record)
+				if id != "structure_union": result.mesh_records.append(record)
 				var surface_data: Array = []
 				for surface: int in mesh.get_surface_count(): surface_data.append(mesh.surface_get_arrays(surface))
 				hashes.append(id + ":" + str(building.get_path_to(node)) + ":" + var_to_bytes([transform, surface_data]).hex_encode().sha256_text())
@@ -899,6 +932,10 @@ func _inventory(building: Node3D) -> Dictionary:
 				combined.append_array(faces)
 				result.collisions[id] = combined
 		for child: Node in node.get_children(): stack.append(child)
+	if str(building.get_meta("construction_mode", "")) == "shell_v2":
+		var structure: MeshInstance3D = building.get_node_or_null("GeneratedVisual/structure_union") as MeshInstance3D
+		check(structure != null and structure.visible and structure.mesh != null and not structure.mesh.get_faces().is_empty(), "最终可见structure_union实际Mesh存在")
+		check(not semantic_sources.is_empty(), "shell源几何审计必须取得semantic_sources，不能空测")
 	hashes.sort()
 	result.geometry_hash = "\n".join(hashes).sha256_text()
 	return result
@@ -1009,7 +1046,7 @@ func _attributes(record: Dictionary, aging: float = 0.0) -> Dictionary:
 			result.uv_area_errors += 1
 			result.colour_errors += 1
 			continue
-		var material: ShaderMaterial = node.get_active_material(surface) as ShaderMaterial
+		var material: ShaderMaterial = (node.get_active_material(surface) if node != null else mesh.surface_get_material(surface)) as ShaderMaterial
 		var texture: Texture2D = material.get_shader_parameter("palette") as Texture2D if material != null else null
 		var image: Image = null
 		if texture != null:
@@ -1113,7 +1150,7 @@ func _same_geometry(before: Dictionary, after: Dictionary, compare_counts: bool 
 	if compare_counts:
 		for field: String in ["nodes", "visual_meshes", "triangles", "collision_shapes"]:
 			if int(before[field]) != int(after[field]): return false
-	for field: String in ["parts", "collisions"]:
+	for field: String in ["parts", "visible_parts", "collisions"]:
 		var a: Dictionary = before[field]
 		var b: Dictionary = after[field]
 		if a.size() != b.size(): return false
@@ -1128,9 +1165,9 @@ func _same_faces(a: PackedVector3Array, b: PackedVector3Array) -> bool:
 	return true
 
 func _collision_matches_visual(inventory: Dictionary) -> bool:
-	for id: String in inventory.parts:
+	for id: String in inventory.visible_parts:
 		if _structural(id):
-			if not inventory.collisions.has(id) or not _same_faces(inventory.parts[id], inventory.collisions[id]): return false
+			if not inventory.collisions.has(id) or not _same_faces(inventory.visible_parts[id], inventory.collisions[id]): return false
 	for id: String in inventory.collisions:
 		if not _structural(id): return false
 	return true
@@ -1152,7 +1189,7 @@ func _identity_bases(building: Node3D) -> bool:
 	return true
 
 func _public_inventory(inventory: Dictionary, audit: Dictionary) -> Dictionary:
-	return {"nodes": inventory.nodes, "triangles": inventory.triangles, "structure_triangles": inventory.structure_triangles, "visual_meshes": inventory.visual_meshes, "collision_shapes": inventory.collision_shapes, "invalid_collision_shapes": inventory.invalid_collision_shapes, "geometry_hash": inventory.geometry_hash, "actual_topology": audit, "collision_triangles": _face_counts(inventory.collisions), "part_triangles": _face_counts(inventory.parts)}
+	return {"nodes": inventory.nodes, "triangles": inventory.triangles, "structure_triangles": inventory.structure_triangles, "visual_meshes": inventory.visual_meshes, "collision_shapes": inventory.collision_shapes, "invalid_collision_shapes": inventory.invalid_collision_shapes, "geometry_hash": inventory.geometry_hash, "actual_topology": audit, "collision_triangles": _face_counts(inventory.collisions), "part_triangles": _face_counts(inventory.parts), "visible_part_triangles": _face_counts(inventory.visible_parts), "source_audit": "独立semantic_sources实际网格；最终可见网格另列visible_part_triangles"}
 
 func _face_counts(parts: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
@@ -1197,7 +1234,7 @@ func _joint_inset(_inventory: Dictionary) -> float:
 
 func _structural(id: String) -> bool:
 	if id.begins_with("wall_weathering_"): return false
-	return id.begins_with("wall_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("pillar_") or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
+	return id == "structure_union" or id.begins_with("wall_") or id.begins_with("slab_") or id.begins_with("roof_") or id.begins_with("pillar_") or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
 
 func _floor_value(recipe: Dictionary, floor: int, field: String) -> float:
 	var override: Dictionary = recipe.floor_overrides.get(str(floor), {})

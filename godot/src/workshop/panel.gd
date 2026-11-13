@@ -33,6 +33,7 @@ var _last_export: Dictionary = {}
 var _ignore_fields := false
 var _confirm_mode := ""
 var _pending_recipe_path := ""
+var _range_readouts: Dictionary = {}
 
 func _ready() -> void:
 	layer = 70
@@ -575,7 +576,33 @@ func _add_spin(parent: Control, key: String, title: String, minimum: float, maxi
 	_add_spin_to(parent, key, title, minimum, maximum, step)
 
 func _add_spin_to(parent: Control, key: String, title: String, minimum: float, maximum: float, step: float) -> void:
-	var row := HBoxContainer.new(); row.add_child(_label(title, 16, Color("#b8c9c5"))); var spin := SpinBox.new(); spin.name = key; spin.min_value = minimum; spin.max_value = maximum; spin.step = step; spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL; spin.add_theme_font_override("font", _font); spin.add_theme_font_size_override("font_size", 16); controls[key] = spin; row.add_child(spin); parent.add_child(row)
+	var body := VBoxContainer.new()
+	body.add_theme_constant_override("separation", 2)
+	var readout := _label("", 14, Color("#a9bdca"))
+	body.add_child(readout)
+	var slider := HSlider.new()
+	slider.name = key
+	slider.min_value = minimum
+	slider.max_value = maximum
+	slider.step = step
+	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slider.custom_minimum_size.y = 30
+	slider.focus_mode = Control.FOCUS_ALL
+	var track := _style(Color("#23364d"), Color("#385b7a"), 6)
+	var fill := _style(Color("#46c2d7"), Color("#70e0e8"), 6)
+	var grab := _style(Color("#f1c56b"), Color("#fff0b8"), 8)
+	slider.add_theme_stylebox_override("slider", track)
+	slider.add_theme_stylebox_override("grabber_area", fill)
+	slider.add_theme_stylebox_override("grabber_area_highlight", fill)
+	slider.add_theme_stylebox_override("grabber", grab)
+	controls[key] = slider
+	_range_readouts[key] = {"label": readout, "title": title, "step": step}
+	slider.value_changed.connect(func(_value: float) -> void:
+		_update_range_readout(key)
+		_set_status("已调整「%s」，点击应用本页参数" % title, Color("#f1c56b")))
+	body.add_child(slider)
+	parent.add_child(body)
+	_update_range_readout(key)
 
 func _add_seed(parent: Control, key: String, title: String) -> void: _add_spin(parent, key, title, 0.0, 2147483647.0, 1.0)
 
@@ -583,15 +610,32 @@ func _line_edit(key: String, placeholder: String) -> LineEdit:
 	var edit := LineEdit.new(); edit.name = key; edit.placeholder_text = placeholder; edit.add_theme_font_override("font", _font); edit.add_theme_font_size_override("font_size", 16); edit.set_meta("cozy_skip", true); return edit
 
 func _control_value(key: String):
-	if controls[key] is SpinBox: return int(controls[key].value) if key in ["floors", "bevel_segments", "structure_seed", "damage_seed", "vegetation_seed"] else controls[key].value
+	if controls[key] is Range:
+		var value: float = float(controls[key].value)
+		return int(value) if key in ["floors", "bevel_segments", "structure_seed", "damage_seed", "vegetation_seed"] else value
 	return _option_value(key)
 
 func _set_control_value(key: String, value) -> void:
-	if controls[key] is SpinBox: controls[key].value = float(value)
+	if controls[key] is Range:
+		(controls[key] as Range).set_value_no_signal(float(value))
+		_update_range_readout(key)
 	elif controls[key] is OptionButton: _set_option(key, str(value))
 
-func _spin_value(key: String) -> float: return float(controls[key].value)
-func _set_spin(key: String, value) -> void: controls[key].value = float(value)
+func _spin_value(key: String) -> float: return float((controls[key] as Range).value)
+func _set_spin(key: String, value) -> void:
+	(controls[key] as Range).set_value_no_signal(float(value))
+	_update_range_readout(key)
+
+func _update_range_readout(key: String) -> void:
+	if not _range_readouts.has(key) or not controls.has(key): return
+	var entry: Dictionary = _range_readouts[key]
+	var slider: Range = controls[key] as Range
+	var step: float = float(entry.get("step", slider.step))
+	var decimals: int = 0 if step >= 1.0 else (2 if step >= 0.01 else 3)
+	var current: String = str(int(roundi(slider.value))) if decimals == 0 else String.num(slider.value, decimals)
+	var minimum: String = str(int(roundi(slider.min_value))) if decimals == 0 else String.num(slider.min_value, decimals)
+	var maximum: String = str(int(roundi(slider.max_value))) if decimals == 0 else String.num(slider.max_value, decimals)
+	(entry.label as Label).text = "%s  %s    [%s – %s]" % [entry.title, current, minimum, maximum]
 func _option_value(key: String) -> String:
 	var option: OptionButton = controls[key]; return str(option.get_item_metadata(option.selected)) if option.selected >= 0 else ""
 func _set_option(key: String, value: String) -> void:

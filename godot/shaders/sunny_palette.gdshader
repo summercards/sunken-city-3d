@@ -10,6 +10,15 @@ uniform bool home_window_recessed = false;
 varying vec3 home_local;
 void vertex() { home_local = VERTEX; }
 uniform int home_window_column = 3;
+instance uniform int sea_material_role = 0;
+instance uniform vec4 sea_matte_controls = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform vec4 sea_metal_controls = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform vec4 sea_gloss_controls = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform vec4 sea_emission_controls = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform float sea_matte_emission_energy = -1.0;
+instance uniform float sea_metal_emission_energy = -1.0;
+instance uniform float sea_gloss_emission_energy = -1.0;
+instance uniform float sea_emission_emission_energy = -1.0;
 global uniform float world_home_lights;
 vec3 rgb2hsv(vec3 c) {
  vec4 K=vec4(0.0,-1.0/3.0,2.0/3.0,-1.0);
@@ -22,7 +31,24 @@ vec3 hsv2rgb(vec3 c) {
  vec3 p=abs(fract(c.xxx+vec3(0.0,2.0/3.0,1.0/3.0))*6.0-3.0);
  return c.z*mix(vec3(1.0),clamp(p-1.0,0.0,1.0),c.y);
 }
+vec4 sea_controls() {
+ if (sea_material_role == 1) return sea_metal_controls;
+ if (sea_material_role == 2) return sea_gloss_controls;
+ if (sea_material_role == 3) return sea_emission_controls;
+ return sea_matte_controls;
+}
+float sea_emission_energy() {
+ if (sea_material_role == 1) return sea_metal_emission_energy;
+ if (sea_material_role == 2) return sea_gloss_emission_energy;
+ if (sea_material_role == 3) return sea_emission_emission_energy;
+ return sea_matte_emission_energy;
+}
 void fragment() {
+ vec4 sea_override = sea_controls();
+ float sea_roughness = sea_override.x >= 0.0 ? sea_override.x : roughness_value;
+ float sea_metallic = sea_override.y >= 0.0 ? sea_override.y : metallic_value;
+ float sea_specular = sea_override.z >= 0.0 ? sea_override.z : 0.25;
+ float sea_emission = sea_emission_energy() >= 0.0 ? sea_emission_energy() : emission_value;
  vec3 base=texture(palette,UV).rgb;
  vec3 hsv=rgb2hsv(base);
  bool solar=ivec2(floor(UV*8.0))==ivec2(5,2);
@@ -35,8 +61,8 @@ void fragment() {
   vec3 wine=rgb2hsv(ALBEDO);wine.x=fract(wine.x+0.067);wine.y*=0.95;wine.z*=0.75;
   ALBEDO=hsv2rgb(wine);
  }
- ROUGHNESS=roughness_value;METALLIC=metallic_value;SPECULAR=0.25;
- EMISSION=mix(base,vec3(0.55,0.24,0.055),world_home_lights)*emission_value;
+ ROUGHNESS=sea_roughness;METALLIC=sea_metallic;SPECULAR=sea_specular;
+ EMISSION=mix(base,vec3(0.55,0.24,0.055),world_home_lights)*sea_emission;
  if (home_window && ivec2(floor(UV*8.0))==ivec2(home_window_column,2)
   && (!home_window_recessed || (home_local.z < -0.006 && home_local.z > -0.043))) {
   ALBEDO=mix(ALBEDO,vec3(1.0,0.58,0.19),world_home_lights);

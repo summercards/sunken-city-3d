@@ -12,12 +12,15 @@ var store: RefCounted
 var adapter: RefCounted
 var _verification_started: bool = false
 
+func _is_verification() -> bool:
+	return OS.get_cmdline_user_args().has("--workshop-editor-verify") or OS.get_cmdline_user_args().has("--workshop-upgrade-verify")
+
 func _enter_tree() -> void:
 	store = StoreScript.new()
 	adapter = AdapterScript.new()
 	_create_screen()
 	add_tool_menu_item("老王场景工坊", Callable(self, "_show_workshop"))
-	if OS.get_cmdline_user_args().has("--workshop-editor-verify"):
+	if _is_verification():
 		call_deferred("_run_verification")
 
 func _create_screen(recovery: Dictionary = {}) -> void:
@@ -28,7 +31,7 @@ func _create_screen(recovery: Dictionary = {}) -> void:
 		"open_scene": Callable(self, "_open_scene"), "rescan": Callable(self, "_rescan")})
 	EditorInterface.get_editor_main_screen().add_child(screen)
 	_make_visible(false)
-	if recovery.is_empty() and not OS.get_cmdline_user_args().has("--workshop-editor-verify"):
+	if recovery.is_empty() and not _is_verification():
 		recovery = _read_recovery()
 	if not recovery.is_empty():
 		screen.restore_recovery(recovery)
@@ -143,7 +146,8 @@ func _run_verification() -> void:
 	# 插件启用本身处于文件扫描回调中，不在此等待同一扫描结束，避免循环等待。
 	await get_tree().create_timer(2.0).timeout
 	print("[workshop-editor-stage] starting editor checks")
-	var script: Script = load("res://addons/building_workshop/editor_verification.gd") as Script
+	var verifier_path: String = "res://addons/building_workshop/upgrade_verification.gd" if OS.get_cmdline_user_args().has("--workshop-upgrade-verify") else "res://addons/building_workshop/editor_verification.gd"
+	var script: Script = load(verifier_path) as Script
 	if script == null:
 		printerr("[workshop-editor] 1 checks, 1 failures: verifier unavailable")
 		get_tree().quit(1)

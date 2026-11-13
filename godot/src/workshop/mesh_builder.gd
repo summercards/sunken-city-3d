@@ -3,6 +3,87 @@ extends RefCounted
 ## 原生参数网格源：闭合倒角、外向自定义法线与共享 8x8 色板。
 ## 这是 Native 参数源，不冒称 Blender 或其他 DCC 产物。
 
+const Config = preload("res://src/workshop/architecture_config.gd")
+
+## 只移动UV色格，保留有面积小岛及16px安全内缩；绝不复制或改写材质。
+static func encode_cell_uv(source: PackedVector2Array, cell: Array) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for uv: Vector2 in source:
+		result.append(_palette_uv_with_mapping(uv, "selected", {"selected": {"row": cell[0], "column": cell[1]}}))
+	return result
+
+static func recolor_mesh(mesh: Mesh, settings: Dictionary, identity: String, role: String) -> ArrayMesh:
+	var result := ArrayMesh.new()
+	var cell: Array = Config.palette_cell(settings, identity, role)
+	for surface: int in mesh.get_surface_count():
+		var arrays: Array = mesh.surface_get_arrays(surface)
+		var local_uv := PackedVector2Array()
+		for uv: Vector2 in arrays[Mesh.ARRAY_TEX_UV]:
+			var pixel: Vector2 = uv * 512.0
+			local_uv.append((pixel - Vector2(floorf(pixel.x / CELL_PX), floorf(pixel.y / CELL_PX)) * CELL_PX - Vector2.ONE * SAFE_INSET_PX) / CELL_AREA_PX)
+		arrays[Mesh.ARRAY_TEX_UV] = encode_cell_uv(local_uv, cell)
+		arrays[Mesh.ARRAY_TEX_UV2] = arrays[Mesh.ARRAY_TEX_UV]
+		result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+		result.surface_set_material(surface, mesh.surface_get_material(surface))
+	return result
+
+## 共享材质的实例级着色参数只写入生成树的GeometryInstance3D；不修改四个公共ShaderMaterial。
+static func apply_build_shading(build: Dictionary, recipe: Dictionary, _catalog: Dictionary) -> Dictionary:
+	if not bool(build.get("ok", false)):
+		return build
+	var shared: Dictionary = shared_materials()
+	var roles: Array[String] = ["SEA_Matte", "SEA_Metal", "SEA_Gloss", "SEA_Emission"]
+	var root: Node = build.get("root") as Node
+	if root == null:
+		return build
+	var shading: Dictionary = recipe.get("architecture", {}).get("shading", {}) as Dictionary
+	var materials: Dictionary = shading.get("materials", {}) as Dictionary
+	for raw_node: Node in root.find_children("*", "MeshInstance3D", true, false):
+		var node: MeshInstance3D = raw_node as MeshInstance3D
+		if node == null or node.mesh == null:
+			continue
+		var node_roles: Dictionary = {}
+		for surface: int in node.mesh.get_surface_count():
+			var active: Material = node.get_active_material(surface)
+			for role: String in roles:
+				if active == shared.get(role):
+					node_roles[role] = true
+		if node_roles.size() != 1:
+			# structure_union may contain multiple material surfaces. A single GeometryInstance3D
+			# cannot carry different instance values per surface; keep shared shader defaults rather
+			# than applying one role to the whole union.
+			continue
+		var role: String = str(node_roles.keys()[0])
+		_apply_shading_instance(node, role, materials.get(role, {}) as Dictionary)
+	return build
+
+static func _apply_shading_instance(node: MeshInstance3D, role: String, settings: Dictionary) -> void:
+	var prefix: String = role.trim_prefix("SEA_").to_lower()
+	var role_index: int = ["SEA_Matte", "SEA_Metal", "SEA_Gloss", "SEA_Emission"].find(role)
+	node.set_instance_shader_parameter("sea_material_role", role_index)
+	var controls := Vector4(
+		float(settings.get("roughness", -1.0)),
+		float(settings.get("metallic", -1.0)),
+		float(settings.get("specular", -1.0)),
+		float(settings.get("transparency", -1.0)))
+	node.set_instance_shader_parameter("sea_" + prefix + "_controls", controls)
+	node.set_instance_shader_parameter("sea_" + prefix + "_emission_energy", float(settings.get("emission_energy", -1.0)))
+
+## 会话与保存共用的作者构建边界：仅原生植物，外部prefab及其共享Mesh不改。
+static func apply_build_palette(build: Dictionary, recipe: Dictionary, catalog: Dictionary) -> Dictionary:
+	if not bool(build.get("ok", false)): return build
+	for slot: Dictionary in build.slots:
+		if str(slot.kind) != "plant": continue
+		var definition: Dictionary = catalog.get("components", {}).get(str(slot.component_id), {})
+		if str(definition.get("kind", "")) != "parametric": continue
+		var role: String = str(definition.get("material_role", "SEA_Matte"))
+		var settings: Dictionary = Config.palette_settings(recipe, "plant", role)
+		if settings.is_empty(): continue
+		var node: MeshInstance3D = build.root.get_node(str(slot.node_path)) as MeshInstance3D
+		if node != null:
+			node.mesh = recolor_mesh(node.mesh, settings, str(slot.id), role)
+	return build
+
 const TEXTURE_PATH := "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 const PALETTE_JSON_PATH := "res://data/workshop/palette_cells_v1.json"
 const PALETTE_MAPPING_PATH := "res://data/workshop/palette_cells_v1.json"

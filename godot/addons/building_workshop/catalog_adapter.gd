@@ -198,8 +198,15 @@ static func export_slot(session: RefCounted, slot_id: String, base_dir: String =
 		return _failure("所选槽位不存在、已排除或没有视觉节点")
 	var module := Node3D.new()
 	module.name = "WorkshopModule"
+	var semantic_only: bool = bool(slot.get("semantic_source_only", false))
+	var semantic: Dictionary = build.get("semantic_sources", {}).get(slot_id, {})
+	if semantic_only and (semantic.is_empty() or str(semantic.get("component_id", "")) != str(slot.get("component_id", "")) or str(semantic.get("kind", "")) != str(slot.get("kind", "")) or int(semantic.get("floor", -1)) != int(slot.get("floor", -1))):
+		module.free()
+		_free_build(build)
+		return _failure("语义槽缺少匹配的编辑源模块")
 	var source_meshes: Array[MeshInstance3D] = []
-	_collect_meshes(source, source_meshes)
+	if not semantic_only:
+		_collect_meshes(source, source_meshes)
 	var component_id := "module_" + (building_id + ":" + slot_id).sha256_text().substr(0, 32)
 	var kind := str(slot.get("kind", ""))
 	var old_id := str(slot.get("component_id", ""))
@@ -220,17 +227,30 @@ static func export_slot(session: RefCounted, slot_id: String, base_dir: String =
 		mesh_node.transform = Transform3D(source.basis, Vector3.ZERO) * _local_chain(source_mesh, source)
 		for surface in source_mesh.get_surface_override_material_count():
 			mesh_node.set_surface_override_material(surface, source_mesh.get_surface_override_material(surface))
-		mesh_node.set_meta("slot_id", slot_id)
-		mesh_node.set_meta("slot_kind", kind)
-		mesh_node.set_meta("component_id", component_id)
+		_copy_instance_shader_parameters(source_mesh, mesh_node)
 		module.add_child(mesh_node)
-		mesh_node.owner = module
+	if semantic_only:
+		# record.transform 已含原件轴向与局部层级；只去掉槽位平移，不重复施加轴向。
+		for record: Dictionary in semantic.get("mesh_records", []):
+			var mesh_node := MeshInstance3D.new()
+			mesh_node.name = "Mesh_%04d" % module.get_child_count()
+			mesh_node.mesh = record.get("mesh") as Mesh
+			mesh_node.transform = record.get("transform", Transform3D.IDENTITY)
+			module.add_child(mesh_node)
+	for child: Node in module.get_children():
+		child.set_meta("slot_id", slot_id)
+		child.set_meta("slot_kind", kind)
+		child.set_meta("component_id", component_id)
+		child.owner = module
 	_free_build(build)
 	var before := _measure(module)
 	if not before.ok:
 		module.free()
 		return before
 	var original: AABB = before.aabb
+	if semantic_only and not _same_vector(original.size, _vector(slot.get("bounds_size", []))):
+		module.free()
+		return _failure("编辑源模块尺寸与语义槽实际包络不一致")
 	var anchor := original.get_center()
 	var pivot_mode := "center"
 	if kind == "plant":
@@ -247,6 +267,17 @@ static func export_slot(session: RefCounted, slot_id: String, base_dir: String =
 		"origin_mode": pivot_mode, "pivot_actual": _array(actual.get_center()),
 		"nominal_size": _array(actual.size), "bounds": _bounds(actual)
 	}
+	var export_scope := "semantic_source_module" if semantic_only else "slot_visual_module"
+	var export_note := "编辑源模块，不是最终融合后的切片" if semantic_only else "独立槽位视觉模块"
+	layout["geometry_scope"] = export_scope
+	layout["geometry_note"] = export_note
+	layout["source_component_id"] = old_id
+	layout["source_component_hash"] = Catalog.fingerprint(definition)
+	layout["source_component_version"] = str(definition.get("version", ""))
+	layout["source_front_axis"] = str(definition.get("front_axis", "-Z"))
+	layout["source_nominal_size"] = definition.get("nominal_size", []).duplicate()
+	if str(definition.get("kind", "")) == "prefab":
+		layout["source_prefab_hash"] = FileAccess.get_sha256(str(definition.get("prefab", "")))
 	module.set_meta("component_id", component_id)
 	module.set_meta("slot_id", slot_id)
 	module.set_meta("slot_kind", kind)
@@ -257,6 +288,9 @@ static func export_slot(session: RefCounted, slot_id: String, base_dir: String =
 		module.free()
 		return _failure("模块打包失败")
 	module.free()
+	var unsafe_reason := _safe_state(packed.get_state())
+	if not unsafe_reason.is_empty():
+		return _failure(unsafe_reason)
 	var parent := safe_base.path_join(building_id).path_join(slot_id)
 	var absolute_parent := ProjectSettings.globalize_path(parent)
 	if DirAccess.make_dir_recursive_absolute(absolute_parent) != OK:
@@ -284,11 +318,12 @@ static func export_slot(session: RefCounted, slot_id: String, base_dir: String =
 		"status": "candidate_only", "formal_registry_written": false,
 		"component_id": component_id, "building_id": building_id,
 		"source_slot_id": slot_id, "source_component_id": old_id,
+		"geometry_scope": export_scope, "geometry_note": export_note,
 		"revision": revision, "layout": layout, "pivot_actual": layout.pivot_actual,
 		"front_axis": "-Z", "bounds": _bounds(actual),
 		"mesh_count": before.mesh_count, "triangle_count": before.triangle_count,
 		"scene_path": final_dir.path_join("component.tscn"),
-		"source_hashes": {"component.tscn": reloaded.hash, "recipe": Catalog.fingerprint(recipe), "catalog": Catalog.fingerprint(context.catalog)},
+		"source_hashes": {"component.tscn": reloaded.hash, "recipe": Catalog.fingerprint(recipe), "catalog": Catalog.fingerprint(context.catalog), "source_component": Catalog.fingerprint(definition)},
 		"file_list": ["component.tscn", "component_manifest.json"]
 	}
 	if not _write_module_json(temp_manifest, manifest):
@@ -417,6 +452,10 @@ static func _measure(root: Node3D) -> Dictionary:
 	if not has_bounds or triangles <= 0 or bounds.size.x <= 0.0 or bounds.size.y <= 0.0 or bounds.size.z <= 0.0:
 		return _failure("组件必须包含有三维尺寸的静态三角网格")
 	return {"ok": true, "reason": "", "aabb": bounds, "mesh_count": count, "triangle_count": triangles}
+
+static func _copy_instance_shader_parameters(source: MeshInstance3D, target: MeshInstance3D) -> void:
+	for name: String in ["sea_material_role", "sea_matte_controls", "sea_metal_controls", "sea_gloss_controls", "sea_emission_controls", "sea_matte_emission_energy", "sea_metal_emission_energy", "sea_gloss_emission_energy", "sea_emission_emission_energy"]:
+		target.set_instance_shader_parameter(name, source.get_instance_shader_parameter(name))
 
 static func _collect_meshes(node: Node3D, result: Array[MeshInstance3D]) -> void:
 	if node is MeshInstance3D:

@@ -52,7 +52,9 @@ func export_revision(recipe: Dictionary, catalog: Dictionary = {}, base_dir: Str
 		fail.reason = "无法创建临时导出目录"
 		return fail
 
-	var build: Dictionary = Generator.build(recipe_copy, catalog_copy)
+	var mesh_builder = preload("res://src/workshop/mesh_builder.gd")
+	var build: Dictionary = mesh_builder.apply_build_palette(Generator.build(recipe_copy, catalog_copy), recipe_copy, catalog_copy)
+	build = mesh_builder.apply_build_shading(build, recipe_copy, catalog_copy)
 	if not bool(build.get("ok", false)):
 		_remove_temp_dir(temp_dir, building_dir)
 		fail.reason = str(build.get("reason", "生成失败"))

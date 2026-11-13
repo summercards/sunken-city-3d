@@ -794,14 +794,7 @@ static func _profile_face(buffer: Dictionary, points: Array, profile: Array[Vect
 		_tri(buffer, points[triangles[i]], points[triangles[i + 1]], points[triangles[i + 2]], normal)
 
 static func _glass(buffer: Dictionary, hole: Dictionary, run: Dictionary) -> void:
-	var profile: Array[Vector2] = _opening_quad(float(hole.cx), float(hole.sill) + GLASS_GAP, float(hole.width) - GLASS_GAP * 2.0, float(hole.height) - GLASS_GAP * 2.0, 0.0, float(hole.get("pull", 0.0)))
-	var a: Array[Vector3] = _run_ring(profile, run, float(run.depth) * 0.5 - 0.01)
-	var b: Array[Vector3] = _run_ring(profile, run, float(run.depth) * 0.5 + 0.01)
-	var n2: Vector2 = run.outward
-	var normal: Vector3 = Vector3(n2.x, 0.0, n2.y)
-	_quad(buffer, a[0], a[1], a[2], a[3], normal)
-	_quad(buffer, b[0], b[1], b[2], b[3], -normal)
-	_join_profile(buffer, a, b, profile, run, false)
+	WindowGeometry._glass(buffer, hole, run, _self_script())
 
 ## 环形实体：外轮廓与内轮廓同点数，上下各一段倒角；用于勒脚这类不封住内部的整圈构件。
 static func _ring_solid(buffer: Dictionary, outer: Array[Vector2], inner: Array[Vector2], bottom: float, top: float, bevel: float) -> void:
@@ -866,7 +859,7 @@ static func _append_pilasters(parts: Array, runs: Array, r: Dictionary, c: Dicti
 				_part(parts, single, "pilaster_" + str(floor) + "_m" + str(counter), "pillar", floor, "", r, c, context, bevel, false)
 				counter += 1
 
-## 转角柱的 L 形平面轮廓（世界XZ）。用单一八边形做一整块实体，
+## 转角柱的 L 形平面轮廓（世界XZ）。用单一六边形、实心咬入接头做一整块实体，
 ## 不能用两个相交方块拼——那样在共享边图上是两个分量，闭合审计不通过。
 ## 以转角为原点、本段前进方向为 a、本段外法向为 d（d>0 向外）：
 ## 沿本段伸出 width，沿上段回收 width，法向从 -bite（咬入墙）到 +projection（凸出）。
@@ -875,7 +868,8 @@ static func _corner_pilaster_polygon(run: Dictionary, previous: Dictionary, widt
 	var u: Vector2 = run.axis
 	var v: Vector2 = run.outward
 	var outline: Array[Vector2] = []
-	for pair in [[-bite, -width], [projection, -width], [projection, -bite], [width, -bite], [width, projection], [0.0, projection], [0.0, 0.0], [-bite, 0.0]]:
+	# 两腿的咬入区必须重叠成实心接头；旧(0,0)回折在凹角形成与墙相切的内部隔片。
+	for pair in [[-bite, -width], [projection, -width], [projection, -bite], [width, -bite], [width, projection], [-bite, projection]]:
 		outline.append(start + u * float(pair[0]) + v * float(pair[1]))
 	return _ccw(outline)
 
@@ -1204,14 +1198,25 @@ static func _part(parts: Array, source: Dictionary, id: String, kind: String, fl
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_NORMAL] = normals
-	arrays[Mesh.ARRAY_TEX_UV] = MeshBuilder._encode_shell_palette_uv(buffer.uv, palette, float(context.aging))
+	var default_role: String = "SEA_Metal" if id.begins_with("railing_") else ("SEA_Gloss" if kind == "glass" else "SEA_Matte")
+	var material_role: String = str(definition.get("material_role", default_role))
+	var color_slot: String = "pillar" if id.begins_with("pilaster_") or id.begins_with("canopy_post_") else ("band" if id.begins_with("band_") or id.begins_with("belt_") or id.begins_with("plinth_") else kind)
+	var color_settings: Dictionary = Config.palette_settings(r, color_slot, material_role)
+	# 窗的旧颜色字段只在显式非默认设置时接管frame/glass；默认不改变历史配方。
+	if kind in ["frame", "glass"]:
+		var prefix: String = "glass_" if kind == "glass" else ("sash_" if id.begins_with("sash_") else "frame_")
+		var suffix: String = id.trim_prefix(prefix)
+		var window: Dictionary = Config.window_settings(r, floor, facade, "opening_" + suffix)
+		if str(window.color_mode) == "manual" or int(window.color_seed) != 11010:
+			color_settings = {"color_mode": window.color_mode, "color_cell": window.color_cell, "color_seed": window.color_seed}
+	arrays[Mesh.ARRAY_TEX_UV] = MeshBuilder._encode_shell_palette_uv(buffer.uv, palette, float(context.aging)) if color_settings.is_empty() else MeshBuilder.encode_cell_uv(buffer.uv, Config.palette_cell(color_settings, id, material_role))
 	arrays[Mesh.ARRAY_TEX_UV2] = arrays[Mesh.ARRAY_TEX_UV]
 	arrays[Mesh.ARRAY_INDEX] = indices
 	var mesh: ArrayMesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	var default_role: String = "SEA_Metal" if id.begins_with("railing_") else ("SEA_Gloss" if kind == "glass" else "SEA_Matte")
-	mesh.surface_set_material(0, MeshBuilder.material(palette, float(context.aging), context.cache, str(definition.get("material_role", default_role))))
+	mesh.surface_set_material(0, MeshBuilder.material(palette, float(context.aging), context.cache, material_role))
 	var local_bounds: AABB = mesh.get_aabb()
+	# parts是编辑语义操作数，不是最终可见结构；装配层在实际taper坐标执行布尔。
 	parts.append({"id": id, "kind": kind, "floor": floor, "facade": facade, "component_id": component, "position": center, "size": local_bounds.size, "mesh": mesh, "collidable": collidable and bool(context.collidable), "bevel_width": bevel, "bounds_position": local_bounds.position, "bounds_size": local_bounds.size})
 
 static func _key(point: Vector3) -> Vector3i:

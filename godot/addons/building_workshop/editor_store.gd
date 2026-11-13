@@ -70,7 +70,7 @@ func _make_manifest(recipe: Dictionary, catalog: Dictionary, build: Dictionary, 
 	manifest["candidate_ledger"] = "ledger.json"
 	manifest["formal_registry_written"] = false
 	var sources: Dictionary = {}
-	for path in ["res://src/workshop/recipe.gd", "res://src/workshop/catalog.gd", "res://src/workshop/generator.gd", "res://src/workshop/mesh_builder.gd", "res://src/workshop/store.gd", "res://src/workshop/shell_geometry.gd", "res://src/workshop/shell_damage_geometry.gd", "res://src/workshop/shell_generator.gd", "res://src/workshop/architecture_config.gd", "res://src/workshop/shell_window_geometry.gd", "res://src/workshop/roof_edge_geometry.gd", "res://addons/building_workshop/editor_store.gd", "res://addons/building_workshop/catalog_adapter.gd", "res://data/workshop/catalog_v1.json", "res://data/workshop/standards_v1.json", "res://data/workshop/palette_cells_v1.json"]:
+	for path in ["res://src/workshop/recipe.gd", "res://src/workshop/catalog.gd", "res://src/workshop/generator.gd", "res://src/workshop/mesh_builder.gd", "res://src/workshop/store.gd", "res://src/workshop/shell_geometry.gd", "res://src/workshop/shell_damage_geometry.gd", "res://src/workshop/shell_generator.gd", "res://src/workshop/shell_union_geometry.gd", "res://src/workshop/architecture_config.gd", "res://src/workshop/shell_window_geometry.gd", "res://src/workshop/roof_edge_geometry.gd", "res://addons/building_workshop/editor_store.gd", "res://addons/building_workshop/catalog_adapter.gd", "res://data/workshop/catalog_v1.json", "res://data/workshop/standards_v1.json", "res://data/workshop/palette_cells_v1.json"]:
 		sources[path] = _sha256_file(path)
 	var components: Dictionary = catalog.get("components", {})
 	for component_id in components:

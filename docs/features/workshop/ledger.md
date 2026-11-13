@@ -36,7 +36,10 @@
     "godot/src/workshop/shell_generator.gd",
     "godot/src/workshop/architecture_config.gd",
     "godot/src/workshop/shell_window_geometry.gd",
-    "godot/src/workshop/roof_edge_geometry.gd"
+    "godot/src/workshop/roof_edge_geometry.gd",
+    "godot/src/workshop/shell_union_geometry.gd",
+    "godot/addons/building_workshop/upgrade_verification.gd",
+    "godot/tests/test_workshop_union.gd"
   ],
   "verification": [
     "workshop-rules",
@@ -45,7 +48,10 @@
     "workshop-samples",
     "workshop-integration",
     "editor-workshop",
-    "workshop-shell"
+    "workshop-shell",
+    "workshop-architecture",
+    "workshop-union",
+    "editor-workshop-upgrade"
   ]
 }
 ```
@@ -306,3 +312,89 @@ shell最终 `20261112-161332-weathering-shell-final-606baa`：9872项/0失败、
 
 实拍clean/windows_edited/weathered/damaged保存在最终批project/outputs；无主场景改动，无新独立贴图或材质副本。另见[门窗与破旧修复记录](../../development/2026-11-12_workshop_window_weathering.md)。
 
+## 2026-11-12 结构融合与窗滑块当前验收
+
+承接用户18:11指令与R57–R61，覆盖旧结构分件可见/数字窗输入口径，不改写历史。登记头仍为partial，不签完整美术、导航、性能或正式世界接入。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R57 | implemented；新增同步CSG真实布尔、放大坐标求交、米制量化一致化、共线边切分与退化薄片修复。最终structure_union一件；源槽无可见mesh。角柱改实心咬合接头，柱/腰线仍独立开关 | `shell_union_geometry.gd`、`shell_generator.gd`；最终独立union64矩阵24533/0，所有实际边图/体积/内外双侧探针门禁通过。中间五层L曾发现一处量化切边内部薄片，保留失败报告，修复共线分割后重复做成对反向面消除；未放宽探针或删fixture。 |
+| SEA-WORKSHOP-R58 | implemented；真实union碰撞与水平面声明；源槽只作编辑语义，preview支持内存三角精筛，adapter导出明确编辑母型；manifest包含union源hash | 最终editor203/0含墙/柱/腰线三个真实模块导出和五件bundle静态重载；独立union专项核对碰撞faces逐点相等、静态无CSG/脚本及实际物理射线。 |
+| SEA-WORKSHOP-R59 | implemented；窗HSlider及扩大范围；允许厚框突出而不被墙厚封死；完整开间/楼板/相邻扫掠约束保留 | 真实editor实际净洞3.75×4.75m，框宽.275、深.30、玻璃.05、窗沿.45等合法组合生成；层高不足明确拒绝保留现场，不静默缩窗。 |
+| SEA-WORKSHOP-R60 | implemented；Session.preview_candidate单次生成原子提交，160ms自动调度、拖拽合并历史、保留相机及未应用输入 | 最终editor203/0，真实HSlider值/drag信号经Timer自动更新，不调用应用按钮；同次拖动1条撤销，global/floor/facade/single不串范围。此非人工鼠标自动化；典型响应约0.38–1.15秒（含等待），不签60fps拖拽或大规模性能。 |
+| SEA-WORKSHOP-R61 | implemented；新增union与editor-upgrade真实入口，原shell/architecture改按semantic_sources继续检查母型，另审最终一体网格 | 最终核心批与真实编辑器批均exit0、passed=true、unexpected_errors=[]；下列路径为本机本次结果，不以旧Windows证据代签。 |
+
+### 本次最终证据
+
+- 核心：`/Users/zyq/work/sea-work/verification/20261112-223629-workshop-unified-final-78963c/report.json`，workshop-union **24533/0**、workshop-shell **18077/0**、workshop-architecture **3133/0**、workshop-rules **24/0**、workshop-deep **41/0**，五项exit0；全为headless几何/规则/保存与物理验证，不冒充渲染。
+- 真实编辑器：`/Users/zyq/work/sea-work/verification/20261112-223629-workshop-sliders-final-811cc9/report.json`，editor-workshop-upgrade **203/0**、exit0；inner `project/outputs/workshop_upgrade_report.json`；enginehint=true、is_playing=false、scene_unchanged=true。实际窗口2048×1200，模型图为1400×1100，不声称两档固定桌面分辨率已测。
+- 实拍：该editor批 `project/outputs/upgrade_01_default.png`、`upgrade_02_thick_frame_2p5.png`、`upgrade_03_large_windows_2p5.png`、`upgrade_04_structure_off.png`、`upgrade_04_structure_on.png`、`upgrade_05_editor_sliders.png`。主线程已逐图审阅前一同实现批，并复核最终加粗、大窗和滑块UI图：加粗与大窗变化清楚，主体连接无明显破面，UI滑块可见；不签全美术终验。
+- 预期故障：本次专项无登记的预期红项；早先缺字体缓存、Mac固定framebuffer断言和中间布尔薄片失败均保留历史报告，不抹为PASS。规则型工坊隔离不再加载无关自定义项目字体；真实插件项目补入union helper。
+- 未执行：全量旧editor-workshop长矩阵未按新语义全部改造复跑；运行版Main integration仍保留先前全工程缺资源缓存阻塞，未据此签回归通过；插件完整卸载/跨进程恢复、任意8层组合、性能门禁、导航/全楼可达仍未签。本次不改Main、用户transform或共享色盘/四材质，不注册新AssetID。
+
+全库contracts实际执行：`--sync` exit1、498 issues；随后check exit1、499 issues。两批含445项source/runtime哈希漂移、51条跨机工程外断链，以及SEA-ASSET行集问题；check另有派生feature index过期。日志 `/Users/zyq/work/sea-work/workshop_contracts_sync_20261112.log` 与 `workshop_contracts_check_20261112.log`。没有SEA-WORKSHOP条款行错误，未批量刷新未知hash或手改派生摘要；不把本轮专项全绿签成全库通过。
+
+详见[结构融合与滑块开发记录](../../development/2026-11-12_workshop_unified_mesh_sliders.md)。
+
+## 2026-11-13 共享64色选格实施与实测
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R62 | implemented；architecture.palette全局/四材质角色/八部件覆盖；auto稳定FNV、manual整数格、非法值拒绝；空对象保留原外观 | `architecture_config.gd`、`test_workshop_rules.gd`；规则覆盖64格安全边、全部格可达、JSON指纹、四角色与覆盖优先级。 |
+| SEA-WORKSHOP-R63 | implemented；shell几何UV在布尔前选格；植物由MeshBuilder共用重映射经Session/Store接入，不修改generator、shell_generator、shell_window_geometry或shell_union_geometry | 真实editor断言最终structure_union含wall/pillar/band所选格，固定窗UV/hash变而faces不变，植物颜色TSCN重载一致；共享材质资源身份和文件hash不变。原生植物直调Generator.build不应用作者调色，须使用Session.build/preview_candidate或Store作者边界；外部prefab不重着色。 |
+| SEA-WORKSHOP-R64 | implemented；配色页目标、auto/manual、seed HSlider与8列64格GridContainer，经原有原子事务实时预览；保存/打开恢复 | 最终真实editor **784 checks / 0 failures**，exit0，enginehint=true、is_playing=false、scene_unchanged=true；含部件/材质角色、auto高亮真实落点、一次拖拽一撤销、其他输入隔离、相机保持、非法拒绝及五件bundle。非人工鼠标自动化，不签完整美术或性能终验。 |
+
+- 引擎显式指定 `/Applications/Godot.app/Contents/MacOS/Godot`，`4.7.2.stable.official.ed1daf0bf`，全部经 `scripts/run_verification.py`。
+- 最终真实editor报告：`/Users/zyq/work/sea-work/verification/20261113-003157-palette-editor-final-4770b5/report.json`；细项 `project/outputs/workshop_upgrade_report.json`。
+- 最终几何回归：`/Users/zyq/work/sea-work/verification/20261113-003301-palette-geometry-final-f6fc38/report.json`，workshop-union与workshop-shell均 **exit0 / passed=true / unexpected_errors=[]**；headless真实几何断言，不是渲染。未改union算法及window geometry，禁止修改文件保留用户既有改动。
+- 规则/架构/deep批：`/Users/zyq/work/sea-work/verification/20261113-002628-palette-contracts-6616f2/report.json`，三项exit0、passed=true、unexpected_errors=[]。最终增强规则：`/Users/zyq/work/sea-work/verification/20261113-003336-palette-rules-final-218b50/report.json`，**694 checks / 0 failures**、exit0，覆盖未知字段/目标及四材质角色。
+- 真实渲染：最终editor批 `project/outputs/upgrade_09_palette_manual.png`（1400×1100模型图）与 `upgrade_10_palette_auto_ui.png`（实际3840×1954编辑器窗口）。已目检：64格完整，mode/seed可见，无明显控件重叠；墙、柱、腰线、框、玻璃及植物色可区分。测试刻意选高对比色验证可变，不宣称默认艺术配色方案。
+- 预期故障：上述本轮工坊专项无预期红项。未执行：旧全量editor/Main集成、完整跨进程恢复、性能/美术终验和正式场景接入；不复用历史专项签通过。现有工作区改动保留，没有提交或改写共享外链资源。
+- 全库功能契约实际执行：sync **exit1 / 498 issues**，check **exit1 / 499 issues**；含445项source/runtime哈希漂移及既有跨机路径/派生索引问题，无SEA-WORKSHOP条款错误。日志 `/Users/zyq/work/sea-work/palette_contracts_sync_20261113.log`、`palette_contracts_check_20261113.log`；不批量刷新未知hash，不把本轮专项绿签成全库通过。
+
+## 2026-11-13 窗型、固定窗参数与植物随机幅度实施
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R65 | implemented；固定窗玻璃现按 `settings.glass_thickness` 与 `recess` 生成，框/窗沿使用真实尺寸；左开、右开、上悬分别生成真实铰链与姿态 | `20261112-234346-window-core-verified-b86644/report.json`：workshop-architecture/workshop-shell均exit0；中间一轮固定窗包络断言失败已修正并保留。四窗型实际mesh/AABB/hinge/UV检查通过。 |
+| SEA-WORKSHOP-R66 | implemented；recipe增加随机开关/幅度/seed，植物生成后按稳定slot seed改位置、尺寸和Y旋转，关闭随机时seed不影响姿态；植物页加入滑块与实时预览 | `20261113-001201-vegetation-core-final-4b8213/report.json`：rules/deep均exit0；`20261113-001156-vegetation-upgrade-final-81e1a6/report.json`：editor-workshop-upgrade exit0/passed=true，inner **667/0**。中间首轮超时与绘制时序失败保留为历史，最终不以它们签红。 |
+
+### 本次新增功能最终证据
+
+- 固定窗/四窗型最终：`/Users/zyq/work/sea-work/verification/20261112-234346-window-core-verified-b86644/report.json`，architecture与shell均exit0。固定窗参数改变实际Mesh，类型切换改变真实铰链/形状；未执行完整美术终验。
+- 植物随机最终：`/Users/zyq/work/sea-work/verification/20261113-001201-vegetation-core-final-4b8213/report.json`（rules/deep exit0）和`/Users/zyq/work/sea-work/verification/20261113-001156-vegetation-upgrade-final-81e1a6/report.json`（真实editor-upgrade inner **667/0**，exit0）。随机关闭/打开、seed复现、幅度0/0.5、锁定/藤蔓边界和失败事务均覆盖；不签大规模植物性能。
+- 当前工作区最终真实editor复跑：`/Users/zyq/work/sea-work/verification/20261113-005632-window-vegetation-palette-editor-final-ba5c33/report.json`，editor-workshop-upgrade exit0；inner **784/0**，包含窗型、植物随机幅度和64格配色的全部UI/模型/保存断言，输出`upgrade_06`–`upgrade_10`真实图和三个revision bundle。
+
+## 2026-11-13 工坊交互与专属界面主题实施
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R67 | implemented；`editor_screen.gd` 和运行版 `src/workshop/panel.gd` 的数值控件全部改为HSlider，保留原范围/步长；统一显示当前值与范围。旧验证器和 `capture_workshop.gd` 已改为HSlider断言；未改身份文本、选项、开关和64格按钮。 | `grep` 在工坊编辑器、运行版面板和工具目录中不再发现SpinBox；编辑器/运行版脚本 `--check-only` exit0。真实截图 `20261113-020942.../project/outputs/upgrade_05_editor_sliders.png` 显示滑块读数和主题。 |
+| SEA-WORKSHOP-R68 | implemented；编辑器主屏新增 `#101b2d` 深海蓝背景、`#17263b` 面板、青色滑轨/填充、金色拖拽钮和焦点样式，并在根节点设置`cozy_skip`；运行版维持独立深色面板和青/金语义。 | 真实 Godot 编辑器图已目检：工坊左右参数栏与预览区明显区别于系统编辑器，文字/模型/控件无明显重叠；未宣称默认艺术配色终验。 |
+| SEA-WORKSHOP-R69 | implemented；滑块焦点/键盘方向键由HSlider保留，读数与范围实时更新；门窗/植物/配色继续走160ms原子预览，普通字段显示“调整后点击生成/应用”反馈。 | 最终复跑 `20261113-024016-workshop-ui-sliders-theme-final-r5-e342a5/report.json`：outer exit0，inner **784 checks / 0 failures**。颜色重载验收比较每个可见节点实际占用的8×8色格集合，适应structure_union合法重三角化；不放宽真实颜色身份检查。 |
+| SEA-WORKSHOP-R73 | implemented；新增HFlowContainer模块按钮组，结构/门窗/配色/破旧/植物/空间/构架/形体/文件均可一键进入，当前模块高亮，窄屏可换行；旧OptionButton仅保留兼容状态。 | 最终真实editor专项检查9个模块按钮、模块切换和配色进入链。 |
+| SEA-WORKSHOP-R74 | implemented；底部状态提示改为高亮Panel，区分排队/生成/成功/警告，增加复制提示按钮；配色点击和材质滑条会立即显示可读反馈。 | 最终真实editor专项检查状态面板、复制入口、配色实时结果和失败提示。 |
+| SEA-WORKSHOP-R75 | implemented；关键文字、按钮、选项、开关、滑条读数和色格放大；自动选色时点击色格会自动转手动并提交实时预览。 | 最终报告 `/Users/zyq/work/sea-work/verification/20261113-083651-workshop-interaction-humanized-final-r2-6317fa/report.json`：inner **810/0**、exit0；第二轮字号/面板加大后专项仍保持通过。 |
+- 64色选格最终已在上节R62–R64记载：手动/自动、材质角色/部件覆盖、真实UV、静态重载和编辑器Grid全部通过；不签默认艺术配色终验。
+
+## 2026-11-13 材质球与着色器实例级编辑实施
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R70 | implemented；继续使用正式四个共享ShaderMaterial与同一sea_cabin_timber_8x8_512.png，颜色仍由PaletteUV/UV2决定；不复制、不修改公共材质球默认参数。 | `mesh_builder.gd` shared_materials与`test_workshop_shell`身份门禁；规则/编辑器专项均检查共享材质身份和文件hash。 |
+| SEA-WORKSHOP-R71 | implemented；新增`architecture.shading.materials`四角色稀疏参数，编辑器配色页增加材质角色、粗糙度、金属度、镜面、发光强度、透明度滑块；按角色范围拒绝不合规值。structure_union多角色节点不强行覆盖，保持共享默认。 | `architecture_config.gd` validate_shading；Matte/Metal/Gloss/Emission合规范围和实例参数写入由`test_workshop_rules`、真实editor断言覆盖。 |
+| SEA-WORKSHOP-R72 | implemented；Session.build、preview_candidate、Store.export_revision统一应用实例参数；静态TSCN与配方重载验证实例参数和四材质外链身份；独立模块导出复制实例参数；shader实例参数默认中性，不破坏旧材质默认表现。 | 规则与shell：`/Users/zyq/work/sea-work/verification/20261113-075826-workshop-shading-rules-shell-bba9a1/report.json`，两项exit0；真实编辑器最终：`/Users/zyq/work/sea-work/verification/20261113-080411-workshop-shading-editor-save-final-c8d0bb/report.json`，inner **797/0**、exit0。未签union内部多个surface的按部件独立调参；该版本只支持按单角色节点实例参数。 |
+
+### 材质/着色器最终证据
+
+- 共享材质规则与shell：`workshop-rules`、`workshop-shell`均exit0，验证材质角色、实例参数、PaletteUV与共享资源身份。
+- 真实编辑器：`editor-workshop-upgrade` inner **797/0**，覆盖材质角色滑块、Matte粗糙度实时预览、配方重载、静态TSCN重载、共享材质hash与原有窗/植物/64色功能。
+- 保护边界：没有复制四个共享材质、没有修改色板PNG，结构/窗/植物和贴图规则仍由原有生成链承担；shader参数只通过MeshInstance3D实例参数写入。
+
+## 2026-11-13 顶部工坊信息栏与默认模组实施
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R76 | implemented；`WorkshopTopInfo` 独立置于主屏顶部，包含建筑身份、名称、模块按钮和默认模组；左侧移除身份输入与模块导航，只保留当前模块参数；中央预览不再承载这些入口。 | 真实编辑器截图 `20261113-111329-workshop-top-default-modules-final-r2-8e346a/project/outputs/upgrade_10_palette_auto_ui.png`；布局专项检查通过。 |
+| SEA-WORKSHOP-R77 | implemented；顶部模块按钮改为紧凑横向 `HFlowContainer`，按钮在窄屏自动换行，避免旧版在宽度不足时变成右侧竖列；当前按钮保持金色高亮。 | 最终 `editor-workshop-upgrade` **822/0，exit0**，检查9个模块按钮位于顶部、左侧无重复入口。 |
+| SEA-WORKSHOP-R78 | implemented；新增4个内置合法 shell_v2 配方，可直接载入并继续编辑：海风公寓、码头商铺、灯塔工作室、回廊庭院。未保存草稿先走确认，样例文件只读载入，另存后不覆盖样例。 | 配方路径：`godot/data/workshop/samples/workshop_default_{sea_breeze,harbor_market,lighthouse_studio,courtyard}.recipe.json`；真实编辑器专项逐个解析并运行`Recipe.validate`，无失败。模组载入动作保持确认保护；未签所有模组的美术终验和运行版正式接入。 |

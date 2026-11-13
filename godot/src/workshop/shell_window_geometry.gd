@@ -12,8 +12,11 @@ static func validate(settings: Dictionary, wall_depth: float) -> String:
 	var profile: float = float(settings.frame_width)
 	var depth: float = float(settings.frame_depth)
 	var recess: float = float(settings.recess)
-	if recess - depth * 0.5 < 0.02 + CLEARANCE - EPS or recess + depth * 0.5 > wall_depth - 0.02 - CLEARANCE + EPS:
-		return "窗框深度/recess越过洞口倒角安全区，不能自动缩薄或移位"
+	# 框可从真实净洞向外或向室内突出，但必须与返回面安全区保持实体深度交集。
+	# 不改写 recess 或 depth；厚框不再被墙厚本身封顶。
+	var limits: Vector2 = recess_limits(depth, wall_depth)
+	if recess < limits.x - EPS or recess > limits.y + EPS:
+		return "窗框脱离墙洞：当前框深%.3fm、墙厚%.3fm允许recess %.3f..%.3fm；可调退入或框深，不自动移位" % [depth, wall_depth, limits.x, limits.y]
 	var available_depth: float = depth - GAP * 2.0 if str(settings.type) != "fixed" else depth
 	if float(settings.glass_thickness) + GAP * 2.0 > available_depth:
 		return "玻璃厚度与两侧装配间隙超出窗框/窗扇深度"
@@ -23,6 +26,10 @@ static func validate(settings: Dictionary, wall_depth: float) -> String:
 	if bool(settings.sill_enabled) and float(settings.sill_projection) <= CLEARANCE:
 		return "窗沿外挑必须大于外墙装配间隙"
 	return ""
+
+static func recess_limits(depth: float, wall_depth: float) -> Vector2:
+	var inset: float = 0.02 + CLEARANCE
+	return Vector2(inset + CLEARANCE - depth * 0.5, wall_depth - inset - CLEARANCE + depth * 0.5)
 
 static func _sash_hole(hole: Dictionary) -> Dictionary:
 	var result: Dictionary = hole.duplicate(true)
@@ -85,15 +92,21 @@ static func _envelope(hole: Dictionary, run: Dictionary) -> Dictionary:
 	var outward: Vector2 = run.outward
 	var minimum: Vector3 = Vector3(INF, INF, INF)
 	var maximum: Vector3 = Vector3(-INF, -INF, -INF)
-	# 每个角点坐标均为a*cos(t)+b*sin(t)+c；解析极值而非采样漏检。
-	for x in [x0, x1]:
-		for y in [y0, y1]:
+	var slope: float = float(hole.get("pull", 0.0)) / (float(hole.y1) - float(hole.y0))
+	var side_min: float = INF
+	var side_max: float = -INF
+	# 每个角点坐标及梯形洞左右半平面均为a*cos(t)+b*sin(t)+c；解析极值而非采样漏检。
+	for y in [y0, y1]:
+		var pull: float = 0.0 if float(y) == y0 else float(hole.get("pull", 0.0))
+		for x in [x0 + pull, x1 - pull]:
 			for depth in [recess - half_depth, recess + half_depth]:
 				var xz: Vector2 = start + along * float(x) - outward * float(depth)
 				var point: Vector3 = Vector3(xz.x, float(y), xz.y)
 				var local: Vector3 = Vector3(float(x), float(y), float(depth))
 				if not moving:
 					minimum = minimum.min(local); maximum = maximum.max(local)
+					side_min = minf(side_min, local.x - slope * (local.y - float(hole.y0)))
+					side_max = maxf(side_max, local.x + slope * (local.y - float(hole.y0)))
 					continue
 				var pivot: Vector3 = hinge.pivot
 				var axis: Vector3 = hinge.axis
@@ -116,7 +129,20 @@ static func _envelope(hole: Dictionary, run: Dictionary) -> Dictionary:
 						var value: float = c[coordinate] + a[coordinate] * cos(angle) + b[coordinate] * sin(angle)
 						minimum[coordinate] = minf(minimum[coordinate], value)
 						maximum[coordinate] = maxf(maximum[coordinate], value)
-	return {"min": minimum, "max": maximum}
+				for side in [-1.0, 1.0]:
+					var side_a: float = a.x + float(side) * slope * a.y
+					var side_b: float = b.x + float(side) * slope * b.y
+					var side_c: float = c.x + float(side) * slope * (c.y - float(hole.y0))
+					var angles: Array[float] = [low, high]
+					var critical: float = atan2(side_b, side_a)
+					for turn in range(-2, 3):
+						var angle: float = critical + float(turn) * PI
+						if angle > low and angle < high: angles.append(angle)
+					for angle in angles:
+						var value: float = side_c + side_a * cos(angle) + side_b * sin(angle)
+						if side < 0.0: side_min = minf(side_min, value)
+						else: side_max = maxf(side_max, value)
+	return {"min": minimum, "max": maximum, "side_min": side_min, "side_max": side_max}
 
 static func validate_bay(hole: Dictionary, run: Dictionary, bay_start: float, bay_end: float, base: float, top: float) -> String:
 	var settings: Dictionary = hole.settings
@@ -125,10 +151,17 @@ static func validate_bay(hole: Dictionary, run: Dictionary, bay_start: float, ba
 	var high: Vector3 = envelope.max
 	# 上宽下窄的洞口上沿会超出下沿矩形，开间校验要按最大外廓留边。
 	var reach: float = maxf(0.0, -float(hole.get("pull", 0.0)))
-	if low.x - reach < bay_start + CLEARANCE or high.x + reach > bay_end - CLEARANCE or low.y < base + CLEARANCE or high.y > top - CLEARANCE:
+	if low.x < bay_start + CLEARANCE or high.x > bay_end - CLEARANCE or low.y < base + CLEARANCE or high.y > top - CLEARANCE:
 		return "窗扇完整开合包络超出本开间或楼板安全边界，不能与相邻洞口互穿"
-	if low.x < float(hole.x0) + CLEARANCE or high.x > float(hole.x1) - CLEARANCE or low.y < float(hole.y0) + CLEARANCE or high.y > float(hole.y1) - CLEARANCE or high.z > float(run.depth) - 0.02 - CLEARANCE:
+	# 法向突出不等于穿墙：只要完整扫掠仍在真实贯穿洞口的横向/竖向范围内即可。
+	if float(envelope.side_min) < float(hole.x0) + CLEARANCE or float(envelope.side_max) > float(hole.x1) - CLEARANCE or low.y < float(hole.y0) + CLEARANCE or high.y > float(hole.y1) - CLEARANCE:
 		return "窗扇厚度的完整开合包络超出墙体净洞安全区，存在穿墙风险"
+	var frame_low: Vector3 = Vector3(float(hole.x0) - reach + CLEARANCE, float(hole.sill) - float(settings.frame_width), float(settings.recess) - float(settings.frame_depth) * 0.5)
+	var frame_high: Vector3 = Vector3(float(hole.x1) + reach - CLEARANCE, float(hole.sill) + float(hole.height) + float(settings.frame_width), float(settings.recess) + float(settings.frame_depth) * 0.5)
+	if frame_low.x < bay_start + CLEARANCE or frame_high.x > bay_end - CLEARANCE or frame_low.y < base + CLEARANCE or frame_high.y > top - CLEARANCE:
+		return "窗框外廓超出开间或楼板；请增大开间/层高，不能静默缩窗"
+	var assembly_low: Vector3 = low.min(frame_low)
+	var assembly_high: Vector3 = high.max(frame_high)
 	if bool(settings.sill_enabled):
 		var half: float = float(hole.width) * 0.5 + float(settings.frame_width) + float(settings.sill_extension)
 		if float(hole.cx) - half < bay_start + CLEARANCE or float(hole.cx) + half > bay_end - CLEARANCE:
@@ -136,11 +169,14 @@ static func validate_bay(hole: Dictionary, run: Dictionary, bay_start: float, ba
 		var sill_top: float = float(hole.sill) - float(settings.frame_width) - CLEARANCE
 		if sill_top - float(settings.sill_thickness) <= base + CLEARANCE: return "窗沿厚度与楼板冲突"
 		if low.y < sill_top + CLEARANCE: return "开合包络与窗沿冲突"
+		assembly_low = assembly_low.min(Vector3(float(hole.cx) - half, sill_top - float(settings.sill_thickness), -float(settings.sill_projection)))
+		assembly_high = assembly_high.max(Vector3(float(hole.cx) + half, sill_top, -CLEARANCE))
 	hole["sweep_envelope"] = envelope
+	hole["assembly_envelope"] = {"min": assembly_low, "max": assembly_high}
 	return ""
 
 static func register_envelope(envelopes: Array, hole: Dictionary, run: Dictionary, id: String, floor: int) -> String:
-	var local: Dictionary = hole.sweep_envelope
+	var local: Dictionary = hole.get("assembly_envelope", hole.sweep_envelope)
 	var low: Vector3 = local.min
 	var high: Vector3 = local.max
 	var start: Vector2 = run.start
@@ -174,7 +210,11 @@ static func metadata(hole: Dictionary, run: Dictionary, geometry: Script, contex
 		"glass_thickness": float(settings.glass_thickness), "frame_front_depth": float(settings.recess) - float(settings.frame_depth) * 0.5,
 		"frame_back_depth": float(settings.recess) + float(settings.frame_depth) * 0.5,
 		"sash_profile": float(settings.frame_width) * 0.65 if moving else 0.0,
-		"sweep_envelope_before_taper": hole.get("sweep_envelope", {}), "hinge_space": "变形前world；旋转后统一global taper"
+		"sweep_envelope_before_taper": hole.get("sweep_envelope", {}),
+		"assembly_envelope_before_taper": hole.get("assembly_envelope", {}),
+		"recess_limits": recess_limits(float(settings.frame_depth), float(run.depth)),
+		"frame_depth_policy": "允许向外或室内突出；框与墙洞返回面安全区须保持至少3mm深度交集，不自动改值",
+		"hinge_space": "变形前world；旋转后统一global taper"
 	}
 	if moving:
 		var hinge: Dictionary = _hinge(hole, run)
@@ -185,12 +225,15 @@ static func metadata(hole: Dictionary, run: Dictionary, geometry: Script, contex
 	return result
 
 static func _glass(buffer: Dictionary, hole: Dictionary, run: Dictionary, geometry: Script) -> void:
-	var settings: Dictionary = hole.settings
+	var settings: Dictionary = hole.get("settings", {})
 	# 玻璃随洞口梯形：上沿与窗框同 pull 收窄，不做正交矩形。
 	var profile: Array[Vector2] = geometry._opening_quad(float(hole.cx), float(hole.sill) + GAP, float(hole.width) - GAP * 2.0, float(hole.height) - GAP * 2.0, 0.0, float(hole.get("pull", 0.0)))
-	var half: float = float(settings.glass_thickness) * 0.5
-	var a: Array[Vector3] = geometry._run_ring(profile, run, float(settings.recess) - half)
-	var b: Array[Vector3] = geometry._run_ring(profile, run, float(settings.recess) + half)
+	# 有构造配置时以框中心recess定位，并由validate约束玻璃厚度落在frame_depth内。
+	# 只有真正无architecture的旧配方才保留墙厚中心与20mm默认厚度。
+	var half: float = float(settings.get("glass_thickness", 0.02)) * 0.5
+	var recess: float = float(settings.get("recess", float(run.depth) * 0.5))
+	var a: Array[Vector3] = geometry._run_ring(profile, run, recess - half)
+	var b: Array[Vector3] = geometry._run_ring(profile, run, recess + half)
 	var n2: Vector2 = run.outward
 	var normal: Vector3 = Vector3(n2.x, 0.0, n2.y)
 	geometry._quad(buffer, a[0], a[1], a[2], a[3], normal)

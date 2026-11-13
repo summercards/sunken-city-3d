@@ -142,7 +142,10 @@ func sync_exported_revision(revision: int) -> Dictionary:
 	return result
 
 func build() -> Dictionary:
-	var result: Dictionary = Generator.build(snapshot(), _copy_dict(catalog))
+	var mesh_builder = preload("res://src/workshop/mesh_builder.gd")
+	var recipe_snapshot: Dictionary = snapshot()
+	var result: Dictionary = mesh_builder.apply_build_palette(Generator.build(recipe_snapshot, _copy_dict(catalog)), recipe_snapshot, catalog)
+	result = mesh_builder.apply_build_shading(result, recipe_snapshot, catalog)
 	if result.get("ok", false):
 		_last_build = result
 	return result
@@ -164,6 +167,31 @@ func _commit_candidate(candidate: Dictionary) -> Dictionary:
 	_last_build.clear()
 	changed.emit()
 	return {"ok": true, "reason": "", "recipe": snapshot()}
+
+## 实时编辑事务：只构建一次，成功后才写草稿与历史；root所有权交给预览调用者。
+## merge_previous仅合并同一次拖拽，且要求草稿仍是上次提交的fingerprint。
+func preview_candidate(candidate: Dictionary, merge_previous: bool = false, previous_fingerprint: String = "") -> Dictionary:
+	var next: Dictionary = _copy_dict(candidate)
+	_coerce_integer_fields(next)
+	var reason: String = Recipe.validate(next, catalog)
+	if not reason.is_empty():
+		return {"ok": false, "reason": reason}
+	next = Recipe.normalized(next)
+	var mesh_builder = preload("res://src/workshop/mesh_builder.gd")
+	var built: Dictionary = mesh_builder.apply_build_palette(Generator.build(next, _copy_dict(catalog)), next, catalog)
+	built = mesh_builder.apply_build_shading(built, next, catalog)
+	if not bool(built.get("ok", false)):
+		var failed_root: Node = built.get("root") as Node
+		if failed_root != null: failed_root.free()
+		return built
+	if _fingerprint(next) != _fingerprint(_recipe):
+		if not merge_previous or _undo.is_empty() or _fingerprint(_recipe) != previous_fingerprint:
+			_undo.push_back(_history_state())
+		_redo.clear()
+		_recipe = next
+		_last_build.clear()
+		changed.emit()
+	return built
 
 func replace_catalog(next_catalog: Dictionary) -> Dictionary:
 	return replace_document(snapshot(), next_catalog)

@@ -3,10 +3,11 @@ extends RefCounted
 ## 连续外壳的静态装配层；不依赖旧生成器、不挂树、不保存文件。
 
 const Geometry = preload("res://src/workshop/shell_geometry.gd")
+const StructureUnion = preload("res://src/workshop/shell_union_geometry.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const MeshBuilder = preload("res://src/workshop/mesh_builder.gd")
-const GENERATOR_VERSION := "sea_workshop_continuous_shell_v2"
+const GENERATOR_VERSION := "sea_workshop_structural_union_v3"
 const STANDARDS_PATH := "res://data/workshop/standards_v1.json"
 const MAX_NODES := 2000
 const MAX_TRIANGLES := 180000
@@ -60,8 +61,7 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 		if family.is_empty() or not r.component_bindings.has(family):
 			_release_plans(plans)
 			return _fail(result, "连续外壳part缺少组件族映射: " + id)
-		var override: Dictionary = r.slot_overrides.get(id, {})
-		part.component_id = str(override.get("component_id", r.component_bindings[family]))
+		part.component_id = Geometry._component(r, str(part.kind), id)
 		part.kind = family
 		part.collidable = bool(part.collidable) and family != "plant" and str(r.spatial_profile) != "scenic_underwater"
 		var definition: Dictionary = c.components[str(part.component_id)]
@@ -84,13 +84,21 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	for id in r.slot_overrides:
 		if not str(id).begins_with("plant_") and not seen.has(id):
 			result.warnings.append("槽覆盖未匹配实际part: " + str(id))
-	var roof: Dictionary = _plan_by_id(plans, "roof_main")
+	var union_result: Dictionary = StructureUnion.combine(plans)
+	if not bool(union_result.ok):
+		_release_plans(plans)
+		return _fail(result, str(union_result.reason))
+	var structure: Dictionary = {"id": "structure_union", "kind": "structure", "floor": -1, "facade": "", "component_id": "", "position": Vector3.ZERO, "mesh": union_result.mesh, "mesh_records": [{"mesh": union_result.mesh, "transform": Transform3D.IDENTITY}], "instance": null, "node_count": 1, "collidable": str(r.spatial_profile) != "scenic_underwater", "source_slots": union_result.source_slots}
+	var roof_source: Dictionary = _plan_by_id(plans, "roof_main")
+	var roof: Dictionary = structure.duplicate(false)
+	roof["surface_y"] = snappedf(_part_bounds(roof_source).end.y, 0.0001)
 	var anchors: Array = _plant_anchors(roof, r) if float(r.vegetation_density) > 0.0 or not r.locked_vegetation.is_empty() else []
 	var plant_result: Dictionary = _prepare_plants(anchors, roof, r, c, budget, result.warnings)
 	if not bool(plant_result.ok):
 		_release_plans(plans)
 		return _fail(result, str(plant_result.reason))
 	plans.append_array(plant_result.parts)
+	result.quality["structure_union"] = {"backend": union_result.backend, "audit": union_result.audit, "boundary_audit": union_result.boundary_audit, "source_slots": union_result.source_slots, "visible_source_meshes": 0, "acceptance": "geometry_checked_not_visual_acceptance", "internal_surface_verification": "实际faces每面两个内点、0.1mm双侧、三方向源实体射线奇偶多数票；独立专项另行验收", "mesh_quantization_m": 0.0001}
 	var root: Node3D = Node3D.new()
 	root.name = "WorkshopBuilding_" + str(r.building_id)
 	root.set_meta("workshop_building_id", str(r.building_id))
@@ -106,10 +114,26 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	var spatial: Node3D = _branch(root, root, "Spatial")
 	var collision_root: Node3D = _branch(spatial, root, "Collision")
 	var actual_topology: Dictionary = {}
+	var semantic_sources: Array = []
+	# 仅返回给编辑端口的内存来源，不挂入静态树或metadata，避免重复可见结构。
+	result["semantic_sources"] = {}
+	for part: Dictionary in plans:
+		if StructureUnion.owns(str(part.id)):
+			semantic_sources.append(part)
+			result.semantic_sources[str(part.id)] = {"position": part.position, "mesh_records": part.mesh_records.duplicate(true), "component_id": part.component_id, "kind": part.kind, "floor": part.floor}
+			part["semantic_only"] = true
+			part["collidable"] = false
+	plans.append(structure)
 	for part in plans:
 		var parent: Node3D = vegetation if str(part.kind) == "plant" else visual
+		var semantic_only: bool = bool(part.get("semantic_only", false))
 		var node: Node3D = part.instance as Node3D
-		if node == null:
+		if semantic_only:
+			node = Node3D.new()
+			node.position = part.position
+			node.set_meta("semantic_source_only", true)
+			node.set_meta("structure_node", "../structure_union")
+		elif node == null:
 			var mesh_node: MeshInstance3D = MeshInstance3D.new()
 			mesh_node.mesh = part.mesh
 			node = mesh_node
@@ -134,7 +158,10 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 			if part.instance != null:
 				slot["bevel_source"] = "prefab_geometry_unmeasured"
 				slot["bevel_measured"] = false
-		result.slots.append(slot)
+		if semantic_only:
+			slot["semantic_source_only"] = true
+			slot["structure_node_path"] = "GeneratedVisual/structure_union"
+		if str(part.kind) != "structure": result.slots.append(slot)
 		if bool(part.collidable):
 			for record in part.mesh_records:
 				var mesh: Mesh = record.mesh
@@ -157,26 +184,32 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 				body.add_child(shape_node)
 				shape_node.owner = root
 				_tag(shape_node, part)
-		if str(r.spatial_profile) != "scenic_underwater" and str(part.kind) == "slab":
-			var top: Dictionary = _top_surface(part)
+		if str(part.kind) == "structure":
+			node.set_meta("source_slots", part.source_slots)
+		if str(r.spatial_profile) != "scenic_underwater" and (str(part.id).begins_with("slab_") or str(part.id) == "roof_main"):
+			var top: Dictionary = _union_top_surface(structure, part) if semantic_only else _top_surface(part)
 			for index in top.rects.size():
 				var rect: Rect2 = top.rects[index]
-				result.walk_surfaces.append({"id": "walk_" + str(part.id) + "_" + str(index), "floor": int(part.floor), "position": Vector3(rect.get_center().x, float(top.y), rect.get_center().y), "size": [rect.size.x, rect.size.y], "source_slots": [str(part.id)], "source_node_path": str(root.get_path_to(node)), "kind": "local_candidate_rectangle", "coordinate_space": "root_local"})
+				result.walk_surfaces.append({"id": "walk_" + str(part.id) + "_" + str(index), "floor": int(part.floor), "position": Vector3(rect.get_center().x, float(top.y), rect.get_center().y), "size": [rect.size.x, rect.size.y], "source_slots": [str(part.id)], "source_node_path": "GeneratedVisual/structure_union" if semantic_only else str(root.get_path_to(node)), "kind": "local_candidate_rectangle", "coordinate_space": "root_local"})
 			if top.rects.is_empty() and not top.loops.is_empty():
-				result.walk_surfaces.append({"id": "walk_" + str(part.id), "floor": int(part.floor), "kind": "local_candidate_polygon", "polygons": _public_loops(top.loops), "surface_y": top.y, "source_slots": [str(part.id)], "coordinate_space": "root_local"})
+				result.walk_surfaces.append({"id": "walk_" + str(part.id), "floor": int(part.floor), "kind": "local_candidate_polygon", "polygons": _public_loops(top.loops), "surface_y": top.y, "source_slots": [str(part.id)], "source_node_path": "GeneratedVisual/structure_union" if semantic_only else str(root.get_path_to(node)), "coordinate_space": "root_local"})
 			if str(r.spatial_profile) == "above_water" and str(part.id) == "slab_0" and absf(float(top.y)) <= BOUNDS_EPS:
+				if top.rects.is_empty() and not top.loops.is_empty():
+					result.water_blockers.append({"id": "water_floor0_polygon", "kind": "local_candidate_floor0_polygon", "polygons": _public_loops(top.loops), "waterline_y": top.y, "coordinate_space": "root_local", "source_slots": ["slab_0"], "source_node_path": "GeneratedVisual/structure_union", "note": "最终结构实际水平面轮廓；不自动接入世界水线"})
 				for index in top.rects.size():
 					var rect: Rect2 = top.rects[index]
-					result.water_blockers.append({"id": "water_floor0_" + str(index), "kind": "local_candidate_floor0_footprint", "position": [rect.get_center().x, rect.get_center().y], "size": [rect.size.x, rect.size.y], "waterline_y": 0.0, "coordinate_space": "root_local", "source_slots": ["slab_0"], "source_node_path": str(root.get_path_to(node)), "note": "floor0实际板顶占地候选；不代表世界物理水线或正式水面接入"})
+					result.water_blockers.append({"id": "water_floor0_" + str(index), "kind": "local_candidate_floor0_footprint", "position": [rect.get_center().x, rect.get_center().y], "size": [rect.size.x, rect.size.y], "waterline_y": 0.0, "coordinate_space": "root_local", "source_slots": ["slab_0"], "source_node_path": "GeneratedVisual/structure_union" if semantic_only else str(root.get_path_to(node)), "note": "floor0实际板顶占地候选；不代表世界物理水线或正式水面接入"})
+	_release_plans(semantic_sources)
 	var stats: Dictionary = _count_tree(root)
 	if _over_budget(stats):
 		root.free()
 		return _fail(result, "实际装配超出节点或三角面预算")
 	result.quality["topology"] = actual_topology
 	result.quality["triangles"] = stats.triangles
+	result.quality["topology_scope"] = "最终structure_union实际Mesh.get_faces单连通、闭合、定向、正体积、无重复/退化；语义源槽只供编辑，不代表分件可见结构"
 	result.quality["verification"] = "生成器已检查最终实际网格的闭合和定向；独立几何专项与真实渲染证据另行记录，不代表美术终验"
-	result.quality["assembly_restrictions"] = "连续结构禁用/排除/非零位移原子拒绝；同尺寸闭合整件替换允许"
-	result.quality["assembly"] = {"collision": "实际mesh三角面静态凹碰撞", "coordinates": "root_local；根变换恒等时与world一致", "walk": "实际水平板顶轮廓的不重叠矩形分解；不填L缺口", "water": "floor0实际板顶在local y=0的占地候选，不承诺物理waterline", "vegetation": "屋顶实际顶面锚点；植物独立、无碰撞", "frame_glass_offset": "非零位移明确拒绝", "disabled_parts": "跳过整件，不自动补洞"}
+	result.quality["assembly_restrictions"] = "结构语义槽保留参数与替件身份，不保留可见源网格；替件后必须真实union并通过单连通闭合定向门禁；禁用/排除/非零位移仍拒绝"
+	result.quality["assembly"] = {"collision": "实际mesh三角面静态凹碰撞", "coordinates": "root_local；根变换恒等时与world一致", "walk": "实际水平板顶轮廓的不重叠矩形分解；不填L缺口", "water": "floor0实际板顶在local y=0的占地候选，不承诺物理waterline", "vegetation": "屋顶实际顶面锚点；植物独立、无碰撞", "frame_glass_offset": "非零位移明确拒绝", "disabled_parts": "结构禁用拒绝；柱腰线由配方开关控制并重新union", "structure": "墙/板/屋顶/柱/腰线/束带/勒脚真实布尔边界，单一MeshInstance3D，无可见源壳"}
 	# 只存可序列化审计值；不把parts或Mesh资源塞入metadata。
 	root.set_meta("quality", result.quality.duplicate(true))
 	root.set_meta("openings", result.openings.duplicate(true))
@@ -389,9 +422,12 @@ static func _plant_anchors(roof: Dictionary, r: Dictionary) -> Array:
 			edge_index += 1
 	return anchors
 
-static func _top_surface(part: Dictionary) -> Dictionary:
+static func _union_top_surface(structure: Dictionary, source: Dictionary) -> Dictionary:
+	return _top_surface(structure, snappedf(_part_bounds(source).end.y, 0.0001))
+
+static func _top_surface(part: Dictionary, surface_y: float = INF) -> Dictionary:
 	var faces: PackedVector3Array = _part_faces(part)
-	var top: float = _part_bounds(part).end.y
+	var top: float = float(part.get("surface_y", _part_bounds(part).end.y)) if is_inf(surface_y) else surface_y
 	var edges: Dictionary = {}
 	var points: Dictionary = {}
 	for i in range(0, faces.size(), 3):
@@ -642,4 +678,5 @@ static func _fail(result: Dictionary, reason: String) -> Dictionary:
 	result.stats = {}
 	result.walk_surfaces = []
 	result.water_blockers = []
+	result.erase("semantic_sources")
 	return result

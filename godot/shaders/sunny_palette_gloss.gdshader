@@ -19,6 +19,9 @@ uniform bool home_window_recessed = false;
 varying vec3 home_local;
 void vertex() { home_local = VERTEX; }
 uniform int home_window_column = 3;
+instance uniform int sea_material_role = 2;
+instance uniform vec4 sea_gloss_controls = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform float sea_gloss_emission_energy = -1.0;
 global uniform float world_home_lights;
 vec3 rgb2hsv(vec3 c) {
  vec4 K=vec4(0.0,-1.0/3.0,2.0/3.0,-1.0);
@@ -32,6 +35,11 @@ vec3 hsv2rgb(vec3 c) {
  return c.z*mix(vec3(1.0),clamp(p-1.0,0.0,1.0),c.y);
 }
 void fragment() {
+ float sea_roughness = sea_gloss_controls.x >= 0.0 ? sea_gloss_controls.x : roughness_value;
+ float sea_metallic = sea_gloss_controls.y >= 0.0 ? sea_gloss_controls.y : metallic_value;
+ float sea_specular = sea_gloss_controls.z >= 0.0 ? sea_gloss_controls.z : 0.25;
+ float sea_alpha = sea_gloss_controls.w >= 0.0 ? sea_gloss_controls.w : alpha_value;
+ float sea_emission = sea_gloss_emission_energy >= 0.0 ? sea_gloss_emission_energy : emission_value;
  vec3 base=texture(palette,UV).rgb;
  vec3 hsv=rgb2hsv(base);
  bool solar=ivec2(floor(UV*8.0))==ivec2(5,2);
@@ -43,8 +51,8 @@ void fragment() {
   vec3 wine=rgb2hsv(ALBEDO);wine.x=fract(wine.x+0.067);wine.y*=0.95;wine.z*=0.75;
   ALBEDO=hsv2rgb(wine);
  }
- ROUGHNESS=roughness_value;METALLIC=metallic_value;SPECULAR=0.25;
- EMISSION=mix(base,vec3(0.55,0.24,0.055),world_home_lights)*emission_value;
+ ROUGHNESS=sea_roughness;METALLIC=sea_metallic;SPECULAR=sea_specular;
+ EMISSION=mix(base,vec3(0.55,0.24,0.055),world_home_lights)*sea_emission;
  if (home_window && ivec2(floor(UV*8.0))==ivec2(home_window_column,2)
   && (!home_window_recessed || (home_local.z < -0.006 && home_local.z > -0.043))) {
   ALBEDO=mix(ALBEDO,vec3(1.0,0.58,0.19),world_home_lights);
@@ -52,10 +60,10 @@ void fragment() {
  }
  if (interior_glass) {
   ALBEDO=tint.rgb;
-  ROUGHNESS=roughness_value;
-  SPECULAR=0.65;
+  ROUGHNESS=sea_roughness;
+  SPECULAR=sea_specular;
  } else {
   ALBEDO*=tint.rgb;
  }
- ALPHA=alpha_value;
+ ALPHA=sea_alpha;
 }

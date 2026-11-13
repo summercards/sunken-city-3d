@@ -12,7 +12,7 @@ const STANDARD_FIELDS := [
 	"floor_height", "slab_thickness", "wall_thickness", "column_width",
 	"window_width", "window_height", "window_sill", "bay_width", "door_width",
 	"door_height", "bevel_segments", "bevel_width", "taper", "spatial_profile",
-	"aging", "damage", "vegetation_density", "growth_weights", "structure_seed",
+	"aging", "damage", "vegetation_density", "vegetation_random_enabled", "vegetation_variation", "growth_weights", "structure_seed",
 	"damage_seed", "vegetation_seed", "component_bindings", "floor_overrides",
 	"facade_overrides", "slot_overrides", "excluded_slots", "locked_vegetation",
 	"architecture"
@@ -55,6 +55,8 @@ static func defaults() -> Dictionary:
 		"aging": 0.15,
 		"damage": 0.0,
 		"vegetation_density": 0.25,
+		"vegetation_random_enabled": true,
+		"vegetation_variation": 0.0,
 		"growth_weights": [0.3, 0.4, 0.3],
 		"structure_seed": 11010,
 		"damage_seed": 11011,
@@ -93,6 +95,7 @@ static func authoring_defaults() -> Dictionary:
 	result["aging"] = 0.0
 	result["damage"] = 0.0
 	result["vegetation_density"] = 0.0
+	result["vegetation_variation"] = 0.5
 	# 住宅比例：3.6m 层高、0.18m 板厚、1.5×1.9 窗、2.4m 门；不再用 5.1m 层高留大片空白墙。
 	result["floor_height"] = 3.6
 	result["slab_thickness"] = 0.18
@@ -210,6 +213,11 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 	for field in ["aging", "damage", "vegetation_density"]:
 		if float(data.get(field, -1.0)) < 0.0 or float(data.get(field, -1.0)) > 1.0:
 			return field + "必须在0..1"
+	if not data.get("vegetation_random_enabled", true) is bool:
+		return "vegetation_random_enabled必须为布尔值"
+	var variation: Variant = data.get("vegetation_variation", 0.0)
+	if not (variation is int or variation is float) or float(variation) < 0.0 or float(variation) > 1.0:
+		return "vegetation_variation必须为0..1数值"
 	if not _validate_growth_weights(data.get("growth_weights", null)):
 		return "growth_weights必须是三个非负数且总和大于0"
 	for seed_field in ["structure_seed", "damage_seed", "vegetation_seed"]:
@@ -271,7 +279,13 @@ static func normalized(data: Dictionary) -> Dictionary:
 	return result
 
 static func fingerprint(data) -> String:
-	return _stable_string(normalized(data)).sha256_text()
+	var canonical := normalized(data)
+	# 增量参数的兼容默认不改变旧配方指纹；非默认值必须进入指纹。
+	if canonical.get("vegetation_random_enabled") == true:
+		canonical.erase("vegetation_random_enabled")
+	if canonical.get("vegetation_variation") == 0.0:
+		canonical.erase("vegetation_variation")
+	return _stable_string(canonical).sha256_text()
 
 static func _copy_value(value):
 	if value is Dictionary or value is Array:

@@ -112,7 +112,7 @@ func configure_recipe() -> bool:
 		var damage_control: Variant = controls.get("damage", null)
 		var aging_control: Variant = controls.get("aging", null)
 		var vegetation_control: Variant = controls.get("vegetation_density", null)
-		check(shape_control is OptionButton and damage_control is SpinBox and aging_control is SpinBox and vegetation_control is SpinBox, "左页展示形状/破损/老化/植物控件")
+		check(shape_control is OptionButton and damage_control is HSlider and aging_control is HSlider and vegetation_control is HSlider, "左页展示形状/破损/老化/植物滑块")
 	var actual_bindings: Variant = recipe_snapshot.get("component_bindings", {})
 	check(actual_bindings is Dictionary and str((actual_bindings as Dictionary).get("wall", "")) == "wall_sun" and str((actual_bindings as Dictionary).get("plant", "")) == "plant_vine", "配方使用替代 wall_sun/plant_vine 组件绑定")
 	return true
@@ -189,17 +189,17 @@ func assert_recipe_controls() -> void:
 	var damage_value: Variant = controls.get("damage", null)
 	var aging_value: Variant = controls.get("aging", null)
 	var vegetation_value: Variant = controls.get("vegetation_density", null)
-	check(shape_value is OptionButton and damage_value is SpinBox and aging_value is SpinBox and vegetation_value is SpinBox, "打开后的左页展示形状/破损/老化/植物控件")
+	check(shape_value is OptionButton and damage_value is HSlider and aging_value is HSlider and vegetation_value is HSlider, "打开后的左页展示形状/破损/老化/植物滑块")
 	if shape_value is OptionButton:
 		var shape_option: OptionButton = shape_value as OptionButton
 		var shape_metadata: String = str(shape_option.get_item_metadata(shape_option.selected)) if shape_option.selected >= 0 else ""
 		check(shape_metadata == "l", "左页形状控件展示 L 形")
-	if damage_value is SpinBox:
-		check(is_equal_approx((damage_value as SpinBox).value, 0.5), "左页破损控件展示 0.5")
-	if aging_value is SpinBox:
-		check(is_equal_approx((aging_value as SpinBox).value, 0.4), "左页老化控件展示 0.4")
-	if vegetation_value is SpinBox:
-		check(is_equal_approx((vegetation_value as SpinBox).value, 0.8), "左页植物密度控件展示 0.8")
+	if damage_value is HSlider:
+		check(is_equal_approx((damage_value as HSlider).value, 0.5), "左页破损滑块展示 0.5")
+	if aging_value is HSlider:
+		check(is_equal_approx((aging_value as HSlider).value, 0.4), "左页老化滑块展示 0.4")
+	if vegetation_value is HSlider:
+		check(is_equal_approx((vegetation_value as HSlider).value, 0.8), "左页植物密度滑块展示 0.8")
 
 func select_page(index: int) -> void:
 	var picker_value: Variant = panel.get("_page_picker")

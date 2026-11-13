@@ -1026,7 +1026,7 @@ func _test_window_weathering() -> void:
 		picker.select(2)
 		picker.item_selected.emit(2)
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
-	var damage: SpinBox = controls.get("damage") as SpinBox
+	var damage: HSlider = controls.get("damage") as HSlider
 	var damage_label: bool = false
 	if damage != null:
 		for sibling: Node in damage.get_parent().get_children():
@@ -1256,8 +1256,8 @@ func _test_form_controls() -> void:
 		return
 	_screen.call("configure", {})
 	_check_result("形体测试前刷新预览", _result(_screen, "refresh_preview"))
-	var taper_spin: SpinBox = _dictionary(_property(_screen, "controls")).get("taper") as SpinBox
-	_check("形体关闭时taper可手改", taper_spin != null and taper_spin.editable)
+	var taper_slider: HSlider = _dictionary(_property(_screen, "controls")).get("taper") as HSlider
+	_check("形体关闭时taper可手调", taper_slider != null and taper_slider.editable)
 	var glass_span_baseline: Vector2 = Vector2.ZERO
 
 	# 开形体 + 设区间：落值必须落在区间内，且 taper 交回形体。
@@ -1285,7 +1285,7 @@ func _test_form_controls() -> void:
 	var structure_value: float = float(resolved.get("structure", 0.0))
 	_check("整楼落值在区间内", structure_value >= 0.030 - 0.000001 and structure_value <= 0.060 + 0.000001, str(structure_value))
 	_check("整楼落值写入taper", is_equal_approx(float(after.get("taper", 0.0)), structure_value), "%f vs %f" % [float(after.get("taper", 0.0)), structure_value])
-	_check("形体开启后taper输入被接管", taper_spin != null and not taper_spin.editable)
+	_check("形体开启后taper输入被接管", taper_slider != null and not taper_slider.editable)
 	var applied_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
 	var window_slot: String = ""
 	var openings: Dictionary = _dictionary(_property(_screen, "_opening_cache"))
@@ -1423,7 +1423,7 @@ func _test_form_controls() -> void:
 	var closed_visual: Node3D = _preview_visual(_property(_screen, "preview") as Control)
 	var closed_recipe: Dictionary = _snapshot()
 	_check("关闭形体后form.enabled为false", not bool(_dictionary(_dictionary(closed_recipe.get("architecture", {})).get("form", {})).get("enabled", true)))
-	_check("关闭形体后taper恢复可手改", taper_spin != null and taper_spin.editable)
+	_check("关闭形体后taper恢复可手改", taper_slider != null and taper_slider.editable)
 	if not window_slot.is_empty():
 		var flat_glass: MeshInstance3D = closed_visual.get_node_or_null("glass_" + window_slot) as MeshInstance3D
 		_check("关闭形体后窗玻璃存在", flat_glass != null and flat_glass.mesh != null)
@@ -2451,16 +2451,16 @@ func _near_array(a: Variant, b: Variant) -> bool:
 
 func _set_spin(key: String, value: float) -> bool:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
-	var spin: SpinBox = controls.get(key) as SpinBox
-	if not _check("实际 SpinBox：" + key, spin != null, str(controls.keys())):
+	var slider: HSlider = controls.get(key) as HSlider
+	if not _check("实际 HSlider：" + key, slider != null, str(controls.keys())):
 		return false
-	spin.value = value
-	return _check("SpinBox 接收输入：" + key, is_equal_approx(spin.value, value), "期望 %f 实际 %f（min=%f max=%f step=%f）" % [value, spin.value, spin.min_value, spin.max_value, spin.step])
+	slider.value = value
+	return _check("HSlider 接收输入：" + key, is_equal_approx(slider.value, value), "期望 %f 实际 %f（min=%f max=%f step=%f）" % [value, slider.value, slider.min_value, slider.max_value, slider.step])
 
 func _spin(key: String) -> float:
 	var controls: Dictionary = _dictionary(_property(_screen, "controls"))
-	var spin: SpinBox = controls.get(key) as SpinBox
-	return spin.value if spin != null else NAN
+	var slider: HSlider = controls.get(key) as HSlider
+	return slider.value if slider != null else NAN
 
 ## 状态栏文字是真实验收产物：按钮被按到不等于操作成功，拒绝原因要能进断言细节。
 func _status_text() -> String:

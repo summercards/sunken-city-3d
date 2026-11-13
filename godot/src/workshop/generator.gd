@@ -30,15 +30,23 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	if not standards_reason.is_empty():
 		empty.reason = standards_reason
 		return empty
+	# 关闭随机时，密度阈值和生长权重仍有效，但抽样固定为旧默认seed，不随用户seed变化。
+	var source_fingerprint := Recipe.fingerprint(normalized)
+	if not bool(normalized.vegetation_random_enabled):
+		normalized.vegetation_seed = 11012
 	if str(normalized.get("construction_mode", "modular_v1")) == "shell_v2":
-		return preload("res://src/workshop/shell_generator.gd").build(normalized, source_catalog)
+		var shell: Dictionary = preload("res://src/workshop/shell_generator.gd").build(normalized, source_catalog)
+		if bool(shell.ok):
+			_apply_vegetation_variation(shell, normalized, source_catalog)
+			shell.root.set_meta("recipe_fingerprint", source_fingerprint)
+		return shell
 	var root := Node3D.new()
 	root.name = "WorkshopBuilding_" + str(normalized.building_id)
 	root.set_meta("workshop_building_id", str(normalized.building_id))
 	root.set_meta("asset_id", "SEA-WORKSHOP-" + str(normalized.building_id).to_upper())
 	root.set_meta("spatial_profile", str(normalized.spatial_profile))
 	root.set_meta("generator_version", GENERATOR_VERSION)
-	root.set_meta("recipe_fingerprint", Recipe.fingerprint(normalized))
+	root.set_meta("recipe_fingerprint", source_fingerprint)
 	root.set_meta("catalog_fingerprint", Catalog.fingerprint(source_catalog))
 	root.set_meta("standards_fingerprint", _standards_fingerprint())
 	var generated := Node3D.new()
@@ -149,7 +157,70 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 		if child != root and child.owner == null:
 			child.owner = root
 	stats.nodes = node_count
-	return {"ok": true, "reason": "", "root": root, "slots": slots, "stats": stats, "walk_surfaces": walk_surfaces, "water_blockers": water_blockers, "warnings": warnings}
+	var result := {"ok": true, "reason": "", "root": root, "slots": slots, "stats": stats, "walk_surfaces": walk_surfaces, "water_blockers": water_blockers, "warnings": warnings}
+	_apply_vegetation_variation(result, normalized, source_catalog)
+	return result
+
+## 幅度只改变实例姿态，不改变密度阈值、生长档抽样或玩法随机流。
+## 最大幅度：平面偏移±0.25m、等比尺寸±20%、绕竖轴±180°；不倾斜根部。
+static func _apply_vegetation_variation(build: Dictionary, recipe: Dictionary, catalog: Dictionary) -> void:
+	var amount := float(recipe.vegetation_variation) if bool(recipe.vegetation_random_enabled) else 0.0
+	if amount <= 0.0: return
+	var root: Node3D = build.root
+	var roof_faces := PackedVector3Array()
+	# 连续模式屋顶已融合；直接取最终可见网格的水平顶面，绝不按整楼AABB假定支撑。
+	for node in root.get_node("GeneratedVisual").find_children("*", "MeshInstance3D", true, false):
+		var mesh_node := node as MeshInstance3D
+		var transform := _local_transform_to_ancestor(mesh_node, root)
+		var faces := mesh_node.mesh.get_faces()
+		for index in range(0, faces.size(), 3):
+			var a: Vector3 = transform * faces[index]
+			var b: Vector3 = transform * faces[index + 1]
+			var c: Vector3 = transform * faces[index + 2]
+			if absf(a.y - b.y) < 0.0001 and absf(a.y - c.y) < 0.0001 and -(b - a).cross(c - a).y > 0.000001:
+				roof_faces.append_array(PackedVector3Array([a, b, c]))
+	for slot: Dictionary in build.slots:
+		if str(slot.kind) != "plant": continue
+		var node := root.get_node(str(slot.node_path)) as Node3D
+		var rng := RandomNumberGenerator.new()
+		rng.seed = (str(recipe.vegetation_seed) + ":" + str(slot.id) + ":pose_v1").sha256_text().substr(0, 15).hex_to_int()
+		var delta := Vector3(rng.randf_range(-0.25, 0.25), 0.0, rng.randf_range(-0.25, 0.25)) * amount
+		var scale_factor := 1.0 + rng.randf_range(-0.2, 0.2) * amount
+		var yaw := rng.randf_range(-PI, PI) * amount
+		var locked := false
+		for entry: Dictionary in recipe.locked_vegetation:
+			if str(entry.slot_id) == str(slot.id): locked = true
+		# 藤蔓必须留在檐边；锁定只固定位置，仍可调整体量与朝向。
+		var is_vine := str(catalog.components[str(slot.component_id)].get("profile", "")) == "vine"
+		var candidate := node.position + delta
+		if not locked and not is_vine and _vegetation_supported(candidate, roof_faces):
+			node.position = candidate
+		node.basis = Basis(Vector3.UP, yaw).scaled(Vector3.ONE * scale_factor) * node.basis
+		var bounds := AABB()
+		var has_bounds := false
+		var meshes: Array[Node] = node.find_children("*", "MeshInstance3D", true, false)
+		if node is MeshInstance3D: meshes.push_front(node)
+		for child in meshes:
+			var mesh_child := child as MeshInstance3D
+			if mesh_child.mesh == null: continue
+			var actual: AABB = _local_transform_to_ancestor(mesh_child, root) * mesh_child.mesh.get_aabb()
+			bounds = bounds.merge(actual) if has_bounds else actual
+			has_bounds = true
+		slot.position = [node.position.x, node.position.y, node.position.z]
+		slot.size = [bounds.size.x, bounds.size.y, bounds.size.z]
+		slot.bounds_position = [bounds.position.x, bounds.position.y, bounds.position.z]
+		slot.bounds_size = slot.size.duplicate()
+		slot["vegetation_scale"] = scale_factor
+		slot["vegetation_yaw"] = yaw
+
+static func _vegetation_supported(point: Vector3, faces: PackedVector3Array) -> bool:
+	for index in range(0, faces.size(), 3):
+		if absf(point.y - faces[index].y) > 0.0002: continue
+		var triangle := PackedVector2Array()
+		for offset in 3:
+			triangle.append(Vector2(faces[index + offset].x, faces[index + offset].z))
+		if Geometry2D.is_point_in_polygon(Vector2(point.x, point.z), triangle): return true
+	return false
 
 static func _occupied_cells(recipe: Dictionary) -> Array[Vector2i]:
 	var nx := maxi(1, int(ceil(float(recipe.width) / float(recipe.bay_width))))

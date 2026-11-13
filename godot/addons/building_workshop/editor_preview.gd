@@ -15,6 +15,10 @@ var _collision_root: Node3D
 var _wire_material_instance: StandardMaterial3D
 var _overlay_material_instance: StandardMaterial3D
 var _slots: Array = []
+# 仅供射线精筛的内存几何，不创建源壳节点或写入 metadata。
+var _semantic_sources: Dictionary = {}
+var _building_id: String = ""
+var _camera_fitted: bool = false
 var _selected_id: String = ""
 var _dragging: bool = false
 var _last_mouse: Vector2 = Vector2.ZERO
@@ -103,12 +107,17 @@ func set_build_result(result: Dictionary) -> void:
 	_clear_children(_wireframe_root)
 	_clear_children(_collision_root)
 	_slots = result.get("slots", []) as Array
+	_semantic_sources = result.get("semantic_sources", {}) as Dictionary
 	_selected_id = ""
 	var root: Node3D = result.get("root") as Node3D
 	if root != null:
 		_model_root.add_child(root)
 		root.owner = _model_root
-	_fit_camera(true)
+		var next_id: String = str(root.get_meta("workshop_building_id", ""))
+		if not _camera_fitted or next_id != _building_id:
+			_camera_fitted = false
+			_fit_camera(true)
+		_building_id = next_id
 	if _wireframe:
 		_rebuild_wireframe()
 	if _collision_overlay:
@@ -226,6 +235,16 @@ func _ray_slot_surface(slot: Dictionary, origin: Vector3, direction: Vector3) ->
 	if _model_root.get_child_count() != 1:
 		return -1.0
 	var building: Node3D = _model_root.get_child(0) as Node3D
+	if bool(slot.get("semantic_source_only", false)):
+		var semantic: Dictionary = _semantic_sources.get(str(slot.get("id", "")), {})
+		var placement: Transform3D = building.global_transform * Transform3D(Basis.IDENTITY, semantic.get("position", Vector3.ZERO))
+		var semantic_nearest: float = INF
+		for record: Dictionary in semantic.get("mesh_records", []):
+			var record_transform: Transform3D = record.get("transform", Transform3D.IDENTITY)
+			var semantic_hit: float = _ray_mesh_surface(record.get("mesh") as Mesh, placement * record_transform, origin, direction)
+			if semantic_hit >= 0.0:
+				semantic_nearest = minf(semantic_nearest, semantic_hit)
+		return semantic_nearest if is_finite(semantic_nearest) else -1.0
 	var source: Node3D = building.get_node_or_null(str(slot.get("node_path", ""))) as Node3D
 	if source == null:
 		return -1.0
@@ -235,26 +254,35 @@ func _ray_slot_surface(slot: Dictionary, origin: Vector3, direction: Vector3) ->
 	var nearest: float = INF
 	for child: Node in meshes:
 		var instance: MeshInstance3D = child as MeshInstance3D
-		if instance.mesh == null:
-			continue
-		var inverse: Transform3D = instance.global_transform.affine_inverse()
-		var local_origin: Vector3 = inverse * origin
-		var local_direction: Vector3 = inverse.basis * direction
-		var faces: PackedVector3Array = instance.mesh.get_faces()
-		for i: int in range(0, faces.size(), 3):
-			var point: Variant = Geometry3D.ray_intersects_triangle(local_origin, local_direction, faces[i], faces[i + 1], faces[i + 2])
-			if point != null:
-				var distance: float = origin.distance_to(instance.global_transform * (point as Vector3))
-				nearest = minf(nearest, distance)
+		var hit: float = _ray_mesh_surface(instance.mesh, instance.global_transform, origin, direction)
+		if hit >= 0.0:
+			nearest = minf(nearest, hit)
+	return nearest if is_finite(nearest) else -1.0
+
+func _ray_mesh_surface(mesh: Mesh, transform: Transform3D, origin: Vector3, direction: Vector3) -> float:
+	if mesh == null:
+		return -1.0
+	var inverse: Transform3D = transform.affine_inverse()
+	var local_origin: Vector3 = inverse * origin
+	var local_direction: Vector3 = inverse.basis * direction
+	var faces: PackedVector3Array = mesh.get_faces()
+	var nearest: float = INF
+	for i: int in range(0, faces.size() - 2, 3):
+		var point: Variant = Geometry3D.ray_intersects_triangle(local_origin, local_direction, faces[i], faces[i + 1], faces[i + 2])
+		if point != null:
+			nearest = minf(nearest, origin.distance_to(transform * (point as Vector3)))
 	return nearest if is_finite(nearest) else -1.0
 
 func _fit_camera(reset_distance: bool = false) -> void:
 	if camera == null or viewport == null:
 		return
-	_frame_camera(camera, viewport.size, _model_aabb(), reset_distance)
+	var box: AABB = _model_aabb()
+	_frame_camera(camera, viewport.size, box, reset_distance)
+	if reset_distance and box.size.length_squared() > 0.0001 and viewport.size.x > 0 and viewport.size.y > 0:
+		_camera_fitted = true
 
 func _frame_camera(view_camera: Camera3D, dimensions: Vector2i, model_box: AABB, reset_distance: bool) -> void:
-	if model_box.size.length_squared() > 0.0001:
+	if reset_distance and model_box.size.length_squared() > 0.0001:
 		_target = model_box.get_center()
 	var horizontal: Vector3 = Vector3(sin(_yaw), 0.0, -cos(_yaw))
 	var direction: Vector3 = (horizontal * cos(_pitch) + Vector3.UP * sin(-_pitch)).normalized()
@@ -302,8 +330,10 @@ func capture_model_image(dimensions: Vector2i = Vector2i(1400, 1100)) -> Image:
 	var capture_camera: Camera3D = capture_world.get_node(_world.get_path_to(camera)) as Camera3D
 	capture_camera.current = true
 	var saved_distance: float = _distance
+	var saved_target: Vector3 = _target
 	_frame_camera(capture_camera, dimensions, _model_aabb(), true)
 	_distance = saved_distance
+	_target = saved_target
 	for frame: int in range(3):
 		await get_tree().process_frame
 	RenderingServer.force_draw()
@@ -324,19 +354,23 @@ func _model_aabb() -> AABB:
 	return result
 
 func _on_viewport_size_changed() -> void:
-	_fit_camera(true)
+	if not _camera_fitted:
+		_fit_camera(true)
 
 func _slot_aabb(slot: Dictionary) -> AABB:
+	var building_transform: Transform3D = _model_root.global_transform
+	if _model_root.get_child_count() == 1:
+		building_transform = (_model_root.get_child(0) as Node3D).global_transform
 	# 生成器给出的实际 mesh bounds 已包含植物底部 / 藤蔓顶部 pivot 偏差。
 	if slot.has("bounds_position") and slot.has("bounds_size"):
 		var actual_bounds: AABB = AABB(_vec3(slot["bounds_position"]), _vec3(slot["bounds_size"]))
-		return _model_root.global_transform * actual_bounds
+		return building_transform * actual_bounds
 	# 没有实际 bounds 的旧槽只允许居中硬表面使用 size 回退，不猜植物 pivot。
 	if str(slot.get("kind", "")) == "plant":
 		return AABB()
 	var position: Vector3 = _vec3(slot.get("position", [0.0, 0.0, 0.0]))
 	var dimensions: Vector3 = _vec3(slot.get("size", [1.0, 1.0, 1.0]))
-	return _model_root.global_transform * AABB(position - dimensions * 0.5, dimensions)
+	return building_transform * AABB(position - dimensions * 0.5, dimensions)
 
 func _ray_box(origin: Vector3, direction: Vector3, box: AABB) -> float:
 	var t_min: float = 0.0

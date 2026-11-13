@@ -56,6 +56,7 @@ func run() -> void:
 	_test_setback(base, catalog)
 	_test_mixed_roof(base, catalog)
 	_test_windows(base, catalog)
+	_test_window_mesh_contract(catalog)
 	_test_invalid_cases(base, catalog)
 	_test_session_atomic(base, catalog)
 	_test_store(base, catalog)
@@ -119,8 +120,8 @@ func _test_noarchitecture_shell_equivalence(catalog: Dictionary) -> void:
 	var explicit_root: Node3D = explicit.get("root") as Node3D
 	check(bool(implicit.get("ok", false)) and bool(explicit.get("ok", false)) and implicit_root != null and explicit_root != null, "无architecture与显式none shell均生成", str(implicit.get("reason", explicit.get("reason", ""))))
 	if implicit_root != null and explicit_root != null:
-		check(_structural_signature(implicit_root) == _structural_signature(explicit_root), "无architecture shell结构geometry与显式none保持一致")
-		check(_parts_have_no_architecture_accessory(_inventory(implicit_root).parts), "无architecture shell不生成新窗扇/窗沿/屋顶附件")
+		check(_structural_signature(implicit_root, implicit.get("semantic_sources", {})) == _structural_signature(explicit_root, explicit.get("semantic_sources", {})), "无architecture shell结构geometry与显式none保持一致")
+		check(_parts_have_no_architecture_accessory(_inventory(implicit_root, implicit.get("semantic_sources", {})).parts), "无architecture shell不生成新窗扇/窗沿/屋顶附件")
 	_free_build_root(implicit)
 	_free_build_root(explicit)
 
@@ -169,7 +170,7 @@ func _test_fixture(label: String, recipe: Dictionary, catalog: Dictionary) -> Di
 	if root == null:
 		report.fixtures[label] = {"ok": false, "reason": str(result.get("reason", ""))}
 		return result
-	var inventory: Dictionary = _inventory(root)
+	var inventory: Dictionary = _inventory(root, result.get("semantic_sources", {}))
 	var topology: Dictionary = _audit_parts(inventory.parts)
 	var actual_collisions: bool = _collision_matches_visual(inventory)
 	check(str(root.get_meta("generator_version", "")) == ShellGenerator.GENERATOR_VERSION, label + " root metadata为当前shell生成器")
@@ -186,6 +187,8 @@ func _test_fixture(label: String, recipe: Dictionary, catalog: Dictionary) -> Di
 		"collision_shapes": inventory.collision_shapes,
 		"parts": _sorted_strings(inventory.parts.keys()),
 		"topology": topology,
+		"visible_topology": _audit_parts(inventory.visible_parts),
+		"source_audit": "独立semantic_sources实际网格；最终可见网格另列visible_topology",
 		"root_metadata": {
 			"generator_version": root.get_meta("generator_version", ""),
 			"construction_mode": root.get_meta("construction_mode", ""),
@@ -207,7 +210,7 @@ func _test_shape(label: String, base: Dictionary, catalog: Dictionary, shape: St
 	var root: Node3D = result.get("root") as Node3D
 	if root == null:
 		return
-	var inventory: Dictionary = _inventory(root)
+	var inventory: Dictionary = _inventory(root, result.get("semantic_sources", {}))
 	var height: float = _height(recipe)
 	var void_hits: int = _ray_hits(_all_faces(inventory.parts), Vector3(void_point.x, height + 2.0, void_point.y), Vector3(void_point.x, -1.0, void_point.y))
 	check(void_hits == 0, label + " roof top ray不封L/T/U内部void", str(void_hits))
@@ -223,7 +226,7 @@ func _test_setback(base: Dictionary, catalog: Dictionary) -> void:
 	var root: Node3D = result.get("root") as Node3D
 	if root == null:
 		return
-	var inventory: Dictionary = _inventory(root)
+	var inventory: Dictionary = _inventory(root, result.get("semantic_sources", {}))
 	var wall_1: AABB = _bounds(inventory.parts.get("wall_shell_1", PackedVector3Array()))
 	var wall_2: AABB = _bounds(inventory.parts.get("wall_shell_2", PackedVector3Array()))
 	check(wall_2.size.x < wall_1.size.x - EPS and wall_2.size.z < wall_1.size.z - EPS, "setback floor2实际wall_shell bounds变窄")
@@ -239,7 +242,7 @@ func _test_setback(base: Dictionary, catalog: Dictionary) -> void:
 	var no_setback_root: Node3D = no_setback_result.get("root") as Node3D
 	check(no_setback_root != null and bool(no_setback_result.get("ok", false)), "无退台屋顶边界fixture生成", str(no_setback_result.get("reason", "")))
 	if no_setback_root != null:
-		var no_setback_parts: Dictionary = _inventory(no_setback_root).parts
+		var no_setback_parts: Dictionary = _inventory(no_setback_root, no_setback_result.get("semantic_sources", {})).parts
 		check(not _has_id_containing(no_setback_parts, "terrace_floor_0"), "无退台时slab0没有roof edge part")
 	_free_build_root(no_setback_result)
 	report.fixtures["rectangle_setback_f3_start2_step035"]["wall_shell_1_bounds"] = _aabb_json(wall_1)
@@ -255,7 +258,7 @@ func _test_mixed_roof(base: Dictionary, catalog: Dictionary) -> void:
 	var root: Node3D = result.get("root") as Node3D
 	if root == null:
 		return
-	var inventory: Dictionary = _inventory(root)
+	var inventory: Dictionary = _inventory(root, result.get("semantic_sources", {}))
 	check(_has_id_prefix(inventory.parts, "parapet_"), "roof_main mixed实际存在parapet part")
 	check(_has_id_prefix(inventory.parts, "roofcap_"), "roof_main mixed实际存在roofcap part")
 	check(_has_id_prefix(inventory.parts, "railing_"), "roof_main mixed实际存在railing part")
@@ -267,7 +270,7 @@ func _test_mixed_roof(base: Dictionary, catalog: Dictionary) -> void:
 	var gap_root: Node3D = gap_result.get("root") as Node3D
 	check(gap_root != null and bool(gap_result.get("ok", false)), "roof edge gap fixture生成", str(gap_result.get("reason", "")))
 	if gap_root != null:
-		var gap_inventory: Dictionary = _inventory(gap_root)
+		var gap_inventory: Dictionary = _inventory(gap_root, gap_result.get("semantic_sources", {}))
 		var fragments: Array[String] = []
 		for id: String in gap_inventory.parts:
 			if id.begins_with("parapet_roof_main_0_") or id.begins_with("roofcap_roof_main_0_") or id.begins_with("railing_roof_main_0_"):
@@ -298,7 +301,7 @@ func _test_windows(base: Dictionary, catalog: Dictionary) -> void:
 	var root: Node3D = result.get("root") as Node3D
 	if root == null:
 		return
-	var inventory: Dictionary = _inventory(root)
+	var inventory: Dictionary = _inventory(root, result.get("semantic_sources", {}))
 	var fixed_ok: bool = false
 	var casement_ok: bool = false
 	var awning_ok: bool = false
@@ -328,7 +331,7 @@ func _test_windows(base: Dictionary, catalog: Dictionary) -> void:
 	var disabled_root: Node3D = disabled_result.get("root") as Node3D
 	check(disabled_root != null and bool(disabled_result.get("ok", false)), "单窗enabled=false生成", str(disabled_result.get("reason", "")))
 	if disabled_root != null:
-		var disabled_inventory: Dictionary = _inventory(disabled_root)
+		var disabled_inventory: Dictionary = _inventory(disabled_root, disabled_result.get("semantic_sources", {}))
 		var disabled_suffix := "front_0_2"
 		check(not disabled_inventory.parts.has("glass_" + disabled_suffix) and not disabled_inventory.parts.has("frame_" + disabled_suffix) and not disabled_inventory.parts.has("sash_" + disabled_suffix) and not disabled_inventory.parts.has("sill_" + disabled_suffix), "enabled=false移除实际glass/frame/sash/sill")
 		var disabled_wall: PackedVector3Array = disabled_inventory.parts.get("wall_shell_0", PackedVector3Array())
@@ -361,8 +364,8 @@ func _test_windows(base: Dictionary, catalog: Dictionary) -> void:
 	var changed_root: Node3D = changed_result.get("root") as Node3D
 	check(baseline_root != null and changed_root != null and bool(baseline_result.get("ok", false)) and bool(changed_result.get("ok", false)), "窗frame_depth/glass/sill尺寸对照均生成")
 	if baseline_root != null and changed_root != null:
-		var before_inventory: Dictionary = _inventory(baseline_root)
-		var after_inventory: Dictionary = _inventory(changed_root)
+		var before_inventory: Dictionary = _inventory(baseline_root, baseline_result.get("semantic_sources", {}))
+		var after_inventory: Dictionary = _inventory(changed_root, changed_result.get("semantic_sources", {}))
 		var suffix: String = _first_window_suffix(baseline_result.get("openings", []), "fixed")
 		var frame_changed: bool = _bounds_changed(before_inventory.parts.get("frame_" + suffix, PackedVector3Array()), after_inventory.parts.get("frame_" + suffix, PackedVector3Array()))
 		var glass_changed: bool = _bounds_changed(before_inventory.parts.get("glass_" + suffix, PackedVector3Array()), after_inventory.parts.get("glass_" + suffix, PackedVector3Array()))
@@ -370,6 +373,221 @@ func _test_windows(base: Dictionary, catalog: Dictionary) -> void:
 		check(after_inventory.parts.has("sill_" + suffix), "sill_projection .2生成实际sill part")
 	_free_build_root(baseline_result)
 	_free_build_root(changed_result)
+
+## 每个快照只取实际Mesh数据；hash不包含配方、type或metadata。
+func _window_mesh_snapshot(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
+	var built: Dictionary = Generator.build(recipe, catalog)
+	var root: Node3D = built.get("root") as Node3D
+	check(bool(built.get("ok", false)) and root != null, "窗核心对照生成实际root", str(built.get("reason", "")))
+	var snapshot: Dictionary = {"parts": {}, "opening": {}}
+	if root == null: return snapshot
+	for opening: Dictionary in built.get("openings", []):
+		if str(opening.id) == "opening_front_0_0": snapshot.opening = opening.duplicate(true)
+	var sources: Dictionary = built.get("semantic_sources", {})
+	for prefix: String in ["frame_", "glass_", "sash_", "sill_"]:
+		var id: String = prefix + "front_0_0"
+		var mesh: Mesh
+		var transform := Transform3D.IDENTITY
+		if sources.has(id):
+			var source: Dictionary = sources[id]
+			check(source.mesh_records.size() == 1, "窗核心源部件必须只有一个实际Mesh", id)
+			if source.mesh_records.size() != 1: continue
+			mesh = source.mesh_records[0].mesh
+			transform = Transform3D(Basis.IDENTITY, source.position) * source.mesh_records[0].transform
+		else:
+			var node := root.get_node_or_null("GeneratedVisual/" + id) as MeshInstance3D
+			if node == null: continue
+			mesh = node.mesh
+			transform = _relative(node, root)
+		check(mesh != null and not mesh.get_faces().is_empty(), "窗核心Mesh.get_faces非空", id)
+		if mesh == null or mesh.get_faces().is_empty(): continue
+		var faces: PackedVector3Array = _transformed(mesh.get_faces(), transform)
+		var arrays: Array = mesh.surface_get_arrays(0)
+		var uv: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+		var local_bounds: AABB = mesh.get_aabb()
+		var face_bounds: AABB = _bounds(mesh.get_faces())
+		# Godot的get_faces经过TriangleMesh焊接量化，surface原顶点与AABB不量化；仍使用既有0.1mm门限。
+		check(local_bounds.position.distance_to(face_bounds.position) < EPS and local_bounds.end.distance_to(face_bounds.end) < EPS, "窗核心Mesh.get_aabb与实际faces一致", id)
+		var raw_faces := PackedVector3Array()
+		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		for index: int in arrays[Mesh.ARRAY_INDEX]: raw_faces.append(transform * vertices[index])
+		check(_faces_match_points(faces, raw_faces) and _faces_match_points(raw_faces, faces), "窗核心get_faces与surface原顶点量化误差小于0.1mm", id)
+		check(_all_parts_closed_oriented(_audit_parts({id: faces})), "窗核心实际Mesh严格闭合定向", id)
+		var uv_safe: bool = uv.size() == (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()
+		for point: Vector2 in uv: uv_safe = uv_safe and point.is_finite() and point.x > 0.0 and point.x < 1.0 and point.y > 0.0 and point.y < 1.0
+		check(uv_safe, "窗核心UV数量匹配且有限安全", id)
+		snapshot.parts[prefix.trim_suffix("_")] = {
+			"faces": faces, "raw_faces": raw_faces, "bounds": _bounds(faces), "mesh_aabb": _aabb_json(local_bounds),
+			"geometry_hash": var_to_bytes(faces).hex_encode().sha256_text(),
+			"uv_hash": var_to_bytes(uv).hex_encode().sha256_text(), "uv_count": uv.size()
+		}
+	check(not snapshot.opening.is_empty(), "窗核心对照洞口身份存在")
+	_free_build_root(built)
+	return snapshot
+
+func _window_mesh_evidence(snapshot: Dictionary) -> Dictionary:
+	var evidence: Dictionary = {}
+	for id: String in snapshot.parts:
+		var part: Dictionary = snapshot.parts[id]
+		evidence[id] = {"geometry_hash": part.geometry_hash, "uv_hash": part.uv_hash, "uv_count": part.uv_count, "world_aabb": _aabb_json(part.bounds), "mesh_aabb": part.mesh_aabb}
+	return evidence
+
+func _faces_match_points(actual: PackedVector3Array, expected: PackedVector3Array) -> bool:
+	if actual.is_empty() or expected.is_empty(): return false
+	for point: Vector3 in actual:
+		var found: bool = false
+		for other: Vector3 in expected:
+			if point.distance_to(other) <= EPS:
+				found = true
+				break
+		if not found: return false
+	return true
+
+func _test_window_mesh_contract(catalog: Dictionary) -> void:
+	var recipe: Dictionary = _recipe("window_mesh_contract", "rectangle", 12.0, 9.0, 1)
+	recipe.architecture = Config.defaults()
+	recipe.architecture.window.sill_enabled = true
+	var baseline: Dictionary = _window_mesh_snapshot(recipe, catalog)
+	if not baseline.parts.has("glass") or not baseline.parts.has("frame"): return
+	var evidence: Dictionary = {"fixed_baseline": _window_mesh_evidence(baseline), "fixed_parameters": {}, "types": {}, "rejections": {}}
+	report["window_mesh_contract"] = evidence
+	var frame_bounds: AABB = baseline.parts.frame.bounds
+	var glass_bounds: AABB = baseline.parts.glass.bounds
+	check(absf(frame_bounds.size.z - 0.12) < EPS and absf(frame_bounds.get_center().z - (-4.5 + 0.15)) < EPS, "fixed框深与recess实际为配置值")
+	check(absf(glass_bounds.size.z - 0.02) < EPS and absf(glass_bounds.get_center().z - (-4.5 + 0.15)) < EPS, "fixed玻璃实际厚度与框中心吻合")
+	for spec: Array in [["frame_width", 0.20, "frame"], ["frame_depth", 0.24, "frame"], ["recess", 0.20, "glass"], ["glass_thickness", 0.06, "glass"], ["sill_projection", 0.40, "sill"]]:
+		var changed: Dictionary = recipe.duplicate(true)
+		changed.architecture.window[spec[0]] = spec[1]
+		var snapshot: Dictionary = _window_mesh_snapshot(changed, catalog)
+		var id: String = str(spec[2])
+		check(snapshot.parts.has(id), "fixed单参数目标Mesh存在：" + str(spec[0]))
+		if not snapshot.parts.has(id): continue
+		var before: Dictionary = baseline.parts[id]
+		var after: Dictionary = snapshot.parts[id]
+		check(before.geometry_hash != after.geometry_hash and _bounds_changed(before.faces, after.faces), "fixed单参数改变真实Mesh.get_faces与世界AABB：" + str(spec[0]))
+		var box: AABB = after.bounds
+		match str(spec[0]):
+			"frame_width": check(absf(box.size.x - (float(recipe.window_width) + 0.40)) < EPS and absf(box.size.y - (float(recipe.window_height) + 0.40)) < EPS, "fixed frame_width精确改变框外廓而不缩净孔")
+			"frame_depth":
+				check(absf(box.size.z - 0.24) < EPS, "fixed frame_depth实际框厚精确生效")
+				check(snapshot.parts.glass.geometry_hash == baseline.parts.glass.geometry_hash, "fixed框深不应伪造玻璃厚度或改变框中心")
+			"recess":
+				check(absf(box.get_center().z - (-4.5 + 0.20)) < EPS, "fixed recess实际移动玻璃中心")
+				check(snapshot.parts.frame.geometry_hash != baseline.parts.frame.geometry_hash and absf((snapshot.parts.frame.bounds as AABB).get_center().z - box.get_center().z) < EPS, "fixed recess同时移动框与玻璃")
+			"glass_thickness": check(absf(box.size.z - 0.06) < EPS, "fixed玻璃不再固定20mm")
+			"sill_projection": check(absf(box.position.z - (-4.5 - 0.40)) < EPS, "fixed sill_projection精确改变实体外挑")
+		check(before.uv_hash == after.uv_hash, "fixed几何参数不改写PaletteUV色格：" + str(spec[0]))
+		evidence.fixed_parameters[str(spec[0])] = {"value": spec[1], "parts": _window_mesh_evidence(snapshot), "uv_changed": before.uv_hash != after.uv_hash}
+	# 旧入口也必须消费settings，而不是另留一份20mm/墙厚中心实现。
+	var settings: Dictionary = Config.window_settings(recipe, 0, "front")
+	settings.glass_thickness = 0.06
+	settings.recess = 0.20
+	var hole: Dictionary = ShellGeometry._opening(0.0, -0.0008, 1.5, settings, false)
+	hole.settings = settings
+	var run: Dictionary = {"start": Vector2(-6.0, -4.5), "axis": Vector2.RIGHT, "outward": Vector2(0.0, -1.0), "depth": 0.3}
+	var buffer: Dictionary = ShellGeometry._buffer()
+	ShellGeometry._glass(buffer, hole, run)
+	var direct_bounds: AABB = _bounds(buffer.v)
+	check(absf(direct_bounds.size.z - 0.06) < EPS and absf(direct_bounds.get_center().z - (-4.5 + 0.20)) < EPS, "统一玻璃旧入口同样使用settings厚度与recess")
+	var hashes: Dictionary = {baseline.parts.glass.geometry_hash: true}
+	for type: String in ["casement_left", "casement_right", "awning"]:
+		var closed_recipe: Dictionary = recipe.duplicate(true)
+		closed_recipe.architecture.window.type = type
+		var closed: Dictionary = _window_mesh_snapshot(closed_recipe, catalog)
+		var opened_recipe: Dictionary = closed_recipe.duplicate(true)
+		opened_recipe.architecture.window.open_angle = 35.0
+		var opened: Dictionary = _window_mesh_snapshot(opened_recipe, catalog)
+		check(closed.parts.has("sash") and opened.parts.has("sash"), type + "真实闭合和开启窗扇均存在")
+		if not closed.parts.has("sash") or not opened.parts.has("sash"): continue
+		check(closed.parts.glass.geometry_hash != baseline.parts.glass.geometry_hash, type + "仅type变化已改变玻璃Mesh而非仅metadata")
+		var center: Vector3 = closed.opening.center
+		var pivot: Vector3 = center + Vector3.UP * float(closed.opening.clear_height) * (0.5 if type == "awning" else -0.5)
+		if type != "awning": pivot += Vector3.RIGHT * float(closed.opening.clear_width) * (0.5 if type == "casement_right" else -0.5)
+		var axis: Vector3 = Vector3.RIGHT if type == "awning" else Vector3.UP
+		var angle: float = deg_to_rad(35.0) * (-1.0 if type == "casement_right" else 1.0)
+		var hinge: Dictionary = opened.opening.hinge_before_taper
+		check((hinge.pivot as Vector3).distance_to(pivot) < EPS and (hinge.axis as Vector3).distance_to(axis) < EPS and absf(float(hinge.angle) - angle) < EPS, type + "铰链位于正确左右/上边且轴角方向正确")
+		for id: String in ["sash", "glass"]:
+			var expected := PackedVector3Array()
+			for point: Vector3 in closed.parts[id].raw_faces: expected.append(pivot + Basis(axis, angle) * (point - pivot))
+			var actual: PackedVector3Array = opened.parts[id].faces
+			check(_faces_match_points(actual, expected) and _faces_match_points(expected, actual), type + "实际" + id + "逐点满足独立铰链旋转")
+			check(closed.parts[id].geometry_hash != opened.parts[id].geometry_hash and _bounds_changed(closed.parts[id].faces, actual), type + "开角改变实际" + id + "Mesh与AABB")
+			check((_bounds(actual).position.z < -4.5 - EPS), type + "实际" + id + "向墙外打开")
+		check(opened.parts.frame.geometry_hash == closed.parts.frame.geometry_hash, type + "开角不转动固定外框")
+		hashes[opened.parts.glass.geometry_hash] = true
+		var tapered_recipe: Dictionary = opened_recipe.duplicate(true)
+		tapered_recipe.taper = 0.06
+		var tapered: Dictionary = _window_mesh_snapshot(tapered_recipe, catalog)
+		for id: String in opened.parts:
+			if not tapered.parts.has(id):
+				check(false, type + " taper后部件不能消失", id)
+				continue
+			var expected := PackedVector3Array()
+			for point: Vector3 in opened.parts[id].raw_faces:
+				var scale: float = 1.0 - 0.06 * clampf(point.y / _height(opened_recipe), 0.0, 1.0)
+				expected.append(Vector3(point.x * scale, point.y, point.z * scale))
+			check(_faces_match_points(tapered.parts[id].faces, expected) and _faces_match_points(expected, tapered.parts[id].faces), type + "实际" + id + "先旋转再全局taper")
+		evidence.types[type] = {"closed": _window_mesh_evidence(closed), "opened": _window_mesh_evidence(opened), "tapered": _window_mesh_evidence(tapered), "hinge": {"pivot": [pivot.x, pivot.y, pivot.z], "axis": [axis.x, axis.y, axis.z], "angle": angle}}
+	check(hashes.size() == 4, "fixed/left/right/awning开启状态实际玻璃geometry hash四者不同")
+	# 固定窗也必须登记相邻包络；重复位置不得因为没有活动扇而漏掉冲突。
+	var guard_hole: Dictionary = hole.duplicate(true)
+	var window_geometry: Script = preload("res://src/workshop/shell_window_geometry.gd")
+	var bay_reason: String = window_geometry.validate_bay(guard_hole, run, 0.0, 3.0, 0.0, 3.42)
+	check(bay_reason.is_empty(), "fixed合法包络仍通过开间守卫", bay_reason)
+	var envelopes: Array = []
+	check(window_geometry.register_envelope(envelopes, guard_hole, run, "window_a", 0).is_empty(), "fixed完整装配包络登记成功")
+	var adjacent_reason: String = window_geometry.register_envelope(envelopes, guard_hole, run, "window_b", 0)
+	check(adjacent_reason.contains("相邻洞口冲突"), "fixed相邻装配包络交叠仍严格拒绝", adjacent_reason)
+	evidence.rejections["fixed/adjacent_envelope"] = {"rejected": not adjacent_reason.is_empty(), "reason": adjacent_reason}
+	for type: String in ["casement_left", "casement_right", "awning"]:
+		var sweep_hole: Dictionary = hole.duplicate(true)
+		sweep_hole.settings.type = type
+		sweep_hole.settings.open_angle = 80.0
+		sweep_hole.settings.frame_depth = 0.60
+		var envelope: Dictionary = window_geometry._envelope(sweep_hole, run)
+		var axis: Vector3 = Vector3.RIGHT if type == "awning" else Vector3.UP
+		var pivot: Vector3 = Vector3(-4.5, float(hole.sill) + (float(hole.height) if type == "awning" else 0.0), -4.35)
+		if type != "awning": pivot.x += float(hole.width) * (0.5 if type == "casement_right" else -0.5)
+		var half_depth: float = (0.60 - 0.004) * 0.5
+		var contained: bool = true
+		var sampled_low := Vector3(INF, INF, INF)
+		var sampled_high := Vector3(-INF, -INF, -INF)
+		for step: int in 161:
+			var angle: float = deg_to_rad(float(step) * 0.5) * (-1.0 if type == "casement_right" else 1.0)
+			for x: float in [float(hole.cx) - float(hole.width) * 0.5 + 0.002, float(hole.cx) + float(hole.width) * 0.5 - 0.002]:
+				for y: float in [float(hole.sill) + 0.002, float(hole.sill) + float(hole.height) - 0.002]:
+					for depth: float in [float(settings.recess) - half_depth, float(settings.recess) + half_depth]:
+						var point: Vector3 = pivot + Basis(axis, angle) * (Vector3(-6.0 + x, y, -4.5 + depth) - pivot)
+						var local := Vector3(point.x + 6.0, point.y, point.z + 4.5)
+						sampled_low = sampled_low.min(local)
+						sampled_high = sampled_high.max(local)
+						for coordinate: int in 3:
+							contained = contained and local[coordinate] >= (envelope.min as Vector3)[coordinate] - EPS and local[coordinate] <= (envelope.max as Vector3)[coordinate] + EPS
+		check(contained and sampled_low.distance_to(envelope.min) < EPS and sampled_high.distance_to(envelope.max) < EPS, type + "解析包络覆盖0到80度完整扫掠而非仅终态")
+	var fixed_taper: Dictionary = recipe.duplicate(true)
+	fixed_taper.taper = 0.06
+	var tapered_fixed: Dictionary = _window_mesh_snapshot(fixed_taper, catalog)
+	for id: String in baseline.parts:
+		if not tapered_fixed.parts.has(id):
+			check(false, "fixed taper后部件不能消失", id)
+			continue
+		var expected := PackedVector3Array()
+		for point: Vector3 in baseline.parts[id].raw_faces:
+			var scale: float = 1.0 - 0.06 * clampf(point.y / _height(recipe), 0.0, 1.0)
+			expected.append(Vector3(point.x * scale, point.y, point.z * scale))
+		check(_faces_match_points(tapered_fixed.parts[id].faces, expected) and _faces_match_points(expected, tapered_fixed.parts[id].faces), "fixed实际" + id + "保留全局taper")
+	evidence["fixed_tapered"] = _window_mesh_evidence(tapered_fixed)
+	for spec: Array in [["fixed", "open_angle", 1.0, "open_angle"], ["fixed", "glass_thickness", 0.10, "玻璃厚度"], ["fixed", "recess", -0.30, "窗框脱离墙洞"], ["fixed", "sill_projection", 0.003, "窗沿外挑"], ["casement_left", "frame_depth", 0.60, "完整开合包络"], ["casement_right", "frame_depth", 0.60, "完整开合包络"], ["awning", "frame_depth", 0.60, "完整开合包络"]]:
+		var invalid: Dictionary = recipe.duplicate(true)
+		invalid.architecture.window.type = spec[0]
+		invalid.architecture.window.open_angle = 80.0 if str(spec[0]) != "fixed" else 0.0
+		if str(spec[1]) == "glass_thickness": invalid.architecture.window.frame_depth = 0.04
+		invalid.architecture.window[spec[1]] = spec[2]
+		var rejected: Dictionary = ShellGeometry.generate(invalid, catalog)
+		var reason: String = str(rejected.get("reason", ""))
+		check(not bool(rejected.ok) and rejected.parts.is_empty() and reason.contains(str(spec[3])), "窗核心非法组合仍严格拒绝：" + str(spec[0]) + "/" + str(spec[1]), reason)
+		evidence.rejections[str(spec[0]) + "/" + str(spec[1])] = {"rejected": not bool(rejected.ok), "reason": reason}
 
 func _test_invalid_cases(base: Dictionary, catalog: Dictionary) -> void:
 	var invalids: Array[Dictionary] = []
@@ -388,6 +606,17 @@ func _test_invalid_cases(base: Dictionary, catalog: Dictionary) -> void:
 	envelope.architecture.window.height = 3.5
 	envelope.wall_thickness = 0.6
 	invalids.append({"id": "open_envelope_over_bay", "recipe": envelope})
+	var detached: Dictionary = base.duplicate(true)
+	detached.building_id = "invalid_window_detached"
+	detached.architecture.window.frame_depth = 0.12
+	detached.architecture.window.recess = -0.30
+	check(Config.validate(detached.architecture, int(detached.floors)).is_empty(), "脱离墙洞负例在扩大后的WINDOW_BOUNDS内")
+	check(Recipe.validate(detached, catalog).is_empty(), "脱离墙洞负例通过静态参数验证，交由真实几何守卫拒绝")
+	var detached_build: Dictionary = Generator.build(detached, catalog)
+	var detached_reason: String = str(detached_build.get("reason", ""))
+	check(not bool(detached_build.get("ok", false)) and detached_reason.contains("窗框脱离墙洞"), "recess负例因真实脱离墙洞拒绝而非旧边界误报", detached_reason)
+	report.invalid_cases["window_detached_from_wall"] = {"rejected": not bool(detached_build.get("ok", false)), "reason": detached_reason}
+	_free_build_root(detached_build)
 	var roof_mode: Dictionary = base.duplicate(true)
 	roof_mode.building_id = "invalid_roof_mode"
 	roof_mode.architecture.roof.mode = "balcony"
@@ -470,8 +699,17 @@ func _test_store(base: Dictionary, catalog: Dictionary) -> void:
 			check(str(root.get_meta("construction_mode", "")) == "shell_v2", "Store保存root metadata construction_mode正确")
 			check(str(root.get_meta("generator_version", "")) == ShellGenerator.GENERATOR_VERSION, "Store保存root metadata generator_version正确")
 			check(str(root.get_meta("recipe_fingerprint", "")) == Recipe.fingerprint(exported.get("recipe", {})), "Store保存root metadata recipe_fingerprint正确")
-			var saved_inventory: Dictionary = _inventory(root)
-			check(_all_parts_closed_oriented(_audit_parts(saved_inventory.parts)), "Store重载root实际parts闭合定向")
+			var reference: Dictionary = Generator.build(exported.get("recipe", {}), catalog)
+			check(bool(reference.get("ok", false)), "Store源母型对照重新生成", str(reference.get("reason", "")))
+			var saved_inventory: Dictionary = _inventory(root, reference.get("semantic_sources", {}))
+			check(_all_parts_closed_oriented(_audit_parts(saved_inventory.parts)), "Store独立源母型实际parts闭合定向")
+			check(_all_parts_closed_oriented(_audit_parts(saved_inventory.visible_parts)), "Store重载root实际可见parts闭合定向")
+			check(_collision_matches_visual(saved_inventory), "Store重载实际融合网格与碰撞逐点一致")
+			var reference_root: Node3D = reference.get("root") as Node3D
+			if reference_root != null:
+				var reference_parts: Dictionary = _inventory(reference_root, reference.get("semantic_sources", {})).visible_parts
+				check(var_to_bytes(reference_parts) == var_to_bytes(saved_inventory.visible_parts), "Store重载实际可见网格与重新生成逐点一致")
+			_free_build_root(reference)
 			report.store = {"directory": exported.get("directory", ""), "recipe_path": exported.get("recipe_path", ""), "scene_path": exported.get("scene_path", ""), "metadata": {"construction_mode": root.get_meta("construction_mode", ""), "generator_version": root.get_meta("generator_version", ""), "recipe_fingerprint": root.get_meta("recipe_fingerprint", "")}}
 		_free_build_root({"root": root})
 	scene = null
@@ -508,8 +746,17 @@ func _release_node_resources(node: Node) -> void:
 	elif node is CollisionShape3D:
 		(node as CollisionShape3D).shape = null
 
-func _inventory(root: Node3D) -> Dictionary:
-	var result: Dictionary = {"parts": {}, "collisions": {}, "visual_meshes": 0, "collision_shapes": 0, "invalid_collision_shapes": 0, "triangles": 0}
+func _inventory(root: Node3D, semantic_sources: Dictionary = {}) -> Dictionary:
+	var result: Dictionary = {"parts": {}, "visible_parts": {}, "collisions": {}, "visual_meshes": 0, "collision_shapes": 0, "invalid_collision_shapes": 0, "triangles": 0}
+	for id: String in semantic_sources:
+		var source: Dictionary = semantic_sources[id]
+		var faces := PackedVector3Array()
+		for record: Dictionary in source.mesh_records:
+			faces.append_array(_transformed(record.mesh.get_faces(), Transform3D(Basis.IDENTITY, source.position) * record.transform))
+		check(not faces.is_empty(), "语义源实际母型存在三角面", id)
+		var slot: Node3D = root.get_node_or_null("GeneratedVisual/" + id) as Node3D
+		check(slot != null and not slot is MeshInstance3D and slot.get_child_count() == 0 and bool(slot.get_meta("semantic_source_only", false)), "融合源槽只保留无Mesh语义节点", id)
+		result.parts[id] = faces
 	var stack: Array[Node] = [root]
 	while not stack.is_empty():
 		var node: Node = stack.pop_back()
@@ -518,9 +765,10 @@ func _inventory(root: Node3D) -> Dictionary:
 			if mesh_node.mesh != null:
 				var id: String = str(node.get_meta("slot_id", node.name))
 				var faces: PackedVector3Array = _transformed(mesh_node.mesh.get_faces(), _relative(mesh_node, root))
-				var current: PackedVector3Array = result.parts.get(id, PackedVector3Array())
+				var current: PackedVector3Array = result.visible_parts.get(id, PackedVector3Array())
 				current.append_array(faces)
-				result.parts[id] = current
+				result.visible_parts[id] = current
+				if id != "structure_union": result.parts[id] = current
 				result.visual_meshes += 1
 				result.triangles += int(faces.size() / 3)
 		if node is CollisionShape3D:
@@ -536,6 +784,10 @@ func _inventory(root: Node3D) -> Dictionary:
 				result.collisions[collision_id] = existing
 		for child: Node in node.get_children():
 			stack.append(child)
+	if str(root.get_meta("construction_mode", "")) == "shell_v2":
+		var structure: MeshInstance3D = root.get_node_or_null("GeneratedVisual/structure_union") as MeshInstance3D
+		check(structure != null and structure.visible and structure.mesh != null and not structure.mesh.get_faces().is_empty(), "最终可见structure_union实际Mesh存在")
+		check(not semantic_sources.is_empty(), "shell源几何审计必须取得semantic_sources，不能空测")
 	return result
 
 func _audit_parts(parts: Dictionary) -> Dictionary:
@@ -558,21 +810,24 @@ func _topology(faces: PackedVector3Array) -> Dictionary:
 
 func _collision_matches_visual(inventory: Dictionary) -> bool:
 	var structural_count: int = 0
-	for id: String in inventory.parts:
+	for id: String in inventory.visible_parts:
 		if not _is_collidable_part(id):
 			continue
 		structural_count += 1
 		if not inventory.collisions.has(id):
 			return false
-		if int((inventory.parts[id] as PackedVector3Array).size()) != int((inventory.collisions[id] as PackedVector3Array).size()):
-			return false
+		var visual: PackedVector3Array = inventory.visible_parts[id]
+		var collision: PackedVector3Array = inventory.collisions[id]
+		if visual.size() != collision.size(): return false
+		for index: int in visual.size():
+			if not visual[index].is_finite() or not collision[index].is_finite() or visual[index].distance_to(collision[index]) > EPS: return false
 	for id: String in inventory.collisions:
 		if not _is_collidable_part(id):
 			return false
 	return structural_count == int(inventory.collisions.size())
 
 func _is_collidable_part(id: String) -> bool:
-	return id.begins_with("wall_shell_") or id.begins_with("slab_") or id == "roof_main" or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
+	return id == "structure_union" or id.begins_with("wall_shell_") or id.begins_with("slab_") or id == "roof_main" or id.begins_with("parapet_") or id.begins_with("roofcap_") or id.begins_with("railing_")
 
 func _relative(node: Node3D, ancestor: Node3D) -> Transform3D:
 	var result := Transform3D.IDENTITY
@@ -643,8 +898,8 @@ func _root_signature(root: Node3D) -> String:
 		data.append([id, inventory.parts[id]])
 	return var_to_bytes(data).hex_encode().sha256_text()
 
-func _structural_signature(root: Node3D) -> String:
-	var inventory: Dictionary = _inventory(root)
+func _structural_signature(root: Node3D, semantic_sources: Dictionary) -> String:
+	var inventory: Dictionary = _inventory(root, semantic_sources)
 	var ids: Array[String] = []
 	for id: String in inventory.parts:
 		if _is_collidable_part(id):
@@ -760,12 +1015,13 @@ func _test_frame(base: Dictionary, catalog: Dictionary) -> void:
 		check(bool(build.get("ok", false)), "构架配方可生成：" + str(spec), str(build.get("reason", "")))
 		var root: Node3D = build.get("root") as Node3D
 		if root == null: continue
-		var visual: Node3D = root.get_node_or_null("GeneratedVisual") as Node3D
+		var inventory: Dictionary = _inventory(root, build.get("semantic_sources", {}))
+		check(_all_parts_closed_oriented(_audit_parts(inventory.parts)), "柱腰线独立源母型闭合定向：" + str(spec))
 		var pilasters: int = 0
 		var bands: int = 0
-		for node: Node in visual.get_children():
-			if str(node.name).begins_with("pilaster_"): pilasters += 1
-			if str(node.name).begins_with("band_"): bands += 1
+		for id: String in inventory.parts:
+			if id.begins_with("pilaster_"): pilasters += 1
+			if id.begins_with("band_"): bands += 1
 		check((pilasters > 0) == bool(spec[1]), "柱开关生效：" + str(spec), str(pilasters))
 		check((bands > 0) == bool(spec[3]), "腰线开关生效：" + str(spec), str(bands))
 		# 顶层不生成腰线：只有 floors-1 层有腰线件（矩形4边 × 层数）。
@@ -795,18 +1051,15 @@ func _test_frame(base: Dictionary, catalog: Dictionary) -> void:
 	check(bool(ordered.get("ok", false)), "腰线凸出大于柱时可生成", str(ordered.get("reason", "")))
 	var ordered_root: Node3D = ordered.get("root") as Node3D
 	if ordered_root != null:
-		var ordered_visual: Node3D = ordered_root.get_node_or_null("GeneratedVisual") as Node3D
+		var ordered_parts: Dictionary = _inventory(ordered_root, ordered.get("semantic_sources", {})).parts
 		# 比"离墙面有多远"：腰线横贯整个立面，用 max|x| 会比成立面半宽，毫无意义。
 		# 只比较落在正面中段（避开转角柱）的构件，正面朝 -Z，z 越小越凸。
 		var depth_half: float = float(both.get("depth", 9.0)) * 0.5
 		var band_front: float = INF
 		var post_front: float = INF
-		for node: Node in ordered_visual.get_children():
-			var mesh_node: MeshInstance3D = node as MeshInstance3D
-			if mesh_node == null or mesh_node.mesh == null: continue
-			var id: String = str(mesh_node.name)
-			# mesh 顶点是局部的，世界位移在节点 position 上；不加就等于把所有件都当成在原点。
-			var front_z: float = _front_extent(mesh_node.mesh.get_faces()) + mesh_node.position.z
+		for id: String in ordered_parts:
+			# inventory已将独立源母型按position与record.transform变换到根局部空间。
+			var front_z: float = _front_extent(ordered_parts[id])
 			# 只认"伸到正面墙皮之外"的件：侧立面的柱/腰线最外只到 -depth/2，不会更负。
 			if front_z > -(depth_half + 0.02):
 				continue
@@ -936,10 +1189,10 @@ func _test_form(base: Dictionary, catalog: Dictionary) -> void:
 		if post != null:
 			var post_span: Vector2 = _top_bottom_span(post.mesh.get_faces())
 			check(post_span.y < post_span.x - 0.0005, "雨棚柱实际变径（非直筒）", "bottom=%f top=%f" % [post_span.x, post_span.y])
-		var wall: MeshInstance3D = visual.get_node_or_null("wall_shell_0") as MeshInstance3D
-		check(wall != null, "首层墙壳存在")
-		if wall != null:
-			var wall_span: Vector2 = _top_bottom_span(wall.mesh.get_faces())
+		var wall: PackedVector3Array = _inventory(root, built.get("semantic_sources", {})).parts.get("wall_shell_0", PackedVector3Array())
+		check(not wall.is_empty(), "首层墙壳独立源母型存在")
+		if not wall.is_empty():
+			var wall_span: Vector2 = _top_bottom_span(wall)
 			check(wall_span.y < wall_span.x - 0.001, "墙壳随整楼收分（上口窄于下口）", "bottom=%f top=%f" % [wall_span.x, wall_span.y])
 	# 5) 关闭形体时必须退回正交：同一洞口上下等宽。
 	var orthographic: Dictionary = interval_recipe.duplicate(true)

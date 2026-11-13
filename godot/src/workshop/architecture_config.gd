@@ -2,19 +2,41 @@
 extends RefCounted
 ## schema_version=1 的可选增量字段，不是配方格式迁移；不依赖 Recipe。
 
+const PALETTE_SLOTS := ["wall", "pillar", "band", "frame", "glass", "plant", "slab", "roof"]
+const PALETTE_ROLES := ["SEA_Matte", "SEA_Metal", "SEA_Gloss", "SEA_Emission"]
+const SHADING_FIELDS := ["roughness", "metallic", "specular", "emission_energy", "transparency"]
+const SHADING_BOUNDS := {
+	"roughness": [0.0, 1.0], "metallic": [0.0, 1.0], "specular": [0.0, 1.0],
+	"emission_energy": [0.0, 2.0], "transparency": [0.0, 1.0]
+}
+const SHADING_ROLE_BOUNDS := {
+	"SEA_Matte": {"roughness": [0.72, 0.90], "metallic": [0.0, 0.05], "specular": [0.0, 0.50], "emission_energy": [0.0, 0.0], "transparency": [0.0, 0.0]},
+	"SEA_Metal": {"roughness": [0.28, 0.45], "metallic": [0.60, 0.85], "specular": [0.30, 1.0], "emission_energy": [0.0, 0.0], "transparency": [0.0, 0.0]},
+	"SEA_Gloss": {"roughness": [0.12, 0.22], "metallic": [0.05, 0.20], "specular": [0.30, 1.0], "emission_energy": [0.0, 0.0], "transparency": [0.45, 0.95]},
+	"SEA_Emission": {"roughness": [0.30, 0.45], "metallic": [0.0, 0.05], "specular": [0.0, 0.50], "emission_energy": [1.0, 2.0], "transparency": [0.0, 0.0]}
+}
+const SHADING_ROLE_DEFAULTS := {
+	"SEA_Matte": {"roughness": 0.82, "metallic": 0.0, "specular": 0.18, "emission_energy": 0.0, "transparency": 0.0},
+	"SEA_Metal": {"roughness": 0.36, "metallic": 0.72, "specular": 0.55, "emission_energy": 0.0, "transparency": 0.0},
+	"SEA_Gloss": {"roughness": 0.18, "metallic": 0.10, "specular": 0.70, "emission_energy": 0.0, "transparency": 0.81},
+	"SEA_Emission": {"roughness": 0.35, "metallic": 0.0, "specular": 0.20, "emission_energy": 1.20, "transparency": 0.0}
+}
 const FACADES := ["front", "back", "left", "right"]
 const WINDOW_TYPES := ["fixed", "casement_left", "casement_right", "awning"]
 const ROOF_MODES := ["none", "parapet", "railing", "mixed"]
 const WINDOW_FIELDS := [
 	"enabled", "type", "open_angle", "frame_width", "frame_depth",
 	"glass_thickness", "recess", "sill_enabled", "sill_projection",
-	"sill_thickness", "sill_extension", "width", "height", "sill"
+	"sill_thickness", "sill_extension", "width", "height", "sill",
+	"color_mode", "color_cell", "color_seed"
 ]
 const WINDOW_BOUNDS := {
-	"open_angle": [0.0, 80.0], "frame_width": [0.04, 0.24],
-	"frame_depth": [0.04, 0.5], "glass_thickness": [0.005, 0.08],
-	"recess": [0.04, 0.5], "width": [0.25, 6.0],
-	"height": [0.25, 6.0], "sill": [0.2, 5.0]
+	"open_angle": [0.0, 80.0], "frame_width": [0.04, 0.40],
+	"frame_depth": [0.04, 0.60], "glass_thickness": [0.005, 0.10],
+	"recess": [-0.50, 0.50], "width": [0.25, 6.0],
+	"height": [0.25, 6.0], "sill": [0.2, 5.0],
+	"sill_projection": [0.0, 1.0], "sill_thickness": [0.001, 0.50],
+	"sill_extension": [0.0, 0.50]
 }
 ## 形体变形三档作用域：整楼结构 / 窗洞口 / 配件。范围与SKILL的 stylized_form_variants.json 对齐。
 const FORM_CATEGORIES := ["structure", "opening", "accessory"]
@@ -60,8 +82,11 @@ static func defaults() -> Dictionary:
 			"enabled": true, "type": "fixed", "open_angle": 0.0,
 			"frame_width": 0.11, "frame_depth": 0.12, "glass_thickness": 0.02,
 			"recess": 0.15, "sill_enabled": false, "sill_projection": 0.18,
-			"sill_thickness": 0.10, "sill_extension": 0.08
+			"sill_thickness": 0.10, "sill_extension": 0.08,
+			"color_mode": "auto", "color_cell": [0, 0], "color_seed": 11010
 		},
+		"palette": {},
+		"shading": {"materials": {}},
 		"floor_windows": {}, "facade_windows": {}, "window_overrides": {},
 		"roof": {
 			"mode": "none", "height": 1.1, "thickness": 0.3,
@@ -141,6 +166,10 @@ static func validate(architecture: Variant, floors: int) -> String:
 		if architecture.has(field) and not architecture[field] is Dictionary:
 			return "architecture." + field + "必须是对象"
 	var config: Dictionary = normalized(architecture)
+	reason = validate_palette(config.palette)
+	if not reason.is_empty(): return reason
+	reason = validate_shading(config.shading)
+	if not reason.is_empty(): return reason
 	reason = _unknown(config.plan, ["wing_x", "wing_z", "setback_start", "setback_step"], "architecture.plan")
 	if not reason.is_empty(): return reason
 	for field in ["wing_x", "wing_z"]:
@@ -401,7 +430,77 @@ static func _validate_window(window: Variant, path: String) -> String:
 				return path + "." + field + "必须为有限非负数，窗沿板厚度须大于0"
 	if window.get("type", "") == "fixed" and window.has("open_angle") and float(window.open_angle) != 0.0:
 		return path + "固定窗fixed的open_angle必须为0"
+	return _validate_color(window, path)
+
+static func _validate_color(entry: Dictionary, path: String) -> String:
+	if not entry.get("color_mode", "auto") is String or entry.get("color_mode", "auto") not in ["auto", "manual"]:
+		return path + ".color_mode必须为auto或manual"
+	var cell: Variant = entry.get("color_cell", [0, 0])
+	if not cell is Array or cell.size() != 2:
+		return path + ".color_cell必须是0..7的[row,column]"
+	for value: Variant in cell:
+		if not _integer(value) or float(value) < 0.0 or float(value) > 7.0:
+			return path + ".color_cell必须是0..7的整数[row,column]"
+	if not _integer(entry.get("color_seed", 11010)) or float(entry.get("color_seed", 11010)) < 0.0:
+		return path + ".color_seed必须为非负安全整数"
 	return ""
+
+## 空对象保持旧配方外观；slot覆盖优先于材质角色覆盖，再继承全局选色。
+static func validate_palette(palette: Variant) -> String:
+	if not palette is Dictionary: return "architecture.palette必须是对象"
+	var reason: String = _unknown(palette, ["color_mode", "color_cell", "color_seed", "slots", "materials"], "architecture.palette")
+	if not reason.is_empty(): return reason
+	reason = _validate_color(palette, "architecture.palette")
+	if not reason.is_empty(): return reason
+	for scope: String in ["slots", "materials"]:
+		var entries: Variant = palette.get(scope, {})
+		if not entries is Dictionary: return "architecture.palette." + scope + "必须是对象"
+		for key: Variant in entries:
+			if key not in (PALETTE_SLOTS if scope == "slots" else PALETTE_ROLES):
+				return "未知调色目标: " + str(key)
+			if not entries[key] is Dictionary: return "调色覆盖必须是对象"
+			reason = _unknown(entries[key], ["color_mode", "color_cell", "color_seed"], "architecture.palette." + scope + "." + str(key))
+			if reason.is_empty(): reason = _validate_color(entries[key], str(key))
+			if not reason.is_empty(): return reason
+	return ""
+
+static func validate_shading(shading: Variant) -> String:
+	if not shading is Dictionary: return "architecture.shading必须是对象"
+	var reason: String = _unknown(shading, ["materials"], "architecture.shading")
+	if not reason.is_empty(): return reason
+	var materials: Variant = shading.get("materials", {})
+	if not materials is Dictionary: return "architecture.shading.materials必须是对象"
+	for role: Variant in materials:
+		if role not in PALETTE_ROLES: return "未知着色材质角色: " + str(role)
+		var settings: Variant = materials[role]
+		if not settings is Dictionary: return "材质着色覆盖必须是对象"
+		reason = _unknown(settings, SHADING_FIELDS, "architecture.shading.materials." + str(role))
+		if not reason.is_empty(): return reason
+		var role_bounds: Dictionary = SHADING_ROLE_BOUNDS.get(str(role), SHADING_BOUNDS)
+		for field: String in settings:
+			if field not in role_bounds: continue
+			reason = _range(settings[field], role_bounds[field][0], role_bounds[field][1], "architecture.shading.materials." + str(role) + "." + field)
+			if not reason.is_empty(): return reason
+	return ""
+
+static func shading_settings(recipe: Dictionary, role: String) -> Dictionary:
+	var architecture: Dictionary = normalized(recipe.get("architecture", {}))
+	return architecture.get("shading", {}).get("materials", {}).get(role, {}).duplicate(true)
+
+static func palette_settings(recipe: Dictionary, slot: String, role: String) -> Dictionary:
+	var palette: Dictionary = recipe.get("architecture", {}).get("palette", {})
+	var result: Dictionary = {}
+	for field: String in ["color_mode", "color_cell", "color_seed"]:
+		if palette.has(field): result[field] = palette[field]
+	result.merge(palette.get("materials", {}).get(role, {}), true)
+	result.merge(palette.get("slots", {}).get(slot, {}), true)
+	return result
+
+static func palette_cell(settings: Dictionary, identity: String, role: String) -> Array:
+	if str(settings.get("color_mode", "auto")) == "manual":
+		return settings.get("color_cell", [0, 0]).duplicate()
+	var value: int = floori(unit_noise(int(settings.get("color_seed", 11010)), "palette|" + identity + "|" + role) * 64.0)
+	return [value / 8, value % 8]
 
 static func _unknown(data: Dictionary, fields: Array, path: String) -> String:
 	for key in data:

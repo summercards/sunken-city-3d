@@ -36,6 +36,8 @@ TESTS = {
     'interactor-query-reuse': ('tests/test_interactor_query_reuse.gd', r'\[interactor-query-reuse\] \d+ checks, 0 failures'),
     'performance-equivalence': ('tests/test_performance_equivalence.gd', r'\[performance-equivalence\] \d+ checks, 0 failures'),
     'visual-shore-distance-cache': ('tests/test_shore_distance_cache.gd', r'\[shore-distance-cache\] \d+ checks, 0 failures'),
+    # 渲染预算归因：逐项关闭阴影/SSAO/MSAA/去色带/分辨率缩放，定位 GPU 侧瓶颈。
+    'visual-frame-budget': ('tools/profile_frame_render_budget.gd', r'\[frame-budget\] complete'),
     'shop-sightline': ('tests/test_shop_sightline.gd', r'\[shop-sightline\] \d+ checks, 0 failures'),
     'visual-shop-sightline': ('tools/capture_shop_sightline.gd', r'\[shop-sightline-render\] \d+ checks, 0 failures'),
     'gift-kiosk-interior': ('tests/test_gift_kiosk_interior.gd', r'\[gift-kiosk-interior\] \d+ checks, 0 failures'),
@@ -158,9 +160,11 @@ TESTS = {
 CORE = list(TESTS)
 TESTS.update({
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
+    'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
     'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
     'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
+    'workshop-union': ('tests/test_workshop_union.gd', r'\[workshop-union\] \d+ checks, 0 failures'),
     'workshop-architecture': ('tests/test_workshop_architecture.gd', r'\[workshop-architecture\] \d+ checks, 0 failures'),
     'workshop-deep': ('tests/test_workshop_deep.gd', r'\[workshop-deep\] \d+ checks, 0 failures'),
     'workshop-integration': ('tests/test_workshop_integration.gd', r'\[workshop-integration\] \d+ checks, 0 failures'),
@@ -542,7 +546,7 @@ def isolated_editor_workshop_project(run_dir):
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
     for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store',
-                 'shell_geometry', 'shell_generator', 'shell_damage_geometry',
+                 'shell_geometry', 'shell_generator', 'shell_damage_geometry', 'shell_union_geometry',
                  'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
     (project / 'scenes/components').mkdir(parents=True)
@@ -712,7 +716,7 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    project, user_name = isolated_editor_workshop_project(run_dir) if checks == ['editor-workshop'] else isolated_project(run_dir)
+    project, user_name = isolated_editor_workshop_project(run_dir) if len(checks) == 1 and checks[0] in ['editor-workshop', 'editor-workshop-upgrade'] else isolated_project(run_dir)
     if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
         reference = ROOT / 'art_source/characters/avatar/v006'
         shutil.copy2(reference / 'shoulder_reference.png', project / 'outputs/avatar-reference.png')
@@ -758,8 +762,10 @@ def main():
             release_user_data(user_name, run_dir)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
-        is_editor_workshop = name == 'editor-workshop'
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
+        if name in ['workshop-union', 'workshop-rules', 'workshop-shell', 'workshop-architecture', 'workshop-deep']:
+            config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
+        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade']
         if is_editor_workshop:
             config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
             config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
@@ -786,7 +792,7 @@ def main():
         else:
             cmd += ['--resolution', '1280x800', '--fixed-fps', '60']
         if is_editor_workshop:
-            cmd += ['--editor', '--', '--workshop-editor-verify']
+            cmd += ['--editor', '--', '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify']
         elif script:
             cmd += ['--script', 'res://' + script]
         else:

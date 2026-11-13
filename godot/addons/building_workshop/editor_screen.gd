@@ -7,9 +7,18 @@ const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const Preview = preload("res://addons/building_workshop/editor_preview.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
+const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
+const Generator = preload("res://src/workshop/generator.gd")
+const WINDOW_PREVIEW_DELAY: float = 0.16
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
-const PAGES: Array[String] = ["结构", "门窗", "破旧", "植物", "空间", "构架", "形体", "文件"]
+const PAGES: Array[String] = ["结构", "门窗", "配色", "破旧", "植物", "空间", "构架", "形体", "文件"]
+const DEFAULT_MODULES: Array[Dictionary] = [
+	{"id": "default_sea_breeze", "label": "海风公寓", "description": "矩形 · 住宅", "file": "workshop_default_sea_breeze.recipe.json"},
+	{"id": "default_harbor_market", "label": "码头商铺", "description": "矩形 · 商业", "file": "workshop_default_harbor_market.recipe.json"},
+	{"id": "default_lighthouse_studio", "label": "灯塔工作室", "description": "T形 · 高层", "file": "workshop_default_lighthouse_studio.recipe.json"},
+	{"id": "default_courtyard_harbor", "label": "回廊庭院", "description": "U形 · 公共空间", "file": "workshop_default_courtyard.recipe.json"}
+]
 const FORM_CATEGORIES: Array[String] = ["structure", "opening", "accessory"]
 const FORM_LABELS: Dictionary = {"structure": "整楼结构", "opening": "窗户洞口", "accessory": "配件"}
 const FORM_PRESETS: Dictionary = {
@@ -17,12 +26,39 @@ const FORM_PRESETS: Dictionary = {
 	"SF-B": {"structure": [0.030, 0.060], "opening": [0.030, 0.060], "accessory": [0.040, 0.100]},
 	"SF-C": {"structure": [0.060, 0.100], "opening": [0.055, 0.095], "accessory": [0.080, 0.150]}
 }
-const PARAMETER_KEYS: Array[String] = ["construction_mode", "shape", "width", "depth", "floors", "floor_height", "wall_thickness", "slab_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "aging", "damage", "bevel_segments", "bevel_width", "vegetation_density", "taper", "structure_seed", "damage_seed", "vegetation_seed", "spatial_profile"]
+const PARAMETER_KEYS: Array[String] = ["construction_mode", "shape", "width", "depth", "floors", "floor_height", "wall_thickness", "slab_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "aging", "damage", "bevel_segments", "bevel_width", "vegetation_density", "vegetation_random_enabled", "vegetation_variation", "taper", "structure_seed", "damage_seed", "vegetation_seed", "spatial_profile"]
 const ARCHITECTURE_WINDOW_FIELDS: Array[String] = ["enabled", "type", "open_angle", "frame_width", "frame_depth", "glass_thickness", "recess", "sill_enabled", "sill_projection", "sill_thickness", "sill_extension", "width", "height", "sill"]
 const ARCHITECTURE_WINDOW_SCOPES: Array[String] = ["global", "floor", "facade", "single"]
 const ARCHITECTURE_ROOF_FIELDS: Array[String] = ["mode", "height", "thickness", "cap_thickness", "cap_overhang", "post_spacing", "rail_spacing", "bar_width"]
+const VEGETATION_KEYS: Array[String] = ["vegetation_density", "vegetation_random_enabled", "vegetation_variation", "vegetation_seed", "growth_small", "growth_medium", "growth_large"]
 const INTEGER_KEYS: Array[String] = ["floors", "bevel_segments", "structure_seed", "damage_seed", "vegetation_seed"]
 const ROLE_LABELS: Dictionary = {"wall": "墙", "slab": "楼板 / 屋顶", "frame": "门窗框", "glass": "窗玻璃", "pillar": "柱", "plant": "植物"}
+const MATERIAL_ROLE_LABELS: Dictionary = {"SEA_Matte": "SEA_Matte · 哑光", "SEA_Metal": "SEA_Metal · 金属", "SEA_Gloss": "SEA_Gloss · 玻璃/光泽", "SEA_Emission": "SEA_Emission · 发光"}
+const MATERIAL_EDIT_FIELDS: Array[String] = ["roughness", "metallic", "specular", "emission_energy", "transparency"]
+const MATERIAL_EDIT_LABELS: Dictionary = {"roughness": "粗糙度", "metallic": "金属度", "specular": "镜面强度", "emission_energy": "发光强度", "transparency": "玻璃透明度"}
+const MATERIAL_EDIT_BOUNDS: Dictionary = {
+	"roughness": [0.0, 1.0, 0.01],
+	"metallic": [0.0, 1.0, 0.01],
+	"specular": [0.0, 1.0, 0.01],
+	"emission_energy": [0.0, 2.0, 0.01],
+	"transparency": [0.0, 1.0, 0.01]
+}
+const WORKSHOP_BG := Color("#101b2d")
+const WORKSHOP_SURFACE := Color("#17263b")
+const WORKSHOP_SURFACE_ALT := Color("#1d3048")
+const WORKSHOP_LINE := Color("#385b7a")
+const WORKSHOP_ACCENT := Color("#46c2d7")
+const WORKSHOP_ACCENT_HOVER := Color("#70e0e8")
+const WORKSHOP_GOLD := Color("#f1c56b")
+const WORKSHOP_TEXT := Color("#e8f1f6")
+const WORKSHOP_MUTED := Color("#a9bdca")
+const WORKSHOP_WARN := Color("#f3a36f")
+const MATERIAL_ROLE_DEFAULTS: Dictionary = {
+	"SEA_Matte": {"roughness": 0.82, "metallic": 0.0, "specular": 0.18, "emission_energy": 0.0, "transparency": 0.0},
+	"SEA_Metal": {"roughness": 0.36, "metallic": 0.72, "specular": 0.55, "emission_energy": 0.0, "transparency": 0.0},
+	"SEA_Gloss": {"roughness": 0.18, "metallic": 0.10, "specular": 0.70, "emission_energy": 0.0, "transparency": 0.18},
+	"SEA_Emission": {"roughness": 0.38, "metallic": 0.0, "specular": 0.20, "emission_energy": 1.20, "transparency": 0.0}
+}
 
 var session: Session
 var preview: Preview
@@ -32,7 +68,10 @@ var pages: Dictionary = {}
 var architecture_panels: Array[Control] = []
 var state_label: Label
 var status_label: Label
+var status_panel: PanelContainer
+var status_copy_button: Button
 var selected_slot_label: Label
+var _last_status_text: String = ""
 var _id_edit: LineEdit
 var _name_edit: LineEdit
 var export_root: String = DEFAULT_ROOT
@@ -67,6 +106,18 @@ var _local_baseline: Dictionary = {}
 var _live_slot_ids: Dictionary = {}
 var _opening_cache: Dictionary = {}
 var _architecture_visibility: Array[String] = []
+var _window_preview_timer: Timer
+var _window_preview_keys: Dictionary = {}
+var _window_failed_keys: Dictionary = {}
+var _window_preview_target: Dictionary = {}
+var _last_floor_index: float = 0.0
+var _last_facade: String = "front"
+var _window_drag_key: String = ""
+var _window_history_key: String = ""
+var _window_history_fingerprint: String = ""
+var _window_preview_busy: bool = false
+var _range_readouts: Dictionary = {}
+var window_preview_result: Dictionary = {}
 
 func configure(ports: Dictionary = {}) -> void:
 	_ports.merge(ports, true)
@@ -99,6 +150,12 @@ func _ready() -> void:
 		session = Session.new(Catalog.editor_catalog())
 		session.replace_recipe(Recipe.authoring_defaults())
 	_build_ui()
+	_select_page(0)
+	_window_preview_timer = Timer.new()
+	_window_preview_timer.one_shot = true
+	_window_preview_timer.wait_time = WINDOW_PREVIEW_DELAY
+	_window_preview_timer.timeout.connect(flush_window_preview)
+	add_child(_window_preview_timer)
 	_initialized = true
 	_connect_session()
 	_refresh_from_session()
@@ -160,6 +217,9 @@ func generate_building() -> Dictionary:
 func apply_parameters() -> Dictionary:
 	if not _initialized:
 		return {"ok": false, "reason": "编辑器主屏尚未初始化"}
+	var window_result: Dictionary = flush_window_preview()
+	if not bool(window_result.get("ok", false)) or not _window_failed_keys.is_empty():
+		return _report_failure("窗输入尚未通过：" + str(window_preview_result.get("reason", "请先修正窗滑块")))
 	var catalog_ready: Dictionary = _ensure_editor_catalog()
 	if not bool(catalog_ready.get("ok", false)):
 		return _report_result(catalog_ready, "组件目录升级失败")
@@ -219,6 +279,7 @@ func _open_recipe_now(path: String) -> Dictionary:
 	var accepted: Dictionary = session.accept_loaded(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})))
 	if not bool(accepted.get("ok", false)):
 		return _report_result(accepted, "配方被拒绝")
+	_reset_window_preview()
 	_slot_cache.clear()
 	_selected_id = ""
 	_last_export = {"scene_path": path.get_base_dir().path_join("building.tscn"), "recipe_path": path}
@@ -227,7 +288,7 @@ func _open_recipe_now(path: String) -> Dictionary:
 	_set_status("已打开：" + path)
 	return accepted
 
-func refresh_preview(preserve_slot_fields: bool = false) -> Dictionary:
+func refresh_preview(preserve_slot_fields: bool = false, prepared_build: Dictionary = {}) -> Dictionary:
 	if session == null or preview == null or not preview.is_node_ready():
 		return {"ok": false, "reason": "独立编辑器预览尚未初始化"}
 	var previous_ui_values: Dictionary = _capture_ui_values()
@@ -239,7 +300,7 @@ func refresh_preview(preserve_slot_fields: bool = false) -> Dictionary:
 	if preserve_slot_fields:
 		for key: String in slot_fields:
 			pending_slot_values[key] = _raw_control_value(key)
-	var result: Dictionary = session.build()
+	var result: Dictionary = session.build() if prepared_build.is_empty() else prepared_build
 	if not bool(result.get("ok", false)):
 		return _report_result(result, "生成失败，保留上一份预览")
 	preview.set_build_result(result)
@@ -338,6 +399,11 @@ func _raw_control_value(key: String) -> Variant:
 	return _control_value(key)
 
 func select_slot(id: String) -> void:
+	if _initialized and not _ignore_fields and not _window_preview_busy and id != _selected_id:
+		flush_window_preview()
+		if not _window_failed_keys.is_empty():
+			_set_status("窗预览未通过，先修正或清除输入再选择其他槽位；最后成功模型保持。")
+			return
 	_selected_id = id
 	if id.begins_with("frame_") or id.begins_with("glass_") or id.begins_with("sash_") or id.begins_with("sill_"):
 		_selected_opening_id = "opening_" + id.trim_prefix("frame_").trim_prefix("glass_").trim_prefix("sash_").trim_prefix("sill_")
@@ -404,6 +470,8 @@ func _architecture_base_window(data: Dictionary) -> Dictionary:
 func _sync_architecture_window_scope() -> void:
 	if not controls.has("window_scope") or _option_value("construction_mode") != "shell_v2":
 		return
+	var ignored: bool = _ignore_fields
+	_ignore_fields = true
 	var data: Dictionary = snapshot()
 	var scope: String = _window_scope()
 	var settings: Dictionary = {}
@@ -411,14 +479,17 @@ func _sync_architecture_window_scope() -> void:
 		settings = _architecture_base_window(data)
 	elif scope == "floor":
 		var floor: int = int(_spin_value("floor_override_index"))
-		var facade: String = _option_value("facade_index")
-		settings = Config.window_settings(data, floor, facade)
-		settings.merge(Config.normalized(data.get("architecture", {})).get("floor_windows", {}).get(str(floor), {}), true)
+		# 当前层基线不吸入优先级更高的立面/单窗覆盖。
+		var floor_data: Dictionary = data.duplicate(true)
+		floor_data["facade_overrides"] = {}
+		floor_data.architecture["facade_windows"] = {}
+		settings = Config.window_settings(floor_data, floor, "front")
 	elif scope == "facade":
-		var floor_index: int = int(_spin_value("floor_override_index"))
-		var current_facade: String = _option_value("facade_index")
-		settings = Config.window_settings(data, floor_index, current_facade)
-		settings.merge(Config.normalized(data.get("architecture", {})).get("facade_windows", {}).get(current_facade, {}), true)
+		# 立面基线不吸入某一楼层覆盖，避免下次操作把该层的值扩散到整立面。
+		var facade_data: Dictionary = data.duplicate(true)
+		facade_data["floor_overrides"] = {}
+		facade_data.architecture["floor_windows"] = {}
+		settings = Config.window_settings(facade_data, 0, _option_value("facade_index"))
 	else:
 		var opening_id: String = _window_override_id()
 		var parts: PackedStringArray = opening_id.split("_")
@@ -434,6 +505,8 @@ func _sync_architecture_window_scope() -> void:
 	if settings.has("sill"):
 		_set_architecture_control("architecture_window_sill", settings.sill)
 	_capture_window_local_baseline()
+	_ignore_fields = ignored
+	_update_window_limit_hint()
 
 func _has_pending_window_fields() -> bool:
 	for field: String in ARCHITECTURE_WINDOW_FIELDS:
@@ -451,15 +524,10 @@ func _capture_window_local_baseline() -> void:
 		_local_baseline.erase("architecture_window_" + field)
 	for field: String in ["width", "height", "sill"]:
 		_local_baseline.erase("architecture_window_" + field)
-	var keys: Array[String] = []
-	if _window_scope() != "global":
-		for field: String in ARCHITECTURE_WINDOW_FIELDS:
-			keys.append("architecture_window_" + field)
-		for field: String in ["width", "height", "sill"]:
-			keys.append("architecture_window_" + field)
-		for key: String in keys:
-			if controls.has(key):
-				_local_baseline[key] = _raw_control_value(key)
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		var key: String = "architecture_window_" + field
+		if controls.has(key):
+			_local_baseline[key] = _raw_control_value(key)
 
 func export_module_component() -> Dictionary:
 	var exporter: Callable = _ports.get("export_module_component", Callable())
@@ -481,8 +549,8 @@ func _capture_ui_values() -> Dictionary:
 		return ui_values
 	for key: Variant in controls:
 		var control: Control = controls[key] as Control
-		if control is SpinBox:
-			ui_values[key] = (control as SpinBox).value
+		if control is Range:
+			ui_values[key] = (control as Range).value
 		elif control is OptionButton:
 			ui_values[key] = _option_value(str(key))
 		elif control is CheckButton:
@@ -572,32 +640,42 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	return {"ok": true, "reason": "编辑器草稿已恢复"}
 
 func _build_ui() -> void:
+	set_meta("cozy_skip", true)
+	add_theme_color_override("font_color", WORKSHOP_TEXT)
+	var background := ColorRect.new()
+	background.name = "WorkshopThemeBackground"
+	background.color = WORKSHOP_BG
+	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	background.set_meta("cozy_skip", true)
+	add_child(background)
 	var root: VBoxContainer = VBoxContainer.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.add_theme_constant_override("separation", 6)
+	root.add_theme_constant_override("separation", 10)
 	add_child(root)
 	# 生成操作固定在所有滚动区域之外，窄屏和参数页滚到底仍可直接点击。
 	var generate_bar: HBoxContainer = HBoxContainer.new()
 	generate_bar.name = "FixedGenerateBar"
 	root.add_child(generate_bar)
 	var generate: Button = _button("应用参数并生成楼房", "generate")
-	generate.custom_minimum_size = Vector2(260, 46)
-	generate.add_theme_font_size_override("font_size", 17)
+	generate.custom_minimum_size = Vector2(300, 54)
+	generate.add_theme_font_size_override("font_size", 18)
 	generate_bar.add_child(generate)
 	generate_bar.add_child(_label("连续实体 · 基础框架 / 门窗 / 构架 / 形体在左侧编辑"))
 	var toolbar_scroll: ScrollContainer = ScrollContainer.new()
 	toolbar_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	toolbar_scroll.custom_minimum_size.y = 42
+	toolbar_scroll.custom_minimum_size.y = 50
 	toolbar_scroll.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	root.add_child(toolbar_scroll)
 	var toolbar: HBoxContainer = HBoxContainer.new()
 	toolbar_scroll.add_child(toolbar)
-	var toolbar_title: Label = _label("老王场景工坊", 16)
+	var toolbar_title: Label = _label("老王场景工坊", 19)
 	toolbar_title.autowrap_mode = TextServer.AUTOWRAP_OFF
 	toolbar_title.custom_minimum_size.x = 80
 	toolbar.add_child(toolbar_title)
 	for spec: Array in [["apply", "应用全部参数"], ["new", "新建"], ["open", "打开"], ["save", "保存并烘焙"], ["undo", "撤销"], ["redo", "重做"], ["open_scene", "在3D打开"], ["copy_sample", "复制样例"], ["save_as", "另存新ID"], ["toggle_left", "参数栏"], ["toggle_right", "槽位栏"]]:
 		toolbar.add_child(_button(str(spec[1]), str(spec[0])))
+	_build_top_identity_and_modules(root)
 	state_label = _label("未保存")
 	root.add_child(state_label)
 	var outer_scroll: ScrollContainer = ScrollContainer.new()
@@ -608,17 +686,17 @@ func _build_ui() -> void:
 	var split: HSplitContainer = HSplitContainer.new()
 	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	split.split_offset = 230
+	split.split_offset = 285
 	outer_scroll.add_child(split)
 	_left_panel = _make_left_panel()
 	split.add_child(_left_panel)
 	var inner: HSplitContainer = HSplitContainer.new()
 	inner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inner.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	inner.split_offset = 340
+	inner.split_offset = 390
 	split.add_child(inner)
 	var preview_body: VBoxContainer = VBoxContainer.new()
-	preview_body.custom_minimum_size.x = 300
+	preview_body.custom_minimum_size.x = 380
 	preview_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inner.add_child(preview_body)
 	var views: HBoxContainer = HBoxContainer.new()
@@ -645,8 +723,19 @@ func _build_ui() -> void:
 	root.add_child(path_label)
 	root.add_child(_label("共享512×512色盘 · SEA_Matte / SEA_Metal / SEA_Gloss / SEA_Emission · UV选色，材质控制质感"))
 	root.add_child(_label("五件 bundle 仅为候选资产，尚未正式登记；不替换当前编辑场景或主场景。"))
-	status_label = _label("编辑器独立主屏；无需运行游戏。")
-	root.add_child(status_label)
+	status_panel = PanelContainer.new()
+	status_panel.name = "WorkshopStatusPanel"
+	status_panel.add_theme_stylebox_override("panel", _stylebox(Color("#203b50"), WORKSHOP_ACCENT, 7, 2))
+	var status_row := HBoxContainer.new()
+	status_row.add_theme_constant_override("separation", 8)
+	status_panel.add_child(status_row)
+	status_label = _label("编辑器独立主屏；无需运行游戏。", 16)
+	status_label.custom_minimum_size.y = 46
+	status_row.add_child(status_label)
+	status_copy_button = _button("复制提示", "copy_status")
+	status_copy_button.custom_minimum_size = Vector2(128, 46)
+	status_row.add_child(status_copy_button)
+	root.add_child(status_panel)
 	_confirm = ConfirmationDialog.new()
 	_confirm.title = "未保存修改"
 	_confirm.ok_button_text = "丢弃并继续"
@@ -682,26 +771,83 @@ func _build_ui() -> void:
 	_component_dialog.file_selected.connect(_replace_component_selected)
 	add_child(_component_dialog)
 
+func _build_top_identity_and_modules(root: VBoxContainer) -> void:
+	var panel := PanelContainer.new()
+	panel.name = "WorkshopTopInfo"
+	panel.add_theme_stylebox_override("panel", _stylebox(WORKSHOP_SURFACE, WORKSHOP_ACCENT, 8, 2))
+	var body := VBoxContainer.new()
+	body.add_theme_constant_override("separation", 6)
+	panel.add_child(body)
+	var identity_row := HBoxContainer.new()
+	identity_row.add_theme_constant_override("separation", 8)
+	var identity_title := _label("当前建筑", 17)
+	identity_title.custom_minimum_size.x = 92
+	identity_row.add_child(identity_title)
+	identity_row.add_child(_label("building_id", 15))
+	_id_edit = LineEdit.new()
+	_id_edit.name = "building_id"
+	_id_edit.custom_minimum_size = Vector2(210, 40)
+	_id_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_id_edit.add_theme_font_size_override("font_size", 18)
+	_id_edit.add_theme_stylebox_override("normal", _stylebox(Color("#0d1726"), WORKSHOP_LINE, 5))
+	_id_edit.add_theme_stylebox_override("focus", _stylebox(Color("#14263a"), WORKSHOP_GOLD, 5, 2))
+	_id_edit.text_changed.connect(_on_text_changed)
+	identity_row.add_child(_id_edit)
+	identity_row.add_child(_label("名称", 15))
+	_name_edit = LineEdit.new()
+	_name_edit.name = "display_name"
+	_name_edit.custom_minimum_size = Vector2(220, 40)
+	_name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_name_edit.add_theme_font_size_override("font_size", 18)
+	_name_edit.add_theme_stylebox_override("normal", _stylebox(Color("#0d1726"), WORKSHOP_LINE, 5))
+	_name_edit.add_theme_stylebox_override("focus", _stylebox(Color("#14263a"), WORKSHOP_GOLD, 5, 2))
+	_name_edit.text_changed.connect(_on_text_changed)
+	identity_row.add_child(_name_edit)
+	body.add_child(identity_row)
+	var module_title := _label("模块", 16)
+	module_title.custom_minimum_size.y = 24
+	body.add_child(module_title)
+	var module_row := HFlowContainer.new()
+	module_row.name = "WorkshopTopModuleBar"
+	module_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	module_row.add_theme_constant_override("h_separation", 5)
+	module_row.add_theme_constant_override("v_separation", 5)
+	for index: int in PAGES.size():
+		var module_button := _button(PAGES[index], "module_%02d" % index)
+		module_button.custom_minimum_size = Vector2(82, 38)
+		module_button.add_theme_font_size_override("font_size", 16)
+		module_button.pressed.connect(_select_page.bind(index))
+		module_row.add_child(module_button)
+	body.add_child(module_row)
+	var default_title := _label("默认模组 · 点击即可载入", 16)
+	default_title.custom_minimum_size.y = 24
+	body.add_child(default_title)
+	var defaults_row := HFlowContainer.new()
+	defaults_row.name = "WorkshopDefaultModules"
+	defaults_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	defaults_row.add_theme_constant_override("h_separation", 6)
+	defaults_row.add_theme_constant_override("v_separation", 5)
+	for index: int in DEFAULT_MODULES.size():
+		var item: Dictionary = DEFAULT_MODULES[index]
+		var default_button := _button(str(item.label) + " · " + str(item.description), "default_module_%02d" % index)
+		default_button.custom_minimum_size = Vector2(150, 38)
+		default_button.add_theme_font_size_override("font_size", 15)
+		default_button.tooltip_text = "直接载入「%s」；当前未保存修改会先询问" % str(item.label)
+		defaults_row.add_child(default_button)
+	body.add_child(defaults_row)
+	root.add_child(panel)
+
 func _make_left_panel() -> ScrollContainer:
 	var scroll: ScrollContainer = _sidebar()
 	var body: VBoxContainer = _sidebar_body(scroll)
-	body.add_child(_label("建筑身份", 16))
-	body.add_child(_label("building_id（另存请用顶部按钮）"))
-	_id_edit = LineEdit.new()
-	_id_edit.name = "building_id"
-	_id_edit.text_changed.connect(_on_text_changed)
-	body.add_child(_id_edit)
-	controls["building_id"] = _id_edit
-	body.add_child(_label("显示名称"))
-	_name_edit = LineEdit.new()
-	_name_edit.name = "display_name"
-	_name_edit.text_changed.connect(_on_text_changed)
-	body.add_child(_name_edit)
-	controls["display_name"] = _name_edit
+	body.add_child(_label("当前模块参数", 16))
+	body.add_child(_label("左侧只放当前模块的可编辑参数；建筑身份、模块入口和默认模组已移到顶部。", 12))
 	_page_picker = OptionButton.new()
+	_page_picker.add_theme_font_size_override("font_size", 18)
 	for page_name: String in PAGES:
 		_page_picker.add_item(page_name)
 	_page_picker.item_selected.connect(_select_page)
+	_page_picker.visible = false
 	body.add_child(_page_picker)
 	for page_name: String in PAGES:
 		var page: VBoxContainer = VBoxContainer.new()
@@ -754,17 +900,23 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			(controls["window_selection"] as OptionButton).item_selected.connect(_window_selection_changed)
 			_check("启用窗洞", "architecture_window_enabled", window_panel)
 			_add_option(window_panel, "architecture_window_type", "窗型", [["fixed", "固定窗"], ["casement_left", "左开窗"], ["casement_right", "右开窗"], ["awning", "上悬窗"]])
-			for spec: Array in [["architecture_window_open_angle", "开启角度", 0.0, 80.0, 1.0], ["architecture_window_frame_width", "框宽", 0.04, 0.24, 0.01], ["architecture_window_frame_depth", "框深", 0.04, 0.5, 0.01], ["architecture_window_glass_thickness", "玻璃厚度", 0.005, 0.08, 0.005], ["architecture_window_recess", "窗框退入", 0.04, 0.5, 0.01], ["architecture_window_width", "架构窗宽", 0.25, 6.0, 0.01], ["architecture_window_height", "架构窗高", 0.25, 6.0, 0.01], ["architecture_window_sill", "架构窗台", 0.2, 5.0, 0.01]]:
+			for spec: Array in [["architecture_window_open_angle", "开启角度", 0.0, 80.0, 1.0], ["architecture_window_frame_width", "框宽", 0.04, 0.40, 0.001], ["architecture_window_frame_depth", "框深", 0.04, 0.60, 0.001], ["architecture_window_glass_thickness", "玻璃厚度", 0.005, 0.10, 0.001], ["architecture_window_recess", "窗框退入（负值外移）", -0.50, 0.50, 0.01], ["architecture_window_width", "架构窗宽", 0.25, 6.0, 0.01], ["architecture_window_height", "架构窗高", 0.25, 6.0, 0.01], ["architecture_window_sill", "架构窗台", 0.2, 5.0, 0.01]]:
 				_spin_spec(window_panel, spec)
 			_check("启用窗沿板", "architecture_window_sill_enabled", window_panel)
 			for spec: Array in [["architecture_window_sill_projection", "窗沿外挑", 0.0, 10.0, 0.01], ["architecture_window_sill_thickness", "窗沿厚度", 0.001, 2.0, 0.001], ["architecture_window_sill_extension", "窗沿延伸", 0.0, 2.0, 0.01]]:
 				_spin_spec(window_panel, spec)
-			window_panel.add_child(_button("应用当前范围窗构造", "architecture_apply"))
+			var limit_hint: Label = _label("窗参数拖动自动预览，无需点击应用。", 12)
+			controls["window_limit_hint"] = limit_hint
+			window_panel.add_child(limit_hint)
+			window_panel.add_child(_button("重试当前范围窗构造", "architecture_apply"))
 			window_panel.add_child(_button("清除此范围覆盖", "architecture_clear"))
-			window_panel.add_child(_button("应用到当前窗", "window_apply"))
+			window_panel.add_child(_button("重试当前窗", "window_apply"))
 			for key: String in ["architecture_window_enabled", "architecture_window_sill_enabled"]:
 				_architecture_visibility.append(key)
-			page.add_child(_label("基础窗宽高和旧版覆盖仍保留；架构字段只在shell_v2生效。", 12))
+			for key: String in ["architecture_window_enabled", "architecture_window_sill_enabled"]:
+				(controls[key] as CheckButton).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview(key))
+			(controls["architecture_window_type"] as OptionButton).item_selected.connect(func(_index: int) -> void: _queue_window_preview("architecture_window_type"))
+			page.add_child(_label("窗滑块自动预览；基础窗只改全局，楼层/立面滑块只改对应范围，其他输入不连带提交。", 12))
 			for spec: Array in [["window_width", "窗宽", 0.1, 10, 0.1], ["window_height", "窗高", 0.1, 10, 0.1], ["window_sill", "窗台", 0.01, 10, 0.01], ["bay_width", "开间", 2, 6, 0.1], ["door_width", "门净宽", 0.1, 10, 0.1], ["door_height", "门净高", 0.1, 10, 0.1]]:
 				_spin_spec(page, spec)
 			page.add_child(_label("逐层覆盖（索引从0开始）", 16))
@@ -782,8 +934,11 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			var label: Label = _label("无局部覆盖")
 			controls["override_status"] = label
 			page.add_child(label)
-			controls["floor_override_index"].value_changed.connect(func(_value: float) -> void: _sync_floor_fields())
-			controls["facade_index"].item_selected.connect(func(_index: int) -> void: _sync_facade_fields())
+			controls["floor_override_index"].value_changed.connect(func(_value: float) -> void: _window_target_changed(true))
+			controls["facade_index"].item_selected.connect(func(_index: int) -> void: _window_target_changed(false))
+			(controls["facade_windows"] as CheckButton).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("facade_windows"))
+		"配色":
+			_build_palette_page(page)
 		"破旧":
 			page.add_child(_label("老化改变墙面色格并生成斑驳；门窗破损产生真实玻璃破口和门下缘缺口。不改变承重墙或楼板。", 12))
 			for spec: Array in [["aging", "表面老化", 0, 1, 0.01], ["damage", "门窗破损", 0, 1, 0.01], ["bevel_segments", "倒角段数", 1, 8, 1], ["bevel_width", "倒角宽", 0.001, 0.5, 0.001]]:
@@ -791,13 +946,15 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			page.add_child(_button("应用破旧并生成", "damage_apply"))
 			page.add_child(_label("破损种子控制缺口差异；0为完整门窗。承重墙破洞与残楼尚未实现。"))
 		"植物":
-			for spec: Array in [["vegetation_density", "植物密度", 0, 1, 0.01], ["growth_small", "小型比例", 0, 1, 0.01], ["growth_medium", "中型比例", 0, 1, 0.01], ["growth_large", "大型比例", 0, 1, 0.01]]:
+			_check("植物 / 树枝随机变化", "vegetation_random_enabled", page).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("vegetation_random_enabled"))
+			for spec: Array in [["vegetation_variation", "随机幅度", 0, 1, 0.01], ["vegetation_seed", "植物种子", 0, 2147483647, 1], ["vegetation_density", "植物密度", 0, 1, 0.01], ["growth_small", "小型权重", 0, 1, 0.01], ["growth_medium", "中型权重", 0, 1, 0.01], ["growth_large", "大型权重", 0, 1, 0.01]]:
 				_spin_spec(page, spec)
+			page.add_child(_label("拖动自动预览。最大幅度：位置±0.25m、尺寸±20%、朝向±180°。关闭随机后seed不影响植物；幅度0仅关闭姿态扰动，密度及三档权重仍生效。檐边藤蔓和锁定槽不偏移。", 12))
 			page.add_child(_label("植物品种在右侧全局绑定选择；锁定与排除针对选中槽位。"))
 		"空间":
 			_add_option(page, "spatial_profile", "空间职责", [["above_water", "水上功能"], ["scenic_underwater", "水下观赏"], ["dive_static", "潜水静态"]])
 			_spin_spec(page, ["taper", "收分", 0, 0.1, 0.01])
-			for pair: Array in [["structure_seed", "结构种子"], ["damage_seed", "破损种子"], ["vegetation_seed", "植物种子"]]:
+			for pair: Array in [["structure_seed", "结构种子"], ["damage_seed", "破损种子"]]:
 				_spin_spec(page, [pair[0], pair[1], 0, 2147483647, 1])
 			page.add_child(_label("水下观赏无碰撞、导航或玩法功能；不会自动接入正式世界。"))
 		"构架":
@@ -895,32 +1052,84 @@ func _architecture_panel(parent: Control, key: String) -> VBoxContainer:
 
 func _sidebar() -> ScrollContainer:
 	var scroll: ScrollContainer = ScrollContainer.new()
-	scroll.custom_minimum_size.x = 230
+	scroll.custom_minimum_size.x = 285
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	return scroll
 
 func _sidebar_body(scroll: ScrollContainer) -> VBoxContainer:
 	var body: VBoxContainer = VBoxContainer.new()
-	body.custom_minimum_size.x = 210
+	body.custom_minimum_size.x = 265
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", 6)
 	scroll.add_child(body)
 	return body
+
+func _stylebox(fill: Color, border: Color = WORKSHOP_LINE, radius: int = 6, border_width: int = 1) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = border
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(radius)
+	style.content_margin_left = 10
+	style.content_margin_right = 10
+	style.content_margin_top = 6
+	style.content_margin_bottom = 6
+	return style
+
+func _apply_button_theme(button: Button) -> void:
+	button.add_theme_stylebox_override("normal", _stylebox(WORKSHOP_SURFACE, WORKSHOP_LINE, 6))
+	button.add_theme_stylebox_override("hover", _stylebox(WORKSHOP_SURFACE_ALT, WORKSHOP_ACCENT, 6, 1))
+	button.add_theme_stylebox_override("pressed", _stylebox(Color("#28506a"), WORKSHOP_ACCENT_HOVER, 6, 2))
+	button.add_theme_stylebox_override("focus", _stylebox(Color("#1d3048"), WORKSHOP_GOLD, 6, 2))
+	button.add_theme_stylebox_override("disabled", _stylebox(Color("#192331"), Color("#2a3a4b"), 6))
+	button.add_theme_color_override("font_color", WORKSHOP_TEXT)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", WORKSHOP_GOLD)
+	button.add_theme_color_override("font_focus_color", WORKSHOP_GOLD)
+	button.add_theme_color_override("font_disabled_color", WORKSHOP_MUTED)
+	button.custom_minimum_size.y = maxf(button.custom_minimum_size.y, 34.0)
+
+func _apply_option_theme(option: OptionButton) -> void:
+	option.add_theme_stylebox_override("normal", _stylebox(WORKSHOP_SURFACE, WORKSHOP_LINE, 5))
+	option.add_theme_stylebox_override("hover", _stylebox(WORKSHOP_SURFACE_ALT, WORKSHOP_ACCENT, 5))
+	option.add_theme_stylebox_override("focus", _stylebox(WORKSHOP_SURFACE_ALT, WORKSHOP_GOLD, 5, 2))
+	option.add_theme_color_override("font_color", WORKSHOP_TEXT)
+	option.add_theme_color_override("font_hover_color", Color.WHITE)
+	option.add_theme_color_override("font_focus_color", WORKSHOP_GOLD)
+	option.custom_minimum_size.y = maxf(option.custom_minimum_size.y, 32.0)
+
+func _apply_slider_theme(slider: HSlider) -> void:
+	var track := _stylebox(Color("#23364d"), WORKSHOP_LINE, 6)
+	track.content_margin_top = 4
+	track.content_margin_bottom = 4
+	var fill := _stylebox(WORKSHOP_ACCENT, WORKSHOP_ACCENT_HOVER, 6)
+	fill.content_margin_top = 4
+	fill.content_margin_bottom = 4
+	var grab := _stylebox(WORKSHOP_GOLD, Color("#fff0b8"), 8, 1)
+	slider.add_theme_stylebox_override("slider", track)
+	slider.add_theme_stylebox_override("grabber_area", fill)
+	slider.add_theme_stylebox_override("grabber_area_highlight", fill)
+	slider.add_theme_stylebox_override("grabber", grab)
+	slider.add_theme_color_override("font_color", WORKSHOP_TEXT)
+	slider.custom_minimum_size = Vector2(220, 34)
+	slider.focus_mode = Control.FOCUS_ALL
 
 func _label(text: String, font_size: int = 14) -> Label:
 	var label: Label = Label.new()
 	label.text = text
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_font_size_override("font_size", maxi(font_size, 16))
+	label.add_theme_color_override("font_color", WORKSHOP_GOLD if font_size >= 16 else WORKSHOP_MUTED)
 	return label
 
 func _button(text: String, id: String) -> Button:
 	var button: Button = Button.new()
 	button.name = id
 	button.text = text
-	button.add_theme_font_size_override("font_size", 14)
+	button.add_theme_font_size_override("font_size", 18)
+	_apply_button_theme(button)
 	button.pressed.connect(_button_pressed.bind(id))
 	buttons[id] = button
 	return button
@@ -929,7 +1138,10 @@ func _check(text: String, key: String, parent: Control) -> CheckButton:
 	var check: CheckButton = CheckButton.new()
 	check.name = key
 	check.text = text
-	check.add_theme_font_size_override("font_size", 14)
+	check.add_theme_font_size_override("font_size", 18)
+	check.add_theme_color_override("font_color", WORKSHOP_TEXT)
+	check.add_theme_color_override("font_hover_color", Color.WHITE)
+	check.custom_minimum_size.y = 30
 	controls[key] = check
 	parent.add_child(check)
 	return check
@@ -940,7 +1152,8 @@ func _add_option(parent: Control, key: String, title: String, options: Array) ->
 	option.name = key
 	option.clip_text = true
 	option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	option.add_theme_font_size_override("font_size", 14)
+	option.add_theme_font_size_override("font_size", 18)
+	_apply_option_theme(option)
 	for pair: Array in options:
 		option.add_item(str(pair[1]))
 		option.set_item_metadata(option.item_count - 1, str(pair[0]))
@@ -948,23 +1161,401 @@ func _add_option(parent: Control, key: String, title: String, options: Array) ->
 	controls[key] = option
 	parent.add_child(option)
 
+func _build_palette_page(page: VBoxContainer) -> void:
+	page.add_child(_label("共享棋盘色板 · 8×8 / 64色", 16))
+	page.add_child(_label("仅选择PaletteUV色格，不复制或修改材质球。部件覆盖优先于材质角色；外部prefab不重着色。", 12))
+	var targets: Array = [["global", "全部原生材质"]]
+	for slot: String in Config.PALETTE_SLOTS:
+		targets.append(["slots:" + slot, str(ROLE_LABELS.get(slot, "腰线" if slot == "band" else "屋顶"))])
+	for role: String in Config.PALETTE_ROLES:
+		targets.append(["materials:" + role, "材质球 " + role])
+	_add_option(page, "palette_target", "选色目标", targets)
+	controls.palette_target.item_selected.connect(func(_index: int) -> void:
+		flush_window_preview()
+		_refresh_palette_controls())
+	_add_option(page, "palette_mode", "选色模式", [["auto", "auto · 稳定自动"], ["manual", "manual · 手动选格"]])
+	controls.palette_mode.item_selected.connect(func(_index: int) -> void: _palette_changed())
+	_window_slider(page, ["palette_seed", "颜色种子", 0, 999999, 1], "")
+	# 隐藏Range仅存手动格索引，纳入现有草稿恢复/原子预览字段捕获。
+	var cell := HSlider.new()
+	cell.max_value = 63
+	cell.step = 1
+	cell.hide()
+	controls["palette_cell"] = cell
+	page.add_child(cell)
+	var grid := GridContainer.new()
+	grid.columns = 8
+	grid.add_theme_constant_override("h_separation", 2)
+	grid.add_theme_constant_override("v_separation", 2)
+	controls["palette_grid"] = grid
+	var image: Image = (load(preload("res://src/workshop/mesh_builder.gd").TEXTURE_PATH) as Texture2D).get_image()
+	for index: int in 64:
+		var button := Button.new()
+		button.name = "cell_%02d" % index
+		button.custom_minimum_size = Vector2(30, 30)
+		button.toggle_mode = true
+		button.tooltip_text = "色格 [%d, %d] · %02d · 点击后实时预览" % [index / 8, index % 8, index]
+		var style := StyleBoxFlat.new()
+		style.bg_color = image.get_pixel((index % 8) * 64 + 32, (index / 8) * 64 + 32)
+		style.set_border_width_all(1)
+		style.border_color = Color(0.2, 0.2, 0.2)
+		button.add_theme_stylebox_override("normal", style)
+		button.add_theme_stylebox_override("hover", style)
+		var selected: StyleBoxFlat = style.duplicate()
+		selected.set_border_width_all(3)
+		selected.border_color = Color.WHITE
+		button.add_theme_stylebox_override("pressed", selected)
+		button.add_theme_stylebox_override("disabled", style)
+		button.pressed.connect(_palette_cell_clicked.bind(index))
+		grid.add_child(button)
+	page.add_child(grid)
+	controls["palette_readout"] = _label("", 12)
+	page.add_child(controls.palette_readout)
+	_build_shading_controls(page)
+
+func _build_shading_controls(page: VBoxContainer) -> void:
+	page.add_child(_label("材质球与着色器实例参数", 16))
+	page.add_child(_label("只编辑当前楼房实例，不改公共.tres、共享着色器或色板。颜色仍由PaletteUV决定；粗糙度/金属度/镜面/发光由材质角色实例参数决定。", 12))
+	var roles: Array = []
+	for role: String in Config.PALETTE_ROLES:
+		roles.append([role, MATERIAL_ROLE_LABELS.get(role, role)])
+	_add_option(page, "shading_role", "材质角色", roles)
+	controls["shading_role"].item_selected.connect(func(_index: int) -> void:
+		flush_window_preview()
+		_refresh_shading_controls())
+	for field: String in MATERIAL_EDIT_FIELDS:
+		var bounds: Array = MATERIAL_EDIT_BOUNDS[field]
+		_window_slider(page, ["shading_" + field, str(MATERIAL_EDIT_LABELS[field]), bounds[0], bounds[1], bounds[2]], "")
+	controls["shading_roughness"].value_changed.connect(func(_value: float) -> void: _queue_window_preview("shading_settings"))
+	controls["shading_metallic"].value_changed.connect(func(_value: float) -> void: _queue_window_preview("shading_settings"))
+	controls["shading_specular"].value_changed.connect(func(_value: float) -> void: _queue_window_preview("shading_settings"))
+	controls["shading_emission_energy"].value_changed.connect(func(_value: float) -> void: _queue_window_preview("shading_settings"))
+	controls["shading_transparency"].value_changed.connect(func(_value: float) -> void: _queue_window_preview("shading_settings"))
+	var material_hint := _label("合规范围：Matte哑光为主；Metal只用于栏杆/边框；Gloss用于玻璃；Emission只用于灯/屏幕。结构union包含多个角色时保持共享默认，避免一个节点参数覆盖多个surface。", 12)
+	controls["shading_hint"] = material_hint
+	page.add_child(material_hint)
+
+func _shading_control_settings() -> Dictionary:
+	var result: Dictionary = {}
+	for field: String in MATERIAL_EDIT_FIELDS:
+		result[field] = _spin_value("shading_" + field)
+	return result
+
+func _refresh_shading_controls() -> void:
+	if not controls.has("shading_role"): return
+	var role: String = _option_value("shading_role")
+	var shading: Dictionary = _architecture_snapshot().get("shading", {})
+	var values: Dictionary = MATERIAL_ROLE_DEFAULTS.get(role, {})
+	values = values.duplicate(true)
+	values.merge(shading.get("materials", {}).get(role, {}), true)
+	var ignored: bool = _ignore_fields
+	_ignore_fields = true
+	var role_bounds: Dictionary = Config.SHADING_ROLE_BOUNDS.get(role, {})
+	for field: String in MATERIAL_EDIT_FIELDS:
+		var slider: HSlider = controls["shading_" + field] as HSlider
+		var bounds: Array = role_bounds.get(field, MATERIAL_EDIT_BOUNDS[field])
+		slider.min_value = float(bounds[0])
+		slider.max_value = float(bounds[1])
+		slider.editable = not is_equal_approx(float(bounds[0]), float(bounds[1]))
+		_set_spin("shading_" + field, float(values.get(field, MATERIAL_ROLE_DEFAULTS[role][field])))
+	_ignore_fields = ignored
+
+func _shading_snapshot() -> Dictionary:
+	var shading: Dictionary = _architecture_snapshot().get("shading", {}).duplicate(true)
+	if not shading.has("materials"): shading["materials"] = {}
+	var role: String = _option_value("shading_role")
+	shading.materials[role] = _shading_control_settings()
+	return shading
+
+func _palette_changed() -> void:
+	if _ignore_fields: return
+	_queue_window_preview("palette_settings")
+	_update_palette_grid()
+
+func _palette_cell_clicked(index: int) -> void:
+	# 直接点色格就是最短路径：自动模式下自动切换到手动，不要求用户先找下拉框。
+	if _option_value("palette_mode") != "manual":
+		_set_option("palette_mode", "manual")
+	_set_spin("palette_cell", index)
+	_palette_changed()
+	_set_status("已选择色格 [%d, %d]，正在实时预览…" % [index / 8, index % 8], WORKSHOP_ACCENT_HOVER)
+
+func _palette_control_settings() -> Dictionary:
+	var index: int = int(_spin_value("palette_cell"))
+	return {"color_mode": _option_value("palette_mode"), "color_seed": int(_spin_value("palette_seed")), "color_cell": [index / 8, index % 8]}
+
+func _refresh_palette_controls() -> void:
+	if not controls.has("palette_target"): return
+	var palette: Dictionary = _architecture_snapshot().palette
+	var target: PackedStringArray = _option_value("palette_target").split(":")
+	var entry: Dictionary = palette.duplicate(true)
+	entry.erase("slots")
+	entry.erase("materials")
+	if target.size() == 2:
+		var role: String = target[1] if target[0] == "materials" else ("SEA_Gloss" if target[1] == "glass" else "SEA_Matte")
+		entry.merge(palette.get("materials", {}).get(role, {}), true)
+		if target[0] == "slots": entry.merge(palette.get("slots", {}).get(target[1], {}), true)
+	var ignored: bool = _ignore_fields
+	_ignore_fields = true
+	_set_option("palette_mode", str(entry.get("color_mode", "auto")))
+	_set_spin("palette_seed", float(entry.get("color_seed", 11010)))
+	var cell: Array = entry.get("color_cell", [0, 0])
+	_set_spin("palette_cell", int(cell[0]) * 8 + int(cell[1]))
+	_ignore_fields = ignored
+	_update_palette_grid()
+
+func _update_palette_grid() -> void:
+	if not controls.has("palette_grid"): return
+	var settings: Dictionary = _palette_control_settings()
+	var target: String = _option_value("palette_target")
+	var role: String = target.trim_prefix("materials:") if target.begins_with("materials:") else ("SEA_Gloss" if target == "slots:glass" else "SEA_Matte")
+	var id: String = _selected_id
+	var slot: String = target.trim_prefix("slots:")
+	if target == "global": slot = "wall"
+	if id.is_empty() or target.begins_with("slots:"):
+		id = {"wall": "wall_shell_0", "pillar": "pilaster_0_c0", "band": "band_0_0", "frame": "frame_front_0_1", "glass": "glass_front_0_1", "plant": "plant_0", "slab": "slab_0", "roof": "roof_main"}.get(slot, "wall_shell_0")
+	# 优先显示当前目标的真实生成槽；自动不是只画一个与模型无关的随机格。
+	for actual_id: String in _slot_cache:
+		var actual: Dictionary = _slot_cache[actual_id]
+		var actual_kind: String = str(actual.get("kind", ""))
+		if actual_id.begins_with("band_") or actual_id.begins_with("belt_") or actual_id.begins_with("plinth_"): actual_kind = "band"
+		if actual_id == "roof_main": actual_kind = "roof"
+		var actual_role: String = str(session.catalog.components.get(str(actual.get("component_id", "")), {}).get("material_role", "SEA_Gloss" if actual_kind == "glass" else "SEA_Matte"))
+		if (target.begins_with("slots:") and actual_kind == slot) or (target.begins_with("materials:") and actual_role == role) or target == "global":
+			id = actual_id
+			role = actual_role
+			break
+	var cell: Array = Config.palette_cell(settings, id, role)
+	var selected: int = int(cell[0]) * 8 + int(cell[1])
+	for index: int in 64:
+		var button: Button = controls.palette_grid.get_child(index)
+		button.set_pressed_no_signal(index == selected)
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+	(controls.palette_readout as Label).text = "%s：[%d,%d] / %d\n自动落点示例 %s · %s；实际每槽按稳定ID取格。16px内缩（不低于8px）。" % [settings.color_mode, cell[0], cell[1], selected, id, role]
+
+func _window_numeric_field(key: String) -> String:
+	if key.begins_with("architecture_window_"):
+		return key.trim_prefix("architecture_window_")
+	return {"window_width": "width", "window_height": "height", "window_sill": "sill", "floor_override_window_width": "width", "floor_override_window_height": "height", "floor_override_sill": "sill", "facade_width": "width", "facade_height": "height", "facade_sill": "sill", "facade_windows": "enabled"}.get(key, "")
+
 func _spin_spec(parent: Control, spec: Array) -> void:
-	var row: HBoxContainer = HBoxContainer.new()
-	row.add_child(_label(str(spec[1])))
-	var spin: SpinBox = SpinBox.new()
-	spin.name = str(spec[0])
-	spin.custom_minimum_size.x = 95
-	spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	spin.min_value = float(spec[2])
-	spin.max_value = float(spec[3])
-	spin.step = float(spec[4])
-	spin.add_theme_font_size_override("font_size", 14)
-	spin.value_changed.connect(func(_value: float) -> void:
-		_sync_window_dimension(str(spec[0]))
+	var key: String = str(spec[0])
+	var field: String = _window_numeric_field(key)
+	if Config.WINDOW_BOUNDS.has(field) or key == "bay_width" or VEGETATION_KEYS.has(key):
+		_window_slider(parent, spec, field)
+		return
+	_range_slider(parent, spec)
+
+func _range_slider(parent: Control, spec: Array) -> void:
+	_build_slider(parent, spec, [float(spec[2]), float(spec[3])], false, "")
+
+func _window_slider(parent: Control, spec: Array, field: String) -> void:
+	var key: String = str(spec[0])
+	var bounds: Array = Config.WINDOW_BOUNDS.get(field, [spec[2], spec[3]])
+	_build_slider(parent, spec, bounds, true, field)
+
+func _build_slider(parent: Control, spec: Array, bounds: Array, realtime: bool, field: String) -> void:
+	var key: String = str(spec[0])
+	var body: VBoxContainer = VBoxContainer.new()
+	body.add_theme_constant_override("separation", 2)
+	var 	readout: Label = _label("", 15)
+	body.add_child(readout)
+	var slider: HSlider = HSlider.new()
+	slider.name = key
+	slider.min_value = float(bounds[0])
+	slider.max_value = float(bounds[1])
+	var slider_step: float = float(spec[4])
+	if realtime and field == "open_angle":
+		slider_step = 1.0
+	elif realtime and field in ["glass_thickness", "frame_width", "frame_depth", "sill_thickness"]:
+		slider_step = 0.001
+	slider.step = slider_step
+	slider.allow_greater = false
+	slider.allow_lesser = false
+	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_apply_slider_theme(slider)
+	controls[key] = slider
+	_range_readouts[key] = {"label": readout, "title": str(spec[1]), "step": slider_step}
+	slider.value_changed.connect(func(_value: float) -> void:
+		_update_range_readout(key)
+		if realtime:
+			if key.begins_with("shading_"):
+				_queue_window_preview("shading_settings")
+			else:
+				_sync_window_dimension(key)
+				if key == "palette_seed": _palette_changed()
+				else: _queue_window_preview(key)
+		else:
+			_set_status("已调整「%s」，点击顶部生成按钮预览" % str(spec[1]))
 		_on_field_changed())
-	controls[str(spec[0])] = spin
-	row.add_child(spin)
-	parent.add_child(row)
+	if realtime:
+		slider.drag_started.connect(func() -> void:
+			_window_drag_key = key
+			_window_history_key = "")
+		slider.drag_ended.connect(func(_changed: bool) -> void:
+			_window_drag_key = ""
+			if not _window_preview_keys.is_empty():
+				_window_preview_timer.start(0.01)
+			else:
+				_window_history_key = "")
+	body.add_child(slider)
+	parent.add_child(body)
+	_update_range_readout(key)
+
+func _update_range_readout(key: String) -> void:
+	if not _range_readouts.has(key): return
+	var entry: Dictionary = _range_readouts[key]
+	var slider: Range = controls[key] as Range
+	var step: float = float(entry.get("step", slider.step))
+	var decimals: int = 0 if step >= 1.0 else (2 if step >= 0.01 else 3)
+	var current: String = str(int(roundi(slider.value))) if decimals == 0 else String.num(slider.value, decimals)
+	var minimum: String = str(int(roundi(slider.min_value))) if decimals == 0 else String.num(slider.min_value, decimals)
+	var maximum: String = str(int(roundi(slider.max_value))) if decimals == 0 else String.num(slider.max_value, decimals)
+	(entry.label as Label).text = "%s  %s    [%s – %s]" % [entry.title, current, minimum, maximum]
+
+func _reset_window_preview() -> void:
+	if _window_preview_timer != null: _window_preview_timer.stop()
+	_window_preview_keys.clear()
+	_window_failed_keys.clear()
+	_window_preview_target.clear()
+	_window_history_key = ""
+	_window_drag_key = ""
+
+func _queue_window_preview(key: String) -> void:
+	if _ignore_fields or not _initialized or _window_preview_busy: return
+	if str(snapshot().get("construction_mode", "")) != "shell_v2": return
+	if _window_preview_keys.is_empty():
+		_window_preview_target = {"scope": _window_scope(), "floor": str(int(_spin_value("floor_override_index"))), "facade": _option_value("facade_index"), "single": _window_override_id()}
+	_window_preview_keys.merge(_window_failed_keys, true)
+	for previous: String in _window_preview_keys.keys():
+		if _window_edit_identity(previous) == _window_edit_identity(key):
+			_window_preview_keys.erase(previous)
+	_window_preview_keys[key] = {"target": _option_value("palette_target"), "settings": _palette_control_settings()} if key == "palette_settings" else ({"target": _option_value("shading_role"), "settings": _shading_control_settings()} if key == "shading_settings" else _raw_control_value(key))
+	_set_status("预览排队中… 继续拖动会合并为一次更新。", WORKSHOP_GOLD)
+	if _window_drag_key.is_empty() or _window_preview_timer.is_stopped():
+		_window_preview_timer.start(WINDOW_PREVIEW_DELAY)
+	_update_window_limit_hint()
+
+func _window_edit_identity(key: String) -> String:
+	var field: String = _window_numeric_field(key)
+	if key.begins_with("architecture_window_"):
+		field = key.trim_prefix("architecture_window_")
+	if field.is_empty(): return key
+	var scope: String = str(_window_preview_target.get("scope", _window_scope())) if key.begins_with("architecture_window_") else "global"
+	if key.begins_with("floor_override_"): scope = "floor"
+	if key.begins_with("facade_"): scope = "facade"
+	return scope + "|" + str(_window_preview_target.get(scope, "")) + "|" + field
+
+func _window_preview_patch(values: Dictionary) -> Dictionary:
+	var data: Dictionary = snapshot()
+	var architecture: Dictionary = _architecture_snapshot()
+	var patch: Dictionary = {"architecture": architecture}
+	for key: String in values:
+		if key == "shading_settings":
+			var shading: Dictionary = architecture.get("shading", {}).duplicate(true)
+			if not shading.has("materials"): shading["materials"] = {}
+			shading.materials[str(values[key].target)] = values[key].settings.duplicate(true)
+			architecture.shading = shading
+			continue
+		if key == "palette_settings":
+			var target: PackedStringArray = str(values[key].target).split(":")
+			if target.size() == 1:
+				architecture.palette.merge(values[key].settings, true)
+			else:
+				if not architecture.palette.has(target[0]): architecture.palette[target[0]] = {}
+				architecture.palette[target[0]][target[1]] = values[key].settings.duplicate(true)
+			continue
+		if VEGETATION_KEYS.has(key):
+			if key.begins_with("growth_"):
+				var weights: Array = patch.get("growth_weights", data.growth_weights.duplicate())
+				weights[["growth_small", "growth_medium", "growth_large"].find(key)] = values[key]
+				patch["growth_weights"] = weights
+			else:
+				patch[key] = values[key]
+			continue
+		if key == "bay_width":
+			patch[key] = values[key]
+			continue
+		var field: String = _window_numeric_field(key)
+		if key.begins_with("architecture_window_"):
+			field = key.trim_prefix("architecture_window_")
+		var scope: String = str(_window_preview_target.get("scope", _window_scope())) if key.begins_with("architecture_window_") else "global"
+		if key.begins_with("floor_override_"): scope = "floor"
+		if key.begins_with("facade_"): scope = "facade"
+		if scope == "global":
+			architecture.window[field] = values[key]
+			if field in ["width", "height", "sill"]: patch["window_" + field] = values[key]
+		else:
+			var container: String = {"floor": "floor_windows", "facade": "facade_windows", "single": "window_overrides"}[scope]
+			var target: String = str(_window_preview_target.get(scope, ""))
+			if target.is_empty(): return {"ok": false, "reason": "请先选择实际窗口或已关闭窗口"}
+			var override: Dictionary = architecture[container].get(target, {}).duplicate(true)
+			override[field] = values[key]
+			architecture[container][target] = override
+	data.merge(patch, true)
+	return {"ok": true, "recipe": Recipe.normalized(data)}
+
+## 单次真实构建后再提交现有Session历史/状态，不走apply_patch探针+refresh双重建模。
+## 只在同步主线程内操作；不为每个鼠标像素创建撤销项。
+func flush_window_preview() -> Dictionary:
+	if _window_preview_busy or _window_preview_keys.is_empty(): return {"ok": true, "reason": "没有待预览窗输入"}
+	_window_preview_timer.stop()
+	if preview == null or not preview.is_node_ready(): return {"ok": false, "reason": "预览尚未就绪"}
+	_window_preview_busy = true
+	_set_status("正在生成预览… 请稍候，当前修改不会丢失。", WORKSHOP_ACCENT_HOVER)
+	var edits: Dictionary = _window_preview_keys.duplicate(true)
+	var staged: Dictionary = _window_preview_patch(edits)
+	var result: Dictionary = staged
+	if bool(staged.get("ok", false)):
+		var candidate: Dictionary = staged.recipe
+		var reason: String = Recipe.validate(candidate, session.catalog)
+		if not reason.is_empty():
+			result = {"ok": false, "reason": reason}
+		else:
+			var history_key: String = _window_scope() + "|" + str(int(_spin_value("floor_override_index"))) + "|" + _option_value("facade_index") + "|" + _window_override_id()
+			var ui: Dictionary = _capture_ui_values()
+			var baseline: Dictionary = _local_baseline.duplicate(true)
+			result = session.preview_candidate(candidate, _window_history_key == history_key, _window_history_fingerprint)
+			if bool(result.get("ok", false)):
+				_window_history_key = history_key
+				_window_history_fingerprint = Recipe.fingerprint(candidate)
+				_refresh_from_session()
+				refresh_preview(true, result)
+				var committed_ui: Dictionary = _capture_ui_values()
+				_ignore_fields = true
+				_local_baseline = baseline
+				for key: String in ui:
+					var submitted: bool = edits.has("palette_settings") and key in ["palette_mode", "palette_seed", "palette_cell"]
+					if edits.has("shading_settings") and key.begins_with("shading_"):
+						submitted = true
+					for edit_key: String in edits:
+						if _window_edit_identity(key) == _window_edit_identity(edit_key):
+							submitted = true
+					_set_control_value(key, committed_ui[key] if submitted else ui[key])
+					if submitted and _local_baseline.has(key): _local_baseline[key] = committed_ui[key]
+				_ignore_fields = false
+				_set_status("参数已实时预览；仅提交本次滑动字段，其他未应用输入保留。")
+	if not bool(result.get("ok", false)):
+		var failed_root: Node = result.get("root") as Node
+		if failed_root != null: failed_root.free()
+		_set_status("窗预览被拒绝，保留最后成功模型和滑块输入：" + str(result.get("reason", "未知错误")))
+	_window_failed_keys = {} if bool(result.get("ok", false)) else edits.duplicate(true)
+	_window_preview_keys.clear()
+	_window_preview_busy = false
+	if _window_drag_key.is_empty(): _window_history_key = ""
+	window_preview_result = {"ok": bool(result.get("ok", false)), "reason": str(result.get("reason", "")), "fields": edits.keys()}
+	_update_window_limit_hint()
+	_update_palette_grid()
+	_refresh_shading_controls()
+	_update_state()
+	return window_preview_result
+
+func _update_window_limit_hint() -> void:
+	if not controls.has("window_limit_hint"): return
+	var depth: float = _spin_value("architecture_window_frame_depth")
+	var wall: float = float(snapshot().get("wall_thickness", 0.24))
+	var limits: Vector2 = WindowGeometry.recess_limits(depth, wall)
+	(controls["window_limit_hint"] as Label).text = "自动预览（160ms防抖，拖动合并撤销）。框可突出墙面，不缩窗。\n当前墙厚%.3fm / 框深%.3fm：recess有效范围 %.3f..%.3fm。玻璃上限 %.3fm；更大窗需先应用更大开间/层高。冲突保留输入并显示原因。" % [wall, depth, maxf(limits.x, float(Config.WINDOW_BOUNDS.recess[0])), minf(limits.y, float(Config.WINDOW_BOUNDS.recess[1])), depth - (0.008 if _option_value("architecture_window_type") != "fixed" else 0.004)]
 
 func _button_pressed(id: String) -> void:
 	match id:
@@ -1010,11 +1601,19 @@ func _button_pressed(id: String) -> void:
 		"export_module": export_module_component()
 		"toggle_left": _left_panel.visible = not _left_panel.visible
 		"toggle_right": _right_panel.visible = not _right_panel.visible
+		"copy_status": DisplayServer.clipboard_set(_last_status_text)
 		_:
+			if id.begins_with("default_module_"):
+				_load_default_module(int(id.trim_prefix("default_module_")))
+				return
+			if id.begins_with("module_"):
+				_select_page(int(id.trim_prefix("module_")))
+				return
 			if id.begins_with("view_"):
 				preview.set_view(id.trim_prefix("view_"))
 
 func _undo(redo: bool) -> void:
+	_reset_window_preview()
 	var changed: bool = session.redo() if redo else session.undo()
 	if changed:
 		_refresh_from_session()
@@ -1065,6 +1664,7 @@ func _confirm_discard() -> void:
 		action.call()
 
 func _new_document() -> void:
+	_reset_window_preview()
 	var catalog_ready: Dictionary = _ensure_editor_catalog()
 	if not bool(catalog_ready.get("ok", false)):
 		_report_result(catalog_ready, "内置组件目录升级失败")
@@ -1144,6 +1744,17 @@ func _request_sample(copy_as_new: bool) -> void:
 		return
 	var path: String = str(_sample_picker.get_item_metadata(_sample_picker.selected))
 	_guard_action(_load_sample.bind(path, copy_as_new), "载入样例将丢弃当前未保存修改，是否继续？")
+
+func _load_default_module(index: int) -> void:
+	if index < 0 or index >= DEFAULT_MODULES.size():
+		_set_status("默认模组索引无效，请刷新工坊。", WORKSHOP_WARN)
+		return
+	var item: Dictionary = DEFAULT_MODULES[index]
+	var path: String = SAMPLE_ROOT.path_join(str(item.get("file", "")))
+	if not FileAccess.file_exists(path):
+		_set_status("默认模组文件缺失：" + path, WORKSHOP_WARN)
+		return
+	_guard_action(_load_sample.bind(path, false), "载入「%s」将替换当前未保存修改，是否继续？" % str(item.get("label", "默认模组")))
 
 func _load_sample(path: String, copy_as_new: bool) -> void:
 	if not path.begins_with(SAMPLE_ROOT + "/") or path.contains("..") or not path.ends_with(".recipe.json"):
@@ -1371,21 +1982,48 @@ func _window_scope() -> String:
 	var scope: String = _option_value("window_scope") if controls.has("window_scope") else "global"
 	return scope if scope in ARCHITECTURE_WINDOW_SCOPES else "global"
 
+func _window_target_changed(floor_changed: bool) -> void:
+	if _ignore_fields or not _initialized: return
+	var requested_floor: float = _spin_value("floor_override_index")
+	var requested_facade: String = _option_value("facade_index")
+	flush_window_preview()
+	if not _window_failed_keys.is_empty():
+		_set_spin("floor_override_index", _last_floor_index)
+		_set_option("facade_index", _last_facade)
+		_set_status("窗输入未通过，请修正或清除后切换楼层/立面。")
+		return
+	_set_spin("floor_override_index", requested_floor)
+	_set_option("facade_index", requested_facade)
+	_window_history_key = ""
+	if floor_changed:
+		_sync_floor_fields()
+	else:
+		_sync_facade_fields()
+	if _window_scope() in ["floor", "facade"]:
+		_sync_architecture_window_scope()
+
 func _window_scope_changed(_index: int) -> void:
 	if _ignore_fields:
 		return
-	if _has_pending_window_fields():
+	var requested_scope: String = _window_scope()
+	_set_option("window_scope", _last_window_scope)
+	flush_window_preview()
+	if _has_pending_window_fields() or not _window_failed_keys.is_empty():
 		_set_option("window_scope", _last_window_scope)
 		_set_status("当前窗范围存在未应用输入，请先应用或清除后再切换范围。")
 		return
+	_set_option("window_scope", requested_scope)
 	_sync_architecture_window_scope()
 	_last_window_scope = _window_scope()
+	_window_history_key = ""
 	_update_state()
 
 func _window_selection_changed(_index: int) -> void:
 	if _ignore_fields:
 		return
-	if _has_pending_window_fields():
+	var requested_opening: String = _option_value("window_selection")
+	flush_window_preview()
+	if _has_pending_window_fields() or not _window_failed_keys.is_empty():
 		var pending_option: OptionButton = controls["window_selection"] as OptionButton
 		for pending_index: int in pending_option.item_count:
 			if str(pending_option.get_item_metadata(pending_index)) == _selected_opening_id:
@@ -1393,6 +2031,7 @@ func _window_selection_changed(_index: int) -> void:
 				break
 		_set_status("当前窗存在未应用输入，请先应用或清除后再切换窗口。")
 		return
+	_set_option("window_selection", requested_opening)
 	var option: OptionButton = controls["window_selection"] as OptionButton
 	if option.selected >= 0:
 		var opening_id: String = str(option.get_item_metadata(option.selected))
@@ -1610,11 +2249,14 @@ func _update_form_readout() -> void:
 func _sync_taper_ownership(form_enabled: bool) -> void:
 	if not controls.has("taper"):
 		return
-	var spin: SpinBox = controls["taper"] as SpinBox
-	spin.editable = not form_enabled
-	spin.tooltip_text = "由形体「整楼结构」区间 + 种子决定" if form_enabled else "关闭形体后可手动设定"
+	var slider: HSlider = controls["taper"] as HSlider
+	if slider == null:
+		return
+	slider.editable = not form_enabled
+	slider.tooltip_text = "由形体「整楼结构」区间 + 种子决定" if form_enabled else "关闭形体后可手动设定"
 
 func _apply_architecture_window() -> Dictionary:
+	_reset_window_preview()
 	if _option_value("construction_mode") != "shell_v2":
 		return _report_failure("架构窗构造只在shell_v2连续实体模式生效。")
 	var scope: String = _window_scope()
@@ -1688,6 +2330,7 @@ func _apply_window_override() -> Dictionary:
 	return _apply_architecture_window()
 
 func _clear_architecture_window_scope() -> Dictionary:
+	_reset_window_preview()
 	var architecture: Dictionary = _architecture_snapshot()
 	var patch: Dictionary = {"architecture": architecture}
 	var scope: String = _window_scope()
@@ -1884,9 +2527,12 @@ func _refresh_architecture_controls(data: Dictionary) -> void:
 	_sync_architecture_roof_edge(roof)
 	_refresh_frame_controls(data)
 	_refresh_form_controls(data)
+	_refresh_palette_controls()
+	_refresh_shading_controls()
 	_sync_taper_ownership(bool((Config.normalized(data.get("architecture", {})).get("form", {}) as Dictionary).get("enabled", false)))
 	# 刷新到 session 值之后，局部基线必须跟着对齐；否则载入配方会被误判成"存在未应用输入"，连保存都拦住。
 	_capture_window_local_baseline()
+	_update_window_limit_hint()
 
 func _sync_window_selection(data: Dictionary) -> void:
 	if not controls.has("window_selection"):
@@ -1946,6 +2592,7 @@ func _sync_floor_fields() -> void:
 		return
 	var data: Dictionary = snapshot()
 	var index: String = str(int(_spin_value("floor_override_index")))
+	_last_floor_index = float(index)
 	var override: Dictionary = data.get("floor_overrides", {}).get(index, {}) as Dictionary
 	var architecture_floor: Dictionary = Config.normalized(data.get("architecture", {})).get("floor_windows", {}).get(index, {}) as Dictionary
 	_ignore_fields = true
@@ -1966,6 +2613,7 @@ func _sync_facade_fields() -> void:
 		return
 	var data: Dictionary = snapshot()
 	var facade: String = _option_value("facade_index")
+	_last_facade = facade
 	var override: Dictionary = data.get("facade_overrides", {}).get(facade, {}) as Dictionary
 	var architecture_facade: Dictionary = Config.normalized(data.get("architecture", {})).get("facade_windows", {}).get(facade, {}) as Dictionary
 	_ignore_fields = true
@@ -2045,14 +2693,22 @@ func _slot_family(id: String, kind: String) -> String:
 	return kind
 
 func _select_page(index: int) -> void:
+	if index < 0 or index >= PAGES.size(): return
 	_page_picker.select(index)
 	for page_name: String in PAGES:
 		pages[page_name].visible = page_name == PAGES[index]
+	for module_index: int in PAGES.size():
+		var module_button: Button = buttons.get("module_%02d" % module_index) as Button
+		if module_button == null: continue
+		var active: bool = module_index == index
+		module_button.add_theme_stylebox_override("normal", _stylebox(Color("#28506a") if active else WORKSHOP_SURFACE, WORKSHOP_GOLD if active else WORKSHOP_LINE, 6, 2 if active else 1))
+		module_button.add_theme_color_override("font_color", WORKSHOP_GOLD if active else WORKSHOP_TEXT)
+	_set_status("已切换模块：" + PAGES[index], WORKSHOP_ACCENT_HOVER)
 
 func _control_value(key: String) -> Variant:
 	var control: Control = controls[key] as Control
-	if control is SpinBox:
-		var value: float = (control as SpinBox).value
+	if control is Range:
+		var value: float = (control as Range).value
 		return int(value) if INTEGER_KEYS.has(key) or key in ["setback_start"] else value
 	if control is CheckButton:
 		return (control as CheckButton).button_pressed
@@ -2060,18 +2716,20 @@ func _control_value(key: String) -> Variant:
 
 func _set_control_value(key: String, value: Variant) -> void:
 	var control: Control = controls[key] as Control
-	if control is SpinBox:
-		(control as SpinBox).set_value_no_signal(float(value))
+	if control is Range:
+		(control as Range).set_value_no_signal(float(value))
+		_update_range_readout(key)
 	elif control is OptionButton:
 		_set_option(key, str(value))
 	elif control is CheckButton:
 		(control as CheckButton).set_pressed_no_signal(bool(value))
 
 func _spin_value(key: String) -> float:
-	return (controls[key] as SpinBox).value
+	return (controls[key] as Range).value
 
 func _set_spin(key: String, value: float) -> void:
-	(controls[key] as SpinBox).set_value_no_signal(value)
+	(controls[key] as Range).set_value_no_signal(value)
+	_update_range_readout(key)
 
 func _option_value(key: String) -> String:
 	var option: OptionButton = controls[key] as OptionButton
@@ -2121,14 +2779,21 @@ func _cancel_discard() -> void:
 	_confirm_action = Callable()
 	_confirm.hide()
 
-func _set_status(text: String) -> void:
+func _set_status(text: String, color: Color = WORKSHOP_MUTED) -> void:
+	_last_status_text = text
 	if status_label != null:
 		status_label.text = text
+		status_label.add_theme_color_override("font_color", WORKSHOP_TEXT)
+	if status_panel != null:
+		status_panel.add_theme_stylebox_override("panel", _stylebox(Color("#203b50") if color != WORKSHOP_WARN else Color("#4a2f2b"), color, 7, 2))
+	if status_copy_button != null:
+		status_copy_button.tooltip_text = "复制当前提示：" + text
 
 func _report_failure(reason: String) -> Dictionary:
-	_set_status(reason)
+	_set_status("[警告] " + reason, WORKSHOP_WARN)
 	return {"ok": false, "reason": reason}
 
 func _report_result(result: Dictionary, prefix: String) -> Dictionary:
-	_set_status(prefix + "：" + str(result.get("reason", "成功" if bool(result.get("ok", false)) else "未知错误")))
+	var ok: bool = bool(result.get("ok", false))
+	_set_status(("✓ " if ok else "⚠ ") + prefix + "：" + str(result.get("reason", "成功" if ok else "未知错误")), WORKSHOP_ACCENT_HOVER if ok else WORKSHOP_WARN)
 	return result

@@ -66,5 +66,80 @@ func run()->void:
 			var instance=static_scene.instantiate();ck(instance.get_script()==null,"baked root no rebuild script");instance.free()
 		var next:Dictionary=store.export_revision(recipe,catalog)
 		ck(next.ok and next.directory!=export.directory,"repeat export keeps previous revision")
+	verify_palette()
+	verify_shading()
 	print("[workshop-rules] %d checks, %d failures"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+func verify_shading() -> void:
+	var config = preload("res://src/workshop/architecture_config.gd")
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe.architecture.shading = {"materials": {"SEA_Matte": {"roughness": 0.74, "metallic": 0.02, "specular": 0.31, "emission_energy": 0.0, "transparency": 0.0}, "SEA_Gloss": {"roughness": 0.16, "metallic": 0.12, "specular": 0.72, "emission_energy": 0.0, "transparency": 0.68}}}
+	ck(Recipe.validate(recipe, Catalog.definitions()).is_empty(), "材质角色实例参数合法")
+	var bad: Dictionary = recipe.duplicate(true)
+	bad.architecture.shading.materials.SEA_Matte.metallic = 0.8
+	ck(not Recipe.validate(bad, Catalog.definitions()).is_empty(), "Matte超出合规金属度拒绝")
+	var session = Session.new(Catalog.definitions())
+	ck(session.replace_recipe(recipe).ok, "材质参数进入Session")
+	var built: Dictionary = session.build()
+	ck(built.ok, "材质实例参数构建")
+	var found_matte: bool = false
+	if built.ok:
+		for raw: Node in built.root.find_children("*", "MeshInstance3D", true, false):
+			var node: MeshInstance3D = raw as MeshInstance3D
+			if node == null: continue
+			for surface: int in node.mesh.get_surface_count():
+				if node.get_active_material(surface) == preload("res://src/workshop/mesh_builder.gd").shared_materials().get("SEA_Matte"):
+					found_matte = true
+					ck(is_equal_approx(float(node.get_instance_shader_parameter("sea_matte_controls").x), 0.74), "Matte实例粗糙度写入MeshInstance")
+					ck(is_equal_approx(float(node.get_instance_shader_parameter("sea_matte_controls").y), 0.02), "Matte实例金属度写入MeshInstance")
+					break
+		ck(found_matte, "找到共享SEA_Matte可见节点")
+		built.root.free()
+
+func verify_palette() -> void:
+	var config = preload("res://src/workshop/architecture_config.gd")
+	var builder = preload("res://src/workshop/mesh_builder.gd")
+	var settings: Dictionary = {"color_mode": "manual", "color_cell": [0, 0], "color_seed": 12}
+	var source: PackedVector2Array = PackedVector2Array([Vector2.ZERO, Vector2.RIGHT, Vector2.ONE])
+	var shared: Dictionary = builder.shared_materials()
+	for index: int in 64:
+		settings.color_cell = [index / 8, index % 8]
+		ck(config.validate_palette(settings).is_empty(), "64格合法 " + str(index))
+		var uv: PackedVector2Array = builder.encode_cell_uv(source, settings.color_cell)
+		var correct: bool = absf((uv[1] - uv[0]).cross(uv[2] - uv[0])) > 0.000001
+		for point: Vector2 in uv:
+			var px: Vector2 = point * 512.0 - Vector2(index % 8, index / 8) * 64.0
+			correct = correct and px.x >= 16.0 and px.x <= 48.0 and px.y >= 16.0 and px.y <= 48.0
+		ck(correct, "64格真实非零面积及16px安全边 " + str(index))
+	for bad: Variant in [[-1, 0], [8, 0], [0.5, 0], [true, 0], ["1", 0], [0], null]:
+		settings.color_cell = bad
+		ck(not config.validate_palette(settings).is_empty(), "非法格拒绝 " + str(bad))
+	settings.color_cell = [0, 0]
+	for bad: Variant in [-1, 0.5, true, "1", NAN, 9007199254740992.0]:
+		settings.color_seed = bad
+		ck(not config.validate_palette(settings).is_empty(), "非法seed拒绝 " + str(bad))
+	for bad: Variant in [{"color_mode": "random"}, {"slots": {"walls": {}}}, {"materials": {"SEA_Fake": {}}}, {"slots": []}, {"slots": {"wall": {"typo": 1}}}, {"materials": {"SEA_Matte": 1}}]:
+		ck(not config.validate_palette(bad).is_empty(), "未知模式/目标/覆盖拒绝 " + str(bad))
+	for role: String in config.PALETTE_ROLES:
+		var by_role: Dictionary = Recipe.authoring_defaults()
+		by_role.architecture.palette = {"materials": {role: {"color_mode": "manual", "color_cell": [7, 6]}}}
+		ck(Recipe.validate(by_role).is_empty() and config.palette_cell(config.palette_settings(by_role, "frame", role), "frame_front_0_1", role) == [7, 6], "四材质角色选格 " + role)
+	settings = {"color_mode": "auto", "color_seed": 11010}
+	var seen: Dictionary = {}
+	for index: int in 512:
+		settings.color_seed = index
+		var cell: Array = config.palette_cell(settings, "frame_front_0_1", "SEA_Matte")
+		seen[str(cell)] = true
+		ck(cell == config.palette_cell(settings, "frame_front_0_1", "SEA_Matte") and int(cell[0]) in range(8) and int(cell[1]) in range(8), "auto稳定0..63 " + str(index))
+	ck(seen.size() == 64, "自动选色可达全部64格")
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe.architecture.palette = {"color_mode": "manual", "color_cell": [1, 2], "materials": {"SEA_Matte": {"color_cell": [3, 4]}}, "slots": {"wall": {"color_cell": [5, 6]}}}
+	ck(config.palette_cell(config.palette_settings(recipe, "wall", "SEA_Matte"), "wall_shell_0", "SEA_Matte") == [5, 6], "部件优先于角色")
+	ck(config.palette_cell(config.palette_settings(recipe, "frame", "SEA_Matte"), "frame_front_0_1", "SEA_Matte") == [3, 4], "角色覆盖全局")
+	ck(Recipe.fingerprint(recipe) == Recipe.fingerprint(JSON.parse_string(JSON.stringify(recipe))), "调色JSON重载指纹一致")
+	var data: Dictionary = builder.rounded_box(Vector3.ONE, 0.02, 3)
+	var recolored: ArrayMesh = builder.recolor_mesh(data.mesh, {"color_mode": "manual", "color_cell": [7, 7]}, "plant_0", "SEA_Matte")
+	ck(recolored.get_faces() == data.mesh.get_faces() and recolored.surface_get_material(0) == data.mesh.surface_get_material(0), "仅UV变化且共享材质身份不变")
+	ck(recolored.surface_get_arrays(0)[Mesh.ARRAY_TEX_UV] != data.mesh.surface_get_arrays(0)[Mesh.ARRAY_TEX_UV], "真实UV变化")
+	ck(shared == builder.shared_materials(), "四共享材质未复制")
