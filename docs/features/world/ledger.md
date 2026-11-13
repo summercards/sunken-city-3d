@@ -391,3 +391,9 @@ SEA-WORLD-R28最终签署：190758的shop-sightline968/0、实际GPU20/0和19104
 - 主线程已提供 `performance-equivalence` 19/0、cache 通过、`ocean` 通过及岸线缓存 headless 单测通过；cache 不填写未经确认的精确项数，本次未新增测试或复跑。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签，海面收益波动不作承诺。
+
+## 2026-11-13 候选空间与菜园NPC深审（未修复）
+
+承接现行派生空间/位置权威/R29/R32及存档世界适配。用户主场景Transform零改动、位置检查6/0。真实Main两个稳定采样确认菜园Walk active/built、36矩形，但5 Marker均高于派生面0.737953m，0/5锚点、总聚合35/40；豆豆可见但home_fallback到天台(G04)。左屋顶5/5、天台25/25、浮店5/5正常。该失败不同于已接受下沉街口，不抬根/恢复街口/放宽0.05门槛；先测原几何土面，再判Marker或派生选层/压平归属。
+
+候选sunroom修缮状态未进整档位置上下文，误收/误拒二楼(S01)已复现；水层/位置checker覆盖缺口R14/R15、旧surface单面断言与过时NPC迁址fixture另列，不能改用户摆位凑绿。菜园探针exit1、8检查/3失败、marker完成且无脚本异常；本轮未修。完整方案与证据见[深审记录](../../development/2026-11-13_engine_deep_audit.md)。

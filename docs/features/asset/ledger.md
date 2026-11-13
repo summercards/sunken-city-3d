@@ -803,3 +803,11 @@ FAIL: derived feature index stale; use --sync
 | SEA-ASSET-R68a | 原生程序构件仍为native/project-authored与 `partial_source_style`，共享色板/UV/圆角不等于完整美术终验或Blender/02b链 | 复杂根系贴墙、墙面苔、楼梯与正式导航/全楼可达、用户美术终审和性能仍pending/未支持，不因编辑器入口或runtime专项PASS升级 |
 
 运行版报告 `D:/projects/sea-work/verification/20261110-224023-workshop-game-acceptance-00ec43/report.json` 已实际读取：integration25/0（日志）、integration/visual均exit0/PASS且unexpected为空，只证明运行版域。最新编辑器 `editor-workshop` 已真实通过：`D:/projects/sea-work/verification/20261111-003009-editor-workshop-deliver-4b9df3/report.json` exit0/passed=true，inner report 327 checks/0 failures；真实--editor无Main/Autoload且仅启用plugin，屏幕重建恢复快照/catalog/未应用输入/UI dirty，四张真实截图已审阅。完整插件卸载重载、跨进程恢复、美术、性能及正式入库仍不代签。全库contracts sync/check仍exit1：sync为75 issues、check为77 issues，日志实际source hash drift=8、runtime hash drift=66；另有SEA-ASSET条款集合问题与派生索引问题。本轮不批量刷新旧hash，不修他人SEA-ASSET-R67。
+
+## 2026-11-13 资产、账本与验收证据深审（未修复）
+
+承接现行资产身份/来源/运行接入/水密/登记/验证条款，保留全部旧记录。基线94ec42e0，1073唯一主AssetID及manifest主回链存在；1510运行记录路径存在，但不是完整正式闭包。主源8条真实漂移；运行123真实漂移、308旧文本CRLF基线、32GLB二进制归一化误放行，不能把后二者混为文本行尾或431全当真实内容变更。469相关路径字节均等HEAD，非本轮本地弄脏。
+
+R01哈希checker对二进制CRLF替换；R02水密passed未纳入boundary/nonmanifold（v006仅15/20、v008仅18/20满足两项0）；R03模板残留当前身份/GLB/prefab/manifest不齐；R04正式牧场45GLB未列运行清单；R05真实漂移仍verified；R06许可820含pending/106沿旧来源是待审，不等同已侵权。R07–R19列分类词表、派生索引、条款ID、未知ID、当前口径、可携证据、日志回链、门禁与元数据。全部逐项方案/验收见[审计记录](../../development/2026-11-13_engine_deep_audit.md)及工程外issues.json。
+
+本轮不重开全部Blend、不重导/替换资产、不改用户位置、不补造权属、不批量刷新SHA、不清理事务备份；所有修复和逐项批准仍待实施。全局初查exit1/499 issues，源/运行漂移与条款/链接/索引混合，不冒称499玩法bug。

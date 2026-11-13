@@ -299,3 +299,9 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 - `boat.gd` 已还原，不宣称本批修改船实现；`roof_reveal`、`shop_sightline` 门控尝试也已撤回。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立并补最终证据；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。
+
+## 2026-11-13 动作目标生命周期反例（未修复）
+
+承接现行目标失效/取消不发奖与一次触发语义。真实Interactor对耗时A开始后，Q循环/隐藏A/移除A三工况均无新触发却执行瞬发B（A0/B1），G01动态确认；_release清焦点但未清acting，动作未独立锁目标。应引入动作target/token并在失效/切目标取消，保留同目标松键自动完成的现行规则；不以回退成长按消除问题。
+
+现有interactor-query-reuse15/0、keyboard-panels81/0等正向通过不覆盖执行中换目标。未修改生产；旧selected_command复活、实际物品/体力副作用仍待扩展。位置、方案、验收与原始日志见[深审记录](../../development/2026-11-13_engine_deep_audit.md)及工程外G01登记。

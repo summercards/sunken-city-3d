@@ -125,3 +125,14 @@ SEA-QUALITY-R01–R05：用户授权后落地14个正式源文件的等价范围
 最终functional-final12项PASS/exit0：equivalence19/0、room112/0、sleep42/0、npc-clock303/0、npc-perf61/0、building-perf239/0、坏档seed/protection、save-seed、framework-integration52/0、ocean-pickups48/0、fishery33/0；输入click/keyboard-panels/pick-mesh/facing/boat-contact和单测UI19/0、reach15/0、headless cache119/0、crops96/0亦通过。water-params与visual-corner-notebook仍失败，但工程外优化前src反向对照证实完全相同的10缺参/5旧UI标签，未新增或掩盖。初夹具错误及宿主中断日志保留、最终独立重跑补齐。
 
 仅登记本轮改前hash与原账本一致且已审阅验证的Notebook source和WaterSurface runtime两处，不接受Main/HUD/Fishery等既有未知漂移。最终契约sync76项/exit1、无参数78项/exit1；新增断链已消除，摆放6/0与架构25/0 exit0。完整源码范围、前后证据、27项逐条状态、未执行/回退见[实施记录](../../development/2026-11-11_performance_optimization.md)。整体保持partial，不签release/Web/低端机、功耗或完整27项已完成。
+
+## 2026-11-13 全工程深度审计（仅审计与整改计划）
+
+承接现行SEA-QUALITY-R01–R05。基线94ec42e0、所有运行批次干净工作树；46功能/1073资产/1510运行资源，63项去重问题与方案（P1 14/P2 39/P3 10；动态15/静态29/待验14/裁决3/测试治理2），不等同63玩家事故，未修生产。
+
+- 当前逻辑40项32通过8失败（含2个exit124）；整体exit1。35有数值终局入口仅小计11303/16，不作全轮断言总数。旧范围/替代支撑/迁址夹具与真实garden失败、级联分开。
+- selftest当前499 passed/33 failed另1 SCRIPT ERROR，exit1，不沿用旧536/1；三视觉room/quick-tools/gift-kiosk均exit0，68PNG只目检3图，60条uniform索引冲突警告待验。
+- 存档/玩法/菜园反例通过正式runner工程外注入，marker仅诊断完成；预期复现错误与常量拒写保留原红。静态架构25/0 exit0、摆位6/0 exit0、治理10/10 exit0，契约初查499 issues exit1，后续sync/check如实回填。
+- 发现二进制hash归一化、水密passed漏谓词、架构正则覆盖、旧夹具/脚本异常/证据不可携等验收缺口，优先补反例，不删除断言/批量签hash造绿。
+
+完整证据与B0–B4计划见[审计记录](../../development/2026-11-13_engine_deep_audit.md)。登记头保持partial；所有生产修复、全量视觉、发行设备/许可/断电/长期项未签。

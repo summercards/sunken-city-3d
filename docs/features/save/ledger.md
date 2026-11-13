@@ -168,3 +168,9 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | SEA-SAVE-R19 | 源码注册稳定DiveSession为原 `dive` 所有者；根v4与 `{found:int[],opened:int[]}`不变，不增map_id必填字段。固定全局宝箱ID、未知ID保留与from_dict全量覆盖已接入；registry.busy_query包含active/switching，直接SaveGame.write同样拒绝中间快照 | `DiveSession.to_dict / from_dict`、`Main._setup_save_registry`、`SnapshotRegistry.is_busy`、`SaveGame.write`；`dive-maps`运行 **pending，待父线程补充** |
 
 本条覆盖潜水数据的旧“未知内容过滤”概述；其他模块规则不变。初填pending为过程，最终R19由`20261107-190643-dive-map-switch-signed-451501`签署：dive-maps312/0、framework52/0、save-seed/save-corrupt-seed/save-protection均exit0且无非预期错误，覆盖旧ID/未知ID、跨图隔离、全量恢复、磁盘往返和潜水直接写盘拒绝；满包奖励原子结算亦通过。未升级根v4、未改dive wire字段、未触玩家真实档。断电/低端设备与所有文件系统未测，状态保持partial。[完整机制与最终结果](../../development/2026-11-07_dive_map_switch.md#10-最终实测与签署)。
+
+## 2026-11-13 存档深度审计（未修复）
+
+补充现行存档校验/保护/恢复/归档/忙门禁条款的反例，不覆写旧验收。基线94ec42e0；动态确认S01候选二楼依当前sunroom现场误收/误拒、S02语义坏主档不回退且可污染bak、S03同root未来NPC模块可覆盖、S04macOS同stamp归档覆盖、S05畸形economy七例脚本异常、S06weather未来版降存、S07未来grow_day冻结、S08房间过场存读允许、S09疲劳窗口可存且新进程不续接强制睡眠。二楼真实攀梯双进程等扩展未执行，不夸大为全平台已复现。
+
+S10–S16为迁移/投影/autosave/reset失败/跨owner事务等静态或待验条目。现有save-protection/reset/framework-integration通过不反驳新增反例；诊断wrapper exit1保留错误，未改生产/根v4/玩家正式档/哈希。优先B1候选上下文、完整可恢复备份择优、模块future、唯一归档及统一稳定态busy，B2再收口事务。逐项位置、方案、验收和真实report见[深度审计记录](../../development/2026-11-13_engine_deep_audit.md)及工程外issues.json。登记头保持partial，不预签修复。
