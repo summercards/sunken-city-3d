@@ -17,6 +17,8 @@ signal entered
 signal exited
 
 var busy := false
+var busy_query: Callable
+var _generation := 0
 var service: Node
 var room: Node3D
 ## ActorController 是 RefCounted（不是 Node），这里不能标 Node 类型。
@@ -40,6 +42,11 @@ var _outdoor_camera := {}
 ## 室外背景的原始设置。用 -1 表示「没接管过」，避免出门时把值写回去当成改动。
 var _outdoor_background_mode := -1
 var _outdoor_background_color := Color.BLACK
+var _bed_wiring_ready := false
+
+
+func _ready() -> void:
+	call_deferred("_ensure_bedside_wiring")
 
 
 func is_inside() -> bool:
@@ -47,16 +54,21 @@ func is_inside() -> bool:
 
 
 func enter(instant := false) -> void:
-	if busy or not is_instance_valid(room) or service == null:
+	if busy or (busy_query.is_valid() and busy_query.call()) or not is_instance_valid(room) or service == null:
 		return
 	if bool(service.inside):
 		return
+	_generation += 1
+	var generation := _generation
 	busy = true
 	if not instant:
 		await curtain.cover_blank()
+	if generation != _generation: return
 	_begin_inside()
+	if generation != _generation: return
 	if not instant:
 		await curtain.uncover_blank()
+	if generation != _generation: return
 	busy = false
 	entered.emit()
 
@@ -67,8 +79,7 @@ func enter(instant := false) -> void:
 func resync_inside() -> void:
 	if service == null or not bool(service.inside):
 		return
-	if busy:
-		return
+	cancel_transition()
 	busy = true
 	_begin_inside()
 	busy = false
@@ -82,31 +93,49 @@ func resync_inside() -> void:
 ## false，但场景里还留着进屋那一刻的状态 —— 世界节点全隐藏、背景全黑。
 ## 没有这一步，读档后就站在一片漆黑里，而且再也恢复不了。
 func resync_outside() -> void:
+	cancel_transition()
 	if service == null:
 		return
 	room.set_active(false)
 	_hide_outdoor(false)
 	_restore_outdoor_environment()
+	if cam.orbit_only: _restore_outdoor_camera()
 	if hud != null:
 		hud.set_room_mode(false)
 
 
 func exit(instant := false) -> void:
-	if busy or service == null or not bool(service.inside):
+	if busy or (busy_query.is_valid() and busy_query.call()) or service == null or not bool(service.inside):
 		return
+	_generation += 1
+	var generation := _generation
 	busy = true
 	if not instant:
 		await curtain.cover_blank()
+	if generation != _generation: return
 	_begin_outside()
+	if generation != _generation: return
 	if not instant:
 		await curtain.uncover_blank()
+	if generation != _generation: return
 	busy = false
 	exited.emit()
 
 
+func cancel_transition() -> void:
+	_generation += 1
+	if busy and is_instance_valid(curtain): curtain.cancel_blank()
+	busy = false
+
+
+func _exit_tree() -> void:
+	cancel_transition()
+
+
 func _begin_inside() -> void:
-	_store_outdoor_camera()
-	_hide_outdoor(true)
+	_ensure_bedside_wiring()
+	if not cam.orbit_only: _store_outdoor_camera()
+	if _hidden.is_empty(): _hide_outdoor(true)
 	_apply_interior_environment()
 	room.set_active(true)
 	room.set_camera(cam)
@@ -188,12 +217,56 @@ func _restore_outdoor_camera() -> void:
 func wake_in_room() -> void:
 	if service == null:
 		return
+	_ensure_bedside_wiring()
+	if service.bedside_candidates().is_empty():
+		actor_controller.notify("床边空间不足，已在安全的前厅入口醒来；请重新布置床铺")
 	var at: Vector3 = room.wake_position()
 	actor_controller.restore_pose({"mode": 0, "player": [at.x, at.y, at.z]})
 	if is_instance_valid(actor_controller.actor):
 		actor_controller.actor.rotation.y = service.facing_yaw()
 	room.apply_layout()
 	_apply_room_camera()
+
+
+func _ensure_bedside_wiring() -> void:
+	if service == null or room == null:
+		return
+	service.room_scale = room.global_basis.get_scale().x
+	if not _bed_wiring_ready:
+		if room.has_method("bed_approach_points"):
+			service.route_query = func(start: Vector2, goal: Vector2) -> Array:
+				var start_world := room.to_global(Vector3(start.x, 0.0, start.y))
+				var goal_world := room.to_global(Vector3(goal.x, 0.0, goal.y))
+				var area = room.area_at(start_world, 0.8)
+				if area == null:
+					return []
+				var route: Array = area.path_between(start_world, goal_world)
+				for index in route.size():
+					route[index] = room.to_local(route[index])
+				return route
+			service.changed.connect(_refresh_bedside_points)
+			_bed_wiring_ready = true
+	_refresh_bedside_points()
+
+
+func _refresh_bedside_points() -> void:
+	if room == null or service == null:
+		return
+	var bed: Node3D = room.get_node_or_null("Furnishings/Bed")
+	if bed == null:
+		return
+	var points: Array = []
+	for candidate: Dictionary in service.bedside_candidates():
+		var local: Vector2 = candidate.point
+		points.append(room.to_global(Vector3(local.x, service.bed_position.y, local.y)))
+	bed.set_approach_points(points)
+	bed.approach_path_query = func(start: Vector3, goal: Vector3) -> Array:
+		var local_start := room.to_local(start)
+		var local_goal := room.to_local(goal)
+		var route: Array = service.bedside_path(Vector2(local_start.x, local_start.z), Vector2(local_goal.x, local_goal.z))
+		for index in route.size():
+			route[index] = room.to_global(route[index])
+		return route
 
 
 ## 室内背景：不画天空盒，画面里没有天空的地方就是纯黑。
@@ -242,7 +315,9 @@ func _hide_outdoor(hidden: bool) -> void:
 			if not is_instance_valid(node):
 				continue
 			if node.has_method("set_interior_hidden"):
+				# 时段消费者拥有可见性；旧屋外快照不能盖掉当前已恢复的时刻。
 				node.set_interior_hidden(false)
-			node.visible = bool(entry.visible)
+			else:
+				node.visible = bool(entry.visible)
 			node.process_mode = int(entry.process)
 		_hidden.clear()

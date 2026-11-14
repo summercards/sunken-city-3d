@@ -305,3 +305,9 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 承接现行目标失效/取消不发奖与一次触发语义。真实Interactor对耗时A开始后，Q循环/隐藏A/移除A三工况均无新触发却执行瞬发B（A0/B1），G01动态确认；_release清焦点但未清acting，动作未独立锁目标。应引入动作target/token并在失效/切目标取消，保留同目标松键自动完成的现行规则；不以回退成长按消除问题。
 
 现有interactor-query-reuse15/0、keyboard-panels81/0等正向通过不覆盖执行中换目标。未修改生产；旧selected_command复活、实际物品/体力副作用仍待扩展。位置、方案、验收与原始日志见[深审记录](../../development/2026-11-13_engine_deep_audit.md)及工程外G01登记。
+
+## 2026-11-13 B1 动作目标修复（覆盖上方未修复状态）
+
+承接 R02/R04/R05/R24：进行中锁 action_target/generation，换焦点或目标隐藏、出树、销毁、禁用、不可达/越距取消动作及旧命令；不把新焦点交给旧动作完成。保留同目标自动接近及松键完成，防同步进度回调取消后误结算。
+
+正式新增 `test_interactor_action_target.gd` / runner `interactor-action-target`：最终41/0、exit0；旧代次同目标、旧命令不复活、九种取消工况及完成回调重入均覆盖。最终合批 query-reuse15/0、facing118/0、reach36/0、keyboard-farm-loop636/0、framework52/0，全部exit0。最初新测试38/1为扫描夹具未复位朝向，修正后38/0，再扩展41/0；历史失败保留。报告与边界见[开发记录](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。本批无真实渲染，不签全物品/体力副作用矩阵。

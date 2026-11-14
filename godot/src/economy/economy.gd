@@ -47,6 +47,17 @@ var tracked_goal: String:
 	get: return goals.tracked_goal
 	set(value): goals.tracked_goal = value
 var inventory: RefCounted
+var _transaction_busy := false
+
+func is_busy() -> bool:
+	if _transaction_busy: return true
+	if inventory != null and inventory.has_method("is_busy") and inventory.is_busy(): return true
+	for service in [storage, construction, facility, ship, salvage, fishery, sunroom]:
+		if service != null and service.has_method("is_busy") and service.is_busy(): return true
+	if farm != null and farm.has_method("is_busy") and farm.is_busy(): return true
+	if orders != null and orders.has_method("is_busy") and orders.is_busy(): return true
+	return false
+
 ## 体力与疲劳（SEA-ENERGY）。状态归 EnergyModel，这里只装配与转发自动。
 var energy = preload("res://src/energy/energy_service.gd").new()
 ## 家园补给站 → 渔场的升级状态（SEA-AQUA）。只拥有「升没升过」这一位。
@@ -139,6 +150,7 @@ func _ready() -> void:
 	var farm_ports = preload("res://src/farming/farming_ports.gd").new()
 	farm_ports.inventory = inventory
 	farm_ports.pay = pay
+	farm_ports.exchange = inventory.exchange
 	farm_ports.give = give
 	farm_ports.has_greenhouse = func() -> bool: return not Scope.minimal() and facility_unlocked("greenhouse")
 	farm_ports.access_reason = _farm_access_reason
@@ -205,6 +217,14 @@ func commit_salvage(now: float, haul: Dictionary) -> Dictionary:
 	return salvage.commit_salvage(now, haul)
 
 
+func commit_salvage_result(now: float, haul: Dictionary) -> Dictionary:
+	return salvage.commit_salvage_result(now, haul)
+
+
+func salvage_result() -> Dictionary:
+	return salvage.last_result()
+
+
 ## 旧接口（一次性产出 3 木 2 零件），保留给自检与老调用；新流程走 commit_salvage。
 func do_salvage(now: float) -> Dictionary:
 	return salvage.do_salvage(now)
@@ -246,10 +266,14 @@ func missing(cost: Dictionary) -> Dictionary:
 
 
 func pay(cost: Dictionary) -> bool:
-	if not _inv().pay(cost):
+	if _transaction_busy or (inventory != null and inventory.is_busy()):
 		return false
-	resources_changed.emit()
-	return true
+	_transaction_busy = true
+	var ok: bool = bool(_inv().pay(cost))
+	if ok:
+		resources_changed.emit()
+	_transaction_busy = false
+	return ok
 
 
 ## 缺口的可读文案：「还差 木料×2  零件×1」。
@@ -443,7 +467,8 @@ func _configure_services() -> void:
 	goals.configure({"facility_unlocked":facility.facility_unlocked, "site_level":construction.site_level, "ship_cost":ship.ship_cost, "site_next_cost":construction.site_next_cost, "ship_level":func() -> int: return ship.ship_level})
 	goals.SITES = SITES.duplicate(true)
 	goals.FACILITIES = FACILITIES.duplicate(true)
-	salvage.configure({"give":give})
+	# 打捞必须一次性进入背包；逐物品 give 会在 changed 回调期间暴露半笔状态。
+	salvage.configure({"receive_all":inventory.add_all})
 	# 渔场升级按「背包 + 仓库」一起算，与建造材料同一条口径：
 	# 100 块木板塞不进 24 格背包，只认背包等于永远升不了。
 	fishery.configure({"count":storage.construction_count,

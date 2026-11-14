@@ -520,14 +520,21 @@ func fishing_case() -> void:
 
 func save_frame(stage: String) -> void:
 	# 调用者已等待真实绘制；headless 永远不进入截图路径。
-	var image: Image = root.get_texture().get_image()
+	var texture := root.get_texture()
+	# canvas_items 的逻辑视口经 stretch 后才是渲染像素；不从待验 Image 反推尺寸。
+	var capture_size := Vector2i((root.get_visible_rect().size * root.get_stretch_transform().get_scale()).round())
+	var image: Image = texture.get_image()
 	var path := "res://outputs/quick-tools-" + stage + ".png"
 	var valid := image != null and not image.is_empty()
 	check(valid, "真实渲染图非空：" + stage)
 	if not valid: return
-	check(image.get_size() == root.size, "截图像素尺寸匹配窗口：" + stage)
+	check(capture_size.x > 0 and capture_size.y > 0
+		and image.get_size() == capture_size,
+		"截图像素尺寸匹配当前 viewport：%s expected=%s actual=%s" % [stage, capture_size, image.get_size()])
 	check(image.save_png(ProjectSettings.globalize_path(path)) == OK, "真实 PNG 保存：" + stage)
-	print("[quick-tools-shot] ", ProjectSettings.globalize_path(path))
+	print("[quick-tools-shot] ", ProjectSettings.globalize_path(path),
+		" window=", DisplayServer.window_get_size(root.get_window_id()),
+		" viewport=", capture_size, " image=", image.get_size())
 
 func capture(stage: String) -> void:
 	if not real_renderer: return

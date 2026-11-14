@@ -15,7 +15,11 @@ var pending := 0
 var _clock_hour := -1.0
 var _next_hour := -1.0
 var _collecting := false
+var _busy := false
 var ports: Dictionary = {}
+
+func is_busy() -> bool:
+	return _busy or _collecting
 
 func configure(boundary: Dictionary) -> void:
 	for key in ["count", "pay", "missing_text"]:
@@ -44,13 +48,17 @@ func can_upgrade() -> bool:
 	return reason() == ""
 
 func upgrade() -> Dictionary:
+	if _busy: return {"blocked":"渔场正在结算"}
 	var blocked := reason()
 	if blocked != "": return {"blocked": blocked}
+	_busy = true
 	if not bool(ports.pay.call(COST.duplicate(true))):
+		_busy = false
 		return {"blocked": "材料不足，先补齐木板和鱼"}
 	unlocked = true
 	_next_hour = _clock_hour + INTERVAL_HOURS if _clock_hour >= 0 else -1.0
 	changed.emit()
+	_busy = false
 	return {"message": "补给站改成了渔场", "event": "fishery_unlocked"}
 
 func observe(snapshot: Dictionary) -> void:
@@ -78,18 +86,22 @@ func harvest_reason() -> String:
 	return ""
 
 func harvest() -> Dictionary:
-	if _collecting: return {"blocked":"正在收获"}
+	if _busy or _collecting: return {"blocked":"正在收获"}
 	var blocked := harvest_reason()
 	if blocked != "": return {"blocked":blocked}
 	if not ports.has("receive"): return {"blocked":"暂时无法收获"}
+	_busy = true
 	_collecting = true
 	var amount := pending
 	# add_all is atomic: overflow never consumes any accumulated catch.
 	var received := bool(ports.receive.call({"fish":amount}))
 	if received: pending = 0
 	_collecting = false
-	if not received: return {"blocked":"背包空间不足，先整理背包再收获"}
+	if not received:
+		_busy = false
+		return {"blocked":"背包空间不足，先整理背包再收获"}
 	changed.emit()
+	_busy = false
 	return {"event":"fishery_harvested","fish":amount,"message":"渔场收获 · 鱼 +%d" % amount}
 
 func to_dict() -> Dictionary:

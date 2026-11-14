@@ -20,7 +20,10 @@ func catalog() -> Dictionary: return Catalog.RECIPES.duplicate(true)
 func query() -> Array: return _rows.duplicate(true)
 func busy() -> bool: return _committing
 func context_reason() -> String:
-	return _ports.eligibility.call() if _ports.has("eligibility") else "建造未就绪"
+	var drift:=Catalog.content_reason()
+	if drift!="": return drift
+	var reason: String=_ports.eligibility.call() if _ports.has("eligibility") else "建造未就绪"
+	return reason if reason!="" else Catalog.content_reason()
 func row(id: String) -> Dictionary:
 	return (_by_id.get(id,{}) as Dictionary).duplicate(true)
 
@@ -56,6 +59,8 @@ func candidates() -> Array:
 	return result
 
 func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
+	var drift:=Catalog.content_reason()
+	if drift!="": return drift
 	var kind := str(request.get("kind",""))
 	if not Catalog.RECIPES.has(kind): return "未知配方"
 	if request.has("positioned") and (kind!="deck" or not request.positioned is bool): return "木板定位格式无效"
@@ -116,6 +121,8 @@ func _proposed(request: Dictionary, operation: String, id: String) -> Array:
 	return Assembly.rebind_supports(result) if operation=="remove" else result
 
 func _layout_reason(request: Dictionary, operation: String, id: String) -> String:
+	var drift:=Catalog.verify_content()
+	if drift!="": return drift
 	var context: Dictionary=request.duplicate(true)
 	context.operation=operation
 	context.id=id
@@ -125,14 +132,19 @@ func _layout_reason(request: Dictionary, operation: String, id: String) -> Strin
 	if _ports.has("capacity_reason") and _ports.capacity_reason.is_valid():
 		var capacity_error: String=_ports.capacity_reason.call(proposed)
 		if capacity_error!="": return capacity_error
-	if not _ports.has("layout_reason") or not _ports.layout_reason.is_valid(): return ""
-	return _ports.layout_reason.call(query(),proposed,context)
+		drift=Catalog.verify_content()
+		if drift!="": return drift
+	if not _ports.has("layout_reason") or not _ports.layout_reason.is_valid(): return Catalog.verify_content()
+	var reason: String=_ports.layout_reason.call(query(),proposed,context)
+	return reason if reason!="" else Catalog.verify_content()
 
 static func _layout_bytes(rows: Array, sequence: int) -> int:
 	# Include the module nesting used by SaveGame's tab-indented serialization.
 	return JSON.stringify({"building":{"version":1,"next_id":sequence,"instances":rows}},"\t").to_utf8_buffer().size()
 
 func can_place(request: Dictionary) -> String:
+	var drift:=Catalog.verify_content()
+	if drift!="": return drift
 	var reason := context_reason()
 	if reason!="": return reason
 	reason=geometry_reason(request)
@@ -143,14 +155,16 @@ func can_place(request: Dictionary) -> String:
 	if excluded!="": return _layout_reason(request,"move",excluded)
 	return _layout_reason(request,"begin","built_%d"%_next_id)
 
-## Cheap unselected frontier hint. The selected preview and every command must
-## still use can_place/can_move, including capacity and full layout contracts.
+## 轻预览仍逐字段检查公开目录，但不复制或序列化全目录/布局。
+## 显式 full 预览与真实命令使用 can_place/can_move，包含完整目录和布局校验。
 func preview_reason(request: Dictionary, full_layout: bool=false) -> String:
 	if full_layout: return can_place(request)
 	var reason:=context_reason()
 	if reason!="": return reason
 	reason=geometry_reason(request)
-	return reason if reason!="" else str(_ports.space_reason.call(request))
+	if reason!="": return reason
+	reason=str(_ports.space_reason.call(request))
+	return reason if reason!="" else Catalog.content_reason()
 
 ## Near an outer edge, snap back inside the whole wooden surface. The precision
 ## mode supplies its own position; exact old save coordinates are never rounded.
@@ -182,12 +196,16 @@ func snap_planter(request: Dictionary) -> Dictionary:
 
 func begin(request: Dictionary) -> Dictionary:
 	if _committing: return {"ok":false,"reason":"正在提交建造"}
+	var reason:=Catalog.verify_content()
+	if reason!="": return {"ok":false,"reason":reason}
 	if str(request.get("exclude_id",""))!="": return {"ok":false,"reason":"搬移请使用搬移命令"}
 	if not Catalog.api_enabled(str(request.get("kind",""))): return {"ok":false,"reason":"该配方已停用"}
-	var reason := can_place(request)
+	reason=can_place(request)
 	if reason!="": return {"ok":false,"reason":reason}
 	var tired := _energy_blocked("build")
 	if tired!="": return {"ok":false,"reason":tired}
+	reason=Catalog.verify_content()
+	if reason!="": return {"ok":false,"reason":reason}
 	var recipe: Dictionary=Catalog.RECIPES[request.kind]
 	_committing=true
 	if not _ports.pay.call(recipe.cost.duplicate(true)):
@@ -210,6 +228,8 @@ func _spend_energy(action: String) -> void:
 	if _ports.has("spend_energy") and _ports.spend_energy.is_valid(): _ports.spend_energy.call(action)
 
 func can_move(id: String, request: Dictionary) -> String:
+	var drift:=Catalog.verify_content()
+	if drift!="": return drift
 	var item: Dictionary=_by_id.get(id,{})
 	if item.is_empty(): return "摆件已经不存在"
 	if item.left>0.0: return "施工完成后才能搬移"
@@ -226,6 +246,8 @@ func move(id: String, request: Dictionary) -> Dictionary:
 	if reason!="": return {"ok":false,"reason":reason}
 	var tired:=_energy_blocked("move")
 	if tired!="": return {"ok":false,"reason":tired}
+	reason=Catalog.verify_content()
+	if reason!="": return {"ok":false,"reason":reason}
 	_committing=true
 	_spend_energy("move")
 	var target: Dictionary=_by_id[id]
@@ -239,6 +261,8 @@ func move(id: String, request: Dictionary) -> Dictionary:
 	return {"ok":true,"id":id}
 
 func can_remove(id: String) -> String:
+	var drift:=Catalog.verify_content()
+	if drift!="": return drift
 	var reason:=context_reason()
 	if reason!="": return reason
 	var item: Dictionary=_by_id.get(id,{})
@@ -265,6 +289,8 @@ func remove(id: String) -> Dictionary:
 	if not _ports.has("refund") or not _ports.refund.is_valid(): return {"ok":false,"reason":"回收材料服务未就绪"}
 	var tired:=_energy_blocked("remove")
 	if tired!="": return {"ok":false,"reason":tired}
+	reason=Catalog.verify_content()
+	if reason!="": return {"ok":false,"reason":reason}
 	var item: Dictionary=_by_id[id]
 	var cost: Dictionary=Catalog.RECIPES[item.kind].cost.duplicate(true)
 	_committing=true
@@ -278,6 +304,8 @@ func remove(id: String) -> Dictionary:
 	return {"ok":true,"id":id,"refund":cost}
 
 func tick(delta: float) -> void:
+	# 公开目录没有可追踪写入代次；逐字段检查，不复用上一帧的安全结论。
+	if Catalog.content_reason()!="": return
 	var done: Array[String]=[]
 	for item in _rows:
 		if item.left<=0: continue
@@ -296,6 +324,8 @@ func from_dict(data: Dictionary) -> bool:
 static func empty_snapshot() -> Dictionary: return {"version":1,"next_id":1,"instances":[]}
 
 static func validate_snapshot(data: Dictionary) -> String:
+	var drift:=Catalog.verify_content()
+	if drift!="": return drift
 	if data.get("version")!=1 or not data.get("instances") is Array: return "Invalid building snapshot"
 	var sequence: Variant=data.get("next_id")
 	if not (sequence is float or sequence is int) or not is_finite(float(sequence)) or sequence<1 or sequence!=floor(sequence):

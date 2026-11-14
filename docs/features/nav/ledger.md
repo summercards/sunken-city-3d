@@ -267,3 +267,18 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 ## 2026-11-11 阳光房走域补充
 
 `sunroom-runtime` 20 项锁定阳光房的三段连续性：下层甲板到梯脚、梯顶到二楼内部、下梯返回一楼；同时锁定二楼实际 `path_between` 非空，而不是只检查 `sunroom_upper_deck.active`。阳光房下层新增梯脚通行带，竖直段仍由特殊攀爬动作负责，不把梯子伪装成普通导航面。证据：`D:/projects/sea-work/verification/20261111-150345-verification-e20c4c`。
+
+## 2026-11-14 B4 Q04 导航与采集诊断承接
+
+`ground-space`、`character-motor`、`interaction-reach`、`probe-gather-reach`、`neon-roof-access`、`walk-deck-fit`均exit0。当前日志仍报告Recast将0.22m角色半径按0.05m cell向上取整，以及`zone2_glass`表格点吸附到当前有效走面约(-26.000, 2.704, -19.800)；probe显示该点步行约8m且可达。未修改胶囊、体素、用户位置或采集表坐标；零警告和完整窄路/设备验收仍待后续，登记头partial保持。
+
+## 2026-11-14 B4 Q04 最新工程外回归与边界收尾
+
+承接SEA-NAV-R01/R04/R21/R23/R24，保留既有通行/泊位规则与partial登记头，不把诊断吸附坐标变成新摆位硬断言；用户TSCN位置仍是唯一真值。[审计收尾与完整退出码](../../development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)及[质量账本](../quality/ledger.md)统一记录失败、预期故障和未执行项。
+
+- 最新工程外`/Users/zyq/work/sea-work/b4-validation-closeout-20261114/verification/20261114-123746-b4-closeout-q04-5e801d/report.json`：`ground-space`37/0、`character-motor`42/0、`interaction-reach`36/0、`probe-gather-reach`无数值终局但诊断完成、`neon-roof-access`41/0、`walk-deck-fit`16/0；六入口各engine0/runner0、完成标记为true，均headless，不签真实视觉或全部窄路/全航线。
+- 同证据根摘要`b4-validation-summary.{md,json}`记录tooling87/87、material params 10登记/51文件、架构25/0、摆位6/0、diff-check exit0。agent_radius/zone2_glass及视觉2D MSAA警告仍保留；本次不改胶囊、体素、采集表、导航数据或用户Transform来消警告。
+- Q03槽位、D05只读闭包、A08采样协议及quick尺寸夹具修复266/0均属B4安全子集，早批room/gift/workshop入口exit0不等于全批通过。最新首轮123153的quick102/2、engine1与room engine124仍为FAIL；无改动独立124023 quick266/0、124128 room均engine0/runner0，仅说明可复测通过，不签稳定性。gift首轮自身engine0、53/0，但整批runner1；用户补充后续独立视觉通过，当前摘要未附该独立report/退出码，本次不虚填路径、不冒充重跑。
+- 当前`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`已为124724及124828–124832重跑：unit engine0/runner0，intent/archive/replace/commit/future五seed engine-9/runner1、预期SIGKILL，五recover engine0/runner0；只证明进程中断恢复，不宣称物理断电、目录fsync、磁盘满或并发同槽。
+
+B3已有10逻辑入口及management minimal/full-world双profile各exit0，治理31/31、架构25/0、摆位6/0、diff-check exit0；契约最近实跑仍sync535/check536 issues、均exit1，本次只读回填、未重跑契约。D05无发行输入及A08无真实输入均UNEXECUTED/exit2；B4仍未完成真实发行包/许可、设备/跨平台和长期矩阵，审计无B5，不签零警告或全工程绿。本次只追加六份文档，不改生产代码、测试、资产、runner、登记头、哈希、派生索引或事务文件，不启动Godot或sync。

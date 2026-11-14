@@ -86,6 +86,22 @@ func run() -> void:
 	await _keyboard()
 	_reentrant_callbacks()
 	_boundary_and_isolation()
+	panel.configure(ports.query, ports.perform)
+	for i in 3:
+		panel.open_service("npc_nan_zhi", "building")
+		var stale: Callable = button("open_building").pressed.get_connections()[0].callable
+		var before := ports.commands.size()
+		root.remove_child(panel)
+		check(not panel.open_service("npc_nan_zhi", "building").ok, "挂起拒绝打开")
+		root.add_child(panel)
+		panel.resume()
+		stale.call()
+		check(ports.commands.size() == before, "返树后旧按钮不执行")
+		check(panel.open_service("npc_nan_zhi", "building").ok, "返树后保留查询端口")
+		press("open_building")
+		check(ports.commands.size() == before + 1, "返树命令执行一次，无重复接线")
+	panel.dispose()
+	check(not panel._query.is_valid() and not panel._perform.is_valid(), "最终销毁清端口")
 	panel.close()
 	panel.free()
 	panel = null

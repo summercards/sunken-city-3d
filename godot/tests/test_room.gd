@@ -11,6 +11,19 @@ var room
 var service
 var rc
 var gs
+var stable_snapshot: Dictionary
+var gate_phases: Array[String] = []
+const Save = preload("res://src/save/save_game.gd")
+
+func verify_gate(phase: String) -> void:
+	if phase not in ["closing", "closed", "opening"] or not rc.busy: return
+	gate_phases.append(phase)
+	check(main.save_registry.is_busy(), phase + " 进入统一 busy")
+	check(main.save_registry.capture().is_empty(), phase + " capture 拒绝")
+	check(not Save.write("user://room-busy.json", main).ok, phase + " write 拒绝")
+	check(not Save.restore(main, stable_snapshot).ok, phase + " restore 拒绝")
+	check(not main.reset_save("user://room-busy.json").ok, phase + " reset 拒绝")
+	check(not FileAccess.file_exists("user://room-busy.json"), phase + " 不写文件")
 
 
 func _init() -> void:
@@ -62,6 +75,78 @@ func _glass_material(component: Node) -> ShaderMaterial:
 	return null
 
 
+func verify_bed_snapshot(label: String, position: Vector3, yaw: float) -> void:
+	var result: Dictionary = service.place_bed(position, yaw)
+	check(result.ok, label + " 布置成功")
+	if not result.ok:
+		return
+	var snapshot: Dictionary = service.to_dict()
+	check(service.validate_snapshot(snapshot) == "", label + " 成功状态通过同一快照校验")
+	check(result.position == service.bed_position and result.yaw == service.bed_yaw,
+		label + " 返回值就是提交值")
+	var copied = preload("res://src/room/room_service.gd").new()
+	copied.from_dict(snapshot)
+	check(copied.to_dict() == snapshot, label + " 恢复不静默夹改位置")
+	var written: Dictionary = Save.write("user://room-layout-boundaries.json", main)
+	check(written.ok, label + " 正式写盘成功")
+	if written.ok:
+		var read: Dictionary = Save.read("user://room-layout-boundaries.json", main.save_registry)
+		check(read.ok and service.validate_snapshot(read.snapshot.room) == "", label + " 正式读盘通过同一快照校验")
+		if read.ok:
+			copied.from_dict(read.snapshot.room)
+			# Vector3 按引擎精度逐值相等；JSON 的双精度 yaw 只容忍序列化末位舍入。
+			check(copied.bed_position == result.position and absf(copied.bed_yaw - result.yaw) < 1.0e-12
+				and copied.inside == service.inside, label + " 正式读盘保留提交布局")
+	copied.free()
+
+
+func verify_bed_boundaries() -> void:
+	check(service.validate_snapshot(service.to_dict()) == "", "默认床快照合法")
+	verify_bed_snapshot("默认床", service.DEFAULT_BED, service.DEFAULT_YAW)
+	var observed: Array = []
+	var on_changed := func(): observed.append(service.validate_snapshot(service.to_dict()))
+	service.changed.connect(on_changed)
+	for yaw in [0.0, PI / 2.0, PI, -PI / 2.0, PI / 4.0, -PI / 4.0, TAU + PI / 4.0, 1.0e20]:
+		var normalized := wrapf(yaw, -PI, PI)
+		var limits: Rect2 = service.bed_limits(normalized)
+		for point in [Vector2(limits.position.x, 0.0), Vector2(limits.end.x, 0.0),
+				Vector2(0.0, limits.position.y), Vector2(0.0, limits.end.y),
+				limits.position, limits.end, Vector2(limits.position.x, limits.end.y),
+				Vector2(limits.end.x, limits.position.y)]:
+			var requested := Vector3(point.x, 0.0, point.y)
+			var unobstructed: bool = service._overlap_reason(point, normalized) == ""
+			verify_bed_snapshot("边界 yaw=%s point=%s" % [yaw, point], requested, yaw)
+			if unobstructed:
+				check(service.bed_position == requested, "可用边界原值提交，不向内偷偷挪位")
+		verify_bed_snapshot("旋转超界夹回", Vector3(-99.0, 0.0, 99.0), yaw)
+		verify_bed_snapshot("旋转陈设滑位", Vector3(-0.95, 0.0, -2.29), yaw)
+	check(not observed.is_empty() and observed.all(func(error): return error == ""),
+		"changed 观察者只看到可保存的最终状态")
+	service.changed.disconnect(on_changed)
+	var limits: Rect2 = service.bed_limits(0.0)
+	# 与生产约定同为 1e-6 米；不依赖生产常量，以免实现改大容差时测试跟着放行。
+	for offset in [0.0, -0.5e-6, -4.0e-6]:
+		var snapshot: Dictionary = service.to_dict()
+		snapshot.bed = {"position": [limits.position.x + offset, 0.0, 0.0], "yaw": 0.0}
+		var accepted: bool = service.validate_snapshot(snapshot) == ""
+		check(accepted == (offset >= -1.0e-6), "闭区间下界只接受明确浮点容差")
+		if accepted:
+			service.from_dict(snapshot)
+			check(service.bed_position == Vector3(float(snapshot.bed.position[0]), 0.0, float(snapshot.bed.position[2])),
+				"容差内恢复保留原值，不靠夹改掩盖差异")
+	for offset in [0.0, 0.5e-6, 4.0e-6]:
+		var snapshot: Dictionary = service.to_dict()
+		snapshot.bed = {"position": [limits.position.x, 0.0, limits.end.y + offset], "yaw": 0.0}
+		check((service.validate_snapshot(snapshot) == "") == (offset <= 1.0e-6),
+			"闭区间上界只接受明确浮点容差")
+	var before: Dictionary = service.to_dict()
+	for invalid in [[Vector3(INF, 0.0, 0.0), 0.0], [Vector3(0.0, NAN, 0.0), 0.0],
+			[Vector3.ZERO, INF], [Vector3.ZERO, NAN]]:
+		check(not service.place_bed(invalid[0], invalid[1]).ok and service.to_dict() == before,
+			"非有限输入拒绝且不改现场")
+	service.reset()
+
+
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
@@ -75,6 +160,7 @@ func run() -> void:
 	service = main.room_service
 	rc = main.room_controller
 	gs = root.get_node("GameState")
+	verify_bed_boundaries()
 
 	# ---- 结构 -----------------------------------------------------------------
 	check(room != null and main._zone_nodes.get("room") == room, "房间作为区块登记（zone_id=room）")
@@ -104,6 +190,8 @@ func run() -> void:
 	check(not exit_point.is_in_group("interactable"), "屋外时出门热区不在交互组")
 	check(not main._outdoor_nodes().is_empty() and not main._outdoor_nodes().has(room), "室外收起名单不含房间本身")
 
+	stable_snapshot = Save.encode(main)
+	main.sleep_curtain.phase_changed.connect(verify_gate)
 	# ---- 从门口进屋：点得到、走得到、圆幕无文字 ---------------------------------
 	main.restore_world_state({"zone": "zone1", "landing": "main", "mode": 0,
 		"player": [8.35, 1.38, 10.6], "far_sea": false})
@@ -363,6 +451,9 @@ func run() -> void:
 	check(main.player.global_position.distance_to(rc.exit_position) < 1.2, "角色站回太阳房门口")
 	check(main.validate_world_state(main.capture_world_state()) == "", "出门后的世界状态合法")
 
+	check(gate_phases.count("closing") == 2 and gate_phases.count("closed") == 2 and gate_phases.count("opening") == 2, "进出三阶段均检查公开 API 门禁")
+	main.sleep_curtain.phase_changed.disconnect(verify_gate)
+	check(not main.save_registry.is_busy(), "房间过场后解除统一 busy")
 	# ---- 床铺布置：位置/朝向由状态拥有，能夹取、能拒绝 ---------------------------
 	var placed: Dictionary = service.place_bed(Vector3(0.9, 0.0, -0.9), PI / 2.0)
 	check(placed.ok, "床可以搬到别处并旋转")

@@ -29,7 +29,7 @@ static func schemas() -> Dictionary:
 	var boat := vector.duplicate(true)
 	boat.sizes = [0,4]
 	return {
-		"profile":object({}),
+		"profile":object({"version":integer(1,1)}),
 		# No gameplay instance limit. The storage layer's byte budget and the
 		# building admission policy protect actual serialized capacity together.
 		"building":object({"version":integer(1,1),"next_id":{"type":"integer","min":1},
@@ -67,9 +67,35 @@ static func schemas() -> Dictionary:
 		"gather":map(number()),"dive":object({"found":list_of(integer()),"opened":list_of(integer())},["found","opened"]),
 		"salvage":object({"left":number()},["left"]),
 		"time":object({"day":integer(1),"seconds":number(0,86399.999999),"day_length":number(60,86400)},["day","seconds","day_length"]),
-		"weather":object({"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"]),
+		"weather":object({"version":integer(1,2),"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"]),
 		"npc":object({"version":integer(1,1),"graph":object({"met":map({"type":"bool"}),"affinity":map(integer(0,1000)),"last_talk_day":map(integer(-1,1000000000)),"gift_week":map({"type":"string"}),"gift_count":map(integer(0,100)),"edge_deltas":map(integer(-1000,1000))},["met","affinity","last_talk_day","gift_week","gift_count","edge_deltas"]),"seen_events":object({}),"choice_flags":object({}),"request_states":object({})},["version","graph","seen_events","choice_flags","request_states"])
 	}
+# 只把有限整数且高于已知上限的版本视为未来；普通坏类型仍走结构拒绝。
+static func future_error(data: Dictionary) -> String:
+	var root_error := _future_in(data, object({"version":integer(4,4)}), "")
+	if root_error != "": return root_error
+	return _future_in(data, object(schemas()), "")
+
+static func _future_in(value: Variant, rule: Dictionary, path: String) -> String:
+	if not value is Dictionary: return ""
+	var fields: Dictionary = rule.get("fields", {})
+	for key in fields:
+		if not value.has(key): continue
+		var child_path := path + "." + str(key) if path != "" else str(key)
+		var child: Variant = value[key]
+		if key == "version" and fields[key].has("max"):
+			if (child is int or child is float) and is_finite(float(child)) and float(child) == floor(float(child)) and child > fields[key].max:
+				return child_path + " 比当前游戏新，已保护原档"
+		var error := _future_in(child, fields[key], child_path)
+		if error != "": return error
+	return ""
+
+static func validate_result(data: Dictionary) -> Dictionary:
+	var future := future_error(data)
+	if future != "": return {"ok":false,"reason":future,"future":true}
+	var error := validate(data)
+	return {"ok":error == "","reason":error}
+
 static func validate(data: Dictionary) -> String:
 	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(4,4),"version")
 	if version_error != "": return version_error
@@ -87,6 +113,13 @@ static func validate(data: Dictionary) -> String:
 	if data.has("npc"):
 		var npc_error: String = preload("res://src/npc/npc_save_codec.gd").validate(data.npc)
 		if npc_error != "": return npc_error
+		for key in ["last_talk_day", "last_gift_day", "birthday_gift_day"]:
+			for day in data.npc.graph[key].values():
+				if day > data.time.day: return "Future NPC date: " + key
+		for event in data.npc.seen_events.values():
+			if event.day > data.time.day: return "Future NPC event date"
+		for request in data.npc.request_states.values():
+			if request.opened_day > data.time.day or request.get("completed_day", -1) > data.time.day: return "Future NPC request date"
 	var fishery_error: String = preload("res://src/aqua/fishery_service.gd").validate_snapshot(data.economy.get("fishery",{}),(int(data.time.day)-1)*24.0+float(data.time.seconds)/3600.0)
 	if fishery_error != "": return fishery_error
 	# Schema 只守字段类型；阶段与兼容旗标的一致性由阳光房状态所有者再守一遍。
@@ -138,7 +171,10 @@ static func validate(data: Dictionary) -> String:
 					if parts.size()!=4 or not parts[0].is_valid_int() or not parts[1].is_valid_int() or not parts[3].is_valid_int(): return "Invalid live ocean slot"
 					if parts[2]!=("wood" if item.has("kind") else "fish") or int(parts[3])<0 or int(parts[3])>=9: return "Invalid live ocean resource kind"
 					slots[slot] = true
-	for plot in data.economy.farm.plots.values():
+	# 生长在醒来换天时推进，不受 07:00 出货水位线限制；允许落后，不允许领先候选时钟。
+	var farm: Dictionary = data.economy.farm
+	if farm.day > data.time.day or farm.get("grow_day", farm.day) > data.time.day: return "Future farm watermark"
+	for plot in farm.plots.values():
 		if plot.remaining > plot.total: return "Invalid crop timer"
 		if plot.crop != "" and plot.total <= 0.0: return "Planted crop requires positive duration"
 	if data.economy.has("daily_loop"):

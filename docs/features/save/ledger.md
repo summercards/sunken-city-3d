@@ -174,3 +174,23 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 补充现行存档校验/保护/恢复/归档/忙门禁条款的反例，不覆写旧验收。基线94ec42e0；动态确认S01候选二楼依当前sunroom现场误收/误拒、S02语义坏主档不回退且可污染bak、S03同root未来NPC模块可覆盖、S04macOS同stamp归档覆盖、S05畸形economy七例脚本异常、S06weather未来版降存、S07未来grow_day冻结、S08房间过场存读允许、S09疲劳窗口可存且新进程不续接强制睡眠。二楼真实攀梯双进程等扩展未执行，不夸大为全平台已复现。
 
 S10–S16为迁移/投影/autosave/reset失败/跨owner事务等静态或待验条目。现有save-protection/reset/framework-integration通过不反驳新增反例；诊断wrapper exit1保留错误，未改生产/根v4/玩家正式档/哈希。优先B1候选上下文、完整可恢复备份择优、模块future、唯一归档及统一稳定态busy，B2再收口事务。逐项位置、方案、验收和真实report见[深度审计记录](../../development/2026-11-13_engine_deep_audit.md)及工程外issues.json。登记头保持partial，不预签修复。
+
+## 2026-11-13 B1 存档保护实施回填
+
+承接上方审计反例，记录本轮实际修复：decode在economy解引用前做基础守卫；Schema.future_error传播root/模块未来版本并区分普通坏类型；weather/profile版本、NPC日期、farm/grow_day水位线纳入验证；v0/v1旧农田日次迁移；语义读档通过完整SnapshotRegistry择优，坏主档不污染有效bak；archive固定stamp生成唯一后缀并检查回滚；Main.load_game使用read_recoverable。根v4与既有模块字段保持。
+
+新增`save-boundaries`独立runner，覆盖畸形economy回退、未来模块主/bak保护、旧迁移、天气版本、农田水位线、NPC日期、缺room一致性、语义坏档/bak与归档唯一性。首次挂在save-reset造成exit124，拆分后报告 `/Users/zyq/work/sea-work/verification/20261113-163754-b01-save-boundaries-20261113-c5098f` **exit0**。save-corrupt-seed/save-protection/save-reset/save-seed/framework-integration及B0/B1最终合批均exit0。
+
+未执行：真实断电/磁盘满/跨平台文件系统、全量模块未来矩阵以外的发行包、跨进程零体力恢复、并发写同槽；不能以本批headless通过签署这些边界。B1未改玩家正式档、根v4、资产哈希或main.tscn。全局契约在当前工作区仍exit1/531（sync）与exit1/532（check），不预签SEA-SAVE整体verified。
+
+## 2026-11-14 B2 业务事务与空间修复承接
+
+承接SEA-SAVE-R01/R04/R05/R06/R09/R14及room兼容：S10复用B1共用迁移；S11恢复纯消费者不重放clock/weather事件；S12临时保护与自动保存意愿分离、成功显式load接管替代槽，不开启nosave/capture/测试禁用。S14现行reset为staging→intent→复制SHA校验旧字节归档→apply→按实际完成态再stage→replace→commit，不再先改名移走原槽。pending启动恢复、空槽intent、失败磁盘/内存回滚与可选非持久memento、单写者/同文件系统及非断电保证按spec文末现行覆盖。
+
+S15/S16：Registry识别apply显式失败，回滚后不发restored；业务busy拒绝中间capture/write/restore，NPC.to_dict纯读不取消会话，成功restore清会话、失败还原memento，不新增wire。专项A五项PASS/exit0，reset-atomic98/0、transactions103/0；集成B save-boundaries168/0、save-reset195/0、framework52/0，但save-protection旧断言仍exit1，新断言补跑待父。早批五SIGKILL必须保留引擎-9/runner1，不签memento修订后当前字节跨进程。视觉、最终契约均待父追加；登记头partial原样。
+
+[主记录：11项代码、报告与未决占位](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。本次只在文末回填，不执行Godot/checker/sync，不重签资源哈希。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436生产5项全PASS/exit0；相关transactions103/0、reset98/0，005741 save-boundaries168/0、save-reset195/0、framework52/0均exit0；010438修订save-protection实际保护/倒计时冻结行为门禁PASS/exit0，旧失败保留。
+- 当前字节012203重置矩阵unit0、五seed引擎-9/runner1为预期SIGKILL、五recover0、外层0，详见`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`；仅签同机进程中断。契约sync532/check533 issues均exit1，未写派生/刷hash；设备断电、磁盘满、并发写未签，登记头不变。

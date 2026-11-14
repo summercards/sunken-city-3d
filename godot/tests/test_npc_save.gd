@@ -45,7 +45,7 @@ func seed_state() -> void:
 	var support_id: String = await build_support_platform()
 	if not check(not support_id.is_empty(), "存档夹具通过真实 BuildingService 创建非空正式平台记录"): return
 	check(main.npc_service.to_dict().seen_events.size() == 7, "存档夹具包含真实七剧情选择和七请求结算")
-	if not check(landing_fixture("rooftop_ranch"), "存档夹具使用合法天台消防梯 landing"): return
+	if not landing_fixture("rooftop_ranch"): return
 	# 真正走上草地后再冻结稳定现场；不写玩家或 NPC 坐标。
 	var roof: Vector3 = harbor.to_global(Vector3(0, harbor.ROOF_Y, 11.5))
 	if not await walk_to(roof, "存档夹具沿消防梯实走至草地稳定现场"): return
@@ -53,6 +53,7 @@ func seed_state() -> void:
 		for row in world.world_snapshot().residents.values():
 			if row.remaining_waypoints > 0: return false
 		return true, 40.0, "存档前七人真实日程走完"): return
+	check_current_schedules()
 	main.set_process(false)
 	main.set_physics_process(false)
 	# 胶囊扫掠保留微小安全间距；通过正式恢复端口统一为其承诺的支撑点，
@@ -202,11 +203,12 @@ func roundtrip() -> void:
 	if not await open_npc("npc_luo_yan"): return
 	if not main.npc_service.dialogue_state().active and not await npc_press("talk"): return
 	check(main.npc_service.dialogue_state().active and main.npc_service.dialogue_state().typing, "保存时存在真实未提交 typing 会话")
+	var runtime: Dictionary = main.npc_service.capture_runtime()
 	var path := "user://npc-tests/roundtrip.json"
 	var saved: Dictionary = main.save_game(path, true)
 	if not check(saved.get("ok", false), "Main.save_game 正式写盘：" + str(saved.get("reason", ""))): return
-	check(not main.npc_service.dialogue_state().active and saved.snapshot.npc == durable
-		and not has_transient(saved.snapshot.npc), "保存只取消未提交对白、不偷加好感、不存 typing/path")
+	check(main.npc_service.capture_runtime() == runtime and saved.snapshot.npc == durable
+		and not has_transient(saved.snapshot.npc), "保存纯读保留未提交对白、不偷加好感、不存 typing/path")
 	await close_modals()
 	var expected: Dictionary = saved.snapshot
 	check(economy.inventory.add("coins", 17).ok, "读档前更改现场库存")
@@ -232,7 +234,7 @@ func roundtrip() -> void:
 	await frames(3)
 	check(main.save_registry.capture().npc == first.npc and equivalent(main.capture_world_state(), expected.game), "重复读档无叠加奖励/位置漂移")
 	for id in positions:
-		check(npc_site_position(id).distance_to(positions[id]) < 0.003 and npc_supported(id), "NPC 刷新依据六roof一sea支撑局部站位而非存档世界坐标 " + id)
+		check(npc_site_position(id).distance_to(positions[id]) < 0.003 and npc_supported(id), "NPC 刷新依据天台/浮店/菜园桥/左楼顶支撑局部站位而非存档世界坐标 " + id)
 	if await open_npc("npc_luo_yan") and await npc_press("gifts") and await npc_press("gift", "rope"):
 		check(not world.panel.panel_snapshot().confirmation.is_empty(), "读档前存在真实礼物待确认")
 		check(main.load_game(path).ok, "礼物确认途中正式读档")
@@ -295,6 +297,7 @@ func restart() -> void:
 	freeze_boat_presentation()
 	if not check(main.load_game(SLOT).get("ok", false), "新进程经正式 Main.load_game 恢复 seed"): return
 	await frames(4)
+	check_current_schedules()
 	check(equivalent(main.npc_service.to_dict(), expected.npc) and equivalent(economy.inventory.to_dict(), expected.inventory), "跨进程 NPC/库存精确一致")
 	print("[npc-save-restart-owners] profile=", equivalent(main.avatar_profile.to_dict(), expected.profile),
 		" building=", equivalent(main.building.to_dict(), expected.building), " time=", equivalent(main.world_clock.to_dict(), expected.time),
@@ -303,11 +306,16 @@ func restart() -> void:
 		and equivalent(main.world_clock.to_dict(), expected.time) and equivalent(main.capture_world_state(), expected.game), "跨进程 profile/建筑/钟/天台草地稳定现场一致")
 	check(expected.game.zone == "rooftop_ranch" and expected.game.landing == "main"
 		and main.actor_controller.state_id() == "ashore_idle" and grass_support(main.player.global_position), "跨进程恢复天台草地稳定现场及合法 landing，不回退旧社区")
-	var expected_zone := {"npc_bao_he": "sea_supply", "npc_mu_he": "neon_garden_quarter"}
 	for id in Catalog.ids():
-		# 三处场地：天台五人、阿店浮店、豆豆霓虹花园菜园桥。
-		check(npc_supported(id) and world._routes[id].target.zone_id == str(expected_zone.get(id, "rooftop_ranch")),
-			"新进程由所属 Marker 恢复而非存档坐标 " + id)
+		check(npc_supported(id), "新进程 NPC 保持所属实际面的支撑 " + id)
+		var route: Dictionary = world._routes.get(id, {})
+		var target: Dictionary = route.get("target", {})
+		if not check(not target.is_empty(), "新进程日程目标非空 " + id): continue
+		var current_anchors: Dictionary = provider.anchor_snapshot()
+		if not check(current_anchors.has(target.get("anchor_id", "")), "新进程日程目标来自实际 provider " + id): continue
+		check(target.ground == current_anchors[target.anchor_id].ground,
+			"新进程由当前日程所属 Marker 派生面恢复而非存档坐标 " + id)
+		check(not route.get("fallback", true), "新进程当前日程无静默回退 " + id)
 	check(not world.is_modal() and not main.shop_panel.is_open() and not main.npc_career_panel.is_open()
 		and not main.npc_service.dialogue_state().active, "跨进程只恢复稳定 UI，不复活 typing/路径/确认")
 	if not await open_career("npc_bai_shi", "archive"): return

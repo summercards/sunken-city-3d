@@ -136,3 +136,61 @@ SEA-QUALITY-R01–R05：用户授权后落地14个正式源文件的等价范围
 - 发现二进制hash归一化、水密passed漏谓词、架构正则覆盖、旧夹具/脚本异常/证据不可携等验收缺口，优先补反例，不删除断言/批量签hash造绿。
 
 完整证据与B0–B4计划见[审计记录](../../development/2026-11-13_engine_deep_audit.md)。登记头保持partial；所有生产修复、全量视觉、发行设备/许可/断电/长期项未签。
+
+## 2026-11-13 B0/B1 修复实施与回归
+
+本节承接审计整改计划，记录用户授权后的实际修复，不覆写审计初始结果。
+
+- B0：哈希门禁只对明确文本允许CRLF，二进制按原始字节；水密审计的boundary/nonmanifold/缺记录失败并返回非零；framework/farming/building/wood旧夹具同步当前开放海域、7格2床、重绑定支撑、家园3槽密度。工程治理测试17/0，`git diff --check` exit0。
+- B1：SaveGame/schema解码守卫、future模块保护、语义备份择优、唯一归档、farm/weather/NPC日期校验、room busy/过场代次、energy generation、Interactor action target、NpcCareerPanel suspend/resume均已接入。新增save-boundaries独立runner和interactor-action-target入口。
+- 最终B0/B1回归命令：framework-modules、farming、building-simulate、wood-bundles、save-boundaries、interactor-action-target、room、energy、npc-careers、save-corrupt-seed、save-protection、save-reset、save-seed、framework-integration；全部**exit0/PASS**，证据 `/Users/zyq/work/sea-work/verification/20261113-165935-b0-b1-final-20261113-f58f38`；治理17/0同批前置通过。
+- 真实渲染：本批全部headless，无截图；预期故障/警告/未执行保持单列。npc-integration旧天台/菜园桥锚点前置仍未纳入本批通过，菜园空间归属另属后续B2，不改用户摆位/资产/容差迁就。
+- 当前契约：B0/B1后`check_feature_contracts.py --sync` exit1/531 issues，无参exit1/532 issues；历史资产/链接/条款/索引问题及本次代码路径未补登记仍阻断，全局不签。架构25/0、摆位6/0保持通过；未提交/推送，未改main.tscn、godot/assets、assets、art_source或玩家正式存档。
+
+## 2026-11-13 B2 G04 菜园桥专项验证
+
+本批只涉及霓虹花园 NPC 站位、相关测试与三份功能记录；不运行编辑器/导入器，不改资产源或哈希。生产修复将菜园 `NpcStations` 本地高度对齐模型派生桥面实际代表层，保留 `SUPPORT_TOLERANCE=0.05`，避免以容差掩盖高度差。
+
+- `garden-npc`：正式 runner，`exit=0`；新增 height mismatch/支撑断言通过，5/5 菜园锚点有效、聚合40、豆豆按日程落位且不 fallback。证据：`/Users/zyq/work/sea-work/verification/20261113-182110-b2-g04-garden-local-height-7d0e06`。
+- `npc-integration`：正式 runner，真实退出 `124`；仍在既有天台站位/路径断言失败后超时，未完成 marker，不能签为 G04 全集成通过。证据：`/Users/zyq/work/sea-work/verification/20261113-182405-b2-g04-npc-integration-170faf`。
+- `npc-save-seed`：正式 runner，真实退出 `1`；失败于既有天台站位前置与稳定支撑恢复浮点断言（457 checks / 3 failures），非 G04 菜园桥断言；因 seed 未通过，未运行 `npc-save-restart`，不伪造跨进程结果。证据：`/Users/zyq/work/sea-work/verification/20261113-183556-b2-g04-npc-save-seed-77f9cc`。
+
+## 2026-11-14 B2 验证证据分层承接
+
+承接SEA-QUALITY-R01–R05：005436-b2-production-closeout-e11fda五入口PASS/exit0、unexpected=[]：session51/0、transactions103/0、reset-atomic98/0、pickup191/0、bedside1800/0（130合法布局、133真实胶囊/到门、26正式approach含13绕行）。005741-b2-integrated-final-dde4f5为19入口18PASS，**save-protection旧开关断言FAIL/exit1**，未来字节不变/原槽拒绝/另槽成功不抵消此失败；新断言源码改为实际保护与倒计时冻结，补跑待父。
+
+本轮NPC集成853/0、seed527/0、restart280/0及garden26/0等已PASS，覆盖上节旧前置阻塞但不抹旧124/1。早批b2-reset-atomic-results.json为unit0、五seed引擎-9/runner1预期SIGKILL、五recover0/0；不能称普通全PASS，且早于当前memento修订，不用早批hash签当前跨进程。
+
+父已有治理17、架构25/0、摆位6/0及diff-check exit0仅按原批证据登记；本次纯文档未运行这些测试。契约531/532和并行后533/534均历史失败，父最终另跑；真实visual-room/garden/sleep、审图及精确字节身份待父追加，不沿旧图冒签。legacy management --full-world36/1旧farm_plot_a夹具不可签，不恢复zone3凑绿；全selftest/设备断电/磁盘满/多进程写/长时泄漏未执行，agent_radius/zone2_glass警告保留。登记头partial不变；[B2主记录及全部报告/未决占位](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 当前去重33个最新入口33PASS/exit0（30逻辑+3视觉，非单批/全selftest）；005436生产5项全PASS，012421有效旧确认强化session53/0，010438十入口全exit0含修订save-protection，012647 management按当前zone3退役内容37/0、不恢复生产，旧36/1及旧save-protection失败保留。证据源SHA、日志/PNG冻结于`/Users/zyq/work/sea-work/audit-2026-11-13/evidence/b2-final-run-index.json`。
+
+## 2026-11-14 B3 验收治理承接
+
+B3专项最终回归`20261114-104347-b3-final-regression-20261114-6155e0`中10个入口均exit0（Goal/查询副本、建筑解环/漂移、framework及save-seed）；默认minimal与`--full-world` management均exit0。工程治理31/31、摆位6/0、架构25/0、diff-check均exit0。runner配置派生已隔离，旧management 37/4归因于profile夹具错配并保留原始证据。B3最终契约门禁sync/check分别535/536 issues、均exit1，未刷hash/派生；全局资产事实冻结、视觉警告、设备/发行/长期边界仍未签，登记头不升级。
+- 当前012203重置矩阵unit0、五seed预期引擎-9/runner1、五recover0、外层0，详见`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`；三视觉18PNG（room8/garden4/sleep6）仅目检room-inside/garden-bubble-single/sleep-wake，菜园作物遮下半身不能签足底美术，醒来图是室外太阳房非室内，其余15图未逐图审阅。
+- 最终契约sync532/check533 issues均exit1，未写派生/刷hash；17治理/25架构/6摆位/diff-check均exit0仅据既有证据，本次未跑。uniform索引/agent_radius/zone2glass警告保留；设备断电/磁盘满/并发写/长时泄漏/全selftest未签，登记头partial不变，不称全工程绿。
+
+## 2026-11-14 B4 安全视觉与发行验证承接
+
+Q03材质实例槽位已通过显式`instance_index`统一；D05新增只读发行闭包审计，缺PCK/closure输入返回UNEXECUTED而非误报通过；A08新增隔离生命周期证据协议和严格预热/测量负例。tooling87/87、材质参数10份/51文件、Q04导航采集6入口均exit0。visual-room、visual-gift-kiosk、workshop-rules exit0且不再出现Q03同名槽位冲突；visual-quick-tools 261 checks/20 failures保留为1920x1080截图夹具错配。agent_radius/zone2_glass警告、真实生命周期、平台包/许可/设备故障和长期性能仍未签，登记头不升级。
+
+## 2026-11-14 B4 截图尺寸夹具专项复测
+
+SEA-QUALITY-R01/R03/R04/R05：只改`test_quick_tools.gd:save_frame`，从当前viewport可见逻辑尺寸乘stretch独立派生渲染像素尺寸，逐张精确相等且宽高为正；保留非空/PNG保存、场景状态标签和真实输入/动效/hover/隐藏/时钟断言，不改runner、Main、场景资产、摆位或玩法。原始20失败实际覆盖1600/1920两组，上节口径由本节补正，历史失败及两次中间exit1保留。
+
+最终正式runner证据`/Users/zyq/work/sea-work/verification/20261114-122154-b4-quick-tools-render-rect-20261114-bb6420`：真实Godot4.7.2/Metal4/Forward+，**266 checks/0 failures，引擎与runner均exit0**，无unexpected_errors。30张PNG路径及逐图IHDR/尺寸/标签矩阵在`png-size-evidence.json`，截图在`project/outputs/quick-tools-{1280x800,1600x1000,1920x1080}-{land,boat}-{opening,open,hover,closing,closed}.png`；本机原生窗口受限，三组实际PNG分别1280×800、1484×928、1649×928，不冒签原生1920×1080覆盖。仅目检1280 land-open与1920标签boat-hover两图，其他28张未逐图人工审阅；跨平台/DPI/设备、完整潜水往返及发行/长期可靠性未执行。`agent_radius`/`zone2_glass`警告保留，Q03 uniform槽位冲突未再出现；登记头partial不变。完整命令、过程红项及边界见[本轮记录](../../development/2026-11-13_engine_deep_audit.md#b4-visual-quick-tools-截图尺寸夹具修复2026-11-14)。本轮tooling重新实测87/87、exit0，diff-check exit0；契约sync535/check536 issues、均exit1，未刷hash/派生索引，不签全工程绿。
+
+## 2026-11-14 B3/B4 最新工程外证据收尾（仅文档追加）
+
+承接SEA-QUALITY-R01–R05，登记头partial及历史原文不变；现行spec已包含真实退出码、预期故障/未执行、独立视觉和失败保留要求，本次无需增改spec条款。[完整收尾与逐批路径](../../development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)为统一回链。
+
+- B3已有10逻辑入口PASS/exit0，management minimal/full-world各exit0；治理31/31、架构25/0、摆位6/0、diff-check exit0。契约最近实跑sync535/check536 issues、均exit1；本次与最新工程外收集器均未执行契约sync/check，不拿历史数字当追加后的新检查。
+- B4已实现Q03共享槽位、D05只读闭包与A08采样证据协议；quick-tools尺寸夹具修复已有266/0、engine0/runner0，114407批room/gift/workshop各入口exit0但整批非全绿。最新证据根`/Users/zyq/work/sea-work/b4-validation-closeout-20261114/`的`b4-validation-summary.md/json`记录tooling87/87、material params 10登记/51文件、Q04六入口均exit0；workshop最新879/0、engine0/runner0为headless，不充当视觉证明。
+- 首轮`verification/20261114-123153-b4-closeout-visual-e5b769/report.json`总runner1：quick102/2、engine1、marker=false、0PNG，失败为航行潜水消费/先停船提示，不是历史261/20尺寸错配；room engine124、marker=false、仅outside/door两PNG。独立quick`124023-…-58b845`为266/0、engine0/runner0、30PNG，独立room`124128-…-3576f7`为engine0/runner0、8PNG。两者首轮/独立各核对2835源文件差异0；只能签无改动复测可通过，根因未证，不签稳定性，首轮FAIL不转expected。
+- gift在123153首轮合批runner1中自身engine0、53/0、passed/marker=true、30PNG；不能把整批runner1改成0，也不能误称gift引擎失败。用户补充后续独立视觉通过；所读摘要未附对应独立report/退出码，本次按用户补充登记，不冒填路径或混用早批114407。已有图片目检范围沿摘要列明，本次未新增审图，不宣称全PNG目检或原生大分辨率覆盖。
+- D05 `release-closure-no-input.json`、A08 `a08-lifecycle-no-input.json`均为**UNEXECUTED/exit2**。真正daily_release/export与A08长期矩阵未启动命令，仍UNEXECUTED/exit=null；87个协议/合成单测不证明真实PCK/许可或WeakRef/Callable长期释放。
+- 当前`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`及11份原报告已更新：124724单位批engine0/runner0；124828–124832的intent/archive/replace/commit/future五seed均engine-9/runner1、expected_sigkill=true，五recover均engine0/runner0。此为当前矩阵的已有重跑，不是本次文档作业运行；收集器“历史引用未重跑”的描述仅属于它自己的采集批。accepted=true不抹seed非零，不签物理断电、目录fsync、磁盘满或并发写。
+
+B4发行包/许可闭包、设备/跨平台、长期生命周期/性能仍未完成；agent_radius/zone2_glass/2D MSAA警告保留，不签零警告或零泄漏。审计没有B5；不升级verified。本次只追加指定六文档，不改代码/测试/runner/资产/登记JSON，不刷hash、不删R18事务文件，不启动Godot或sync；共享工作区既有他人修改全部保留。

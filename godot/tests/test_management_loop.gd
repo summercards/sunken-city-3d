@@ -9,6 +9,7 @@ func check(value: bool, label: String) -> void:
 		failures += 1
 		printerr("FAIL ", label)
 func run() -> void:
+	var full_world := OS.get_cmdline_user_args().has("--full-world")
 	var main: Node = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main._autosave_on = false
@@ -17,10 +18,19 @@ func run() -> void:
 	economy.ticking = false
 	var farm = economy.farm
 	check(economy.goal_info().id == "warehouse", "起步推荐仓库")
-	check(economy.deposit_materials().has("blocked"), "未建仓库不可入库")
+	if full_world:
+		check(economy.deposit_materials().has("blocked"), "未建仓库不可入库")
+	else:
+		check(not economy.deposit_materials().has("blocked"), "默认范围仓库起步可用")
 	check(farm._access_reason("home_plot") == "", "起步开放六格")
-	check(farm._access_reason("farm_plot_a") != "", "第二种植床待修复")
-	check(farm._access_reason("platform_plot") != "", "第三种植床需船二级")
+	check(farm._access_reason("farm_plot_a") != "", "第二种植床待修复或已退出场景")
+	check(not farm.spec("home_plot").is_empty() and not farm.spec("platform_plot").is_empty(), "真实场景保留家园和zone5种植床")
+	if full_world:
+		check(farm._access_reason("platform_plot") != "", "第三种植床需船二级")
+		check(economy._farm_access_reason({"zone":"zone3","requires_site":"rooftop_planter","requires_level":2}) != "", "修复前旧种植床定义无升级资格")
+	else:
+		check(root.get_node("Zones").is_unlocked("zone5") and economy._farm_access_reason({"zone":"zone5"}) == "" and farm._access_reason("platform_plot") == "", "默认zone5资格不依赖船二级")
+		check(not main._zone_nodes.has("zone3") and farm.spec("farm_plot_a").is_empty() and farm._access_reason("farm_plot_a") != "", "默认范围不虚构已退出的zone3种植床")
 	# 真正经过播种、浇水、休息与收获，随后交出订单。
 	farm.plant("home_plot", "lettuce")
 	for day in 3:
@@ -64,7 +74,16 @@ func run() -> void:
 	check(economy.construction_count("wood") == total - 5, "建设精确扣料")
 	check(farm._access_reason("farm_plot_a") != "", "施工尚未完成仍锁定")
 	economy.tick_sites(25)
-	check(farm._access_reason("farm_plot_a") == "", "修复后开放第二种植床")
+	if full_world:
+		if farm.spec("farm_plot_a").is_empty():
+			# 当前正式场景已撤下zone3，full-world不凭空重建旧床；仍独立验证升级资格规则。
+			check(not main._zone_nodes.has("zone3") and economy.site_level("rooftop_planter") == 2, "修复完成但已撤下的zone3不虚构旧种植床")
+			check(economy._farm_access_reason({"zone":"zone3","requires_site":"rooftop_planter","requires_level":2}) == "", "修复后旧种植床定义的升级资格成立")
+		else:
+			check(farm._access_reason("farm_plot_a") == "", "修复后开放已安装的第二种植床")
+	else:
+		check(not main._zone_nodes.has("zone3") and farm.spec("farm_plot_a").is_empty() and economy.site_level("rooftop_planter") == 2, "默认范围修复完成也不虚构zone3旧床")
+		check(economy._farm_access_reason({"zone":"zone3","requires_site":"rooftop_planter","requires_level":2}) != "" and farm._access_reason("farm_plot_a") != "", "默认范围修复不越过zone3退出边界")
 	# 原子失败、仓满、背包满与存档。
 	var before: Dictionary = economy.warehouse.all()
 	check(not economy.construction_pay({"wood":99999,"coins":1}), "材料不足不扣款")
@@ -81,7 +100,11 @@ func run() -> void:
 	economy.warehouse.from_dict({"capacity":48})
 	economy.deposit_materials()
 	check(economy.upgrade_ship().get("ok", false), "库存材料升级船")
-	check(root.get_node("Zones").is_unlocked("zone4") and farm._access_reason("platform_plot") == "", "船升级开放远海和第三种植床")
+	check(economy.ship_level == 2, "库存材料确实升到二级船")
+	if full_world:
+		check(root.get_node("Zones").is_unlocked("zone4") and farm._access_reason("platform_plot") == "", "船升级开放远海和第三种植床")
+	else:
+		check(not root.get_node("Zones").is_unlocked("zone4") and root.get_node("Zones").is_unlocked("zone5") and economy._farm_access_reason({"zone":"zone5"}) == "" and farm._access_reason("platform_plot") == "", "默认范围船升级不开放远海且保留zone5资格")
 	economy.track_goal("greenhouse")
 	var snapshot: Dictionary = economy.to_dict()
 	economy.warehouse.clear()

@@ -290,3 +290,18 @@ SEA-OCEAN-R30–R35专项通过，功能总体partial。报告`D:/projects/sea-w
 - `boat.gd` 已还原，不宣称本批修改船实现；`roof_reveal`、`shop_sightline` 门控尝试已撤回。海面收益波动，不承诺稳定帧耗时改善。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。
+
+## 2026-11-14 B4 Q03 材质槽位治理
+
+两份共享SunnyPalette shader的instance uniform已显式统一槽位：主shader保留0–8布局，Gloss shader共享参数使用0/3/7；不改变默认值、材质实例、GLB或用户场景。纯文本槽位负例与tooling总回归通过，visual-gift-kiosk与visual-room退出0；此前同名instance uniform冲突未再出现。导航体素半径警告仍独立保留，不归因于材质槽位，登记头partial保持。
+
+## 2026-11-14 B4 Q03 最新视觉证据分层收尾
+
+承接SEA-OCEAN-R02/R03：Q03只完成共享instance槽位治理，不新增水面、波场、材质默认值或位置真值；功能登记头partial不变。[审计收尾与批次索引](../../development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)区分历史通过、首轮失败与独立复测。
+
+- 早批114407的room/gift/workshop各入口exit0，quick历史261/20尺寸失败保留；122154尺寸夹具修复为266/0、engine0/runner0。最新工程外`/Users/zyq/work/sea-work/b4-validation-closeout-20261114/b4-validation-summary.{md,json}`记录tooling87/87、材质10份登记/51文件及Q04六入口exit0，但这些静态/headless项不是全海面视觉验收。
+- 最新123153首轮visual整批runner1：quick102/2、engine1、0PNG；room engine124、未完成、仅outside/door两图。独立124023 quick为266/0、engine0/runner0、30PNG，124128 room为engine0/runner0、8PNG；首轮与独立各核2835源文件差异0，只能记无改动复测通过，不抹首轮、不签已修复稳定性。
+- 同首轮gift入口engine0、53/0、marker=true、30PNG，整批runner1仍保留；用户另补充后续独立视觉通过，摘要未附对应独立report/退出码，本次按补充证据登记，不杜撰路径或以旧批冒充。所引视觉日志未检出Q03同名uniform槽位冲突，但agent_radius/zone2_glass及2D MSAA警告保留，不签零警告。摘要已有审图范围不扩张，本次不重新目检，也不把请求分辨率标签当原生大分辨率验收。
+- D05只读闭包与A08证据协议均只是安全子集；无发行输入、无真实生命周期采样的检查各为UNEXECUTED/exit2，实际发行包/许可、设备/跨平台、长期生命周期/性能仍未完成，不签零泄漏。当前重置矩阵unit0、五seed engine-9/runner1预期SIGKILL、五recover0只证明进程中断恢复，不是设备断电。
+
+B3已有10逻辑入口、management双profile、治理31/31、架构25/0、摆位6/0和diff-check exit0均按原批登记；最近契约实跑仍sync535/check536 issues、均exit1，本次未重跑。审计无B5，不晋升verified、不刷hash、不删事务文件；本次只追加文档，未改shader/材质/生产代码/测试/runner/资产、未启动Godot或sync。

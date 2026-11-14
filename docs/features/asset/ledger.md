@@ -811,3 +811,18 @@ FAIL: derived feature index stale; use --sync
 R01哈希checker对二进制CRLF替换；R02水密passed未纳入boundary/nonmanifold（v006仅15/20、v008仅18/20满足两项0）；R03模板残留当前身份/GLB/prefab/manifest不齐；R04正式牧场45GLB未列运行清单；R05真实漂移仍verified；R06许可820含pending/106沿旧来源是待审，不等同已侵权。R07–R19列分类词表、派生索引、条款ID、未知ID、当前口径、可携证据、日志回链、门禁与元数据。全部逐项方案/验收见[审计记录](../../development/2026-11-13_engine_deep_audit.md)及工程外issues.json。
 
 本轮不重开全部Blend、不重导/替换资产、不改用户位置、不补造权属、不批量刷新SHA、不清理事务备份；所有修复和逐项批准仍待实施。全局初查exit1/499 issues，源/运行漂移与条款/链接/索引混合，不冒称499玩法bug。
+
+## 2026-11-14 B4 发行闭包与许可边界承接
+
+新增只读`scripts/audit_release_closure.py`，要求实际PCK、closure JSON和发行根目录，检查显式资源映射、GDExtension/外置库、字体/插件许可文件及pending/unknown；缺输入返回UNEXECUTED/exit2，不用include_filter误报发行通过。纯Python正反例纳入tooling87/87。当前没有实际Windows/Web发行闭包输入，未改变任何AssetID、license字段、源/运行SHA或事务副本；许可820 pending与R18 `.r2-*` 文件仍按待裁决政策保留，登记头不升级。
+
+## 2026-11-14 B3/B4 资产证据与发行未闭合收尾
+
+承接SEA-ASSET-R01/R02/R03/R23的身份、阶段与授权分列要求，并回链[审计收尾](../../development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)及[质量账本](../quality/ledger.md)。本节只追加已有证据，不签全库资产健康，也不改任何登记JSON或登记头。
+
+- B3已有10逻辑入口及management双profile各exit0，治理31/31、架构25/0、摆位6/0、diff-check exit0；这些结果不抵消资产条款/历史与工程外链接/运行资源漂移等全局阻断。最近实跑契约仍sync535/check536 issues、均exit1，本次不运行checker或sync，不批量更新hash/派生索引。
+- 最新工程外`/Users/zyq/work/sea-work/b4-validation-closeout-20261114/b4-validation-summary.{md,json}`记录tooling87/87、材质10份登记/51文件、Q04六入口均exit0。Q03只证明共享SunnyPalette槽位子集，不能替代逐件资产/全部渲染验收；D05只读闭包工具的`release-closure-no-input.json`为**UNEXECUTED/exit2**，没有实际PCK、closure及发行根，未签全资源/外置库/字体插件许可闭包。A08无真实采样输入同为UNEXECUTED/exit2，协议通过不签长期释放。
+- quick-tools尺寸夹具修复已有266/0；最新收集首轮quick102/2、engine1及room engine124均保留FAIL，无改动独立quick266/0、room复测engine0/runner0也不覆盖首轮。gift首轮合批runner1而自身engine0、53/0、30PNG；用户补充后续独立视觉通过，但本次所读摘要未附该独立report/退出码，不虚填或以早批room/gift/workshop exit0记录代替后续报告。不得以局部视觉通过自动提升资产阶段/许可。
+- 当前重置矩阵已另有124724及124828–124832批：unit0/0、五seed engine-9/runner1预期SIGKILL、五recover0/0；只签进程中断恢复，不签物理断电或发行设备可靠性，详见审计和quality分层记录。
+
+B4仍未完成真实发行包、许可裁决、设备/跨平台及长期矩阵，审计无B5；登记头原状态保留，不升级verified。R06许可pending继续待审，既有计数不在本次重新盘点或晋升；R18四份`.r2-*`事务文件不删除、不覆盖主表、不擅自裁决归档政策。AssetID、source/runtime哈希、license、源/GLB/材质/场景与用户摆位均不由本次修改；未启动Godot、runner或导出。

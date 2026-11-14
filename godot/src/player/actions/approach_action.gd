@@ -37,19 +37,24 @@ func execute(c, target: Node3D) -> bool:
 			start=landing.stand_position()
 		var best := Vector3.INF
 		var best_area: Node3D
+		var best_route: Array = []
+		var custom_path := target.has_method("approach_path")
 		var distance := INF
 		for point: Vector3 in target.get_meta("approach_points"):
 			var ground=zone.area_at(point,1.4)
 			if ground==null: continue
 			if c.mode()!=0 and landing.ground()!=ground: continue
-			if ground.path_between(start,point).is_empty(): continue
+			var candidate_route: Array = target.approach_path(start, point) if custom_path else ground.path_between(start, point)
+			if candidate_route.is_empty(): continue
 			var d: float=start.distance_squared_to(point)
-			if d<distance: distance=d;best=point;best_area=ground
+			if d<distance: distance=d;best=point;best_area=ground;best_route=candidate_route
 		if best==Vector3.INF:
 			c.notify("那里够不着，换一处岸边再试")
 			return false
 		if not c.start_walk(best_area,best): return false
-		var route: Array=c.walk_path.duplicate();route.push_front(c.actor.global_position)
+		# start_walk 保留支撑面、靠泊与状态准备检查；可选端口的净空路线不能被普通求路覆盖。
+		var route: Array = best_route.duplicate() if custom_path else c.walk_path.duplicate()
+		if not custom_path: route.push_front(c.actor.global_position)
 		c.machine.change("approaching",{"area":best_area,"target":best,"path":route,"subject":target})
 		return true
 	var area = zone.area_at(anchor,1.4)

@@ -166,3 +166,13 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
 | SEA-ASSET-R63；SEA-FARM-R11/R13/R17 | 种植库包含24个四阶段组件、2设施、6手持、2装配，共34 Collection；其职责仍是可追溯的美术源归档。真实场景名为 `01_组件总览_只摆实例` 与 `02_组件母版_按AssetID追加`；最终源验证9047 checks/0 failures、`passed=true`，登记只给原AssetID增加 `library_refs`。Farm 规则、地格状态、播种/浇水/换天/收获、存档与手持动作的所有权仍由既有 Godot/Farm 与 Crop 条款持有；本轮代码变化仅为生产提取脚本与 runner 入口，JSON变化仅为三域既有记录增加 `library_refs`，未改玩法、运行资源、GDD或 `current_source_index`。`farm_plot` 实际 hash 与登记 hash 的既有差异按 `preserved_drift` 保留，不改原 `stage` / `source` / `hash`。 | [最终归档记录](../../development/2026-11-10_botanical_collection_libraries.md)；[最终源验证](../../../../sea-work/botanical_libraries/v001/source_verification.json)；[登记结果](../../../../sea-work/botanical_libraries/v001/registration.json)；[最终提取报告](../../../../sea-work/verification/20261110-095851-botanical-final-8de438/report.json)实际292/0、exit0。8个Cycles PNG已生成，两个overview与植被top已审阅但不冒称8图全细节目视通过；用户美术终审、性能、运行接入仍未签。全库sync/check日志因既有 manifest `asset_ledger` KeyError exit1且无同步写入。 |
+
+## 2026-11-14 B2 种植收支事务承接
+
+承接SEA-FARM-R03/R05/R07/R13/R14/R16（S15/S16）：plant/water/harvest/buy_seed持owner busy覆盖支付/体力/地格状态与业务事件，Economy聚合后进入Registry门禁；正式FarmingPorts.exchange接Inventory.exchange，买种/收获/换种整笔收支，失败保留原作物/余额，不以退款拼原子性。遗留无exchange的give适配分支仍在，不称已移除；transaction_begin/end只有声明、不计正式接线。作物产量、日次与grow_day规则不变。
+
+b2-transactions103/0、farming35/0、farm-day-change23/0与modules101/0已PASS/exit0。legacy management --full-world36/1的“修复后开放第二种植床”仍失败：正式无farm_plot_a specs、zone3已退出main，旧完整范围夹具不可签，不为凑绿恢复旧内容。登记头partial保持；[B2主记录/报告/未决](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0 PASS/exit0；012647 management按当前安装内容区分zone3退役后37/0、exit0，不恢复生产内容，历史36/1保留。
+- 010438 visual-garden-bubble产4张PNG、exit0，仅目检garden-bubble-single：对白可读但下半身被作物遮挡，不能签脚底接触/全站姿美术；全库契约仍失败，登记头partial不变。

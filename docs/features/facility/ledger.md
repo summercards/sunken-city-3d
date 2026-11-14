@@ -64,3 +64,17 @@ configure / build_facility / facility_unlocked / to_dict / from_dict；sites_cha
 设施由独立 FacilityService 拥有，温室/仓库等消费者通过 facility_unlocked 查询。后续设施内容依原设计单独补齐。
 
 新增条款 SEA-FACILITY-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-11-14 B2 设施支付窗口承接
+
+承接SEA-FACILITY-R01/R03/R04（S15/S16）：build_facility在owner busy中调用原construction_pay，再提交facilities并发布sites_changed；重复/不足仍不重复扣料。WarehouseService负责合并库存原子支付，Economy.is_busy聚合设施busy进入Registry门禁，不新增设施价格/前置或第二份状态。
+
+相关modules101/0、framework-modules52/0及统一事务专项103/0 PASS/exit0仅签实际覆盖链路，不冒称所有设施内容/全owner极值均已验收。登记头partial保持，legacy management36/1旧完整范围夹具及视觉/最终门禁分列于[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0；012647 management按当前安装内容明确zone3退役后37/0、exit0，不恢复生产内容，旧36/1保留。
+- 仅签已覆盖设施支付/状态提交链路，不签所有设施内容或全owner极值；全库契约仍失败，登记头partial保持，视觉边界及冻结证据见主记录。
+
+## 2026-11-14 B3 Goal/设施查询边界承接
+
+设施展示目标通过`GoalService.goal_info`返回成本递归副本，查询结果修改不会污染Facility/Ship/Construction权威支付；`b3-goal-query-copy`、`management`、`framework-integration`均exit0。该项只修展示查询边界，不改变设施规则、成本数值或完整设施内容验收，登记头partial保持。

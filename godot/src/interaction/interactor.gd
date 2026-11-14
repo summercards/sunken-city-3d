@@ -44,6 +44,8 @@ var hold := 0.0
 var last_blocked := ""
 ## 动作正在执行：由一次按下发起，之后自动走完，和按键是否松开无关。
 var acting := false
+var action_target: Node3D
+var _action_generation := 0
 
 var _scan_left := 0.0
 var _anchor := Vector3.ZERO
@@ -93,10 +95,8 @@ func candidates() -> Array[Node3D]:
 
 ## 手动往返的旧名：现在等于「这一按已经用掉，松开前不再触发」。
 func require_release() -> void:
+	_cancel_current_action()
 	_wait_release = true
-	hold = 0.0
-	acting = false
-	progress_changed.emit(0.0)
 
 func cycle_target(direction := 1) -> bool:
 	if not active: return false
@@ -149,16 +149,25 @@ func update(delta: float, holding: bool) -> void:
 		if physical_hold: _wait_release = true
 		if target != null:
 			_release()
-		acting = false
+		if acting: _cancel_current_action()
 		_acted_once = false
 		return
 
+	var generation := _action_generation
 	_scan_left -= delta
 	if _scan_left <= 0.0:
 		_scan_left = scan_interval
 		_refresh_target()
+	if generation != _action_generation:
+		return
+	if acting and (not is_instance_valid(action_target) or action_target != target \
+			or not action_target.is_visible_in_tree() or not action_target.can_interact()):
+		_cancel_current_action()
+		blocked.emit("操作目标已不可用")
+		_acted_once = true
+		return
 
-	if target == null:
+	if not is_instance_valid(target):
 		if hold != 0.0 or acting:
 			hold = 0.0
 			acting = false
@@ -193,10 +202,12 @@ func update(delta: float, holding: bool) -> void:
 func _begin_action() -> void:
 	_anchor = global_position
 	last_blocked = ""
+	_action_generation += 1
+	action_target = target
 	acting = true
 	hold = 0.0
 	if not auto_hold: _acted_once = true
-	action_started.emit(target)
+	action_started.emit(action_target)
 
 
 func _tick_action(delta: float) -> void:
@@ -217,7 +228,7 @@ func _tick_action(delta: float) -> void:
 			# 既不会「边走边采」，也不会把一次正常的接近判成失败。
 			_anchor = global_position
 			return
-		acting = false
+		_cancel_current_action()
 		blocked.emit("走动打断了操作")
 		return
 
@@ -225,17 +236,21 @@ func _tick_action(delta: float) -> void:
 		_blocked_cooldown -= delta
 
 	# 瞬发动作（hold_time 为 0 或很小）当帧完成；有耗时的动作按真实时长推进。
-	var need := maxf(target.hold_time, 0.0)
+	var need := maxf(action_target.hold_time, 0.0)
 	hold += delta
 	if hold < need:
 		progress_changed.emit(clampf(hold / need, 0.0, 1.0))
 		return
-	_finish_action()
+	_finish_action(action_target, _action_generation)
 
 
-func _finish_action() -> void:
+func _finish_action(acted_target: Node3D, generation: int) -> void:
+	if generation != _action_generation or not acting or not is_instance_valid(acted_target) \
+			or acted_target != action_target or acted_target != target:
+		return
 	hold = 0.0
 	acting = false
+	action_target = null
 	# 无论结果如何，这一轮都用掉了：返回空字典的动作（例如只发事件的房门、
 	# 只开面板的绞盘）不能让自动接近每帧重放一次。
 	_acted_once = true
@@ -243,14 +258,15 @@ func _finish_action() -> void:
 	# 有产出时才清理 auto_hold，而返回空字典的动作什么都不发 —— 不在这里清，
 	# 角色会永远停在 interacting，自动按住一直挂着。
 	auto_hold = false
+	var command := selected_command if acted_target == command_target else Callable()
+	selected_command = Callable()
+	command_target = null
 	progress_changed.emit(0.0)
-	var acted_target: Node3D = target
+	if generation != _action_generation or not is_instance_valid(acted_target) or acted_target != target \
+			or not acted_target.is_visible_in_tree() or not acted_target.can_interact(): return
 	var reward: Dictionary
-	if target == command_target and selected_command.is_valid():
-		var command := selected_command
-		selected_command=Callable();command_target=null
-		reward = command.call()
-	else: reward = target.interact(self)
+	if command.is_valid(): reward = command.call()
+	else: reward = acted_target.interact(self)
 	if reward.has("blocked"):
 		last_blocked = str(reward.blocked)
 		_blocked_cooldown = 0.6
@@ -323,7 +339,26 @@ func _refresh_target_from_scan(scanned: Array[Dictionary]) -> void:
 	target_changed.emit(target)
 
 
+func _cancel_current_action() -> void:
+	_action_generation += 1
+	acting = false
+	action_target = null
+	hold = 0.0
+	selected_command = Callable()
+	command_target = null
+	auto_hold = false
+	preferred_target = null
+	_acted_once = true
+	progress_changed.emit(0.0)
+
+
 func _release() -> void:
+	if acting:
+		_cancel_current_action()
+		blocked.emit("操作目标已改变")
+		_acted_once = true
+	elif is_instance_valid(target) and target == command_target:
+		_cancel_current_action()
 	if target != null and is_instance_valid(target) and target.focused:
 		target.focus_exit()
 	target = null
@@ -345,6 +380,7 @@ func debug_focus(spot: Node3D) -> void:
 	target_changed.emit(target)
 
 func cancel() -> void:
+	_cancel_current_action()
 	selected_command=Callable();command_target=null
 	auto_hold=false
 	preferred_target=null
@@ -372,6 +408,7 @@ func cancel() -> void:
 ## 菜单里选好的动作一次都不执行（2026-11-07：键盘播种全线卡死，
 ## 只剩一句「背包里没有种子」）。
 func queue_command(spot: Node3D, command: Callable) -> void:
+	if acting: _cancel_current_action()
 	command_target=spot;selected_command=command
 	_acted_once=false
 	_wait_release=false

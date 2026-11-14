@@ -39,7 +39,9 @@
     "godot/src/workshop/roof_edge_geometry.gd",
     "godot/src/workshop/shell_union_geometry.gd",
     "godot/addons/building_workshop/upgrade_verification.gd",
-    "godot/tests/test_workshop_union.gd"
+    "godot/tests/test_workshop_union.gd",
+    "godot/src/workshop/random_recipe.gd",
+    "godot/tests/test_workshop_random.gd"
   ],
   "verification": [
     "workshop-rules",
@@ -51,7 +53,8 @@
     "workshop-shell",
     "workshop-architecture",
     "workshop-union",
-    "editor-workshop-upgrade"
+    "editor-workshop-upgrade",
+    "workshop-random"
   ]
 }
 ```
@@ -398,3 +401,28 @@ shell最终 `20261112-161332-weathering-shell-final-606baa`：9872项/0失败、
 | SEA-WORKSHOP-R76 | implemented；`WorkshopTopInfo` 独立置于主屏顶部，包含建筑身份、名称、模块按钮和默认模组；左侧移除身份输入与模块导航，只保留当前模块参数；中央预览不再承载这些入口。 | 真实编辑器截图 `20261113-111329-workshop-top-default-modules-final-r2-8e346a/project/outputs/upgrade_10_palette_auto_ui.png`；布局专项检查通过。 |
 | SEA-WORKSHOP-R77 | implemented；顶部模块按钮改为紧凑横向 `HFlowContainer`，按钮在窄屏自动换行，避免旧版在宽度不足时变成右侧竖列；当前按钮保持金色高亮。 | 最终 `editor-workshop-upgrade` **822/0，exit0**，检查9个模块按钮位于顶部、左侧无重复入口。 |
 | SEA-WORKSHOP-R78 | implemented；新增4个内置合法 shell_v2 配方，可直接载入并继续编辑：海风公寓、码头商铺、灯塔工作室、回廊庭院。未保存草稿先走确认，样例文件只读载入，另存后不覆盖样例。 | 配方路径：`godot/data/workshop/samples/workshop_default_{sea_breeze,harbor_market,lighthouse_studio,courtyard}.recipe.json`；真实编辑器专项逐个解析并运行`Recipe.validate`，无失败。模组载入动作保持确认保护；未签所有模组的美术终验和运行版正式接入。 |
+
+## 2026-11-14 红框布局纠偏与可用面积验收
+
+用户否定上轮拥挤布局。旧822/0只证明节点存在/配方合法，不证明符合红框示意或可用面积；旧布局“已完成”的呈现结论由本节纠正，历史记录不删除。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R79 | implemented；删除全宽三层信息块、重复应用工具和底部三行常驻说明。模块位于模型上方横栏；建筑摘要一行，身份编辑/4模组按需弹窗，原次要工具迁文件页。字号不缩小。 | `editor_screen.gd`；真实editor-upgrade 925/0，exit0；最终完整编辑器截图`upgrade_11_compact_editor.png`与三档定尺寸渲染图已目检。 |
+| SEA-WORKSHOP-R80 | implemented；去全局outer_scroll，左右独立滚动，右栏默认隐藏；小于1120px时两栏互斥，含宽窗缩窄保护；专注预览、横向箭头导航及自动跟随；去模块按钮与取消重复信号。 | 三档实测Control尺寸、末端模块自动滚入、展开槽位栏、缩窗、按键单连接、模组弹窗取消保留草稿均通过；不是人工鼠标全流程测试。 |
+| SEA-WORKSHOP-R81 | implemented；状态高亮单行，详情RichTextLabel可选、复制原完整内容；验收测试保存/恢复原剪贴板。增加父链、主屏溢出、预览面积、顶部/底部高度和长提示门禁。 | 主屏1280×800/1000×700/860×600对应模型957×569/712×469/572×369，预览高占71.1%/67.0%/61.5%；顶91px、模块42px、底47px；全部通过，未放宽门禁。 |
+
+最终证据：`/Users/zyq/work/sea-work/verification/20261114-000055-workshop-redbox-layout-delivery-b03d03/report.json`，outer exit0/passed=true/unexpected_errors=[]，inner925/0；真实图为该目录`project/outputs/compact_layout_{1280x800,1000x700,860x600}.png`和`upgrade_11_compact_editor.png`。定尺寸图使用同一真实EditorPlugin主屏临时放入定尺寸SubViewport后渲染，绕过Mac窗口管理器忽略分辨率；不冒充三个OS窗口尺寸。
+
+预期故障：本次无预期红项；中间首轮验证脚本Control/Window类型冲突超时exit124，随后小窗口面积门禁失败exit1，均修复后保留历史报告。未执行：完整旧editor-workshop长矩阵、Main集成、全引擎审计和独立美术终验。本轮只改工坊UI/验收与配套文档，不改Main、shader、公共材质、配方源和用户摆位。详见[布局纠偏记录](../../development/2026-11-14_workshop_redbox_layout.md)。
+
+全库契约实际sync/check均exit1，533/534 issues，包含466项运行哈希漂移、14项源漂移、51条断链与资产登记/派生索引问题；无SEA-WORKSHOP条款错误。本轮2个UI/验收源码也尚未回填运行清单哈希，不将所有漂移称为既有或宣称全库通过，未批量刷新。日志`/Users/zyq/work/sea-work/workshop_redbox_contracts_{sync,check}_20261114.log`。
+
+## 2026-11-14 随机房屋按钮与独立树工坊边界
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R82 | implemented；random_recipe.create(seed)按合法开间/净高联动生成四平面形状和不同窗型、门/屋顶/柱腰线/协调PaletteUV。顶部增加随机房屋，单行不增高，状态显示seed。 | 20固定seed矩阵，actual union/UV/重复构建/不同参数及全局RNG隔离；随机969/0 exit0。随机器以保守合法参数域为边界，不声称所有滑条极值组合都随机覆盖。 |
+| SEA-WORKSHOP-R83 | implemented；确认前不flush输入，Session公开单次构建成功提交，失败/取消模型配方输入历史不变，undo恢复原房及未应用输入；既有附着植物仅保留摆放兼容，提示独立树木工坊。 | 真实房屋editor955/0 exit0，含坏catalog真实失败注入/确认取消/撤销重做/同seed/紧凑三档布局。树制作无依赖或插入房屋。 |
+
+最终证据：`/Users/zyq/work/sea-work/verification/20261114-025229-random-house-final-reviewed-8e6bf1/report.json`，workshop-random969/0、editor-workshop-upgrade955/0，两项exit0、passed=true、unexpected_errors=[]；实际随机模型图`project/outputs/upgrade_12_random_house.png`已目检。随机专项headless，编辑器专项真实Metal渲染，不能互相替代。初轮editor误包含未复制依赖的树测试脚本外层exit0仍标FAIL，已修minimal复制范围并复跑；未抹历史。未执行完整旧editor-workshop长矩阵/Main集成/所有8层随机性能，未改主场景。树木工坊详细状态在[独立账本](../plant_editor/ledger.md)。

@@ -44,6 +44,10 @@ func run() -> void:
 	main.world_clock.paused = true
 	economy = root.get_node("Economy")
 	economy.set_process(false)
+	# 在现有 runner 入口执行新增的最小隔离反例，不放宽日志判定。
+	await process_frame
+	await process_frame
+	preload("res://tests/test_save_boundaries.gd").run(main, check)
 
 	var coins0: int = economy.count("coins")
 	var seeds0: int = economy.count("lettuce_seed")

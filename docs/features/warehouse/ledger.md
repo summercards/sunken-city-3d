@@ -77,3 +77,13 @@ deposit_materials / withdraw_material / construction_pay / construction_count / 
 | SEA-WAREHOUSE-R05 | 已实现；真实GUI存取、商店购买与三分辨率专项 | [实测记录](../../development/2026-10-28_service_pockets.md) |
 
 2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。
+
+## 2026-11-14 B2 双库存事务承接
+
+承接SEA-WAREHOUSE-R02/R03/R04（S15/S16）：construction_pay仍先背包后仓库，改用InventoryTransfer.exchange整笔双端预检/静默提交；deposit/withdraw/批量存料与材料取回统一owner busy，覆盖事件发布，任一端库存busy拒绝异命令。失败回滚两端数量/排列并恢复原信号屏蔽状态，不发退款事件；成功首事件已可读两端完成态，每端容量通知保留。批量存料按共享容量预选，放不下仍留原处，不自动卖货，也不允许订单消费仓库。
+
+b2-transactions103/0中真实双Inventory覆盖重入、目标部分写后拒绝、既有信号屏蔽、批量共享容量及跨仓支付，PASS/exit0；不签多进程并写。登记头partial不变，证据与未决项见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0，承接双库存完成态、失败回滚及跨仓支付的实际覆盖。
+- 同步重入保护不等于多进程并发写保证；设备断电/磁盘满未签，全库契约仍失败，登记头partial保持，冻结证据及其余未签范围见主记录。

@@ -49,13 +49,42 @@ static var RECIPES: Dictionary = _load_recipes()
 ## signature covers the definition fields only; `active` is a runtime switch and
 ## is deliberately excluded so pinning content off does not read as corruption.
 static var _baseline: Dictionary = _signature(RECIPES)
+# 仅加载时复制一次；热路径逐字段比较，绝不缓存公开可写 RECIPES 的安全结论。
+static var _baseline_content: Dictionary = RECIPES.duplicate(true)
+static var _full_verification_count := 0
+
+## 热路径仍检查整个目录，避免同帧内或嵌套引用写入静默绕过；不复制、不序列化。
+static func content_reason() -> String:
+	for kind in _baseline_content:
+		if not RECIPES.has(kind): return "建造目录与源文件不一致："+str(kind)+" 被移除"
+		if not _same_content(RECIPES[kind],_baseline_content[kind],true):
+			return "建造目录与源文件不一致："+str(kind)+" 定义被改写"
+	for kind in RECIPES:
+		if not _baseline_content.has(kind): return "建造目录与源文件不一致："+str(kind)+" 被新增"
+	return ""
+
+static func _same_content(value: Variant, baseline: Variant, recipe: bool=false) -> bool:
+	if value is Dictionary and baseline is Dictionary:
+		if value.size()-int(recipe and value.has("active"))!=baseline.size()-int(recipe and baseline.has("active")): return false
+		for key in baseline:
+			if recipe and key=="active": continue
+			if not value.has(key) or not _same_content(value[key],baseline[key]): return false
+		return true
+	if value is Array and baseline is Array:
+		if value.size()!=baseline.size(): return false
+		for i in baseline.size():
+			if not _same_content(value[i],baseline[i]): return false
+		return true
+	if (value is int or value is float) and (baseline is int or baseline is float): return float(value)==float(baseline)
+	return typeof(value)==typeof(baseline) and value==baseline
 static func _signature(recipes: Dictionary) -> Dictionary:
 	var result: Dictionary={}
 	for kind: String in recipes:
-		var entry: Dictionary=(recipes[kind] as Dictionary).duplicate(true)
-		# Placement and support are derived at load time, so they stay in the
-		# signature: a wrong derivation is exactly the drift worth catching.
-		entry.erase("active")
+		var entry: Variant=recipes[kind]
+		# 派生的放置与承载定义也需要校验；坏类型同样报告漂移，不能在校验器内崩溃。
+		if entry is Dictionary:
+			entry=entry.duplicate(true)
+			entry.erase("active")
 		result[kind]=JSON.stringify(_canonical(entry))
 	return result
 ## Integer and float spellings of the same number are the same content. Without
@@ -75,6 +104,7 @@ static func _canonical(value: Variant) -> Variant:
 ## human-readable list of what changed. Gateways call this so a stray write to
 ## the shared table fails loudly instead of silently repricing the game.
 static func verify_content() -> String:
+	_full_verification_count+=1
 	var now: Dictionary=_signature(RECIPES)
 	var drift: Array[String]=[]
 	for kind: String in _baseline:
@@ -261,43 +291,11 @@ static func stair_support_ids(row: Dictionary,rows: Array) -> Array[String]:
 	if length>=JOIN_MIN-SEAM_EPS: return ids
 	ids.clear()
 	return ids
+## 旧三参入口仅作兼容装配。调用时目录已完成初始化，规则可安全 preload 本目录。
+## 这里保留显式运行时反向依赖，避免编译期循环与隐式静态注入顺序。
 static func snap_stairs(request: Dictionary,rows: Array,edge_assist: bool=true) -> Dictionary:
-	var result:=request.duplicate(true)
 	var rules=load("res://src/building/assembly_rules.gd")
-	var supports: Array=rules.support_ids(result,rows)
-	result.support="" if supports.is_empty() else supports[0]
-	if not edge_assist: return result
-	var cursor:=Vector2(float(request.px),float(request.pz))
-	var extent:=platform_extent(str(request.kind),int(request.get("turn",0)))
-	var guides: Array=[]
-	for other in rows:
-		if float(other.left)>0.0: continue
-		if is_platform(str(other.kind)) and same_level(elevation(other),elevation(request)): guides.append({"rect":footprint_rect(other),"stair":{}})
-		elif str(RECIPES[other.kind].get("profile",""))=="stairs":
-			if same_level(elevation(other),elevation(request)) or same_level(elevation(other)+stair_rise(other),elevation(request)): guides.append({"rect":footprint_rect(other),"stair":other})
-	if same_level(elevation(request),0.0): guides.append({"rect":BASE,"stair":{}})
-	guides.sort_custom(func(a,b): return not a.stair.is_empty() and b.stair.is_empty())
-	var best_distance:=STAIR_SNAP_DISTANCE*STAIR_SNAP_DISTANCE
-	var stair_match:=false
-	for entry in guides:
-		if stair_match and entry.stair.is_empty(): continue
-		var guide: Rect2=entry.rect
-		if not entry.stair.is_empty() and (stairs_parallel(result,entry.stair) or supports.has(str(entry.stair.id))) and rules.reason(result,rows)=="": return result
-		var xs: Array=[cursor.x,guide.position.x-extent.x/2,guide.end.x+extent.x/2,guide.position.x+extent.x/2,guide.end.x-extent.x/2,guide.get_center().x]
-		var zs: Array=[cursor.y,guide.position.y-extent.y/2,guide.end.y+extent.y/2,guide.position.y+extent.y/2,guide.end.y-extent.y/2,guide.get_center().y]
-		for x: float in xs:
-			for z: float in zs:
-				var distance:=cursor.distance_squared_to(Vector2(x,z))
-				if distance<0.000000001 or distance>=best_distance: continue
-				var candidate:=request.duplicate(true);candidate.px=x;candidate.pz=z
-				var ids: Array=rules.support_ids(candidate,rows)
-				if ids.is_empty(): continue
-				candidate.support=ids[0]
-				if not entry.stair.is_empty() and not stairs_parallel(candidate,entry.stair) and not ids.has(str(entry.stair.id)): continue
-				if rules.reason(candidate,rows)!="": continue
-				best_distance=distance;result=candidate
-				if not entry.stair.is_empty(): stair_match=true
-	return result
+	return rules.snap_stairs(request,rows,edge_assist)
 static func fixed_support() -> Dictionary:
 	return {"id":"@base","kind":"fixed_base","left":0.0}
 

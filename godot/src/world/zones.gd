@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func get_zone(id: String) -> Dictionary:
-	return by_id.get(id, {})
+	return by_id.get(id, {}).duplicate(true)
 
 
 func label(id: String) -> String:
@@ -87,7 +87,7 @@ func zone_at(point: Vector3, radius: float = 12.0) -> String:
 
 ## 游戏实例场景是地面/泊位的唯一来源；JSON 仅保留区块说明与无场景测试基线。
 func bind_scene(zone: Node3D) -> void:
-	var cfg := get_zone(zone.zone_id)
+	var cfg: Dictionary = by_id.get(zone.zone_id, {})
 	if cfg.is_empty():
 		return
 	# Moving facilities publish an event; this service remains the only writer of

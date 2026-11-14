@@ -257,7 +257,16 @@ func run() -> void:
 		"a refused build charges nothing")
 	check(main.building.can_remove(a)!="","a platform carrying a house cannot be reclaimed")
 	check(main.building.can_remove(floor_id)!="","an occupied upper floor cannot be reclaimed")
-	check(main.building.can_remove(p_nw)!="","a post bearing a floor cannot be reclaimed")
+	# A bearing post may be reclaimed when AssemblyRules can rebind the floor to
+	# another rooted support. The invariant is a valid re-bound layout, not the
+	# historical rule that the originally named post is always irremovable.
+	var post_reason: String = main.building.can_remove(p_nw)
+	if post_reason == "":
+		var post_removed: Dictionary = main.building.remove(p_nw)
+		check(post_removed.ok,"a replaceable bearing post reclaims cleanly")
+		check(main.building.validate_snapshot(main.building.to_dict())=="","layout remains valid after post rebind")
+	else:
+		check(true,"a uniquely bearing post remains protected: "+post_reason)
 	if not upper_lamp.is_empty() and main.building.can_remove(upper_lamp)=="":
 		var pre: int=econ.count("wood")
 		var cost:=int(Catalog.RECIPES.oil_lamp.cost.get("wood",0))

@@ -111,3 +111,13 @@ R10本轮换为独立FisheryMarker CanvasLayer，复用现有action_bubble和白
 - 主线程已提供 `performance-equivalence` 19/0；本次仅回填该批结果，不新增测试或复跑，不将历史 `fishery-production` 结果冒充本批完整经营回归。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签完整验收。
+
+## 2026-11-14 B2 渔场跨 owner 收获承接
+
+承接SEA-AQUA-R04/R05/R09/R11（S15/S16）：升级busy跨双库存pay到unlocked/changed；harvest busy/collecting覆盖原子receive→pending清零→changed，入账失败仍完整保留储量，不让Inventory.changed重入领取或保存半笔态。is_busy由Economy汇集到Registry；from_dict返回显式bool以参与apply结果协议。周期、上限、成本及economy.fishery v2/root v4不变。
+
+b2-transactions103/0含真实收获回调重入/清pending，fishery-production33/0、framework52/0 PASS/exit0；不代签第五区投苗/投喂与全部视觉。登记头partial保持；[B2主记录、报告与待父项](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0，承接真实收获入账重入、pending清零与失败保留储量的实际覆盖。
+- 不代签第五区投苗/投喂、全部渔场视觉或并发写；全库契约仍失败，登记头partial不变，冻结证据及剩余未签范围见主记录。

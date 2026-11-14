@@ -509,7 +509,7 @@
 | <a id="sea-quality"></a>SEA-QUALITY | 验证与性能治理 | 工程 | SEA-BOOT | [文档](docs/features/quality/spec.md) | [账本](docs/features/quality/ledger.md) | 部分实现 |
 | <a id="sea-tool"></a>SEA-TOOL | 测试工具（P 面板测试页） | 工程 | SEA-INVENTORY, SEA-TIME, SEA-WEATHER, SEA-ENERGY | [文档](docs/features/tool/spec.md) | [账本](docs/features/tool/ledger.md) | 已实现待完整验收 |
 | <a id="sea-workshop"></a>SEA-WORKSHOP | 编辑器楼房工坊与独立制作资产（运行版保留） | 工程/内容生产 | SEA-ASSET, SEA-WORLD, SEA-AMBIENT | [文档](docs/features/workshop/spec.md) | [账本](docs/features/workshop/ledger.md) | 部分实现 |
-| <a id="sea-plant-editor"></a>SEA-PLANT-EDITOR | 独立植物工坊、真实树种树干枝叶与附生植物制作 | 工程/内容生产 | SEA-ASSET, SEA-AMBIENT | [文档](docs/features/plant_editor/spec.md) | [账本](docs/features/plant_editor/ledger.md) | 规划中 |
+| <a id="sea-plant-editor"></a>SEA-PLANT-EDITOR | 独立植物工坊、真实树种树干枝叶与附生植物制作 | 工程/内容生产 | SEA-ASSET, SEA-AMBIENT | [文档](docs/features/plant_editor/spec.md) | [账本](docs/features/plant_editor/ledger.md) | 已实现待完整验收 |
 | <a id="sea-quicktools"></a>SEA-QUICKTOOLS | Alt 快捷工具环 | 交互/表现 | SEA-UI, SEA-MOVE, SEA-BUILDING, SEA-PICKUP, SEA-DIVE | [文档](docs/features/quick_tools/spec.md) | [账本](docs/features/quick_tools/ledger.md) | 部分实现 |
 | <a id="sea-release"></a>SEA-RELEASE | 导出与发行 | 工程 | SEA-QUALITY | [文档](docs/features/release/spec.md) | [账本](docs/features/release/ledger.md) | 部分实现 |
 <!-- FEATURE_CONTROL_END -->
@@ -914,3 +914,25 @@ OceanR30–R35 与 AmbientR32–R36 的逐条证据、失败边界及主线程�
 基线 `94ec42e0`，46项功能覆盖；本轮只审计/复现/登记，未实施生产修复，未动玩家正式档、资产哈希或用户场景Transform。合并登记63项：P1 14、P2 39、P3 10；其中动态复现15、静态确认29、风险待验14、规则待裁决3、测试治理2，未确认P0，不等同63个已发生玩家故障。总体判断为模块化基础存在，但存档保护、生命周期、编辑所有权与资产证据尚未闭合，不签完整健康。
 
 40项隔离逻辑32通过8失败（含2超时）；当前selftest499通过/33失败另1脚本错误，不沿用旧基线；三项真实视觉通过并产68PNG，仅3图目检，材质uniform警告与设备/长期边界保留。全局契约初查exit1/499 issues，架构25服务/0与摆放6/0 exit0均不代签整体。推荐B0验收可信度→B1存档生命周期止血→B2事务空间→B3模块/数据/账本→B4视觉发行。完整问题、方案、逐项验收及原始证据见[深度审计与修改计划](docs/development/2026-11-13_engine_deep_audit.md)；由SEA-QUALITY统筹，各功能账本追加承接，不新增重复状态所有者。
+
+### 2026-11-14 B2 实施与验收入口
+
+已按授权推进B0/B1后的B2业务事务、恢复投影/自动保存、重置恢复、睡眠模态、菜园NPC及床位/床边路线修复；S10迁移一致性复用B1。当前实现、各阶段真实退出码、重置进程中断负例、18张视觉产物与仅3图目检边界统一见[审计记录B2最终回填](docs/development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)及其后最后复测节。NPC集成及seed/restart已补齐通过；不据局部通过升级功能状态或签全工程健康。全库资产/条款/索引门禁、真实设备和长期项保持独立；B3/B4未实施，用户手摆main根及正式存档未动。
+
+### 2026-11-14 B3 模块边界与验收治理入口
+
+B3已完成安全子集：公开查询递归副本（Zones/ItemDB/GoalService）、建筑Catalog与AssemblyRules规则解环及真实内容漂移守卫、摆位Transform严格解析、验证runner配置隔离和minimal/full-world夹具分支。专项、治理、架构和摆位检查均有最新exit0证据；B3最终契约sync/check仍为535/536 issues、exit1，未刷hash或派生索引。详见[审计记录B3](docs/development/2026-11-13_engine_deep_audit.md#b3-模块边界与验收治理修复2026-11-14)。全局契约/资产登记、产品Scope裁决、视觉设备发行与长期可靠性仍未签；B4继续，审计未预设B5。
+
+### 2026-11-14 B4 视觉、发行与可靠性入口
+
+B4已完成安全子集：Q03 shader instance_index槽位治理、Q04导航/采集诊断、D05只读发行闭包审计、A08生命周期证据协议。tooling87/87、材质参数检查、Q04六入口均exit0；visual-room/gift-kiosk/workshop-rules exit0，visual-quick-tools保留历史截图尺寸夹具20项失败。真实发行包、许可闭包、设备故障、长期生命周期、零警告和全平台验收仍未签。详见[审计记录B4](docs/development/2026-11-13_engine_deep_audit.md#b4-视觉发行与可靠性修复2026-11-14)，B4后续继续，审计未预设B5。
+
+### 2026-11-14 B3/B4 最新证据与纯文档收尾
+
+本节追加承接SEA-QUALITY/ASSET/OCEAN/NAV，不回写早批“未实施”或失败历史，不改功能表与登记头。B3已有10逻辑入口全部exit0，management默认minimal/显式full-world双profile各exit0，治理31/31、架构25/0、摆位6/0、diff-check exit0；最近已记录契约实跑仍是sync535/check536 issues、均exit1，不代表本次文档追加后重跑。
+
+B4 Q03槽位、D05只读闭包、A08证据协议及Q04六入口仅完成安全子集；quick-tools尺寸夹具修复已有266/0、engine0/runner0，早批room/gift/workshop入口各exit0。工程外`/Users/zyq/work/sea-work/b4-validation-closeout-20261114/b4-validation-summary.{md,json}`另记录tooling87/87、材质10份/51文件、Q04六入口exit0；D05无发行输入及A08无真实采样输入均为**UNEXECUTED/exit2**，不是发行或长期验收通过。
+
+最新收集首轮visual整批runner1：quick为102/2、engine1、无PNG；room为engine124、仅两图、未完成。无改动独立复测quick266/0与room均engine0/runner0，分别30/8PNG，不抹首轮、不签稳定性。gift首轮入口engine0、53/0、30PNG，但整批runner1；用户补充后续独立视觉通过，当前摘要未附该独立report，本次不虚填路径/退出码，也不拿早批通过冒充后续。完整分批身份与证据限制见[审计收尾](docs/development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)。
+
+重置矩阵当前文件`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`已更新为124724单位批、124828–124832五阶段seed/recover重跑：unit engine0/runner0，五seed均**engine-9/runner1、预期SIGKILL**，五recover均engine0/runner0。与收集器历史引用分开记，不把进程中断称物理断电。B4仍未完成发行包/许可/设备/跨平台与长期矩阵，不签全工程绿或零警告/零泄漏，审计**无B5**。本次只追加六份文档，未启动Godot/runner/契约sync，不改生产代码、测试、资产、许可、哈希、派生索引或事务文件，各登记头原状态保留。

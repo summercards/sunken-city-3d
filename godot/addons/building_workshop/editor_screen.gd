@@ -9,6 +9,7 @@ const Preview = preload("res://addons/building_workshop/editor_preview.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
 const Generator = preload("res://src/workshop/generator.gd")
+const RandomRecipe = preload("res://src/workshop/random_recipe.gd")
 const WINDOW_PREVIEW_DELAY: float = 0.16
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
@@ -90,6 +91,16 @@ var _file_dialog: FileDialog
 var _component_dialog: FileDialog
 var _left_panel: ScrollContainer
 var _right_panel: ScrollContainer
+var _workspace: HSplitContainer
+var _preview_split: HSplitContainer
+var _preview_column: VBoxContainer
+var _module_strip: ScrollContainer
+var _identity_dialog: AcceptDialog
+var _defaults_dialog: AcceptDialog
+var _details_dialog: AcceptDialog
+var _details_text: RichTextLabel
+var _parameter_title: Label
+var _layout_ready: bool = false
 var _confirm_action: Callable = Callable()
 var _last_export: Dictionary = {}
 var _slot_cache: Dictionary = {}
@@ -118,6 +129,11 @@ var _window_history_fingerprint: String = ""
 var _window_preview_busy: bool = false
 var _range_readouts: Dictionary = {}
 var window_preview_result: Dictionary = {}
+var random_house_result: Dictionary = {}
+var _random_house_rng := RandomNumberGenerator.new()
+var _random_house_rng_ready: bool = false
+var _random_house_undo_inputs: Dictionary = {}
+var _random_house_confirming: bool = false
 
 func configure(ports: Dictionary = {}) -> void:
 	_ports.merge(ports, true)
@@ -213,6 +229,62 @@ func generate_building() -> Dictionary:
 	if str(snapshot().get("construction_mode", "modular_v1")) != "shell_v2":
 		return _report_failure("旧版拼装已停止使用，请点击「新建」生成连续实体楼房。")
 	return apply_parameters()
+
+func random_house(seed_value: int = -1) -> Dictionary:
+	if not _initialized or preview == null or not preview.is_node_ready():
+		return _report_failure("独立预览尚未就绪，当前房屋保持。")
+	if _window_preview_busy or _random_house_confirming:
+		return {"ok": false, "reason": "请先完成当前操作"}
+	if seed_value < 0:
+		if not _random_house_rng_ready:
+			_random_house_rng.randomize()
+			_random_house_rng_ready = true
+		seed_value = _random_house_rng.randi_range(0, 2147483647)
+	if has_pending_fields() or not _window_preview_keys.is_empty() or not _window_failed_keys.is_empty():
+		# 不flush：确认之前连已排队的窗输入也不得提交。
+		_window_preview_timer.stop()
+		_random_house_confirming = true
+		_ask_discard(_random_house_now.bind(seed_value), "随机房屋将替换当前草稿与未应用输入；不会保存或插入世界。成功后可撤销回原房屋及输入，失败或取消保持当前房屋。是否继续？")
+		_confirm.title = "确认随机房屋"
+		_confirm.ok_button_text = "生成随机房屋"
+		return {"ok": false, "reason": "等待确认", "confirmation_required": true, "seed": seed_value}
+	return _random_house_now(seed_value)
+
+func _random_house_now(seed_value: int) -> Dictionary:
+	_random_house_confirming = false
+	_confirm.title = "未保存修改"
+	_confirm.ok_button_text = "丢弃并继续"
+	var before: String = Recipe.fingerprint(snapshot())
+	var inputs: Dictionary = {"previous": before, "ui_values": _capture_ui_values(),
+		"building_id": _id_edit.text, "display_name": _name_edit.text,
+		"baseline": _local_baseline.duplicate(true)}
+	_set_status("正在生成随机房屋 · seed %d；当前模型保留至成功。" % seed_value, WORKSHOP_ACCENT_HOVER)
+	var reasons: Array[String] = []
+	for candidate: Dictionary in RandomRecipe.generate_candidates(seed_value):
+		# 同一文档内替换参数，身份/版本不变；不写Session私有状态。
+		candidate.building_id = snapshot().building_id
+		candidate.revision = snapshot().revision
+		var result: Dictionary = session.preview_candidate(candidate)
+		if not bool(result.get("ok", false)):
+			reasons.append(str(result.get("reason", "生成失败")))
+			continue
+		if Recipe.fingerprint(snapshot()) != before:
+			_random_house_undo_inputs[Recipe.fingerprint(snapshot())] = inputs
+		_reset_window_preview()
+		_slot_cache.clear()
+		_opening_cache.clear()
+		_selected_id = ""
+		_selected_opening_id = ""
+		_last_window_scope = "global"
+		_refresh_from_session()
+		refresh_preview(false, result)
+		random_house_result = {"ok": true, "seed": seed_value, "reason": "", "attempts": reasons.size() + 1}
+		buttons.random_house.tooltip_text = "随机房屋 · 最近成功seed %d；可撤销回原房屋。" % seed_value
+		_set_status("随机房屋已生成 · seed %d · 可撤销；尚未保存，未插入世界。" % seed_value, WORKSHOP_ACCENT_HOVER)
+		return random_house_result
+	random_house_result = {"ok": false, "seed": seed_value, "reason": "; ".join(reasons), "attempts": reasons.size()}
+	_report_failure("随机房屋未提交，模型和输入保持 · seed %d：%s" % [seed_value, random_house_result.reason])
+	return random_house_result
 
 func apply_parameters() -> Dictionary:
 	if not _initialized:
@@ -649,100 +721,100 @@ func _build_ui() -> void:
 	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	background.set_meta("cozy_skip", true)
 	add_child(background)
-	var root: VBoxContainer = VBoxContainer.new()
+	var root := VBoxContainer.new()
+	root.name = "WorkshopLayout"
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.add_theme_constant_override("separation", 10)
+	root.add_theme_constant_override("separation", 4)
 	add_child(root)
-	# 生成操作固定在所有滚动区域之外，窄屏和参数页滚到底仍可直接点击。
-	var generate_bar: HBoxContainer = HBoxContainer.new()
-	generate_bar.name = "FixedGenerateBar"
-	root.add_child(generate_bar)
-	var generate: Button = _button("应用参数并生成楼房", "generate")
-	generate.custom_minimum_size = Vector2(300, 54)
-	generate.add_theme_font_size_override("font_size", 18)
-	generate_bar.add_child(generate)
-	generate_bar.add_child(_label("连续实体 · 基础框架 / 门窗 / 构架 / 形体在左侧编辑"))
-	var toolbar_scroll: ScrollContainer = ScrollContainer.new()
+	# 只有一行主工具和一行摘要常驻；身份、模组、长说明不参与工作区布局。
+	var toolbar_scroll := ScrollContainer.new()
+	toolbar_scroll.name = "WorkshopMainToolbar"
 	toolbar_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	toolbar_scroll.custom_minimum_size.y = 50
-	toolbar_scroll.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	toolbar_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	toolbar_scroll.custom_minimum_size.y = 44
 	root.add_child(toolbar_scroll)
-	var toolbar: HBoxContainer = HBoxContainer.new()
+	var toolbar := HBoxContainer.new()
+	toolbar.add_theme_constant_override("separation", 6)
 	toolbar_scroll.add_child(toolbar)
-	var toolbar_title: Label = _label("老王场景工坊", 19)
-	toolbar_title.autowrap_mode = TextServer.AUTOWRAP_OFF
-	toolbar_title.custom_minimum_size.x = 80
-	toolbar.add_child(toolbar_title)
-	for spec: Array in [["apply", "应用全部参数"], ["new", "新建"], ["open", "打开"], ["save", "保存并烘焙"], ["undo", "撤销"], ["redo", "重做"], ["open_scene", "在3D打开"], ["copy_sample", "复制样例"], ["save_as", "另存新ID"], ["toggle_left", "参数栏"], ["toggle_right", "槽位栏"]]:
-		toolbar.add_child(_button(str(spec[1]), str(spec[0])))
+	for spec: Array in [["generate", "应用并生成"], ["random_house", "随机房屋"], ["save", "保存烘焙"], ["undo", "撤销"], ["redo", "重做"], ["show_defaults", "默认模组…"], ["edit_identity", "建筑信息…"], ["open", "文件…"]]:
+		var action := _button(str(spec[1]), str(spec[0]))
+		action.custom_minimum_size.y = 40
+		toolbar.add_child(action)
+	var summary := HBoxContainer.new()
+	summary.name = "WorkshopDocumentSummary"
+	state_label = _label("未保存", 16)
+	state_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	state_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	summary.add_child(state_label)
+	for spec: Array in [["toggle_left", "参数栏"], ["toggle_right", "槽位栏"], ["focus_preview", "专注预览"]]:
+		var action := _button(str(spec[1]), str(spec[0]))
+		summary.add_child(action)
+	root.add_child(summary)
 	_build_top_identity_and_modules(root)
-	state_label = _label("未保存")
-	root.add_child(state_label)
-	var outer_scroll: ScrollContainer = ScrollContainer.new()
-	outer_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	outer_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	outer_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	root.add_child(outer_scroll)
-	var split: HSplitContainer = HSplitContainer.new()
-	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	split.split_offset = 285
-	outer_scroll.add_child(split)
+	_workspace = HSplitContainer.new()
+	_workspace.name = "WorkshopWorkspace"
+	_workspace.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_workspace.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root.add_child(_workspace)
 	_left_panel = _make_left_panel()
-	split.add_child(_left_panel)
-	var inner: HSplitContainer = HSplitContainer.new()
-	inner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inner.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	inner.split_offset = 390
-	split.add_child(inner)
-	var preview_body: VBoxContainer = VBoxContainer.new()
-	preview_body.custom_minimum_size.x = 380
-	preview_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inner.add_child(preview_body)
-	var views: HBoxContainer = HBoxContainer.new()
-	preview_body.add_child(views)
+	_left_panel.name = "WorkshopParameters"
+	_workspace.add_child(_left_panel)
+	_preview_split = HSplitContainer.new()
+	_preview_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_preview_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_workspace.add_child(_preview_split)
+	_preview_column = VBoxContainer.new()
+	_preview_column.name = "WorkshopPreviewColumn"
+	_preview_column.add_theme_constant_override("separation", 4)
+	_preview_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_preview_column.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_preview_split.add_child(_preview_column)
+	_build_module_strip(_preview_column)
+	var views_scroll := ScrollContainer.new()
+	views_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	views_scroll.custom_minimum_size.y = 36
+	var views := HBoxContainer.new()
+	views_scroll.add_child(views)
+	_preview_column.add_child(views_scroll)
 	for pair: Array in [["front", "正面"], ["back", "背面"], ["top", "俯视"], ["perspective", "透视"]]:
 		views.add_child(_button(str(pair[1]), "view_" + str(pair[0])))
+	var wire: CheckButton = _check("线框", "wireframe", views)
+	wire.toggled.connect(func(value: bool) -> void: preview.set_wireframe(value))
+	var collision: CheckButton = _check("碰撞", "collision_overlay", views)
+	collision.toggled.connect(func(value: bool) -> void: preview.set_collision_overlay(value))
 	preview = Preview.new()
 	preview.name = "EditorWorkshopPreview"
 	preview.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	preview.slot_selected.connect(select_slot)
-	preview_body.add_child(preview)
-	var overlays: HBoxContainer = HBoxContainer.new()
-	preview_body.add_child(overlays)
-	var wire: CheckButton = _check("线框", "wireframe", overlays)
-	wire.toggled.connect(func(value: bool) -> void: preview.set_wireframe(value))
-	var collision: CheckButton = _check("实际碰撞", "collision_overlay", overlays)
-	collision.toggled.connect(func(value: bool) -> void: preview.set_collision_overlay(value))
-	preview_body.add_child(_label("左键点选 / 拖动旋转；滚轮缩放。窄屏可折叠两侧栏。"))
+	preview.tooltip_text = "左键点选；拖动旋转；滚轮缩放。顶部模块切换左侧参数，不改变模型镜头。"
+	_preview_column.add_child(preview)
 	_right_panel = _make_right_panel()
-	inner.add_child(_right_panel)
-	var path_label: Label = _label("保存路径：" + export_root + " / <building_id> / revision_NNNN")
-	controls["export_root_label"] = path_label
-	root.add_child(path_label)
-	root.add_child(_label("共享512×512色盘 · SEA_Matte / SEA_Metal / SEA_Gloss / SEA_Emission · UV选色，材质控制质感"))
-	root.add_child(_label("五件 bundle 仅为候选资产，尚未正式登记；不替换当前编辑场景或主场景。"))
+	_right_panel.name = "WorkshopSlotInspector"
+	_preview_split.add_child(_right_panel)
+	_right_panel.hide()
 	status_panel = PanelContainer.new()
 	status_panel.name = "WorkshopStatusPanel"
-	status_panel.add_theme_stylebox_override("panel", _stylebox(Color("#203b50"), WORKSHOP_ACCENT, 7, 2))
+	status_panel.add_theme_stylebox_override("panel", _status_style(WORKSHOP_ACCENT))
 	var status_row := HBoxContainer.new()
-	status_row.add_theme_constant_override("separation", 8)
+	status_row.add_theme_constant_override("separation", 6)
 	status_panel.add_child(status_row)
 	status_label = _label("编辑器独立主屏；无需运行游戏。", 16)
-	status_label.custom_minimum_size.y = 46
+	status_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	status_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	status_row.add_child(status_label)
 	status_copy_button = _button("复制提示", "copy_status")
-	status_copy_button.custom_minimum_size = Vector2(128, 46)
+	status_row.add_child(_button("详情…", "status_details"))
 	status_row.add_child(status_copy_button)
 	root.add_child(status_panel)
+	resized.connect(_on_layout_resized)
+	call_deferred("_on_layout_resized")
 	_confirm = ConfirmationDialog.new()
 	_confirm.title = "未保存修改"
 	_confirm.ok_button_text = "丢弃并继续"
 	_confirm.cancel_button_text = "取消，保留草稿"
 	_confirm.confirmed.connect(_confirm_discard)
 	_confirm.canceled.connect(_cancel_discard)
-	_confirm.get_cancel_button().pressed.connect(_cancel_discard)
 	add_child(_confirm)
 	_save_as_dialog = ConfirmationDialog.new()
 	_save_as_dialog.title = "另存为新建筑"
@@ -771,77 +843,122 @@ func _build_ui() -> void:
 	_component_dialog.file_selected.connect(_replace_component_selected)
 	add_child(_component_dialog)
 
-func _build_top_identity_and_modules(root: VBoxContainer) -> void:
-	var panel := PanelContainer.new()
-	panel.name = "WorkshopTopInfo"
-	panel.add_theme_stylebox_override("panel", _stylebox(WORKSHOP_SURFACE, WORKSHOP_ACCENT, 8, 2))
-	var body := VBoxContainer.new()
-	body.add_theme_constant_override("separation", 6)
-	panel.add_child(body)
-	var identity_row := HBoxContainer.new()
-	identity_row.add_theme_constant_override("separation", 8)
-	var identity_title := _label("当前建筑", 17)
-	identity_title.custom_minimum_size.x = 92
-	identity_row.add_child(identity_title)
-	identity_row.add_child(_label("building_id", 15))
+func _build_top_identity_and_modules(_root: VBoxContainer) -> void:
+	_identity_dialog = AcceptDialog.new()
+	_identity_dialog.name = "WorkshopTopInfo"
+	_identity_dialog.title = "建筑信息（仍用顶部生成按钮提交）"
+	_identity_dialog.ok_button_text = "返回编辑"
+	var identity := VBoxContainer.new()
+	identity.add_theme_constant_override("separation", 8)
+	_identity_dialog.add_child(identity)
+	identity.add_child(_label("building_id · 另存请使用文件页的另存新ID"))
 	_id_edit = LineEdit.new()
 	_id_edit.name = "building_id"
-	_id_edit.custom_minimum_size = Vector2(210, 40)
-	_id_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_id_edit.custom_minimum_size = Vector2(410, 40)
 	_id_edit.add_theme_font_size_override("font_size", 18)
-	_id_edit.add_theme_stylebox_override("normal", _stylebox(Color("#0d1726"), WORKSHOP_LINE, 5))
-	_id_edit.add_theme_stylebox_override("focus", _stylebox(Color("#14263a"), WORKSHOP_GOLD, 5, 2))
 	_id_edit.text_changed.connect(_on_text_changed)
-	identity_row.add_child(_id_edit)
-	identity_row.add_child(_label("名称", 15))
+	identity.add_child(_id_edit)
+	identity.add_child(_label("显示名称"))
 	_name_edit = LineEdit.new()
 	_name_edit.name = "display_name"
-	_name_edit.custom_minimum_size = Vector2(220, 40)
-	_name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_name_edit.custom_minimum_size = Vector2(410, 40)
 	_name_edit.add_theme_font_size_override("font_size", 18)
-	_name_edit.add_theme_stylebox_override("normal", _stylebox(Color("#0d1726"), WORKSHOP_LINE, 5))
-	_name_edit.add_theme_stylebox_override("focus", _stylebox(Color("#14263a"), WORKSHOP_GOLD, 5, 2))
 	_name_edit.text_changed.connect(_on_text_changed)
-	identity_row.add_child(_name_edit)
-	body.add_child(identity_row)
-	var module_title := _label("模块", 16)
-	module_title.custom_minimum_size.y = 24
-	body.add_child(module_title)
-	var module_row := HFlowContainer.new()
-	module_row.name = "WorkshopTopModuleBar"
-	module_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	module_row.add_theme_constant_override("h_separation", 5)
-	module_row.add_theme_constant_override("v_separation", 5)
-	for index: int in PAGES.size():
-		var module_button := _button(PAGES[index], "module_%02d" % index)
-		module_button.custom_minimum_size = Vector2(82, 38)
-		module_button.add_theme_font_size_override("font_size", 16)
-		module_button.pressed.connect(_select_page.bind(index))
-		module_row.add_child(module_button)
-	body.add_child(module_row)
-	var default_title := _label("默认模组 · 点击即可载入", 16)
-	default_title.custom_minimum_size.y = 24
-	body.add_child(default_title)
-	var defaults_row := HFlowContainer.new()
-	defaults_row.name = "WorkshopDefaultModules"
-	defaults_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	defaults_row.add_theme_constant_override("h_separation", 6)
-	defaults_row.add_theme_constant_override("v_separation", 5)
+	identity.add_child(_name_edit)
+	controls["building_id"] = _id_edit
+	controls["display_name"] = _name_edit
+	add_child(_identity_dialog)
+	_defaults_dialog = AcceptDialog.new()
+	_defaults_dialog.title = "默认模组 · 载入后继续编辑"
+	_defaults_dialog.ok_button_text = "关闭"
+	var defaults_body := VBoxContainer.new()
+	defaults_body.custom_minimum_size.x = 470
+	defaults_body.add_theme_constant_override("separation", 8)
+	_defaults_dialog.add_child(defaults_body)
+	defaults_body.add_child(_label("选择一套起点；有未保存修改时会先询问。样例源不会被覆盖。"))
+	var defaults_grid := GridContainer.new()
+	defaults_grid.name = "WorkshopDefaultModules"
+	defaults_grid.columns = 2
+	defaults_grid.add_theme_constant_override("h_separation", 8)
+	defaults_grid.add_theme_constant_override("v_separation", 8)
 	for index: int in DEFAULT_MODULES.size():
 		var item: Dictionary = DEFAULT_MODULES[index]
-		var default_button := _button(str(item.label) + " · " + str(item.description), "default_module_%02d" % index)
-		default_button.custom_minimum_size = Vector2(150, 38)
-		default_button.add_theme_font_size_override("font_size", 15)
-		default_button.tooltip_text = "直接载入「%s」；当前未保存修改会先询问" % str(item.label)
-		defaults_row.add_child(default_button)
-	body.add_child(defaults_row)
-	root.add_child(panel)
+		var action := _button(str(item.label) + "\n" + str(item.description), "default_module_%02d" % index)
+		action.custom_minimum_size = Vector2(220, 70)
+		defaults_grid.add_child(action)
+	defaults_body.add_child(defaults_grid)
+	add_child(_defaults_dialog)
+	_details_dialog = AcceptDialog.new()
+	_details_dialog.title = "完整操作提示"
+	_details_dialog.ok_button_text = "关闭"
+	_details_text = RichTextLabel.new()
+	_details_text.custom_minimum_size = Vector2(550, 260)
+	_details_text.selection_enabled = true
+	_details_text.add_theme_font_size_override("normal_font_size", 16)
+	_details_dialog.add_child(_details_text)
+	add_child(_details_dialog)
+
+func _build_module_strip(parent: VBoxContainer) -> void:
+	var navigation := HBoxContainer.new()
+	navigation.name = "WorkshopModuleNavigation"
+	navigation.add_theme_constant_override("separation", 3)
+	parent.add_child(navigation)
+	var previous := _button("‹", "module_scroll_left")
+	previous.tooltip_text = "向左滚动模块；切换模块后自动跟随当前项"
+	navigation.add_child(previous)
+	_module_strip = ScrollContainer.new()
+	_module_strip.name = "WorkshopModuleStrip"
+	_module_strip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_module_strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	# 保留横向滚动，用两侧明确按钮代替额外占一行的系统滚动条。
+	_module_strip.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	_module_strip.custom_minimum_size.y = 42
+	navigation.add_child(_module_strip)
+	var next := _button("›", "module_scroll_right")
+	next.tooltip_text = "向右滚动模块；也可使用触控板横向滚动"
+	navigation.add_child(next)
+	var row := HBoxContainer.new()
+	row.name = "WorkshopTopModuleBar"
+	row.add_theme_constant_override("separation", 4)
+	_module_strip.add_child(row)
+	for index: int in PAGES.size():
+		var action := _button(PAGES[index], "module_%02d" % index)
+		action.custom_minimum_size = Vector2(66, 34)
+		for state: String in ["normal", "hover", "pressed", "focus", "disabled"]:
+			var style: StyleBoxFlat = action.get_theme_stylebox(state).duplicate() as StyleBoxFlat
+			style.content_margin_top = 3
+			style.content_margin_bottom = 3
+			action.add_theme_stylebox_override(state, style)
+		row.add_child(action)
+
+func _on_layout_resized() -> void:
+	if _workspace == null or _preview_split == null or size.x <= 0:
+		return
+	# 分隔宽度只在首次/窗口尺寸变化时归一化；不在拖动参数时重置用户分隔条。
+	if size.x < 1120.0 and _left_panel.visible and _right_panel.visible:
+		_right_panel.hide()
+	var sidebar_width: float = clampf(size.x * 0.25, 280.0, 320.0)
+	_workspace.split_offset = int(sidebar_width)
+	_preview_split.split_offset = int(maxf(320.0, size.x - sidebar_width - 310.0))
+	_layout_ready = true
+
+func _toggle_sidebar(left: bool) -> void:
+	var panel: Control = _left_panel if left else _right_panel
+	panel.visible = not panel.visible
+	# 小窗口同时开两侧栏会吃掉预览；改为一次只展开一侧，不缩字体。
+	if panel.visible and size.x < 1120.0:
+		(_right_panel if left else _left_panel).hide()
+	_set_status(("已展开" if panel.visible else "已收起") + ("参数栏" if left else "槽位栏") + "；再次点击可切换。", WORKSHOP_ACCENT_HOVER)
+
+func _show_status_details() -> void:
+	_details_text.text = _last_status_text
+	_details_dialog.popup_centered(Vector2i(590, 340))
 
 func _make_left_panel() -> ScrollContainer:
 	var scroll: ScrollContainer = _sidebar()
 	var body: VBoxContainer = _sidebar_body(scroll)
-	body.add_child(_label("当前模块参数", 16))
-	body.add_child(_label("左侧只放当前模块的可编辑参数；建筑身份、模块入口和默认模组已移到顶部。", 12))
+	_parameter_title = _label("结构 · 参数", 18)
+	body.add_child(_parameter_title)
 	_page_picker = OptionButton.new()
 	_page_picker.add_theme_font_size_override("font_size", 18)
 	for page_name: String in PAGES:
@@ -946,11 +1063,11 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			page.add_child(_button("应用破旧并生成", "damage_apply"))
 			page.add_child(_label("破损种子控制缺口差异；0为完整门窗。承重墙破洞与残楼尚未实现。"))
 		"植物":
-			_check("植物 / 树枝随机变化", "vegetation_random_enabled", page).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("vegetation_random_enabled"))
+			_check("附着植物摆放随机", "vegetation_random_enabled", page).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("vegetation_random_enabled"))
 			for spec: Array in [["vegetation_variation", "随机幅度", 0, 1, 0.01], ["vegetation_seed", "植物种子", 0, 2147483647, 1], ["vegetation_density", "植物密度", 0, 1, 0.01], ["growth_small", "小型权重", 0, 1, 0.01], ["growth_medium", "中型权重", 0, 1, 0.01], ["growth_large", "大型权重", 0, 1, 0.01]]:
 				_spin_spec(page, spec)
 			page.add_child(_label("拖动自动预览。最大幅度：位置±0.25m、尺寸±20%、朝向±180°。关闭随机后seed不影响植物；幅度0仅关闭姿态扰动，密度及三档权重仍生效。檐边藤蔓和锁定槽不偏移。", 12))
-			page.add_child(_label("植物品种在右侧全局绑定选择；锁定与排除针对选中槽位。"))
+			page.add_child(_label("这里只调整既有附着植物摆放，不制作树木。树干、分枝、叶片请使用顶部独立「树木工坊」。锁定与排除仅针对当前槽。"))
 		"空间":
 			_add_option(page, "spatial_profile", "空间职责", [["above_water", "水上功能"], ["scenic_underwater", "水下观赏"], ["dive_static", "潜水静态"]])
 			_spin_spec(page, ["taper", "收分", 0, 0.1, 0.01])
@@ -995,6 +1112,12 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			form_panel.add_child(form_readout_label)
 			page.add_child(_label("结构收分受墙倾角约束：上限 = tan(倾角) × 总高 / 最大面宽。墙越宽、层越矮可用幅度越小；调大倾角上限即可得到更大的收口。SKILL 建议 4°，默认给 8°。", 12))
 		"文件":
+			for spec: Array in [["new", "新建空白楼房"], ["save_as", "另存新ID"], ["open_scene", "在3D打开已保存版本"], ["copy_sample", "复制样例"], ["apply", "应用全部参数"]]:
+				page.add_child(_button(str(spec[1]), str(spec[0])))
+			var path_label: Label = _label("保存路径：" + export_root)
+			controls["export_root_label"] = path_label
+			page.add_child(path_label)
+			page.add_child(_label("共享512×512色盘 / 四角色材质。五件bundle为候选，不自动替换正式世界。"))
 			page.add_child(_label("本项目已保存建筑", 16))
 			_saved_list = ItemList.new()
 			_saved_list.custom_minimum_size = Vector2(0, 155)
@@ -1128,6 +1251,7 @@ func _button(text: String, id: String) -> Button:
 	var button: Button = Button.new()
 	button.name = id
 	button.text = text
+	button.tooltip_text = text
 	button.add_theme_font_size_override("font_size", 18)
 	_apply_button_theme(button)
 	button.pressed.connect(_button_pressed.bind(id))
@@ -1561,6 +1685,7 @@ func _button_pressed(id: String) -> void:
 	match id:
 		"new": _guard_action(_new_document, "新建将丢弃当前未保存修改，是否继续？")
 		"generate": generate_building()
+		"random_house": random_house()
 		"open":
 			_select_page(PAGES.find("文件"))
 			refresh_documents()
@@ -1599,8 +1724,18 @@ func _button_pressed(id: String) -> void:
 			_request_sample(true)
 		"replace_component": _choose_component()
 		"export_module": export_module_component()
-		"toggle_left": _left_panel.visible = not _left_panel.visible
-		"toggle_right": _right_panel.visible = not _right_panel.visible
+		"toggle_left": _toggle_sidebar(true)
+		"toggle_right": _toggle_sidebar(false)
+		"focus_preview":
+			var restore: bool = not _left_panel.visible and not _right_panel.visible
+			_left_panel.visible = restore
+			_right_panel.hide()
+			_set_status("已恢复参数栏" if restore else "专注预览：再次点击可恢复参数栏。", WORKSHOP_ACCENT_HOVER)
+		"module_scroll_left": _module_strip.scroll_horizontal = maxi(0, _module_strip.scroll_horizontal - 220)
+		"module_scroll_right": _module_strip.scroll_horizontal += 220
+		"edit_identity": _identity_dialog.popup_centered()
+		"show_defaults": _defaults_dialog.popup_centered()
+		"status_details": _show_status_details()
 		"copy_status": DisplayServer.clipboard_set(_last_status_text)
 		_:
 			if id.begins_with("default_module_"):
@@ -1613,11 +1748,21 @@ func _button_pressed(id: String) -> void:
 				preview.set_view(id.trim_prefix("view_"))
 
 func _undo(redo: bool) -> void:
+	var random_inputs: Dictionary = _random_house_undo_inputs.get(Recipe.fingerprint(snapshot()), {}) if not redo else {}
 	_reset_window_preview()
 	var changed: bool = session.redo() if redo else session.undo()
 	if changed:
 		_refresh_from_session()
 		refresh_preview()
+		if not random_inputs.is_empty() and Recipe.fingerprint(snapshot()) == str(random_inputs.previous):
+			_ignore_fields = true
+			for key: String in random_inputs.ui_values:
+				if controls.has(key): _set_control_value(key, random_inputs.ui_values[key])
+			_id_edit.text = str(random_inputs.building_id)
+			_name_edit.text = str(random_inputs.display_name)
+			_local_baseline = random_inputs.baseline.duplicate(true)
+			_ignore_fields = false
+			_update_state()
 		_set_status("已重做" if redo else "已撤销")
 	else:
 		_set_status("没有可重做的修改" if redo else "没有可撤销的修改")
@@ -1749,6 +1894,7 @@ func _load_default_module(index: int) -> void:
 	if index < 0 or index >= DEFAULT_MODULES.size():
 		_set_status("默认模组索引无效，请刷新工坊。", WORKSHOP_WARN)
 		return
+	_defaults_dialog.hide()
 	var item: Dictionary = DEFAULT_MODULES[index]
 	var path: String = SAMPLE_ROOT.path_join(str(item.get("file", "")))
 	if not FileAccess.file_exists(path):
@@ -2695,14 +2841,24 @@ func _slot_family(id: String, kind: String) -> String:
 func _select_page(index: int) -> void:
 	if index < 0 or index >= PAGES.size(): return
 	_page_picker.select(index)
+	if _parameter_title != null:
+		_parameter_title.text = PAGES[index] + " · 参数"
+	if _layout_ready:
+		_left_panel.show()
+		if size.x < 1120.0: _right_panel.hide()
 	for page_name: String in PAGES:
 		pages[page_name].visible = page_name == PAGES[index]
 	for module_index: int in PAGES.size():
 		var module_button: Button = buttons.get("module_%02d" % module_index) as Button
 		if module_button == null: continue
 		var active: bool = module_index == index
-		module_button.add_theme_stylebox_override("normal", _stylebox(Color("#28506a") if active else WORKSHOP_SURFACE, WORKSHOP_GOLD if active else WORKSHOP_LINE, 6, 2 if active else 1))
+		var module_style: StyleBoxFlat = _stylebox(Color("#28506a") if active else WORKSHOP_SURFACE, WORKSHOP_GOLD if active else WORKSHOP_LINE, 6, 2 if active else 1)
+		module_style.content_margin_top = 3
+		module_style.content_margin_bottom = 3
+		module_button.add_theme_stylebox_override("normal", module_style)
 		module_button.add_theme_color_override("font_color", WORKSHOP_GOLD if active else WORKSHOP_TEXT)
+		if active and _module_strip != null:
+			_module_strip.ensure_control_visible.call_deferred(module_button)
 	_set_status("已切换模块：" + PAGES[index], WORKSHOP_ACCENT_HOVER)
 
 func _control_value(key: String) -> Variant:
@@ -2772,20 +2928,34 @@ func _update_state() -> void:
 	if not _initialized or state_label == null:
 		return
 	var data: Dictionary = snapshot()
-	state_label.text = "%s · revision_%04d · %s" % [str(data.get("building_id", "")), int(data.get("revision", 1)), "未保存 / 有待应用字段" if has_pending_fields() else "已保存"]
+	state_label.text = "%s · %s · %s" % [str(data.get("display_name", "")), str(data.get("building_id", "")), "未保存 / 待应用" if has_pending_fields() else "已保存"]
+	state_label.tooltip_text = state_label.text + " · revision_%04d" % int(data.get("revision", 1))
 	buttons["open_scene"].disabled = str(_last_export.get("scene_path", "")).is_empty()
 
 func _cancel_discard() -> void:
 	_confirm_action = Callable()
 	_confirm.hide()
+	if _random_house_confirming:
+		_random_house_confirming = false
+		_confirm.title = "未保存修改"
+		_confirm.ok_button_text = "丢弃并继续"
+		if not _window_preview_keys.is_empty(): _window_preview_timer.start(WINDOW_PREVIEW_DELAY)
+		_set_status("已取消随机房屋，当前模型与输入保留。")
+
+func _status_style(color: Color) -> StyleBoxFlat:
+	var style: StyleBoxFlat = _stylebox(Color("#4a2f2b") if color == WORKSHOP_WARN else Color("#203b50"), color, 5, 2)
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+	return style
 
 func _set_status(text: String, color: Color = WORKSHOP_MUTED) -> void:
 	_last_status_text = text
 	if status_label != null:
-		status_label.text = text
+		status_label.text = text.replace("\n", " ")
+		status_label.tooltip_text = text
 		status_label.add_theme_color_override("font_color", WORKSHOP_TEXT)
 	if status_panel != null:
-		status_panel.add_theme_stylebox_override("panel", _stylebox(Color("#203b50") if color != WORKSHOP_WARN else Color("#4a2f2b"), color, 7, 2))
+		status_panel.add_theme_stylebox_override("panel", _status_style(color))
 	if status_copy_button != null:
 		status_copy_button.tooltip_text = "复制当前提示：" + text
 

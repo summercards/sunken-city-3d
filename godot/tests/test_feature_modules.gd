@@ -128,6 +128,7 @@ func run() -> void:
 	var salvage = SalvageLib.new()
 	salvage.start()
 	check(salvage.is_active(), "isolated salvage starts")
+	preload("res://tests/test_salvage_rewards.gd").new().run(check)
 	farm.queue_free()
 	orders.queue_free()
 	await process_frame

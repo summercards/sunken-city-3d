@@ -17,6 +17,12 @@ var provider
 var roof_provider
 var sea_provider
 var sea_site
+var garden_site
+var garden_provider
+var left_roof_provider
+var authored_garden_transform := Transform3D.IDENTITY
+var active_section := "启动"
+var finished := false
 var authored_sea_transform := Transform3D.IDENTITY
 const NAMES := {"npc_luo_yan": "船老大", "npc_mu_he": "豆豆", "npc_ji_chen": "阿海",
 	"npc_nan_zhi": "木头叔", "npc_bai_shi": "灯伯", "npc_hua_yi": "小花", "npc_bao_he": "阿店"}
@@ -31,7 +37,30 @@ var held_keys: Dictionary = {}
 var completed_sections: Array[String] = []
 
 func _init() -> void:
-	call_deferred("run")
+	call_deferred("start_run")
+
+func start_run() -> void:
+	# 逻辑验证加倍采样频率并同步加倍模拟时速，物理步长仍为 1/60 秒。
+	# 保留完整真实航路/碰撞/结算，不增大 runner 的 180 秒墙钟预算。
+	if DisplayServer.get_name() == "headless":
+		Engine.physics_ticks_per_second = 120
+		Engine.time_scale = 2.0
+		print("[npc-test-simulation] physics_hz=120 time_scale=2 step=1/60")
+	# 脚本异常可能中断协程，不能只依赖 run 尾部清理或 runner 的 124。
+	create_timer(170.0, true, false, true).timeout.connect(func():
+		if finished: return
+		check(false, "测试未收尾，最后阶段=" + active_section)
+		if is_instance_valid(main) and main.is_inside_tree():
+			printerr("[", marker, "-watchdog] actor=", main.actor_controller.snapshot(),
+				" boat=", main.boat.global_position, " remaining=", main.boat.remaining_distance(),
+				" npc=", world.world_snapshot())
+		print("[%s] %d checks, %d failures" % [marker, checks, failures])
+		quit(1))
+	await run()
+
+func section(label: String) -> void:
+	active_section = label
+	print("[", marker, "-section] ", label, " ticks=", Time.get_ticks_msec())
 
 func check(ok: bool, label: String) -> bool:
 	checks += 1
@@ -46,6 +75,7 @@ func frames(count := 2) -> void:
 		await process_frame
 
 func until(predicate: Callable, seconds: float, label: String) -> bool:
+	section("等待 " + label)
 	var deadline := Time.get_ticks_msec() + int(seconds * 1000.0)
 	while Time.get_ticks_msec() < deadline:
 		if bool(predicate.call()): return true
@@ -135,7 +165,14 @@ func boot() -> bool:
 	roof_provider = main.get_node_or_null("World/SeaStructures/rooftop_ranch/NpcStations")
 	sea_site = main.get_node_or_null("World/SeaStructures/floating_shop")
 	sea_provider = main.get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations")
-	if not check(harbor != null and roof_provider != null and sea_site != null and sea_provider != null, "正式 main 包含天台与浮店两个站点"): return false
+	garden_site = main.get_node_or_null("World/SeaStructures/neon_garden_quarter")
+	garden_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations")
+	left_roof_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/RoofNpcStations")
+	if not check(harbor != null and roof_provider != null and sea_site != null and sea_provider != null,
+		"正式 main 包含天台与浮店站点"): return false
+	if not check(garden_site != null and garden_provider != null and left_roof_provider != null,
+		"正式 main 包含菜园桥与独立左楼顶 provider"): return false
+	authored_garden_transform = garden_site.transform
 	authored_roof_transform = harbor.transform
 	authored_provider_transform = roof_provider.transform
 	authored_sea_transform = sea_site.transform
@@ -179,14 +216,24 @@ func check_rooftop_anchors() -> void:
 	var anchors: Dictionary = roof_provider.anchor_snapshot()
 	var area = harbor.get_node("WalkAreas/Walk_rooftop_ranch_access")
 	var markers: Array = roof_provider.find_children("*", "Marker3D", true, false)
-	check(markers.size() == 30 and anchors.size() == 30 and roof_provider.get_child_count() == 6, "六草地站位30个真实 Marker 全部有效")
-	# 2026-11-08 起豆豆在霓虹花园菜园桥，正式主场景挂了三处场地：
-	# 天台 30 + 浮店 5 + 花园 5。
-	var garden_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations")
-	check(garden_provider != null and garden_provider.anchor_snapshot().size() == 5,
-		"霓虹花园菜园桥5锚点来自正式站台")
-	check(sea_provider.anchor_snapshot().size() == 5 and provider.anchor_snapshot().size() == 40,
-		"浮店5 + 天台30 + 花园5 共40锚点聚合")
+	check(markers.size() == 25, "天台五站台保留25个作者 Marker")
+	check(anchors.size() == 25 and roof_provider.get_child_count() == 5, "天台25锚点全部有效")
+	for site_provider in [garden_provider, left_roof_provider]:
+		var site_anchors: Dictionary = site_provider.anchor_snapshot()
+		var deck = garden_site.get_node(site_provider.walk_path)
+		check(site_anchors.size() == 5, "独立派生面5锚点有效 " + str(site_provider.name))
+		for point_marker: Marker3D in site_provider.find_children("*", "Marker3D", true, false):
+			var station = point_marker.get_parent()
+			var kind := str(point_marker.name).to_lower()
+			var anchor_id := str(station.name) if kind == "home" else str(station.name) + "_" + kind
+			if not check(site_anchors.has(anchor_id), "作者 Marker 可解析 " + anchor_id): continue
+			var anchor: Dictionary = site_anchors[anchor_id]
+			check(point_marker.global_position.distance_to(anchor.position) <= 0.05,
+				"锚点无 height mismatch " + anchor_id)
+			check(anchor.support_validated and anchor.ground == deck
+				and deck.contains_position(anchor.position, 0.05), "锚点支撑于所属实际派生面 " + anchor_id)
+	check(sea_provider.anchor_snapshot().size() == 5, "浮店5锚点有效")
+	check(provider.anchor_snapshot().size() == 40, "天台25 + 浮店5 + 菜园桥5 + 左楼顶5 聚合40锚点")
 	for point_marker: Marker3D in markers:
 		var station = point_marker.get_parent()
 		var kind := str(point_marker.name).to_lower()
@@ -205,6 +252,7 @@ func check_rooftop_anchors() -> void:
 			and grass_support(point), "锚点位于真实天台草皮而非消防梯或水面 " + anchor.anchor_id)
 		check(roof_provider.resolve_anchor(anchor.anchor_id) == anchor, "稳定ID解析回同一天台锚点 " + anchor.anchor_id)
 	for id in Catalog.ids():
+		check(Catalog.get_npc(id).display_name == NAMES[id] and world.actor(id).display_name == NAMES[id], "正式目录与世界姓名一致 " + id)
 		if id == "npc_mu_he":
 			# 她的天台站台仍在场景里（用户没删），但当前日程已指向霓虹花园，
 			# 所以断言的是「不在天台日程里」，不是「场景里没有她的 Marker」。
@@ -214,14 +262,14 @@ func check_rooftop_anchors() -> void:
 			check(not muhe_routes.has("anchor_planter") and muhe_routes.has("residence_garden_bridge_work"),
 				"豆豆的日程锚点已指向霓虹花园菜园桥 " + id)
 			continue
-		check(owners.has(id) == (id != "npc_bao_he"), "五人草地、阿店浮店不留天台站位 " + id)
-		check(Catalog.get_npc(id).display_name == NAMES[id] and world.actor(id).display_name == NAMES[id], "正式目录与世界姓名一致 " + id)
+		check(owners.has(id) == (id != "npc_bao_he" and id != "npc_luo_yan"),
+			"天台仅四位当前居民及豆豆保留站台，船老大与阿店无旧站台 " + id)
 	for anchor in sea_provider.anchor_snapshot().values():
 		check(anchor.npc_id == "npc_bao_he" and anchor.zone_id == "sea_supply"
 			and anchor.ground_space == sea_site.ground_space and anchor.support_frame == sea_site.get_node("Objects")
 			and anchor.position.distance_to(anchor.ground.surface_point(anchor.position)) < 0.003,
 			"阿店锚点复用浮店支撑 " + anchor.anchor_id)
-	check(provider.home_labels().size() == 8, "七人暂驻标签来自聚合 provider（天台6+浮店1+花园1，含站台自身标签）而非住所目录")
+	check(provider.home_labels().size() == 8, "七人标签来自聚合 provider（天台5+浮店1+菜园桥1+左楼顶1，含豆豆保留站台）")
 
 func grass_support(point: Vector3) -> bool:
 	var grass = harbor.get_node("Models/ORF3_中央草皮基底")
@@ -271,9 +319,12 @@ func aim(point: Vector3, distance := 22.0) -> void:
 	main.cam.apply_pose()
 
 func walk_to(point: Vector3, label: String) -> bool:
-	var site = main._zone_nodes[state.current_zone]
+	section("步行 " + label)
+	var site = main._zone_nodes.get(state.current_zone)
+	if not check(site != null, label + " 当前区块存在"): return false
 	var area = site.area_at(point, 0.5)
-	if not check(area != null and not site.ground_space.route(main.player.global_position, point).is_empty(), label + " 有正式路线"): return false
+	if not check(area != null, label + " 目标有实际支撑面"): return false
+	if not check(not site.ground_space.route(main.player.global_position, point).is_empty(), label + " 有正式路线"): return false
 	var start: Vector3 = main.player.global_position
 	if not check(main._start_walk(area, point), label + " 正式 ActorController 接受移动"): return false
 	var supported := true
@@ -295,7 +346,8 @@ func npc_press(action: String, id := "") -> bool:
 		for candidate: Button in world.panel._buttons:
 			if candidate.get_meta("npc_action", "") == action: visible = true
 		if not visible:
-			if not await finish_dialogue() or not await npc_press("chat"): return false
+			if not await finish_dialogue(): return false
+			if not await npc_press("chat"): return false
 			await process_frame
 	for button: Button in world.panel._buttons:
 		if button.get_meta("npc_action", "") == action and (id == "" or button.get_meta("npc_payload", {}).get("id", "") == id):
@@ -339,14 +391,16 @@ func finish_dialogue() -> bool:
 
 func open_career(id: String, action: String) -> bool:
 	if not await open_npc(id): return false
-	if not await finish_dialogue() or not await npc_press("function"): return false
+	if not await finish_dialogue(): return false
+	if not await npc_press("function"): return false
 	var snapshot: Dictionary = main.npc_career_panel.panel_snapshot()
 	return check(snapshot.open and snapshot.npc_id == id and snapshot.action_id == action
 		and not world.is_modal() and main.hud._external_modal, "Main 路由至实际职业面板 " + action)
 
 func buy(id: String, product_id: String, amount := 1) -> bool:
 	if not await open_npc(id): return false
-	if not await finish_dialogue() or not await npc_press("vendor"): return false
+	if not await finish_dialogue(): return false
+	if not await npc_press("vendor"): return false
 	var shop_id: String = Catalog.get_npc(id).shop_id
 	var panel = main.shop_panel
 	var shop: Dictionary = main.shop_service.shop_snapshot(shop_id)
@@ -377,12 +431,16 @@ func buy(id: String, product_id: String, amount := 1) -> bool:
 func run() -> void:
 	if not await boot():
 		await finish(); return
+	section("travel")
 	await travel()
+	section("homes-and-interactions")
 	await homes_and_interactions()
+	section("transactions-and-stories")
 	await transactions_and_stories()
+	section("careers")
 	await careers()
-	for section in ["travel", "two-site-stations", "seven-click-e", "sea-supply-travel", "transactions-stories", "careers"]:
-		check(section in completed_sections, "必测闭环完成 " + section)
+	for required in ["travel", "three-site-stations", "six-click-e", "sea-supply-travel", "transactions-stories", "careers"]:
+		check(required in completed_sections, "必测闭环完成 " + required)
 	await finish()
 
 func travel() -> void:
@@ -417,19 +475,22 @@ func homes_and_interactions() -> void:
 		check(false, "旅行失败不能用天台瞬移掩盖"); return
 	var anchors: Dictionary = provider.anchor_snapshot()
 	var hub: Vector3 = harbor.to_global(Vector3(0, harbor.ROOF_Y, 11.5))
-	check(roof_provider.get_child_count() == 6 and anchors.size() == 40, "天台六站台 + 浮店 + 花园共40锚点来自正式聚合 provider")
+	check(roof_provider.get_child_count() == 5 and anchors.size() == 40, "天台五站台与浮店、菜园桥、左楼顶聚合40锚点")
 	# 日钟冻结后等待真实 NPC 走完，不改 actor 坐标/路线。
 	if not await until(func():
 		for row in world.world_snapshot().residents.values():
 			if row.remaining_waypoints > 0: return false
 		return true, 40.0, "七 NPC 真实日程落位"): return
+	check_current_schedules()
 	var homes := 0
 	var interactions := 0
 	var roster: Array = main.npc_service.roster()
-	roster.sort_custom(func(a, b): return int(a.id == "npc_bao_he") < int(b.id == "npc_bao_he"))
-	# 阿店最后验：先沿原消防梯回泊位，再由 HUD 真实航行到浮店。
+	# 四位天台居民先验；随后保留真实浮店航程，最后在左楼顶验证船老大。
+	var visit_order := ["npc_ji_chen", "npc_nan_zhi", "npc_bai_shi", "npc_hua_yi", "npc_mu_he", "npc_bao_he", "npc_luo_yan"]
+	roster.sort_custom(func(a, b): return visit_order.find(a.id) < visit_order.find(b.id))
 	for index in roster.size():
 		var npc: Dictionary = roster[index]
+		section("走访 " + str(npc.id))
 		# 豆豆 2026-11-08 起在霓虹花园菜园桥种菜，不在这条天台走访链上。
 		# 她的站位/点击由 test_garden_npc.gd 在真实主场景里单独验。
 		if npc.id == "npc_mu_he":
@@ -442,11 +503,17 @@ func homes_and_interactions() -> void:
 			if not await sail_to_supply(): continue
 			anchors = provider.anchor_snapshot()
 			hub = sea_site.landing_point("main").stand_position()
-		var site = sea_site if npc.id == "npc_bao_he" else harbor
+		if npc.id == "npc_luo_yan":
+			if not landing_fixture("neon_garden_quarter"): continue
+			hub = garden_site.landing_point("main").stand_position()
 		var row := {"id": str(npc.residence_id), "npc_id": str(npc.id)}
-		if not await walk_to(hub, row.id + " 回到天台草地公共路径"): continue
-		if not check(anchors.has(npc.home_anchor) and not site.ground_space.route(hub, anchors[npc.home_anchor].position).is_empty(), "草地公共路径连通 home Marker " + row.id): continue
-		if not await walk_to(anchors[npc.home_anchor].position, "实际走至草地 home Marker " + row.id): continue
+		if not check(anchors.has(npc.home_anchor), "聚合 provider 提供 home Marker " + row.id): continue
+		var home: Dictionary = anchors[npc.home_anchor]
+		var site = main._zone_nodes.get(home.zone_id)
+		if not check(site != null and state.current_zone == home.zone_id, "玩家与 home 同属真实区块 " + row.id): continue
+		if not await walk_to(hub, row.id + " 回到所属场地公共路径"): continue
+		if not check(not site.ground_space.route(hub, home.position).is_empty(), "所属公共路径连通 home Marker " + row.id): continue
+		if not await walk_to(home.position, "实际走至 home Marker " + row.id): continue
 		homes += 1
 		var body = world.actor(row.npc_id)
 		check(npc_supported(row.npc_id) and not world.world_snapshot().residents[row.npc_id].fallback,
@@ -459,6 +526,8 @@ func homes_and_interactions() -> void:
 			and spot.is_in_group("interactable"), "正式 actor 注册可交谈 " + row.npc_id)
 		aim(body.global_position)
 		await frames(3)
+		if not await until(func(): return main.hover.reach_reason(spot) == "", 1.0,
+			"切换场地后真实悬停可达性刷新 " + row.npc_id): continue
 		# NPC 交互节点是无子网格的逻辑点，正式 HoverCard 将热区抬到上半身0.75米。
 		# 脚底投影在近景下已经超出30像素热区，不能以根坐标冒充可点击位置。
 		var point: Vector2 = main.cam.unproject_position(spot.focus_position() + Vector3.UP * 0.75)
@@ -502,14 +571,35 @@ func homes_and_interactions() -> void:
 		await close_modals()
 		if row.npc_id == "npc_bao_he": await verify_heave()
 		interactions += 1
-	if check(homes == 6, "五人草地+阿店浮店 home 站位全部经公共路径实际走到（豆豆在花园另验）"): completed_sections.append("two-site-stations")
-	if check(interactions == 6, "天台五人+阿店完成点击/approach/对白/E（豆豆在花园另验）"): completed_sections.append("seven-click-e")
+	if check(homes == 6, "四位天台居民+阿店浮店+船老大左楼顶 home 真实可达（豆豆无玩家通路）"): completed_sections.append("three-site-stations")
+	if check(interactions == 6, "六位可达居民完成点击/approach/对白/E（豆豆在花园另验）"): completed_sections.append("six-click-e")
+
+func check_current_schedules() -> void:
+	var clock: Dictionary = main._npc_world_query()
+	var anchors: Dictionary = provider.anchor_snapshot()
+	for id in Catalog.ids():
+		var npc: Dictionary = Catalog.get_npc(id)
+		var available: Dictionary = anchors.duplicate()
+		for rule in npc.schedule: available.erase(str(rule.anchor))
+		for rule in npc.schedule:
+			var canonical: String = provider.canonical_anchor_for_npc(str(rule.anchor), npc)
+			if anchors.has(canonical): available[str(rule.anchor)] = anchors[canonical]
+		var expected: Dictionary = main.npc_service.schedule_at(id, clock, available)
+		if not check(expected.get("ok", false), "当前时钟/天气可解析日程 " + id): continue
+		var route: Dictionary = world._routes.get(id, {})
+		check(not route.get("fallback", true), "当前日程不 fallback " + id)
+		check(route.get("requested_anchor") == expected.get("requested_anchor")
+			and route.get("action") == expected.get("action"), "实际意图匹配当前日程而非旧场地假设 " + id)
+		var target: Dictionary = route.get("target", {})
+		if not check(not target.is_empty(), "当前日程有真实目标 " + id): continue
+		var canonical: String = provider.canonical_anchor_for_npc(str(expected.anchor_id), npc)
+		check(target.get("anchor_id") == canonical and anchors.has(canonical), "当前日程锚点来自实际聚合 provider " + id)
 
 func npc_site_position(id: String) -> Vector3:
 	var body = world.actor(id)
 	if id == "npc_bao_he": return sea_site.get_node("Objects").to_local(body.global_position)
-	if id == "npc_mu_he":
-		# 豆豆在霓虹花园菜园桥，用那座楼的局部坐标衡量，才不受楼体世界摆位影响。
+	if id in ["npc_mu_he", "npc_luo_yan"]:
+		# 菜园桥与左楼顶共用作者根，但各自使用独立派生面。
 		var garden: Node3D = main.get_node("World/SeaStructures/neon_garden_quarter")
 		return garden.to_local(body.global_position)
 	return harbor.to_local(body.global_position)
@@ -521,6 +611,9 @@ func npc_supported(id: String) -> bool:
 		var garden: Node3D = main.get_node("World/SeaStructures/neon_garden_quarter")
 		var deck: Node3D = garden.get_node("WalkAreas/WalkGardenDeck")
 		return deck.contains_position(body.global_position, 0.6)
+	if id == "npc_luo_yan":
+		var deck = garden_site.get_node("WalkAreas/WalkLeftRoof")
+		return deck.contains_position(body.global_position, 0.05)
 	if id != "npc_bao_he": return grass_support(body.global_position)
 	var area = sea_site.area_at(body.global_position, 0.05)
 	return area != null and body.global_position.distance_to(area.surface_point(body.global_position)) < 0.01
@@ -576,7 +669,8 @@ func transactions_and_stories() -> void:
 	var count: int = economy.inventory.count("flower_bundle")
 	var affinity: int = main.npc_service.npc_snapshot("npc_hua_yi").runtime.affinity
 	var other: Dictionary = main.npc_service.npc_snapshot("npc_bao_he").runtime
-	if not await npc_press("gifts") or not await npc_press("gift", "flower_bundle"): return
+	if not await npc_press("gifts"): return
+	if not await npc_press("gift", "flower_bundle"): return
 	check(economy.inventory.count("flower_bundle") == count, "礼物确认前不扣库存")
 	if not await npc_press("confirm"): return
 	check(economy.inventory.count("flower_bundle") == count - 1
@@ -588,14 +682,16 @@ func transactions_and_stories() -> void:
 		fixture.graph.met[id] = true
 		fixture.graph.affinity[id] = 500
 	if not check(main.npc_service.from_dict(fixture).ok, "仅用 strict durable 快照设置剧情前置"): return
-	var finished := 0
+	var finished_events := 0
 	var delivered := 0
 	for event in Catalog.events():
 		if event.kind != "personal" or event.conditions.has("events"): continue
 		var id: String = event.npc_ids[0]
 		if not await open_npc(id): continue
 		var inventory_before: Dictionary = economy.inventory.to_dict()
-		if not await npc_press("events") or not await npc_press("event", event.id) or not await finish_dialogue(): continue
+		if not await npc_press("events"): continue
+		if not await npc_press("event", event.id): continue
+		if not await finish_dialogue(): continue
 		check(economy.inventory.to_dict() == inventory_before, "剧情记录不冒充经济结算 " + event.id)
 		var durable: Dictionary = main.npc_service.to_dict()
 		check(durable.seen_events.has(event.id) and not durable.seen_events[event.id].choices.is_empty(), "真实剧情选择持久提交 " + event.id)
@@ -606,15 +702,17 @@ func transactions_and_stories() -> void:
 			var graph_before: Dictionary = main.npc_service.to_dict().graph
 			var expected: Dictionary = economy.inventory.all()
 			for item in request.costs: expected[item] = int(expected.get(item, 0)) - int(request.costs[item])
-			if not await npc_press("requests") or not await npc_press("request", request_id) or not await npc_press("confirm"): continue
+			if not await npc_press("requests"): continue
+			if not await npc_press("request", request_id): continue
+			if not await npc_press("confirm"): continue
 			check(economy.inventory.all() == expected, "请求精确扣真实 Inventory " + request_id)
 			var after: Dictionary = main.npc_service.to_dict()
 			check(after.request_states[request_id].status == "completed", "请求由 NPC owner 完成 " + request_id)
 			for npc_id in Catalog.ids():
 				check(after.graph.affinity[npc_id] == graph_before.affinity[npc_id] + (40 if npc_id == request.npc_id else 0), "请求好感只给正确所有者 " + request_id + "/" + npc_id)
 			delivered += 1
-		finished += 1
-	if check(bought and finished == 7 and delivered == 7, "两商店购买、礼物和七人剧情请求均执行"): completed_sections.append("transactions-stories")
+		finished_events += 1
+	if check(bought and finished_events == 7 and delivered == 7, "两商店购买、礼物和七人剧情请求均执行"): completed_sections.append("transactions-stories")
 	await close_modals()
 
 func build_support_platform() -> String:
@@ -634,18 +732,21 @@ func careers() -> void:
 	var level: int = economy.ship.ship_level
 	var expected: Dictionary = economy.inventory.all()
 	for item in economy.ship.ship_cost(): expected[item] = int(expected.get(item, 0)) - int(economy.ship.ship_cost()[item])
-	if not await career_press("prepare") or not await career_press("confirm"): return
+	if not await career_press("prepare"): return
+	if not await career_press("confirm"): return
 	check(economy.ship.ship_level == level + 1 and economy.inventory.all() == expected, "船职业实际调用 ShipService 并精确付费")
 	if not await open_career("npc_ji_chen", "salvage"): return
 	var wood: int = economy.inventory.count("wood")
 	var parts: int = economy.inventory.count("parts")
-	if not await career_press("prepare") or not await career_press("confirm"): return
+	if not await career_press("prepare"): return
+	if not await career_press("confirm"): return
 	check(economy.inventory.count("wood") == wood + 3 and economy.inventory.count("parts") == parts + 2
 		and economy.salvage.salvage_cooldown_left(Save.now_seconds()) > 0.0, "打捞职业实际奖励和冷却来自 Salvage owner")
 	if not await open_career("npc_mu_he", "cultivation"): return
 	if not await career_press("shop_general"): return
 	check(main.shop_panel.is_open() and main.shop_panel._shop_id == "shop_general", "种植职业买种路由真实商店")
-	if not await open_career("npc_mu_he", "cultivation") or not await career_press("open_plant"): return
+	if not await open_career("npc_mu_he", "cultivation"): return
+	if not await career_press("open_plant"): return
 	check(main.hud.is_panel_open() and main.hud._tab == "plant", "种植职业打开正式种植页")
 	await close_modals()
 	# 土壤归建造 owner；种植归 Farm owner，不在 NPC 面板里自造种植算法。
@@ -667,9 +768,11 @@ func careers() -> void:
 	main._queue_plot_action(plot, "plant", "lettuce")
 	if not await until(func(): return economy.farm.crop_of(plot.plot_id) == "lettuce", 20.0, "正式培养土经 approach/Interactor 执行播种"): return
 	check(economy.inventory.count(seed_id) == seeds - 1, "实际世界培养土端口播种并扣种，不由 NPC 持有作物")
-	if not await open_career("npc_nan_zhi", "building") or not await career_press("open_building"): return
+	if not await open_career("npc_nan_zhi", "building"): return
+	if not await career_press("open_building"): return
 	check(main.building_controller.active and main.building_controller.service == main.building, "建造职业路由真实 BuildingController")
-	if not await open_career("npc_bai_shi", "archive") or not await career_press("replay_event", "route_1"): return
+	if not await open_career("npc_bai_shi", "archive"): return
+	if not await career_press("replay_event", "route_1"): return
 	print("[npc-archive-owner] event=route_1 expected=npc_luo_yan actual=", world.panel.panel_snapshot().get("npc_id", ""),
 		" dialogue=", main.npc_service.dialogue_state())
 	check(world.panel.panel_snapshot().npc_id == "npc_luo_yan" and main.npc_service.dialogue_state().replay,
@@ -677,18 +780,22 @@ func careers() -> void:
 	var before: Dictionary = main.npc_service.to_dict()
 	# to_dict 按保存契约取消会话；重开回看再验证不重复结算。
 	await close_modals()
-	if not await open_career("npc_bai_shi", "archive") or not await career_press("replay_event", "route_1") or not await finish_dialogue(): return
+	if not await open_career("npc_bai_shi", "archive"): return
+	if not await career_press("replay_event", "route_1"): return
+	if not await finish_dialogue(): return
 	check(main.npc_service.to_dict() == before, "档案实际回看不重发请求或好感")
 	completed_sections.append("careers")
 	await close_modals()
 
 func finish() -> void:
+	section("清理并退出")
 	for code in held_keys.keys(): send(int(code), false, true)
 	if main != null and is_instance_valid(main):
 		if is_instance_valid(harbor) and is_instance_valid(provider):
 			check(harbor.transform.is_equal_approx(authored_roof_transform)
 				and roof_provider.transform.is_equal_approx(authored_provider_transform)
-				and sea_site.transform.is_equal_approx(authored_sea_transform), "所有操作后两个站点根及天台 provider 手动 transform 未被改写")
+				and sea_site.transform.is_equal_approx(authored_sea_transform)
+			and garden_site.transform.is_equal_approx(authored_garden_transform), "所有操作后天台、浮店、花园根及天台 provider 手动 transform 未被改写")
 		check(not main._autosave_on, "结束时仍禁止自动存档")
 		check(equivalent(main.avatar_profile.to_dict(), profile_before), "所有 NPC 操作均未改玩家 profile")
 		main.queue_free()
@@ -696,4 +803,5 @@ func finish() -> void:
 	if not slot_before.is_empty():
 		check(file_state(Save.SLOT_PATH) == slot_before.primary and file_state(Save.SLOT_PATH + ".bak") == slot_before.backup, "默认玩家槽位及备份字节未动")
 	print("[%s] %d checks, %d failures" % [marker, checks, failures])
+	finished = true
 	quit(0 if failures == 0 else 1)

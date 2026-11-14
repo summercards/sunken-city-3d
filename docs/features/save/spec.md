@@ -139,3 +139,14 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | SEA-SAVE-R19 | 根快照仍v4，原键 `dive` 仍为 `{found:int[],opened:int[]}`，不换key、不增加map_id等必填扩展。SnapshotRegistry注册稳定DiveSession为唯一潜水快照所有者；zone1原ID 0..4不动，其余来源固定百位100..800加各自局部子集，全局唯一，不重编号；未知ID在会话保存/未加载地图往返时保留。from_dict先清空全局进度再全量应用，读旧档不能叠加现场其它地图进度；地图返回只合并当前图增量，不重发已开启奖励。潜水active或switching均由registry.busy_query拒绝capture/restore及直接SaveGame.write，不能仅在F5/UI拦截；上浮恢复同一Main后才允许正常写盘，切图不是读档。氧气、冷却、中途动作及当前map_id不新增持久字段，读档仍恢复稳定海面。 |
 
 本条对 `dive` 的未知ID保留约束优先于历史通用“按内容表过滤”描述，不改变其他模块策略。功能仍 `partial`；旧v4/多图隔离/未知ID/全量覆盖/磁盘往返与直接写盘拒绝的运行证据 pending，待父线程补充。[完整机制与验证表](../../development/2026-11-07_dive_map_switch.md)。
+
+## 2026-11-14 B2 现行澄清（覆盖旧阶段，不新增编号）
+
+- **SEA-SAVE-R14现行覆盖**：旧“先改名归档→恢复→普通写盘且顺序不可换”仅为11-02历史。正式重置改为prepare staging并读回校验→持久化intent→复制并SHA校验主档/bak原字节为唯一归档→Registry apply defaults→按实际restored完成态再次stage并更新intent→replace主槽及移除原槽旧bak→commit→清理。独立确认与默认取消焦点不变；不以重载场景重置Autoload，不把旧archive辅助API误认为现行reset流程。
+- 失败恢复：apply失败由Registry回滚且不发restored；apply后磁盘失败由reset恢复前持久态与可选非持久runtime memento。磁盘未提交intent回滚旧字节，已提交校验新主档/归档后收尾；坏intent/缺恢复来源保留证据并拒绝普通写入，报告rollback_ok/recovery_required。启动即便只有pending intent且无主档/bak也进入read_recoverable；空槽恢复有明确defaults路径。
+- 存储边界为单进程单写者、同文件系统rename；没有跨进程锁或设备断电承诺。flush/读回/SHA校验不是目录fsync，进程SIGKILL测试不代表真实断电、磁盘满或所有平台文件系统可靠。
+- R01/R05/R14的失败保护与自动保存意愿分离：启动失败仅暂时保护槽位并冻结倒计时；成功显式load/reset只撤临时保护并接管成功target为当前槽，不能自动覆回原坏槽；不得开启用户/nosave/capture/测试明确禁用的_autosave_on。
+- R05/R06：decode与公开restore复用缺room等可选模块迁移（S10在B1已实现，本批复用）；存在但截断的模块仍拒绝，Registry保持严格。apply可为旧void、bool或含bool ok的字典；显式失败整件回滚、恢复原信号屏蔽状态且不发restored，回滚自身失败不得伪报成功。可选capture_runtime/restore_runtime只服务同进程失败恢复，不入wire/schema，成功restore清理旧会话。业务busy覆盖库存/跨owner结算，拒绝中间capture/write/restore。
+- R04/R06：成功恢复后主动刷新鸟群、光照天气、雨层与日历纯消费者，不靠重播clock/weather业务事件。既有晨次/产鱼由各owner水位线维护，不能另建结算真值。
+
+根v4和现行模块字段不变；逻辑实证、旧保护断言exit1、视觉/跨进程/最终门禁占位见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)，不升级verified。

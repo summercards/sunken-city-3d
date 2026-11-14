@@ -43,3 +43,9 @@
 ## 未做
 
 体力对移动速度/距离的影响、食物回复、上限成长、提醒文案轮换；均未登记为本轮目标。
+
+## 2026-11-13 B1 归零事务与恢复续接
+
+承接 R01/R04/R05：Main 将疲劳台词前置纳入统一 busy，capture/write/restore拒绝半事务；Energy新增瞬态generation，恢复/回满/扣费使旧等待失效。全量恢复后的 Main 续接 current=0 的强制休息，不在 from_dict 发业务 exhausted；旧timer需同时匹配会话与体力代次，不污染新现场。原energy字段、根v4及SaveGame/schema未由本子批修改。
+
+`energy`40/0、sleep42/0、framework52/0，均exit0；外部b1-lifecycle109/0含正式零体力snapshot恢复→台词→强制睡眠→次日50/50，以及等待中复位到100后旧timer不启动睡眠。首轮与最终日志都保留，不宣称跨进程恢复或真实渲染，本次均headless。报告/未验见[开发记录](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。

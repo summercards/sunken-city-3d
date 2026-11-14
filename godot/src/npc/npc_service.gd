@@ -83,6 +83,9 @@ func start_topic(npc_id: String, topic_id: String) -> Dictionary:
 	if result.ok: _pending = {"kind": "display", "npc_id": npc_id, "topic_id": topic_id}
 	return result
 
+func is_busy() -> bool:
+	return _busy
+
 func npc_snapshot(npc_id: String) -> Dictionary:
 	var row := Catalog.snapshot_npc(npc_id)
 	if row.is_empty(): return {}
@@ -469,9 +472,16 @@ func _change_affinity(npc_id: String, delta: int) -> int:
 	return int(_state.graph.affinity[npc_id]) - old
 
 func to_dict() -> Dictionary:
-	# 保存取消尚未提交会话；不会把待选分支偷偷结算进存档。
-	if not _busy: close_dialogue()
 	return _state.duplicate(true)
+
+## 仅供同进程事务回滚，不进入持久快照或存档 schema。
+func capture_runtime() -> Dictionary:
+	return {"pending":_pending.duplicate(true), "dialogue":_dialogue.capture_runtime()}
+
+func restore_runtime(memento: Dictionary) -> void:
+	if _busy: return
+	_pending = memento.pending.duplicate(true)
+	_dialogue.restore_runtime(memento.dialogue)
 
 func from_dict(value: Variant) -> Dictionary:
 	if _busy: return _fail("服务正在结算")

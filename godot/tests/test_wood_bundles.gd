@@ -95,13 +95,18 @@ func run() -> void:
 		if str(entity.slot).begins_with("0:0:wood:"):
 			ancient_stable = ancient_stable and entity.wood_amount == 3
 			ancient_home += 1
-	check(ancient_stable and ancient_home == 5 and props.ocean.missing.has("0:0:wood:5"), "pre-ocean remaining bundles stay three and missing bundle stays depleted")
+	# R21/R22 keep the pre-ocean yields/cooldowns but thin the home population to
+	# the current three-slot quota; the omitted fifth slot remains depleted.
+	check(ancient_stable and ancient_home == 3 and props.ocean.missing.has("0:0:wood:5"), "pre-ocean bundles keep yield/cooldown under current home quota")
 	Save.restore(main,snapshot)
 	# Exercise actual collection and mesh production for every permitted count.
+	# Each yield must start from a fresh snapshot: collecting one crate removes it,
+	# and the current density may legitimately expose fewer than ten live crates.
 	var totals_ok := true
 	var visuals_ok := true
 	var copies_match := true
 	for amount in [2,3,7,8,9,12,13,14,15,16]:
+		Save.restore(main,snapshot)
 		var item: Dictionary = props.crates[0]
 		item.wood_amount = amount
 		var before: int = economy.count("wood")

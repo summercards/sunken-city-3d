@@ -41,3 +41,9 @@ RoomBed 只发 sleep_requested（2026-11-05 起；原 SleepCheckpoint 已随 SEA
 | SEA-SLEEP-R06 | 黑幕上的两段文字必须停留到「读得完」：淡入不少于0.4秒、完整可见的停留不少于2秒、淡出不少于0.4秒；起床文字的停留不短于入睡文字。圆幕的合拢（0.85秒）与打开（1.05秒）节奏不变，遮黑与切换时机的语义不变（时间与位置的切换仍在全黑、文字消失之后）。验收需实测而非只查常量：全黑后1.6秒两段文字仍处于完整可见状态。 |
 
 验收证据：`sleep-cycle` / `visual-sleep-cycle` 额外断言 `COVER_HOLD`/`MORNING_HOLD` 与实测停留；见[本轮交付](../../development/2026-11-01_energy_fishery_and_join.md)。
+
+## 2026-11-14 B2 R02 逻辑模态关闭澄清
+
+SEA-SLEEP-R02/R03的“关闭面板”指在隐藏Canvas前真实结束owned modal逻辑会话：商店/职业close、NPC cancel_session，以及工坊、快捷环、建造等既有关闭入口，清旧确认按钮代次与external modal。不得只hide CanvasLayer再在醒后恢复旧购买/职业确认状态；基础可见性恢复不等于重开已结束会话。手动/23:00/疲劳均走同一prepare，保持原时刻、圆幕与换日所有权。室内床边净空、真实接近与旧档前厅fallback由SEA-ROOM-R07–R10/R12承接，不新增睡眠位置快照。
+
+已核b2-session三类Shop/职业/NPC的22:59自动睡、醒后closed、旧回调无库存变化和只换日一次；本轮真实视觉待父最终追加，不借旧截图签署。见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。

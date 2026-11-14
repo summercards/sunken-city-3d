@@ -1,6 +1,43 @@
 extends RefCounted
 ## Pure content policy. Stable IDs, support sockets and 3D separation; no scene reads.
 const Catalog=preload("res://src/building/building_catalog.gd")
+## 纯吸附实现由规则层持有；Catalog 旧入口按需显式装配，不依赖静态初始化顺序。
+static func snap_stairs(request: Dictionary,rows: Array,edge_assist: bool=true) -> Dictionary:
+	var result:=request.duplicate(true)
+	var supports: Array=support_ids(result,rows)
+	result.support="" if supports.is_empty() else supports[0]
+	if not edge_assist: return result
+	var cursor:=Vector2(float(request.px),float(request.pz))
+	var extent:=Catalog.platform_extent(str(request.kind),int(request.get("turn",0)))
+	var guides: Array=[]
+	for other in rows:
+		if float(other.left)>0.0: continue
+		if Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),Catalog.elevation(request)): guides.append({"rect":Catalog.footprint_rect(other),"stair":{}})
+		elif profile(other)=="stairs":
+			if Catalog.same_level(Catalog.elevation(other),Catalog.elevation(request)) or Catalog.same_level(Catalog.elevation(other)+Catalog.stair_rise(other),Catalog.elevation(request)): guides.append({"rect":Catalog.footprint_rect(other),"stair":other})
+	if Catalog.same_level(Catalog.elevation(request),0.0): guides.append({"rect":Catalog.BASE,"stair":{}})
+	guides.sort_custom(func(a,b): return not a.stair.is_empty() and b.stair.is_empty())
+	var best_distance:=Catalog.STAIR_SNAP_DISTANCE*Catalog.STAIR_SNAP_DISTANCE
+	var stair_match:=false
+	for entry in guides:
+		if stair_match and entry.stair.is_empty(): continue
+		var guide: Rect2=entry.rect
+		if not entry.stair.is_empty() and (Catalog.stairs_parallel(result,entry.stair) or supports.has(str(entry.stair.id))) and reason(result,rows)=="": return result
+		var xs: Array=[cursor.x,guide.position.x-extent.x/2,guide.end.x+extent.x/2,guide.position.x+extent.x/2,guide.end.x-extent.x/2,guide.get_center().x]
+		var zs: Array=[cursor.y,guide.position.y-extent.y/2,guide.end.y+extent.y/2,guide.position.y+extent.y/2,guide.end.y-extent.y/2,guide.get_center().y]
+		for x: float in xs:
+			for z: float in zs:
+				var distance:=cursor.distance_squared_to(Vector2(x,z))
+				if distance<0.000000001 or distance>=best_distance: continue
+				var candidate:=request.duplicate(true);candidate.px=x;candidate.pz=z
+				var ids: Array=support_ids(candidate,rows)
+				if ids.is_empty(): continue
+				candidate.support=ids[0]
+				if not entry.stair.is_empty() and not Catalog.stairs_parallel(candidate,entry.stair) and not ids.has(str(entry.stair.id)): continue
+				if reason(candidate,rows)!="": continue
+				best_distance=distance;result=candidate
+				if not entry.stair.is_empty(): stair_match=true
+	return result
 static func profile(row: Dictionary) -> String: return str(Catalog.RECIPES.get(str(row.get("kind","")),{}).get("profile",""))
 static func center(row: Dictionary) -> Vector2: return Catalog.footprint_rect(row).get_center()
 static func turn_point(p: Vector2, row: Dictionary) -> Vector2:

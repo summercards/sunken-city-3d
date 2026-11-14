@@ -6,10 +6,20 @@ class_name PlantAuthoringStore
 const Recipe = preload("res://src/plant_authoring/recipe.gd")
 const Generator = preload("res://src/plant_authoring/generator.gd")
 
-const DEFAULT_ROOT := "res://scenes/workshop_plants"
-const OUTPUT_ROOT := "res://outputs/plant_editor"
+const DEFAULT_ROOT := "res://outputs/plant_editor"
+const OUTPUT_ROOT := DEFAULT_ROOT
+const SCENE_ROOT := "res://scenes/workshop_plants"
 const MAX_RECIPE_BYTES := 1024 * 1024
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
+const RELOAD_TOLERANCE := 0.0002
+
+var _test_root := ""
+var _owned_temps: Dictionary = {}
+
+## 测试根必须显式注入且以 plant_authoring_test_ 命名；从不递归删除该根或旧 revision。
+func _init(test_root: String = "") -> void:
+	if _external_test_root(test_root):
+		_test_root = test_root
 
 func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 	var result := _fail_result()
@@ -17,7 +27,7 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 	if not reason.is_empty():
 		result.reason = reason
 		return result
-	var recipe_copy: Dictionary = _deep_copy(recipe)
+	var recipe_copy: Dictionary = Recipe.normalized(recipe)
 	reason = Recipe.validate(recipe_copy)
 	if not reason.is_empty():
 		result.reason = reason
@@ -31,7 +41,7 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		return result
 	var slug := _slug_for_recipe(recipe_copy)
 	var directory := _join(root_dir, slug)
-	if not _ensure_dir(directory):
+	if _has_link_ancestor(ProjectSettings.globalize_path(directory)) or not _ensure_dir(directory):
 		root.free()
 		result.reason = "无法创建候选目录"
 		return result
@@ -39,10 +49,11 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 	var revision_name := "revision_%04d" % revision
 	var final_dir := _join(directory, revision_name)
 	var temp_dir := _join(directory, ".tmp_%s_%04d_%s" % [slug, revision, str(Time.get_ticks_usec())])
-	if not _ensure_dir(temp_dir):
+	if DirAccess.make_dir_absolute(ProjectSettings.globalize_path(temp_dir)) != OK:
 		root.free()
-		result.reason = "无法创建原子临时目录"
+		result.reason = "无法创建独占原子临时目录"
 		return result
+	_owned_temps[temp_dir] = true
 
 	_prepare_static_tree(root)
 	var geometry_before := _geometry_snapshot(root)
@@ -73,12 +84,17 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		return result
 
 	var loaded_recipe := _read_recipe_file(recipe_path)
-	if not bool(loaded_recipe.get("ok", false)):
+	if not bool(loaded_recipe.get("ok", false)) or Recipe.fingerprint(loaded_recipe.get("recipe", {})) != Recipe.fingerprint(recipe_copy):
 		root.free()
 		_remove_dir(temp_dir)
-		result.reason = str(loaded_recipe.get("reason", "配方重载失败"))
+		var differences: Array[String] = []
+		for key: String in recipe_copy:
+			var saved_value: Variant = loaded_recipe.get("recipe", {}).get(key)
+			if Recipe._stable_json(recipe_copy[key]) != Recipe._stable_json(saved_value):
+				differences.append(key + ": " + Recipe._stable_json(recipe_copy[key]) + " -> " + Recipe._stable_json(saved_value))
+		result.reason = "配方重载失败或指纹不一致：" + str(loaded_recipe.get("reason", "")) + "; ".join(differences)
 		return result
-	var loaded_scene := ResourceLoader.load(scene_path, "", ResourceLoader.CACHE_MODE_IGNORE) as PackedScene
+	var loaded_scene := ResourceLoader.load(scene_path, "", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
 	if loaded_scene == null:
 		root.free()
 		_remove_dir(temp_dir)
@@ -109,9 +125,12 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		_remove_dir(temp_dir)
 		result.reason = "原子提交 revision 失败"
 		return result
+	_owned_temps.erase(temp_dir)
 	return {
 		"ok": true,
 		"reason": "",
+		"revision": revision,
+		"fingerprint": Recipe.fingerprint(recipe_copy),
 		"directory": final_dir,
 		"recipe_path": _join(final_dir, "plant.recipe.json"),
 		"scene_path": _join(final_dir, "plant.tscn"),
@@ -154,8 +173,19 @@ func _make_manifest(recipe: Dictionary, build: Dictionary, revision: int, geomet
 	var source_paths := [
 		"res://src/plant_authoring/recipe.gd",
 		"res://src/plant_authoring/generator.gd",
-		"res://src/plant_authoring/geometry.gd"
+		"res://src/plant_authoring/geometry.gd",
+		"res://src/plant_authoring/species.gd",
+		"res://src/plant_authoring/leaf.gdshader",
+		"res://src/plant_authoring/store.gd",
+		"res://src/ambient/vegetation/library.gd",
+		"res://data/vegetation/catalog.json",
+		"res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 	]
+	if recipe.grass_enabled:
+		var catalog: Dictionary = Generator.Library.catalog()
+		var grass: Dictionary = catalog[recipe.grass_asset]
+		source_paths.append(grass.model)
+		source_paths.append(grass.material)
 	var source_hashes: Dictionary = {}
 	for path in source_paths:
 		source_hashes[path] = _sha256_file(path)
@@ -167,6 +197,12 @@ func _make_manifest(recipe: Dictionary, build: Dictionary, revision: int, geomet
 		"formal_registry_written": false,
 		"revision": revision,
 		"slug": _slug_for_recipe(recipe),
+		"candidate_id": "%s/revision_%04d" % [_slug_for_recipe(recipe), revision],
+		"recipe_fingerprint": Recipe.fingerprint(recipe),
+		"geometry_fingerprint": geometry.geometry_fingerprint,
+		"uv_fingerprint": geometry.uv_fingerprint,
+		"material_fingerprint": geometry.material_fingerprint,
+		"reload_tolerance": RELOAD_TOLERANCE,
 		"species": recipe.species,
 		"name": recipe.name,
 		"recipe_sha256": _sha256_file(recipe_path),
@@ -174,7 +210,7 @@ func _make_manifest(recipe: Dictionary, build: Dictionary, revision: int, geomet
 		"source_path_hashes": source_hashes,
 		"generator": "res://src/plant_authoring/generator.gd",
 		"stats": _deep_copy(build.get("stats", {})),
-		"geometry": geometry,
+		"geometry": _snapshot_manifest(geometry),
 		"static_scene": true,
 		"has_scripts": false,
 		"has_camera": false,
@@ -201,28 +237,41 @@ func _read_recipe_file(path: String) -> Dictionary:
 	var reason := Recipe.validate(recipe)
 	if not reason.is_empty():
 		return {"ok": false, "reason": reason}
-	return {"ok": true, "reason": "", "recipe": recipe}
+	return {"ok": true, "reason": "", "recipe": Recipe.normalized(recipe)}
 
 func _validate_root(path: String) -> String:
-	var normalized := path.replace("\\", "/")
-	if normalized.is_empty() or normalized.strip_edges() != normalized or normalized.contains(".."):
-		return "候选根路径非法"
-	if normalized.to_lower().contains("building"):
-		return "候选根禁止使用 building 路径"
-	if normalized == DEFAULT_ROOT or normalized == OUTPUT_ROOT:
-		return ""
-	if _is_absolute_path(normalized):
-		return "" if normalized != "/" else "候选根路径非法"
-	return "候选根只允许默认根、plant_editor 输出根或测试绝对根"
+	if path not in [DEFAULT_ROOT, SCENE_ROOT] and (_test_root.is_empty() or path != _test_root):
+		return "候选根只允许plant_editor输出根、workshop_plants场景根或显式指定的工程外测试根"
+	if _has_link_ancestor(ProjectSettings.globalize_path(path)):
+		return "候选根不能经过符号链接"
+	return ""
+
+func _external_test_root(path: String) -> bool:
+	if path.is_empty() or not path.is_absolute_path() or path.begins_with("res://") or path.begins_with("user://"):
+		return false
+	if path != path.simplify_path() or path.contains("\\") or path.strip_edges() != path:
+		return false
+	var project := ProjectSettings.globalize_path("res://").trim_suffix("/")
+	if path == project or path.begins_with(project + "/") or project.begins_with(path + "/"):
+		return false
+	return path.get_file().begins_with("plant_authoring_test_") and not _has_link_ancestor(path)
+
+func _has_link_ancestor(path: String) -> bool:
+	var current := path.trim_suffix("/")
+	while not current.is_empty() and current != current.get_base_dir():
+		var parent := DirAccess.open(current.get_base_dir())
+		if parent != null and parent.is_link(current.get_file()):
+			return true
+		current = current.get_base_dir()
+	return false
 
 func _is_safe_recipe_path(path: String) -> bool:
-	var normalized := path.replace("\\", "/")
-	if normalized.get_file() != "plant.recipe.json" or normalized.contains("..") or normalized.to_lower().contains("building"):
+	if path.get_file() != "plant.recipe.json" or path != path.simplify_path() or path.contains("\\"):
 		return false
-	var base := normalized.get_base_dir()
-	if base == DEFAULT_ROOT or base == OUTPUT_ROOT or base.begins_with(DEFAULT_ROOT + "/") or base.begins_with(OUTPUT_ROOT + "/"):
-		return true
-	return _is_absolute_path(base)
+	var revision := path.get_base_dir()
+	var candidate := revision.get_base_dir()
+	var root := candidate.get_base_dir()
+	return _validate_root(root).is_empty() and revision.get_file().begins_with("revision_") and not _has_link_ancestor(ProjectSettings.globalize_path(path))
 
 func _collect_recipe_paths(directory: String, depth: int, paths: Array[String]) -> void:
 	if depth > 2:
@@ -233,7 +282,7 @@ func _collect_recipe_paths(directory: String, depth: int, paths: Array[String]) 
 	dir.list_dir_begin()
 	var name := dir.get_next()
 	while not name.is_empty():
-		if name != "." and name != ".." and not name.begins_with("."):
+		if name != "." and name != ".." and not name.begins_with(".") and not dir.is_link(name):
 			var child := _join(directory, name)
 			if dir.current_is_dir():
 				if depth < 2:
@@ -260,69 +309,223 @@ func _slug_for_recipe(recipe: Dictionary) -> String:
 	return slug
 
 func _prepare_static_tree(root: Node) -> void:
-	root.scene_file_path = ""
-	root.set_script(null)
-	_prepare_static_node(root, root)
+	_prepare_static_node(root, root, {})
 
-func _prepare_static_node(node: Node, owner_root: Node) -> void:
+func _prepare_static_node(node: Node, owner_root: Node, materials: Dictionary) -> void:
+	node.scene_file_path = ""
+	node.set_script(null)
+	if node != owner_root:
+		node.owner = owner_root
+	if node is GeometryInstance3D:
+		node.material_override = _static_material(node.material_override, materials)
+		node.material_overlay = _static_material(node.material_overlay, materials)
+	if node is MeshInstance3D and node.mesh != null:
+		node.mesh = node.mesh.duplicate()
+		for surface in node.mesh.get_surface_count():
+			var material := _static_material(node.get_active_material(surface), materials)
+			node.mesh.surface_set_material(surface, material)
+			node.set_surface_override_material(surface, material)
+	elif node is MultiMeshInstance3D and node.multimesh != null and node.multimesh.mesh != null:
+		node.multimesh = node.multimesh.duplicate()
+		node.multimesh.mesh = node.multimesh.mesh.duplicate()
+		for surface in node.multimesh.mesh.get_surface_count():
+			node.multimesh.mesh.surface_set_material(surface, _static_material(node.multimesh.mesh.surface_get_material(surface), materials))
 	for child in node.get_children():
-		if child is Camera3D or child is Light3D or child is CollisionObject3D or child is CollisionShape3D:
+		if child is Camera3D or child is Light3D or child is CollisionObject3D or child is CollisionShape3D or child is CollisionPolygon3D:
 			child.free()
-			continue
-		if child is Node:
-			child.scene_file_path = ""
-			child.owner = owner_root
-			child.set_script(null)
-			_prepare_static_node(child, owner_root)
+		else:
+			_prepare_static_node(child, owner_root, materials)
+
+func _static_material(material: Material, cache: Dictionary) -> Material:
+	if material == null:
+		return null
+	if not cache.has(material):
+		var copy := material.duplicate() as Material
+		copy.resource_local_to_scene = true
+		if copy is ShaderMaterial:
+			copy.set_shader_parameter("local_time", 0.0)
+			copy.set_shader_parameter("preview_wind", false)
+		cache[material] = copy
+	return cache[material]
 
 func _geometry_snapshot(root: Node) -> Dictionary:
-	var visual_count := 0
-	var triangle_count := 0
-	var scripts := 0
-	var cameras := 0
-	var lights := 0
-	var collisions := 0
-	var bounds := AABB()
-	var has_bounds := false
-	var stack: Array[Node] = [root]
-	while not stack.is_empty():
-		var node: Node = stack.pop_back()
-		if node.get_script() != null:
-			scripts += 1
-		if node is Camera3D:
-			cameras += 1
-		if node is Light3D:
-			lights += 1
-		if node is CollisionObject3D:
-			collisions += 1
-		if node is MeshInstance3D:
-			var mesh := (node as MeshInstance3D).mesh
-			if mesh != null:
-				visual_count += 1
-				triangle_count += _mesh_triangles(mesh)
-				var box := (node as Node3D).transform * mesh.get_aabb()
-				bounds = box if not has_bounds else bounds.merge(box)
-				has_bounds = true
-		elif node is MultiMeshInstance3D:
-			var multimesh := (node as MultiMeshInstance3D).multimesh
-			if multimesh != null and multimesh.mesh != null:
-				visual_count += 1
-				triangle_count += _mesh_triangles(multimesh.mesh) * multimesh.instance_count
-				var multi_box := (node as Node3D).transform * multimesh.mesh.get_aabb()
-				bounds = multi_box if not has_bounds else bounds.merge(multi_box)
-				has_bounds = true
-		for child in node.get_children():
-			if child is Node:
-				stack.push_back(child)
-	return {"visual_meshes": visual_count, "triangles": triangle_count, "scripts": scripts, "cameras": cameras, "lights": lights, "collisions": collisions, "has_bounds": has_bounds, "bounds_size": [bounds.size.x, bounds.size.y, bounds.size.z]}
+	var result := {"visual_meshes": 0, "triangles": 0, "scripts": 0, "cameras": 0, "lights": 0, "collisions": 0,
+		"has_bounds": false, "bounds": AABB(), "nodes": {}, "materials": {}, "unreadable_multimeshes": 0}
+	_snapshot_node(root, root, Transform3D.IDENTITY, result)
+	var geometry: Dictionary = {}
+	var uv: Dictionary = {}
+	for path in result.nodes:
+		var entry: Dictionary = result.nodes[path].duplicate(true)
+		var uv_surfaces: Array = []
+		for surface: Dictionary in entry.get("surfaces", []):
+			uv_surfaces.append([surface.uv, surface.uv2])
+			surface.erase("uv")
+			surface.erase("uv2")
+		geometry[path] = entry
+		uv[path] = uv_surfaces
+	result.geometry_fingerprint = _data_hash(geometry)
+	result.uv_fingerprint = _data_hash(uv)
+	result.material_fingerprint = _data_hash(result.materials)
+	var bounds: AABB = result.bounds
+	result.bounds_position = [bounds.position.x, bounds.position.y, bounds.position.z]
+	result.bounds_size = [bounds.size.x, bounds.size.y, bounds.size.z]
+	return result
+
+func _snapshot_node(node: Node, root: Node, parent: Transform3D, result: Dictionary) -> void:
+	if node.get_script() != null: result.scripts += 1
+	if node is Camera3D: result.cameras += 1
+	if node is Light3D: result.lights += 1
+	if node is CollisionObject3D or node is CollisionShape3D or node is CollisionPolygon3D: result.collisions += 1
+	var world: Transform3D = parent * node.transform if node is Node3D else parent
+	if node is Node3D and node.top_level:
+		world = node.transform
+	var path := str(root.get_path_to(node))
+	var entry := {"class": node.get_class(), "transform": world, "visible": node.visible if node is Node3D else true}
+	var mesh: Mesh = null
+	var instances: Array[Transform3D] = []
+	if node is MeshInstance3D:
+		mesh = node.mesh
+		instances.append(Transform3D.IDENTITY)
+	elif node is MultiMeshInstance3D and node.multimesh != null:
+		var multi: MultiMesh = node.multimesh
+		mesh = multi.mesh
+		entry.instance_count = multi.instance_count
+		entry.visible_instance_count = multi.visible_instance_count
+		entry.transform_format = multi.transform_format
+		entry.colors = []
+		entry.custom_data = []
+		# Dummy 后端可吞掉 set_instance_transform 并返回单位阵；此时不能签发保存校验。
+		if multi.instance_count > 0 and multi.buffer.is_empty():
+			result.unreadable_multimeshes += 1
+		for index in multi.instance_count:
+			var transform := Transform3D.IDENTITY
+			if multi.transform_format == MultiMesh.TRANSFORM_3D:
+				transform = multi.get_instance_transform(index)
+			else:
+				var flat := multi.get_instance_transform_2d(index)
+				transform = Transform3D(Basis(Vector3(flat.x.x, flat.x.y, 0), Vector3(flat.y.x, flat.y.y, 0), Vector3.BACK), Vector3(flat.origin.x, flat.origin.y, 0))
+			instances.append(transform)
+			if multi.use_colors: entry.colors.append(multi.get_instance_color(index))
+			if multi.use_custom_data: entry.custom_data.append(multi.get_instance_custom_data(index))
+	if mesh != null:
+		result.visual_meshes += 1
+		result.triangles += _mesh_triangles(mesh) * instances.size()
+		entry.instances = instances
+		entry.surfaces = []
+		for surface in mesh.get_surface_count():
+			var arrays := mesh.surface_get_arrays(surface)
+			entry.surfaces.append({"primitive": mesh.surface_get_primitive_type(surface),
+				"vertices": arrays[Mesh.ARRAY_VERTEX], "indices": arrays[Mesh.ARRAY_INDEX],
+				"normals": arrays[Mesh.ARRAY_NORMAL], "uv": arrays[Mesh.ARRAY_TEX_UV], "uv2": arrays[Mesh.ARRAY_TEX_UV2]})
+			var material: Material = node.get_active_material(surface) if node is MeshInstance3D else mesh.surface_get_material(surface)
+			if node is MultiMeshInstance3D and node.material_override != null: material = node.material_override
+			result.materials[path + "/surface_%d" % surface] = _material_identity(material)
+		result.materials[path + "/overlay"] = _material_identity(node.material_overlay)
+		for transform in instances:
+			var box: AABB = world * transform * mesh.get_aabb()
+			result.bounds = result.bounds.merge(box) if result.has_bounds else box
+			result.has_bounds = true
+	result.nodes[path] = entry
+	for child in node.get_children():
+		_snapshot_node(child, root, world, result)
+
+func _material_identity(material: Material) -> Dictionary:
+	if material == null: return {}
+	var result := {"class": material.get_class(), "name": material.resource_name, "local": material.resource_local_to_scene,
+		"external": _external_identity(material), "properties": {}}
+	if material is ShaderMaterial:
+		result.shader = _external_identity(material.shader)
+		result.shader_code_hash = material.shader.code.sha256_text() if material.shader != null else ""
+		if material.shader != null:
+			for uniform: Dictionary in material.shader.get_shader_uniform_list():
+				var key: String = uniform.name
+				var value: Variant = material.get_shader_parameter(key)
+				result.properties[key] = _external_identity(value) if value is Resource else value
+	else:
+		for property: Dictionary in material.get_property_list():
+			var key: String = property.name
+			if int(property.usage) & PROPERTY_USAGE_STORAGE and not key.begins_with("resource_") and key != "script":
+				var value: Variant = material.get(key)
+				result.properties[key] = _external_identity(value) if value is Resource else value
+	return result
+
+func _external_identity(resource: Resource) -> Dictionary:
+	if resource == null: return {}
+	var path := resource.resource_path
+	# 场景内 subresource 的随机 ID 不属于外链身份。
+	if path.contains("::"): path = ""
+	return {"class": resource.get_class(), "path": path, "sha256": _sha256_file(path)}
+
+func _data_hash(value: Variant) -> String:
+	var context := HashingContext.new()
+	context.start(HashingContext.HASH_SHA256)
+	context.update(var_to_bytes(_hash_value(value)))
+	return context.finish().hex_encode()
+
+func _hash_value(value: Variant) -> Variant:
+	# TSCN 数值往返会有 float32 尾差；指纹按声明容差以下的固定精度编码，不哈希内存尾位。
+	if value is float:
+		return "%.4f" % (0.0 if absf(value) < 0.00005 else value)
+	if value is Dictionary:
+		var sorted: Dictionary = {}
+		var keys: Array = value.keys()
+		keys.sort()
+		for key in keys: sorted[key] = _hash_value(value[key])
+		return sorted
+	if value is Array or value is PackedVector3Array or value is PackedVector2Array or value is PackedFloat32Array or value is PackedInt32Array:
+		var result: Array = []
+		for item in value: result.append(_hash_value(item))
+		return result
+	if value is Vector3: return _hash_value([value.x, value.y, value.z])
+	if value is Vector2: return _hash_value([value.x, value.y])
+	if value is Color: return _hash_value([value.r, value.g, value.b, value.a])
+	if value is Transform3D: return _hash_value([value.basis.x, value.basis.y, value.basis.z, value.origin])
+	return value
+
+func _snapshot_manifest(snapshot: Dictionary) -> Dictionary:
+	var result := snapshot.duplicate()
+	result.erase("bounds")
+	result.erase("nodes")
+	result.erase("materials")
+	var node_hashes: Dictionary = {}
+	for path in snapshot.nodes:
+		node_hashes[path] = _data_hash(snapshot.nodes[path])
+	result.node_fingerprints = node_hashes
+	result.materials = snapshot.materials
+	return result
 
 func _verify_static_snapshot(before: Dictionary, after: Dictionary) -> String:
+	if int(before.get("unreadable_multimeshes", 0)) > 0 or int(after.get("unreadable_multimeshes", 0)) > 0:
+		return "渲染后端无法读回 MultiMesh 实例数据，必须在真实后端验证"
 	if not _geometry_is_non_empty(after):
 		return "场景重载后几何为空"
-	for key in ["visual_meshes", "triangles", "scripts", "cameras", "lights", "collisions"]:
-		if int(before.get(key, -1)) != int(after.get(key, -2)):
-			return "场景重载校验不一致：%s" % key
+	for key in ["scripts", "cameras", "lights", "collisions"]:
+		if int(before.get(key, -1)) != 0 or int(after.get(key, -1)) != 0:
+			return "静态场景含禁止节点：%s" % key
+	for key in ["visual_meshes", "triangles", "nodes", "materials", "bounds_position", "bounds_size"]:
+		if not _equivalent(before.get(key), after.get(key)):
+			return "场景重载逐数据校验不一致：%s" % key
 	return ""
+
+func _equivalent(left: Variant, right: Variant) -> bool:
+	if left is float or left is int:
+		return (right is float or right is int) and is_finite(float(left)) and is_finite(float(right)) and absf(float(left) - float(right)) <= RELOAD_TOLERANCE
+	if typeof(left) != typeof(right): return false
+	if left is Dictionary:
+		if left.size() != right.size(): return false
+		for key in left:
+			if not right.has(key) or not _equivalent(left[key], right[key]): return false
+		return true
+	if left is Array or left is PackedVector3Array or left is PackedVector2Array or left is PackedFloat32Array:
+		if left.size() != right.size(): return false
+		for index in left.size():
+			if not _equivalent(left[index], right[index]): return false
+		return true
+	if left is Vector3: return left.is_finite() and right.is_finite() and left.distance_to(right) <= RELOAD_TOLERANCE
+	if left is Vector2: return left.is_finite() and right.is_finite() and left.distance_to(right) <= RELOAD_TOLERANCE
+	if left is Color: return _equivalent([left.r, left.g, left.b, left.a], [right.r, right.g, right.b, right.a])
+	if left is Transform3D: return _equivalent([left.basis.x, left.basis.y, left.basis.z, left.origin], [right.basis.x, right.basis.y, right.basis.z, right.origin])
+	return left == right
 
 func _geometry_is_non_empty(snapshot: Dictionary) -> bool:
 	return int(snapshot.get("visual_meshes", 0)) > 0 and int(snapshot.get("triangles", 0)) > 0 and bool(snapshot.get("has_bounds", false))
@@ -357,7 +560,7 @@ func _write_json(path: String, value: Dictionary) -> bool:
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		return false
-	file.store_string(JSON.stringify(value, "\t"))
+	file.store_string(JSON.stringify(value, "\t", true, true))
 	var error := file.get_error()
 	file.close()
 	return error == OK
@@ -372,20 +575,21 @@ func _ensure_dir(path: String) -> bool:
 	return DirAccess.make_dir_recursive_absolute(absolute) == OK or DirAccess.dir_exists_absolute(absolute)
 
 func _remove_dir(path: String) -> void:
+	if not _owned_temps.has(path) or not path.get_file().begins_with(".tmp_") or _has_link_ancestor(ProjectSettings.globalize_path(path)):
+		return
+	var candidate := path.get_base_dir()
+	if not _validate_root(candidate.get_base_dir()).is_empty():
+		return
 	var dir := DirAccess.open(path)
 	if dir == null:
 		return
-	dir.list_dir_begin()
-	var name := dir.get_next()
-	while not name.is_empty():
-		var child := _join(path, name)
-		if dir.current_is_dir():
-			_remove_dir(child)
-		else:
-			DirAccess.remove_absolute(ProjectSettings.globalize_path(child))
-		name = dir.get_next()
-	dir.list_dir_end()
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+	# 只清理由本次 save 创建的三个平面文件；未知目录或链接一律保留。
+	for name in ["plant.recipe.json", "plant.tscn", "plant.manifest.json"]:
+		if dir.file_exists(name) and not dir.is_link(name):
+			dir.remove(name)
+	if dir.get_files().is_empty() and dir.get_directories().is_empty():
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+	_owned_temps.erase(path)
 
 func _join(left: String, right: String) -> String:
 	return left.trim_suffix("/") + "/" + right

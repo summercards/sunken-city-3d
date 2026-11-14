@@ -47,9 +47,9 @@ func goal_info() -> Dictionary:
 				id = candidate
 				break
 	if id == "": return {"id":"", "name":"第一阶段建设已完成，享受种植与探索吧", "cost":{}}
-	if FACILITIES.has(id): return {"id":id, "name":FACILITIES[id].name, "cost":FACILITIES[id].cost}
-	if id.begins_with("ship"): return {"id":id, "name":"小船升到 %d 级" % (2 if id == "ship" else 3), "cost":ship_cost()}
-	return {"id":id, "name":SITES[id].name + "升到 2 级", "cost":site_next_cost(id)}
+	if FACILITIES.has(id): return {"id":id, "name":FACILITIES[id].name, "cost":FACILITIES[id].cost.duplicate(true)}
+	if id.begins_with("ship"): return {"id":id, "name":"小船升到 %d 级" % (2 if id == "ship" else 3), "cost":ship_cost().duplicate(true)}
+	return {"id":id, "name":SITES[id].name + "升到 2 级", "cost":site_next_cost(id).duplicate(true)}
 
 func track_goal(id: String) -> void:
 	tracked_goal = id

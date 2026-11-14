@@ -47,3 +47,11 @@
 - [拆分前完整主文档](../../archive/pre_split_20261023/GDD_V1.0.md)
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
+
+## 2026-11-14 B2 G03 原子奖励现行覆盖
+
+承接SEA-SALVAGE-R02/R04，覆盖历史“通过give端口入账”：结算只接受整笔receive_all（或add_all），接入方保证成功全量提交、失败零入账；旧give单独配置不再被结算接受，无原子端口明确拒绝，不能逐项can_receive/give或事后退款拼成原子事务。configure仍能保存旧键不等于旧give继续可用。
+
+commit_salvage_result(now,haul)返回详情 `{ok,added,overflow,reason}`；last_result返回副本，overflow为整笔未入账奖励，不是允许部分丢弃。receive_all回调可返回bool或含ok/reason字典；这里不是要求Inventory.add_all改返回类型。只在整笔入账成功后提交16秒冷却并发salvage_ready，拒绝不耗冷却；is_busy覆盖入账→冷却→事件，阻止同步重入和中间保存。旧caller可继续commit_salvage，仅返回实际added，拒绝为空；生产NPC反馈取详细结果，不按预期奖励虚报。
+
+SeaProps复合箱使用自己的receive_all和目标提交锁，单资源legacy give兼容边界不能混称为salvage旧give被接受。根v4/salvage.left不变，状态不升级；0/1/2格、复合奖励及未决证据见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。

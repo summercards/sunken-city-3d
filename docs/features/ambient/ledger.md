@@ -278,3 +278,13 @@ SEA-AMBIENT-R32–R36专项通过，功能总体partial。最终报告`D:/projec
 - 主线程已提供 `performance-equivalence` 19/0；此处仅回填该批结果，未新增专项名、测试或本地复跑，不借历史植被/鱼群视觉通过代签本批。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，恢复可见后的最终观感与完整验收参见主记录，本节不预签。
+
+## 2026-11-14 B2 S11 恢复纯消费者承接
+
+承接SEA-AMBIENT-R03/R05/R21：Main._sync_restored_consumers在成功恢复owner/世界投影后直接向Birds/GullFlock下发唯一WorldClock小时，并同步DaylightRig天气上下文/小时、WeatherView和日历；不重播clock.changed/weather.changed，不让表现刷新承担晨间收款/产鱼或第二份时间。室内隐藏抑制仍由原房间接口负责，装饰不产生库存。
+
+b2-session51/0中暂停雨夜/晴昼互读即时同步、clock.changed计数0，PASS/exit0；这不是实际鸟群/雨层GPU像素验收。真实视觉由父最终追加，未改Ambient资产/shader/布局，登记头partial保持；[B2主记录与待验边界](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 最新012421 session53/0、exit0承接恢复纯消费者覆盖；010438房间/菜园/睡眠三真实视觉入口均exit0、共18PNG，仅目检room-inside、garden-bubble-single、sleep-wake三张。
+- 上述非鸟群/雨层GPU像素验收；sleep-wake为室外太阳房，uniform索引/agent_radius/zone2glass警告保留，不称零警告，全库契约仍失败，登记头partial不变。

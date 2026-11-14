@@ -35,7 +35,11 @@ var day := 1
 ## 生长水位线（SEA-FARM-R14）：已经生长推进到的日历日。同一天只长一次。
 ## 与 `day` 分开存：`day` 只是日历显示，会被世界时钟覆盖；这条只由生长写入。
 var grow_day := 1
+var _busy := false
 var watering_can := WATER_CAPACITY
+
+func is_busy() -> bool:
+	return _busy
 
 func _ready() -> void:
 	assert(ports != null and ports.is_configured(), "Configure farming before adding it to the tree")
@@ -164,6 +168,7 @@ func interact(plot_id: String, crop_id: String = "") -> Dictionary:
 		_: return water(plot_id)
 
 func plant(plot_id: String, crop_id: String) -> Dictionary:
+	if _busy: return {"blocked":"种植正在结算"}
 	var reason := _access_reason(plot_id)
 	if reason != "": return {"blocked":reason}
 	if not is_empty(plot_id): return {"blocked":"这格已经种上了"}
@@ -171,15 +176,20 @@ func plant(plot_id: String, crop_id: String) -> Dictionary:
 	if c.is_empty(): return {"blocked":"没有这种作物"}
 	var tired := _energy_reason("plant")
 	if tired != "": return {"blocked":tired}
-	if not ports.pay.call({str(c.seed):1}): return {"blocked":"缺少" + crop_name(crop_id) + "种子"}
+	_busy = true
+	if not ports.pay.call({str(c.seed):1}):
+		_busy = false
+		return {"blocked":"缺少" + crop_name(crop_id) + "种子"}
 	_spend_energy("plant")
 	var days := grow_days(crop_id)
 	states[plot_id] = {"crop":crop_id,"remaining":float(days),"total":float(days),"water":0.0,"harvests":0}
 	planted.emit(plot_id,crop_id)
 	plots_changed.emit()
+	_busy = false
 	return {"event":"planted","crop":crop_id,"name":crop_name(crop_id),"days":days}
 
 func water(plot_id: String) -> Dictionary:
+	if _busy: return {"blocked":"浇水正在结算"}
 	var reason := _access_reason(plot_id)
 	if reason != "": return {"blocked":reason}
 	if phase(plot_id) != "growing": return {"blocked":"这格不需要浇水"}
@@ -189,14 +199,17 @@ func water(plot_id: String) -> Dictionary:
 	if watering_can <= 0: return {"blocked":"水壶空了，先补水","hint":"refill"}
 	var tired := _energy_reason("water")
 	if tired != "": return {"blocked":tired}
+	_busy = true
 	watering_can -= 1
 	_spend_energy("water")
 	_state(plot_id).water = 1.0
 	watered.emit(plot_id)
 	plots_changed.emit()
+	_busy = false
 	return {"event":"watered","name":crop_name(crop_of(plot_id))}
 
 func harvest(plot_id: String) -> Dictionary:
+	if _busy: return {"blocked":"收获正在结算"}
 	var reason := _access_reason(plot_id)
 	if reason != "": return {"blocked":reason}
 	if phase(plot_id) != "ready": return {"blocked":"还没成熟"}
@@ -206,7 +219,15 @@ func harvest(plot_id: String) -> Dictionary:
 	if reason != "": return {"blocked":reason}
 	var tired := _energy_reason("harvest")
 	if tired != "": return {"blocked":tired}
-	ports.give.call(reward)
+	_busy = true
+	var received := true
+	if ports.exchange.is_valid():
+		received = bool(ports.exchange.call({}, reward).get("ok", false))
+	else:
+		ports.give.call(reward)
+	if not received:
+		_busy = false
+		return {"blocked":"背包已满，作物保留在地里"}
 	_spend_energy("harvest")
 	var st := _state(plot_id)
 	st.harvests = int(st.get("harvests",0)) + 1
@@ -220,6 +241,7 @@ func harvest(plot_id: String) -> Dictionary:
 		states[plot_id] = _empty_state()
 	harvested.emit(plot_id,reward)
 	plots_changed.emit()
+	_busy = false
 	return {"event":"harvested","name":crop_name(crop_id),"crop":crop_id,"reward":reward,"regrow":regrow}
 
 ## 帧时间不推进作物。玩家休息时只结算一个游戏日。
@@ -270,19 +292,38 @@ func refill() -> Dictionary:
 ## 原子性同土壤：总价与背包余量一起检查，够才扣。
 ## 不然"加到 5 包、扣了瓶盖、只塞进去 2 包"这种半途失败最难解释。
 func buy_seed(crop_id: String, amount := 1) -> Dictionary:
+	if _busy: return {"blocked":"种植正在结算"}
+	_busy = true
 	amount = maxi(1, amount)
 	var c := crop_def(crop_id)
-	if c.is_empty(): return {"blocked":"没有这种种子"}
+	if c.is_empty():
+		_busy = false
+		return {"blocked":"没有这种种子"}
 	var price := int(c.seed_price) * amount
-	if not ports.inventory.can_add(str(c.seed),amount): return {"blocked":"背包已满，无法购买"}
-	if not ports.pay.call({"coins":price}): return {"blocked":"瓶盖不足"}
-	ports.give.call({str(c.seed):amount})
+	if not ports.inventory.can_add(str(c.seed),amount):
+		_busy = false
+		return {"blocked":"背包已满，无法购买"}
+	if ports.exchange.is_valid():
+		var payment: Dictionary = ports.exchange.call({"coins":price},{str(c.seed):amount})
+		if not bool(payment.get("ok", false)):
+			_busy = false
+			return {"blocked":str(payment.get("reason", "购买失败"))}
+	else:
+		if not ports.pay.call({"coins":price}):
+			_busy = false
+			return {"blocked":"瓶盖不足"}
+		ports.give.call({str(c.seed):amount})
+	_busy = false
 	return {"message":"买到 %d 包%s种子" % [amount, crop_name(crop_id)]}
 
 func exchange_seed() -> Dictionary:
 	if not ports.inventory.can_add("lettuce_seed",1): return {"blocked":"背包已满"}
-	if not ports.pay.call({"seed":1}): return {"blocked":"没有旧种子"}
-	ports.give.call({"lettuce_seed":1})
+	if ports.exchange.is_valid():
+		var payment: Dictionary = ports.exchange.call({"seed":1}, {"lettuce_seed":1})
+		if not bool(payment.get("ok", false)): return {"blocked":"没有旧种子"}
+	else:
+		if not ports.pay.call({"seed":1}): return {"blocked":"没有旧种子"}
+		ports.give.call({"lettuce_seed":1})
 	return {"message":"旧种子换成了生菜种子"}
 
 func sell_produce() -> Dictionary:
@@ -297,8 +338,12 @@ func sell_produce() -> Dictionary:
 				sold[id] = count
 				income += price*count
 	if income == 0: return {"blocked":"没有可出售的农产品"}
-	ports.pay.call(sold)
-	ports.give.call({"coins":income})
+	if ports.exchange.is_valid():
+		var payment: Dictionary = ports.exchange.call(sold, {"coins":income})
+		if not bool(payment.get("ok", false)): return {"blocked":str(payment.get("reason", "出售失败"))}
+	else:
+		ports.pay.call(sold)
+		ports.give.call({"coins":income})
 	return {"message":"出售农产品 · 瓶盖 +%d" % income,"income":income}
 
 ## 体力预检与扣费（SEA-ENERGY）。端口没接就等于没有体力系统，种植照常跑。

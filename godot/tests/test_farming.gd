@@ -24,8 +24,9 @@ func run() -> void:
 	economy = root.get_node("Economy")
 	economy.ticking = false
 	farm = economy.farm
-	check(farm.specs.size() == 13, "13 个独立地格（太阳房 1 + 圆弧农场 6 + 浅水 6）")
-	check(get_nodes_in_group("farm_beds").size() == 3, "三个场景种植床")
+	# 当前默认最小范围由正式场景注册：太阳房1格 + 浅水台6格；圆弧农场已冻结。
+	check(farm.specs.size() == 7, "当前默认范围7个独立地格（太阳房1 + 浅水6）")
+	check(get_nodes_in_group("farm_beds").size() == 2, "当前默认范围两个场景种植床")
 	check(economy.count("lettuce_seed") == 3, "新游戏赠送三个生菜种子")
 	economy.inventory.clear()
 	economy.give({"coins":80})

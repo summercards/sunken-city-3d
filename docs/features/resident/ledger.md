@@ -235,3 +235,25 @@
 补记一处必须写明的实现细节：`is_speaking()` 的语义从「可见」改为「还在这次招呼里」（`_target` 有效且 `_alpha > 0`）。放大后角色常在镜头外，若仍按「可见」判定，上层会把「她出画」当成「已经说完」，镜头转回来就再也不显示了。
 
 只改 `speech_bubble.gd` 与 `main.gd` 两个常量。`main.tscn` 无 diff，用户手摆 transform 未动。详见[开发记录第 12 节](../../development/2026-11-08_neon_garden_garden.md#12-当晚修订气泡放大触发半径放宽用户反馈)。
+
+## 2026-11-13 B1 职业面板挂起恢复
+
+承接 R10/R11/R21：NpcCareerPanel新增suspend/resume/dispose；出树关闭并失效旧按钮但保留query/perform，Main潜水返回显式resume，最终销毁才dispose。返树不重configure、不重复连closed信号，离树Button不再调用release_focus。
+
+npc-careers87/0、framework52/0、dive-transition501/0，均exit0。工程外b1-lifecycle109/0在三轮真实zone1往返后逐一打开船只/种植/打捞/建造/档案五真实入口并刷新真实query，端口与Panel/Main身份保持、信号数不增；每轮种植职业按钮经真实perform打开商店。没有五职业逐一支付/打捞结算，也未测默认家园往返。npc-integration在当前工作区旧天台/花园锚点断言失败并exit124，未改资产或用户Transform迁就，不签该入口通过。首轮careers虽87/0却因出树focus引擎ERROR使runner判FAIL/exit0，已修并最终runner PASS。报告及警告见[开发记录](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。
+
+## 2026-11-13 B2 G04 菜园桥 NPC 锚点修复
+
+菜园桥五个作者 Marker 与模型派生 WalkGardenDeck 的代表层相差 0.737953m，导致锚点无效、豆豆按日程 fallback。修复只调整 `NpcStations/residence_garden_bridge` 的本地 Y 到实际派生桥面层，不改 NPC 日程、`SUPPORT_TOLERANCE`、主场景根 Transform、资产或旧街口。新增 `garden-npc`/`npc-integration` 的 height mismatch 与支撑断言；`garden-npc` 正式复跑 exit0，5/5 锚点有效、聚合40、豆豆不 fallback。`npc-integration` 受既有天台前置失败并 exit124；`npc-save-seed` 受既有天台站位/恢复前置失败并 exit1，未运行 restart。
+
+## 2026-11-14 B2 NPC 事务、纯读快照与 G04 承接
+
+承接SEA-RESIDENT-R02/R04/R06/R11/R12及R09/R18/R24：礼物/请求busy跨库存支付→关系/请求提交→事件，Main汇集is_busy拒绝中间存读。**当前覆盖旧“保存取消会话”历史**：to_dict/Registry.capture纯读，不关闭对白或改pending/session_id；成功from_dict/明确restore清旧会话，失败则通过非持久capture_runtime/restore_runtime恢复pending、完整DialogueRunner session/serial和已选分支，后置owner失败不发restored/对白完成伪事件。reset后段磁盘失败亦复用memento，不入npc.version=1 wire，不承诺重开restored已关UI投影。
+
+G03职业打捞取SalvageRewards整笔实际added/overflow/reason，无原子端口或放不下就不发半奖/不耗冷却；G05睡前真实close/cancel商店/职业/NPC，醒后旧按钮无效。G04仅菜园NpcStations局部高度对齐实际派生面，不改用户根、模型、五Marker相对关系/容差，也不新增玩家上楼路。
+
+当前transactions103/0含真实剧情capture保留、后置owner失败还原session_id/分支后可继续终页、成功restore取消；session51/0含真实NPC打捞0/1/2格与睡眠模态。集成853/0、seed527/0、restart280/0、garden26/0、rules655/0、careers87/0均PASS/exit0，补齐上节早批集成占位但保留旧124/1。memento修订后重置跨进程/真实视觉/最终契约待父，登记头implemented原样不升verified。[B2主记录与证据范围](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005741 NPC853/0、seed527/0、restart280/0均exit0；012421强化真实可支付/旧确认Callable有效前置后session53/0、exit0。当前012203重置矩阵unit0、五seed预期引擎-9/runner1、五recover0、外层0，补齐同机进程中断证据。
+- 010438菜园视觉4PNG/exit0，仅目检garden-bubble-single：对白可读但作物遮住下半身，不能签脚底接触/全站姿美术；旧失败保留，全库契约仍失败，登记头implemented不升verified。

@@ -72,6 +72,24 @@
     }
   },
   "resources": [
+    {"path": "godot/src/plant_authoring/recipe.gd", "asset_id": null, "sha256": "89087e730d9a60ef42cf417a4d928f93abe885694ce711f084aa246b8f647c57", "bytes": 10447, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR", "audit_note": "仅树制作端，内核210/0与独立editor263/0；候选不接入世界，不重签源资产。"},
+    {"path": "godot/src/plant_authoring/species.gd", "asset_id": null, "sha256": "f6c7cfaa9ee6ef8dfe4461227611ba63a6ae41d10c85f59e2763a4a696dac298", "bytes": 1955, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/plant_authoring/geometry.gd", "asset_id": null, "sha256": "879a0b35b4fae7b466f92559bc5f11987243c964a5383d479da3a87d1a705450", "bytes": 14196, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/plant_authoring/generator.gd", "asset_id": null, "sha256": "ca099cb888610bf0220a44b5f4794e235b9155a6991b2bf493fe36a781f67684", "bytes": 21246, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/plant_authoring/session.gd", "asset_id": null, "sha256": "680a8d38a3a9b0bba7206de1d0707f6775d0aaf4276020356ba9591341dd23b4", "bytes": 5858, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/plant_authoring/store.gd", "asset_id": null, "sha256": "9440972142f41bae5bb911f43d28e158f1738cef4cfb0fb013383216ba6612c0", "bytes": 25905, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/plant_authoring/leaf.gdshader", "asset_id": null, "sha256": "50fb9bdefa5bd9fe85006c26fab7021e1c6af1f650f95c382cf54bbadcc3d472", "bytes": 1403, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR", "audit_note": "四本地材质角色，共享palette外链；既有草atlas仅alpha轮廓，不写全局风，不改公共建筑shader。"},
+    {"path": "godot/addons/plant_editor/plugin.cfg", "asset_id": null, "sha256": "18ab7fb1223f52f2f5b1f7b77855b007548f00b0eb417d7af69c942d5b3666f0", "bytes": 165, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/addons/plant_editor/plugin.gd", "asset_id": null, "sha256": "b77fdffc30458ebede9427af2505bc9bffc39608f3da79d1b20cc586e3e7c67c", "bytes": 3117, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/addons/plant_editor/editor_screen.gd", "asset_id": null, "sha256": "039ac8735f71a419e60db5d7d480f4ed3b392d065df89c4842c13d2d9f25590e", "bytes": 27218, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/addons/plant_editor/preview.gd", "asset_id": null, "sha256": "2b4b6899617209d23948d90acdbf1f79107a43355646f1388cc81b7a808abb29", "bytes": 8009, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/addons/plant_editor/editor_verification.gd", "asset_id": null, "sha256": "4cff44c7e01354f1b35c3758f6128e629c18d946a2f1e86c396d11fc912c26e2", "bytes": 26443, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/tests/test_plant_authoring.gd", "asset_id": null, "sha256": "1a6cfb47c9deb67164ca5d578d8fe82ff9124aeed0e1982a49a8a9b37786ee24", "bytes": 35653, "status": "authoring_verified_20261114", "owner": "SEA-PLANT-EDITOR"},
+    {"path": "godot/src/workshop/random_recipe.gd", "asset_id": null, "sha256": "e758ea0550972d04adcbfaeaf2e5ba8bc2e2f226d355a559afa5986599b31473", "bytes": 5439, "status": "authoring_verified_20261114", "owner": "SEA-WORKSHOP", "audit_note": "20seed实际生成四形状、复现和RNG隔离；969/0，editor955/0；不插入世界。"},
+    {"path": "godot/tests/test_workshop_random.gd", "asset_id": null, "sha256": "508d0622d7bb60dff1269ad7e8719bb4c159d457b1d172abf124190e79af0013", "bytes": 11990, "status": "authoring_verified_20261114", "owner": "SEA-WORKSHOP"},
+    {"path": "godot/addons/building_workshop/editor_screen.gd", "asset_id": null, "sha256": "719fe423b9c9f96db268ac1af4ea83fa63980290ca47e722f92a5ab49d173e20", "bytes": 152051, "status": "authoring_verified_20261114", "owner": "SEA-WORKSHOP", "audit_note": "红框布局修正和随机房屋同批editor955/0；只登记已逐项审阅代码，不批量接受其他功能漂移。"},
+    {"path": "godot/addons/building_workshop/upgrade_verification.gd", "asset_id": null, "sha256": "a4fe3fbbbac8fd68488ef7eba77a52b02e6dd47f736723491966e6fa0ac4d8cb", "bytes": 51089, "status": "authoring_verified_20261114", "owner": "SEA-WORKSHOP"}
+,
     {
       "path": "godot/src/npc/npc_rooftop_anchors.gd",
       "asset_id": null,

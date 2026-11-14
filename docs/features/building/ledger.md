@@ -244,6 +244,10 @@ release新增修复：Controller生成新5m平台preview时与旧deck同样传�
 
 补充报告`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`的通过项：`ground-space`37/0、`character-space-save`10/0、`building-surfaces`80/0、`building-open-rules`122/0、`building-perf`239/0、`building-decoupling`62/0、`building-seed`5/0+`building-restart`11/0、`building-open-seed`70/0+`building-open-restart`8/0；`save-protection`exit0，实际日志`ok=true protected=true unchanged=true separate=true`，不虚构checks数。
 
+## 2026-11-14 B3 建筑边界治理承接
+
+A06已将楼梯吸附纯实现归入`AssemblyRules.snap_stairs`，`BuildingCatalog.snap_stairs`保留旧三参兼容转发且不再依赖静态反向注册；A05在真实begin/move/remove/快照入口接入内容漂移拒绝，热路径使用逐字段检查。`b3-building-guards`、`building-decoupling`、`building-5m-rules`、`building-simulate`、`building-integration`均exit0；治理测试覆盖配方漂移负例、支付/退款/布局不变及旧吸附样例。该结果不签任意宿主回调故障回滚、长期性能或全局契约门禁，登记头保持implemented（已实现待完整验收）。
+
 P1高空孤台/循环支撑存档绕过已在Service按rooted支撑修复：无支持的新旧高空布局均拒绝，地面历史孤立布局合法；GroundSpace坡脚sharedpoint及胶囊法线修复4.7cm stuck，不放宽WalkAction。未修改main场景手摆、阳光小屋位置尺寸或玩家真实存档。
 
 过程失败保留：211435中`kit-safety`94/7、`building-kit`141/8已由signed94/0、221/0收口；同旧报告`farming`35/2仍是13地格/3床（含已移除圆弧农场）的历史fixture残留，不修改业务凑通过，也不由键盘农场606/0掩盖。最终已执行全局sync与无参检查，分别4/5问题：水下派生视图、动物源、水材质、并行Main哈希及派生索引；本功能条款/路径/哈希无残留，不批量接纳其他改动。架构17服务0问题、diff检查0。触摸/手柄、低端GPU、任意规模层数未验，因此feature仍implemented（已实现待完整验收），R30–R33本范围已通过。[任务交付](../../development/2026-11-06_building_5m_and_ui.md)；[机器汇总](../../development/2026-11-06_building_5m_verification.json)已绑定最新release-signed，13项全PASS，其中12专项2965 checks/0 failures，另几何守卫62 rows/0 failures。

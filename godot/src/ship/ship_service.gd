@@ -5,6 +5,10 @@ signal upgraded(level: int)
 const SHIP_RECIPE := {"coins": 25, "wood": 6, "parts": 4, "rope": 2}
 var ship_level := 1
 var ports: Dictionary = {}
+var _busy := false
+
+func is_busy() -> bool:
+	return _busy
 func configure(boundary: Dictionary) -> void:
 	assert(boundary.has("construction_pay") and boundary["construction_pay"].is_valid(), "Missing port: construction_pay")
 	assert(boundary.has("construction_has") and boundary["construction_has"].is_valid(), "Missing port: construction_has")
@@ -25,13 +29,17 @@ func can_upgrade_ship() -> bool:
 	return ship_level < 3 and construction_has(ship_cost())
 
 func upgrade_ship() -> Dictionary:
+	if _busy: return {"ok": false, "reason": "船只正在结算"}
 	if ship_level >= 3:
 		return {"ok": false, "reason": "船已经满级"}
+	_busy = true
 	if not construction_pay(ship_cost()):
+		_busy = false
 		return {"ok": false, "reason": construction_missing_text(ship_cost())}
 	ship_level += 1
 	upgraded.emit(ship_level)
 	resources_changed.emit()
+	_busy = false
 	return {"ok": true, "level": ship_level}
 
 func ship_cost() -> Dictionary:

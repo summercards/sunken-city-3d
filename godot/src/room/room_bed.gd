@@ -14,6 +14,7 @@ const FOOTPRINT_HALF := Vector2(0.58, 1.015)
 const BLOCK_HEIGHT := 0.95
 
 var body: StaticBody3D
+var approach_path_query: Callable
 
 
 func _on_ready() -> void:
@@ -45,6 +46,15 @@ func _build_body() -> void:
 func apply_layout(at: Vector3, yaw: float) -> void:
 	position = at
 	rotation.y = yaw
+
+
+func set_approach_points(points: Array) -> void:
+	set_meta("approach_points", points)
+
+
+## 可选公共端口：返回包含实际起点与候选终点的世界坐标净空路线。
+func approach_path(start: Vector3, goal: Vector3) -> Array:
+	return approach_path_query.call(start, goal) if approach_path_query.is_valid() else []
 
 
 func interact(_actor: Node3D) -> Dictionary:

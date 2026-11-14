@@ -395,3 +395,13 @@ NPC 不是一个 NPC 一个模块：七名居民共用同一套会话、呈现�
 | SEA-RESIDENT-R25 | 玩家与豆豆的水平 XZ 距离 ≤ 32 米、且无 NPC 模态时，触发头顶招呼气泡：用与底部对话框同一张奶白纸面（`Cozy.surface(#fbf6e8, 28)`）加一个指向角色头顶的小三角，三角横向跟随角色屏幕投影。**尺寸按「船上抬头也读得清」定**：字号 30、内边距 28×20、圆角 30、文本宽上限 468 且不超过视口宽 42%（1280×800 下自动收窄），停留 7.5 秒后淡出。角色出画（含在相机背后、或屏幕坐标越界 48 像素）时只隐藏气泡、不结束这次招呼，回到画面即恢复，不得在屏幕边缘挂一张指向画外的纸条。台词按游戏日轮换（`posmod(day-1, n)`），同一天只喊一次、每天不同。台词表在 `godot/assets/data/npc/greetings.json`。**「今天已喊过」不写进存档**：NPC 快照有严格字段校验，加字段会让旧档拒绝加载，存档优先；读档后当天可再喊一次。 |
 
 代价必须写明：菜园桥离街面约 28 米且**没有上楼路径**（用户明确只让豆豆在楼上），所以玩家走不到她身边、无法走近交谈；能看到、能收到招呼。想让玩家上去聊需要单独一轮做楼梯。
+
+## 2026-11-14 B2 NPC 快照纯读与失败会话回滚覆盖声明
+
+承接SEA-RESIDENT-R02/R04/R06/R11/R12；本节明确覆盖旧“保存取消会话/保存清瞬态”的历史口径：NpcService.to_dict与Registry.capture必须纯读持久态深副本，不取消对白、pending、已选分支或改session_id，避免恢复前态捕获本身破坏当前会话。wire npc.version=1仍不保存瞬态；“不持久化对白”不等于“读快照会关闭对白”。
+
+成功from_dict/明确成功restore仍清旧会话，不续接旧按钮；类型/codec拒绝不改现场。Registry在apply前通过可选capture_runtime/restore_runtime保存非持久memento，NPC包含pending、DialogueRunner完整session与serial；后置owner失败时回滚持久态并恢复该memento，保留原session_id/分支可继续到终页，且不发restored/对白完成伪事件。reset已apply后磁盘失败同样回用memento；此协议只管同进程owner瞬态，不新增存档字段、不保证重开已由restored消费者关闭的UI/路线投影。
+
+礼物/请求的busy从外部库存支付持续到关系/请求提交和事件发布；Main将NpcService.is_busy纳入统一保存门禁，监听者不能捕获半笔跨owner态。G03职业打捞调用SalvageRewards原子整笔详细结果，不能按预期奖励声称部分入账成功。R11睡眠先结束逻辑模态再hide Canvas，醒来不复活旧确认。
+
+承接R09/R18/R24：G04只修菜园NpcStations局部高度匹配实际派生面，不改用户根/容差/五Marker相对位置，也不新增玩家上楼通路。当前逻辑集成/seed/restart与memento负例已核；真实视觉、修订后重置跨进程矩阵待父追加，历史早批失败不抹去。完整报告与边界见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)，登记状态不升级verified。

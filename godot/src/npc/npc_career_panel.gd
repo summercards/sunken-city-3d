@@ -12,6 +12,7 @@ var _action_id := ""
 var _view: Dictionary = {}
 var _open := false
 var _busy := false
+var _suspended := false
 var _confirming := false
 var _submitted := false
 var _feedback := ""
@@ -40,6 +41,7 @@ func configure(query: Callable, perform: Callable) -> void:
 	close()
 	_query = query
 	_perform = perform
+	_suspended = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -47,6 +49,7 @@ func _ready() -> void:
 	_ensure_ui()
 
 func open_service(npc_id: String, action_id: String) -> Dictionary:
+	if _suspended: return {"ok": false, "reason": "职业面板已挂起"}
 	if _busy: return {"ok": false, "reason": "职业面板正在处理命令"}
 	if action_id not in ACTIONS or npc_id.is_empty(): return {"ok": false, "reason": "未知职业服务"}
 	if not _query.is_valid(): return {"ok": false, "reason": "职业查询尚未接入"}
@@ -74,7 +77,8 @@ func close() -> void:
 	_action_id = ""
 	if _overlay != null:
 		_overlay.hide()
-		for button in _buttons: button.release_focus()
+		for button in _buttons:
+			if button.is_inside_tree(): button.release_focus()
 	closed.emit()
 
 func is_open() -> bool:
@@ -85,11 +89,24 @@ func panel_snapshot() -> Dictionary:
 		"view": _view.duplicate(true), "confirming": _confirming,
 		"submitted": _submitted, "busy": _busy, "feedback": _feedback}
 
-func _exit_tree() -> void:
+func suspend() -> void:
 	close()
+	_serial += 1
+	_suspended = true
+	_last_event = null
+	_held_keys.clear()
+
+func resume() -> void:
+	_suspended = false
+
+func dispose() -> void:
+	suspend()
 	_query = Callable()
 	_perform = Callable()
-	_last_event = null
+
+func _exit_tree() -> void:
+	# 出树可能是潜水挂起，命名 Callable 随目标销毁自行失效。
+	suspend()
 
 func _read_view() -> void:
 	var value: Variant = _query.call(_action_id) if _query.is_valid() else null

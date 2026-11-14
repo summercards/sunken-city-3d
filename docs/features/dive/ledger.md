@@ -335,3 +335,9 @@ A=`20261109-023938-underwater-render-boundary-f5c046`，B=`20261109-030908-under
 A=`20261110-233501-dive-entry-polish-core-cc526e`，B=`20261110-233501-dive-entry-polish-visual-6a99e7`，C=`20261110-233926-dive-entry-final-integration-222f98`；报告均在`D:/projects/sea-work/verification/<批次>/report.json`。C水下体验179/0、家园85/0、camera14/0、modules31/0、minimum112/0、framework52/0及3个存档入口通过。12个计数入口5857/0，15项全exit0/PASS、unexpected=[]；5核心脚本与B快照一致。完整命令、帧轨迹、失败历史与交付见[开发记录](../../development/2026-11-10_dive_entry_splash.md)。
 
 全局sync exit1/79、只读exit1/81，派生索引同步受阻；含本次sunroom_region.gd已修改资源待定向哈希签署，及SEA-ASSET/并行SEA-WORKSHOP和既有资源漂移，不批量重签。没有DIVE/CAMERA新增条款漏行/未知入口。功能专项完成但总体partial，未改用户TSCN/水位120m/v4；低端、长时、全路线/全部三角面、独立海床和用户终审未签。
+
+## 2026-11-13 B1 返回海面职业端口生命周期
+
+承接 R09/R31/R41/R51：本子批不改DiveSession/控制器/地图，只修NpcCareerPanel挂起协议与Main返树resume/最终dispose，避免同Main出树永久清空query/perform。dive-transition501/0、framework52/0与工程外b1-lifecycle109/0均exit0。外部探针真实zone1 request_dive→swim→abort返回三轮，同Main同Panel、端口相同、closed连接数不增，每轮五职业真实query可打开/刷新及真实perform可路由商店。
+
+仅zone1/headless，不宣称默认家园往返、全图/全五职业付费结算或真实黑帧已验；dive-transition有9个、组合探针有4个ObjectDB退出泄漏警告，未归因、不签零泄漏。npc-integration锚点前置失败并超时124单列。[报告与边界](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。

@@ -24,6 +24,10 @@ const FACILITIES := {
 var site_names: Dictionary = {}
 var facilities := {"greenhouse":false,"recycler":false}
 var ports: Dictionary = {}
+var _busy := false
+
+func is_busy() -> bool:
+	return _busy
 func configure(boundary: Dictionary) -> void:
 	assert(boundary.has("site_level") and boundary["site_level"].is_valid(), "Missing port: site_level")
 	assert(boundary.has("construction_pay") and boundary["construction_pay"].is_valid(), "Missing port: construction_pay")
@@ -73,10 +77,14 @@ func build_facility(id: String) -> Dictionary:
 	var req_text := facility_requirement_text(id)
 	if req_text != "":
 		return {"ok": false, "reason": req_text}
+	if _busy: return {"ok": false, "reason": "设施正在结算"}
+	_busy = true
 	if not construction_pay(spec.cost):
+		_busy = false
 		return {"ok": false, "reason": construction_missing_text(spec.cost)}
 	facilities[id] = true
 	sites_changed.emit()
+	_busy = false
 	return {"ok": true, "name": spec.name}
 
 func to_dict() -> Dictionary: return {"facilities":facilities.duplicate()}

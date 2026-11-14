@@ -119,3 +119,13 @@ SEA-ORDER-R09/R10：稳定出货箱模型与交互同锚点；当前实体点击
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-ORDER-R12 | 已实现；补给站不新增商品表与数值，入口直接开既有商店页（种子走 `Farm.buy_seed`、土壤走 `MaterialShop`），浮店不提供保管仓库与出货箱。 | `sea-supply` 专项断言打开的是 `shop` 页而非新界面；[接入记录](../../development/2026-10-31_sea_supply_station.md) |
+
+## 2026-11-14 B2 订单提交窗口承接
+
+承接SEA-ORDER-R02/R03/R05/R06（S15/S16）：fulfill在owner busy内用正式Inventory.exchange合并扣货和coins/bonus，成功后写refill槽再发布changed/fulfilled，失败整笔拒绝；reroll/reset/from_dict/tick补位以及表/随机种子修改受同一owner重入保护，不让同步回调覆盖新slots。Economy聚合Orders.is_busy进入保存门禁；报价/长期订单范围不变，不自动吃仓库。
+
+无exchange的历史测试give分支仍保留，transaction_begin/end仅声明未正式消费，不能据字段存在声称新增事务协议。b2-transactions103/0含fulfilled/changed/offered异命令重入、正常恢复/免费换单，modules101/0、framework-modules52/0 PASS/exit0；不等于默认范围开放长期订单。登记头partial不变；[B2主记录与未决](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0；仅承接订单整笔提交、事件发布期异命令重入及恢复的已覆盖链路。
+- 不扩大长期订单开放范围，不把声明端口计作正式接线；全库契约仍失败，全selftest及并发写未签，登记头partial不变，冻结证据见主记录。

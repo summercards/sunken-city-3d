@@ -397,3 +397,25 @@ SEA-WORLD-R28最终签署：190758的shop-sightline968/0、实际GPU20/0和19104
 承接现行派生空间/位置权威/R29/R32及存档世界适配。用户主场景Transform零改动、位置检查6/0。真实Main两个稳定采样确认菜园Walk active/built、36矩形，但5 Marker均高于派生面0.737953m，0/5锚点、总聚合35/40；豆豆可见但home_fallback到天台(G04)。左屋顶5/5、天台25/25、浮店5/5正常。该失败不同于已接受下沉街口，不抬根/恢复街口/放宽0.05门槛；先测原几何土面，再判Marker或派生选层/压平归属。
 
 候选sunroom修缮状态未进整档位置上下文，误收/误拒二楼(S01)已复现；水层/位置checker覆盖缺口R14/R15、旧surface单面断言与过时NPC迁址fixture另列，不能改用户摆位凑绿。菜园探针exit1、8检查/3失败、marker完成且无脚本异常；本轮未修。完整方案与证据见[深审记录](../../development/2026-11-13_engine_deep_audit.md)。
+
+## 2026-11-13 B2 G04 菜园桥 NPC 锚点修复
+
+根因是桥面真实几何的候选带代表层为局部约 27.662，而菜园 `NpcStations` 的作者站台高度为局部 28.4，五个 Marker 统一产生 0.737953m 的 height mismatch。未改 `main.tscn` 用户根 Transform、旧街口或资产；未放宽 `SUPPORT_TOLERANCE=0.05`。最小修复仅把 `NpcStations/residence_garden_bridge` 的本地 Y 对齐到派生 WalkGardenDeck 实际代表层 `27.662`，保持其 X/Z、五个 Marker、模型和桥面派生参数不变。
+
+新增 `garden-npc` 与 `npc-integration` 的高度/支撑专项断言。正式 `garden-npc` 复跑 `exit=0`，5/5 菜园锚点有效、聚合40、豆豆按日程落位且不 fallback；`npc-integration` 仍受当前工作区既有天台站位/路径失败并超时 `exit=124`，`npc-save-seed` 也因既有天台/恢复前置真实 `exit=1`，均不归因于 G04；未运行 restart。证据目录：`/Users/zyq/work/sea-work/verification/20261113-183346-b2-g04-garden-final-assertions-e70d71`、`/Users/zyq/work/sea-work/verification/20261113-182405-b2-g04-npc-integration-170faf`、`/Users/zyq/work/sea-work/verification/20261113-183556-b2-g04-npc-save-seed-77f9cc`。
+
+## 2026-11-14 B2 G04/G07 空间修复承接
+
+承接SEA-WORLD-R12/R21/R29/R32：G04保持用户main根Transform/模型/派生参数/SUPPORT_TOLERANCE，唯一场景修复是菜园NpcStations本地高度对齐实际WalkGardenDeck代表层，五Marker相对关系不变；不重开zone3或已退街口，不制造玩家上楼路径。当前garden-npc26/0、5/5菜园锚点/聚合40/豆豆不fallback，npc-integration853/0、seed527/0、restart280/0 PASS/exit0补齐上节早批124/1的集成占位，旧失败仍保留。
+
+G07由RoomService拥有床布局/四边OBB净空与安全门路线，World/GroundSpace仅提供派生支撑/可达查询；RoomBed可选approach_path将同一路线交正式ApproachAction，保留start_walk准备。bedside1800/0含133真实胶囊布局、133真实move_ground到门、26正式approach含13绕行；旧档无安全床边点前厅fallback，不挪床/场景或新增位置真值。
+
+本批未动main.tscn、生产资产、用户根Transform或正式user档；共享workshop/plant_authoring变化不归B2。父已有摆位6/0不等于本次复跑；当前视觉-room/garden/sleep与最终契约待父最终追加，不借旧图/历史门禁，登记头partial不改。[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005741 NPC853/0、seed527/0、restart280/0及005436 bedside1800/0均exit0；012647 management按当前安装内容区分zone3退役后37/0、exit0，不恢复生产，旧36/1保留；摆位6/0仅承接既有证据。
+- 010438三视觉18PNG/exit0（room8/garden4/sleep6），只目检room-inside/garden-bubble-single/sleep-wake；菜园遮下半身不能签足底美术，醒来图是室外太阳房非室内。uniform索引/agent_radius/zone2glass警告保留；契约sync532/check533 issues均exit1，未写派生/刷hash，登记头partial不变，不签全工程绿。
+
+## 2026-11-14 B3 查询与摆位治理承接
+
+`Zones.get_zone/landing/landings_of`公开查询现返回递归副本，`bind_scene`仍是内部场景绑定唯一写入端；摆位检查器统一支持有限科学计数法、显式正号、`.25`及严格12数Transform3D，并按basis列计算非均匀缩放告警。当前`b3-query-copy`、`management`默认/minimal与`--full-world`、摆位检查及架构检查均exit0；仅登记查询/解析治理，不改用户main根Transform、位置台账或资产源。R15更完整Interior/闭包和全局资产门禁仍待后续，登记头partial保持。

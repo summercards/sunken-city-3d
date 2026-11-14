@@ -40,3 +40,14 @@
 - [香樟资料](https://plants.ces.ncsu.edu/plants/cinnamomum-camphora/)、[鸡爪槭资料](https://plants.ces.ncsu.edu/plants/acer-palmatum/)、[垂枝桦资料](https://plants.ces.ncsu.edu/plants/betula-pendula/)：只提取文字形态事实，不下载第三方 CC-BY-NC 图片作游戏素材。
 
 研究日期 2026-11-12。参考图仅作用户提供的视觉方向，不作为可再分发纹理授权。
+
+## 2026-11-14 恢复制作与独立树木工坊交付边界
+
+用户明确恢复本功能，先完成独立树工坊，再考虑嵌入或潜水模型；本节不自动启用任何宿主接入。树工坊主屏显示名为“树木工坊”，FeatureID和既有路径仍用plant_editor，不混入房屋植物摆放页。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R10 | 主屏保持紧凑：一行工具，模块单行位于模型上方，左侧280–320px滚动参数，中心最大预览，16/18px字号。所有数值HSlider+只读当前值/范围；160ms调度、同拖拽一条撤销、无效输入保留成功模型和输入。状态高亮可复制完整详情，文件页名称/路径仍为文本。 |
+| SEA-PLANT-EDITOR-R11 | 新增可选subtwig_count、四角色色格trunk/leaf/moss/vine（0..63）、manual/auto、random_enabled/variation、wind_strength/speed；旧配方补默认，seed非负安全整数且各语义流独立。颜色由公共512²8×8PaletteUV单格8px安全内缩决定，树干/实体叶/苔藤共四本地材质实例共享同一shader/PNG；不改公共四建筑材质。复用草卡仅允许现有meadow_atlas的alpha轮廓进入UV2，RGB仍为公共色板，禁止全局风耦合。 |
+| SEA-PLANT-EDITOR-R12 | Session是唯一配方/历史写入者；preview_candidate先真实构建一次再提交并返回同一root。JSON指纹排序、浮点按1e-9十进制规范，保持编辑步长变化可辨且避免7.2+0.4往返误报。Store在outputs/plant_editor或scenes/workshop_plants写候选三件bundle；工程外测试根须显式命名授权；新revision/临时目录/重载检查后提交，不碰旧版。逐节点vertices/indices/normals/UV/UV2/实例变换/材质外链身份核验，不能只比较面数；静态风时间归零，不导出预览节点。 |
+| SEA-PLANT-EDITOR-R13 | 内核用plant-authoring，真实双插件编辑器用editor-plant，经统一runner、无Autoload且只写隔离副本；输出三树种整树、裸枝、真实叶片/附生近景、独立UI截图和三树种静态样例。非空截图不等于艺术终验，候选不自动正式登记或植入Main/房屋/潜水模型。 |

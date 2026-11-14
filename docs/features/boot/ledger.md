@@ -121,3 +121,19 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 承接R01/R02/R04/R07。46功能有独立文档/账本、导航图无环，但28脚本多功能路径覆盖、11无覆盖，code_paths未区分唯一编辑权/整合/依赖；Main仍含NPC/打捞策略、跨私有调用，DiveSession回读全局与HUD宽门面。25服务/0架构门禁有盲区，不签完整独立维护。
 
 真实潜水zone1往返同Main同职业Panel，退树清query/perform而返树未重注入，职业入口报未接入(G02)；房间/疲劳稳定态busy遗漏(S08/S09)和动作目标转交(G01)亦有动态证据。优先统一挂起/最终销毁及会话事务；规则按行为归所属模块，Main/HUD/SaveSchema整合热点单写者串行接线，不按行机械拆分。未修生产。逐项A01–A08及B0–B4计划见[深审记录](../../development/2026-11-13_engine_deep_audit.md)。
+
+## 2026-11-13 B1 最小装配修复
+
+承接 R02/R04/R07：Main仅增加房间/疲劳统一busy、共享过场互斥、恢复与旧timer失效接线，职业面板返树resume及最终dispose。未移动业务策略、未改SaveGame/schema、资产或main.tscn；本子批保留共享工作区已有存档核心修改。
+
+最终合批15入口exit0/PASS，含framework52/0、room163/0、energy40/0、careers87/0、dive-transition501/0、外部b1-lifecycle109/0；最后两脚本守卫加强另跑interactor41/0+room163/0。npc-integration当前锚点前置失败/exit124仍留。全部headless，不签真实渲染、跨进程零体力或零泄漏。[实际证据与边界](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。
+
+## 2026-11-14 B2 会话装配承接
+
+承接SEA-BOOT-R01/R02/R04（S11/S12/S14/S15/G05）：统一busy_query汇集Economy/NPC/SeaProps，拒绝跨owner中间存读；恢复主动刷新纯消费者。启动识别pending reset intent（即使无主档/bak），read_recoverable先恢复；失败临时_save_protected与_autosave_on意愿分离，保护时倒计时冻结，成功显式load/reset接管成功target防覆坏槽，不开启nosave/capture/测试禁用。睡前owned modal真实close/cancel再hide，醒来不复活旧确认。
+
+b2-session51/0、reset-atomic98/0、transactions103/0 PASS/exit0；集成B19入口18PASS，旧save-protection断言exit1保留，新冻结断言补跑待父最终追加。memento修订后跨进程、真实视觉及最终契约另待，不用早批hash/旧图签当前；登记头partial不变，不将共享workshop/plant_authoring改动归本批。[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 012421强化真实可支付及旧确认Callable有效后session53/0、exit0；010438十入口全exit0，含修订save-protection行为门禁与三视觉，旧失败保留；当前去重33最新入口33PASS/exit0（30逻辑+3视觉），非单批/全selftest。
+- 当前012203矩阵unit0、五seed预期引擎-9/runner1、五recover0、外层0，详见`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`；契约sync532/check533 issues均exit1，未写派生/刷hash。设备断电/磁盘满/并发写/长时泄漏未签，登记头partial不变。

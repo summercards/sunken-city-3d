@@ -149,3 +149,17 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 214439五项还含visual-npc-release381/0，总2277/0，全部PASS/exit0、completion_marker=true、unexpected_errors=[]；完整命令、head/working_tree、隔离数据与快照见报告。该总数是联合交付范围，不是新增2277条Inventory原子边界断言。上述生产通过不签零值拒绝、全部极值/监听重入或背包所有旧条款已完整独测；既有R01–R03待核及其他未验继续保留。
 
 本次只核对现有证据并补接口文档；未重跑Godot/global sync/最终门禁，后者由主线程统一负责，不写全产品验收通过。
+
+## 2026-11-14 B2 原子收支与重入承接
+
+承接SEA-INVENTORY-R02/R03/R05/R09/R10/R11/R12（S15/S16/G03）：pay/add_all/exchange以整体候选提交后发实际变化，发布期is_busy拒绝重入修改；InventoryTransfer.exchange双端预检/静默提交，目标失败回滚两端counts/order与原屏蔽状态、零退款事件；成功两端busy后各发实际差量/容量。单项add原部分接收语义不被扩大成复合奖励保证。正式Farm/Orders、salvage与SeaProps接原子端口，业务owner锁跨支付到自身状态，Main统一拒绝中间保存。
+
+b2-transactions103/0、b2-pickup-transactions191/0、真实会话51/0均PASS/exit0，覆盖双端完成态、异命令/失败回滚、复合奖励0/1/2格等实际范围；不据此签全部数量上限/容量历史政策或所有并发场景，wire不增日志。登记头partial保持，视觉/最终契约待父。[B2主记录与精确证据](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、pickup191/0均PASS/exit0；012421-b2-session-valid-confirm-d25e8b强化真实可支付且旧确认Callable有效的前置后53/0、exit0，睡醒后旧确认不扣费/购买/升级。
+- 仅签实际原子收支、重入与会话覆盖，不扩为全部容量政策或并发写保证；全库契约仍失败，登记头partial保持，视觉及冻结证据边界按主记录。
+
+## 2026-11-14 B3 ItemDB 查询边界承接
+
+`ItemDB.get_item`现返回递归副本；物品表内部加载、顺序、容量、标签、堆叠和售价权威不变。`b3-query-copy`覆盖修改返回字典及嵌套数组后再次查询不污染内部定义，exit0；该项不解决D01统一内容schema、D02超容旧档政策或全局资产门禁，登记头partial保持。

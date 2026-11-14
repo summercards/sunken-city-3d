@@ -78,18 +78,25 @@ def main():
 
     records = []
     problems = []
+    if not rows:
+        problems.append('catalog has no architecture components')
     for c in rows:
         key = c['slug']
         src = REPO / c['component_blend']
         sealed_blend = out_dir / 'component_packages' / key / (key + '.blend')
         glb = run_dir / key / (key + '.glb')
-        if not sealed_blend.exists() or not glb.exists():
-            problems.append('%s: missing sealed blend or glb' % key)
+        if not src.exists() or not sealed_blend.exists() or not glb.exists():
+            problems.append('%s: missing source, sealed blend or glb' % key)
             continue
         before = measure(src, c['collection'])
         after = measure(sealed_blend, c['collection'])
         g = glb_info(glb)
 
+        # 水密是通过条件，不能只写入统计报告。
+        if after['boundary_edges'] != 0:
+            problems.append('%s: boundary_after=%d' % (key, after['boundary_edges']))
+        if after['nonmanifold_edges'] != 0:
+            problems.append('%s: nonmanifold_after=%d' % (key, after['nonmanifold_edges']))
         if before['bbox'] != after['bbox']:
             problems.append('%s: bbox changed %s -> %s' % (key, before['bbox'], after['bbox']))
         if before['materials'] != after['materials']:
@@ -120,10 +127,12 @@ def main():
         print('AUDIT', key, before['faces'], '->', after['faces'],
               'boundary', before['boundary_edges'], '->', after['boundary_edges'], flush=True)
 
+    if len(records) != len(rows):
+        problems.append('incomplete records: %d != %d' % (len(records), len(rows)))
     report = {
         'suite': 'sunken_city', 'source_version': version, 'sealed_version': sealed,
         'runtime_root': runtime, 'components': records, 'problems': problems,
-        'passed': not problems,
+        'passed': bool(rows) and len(records) == len(rows) and not problems,
         'totals': {
             'components': len(records),
             'faces_before': sum(r['faces_before'] for r in records),
@@ -139,6 +148,8 @@ def main():
     print('AUDIT_COMPLETE passed=%s problems=%d' % (report['passed'], len(problems)), flush=True)
     for p in problems:
         print('PROBLEM', p, flush=True)
+    return 0 if report['passed'] else 1
 
 
-main()
+if __name__ == '__main__':
+    raise SystemExit(main())

@@ -20,6 +20,7 @@ const Ports = preload("res://src/orders/order_ports.gd")
 var ports: RefCounted
 
 func configure(boundary: RefCounted) -> void:
+	if _busy: return
 	assert(boundary.is_configured(), "Orders require configured inventory/progression ports")
 	ports = boundary
 
@@ -30,6 +31,10 @@ var rng := RandomNumberGenerator.new()
 var _pool: Array = []
 var _cfg: Dictionary = {}
 var _by_id: Dictionary = {}
+var _busy := false
+
+func is_busy() -> bool:
+	return _busy
 
 
 func _ready() -> void:
@@ -40,6 +45,7 @@ func _ready() -> void:
 
 
 func load_table(path := TABLE) -> void:
+	if _busy: return
 	var f := FileAccess.open(path, FileAccess.READ)
 	if f == null:
 		push_error("找不到订单表：%s" % path)
@@ -109,13 +115,20 @@ func time_left(order: Dictionary) -> float:
 # ---------------------------------------------------------------- 状态机
 
 func reset() -> void:
-	slots.clear()
-	for i in slot_count():
-		slots.append(_roll())
+	if _busy: return
+	_busy = true
+	_reset_slots()
 	changed.emit()
+	_busy = false
+
+func _reset_slots() -> void:
+	slots.clear()
+	for i in slot_count(): slots.append(_roll())
 
 
 func tick(delta: float) -> void:
+	if _busy: return
+	_busy = true
 	var dirty := false
 	for i in slots.size():
 		var s: Dictionary = slots[i]
@@ -132,10 +145,12 @@ func tick(delta: float) -> void:
 			continue
 	if dirty:
 		changed.emit()
+	_busy = false
 
 
 ## 交付一张单子。成功返回 {ok, reward, order}。
 func fulfill(uid: String) -> Dictionary:
+	if _busy: return {"ok": false, "reason": "订单正在结算"}
 	var idx := _index_of(uid)
 	if idx < 0:
 		return {"ok": false, "reason": "这张单子已经不在了"}
@@ -145,31 +160,44 @@ func fulfill(uid: String) -> Dictionary:
 		return {"ok": false, "reason": reason}
 	var item := str(order.get("item", ""))
 	var need := int(order.get("amount", 0))
-	if not ports.inventory.remove(item, need):
-		return {"ok": false, "reason": "扣除货物失败"}
-
+	_busy = true
 	var reward := {"coins": int(order.get("pay", 0))}
 	var bonus: Dictionary = order.get("bonus", {})
 	for k in bonus.keys():
 		reward[str(k)] = int(reward.get(str(k), 0)) + int(bonus[k])
-	ports.give.call(reward)
+	var payment: Dictionary
+	if ports.inventory.has_method("exchange"):
+		payment = ports.inventory.exchange({item: need}, reward)
+	else:
+		if not ports.inventory.remove(item, need):
+			_busy = false
+			return {"ok": false, "reason": "扣除货物失败"}
+		ports.give.call(reward)
+		payment = {"ok": true}
+	if not bool(payment.get("ok", false)):
+		_busy = false
+		return {"ok": false, "reason": str(payment.get("reason", "订单结算失败"))}
 
 	# 交掉的位子空出来，过一会儿补新单。
 	slots[idx] = {"refill": refresh_seconds()}
 	changed.emit()
 	fulfilled.emit(order, reward)
+	_busy = false
 	return {"ok": true, "reward": reward, "order": order}
 
 
 ## 免费换单，空着的补位格子一起补齐。
 func reroll() -> Dictionary:
+	if _busy: return {"ok": false, "reason": "订单正在结算"}
 	var cost := reroll_cost()
-	if ports.inventory.count("coins") < cost:
+	_busy = true
+	if cost > 0 and not ports.inventory.remove("coins", cost):
+		_busy = false
 		return {"ok": false, "reason": "换一批要 %d 瓶盖" % cost}
-	ports.inventory.remove("coins", cost)
 	for i in slots.size():
 		slots[i] = _roll()
 	changed.emit()
+	_busy = false
 	return {"ok": true, "cost": cost}
 
 
@@ -194,8 +222,10 @@ func to_dict() -> Dictionary:
 
 
 func from_dict(data: Dictionary) -> void:
-	# 先按当前表重建，再合并：表里删掉的订单不会让读档报错。
-	reset()
+	if _busy: return
+	_busy = true
+	# 先按当前表重建，再合并，内部不发布中间状态。
+	_reset_slots()
 	var rows: Array = data.get("slots", [])
 	for i in mini(rows.size(), slots.size()):
 		var row: Dictionary = rows[i]
@@ -212,6 +242,7 @@ func from_dict(data: Dictionary) -> void:
 		slots[i] = _make_offer(_by_id[order_id], str(row.get("uid", "")),
 			maxf(float(row.get("left", 0.0)), 0.0))
 	changed.emit()
+	_busy = false
 
 
 # ---------------------------------------------------------------- 内部
@@ -276,6 +307,7 @@ func _uid() -> String:
 
 ## 测试用：固定随机源，让「抽到哪张」可复现。
 func set_seed(seed_value: int) -> void:
+	if _busy: return
 	rng.seed = seed_value
 
 ## Detached query results keep UI/readers from editing live offers and nested rewards.

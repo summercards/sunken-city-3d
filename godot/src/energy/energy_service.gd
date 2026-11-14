@@ -40,6 +40,8 @@ var current := BASE_MAX
 ## 上一次强制休息留下的惩罚：下一次醒来上限减半。
 var pending_half := false
 var _tired_sent := false
+## 每次恢复、回满或扣费都作废旧疲劳等待；不进入存档格式。
+var generation := 0
 
 func _ready() -> void:
 	current = maximum
@@ -68,6 +70,7 @@ func spend(action: String) -> String:
 		return ""
 	var blocked := reason(action)
 	if blocked != "": return blocked
+	generation += 1
 	current = maxf(0.0, current - cost)
 	changed.emit(current, maximum)
 	_check_thresholds()
@@ -75,6 +78,7 @@ func spend(action: String) -> String:
 
 ## 睡觉回满。`forced` = 昨晚是被体力逼着睡的，今天上限减半。
 func after_sleep(forced: bool) -> void:
+	generation += 1
 	if forced: pending_half = true
 	maximum = base_max * (0.5 if pending_half else 1.0)
 	pending_half = false
@@ -84,6 +88,7 @@ func after_sleep(forced: bool) -> void:
 
 ## 立刻回满（调试/自检用；正常流程走 after_sleep）。
 func refill() -> void:
+	generation += 1
 	current = maximum
 	_tired_sent = false
 	changed.emit(current, maximum)
@@ -99,6 +104,7 @@ func to_dict() -> Dictionary:
 	return {"version": 1, "current": current, "maximum": maximum, "pending_half": pending_half}
 
 func from_dict(data: Dictionary) -> void:
+	generation += 1
 	base_max = BASE_MAX
 	maximum = clampf(float(data.get("maximum", BASE_MAX)), 1.0, BASE_MAX)
 	current = clampf(float(data.get("current", maximum)), 0.0, maximum)

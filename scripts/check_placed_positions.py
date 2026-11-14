@@ -30,12 +30,22 @@ ZONES = ROOT / 'godot' / 'assets' / 'data' / 'zones.json'
 LEDGER = ROOT / 'docs' / 'features' / 'world' / 'placed_positions.md'
 
 POS_TOL = 0.01      # ledger must match main.tscn to the centimetre
-REF_TOL = 0.5       # reference vs actual beyond this is "moved", needs a row
+REF_TOL = 0.5       # 台账参考位与 zones.json origin 的容差（米）
 SCALE_TOL = 0.02
+FLOAT_TOKEN = re.compile(r'[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?')
+
+
+def parse_numbers(text, count):
+    """严格解析逗号分隔的有限浮点数，不截断或提取局部数字。"""
+    tokens = [token.strip() for token in text.split(',')]
+    if len(tokens) != count or any(FLOAT_TOKEN.fullmatch(token) is None for token in tokens):
+        return None
+    values = [float(token) for token in tokens]
+    return values if all(math.isfinite(value) for value in values) else None
 
 
 def parse_main(path):
-    """Return {node_path: {'translation': [x,y,z], 'basis': [[r0],[r1],[r2]], 'line': n}}."""
+    """返回节点平移与按 Godot 序列化顺序保存的三个 basis 列向量。"""
     text = path.read_text(encoding='utf-8')
     nodes = {}
     current = None
@@ -54,13 +64,14 @@ def parse_main(path):
             current = node_path
             nodes[current] = {'translation': None, 'basis': None, 'line': line_no}
             continue
-        if current and line.startswith('transform = Transform3D('):
-            inner = re.search(r'Transform3D\((.*)\)', line)
-            nums = [float(v) for v in re.findall(r'-?[0-9.]+', inner.group(1))] if inner else []
-            if len(nums) >= 12:
-                xx, xy, xz, yx, yy, yz, zx, zy, zz, ox, oy, oz = nums[:12]
-                nodes[current]['basis'] = [[xx, xy, xz], [yx, yy, yz], [zx, zy, zz]]
-                nodes[current]['translation'] = [ox, oy, oz]
+        if current and re.match(r'transform\s*=', line):
+            inner = re.fullmatch(r'transform\s*=\s*Transform3D\((.*)\)', line)
+            nums = parse_numbers(inner.group(1), 12) if inner else None
+            if nums is None:
+                raise ValueError('%s:%d: %s: Transform3D requires exactly 12 finite numbers'
+                                 % (path, line_no, current))
+            nodes[current]['basis'] = [nums[0:3], nums[3:6], nums[6:9]]
+            nodes[current]['translation'] = nums[9:12]
     return nodes
 
 
@@ -99,10 +110,12 @@ def parse_ledger(path):
 
 
 def num3(cell):
-    nums = re.findall(r'-?[0-9]+(?:\.[0-9]+)?', cell)
-    if len(nums) < 3:
-        return None
-    return [float(v) for v in nums[:3]]
+    text = cell.strip()
+    if text.startswith('`') and text.endswith('`'):
+        text = text[1:-1].strip()
+    if text.startswith('(') and text.endswith(')'):
+        text = text[1:-1].strip()
+    return parse_numbers(text, 3)
 
 
 def dist(a, b):
@@ -110,7 +123,7 @@ def dist(a, b):
 
 
 def col_len(basis, index):
-    return math.sqrt(sum(basis[r][index] ** 2 for r in range(3)))
+    return math.hypot(*basis[index])
 
 
 def main():
@@ -123,7 +136,11 @@ def main():
             print('FAIL: missing ' + str(needed))
             return 1
 
-    nodes = parse_main(MAIN)
+    try:
+        nodes = parse_main(MAIN)
+    except ValueError as error:
+        print('FAIL: ' + str(error))
+        return 1
     zones = parse_zones(ZONES)
     rows = parse_ledger(LEDGER)
 
@@ -146,15 +163,20 @@ def main():
         row = rows.get(binding)
 
         if row is None:
-            if dist(ref, actual) > REF_TOL:
-                problems.append('%s (%s): moved %.2f m from reference but has no ledger row'
-                                % (info['id'], binding, dist(ref, actual)))
+            problems.append('%s (%s): no position ledger row (%.2f m from reference)'
+                            % (info['id'], binding, dist(ref, actual)))
             continue
 
-        if row['actual'] is not None and dist(row['actual'], actual) > POS_TOL:
+        if row['actual'] is None:
+            problems.append('%s (%s): ledger actual position missing or invalid'
+                            % (info['id'], binding))
+        elif dist(row['actual'], actual) > POS_TOL:
             problems.append('%s (%s): ledger actual %s != main.tscn %s'
                             % (info['id'], binding, fmt(row['actual']), fmt(actual)))
-        if row['ref'] is not None and dist(row['ref'], ref) > REF_TOL:
+        if row['ref'] is None:
+            problems.append('%s (%s): ledger reference position missing or invalid'
+                            % (info['id'], binding))
+        elif dist(row['ref'], ref) > REF_TOL:
             problems.append('%s (%s): ledger reference %s != zones.json origin %s'
                             % (info['id'], binding, fmt(row['ref']), fmt(ref)))
 

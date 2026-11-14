@@ -65,3 +65,7 @@ track_goal / goal_info / goal_complete / to_dict / from_dict；resources_changed
 目标规则已移入 GoalService，查询建筑、设施与船级端口；已有小目标仍不等于完整首局教学。
 
 新增条款 SEA-GOAL-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-11-14 B3 查询副本承接
+
+`GoalService.goal_info`对设施、船级和施工成本返回递归副本，外部修改不污染下一次展示或权威支付；`b3-goal-query-copy`、`management`、`framework-integration`均exit0。完整首局教学、全局契约和其它目标条款仍未签，登记头partial保持。

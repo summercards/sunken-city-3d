@@ -14,6 +14,8 @@ var shade: ColorRect
 var caption: Label
 var iris: ShaderMaterial
 var phase := "idle"
+var _iris_generation := 0
+var _iris_tween: Tween
 var openness := 1.0:
 	set(value):
 		openness = clampf(value,0.0,1.0)
@@ -103,23 +105,44 @@ func uncover_blank() -> void:
 	await _open_iris()
 
 
+## 房间恢复使旧圆幕等待失效；不启动另一套过场。
+func cancel_blank() -> void:
+	_iris_generation += 1
+	if _iris_tween != null and _iris_tween.is_valid(): _iris_tween.kill()
+	openness = 1.0
+	caption.text = ""
+	caption.modulate.a = 0.0
+	hide()
+	_set_phase("idle")
+
+
 func _close_iris() -> void:
+	_iris_generation += 1
+	var generation := _iris_generation
 	openness = 1.0
 	_sample_focus()
 	show()
 	_set_phase("closing")
-	var tween := create_tween()
-	tween.tween_property(self,"openness",0.0,CLOSE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+	if generation != _iris_generation: return
+	_iris_tween = create_tween()
+	_iris_tween.tween_property(self,"openness",0.0,CLOSE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	while generation == _iris_generation and _iris_tween.is_running():
+		await get_tree().process_frame
+	if generation != _iris_generation: return
 	_set_phase("closed")
 
 
 func _open_iris() -> void:
+	_iris_generation += 1
+	var generation := _iris_generation
 	# The wake/teleport command has moved the camera while the screen was black.
 	_sample_focus()
 	_set_phase("opening")
-	var tween := create_tween()
-	tween.tween_property(self,"openness",1.0,OPEN_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+	if generation != _iris_generation: return
+	_iris_tween = create_tween()
+	_iris_tween.tween_property(self,"openness",1.0,OPEN_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	while generation == _iris_generation and _iris_tween.is_running():
+		await get_tree().process_frame
+	if generation != _iris_generation: return
 	hide()
 	_set_phase("idle")

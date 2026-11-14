@@ -66,3 +66,13 @@ upgrade_ship / ship_cost / to_dict / from_dict；upgraded、resources_changed；
 船级由 ShipService 唯一拥有，升级事件由装配层投影远海资格，Boat 注入航速查询。船型变化、运输和更深探索仍待内容制作。
 
 新增条款 SEA-SHIP-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-11-14 B2 船级支付事务承接
+
+承接SEA-SHIP-R01/R04（S15/S16）：upgrade_ship的owner busy跨construction_pay→ship_level提交→upgraded/resources_changed发布，Economy聚合该busy进入保存门禁；费用/等级/航速资格仍由原owner拥有，合并背包仓库支付复用双库存事务，不新造船体改造或远海内容。
+
+modules101/0、framework-modules52/0、npc-careers87/0等相关回归PASS/exit0，不扩大为所有职业实际扣费奖励或可见船型目标完成。登记头partial保持，旧management --full-world36/1和待父视觉/最终契约见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0；012647 management按当前安装内容区分zone3退役后37/0、exit0，不恢复生产内容，旧36/1保留。
+- 仅承接已覆盖船级支付及统一busy链路，不扩大为所有职业支付/奖励或可见船型完成；全库契约仍失败，登记头partial保持，视觉及冻结证据边界见主记录。

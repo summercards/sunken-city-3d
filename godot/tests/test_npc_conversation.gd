@@ -18,7 +18,10 @@ func run() -> void:
 		for row in world.world_snapshot().residents.values():
 			if row.remaining_waypoints > 0: return false
 		return true, 45.0, "七人日程落位")
-	for id in Catalog.ids():
+	var visit_order := ["npc_ji_chen", "npc_nan_zhi", "npc_bai_shi", "npc_hua_yi", "npc_mu_he", "npc_luo_yan", "npc_bao_he"]
+	for id in visit_order:
+		section("交谈 " + str(id))
+		if id == "npc_luo_yan" and not landing_fixture("neon_garden_quarter"): continue
 		if id == "npc_bao_he" and not landing_fixture("sea_supply"): continue
 		# 豆豆 2026-11-08 起在霓虹花园菜园桥（离水面约 28 米）。用户明确选择
 		# 「只让她在楼上种菜、不额外做上楼路径」，所以「走近交谈」在她身上不成立：
@@ -39,14 +42,23 @@ func contact(id: String) -> void:
 	await close_modals()
 	var body = world.actor(id)
 	var spot = body.get_node("NpcInteractable")
-	var site = sea_site if id == "npc_bao_he" else harbor
-	var hub: Vector3 = site.landing_point("main").stand_position() if id == "npc_bao_he" else harbor.to_global(Vector3(0, harbor.ROOF_Y, 11.5))
+	var route: Dictionary = world._routes.get(id, {})
+	var target: Dictionary = route.get("target", {})
+	if not check(not target.is_empty(), "交谈前当前日程目标存在 " + id): return
+	var site = main._zone_nodes.get(target.zone_id)
+	if not check(site != null and state.current_zone == target.zone_id, "交谈前位于日程实际区块 " + id): return
+	var hub: Vector3 = site.landing_point("main").stand_position() if site != harbor else harbor.to_global(Vector3(0, harbor.ROOF_Y, 11.5))
 	var point: Vector3 = body.global_position + (hub - body.global_position).normalized() * 3.5
 	if not await walk_to(point, "交谈前站在判定区外 " + id): return
 	aim(body.global_position, 13.0)
 	await frames(3)
+	# 恢复到另一场地后，悬停层仍可能保留上一场地的350ms可达性缓存。
+	if not await until(func(): return main.hover.reach_reason(spot) == "", 1.0, "切换场地后真实悬停可达性刷新 " + id): return
 	var screen: Vector2 = main.cam.unproject_position(spot.focus_position() + Vector3.UP * 0.75)
 	var hit: Dictionary = main.hover._pick(screen)
+	print("[npc-conversation-click] npc=", id, " position=", body.global_position,
+		" player=", main.player.global_position, " screen=", screen, " hit=", hit,
+		" reach=", main._compute_reach_reason(spot), " route=", world.world_snapshot().residents[id])
 	if not check(hit.get("node") == spot, "真实屏幕命中居民 " + id): return
 	var start: Vector3 = main.player.global_position
 	await click(screen)
@@ -102,11 +114,10 @@ func contact(id: String) -> void:
 
 func stories() -> void:
 	await close_modals()
-	if not landing_fixture("rooftop_ranch"): return
-	var roof: Vector3 = harbor.to_global(Vector3(0, harbor.ROOF_Y, 9))
-	if not await walk_to(roof, "剧情前沿消防梯回到天台"): return
+	if not landing_fixture("neon_garden_quarter"): return
+	var stand: Vector3 = garden_site.landing_point("main").stand_position()
 	var body = world.actor("npc_luo_yan")
-	if not await walk_to(body.global_position + (roof - body.global_position).normalized() * 1.7, "走到剧情说话人身边"): return
+	if not await walk_to(body.global_position + (stand - body.global_position).normalized() * 1.7, "从左楼顶实际泊位走到剧情说话人身边"): return
 	aim(body.global_position, 13.0)
 	var saved: Dictionary = main.npc_service.to_dict()
 	for id in Catalog.ids(): saved.graph.met[id] = true

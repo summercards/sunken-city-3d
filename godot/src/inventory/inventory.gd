@@ -23,6 +23,11 @@ var _capacity: int = 24
 ## 所以这里记的是**物品种类**的顺序，同种物品的几个堆始终连在一起。
 ## 旧存档没有这个字段，读档后为空，`ordered_ids()` 会按物品表顺序补齐。
 var _order: Array = []
+var _transaction_busy := false
+
+
+func is_busy() -> bool:
+	return _transaction_busy
 
 
 func _init(capacity: int = -1) -> void:
@@ -65,6 +70,7 @@ func ordered_ids() -> Array:
 ## 也保证整理是可逆的（再拖回来就还原）。
 ## 返回是否真的改了顺序；数量与规则一律不动。
 func move_item(from_id: String, to_id: String) -> bool:
+	if _transaction_busy: return false
 	from_id = str(from_id)
 	to_id = str(to_id)
 	if from_id == to_id or from_id == "" or to_id == "": return false
@@ -82,6 +88,7 @@ func move_item(from_id: String, to_id: String) -> bool:
 
 ## 把物品挪到排列末尾（玩家把它拖到空槽上）。
 func move_to_end(id: String) -> bool:
+	if _transaction_busy: return false
 	id = str(id)
 	if count(id) <= 0: return false
 	_register(id)
@@ -141,6 +148,8 @@ func room_for(id: String) -> int:
 
 ## 加物品。返回 {ok, added, overflow, reason}。
 func add(id: String, amount: int) -> Dictionary:
+	if _transaction_busy:
+		return {"ok": false, "added": 0, "overflow": amount, "reason": "库存正在提交"}
 	if amount <= 0:
 		return {"ok": true, "added": 0, "overflow": 0, "reason": ""}
 	if not ItemDB.has(id):
@@ -167,6 +176,8 @@ func can_add(id: String, amount: int) -> bool:
 
 ## 扣物品。原子操作：不够就一点不扣。
 func remove(id: String, amount: int) -> bool:
+	if _transaction_busy:
+		return false
 	if amount <= 0:
 		return true
 	if count(id) < amount:
@@ -182,6 +193,7 @@ func remove(id: String, amount: int) -> bool:
 
 
 func set_count(id: String, amount: int) -> void:
+	if _transaction_busy: return
 	var delta := amount - count(id)
 	if amount <= 0:
 		_counts.erase(id)
@@ -211,16 +223,35 @@ func missing(costs: Dictionary) -> Dictionary:
 
 ## 一次性扣除一大笔；不足则不扣任何东西。
 func pay(costs: Dictionary) -> bool:
-	if not has_all(costs):
+	if _transaction_busy or not has_all(costs):
 		return false
+	var candidate := _counts.duplicate(true)
 	for id in costs.keys():
-		remove(id, int(costs[id]))
+		var amount := int(costs[id])
+		var left := int(candidate.get(id, 0)) - amount
+		if left <= 0: candidate.erase(id)
+		else: candidate[id] = left
+	return _commit_candidate(candidate, costs.keys())
+
+func _commit_candidate(candidate: Dictionary, changed_ids: Array = []) -> bool:
+	if _transaction_busy:
+		return false
+	var old := _counts.duplicate(true)
+	_transaction_busy = true
+	_counts = candidate
+	for id in changed_ids:
+		var delta := int(_counts.get(id, 0)) - int(old.get(id, 0))
+		if delta != 0: changed.emit(str(id), delta)
+	capacity_changed.emit(slots_used(), _capacity)
+	_transaction_busy = false
 	return true
 
 ## Entire material refund, including stacks shared by several item types.
 ## Reject before publishing events when any part would overflow the backpack.
 func add_all(amounts: Dictionary) -> bool:
-	var candidate:=_counts.duplicate()
+	if _transaction_busy:
+		return false
+	var candidate:=_counts.duplicate(true)
 	for id in amounts:
 		if not ItemDB.has(str(id)) or not (amounts[id] is int or amounts[id] is float): return false
 		var amount:=float(amounts[id])
@@ -231,17 +262,17 @@ func add_all(amounts: Dictionary) -> bool:
 		if ItemDB.is_currency(str(id)): continue
 		used+=int(ceil(float(candidate[id])/float(maxi(1,ItemDB.stack_limit(str(id))))))
 	if used>_capacity: return false
-	_counts=candidate
 	for id in amounts: _register(str(id))
-	for id in amounts:
-		if int(amounts[id])>0: changed.emit(str(id),int(amounts[id]))
-	capacity_changed.emit(slots_used(),_capacity)
-	return true
+	var changed_ids: Array = []
+	for id in amounts: changed_ids.append(str(id))
+	return _commit_candidate(candidate, changed_ids)
 
 
 ## Atomic exchange is the shared buy/gift/request port. Validate the complete
 ## candidate first, then publish only after counts AND display order commit.
 func exchange(costs: Dictionary, gains: Dictionary) -> Dictionary:
+	if _transaction_busy:
+		return {"ok": false, "reason": "库存正在提交"}
 	var candidate := _counts.duplicate(true)
 	for values in [costs, gains]:
 		for id in values:
@@ -259,20 +290,23 @@ func exchange(costs: Dictionary, gains: Dictionary) -> Dictionary:
 		if int(candidate[id]) > 1000000000: return {"ok": false, "reason": "物品数量超过安全上限"}
 		if not ItemDB.is_currency(str(id)): used += ceili(float(candidate[id]) / maxi(ItemDB.stack_limit(str(id)), 1))
 	if used > _capacity: return {"ok": false, "reason": "背包已满"}
-	var old := _counts
+	var old := _counts.duplicate(true)
 	_counts = candidate
 	for id in gains:
 		if int(gains[id]) > 0: _register(str(id))
-	var changed_ids := costs.keys()
+	var changed_ids: Array = costs.keys()
 	for id in gains:
 		if not changed_ids.has(id): changed_ids.append(id)
+	_transaction_busy = true
 	for id in changed_ids:
 		var delta := int(_counts.get(id, 0)) - int(old.get(id, 0))
 		if delta != 0: changed.emit(str(id), delta)
 	capacity_changed.emit(slots_used(), _capacity)
+	_transaction_busy = false
 	return {"ok": true, "reason": ""}
 
 func expand(extra_slots: int) -> void:
+	if _transaction_busy: return
 	_capacity += maxi(extra_slots, 0)
 	capacity_changed.emit(slots_used(), _capacity)
 
@@ -293,6 +327,7 @@ func to_dict() -> Dictionary:
 
 
 func from_dict(data: Dictionary) -> void:
+	if _transaction_busy: return
 	_counts.clear()
 	_order.clear()
 	_capacity = int(data.get("capacity", ItemDB.capacity()))
@@ -312,6 +347,7 @@ func from_dict(data: Dictionary) -> void:
 
 
 func clear() -> void:
+	if _transaction_busy: return
 	_counts.clear()
 	_order.clear()
 	changed.emit("", 0)

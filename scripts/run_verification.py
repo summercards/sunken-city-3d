@@ -34,6 +34,16 @@ TESTS = {
     'shore-distance-cache': ('tests/test_shore_distance_cache.gd', r'\[shore-distance-cache\] \d+ checks, 0 failures'),
     'ui-refresh-performance': ('tests/test_ui_refresh_performance.gd', r'\[ui-refresh-performance\] \d+ checks, 0 failures'),
     'interactor-query-reuse': ('tests/test_interactor_query_reuse.gd', r'\[interactor-query-reuse\] \d+ checks, 0 failures'),
+    'interactor-action-target': ('tests/test_interactor_action_target.gd', r'\[interactor-action-target\] \d+ checks, 0 failures'),
+    'save-boundaries': ('tests/test_save_boundaries_runner.gd', r'\[save-boundaries\] \d+ checks, 0 failures'),
+    'b2-transactions': ('tests/test_b2_transactions.gd', r'\[b2-transactions\] \d+ checks, 0 failures'),
+    'b2-bedside': ('tests/test_b2_bedside.gd', r'\[b2-bedside\] \d+ checks, 0 failures'),
+    'b2-pickup-transactions': ('tests/test_b2_pickup_transactions.gd', r'\[b2-pickup-transactions\] \d+ checks, 0 failures'),
+    'b2-reset-atomic': ('tests/test_b2_reset_atomic.gd', r'\[b2-reset-atomic\] \d+ checks, 0 failures'),
+    'b2-session': ('tests/test_b2_session.gd', r'\[b2-session\] \d+ checks, 0 failures'),
+    'b3-goal-query-copy': ('tests/test_b3_goal_query_copy.gd', r'\[b3-goal-query-copy\] \d+ checks, 0 failures'),
+    'b3-query-copy': ('tests/test_b3_query_copy.gd', r'\[b3-query-copy\] \d+ checks, 0 failures'),
+    'b3-building-guards': ('tests/test_b3_building_guards.gd', r'\[b3-building-guards\] \d+ checks, 0 failures'),
     'performance-equivalence': ('tests/test_performance_equivalence.gd', r'\[performance-equivalence\] \d+ checks, 0 failures'),
     'visual-shore-distance-cache': ('tests/test_shore_distance_cache.gd', r'\[shore-distance-cache\] \d+ checks, 0 failures'),
     # 渲染预算归因：逐项关闭阴影/SSAO/MSAA/去色带/分辨率缩放，定位 GPU 侧瓶颈。
@@ -161,6 +171,9 @@ CORE = list(TESTS)
 TESTS.update({
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
     'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
+    'workshop-random': ('tests/test_workshop_random.gd', r'\[workshop-random\] \d+ checks, 0 failures'),
+    'plant-authoring': ('tests/test_plant_authoring.gd', r'\[plant-authoring\] \d+ checks, 0 failures'),
+    'editor-plant': ('', r'\[plant-editor\] \d+ checks, 0 failures'),
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
     'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
     'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
@@ -451,6 +464,23 @@ def inspect_log(name, code, text, marker):
     return result
 
 
+def derive_check_config(full_config, name):
+    """每项检查从完整配置独立派生，避免工坊配置污染后续游戏检查。"""
+    config_source = full_config
+    if name in ['plant-authoring', 'workshop-random']:
+        config_source = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S)
+        config_source = re.sub(r'^theme/custom_font=.*\n?', '', config_source, flags=re.M)
+    config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else config_source
+    if name in ['workshop-union', 'workshop-rules', 'workshop-shell', 'workshop-architecture', 'workshop-deep']:
+        config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
+    if name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant']:
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
+        config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
+        editor_plugins = 'PackedStringArray("res://addons/building_workshop/plugin.cfg", "res://addons/plant_editor/plugin.cfg")' if name == 'editor-plant' else 'PackedStringArray("res://addons/building_workshop/plugin.cfg")'
+        config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', lambda m: m.group(1) + 'enabled=' + editor_plugins, config)
+    return config
+
+
 def run_minimum_loop_baseline(exe, project, full_config, run_dir, user_name, args):
     cases = [
         ('minimum-loop', 'tests/test_minimum_loop.gd'),
@@ -538,17 +568,32 @@ def mount_readonly(target, source):
     shutil.copytree(source, target)
 
 
-def isolated_editor_workshop_project(run_dir):
+def isolated_editor_workshop_project(run_dir, include_plants=False):
     """Minimal real editor project: no game scripts, Autoload, mutable asset junctions or Main."""
     project = run_dir / 'project'
     project.mkdir()
     for rel in ['addons/building_workshop', 'data/workshop']:
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
-    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store',
+    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'random_recipe',
                  'shell_geometry', 'shell_generator', 'shell_damage_geometry', 'shell_union_geometry',
                  'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
+    if include_plants:
+        shutil.copytree(GODOT_ROOT / 'addons/plant_editor', project / 'addons/plant_editor')
+        shutil.copytree(GODOT_ROOT / 'src/plant_authoring', project / 'src/plant_authoring')
+        shutil.copytree(GODOT_ROOT / 'data/vegetation', project / 'data/vegetation')
+        (project / 'src/ambient/vegetation').mkdir(parents=True)
+        shutil.copy2(GODOT_ROOT / 'src/ambient/vegetation/library.gd', project / 'src/ambient/vegetation/library.gd')
+        (project / 'assets/models/vegetation').mkdir(parents=True)
+        for name in ['grass_soft.glb', 'mound_soft.glb']:
+            shutil.copy2(GODOT_ROOT / 'assets/models/vegetation' / name, project / 'assets/models/vegetation' / name)
+        for rel in ['assets/materials/vegetation', 'assets/textures/vegetation', 'shaders/vegetation']:
+            shutil.copytree(GODOT_ROOT / rel, project / rel)
+    (project / 'tests').mkdir()
+    for name in (['test_workshop_random.gd', 'test_plant_authoring.gd'] if include_plants else ['test_workshop_random.gd']):
+        if (GODOT_ROOT / 'tests' / name).exists():
+            shutil.copy2(GODOT_ROOT / 'tests' / name, project / 'tests' / name)
     (project / 'scenes/components').mkdir(parents=True)
     (project / 'outputs').mkdir()
     texture_dir = project / 'assets/textures/shared'
@@ -565,7 +610,8 @@ def isolated_editor_workshop_project(run_dir):
             shutil.copy2(GODOT_ROOT / imported_rel, imported_dest)
     # 工坊引用正式场景的四材质与shader；隔离副本复制依赖，不用生产目录写入链接。
     shutil.copytree(GODOT_ROOT / 'assets/materials/solar_cabin', project / 'assets/materials/solar_cabin')
-    (project / 'shaders').mkdir(exist_ok=True)
+    if not (project / 'shaders').is_dir():
+        (project / 'shaders').mkdir()
     for filename in ['sunny_palette.gdshader', 'sunny_palette_gloss.gdshader']:
         shutil.copy2(GODOT_ROOT / 'shaders' / filename, project / 'shaders' / filename)
     shutil.copy2(GODOT_ROOT / 'icon.svg', project / 'icon.svg')
@@ -716,7 +762,8 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    project, user_name = isolated_editor_workshop_project(run_dir) if len(checks) == 1 and checks[0] in ['editor-workshop', 'editor-workshop-upgrade'] else isolated_project(run_dir)
+    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'plant-authoring', 'editor-plant'}
+    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['plant-authoring', 'editor-plant'])) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
     if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
         reference = ROOT / 'art_source/characters/avatar/v006'
         shutil.copy2(reference / 'shoulder_reference.png', project / 'outputs/avatar-reference.png')
@@ -762,14 +809,8 @@ def main():
             release_user_data(user_name, run_dir)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else full_config
-        if name in ['workshop-union', 'workshop-rules', 'workshop-shell', 'workshop-architecture', 'workshop-deep']:
-            config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
-        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade']
-        if is_editor_workshop:
-            config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
-            config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
-            config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', r'\1enabled=PackedStringArray("res://addons/building_workshop/plugin.cfg")', config)
+        config = derive_check_config(full_config, name)
+        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant']
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
         group = ('npc-save-restart' if name in ['npc-save-seed','npc-save-restart'] else
                  'avatar-restart' if name in ['avatar','avatar-restart'] else
@@ -792,7 +833,8 @@ def main():
         else:
             cmd += ['--resolution', '1280x800', '--fixed-fps', '60']
         if is_editor_workshop:
-            cmd += ['--editor', '--', '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify']
+            editor_flag = '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
+            cmd += ['--editor', '--', editor_flag]
         elif script:
             cmd += ['--script', 'res://' + script]
         else:

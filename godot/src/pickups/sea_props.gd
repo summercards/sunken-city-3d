@@ -2,6 +2,13 @@ extends Node3D
 class_name SeaProps
 var give_resource: Callable
 var can_receive: Callable
+## 原子端口：完整 reward 一次提交，返回 bool；false 必须零入账、零事件。
+var receive_all: Callable
+var _collection_busy := false
+
+func is_busy() -> bool:
+	return _collection_busy
+
 var spawn_area := Rect2()
 var planks_only := false
 var crate_count := 9
@@ -53,6 +60,7 @@ var _anchor_index := 0
 
 
 func build() -> void:
+	if is_busy(): return
 	_rng.seed = 20261019
 	_fish_rng.seed = 20261023
 	if ocean_enabled: return
@@ -298,6 +306,7 @@ func _is_land(x: float, z: float) -> bool:
 
 
 func _process(delta: float) -> void:
+	if is_busy(): return
 	_t += delta
 	# Hidden surface presentation has no pixels. Keep legacy population timers and
 	# its authored drift state, but do not submit hundreds of invisible transforms.
@@ -367,21 +376,37 @@ func _animate_population(delta: float) -> void:
 ## 结算仍走 collect_crate / collect_fish。要判断「船边有没有货」用
 ## `nearest_crate(pos, PICKUP_RADIUS)`，它只查不结算。
 func collect_crate(crate: Dictionary) -> Dictionary:
-	if not crates.has(crate): return {}
+	if is_busy() or not crates.has(crate): return {}
+	_collection_busy = true
 	var spec := crate_spec(crate)
-	for key in spec.reward:
-		if can_receive.is_valid() and not can_receive.call(key,int(spec.reward[key])):
-			blocked.emit("背包已满，浮木留在水上")
-			return {}
-	crates.erase(crate)
+	var kind := str(crate.kind)
+	var slot := str(crate.get("slot", ""))
 	var root: Node3D = crate.root
+	if not _receive_reward(spec.reward):
+		blocked.emit("复合物资需要原子入账端口" if spec.reward.size() > 1 and not receive_all.is_valid() else "背包已满，浮木留在水上")
+		_collection_busy = false
+		return {}
+	crates.erase(crate)
 	root.queue_free()
-	if ocean_enabled: ocean.collect(str(crate.slot), false, _rng)
+	if ocean_enabled: ocean.collect(slot, false, _rng)
 	else: _pending.append(_rng.randf_range(4.0,9.0))
-	for key in spec.reward.keys():
-		give_resource.call(key, int(spec.reward[key]))
-	collected.emit(crate.kind, spec.label, spec.reward)
+	collected.emit(kind, spec.label, spec.reward.duplicate(true))
+	_collection_busy = false
 	return {"label": spec.label, "reward": spec.reward}
+
+func _receive_reward(reward: Dictionary) -> bool:
+	if receive_all.is_valid():
+		var accepted: Variant = receive_all.call(reward.duplicate(true))
+		return accepted is bool and accepted
+	# legacy 边界：仅支持单资源、预检后必定完整给物的 Void 端口。
+	# 无容量的旧夹具可省略预检；可能失败/部分入账的端口必须改接 receive_all。
+	# 逐项 can_receive 无法证明合并容量，绝不据此拼装复合奖励的原子保证。
+	if reward.size() != 1 or not give_resource.is_valid(): return false
+	var key: String = str(reward.keys()[0])
+	var amount := int(reward[key])
+	if can_receive.is_valid() and not can_receive.call(key, amount): return false
+	give_resource.call(key, amount)
+	return true
 
 static func crate_spec(crate: Dictionary) -> Dictionary:
 	if str(crate.kind) != "planks": return CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate).duplicate(true)
@@ -393,18 +418,21 @@ static func crate_reach(crate: Dictionary) -> float:
 
 
 func collect_fish(school: Dictionary) -> bool:
-	if not schools.has(school): return false
-	if can_receive.is_valid() and not can_receive.call("fish",1):
-		blocked.emit("背包已满，先把物品存入仓库")
-		return false
+	if is_busy() or not schools.has(school): return false
+	_collection_busy = true
 	var root: Node3D = school.root
+	var slot := str(school.get("slot", ""))
+	if not _receive_reward({"fish": 1}):
+		blocked.emit("背包已满，先把物品存入仓库")
+		_collection_busy = false
+		return false
 	schools.erase(school)
 	root.queue_free()
-	give_resource.call("fish", 1)
-	fish_collected.emit("鱼群")
-	# 鱼群换个地方重聚
-	if ocean_enabled: ocean.collect(str(school.slot), true, _rng)
+	# 先提交完整目标状态，再发布成功；监听器不能保存半笔收获。
+	if ocean_enabled: ocean.collect(slot, true, _rng)
 	else: _pending_fish.append(_rng.randf_range(14.0,30.0))
+	fish_collected.emit("鱼群")
+	_collection_busy = false
 	return true
 
 
@@ -483,6 +511,7 @@ func to_dict() -> Dictionary:
 	return result
 
 func from_dict(data: Dictionary) -> void:
+	if is_busy(): return
 	for c in crates: c.root.queue_free()
 	for c in schools: c.root.queue_free()
 	crates.clear();schools.clear();_pending.clear();_pending_fish.clear()
@@ -526,7 +555,7 @@ func from_dict(data: Dictionary) -> void:
 ## Clock and boat position are injected by the composition root. No global time,
 ## inventory or scene lookup, and no real-time respawn timers in ocean mode.
 func sync_population(clock: Dictionary, focus: Vector3) -> void:
-	if not ocean_enabled: return
+	if is_busy() or not ocean_enabled: return
 	var previous_cycle: int = ocean.cycle
 	var changed: bool = ocean.observe(clock)
 	var cell: Vector2i = ocean.cell_at(Vector2(focus.x,focus.z))
@@ -581,7 +610,7 @@ func _ocean_point_clear(point: Vector2, fish: bool, historical_layout := false) 
 	return true
 
 func apply_population_scope() -> void:
-	if not spawn_area.has_area(): return
+	if is_busy() or not spawn_area.has_area(): return
 	if crate_count == 0:
 		for c in crates: c.root.queue_free()
 		crates.clear()

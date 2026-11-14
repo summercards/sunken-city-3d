@@ -68,3 +68,13 @@ begin_site_upgrade / tick_sites / site_level / site_next_cost；sites_changed、
 新增条款 SEA-BUILD-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
 
 2026-10-29：原研究方案已由独立[SEA-BUILDING](../building/spec.md)承接为家园拼接建造；本功能仍只拥有固定建筑升级，不混入动态布局或第二份库存。
+
+## 2026-11-14 B2 固定施工支付事务承接
+
+承接SEA-BUILD-R01/R02/R04（S15/S16）：ConstructionService.begin_site_upgrade的busy覆盖construction_pay→写site_work→site_work_started/sites_changed，拒绝同步重复开工；合并背包/仓库扣费走WarehouseService的双端事务，Economy聚合施工busy供统一存档门禁。价格、工期、固定施工所有权不变，不扩大为动态Building布局改造。
+
+b2-transactions103/0中实际支付/释放锁及modules101/0、framework-modules52/0已PASS/exit0；legacy management --full-world36/1的旧farm_plot_a解锁夹具仍不可签，不修生产恢复zone3/旧内容。登记头partial不改；[B2主记录与证据边界](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 transactions103/0、005741 framework52/0均PASS/exit0；012647 management按当前安装内容区分zone3退役与修缮资格规则后37/0、exit0，不恢复生产，旧36/1保留。
+- 仅签实际施工支付/锁释放及当前内容资格断言，不扩为动态布局或退役建筑复开；全库契约仍失败，登记头partial不变，冻结证据与未签范围见主记录。

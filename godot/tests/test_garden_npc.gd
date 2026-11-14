@@ -38,6 +38,11 @@ func run() -> void:
 	main.npc_world_presenter.sync_world(main._npc_world_query(), true)
 	for i in 6:
 		await process_frame
+	var hub_anchors: Dictionary = main.get_node("NpcAnchorHub").anchor_snapshot()
+	ok(hub_anchors.size() == 40, "四个站位 provider 聚合40个有效锚点")
+	var muhe_row: Dictionary = main.npc_world_presenter.world_snapshot().get("residents", {}).get("npc_mu_he", {})
+	ok(not bool(muhe_row.get("fallback", true)) and str(muhe_row.get("anchor_id", "")).begins_with("residence_garden_bridge"),
+		"豆豆按日程落在菜园桥且不走 fallback")
 	# 豆豆的实际站位
 	var body = main.npc_world_presenter.actor("npc_mu_he")
 	ok(is_instance_valid(body), "豆豆的 actor 存在")
@@ -55,6 +60,24 @@ func run() -> void:
 	if stations != null:
 		var snaps: Dictionary = stations.anchor_snapshot()
 		print("[garden-npc] 霓虹花园锚点=", snaps.keys())
+		ok(snaps.size() == 5, "菜园桥五个锚点全部有效")
+		var max_height_error := 0.0
+		for id in ["residence_garden_bridge", "residence_garden_bridge_work",
+			"residence_garden_bridge_social", "residence_garden_bridge_rest",
+			"residence_garden_bridge_door"]:
+			var station_id := "residence_garden_bridge"
+			var kind: String = "Home" if id == station_id else id.trim_prefix(station_id + "_").capitalize()
+			var marker: Marker3D = stations.get_node("%s/%s" % [station_id, kind])
+			var anchor: Dictionary = snaps.get(id, {})
+			var support: Vector3 = deck.surface_point(marker.global_position)
+			var error := INF if anchor.is_empty() else marker.global_position.distance_to(anchor.position)
+			print("[garden-npc] anchor_probe id=", id, " marker_local=", quarter.to_local(marker.global_position),
+				" support_local=", quarter.to_local(support), " support=", support, " error=", error)
+			max_height_error = maxf(max_height_error, error)
+			ok(not anchor.is_empty() and bool(anchor.get("support_validated", false)),
+				"菜园桥锚点支撑有效 " + id)
+		print("[garden-npc] 菜园桥锚点最大高度/支撑误差=", max_height_error)
+		ok(max_height_error <= 0.05, "菜园桥 height mismatch 已收敛到 SUPPORT_TOLERANCE")
 		var work: Dictionary = snaps.get("residence_garden_bridge_work", {})
 		ok(not work.is_empty(), "菜园桥工作锚点可解析")
 		if not work.is_empty():

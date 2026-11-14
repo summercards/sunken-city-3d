@@ -50,7 +50,7 @@ static func has(id: String) -> bool:
 
 static func get_item(id: String) -> Dictionary:
 	ensure_loaded()
-	return _items.get(id, {})
+	return _items.get(id, {}).duplicate(true)
 
 
 static func all_ids() -> Array:

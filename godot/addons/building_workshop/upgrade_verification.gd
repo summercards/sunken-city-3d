@@ -12,6 +12,7 @@ var checks: Array = []
 var failures: Array[String] = []
 var artifacts: Array[String] = []
 var timings: Array = []
+var layout_metrics: Array = []
 var screen: Control
 var plugin: EditorPlugin
 var original_scene: Node
@@ -39,12 +40,13 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	EditorInterface.set_main_screen_editor("老王场景工坊")
 	screen.configure({"export_root": "res://outputs/workshop_editor"})
 	await plugin.get_tree().process_frame
-	var top_info: Control = screen.find_child("WorkshopTopInfo", true, false) as Control
+	var top_info: Node = screen.find_child("WorkshopTopInfo", true, false)
 	var top_modules: Control = screen.find_child("WorkshopTopModuleBar", true, false) as Control
 	var default_modules: Control = screen.find_child("WorkshopDefaultModules", true, false) as Control
-	check(top_info != null and top_info.get_parent() != screen._left_panel, "建筑身份信息位于顶部独立栏")
-	check(top_modules != null and top_modules.get_parent() != screen._left_panel, "模块按钮不挤占左侧编辑参数区")
-	check(default_modules != null and default_modules.get_child_count() == screen.DEFAULT_MODULES.size(), "顶部提供可直接使用的默认模组")
+	check(top_info is AcceptDialog and not (top_info as AcceptDialog).visible, "建筑信息按需打开，不常驻占空间")
+	check(top_modules != null and screen._preview_column.is_ancestor_of(top_modules), "模块横栏位于红框要求的预览上方")
+	check(default_modules != null and default_modules.get_child_count() == screen.DEFAULT_MODULES.size() and not screen._defaults_dialog.visible, "默认模组按需打开，不常驻占空间")
+	check(not screen._right_panel.visible, "右侧槽位栏默认收起")
 	check(screen._left_panel.find_child("building_id", true, false) == null and screen._left_panel.find_child("module_00", true, false) == null, "左侧编辑区不重复放置身份和模块导航")
 	for item: Dictionary in screen.DEFAULT_MODULES:
 		var default_path: String = screen.SAMPLE_ROOT.path_join(str(item.file))
@@ -176,6 +178,8 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	await verify_vegetation()
 	await verify_shading()
 	await verify_palette()
+	await verify_random_house()
+	await verify_compact_layout()
 	finish()
 
 func plant_state(build: Dictionary) -> Dictionary:
@@ -576,6 +580,147 @@ func verify_palette() -> void:
 	for role: String in shared:
 		check(shared[role] == builder.shared_materials()[role] and hashes[role] == FileAccess.get_sha256(shared[role].resource_path), "共享材质身份及文件hash不变 " + role)
 
+func verify_random_house() -> void:
+	check(screen.buttons.get("random_house") is Button, "顶部随机房屋入口存在")
+	var before: Dictionary = screen.snapshot()
+	var original_hash: String = visual_hash()
+	var original_root: Node = screen.preview._model_root.get_child(0)
+	var old_history: int = screen.session._undo.size()
+	screen.controls.width.value = 13.0
+	screen.buttons.random_house.emit_signal("pressed")
+	check(screen._confirm.visible, "随机房屋真实按钮点击先确认")
+	var waiting: Dictionary = {}
+	check(screen._confirm.visible, "随机房屋未保存或未应用输入先确认")
+	check(screen.snapshot() == before and screen.session._undo.size() == old_history and screen.preview._model_root.get_child(0) == original_root, "随机确认前不改配方模型历史")
+	screen._confirm.get_cancel_button().emit_signal("pressed")
+	check(screen.controls.width.value == 13.0 and screen.snapshot() == before and visual_hash() == original_hash, "取消随机保留输入和实际模型")
+	# 真实几何失败：使用坏catalog使生成失败，不改配方生成器或事务内部。
+	var saved_catalog: Dictionary = screen.session.catalog
+	screen.session.catalog = {"schema": "invalid_random_test"}
+	waiting = screen.random_house(17)
+	check(bool(waiting.get("confirmation_required", false)), "失败路径同样需要确认")
+	screen._confirm.hide()
+	screen._confirm.emit_signal("confirmed")
+	check(not bool(screen.random_house_result.get("ok", true)) and screen.snapshot() == before and screen.controls.width.value == 13.0 and visual_hash() == original_hash and screen.session._undo.size() == old_history, "随机生成失败完整回滚模型输入历史")
+	screen.session.catalog = saved_catalog
+	waiting = screen.random_house(17)
+	screen._confirm.hide()
+	screen._confirm.emit_signal("confirmed")
+	check(bool(screen.random_house_result.get("ok", false)), "确认后真实随机生成成功", screen.random_house_result)
+	if not bool(screen.random_house_result.get("ok", false)): return
+	var after: Dictionary = screen.snapshot()
+	var after_hash: String = visual_hash()
+	check(screen.session._undo.size() == old_history + 1 and after_hash != original_hash, "随机一次实际模型变化只提交一次历史")
+	check(after.building_id == before.building_id and after.revision == before.revision, "随机不改变当前文档身份和版本")
+	check_structure("随机房屋")
+	screen.buttons.undo.emit_signal("pressed")
+	check(screen.snapshot() == before and visual_hash() == original_hash and screen.controls.width.value == 13.0, "随机一次撤销恢复前房与未应用输入")
+	screen.buttons.redo.emit_signal("pressed")
+	check(screen.snapshot() == after and visual_hash() == after_hash, "随机重做恢复相同实际模型")
+	var repeat: Dictionary = screen.random_house(17)
+	check(bool(repeat.get("confirmation_required", false)), "未保存随机房再次替换仍需确认")
+	screen._confirm.hide()
+	screen._confirm.emit_signal("confirmed")
+	check(screen.snapshot() == after and visual_hash() == after_hash and screen.session._undo.size() == old_history + 1, "同seed随机实际复现且无空历史")
+	await capture("12_random_house")
+
+func verify_compact_layout() -> void:
+	var original_clipboard: String = DisplayServer.clipboard_get()
+	# 同一个真实EditorPlugin主屏放入定尺寸渲染容器，避免Mac窗口管理器忽略分辨率。
+	var original_parent: Node = screen.get_parent()
+	var original_index: int = screen.get_index()
+	var host := SubViewport.new()
+	host.name = "WorkshopLayoutProbe"
+	host.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	plugin.add_child(host)
+	screen.reparent(host)
+	screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for target: Vector2i in [Vector2i(1280, 800), Vector2i(1000, 700), Vector2i(860, 600)]:
+		host.size = target
+		screen.size = Vector2(target)
+		screen._left_panel.show()
+		screen._right_panel.hide()
+		screen._on_layout_resized()
+		for frame: int in 6: await plugin.get_tree().process_frame
+		var model: Rect2 = screen.preview.get_global_rect()
+		var strip: Rect2 = (screen._module_strip.get_parent() as Control).get_global_rect()
+		var workspace: Rect2 = screen._workspace.get_global_rect()
+		var metric: Dictionary = {"target": str(target), "screen": str(screen.size), "preview": str(model), "preview_height_ratio": model.size.y / target.y, "module_strip": str(strip), "workspace": str(workspace), "left_width": screen._left_panel.size.x, "status_height": screen.status_panel.size.y}
+		layout_metrics.append(metric)
+		check(screen.size.is_equal_approx(Vector2(target)), "主屏不被最小尺寸撑出容器 " + str(target), metric)
+		check(model.size.x >= target.x * 0.52 and model.size.y >= target.y * 0.60, "实际模型预览面积门禁 " + str(target), metric)
+		check(strip.position.x >= model.position.x - 1 and absf(strip.end.x - model.end.x) <= 2 and strip.end.y <= model.position.y, "模块横栏对齐模型上方红框 " + str(target), metric)
+		check(strip.size.y <= 52 and model.position.y - workspace.position.y <= 96, "模块不换行增高挤压预览 " + str(target), metric)
+		check(workspace.position.y <= 100 and screen.status_panel.size.y <= 52, "常驻顶部与底栏高度受控 " + str(target), metric)
+		var random_button: Button = screen.buttons.random_house
+		var toolbar: Control = screen.find_child("WorkshopMainToolbar", true, false) as Control
+		check(random_button.get_parent() == screen.buttons.generate.get_parent() and random_button.get_global_rect().end.y <= toolbar.get_global_rect().end.y and toolbar.size.y <= 44, "随机按钮同一行且不增加栏高 " + str(target), toolbar.size)
+		check(toolbar.get_global_rect().encloses(random_button.get_global_rect()) and random_button.pressed.get_connections().size() == 1, "随机按钮三档完整可见且只连一次 " + str(target))
+		check(screen._left_panel.size.x <= 330 and screen._left_panel.size.x >= 275, "参数栏宽度可读且不过宽 " + str(target), metric)
+		check(not screen._workspace.get_parent() is ScrollContainer, "预览不被全局滚动容器包裹 " + str(target))
+		for index: int in screen.PAGES.size():
+			var action: Button = screen.buttons["module_%02d" % index]
+			check(action.pressed.get_connections().size() == 1, "模块按钮只触发一次 " + str(index) + str(target))
+			check(is_equal_approx(action.position.y, 0.0), "模块按钮保持单行 " + str(index) + str(target))
+		# 真实按钮进入最后一页，并自动滚到可见位置。
+		screen.buttons.module_08.emit_signal("pressed")
+		for frame: int in 4: await plugin.get_tree().process_frame
+		check(screen.pages["文件"].visible and screen._module_strip.get_global_rect().intersects(screen.buttons.module_08.get_global_rect()), "末端模块点击并滚入视野 " + str(target))
+		screen.buttons.module_00.emit_signal("pressed")
+		for frame: int in 4: await plugin.get_tree().process_frame
+		RenderingServer.force_draw()
+		var image: Image = host.get_texture().get_image()
+		var path: String = "res://outputs/compact_layout_%dx%d.png" % [target.x, target.y]
+		check(image.get_size() == target and image.save_png(path) == OK, "真实定尺寸布局截图 " + str(target))
+		artifacts.append(ProjectSettings.globalize_path(path))
+		# 展开右栏时小窗口自动让左栏退让，不能挤压中心。
+		screen.buttons.toggle_right.emit_signal("pressed")
+		for frame: int in 4: await plugin.get_tree().process_frame
+		check(screen._right_panel.visible and (target.x >= 1120 or not screen._left_panel.visible), "窄屏双侧栏不同时挤占预览 " + str(target))
+		check(screen.preview.size.x >= (420 if target.x >= 1120 else 480), "槽位栏展开后预览仍可用 " + str(target), screen.preview.size)
+		if target.x == 1280:
+			host.size = Vector2i(1000, 700)
+			screen.size = Vector2(1000, 700)
+			screen._on_layout_resized()
+			for frame: int in 4: await plugin.get_tree().process_frame
+			check(not screen._right_panel.visible and screen.preview.size.x >= 520, "从宽窗口缩窄时自动收起多余侧栏")
+			host.size = target
+			screen.size = Vector2(target)
+		# 长错误不会把状态栏撑高，复制和详情保留完整信息。
+		var long_status: String = "[警告] 参数冲突原因与处理建议：".repeat(20) + "\n完整内容不丢失。"
+		screen._set_status(long_status, screen.WORKSHOP_WARN)
+		for frame: int in 3: await plugin.get_tree().process_frame
+		check(screen.status_panel.size.y <= 52 and screen.status_label.get_line_count() == 1, "长提示不挤占编辑区域 " + str(target))
+		screen.buttons.copy_status.emit_signal("pressed")
+		check(DisplayServer.clipboard_get() == long_status, "复制完整提示而非省略文本 " + str(target))
+		screen._show_status_details()
+		check(screen._details_text.selection_enabled and screen._details_text.text == long_status, "详情可选择复制完整提示 " + str(target))
+		screen._details_dialog.hide()
+		screen._left_panel.show()
+		screen._right_panel.hide()
+	DisplayServer.clipboard_set(original_clipboard)
+	screen.reparent(original_parent)
+	original_parent.move_child(screen, original_index)
+	screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	host.queue_free()
+	for frame: int in 6: await plugin.get_tree().process_frame
+	screen._on_layout_resized()
+	# 模组按需打开，取消替换后输入与模型保持。
+	var before: String = Recipe.fingerprint(screen.snapshot())
+	var original_width: float = screen.controls.width.value
+	screen.controls.width.value = 13.0
+	screen.buttons.show_defaults.emit_signal("pressed")
+	check(screen._defaults_dialog.visible, "默认模组入口打开选择窗")
+	screen.buttons.default_module_00.emit_signal("pressed")
+	check(screen._confirm.visible and Recipe.fingerprint(screen.snapshot()) == before, "载入模组前明确确认且草稿不变")
+	screen._confirm.get_cancel_button().emit_signal("pressed")
+	check(not screen._confirm.visible and screen.controls.width.value == 13.0 and Recipe.fingerprint(screen.snapshot()) == before, "取消载入保留未应用输入")
+	screen.controls.width.set_value_no_signal(original_width)
+	screen._update_range_readout("width")
+	screen._select_page(0)
+	screen._set_status("布局已按示意重排：模块位于预览上方，建筑信息与模组按需打开。", screen.WORKSHOP_ACCENT_HOVER)
+	await capture("11_compact_editor", true)
+
 func settle(label: String, expected_ok: bool = true) -> void:
 	var start: int = Time.get_ticks_msec()
 	await plugin.get_tree().create_timer(0.25).timeout
@@ -626,7 +771,7 @@ func capture(label: String, full_ui: bool = false) -> void:
 func finish() -> void:
 	check(EditorInterface.get_edited_scene_root() == original_scene, "不改当前编辑scene")
 	check(plugin.get_tree().paused == original_pause, "不改编辑树暂停")
-	var report: Dictionary = {"checks": checks, "failures": failures, "passed": failures.is_empty(), "artifacts": artifacts, "timings": timings, "enginehint": Engine.is_editor_hint(), "is_playing": EditorInterface.is_playing_scene(), "actual_window": str(DisplayServer.window_get_size()), "input_method": "真实HSlider值和drag信号，经Timer自动提交；非人工鼠标操作", "visual_acceptance": "需主线程目检，截图非空不等于美术终验", "scene_unchanged": EditorInterface.get_edited_scene_root() == original_scene}
+	var report: Dictionary = {"checks": checks, "failures": failures, "passed": failures.is_empty(), "artifacts": artifacts, "timings": timings, "layout_metrics": layout_metrics, "enginehint": Engine.is_editor_hint(), "is_playing": EditorInterface.is_playing_scene(), "actual_window": str(DisplayServer.window_get_size()), "input_method": "真实HSlider值和drag信号，经Timer自动提交；非人工鼠标操作", "visual_acceptance": "需主线程目检，截图非空不等于美术终验", "scene_unchanged": EditorInterface.get_edited_scene_root() == original_scene}
 	var file: FileAccess = FileAccess.open("res://outputs/workshop_upgrade_report.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "\t"))
 	file.close()

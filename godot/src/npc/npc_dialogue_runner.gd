@@ -114,5 +114,12 @@ func _move(target: String) -> Dictionary:
 			return {"ok": true, "completed": false, "state": state()}
 	return {"ok": false, "reason": "未知分支页面"}
 
+func capture_runtime() -> Dictionary:
+	return {"session":_session.duplicate(true), "serial":_serial}
+
+func restore_runtime(memento: Dictionary) -> void:
+	_session = memento.session.duplicate(true)
+	_serial = int(memento.serial)
+
 func cancel() -> void:
 	_session.clear()

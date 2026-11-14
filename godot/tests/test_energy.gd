@@ -110,6 +110,9 @@ func run() -> void:
 	check(main.hud.dialogue != null and main.hud.dialogue.panel.visible, "exhausted line appears before the curtain")
 	check(main.hud.dialogue.line_label.text.contains("太累了"), "line reads 啊，太累了，今天需要休息了。")
 	check(main.input_blocked(), "exhausted rest locks gameplay input")
+	check(main.save_registry.is_busy() and main.save_registry.capture().is_empty(), "疲劳台词窗口拒绝 capture")
+	check(not preload("res://src/save/save_game.gd").write("user://fatigue-busy.json", main).ok, "疲劳台词窗口拒绝直接写盘")
+	check(not preload("res://src/save/save_game.gd").restore(main, snapshot).ok, "疲劳台词窗口拒绝直接恢复")
 	await shot("res://outputs/energy-exhausted-line.png")
 	var day: int = main.world_clock.day
 	for i in 300:

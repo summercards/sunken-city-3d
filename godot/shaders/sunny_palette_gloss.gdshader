@@ -19,9 +19,9 @@ uniform bool home_window_recessed = false;
 varying vec3 home_local;
 void vertex() { home_local = VERTEX; }
 uniform int home_window_column = 3;
-instance uniform int sea_material_role = 2;
-instance uniform vec4 sea_gloss_controls = vec4(-1.0, -1.0, -1.0, -1.0);
-instance uniform float sea_gloss_emission_energy = -1.0;
+instance uniform int sea_material_role : instance_index(0) = 2;
+instance uniform vec4 sea_gloss_controls : instance_index(3) = vec4(-1.0, -1.0, -1.0, -1.0);
+instance uniform float sea_gloss_emission_energy : instance_index(7) = -1.0;
 global uniform float world_home_lights;
 vec3 rgb2hsv(vec3 c) {
  vec4 K=vec4(0.0,-1.0/3.0,2.0/3.0,-1.0);

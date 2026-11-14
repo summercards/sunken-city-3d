@@ -187,3 +187,13 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 - `boat.gd` 已还原，不把既有船行为列为本批改动；海面收益波动，不承诺稳定改善。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签。
+
+## 2026-11-14 B2 G03/S15 原子拾取承接
+
+承接SEA-PICKUP-R02/R03/R05/R09/R12/R16/R19/R22：SeaProps.receive_all(reward)->bool正式接Inventory.add_all，复合箱一次校验/入账，拒绝保留目标/冷却/随机流，不按逐项can_receive推断合并容量。collection busy覆盖入账、移目标/提交补货和成功/失败通知，Main将is_busy纳入Registry，防同步重入及半笔保存。单资源legacy give仅兼容预检后保证完整给物的旧端口，可能失败/部分入账必须接receive_all；复合奖励无原子端口拒绝。
+
+b2-pickup-transactions191/0、b2-session51/0、transactions103/0已PASS/exit0；测试覆盖复合箱、容量/半堆、随机流和重入等实际范围。密度、三档产量、07:00/6–10小时、wire不变；不改岸边Gather政策。登记头partial保持，真实视觉与最终契约待父；[B2主记录与证据](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
+- 005436 pickup191/0、transactions103/0均PASS/exit0；最新012421 session53/0、exit0，原子复合奖励及重入仅按实际覆盖签署。
+- 010438三视觉入口exit0不等于拾取专属美术全验；密度/产量/补货与岸边Gather政策不变，全库契约仍失败，登记头partial保持，冻结证据及未签范围见主记录。

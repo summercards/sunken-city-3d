@@ -81,7 +81,12 @@ func run() -> void:
 	check(facility.facility_unlocked("warehouse"),"warehouse unlock survives restore")
 	var nav = preload("res://src/navigation/water_navigation.gd").new()
 	nav.shape_query = func():return [{"x":0.0,"z":0.0,"hx":3.0,"hz":3.0,"round":false}]
-	check(not nav.is_open_water(0,0) and not nav.is_open_water(500,0),"solid and world boundary rejected")
+	check(not nav.is_open_water(0,0),"solid obstacle rejected")
+	check(nav.is_open_water(500,0),"open ocean remains unbounded")
+	var bounded := preload("res://src/navigation/water_navigation.gd").new()
+	bounded.shape_query = nav.shape_query
+	bounded.allowed_area = Rect2(-50,-50,100,100)
+	check(not bounded.is_open_water(500,0),"explicit scenario boundary rejected")
 	check(not nav.segment_clear(Vector2(-10,0),Vector2(10,0)),"crossing segment rejected")
 	var route: Array=nav.plan_route_to(Vector2(-10,0),10,0)
 	check(route.size()>2 and nav.valid_route(route),"route goes around solid")

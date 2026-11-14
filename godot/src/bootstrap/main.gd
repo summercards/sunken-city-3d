@@ -239,6 +239,7 @@ var sleep_curtain: CanvasLayer
 ## 「体力见底」的强制休息正在进行（台词 → 黑幕过场）。期间吞掉全部输入，
 ## 也不再重复触发第二遍。SEA-ENERGY-R04。
 var _exhausted_rest := false
+var _exhausted_generation := 0
 ## 黑幕里那句「啊，太累了…」停留多久再收幕（秒）。
 const EXHAUSTED_LINE_SECONDS := 2.6
 var _sleep_ui_layers: Array = []
@@ -344,10 +345,10 @@ func _ready() -> void:
 		if a == "--load" or a.begins_with("--load="):
 			explicit_load = true
 			if a.begins_with("--load="): _save_path = a.trim_prefix("--load=")
-	if explicit_load or (not args.has("--nosave") and not args.has("--capture") and (FileAccess.file_exists(_save_path) or FileAccess.file_exists(_save_path+".bak"))):
+	if explicit_load or (not args.has("--nosave") and not args.has("--capture") and (FileAccess.file_exists(_save_path) or FileAccess.file_exists(_save_path+".bak") or SaveGameLib.ResetTransaction.new().pending(_save_path))):
 		var loaded := load_game()
+		# 失败只暂停原槽写入，不改用户/截图/测试选择的自动保存开关。
 		_save_protected = not loaded.get("ok",false)
-		if _save_protected: _autosave_on = false
 	if args.has("--capture"):
 		_autosave_on = false
 		_capture_after_settle()
@@ -603,11 +604,13 @@ func save_game(path := "", quiet := false, toast_seconds := 2.6) -> Dictionary:
 
 ## 读档（F9）。失败时保留当前局面，只弹提示，不把玩家踢回主菜单。
 func load_game(path := "") -> Dictionary:
+	if save_registry.is_busy(): return {"ok": false, "reason": "正在结算或过场"}
 	if dive != null and dive.active:
 		hud.toast("潜水时不能读档，先上浮")
 		return {"ok": false, "reason": "潜水时不能读档"}
 	var target := path if path != "" else _save_path
-	var doc: Dictionary = SaveGameLib.read(target)
+	# 启动加载必须用完整注册表做语义校验；仅通过 wire/schema 的主档不能挤掉可恢复备份。
+	var doc: Dictionary = SaveGameLib.read_recoverable(target, save_registry)
 	if not doc.get("ok", false):
 		hud.toast(str(doc.get("reason", "读档失败")))
 		print("[save] load %s failed: %s" % [target, doc.get("reason", "")])
@@ -617,6 +620,8 @@ func load_game(path := "") -> Dictionary:
 		hud.toast(str(res.reason))
 		return res
 	_save_protected = false
+	# 显式替代档成功后接管该槽；不能回头自动覆盖受保护的坏槽。
+	_save_path = target
 	_autosave_left = AUTOSAVE_SECONDS
 	# 读档后如果人已经在岸上，同样按「岸上免费补满」给满水壶。
 	# 存档里可能存着 0 滴水 —— 那是旧版本卡死局留下的，不该让它继续卡住。
@@ -630,13 +635,9 @@ func load_game(path := "") -> Dictionary:
 
 ## 重置存档：把这一局退回开局，**旧进度改名归档后保留**。
 ##
-## 三步，顺序不能换：
-##   1. 归档旧档（改名，不删除）。失败就整件事取消 —— 不归档就重置等于烧桥。
-##   2. 内存回到开局：用注册表在装配时抓下的 `defaults()` 走同一套 restore。
-##      这里**不能**用「重载场景」代替：Economy / GameState 是 Autoload，
-##      重载主场景它们不会重建，背包还是旧的 —— 那个做法只是看起来干净。
-##   3. 立刻写一份新档。不写的话，玩家重置完直接退出，下次启动又读回旧进度，
-##      观感就是「重置没生效」。
+## B2：先准备并读回校验新档，持久化 reset intent，再复制校验原字节归档。
+## 随后用装配期 defaults 恢复内存并提交新槽；中途失败回滚，启动按 intent 收尾。
+## 不能靠重载场景重置 Autoload；普通读写不越过未完成事务。
 ##
 ## 恢复走 `save_registry.restore()`，和读档同一条路：先校验全部模块再改任何
 ## 模块，中间事件被屏蔽，最后发一次 `restored` —— 所以 HUD、相机、昼夜、
@@ -649,36 +650,20 @@ func reset_save(path := "") -> Dictionary:
 		hud.toast("正在结算或过场，稍等一下再重置")
 		return {"ok": false, "reason": "正在结算或过场"}
 	var target := path if path != "" else _save_path
-	var archived: Dictionary = SaveGameLib.archive(target)
-	if not archived.get("ok", false):
-		hud.toast(str(archived.get("reason", "重置失败")))
-		print("[save] reset %s aborted: %s" % [target, archived.get("reason", "")])
-		return archived
-	var fresh: Dictionary = save_registry.defaults()
-	var res: Dictionary = save_registry.restore(fresh)
-	if not res.get("ok", false):
-		# 内存没改成，旧档也已经挪走了 —— 把归档放回去，别留一个「档没了」的现场。
-		var restored: bool = _unarchive(target, archived)
-		hud.toast("重置失败：%s%s" % [res.get("reason", ""), "" if restored else "（旧档在 %s）" % _archive_hint(archived)])
-		print("[save] reset %s restore failed: %s" % [target, res.get("reason", "")])
-		return res
-	# 旧档已经归档，之前因为读档失败上的保护要撤掉，否则新档写不进去。
+	# 存储事务先准备新档，再保留原字节、提交内存并替换；失败可回滚，启动可收尾 intent。
+	var result: Dictionary = SaveGameLib.reset(target, self)
+	if not result.get("ok", false):
+		hud.toast("重置失败：" + str(result.get("reason", "")), 5.0)
+		print("[save] reset %s aborted: %s" % [target, result.get("reason", "")])
+		return result
 	_save_protected = false
-	_autosave_on = true
+	_save_path = target
+	# 不重新开启用户、截图或测试明确关闭的自动存档。
 	_autosave_left = AUTOSAVE_SECONDS
-	var wrote: Dictionary = save_game(target, true)
-	var where := _archive_hint(archived)
-	# 也把水壶补满：开局状态本来就是满的，但 `_after_restore` 只在人在岸上时补，
-	# 重置后可能还在船上 —— 不补的话第一天就带着一个空水壶开局。
-	if Economy.farm != null:
-		Economy.farm.refill()
-	if wrote.get("ok", false):
-		hud.toast("已重置存档 · 回到第一天早晨%s" % where, 4.0)
-	else:
-		hud.toast("已重置，但新存档写入失败：%s" % str(wrote.get("reason", "")), 5.0)
-	print("[save] reset %s ok (archived %d file(s), new save %s)" % [
-		target, (archived.get("files", []) as Array).size(), "ok" if wrote.get("ok", false) else wrote.get("reason", "")])
-	return {"ok": wrote.get("ok", false), "reason": str(wrote.get("reason", "")), "archived": archived.get("files", [])}
+	var archive_view := {"files":result.get("archived", [])}
+	hud.toast("已重置存档 · 回到第一天早晨" + _archive_hint(archive_view), 4.0)
+	print("[save] reset %s ok (archived %d file(s))" % [target, result.get("archived", []).size()])
+	return result
 
 
 ## 归档文件的存放位置，给提示语用。取文件名而不是全路径：
@@ -1048,7 +1033,7 @@ func _update_walk(delta: float) -> void:
 	actor_controller.tick(delta)
 
 func _physics_process(delta: float) -> void:
-	if _title_active or sleep_cycle.busy or (dive != null and dive.switching) or actor_controller.actor == null: return
+	if _title_active or sleep_cycle.busy or room_controller.busy or _exhausted_rest or (dive != null and dive.switching) or actor_controller.actor == null: return
 	_update_keyboard_move(delta)
 	_update_walk(delta)
 
@@ -2002,15 +1987,15 @@ func _on_salvage_finished(haul: Dictionary, ok: bool) -> void:
 		hud.toast("这一趟断了线 · 8 秒后才能再下钩")
 		return
 	var now := Time.get_ticks_msec() / 1000.0
-	var got: Dictionary = Economy.commit_salvage(now, haul)
-	if got.is_empty():
-		hud.toast("材料仓满了，先把背包腾一腾")
+	var result: Dictionary = Economy.commit_salvage_result(now, haul)
+	if not result.get("ok", false):
+		hud.toast(str(result.get("reason", "材料仓放不下这整笔打捞")))
 		return
 	if salvage_winch != null:
 		salvage_winch.play_reel()
 	var parts := PackedStringArray()
-	for k in got.keys():
-		parts.append("%s +%d" % [ItemDB.label(str(k)), int(got[k])])
+	for k in result.get("added", {}).keys():
+		parts.append("%s +%d" % [ItemDB.label(str(k)), int(result.added[k])])
 	hud.toast("打捞上来 · " + "  ".join(parts))
 
 
@@ -2305,6 +2290,7 @@ func _setup_props() -> void:
 	props.water_point_clear = func(p: Vector2) -> bool: return navigation.is_open_water(p.x, p.y)
 	props.zones = Zones
 	props.give_resource = Economy.add_resource
+	props.receive_all = Economy.inventory.add_all
 	props.can_receive = Economy.inventory.can_add
 	props.blocked.connect(func(reason: String): hud.toast(reason))
 	if Scope.minimal():
@@ -3387,7 +3373,7 @@ func _on_focus_plot(plot_id: String) -> void:
 
 
 func _rest_for_day() -> void:
-	if _title_active or sleep_cycle.busy: return
+	if _title_active or sleep_cycle.busy or room_controller.busy or _exhausted_rest: return
 	if dive.active or boat.starts_sailing() or _walking or GameState.mode != GameState.Mode.ASHORE:
 		hud.toast("请在岸上站定后休息")
 		return
@@ -3400,14 +3386,29 @@ func _rest_for_day() -> void:
 ## 突然动不了的，需要先被告知发生了什么，黑幕才有意义。台词期间输入被吞
 ## （`input_blocked()`），避免玩家在等过场时把角色又拖走。
 func _on_energy_exhausted() -> void:
-	if _title_active or _exhausted_rest or sleep_cycle.busy: return
+	if _title_active or _exhausted_rest or sleep_cycle.busy or not Economy.energy.is_empty(): return
+	if room_controller.busy: return
+	_exhausted_generation += 1
+	var generation := _exhausted_generation
+	var energy_generation: int = Economy.energy.generation
 	_exhausted_rest = true
 	_cancel_action()
 	hud.show_dialogue("我", "啊，太累了，今天需要休息了。")
 	await get_tree().create_timer(EXHAUSTED_LINE_SECONDS).timeout
+	if generation != _exhausted_generation or not is_inside_tree(): return
+	if energy_generation != Economy.energy.generation or not Economy.energy.is_empty():
+		_cancel_exhausted_rest()
+		return
 	if hud.dialogue != null and hud.dialogue.has_method("close_line"): hud.dialogue.close_line()
 	if not sleep_cycle.busy:
 		await sleep_cycle.request_forced()
+	if generation == _exhausted_generation: _exhausted_rest = false
+
+
+func _cancel_exhausted_rest() -> void:
+	_exhausted_generation += 1
+	if _exhausted_rest and hud != null and hud.dialogue != null:
+		hud.dialogue.close_line()
 	_exhausted_rest = false
 
 
@@ -3429,6 +3430,9 @@ func _process(delta: float) -> void:
 	if _title_active:
 		if water_node.has_method("update_surface"): water_node.update_surface(_t,boat,cam.target)
 		return
+	if not _exhausted_rest and not room_controller.busy and not sleep_cycle.busy and Economy.energy.is_empty():
+		_on_energy_exhausted()
+	if room_controller.busy or _exhausted_rest: return
 	sleep_cycle.advance(delta)
 	if sleep_cycle.busy:
 		if building_controller!=null and building_controller.active: building_controller.close()
@@ -3449,7 +3453,7 @@ func _process(delta: float) -> void:
 		var calendar_text: String = clock_snapshot.text + " · " + weather_snapshot.label
 		if _calendar_label.text != calendar_text: _calendar_label.text = calendar_text
 		_calendar_label.visible = not dive.active
-	if _autosave_on:
+	if _autosave_on and not _save_protected:
 		_autosave_left -= delta
 		if _autosave_left <= 0.0:
 			# 自动存档静默执行，不打断操作；F5 手动存档才有提示。
@@ -4152,10 +4156,13 @@ func _npc_career_command(action_id: String, command: Dictionary) -> Dictionary:
 		"do_salvage":
 			if action_id != "salvage": return {"ok":false,"reason":"职能不匹配"}
 			var now := SaveGameLib.now_seconds()
-			if not Economy.salvage.can_salvage(now): return {"ok":false,"reason":"打捞正在冷却"}
-			if not Economy.inventory.can_add("wood",3) or not Economy.inventory.can_add("parts",2): return {"ok":false,"reason":"请留出打捞物空间"}
-			var gain: Dictionary = Economy.salvage.do_salvage(now)
-			return {"ok":not gain.is_empty(),"message":"打捞整理完成 · 木板 ×3 / 零件 ×2"}
+			var result: Dictionary = Economy.commit_salvage_result(now, {"wood":3, "parts":2})
+			if result.ok:
+				var parts := PackedStringArray()
+				for id in result.added:
+					parts.append("%s ×%d" % [ItemDB.label(str(id)), int(result.added[id])])
+				result.message = "打捞整理完成 · " + " / ".join(parts)
+			return result
 		"shop_general":
 			npc_career_panel.close()
 			return shop_panel.open_shop("shop_general")
@@ -4202,7 +4209,7 @@ func _on_npc_interaction_requested(npc_id: String = "") -> Dictionary:
 	}
 
 func _setup_save_registry() -> void:
-	save_registry.busy_query = func(): return dive.active or dive.switching or Economy.daily.is_settling() or sleep_cycle.busy or building.busy() or actor_controller.climbing()
+	save_registry.busy_query = func(): return dive.active or dive.switching or Economy.daily.is_settling() or Economy.is_busy() or npc_service.is_busy() or props.is_busy() or sleep_cycle.busy or room_controller.busy or _exhausted_rest or building.busy() or actor_controller.climbing()
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
 	save_registry.register("profile",avatar_profile.to_dict,avatar_profile.from_dict,schemas.profile,avatar_profile.to_dict(),avatar_profile.validate_snapshot,[avatar_profile])
 	save_registry.snapshot_validator = _validate_building_world
@@ -4231,6 +4238,8 @@ func capture_world_state() -> Dictionary:
 	return {"zone":GameState.current_zone,"landing":GameState.landing_id,"mode":actor_controller.mode(),"far_sea":GameState.far_sea_unlocked,"boat":[b.x,b.y,b.z,boat.rotation.y],"player":[p.x,p.y,p.z] if actor_controller.mode()==0 else []}
 
 func restore_world_state(data: Dictionary) -> void:
+	_cancel_exhausted_rest()
+	room_controller.cancel_transition()
 	if quick_tools != null: quick_tools.close(true)
 	data = data.duplicate(true)
 	# Economy is already applied while owner signals are blocked. Build its
@@ -4290,12 +4299,30 @@ func _after_restore() -> void:
 		# 但场景还停在进屋那一刻（世界全隐藏、背景全黑）。这里把它还原。
 		room_controller.resync_outside()
 	hud.refresh_after_restore()
+	_sync_restored_consumers()
+	# 所有 owner 和投影恢复完毕才续接，不在 Energy.from_dict 重放 exhausted。
+	if Economy.energy.is_empty(): _on_energy_exhausted()
+
+## 只刷新表现消费者，不重发 clock.changed / weather.changed 触发经营结算。
+func _sync_restored_consumers() -> void:
+	var clock: Dictionary = world_clock.query()
+	var weather: Dictionary = weather_service.query()
+	if bird_root != null: bird_root.set_hour(float(clock.hour))
+	for node in find_children("*", "Node", true, false):
+		if node.get_script() == GullFlockScript: node.set_hour(float(clock.hour))
+	if daylight_rig != null:
+		daylight_rig.set_scene_context(daylight_rig.season(), str(weather.kind))
+		daylight_rig.apply(float(clock.hour))
+	if weather_view != null: weather_view.present(clock, weather, dive.active)
+	if _calendar_label != null: _calendar_label.text = str(clock.text) + " · " + str(weather.label)
+
 
 func resume_after_dive_map() -> void:
 	# Exit-tree cleanup for projections/editors is real, so restore only those ports
 	# and projections; do not rerun Main._ready or load/reset any player snapshot.
 	for zone in _zone_nodes.values():
 		if zone.ground_space != null: zone.ground_space.configure(zone.walk_areas)
+	npc_career_panel.resume()
 	avatar_session.save = func(): return save_game("",true)
 	arrival_flow.place_at_dock = _place_new_traveler
 	arrival_flow.release_title_camera = func(): title_camera.finish(cam)
@@ -4305,8 +4332,10 @@ func resume_after_dive_map() -> void:
 
 func _exit_tree() -> void:
 	if get_meta("dive_map_suspended",false): return
+	_cancel_exhausted_rest()
 	if dive != null: dive.dispose()
 	if npc_service != null: npc_service.dispose()
+	if npc_career_panel != null: npc_career_panel.dispose()
 	actor_controller.ports.clear()
 	actor_controller.after_walk = Callable()
 	save_registry.clear()
@@ -4713,6 +4742,7 @@ func _setup_room() -> void:
 	room_controller.actor_controller = actor_controller
 	room_controller.cam = cam
 	room_controller.curtain = sleep_curtain
+	room_controller.busy_query = func(): return sleep_cycle.busy or _exhausted_rest or dive.active or dive.switching
 	room_controller.hud = hud
 	room_controller.state = GameState
 	room_controller.world_environment = world_root.get_node_or_null("WorldEnvironment") as WorldEnvironment
@@ -4758,11 +4788,24 @@ func _outdoor_nodes() -> Array:
 	return nodes
 
 
+func _close_owned_modals() -> void:
+	if shop_panel != null: shop_panel.close()
+	if npc_career_panel != null: npc_career_panel.close()
+	if npc_world_presenter != null: npc_world_presenter.cancel_session()
+	if workshop_host != null: workshop_host.close_now()
+	if quick_tools != null: quick_tools.close(true)
+	if building_controller != null and building_controller.active: building_controller.close()
+	if _garden_bubble != null: _garden_bubble.dismiss()
+	hud.set_external_modal(false, false)
+
+
 func _prepare_sleep() -> void:
 	actor_controller.cancel()
 	_cancel_pending_pick()
 	if ribbon != null: ribbon.clear()
 	interactor.active = false
+	# 先结束逻辑会话，再隐藏 Canvas；醒来不会复活旧确认按钮。
+	_close_owned_modals()
 	hud.menu.close_menu()
 	hud.close_card()
 	for presenter in [order_panel,cam_panel,grade]:

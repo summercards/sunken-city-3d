@@ -25,18 +25,30 @@ def water_layer_rules():
     return module
 
 
-def hash_matches(path, expected):
-    """Compare a file against a recorded hash, tolerating CRLF checkout.
+TEXT_SUFFIXES = {
+    '.cfg', '.csv', '.gd', '.gdshader', '.gdshaderinc', '.import', '.ini',
+    '.json', '.md', '.py', '.shader', '.tres', '.tscn', '.txt', '.xml',
+    '.yaml', '.yml',
+}
 
-    Recorded hashes describe repository content (always LF). A Windows checkout
-    with core.autocrlf=true rewrites text files to CRLF on disk, so the raw byte
-    hash differs while the content is identical. Raw match is tried first, then
-    the LF-normalised form; binary files simply fail both and are reported.
-    """
+
+def _is_text_resource(path, data):
+    """仅明确文本格式且为无 NUL 的 UTF-8 时，允许兼容 CRLF。"""
+    if path.suffix.lower() not in TEXT_SUFFIXES or b'\x00' in data:
+        return False
+    try:
+        data.decode('utf-8')
+    except UnicodeDecodeError:
+        return False
+    return True
+
+
+def hash_matches(path, expected):
+    """Compare a file against a recorded hash, tolerating CRLF for text only."""
     data = path.read_bytes()
     if hashlib.sha256(data).hexdigest() == expected:
         return True
-    if b'\r\n' in data:
+    if _is_text_resource(path, data) and b'\r\n' in data:
         return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest() == expected
     return False
 

@@ -19,6 +19,10 @@ const SITES := {
 var site_levels := {"home_cabin":1,"rooftop_planter":1,"yokohama_station":1}
 var site_work := {}
 var ports: Dictionary = {}
+var _busy := false
+
+func is_busy() -> bool:
+	return _busy
 func configure(boundary: Dictionary) -> void:
 	assert(boundary.has("construction_pay") and boundary["construction_pay"].is_valid(), "Missing port: construction_pay")
 	assert(boundary.has("construction_missing_text") and boundary["construction_missing_text"].is_valid(), "Missing port: construction_missing_text")
@@ -78,12 +82,17 @@ func begin_site_upgrade(id: String) -> Dictionary:
 	var cost := site_next_cost(id)
 	if cost.is_empty():
 		return {"ok": false, "reason": "没有更多等级"}
+	if _busy:
+		return {"ok": false, "reason": "建造正在结算"}
+	_busy = true
 	if not construction_pay(cost):
+		_busy = false
 		return {"ok": false, "reason": construction_missing_text(cost)}
 	var seconds := site_build_seconds(id)
 	site_work[id] = {"left": seconds, "total": seconds}
 	site_work_started.emit(id, seconds)
 	sites_changed.emit()
+	_busy = false
 	return {"ok": true, "seconds": seconds, "cost": cost, "name": SITES[id].name}
 
 func tick_sites(delta: float) -> Array:

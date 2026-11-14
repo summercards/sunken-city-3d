@@ -429,3 +429,49 @@ SEA-QUICKTOOLS 只拥有 Alt 快捷环的瞬态编排，不新增业务状态或
 每次打开/关闭更新会话 token，回调先校验 token 与菜单 active，旧回调不得关闭新菜单，取消退场中及退场后均不执行；有效选中先立即关闭快捷 modal，再重新查询上下文和资格后执行。Main 读档入口立即 `close(true)` 并 invalidate 会话，不等下一帧门禁。首次 Alt release 前锁住 non-echo duplicate press，echo 不触发开关；松开后再次按下才收起。`WorldActionBubbles.open` 清除上一菜单键锁，再捕获当前 E 与本次 quick Alt，避免旧 KEY_2 release 被新建造 UI 消费后留下跨菜单锁。
 
 UI 使用两枚76px按钮、左右上弧、0.24s BACK错峰0.035s、0.16s收起和SEA-UI动效偏好；四枚剪影均为本地原创程序化 Godot 图元。架构端口不解释建造资格、鱼群奖励、潜水FSM或航行状态，依赖所有者继续持有这些规则。代码与加固已落地，final-d51e92六项PASS只是加固前证据；加固后release正由主线程运行，待最终复验，不预签。[功能规格](../features/quick_tools/spec.md) · [独立账本](../features/quick_tools/ledger.md) · [过程与证据](../development/2026-11-12_quick_tools.md#4-本次验证过程与加固边界)。
+
+## 2026-11-13 B1 交互与生命周期修复
+
+- Interactor 的进行中动作独立锁定 `action_target` 与 generation；换焦点、失效、取消使旧动作/命令失效，完成只消费捕获的原目标。同目标自动接近重置锚点与松键继续完成保留，不回退成长按。
+- Main 将 RoomController.busy 与疲劳前置事务纳入 SnapshotRegistry.busy_query，公开 capture/write/restore 和重置共用门禁，不依赖黑幕输入盾。房间切换期间 Main 不推进睡眠时钟，睡眠/疲劳/潜水也阻止新房间过场。RoomController 的 generation 与 SleepCurtain.cancel_blank 使恢复后的旧 await 无法提交；室外重同步还原室内相机。
+- EnergyModel.generation 为瞬态代次，不进存档。全量恢复完成后 Main 检查零体力并续接强制休息，from_dict 不重放 exhausted；疲劳等待同时检查会话与 Energy 代次，复位不能被旧 timer 污染。根 v4 和 energy 原字段不变。
+- NpcCareerPanel.suspend/resume 保留注入 query/perform、关闭并失效旧按钮；出树只挂起，Main 潜水返回显式 resume；最终 Main 清理调用 dispose。不开第二套职业服务、不重复连接信号。
+
+当前证据、失败与未测范围见[审计开发记录 B1 追加](../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。逻辑通过不代表真实渲染、跨进程零体力或零泄漏。
+
+## 2026-11-14 B2 现行事务与空间端口（追加覆盖）
+
+本节覆盖上方历史“失败关闭自动写入”“先改名归档重置”及“保存取消NPC会话”的不一致阶段描述；不改根v4、既有模块wire、唯一owner或登记status，不声明verified。[11项、报告及待父追加主记录](../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)。
+
+| 所有者 / 端口 | 现行交接与限制 |
+|---|---|
+| SaveGame.decode / restore | 共用_migrate_optional；缺room等可选模块补默认，存在但截断仍拒绝。公开restore复制候选后迁移，Registry.validate继续严格。S10为B1复用，不算B2新实现。 |
+| SnapshotRegistry.is_busy / Main busy_query | Main汇集Economy.is_busy、NpcService.is_busy、SeaProps.is_busy及既有潜水/睡眠/房间/疲劳/建造/攀梯；capture返回空，write/restore/reset拒绝中间态。业务owner锁不以UI去抖替代。 |
+| Registry.restore / apply | 全验后抓前持久态与可选runtime，保留并屏蔽event_sources；旧void、bool true或无显式失败的字典沿用成功，bool false/含bool ok=false字典为失败。失败回apply前持久态，回滚成功再还runtime，恢复原屏蔽状态、不发restored；rollback_ok=false不能伪称成功。成功才一次restored，不在apply奖励/await/写盘。 |
+| owner.capture_runtime / restore_runtime | 可选命名owner协议，从apply所属对象发现；仅同进程失败回滚，不进入capture/defaults/wire。NpcService含pending与DialogueRunner session/serial。to_dict纯读，不“保存即取消”；成功from_dict仍清会话。reset后段磁盘失败复用memento；不承诺重开restored消费者已关UI或路线投影。 |
+| SaveGame.reset / ResetTransaction.run、recover、pending | staging读回校验→intent→复制SHA校验原字节唯一归档→Registry apply→按实际restored态再stage/更新intent→replace主槽/退出旧bak→commit→清理。常规read/write/archive不得跨pending；read_recoverable先恢复。未commit回滚、commit后核新档与归档收尾；仅intent空槽也启动。失败报告rollback_ok/recovery_required，保留不可恢复证据。旧archive改名API仍在，但不再是reset首步。 |
+| Main.load_game / reset_save / autosave | _save_protected是失败临时保护，_autosave_on是用户/测试意愿；保护期倒计时冻结，成功显式load/reset接管成功target并撤临时保护，保留明确禁用，不回写原坏槽。启动检测pending不只检测主档/bak。 |
+| Inventory.pay / add_all / exchange / is_busy | 候选整体预检与写入后发实际差量/容量通知，提交发布期间拒绝修改；add_all返回bool，exchange返回{ok,reason}。不可把单项add的部分接收规则外推为复合奖励原子保证。 |
+| InventoryTransfer.exchange / move；WarehouseService | 双库存预检、静默提交与失败回滚counts/order/屏蔽状态；成功先两端锁定再逐端发真实差量/容量，失败无退款事件。仓储命令owner busy覆盖事件；construction_pay仍背包优先再仓库，不开放订单自动吃仓库。 |
+| Construction / Facility / Ship / Farm / Orders / Fishery | 各is_busy覆盖支付→自身提交→事件；Economy聚合。FarmPorts.exchange正式接Inventory.exchange供买种/收获/换种，Orders正式库存使用exchange，遗留无exchange测试适配仍有give分支，不能宣称被删。transaction_begin/end虽有声明但未装配/调用，不计已生效协议。Fishery receive仍bool原子入账，成功清pending，失败保留；from_dict显式返回bool。 |
+| SalvageRewards.configure / commit_salvage_result / last_result | receive_all或add_all一次接整笔奖励，回bool或{ok,reason}；旧give不再被结算接受，无原子端口拒绝。详细返回{ok,added,overflow,reason}副本，成功才16秒冷却；commit_salvage旧caller仍只得实际added。NPC反馈消费详情，不复制奖励策略。 |
+| SeaProps.receive_all / collect_crate / collect_fish / is_busy | receive_all接整笔Dictionary→bool，正式接Inventory.add_all，拒绝留目标/冷却/随机流；collection busy覆盖入账与目标/补货提交、通知。单资源legacy give仅完整给物语义仍兼容，复合奖励绝不逐项预检拼装。 |
+| Main._sync_restored_consumers | 主动推唯一clock/weather快照给Birds/GullFlock、DaylightRig、WeatherView和日历，不重发clock/weather事件；既有_after_restore的daily/fishery观察仍按owner水位线，不是新结算副本。 |
+| Main._close_owned_modals / SleepCycle.prepare | 先close/cancel商店/职业/NPC及其他owned modal、失效旧按钮，再hide Canvas；醒来恢复基础可见性不复活旧会话，日期/圆幕仍归原SleepCycle/WorldClock。 |
+| RoomService.bedside_candidates / bedside_path / route_query | 按床局部四边、OBB/实际胶囊/房间scale筛净空与到门路线；Controller注入真实GroundSpace并转换空间，逐段复核、必要时局部网格绕行。新布置无候选拒绝，旧档不改床，醒来前厅fallback及提示；room v1不变。 |
+| RoomBed.approach_path(start,goal) / ApproachAction | 可选公开路线为世界坐标、含真实起终点；RoomController从同一bedside_path注入。保留start_walk支撑/模式准备，正式approaching使用该路线，不被普通path_between覆盖；无可选端口的目标沿旧逻辑。 |
+| 菜园NpcStations / World站位provider | 仅局部高度与实际WalkGardenDeck代表层对齐，保持用户根、五Marker、SUPPORT_TOLERANCE与模型；不新增跨海陆路、玩家上楼或恢复zone3。 |
+
+存储事务仅支持单进程单写者、同文件系统rename，无多进程锁/断电保证；flush/读回不等于目录fsync。5项B2专项PASS/exit0，集成19入口仍18PASS+旧保护断言1FAIL/exit1；新保护断言补跑、memento修订后跨进程、真实视觉和最终契约结果待父最终追加，不能借早批hash、旧图或历史531/532、533/534签当前。
+
+## 2026-11-14 B3 查询、建造与验证端口承接
+
+| 所有者 / 端口 | 现行交接与限制 |
+|---|---|
+| Zones / ItemDB / GoalService 查询 | `get_zone`、`landing`、`landings_of`、`get_item`、`goal_info`在公开边界返回递归副本；`Zones.bind_scene`仍是内部场景绑定唯一写入端，Goal成本副本不改变Facility/Ship/Construction权威价格。 |
+| BuildingCatalog / AssemblyRules | AssemblyRules拥有楼梯吸附纯规则；Catalog旧`snap_stairs`三参入口只做兼容转发，显式加载规则，不依赖静态反向Callable注册；不复制第二份配方真值。 |
+| BuildingService / Catalog content guard | begin/move/remove/validate_snapshot在布局/支付/退款提交前检查配方内容漂移；预览/施工tick用逐字段检查，完整JSON签名限于离散校验，不承诺任意外部回调故障自动回滚。 |
+| Verification runner / profile fixtures | 每项检查从完整project配置独立派生；工坊/植物检查删除Autoload不影响后续游戏检查。management默认minimal与`--full-world`按现行Scope分别断言，不恢复退役区块。 |
+| Placement checker | Transform3D严格12个有限浮点，支持科学计数法/显式正号/`.25`，按序列化basis列测缩放；位置真值仍来自用户main.tscn与摆位台账。 |
+
+B3本批只确认上述接口边界与治理检查；全局资产登记、产品Scope裁决、完整位置闭包、视觉/设备/发行/长期边界不在本节签署范围。
