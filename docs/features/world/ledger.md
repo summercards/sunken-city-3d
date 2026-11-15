@@ -17,7 +17,9 @@
     "godot/src/navigation/actor_collision_body.gd",
     "godot/scenes/zones",
     "godot/scenes/world",
-    "godot/assets/data/zones.json"
+    "godot/assets/data/zones.json",
+    "godot/addons/scene_assembly",
+    "godot/tests/test_scene_assembly_editor.gd"
   ],
   "verification": [
     "water-building-002",
@@ -49,7 +51,8 @@
     "visual-fishery-environment",
     "seabed-scene",
     "visual-sunken-seabed",
-    "sunken-city"
+    "sunken-city",
+    "editor-scene-assembly"
   ]
 }
 ```
@@ -419,3 +422,28 @@ G07由RoomService拥有床布局/四边OBB净空与安全门路线，World/Groun
 ## 2026-11-14 B3 查询与摆位治理承接
 
 `Zones.get_zone/landing/landings_of`公开查询现返回递归副本，`bind_scene`仍是内部场景绑定唯一写入端；摆位检查器统一支持有限科学计数法、显式正号、`.25`及严格12数Transform3D，并按basis列计算非均匀缩放告警。当前`b3-query-copy`、`management`默认/minimal与`--full-world`、摆位检查及架构检查均exit0；仅登记查询/解析治理，不改用户main根Transform、位置台账或资产源。R15更完整Interior/闭包和全局资产门禁仍待后续，登记头partial保持。
+
+## 2026-11-15 编辑器场景装配交付
+
+本轮装配闭环归 SEA-WORLD，登记头继续 partial，不新增 FeatureID。两工坊配方/版本所有权不变；本次收尾仅文档、定点运行清单、记忆与交付预览，不再改生产代码。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORLD-R33 | implemented；已保存候选真实缩略图库、建筑/静态树/动态树条目、世界 Y 平面拖放到当前 Node3D 场景；旋转缩放父节点转换正确；空树库只提示保存。 | editor-scene-assembly 70/0；建筑与动态树通过实际 GUI 输入链，静态树和同源第二栋为直接 insert_candidate 调用。非表面吸附，不自动灌样例。 |
+| SEA-WORLD-R34 | implemented；无脚本 Placement + 外链 Asset；选择路由与显式原工坊按钮、原生 gizmo、插入/换版 undo redo、隔离场景保存后真实 Editor 重开四实例。 | owner、metadata、外链一致；截图可见原生 gizmo，但未拖测 gizmo 轴。测试直接赋 transform 核对保持，不称人工移动旋转缩放验收。 |
+| SEA-WORLD-R35 | implemented；成功打开 token 绑定、脏确认取消/坏路径/保存失败保护、另选不改绑定、只换当前目标 Asset 且保当前 transform。 | 同源另一栋及树兄弟不变、旧 revision hash 不变；动态目标不被静态保存降级；目标删除、外部换版、场景重载后拒绝陈旧目标，保留已保存新版本并反馈未更新。 |
+| SEA-WORLD-R36 | implemented（作者装配链）；无 Main/Autoload 隔离 editor 验收，不签正式游戏接入。 | 未做 WalkArea、航行/水面阻挡接线、潜水适配、正式资产登记；不新增 AssetID。四分屏只首视口实测，人工全流程/其余视口/gizmo 轴拖动未测。 |
+
+### 最终原始证据与使用入口
+
+- 外层报告：`/Users/zyq/work/sea-work/verification/20261115-142031-scene-assembly-delivery-74cfc2/report.json`。editor-scene-assembly **70/0**、editor-plant **2271/0**、editor-workshop-upgrade **991/0**，三项均 exit0、passed=true、unexpected_errors=[]；asset-import exit0、unexpected_errors=[]。这是已完成批次，本次文档收尾未重新运行 Godot。
+- 内层报告：同批 `project/outputs/scene_assembly_report.json`，checks=70、failures=[]、enginehint=true；真实链为 `Input.parse_input_event + warp_mouse → ItemList._get_drag_data → Control._can_drop_data/_drop_data → EditorUndoRedoManager`。自动事件驱动不是人工鼠标验收；工坊按钮/保存/历史部分由测试直接调用或 emit 信号。
+- 两张最终实拍：同批 `project/outputs/scene_assembly_assembled.png`、`scene_assembly_reopened.png`；本次已目检候选库、楼房/树与重开场景，未见错误弹窗。测试摆放有模型重叠，仅证明隔离装配状态，不签美术场景排布。
+- [浅色使用说明与证据](../../../outputs/scene_assembly_review_20261115/index.html) 同目录保留两张原图、outer/inner 及两工坊 inner JSON。操作为先保存候选→打开 Node3D 场景→刷新库→按世界 Y 平面拖入→原生 gizmo 摆放→选中并点原工坊编辑→保存新 revision→手动保存场景。动态树须点保存动态风版本。
+- 生产 `godot/scenes/main.tscn` SHA256 前后均为 `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`；Main 不自动保存，既有摆位未改。源码范围13文件：scene_assembly六件、两工坊各plugin/editor_screen四件、project.godot、装配测试、统一runner；字节与归属审计见交付目录 `closeout_audit.json`。运行清单只登记这13件，不重签其他漂移或分配AssetID；全库检查结果另行追加，不以专项通过代签。
+
+### 本次收尾的全库实测结果
+
+`python3 scripts/check_feature_contracts.py --sync` 实际 **exit1 / 488 issues**；无参数正式检查 **exit1 / 489 issues**，均统计 **46 features / 1073 source assets / 1560 runtime resource hashes**。两次共同有421项runtime hash drift、14项source hash drift、51条断链、SEA-ASSET条款账本集合问题及`plant_authoring/store.gd`候选根`scenes/workshop_plants`缺资源扫描问题；正式检查另有derived feature index stale。因全库错误，sync未写派生索引；不创建空候选目录、不修改其他hash或条款凑绿。SEA-WORLD、SEA-WORKSHOP、SEA-PLANT-EDITOR均无条款/入口错误，不能据此称全库通过。
+
+完整exit与每条issue：`outputs/scene_assembly_review_20261115/contracts_results.json`；原始日志同目录`contracts_sync.log`、`contracts_check.log`。定点13项SHA/bytes一致、其他运行记录及顶层元数据不变；两工坊既有code_paths已覆盖各自桥接文件，未重复登记。本轮HTML本地链接/图片存在性与`git diff --check`通过；未运行浏览器布局验收。未提交、未push、未调用present_files。

@@ -61,6 +61,10 @@ func _show_workshop() -> void:
 	EditorInterface.set_main_screen_editor(_get_plugin_name())
 	_make_visible(true)
 
+func request_document(path: String, token: int) -> void:
+	_show_workshop()
+	screen.request_document(path, token)
+
 func _save_external_data() -> void:
 	_save_recovery()
 

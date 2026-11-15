@@ -2,6 +2,28 @@
 extends Control
 ## 编辑器主屏只拥有 UI；会话、版本落盘和组件替换各走独立端口。
 
+signal document_opened(path: String, token: int)
+signal document_request_finished(token: int, result: Dictionary)
+signal revision_saved(token: int, result: Dictionary)
+
+var _document_token: int = 0
+var _request_token: int = 0
+
+func request_document(path: String, token: int) -> void:
+	if _confirm.visible:
+		document_request_finished.emit(token, {"ok": false, "reason": "请先处理当前确认窗口"})
+		return
+	_request_token = token
+	_guard_action(_open_bound_document.bind(path, token), "打开绑定建筑将丢弃未保存修改，是否继续？")
+
+func _open_bound_document(path: String, token: int) -> void:
+	_request_token = 0
+	var result: Dictionary = _open_recipe_now(path)
+	if result.get("ok", false):
+		_document_token = token
+		document_opened.emit(path, token)
+	document_request_finished.emit(token, result)
+
 const Session = preload("res://src/workshop/session.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
@@ -328,6 +350,7 @@ func save_building() -> Dictionary:
 	if not bool(result.get("ok", false)):
 		return _report_result(result, "保存失败，草稿仍保留")
 	_last_export = result.duplicate(true)
+	revision_saved.emit(_document_token, result.duplicate(true))
 	var saved_recipe: Dictionary = result.get("recipe", {}) as Dictionary
 	var synced: Dictionary = session.sync_exported_revision(int(saved_recipe.get("revision", snapshot().get("revision", 1))))
 	if not bool(synced.get("ok", false)):
@@ -359,6 +382,8 @@ func _open_recipe_now(path: String) -> Dictionary:
 	var accepted: Dictionary = session.accept_loaded(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})))
 	if not bool(accepted.get("ok", false)):
 		return _report_result(accepted, "配方被拒绝")
+	_document_token = 0
+	document_opened.emit(path, 0)
 	_reset_window_preview()
 	_slot_cache.clear()
 	_selected_id = ""
@@ -1849,6 +1874,8 @@ func _new_document() -> void:
 		return
 	var result: Dictionary = session.new_document("building_" + str(int(Time.get_unix_time_from_system())), Recipe.authoring_defaults())
 	if bool(result.get("ok", false)):
+		_document_token = 0
+		document_opened.emit("", 0)
 		_last_export.clear()
 		_slot_cache.clear()
 		_selected_id = ""
@@ -1952,6 +1979,8 @@ func _load_sample(path: String, copy_as_new: bool) -> void:
 	if not bool(accepted.get("ok", false)):
 		_report_result(accepted, "样例校验失败")
 		return
+	_document_token = 0
+	document_opened.emit(path, 0)
 	_slot_cache.clear()
 	_selected_id = ""
 	_last_export.clear()
@@ -2969,6 +2998,9 @@ func _update_state() -> void:
 	buttons["open_scene"].disabled = str(_last_export.get("scene_path", "")).is_empty()
 
 func _cancel_discard() -> void:
+	if _request_token != 0:
+		document_request_finished.emit(_request_token, {"ok": false, "reason": "已取消"})
+		_request_token = 0
 	_confirm_action = Callable()
 	_confirm.hide()
 	if _random_house_confirming:

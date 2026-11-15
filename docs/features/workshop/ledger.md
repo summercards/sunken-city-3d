@@ -57,7 +57,8 @@
     "workshop-architecture",
     "workshop-union",
     "editor-workshop-upgrade",
-    "workshop-random"
+    "workshop-random",
+    "editor-scene-assembly"
   ]
 }
 ```
@@ -450,3 +451,13 @@ shell最终 `20261112-161332-weathering-shell-final-606baa`：9872项/0失败、
 同轮当前核心组合`20261114-234231-workshop-tree-final-kernels-2636ae`中workshop-random17831/0、workshop-damage1576/0均exit0；该组合宿主guard因旧recovery测试口径失败，不宣称整个组合绿。
 
 最终当前组合`20261115-012739-workshop-tree-kernel-delivery-d20b88/report.json`五项全部exit0：植物233/0、集成540/0、宿主安全155/0、随机17831/0、损毁1576/0。树工坊最终editor1174/0、叶保真性能837/0，独立消费宿主不改房屋。29项明确工坊/测试/runner源码定点登记SHA一致，不发新AssetID。全库最终sync/check仍exit1、535/536 issues，无本功能条款错误，不以专项通过代签全库；日志`outputs/workshop_tree_contracts_final_{sync,check}.log`。开发记录和交付预览见`docs/development/2026-11-14_random_house_independent_tree_workshop.md`、`outputs/house_tree_review_20261115/index.html`。
+
+## 2026-11-15 场景装配的楼房薄桥接
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-WORKSHOP-R88 | implemented；plugin/screen 的 request_document、document_opened、document_request_finished、revision_saved 连接已有打开/确认/保存链；成功打开后 token 绑定，普通新建/打开/样例清旧绑定，取消失败不提前改绑。 | 装配70/0覆盖真实建筑新revision、当前transform保持、同源兄弟不改、旧版不覆盖、undo redo与失败保护；楼房editor回归991/0。场景事务属于SEA-WORLD，工坊自身不保存Main、不做正式登记。 |
+
+最终报告：`/Users/zyq/work/sea-work/verification/20261115-142031-scene-assembly-delivery-74cfc2/report.json`，editor-scene-assembly70/0、editor-plant2271/0、editor-workshop-upgrade991/0均exit0、unexpected_errors=[]，import0。真实GUI自动注入建筑/动态树拖放，非人工；原生gizmo轴未拖测，四分屏只首视口，测试使用无Main隔离场景。登记头code_paths已含本工坊plugin.gd/editor_screen.gd，保留不重复；verification追加editor-scene-assembly。Main hash保持`f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`。不新增AssetID，不签WalkArea/航行/潜水或正式Main接入；全库检查另记。[装配账本](../world/ledger.md) · [使用说明与原始证据](../../../outputs/scene_assembly_review_20261115/index.html)。
+
+本次收尾全库实测：sync **488 issues / exit1**，正式check **489 issues / exit1**；46功能、1073源资产、1560运行资源。本功能无条款/verification错误，其他421运行漂移、14源漂移、51断链及资产条款/候选根/派生索引问题保持；非全库通过。完整结果与日志为`outputs/scene_assembly_review_20261115/contracts_results.json`及`contracts_{sync,check}.log`，本轮13目标定点登记之外不刷新。

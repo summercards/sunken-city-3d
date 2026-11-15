@@ -274,3 +274,11 @@ R23–R27 的编辑器门窗范围明确为全局、当前楼层、当前立面�
 | SEA-WORKSHOP-R85 | 破旧页新增structural_damage，支持ellipse/jagged/arch/breach四轮廓及front/back/left/right四立面、米制尺寸/高度、横向位置、粗糙度和独立seed；默认关闭。同步真union后真实差集，洞口有厚度封边与PaletteUV；允许breach造成多个闭合实体，但拒绝开放边/非流形/退化。当前只做墙/柱/腰线范围损毁，屋顶与楼板受保护，不声称支持其破坏。 |
 | SEA-WORKSHOP-R86 | 损毁后碰撞从同一真实结构生成，交叠窗框/玻璃/门/窗沿整套移除，不留悬浮附件；关闭损毁还原。root damage_openings公开洞口中心/法向/轴/尺寸/轮廓/坐标域，保存重载保持，用于独立树工坊只读结合；不自动实例化树或修改Main。非法损毁保留成功模型及输入，可撤销与保存。 |
 | SEA-WORKSHOP-R87 | workshop-random覆盖20固定seed保色和四平面；workshop-damage覆盖四形状×四立面、实网格/射线/碰撞/封边UV及保存；editor-workshop-upgrade覆盖实际控件/原子失败/重载与真实四轮廓截图。保留既有红框布局和16/18字号，不用逻辑断言替代图像或用户艺术终验。 |
+
+## 2026-11-15 场景装配薄桥接
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R88 | plugin.request_document(path, token) 仅切到原工坊并委托 screen 的既有打开/脏确认流程；成功后 document_opened(path, token)，取消或失败由 document_request_finished(token, result) 返回，不提前建立装配绑定。普通打开、新建和样例载入成功以 token=0 解除旧绑定。成功保存新 revision 发 revision_saved(token, result)，工坊不自行修改场景树或保存 Main；由 SEA-WORLD 校验绑定并仅替换当前目标 Asset，保留当前 Placement transform、旧版和同源兄弟实例。历史 modular 不开放回编。 |
+
+本条是 R13“不自动修改当前场景”的显式用户回编扩展，不转移配方/Store 所有权，也不把两工坊合并。场景装配规则见 [SEA-WORLD](../world/spec.md)，正式登记仍归 SEA-ASSET；动态树、WalkArea、航行及潜水接线不由楼房工坊代做。

@@ -114,3 +114,11 @@ plant-canopy正在主线程串行运行，结果仍pending，不追加成功数�
 - **性能测量**：真实SubViewport经TextureRect显示在前台置顶宿主，各模式承担同等展示成本；Store.save_animated实际磁盘动态旁车，保留逐实例资源与风处理。无fixed-fps、无force_draw的自然draw回调间隔是wall-clock采样口径，**不是GPU fence完成时间或屏幕呈现FPS**；合批对照中的force_draw只用于draw calls比较，不混入自然采样。每组至少2.2秒预热、2.2秒采样/90帧，两轮反序；停绘/超时必须判无效，失败轮不得混样。
 
 r9完整专项23253/0，22轮无丢draw/超时且全部focused；editor与必要内核也已完成，具体报告、预算及回归见账本。原“预算仅推算/串行待验”当前状态由本次真实证据更新，历史不删。默认混合三树种实测均≤8 surfaces、≤12000 triangles；不承诺所有负载更快，单树p95回归及16棵cards/pure尾部回归必须保留。GPU计时无效未测，geometry64棵未测；艺术终审、Main/潜水接入、Web/mobile、LOD及全库门禁仍未签。
+
+## 2026-11-15 场景装配薄桥接与静动态保持
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R30 | plugin.request_document(path, token) 仅显示原树木工坊并走 screen 既有打开/脏确认；成功后 document_opened 建立 token 绑定，取消/失败由 document_request_finished 返回而不提前改绑；普通打开/新建成功发 token=0 解除旧绑定。save_recipe/save_animated 成功后发 revision_saved，由 SEA-WORLD 单独拥有目标 Placement 的换版事务，不让树 Session/Store 写场景摆位或自动保存 Main。静态实例引用 plant.tscn，动态实例引用 plant_wind.tscn；动态目标遇仅静态保存时保留新版本并提示实例未更新，不能静默降为静态，须显式保存动态风版本。 |
+
+R01/R06 的“不修改场景/不自动插 Main”继续作为工坊自身边界；本次仅增加用户显式装配后的事件桥接，场景写入由 [SEA-WORLD](../world/spec.md) 管理。树库为空提示先保存候选，不自动灌入样例；Placement 无脚本不等于动态 Asset 无 wind_runtime，风所有权与旧宿主只读规则保持。不新增正式 AssetID、WalkArea、航行或潜水接入。

@@ -36,7 +36,7 @@
     "godot/src/plant_authoring/leaf_volume.gdshader",
     "godot/tests/test_plant_canopy.gd"
   ],
-  "verification": ["plant-authoring", "plant-integration", "plant-performance", "plant-canopy", "host-scene-guard", "editor-plant", "editor-workshop-upgrade"]
+  "verification": ["plant-authoring", "plant-integration", "plant-performance", "plant-canopy", "host-scene-guard", "editor-plant", "editor-workshop-upgrade", "editor-scene-assembly"]
 }
 ```
 
@@ -241,3 +241,15 @@ Godot4.7.2、Apple M6、Metal Forward+、1280×800、4×MSAA、无阴影、VSync
 - 最新全库sync/check分别 **535/536 issues、exit1**（46功能、1073源资产、1551运行资源），日志`/Users/zyq/work/sea-work/plant_canopy_20261115/final_contracts_{sync,check}.log`。未掩盖其他资产/哈希/断链与store候选保存根静态扫描问题，不签全工程通过。
 - 最终交付HTML、三树拼图与ZIP已组装：`outputs/plant_canopy_review_20261115/index.html`、同目录`contact_sheet.png`、`outputs/plant_canopy_review_20261115.zip`（页内另含同名ZIP）。当前页面与数据均取r9，明确r4视觉辅助，含209张PNG及5份JSON；链接与ZIP完整性已检查，浏览器交互未自动验收。
 - `git diff --check`退出0，Main及project.godot无本轮diff；未提交、未推送，不影响并行潜水改动。
+
+## 2026-11-15 场景装配的树木薄桥接
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-PLANT-EDITOR-R30 | implemented；request_document与三信号复用原打开/脏确认/保存流程，成功打开才token绑定，取消保原目标；静态与动态保存分别发新revision事件，由SEA-WORLD换版。 | 动态树通过GUI拖放；静态保存不会把动态目标降级，显式save_animated只替换目标动态旁车，静态兄弟/其他transform不变。外部换版、目标删除、场景重载拒绝陈旧绑定，已保存版本保留。 |
+
+最终报告：`/Users/zyq/work/sea-work/verification/20261115-142031-scene-assembly-delivery-74cfc2/report.json`，装配70/0、树editor2271/0、楼房editor991/0均exit0、passed=true、unexpected_errors=[]，import0。此次2271/0是同批实际回归，不借用r9旧批次；本次文档收尾未重跑Godot。真实GUI由Input.parse_input_event+warp_mouse自动注入，非人工；静态树插入为直接方法，gizmo轴未拖测，四分屏只首视口，无Main隔离场景。
+
+登记头code_paths已有本工坊plugin.gd/editor_screen.gd，不重复追加；verification登记editor-scene-assembly。空树库不灌样例，先保存静态/动态候选再刷新；Placement无脚本，动态Asset保wind_runtime。未做WalkArea/航行/潜水/正式资产登记，Main hash保持`f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`，不自动保存或更改已有摆位。上节“project.godot无diff”仅为r9历史；此次实现已追加scene_assembly插件启用，本轮文档收尾不再改该文件。[装配账本](../world/ledger.md) · [浅色使用说明与证据](../../../outputs/scene_assembly_review_20261115/index.html)。
+
+本次收尾全库实测：sync **488 issues / exit1**，正式check **489 issues / exit1**；46功能、1073源资产、1560运行资源。本功能无条款/verification错误；store候选根缺资源扫描仍保留，不创建空目录消错。其他421运行漂移、14源漂移、51断链及资产条款/派生索引问题不批量修；完整结果与日志为`outputs/scene_assembly_review_20261115/contracts_results.json`及`contracts_{sync,check}.log`。13目标外运行记录及元数据均未变，不发AssetID。

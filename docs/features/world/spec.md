@@ -213,3 +213,16 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 | SEA-WORLD-R32 | 霓虹花园的**可活动区改为左楼屋顶**（`WalkLeftRoof`，世界 y=15.20），并在其上设泊位：站立点在屋顶面、`BoatPark` 停在实际水面 y=1.12，两者垂直差 14.08 m。原街口 `WalkStreetLanding` 的泊位撤销——其铺地在世界 −14.45（水下 15.6 m），泊位本来就不可用，保留会与屋顶泊位同名冲突。屋顶站点登记在独立 `RoofNpcStations`（`walk_path` 指向 `WalkAreas/WalkLeftRoof`），不得复用花园桥的 `NpcStations`：两者是不同派生面，锚点支撑校验会失败。船老大 `npc_luo_yan` 由屋顶牧场 `rooftop_npc_stations.tscn` 迁至此，原处不再保留同名站点。三处锚点须 `support_validated=true`。 |
 
 实现、实测与未验边界见[本轮记录](../../development/2026-11-08_salvage_rotate_and_neon_roof.md)。
+
+## 2026-11-15 编辑器候选场景装配与单实例回编
+
+场景装配属于现有 SEA-WORLD，不新建重复 FeatureID。`addons/scene_assembly` 只拥有编辑器候选库、Placement 摆放与实例换版；建筑/树配方和 revision 仍分别归两工坊，正式资产登记仍归 SEA-ASSET。以下为编辑器制作链，不等于正式世界玩法接入。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORLD-R33 | 侧栏“场景装配”枚举已保存建筑及树静态/动态候选，显示真实静态缩略图、revision、用途与未正式注册状态；拖入当前根为 Node3D 的编辑场景。选中的本地 Node3D 可作父节点，否则挂场景根；鼠标射线与用户指定世界 Y 水平面求交，再转父局部坐标，不是表面吸附。树库为空时提示先到树木工坊保存，不自动灌样例或恢复旧场景。 |
+| SEA-WORLD-R34 | 插入无脚本 Node3D Placement，子节点 Asset 保持 PackedScene 外链、owner 与 sea_placement 元数据。摆放沿用 Godot 原生 gizmo；选择模型路由到 Placement，不因选择自动切工坊，仅显式“编辑选中实例（原工坊）”发起回编。旧 modular 建筑可摆放但禁回编。插入与换版纳入 EditorUndoRedoManager；场景由用户显式保存，不自动保存 Main，不改既有实例位置。 |
+| SEA-WORLD-R35 | 回编经 request_document(path, token) 与 document_opened/document_request_finished/revision_saved 薄桥接；只有成功打开才建立 token/目标实例/场景绑定，脏确认、取消或失败不提前改绑。另选节点不改变已绑定目标；工坊保存新 revision 后只替换该 Placement 的 Asset，保留保存瞬间当前 transform、同源其他实例与旧版文件，支持 undo/redo。目标删除、路径或元数据/Asset 改变、场景关闭/重载/非当前、文档身份变化或动态旁车缺失时保留新 revision，但明确反馈“实例未更新”，不得误改别的实例。 |
+| SEA-WORLD-R36 | 候选摆放不生成 WalkArea、泊位、航行/水面阻挡接线、潜水适配或正式 AssetID；原候选自身数据不代表这些职责已接入。editor-scene-assembly 经统一 runner 在无 Main/Autoload 隔离编辑器执行；真实 GUI 注入、直接方法调用、原生变换属性检查、截图与未验项分别登记，不把自动输入称为人工验收，也不以截图中 gizmo 可见声称轴拖动已测。 |
+
+本轮仅首个 3D 视口完成拖放验证；四视口接收层实现存在不等于四分屏全覆盖。gizmo 轴拖动、生产 Main 装配、WalkArea/航行/潜水/正式登记均未验或未做。细项与最终两张截图入口见[本功能账本](ledger.md)及[交付使用说明](../../../outputs/scene_assembly_review_20261115/index.html)。

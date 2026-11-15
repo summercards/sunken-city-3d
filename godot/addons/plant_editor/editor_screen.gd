@@ -1,6 +1,34 @@
 @tool
 extends VBoxContainer
 
+signal document_opened(path: String, token: int)
+signal document_request_finished(token: int, result: Dictionary)
+signal revision_saved(token: int, result: Dictionary)
+
+var _document_token: int = 0
+var _request_token: int = 0
+
+func request_document(path: String, token: int) -> void:
+	if _confirm.visible:
+		document_request_finished.emit(token, {"ok": false, "reason": "请先处理当前确认窗口"})
+		return
+	_request_token = token
+	_request(_open_bound_document.bind(path, token))
+
+func _open_bound_document(path: String, token: int) -> void:
+	_request_token = 0
+	var result: Dictionary = open_recipe(path)
+	if result.get("ok", false):
+		_document_token = token
+		document_opened.emit(path, token)
+	document_request_finished.emit(token, result)
+
+func _cancel_document_request() -> void:
+	_pending_action = Callable()
+	if _request_token != 0:
+		document_request_finished.emit(_request_token, {"ok": false, "reason": "已取消"})
+		_request_token = 0
+
 const Recipe = preload("res://src/plant_authoring/recipe.gd")
 const Session = preload("res://src/plant_authoring/session.gd")
 const Store = preload("res://src/plant_authoring/store.gd")
@@ -397,7 +425,7 @@ func _build_dialogs() -> void:
 		var action = _pending_action
 		_pending_action = Callable()
 		if action.is_valid(): action.call())
-	_confirm.canceled.connect(func(): _pending_action = Callable())
+	_confirm.canceled.connect(_cancel_document_request)
 	add_child(_confirm)
 	_info_dialog = AcceptDialog.new()
 	_info_dialog.title = "树木工坊 · 物种与状态详情"
@@ -699,6 +727,8 @@ func new_document(id: String) -> Dictionary:
 	_timer.stop()
 	var result: Dictionary = session.new_document(id)
 	if bool(result.get("ok", false)):
+		_document_token = 0
+		document_opened.emit("", 0)
 		_install_host({"host_path": ""})
 		host_binding = session.host_binding()
 		input_recipe = session.snapshot()
@@ -722,6 +752,8 @@ func open_recipe(path: String) -> Dictionary:
 		return loaded
 	var result: Dictionary = session.load_recipe(loaded.recipe)
 	if bool(result.get("ok", false)):
+		_document_token = 0
+		document_opened.emit("", 0)
 		_install_host({"host_path": ""})
 		host_binding = session.host_binding()
 		last_export = {}
@@ -746,6 +778,7 @@ func save_recipe() -> Dictionary:
 		session.mark_saved(fp)
 		_merge_drag = false
 		last_export = result.duplicate(true)
+		revision_saved.emit(_document_token, result.duplicate(true))
 		_path.text = str(result.recipe_path)
 		_set_status("已保存新版本：" + str(result.recipe_path), false)
 		refresh_files()
@@ -1129,6 +1162,7 @@ func save_animated() -> Dictionary:
 	if not bool(result.ok): return _host_failure(str(result.reason))
 	session.mark_saved(fp)
 	last_export = result.duplicate(true)
+	revision_saved.emit(_document_token, result.duplicate(true))
 	_merge_drag = false
 	_path.text = str(result.recipe_path)
 	_set_status("已导出动态独立候选（不接入 Main）：" + str(result.animated_scene_path), false)

@@ -469,7 +469,7 @@
 | <a id="sea-boot"></a>SEA-BOOT | 启动与会话装配 | 基础 | — | [文档](docs/features/boot/spec.md) | [账本](docs/features/boot/ledger.md) | 部分实现 |
 | <a id="sea-avatar"></a>SEA-AVATAR | 角色档案与外观定制 | 角色 | SEA-MOVE, SEA-SAVE, SEA-UI | [文档](docs/features/avatar/spec.md) | [账本](docs/features/avatar/ledger.md) | 已实现待完整验收 |
 | <a id="sea-onboarding"></a>SEA-ONBOARDING | 新旅程码头开场 | 生活 | SEA-AVATAR, SEA-CAMERA | [文档](docs/features/onboarding/spec.md) | [账本](docs/features/onboarding/ledger.md) | 已实现待完整验收 |
-| <a id="sea-world"></a>SEA-WORLD | 区块与世界装配 | 世界 | SEA-BOOT | [文档](docs/features/world/spec.md) | [账本](docs/features/world/ledger.md) | 部分实现 |
+| <a id="sea-world"></a>SEA-WORLD | 区块与世界装配（含编辑器候选库与单实例回编） | 世界/内容装配 | SEA-BOOT | [文档](docs/features/world/spec.md) | [账本](docs/features/world/ledger.md) | 部分实现 |
 | <a id="sea-sunroom"></a>SEA-SUNROOM | 阳光房分阶段修缮、攀爬与季节表现 | 世界/经营/3C/表现 | SEA-WORLD, SEA-INVENTORY, SEA-MOVE, SEA-SAVE, SEA-AMBIENT | [文档](docs/features/sunroom/spec.md) | [账本](docs/features/sunroom/ledger.md) | 部分实现 |
 | <a id="sea-move"></a>SEA-MOVE | 角色移动与上下船 | 3C | SEA-WORLD | [文档](docs/features/move/spec.md) | [账本](docs/features/move/ledger.md) | 部分实现 |
 | <a id="sea-nav"></a>SEA-NAV | 航行与靠泊 | 3C | SEA-WORLD, SEA-MOVE | [文档](docs/features/nav/spec.md) | [账本](docs/features/nav/ledger.md) | 部分实现 |
@@ -997,3 +997,11 @@ SEA-PLANT-EDITOR-R25–R29当前implemented，最终真实证据更新前述待�
 性能仅限本机M6/Metal Forward+、1280×800、4×MSAA、无阴影、VSync off、无fixed-fps，真实动态磁盘旁车及前台置顶SubViewport/TextureRect宿主、各模式同成本。自然draw回调间隔不是GPU fence或屏幕FPS：16棵桦树混合p50/p95为2.561/6.172ms，对照geometry5.720/6.159ms，draw112/464；64棵混合3.935/6.182ms、draw448。单树混合p95回归，16棵混合尾部基本持平，cards/pure尾部也有回归，不签所有负载更快。GPU有效计时、geometry64棵未测；艺术终审、Main/潜水接入、Web/mobile、LOD及全库门禁仍未签。
 
 交付路径`outputs/plant_canopy_review_20261115/index.html`、目录内`contact_sheet.png`及同名ZIP当前由主线程生成，仅登记路径、不宣称完成。全库最终sync/check仍交主线程，547/548仅历史结果；本次不手改全局摘要，不改代码/清单/哈希/记忆，保留并行潜水改动。
+
+## 2026-11-15 编辑器场景装配导航与职责
+
+场景装配纳入现有 **SEA-WORLD-R33–R36**，不新增重复feature。入口为Godot侧栏“场景装配”：已保存建筑/树静动态候选的真实预览库，拖入当前Node3D编辑场景，按世界Y水平面求交（非表面吸附），无脚本Placement承载外链Asset，沿用原生gizmo与编辑器undo/redo。只选中不会跳工坊；显式按钮经token成功打开绑定后，原工坊保存新revision仅更新绑定实例Asset并保保存瞬间当前transform，旧版和同源其他实例保持。Main不自动保存，用户已有摆位为唯一真值。
+
+跨功能交接：SEA-WORLD拥有装配与目标绑定；[SEA-WORKSHOP-R88](docs/features/workshop/spec.md)及[SEA-PLANT-EDITOR-R30](docs/features/plant_editor/spec.md)只增加打开/保存事件薄桥接，原Session/Store继续拥有独立配方与版本，不造成两工坊或运行世界的相互状态写入。树库为空提示先保存，不自动灌样例。候选用途不是正式登记：本轮未做WalkArea、航行、潜水适配或正式AssetID登记。
+
+最终批次`/Users/zyq/work/sea-work/verification/20261115-142031-scene-assembly-delivery-74cfc2/report.json`：装配70/0、树工坊2271/0、楼房工坊991/0，全部exit0、unexpected_errors=[]、import0。建筑与动态树为真实编辑器GUI自动注入（Input.parse_input_event+warp_mouse），不是人工验收；gizmo轴未拖测、四分屏只首视口、隔离场景非生产Main。Main SHA256仍为`f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`。详细契约与证据见[world文档](docs/features/world/spec.md)、[world账本](docs/features/world/ledger.md)及[使用说明预览](outputs/scene_assembly_review_20261115/index.html)。全库检查另列真实结果，不以专项通过宣称全工程绿。

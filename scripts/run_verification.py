@@ -180,6 +180,7 @@ TESTS.update({
     'host-scene-guard': ('tests/test_host_scene_guard.gd', r'\[host-scene-guard\] \d+ checks, 0 failures'),
     'plant-authoring': ('tests/test_plant_authoring.gd', r'\[plant-authoring\] \d+ checks, 0 failures'),
     'editor-plant': ('', r'\[plant-editor\] \d+ checks, 0 failures'),
+    'editor-scene-assembly': ('', r'\[scene-assembly\] \d+ checks, 0 failures'),
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
     'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
     'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
@@ -479,10 +480,12 @@ def derive_check_config(full_config, name):
     config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else config_source
     if name in ['workshop-union', 'workshop-rules', 'workshop-shell', 'workshop-architecture', 'workshop-deep']:
         config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
-    if name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant']:
+    if name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant', 'editor-scene-assembly']:
         config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
         config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
-        editor_plugins = 'PackedStringArray("res://addons/building_workshop/plugin.cfg", "res://addons/plant_editor/plugin.cfg")' if name == 'editor-plant' else 'PackedStringArray("res://addons/building_workshop/plugin.cfg")'
+        editor_plugins = 'PackedStringArray("res://addons/building_workshop/plugin.cfg", "res://addons/plant_editor/plugin.cfg")' if name in ['editor-plant', 'editor-scene-assembly'] else 'PackedStringArray("res://addons/building_workshop/plugin.cfg")'
+        if name == 'editor-scene-assembly':
+            editor_plugins = editor_plugins[:-1] + ', "res://addons/scene_assembly/plugin.cfg")'
         config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', lambda m: m.group(1) + 'enabled=' + editor_plugins, config)
     return config
 
@@ -574,7 +577,7 @@ def mount_readonly(target, source):
     shutil.copytree(source, target)
 
 
-def isolated_editor_workshop_project(run_dir, include_plants=False):
+def isolated_editor_workshop_project(run_dir, include_plants=False, include_assembly=False):
     """Minimal real editor project: no game scripts, Autoload, mutable asset junctions or Main."""
     project = run_dir / 'project'
     project.mkdir()
@@ -597,6 +600,9 @@ def isolated_editor_workshop_project(run_dir, include_plants=False):
         for rel in ['assets/materials/vegetation', 'assets/textures/vegetation', 'shaders/vegetation']:
             shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'tests').mkdir()
+    if include_assembly:
+        shutil.copytree(GODOT_ROOT / 'addons/scene_assembly', project / 'addons/scene_assembly')
+        shutil.copy2(GODOT_ROOT / 'tests/test_scene_assembly_editor.gd', project / 'tests/test_scene_assembly_editor.gd')
     for name in (['test_workshop_random.gd', 'test_workshop_damage.gd', 'test_plant_authoring.gd', 'test_plant_performance.gd', 'test_plant_canopy.gd', 'test_plant_integration.gd', 'test_host_scene_guard.gd'] if include_plants else ['test_workshop_random.gd', 'test_workshop_damage.gd']):
         if (GODOT_ROOT / 'tests' / name).exists():
             shutil.copy2(GODOT_ROOT / 'tests' / name, project / 'tests' / name)
@@ -776,8 +782,8 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'workshop-damage', 'host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant'}
-    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant'])) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'workshop-damage', 'host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly'}
+    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly']), include_assembly='editor-scene-assembly' in checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
     if canopy_check:
         preparation_dir = project / 'outputs/plant_canopy_sources'
         preparation_dir.mkdir(parents=True, exist_ok=True)
@@ -836,7 +842,12 @@ def main():
             return 1
     for name in checks:
         config = derive_check_config(full_config, name)
-        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant']
+        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant', 'editor-scene-assembly']
+        if is_editor_workshop:
+            # 编辑器主屏/打开场景不属于user://；串行专项不能继承上一项的UI状态。
+            editor_state = project / '.godot/editor'
+            if editor_state.is_dir():
+                shutil.move(str(editor_state), str(run_dir / (name + '-prior-editor-state')))
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
         group = ('npc-save-restart' if name in ['npc-save-seed','npc-save-restart'] else
                  'avatar-restart' if name in ['avatar','avatar-restart'] else
@@ -862,7 +873,7 @@ def main():
             if name not in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']:
                 cmd += ['--fixed-fps', '60']
         if is_editor_workshop:
-            editor_flag = '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
+            editor_flag = '--scene-assembly-verify' if name == 'editor-scene-assembly' else '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
             cmd += ['--editor', '--', editor_flag]
         elif script:
             cmd += ['--script', 'res://' + script]
