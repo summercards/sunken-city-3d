@@ -545,8 +545,8 @@ func entry_motion_check(id: String) -> void:
 					"home：入水气泡只发一簇、池有界且不重置时间")
 				prior_bubbles = int(row.bubbles)
 				prior_bubble_time = float(row.bubble_time)
-			check(float(row.fov) <= prior_fov + 0.001 and float(row.fov) >= 71.99,
-				"home：FOV连续向72收敛")
+			check(float(row.fov) <= prior_fov + 0.001 and float(row.fov) >= 73.99,
+				"home：FOV连续向74收敛")
 			prior_fov = float(row.fov)
 			bubble_seen = bubble_seen or int(row.bubbles) > 0
 			if not prior_camera.is_empty():
@@ -563,8 +563,8 @@ func entry_motion_check(id: String) -> void:
 		var final_expected := 1.0 - pow(1.0 - final_normalized, 3.0)
 		var actual := clampf((target_depth - HOME_ENTRY_START_DEPTH) / (HOME_ENTRY_TARGET_DEPTH - HOME_ENTRY_START_DEPTH), 0.0, 1.0)
 		check(absf(actual - final_expected) < 0.10, "home：下沉曲线符合 cubic ease-out")
-		check(float(final.fov) < float(samples[0].fov) - 1.0 and float(final.fov) >= 71.99
-			and float(final.camera[1]) < water, "home：终点 FOV 向72收敛且镜头不过水面")
+		check(float(final.fov) < float(samples[0].fov) - 1.0 and float(final.fov) >= 73.99
+			and float(final.camera[1]) < water, "home：终点 FOV 向74收敛且镜头不过水面")
 		check(absf(final_t - HOME_ENTRY_TIME) <= 2.0 / float(Engine.physics_ticks_per_second),
 			"home：实际物理下沉时长1.65s，误差最多两物理帧")
 	else:
@@ -622,6 +622,10 @@ func round_trip(id: String, production := false) -> void:
 		return
 	check(session.runtime == runtime and not main.is_inside_tree() and session.trace.commit_return.is_empty(),
 		id + "：返回收幕尚未 commit_return")
+	var exit_controller = runtime.dive_controller
+	check(exit_controller.machine.current == "exit" and runtime.visible
+		and exit_controller.character.visible,
+		id + "：真实黑帧前保持exit水下画面与角色可见，不提前surface清理")
 	if not await wait_until(func(): return curtain.phase == "opening" and not session.active, "返回开幕"):
 		return
 	draw_evidence(session.trace.commit_return, id + " commit_return")

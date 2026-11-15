@@ -194,3 +194,31 @@ S15/S16：Registry识别apply显式失败，回滚后不发restored；业务busy
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 005436生产5项全PASS/exit0；相关transactions103/0、reset98/0，005741 save-boundaries168/0、save-reset195/0、framework52/0均exit0；010438修订save-protection实际保护/倒计时冻结行为门禁PASS/exit0，旧失败保留。
 - 当前字节012203重置矩阵unit0、五seed引擎-9/runner1为预期SIGKILL、五recover0、外层0，详见`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`；仅签同机进程中断。契约sync532/check533 issues均exit1，未写派生/刷hash；设备断电、磁盘满、并发写未签，登记头不变。
+
+## 2026-11-14 潜水远征、照片与采集存读（planned）
+
+承接 [SEA-SAVE-R20/R21](spec.md#2026-11-14-潜水远征照片与采集存读设计规划planned)、[SEA-DIVE-R52–R75](../dive/underwater_experience_plan.md#4-r52r75-设计条款) 与 [本轮开发记录](../../development/2026-11-14_underwater_experience_plan.md)。登记头 `status=partial`、owner、root v4 与既有 verification 原样保留；本轮只登记设计，不运行。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验证要求 |
+|---|---|---|
+| SEA-SAVE-R20 | planned；可选expedition version1、Session唯一durable owner；仅缺整个模块迁移空，已有version1须完整校验version/resource_epoch/consumed/daily_yield/photos及照片必填字段，缺字段/损坏consumed拒绝不补空刷资源；严格校验类型/未来版本/晨次/重复ID/计数/路径遍历，未知稳定ID与原未知整数宝箱ID保留，失败不改现场/有效备份；WorldClock 07:00刷新，全图新增资源共享wood2/rope1/parts1/glass1/pearl1、fish2日配额，与23旧宝箱opened分账，潜水停钟/重入不刷新；摘要仅目标几何/可见性（含雾影响），不存雾颜色/渲染资源/二进制/绝对路径/位置/Air/中途动作，图片保留雾/光线/可选镜片但不含HUD/圆幕 | 待缺整个模块迁移、version1逐字段损坏拒绝、坏档/备份保护、跨图未知ID、总日配额与照片专项；当前无运行报告，planned/pending |
+| SEA-SAVE-R21 | planned；save busy禁active/switching/frozen时capture/write/restore，不禁稳定swim观察/奖励；活动须active且swim且非switching/frozen，独立content_busy/单次token锁；整份capacity/稳定ID/token/epoch/配额预检→无await同线程库存+Session耗尽/配额/观察提交→最终广播，失败回滚、满包/重复/过期不耗目标；Inventory唯一写者，现add_all内部先广播，须未来扩展现事务的抑制/延后广播及回滚入口，不能宣称已有跨owner原子性；出水取消活动token，切换/取消/过期照片回调不回写卸载会话，已提交观察保留，文件成功且Session归属有效才挂相对引用；每次返同Main全busy解锁后仅一次save请求，尊重禁存/nosave/坏档保护/保存意愿，失败不重发/不撤内存资源，迟到引用等下次普通save而非逐图强写，缺图保观察、不承诺跨文件原子 | 待两类busy、外部观察一致性、回滚/重入、保存意愿/写失败和照片异步生命周期矩阵；不得借历史PASS，planned/pending |
+
+本轮不新增 verification 名称，不改 root v4、wire、代码、场景或现有存档；委派写作阶段未执行Godot、checker、sync，主线程最终checker/sync静态结果见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)。
+
+### 2026-11-14 本轮口径收口与委派边界
+
+R20/R21一一对应spec，状态仍 `planned/pending`；首版产品选择已由主方案锁定，余项待实现实测，不列为待用户决策闸门。已提交内存观察与异步图片引用分离，返回保存只请求一次，未来跨owner事务能力必须单独实现验收。本次只修订本轮新增规划及末尾补充，保留历史与登记头；仅做四文件diff-check和条款对应静态核对，不以主线程后续静态结果代签运行通过。
+
+P0复审只改动共享潜水Air/Controller/Session的耗气与退出表现边界，未接入 `dive.expedition`、照片、日配额、跨owner奖励事务或任何root v4/wire字段。退出补验确认真实黑帧前runtime仍保留，但SEA-SAVE-R20/R21的持久化与内容事务仍为planned/pending。
+
+### 2026-11-14 P1协议实现回填（当前工作区）
+
+上方“未接入”是 P0 阶段历史口径；当前追加记录不删除历史。`SEA-SAVE-R20/R21` 仍不升级为 verified，原因是正式内容目标、异步图片、返回保存意愿与完整坏档矩阵尚未签署。
+
+- `DiveSession` 已输出可选 `dive.expedition` version1，并在 `SaveSchema` 中加入可选结构；缺整个模块仍迁移为空，已有模块缺字段或损坏不补空。`Main._validate_building_world` 使用候选快照的 `time` 校验 resource epoch 和照片日期，避免与恢复前现场时钟比较。
+- 07:00 epoch 使用 `WorldClock.to_dict()` 的 `day/seconds`，不再错误读取 `query()` 的不存在 `seconds`；`to_dict()` 不再推进晨次或清空配额。稳定swim内存内容仍允许结算，active/switching/transition_frozen 仍受存读 busy 门禁。
+- Inventory 新增静默预留/提交/回滚端口，Session 以目标固定奖励、容量和日配额为前置，跨owner提交失败会恢复 expedition 并回滚库存；旧库存/海面拾取事务回归未受影响。
+- 已补 `dive-maps` P1夹具：873/0，验证旧档迁移、目标地图/动作归属、token并发/取消/过期、配额、照片摘要/受控引用和磁盘往返。另有 `b2-pickup-transactions` 191/0、`save-seed`、`save-corrupt-seed`、`save-protection`、`framework-integration` 均 exit0。
+
+仍未实现/未签：真实5个打捞目标、2个捕鱼代理、6个摄影观察点及UI；距离/LOS/动作中断/捕鱼命中；真实图片异步生产、Session代次回调与图片文件缺失处理；返回后尊重自动保存意愿的单次写盘；跨07:00多潜实测、坏档备份保护专项中的 expedition 组合矩阵。

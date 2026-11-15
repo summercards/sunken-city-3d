@@ -936,3 +936,64 @@ B4 Q03槽位、D05只读闭包、A08证据协议及Q04六入口仅完成安全�
 最新收集首轮visual整批runner1：quick为102/2、engine1、无PNG；room为engine124、仅两图、未完成。无改动独立复测quick266/0与room均engine0/runner0，分别30/8PNG，不抹首轮、不签稳定性。gift首轮入口engine0、53/0、30PNG，但整批runner1；用户补充后续独立视觉通过，当前摘要未附该独立report，本次不虚填路径/退出码，也不拿早批通过冒充后续。完整分批身份与证据限制见[审计收尾](docs/development/2026-11-13_engine_deep_audit.md#2026-11-14-b3b4-文档收尾与最新工程外证据)。
 
 重置矩阵当前文件`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`已更新为124724单位批、124828–124832五阶段seed/recover重跑：unit engine0/runner0，五seed均**engine-9/runner1、预期SIGKILL**，五recover均engine0/runner0。与收集器历史引用分开记，不把进程中断称物理断电。B4仍未完成发行包/许可/设备/跨平台与长期矩阵，不签全工程绿或零警告/零泄漏，审计**无B5**。本次只追加六份文档，未启动Godot/runner/契约sync，不改生产代码、测试、资产、许可、哈希、派生索引或事务文件，各登记头原状态保留。
+
+## 2026-11-14 3–5分钟海底玩法、潜水3C与体验优化规划
+
+用户要求对海底玩法、设计文档和游戏框架做深度规划，潜水单次体验目标为3–5分钟，并加入模拟潜水感、打捞、拍照、捕鱼、3A向动画3C和电影化进出海底。本节只登记设计，不把规划写成已实现，SEA-DIVE状态仍为“部分实现”。
+
+现有框架继续采用 `DiveSession + Shared DiveRuntimeController + Map适配器`：Session负责切图事务、共享Air、稳定进度和返回同一Main；Controller唯一负责潜水输入、四阶段生命周期、实际碰撞运动、镜头和角色表现；Map只提供内容、路线、碰撞、环境和目标端口；Inventory是奖励唯一写者；WorldClock是海面日历真值；SaveGame/SnapshotRegistry继续使用busy门禁。不得新增第二套潜水状态机、镜头、氧气、奖励或过场所有者。
+
+当前内容基线必须如实保留：家园海底目前没有宝箱、海底奖励或可捕捉鱼，现有鱼群为观赏组件；旧九图共有23个一次性宝箱，继续使用稳定ID和既有奖励链路；正式工程尚无玩家摄影收集系统，CameraPanel/工程截图不能替代相册玩法；水下捕鱼必须新建稳定目标端口，不能把装饰鱼节点当物品写者。
+
+本轮设计将有效水下窗口定义为 `swim` 解锁后至请求结束180–300秒，主动游回也在其中，表演/加载不计。首发路线浅层观察240秒、中层寻箱225秒、深层遗迹210秒；不是每潜必须做满三活动。新增家园5个打捞目标，全图每日新增配额wood2/rope1/parts1/glass1/pearl1/fish2，07:00按海面WorldClock晨次刷新，重入不刷；旧23箱一次性进度和奖励不改。摄影首版6个候选观察条目、不发钱、不设单潜拍照或宝箱硬上限。候选Air100，耗气 `(1/3)×(1+0.15×clamp(depth/120,0,1))×M+T`，M为悬停1/游动1.08/冲刺1.35，T仅工具动作0.02/s；灯不耗气、首版无水下换气、救援保留6秒恢复。三路线数学算例分别余14.724/17.256/18.165点；不是引擎实测，正常体验目标仍需真实路径验证。
+
+3A向体验目标落为可验收约束：潜水镜头候选9.5m默认距离、5–16m可调、vFOV74°/冲刺80°、KEEP_HEIGHT、0.32m双clip、无roll；轻潜水镜中心55%不扭、边缘默认短边1.5%以内且可关闭；实际速度驱动踢蹼/悬停/倒游/侧移/刹停/转身，挡停不假踢蹼或维持冲刺FOV；入水沿既有圆幕和可见下沉；出水补充浅层安全末段1.2–1.8秒上浮、气泡/光线/呼吸交接；深处或救援使用短抬头+遮黑压缩返程，不明场穿墙上浮。冻结期间仅授权同一Controller的exit表现tick，不解除输入/奖励/Air门禁。active禁存读不等于禁止稳定swim内存领奖；活动另用content_busy+token，并需扩展Inventory延后广播与跨owner回滚。HUD、照片、打捞和捕鱼均只经公开端口交接；照片保留环境雾和光线、排除HUD/圆幕。
+
+本轮详细条款为 SEA-DIVE-R52–R75，跨功能承接 SEA-CAMERA-R18/R19、SEA-MOVE-R32、SEA-SAVE-R20/R21；完整玩法条款仍为 `planned/pending`。P0已实现并专项验证：候选A耗气与正式潜水关闭水下续气、9.5m/5–16m/vFOV74/80/KEEP_HEIGHT、同Controller冻结期exit表现白名单、浅层碰撞安全上浮与深处遮黑压缩返回；证据和边界见 [SEA-DIVE账本](docs/features/dive/ledger.md) 与 [开发记录](docs/development/2026-11-14_underwater_experience_plan.md#9-p0实现与真实验证收口)。本轮未新增verification名，未改场景、资产、用户摆位或存档；P1打捞/摄影/捕鱼事务、P2装备动画/镜片、P3完整路线与多宽高比、低端设备和全局契约门禁继续未签。
+
+2026-11-14 P0退出时序补验：正式Session不再在exit表现完成的明场帧提前进入surface；同一Controller保持exit和水下角色可见，待圆幕真实黑帧确认后才清理runtime并恢复Main。工具耗气参数已接入，挡墙时清除冲刺倍率/FOV意图，浅层首帧不再误判阻塞。`dive-control`、`dive-transition`、`dive-maps`与Forward+ `visual-dive-transition`、`visual-dive-control`均exit0；新增黑帧前可见断言的`dive-transition`也exit0。P0专项收口不等同完整R52–R75、全局契约或全工程通过。
+
+### 2026-11-14 P1远征协议第一阶段实现
+
+在不增加第二套潜水控制器、不过度改动root v4的前提下，已完成 P1 数据协议第一阶段：
+
+- `DiveSession` 现在唯一持有可选 `dive.expedition`，按海面 `WorldClock` 的07:00晨次维护当日资源 epoch；保存捕获为纯读，稳定swim内可独立结算内容。
+- `SaveSchema`/Main 注册表已接入 expedition 的可选 wire、严格字段校验、候选存档时钟校验与未来/损坏结构保护。旧 `found/opened`、未知整数宝箱ID和旧宝箱奖励不改。
+- `Inventory` 增加静默预留、提交广播和回滚端口；Session 活动 token 绑定 session代次、目标、动作、地图归属与epoch，奖励必须匹配目标固定配置，取消/换图/出水/读档会失效。
+- 协议级照片记录保存稳定 photo_id、最佳构图摘要、首次日期和受控相对引用；不保存二进制、绝对路径、Air、位置或中途动作。
+
+本阶段实际回归：`dive-maps` 873/0；`dive-control` 406/0；`dive-transition` exit0；`b2-pickup-transactions` 191/0；`save-seed`、`save-corrupt-seed`、`save-protection`、`framework-integration` 均 exit0。证据目录位于 `/Users/zyq/work/sea-work/verification/`，对应批次从 `20261114-190910-dive-p1-target-ownership-6653a6` 至 `20261114-192115-dive-p1-framework-regression-bcfc34`。
+
+这不是完整海底玩法签署：真实5个打捞目标、2个捕鱼代理、6个摄影观察点、活动UI、距离/LOS/命中与中断、图片异步生命周期、返回后单次保存意愿、3–5分钟真实路线及P2/P3表现和设备矩阵仍未完成；全局契约门禁仍保留539/540 issues历史阻塞。
+
+## 2026-11-15 独立工坊深化与保真叶片性能
+
+SEA-WORKSHOP-R84–R87：随机房屋保留当前配色和材质，仅随机结构/窗型；四轮廓真实墙体大洞、封边与同源碰撞，屋顶楼板保护。SEA-PLANT-EDITOR-R14–R24：独立树工坊米制主干路径、苔藓树皮细节、只读保存房屋宿主结合、显式动态风旁车及成对历史/恢复，不修改宿主、不自动Main或潜水接入。运行风仅消费SEA-AMBIENT唯一风状态，不新建全局写入者。
+
+用户明确叶性能优化必须保持风格和效果；叶片本来按主枝合批，不是每叶节点。新增balanced默认/high/reference三档，保叶数、轮廓边、厚度、颜色和风动，索引复用+保守内部简化令三树种顶点约减48–54%。真实树editor1174/0、房屋editor991/0、叶保真/默认动态与共享候选分列性能837/0，均exit0；本机无阴影16棵动态桦树帧p50从10.456降至5.662ms，不能外推Main/移动/Web或GPU时间。全库契约、用户艺术终审/自然苔藓融合、群树林LOD、零警告未签；用户主场景摆位未动。详见[开发与验收追加](docs/development/2026-11-14_random_house_independent_tree_workshop.md)、[树工坊账本](docs/features/plant_editor/ledger.md)、[房屋工坊账本](docs/features/workshop/ledger.md)。
+
+## 2026-11-15 09:02 轻量树冠范围与09:30图像模型授权
+
+SEA-PLANT-EDITOR-R25–R28追加两条大幅降低性能开销的路线：少量立体叶团/邻近色体块的volumes，以及保留单叶观感、用贴图替代昂贵叶几何的cards。foliage_mode为volumes/cards/geometry，新建默认volumes，旧配方缺字段必须按geometry读取，原leaf_geometry的balanced/high/reference三档保留。本次授权仅对新模式覆盖R04/R22中禁止球团/平卡替代的限制，不改旧档、旧revision或历史验收口径。
+
+原要求image2生成后缩小；权限失败后，09:30用户明确授权image-2.6，追加时主线程实际使用gpt-image-2.6-sunburst生成中。运行图集目标为512×512 RGBA、2×2三树种+藤叶，alpha clip+mipmap，原始美术源与处理记录保留art_source/plant_editor_leaf_atlas/v001。工具完成不等于图集接入或艺术验收。
+
+新模式按角色合批并保留branch定位与bounds；三树种volumes/cards完整默认树目标≤8 surfaces且≤12000 triangles，包含默认附生与草，尚未Godot验证，不写达标。源码实施登记implemented / 验证pending，新增plant-canopy；后续真实多树测试为volumes/cards各1/16/64棵、geometry1/16棵，无fixed-fps，GPU计时无效记未测，旧性能报告不覆盖新模式。Main/潜水接入、移动/Web、群树林LOD、用户艺术终审及全局门禁均未签。细则与证据见[功能文档](docs/features/plant_editor/spec.md)、[独立账本](docs/features/plant_editor/ledger.md)及[开发记录](docs/development/2026-11-14_random_house_independent_tree_workshop.md)。本次只追加范围，不手改全局状态摘要或派生索引，由主线程最终sync；并行潜水文档内容保持。
+
+## 2026-11-15 10:20 参考图混合树冠与图集生成最新状态
+
+用户提供游戏树冠截图，要求体块参照其饱满形状，外面加叶片贴图；截图只作风格参考，不裁素材。SEA-PLANT-EDITOR-R29追加volumes混合外壳：内部24 triangles闭合低模簇+各向外壳叶卡，每卡4 triangles；volume_leaf_cards整数0..16，新建默认12，旧缺字段0保留纯体块，不静默改变旧配方。foliage_mode缺字段仍走geometry，旧leaf_geometry三档保留；纯单叶cards每叶4 triangles叶片+2 triangles平柄另计。新默认混合7 surfaces、纯体块6 surfaces仅静态结构推算，完整默认树≤8 surfaces且≤12000 triangles仍待Godot验证。
+
+最新主线程交接：用户更新临时授权凭据后，经用户明确授权的multipart字节上传，gpt-image-2.6-sunburst已成功生成原图`art_source/plant_editor_leaf_atlas/v001/image26_leaf_atlas_source.png`（1024×1024、1060810 bytes），运行图`godot/assets/textures/vegetation/workshop_leaf_atlas_512.png`为512×512 RGBA、218744 bytes。同源目录保留无密钥的`generation.json`（模型、提示词、来源）与`preparation.json`；alpha clip 0.42，每个256×256格有效像素8..247，导入mipmaps与VRAM压缩开启。此最新状态覆盖此前当前权限阻塞/生成中结论，原历史保留，不把素材生成成功写成新树冠验收通过。
+
+plant-canopy正在主线程串行运行，结果仍pending，不追加成功数字。旧preflight251/0、540/0、155/0仅旧几何与逻辑，非混合外壳证明，也不能替代无fixed-fps真实多树基准；GPU计时无效记未测。Main/潜水接入、移动/Web、群树林LOD、艺术终审及全局门禁继续未签。详见[新增条款](docs/features/plant_editor/spec.md)、[最新实施账本](docs/features/plant_editor/ledger.md)及[开发交接](docs/development/2026-11-14_random_house_independent_tree_workshop.md)。本次仅四文档追加，不记录密钥、不改代码/运行清单/记忆、不运行检查；全局摘要与最终sync仍交主线程，保留并行潜水改动。
+
+## 2026-11-15 r9轻量树冠专项收口与范围边界
+
+SEA-PLANT-EDITOR-R25–R29当前implemented，最终真实证据更新前述待验状态，历史不删。参考混合为0.65缩小全平滑内芯+每簇12张四三角叶簇卡，图像每卡9叶不等于9片几何；纯体块0与独立单叶cards保留，旧配方不默换。单叶/叶簇双512²运行图分别218744/301592 bytes，alpha clip、mipmap及真实BC7（BPTC）压缩已验证；原源和派生支持记录保留，正式来源/授权核验pending，未发AssetID。
+
+完整r9报告`/Users/zyq/work/sea-work/verification/20261115-115118-canopy-visible-delivery-r9-1575f8/report.json`及同批`project/outputs/plant_canopy/report.json`为23253/0、exit0、import0，22轮完整、全部focused，无丢draw/超时。编辑器与必要内核批`20261115-113213-canopy-editor-kernel-delivery-7fe9c2`为2271/0、260/0、540/0、155/0，均exit0且无unexpected。三树种混合实测7128/5510/9688三角面、7 surfaces，cards/pure为6 surfaces，完整默认树预算已达标；逐条证据、其他计数及r1–r8失败历史见[账本](docs/features/plant_editor/ledger.md)与[开发记录](docs/development/2026-11-14_random_house_independent_tree_workshop.md)。
+
+性能仅限本机M6/Metal Forward+、1280×800、4×MSAA、无阴影、VSync off、无fixed-fps，真实动态磁盘旁车及前台置顶SubViewport/TextureRect宿主、各模式同成本。自然draw回调间隔不是GPU fence或屏幕FPS：16棵桦树混合p50/p95为2.561/6.172ms，对照geometry5.720/6.159ms，draw112/464；64棵混合3.935/6.182ms、draw448。单树混合p95回归，16棵混合尾部基本持平，cards/pure尾部也有回归，不签所有负载更快。GPU有效计时、geometry64棵未测；艺术终审、Main/潜水接入、Web/mobile、LOD及全库门禁仍未签。
+
+交付路径`outputs/plant_canopy_review_20261115/index.html`、目录内`contact_sheet.png`及同名ZIP当前由主线程生成，仅登记路径、不宣称完成。全库最终sync/check仍交主线程，547/548仅历史结果；本次不手改全局摘要，不改代码/清单/哈希/记忆，保留并行潜水改动。

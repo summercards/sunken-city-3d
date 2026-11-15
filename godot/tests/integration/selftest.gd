@@ -1462,7 +1462,7 @@ func _test_dive_air() -> void:
 	air.lamp = false
 	var shallow: float = air.drain_rate(10.0, false, false)
 	var deep: float = air.drain_rate(70.0, false, false)
-	_ok("深水耗氧更快", deep > shallow * 1.4, "%.2f vs %.2f" % [deep, shallow])
+	_ok("深水耗氧更快", deep > shallow * 1.05, "%.2f vs %.2f" % [deep, shallow])
 	air.lamp = true
 	# 动作：游动 > 悬浮，冲刺 > 游动。
 	var hover: float = air.drain_rate(20.0, false, false)
@@ -1470,11 +1470,12 @@ func _test_dive_air() -> void:
 	var sprint: float = air.drain_rate(20.0, true, true)
 	_ok("游动比悬浮费氧", swim > hover, "%.2f vs %.2f" % [swim, hover])
 	_ok("冲刺比游动费氧", sprint > swim, "%.2f vs %.2f" % [sprint, swim])
-	# 头灯：开着更费，这是「看得见」的代价。
+	# 首版头灯只影响可见性，不额外耗气，避免为了读清目标而被迫关灯。
 	air.lamp = false
 	var dark: float = air.drain_rate(20.0, false, false)
 	air.lamp = true
-	_ok("头灯额外耗氧", air.drain_rate(20.0, false, false) > dark)
+	_ok("头灯不额外耗氧", is_equal_approx(air.drain_rate(20.0, false, false), dark))
+	_ok("实际工具动作有极小成本", air.drain_rate(20.0, false, false, true) > dark)
 
 	# 浅水悬停 10 秒：会掉，但不至于见底。
 	air.reset()
@@ -1486,7 +1487,7 @@ func _test_dive_air() -> void:
 	# 深水（75m）持续游动：一定会见底，并进入恢复冷却。
 	air.reset()
 	var event := ""
-	for i in 400:
+	for i in 2300:
 		event = air.update(0.1, 75.0, true, true)
 		if event == "empty":
 			break
@@ -1495,11 +1496,15 @@ func _test_dive_air() -> void:
 	_ok("见底后 summary 说明原因", air.summary().contains("氧气耗尽") or air.summary().contains("换气"),
 		air.summary())
 
-	# 水面换气：回到满气并能再次下潜。
+	# 非潜水兼容状态仍可换气；正式潜水由Controller关闭该开关。
 	for i in 80:
 		air.update(0.1, 0.0, false, false)
-	_ok("水面能回满", air.ratio() > 0.99, "%.2f" % air.ratio())
+	_ok("兼容预览水面能回满", air.ratio() > 0.99, "%.2f" % air.ratio())
 	_ok("喘过气可以再潜", air.can_dive())
+	air.air = 50.0
+	air.surface_refill_enabled = false
+	for i in 80: air.update(0.1, 0.0, false, false)
+	_ok("正式潜水浅层不自动续气", air.air < 50.0, "%.2f" % air.air)
 
 	# 世界层：潜水时氧气真的在掉，宝箱进度跨 runtime 回收保留。
 	var main := get_parent()

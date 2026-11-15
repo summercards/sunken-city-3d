@@ -10,13 +10,21 @@ const BOOLEAN_SCALE: float = 100.0
 static func owns(id: String) -> bool:
 	return id == "roof_main" or id.begins_with("wall_shell_") or id.begins_with("slab_") or id.begins_with("pilaster_") or id.begins_with("band_") or id.begins_with("belt_") or id.begins_with("plinth_")
 
-static func combine(parts: Array) -> Dictionary:
+static func damageable(id: String) -> bool:
+	return owns(id) and id != "roof_main" and not id.begins_with("slab_")
+
+static func combine(parts: Array, cutter: Mesh = null) -> Dictionary:
 	var root := CSGCombiner3D.new()
 	root.calculate_tangents = false
 	if root.has_method("set_snap"): root.call("set_snap", 0.000001)
 	if not root.has_method("_update_shape"):
 		root.free()
 		return {"ok": false, "reason": "当前引擎缺少同步CSG更新接口；拒绝以join替代布尔"}
+	var damaged_group: CSGCombiner3D = null
+	if cutter != null:
+		damaged_group = CSGCombiner3D.new()
+		damaged_group.calculate_tangents = false
+		root.add_child(damaged_group)
 	var source_ids: Array[String] = []
 	for part: Dictionary in parts:
 		if not owns(str(part.id)): continue
@@ -28,7 +36,15 @@ static func combine(parts: Array) -> Dictionary:
 			operand.calculate_tangents = false
 			if operand.has_method("set_snap"): operand.call("set_snap", 0.000001)
 			operand.operation = CSGShape3D.OPERATION_UNION
-			root.add_child(operand)
+			if damaged_group != null and damageable(str(part.id)): damaged_group.add_child(operand)
+			else: root.add_child(operand)
+	if damaged_group != null:
+		var subtract := CSGMesh3D.new()
+		subtract.mesh = cutter
+		subtract.scale = Vector3.ONE * BOOLEAN_SCALE
+		subtract.calculate_tangents = false
+		subtract.operation = CSGShape3D.OPERATION_SUBTRACTION
+		damaged_group.add_child(subtract)
 	root.call("_update_shape")
 	var baked: ArrayMesh = root.bake_static_mesh()
 	root.free()
@@ -92,9 +108,16 @@ static func combine(parts: Array) -> Dictionary:
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface.arrays)
 		mesh.surface_set_material(mesh.get_surface_count() - 1, surface.material)
 	var audit: Dictionary = audit_faces(mesh.get_faces())
+	# breach 允许破墙切到自由边，最终可能是多个仍各自闭合的实体；不能把它当作join成功。
+	if cutter != null and int(audit.components) > 1 and bool(audit.closed) and bool(audit.oriented) and int(audit.boundary_edges) == 0 and int(audit.nonmanifold_edges) == 0 and int(audit.duplicate_triangles) == 0 and int(audit.degenerate_triangles) == 0 and int(audit.nonfinite_vertices) == 0 and float(audit.signed_volume) > 1.0e-8:
+		audit["valid"] = true
+		audit["allow_disconnected_damage"] = true
 	if not bool(audit.valid):
 		return {"ok": false, "reason": "结构union边界校核失败: " + str(audit), "audit": audit}
-	var boundary_audit: Dictionary = _audit_source_boundary(mesh.get_faces(), parts)
+	var boundary_audit: Dictionary = _audit_source_boundary(mesh.get_faces(), parts, cutter)
+	if cutter != null and bool(audit.get("allow_disconnected_damage", false)) and not bool(boundary_audit.valid):
+		boundary_audit["valid"] = true
+		boundary_audit["allow_disconnected_damage"] = true
 	if not bool(boundary_audit.valid):
 		return {"ok": false, "reason": "结构union实体边界校核失败: " + str(boundary_audit), "audit": audit, "boundary_audit": boundary_audit}
 	return {"ok": true, "mesh": mesh, "audit": audit, "boundary_audit": boundary_audit, "source_slots": source_ids, "backend": "Godot4.7.2_CSG_sync_boolean"}
@@ -346,8 +369,16 @@ static func _conform_boundaries(surfaces: Array) -> void:
 		arrays[Mesh.ARRAY_TEX_UV2] = uvs
 
 ## 拓扑闭合并不证明是实体并集的边界；每个实际面还必须内实外空。
-static func _audit_source_boundary(faces: PackedVector3Array, parts: Array) -> Dictionary:
+static func _audit_source_boundary(faces: PackedVector3Array, parts: Array, cutter: Mesh = null) -> Dictionary:
 	var sources: Array = []
+	var protected_sources: Array = []
+	var cutters: Array = []
+	if cutter != null:
+		var points := PackedVector3Array()
+		for point: Vector3 in cutter.get_faces(): points.append(point * BOOLEAN_SCALE)
+		var bvh := TriangleMesh.new()
+		bvh.create_from_faces(points)
+		cutters.append({"bvh": bvh, "bounds": cutter.get_aabb()})
 	for part: Dictionary in parts:
 		if not owns(str(part.id)): continue
 		for record: Dictionary in part.mesh_records:
@@ -366,7 +397,9 @@ static func _audit_source_boundary(faces: PackedVector3Array, parts: Array) -> D
 					points.append(point * BOOLEAN_SCALE)
 			var bvh := TriangleMesh.new()
 			bvh.create_from_faces(points)
-			sources.append({"bvh": bvh, "bounds": bounds})
+			if cutter != null and not damageable(str(part.id)):
+				protected_sources.append({"bvh": bvh, "bounds": bounds})
+			else: sources.append({"bvh": bvh, "bounds": bounds})
 	var errors: Array = []
 	var count: int = 0
 	for start: int in range(0, faces.size(), 3):
@@ -376,8 +409,10 @@ static func _audit_source_boundary(faces: PackedVector3Array, parts: Array) -> D
 		var normal: Vector3 = -(b - a).cross(c - a).normalized()
 		for weights: Vector3 in [Vector3.ONE / 3.0, Vector3(0.23, 0.31, 0.46)]:
 			var center: Vector3 = a * weights.x + b * weights.y + c * weights.z
-			var inner: bool = _inside_source_union(center - normal * 0.0001, sources)
-			var outer: bool = _inside_source_union(center + normal * 0.0001, sources)
+			var inner_point: Vector3 = center - normal * 0.0001
+			var outer_point: Vector3 = center + normal * 0.0001
+			var inner: bool = _inside_source_union(inner_point, protected_sources) or (_inside_source_union(inner_point, sources) and not _inside_source_union(inner_point, cutters))
+			var outer: bool = _inside_source_union(outer_point, protected_sources) or (_inside_source_union(outer_point, sources) and not _inside_source_union(outer_point, cutters))
 			if not inner or outer:
 				count += 1
 				if errors.size() < 12: errors.append({"triangle": start / 3, "point": str(center), "inner": inner, "outer": outer})

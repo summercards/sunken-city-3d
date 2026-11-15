@@ -172,6 +172,12 @@ TESTS.update({
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
     'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
     'workshop-random': ('tests/test_workshop_random.gd', r'\[workshop-random\] \d+ checks, 0 failures'),
+    'workshop-damage': ('tests/test_workshop_damage.gd', r'\[workshop-damage\] \d+ checks, 0 failures'),
+    'plant-performance': ('tests/test_plant_performance.gd', r'\[plant-performance\] \d+ checks, 0 failures'),
+    'plant-canopy': ('tests/test_plant_canopy.gd', r'\[plant-canopy\] \d+ checks, 0 failures'),
+    'plant-canopy-preview': ('tests/test_plant_canopy.gd', r'\[plant-canopy-preview\] visual_only \d+ checks, 0 failures'),
+    'plant-integration': ('tests/test_plant_integration.gd', r'\[plant-integration\] \d+ checks, 0 failures'),
+    'host-scene-guard': ('tests/test_host_scene_guard.gd', r'\[host-scene-guard\] \d+ checks, 0 failures'),
     'plant-authoring': ('tests/test_plant_authoring.gd', r'\[plant-authoring\] \d+ checks, 0 failures'),
     'editor-plant': ('', r'\[plant-editor\] \d+ checks, 0 failures'),
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
@@ -467,7 +473,7 @@ def inspect_log(name, code, text, marker):
 def derive_check_config(full_config, name):
     """每项检查从完整配置独立派生，避免工坊配置污染后续游戏检查。"""
     config_source = full_config
-    if name in ['plant-authoring', 'workshop-random']:
+    if name in ['plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'workshop-random', 'workshop-damage']:
         config_source = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S)
         config_source = re.sub(r'^theme/custom_font=.*\n?', '', config_source, flags=re.M)
     config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else config_source
@@ -576,7 +582,7 @@ def isolated_editor_workshop_project(run_dir, include_plants=False):
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
     for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'random_recipe',
-                 'shell_geometry', 'shell_generator', 'shell_damage_geometry', 'shell_union_geometry',
+                 'shell_geometry', 'shell_generator', 'shell_damage_geometry', 'shell_union_geometry', 'structural_damage',
                  'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
     if include_plants:
@@ -591,7 +597,7 @@ def isolated_editor_workshop_project(run_dir, include_plants=False):
         for rel in ['assets/materials/vegetation', 'assets/textures/vegetation', 'shaders/vegetation']:
             shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'tests').mkdir()
-    for name in (['test_workshop_random.gd', 'test_plant_authoring.gd'] if include_plants else ['test_workshop_random.gd']):
+    for name in (['test_workshop_random.gd', 'test_workshop_damage.gd', 'test_plant_authoring.gd', 'test_plant_performance.gd', 'test_plant_canopy.gd', 'test_plant_integration.gd', 'test_host_scene_guard.gd'] if include_plants else ['test_workshop_random.gd', 'test_workshop_damage.gd']):
         if (GODOT_ROOT / 'tests' / name).exists():
             shutil.copy2(GODOT_ROOT / 'tests' / name, project / 'tests' / name)
     (project / 'scenes/components').mkdir(parents=True)
@@ -753,6 +759,14 @@ def main():
     unknown = set(checks) - set(TESTS)
     if unknown:
         parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
+    canopy_check = any(name in checks for name in ['plant-canopy', 'plant-canopy-preview'])
+    if canopy_check:
+        if len(checks) != 1:
+            parser.error('plant-canopy/preview 必须单独运行，以保证复制隔离依赖及独立采样')
+        for atlas_name in ['workshop_leaf_atlas_512.png', 'workshop_leaf_clusters_512.png']:
+            atlas = GODOT_ROOT / 'assets/textures/vegetation' / atlas_name
+            if not atlas.is_file():
+                parser.error('plant-canopy 依赖未就绪：等待主线程生成 ' + str(atlas))
     exe = os.environ.get('GODOT') or shutil.which('godot') or str(Path.home() / 'Applications/Godot.app/Contents/MacOS/Godot')
     if not Path(exe).is_file():
         parser.error('Godot executable unavailable; set GODOT')
@@ -762,8 +776,20 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'plant-authoring', 'editor-plant'}
-    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['plant-authoring', 'editor-plant'])) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'workshop-damage', 'host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant'}
+    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant'])) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+    if canopy_check:
+        preparation_dir = project / 'outputs/plant_canopy_sources'
+        preparation_dir.mkdir(parents=True, exist_ok=True)
+        for name in ['preparation.json', 'clusters_preparation.json']:
+            source = ROOT / 'art_source/plant_editor_leaf_atlas/v001' / name
+            if not source.is_file():
+                parser.error('plant-canopy 制作来源依赖缺失：' + str(source))
+            shutil.copy2(source, preparation_dir / name)
+    if 'host-scene-guard' in checks:
+        (project / 'outputs/host_scene_guard').mkdir(parents=True, exist_ok=True)
+        (project / 'outputs/formal_host').mkdir(parents=True, exist_ok=True)
+        shutil.copy2(GODOT_ROOT / 'scenes/workshop_buildings/shell_rect_1794338160_71001671/revision_0001/building.tscn', project / 'outputs/formal_host/building.tscn')
     if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
         reference = ROOT / 'art_source/characters/avatar/v006'
         shutil.copy2(reference / 'shoulder_reference.png', project / 'outputs/avatar-reference.png')
@@ -791,7 +817,7 @@ def main():
         evidence_path.write_text(json.dumps(baseline_report, ensure_ascii=False, indent=2))
         release_user_data(user_name, run_dir)
         return 0 if all(x['passed'] for x in report['results'].values()) else 1
-    if args.import_assets:
+    if args.import_assets or canopy_check:
         import_log = run_dir / 'asset-import.log'
         import_cmd = [exe, '--headless', '--editor', '--path', str(project), '--import']
         with import_log.open('w', encoding='utf-8') as output:
@@ -827,11 +853,14 @@ def main():
         cmd = [exe, '--path', str(project)]
         if args.engine_verbose:
             cmd.append('--verbose')
-        is_visual = args.visual or name.startswith('visual-') or is_editor_workshop
+        is_visual = args.visual or name.startswith('visual-') or is_editor_workshop or name in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']
         if not is_visual:
             cmd.append('--headless')
         else:
-            cmd += ['--resolution', '1280x800', '--fixed-fps', '60']
+            cmd += ['--resolution', '1280x800']
+            # 性能专项需要真实wall-clock帧间隔，不能用固定步长模拟帧率。
+            if name not in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']:
+                cmd += ['--fixed-fps', '60']
         if is_editor_workshop:
             editor_flag = '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
             cmd += ['--editor', '--', editor_flag]
@@ -842,6 +871,9 @@ def main():
         if 'title-screen' not in name:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--skip-title')
+        if name == 'plant-canopy-preview':
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--preview-only')
         if name in title_cases:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--title-fixture=' + name.rsplit('-', 1)[-1])
@@ -874,6 +906,9 @@ def main():
                 code = 124
         text = log.read_text(errors='replace')
         result = inspect_log(name, code, text, marker)
+        if name == 'plant-canopy-preview':
+            result['scope'] = 'visual_only'
+            result['full_suite_passed'] = False
         result['log'] = str(log)
         result['user_data_name'] = check_user_name
         result['renderer'] = 'real' if is_visual else 'headless'

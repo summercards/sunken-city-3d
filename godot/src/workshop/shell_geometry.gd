@@ -10,6 +10,7 @@ const Config = preload("res://src/workshop/architecture_config.gd")
 const RoofEdge = preload("res://src/workshop/roof_edge_geometry.gd")
 const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
 const DamageGeometry = preload("res://src/workshop/shell_damage_geometry.gd")
+const StructuralDamage = preload("res://src/workshop/structural_damage.gd")
 const MAX_PARTS: int = 2000
 const WALL_BEVEL: float = 0.02
 const OUTER_CORNER_RADIUS: float = 0.07
@@ -254,6 +255,10 @@ static func generate(recipe: Dictionary, catalog: Dictionary) -> Dictionary:
 	var footprint: Array = []
 	for point in footprint_polygon:
 		footprint.append(Vector3(point.x, 0.0, point.y))
+	var structural: Dictionary = StructuralDamage.prepare(r, floor_contours, context, _self_script())
+	if not bool(structural.ok): return _failure(result, str(structural.reason))
+	result["damage_cutter"] = structural.mesh
+	result["damage_openings"] = [] if structural.opening.is_empty() else [structural.opening]
 	result.ok = true
 	result.parts = parts
 	result.openings = openings
@@ -311,6 +316,8 @@ static func _failure(result: Dictionary, reason: String) -> Dictionary:
 	return result
 
 static func _validate(r: Dictionary, c: Dictionary) -> String:
+	var structural_reason: String = StructuralDamage.validate(r)
+	if not structural_reason.is_empty(): return structural_reason
 	for field in ["width", "depth", "floors", "floor_height", "slab_thickness", "wall_thickness", "bay_width", "window_width", "window_height", "window_sill", "door_width", "door_height", "taper", "aging", "damage"]:
 		if not (r[field] is float or r[field] is int):
 			return "数值字段类型非法: " + field

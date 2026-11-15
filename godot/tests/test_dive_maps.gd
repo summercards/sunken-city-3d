@@ -99,7 +99,7 @@ func run() -> void:
 		runtime.phase_machine.tick(runtime.ENTER_TIME)
 		check(is_equal_approx(runtime.ENTER_TIME,2.2) and absf(runtime.diver_pos.y+10.0)<0.001,"旧九图保留2.2s入水及Y=-10终点 "+id)
 		check(runtime.phase=="swim" and not runtime.blocked(runtime.diver_pos),"safe enter path and swim "+id)
-		check(is_equal_approx(runtime.air.surface_depth,5.0),"legacy maps restore their own 5m breathing band "+id)
+		check(is_equal_approx(runtime.air.surface_depth,6.0),"legacy maps restore the shared 6m compatibility breathing band "+id)
 		if id=="zone1":
 			var overlay = runtime.get_child(runtime.get_child_count()-1)
 			var escape := InputEventKey.new()
@@ -250,9 +250,13 @@ func run() -> void:
 		check(session.runtime==null and not is_instance_valid(region),"home seabed unloaded")
 		check(root.get_camera_3d()==main.cam,"surface camera restored after home dive")
 		check(main.player.transform==before_player,"surface actor pose unchanged after home dive")
-	# Old v4 shape is unchanged; unknown future ContentIDs survive lazy map unloads.
-	session.from_dict({"found":[0,9999],"opened":[0]})
-	check(session.to_dict()=={"found":[0,9999],"opened":[0]},"legacy integer progress and unknown IDs retained without scene")
+	# Legacy found/opened IDs remain unchanged; the optional P1 expedition module
+	# is added only as a new sibling field and does not reinterpret integer IDs.
+	check(session.from_dict({"found":[0,9999],"opened":[0]}),"legacy integer progress accepts missing expedition module")
+	var legacy_progress: Dictionary = session.to_dict()
+	check(legacy_progress.found==[0,9999] and legacy_progress.opened==[0]
+		and legacy_progress.expedition.version==1 and legacy_progress.expedition.consumed.is_empty(),
+		"legacy integer progress and unknown IDs retained without scene")
 	check(session.enter_map("zone1"),"revisit legacy map")
 	check(session.runtime.opened_chests()==1,"legacy opened chest restored")
 	var reward_before: Dictionary = root.get_node("Economy").inventory.to_dict()
@@ -277,8 +281,52 @@ func run() -> void:
 	check(chest.opened,"new map rewards can open")
 	await finish_map()
 	check(session.to_dict().opened.has(100) and session.to_dict().opened.has(0) and session.to_dict().found.has(9999),"map progress unions without loss")
+	# P1 protocol fixture: stable-swim content can reserve/settle without
+	# changing legacy chest progress, while duplicate/cancel/stale operations are
+	# rejected and the Inventory publish happens only once.
+	check(session.enter_map("zone2"),"P1 protocol re-enters a dive map")
+	session.runtime.phase_machine.tick(session.runtime.ENTER_TIME)
+	var protocol_before: Dictionary = session.to_dict()
+	var inventory_before: Dictionary = bag.to_dict()
+	check(session.configure_content_target("test_salvage_01", "salvage", "dive_zone2", {"wood":1}),
+		"P1 registers target ownership and fixed reward")
+	check(session.configure_content_target("test_cancel_01", "salvage", "dive_zone2", {"wood":1}),
+		"P1 registers cancellable target")
+	check(session.configure_content_target("test_photo_target", "photo", "dive_zone2", {}),
+		"P1 registers photo observation target")
+	var started: Dictionary = session.begin_content("test_salvage_01", "salvage")
+	check(started.ok and session.content_state().busy and session.content_state().target_id=="test_salvage_01",
+		"P1 content token starts only during stable swim")
+	check(not session.begin_content("test_salvage_02", "salvage").ok,"P1 rejects concurrent content token")
+	var settled: Dictionary = session.complete_content(str(started.token), {"wood":1}, "salvage")
+	check(settled.ok and session.to_dict().expedition.consumed.has("test_salvage_01")
+		and int(session.to_dict().expedition.daily_yield.wood)==1
+		and bag.count("wood")==int(inventory_before.counts.get("wood",0))+1,
+		"P1 content reward commits expedition and inventory together")
+	check(not session.content_token_valid(str(started.token), "test_salvage_01", "salvage"),
+		"P1 settled token cannot be replayed")
+	var cancelled_start: Dictionary = session.begin_content("test_cancel_01", "salvage")
+	check(cancelled_start.ok and session.cancel_content(str(cancelled_start.token)),"P1 cancellation invalidates token")
+	check(session.to_dict().expedition.consumed.size()==1 and session.to_dict().expedition.daily_yield.wood==1,
+		"P1 cancellation does not consume target or quota")
+	var photo_start: Dictionary = session.begin_content("test_photo_target", "photo")
+	check(photo_start.ok,"P1 photo token starts independently after settlement")
+	var bad_photo: Dictionary = session.record_photo(str(photo_start.token), "test_photo_01",
+		{"score":80.0}, "user://unsafe.png")
+	check(not bad_photo.ok and session.content_state().busy,"P1 rejects uncontrolled image reference without losing token")
+	var photo_result: Dictionary = session.record_photo(str(photo_start.token), "test_photo_01",
+		{"score":80.0,"visibility":0.8,"framing":0.7}, "photos/test_photo_01.png")
+	check(photo_result.ok and photo_result.improved and session.to_dict().expedition.photos.size()==1,
+		"P1 photo stores normalized best composition and controlled relative reference")
+	var corrupted: Dictionary = protocol_before.duplicate(true)
+	corrupted.expedition = {"version":1,"resource_epoch":1,"consumed":[],"daily_yield":{}}
+	check(session.validate_snapshot(corrupted) != "","P1 rejects incomplete existing expedition instead of migrating it")
+	check(protocol_before.found==session.to_dict().found and protocol_before.opened==session.to_dict().opened,
+		"P1 content protocol leaves legacy chest progress untouched")
+	await finish_map()
 	var snapshot: Dictionary = Storage.encode(main)
-	check(snapshot.version==4 and snapshot.dive.has("found") and snapshot.dive.has("opened") and snapshot.dive.size()==2,"v4 wire format unchanged")
+	check(snapshot.version==4 and snapshot.dive.has("found") and snapshot.dive.has("opened")
+		and snapshot.dive.has("expedition") and snapshot.dive.size()==3,"v4 wire format keeps legacy fields and adds expedition")
 	check(Storage.write("user://dive_round_trip.json",main).ok,"save after return")
 	var decoded := Storage.read("user://dive_round_trip.json")
 	var disk_progress := {}
@@ -286,7 +334,24 @@ func run() -> void:
 		for key in ["found","opened"]:
 			disk_progress[key] = []
 			for value in decoded.snapshot.dive[key]: disk_progress[key].append(int(value))
-	check(decoded.ok and disk_progress==snapshot.dive,"progress disk round trip")
+	var decoded_expedition: Dictionary = decoded.snapshot.dive.expedition if decoded.ok else {}
+	var decoded_daily: Dictionary = decoded_expedition.get("daily_yield", {})
+	var decoded_photos: Array = decoded_expedition.get("photos", [])
+	var expected_photos: Array = snapshot.dive.expedition.photos
+	var photo_wire_ok := decoded_photos.size()==expected_photos.size()
+	if photo_wire_ok and not decoded_photos.is_empty():
+		var disk_photo: Dictionary = decoded_photos[0]
+		var expected_photo: Dictionary = expected_photos[0]
+		photo_wire_ok = str(disk_photo.get("photo_id", ""))==str(expected_photo.get("photo_id", "")) \
+			and int(disk_photo.get("first_day", -1))==int(expected_photo.get("first_day", -1)) \
+			and is_equal_approx(float(disk_photo.get("best_score", -1.0)),float(expected_photo.get("best_score", -1.0))) \
+			and is_equal_approx(float(disk_photo.get("best", {}).get("score", -1.0)),float(expected_photo.get("best", {}).get("score", -1.0)))
+	check(decoded.ok and disk_progress.found==snapshot.dive.found and disk_progress.opened==snapshot.dive.opened
+		and int(decoded_expedition.get("version", -1))==int(snapshot.dive.expedition.version)
+		and int(decoded_expedition.get("resource_epoch", -1))==int(snapshot.dive.expedition.resource_epoch)
+		and decoded_expedition.get("consumed", [])==snapshot.dive.expedition.consumed
+		and int(decoded_daily.get("wood", 0))==int(snapshot.dive.expedition.daily_yield.get("wood", 0))
+		and photo_wire_ok,"progress and expedition disk round trip")
 	check(main.cam.transform.is_equal_approx(before_camera),"surface camera pose is not reset by switch")
 	check(Storage.restore(main,before_snapshot).ok,"original whole session can restore after map switches")
 	check(session.to_dict()==before_snapshot.dive,"full restore clears progress from all maps")

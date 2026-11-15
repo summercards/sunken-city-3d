@@ -8,6 +8,7 @@ const Catalog = preload("res://src/workshop/catalog.gd")
 const Union = preload("res://src/workshop/shell_union_geometry.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const Adapter = preload("res://addons/building_workshop/catalog_adapter.gd")
+const RandomRecipe = preload("res://src/workshop/random_recipe.gd")
 var checks: Array = []
 var failures: Array[String] = []
 var artifacts: Array[String] = []
@@ -180,7 +181,71 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	await verify_palette()
 	await verify_random_house()
 	await verify_compact_layout()
+	await verify_structural_damage()
 	finish()
+
+func verify_structural_damage() -> void:
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe.architecture.form.enabled = false
+	recipe.taper = 0.0
+	# 右立面无窗墙避开门廊和既有窗洞；只改fixture，不隐藏模型或取消楼板/屋顶保护。
+	recipe.facade_overrides["right"] = {"windows": false}
+	recipe["structural_damage"] = {"facade": "right", "roughness": 0.75}
+	var accepted: Dictionary = screen.session.new_document("upgrade_damage", recipe)
+	check(bool(accepted.ok), "结构损毁UI基线", accepted.get("reason", ""))
+	screen._reset_window_preview()
+	screen._refresh_from_session()
+	screen.refresh_preview()
+	screen._select_page(screen.PAGES.find("破旧"))
+	screen.preview.set_view("perspective")
+	for field: String in ["center_u", "center_y", "width", "height", "roughness", "seed"]:
+		check(screen.controls.get("structural_damage_" + field) is HSlider, "结构洞滑块 " + field)
+	var clean: String = visual_hash()
+	screen.controls.structural_damage_enabled.button_pressed = true
+	screen.controls.structural_damage_enabled.emit_signal("toggled", true)
+	await settle("启用结构大洞")
+	check(visual_hash() != clean, "结构洞改变实际mesh")
+	var history: int = screen.session._undo.size()
+	screen.controls.structural_damage_width.emit_signal("drag_started")
+	screen.controls.structural_damage_width.value = 4.0
+	await settle("结构洞拖拽宽4米")
+	screen.controls.structural_damage_width.value = 4.8
+	await settle("结构洞拖拽宽4.8米")
+	screen.controls.structural_damage_width.emit_signal("drag_ended", true)
+	check(screen.session._undo.size() == history + 1, "结构洞一次拖动一次撤销")
+	# 四种轮廓共用真实近景机位；略俯视以显示洞壁厚度和保留的楼板。
+	var opening: Dictionary = screen.preview._model_root.get_child(0).get_meta("damage_openings")[0]
+	screen.preview._target = opening.center
+	screen.preview._yaw = PI * 0.5
+	screen.preview._pitch = -0.06
+	screen.preview._distance = 10.5
+	screen.preview._fit_camera(false)
+	for shape: String in ["ellipse", "jagged", "arch", "breach"]:
+		screen._set_option("structural_damage_shape", shape)
+		screen._queue_window_preview("structural_damage_shape")
+		await settle("结构洞形状 " + shape)
+		await capture("damage_" + shape, false, true)
+	var valid: String = Recipe.fingerprint(screen.snapshot())
+	var valid_mesh: String = visual_hash()
+	screen.controls.structural_damage_center_y.value = 90.0
+	await settle("结构洞越界拒绝", false)
+	check(Recipe.fingerprint(screen.snapshot()) == valid and visual_hash() == valid_mesh, "结构洞失败保原配方/预览")
+	check(is_equal_approx(screen.controls.structural_damage_center_y.value, 90.0), "结构洞失败保滑块输入")
+	screen.controls.structural_damage_center_y.value = 1.7
+	await settle("结构洞修正继续")
+	await capture("damage_ui", true)
+	var saved: Dictionary = screen.save_building()
+	check(bool(saved.get("ok", false)), "结构洞五件bundle保存", saved.get("reason", ""))
+	if bool(saved.get("ok", false)):
+		var packed: PackedScene = ResourceLoader.load(saved.scene_path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+		var restored: Node3D = packed.instantiate()
+		check(restored.get_meta("damage_openings", []).size() == 1, "结构洞静态重载宿主接口")
+		check(bool(Union.audit_faces(restored.get_node("GeneratedVisual/structure_union").mesh.get_faces()).valid), "结构洞重载实际闭合mesh")
+		restored.free()
+	screen.buttons.structural_damage_clear.pressed.emit()
+	await settle("清除结构洞")
+	check(not bool(screen.snapshot().structural_damage.enabled), "清除结构洞状态")
+	check(visual_hash() == clean, "清除结构洞恢复实际完整几何")
 
 func plant_state(build: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
@@ -754,9 +819,34 @@ func visual_hash() -> String:
 		context.update(var_to_bytes(node.mesh.get_faces()))
 	return context.finish().hex_encode()
 
-func capture(label: String, full_ui: bool = false) -> void:
+func capture_damage_closeup() -> Image:
+	# 复制真实预览世界与当前相机，不调用整楼自动取景，也不裁切/放大已有图片。
+	var viewport := SubViewport.new()
+	viewport.name = "WorkshopDamageCloseup"
+	viewport.own_world_3d = true
+	viewport.size = Vector2i(1400, 1100)
+	viewport.gui_disable_input = true
+	viewport.msaa_3d = screen.preview.viewport.msaa_3d
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	plugin.get_tree().root.add_child(viewport)
+	var world: Node3D = screen.preview._world.duplicate(0)
+	viewport.add_child(world)
+	for overlay: Node3D in [screen.preview._highlight_root, screen.preview._wireframe_root, screen.preview._collision_root]:
+		world.get_node(screen.preview._world.get_path_to(overlay)).free()
+	var camera: Camera3D = world.get_node(screen.preview._world.get_path_to(screen.preview.camera))
+	camera.current = true
+	for frame: int in 3:
+		await plugin.get_tree().process_frame
+	RenderingServer.force_draw()
+	var image: Image = viewport.get_texture().get_image()
+	viewport.free()
+	return image
+
+func capture(label: String, full_ui: bool = false, damage_closeup: bool = false) -> void:
 	var image: Image
-	if full_ui:
+	if damage_closeup:
+		image = await capture_damage_closeup()
+	elif full_ui:
 		await plugin.get_tree().process_frame
 		RenderingServer.force_draw()
 		image = EditorInterface.get_base_control().get_viewport().get_texture().get_image()

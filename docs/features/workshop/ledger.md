@@ -41,9 +41,12 @@
     "godot/addons/building_workshop/upgrade_verification.gd",
     "godot/tests/test_workshop_union.gd",
     "godot/src/workshop/random_recipe.gd",
-    "godot/tests/test_workshop_random.gd"
+    "godot/tests/test_workshop_random.gd",
+    "godot/src/workshop/structural_damage.gd",
+    "godot/tests/test_workshop_damage.gd"
   ],
   "verification": [
+    "workshop-damage",
     "workshop-rules",
     "workshop-deep",
     "visual-workshop",
@@ -426,3 +429,24 @@ shell最终 `20261112-161332-weathering-shell-final-606baa`：9872项/0失败、
 | SEA-WORKSHOP-R83 | implemented；确认前不flush输入，Session公开单次构建成功提交，失败/取消模型配方输入历史不变，undo恢复原房及未应用输入；既有附着植物仅保留摆放兼容，提示独立树木工坊。 | 真实房屋editor955/0 exit0，含坏catalog真实失败注入/确认取消/撤销重做/同seed/紧凑三档布局。树制作无依赖或插入房屋。 |
 
 最终证据：`/Users/zyq/work/sea-work/verification/20261114-025229-random-house-final-reviewed-8e6bf1/report.json`，workshop-random969/0、editor-workshop-upgrade955/0，两项exit0、passed=true、unexpected_errors=[]；实际随机模型图`project/outputs/upgrade_12_random_house.png`已目检。随机专项headless，编辑器专项真实Metal渲染，不能互相替代。初轮editor误包含未复制依赖的树测试脚本外层exit0仍标FAIL，已修minimal复制范围并复跑；未抹历史。未执行完整旧editor-workshop长矩阵/Main集成/所有8层随机性能，未改主场景。树木工坊详细状态在[独立账本](../plant_editor/ledger.md)。
+
+## 2026-11-14 随机保色与墙体大面积损毁
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未签边界 |
+|---|---|---|
+| SEA-WORKSHOP-R84 | implemented；random_recipe继承当前palette/shading/aging/component_bindings及分层窗颜色，结构seed不再重抽颜色；create/generate_candidates接收current_recipe。 | 跨seed真实UV和按sea_material_role的shader实例参数检查，20seed/四平面/深拷贝/随机流门禁。测试误读取无关角色参数及StringName新增键已纠正，未放宽配方校验。 |
+| SEA-WORKSHOP-R85 | implemented；structural_damage真实CSG subtraction，四种轮廓×四立面、厚度封边UV；breach可多闭合体。 | workshop-damage1576/0、exit0；当前仅墙/柱/腰线受损，屋顶与楼板受保护。 |
+| SEA-WORKSHOP-R86 | implemented；同一损毁网格派生碰撞，相交门窗整套移除，root damage_openings可保存重载；独立树工坊只读消费。 | 核心射线/碰撞/封边UV/开关恢复与保存重载；editor非法参数保留成功模型与输入，未改主场景。 |
+| SEA-WORKSHOP-R87 | implemented；随机、损毁、真实editor分列且保留紧凑布局验收。 | `20261114-221611-house-color-damage-final-r3-264170/report.json`：workshop-random17831/0、workshop-damage1576/0、editor-workshop-upgrade991/0，三项exit0、unexpected_errors=[]。 |
+
+- 真实渲染：上述目录`project/outputs/upgrade_damage_{ellipse,jagged,arch,breach,ui}.png`；jagged与UI已目检，前立面破洞与原配色可见，模块单行位于预览上方。其余轮廓需分别目检，不以截图存在冒充人工审查。
+- 预期故障：本批无预期红项；初轮保色测试读取无关材质角色和新增键类型错误保留历史，不归因生产色板变化。
+- 未执行：屋顶/楼板破坏、全部极值组合、旧editor-workshop完整长矩阵、Main接入和用户艺术终审。当前组合内核回归及全库契约结果后续追加，不沿用旧全库数字冒充新检查。
+
+### 清晰轮廓补验（2026-11-15）
+
+默认前立面截图受门廊遮挡，无法清晰比较轮廓，因此在验收fixture选择无窗右立面并增加真实机位近景，不裁图冒充实拍。最终`/Users/zyq/work/sea-work/verification/20261114-235736-house-damage-readable-final-a3f2a3/report.json`：editor-workshop-upgrade991/0、exit0、unexpected_errors=[]、asset-import exit0。四种`upgrade_damage_{ellipse,jagged,arch,breach}.png`逐张目检，洞口边厚、室内地板和对墙窗可见；对墙窗不是洞中悬浮残片。无窗fixture不替代已有损毁移除交叠门窗的核心断言。
+
+同轮当前核心组合`20261114-234231-workshop-tree-final-kernels-2636ae`中workshop-random17831/0、workshop-damage1576/0均exit0；该组合宿主guard因旧recovery测试口径失败，不宣称整个组合绿。
+
+最终当前组合`20261115-012739-workshop-tree-kernel-delivery-d20b88/report.json`五项全部exit0：植物233/0、集成540/0、宿主安全155/0、随机17831/0、损毁1576/0。树工坊最终editor1174/0、叶保真性能837/0，独立消费宿主不改房屋。29项明确工坊/测试/runner源码定点登记SHA一致，不发新AssetID。全库最终sync/check仍exit1、535/536 issues，无本功能条款错误，不以专项通过代签全库；日志`outputs/workshop_tree_contracts_final_{sync,check}.log`。开发记录和交付预览见`docs/development/2026-11-14_random_house_independent_tree_workshop.md`、`outputs/house_tree_review_20261115/index.html`。

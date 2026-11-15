@@ -79,7 +79,23 @@ func test_recipe() -> void:
 		check(Recipe.fingerprint(JSON.parse_string(JSON.stringify(recipe))) == Recipe.fingerprint(recipe), kind + " JSON 数字往返指纹稳定")
 		var old := recipe.duplicate(true)
 		for key in Recipe.OPTIONAL_KEYS: old.erase(key)
-		check(Recipe.validate(old).is_empty() and Recipe.normalized(old) == recipe, kind + " 旧配方补全新字段")
+		var legacy := recipe.duplicate(true)
+		legacy.foliage_mode = "geometry"
+		legacy.volume_leaf_cards = 0
+		check(int(recipe.get("volume_leaf_cards", 0)) > 0 and Recipe.INTEGER_KEYS.has("volume_leaf_cards"), kind + " 新建默认带受预算外叶")
+		check(recipe.get("foliage_mode") == "volumes", kind + " 新建默认低模体块冠")
+		check(Recipe.validate(old).is_empty() and Recipe.normalized(old) == legacy, kind + " 旧配方补全但保留 geometry 外观")
+		var missing_mode := recipe.duplicate(true)
+		missing_mode.erase("foliage_mode")
+		missing_mode.erase("volume_leaf_cards")
+		var old_volume := recipe.duplicate(true)
+		old_volume.erase("volume_leaf_cards")
+		check(Recipe.validate(old_volume).is_empty() and Recipe.normalized(old_volume).volume_leaf_cards == 0 and Recipe.normalized(old_volume).foliage_mode == "volumes", kind + " 旧体块配方缺外叶字段保持纯体块")
+		check(Recipe.fingerprint(missing_mode) == Recipe.fingerprint(legacy), kind + " 旧缺模式指纹等价 geometry 而非新建默认")
+		for mode in ["volumes", "cards", "geometry"]:
+			var selected := recipe.duplicate(true)
+			selected.foliage_mode = mode
+			check(Recipe.validate(selected).is_empty() and Recipe.normalized(selected).foliage_mode == mode, kind + " 显式模式合法且不被归一化替换 " + mode)
 	var precise := Recipe.defaults()
 	precise.height = 7.2 + 0.4
 	check(Recipe.fingerprint(precise) == Recipe.fingerprint(JSON.parse_string(JSON.stringify(precise, "", true, true))), "算术浮点尾数JSON往返按1e-9作者精度稳定")
@@ -91,7 +107,7 @@ func test_recipe() -> void:
 	check(not Recipe.validate(bad).is_empty() and Recipe.fingerprint(bad).is_empty(), "非法 tree 不产生指纹")
 	var failed := Generator.build(bad)
 	check(not failed.ok and failed.root == null, "非法 tree 无生成副作用")
-	for pair in [["height", NAN], ["seed", 1.5], ["seed", -1], ["wind_strength", INF], ["color_mode", "other"], ["random_enabled", 1], ["unknown", 1]]:
+	for pair in [["height", NAN], ["seed", 1.5], ["seed", -1], ["wind_strength", INF], ["color_mode", "other"], ["foliage_mode", "other"], ["foliage_mode", 1], ["leaf_geometry", "other"], ["volume_leaf_cards", -1], ["volume_leaf_cards", 1.5], ["volume_leaf_cards", int(Recipe.RANGES.volume_leaf_cards[1]) + 1], ["random_enabled", 1], ["unknown", 1]]:
 		bad = Recipe.defaults()
 		bad[pair[0]] = pair[1]
 		check(not Recipe.validate(bad).is_empty(), "非法字段拒绝 " + str(pair[0]))
@@ -117,7 +133,9 @@ func test_recipe() -> void:
 	completed_sections.append("recipe")
 
 func test_species(kind: String) -> void:
+	# 历史逐面及材质门禁保持实体叶夹具；新模式由独立专项验证。
 	var recipe := Recipe.defaults(kind)
+	recipe.foliage_mode = "geometry"
 	seed(72391)
 	var expected := randi()
 	seed(72391)
@@ -340,10 +358,89 @@ func test_session() -> void:
 	var normalized := session.load_recipe(old)
 	remember(normalized)
 	check(normalized.ok and session.snapshot() == Recipe.normalized(old) and not session.can_undo() and not session.is_dirty(), "load_recipe 归一化旧文档")
+	test_session_state_regressions()
 	for owned in session_roots:
 		if is_instance_valid(owned): owned.free()
 	session_roots.clear()
 	completed_sections.append("session")
+
+func test_session_state_regressions() -> void:
+	var session := Session.new()
+	var recipe := small_recipe()
+	recipe.height = 7.2 + 0.4
+	var loaded := session.load_recipe(recipe)
+	remember(loaded)
+	var initial := session.state_fingerprint()
+	var seen := [0]
+	session.changed.connect(func() -> void: seen[0] += 1)
+	var rounded := session.snapshot()
+	rounded.height = 7.6
+	var unchanged := session.preview_candidate(rounded)
+	check(unchanged.ok and unchanged.root == loaded.root and session.state_fingerprint() == initial, "完整状态按1e-9规范忽略算术尾数并复用模型")
+	check(not session.can_undo() and not session.is_dirty() and seen[0] == 0, "尾数等价候选不入历史不发信号不改dirty")
+	var changed := rounded.duplicate(true)
+	changed.height += 0.001
+	remember(session.preview_candidate(changed))
+	check(session.can_undo() and session.state_fingerprint() != initial and session.is_recipe_dirty(), "完整状态保留0.001配方变化")
+	check(session.undo() and session.state_fingerprint() == initial and session.can_redo(), "撤销恢复规范状态且保留redo")
+	remember(session.build())
+	var transaction := session.peek_redo()
+	seen[0] = 0
+	unchanged = session.preview_candidate(rounded)
+	check(unchanged.ok and session.peek_redo() == transaction and seen[0] == 0, "尾数等价候选不清redo或使历史事务过期")
+
+	var binding := {"host_path": "res://outputs/plant_editor/host/building.tscn", "matrix": Session.HostAttachment.encode_transform(Transform3D.IDENTITY), "opening_id": "opening_00", "enabled": true}
+	binding.matrix[12] = 7.2 + 0.4
+	var context := {"host_binding": binding}
+	var attached := session.preview_candidate_with_context(session.snapshot(), context, false, session.state_fingerprint())
+	remember(attached)
+	check(attached.ok and session.is_context_dirty() and not session.is_recipe_dirty(), "纯宿主位移独立置context dirty")
+	check(session.mark_saved(session.fingerprint()) and session.is_context_dirty() and session.is_dirty(), "植物保存不清未持久化的宿主dirty")
+	var attached_state := session.state_fingerprint()
+	check(not session.mark_context_saved(initial) and session.is_context_dirty(), "旧完整状态不能标记新宿主已保存")
+	check(session.mark_context_saved(attached_state) and not session.is_dirty(), "结合描述保存只清当前context基线")
+	var equivalent := session.authoring_context()
+	equivalent.host_binding.matrix[12] = 7.6
+	seen[0] = 0
+	var undo_before := session.peek_undo()
+	unchanged = session.preview_candidate_with_context(session.snapshot(), equivalent, false, attached_state)
+	check(unchanged.ok and session.peek_undo() == undo_before and seen[0] == 0 and not session.is_dirty(), "宿主尾数使用相同规范，不新增历史或dirty")
+
+	var restored := Session.new()
+	var draft: Dictionary = JSON.parse_string(JSON.stringify(session.export_draft(), "", true, true))
+	var recovered := restored.restore_draft(draft)
+	remember(recovered)
+	check(recovered.ok and restored.state_fingerprint() == attached_state and not restored.is_dirty(), "真实JSON草稿往返保留完整规范指纹及双保存基线")
+	check(not restored.can_undo() and not restored.can_redo(), "恢复草稿明确清历史")
+	var moved := restored.authoring_context()
+	moved.host_binding.matrix[12] += 0.001
+	var moved_result := restored.preview_candidate_with_context(restored.snapshot(), moved, false, restored.state_fingerprint())
+	remember(moved_result)
+	check(moved_result.ok and moved_result.root == recovered.root and restored.is_context_dirty() and not restored.is_recipe_dirty(), "纯宿主有效变换复用模型但独立入历史")
+	check(not restored.mark_context_saved(attached_state) and restored.is_context_dirty(), "相同配方的陈旧attachment保存请求也必须拒绝")
+	check(restored.undo() and restored.state_fingerprint() == attached_state and not restored.is_dirty(), "纯宿主undo恢复context及保存态")
+	check(restored.redo() and restored.is_context_dirty(), "纯宿主redo恢复位移及dirty")
+	var dirty_draft: Dictionary = JSON.parse_string(JSON.stringify(restored.export_draft(), "", true, true))
+	var dirty_restored := Session.new()
+	remember(dirty_restored.restore_draft(dirty_draft))
+	check(dirty_restored.state_fingerprint() == restored.state_fingerprint() and dirty_restored.is_context_dirty() and not dirty_restored.is_recipe_dirty(), "恢复未保存宿主时保留旧context基线")
+
+	var next_recipe := restored.snapshot()
+	next_recipe.height += 0.1
+	remember(restored.preview_candidate(next_recipe))
+	check(restored.is_recipe_dirty() and restored.is_context_dirty(), "配方与宿主dirty可同时存在")
+	check(restored.mark_context_saved(restored.state_fingerprint()) and restored.is_recipe_dirty() and not restored.is_context_dirty(), "attachment成功不清配方dirty")
+	check(not restored.mark_saved(session.fingerprint()) and restored.is_recipe_dirty(), "旧植物指纹不能清新配方dirty")
+	check(restored.mark_saved(restored.fingerprint()) and not restored.is_dirty(), "分别保存两种状态后整体干净")
+	var clean_draft := restored.export_draft()
+	clean_draft.authoring_context.host_binding.matrix[12] += 0.00000000001
+	remember(dirty_restored.restore_draft(clean_draft))
+	check(not dirty_restored.is_dirty(), "恢复后context dirty也按1e-9规范比较而非原始字典")
+	var invalid_a := recipe.duplicate(true)
+	var invalid_b := recipe.duplicate(true)
+	invalid_a.height = -1.0
+	invalid_b.height = -2.0
+	check(Session.canonical_state_fingerprint(invalid_a, {}) != Session.canonical_state_fingerprint(invalid_b, {}), "非法待应用配方不坍缩为同一个空指纹")
 
 func test_store() -> void:
 	var store := Store.new()
@@ -529,6 +626,7 @@ func test_snapshot_regressions() -> void:
 
 func small_recipe() -> Dictionary:
 	var recipe := Recipe.defaults()
+	recipe.foliage_mode = "geometry"
 	recipe.branch_count = 3
 	recipe.subtwig_count = 1
 	recipe.leaf_density = 0.25

@@ -1,10 +1,12 @@
 @tool
 extends RefCounted
 class_name PlantAuthoringStore
-## 植物工坊候选保存器：只写配方、静态场景和候选 manifest。
+## 植物工坊候选保存器：默认静态；显式动态导出增加独立风旁车。
 
 const Recipe = preload("res://src/plant_authoring/recipe.gd")
 const Generator = preload("res://src/plant_authoring/generator.gd")
+const WindRuntime = preload("res://src/plant_authoring/wind_runtime.gd")
+const WIND_RUNTIME_PATH := "res://src/plant_authoring/wind_runtime.gd"
 
 const DEFAULT_ROOT := "res://outputs/plant_editor"
 const OUTPUT_ROOT := DEFAULT_ROOT
@@ -22,6 +24,12 @@ func _init(test_root: String = "") -> void:
 		_test_root = test_root
 
 func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
+	return _save_bundle(recipe, root_dir, false)
+
+func save_animated(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
+	return _save_bundle(recipe, root_dir, true)
+
+func _save_bundle(recipe: Dictionary, root_dir: String, animated: bool) -> Dictionary:
 	var result := _fail_result()
 	var reason := _validate_root(root_dir)
 	if not reason.is_empty():
@@ -111,6 +119,33 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		return result
 
 	var manifest := _make_manifest(recipe_copy, build, revision, geometry_after, recipe_path, scene_path)
+	if animated:
+		var wind_path := _join(temp_dir, "plant_wind.tscn")
+		var wind_result := _save_wind_scene(root, wind_path, geometry_after)
+		if not bool(wind_result.ok):
+			root.free()
+			_remove_dir(temp_dir)
+			result.reason = wind_result.reason
+			return result
+		manifest["static_scene_path"] = "plant.tscn"
+		manifest["animated_scene_path"] = "plant_wind.tscn"
+		manifest["dynamic_scene"] = true
+		manifest["has_scripts"] = true
+		manifest["wind"] = "runtime"
+		manifest["animated_scene_sha256"] = _sha256_file(wind_path)
+		manifest["animated_geometry"] = wind_result.geometry
+		manifest["animated_script_whitelist"] = [WIND_RUNTIME_PATH]
+		manifest["wind_source"] = {
+			"owner_group": "vegetation_wind_owner", "owner_access": "read_only",
+			"owner_properties": ["elapsed", "strength", "direction"],
+			"fallback": "local_clock", "algorithm": "soft_cards",
+			"include": "res://src/plant_authoring/game_wind.gdshaderinc",
+			"runtime": WIND_RUNTIME_PATH,
+			"wind_strength": recipe_copy.wind_strength, "wind_speed": recipe_copy.wind_speed
+		}
+		manifest.source_path_hashes[WIND_RUNTIME_PATH] = _sha256_file(WIND_RUNTIME_PATH)
+		manifest.source_path_hashes["res://src/plant_authoring/game_wind.gdshaderinc"] = _sha256_file("res://src/plant_authoring/game_wind.gdshaderinc")
+		manifest.file_list.append("plant_wind.tscn")
 	if not _write_json(manifest_path, manifest):
 		root.free()
 		_remove_dir(temp_dir)
@@ -126,7 +161,7 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		result.reason = "原子提交 revision 失败"
 		return result
 	_owned_temps.erase(temp_dir)
-	return {
+	result = {
 		"ok": true,
 		"reason": "",
 		"revision": revision,
@@ -136,6 +171,62 @@ func save(recipe: Dictionary, root_dir: String = DEFAULT_ROOT) -> Dictionary:
 		"scene_path": _join(final_dir, "plant.tscn"),
 		"manifest_path": _join(final_dir, "plant.manifest.json")
 	}
+	if animated:
+		result["static_scene_path"] = result.scene_path
+		result["animated_scene_path"] = _join(final_dir, "plant_wind.tscn")
+	return result
+
+func _save_wind_scene(root: Node3D, path: String, static_snapshot: Dictionary) -> Dictionary:
+	var materials := WindRuntime.prepare(root)
+	WindRuntime.apply_sample(materials, 0.0)
+	# 先确认动态准备没有改动位置、法线、UV/UV2、实例或外链贴图。
+	var before := _geometry_snapshot(root)
+	var reason := _verify_wind_geometry(static_snapshot, before)
+	if not reason.is_empty():
+		return {"ok": false, "reason": reason}
+	root.set_script(WindRuntime)
+	var packed := PackedScene.new()
+	if packed.pack(root) != OK or ResourceSaver.save(packed, path) != OK:
+		return {"ok": false, "reason": "动态旁车写入失败"}
+	var loaded := ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
+	if loaded == null:
+		return {"ok": false, "reason": "动态旁车重载失败"}
+	var instance := loaded.instantiate()
+	reason = _verify_wind_scripts(instance, instance)
+	# 仅在逐节点确认唯一脚本白名单后，移除该脚本再走未经放宽的静态严校验。
+	if reason.is_empty():
+		instance.set_script(null)
+		var after := _geometry_snapshot(instance)
+		reason = _verify_static_snapshot(before, after)
+	instance.free()
+	return {"ok": reason.is_empty(), "reason": reason, "geometry": _snapshot_manifest(before)}
+
+func _verify_wind_scripts(node: Node, root: Node) -> String:
+	var script: Script = node.get_script()
+	if node == root:
+		if script == null or script.resource_path != WIND_RUNTIME_PATH:
+			return "动态旁车根脚本不在白名单"
+	elif script != null:
+		return "动态旁车包含额外脚本"
+	if not node.get_groups().is_empty():
+		return "动态旁车不得注册 owner 或业务分组"
+	for child in node.get_children():
+		var reason := _verify_wind_scripts(child, root)
+		if not reason.is_empty():
+			return reason
+	return ""
+
+func _verify_wind_geometry(static_snapshot: Dictionary, animated_snapshot: Dictionary) -> String:
+	var baseline: Dictionary = static_snapshot.duplicate(true)
+	var animated: Dictionary = animated_snapshot.duplicate(true)
+	for snapshot: Dictionary in [baseline, animated]:
+		for entry: Dictionary in snapshot.nodes.values():
+			for surface: Dictionary in entry.get("surfaces", []):
+				surface.erase("colors")
+		for material: Dictionary in snapshot.materials.values():
+			for key in ["wind_vertex_weights", "preview_wind", "world_wind_strength", "world_wind_direction", "local_time"]:
+				material.get("properties", {}).erase(key)
+	return _verify_static_snapshot(baseline, animated)
 
 func load_recipe(path: String) -> Dictionary:
 	var result := {"ok": false, "reason": "", "recipe": {}, "recipe_path": path}
@@ -176,11 +267,20 @@ func _make_manifest(recipe: Dictionary, build: Dictionary, revision: int, geomet
 		"res://src/plant_authoring/geometry.gd",
 		"res://src/plant_authoring/species.gd",
 		"res://src/plant_authoring/leaf.gdshader",
+		"res://src/plant_authoring/game_wind.gdshaderinc",
 		"res://src/plant_authoring/store.gd",
 		"res://src/ambient/vegetation/library.gd",
 		"res://data/vegetation/catalog.json",
 		"res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 	]
+	if recipe.foliage_mode != "geometry":
+		source_paths.append("res://src/plant_authoring/lightweight_foliage.gd")
+		source_paths.append("res://src/plant_authoring/foliage_batch.gd")
+	if recipe.foliage_mode == "volumes":
+		source_paths.append("res://src/plant_authoring/leaf_volume.gdshader")
+	if recipe.foliage_mode == "cards" or (recipe.foliage_mode == "volumes" and int(recipe.volume_leaf_cards) > 0):
+		source_paths.append("res://src/plant_authoring/leaf_card.gdshader")
+		source_paths.append(Generator.LightweightFoliage.CLUSTER_ATLAS_PATH if recipe.foliage_mode == "volumes" else Generator.LightweightFoliage.ATLAS_PATH)
 	if recipe.grass_enabled:
 		var catalog: Dictionary = Generator.Library.catalog()
 		var grass: Dictionary = catalog[recipe.grass_asset]
@@ -204,6 +304,8 @@ func _make_manifest(recipe: Dictionary, build: Dictionary, revision: int, geomet
 		"material_fingerprint": geometry.material_fingerprint,
 		"reload_tolerance": RELOAD_TOLERANCE,
 		"species": recipe.species,
+		"foliage_mode": recipe.foliage_mode,
+		"volume_leaf_cards": recipe.volume_leaf_cards,
 		"name": recipe.name,
 		"recipe_sha256": _sha256_file(recipe_path),
 		"scene_sha256": _sha256_file(scene_path),
@@ -416,7 +518,8 @@ func _snapshot_node(node: Node, root: Node, parent: Transform3D, result: Diction
 			var arrays := mesh.surface_get_arrays(surface)
 			entry.surfaces.append({"primitive": mesh.surface_get_primitive_type(surface),
 				"vertices": arrays[Mesh.ARRAY_VERTEX], "indices": arrays[Mesh.ARRAY_INDEX],
-				"normals": arrays[Mesh.ARRAY_NORMAL], "uv": arrays[Mesh.ARRAY_TEX_UV], "uv2": arrays[Mesh.ARRAY_TEX_UV2]})
+				"normals": arrays[Mesh.ARRAY_NORMAL], "uv": arrays[Mesh.ARRAY_TEX_UV], "uv2": arrays[Mesh.ARRAY_TEX_UV2],
+				"colors": arrays[Mesh.ARRAY_COLOR]})
 			var material: Material = node.get_active_material(surface) if node is MeshInstance3D else mesh.surface_get_material(surface)
 			if node is MultiMeshInstance3D and node.material_override != null: material = node.material_override
 			result.materials[path + "/surface_%d" % surface] = _material_identity(material)
@@ -472,7 +575,7 @@ func _hash_value(value: Variant) -> Variant:
 		keys.sort()
 		for key in keys: sorted[key] = _hash_value(value[key])
 		return sorted
-	if value is Array or value is PackedVector3Array or value is PackedVector2Array or value is PackedFloat32Array or value is PackedInt32Array:
+	if value is Array or value is PackedVector3Array or value is PackedVector2Array or value is PackedFloat32Array or value is PackedInt32Array or value is PackedColorArray:
 		var result: Array = []
 		for item in value: result.append(_hash_value(item))
 		return result
@@ -516,7 +619,7 @@ func _equivalent(left: Variant, right: Variant) -> bool:
 		for key in left:
 			if not right.has(key) or not _equivalent(left[key], right[key]): return false
 		return true
-	if left is Array or left is PackedVector3Array or left is PackedVector2Array or left is PackedFloat32Array:
+	if left is Array or left is PackedVector3Array or left is PackedVector2Array or left is PackedFloat32Array or left is PackedColorArray:
 		if left.size() != right.size(): return false
 		for index in left.size():
 			if not _equivalent(left[index], right[index]): return false
@@ -583,8 +686,8 @@ func _remove_dir(path: String) -> void:
 	var dir := DirAccess.open(path)
 	if dir == null:
 		return
-	# 只清理由本次 save 创建的三个平面文件；未知目录或链接一律保留。
-	for name in ["plant.recipe.json", "plant.tscn", "plant.manifest.json"]:
+	# 只清理由本次 save 创建的平面文件；未知目录或链接一律保留。
+	for name in ["plant.recipe.json", "plant.tscn", "plant.manifest.json", "plant_wind.tscn"]:
 		if dir.file_exists(name) and not dir.is_link(name):
 			dir.remove(name)
 	if dir.get_files().is_empty() and dir.get_directories().is_empty():

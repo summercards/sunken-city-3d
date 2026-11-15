@@ -2327,6 +2327,9 @@ func _setup_dive() -> void:
 	dive.configure(self)
 	dive.give_resource = Economy.add_resource
 	dive.give_rewards = Economy.inventory.add_all
+	dive.reward_prepare = Economy.inventory.begin_add_all
+	dive.reward_commit = Economy.inventory.commit_add_all
+	dive.reward_rollback = Economy.inventory.rollback_add_all
 	dive.source_query = _dive_source_at
 	dive.depth_changed.connect(_on_depth_changed)
 	dive.zone_changed.connect(_on_dive_zone)
@@ -3892,7 +3895,16 @@ func _restore_building(data: Dictionary) -> void:
 	# Registry suppresses owner signals; the projection must exist before Farm restores.
 	building_world.sync()
 
+func _validate_dive_snapshot(data: Dictionary) -> String:
+	# The per-owner validator receives the candidate dive record. The cross-module
+	# clock check is performed by _validate_building_world below.
+	return "" if not data.has("expedition") else dive.validate_snapshot(data)
+
 func _validate_building_world(snapshot: Dictionary) -> String:
+	# Dive's durable expedition fields are validated against the candidate save
+	# clock, never against the already-running world clock.
+	var dive_error: String = dive.validate_snapshot(snapshot.get("dive", {}), snapshot.get("time", {}))
+	if dive_error != "": return dive_error
 	return validate_world_state(snapshot.game,snapshot.building.instances,bool(snapshot.economy.get("fishery",{}).get("unlocked",false)))
 
 func _setup_npc_systems() -> void:
@@ -4218,7 +4230,8 @@ func _setup_save_registry() -> void:
 	for id in owners:
 		var owner = owners[id]
 		var sources: Array = owner.snapshot_event_sources() if owner.has_method("snapshot_event_sources") else [owner]
-		save_registry.register(id,owner.to_dict,owner.from_dict,schemas[id],owner.to_dict(),Callable(),sources)
+		var validator: Callable = Callable(self, "_validate_dive_snapshot") if id == "dive" else Callable()
+		save_registry.register(id,owner.to_dict,owner.from_dict,schemas[id],owner.to_dict(),validator,sources)
 	save_registry.register("game",capture_world_state,restore_world_state,schemas.game,capture_world_state(),Callable(),[GameState])
 	save_registry.register("room",room_service.to_dict,room_service.from_dict,schemas.room,room_service.to_dict(),room_service.validate_snapshot,[room_service])
 	save_registry.register("npc",npc_service.to_dict,npc_service.from_dict,schemas.npc,npc_service.to_dict(),npc_service.validate_snapshot,[npc_service])

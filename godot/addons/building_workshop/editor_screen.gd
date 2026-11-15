@@ -10,6 +10,7 @@ const Config = preload("res://src/workshop/architecture_config.gd")
 const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
 const Generator = preload("res://src/workshop/generator.gd")
 const RandomRecipe = preload("res://src/workshop/random_recipe.gd")
+const StructuralDamage = preload("res://src/workshop/structural_damage.gd")
 const WINDOW_PREVIEW_DELAY: float = 0.16
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
@@ -223,6 +224,10 @@ func _collect_ui_patch() -> Dictionary:
 		bindings[role] = _option_value("binding_" + role)
 	patch["component_bindings"] = bindings
 	patch["growth_weights"] = [_spin_value("growth_small"), _spin_value("growth_medium"), _spin_value("growth_large")]
+	var structural: Dictionary = {}
+	for field: String in StructuralDamage.FIELDS:
+		structural[field] = _raw_control_value("structural_damage_" + field)
+	if snapshot().has("structural_damage") or bool(structural.enabled): patch["structural_damage"] = structural
 	return patch
 
 func generate_building() -> Dictionary:
@@ -260,9 +265,12 @@ func _random_house_now(seed_value: int) -> Dictionary:
 		"baseline": _local_baseline.duplicate(true)}
 	_set_status("正在生成随机房屋 · seed %d；当前模型保留至成功。" % seed_value, WORKSHOP_ACCENT_HOVER)
 	var reasons: Array[String] = []
-	for candidate: Dictionary in RandomRecipe.generate_candidates(seed_value):
-		# 同一文档内替换参数，身份/版本不变；不写Session私有状态。
-		candidate.building_id = snapshot().building_id
+	var current_recipe: Dictionary = snapshot()
+	var current_architecture: Dictionary = current_recipe.get("architecture", {})
+	var current_palette: Dictionary = current_architecture.get("palette", {}).duplicate(true)
+	for candidate: Dictionary in RandomRecipe.generate_candidates(seed_value, current_palette, current_recipe):
+		# 同一文档内替换参数，身份/版本与当前显式/空色板保持不变；不写Session私有状态。
+		candidate.building_id = current_recipe.building_id
 		candidate.revision = snapshot().revision
 		var result: Dictionary = session.preview_candidate(candidate)
 		if not bool(result.get("ok", false)):
@@ -1061,7 +1069,27 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			for spec: Array in [["aging", "表面老化", 0, 1, 0.01], ["damage", "门窗破损", 0, 1, 0.01], ["bevel_segments", "倒角段数", 1, 8, 1], ["bevel_width", "倒角宽", 0.001, 0.5, 0.001]]:
 				_spin_spec(page, spec)
 			page.add_child(_button("应用破旧并生成", "damage_apply"))
-			page.add_child(_label("破损种子控制缺口差异；0为完整门窗。承重墙破洞与残楼尚未实现。"))
+			page.add_child(_label("结构大洞 · 贯穿墙 / 柱 / 腰线", 18))
+			page.add_child(_label("真实差集与网格碰撞同源；相交门窗整套移除。屋顶和楼板受保护，不支持roof/slab损毁。中心比例沿外侧最长立面，尺寸为收分前米制。"))
+			_check("启用结构大洞", "structural_damage_enabled", page).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("structural_damage_enabled"))
+			_add_option(page, "structural_damage_shape", "洞口形状", [["ellipse", "椭圆"], ["jagged", "不规则锯齿"], ["arch", "拱形"], ["breach", "开边破墙"]])
+			_add_option(page, "structural_damage_facade", "目标立面", [["front", "正面"], ["back", "背面"], ["left", "左侧"], ["right", "右侧"]])
+			for key: String in ["structural_damage_shape", "structural_damage_facade"]:
+				controls[key].item_selected.connect(func(_index: int) -> void: _queue_window_preview(key))
+			for spec: Array in [["center_u", "中心位置比例", 0, 1, 0.01], ["center_y", "中心高度（米）", 0, 96, 0.01], ["width", "洞宽（米）", 0, 48, 0.05], ["height", "洞高（米）", 0, 96, 0.05], ["roughness", "边缘粗糙度", 0, 1, 0.01], ["seed", "洞边种子", 0, 2147483647, 1]]:
+				spec[0] = "structural_damage_" + str(spec[0])
+				_build_slider(page, spec, [spec[2], spec[3]], true, "")
+			var clear_damage := Button.new()
+			clear_damage.text = "清除结构大洞"
+			_apply_button_theme(clear_damage)
+			clear_damage.add_theme_font_size_override("font_size", 18)
+			buttons["structural_damage_clear"] = clear_damage
+			clear_damage.pressed.connect(func() -> void:
+				_ignore_fields = true
+				_set_control_value("structural_damage_enabled", false)
+				_ignore_fields = false
+				_queue_window_preview("structural_damage_enabled"))
+			page.add_child(clear_damage)
 		"植物":
 			_check("附着植物摆放随机", "vegetation_random_enabled", page).toggled.connect(func(_enabled: bool) -> void: _queue_window_preview("vegetation_random_enabled"))
 			for spec: Array in [["vegetation_variation", "随机幅度", 0, 1, 0.01], ["vegetation_seed", "植物种子", 0, 2147483647, 1], ["vegetation_density", "植物密度", 0, 1, 0.01], ["growth_small", "小型权重", 0, 1, 0.01], ["growth_medium", "中型权重", 0, 1, 0.01], ["growth_large", "大型权重", 0, 1, 0.01]]:
@@ -1575,6 +1603,11 @@ func _window_preview_patch(values: Dictionary) -> Dictionary:
 	var architecture: Dictionary = _architecture_snapshot()
 	var patch: Dictionary = {"architecture": architecture}
 	for key: String in values:
+		if key.begins_with("structural_damage_"):
+			var structural: Dictionary = patch.get("structural_damage", StructuralDamage.settings(data))
+			structural[key.trim_prefix("structural_damage_")] = values[key]
+			patch["structural_damage"] = structural
+			continue
 		if key == "shading_settings":
 			var shading: Dictionary = architecture.get("shading", {}).duplicate(true)
 			if not shading.has("materials"): shading["materials"] = {}
@@ -2628,6 +2661,9 @@ func _refresh_from_session(preserve_pending_fields: bool = false) -> void:
 		for key: String in PARAMETER_KEYS:
 			_set_control_value(key, data[key])
 		_refresh_architecture_controls(data)
+		var structural: Dictionary = StructuralDamage.settings(data)
+		for field: String in StructuralDamage.FIELDS:
+			_set_control_value("structural_damage_" + field, structural[field])
 	var bindings: Dictionary = data.get("component_bindings", {}) as Dictionary
 	for role: String in Recipe.COMPONENT_ROLES:
 		_fill_component_option("binding_" + role, role, str(bindings.get(role, "")))

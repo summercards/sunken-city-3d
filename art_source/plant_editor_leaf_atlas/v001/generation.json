@@ -1,0 +1,14 @@
+{
+  "model": "gpt-image-2.6-sunburst",
+  "prompt": "Use the attached game screenshot ONLY as a reference for the stylized foliage art direction: broad soft faceted pointed leaves, adjacent yellow-green, fresh green and deeper moss green tones, simple painterly central fold, no noisy veins. Create a NEW production RGBA leaf texture atlas, NOT a screenshot or tree illustration. Four isolated SINGLE leaves on truly transparent alpha in exact equal 2x2 quadrants: TOP LEFT elliptic camphor leaf, TOP RIGHT seven-lobed maple leaf, BOTTOM LEFT triangular serrated birch leaf, BOTTOM RIGHT heart-shaped vine leaf. Each leaf front-on orthographic, apex straight UP, short narrow centered stem at BOTTOM. Fill 80 percent of each quadrant with separate leaf, 10 percent transparent margins, absolutely no overlap between quadrants. Clean silhouette readable at 256px each. Broad coordinated analogous green color planes like the reference, subtle light-dark fold, matte stylized 3D-game look. No shadows outside the leaf. NO text, phone UI, icons, watermark, ground, grid lines, checkerboard or background. Preserve transparent background.",
+  "input_sha256": "58622480de7b419221789fee71bc8dfd3e2822acc6e951b0f6078306b1e7e281",
+  "reference_usage": "User screenshot used as visual reference only, not copied into runtime atlas",
+  "transport": "multipart image bytes",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "transparent",
+  "output_format": "png",
+  "source_file": "image26_leaf_atlas_source.png",
+  "created_at": "2026-11-15T02:31:35.061Z",
+  "commercial_license_status": "pending platform terms verification"
+}

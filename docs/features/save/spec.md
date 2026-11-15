@@ -150,3 +150,29 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 - R04/R06：成功恢复后主动刷新鸟群、光照天气、雨层与日历纯消费者，不靠重播clock/weather业务事件。既有晨次/产鱼由各owner水位线维护，不能另建结算真值。
 
 根v4和现行模块字段不变；逻辑实证、旧保护断言exit1、视觉/跨进程/最终门禁占位见[B2主记录](../../development/2026-11-13_engine_deep_audit.md#b2-业务事务与空间修复最终回填2026-11-14)，不升级verified。
+
+## 2026-11-14 潜水远征、照片与采集存读（设计规划，planned）
+
+承接 [3–5分钟潜水主方案](../dive/underwater_experience_plan.md)、[SEA-DIVE-R52–R75](../dive/underwater_experience_plan.md#4-r52r75-设计条款) 与 [本轮开发记录](../../development/2026-11-14_underwater_experience_plan.md)。以下只扩展可选 `dive.expedition`，当前 root v4、既有 `dive:{found:int[],opened:int[]}` wire 与登记头均不改；实现和运行状态均为 planned/pending。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-SAVE-R20 | **planned**：当前 root v4 与 wire 本轮不改；未来在现有 `dive` 下增加可选 `expedition={version:1,resource_epoch,consumed:稳定字符串ID[],daily_yield:物品计数,photos:稳定photo_id最佳构图/首次日期/可选本地图片相对引用记录[]}`，`DiveSession` 为唯一 durable owner。仅缺整个 expedition 时明确迁移为空；存在 version1 必须严格校验 version/resource_epoch/consumed/daily_yield/photos 及照片记录全部必填字段，拒绝缺字段、类型错误、未来版本/晨次、重复ID、非法计数和路径遍历，不能将损坏 consumed 补空刷资源。未知稳定ID与原 found/opened 未知整数宝箱ID均保留；失败不改现场、不覆盖有效备份。刷新和全图新增资源日配额按注入 WorldClock 的 **07:00 epoch**，潜水海面钟停、重入不刷新；配额为wood2/rope1/parts1/glass1/pearl1、fish2，与23旧宝箱opened奖励分账。照片摘要只存目标几何/可见性指标（雾影响可见度），JSON不存雾颜色/渲染资源、二进制或绝对路径，也不存位置/Air/中途动作；图片本身保留雾/光线/可选镜片效果但排除HUD/圆幕。 |
+| SEA-SAVE-R21 | **planned**：区分 save busy 与 content busy：active/switching/transition_frozen 禁止 capture/write/restore，不禁止稳定swim的内存观察/奖励；活动必须active且swim且非switching/frozen，使用独立content_busy及单次token锁。先预检整份capacity/稳定ID/token/epoch/配额→无await同线程提交Inventory库存+Session耗尽/日配额/观察→最终广播，失败回滚，满包/重复/过期不消耗目标；Inventory唯一物品写者。现有add_all内部先广播会造成外部观察不一致，未来须扩展现事务的抑制/延后广播和回滚入口，不能宣称已具备跨owner原子性。请求出水取消活动token；照片异步的切换/取消/过期回调不得回写已卸载会话，已提交内存观察不丢，文件成功且Session归属校验有效后才挂相对引用。每次返回同Main、所有busy解锁后仅请求既有SaveGame.write一次，并尊重禁存/nosave/坏档保护/保存意愿；写盘失败不重发奖励、不撤销内存资源，只提示重试。迟到有效图片引用只挂内存待下次普通save，不逐图强写；缺图仍保观察，不承诺图片文件与JSON跨文件原子提交。 |
+
+本轮委派写作阶段未运行 checker、Godot 或 sync；主线程最终checker/sync静态结果见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)。不把B2历史PASS或本次静态核对外推为R20/R21运行通过。
+
+### 2026-11-14 本轮口径收口与委派边界
+
+R20/R21及对应潜水24条仍为 `planned/pending`，首版产品选择已由主方案锁定，余项为实现实测而非待用户决策。缺整个模块的迁移与已有version1的损坏拒绝分开验证，内容提交与save busy分开验证；跨owner广播一致性与回滚须未来实现，不借历史事务PASS代签。本次仅修订本轮规划、末尾补充并做四文件diff-check/条款对应静态核对，不改历史、登记头、代码或主方案。
+
+### 2026-11-14 P1协议实现状态（不升级条款）
+
+当前工作区已将本规划的一部分落到代码，但本节只做实施状态追加，不把条款改成 verified：
+
+1. `DiveSession` 已成为 `dive.expedition` 的唯一运行时/持久化 owner，包含 version1、resource_epoch、consumed、daily_yield、photos；缺整个模块迁移为空，已有模块按严格结构与语义校验拒绝损坏数据。
+2. `SaveSchema` 已识别可选 expedition，Main 注册表和跨模块校验使用候选存档时钟；07:00 epoch 与照片日期不读取现场恢复前时钟。
+3. Inventory 已提供静默预留、最终广播、回滚三段式端口，Session 只有在 token、目标动作/地图归属、配额和容量均通过后才提交固定奖励；旧 `found/opened` 与旧宝箱奖励链路不改。
+4. 协议级照片记录已限制为稳定摘要、最佳分数、首次日期与受控相对引用；实际图片异步生成/验证/迟到回调仍未接入。
+
+当前证据为 `dive-maps` 873/0、`b2-pickup-transactions` 191/0、`save-seed` exit0、`save-corrupt-seed` exit0、`save-protection` exit0、`framework-integration` 52/0。真实地图目标、UI、跨07:00多潜路线、返回单次保存意愿、图片文件链路及全套R20/R21验收仍为 planned/pending。

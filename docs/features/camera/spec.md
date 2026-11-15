@@ -160,3 +160,18 @@
 ### 2026-11-10 当前运行签署
 
 上方为委派阶段待验，现以本轮实测覆盖：`20261110-233501-dive-entry-polish-core-cc526e`的transition500/0、control396/0；`20261110-233501-dive-entry-polish-visual-6a99e7`的真实transition404/0、control403/0；`20261110-233926-dive-entry-final-integration-222f98`的海面camera14/0，均exit0/PASS、unexpected=[]。R17的opening固定相机、全展开后可见下沉、首swim连续、原普通游泳参数及碰撞裁剪通过；最终家园pitch0.16rad、入水偏移−0.22rad，使水面边缘在终点高于头顶。真实21帧/动态预览已审阅，海面OrbitCam与用户TSCN未改。完整报告及全局sync79/只读81未过、低端/长时/用户终审边界见[开发记录第5节](../../development/2026-11-10_dive_entry_splash.md#5-最终运行验收)，不据此宣称全工程绿。
+
+## 2026-11-14 水下体验镜头与轻潜水镜（设计规划，planned）
+
+核对既有最大 R17 后追加 R18/R19。承接 [3–5分钟潜水主方案](../dive/underwater_experience_plan.md) 与 [SEA-DIVE-R52–R75](../dive/underwater_experience_plan.md#4-r52r75-设计条款)（主方案追加），服务打捞、拍照、抄网捕鱼及电影化进出水。以下全部数值均为候选，待实现及运行验收；不表示当前镜头参数已变，不覆盖历史实现签署。主方案及[本轮开发记录](../../development/2026-11-14_underwater_experience_plan.md)由主线程建立。
+
+| 条款 ID | 规划规则 / 应验证的行为 |
+|---|---|
+| SEA-CAMERA-R18 | **planned**：未来潜水第三人称候选默认距离 **9.5m**、滚轮范围 **5..16m**、垂直视场角 **vFOV74°**、冲刺 **vFOV80°**；实现时必须显式设置 `Camera3D.KEEP_HEIGHT`，不得把水平FOV误记为垂直FOV。潜水参数、姿态及电影段仍只归 **Shared DiveRuntimeController**，Map只提供空间 `camera_clip`，Session只交接，不新增镜头owner；海面 OrbitCam、SEA-CAMERA-R16 的距离/刻度/输入规则不动。保持半径 **0.32m** 候选clip与插值后最终clip、遇障立即缩回及离墙缓出；防墙时最终距离允许短于玩家最小距离；无roll。手动输入期间不自动抢镜，打捞/拍照/抄网不因目标出现强制转向。入水、普通游泳、返程镜头由同一控制器连续交接，保留既有圆幕/冻结门禁，不能在游泳边界snap；本候选若实施需联动主方案电影段终点，不把旧R17的6.3→7.5m/76→72°曲线与新默认距离硬拼。碰撞后实际速度为零时停止冲刺镜头效果，不因持续按Shift维持冲刺FOV。 |
+| SEA-CAMERA-R19 | **planned**：轻潜水镜仅作可关闭的画面表现；画面中心 **55%** 区域不扭曲，边缘位移候选默认 **≤画面短边1.5%**、可调上限 **3%**，强度可归零且零强度等价于无该效果。呈现顺序为完成世界雾与透明合成后、HUD及圆幕前，不能再次叠加世界雾或扭曲HUD/圆幕。世界目标投影标签使用同一畸变模型的正向映射、点击拾取使用共享参数的逆映射，不允许视觉标签与命中空间错位；零强度下投影/点击必须与原路径等价。需在 **16:9、16:10、21:9** 与 **Compatibility** 真实渲染验证合成顺序、边缘位移、标签/拾取对齐及零强度等价，不能以静态shader或无渲染断言替代。 |
+
+待验仅扩展既有 `dive-control` / `visual-dive-control`、`dive-transition` / `visual-dive-transition`、`underwater-experience` / `visual-underwater-experience`、`camera` 等入口；不向 verification 登记未来测试名。P0已接入9.5m/5–16m/vFOV74/80/KEEP_HEIGHT，专项headless与Forward+ 1280x800/60FPS真实渲染均通过；轻潜水镜、标签逆映射、三宽高比/Compatibility和完整3–5分钟体验仍待实现验收，登记头不变。
+
+### 2026-11-14 规划复审补充
+
+R18电影段候选入水起点为7.8m/vFOV78°，终点为用户距离/74°（默认9.5m），不可把旧6.3→7.5m曲线硬拼。现行实际为7.5m、4–13m、FOV72/78，尚未切换；74°竖直在16:9约为106.52°水平，不混用。R19中心55%按半短边归一化径向定义，标签仅锚点随世界正向映射、字形不扭；照片保留雾/光线/可选镜片、不含HUD/圆幕。出水受Session令牌授权的Controller表现tick在冻结白名单内推进，但玩家输入/奖励/Air仍锁；深处采用短表现+遮黑压缩返程，不明场穿墙。详细验收见[主方案第14、16节](../dive/underwater_experience_plan.md)，仍planned/pending。

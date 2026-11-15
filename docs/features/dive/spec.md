@@ -227,3 +227,44 @@
 R44–R51已实现并完成当前专项：`20261110-233501-dive-entry-polish-core-cc526e`中transition500/0、maps857/0、control396/0、collision2824/0；`20261110-233501-dive-entry-polish-visual-6a99e7`真实transition404/0、control403/0。`20261110-233926-dive-entry-final-integration-222f98`中水下体验179/0、家园85/0、海面camera14/0、modules31/0、minimum112/0、framework52/0及3个存档入口通过。12个计数入口5857/0，15项均exit0/PASS、unexpected=[]；报告均在工程外verification目录，完整命令/报告/失败历史见[开发记录第5节](../../development/2026-11-10_dive_entry_splash.md#5-最终运行验收)。
 
 最终家园基础俯角0.16rad，起始偏移−0.22rad；21张真实帧覆盖1.6667s，实际终点水深4.799905m。opening相机固定、可见入水/实际速度/完整胶囊段、swim首帧连续与尾迹归零、readiness及释放后失败遮黑回滚均验；未改TSCN或v4存档。全局sync79/只读81问题未过，含本轮改动脚本的待定向哈希签署与其它登记漂移，不批量重签；功能整体partial，设备/长时/独立海床/用户终审未签。
+
+## 2026-11-14 3–5分钟水下体验、打捞拍照捕鱼与3A向3C规划（planned）
+
+本节承接既有最大条款 R51，落实用户提出的潜水体验深化，但**只做设计登记，不代表代码、资源或运行效果已经完成**。详细路线、现状内容基线、氧气预算候选、舒适性和实施验收要求见 [3–5分钟水下体验主方案](underwater_experience_plan.md)；本轮记录见 [开发记录](../../development/2026-11-14_underwater_experience_plan.md)。新增 R52–R75 与 SEA-CAMERA-R18/R19、SEA-MOVE-R32、SEA-SAVE-R20/R21 跨功能承接；功能状态继续为 `partial`，新增条款运行状态为 `pending`。
+
+| 条款 ID | 规划规则 / 应验证的行为 |
+|---|---|
+| SEA-DIVE-R52 | 单次有效水下窗口目标为 **180–300秒**，从 `swim` 解锁到请求结束潜水计算；三条首发路线定为 **210/225/240秒**。主动沿地图安全路径游回浅层仍属于 `swim`，计入窗口并耗氧；正式 `exit` 表演、入水/加载/圆幕不计时，照片异步不阻塞或另加窗口时间。打捞、拍照、捕鱼是可选活动，可提前结束，不设强制倒计时、体力条或氧气存档字段。 |
+| SEA-DIVE-R53 | 入口继续使用现有来源海域与家园海底映射，经 `DiveSession` 事务接受/拒绝；重复请求、无来源或地图前置不满足时拒绝，不回退第二地图。 |
+| SEA-DIVE-R54 | 电影化入水复用无文字圆幕、真实全黑 `frame_post_draw`、prepared enter、uncover 和 `release_entry`；opening 零位移、Air冻结，圆幕完全 idle 且不可见后才开始可见下沉，仍由 Shared DiveRuntimeController 驱动。 |
+| SEA-DIVE-R55 | 水下移动、自动路线取消、碰撞挡停和安全路径沿现有 Controller/Map 端口；踢蹼滑行、悬停、倒游、侧移、刹停、转身和返程姿态均消费碰撞后的实际速度，不按期望速度假动作。 |
+| SEA-DIVE-R56 | 潜水镜头承接 SEA-CAMERA-R18：候选默认距离9.5m、距离5..16m、vFOV74°/冲刺80°、显式 `KEEP_HEIGHT`、0.32m双clip、无roll；镜头只归 Shared DiveRuntimeController，海面 OrbitCam/R16 不变，目标交互不抢手动镜头。 |
+| SEA-DIVE-R57 | 轻潜水镜承接 SEA-CAMERA-R19：中心55%不扭，边缘默认位移不超过短边1.5%、可调上限3%并可归零；在世界雾和透明合成后、HUD/圆幕前呈现；标签正向投影与点击逆映射共享，零强度等价。 |
+| SEA-DIVE-R58 | 打捞、拍照和鱼群目标使用稳定内容 ID；发现、观察、可交互、已耗尽是内容状态，不把玩家位置、相机、Air或中途动作写入 durable save。 |
+| SEA-DIVE-R59 | 打捞使用短时、可取消、一次性 token；完成前不消耗目标，完成时整份奖励原子提交；满包、重复、过期、非法目标或切换态不得发部分奖励或改变耗尽状态。 |
+| SEA-DIVE-R60 | 捕鱼使用抄网表现和内容端口，成功必须由实际接触/命中确认；不因持续按键、镜头锁定或假命中发奖，不改海面捕鱼规则，不让装饰鱼节点成为物品写者。 |
+| SEA-DIVE-R61 | 拍照记录稳定 `photo_id`、最佳构图摘要、首次日期和可选本地图片相对引用；图片异步失败不删除观察记录，也不回滚已完成的奖励。 |
+| SEA-DIVE-R62 | 照片图片保留水下雾、光线与可选镜片效果，不含 HUD/圆幕；构图摘要只保存目标几何和可见性指标，雾影响可见度，但雾颜色、材质等渲染资源不入存档。取景不强制转向、不抢手动镜头；HUD字形不扭，标签锚点经轻潜水镜正向映射对齐世界，点击使用对应逆映射，零强度等价。 |
+| SEA-DIVE-R63 | 潜水 HUD 只读 Controller/Session，显示深度、Air、活动提示、打捞/拍照/捕鱼反馈和剩余日配额；不直接写位置、Air、Inventory或存档，暂停继续沿既有规则冻结。 |
+| SEA-DIVE-R64 | 电影化出水复用同一 `DiveSession`、Controller和圆幕；请求时取消活动 token，`switching/transition_frozen` 锁玩家输入、奖励、Air、保存、日期与经营，但对白名单内、受 Session 返回令牌授权的同一 Controller `exit` 表现 tick 放行。仅实碰撞安全末段 **4–6m、1.2–1.8秒**可见上浮，随后 cover→真实全黑 `frame_post_draw`→卸 runtime→恢复同 Main/uncover；深处请求、无安全短路径或缺氧救援禁止线性穿楼到水面，改为原位抬头气泡 **0.3–0.6秒**后遮黑，叙事压缩返程。随时可跳镜头，不跳遮黑与恢复事务；主动完整上浮可在 `swim` 沿地图路径返回并获返程气量提示，不强制深处锁输入游40秒。 |
+| SEA-DIVE-R65 | 出水完成后恢复同一 Main 身份、原船/角色姿态与模式、海面 OrbitCam、WorldEnvironment、GroundSpace、UI信号和处理模式；不 free/rebuild/read-save，不残留潜水 Character、Map tick、镜头或 HUD。 |
+| SEA-DIVE-R66 | Air详设候选为 `A=100`、`rate=(1/3)*(1+0.15*clamp(depth/120,0,1))*M+tool`，`M=1/1.08/1.35` 分别对应悬停/巡航/冲刺，灯耗气0；`tool=0.02/s` 仅实际打捞/收网时叠加，其余为0。首版无水下换气，稳定 `swim` 推进耗氧，返回同 Main 后再补气，保留 **6秒**救援 cooldown；潜水时海面 WorldClock 与换气/cooldown 暂停，切换/正式exit的Air冻结。**35%/15%**提醒叠加按安全路径余量提前返程提示；这是游戏化预算，不作为现实潜水指导。`dive.expedition` 不保存氧气、位置、当前动作或中途相机，数值效果待实现实测。 |
+| SEA-DIVE-R67 | `active/switching/transition_frozen` 的 save busy 禁止 `SnapshotRegistry.capture`、`SaveGame.write` 与 restore，不禁止稳定 `swim` 的内存观察/奖励。活动准入必须 `active && swim && !switching && !transition_frozen`，另设独立 `content_busy` 与单次 token 锁，提交无 `await`，不以UI禁用替代。切换/取消/过期照片异步回调不得回写已卸载会话；已提交内存观察保留，文件成功且 Session 归属仍有效才挂相对引用。 |
+| SEA-DIVE-R68 | 打捞/捕鱼奖励、耗尽、日配额与观察状态在无 `await` 的内容事务内提交，Inventory 是唯一物品写者。先预检整份 capacity、稳定ID、token、epoch与配额，再同线程提交库存和 Session 耗尽/配额，全部成功后最终广播，失败回滚。现有 `Inventory.add_all` 内部先广播会让外部观察到不一致，未来必须扩展现事务的抑制/延后广播及回滚入口；不能宣称已具备跨 owner 原子提交，承接 SEA-SAVE-R21。 |
+| SEA-DIVE-R69 | 首版家园 **5个新资源稳定目标**产出合计 `wood2/rope1/parts1/glass1/pearl1`；所有地图新增资源合计共享同一每日配额 `wood2/rope1/parts1/glass1/pearl1`，捕鱼 `fish2`。按注入 WorldClock 的 **07:00 epoch** 刷新，同 session、切图、返回重入和重复请求不刷新；目标耗尽和当日产量不能靠重进恢复。与旧九图23个宝箱的 `opened` 奖励分账，不设置单次宝箱/摄影/抄网硬上限，由内容和全局日配额约束经济。 |
+| SEA-DIVE-R70 | 持久化承接 SEA-SAVE-R20：root v4 与 `dive:{found:int[],opened:int[]}` 保持，原未知整数宝箱ID继续保留；新增可选 `dive.expedition` 由 DiveSession 唯一输出。仅缺整个 expedition 时明确迁移为空；存在 `version:1` 必须包含合法的 version、resource_epoch、consumed、daily_yield、photos 全部必填字段，照片记录必填字段也须完整。 |
+| SEA-DIVE-R71 | 读取 expedition 严格校验全部必填字段、类型、未来版本/晨次、重复稳定ID、非法计数和照片相对路径遍历；未知稳定ID保留。已有 version1 缺字段或 `consumed` 损坏必须拒绝，不能补空使资源刷新；失败不改现场、不覆盖有效备份，不与缺整个模块的迁移混淆。 |
+| SEA-DIVE-R72 | 照片 JSON 不写二进制、绝对路径、雾颜色或渲染资源；图片异步成功且校验 Session 归属有效后，才向已提交观察挂受控相对引用，切换/取消/过期回调不回写已卸载会话。图片缺失/删除/生成失败不删除已提交的 `photo_id`、构图摘要与首次日期观察；迟到的有效引用仅入内存，等下次普通save，不逐图强写。 |
+| SEA-DIVE-R73 | 每次返回同一 Main 且所有 busy 解锁后，仅向现有 `SaveGame.write` 发起一次返回保存请求，仍受禁存、`nosave`、坏档保护与当前保存意愿约束；写盘失败不重发奖励、不撤销已得内存资源，只提示重试。图片迟到仅挂经归属校验的内存引用，等待下次普通save，不增加本次返回请求或为每图强写。 |
+| SEA-DIVE-R74 | 验收覆盖3–5分钟连续体验、提前出水、重复/取消/满包/过期 token、跨07:00日配额、坏档/未来版本、照片成功/失败/缺图、捕鱼/打捞奖励、进出水录像、5体型与30/60/120FPS、16:9/16:10/21:9/Compatibility；headless不替代真实渲染、输入和图片链路。 |
+| SEA-DIVE-R75 | 本轮仅规划和账本登记；实现前联动 SEA-CAMERA-R18/R19、SEA-MOVE-R32、SEA-SAVE-R20/R21，并扩展既有潜水、过场、水下体验和存档入口；不得新增假测试入口、借历史 PASS 或提前升级运行状态。 |
+
+### 本轮设计基线与未签边界
+
+当前家园海底仍是观赏内容，没有宝箱、可打捞奖励或可捕捉鱼；旧九图的23个宝箱继续使用既有 `opened` 进度和奖励链路；现有水下鱼群全部为视觉组件，不能直接视为捕鱼产量；正式工程也尚无玩家摄影收集系统。首版路线、返程方式、无水下换气、资源/捕鱼配额与摄影奖励取舍等产品选择已由主方案锁定。P0已将候选耗氧、镜头候选值、显式KEEP_HEIGHT、浅层安全出水末段/深处压缩返回接入代码并完成专项验证；内容ID落地、打捞/捕鱼/摄影系统、跨owner事务、舒适性镜片和3–5分钟真实完整路线仍待实现与验收。
+
+本轮预计扩展既有 `dive-control`、`visual-dive-control`、`dive-transition`、`visual-dive-transition`、`underwater-experience`、`visual-underwater-experience` 及存档/事务入口；不新增 verification 名称。低端 GPU、持续运行、全路线人工体验、独立海床高度图、用户美术终审及全局契约门禁继续保持未签。
+
+### 2026-11-14 本轮口径收口与委派边界
+
+以上R52–R75仍全部 `planned/pending`，只修订本轮新增规划，不改历史规则、历史签署或登记头；主方案详设由主线程补齐。稳定swim内容提交与save busy分离，正式exit仅以Session授权白名单推进表现，不开放玩家操作或耗氧。委派写作阶段未运行全局checker/sync或Godot，仅做四文件diff-check与条款对应静态核对；主线程最终checker/sync静态结果见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)，不据此预签运行通过。

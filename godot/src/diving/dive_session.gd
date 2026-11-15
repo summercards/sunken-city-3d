@@ -2,7 +2,12 @@ extends Node3D
 ## Stable save owner and transactional surface <-> independent dive-map router.
 const Catalog = preload("res://src/diving/dive_map_catalog.gd")
 const Air = preload("res://src/diving/dive_air.gd")
+const Schedule = preload("res://src/time/day_schedule.gd")
 const UnderwaterSurfaceDebugScript = preload("res://src/rendering/underwater_surface_debug.gd")
+const EXPEDITION_VERSION := 1
+const DAILY_CAPS := {"wood": 2, "rope": 1, "parts": 1, "glass": 1, "pearl": 1, "fish": 2}
+const MAX_CONSUMED_IDS := 256
+const MAX_PHOTOS := 256
 signal depth_changed(depth: float)
 signal zone_changed(label: String)
 signal air_changed(ratio: float, lamp_on: bool, found: int, total: int)
@@ -14,6 +19,11 @@ signal transition_completed(phase: String)
 signal transition_failed(reason: String)
 var give_resource: Callable
 var give_rewards: Callable
+## P1 content settlement uses a silent Inventory reservation followed by a
+## single publish/rollback boundary; legacy chest rewards keep give_rewards.
+var reward_prepare: Callable
+var reward_commit: Callable
+var reward_rollback: Callable
 var curtain: CanvasLayer
 var _closing := false
 var _transition_pending := false
@@ -35,6 +45,21 @@ var _previous_current: Node
 var _surface_camera: Camera3D
 var _economy_ticking := true
 var _progress := {"found":[],"opened":[]}
+## P1远征 durable owner。旧 found/opened 继续独立保存，不能把字符串内容ID塞进整数数组。
+var _expedition := {"version": EXPEDITION_VERSION, "resource_epoch": 0,
+	"consumed": [], "daily_yield": {}, "photos": []}
+## 运行时活动锁只存在于本次潜水，不进入存档。
+var _content_busy := false
+var _content_serial := 0
+var _content_token := ""
+var _content_target_id := ""
+var _content_action := ""
+var _content_epoch := 0
+var _content_generation := 0
+var _content_settling := false
+var _content_reward := {}
+var _content_targets: Dictionary = {}
+var _session_generation := 0
 var _entry_point := Vector3.ZERO
 var _surface_connections: Array = []
 var _visibility: Array = []
@@ -52,6 +77,7 @@ var underwater_surface_debug
 
 func configure(host: Node3D) -> void:
 	_host = host
+	_sync_expedition_epoch()
 	assert(Catalog.validate() == "", Catalog.validate())
 	underwater_surface_debug = UnderwaterSurfaceDebugScript.new()
 	underwater_surface_debug.name = "UnderwaterSurfaceDebug"
@@ -71,7 +97,9 @@ func _set(property: StringName, value: Variant) -> bool:
 	return false
 
 func _process(delta: float) -> void:
-	if not active and not switching: air.update(delta,0.0,false,false)
+	if not active and not switching:
+		air.update(delta,0.0,false,false)
+		_sync_expedition_epoch()
 
 ## Public legacy adapter: display labels are never map keys; production injects position resolution.
 ## `surface_point` is the actor's real dive-in point; world-aligned maps turn it into the entry spot.
@@ -155,6 +183,8 @@ func _validate_candidate(candidate: Node3D, entry: Dictionary) -> bool:
 
 func _enter_map_core(id: String, entry: Dictionary, candidate: Node3D, production: bool) -> bool:
 	switching = true
+	_session_generation += 1
+	_invalidate_content()
 	var aligned := bool(entry.get("world_aligned",false))
 	source_id = id
 	map_id = str(entry.map_id)
@@ -339,6 +369,23 @@ func _set_runtime_transition_frozen(value: bool) -> void:
 	var controller: Node = runtime.get("dive_controller")
 	if controller != null: controller.transition_frozen = value
 
+func _await_exit_presentation() -> bool:
+	if not is_instance_valid(runtime): return false
+	var controller: Node = runtime.get("dive_controller")
+	if controller == null or controller.machine.current != "exit": return false
+	if controller.has_method("grant_exit_presentation"): controller.grant_exit_presentation()
+	var deadline := Time.get_ticks_msec() + 2200
+	while is_instance_valid(runtime) and controller.machine.current == "exit" \
+			and Time.get_ticks_msec() < deadline and not _closing:
+		if bool(controller.get("exit_presentation_finished")):
+			if controller.has_method("revoke_exit_presentation"): controller.revoke_exit_presentation()
+			return true
+		await get_tree().physics_frame
+	var finished := is_instance_valid(controller) and bool(controller.get("exit_presentation_finished"))
+	if is_instance_valid(controller) and controller.has_method("revoke_exit_presentation"):
+		controller.revoke_exit_presentation()
+	return finished
+
 func _transition_started(kind: String) -> void:
 	_closed_draw.clear()
 	trace.events.append({"event":"transition_started","phase":kind})
@@ -440,7 +487,7 @@ func _surface_sunlight() -> Dictionary:
 
 func _air_snapshot() -> Dictionary:
 	var data := {}
-	for field in ["air","lamp","low_warned","crit_warned","emptied","recover","surface_depth"]: data[field] = air.get(field)
+	for field in ["air","lamp","low_warned","crit_warned","emptied","recover","surface_depth","surface_refill_enabled"]: data[field] = air.get(field)
 	return data
 
 func _fail_transition(text: String) -> void:
@@ -511,6 +558,7 @@ func _request_return() -> void:
 		_return_requested = true
 		return
 	if not active or not is_instance_valid(runtime): return
+	_invalidate_content()
 	_return_requested = true
 	switching = true
 	if not _curtain_session:
@@ -525,10 +573,23 @@ func _return_with_curtain() -> void:
 	if _closing: return
 	_set_runtime_transition_frozen(true)
 	_transition_started("return")
+	# Freeze player input/Air/reward/save, but let the same controller finish the
+	# short, collision-backed exit presentation before the curtain covers the view.
+	var exit_finished := await _await_exit_presentation()
+	if _closing: return
+	if not exit_finished:
+		trace.events.append({"event":"exit_presentation_timeout"})
 	await curtain.cover_blank()
 	if _closing: return
 	await _await_curtain_draw()
 	if _closing: return
+	# The runtime remains visibly underwater until the black frame is real. Only
+	# now may the controller enter surface and let dive_end restore its map view.
+	if is_instance_valid(runtime):
+		var controller: Node = runtime.get("dive_controller")
+		if controller != null and controller.machine.current == "exit" \
+				and controller.has_method("complete_exit_presentation"):
+			controller.complete_exit_presentation()
 	_commit_return(false)
 	await get_tree().process_frame
 	if _closing: return
@@ -585,6 +646,10 @@ func _commit_return(finish := true, merge := true) -> void:
 	if not _surface_frozen: tree.root.get_node("Economy").ticking = _economy_ticking
 	if is_instance_valid(_surface_camera): _surface_camera.make_current()
 	active = false
+	_invalidate_content()
+	# 回到海面是唯一恢复换气的生命周期边界，即使是异常/兼容返回也不能把
+	# 正式潜水的 surface_refill_enabled=false 留在共享 Air 上。
+	air.surface_refill_enabled = true
 	source_id = ""
 	map_id = ""
 	if finish:
@@ -640,14 +705,307 @@ func _merge_progress(data: Dictionary) -> void:
 			if not _progress[key].has(int(id)): _progress[key].append(int(id))
 		_progress[key].sort()
 
-func to_dict() -> Dictionary:
-	if is_instance_valid(runtime): _merge_progress(runtime.to_dict())
-	return _progress.duplicate(true)
+func _clock_snapshot() -> Dictionary:
+	if is_instance_valid(_host):
+		var clock: Variant = _host.get("world_clock")
+		if clock != null and clock.has_method("to_dict"):
+			return clock.to_dict()
+	return {"day": 1, "seconds": Schedule.MORNING_SECONDS}
 
-func from_dict(data: Dictionary) -> void:
+static func _is_number(value: Variant) -> bool:
+	return (value is int or value is float) and is_finite(float(value))
+
+static func _is_integer(value: Variant, low: int, high: int) -> bool:
+	return _is_number(value) and float(value) == floor(float(value)) and int(value) >= low and int(value) <= high
+
+static func _resource_epoch_from_clock(snapshot: Dictionary) -> int:
+	var day_value: Variant = snapshot.get("day", 1)
+	var seconds_value: Variant = snapshot.get("seconds", Schedule.MORNING_SECONDS)
+	if not _is_integer(day_value, 1, 2147483647) or not _is_number(seconds_value): return 0
+	var day := int(day_value)
+	var seconds := clampf(float(seconds_value), 0.0, 86399.999999)
+	return day if seconds >= Schedule.MORNING_SECONDS else day - 1
+
+static func _clock_day(snapshot: Dictionary) -> int:
+	var value: Variant = snapshot.get("day", 1)
+	return int(value) if _is_integer(value, 1, 2147483647) else 1
+
+func current_resource_epoch() -> int:
+	return _resource_epoch_from_clock(_clock_snapshot())
+
+func _empty_expedition(epoch := 0) -> Dictionary:
+	return {"version": EXPEDITION_VERSION, "resource_epoch": maxi(epoch, 0),
+		"consumed": [], "daily_yield": {}, "photos": []}
+
+func _sync_expedition_epoch() -> void:
+	var epoch := current_resource_epoch()
+	var saved_value: Variant = _expedition.get("resource_epoch", 0)
+	if not _is_integer(saved_value, 0, 2147483647): return
+	var saved := int(saved_value)
+	if epoch > saved:
+		_expedition.resource_epoch = epoch
+		_expedition.consumed = []
+		_expedition.daily_yield = {}
+	elif epoch < saved:
+		# A clock cannot legally move backwards through the live owner. Keep the
+		# persisted watermark until the save validator rejects a future snapshot.
+		return
+
+func _invalidate_content() -> void:
+	_content_busy = false
+	_content_settling = false
+	_content_token = ""
+	_content_target_id = ""
+	_content_action = ""
+	_content_epoch = 0
+	_content_generation = 0
+	_content_reward = {}
+
+func content_state() -> Dictionary:
+	return {"busy": _content_busy, "settling": _content_settling, "token": _content_token,
+		"target_id": _content_target_id, "action": _content_action,
+		"resource_epoch": int(_expedition.get("resource_epoch", 0)),
+		"daily_yield": _expedition.get("daily_yield", {}).duplicate(true),
+		"remaining": _remaining_daily_caps()}
+
+func _remaining_daily_caps() -> Dictionary:
+	var out := {}
+	var yielded: Dictionary = _expedition.get("daily_yield", {})
+	for id in DAILY_CAPS:
+		var current: Variant = yielded.get(id, 0)
+		var amount := int(current) if _is_integer(current, 0, 2147483647) else 0
+		out[id] = maxi(0, int(DAILY_CAPS[id]) - amount)
+	return out
+
+static func _valid_content_id(value: String, maximum: int) -> bool:
+	return not value.is_empty() and value.length() <= maximum and not value.contains(":") \
+		and not value.contains("\\") and not value.contains("/") and not value.contains("..") \
+		and not value.contains("\n") and not value.contains("\r")
+
+## Reserve one transient activity token. This is only a protocol boundary;
+## rewards are not committed here, so starting/cancelling cannot consume content.
+func configure_content_target(target_id: String, action: String, owner_map_id: String, reward: Dictionary = {}) -> bool:
+	if not _valid_content_id(target_id, 128) or not _valid_content_id(action, 64) \
+			or not _valid_content_id(owner_map_id, 128): return false
+	var normalized := {}
+	for id in reward:
+		if not id is String or not DAILY_CAPS.has(id) or not _is_integer(reward[id], 1, 1000000): return false
+		normalized[id] = int(reward[id])
+	_content_targets[target_id] = {"action":action,"map_id":owner_map_id,"reward":normalized}
+	return true
+
+func content_target_known(target_id: String) -> bool:
+	return _content_targets.has(target_id)
+
+func begin_content(target_id: String, action := "") -> Dictionary:
+	if _closing or not active or switching or _content_busy or _content_settling or not _content_targets.has(target_id) \
+			or not _valid_content_id(target_id, 128) or (not action.is_empty() and not _valid_content_id(action, 64)):
+		return {"ok": false, "reason": "潜水内容当前不可用"}
+	var target: Dictionary = _content_targets[target_id]
+	if (not action.is_empty() and action != str(target.action)) or str(target.map_id) != map_id:
+		return {"ok": false, "reason": "目标不属于当前海域或动作不匹配"}
+	if not is_instance_valid(runtime): return {"ok": false, "reason": "潜水地图不可用"}
+	var controller: Node = runtime.get("dive_controller")
+	if controller == null or controller.machine.current != "swim" or controller.transition_frozen:
+		return {"ok": false, "reason": "请在稳定游泳阶段操作"}
+	_sync_expedition_epoch()
+	_content_serial += 1
+	_content_token = "%d.%d" % [_session_generation, _content_serial]
+	_content_target_id = target_id
+	_content_action = str(target.action)
+	_content_epoch = current_resource_epoch()
+	_content_generation = _session_generation
+	_content_reward = target.reward.duplicate(true)
+	_content_busy = true
+	return {"ok": true, "token": _content_token, "target_id": target_id,
+		"action": _content_action, "resource_epoch": int(_expedition.resource_epoch),
+		"generation": _session_generation}
+
+func content_token_valid(token: String, target_id := "", action := "") -> bool:
+	if not _content_busy or _content_settling or token.is_empty() or token != _content_token: return false
+	if not target_id.is_empty() and target_id != _content_target_id: return false
+	if not action.is_empty() and action != _content_action: return false
+	if _content_generation != _session_generation or _content_epoch != current_resource_epoch(): return false
+	if not active or switching or not is_instance_valid(runtime): return false
+	var controller: Node = runtime.get("dive_controller")
+	return controller != null and controller.machine.current == "swim" and not controller.transition_frozen
+
+func cancel_content(token: String) -> bool:
+	if not content_token_valid(token): return false
+	_invalidate_content()
+	return true
+
+func complete_content(token: String, reward: Dictionary, action := "") -> Dictionary:
+	if not content_token_valid(token, "", action):
+		return {"ok":false,"reason":"潜水内容已失效"}
+	if _expedition.consumed.has(_content_target_id):
+		_invalidate_content()
+		return {"ok":false,"reason":"目标已经耗尽"}
+	if reward.is_empty(): return {"ok":false,"reason":"奖励为空"}
+	if _content_reward.is_empty(): return {"ok":false,"reason":"目标奖励未配置"}
+	var normalized := {}
+	for expected_id in _content_reward:
+		if not reward.has(expected_id) or int(reward[expected_id]) != int(_content_reward[expected_id]):
+			return {"ok":false,"reason":"奖励与目标配置不一致"}
+	if reward.size() != _content_reward.size(): return {"ok":false,"reason":"奖励与目标配置不一致"}
+	var additions := {}
+	for id in reward:
+		if not id is String or not DAILY_CAPS.has(id):
+			return {"ok":false,"reason":"奖励物品不在潜水配额内"}
+		var amount: Variant = reward[id]
+		if not _is_integer(amount, 1, 1000000):
+			return {"ok":false,"reason":"奖励数量无效"}
+		var old_yield: Variant = _expedition.daily_yield.get(id, 0)
+		if not _is_integer(old_yield, 0, int(DAILY_CAPS[id])):
+			return {"ok":false,"reason":"当前日配额损坏"}
+		if int(old_yield) + int(amount) > int(DAILY_CAPS[id]):
+			return {"ok":false,"reason":"今日该资源已达配额"}
+		normalized[id] = int(amount)
+		additions[id] = int(old_yield) + int(amount)
+	if reward_prepare.is_valid() and reward_commit.is_valid() and reward_rollback.is_valid():
+		var reservation: Variant = reward_prepare.call(normalized)
+		if not reservation is Dictionary or not reservation.get("ok", false):
+			return {"ok":false,"reason":str(reservation.get("reason", "背包装不下整份奖励")) if reservation is Dictionary else "背包装不下整份奖励"}
+		var previous := _expedition.duplicate(true)
+		_content_settling = true
+		_expedition.consumed.append(_content_target_id)
+		for id in additions: _expedition.daily_yield[id] = additions[id]
+		var committed: bool = bool(reward_commit.call(reservation))
+		if not committed:
+			_expedition = previous
+			_content_settling = false
+			reward_rollback.call(reservation)
+			return {"ok":false,"reason":"奖励提交失败，目标未耗尽"}
+	else:
+		# The old isolated-map contract remains available for chests. New content
+		# must not silently downgrade to per-item writes.
+		return {"ok":false,"reason":"潜水内容未装配原子奖励事务"}
+	var target_id := _content_target_id
+	_invalidate_content()
+	return {"ok":true,"target_id":target_id,"reward":normalized.duplicate(true),
+		"daily_yield":_expedition.daily_yield.duplicate(true)}
+
+static func _valid_image_ref(value: String) -> bool:
+	return value.length() <= 256 and not value.is_empty() and not value.begins_with("/") \
+		and not value.begins_with("\\") and not value.contains("\\") and not value.contains("..") \
+		and not value.contains(":") and not value.contains("\n") and not value.contains("\r")
+
+static func _photo_best(best: Dictionary) -> Dictionary:
+	var allowed := {"score": [0.0, 100.0], "subject_id": null, "target_id": null,
+		"distance_m": [0.0, 1000.0], "visibility": [0.0, 1.0], "framing": [0.0, 1.0],
+		"light": [0.0, 1.0], "heading": [-360.0, 360.0], "pitch": [-90.0, 90.0]}
+	if not best.has("score") or not _is_number(best.score): return {}
+	var result := {}
+	for key in best:
+		if not allowed.has(str(key)): return {}
+		var value: Variant = best[key]
+		if key in ["subject_id", "target_id"]:
+			if not value is String or not _valid_content_id(value, 128): return {}
+		else:
+			var bounds: Array = allowed[key]
+			if not _is_number(value) or float(value) < bounds[0] or float(value) > bounds[1]: return {}
+		result[str(key)] = value
+	if not result.has("score"): return {}
+	return result
+
+func record_photo(token: String, photo_id: String, best: Dictionary, image_ref := "") -> Dictionary:
+	if not content_token_valid(token, "", "photo"):
+		return {"ok": false, "reason": "照片操作已失效"}
+	if not _valid_content_id(photo_id, 128): return {"ok": false, "reason": "照片记录无效"}
+	if not image_ref.is_empty() and not _valid_image_ref(image_ref):
+		return {"ok": false, "reason": "图片引用非法"}
+	var normalized := _photo_best(best)
+	if normalized.is_empty(): return {"ok": false, "reason": "构图数据无效"}
+	var score := float(normalized.score)
+	var photos: Array = _expedition.get("photos", [])
+	var found := -1
+	var old_score := -1.0
+	for i in photos.size():
+		var old: Variant = photos[i]
+		if old is Dictionary and str(old.get("photo_id", "")) == photo_id:
+			found = i
+			old_score = float(old.get("best_score", -1.0))
+			break
+	var day := _clock_day(_clock_snapshot())
+	if found >= 0 and score <= old_score:
+		_invalidate_content()
+		return {"ok": true, "photo_id": photo_id, "improved": false}
+	var row := {"photo_id": photo_id, "first_day": day, "best_score": score,
+		"best": normalized}
+	if found >= 0:
+		row.first_day = int(photos[found].get("first_day", day))
+		if image_ref.is_empty() and photos[found].has("image_ref"): row.image_ref = photos[found].image_ref
+		photos[found] = row
+	else:
+		if photos.size() >= MAX_PHOTOS: return {"ok": false, "reason": "照片档案已满"}
+		if not image_ref.is_empty(): row.image_ref = image_ref
+		photos.append(row)
+	_invalidate_content()
+	return {"ok": true, "photo_id": photo_id, "improved": true}
+
+func validate_snapshot(data: Dictionary, clock_data: Dictionary = {}) -> String:
+	if not data.has("expedition"): return ""
+	var expedition: Variant = data.expedition
+	if not expedition is Dictionary: return "dive.expedition 必须为对象"
+	for key in ["version", "resource_epoch", "consumed", "daily_yield", "photos"]:
+		if not expedition.has(key): return "dive.expedition.%s 缺失" % key
+	if not _is_integer(expedition.version, EXPEDITION_VERSION, EXPEDITION_VERSION): return "dive.expedition.version 不受支持"
+	if not _is_integer(expedition.resource_epoch, 0, 2147483647): return "dive.expedition.resource_epoch 非法"
+	var has_candidate_clock := not clock_data.is_empty()
+	var candidate_epoch := _resource_epoch_from_clock(clock_data) if has_candidate_clock else 0
+	if has_candidate_clock and int(expedition.resource_epoch) > candidate_epoch:
+		return "dive.expedition.resource_epoch 领先候选时钟"
+	if not expedition.consumed is Array or expedition.consumed.size() > MAX_CONSUMED_IDS:
+		return "dive.expedition.consumed 类型或长度非法"
+	if not expedition.daily_yield is Dictionary or not expedition.photos is Array or expedition.photos.size() > MAX_PHOTOS:
+		return "dive.expedition 字段类型或长度非法"
+	var ids := {}
+	for raw in expedition.consumed:
+		if not raw is String or not _valid_content_id(raw, 128) or ids.has(raw): return "dive.expedition.consumed 重复或非法"
+		ids[raw] = true
+	for id in expedition.daily_yield:
+		if not id is String or not DAILY_CAPS.has(id): return "dive.expedition.daily_yield 未知物品"
+		var amount: Variant = expedition.daily_yield[id]
+		if not _is_integer(amount, 0, int(DAILY_CAPS[id])): return "dive.expedition.daily_yield 数量非法"
+	var photo_ids := {}
+	var candidate_day := _clock_day(clock_data) if has_candidate_clock else 2147483647
+	for photo in expedition.photos:
+		if not photo is Dictionary: return "dive.expedition.photos 条目非法"
+		for key in ["photo_id", "first_day", "best_score", "best"]:
+			if not photo.has(key): return "dive.expedition.photos.%s 缺失" % key
+		if not photo.photo_id is String or not _valid_content_id(photo.photo_id, 128) or photo_ids.has(photo.photo_id):
+			return "dive.expedition.photos 重复或非法ID"
+		photo_ids[photo.photo_id] = true
+		if not _is_integer(photo.first_day, 1, 2147483647) or int(photo.first_day) > candidate_day:
+			return "dive.expedition.photos 日期非法"
+		if not _is_number(photo.best_score) or float(photo.best_score) < 0.0 or float(photo.best_score) > 100.0:
+			return "dive.expedition.photos 分数非法"
+		if not photo.best is Dictionary or _photo_best(photo.best).is_empty(): return "dive.expedition.photos 构图非法"
+		if absf(float(photo.best_score) - float(photo.best.score)) > 0.000001: return "dive.expedition.photos 分数不一致"
+		if photo.has("image_ref") and (not photo.image_ref is String or not _valid_image_ref(photo.image_ref)):
+			return "dive.expedition.photos 图片引用非法"
+	return ""
+
+func to_dict() -> Dictionary:
+	# Snapshot capture is pure. Morning rollover is driven by the live process
+	# boundary, never as a side effect of save capture/validation.
+	if is_instance_valid(runtime): _merge_progress(runtime.to_dict())
+	var result := _progress.duplicate(true)
+	result.expedition = _expedition.duplicate(true)
+	return result
+
+func from_dict(data: Dictionary) -> bool:
+	var probe := {"found": data.get("found", []), "opened": data.get("opened", [])}
+	if data.has("expedition"): probe.expedition = data.expedition
+	var error := validate_snapshot(probe)
+	if error != "": return false
 	_progress = {"found":[],"opened":[]}
 	_merge_progress(data)
+	_expedition = data.get("expedition", _empty_expedition(current_resource_epoch())).duplicate(true)
+	if not data.has("expedition"): _expedition = _empty_expedition(current_resource_epoch())
+	_invalidate_content()
 	if is_instance_valid(runtime): runtime.from_dict(_progress)
+	return true
 
 func underwater_surface_debug_is_open() -> bool:
 	return underwater_surface_debug != null and underwater_surface_debug.is_open()
@@ -679,6 +1037,7 @@ func _release_suspended_host() -> void:
 func dispose() -> void:
 	if _closing: return
 	_closing = true
+	_invalidate_content()
 	var was_active := active
 	var detached_session := get_parent() != _host
 	active = false

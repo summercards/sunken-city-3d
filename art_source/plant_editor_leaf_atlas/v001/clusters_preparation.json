@@ -1,0 +1,58 @@
+{
+  "source": "/Users/zyq/work/sea/art_source/plant_editor_leaf_atlas/v001/image26_leaf_atlas_source.png",
+  "source_sha256": "60639a939f9452ecdf01efdde3ee71c85b215a53284db1cec445db94a549f406",
+  "runtime": "/Users/zyq/work/sea/godot/assets/textures/vegetation/workshop_leaf_clusters_512.png",
+  "runtime_sha256": "e99a5efed856b6a258e00dbb4967bff752094c9dbc9ded14ba677239aa8ee970",
+  "size": [
+    512,
+    512
+  ],
+  "bytes": 301592,
+  "process": "9 transformed source leaves composited per tile, premultiplied Lanczos downsample, alpha retained, 8px RGB dilation",
+  "tiles": [
+    {
+      "species": "camphor",
+      "leaves_per_cluster": 9,
+      "alpha_coverage": 0.61187744140625,
+      "source_cluster_bounds": [
+        170,
+        160,
+        598,
+        516
+      ]
+    },
+    {
+      "species": "maple",
+      "leaves_per_cluster": 9,
+      "alpha_coverage": 0.531280517578125,
+      "source_cluster_bounds": [
+        162,
+        160,
+        606,
+        548
+      ]
+    },
+    {
+      "species": "birch",
+      "leaves_per_cluster": 9,
+      "alpha_coverage": 0.558074951171875,
+      "source_cluster_bounds": [
+        170,
+        161,
+        597,
+        537
+      ]
+    },
+    {
+      "species": "vine",
+      "leaves_per_cluster": 9,
+      "alpha_coverage": 0.7015380859375,
+      "source_cluster_bounds": [
+        147,
+        137,
+        621,
+        512
+      ]
+    }
+  ]
+}

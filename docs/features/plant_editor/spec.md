@@ -51,3 +51,66 @@
 | SEA-PLANT-EDITOR-R11 | 新增可选subtwig_count、四角色色格trunk/leaf/moss/vine（0..63）、manual/auto、random_enabled/variation、wind_strength/speed；旧配方补默认，seed非负安全整数且各语义流独立。颜色由公共512²8×8PaletteUV单格8px安全内缩决定，树干/实体叶/苔藤共四本地材质实例共享同一shader/PNG；不改公共四建筑材质。复用草卡仅允许现有meadow_atlas的alpha轮廓进入UV2，RGB仍为公共色板，禁止全局风耦合。 |
 | SEA-PLANT-EDITOR-R12 | Session是唯一配方/历史写入者；preview_candidate先真实构建一次再提交并返回同一root。JSON指纹排序、浮点按1e-9十进制规范，保持编辑步长变化可辨且避免7.2+0.4往返误报。Store在outputs/plant_editor或scenes/workshop_plants写候选三件bundle；工程外测试根须显式命名授权；新revision/临时目录/重载检查后提交，不碰旧版。逐节点vertices/indices/normals/UV/UV2/实例变换/材质外链身份核验，不能只比较面数；静态风时间归零，不导出预览节点。 |
 | SEA-PLANT-EDITOR-R13 | 内核用plant-authoring，真实双插件编辑器用editor-plant，经统一runner、无Autoload且只写隔离副本；输出三树种整树、裸枝、真实叶片/附生近景、独立UI截图和三树种静态样例。非空截图不等于艺术终验，候选不自动正式登记或植入Main/房屋/潜水模型。 |
+
+## 2026-11-14 树木深化与只读树屋结合
+
+用户本轮明确允许树干从房屋内部穿窗或破墙。本节扩展先前“仅独立制作、暂不结合”的边界，但两套工坊仍独立：树工坊只消费已保存宿主场景，不引入房屋生成器或改动宿主；不自动接入 Main 或潜水模型。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R14 | 手动 trunk_path 为米制2–8个XYZ控制点，首点原点、Y严格递增、末点Y等于height；空数组保持旧自动路径。分段平滑命中控制点且不横向过冲；枝叶、树皮、苔藓、藤蔓跟随实际曲干。路径滑条自动预览、单拖一次历史，非法路径保留最后成功模型及待修输入，不静默裁剪。 |
+| SEA-PLANT-EDITOR-R15 | 新增bark_detail/bark_cell及moss_scale/bias/height/color_variation。树皮与苔藓为有限预算真实几何，贴片在宿主三角面裁剪后用该面的重心插值定位，不悬浮或穿皮；五角色独立手动色格与可控自动色差均走公共PaletteUV，不改公共PNG。 |
+| SEA-PLANT-EDITOR-R16 | wind_runtime只读唯一vegetation_wind_owner的elapsed/strength/direction；无唯一owner时局部fallback，不注册owner、不写全局uniform。复用游戏soft_cards风传播公式，COLOR编码叶柄/藤顶固定与柔性端权重，木干/苔藓不摆；草UV2遮罩不变。编辑器仅显式sample_at，自动_ready/_process不得改网格材质或推进时钟。 |
+| SEA-PLANT-EDITOR-R17 | 静态plant.tscn继续无脚本；显式save_animated额外输出仅根wind_runtime白名单的plant_wind.tscn。版本内原子保存/重载，公共shader和PNG保外链、多实例不串材质。首次准备顶点/索引/UV/UV2严格相等，仅法线压缩尾差容许0.0002；后续prepare/sample相对首次结果逐字段严格不变，摘要不可重复序列化完整几何。 |
+| SEA-PLANT-EDITOR-R18 | 只读载入项目内building.tscn，消费openings/damage_openings与实际Mesh/Collision，host reference不混入树导出。提供根→内侧→洞心→外侧→冠顶建议及plant_to_host列主序变换。粗干间隙检测真实三角面与实体内部，完整玻璃必须阻挡；根按真实楼板支撑贴板。只覆盖主干，不代替全部枝叶、导航或结构力学验收；top_level宿主拒绝。 |
+| SEA-PLANT-EDITOR-R19 | ResourceLoader之前先纯文本审查宿主依赖闭包，拒绝脚本/危险构造器/二进制资源/路径逃逸/符号链接/嵌套继承场景等，公共PNG及建筑shader仅明确白名单；加载后继续SceneState审计。不声称防御审查与加载之间的并发磁盘替换。 |
+| SEA-PLANT-EDITOR-R20 | Session唯一拥有已应用recipe+authoring_context，统一1e-9规范状态指纹、纯变换和配方成对撤销重做；失败保留待应用输入但不换成功模型/位置。recovery先预检同一已应用状态再提交，pending单独恢复。植物保存只清recipe dirty，attachment落盘才清context dirty，过期版本/保存状态拒绝；UI不读写私有历史栈。 |
+| SEA-PLANT-EDITOR-R21 | 统一runner并列plant-authoring/plant-integration/host-scene-guard/editor-plant，实际保存房屋作为宿主。验收真实穿墙、玻璃拒绝、楼板贴根、双历史与静动态/attachment导出；渲染两确定风帧与固定树干苔藓对照、近景和860×600展开面板，不以截图存在代替像素变化或面积检查。用户艺术终审、正式世界接入与群树林性能另签。 |
+
+## 2026-11-15 保持风格和效果的叶片性能优化
+
+用户明确补充：优化性能不能牺牲风格和效果。当前不是每片叶一个节点，而是每主枝一个Foliage网格；优化应针对真实顶点/细分/生成与资源开销，不误诊成几百个叶节点。原单叶轮廓、树冠密度、颜色层次与风动为保真基线。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R22 | 可选leaf_geometry为balanced/high/reference，缺字段默认balanced；不改变叶数、排列、seed、尺寸、色格、厚度、杯曲或树种轮廓。high仅索引复用，balanced保守移除内部冗余采样，所有轮廓边采样保留；上下叶肉与侧壁真实存在，不用平卡或大幅删叶冒充优化。相邻面共边规则一致，无T接缝、退化或错绕序。 |
+| SEA-PLANT-EDITOR-R23 | 作者网格显式COLOR保存原叶柄固定/叶尖渐进、藤顶固定及草高度权重，避免顶点索引重排破坏旧扫描布局；runtime不重推已有权重。参数域拓扑可缓存但不共享可变配方/随机状态。叶片页三档自动预览/一次撤销/保存重载，显示实数顶点、三角面、Mesh节点及surfaces，不把surface数冒称实际draw calls。 |
+| SEA-PLANT-EDITOR-R24 | plant-performance经统一runner真实后端、禁fixed-fps、关VSync；三树种同seed、同机位整树/叶近景/掠视与两风帧A/B，检查同叶数/位置/UV/解析法线/边界/风权重和有界内部曲面误差。记录顶点/面数/CPU数组字节与生成耗时；多树场景记录实际draw calls/primitives、wall-clock p50/p95。明确共享资源测试与实际动态独立实例策略差异，GPU计时无效须标未测，单树回归如实记录；不得直接把减面率换算FPS或冒充Main/移动/Web性能。 |
+
+## 2026-11-15 09:02 轻量树冠与09:30图像模型授权追加
+
+09:02用户要求大幅降低性能开销：新增少量立体叶团、邻近色体块的树冠模式，同时保留单叶观感路线，将昂贵单叶几何转换为贴图叶卡。原要求使用image2生成后缩小；image2权限失败后，09:30用户明确授权image-2.6。追加时主线程正以实际模型`gpt-image-2.6-sunburst`生成，不能将请求发出或工具完成写成图集已通过验收。
+
+本次新指令**仅对新模式volumes/cards覆盖R04/R22中禁止球团或平卡替代的限制**；不是推翻历史，也不把新模式称为原厚叶几何无损优化。geometry及其balanced/high/reference三档继续受旧条款约束，旧档不默换、不覆盖旧revision。树种冠形、配色层次、枝编辑、独立工坊、风所有权和保存隔离边界继续有效。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R25 | 新增可选foliage_mode，合法值volumes/cards/geometry。新建配方默认volumes；读取缺该字段的旧配方必须解释为geometry，不因新建默认值改变旧外观。leaf_geometry的balanced/high/reference及缺字段默认balanced保留，仅控制geometry旧路线；切换新模式不丢弃该值。模式切换经Session统一预览、撤销重做、保存重载，失败保留最后成功模型与输入，不改写旧配方文件或旧revision。volumes以少量立体叶团和邻近色体块表现树种冠形；cards以贴图叶卡保留可辨单叶观感，不能宣称仍有旧叶肉厚度或与geometry逐像素相同。 |
+| SEA-PLANT-EDITOR-R26 | cards及其藤叶共用512×512 RGBA、2×2图集，左上香樟、右上鸡爪槭、左下垂枝桦、右下藤叶；保留各自单叶轮廓与透明留白。使用授权模型生成原始美术源，再缩小为运行图集；原始输出及生成、缩小处理记录保留在art_source/plant_editor_leaf_atlas/v001，不用缩小图覆盖原源，不从用户参考图剪切素材。运行候选为godot/assets/textures/vegetation/workshop_leaf_atlas_512.png；采用alpha clip而非透明混合，导入与采样均启用mipmap，UV2按格采轮廓/细节，RGB主色继续服从公共PaletteUV，不改公共色板。验收须确认真实alpha、缩小后轮廓、格间渗色及远近景效果；模型授权/工具返回不等于素材接入或艺术通过。 |
+| SEA-PLANT-EDITOR-R27 | 新模式内核按显示角色及兼容材质合批，不跨角色混并而破坏树干/叶/苔/藤/草显隐或风权重；保留稳定branch ID、定位节点与根局部branch bounds，选枝、高亮、聚焦、单枝编辑及宿主定位不依赖已合并的旧Mesh节点。UV/UV2/COLOR、变换与法线须正确保留，导出保存重载不得丢失引用或风隔离。预算目标为三树种volumes/cards各自完整默认树≤8 surfaces且≤12000 triangles，包含默认启用的树皮、苔藓、藤蔓与草，不以关闭附生/藏节点达标；geometry不强套此预算。逻辑叶数、实际叶团/叶卡数、顶点、三角面、Mesh节点及surfaces分列，surfaces不冒称draw calls；预算必须经Godot实际构建计数确认，未验不得写达标。 |
+| SEA-PLANT-EDITOR-R28 | 新增统一runner专项plant-canopy，与plant-authoring/plant-integration/plant-performance及真实editor-plant回归并列，覆盖模式兼容、合批前后数据、branch bounds、保存重载、图集和三树种同seed同机位整树/单叶近景/掠视/两风帧。性能使用真实渲染后端、关闭VSync、禁止fixed-fps；volumes/cards分别实测1/16/64棵，geometry对照1/16棵，geometry64棵标未测且不外推。默认动态导出实例策略与刻意共享候选分开；记录设备/后端/分辨率/抗锯齿/阴影、预热采样窗口、wall-clock p50/p95、实际draw calls/primitives、构建耗时和CPU数组字节，保留回归与波动，不将减面率换算FPS。GPU计时无效标未测；源码/工具完成或截图存在均不等于验收，真实Godot报告和图像目检独立留证。Main、潜水接入、移动/Web、群树林LOD、全局门禁和用户艺术终审仍不签。 |
+
+## 2026-11-15 10:20 参考图饱满树冠与混合叶卡外壳
+
+用户提供游戏树冠截图，明确体块也要参考其饱满形状，并在外面添加叶片贴图。截图仅作冠形、层次与风格参考，不从截图裁切纹理素材。本节扩展volumes为低模体块与外壳叶卡混合路线，不增加第四种foliage_mode，不改写R25–R28或旧geometry历史。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PLANT-EDITOR-R29 | volumes以内部24 triangles闭合低模簇支撑饱满体积，并向各方向布置外壳叶卡，每卡4 triangles，形成参考图方向的饱满冠形与外缘可辨叶片，不只向单一机位铺卡。新增volume_leaf_cards整数参数0..16，新建默认12，旧配方缺字段按0读取，0保留纯体块；不得给旧volumes配方静默增加外壳，foliage_mode缺字段仍按geometry，原leaf_geometry三档保留。参数仅控制volumes外壳，经Session预览、撤销重做与保存重载，保持branch ID/bounds、角色合批、风权重及独立资源边界。外壳使用R26图集；纯单叶cards路线仍为每叶4 triangles叶片+2 triangles平柄，不能与混合外壳卡成本混算。图集alpha clip阈值0.42，每个256×256格的有效像素范围为格内8..247，导入启用mipmaps与VRAM压缩；缩小和压缩后的透明边、远近景、各向轮廓及风动须真实渲染目检。R27完整默认树预算不变，混合默认7 surfaces、纯体块6 surfaces目前仅静态结构推算，必须经plant-canopy实测，不冒称draw calls或验收通过。 |
+
+### 图集最新状态与验收边界
+
+按本次主线程交接，image-2.6在用户更新临时授权凭据后，已通过用户明确授权的multipart字节上传成功生成；实际模型为`gpt-image-2.6-sunburst`。该最新状态取代先前“生成中/权限阻塞”的当前结论，原历史保留。原图为`art_source/plant_editor_leaf_atlas/v001/image26_leaf_atlas_source.png`，1024×1024、1060810 bytes；运行图`godot/assets/textures/vegetation/workshop_leaf_atlas_512.png`为512×512 RGBA、218744 bytes。同源目录保留`generation.json`（模型、提示词及来源，无密钥）与`preparation.json`（缩小准备记录），不得将授权凭据写入文档或生成记录。
+
+plant-canopy正在主线程串行运行，结果仍pending，不追加成功数字。旧内核preflight的251/0、540/0、155/0只说明旧几何与逻辑检查，不能证明新混合外壳、预算或真实性能通过；R28无fixed-fps、GPU无效记未测及Main等未签边界继续有效。
+
+## 2026-11-15 r9交付补充：双图集来源与验收测量口径
+
+本节细化R25–R29，不新增条款或改写历史。当前参考混合生产实现为24 triangles闭合内芯按0.65缩小、全平滑法线，每簇默认12张各向四三角叶簇卡；每张卡的图像含9叶，不等于9片几何叶。volume_leaf_cards=0保留纯体块，cards保持独立单叶4 triangles+平柄2 triangles。旧字段兼容、角色合批与branch bounds要求不变。
+
+- **双图集**：单叶`godot/assets/textures/vegetation/workshop_leaf_atlas_512.png`为512²、218744 bytes，供独立单叶路线；混合外壳改用同目录`workshop_leaf_clusters_512.png`，512²、301592 bytes。此处细化R29“外壳使用R26图集”为使用同一授权生成来源派生的叶簇图集，不把单叶和叶簇当成同一纹理。
+- **来源保留**：`art_source/plant_editor_leaf_atlas/v001`保留image-2.6原图、generation.json、preparation.json，以及叶簇派生的clusters_preparation.json、prepare_clusters.py等源支持文件；原始用户截图仅作风格参考，不裁素材，不记录密钥。生成/上传操作授权已获用户确认，但正式资产来源/授权核验仍pending，未发AssetID，不混同两种授权状态。
+- **真实贴图路径**：shader采用alpha clip 0.42、格内有效8..247像素与mipmap；r9已验证实际BC7（BPTC）压缩资源及解码alpha，不仅检查导入配置。自动图像/数据断言不代替用户艺术终审。
+- **性能测量**：真实SubViewport经TextureRect显示在前台置顶宿主，各模式承担同等展示成本；Store.save_animated实际磁盘动态旁车，保留逐实例资源与风处理。无fixed-fps、无force_draw的自然draw回调间隔是wall-clock采样口径，**不是GPU fence完成时间或屏幕呈现FPS**；合批对照中的force_draw只用于draw calls比较，不混入自然采样。每组至少2.2秒预热、2.2秒采样/90帧，两轮反序；停绘/超时必须判无效，失败轮不得混样。
+
+r9完整专项23253/0，22轮无丢draw/超时且全部focused；editor与必要内核也已完成，具体报告、预算及回归见账本。原“预算仅推算/串行待验”当前状态由本次真实证据更新，历史不删。默认混合三树种实测均≤8 surfaces、≤12000 triangles；不承诺所有负载更快，单树p95回归及16棵cards/pure尾部回归必须保留。GPU计时无效未测，geometry64棵未测；艺术终审、Main/潜水接入、Web/mobile、LOD及全库门禁仍未签。

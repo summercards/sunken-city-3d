@@ -185,3 +185,18 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | SEA-CAMERA-R17 | 已实现并专项验收：潜水Controller统一入水镜头，opening Transform/FOV固定，幕退场后下压/拉开回稳，首swim无snap；最终家园pitch0.16rad/偏移−0.22rad，水面边缘高于头顶；不改OrbitCam所有者或海面参数 | A transition500/0、control396/0；B真实transition404/0、control403/0，21帧已审阅；C海面camera14/0 |
 
 A=`20261110-233501-dive-entry-polish-core-cc526e`、B=`20261110-233501-dive-entry-polish-visual-6a99e7`、C=`20261110-233926-dive-entry-final-integration-222f98`，报告位于工程外verification目录。三批12个计数入口合计5857/0，另3存档入口通过，均exit0/PASS、unexpected=[]。此前PENDING为文档委派阶段，现以本节和[开发记录](../../development/2026-11-10_dive_entry_splash.md)为准；全局sync79/只读81问题未过（含本轮已改脚本待定向哈希及其它登记漂移），功能保持partial，低端/长时/用户终审未签。
+
+## 2026-11-14 水下体验镜头与轻潜水镜（planned）
+
+承接 [3–5分钟潜水主方案](../dive/underwater_experience_plan.md)、[SEA-DIVE-R52–R75](../dive/underwater_experience_plan.md#4-r52r75-设计条款) 与 [本轮开发记录](../../development/2026-11-14_underwater_experience_plan.md)。本节只登记设计，保留登记头 `status=partial`、owner 与既有验证入口；不把历史 R17 运行签署外推为本轮通过。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验证要求 |
+|---|---|---|
+| SEA-CAMERA-R18 | planned；候选默认距离9.5m、滚轮5..16m、vFOV74°/冲刺80°，显式KEEP_HEIGHT；由Shared DiveRuntimeController唯一拥有，0.32m双clip、无roll、手动不抢镜，海面OrbitCam/R16不变 | 待 `underwater-experience`、`visual-underwater-experience`、`dive-transition`、`visual-dive-transition`、`camera` 实现后验证；需覆盖碰撞挡停、实际速度为零时冲刺FOV归零、进出水连续与三宽高比，当前planned/pending |
+| SEA-CAMERA-R19 | planned；轻潜水镜可关闭，中心55%不扭，边缘默认位移≤短边1.5%、上限3%、可归零；世界雾与透明合成后、HUD/圆幕前；共享正向标签投影与点击逆映射，零强度等价 | 待真实渲染验证16:9、16:10、21:9及Compatibility的合成顺序、边缘位移、标签/拾取对齐和零强度等价；不能以静态shader或无渲染断言代签 |
+
+委派写作阶段不运行 Godot、runner、sync；主线程本轮静态检查与全局sync/check结果见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)，不新增verification名称、登记头不变。
+
+2026-11-14复审承接R18/R19：补齐入水7.8m/78°→用户距离/74°候选、实际旧值区分、径向55%定义、照片保留水下环境与标签锚点映射；出水只白名单推进表现tick，不解除输入/奖励门禁。P0已实现9.5m、5–16m、vFOV74/80、KEEP_HEIGHT与浅层clip，`dive-control`及真实Forward+视觉专项通过；轻潜水镜/标签逆映射和宽高比矩阵仍未实现。
+
+P0补验补充：同一Controller在正式Session返回时保持exit，直到真实黑帧后才进入surface；挡墙后冲刺意图清除，避免冲刺FOV残留。`dive-transition`、`visual-dive-transition`和`visual-dive-control`本轮exit0。R19轻潜水镜、标签逆映射、三宽高比与Compatibility仍为planned/pending。

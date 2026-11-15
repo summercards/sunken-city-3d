@@ -29,6 +29,7 @@ const SWIM_SPEED := 3.8
 const SPRINT_SPEED := 6.2
 const ENTER_TIME := 2.2
 const ENTER_DEPTH := -10.0
+const EXIT_PRESENT_TIME := 1.5
 const CAM_MIN := 5.0
 const CAM_MAX := 11.0
 const SEARCH_RADIUS := 3.4
@@ -86,6 +87,10 @@ var depth := 0.0
 var _t := 0.0
 var _enter_t := 0.0
 var _exit_y := 0.0
+var _exit_target_y := 0.0
+var _exit_elapsed := 0.0
+var _exit_compressed := false
+var _exit_present_seconds := EXIT_PRESENT_TIME
 
 var _surface_nodes: Array = []
 var _world_env: WorldEnvironment
@@ -540,20 +545,38 @@ func dive_entry_tick(dt: float) -> bool:
 	return dive_entry_progress() >= 1.0
 
 func dive_exit_begin() -> void:
-	_enter_t = 0.0
+	_exit_elapsed = 0.0
 	_exit_y = diver_pos.y
+	_exit_target_y = MOVE_MAX_Y
+	_exit_present_seconds = EXIT_PRESENT_TIME
+	_exit_compressed = true
 	_route.clear()
 	_route_target_chest = {}
 	_search = {}
 	_search_t = 0.0
+	# Only show the short visible ascent when a collision-safe shallow segment exists.
+	# Deep requests use a brief look-up/bubble beat, then the Session curtain compresses
+	# the long return instead of lerping through buildings to the water surface.
+	var target := Vector3(diver_pos.x, _exit_target_y, diver_pos.z)
+	if diver_pos.y >= _exit_target_y - 6.0 and diver_pos.y <= _exit_target_y + 0.05 \
+			and _clear_segment(diver_pos, target):
+		_exit_compressed = false
 	if _marker_layer != null:
 		_marker_layer.visible = false
 
 func dive_exit_tick(dt: float) -> bool:
-	_enter_t += dt
-	var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
-	diver_pos.y = lerpf(_exit_y, WATER_LEVEL, blend)
-	return blend >= 1.0
+	_exit_elapsed += maxf(dt, 0.0)
+	if _exit_compressed:
+		return _exit_elapsed >= 0.45
+	var progress := clampf(_exit_elapsed / _exit_present_seconds, 0.0, 1.0)
+	var blend := smoothstep(0.0, 1.0, progress)
+	var target := Vector3(diver_pos.x, lerpf(_exit_y, _exit_target_y, blend), diver_pos.z)
+	var moved := dive_move(target - diver_pos)
+	if moved.length_squared() < 0.000001 and progress > 0.05 and progress < 0.95:
+		_exit_compressed = true
+		_exit_elapsed = 0.0
+		return false
+	return progress >= 1.0
 
 func dive_end() -> void:
 	active = false

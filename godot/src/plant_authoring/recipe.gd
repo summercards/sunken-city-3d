@@ -2,6 +2,7 @@
 extends RefCounted
 ## 配方边界与确定性序列化；旧配方只补新增字段，不掩盖未知字段或非法值。
 
+const TrunkPath = preload("res://src/plant_authoring/trunk_path.gd")
 const SPECIES := ["camphor", "maple", "birch"]
 const GRASS_ASSETS := ["grass_soft", "mound_soft"]
 const KEYS := [
@@ -11,18 +12,28 @@ const KEYS := [
 	"color_variation", "trunk_visible", "leaves_visible", "moss_enabled", "moss_amount",
 	"vine_enabled", "vine_count", "vine_length", "grass_enabled", "grass_count", "grass_asset",
 	"branch_overrides", "subtwig_count", "trunk_cell", "leaf_cell", "moss_cell", "vine_cell",
-	"color_mode", "wind_strength", "wind_speed", "random_enabled", "variation"
+	"color_mode", "wind_strength", "wind_speed", "random_enabled", "variation",
+	"trunk_path", "bark_detail", "bark_cell", "moss_scale", "moss_bias", "moss_height", "moss_color_variation", "leaf_geometry", "foliage_mode", "volume_leaf_cards"
 ]
 const OPTIONAL_KEYS := [
 	"subtwig_count", "trunk_cell", "leaf_cell", "moss_cell", "vine_cell",
-	"color_mode", "wind_strength", "wind_speed", "random_enabled", "variation"
+	"color_mode", "wind_strength", "wind_speed", "random_enabled", "variation",
+	"trunk_path", "bark_detail", "bark_cell", "moss_scale", "moss_bias", "moss_height", "moss_color_variation", "leaf_geometry", "foliage_mode", "volume_leaf_cards"
 ]
 const OVERRIDE_KEYS := ["enabled", "length_scale", "radius_scale", "angle_offset"]
+const STRUCTURED_KEYS := ["trunk_path"]
 const LEAF_BUDGET := 1800
 const MAX_SEED := 9007199254740991
+# trunk_path 是结构化数组，不放入标量 RANGES/INTEGER_KEYS；供控制点 UI 单独消费。
+const TRUNK_PATH_LIMITS := {
+	"min_points": TrunkPath.MIN_POINTS, "max_points": TrunkPath.MAX_POINTS,
+	"max_offset_m": TrunkPath.MAX_OFFSET, "min_y_step_m": TrunkPath.MIN_Y_STEP,
+	"units": "meters", "parameter": "y/height"
+}
 # 每项为 [最小值, 最大值, 滑条步长]；包含分枝 override，供 UI 直接消费。
 const RANGES := {
 	"seed": [0, MAX_SEED, 1],
+	"volume_leaf_cards": [0, 16, 1],
 	"height": [3.0, 30.0, 0.1], "trunk_radius": [0.04, 1.2, 0.01],
 	"trunk_curve": [0.0, 0.8, 0.01], "crown_radius": [0.8, 10.0, 0.05],
 	"branch_start": [0.5, 20.0, 0.1], "branch_count": [3, 18, 1],
@@ -31,6 +42,9 @@ const RANGES := {
 	"leaf_size": [0.08, 1.2, 0.01], "leaf_density": [0.25, 2.0, 0.01],
 	"cluster_size": [0.25, 1.8, 0.01], "cluster_jitter": [0.0, 0.8, 0.01],
 	"normal_blend": [0.0, 1.0, 0.01], "color_variation": [0.0, 0.5, 0.01],
+	"bark_detail": [0.0, 1.0, 0.01], "bark_cell": [0, 63, 1],
+	"moss_scale": [0.05, 1.0, 0.01], "moss_bias": [-PI, PI, 0.01],
+	"moss_height": [0.1, 1.0, 0.01], "moss_color_variation": [0.0, 0.5, 0.01],
 	"moss_amount": [0.0, 1.0, 0.01], "vine_count": [0, 12, 1],
 	"vine_length": [0.0, 8.0, 0.05], "grass_count": [0, 80, 1],
 	"trunk_cell": [0, 63, 1], "leaf_cell": [0, 63, 1],
@@ -41,8 +55,8 @@ const RANGES := {
 	"angle_offset": [-1.5, 1.5, 0.01]
 }
 const INTEGER_KEYS := [
-	"seed", "branch_count", "subtwig_count", "vine_count", "grass_count",
-	"trunk_cell", "leaf_cell", "moss_cell", "vine_cell"
+	"seed", "branch_count", "subtwig_count", "vine_count", "grass_count", "volume_leaf_cards",
+	"trunk_cell", "leaf_cell", "moss_cell", "vine_cell", "bark_cell"
 ]
 
 static func defaults(species: String = "camphor") -> Dictionary:
@@ -51,12 +65,15 @@ static func defaults(species: String = "camphor") -> Dictionary:
 		"height": 7.2, "trunk_radius": 0.27, "trunk_curve": 0.22,
 		"crown_radius": 2.9, "branch_start": 2.4, "branch_count": 10,
 		"branch_spread": 1.0, "branch_rise": 0.38, "branch_droop": 0.12,
-		"subtwig_count": 5, "leaf_size": 0.36, "leaf_density": 1.0,
+		"subtwig_count": 5, "leaf_size": 0.36, "leaf_density": 1.0, "leaf_geometry": "balanced",
+		"foliage_mode": "volumes", "volume_leaf_cards": 12,
 		"cluster_size": 0.92, "cluster_jitter": 0.24, "normal_blend": 0.68,
 		"color_variation": 0.16, "color_mode": "auto",
 		"trunk_cell": 13, "leaf_cell": 28, "moss_cell": 34, "vine_cell": 29,
 		"trunk_visible": true, "leaves_visible": true,
+		"trunk_path": [], "bark_detail": 0.0, "bark_cell": 12,
 		"moss_enabled": true, "moss_amount": 0.24,
+		"moss_scale": 0.175, "moss_bias": 0.0, "moss_height": 0.78, "moss_color_variation": 0.16,
 		"vine_enabled": true, "vine_count": 2, "vine_length": 2.2,
 		"grass_enabled": true, "grass_count": 12, "grass_asset": "grass_soft",
 		"wind_strength": 0.35, "wind_speed": 1.0,
@@ -86,6 +103,10 @@ static func normalized(data: Dictionary) -> Dictionary:
 	var result := data.duplicate(true)
 	var species: Variant = data.get("species", "camphor")
 	var fallback := defaults(species if species is String and SPECIES.has(species) else "camphor")
+	# 缺字段属于旧实体叶配方，不能套用新建文档的叶团风格。
+	fallback.foliage_mode = "geometry"
+	# 先前已保存的 volumes 是纯体块，不因增加外壳叶卡而静默换样式。
+	fallback.volume_leaf_cards = 0
 	for key in OPTIONAL_KEYS:
 		if not result.has(key):
 			result[key] = fallback[key]
@@ -121,6 +142,10 @@ static func validate(data: Dictionary) -> String:
 		return "name 必须是至多 80 字符的字符串"
 	if not (recipe.color_mode is String) or not ["manual", "auto"].has(recipe.color_mode):
 		return "color_mode 必须是 manual 或 auto"
+	if not (recipe.foliage_mode is String) or not ["volumes", "cards", "geometry"].has(recipe.foliage_mode):
+		return "foliage_mode 必须是 volumes、cards 或 geometry"
+	if not (recipe.leaf_geometry is String) or not ["balanced", "high", "reference"].has(recipe.leaf_geometry):
+		return "leaf_geometry 必须是 balanced、high 或 reference"
 	for key in RANGES:
 		if OVERRIDE_KEYS.has(key):
 			continue
@@ -131,6 +156,9 @@ static func validate(data: Dictionary) -> String:
 			return "%s 超出范围 [%s, %s]" % [key, limits[0], limits[1]]
 		if INTEGER_KEYS.has(key) and not _integer_in_range(recipe[key], int(limits[0]), int(limits[1])):
 			return "%s 必须是范围内的整数" % key
+	var path_reason := TrunkPath.validate(recipe.trunk_path, float(recipe.height))
+	if not path_reason.is_empty():
+		return path_reason
 	if recipe.branch_start >= recipe.height - 0.1:
 		return "branch_start 必须小于 height - 0.1"
 	if not (recipe.grass_asset is String) or not GRASS_ASSETS.has(recipe.grass_asset):

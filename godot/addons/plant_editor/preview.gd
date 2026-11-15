@@ -3,6 +3,8 @@ extends VBoxContainer
 
 signal branch_selected(id: String)
 
+const WindRuntime = preload("res://src/plant_authoring/wind_runtime.gd")
+
 var viewport: SubViewport
 var camera: Camera3D
 var model: Node3D
@@ -21,6 +23,9 @@ var _orbiting := false
 var _press := Vector2.ZERO
 var _moved := false
 var _surface: SubViewportContainer
+var host_reference: Node3D
+var plant_transform := Transform3D.IDENTITY
+var _plant_space: Node3D
 
 func _ready() -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -72,6 +77,9 @@ func _ready() -> void:
 	camera.far = 500.0
 	camera.current = true
 	viewport.add_child(camera)
+	_plant_space = Node3D.new()
+	_plant_space.name = "PlantPreviewSpace"
+	viewport.add_child(_plant_space)
 	_highlight = MeshInstance3D.new()
 	_highlight.name = "EditorBranchBounds"
 	viewport.add_child(_highlight)
@@ -95,9 +103,8 @@ func set_build(result: Dictionary) -> void:
 			model.get_parent().remove_child(model)
 			model.free()
 		model = next
-		viewport.add_child(model)
-		_materials.clear()
-		_collect_materials(model)
+		_plant_space.add_child(model)
+		_materials = WindRuntime.prepare(model)
 	branches = result.get("branches", []).duplicate(true)
 	_set_material_clock()
 	if not _initialized_camera:
@@ -121,9 +128,7 @@ func _process(delta: float) -> void:
 	_set_material_clock()
 
 func _set_material_clock() -> void:
-	for material in _materials:
-		material.set_shader_parameter("preview_wind", active)
-		material.set_shader_parameter("local_time", local_time)
+	WindRuntime.apply_sample(_materials, local_time, 1.1, Vector2(0.86, 0.5), active)
 
 func materials() -> Array[ShaderMaterial]:
 	return _materials.duplicate()
@@ -131,8 +136,31 @@ func materials() -> Array[ShaderMaterial]:
 func fit_model() -> void:
 	if not is_instance_valid(model):
 		return
-	var bounds := _bounds(model)
+	var bounds := model.global_transform * _bounds(model)
+	if is_instance_valid(host_reference):
+		bounds = bounds.merge(host_reference.global_transform * _bounds(host_reference))
 	focus_bounds(bounds)
+
+func set_host_reference(node: Node3D) -> void:
+	clear_host_reference()
+	host_reference = node
+	# 保留宿主原始根变换，植物通过独立预览父节点放到宿主根局部空间。
+	viewport.add_child(host_reference)
+	set_plant_transform(plant_transform)
+
+func clear_host_reference() -> void:
+	if is_instance_valid(host_reference):
+		host_reference.get_parent().remove_child(host_reference)
+		host_reference.free()
+	host_reference = null
+
+func set_plant_transform(value: Transform3D) -> void:
+	plant_transform = value
+	_plant_space.transform = host_reference.transform * value if is_instance_valid(host_reference) else value
+	select_branch(selected_id)
+
+func focus_plant_bounds(bounds: AABB) -> void:
+	focus_bounds(_plant_space.global_transform * bounds)
 
 func focus_bounds(bounds: AABB, factor: float = 1.0) -> void:
 	target = bounds.get_center()
@@ -143,8 +171,11 @@ func focus_bounds(bounds: AABB, factor: float = 1.0) -> void:
 	_update_camera()
 
 func _bounds(node: Node3D) -> AABB:
-	var result := AABB(node.position, Vector3.ZERO)
+	var result := AABB(Vector3.ZERO, Vector3.ZERO)
 	var found := false
+	if node is MeshInstance3D and node.mesh != null:
+		result = node.mesh.get_aabb()
+		found = true
 	for child in node.find_children("*", "MeshInstance3D", true, false):
 		if child.mesh != null:
 			var box: AABB = node.global_transform.affine_inverse() * child.global_transform * child.mesh.get_aabb()
@@ -193,9 +224,20 @@ func _on_input(event: InputEvent) -> void:
 			_update_camera()
 		_surface.accept_event()
 
+func focus_branch(id: String) -> bool:
+	# 合批后 node_path 可只剩元数据节点；选择与聚焦只消费根局部 bounds。
+	if not is_instance_valid(model): return false
+	for branch: Dictionary in branches:
+		if str(branch.id) == id:
+			focus_bounds(model.global_transform * branch.bounds)
+			return true
+	return false
+
 func pick_branch(point: Vector2) -> String:
-	var origin := camera.project_ray_origin(point)
-	var direction := camera.project_ray_normal(point)
+	if not is_instance_valid(model): return ""
+	var inverse := model.global_transform.affine_inverse()
+	var origin := inverse * camera.project_ray_origin(point)
+	var direction := (inverse.basis * camera.project_ray_normal(point)).normalized()
 	var nearest := INF
 	var id := ""
 	for branch: Dictionary in branches:
@@ -231,6 +273,7 @@ func select_branch(id: String) -> void:
 			mesh.surface_add_vertex(box.get_endpoint(edge[1]))
 		mesh.surface_end()
 		_highlight.mesh = mesh
+		_highlight.global_transform = model.global_transform
 		_highlight.visible = true
 		return
 

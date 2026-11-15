@@ -58,7 +58,7 @@ func reset(runtime, point: Vector3) -> void:
 	runtime.debug_teleport(point)
 	runtime.yaw = 0.0
 	runtime.pitch = 0.0
-	runtime.distance = 7.5
+	runtime.distance = runtime.DEFAULT_DISTANCE
 	runtime.sprinting = false
 	runtime.air.refill()
 	runtime.update_camera(0.0, true)
@@ -134,7 +134,8 @@ func shared_contract(map, id: String) -> bool:
 				retired.append(str(node.get_path()))
 		stack.append_array(node.get_children())
 	check(owners == 1 and retired.is_empty(), id + "：无旧 phase action 节点或重复 controller")
-	check(is_equal_approx(runtime.camera.fov, 72.0), id + "：实际相机 FOV72")
+	check(is_equal_approx(runtime.camera.fov, 74.0), id + "：实际相机竖直FOV74")
+	check(runtime.camera.keep_aspect == Camera3D.KEEP_HEIGHT and is_equal_approx(runtime.distance, 9.5), id + "：KEEP_HEIGHT与默认镜头距离9.5m")
 	check(runtime.air == map.air, id + "：氧气实例与地图相同")
 	return true
 
@@ -259,7 +260,7 @@ func test_motion(runtime, origin: Vector3, id: String, values: Dictionary) -> vo
 	var sprint := speed(runtime)
 	check(sprint_first > cruise and sprint_first < 6.0, id + "：Shift 加速不是瞬时变速")
 	check(absf(sprint - 7.0) < 0.08, id + "：实际冲刺 7m/s")
-	check(runtime.camera.fov > 77.7 and runtime.camera.fov <= 78.01, id + "：真实冲刺驱动 FOV 到78")
+	check(runtime.camera.fov > 79.7 and runtime.camera.fov <= 80.01, id + "：真实冲刺驱动 FOV 到80")
 	values.sprint_fov = runtime.camera.fov
 	values.sprint_distance = before_sprint.distance_to(position(runtime))
 	var brake_start := position(runtime)
@@ -274,7 +275,7 @@ func test_motion(runtime, origin: Vector3, id: String, values: Dictionary) -> vo
 	check(brake_first > 1.0 and brake_first < sprint, id + "：松开后保留短暂惯性再刹停")
 	check(brake_distance > 0.3 and brake_distance < 1.8, id + "：刹停距离合理且非瞬停")
 	check(speed(runtime) < 0.001 and drift < 0.001, id + "：刹停后无持续漂移")
-	check(absf(runtime.camera.fov - 72.0) < 0.1, id + "：实际松开加速后 FOV 回72")
+	check(absf(runtime.camera.fov - 74.0) < 0.1, id + "：实际松开加速后 FOV 回74")
 	reset(runtime, origin)
 	runtime.set_motion_input(Vector3.RIGHT)
 	step(runtime, 60)
@@ -373,12 +374,12 @@ func test_pointer(runtime, origin: Vector3, id: String, values: Dictionary) -> v
 		button(runtime, MOUSE_BUTTON_WHEEL_UP, true)
 	var minimum: float = runtime.distance
 	button(runtime, MOUSE_BUTTON_WHEEL_UP, true)
-	check(is_equal_approx(minimum, 4.0) and is_equal_approx(runtime.distance, 4.0), id + "：滚轮4m下限")
+	check(is_equal_approx(minimum, 5.0) and is_equal_approx(runtime.distance, 5.0), id + "：滚轮5m下限")
 	for _i in 30:
 		button(runtime, MOUSE_BUTTON_WHEEL_DOWN, true)
 	var maximum: float = runtime.distance
 	button(runtime, MOUSE_BUTTON_WHEEL_DOWN, true)
-	check(is_equal_approx(maximum, 13.0) and is_equal_approx(runtime.distance, 13.0), id + "：滚轮13m上限")
+	check(is_equal_approx(maximum, 16.0) and is_equal_approx(runtime.distance, 16.0), id + "：滚轮16m上限")
 	# 同一按键通过场景树真实派发，检查地图兼容输入没有二次 toggle。
 	var lamp_before: bool = runtime.air.lamp
 	var messages := []
@@ -455,10 +456,10 @@ func test_oxygen(runtime, origin: Vector3, id: String, values: Dictionary) -> vo
 	var measurements := []
 	# 独立的标定样本，不用 air.drain_rate() 作为自身的预期答案。
 	for sample in [
-		{"depth": 10.0, "fast": false, "move": false, "lamp": false, "rate": 0.9265},
-		{"depth": 10.0, "fast": false, "move": true, "lamp": false, "rate": 1.250775},
-		{"depth": 20.0, "fast": true, "move": true, "lamp": false, "rate": 1.9057},
-		{"depth": 20.0, "fast": false, "move": false, "lamp": true, "rate": 1.303}]:
+		{"depth": 10.0, "fast": false, "move": false, "lamp": false, "rate": 0.3375},
+		{"depth": 10.0, "fast": false, "move": true, "lamp": false, "rate": 0.3645},
+		{"depth": 20.0, "fast": true, "move": true, "lamp": false, "rate": 0.46125},
+		{"depth": 20.0, "fast": false, "move": false, "lamp": true, "rate": 0.3416666667}]:
 		var point := Vector3(origin.x, float(runtime.map.dive_water_level()) - float(sample.depth), origin.z)
 		reset(runtime, point)
 		runtime.air.lamp = sample.lamp
@@ -497,7 +498,7 @@ func test_camera(runtime, origin: Vector3, id: String, values: Dictionary) -> vo
 		var roll_dot := camera.global_basis.x.dot(Vector3.UP)
 		check(absf(roll_dot) < 0.0001, id + "：不同yaw/pitch下实际相机无roll")
 		check(camera.global_position.is_finite() and forward.is_finite()
-			and camera.fov >= 71.99 and camera.fov <= 78.01, id + "：相机位置及FOV有效")
+			and camera.fov >= 73.99 and camera.fov <= 80.01, id + "：相机位置及FOV有效")
 		poses.append({"position": v3(camera.global_position), "forward": v3(forward),
 			"yaw": look.x, "pitch": look.y, "roll_dot": roll_dot, "fov": camera.fov})
 	values.camera_poses = poses
@@ -554,7 +555,7 @@ func test_home_collision(runtime, values: Dictionary) -> void:
 			check(target.distance_to(safe) < target.distance_to(desired) - 1.0, "home：真实几何球扫掠clip缩回")
 			check(sphere_clear(map, safe, 0.32), "home：clip终点0.32m球无穿透")
 			runtime.debug_teleport(subject)
-			runtime.distance = 7.5
+			runtime.distance = runtime.DEFAULT_DISTANCE
 			var orbit: Vector3 = (desired - target).normalized()
 			runtime.yaw = atan2(orbit.x, orbit.z)
 			runtime.pitch = asin(orbit.y)

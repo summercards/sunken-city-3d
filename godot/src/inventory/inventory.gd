@@ -246,26 +246,67 @@ func _commit_candidate(candidate: Dictionary, changed_ids: Array = []) -> bool:
 	_transaction_busy = false
 	return true
 
+## Build the complete candidate without mutating this inventory. This is used by
+## cross-owner content transactions so capacity is checked before any durable
+## expedition state or inventory signal can be published.
+func _plan_add_all(amounts: Dictionary) -> Dictionary:
+	var candidate := _counts.duplicate(true)
+	for id in amounts:
+		if not id is String or not ItemDB.has(id) or not (amounts[id] is int or amounts[id] is float):
+			return {"ok":false,"reason":"未知物品或数量无效"}
+		var amount := float(amounts[id])
+		if not is_finite(amount) or amount < 0.0 or amount != floor(amount) or amount > 1000000000.0:
+			return {"ok":false,"reason":"物品数量无效"}
+		candidate[id] = int(candidate.get(id, 0)) + int(amount)
+	var used := 0
+	for id in candidate:
+		if not ItemDB.is_currency(str(id)):
+			used += ceili(float(candidate[id]) / float(maxi(1, ItemDB.stack_limit(str(id)))))
+	if used > _capacity: return {"ok":false,"reason":"背包已满"}
+	var changed_ids: Array = []
+	for id in amounts: changed_ids.append(str(id))
+	return {"ok":true,"candidate":candidate,"changed_ids":changed_ids}
+
+func can_add_all(amounts: Dictionary) -> bool:
+	if _transaction_busy: return false
+	return bool(_plan_add_all(amounts).get("ok", false))
+
+## Apply a complete candidate silently while keeping this inventory busy. The
+## caller must call commit_add_all or rollback_add_all exactly once.
+func begin_add_all(amounts: Dictionary) -> Dictionary:
+	if _transaction_busy: return {"ok":false,"reason":"库存正在提交"}
+	var plan := _plan_add_all(amounts)
+	if not plan.ok: return plan
+	var before := _counts.duplicate(true)
+	var before_order := _order.duplicate()
+	_transaction_busy = true
+	_counts = plan.candidate
+	for id in plan.changed_ids: _register(str(id))
+	return {"ok":true,"before":before,"before_order":before_order,"changed_ids":plan.changed_ids}
+
+func commit_add_all(transaction: Dictionary) -> bool:
+	if not _transaction_busy or not transaction.get("ok", false): return false
+	var before: Dictionary = transaction.get("before", {})
+	for id in transaction.get("changed_ids", []):
+		var delta := int(_counts.get(str(id), 0)) - int(before.get(str(id), 0))
+		if delta != 0: changed.emit(str(id), delta)
+	capacity_changed.emit(slots_used(), _capacity)
+	_transaction_busy = false
+	return true
+
+func rollback_add_all(transaction: Dictionary) -> bool:
+	if not _transaction_busy or not transaction.get("ok", false): return false
+	_counts = transaction.get("before", {}).duplicate(true)
+	_order = transaction.get("before_order", []).duplicate()
+	_transaction_busy = false
+	return true
+
 ## Entire material refund, including stacks shared by several item types.
 ## Reject before publishing events when any part would overflow the backpack.
 func add_all(amounts: Dictionary) -> bool:
-	if _transaction_busy:
-		return false
-	var candidate:=_counts.duplicate(true)
-	for id in amounts:
-		if not ItemDB.has(str(id)) or not (amounts[id] is int or amounts[id] is float): return false
-		var amount:=float(amounts[id])
-		if not is_finite(amount) or amount<0 or amount!=floor(amount): return false
-		candidate[id]=int(candidate.get(id,0))+int(amount)
-	var used:=0
-	for id in candidate:
-		if ItemDB.is_currency(str(id)): continue
-		used+=int(ceil(float(candidate[id])/float(maxi(1,ItemDB.stack_limit(str(id))))))
-	if used>_capacity: return false
-	for id in amounts: _register(str(id))
-	var changed_ids: Array = []
-	for id in amounts: changed_ids.append(str(id))
-	return _commit_candidate(candidate, changed_ids)
+	var transaction := begin_add_all(amounts)
+	if not transaction.get("ok", false): return false
+	return commit_add_all(transaction)
 
 
 ## Atomic exchange is the shared buy/gift/request port. Validate the complete

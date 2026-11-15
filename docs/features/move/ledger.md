@@ -258,3 +258,17 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 ## 2026-11-11 阳光房通行接入补充
 
 竖直梯子使用特殊 `climbing` 状态，不进入普通 GroundSpace；梯脚下层甲板、梯顶二楼走面由 WalkArea/GroundSpace 提供实际支撑。正式 `sunroom-runtime` 20 项通过：下层梯脚可达、二楼内部目标可达、上梯、攀爬动作、二楼移动、下梯回一楼；攀爬表现由 `climbing_action.gd` 消费，根位仍由 `climb_ladder_action.gd` 执行。证据：`D:/projects/sea-work/verification/20261111-150345-verification-e20c4c`。
+
+## 2026-11-14 潜水角色动画3C承接（planned）
+
+承接 [SEA-MOVE-R32](spec.md#2026-11-14-潜水角色动画3c承接设计规划planned)、[SEA-DIVE-R52–R75](../dive/underwater_experience_plan.md#4-r52r75-设计条款) 与 [本轮开发记录](../../development/2026-11-14_underwater_experience_plan.md)。登记头 `status=partial`、owner 与既有 verification 保持不变。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验证要求 |
+|---|---|---|
+| SEA-MOVE-R32 | planned；独立潜水Character复用骨骼，碰撞后实际速度驱动踢蹼滑行/悬停/倒游/侧移/刹停转身；工具上身层+腿悬停、入水返程姿态；脚蹼待制作，不写根位/奖励/Air，不拉伸肢体，不套陆地2.2步频；头肩髋候选错开0.08..0.15s、混合0.15..0.25s，相位连续 | 待潜水行为/视觉入口与真实连续录像覆盖5体型、30/60/120FPS、碰撞挡停、无假踢蹼/无冲刺FOV及进出水姿态；当前planned/pending，不借历史PASS |
+
+本轮仅设计登记，委派写作阶段未运行Godot、runner、sync；主线程最终文档静态检查及全局sync/check见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)。不新增测试入口或生产装备资产。
+
+2026-11-14复审承接R32：主方案补齐1.4m/s主动精细模式、巡航4.2/冲刺7m/s保留基线、踢蹼/滑行候选节拍及工具层/IK边界；P0保留实际速度驱动、碰撞挡停与出水表现白名单，未实现脚蹼/工具动作层/精细模式/五体型装备，固定帧率完整动画验收仍待后续。
+
+P0补验补充：Controller在碰撞挡停后清除冲刺意图，实际角色表现不再继续消费冲刺状态；正式出水在真实黑帧前保持exit表现，随后才进入surface清理。相关`dive-control`、`dive-transition`与真实Forward+过渡专项exit0，但脚蹼、工具上身层、精细模式、五体型及多帧率录像仍未验收。

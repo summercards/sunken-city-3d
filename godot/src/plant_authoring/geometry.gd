@@ -7,6 +7,28 @@ const PALETTE_SIZE := 512.0
 const CELL_SIZE := 64.0
 const INSET := 8.0
 
+# 公开给 UI 的绑定数据均为 root 局部米坐标，返回副本，不持有配方状态。
+static func bind_trunk_metadata(root: Node3D, recipe: Dictionary, points: Array[Vector3], radii: Array[float], attachment_bounds: Dictionary) -> void:
+	var stations := PackedFloat32Array()
+	for point in points:
+		stations.append(point.y / float(recipe.height))
+	root.set_meta("trunk_path", {
+		"mode": "auto" if recipe.trunk_path.is_empty() else "manual",
+		"units": "meters", "parameter": "y/height", "height": float(recipe.height),
+		"controls": recipe.trunk_path.duplicate(true), "points": PackedVector3Array(points),
+		"radii": PackedFloat32Array(radii), "height_stations": stations,
+		"sides": 12, "bounds": tube_bounds(points, radii)
+	})
+	root.set_meta("attachment_bounds", attachment_bounds.duplicate(true))
+
+static func tube_bounds(points: Array[Vector3], radii: Array[float]) -> AABB:
+	var frames := tube_frames(points)
+	var bounds := AABB(_ring_point(points, radii, frames, 0, 0, 12), Vector3.ZERO)
+	for index in points.size():
+		for side in 12:
+			bounds = bounds.expand(_ring_point(points, radii, frames, index, side, 12))
+	return bounds
+
 static func cell_uv(cell: int, point: Vector2) -> Vector2:
 	var origin := Vector2(float(cell % 8), floor(float(cell) / 8.0)) * CELL_SIZE
 	return (origin + Vector2.ONE * INSET + point.clamp(Vector2.ZERO, Vector2.ONE) * (CELL_SIZE - INSET * 2.0)) / PALETTE_SIZE
@@ -87,17 +109,25 @@ static func tube_surface(points: Array[Vector3], radii: Array[float], t: float, 
 		normal = (d - a).cross(c - a).normalized()
 	return {"position": position, "normal": normal}
 
-static func append_moss_on_tube(points: Array[Vector3], radii: Array[float], t: float, height_ratio: float, angle: float, angle_width: float, vertices: PackedVector3Array, normals: PackedVector3Array, indices: PackedInt32Array, uvs: PackedVector2Array, cell: int) -> void:
+# 返回实际新增面数；station_span 指实际环索引归一参数，预算不影响宿主拓扑。
+static func append_moss_on_tube(points: Array[Vector3], radii: Array[float], t: float, height_ratio: float, angle: float, angle_width: float, vertices: PackedVector3Array, normals: PackedVector3Array, indices: PackedInt32Array, uvs: PackedVector2Array, cell: int, station_span: Vector2 = Vector2(-1.0, -1.0), triangle_budget: int = 8192, lift: float = 0.002) -> int:
 	var ring_count := points.size() - 1
 	var frames := tube_frames(points)
 	var low := clampf(t - height_ratio * 0.5, 0.0, 1.0) * float(ring_count)
 	var high := clampf(t + height_ratio * 0.5, 0.0, 1.0) * float(ring_count)
+	if station_span.x >= 0.0:
+		low = station_span.x * float(ring_count)
+		high = station_span.y * float(ring_count)
+	if high <= low or triangle_budget <= 0:
+		return 0
+	var emitted := 0
 	var left := (angle - angle_width * 0.5) / TAU * 12.0
 	var right := (angle + angle_width * 0.5) / TAU * 12.0
+	var inset := minf(0.10, (right - left) * 0.2)
 	var patch := PackedVector2Array([
-		Vector2(left + 0.10, low), Vector2(right - 0.10, low),
-		Vector2(right, lerpf(low, high, 0.5)), Vector2(right - 0.10, high),
-		Vector2(left + 0.10, high), Vector2(left, lerpf(low, high, 0.5))
+		Vector2(left + inset, low), Vector2(right - inset, low),
+		Vector2(right, lerpf(low, high, 0.5)), Vector2(right - inset, high),
+		Vector2(left + inset, high), Vector2(left, lerpf(low, high, 0.5))
 	])
 	# 在宿主每个真实三角面的参数域裁剪，跨环/棱边不以弦线切入树皮。
 	for row in range(int(floor(low)), mini(ring_count, int(ceil(high)))):
@@ -106,25 +136,78 @@ static func append_moss_on_tube(points: Array[Vector3], radii: Array[float], t: 
 			var b := Vector2(column + 1, row)
 			var c := Vector2(column + 1, row + 1)
 			var d := Vector2(column, row + 1)
-			for face in [PackedVector2Array([a, b, c]), PackedVector2Array([a, c, d])]:
+			var va := _mesh_vertex(_ring_point(points, radii, frames, row, column, 12))
+			var vb := _mesh_vertex(_ring_point(points, radii, frames, row, column + 1, 12))
+			var vc := _mesh_vertex(_ring_point(points, radii, frames, row + 1, column + 1, 12))
+			var vd := _mesh_vertex(_ring_point(points, radii, frames, row + 1, column, 12))
+			for face_index in 2:
+				var face := PackedVector2Array([a, b, c]) if face_index == 0 else PackedVector2Array([a, c, d])
+				var host_corners := PackedVector3Array([va, vb, vc] if face_index == 0 else [va, vc, vd])
 				var pieces := Geometry2D.intersect_polygons(patch, face)
 				for piece: PackedVector2Array in pieces:
 					var faces := Geometry2D.triangulate_polygon(piece)
 					for index in range(0, faces.size(), 3):
+						if emitted >= triangle_budget:
+							return emitted
 						var ps: Array[Vector3] = []
 						var ns: Array[Vector3] = []
 						var island := PackedVector2Array()
-						# 同一宿主面统一法线偏移，边界采样不误取相邻面的法线。
-						var centroid: Vector2 = (face[0] + face[1] + face[2]) / 3.0
-						var host := tube_surface(points, radii, centroid.y / float(ring_count), centroid.x / 12.0 * TAU, 12, frames)
-						var n: Vector3 = host.normal
+						# 裁剪点固定落在这个已知宿主面的参数域，直接重心插值其3D a/b/c，避免边界round后取相邻面。
+						var n := (host_corners[2] - host_corners[0]).cross(host_corners[1] - host_corners[0]).normalized()
 						for corner in 3:
 							var uv := piece[faces[index + corner]]
-							var sample := tube_surface(points, radii, uv.y / float(ring_count), uv.x / 12.0 * TAU, 12, frames)
-							ps.append(sample.position + n * 0.002)
+							var position := _face_position(uv, face, host_corners)
+							ps.append(position + n * lift)
 							ns.append(n)
 							island.append(Vector2((uv.x - left) / (right - left), (uv.y - low) / (high - low)))
 						triangle(ps[0], ps[1], ps[2], ns[0], ns[1], ns[2], vertices, normals, indices, uvs, cell, island)
+						emitted += 1
+	return emitted
+
+static func _mesh_vertex(point: Vector3) -> Vector3:
+	return Vector3(snappedf(point.x, 0.0001), snappedf(point.y, 0.0001), snappedf(point.z, 0.0001))
+
+static func _face_position(point: Vector2, face: PackedVector2Array, corners: PackedVector3Array) -> Vector3:
+	var ab := face[1] - face[0]
+	var ac := face[2] - face[0]
+	var ap := point - face[0]
+	var denominator := ab.cross(ac)
+	var barycentric := Vector3(
+		1.0 - ap.cross(ac) / denominator,
+		ap.cross(ac) / denominator,
+		ab.cross(ap) / denominator
+	)
+	# Geometry2D边界round可能给出极小的三角域外点；重心权重归一回同一host face。
+	barycentric.x = maxf(0.0, barycentric.x)
+	barycentric.y = maxf(0.0, barycentric.y)
+	barycentric.z = maxf(0.0, barycentric.z)
+	var weight_sum := barycentric.x + barycentric.y + barycentric.z
+	return (corners[0] * barycentric.x + corners[1] * barycentric.y + corners[2] * barycentric.z) / weight_sum
+
+# 将米制高度转换为 append_tube/tube_surface 的非均匀环参数。
+static func tube_height_station(points: Array[Vector3], height: float) -> float:
+	for index in range(points.size() - 1):
+		if height <= points[index + 1].y:
+			var f := clampf((height - points[index].y) / (points[index + 1].y - points[index].y), 0.0, 1.0)
+			return (float(index) + f) / float(points.size() - 1)
+	return 1.0
+
+# 以真实中心线弧长限定斑块长度（米），返回裁剪到树干的环参数区间。
+static func tube_length_span(points: Array[Vector3], t: float, length: float) -> Vector2:
+	var distances: Array[float] = [0.0]
+	for index in range(1, points.size()):
+		distances.append(distances[-1] + points[index].distance_to(points[index - 1]))
+	var scaled := clampf(t, 0.0, 1.0) * float(points.size() - 1)
+	var at := mini(int(floor(scaled)), points.size() - 2)
+	var center := lerpf(distances[at], distances[at + 1], scaled - float(at))
+	var result := Vector2.ZERO
+	for side in 2:
+		var target := clampf(center + length * (-0.5 if side == 0 else 0.5), 0.0, distances[-1])
+		for index in range(points.size() - 1):
+			if target <= distances[index + 1]:
+				result[side] = (float(index) + (target - distances[index]) / (distances[index + 1] - distances[index])) / float(points.size() - 1)
+				break
+	return result
 
 static func leaf_outline(shape: String) -> PackedVector2Array:
 	var outline := PackedVector2Array()
@@ -159,7 +242,134 @@ static func leaf_outline(shape: String) -> PackedVector2Array:
 		outline.append(Vector2(sin(angle) * 0.82, (1.0 - cos(angle)) * 0.5))
 	return outline
 
-static func append_leaf(center: Vector3, axis: Vector3, width: float, length: float, thickness: float, shape: String, cluster_center: Vector3, normal_blend: float, vertices: PackedVector3Array, normals: PackedVector3Array, indices: PackedInt32Array, uvs: PackedVector2Array = PackedVector2Array(), cell: int = 28, subdivisions: int = 4, tip: float = 1.0, cup: float = 0.75) -> void:
+static var _leaf_topologies: Dictionary = {}
+# 误差以 thickness 为单位，不随叶片尺寸改变；内部边两侧使用同一判据避免 T 接缝。
+const LEAF_CURVE_ERROR := 0.04
+const LEAF_EDGE_ERROR := 0.01
+
+static func append_leaf(center: Vector3, axis: Vector3, width: float, length: float, thickness: float, shape: String, cluster_center: Vector3, normal_blend: float, vertices: PackedVector3Array, normals: PackedVector3Array, indices: PackedInt32Array, uvs: PackedVector2Array = PackedVector2Array(), cell: int = 28, subdivisions: int = 4, tip: float = 1.0, cup: float = 0.75, profile: String = "reference") -> void:
+	if profile == "reference":
+		_append_leaf_reference(center, axis, width, length, thickness, shape, cluster_center, normal_blend, vertices, normals, indices, uvs, cell, subdivisions, tip, cup)
+		return
+	var direction := axis.normalized()
+	var side := direction.cross(Vector3.UP)
+	if side.length_squared() < 0.00001:
+		side = direction.cross(Vector3.RIGHT)
+	side = side.normalized()
+	var frame := Basis(side, side.cross(direction).normalized(), direction)
+	var topology := leaf_topology(shape, subdivisions, tip, cup, profile)
+	var points: PackedVector2Array = topology.points
+	var faces: PackedInt32Array = topology.indices
+	for face_side in [1.0, -1.0]:
+		var base := vertices.size()
+		for point in points:
+			var sample := _leaf_surface(point, frame, width, length, thickness, tip, cup)
+			var position: Vector3 = center + sample.position + frame.y * face_side * thickness * 0.06
+			var normal: Vector3 = sample.normal * face_side
+			var sphere := (position - cluster_center).normalized()
+			if sphere.length_squared() < 0.01:
+				sphere = normal
+			if sphere.dot(normal) < 0.0:
+				sphere = -sphere
+			vertices.append(position)
+			normals.append(normal.lerp(sphere, normal_blend).normalized())
+			uvs.append(cell_uv(cell, Vector2(point.x * 0.5 + 0.5, point.y / tip)))
+		for face in range(0, faces.size(), 3):
+			var a := base + faces[face]
+			var b := base + faces[face + 1]
+			var c := base + faces[face + 2]
+			if (vertices[c] - vertices[a]).cross(vertices[b] - vertices[a]).dot(normals[a] + normals[b] + normals[c]) < 0.0:
+				indices.append_array(PackedInt32Array([a, c, b]))
+			else:
+				indices.append_array(PackedInt32Array([a, b, c]))
+	# 边壁保持独立硬法线和原四角 UV，不能与叶肉或相邻壁面错误焊接。
+	var outline := leaf_outline(shape)
+	var signed_area := 0.0
+	for index in outline.size():
+		signed_area += outline[index].cross(outline[(index + 1) % outline.size()])
+	var steps := maxi(2, subdivisions)
+	for index in outline.size():
+		for segment in steps:
+			var first := outline[index].lerp(outline[(index + 1) % outline.size()], float(segment) / steps)
+			var last := outline[index].lerp(outline[(index + 1) % outline.size()], float(segment + 1) / steps)
+			var a: Vector3 = center + _leaf_surface(first, frame, width, length, thickness, tip, cup).position
+			var b: Vector3 = center + _leaf_surface(last, frame, width, length, thickness, tip, cup).position
+			var offset := frame.y * thickness * 0.06
+			var edge_normal := (b - a).cross(frame.y).normalized() * signf(signed_area)
+			quad(a + offset, b + offset, b - offset, a - offset, edge_normal, edge_normal, edge_normal, edge_normal, vertices, normals, indices, uvs, cell)
+
+# 只缓存无尺度参数域拓扑；同一边共用整数重心键，不以空间容差合并不同属性顶点。
+static func leaf_topology(shape: String, subdivisions: int, tip: float, cup: float, profile: String) -> Dictionary:
+	var steps := maxi(2, subdivisions)
+	var cache_key := str([shape, steps, tip, cup, profile])
+	if _leaf_topologies.has(cache_key):
+		return _leaf_topologies[cache_key]
+	var outline := leaf_outline(shape)
+	var faces := Geometry2D.triangulate_polygon(outline)
+	var points := PackedVector2Array()
+	var indices := PackedInt32Array()
+	var lookup: Dictionary = {}
+	for face in range(0, faces.size(), 3):
+		var ids := PackedInt32Array([faces[face], faces[face + 1], faces[face + 2]])
+		if profile == "balanced" and steps == 2:
+			var ring := PackedVector2Array()
+			var ring_ids := PackedInt32Array()
+			for edge in 3:
+				var first := ids[edge]
+				var last := ids[(edge + 1) % 3]
+				var weights := Vector3i.ZERO
+				weights[edge] = 2
+				ring_ids.append(_leaf_point(ids, weights, steps, outline, points, lookup))
+				ring.append(outline[first])
+				var boundary := absi(first - last) == 1 or absi(first - last) == outline.size() - 1
+				var midpoint := (outline[first] + outline[last]) * 0.5
+				var error := absf(_leaf_dome(midpoint, tip, cup) - (_leaf_dome(outline[first], tip, cup) + _leaf_dome(outline[last], tip, cup)) * 0.5)
+				if boundary or error > LEAF_EDGE_ERROR:
+					weights[edge] = 1
+					weights[(edge + 1) % 3] = 1
+					ring_ids.append(_leaf_point(ids, weights, steps, outline, points, lookup))
+					ring.append(midpoint)
+			var tiles := PackedInt32Array([0, 1, 5, 1, 2, 3, 5, 3, 4, 1, 3, 5]) if ring.size() == 6 else Geometry2D.triangulate_polygon(ring)
+			for index in tiles:
+				indices.append(ring_ids[index])
+		else:
+			for row in steps:
+				for column in range(steps - row):
+					var p := Vector3i(steps - row - column, row, column)
+					var q := p + Vector3i(-1, 1, 0)
+					var r := p + Vector3i(-1, 0, 1)
+					for weights in [p, q, r]:
+						indices.append(_leaf_point(ids, weights, steps, outline, points, lookup))
+					if row + column < steps - 1:
+						for weights in [q, q + Vector3i(-1, 0, 1), r]:
+							indices.append(_leaf_point(ids, weights, steps, outline, points, lookup))
+	var result := {"points": points, "indices": indices}
+	_leaf_topologies[cache_key] = result
+	return result
+
+static func _leaf_point(ids: PackedInt32Array, weights: Vector3i, steps: int, outline: PackedVector2Array, points: PackedVector2Array, lookup: Dictionary) -> int:
+	var contributors: Array[int] = []
+	for corner in 3:
+		if weights[corner] > 0:
+			contributors.append(ids[corner])
+	contributors.sort()
+	var key := PackedInt32Array()
+	var point := Vector2.ZERO
+	for id in contributors:
+		var weight := weights[ids.find(id)]
+		key.append(id)
+		key.append(weight)
+		point += outline[id] * float(weight) / float(steps)
+	if not lookup.has(key):
+		lookup[key] = points.size()
+		points.append(point)
+	return int(lookup[key])
+
+static func _leaf_dome(point: Vector2, tip: float, cup: float) -> float:
+	var t := clampf(point.y / tip, 0.0, 1.0)
+	return sin(PI * t) * (1.0 - cup * point.x * point.x) - 0.30 * t * t
+
+static func _append_leaf_reference(center: Vector3, axis: Vector3, width: float, length: float, thickness: float, shape: String, cluster_center: Vector3, normal_blend: float, vertices: PackedVector3Array, normals: PackedVector3Array, indices: PackedInt32Array, uvs: PackedVector2Array, cell: int, subdivisions: int, tip: float, cup: float) -> void:
 	var direction := axis.normalized()
 	var side := direction.cross(Vector3.UP)
 	if side.length_squared() < 0.00001:

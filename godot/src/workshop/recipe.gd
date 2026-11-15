@@ -4,6 +4,7 @@ extends RefCounted
 ## 这里不持有运行时状态；规范化始终返回深拷贝，供预览、保存和导出共同使用。
 
 const Config = preload("res://src/workshop/architecture_config.gd")
+const StructuralDamage = preload("res://src/workshop/structural_damage.gd")
 const SCHEMA := "sea.workshop.building_recipe"
 const SCHEMA_VERSION := 1
 const STANDARD_FIELDS := [
@@ -15,7 +16,7 @@ const STANDARD_FIELDS := [
 	"aging", "damage", "vegetation_density", "vegetation_random_enabled", "vegetation_variation", "growth_weights", "structure_seed",
 	"damage_seed", "vegetation_seed", "component_bindings", "floor_overrides",
 	"facade_overrides", "slot_overrides", "excluded_slots", "locked_vegetation",
-	"architecture"
+	"architecture", "structural_damage"
 ]
 const COMPONENT_ROLES := ["wall", "slab", "frame", "glass", "pillar", "plant"]
 const FACADE_KEYS := ["front", "back", "left", "right"]
@@ -146,6 +147,8 @@ static func validate(data: Dictionary, catalog: Dictionary = {}) -> String:
 			return "未知配方字段: " + str(key)
 	if not _finite_tree(data):
 		return "配方包含非有限数值或不可保存的JSON类型"
+	var structural_reason: String = StructuralDamage.validate(data)
+	if not structural_reason.is_empty(): return structural_reason
 	for field in ["width", "depth", "floor_height", "slab_thickness", "wall_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "bevel_width", "taper", "aging", "damage", "vegetation_density"]:
 		if not (data.get(field) is int or data.get(field) is float):
 			return field + "必须为JSON数值"

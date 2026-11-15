@@ -2,9 +2,16 @@
 extends RefCounted
 ## 房屋作者配方：只使用本地RNG，不构建、不写会话或世界。
 const Recipe = preload("res://src/workshop/recipe.gd")
+const Config = preload("res://src/workshop/architecture_config.gd")
+const COLOR_FIELDS := ["color_mode", "color_cell", "color_seed"]
 const SHAPES := ["rectangle", "l", "t", "u"]
 
-static func create(seed_value: int) -> Dictionary:
+static func create(seed_value: int, palette_override: Variant = null, current_recipe: Dictionary = {}) -> Dictionary:
+	# 非法外部输入明确拒绝，不强转为Dictionary，也不静默退回默认配色。
+	if palette_override != null and not Config.validate_palette(palette_override).is_empty():
+		return {}
+	if not current_recipe.is_empty() and not Recipe.validate(current_recipe).is_empty():
+		return {}
 	var rng := RandomNumberGenerator.new()
 	rng.seed = ("workshop-house-v1:" + str(seed_value)).sha256_text().substr(0, 15).hex_to_int()
 	var recipe: Dictionary = Recipe.authoring_defaults()
@@ -74,17 +81,34 @@ static func create(seed_value: int) -> Dictionary:
 		"thickness": [0.18, 0.24, 0.30][rng.randi_range(0, 2)],
 		"post_spacing": [1.6, 2.0, 2.4][rng.randi_range(0, 2)],
 		"rail_spacing": [0.4, 0.5, 0.6][rng.randi_range(0, 2)]}, true)
-	# 整栋协调选格，而非每一片墙独立噪声；仍走正式PaletteUV和四共享材质。
-	var wall_cell: int = [0, 1, 8, 9, 16, 17, 24, 25, 32, 40][rng.randi_range(0, 9)]
-	var trim_cell: int = [2, 3, 10, 11, 18, 26, 34, 42][rng.randi_range(0, 7)]
-	var glass_cell: int = [4, 5, 12, 13, 20, 21][rng.randi_range(0, 5)]
-	architecture.palette = {"color_mode": "manual", "color_seed": structure_seed,
-		"color_cell": [wall_cell / 8, wall_cell % 8], "slots": {}}
-	for slot: String in ["pillar", "band", "frame", "slab", "roof"]:
-		architecture.palette.slots[slot] = {"color_mode": "manual", "color_cell": [trim_cell / 8, trim_cell % 8]}
-	architecture.palette.slots["glass"] = {"color_mode": "manual", "color_cell": [glass_cell / 8, glass_cell % 8]}
+	if not current_recipe.is_empty():
+		var current: Dictionary = Recipe.normalized(current_recipe)
+		# shell_v2空色板由组件+aging取色；显式auto由稳定槽ID+角色+color_seed取色，
+		# 两条路径均不读取structure_seed。完整保留输入，不把自动搭配压成单个手动色。
+		recipe.aging = current.aging
+		recipe.component_bindings = current.component_bindings.duplicate(true)
+		architecture.palette = current.architecture.palette.duplicate(true)
+		architecture.shading = current.architecture.shading.duplicate(true)
+		for field: String in COLOR_FIELDS:
+			architecture.window[field] = current.architecture.window[field].duplicate(true) if current.architecture.window[field] is Array else current.architecture.window[field]
+		# 只延续旧窗作用域的颜色，不携带旧洞口尺寸/开关；新增楼层使用全局规则。
+		for scope: String in ["floor_windows", "facade_windows", "window_overrides"]:
+			for key: String in current.architecture[scope]:
+				if scope == "floor_windows" and int(key) >= floors: continue
+				if scope == "window_overrides" and int(key.split("_")[2]) >= floors: continue
+				var colors: Dictionary = {}
+				for field: String in COLOR_FIELDS:
+					if current.architecture[scope][key].has(field):
+						var value: Variant = current.architecture[scope][key][field]
+						colors[field] = value.duplicate(true) if value is Array else value
+				if not colors.is_empty(): architecture[scope][key] = colors
+	if palette_override != null:
+		# 上面的validate_palette已确认类型，此处才允许安全复制。
+		architecture.palette = (palette_override as Dictionary).duplicate(true)
 	return Recipe.normalized(recipe)
 
-static func generate_candidates(seed_value: int) -> Array[Dictionary]:
-	# 合法域内构造一个方案；不无限重试，也不在失败后悄悄替换为固定模板。
-	return [create(seed_value)]
+static func generate_candidates(seed_value: int, palette_override: Variant = null, current_recipe: Dictionary = {}) -> Array[Dictionary]:
+	# 合法域内构造一个方案；非法输入无候选，不在失败后偷偷替换固定模板。
+	var candidate: Dictionary = create(seed_value, palette_override, current_recipe)
+	if candidate.is_empty(): return []
+	return [candidate]

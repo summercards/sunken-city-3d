@@ -17,7 +17,7 @@ var report: Dictionary = {"test": "underwater-experience", "fixed_dt": DT,
 	"maps": {}, "images": [], "failure_labels": [],
 	"isolation": "统一 runner 工程副本；无 Main、无存档访问",
 	"time0_shader_value": ZERO_TIME,
-	"acceptance_contract": "10/20/41/80m四yaw邻域；0.5m observer世界稳定；AABB/水面/矩阵/预算；正常72FOV仰10度泡尘像素；220/400m黑box真实fog；低角度Water ROI",
+	"acceptance_contract": "10/20/41/80m四yaw邻域；0.5m observer世界稳定；AABB/水面/矩阵/预算；正常74FOV仰10度泡尘像素；220/400m黑box真实fog；低角度Water ROI",
 	"known_limitations": ["真实renderer PNG与像素阈值不在headless分支执行", "水面ROI仅保存on/off供目检，不以源码字符串判定远clip", "动态粒子行为使用snapshot而非逐帧海量断言"]}
 
 func _init() -> void:
@@ -777,7 +777,7 @@ func test_readable_surface(map, id: String, camera: Camera3D, values: Dictionary
 		map._lamp.hide()
 	hide_particle_kind(map, id, "all")
 	water.show()
-	camera.fov = 72.0
+	camera.fov = 74.0
 	var by_depth: Dictionary = {}
 	var base_image: Image = null
 	var time_zero_image: Image = null
@@ -785,8 +785,8 @@ func test_readable_surface(map, id: String, camera: Camera3D, values: Dictionary
 		var observer := Vector3(column.x, level - depth, column.y)
 		camera.global_position = observer
 		camera.look_at(observer + view_direction(), Vector3.UP)
-		check(observer.y < level and camera.fov == 72.0 and (-camera.global_basis.z).y > 0.65,
-			"home：仰视海面" + str(int(depth)) + "m相机在水下、太阳方向、72FOV")
+		check(observer.y < level and camera.fov == 74.0 and (-camera.global_basis.z).y > 0.65,
+			"home：仰视海面" + str(int(depth)) + "m相机在水下、太阳方向、74FOV")
 		var clocks: Array = []
 		var images: Array = []
 		for clock in [ZERO_TIME, 2.0, 4.0]:
@@ -1147,9 +1147,9 @@ func test_normal_particle_pixels(map, id: String, camera: Camera3D, values: Dict
 		camera.global_position = observer
 		var forward := Vector3(0.0, sin(NORMAL_PITCH), -cos(NORMAL_PITCH)).normalized()
 		camera.look_at(observer + forward, Vector3.UP)
-		camera.fov = 72.0
-		check(is_equal_approx(camera.fov, 72.0) and absf((-camera.global_basis.z).y - sin(NORMAL_PITCH)) < 0.001,
-			id + "：正常粒子图使用72FOV、水平上仰10度 depth=" + str(int(depth)))
+		camera.fov = 74.0
+		check(is_equal_approx(camera.fov, 74.0) and absf((-camera.global_basis.z).y - sin(NORMAL_PITCH)) < 0.001,
+			id + "：正常粒子图使用74FOV、水平上仰10度 depth=" + str(int(depth)))
 		particle_snapshot(map, id, observer, camera, 2.0 + ZERO_TIME)
 		optical_view(map, id, camera, 2.0 + ZERO_TIME)
 		show_particle_kind(map, id, "all")
@@ -1200,7 +1200,7 @@ func test_far_fog_clip(map, id: String, camera: Camera3D, values: Dictionary) ->
 	var column: Vector2 = Vector2(0.0, -35.0) if id == "home" else Vector2(0.0, 12.0)
 	var observer := Vector3(column.x, level - 20.0, column.y)
 	camera.global_position = observer
-	camera.fov = 72.0
+	camera.fov = 74.0
 	camera.look_at(observer + Vector3(0.0, sin(LOW_WATER_PITCH), -cos(LOW_WATER_PITCH)), Vector3.UP)
 	particle_snapshot(map, id, observer, camera, ZERO_TIME)
 	optical_view(map, id, camera, ZERO_TIME)
@@ -1261,7 +1261,7 @@ func capture_surface_motion(map, id: String, camera: Camera3D, values: Dictionar
 	check(map.collision_runtime.try_set_viewer_position(point), "home：55m动态预览实际胶囊起点净空")
 	controller.yaw = -atan2(SUN.x, -SUN.z)
 	controller.pitch = -0.90
-	controller.distance = 7.5
+	controller.distance = controller.DEFAULT_DISTANCE
 	controller.debug_teleport(point)
 	controller.character.show()
 	map.air.refill()

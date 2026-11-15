@@ -8,14 +8,16 @@ const BreathBubbles = preload("res://src/ambient/diver_breath_bubbles.gd")
 const EntryEffect = preload("res://src/diving/dive_entry_effect.gd")
 const CRUISE_SPEED := 4.2
 const SPRINT_SPEED := 7.0
-const FOV := 72.0
-const ENTRY_FOV := 76.0
-const ENTRY_START_DISTANCE := 6.3
-const ENTRY_HEAVE := 0.08
-const ENTRY_PITCH_LIFT := -0.22
-const SPRINT_FOV := 78.0
-const ZOOM_MIN := 4.0
-const ZOOM_MAX := 13.0
+## P0水下镜头：竖直FOV；水平FOV由Camera3D按宽高比计算，不在代码中混用。
+const FOV := 74.0
+const ENTRY_FOV := 78.0
+const ENTRY_START_DISTANCE := 7.8
+const ENTRY_HEAVE := 0.04
+const ENTRY_PITCH_LIFT := -0.18
+const SPRINT_FOV := 80.0
+const ZOOM_MIN := 5.0
+const ZOOM_MAX := 16.0
+const DEFAULT_DISTANCE := 9.5
 const ACCEL_TAU := 0.22
 const BRAKE_TAU := 0.16
 const TURN_TAU := 0.14
@@ -46,7 +48,7 @@ var velocity := Vector3.ZERO
 var yaw := 0.0
 ## 正值是俯看；负值抬头。镜头永不滚转。
 var pitch := 0.14
-var distance := 7.5
+var distance := DEFAULT_DISTANCE
 var sprinting := false
 var route: Array = []
 var air = AirScript.new()
@@ -76,12 +78,30 @@ var _blocked_seconds := 0.0
 var _test_input_enabled := false
 var _test_axis := Vector3.ZERO
 var _test_sprint := false
+## 由内容适配器在真实工具动作期间置位；默认 false，不按按钮意图耗气。
+var tool_active := false
 var motion := "悬浮"
 ## 只由 Session 控制过场冻结；默认 false 保持预览与旧测试行为。
 var transition_frozen := false:
 	set(value):
 		transition_frozen = value
 		if value: reset_pointer()
+## Session在正式出水期间只授予同一Controller的表现tick白名单；不解除输入、奖励或Air门禁。
+var exit_presentation_granted := false
+## 正式返回时，exit表现完成只表示“可以遮黑”，不能在黑幕前提前切到surface。
+var exit_presentation_finished := false
+
+func grant_exit_presentation() -> void:
+	if machine.current == "exit": exit_presentation_granted = true
+
+func revoke_exit_presentation() -> void:
+	exit_presentation_granted = false
+
+func complete_exit_presentation() -> void:
+	if machine.current != "exit": return
+	exit_presentation_granted = false
+	# Session在真实黑帧之后调用；非正常超时也必须收束到唯一surface状态。
+	machine.change("surface", {}, true)
 
 func _ready() -> void:
 	ensure_input_actions()
@@ -123,6 +143,7 @@ func configure(p_map: Node3D, p_camera: Camera3D, visual_parent: Node3D, visual_
 	add_child(entry_effect)
 	entry_effect.configure(character, float(map.call("dive_water_level")))
 	camera.fov = FOV
+	camera.keep_aspect = Camera3D.KEEP_HEIGHT
 	camera.near = 0.12
 	yaw = camera.rotation.y
 
@@ -134,23 +155,39 @@ func begin(payload: Dictionary = {}) -> bool:
 	route.clear()
 	velocity = Vector3.ZERO
 	sprinting = false
+	exit_presentation_finished = false
 	_entry_released = not transition_frozen
 	_entry_view_locked = false
 	_entry_yaw = yaw
 	_entry_pitch = -0.03
 	_entry_effect_started = false
+	tool_active = false
 	_camera_valid = false
 	_drag = false
 	_left_pressed = false
 	air.refill()
 	map.call("dive_begin", payload)
+	# 正式潜水不在水下续气；回到 surface 状态后才由同一 Air 实例恢复。
+	air.surface_refill_enabled = false
 	machine.change("enter", payload)
 	if _entry_released: _start_entry_effect()
 	_emit_air()
 	return true
 
 func request_surface() -> void:
-	if machine.current in ["enter", "swim"]: machine.change("exit")
+	if machine.current in ["enter", "swim"]:
+		exit_presentation_granted = false
+		exit_presentation_finished = false
+		machine.change("exit")
+
+func surface() -> void:
+	request_surface()
+
+func abort_to_surface() -> void:
+	if machine.current == "surface": return
+	exit_presentation_granted = false
+	exit_presentation_finished = false
+	machine.change("surface", {}, true)
 
 func cancel_navigation() -> void:
 	route.clear()
@@ -278,6 +315,9 @@ func step_swim(dt: float) -> void:
 	if desired == Vector3.ZERO and velocity.length() < 0.035: velocity = Vector3.ZERO
 	var moved: Vector3 = map.call("dive_move", velocity * dt)
 	velocity = moved / dt
+	# 冲刺倍率/FOV只代表实际推进；撞墙后按键仍按着也不能继续显示冲刺或烧冲刺气。
+	if sprinting and velocity.length() < 0.12:
+		sprinting = false
 	if not route.is_empty() and desired.length() > 0.5 and velocity.length() < 0.12:
 		_blocked_seconds += dt
 		if _blocked_seconds > 0.7:
@@ -286,7 +326,7 @@ func step_swim(dt: float) -> void:
 	else:
 		_blocked_seconds = 0.0
 	_sync_depth()
-	var event: String = air.update(dt, float(map.get("depth")), velocity.length() > 0.20, sprinting)
+	var event: String = air.update(dt, float(map.get("depth")), velocity.length() > 0.20, sprinting, tool_active)
 	if event == "empty":
 		_emit_message("氧气耗尽 · 正在上浮")
 		request_surface()
@@ -448,6 +488,9 @@ func _state_enter(id: String, _payload: Dictionary) -> void:
 		"surface":
 			velocity = Vector3.ZERO
 			sprinting = false
+			exit_presentation_granted = false
+			exit_presentation_finished = false
+			if air != null: air.surface_refill_enabled = true
 			reset_pointer()
 			if character != null:
 				character.set_diving(false)
@@ -481,7 +524,7 @@ func _state_enter(id: String, _payload: Dictionary) -> void:
 
 func _state_tick(id: String, dt: float) -> void:
 	if map == null: return
-	if transition_frozen and id != "enter": return
+	if transition_frozen and id != "enter" and not (id == "exit" and exit_presentation_granted): return
 	match id:
 		"enter":
 			var ready := entry_is_prepared()
@@ -506,7 +549,14 @@ func _state_tick(id: String, dt: float) -> void:
 			_sync_depth()
 			update_character(dt)
 			map.call("dive_content_tick", 0.0)
-			if done: machine.change("surface")
+			# 正式 Session 会在真实黑帧后调用 complete_exit_presentation()；
+			# 这里不自动进入 surface，否则 exit 完成的第一帧就会隐藏地图/角色，
+			# 而幕布尚未遮黑，造成明场闪变。无 Session 的旧预览/专项夹具仍保留原行为。
+			if done:
+				if map.has_meta("request_surface_transition"):
+					exit_presentation_finished = true
+				else:
+					machine.change("surface")
 
 func _sync_depth() -> void:
 	map.set("depth", maxf(0.0, float(map.call("dive_water_level")) - _map_position().y))

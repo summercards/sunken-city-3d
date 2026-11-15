@@ -47,6 +47,9 @@ var phase: String:
 	set(value): phase_machine.change(value)
 var _exit_start := Vector3.ZERO
 var _exit_surface := Vector3.ZERO
+var _exit_elapsed := 0.0
+var _exit_compressed := false
+const EXIT_PRESENT_SECONDS := 1.5
 
 ## 家园海底：与海面共用世界坐标，因此没有固定出生点，只有下水点换算。
 @export var map_id := "dive_home_seabed"
@@ -75,8 +78,8 @@ signal message(text: String)
 signal exited
 
 var air = DiveAirScript.new()
-## 入水点就在水下 1 米；换气带必须收窄到它以内，否则贴水面的玩家永远满氧。
-const LOCAL_SURFACE_DEPTH := 0.5
+## 正式潜水关闭水下换气；保留与通用Air一致的6m兼容阈值供预览/状态快照使用。
+const LOCAL_SURFACE_DEPTH := DiveAirScript.SURFACE_DEPTH
 ## 潜水会话的通用注入点；家园海底没有宝箱，保留空接口以免会话写属性报错。
 var give_resource: Callable
 var give_rewards: Callable
@@ -401,14 +404,29 @@ func dive_entry_tick(dt: float) -> bool:
 
 func dive_exit_begin() -> void:
 	_exit_left = 0.0
+	_exit_elapsed = 0.0
 	_exit_start = dive_position()
-	_exit_surface = Vector3(_exit_start.x, water_level, _exit_start.z)
+	# A visible exit is only allowed to reach the real capsule-safe shallow bound.
+	_exit_surface = Vector3(_exit_start.x, water_level - 0.82, _exit_start.z)
+	_exit_compressed = true
+	if _exit_start.y >= _exit_surface.y - 6.0 and _exit_start.y <= _exit_surface.y + 0.05 \
+			and _dive_segment_clear(_exit_start, _exit_surface):
+		_exit_compressed = false
 
 func dive_exit_tick(dt: float) -> bool:
-	_exit_left += dt
-	var blend := smoothstep(0.0, 1.0, minf(_exit_left / maxf(0.05, exit_seconds), 1.0))
-	dive_set_position(_exit_start.lerp(_exit_surface, blend))
-	return blend >= 1.0
+	_exit_elapsed += maxf(dt, 0.0)
+	if _exit_compressed:
+		return _exit_elapsed >= 0.45
+	var progress := clampf(_exit_elapsed / EXIT_PRESENT_SECONDS, 0.0, 1.0)
+	var blend := smoothstep(0.0, 1.0, progress)
+	var target := _exit_start.lerp(_exit_surface, blend)
+	var before := dive_position()
+	var moved := dive_move(target - before)
+	if moved.length_squared() < 0.000001 and progress > 0.05 and progress < 0.95:
+		_exit_compressed = true
+		_exit_elapsed = 0.0
+		return false
+	return progress >= 1.0
 
 func dive_end() -> void:
 	$Water.hide()

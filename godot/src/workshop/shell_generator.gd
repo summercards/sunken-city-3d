@@ -5,6 +5,7 @@ extends RefCounted
 const Geometry = preload("res://src/workshop/shell_geometry.gd")
 const StructureUnion = preload("res://src/workshop/shell_union_geometry.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
+const StructuralDamage = preload("res://src/workshop/structural_damage.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const MeshBuilder = preload("res://src/workshop/mesh_builder.gd")
 const GENERATOR_VERSION := "sea_workshop_structural_union_v3"
@@ -84,7 +85,27 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	for id in r.slot_overrides:
 		if not str(id).begins_with("plant_") and not seen.has(id):
 			result.warnings.append("槽覆盖未匹配实际part: " + str(id))
-	var union_result: Dictionary = StructureUnion.combine(plans)
+	var cutter: Mesh = geometry.get("damage_cutter")
+	if cutter != null:
+		# 按同一opening后缀移除整套框/扇/玻璃/窗沿，不留下悬空碎片。
+		var removed_openings: Dictionary = {}
+		for part: Dictionary in plans:
+			var id: String = str(part.id)
+			if id.begins_with("frame_") or id.begins_with("sash_") or id.begins_with("glass_") or id.begins_with("door_") or id.begins_with("sill_"):
+				if StructuralDamage.overlaps(_part_faces(part), cutter): removed_openings[id.substr(id.find("_") + 1)] = true
+		var retained: Array = []
+		for part: Dictionary in plans:
+			var id: String = str(part.id)
+			var suffix: String = id.substr(id.find("_") + 1)
+			var remove: bool = removed_openings.has(suffix) and (id.begins_with("frame_") or id.begins_with("sash_") or id.begins_with("glass_") or id.begins_with("door_") or id.begins_with("sill_"))
+			if id.begins_with("aging_") and StructuralDamage.overlaps(_part_faces(part), cutter): remove = true
+			if remove: _release_plans([part])
+			else: retained.append(part)
+		plans = retained
+		for opening: Dictionary in result.openings:
+			if removed_openings.has(str(opening.id).trim_prefix("opening_")): opening["removed_by_structural_damage"] = true
+	result["damage_openings"] = geometry.get("damage_openings", []).duplicate(true)
+	var union_result: Dictionary = StructureUnion.combine(plans, cutter)
 	if not bool(union_result.ok):
 		_release_plans(plans)
 		return _fail(result, str(union_result.reason))
@@ -213,6 +234,7 @@ static func build(recipe: Dictionary, catalog: Dictionary = {}) -> Dictionary:
 	# 只存可序列化审计值；不把parts或Mesh资源塞入metadata。
 	root.set_meta("quality", result.quality.duplicate(true))
 	root.set_meta("openings", result.openings.duplicate(true))
+	root.set_meta("damage_openings", result.damage_openings.duplicate(true))
 	root.set_meta("warnings", result.warnings.duplicate(true))
 	root.set_meta("walk_surfaces", result.walk_surfaces.duplicate(true))
 	root.set_meta("water_blockers", result.water_blockers.duplicate(true))

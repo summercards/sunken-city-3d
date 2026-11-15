@@ -341,3 +341,78 @@ A=`20261110-233501-dive-entry-polish-core-cc526e`，B=`20261110-233501-dive-entr
 承接 R09/R31/R41/R51：本子批不改DiveSession/控制器/地图，只修NpcCareerPanel挂起协议与Main返树resume/最终dispose，避免同Main出树永久清空query/perform。dive-transition501/0、framework52/0与工程外b1-lifecycle109/0均exit0。外部探针真实zone1 request_dive→swim→abort返回三轮，同Main同Panel、端口相同、closed连接数不增，每轮五职业真实query可打开/刷新及真实perform可路由商店。
 
 仅zone1/headless，不宣称默认家园往返、全图/全五职业付费结算或真实黑帧已验；dive-transition有9个、组合探针有4个ObjectDB退出泄漏警告，未归因、不签零泄漏。npc-integration锚点前置失败并超时124单列。[报告与边界](../../development/2026-11-13_engine_deep_audit.md#b1-交互生命周期子批实际实施)。
+
+## 2026-11-14 3–5分钟水下体验与内容闭环规划承接（planned）
+
+承接 [主方案](underwater_experience_plan.md) 的 SEA-DIVE-R52–R75，以及 SEA-CAMERA-R18/R19、SEA-MOVE-R32、SEA-SAVE-R20/R21 的跨功能设计。登记头仍为 `partial`；本节全部为 `planned/pending`，不借既有入水、3C或存档 PASS 代签新体验。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验证边界 |
+|---|---|---|
+| SEA-DIVE-R52 | planned；swim解锁到请求结束为180–300秒，三路线定210/225/240秒；主动游回浅层属于swim、计时耗氧，正式exit表演不计时；活动可选、可提前结束，无强制计时器/体力条/氧气字段 | [主方案第7节](underwater_experience_plan.md#7-三条首发体验路线与奖励预算)；连续路线与返程余量待实现实测 |
+| SEA-DIVE-R53 | planned；继续复用来源海域与家园映射，经DiveSession事务拒绝无来源/重复请求 | [主方案第3、4节](underwater_experience_plan.md#3-所有权与接口关系)；既有入口背景不等于本条通过 |
+| SEA-DIVE-R54 | planned；复用既有圆幕、真实黑帧、prepared enter、uncover/release，不加第二过场状态机 | [主方案第9节](underwater_experience_plan.md#9-3a品质取向镜头与电影化进出水)；新体验未运行 |
+| SEA-DIVE-R55 | planned；实际碰撞速度驱动踢蹼、悬停、倒游、侧移、刹停、转身和返程姿态 | SEA-MOVE-R32；需5体型、30/60/120FPS连续真实验收 |
+| SEA-DIVE-R56 | planned；9.5m候选默认、5..16m、vFOV74/80、KEEP_HEIGHT、0.32m双clip、无roll，镜头唯一归Shared Controller | SEA-CAMERA-R18；需近墙、挡停冲刺FOV和进出水连续录像 |
+| SEA-DIVE-R57 | planned；中心55%不扭、短边1.5%默认/3%上限/可归零，HUD字形/圆幕不扭，标签锚点正向映射对齐世界、点击逆映射 | SEA-CAMERA-R19；需三宽高比与Compatibility真实渲染 |
+| SEA-DIVE-R58 | planned；打捞/拍照/鱼群使用稳定ID，状态与位置/Air/中途动作分离 | [主方案第6节](underwater_experience_plan.md#6-现有海底内容基线与新增边界)；当前家园鱼群仍为观赏 |
+| SEA-DIVE-R59 | planned；短时可取消一次性打捞token，完成后整份奖励原子提交，满包/重复/过期不改目标 | [主方案第10节](underwater_experience_plan.md#10-动画交互和舒适性补充)；需事务失败回滚测试 |
+| SEA-DIVE-R60 | planned；抄网捕鱼必须由实际接触/命中确认，装饰鱼不作物品写者，不改SEA-PICKUP | [主方案第6、10节](underwater_experience_plan.md#10-动画交互和舒适性补充)；捕鱼内容端口未实现 |
+| SEA-DIVE-R61 | planned；照片记录photo_id、构图摘要、首次日期和可选相对图片引用，图片失败不删观察 | SEA-CAMERA-R19/SEA-SAVE-R20；当前无摄影收集系统 |
+| SEA-DIVE-R62 | planned；图片保留水下雾/光线/可选镜片效果，不含HUD/圆幕；摘要仅目标几何与可见性（雾影响可见度），不存雾颜色/渲染资源；不抢镜头，HUD字形不扭、标签锚点正向对齐世界、点击逆映射 | SEA-CAMERA-R19；图片与摘要分离、正逆映射待真实验收 |
+| SEA-DIVE-R63 | planned；HUD只读显示深度、Air、活动反馈和剩余日配额，不直接写玩法状态 | [主方案第3节](underwater_experience_plan.md#3-所有权与接口关系)；HUD扩展未实现 |
+| SEA-DIVE-R64 | planned；请求出水取消活动token，switching/frozen锁玩家输入/奖励/Air/保存/日期/经营，同一Controller受Session返回令牌授权的exit表现tick白名单放行；仅实碰撞安全末段4–6m/1.2–1.8秒→cover→真实黑帧→卸runtime→恢复同Main/uncover；深处/无安全短路径/缺氧原位抬头气泡0.3–0.6秒后遮黑压缩返程，不穿楼；可随时跳镜头但不跳恢复事务 | [主方案第9节](underwater_experience_plan.md#9-3a品质取向镜头与电影化进出水)；主动完整上浮在swim沿地图路径并提示气量，不锁输入强游40秒；全链待实现实测 |
+| SEA-DIVE-R65 | planned；恢复同一Main及船人、OrbitCam、环境、GroundSpace、UI和处理模式，不重建/读档代替 | 既有R09/R31/R41/R51边界；本轮同一体验集成待验 |
+| SEA-DIVE-R66 | planned；候选A=100，rate=(1/3)*(1+0.15*clamp(depth/120,0,1))*M+tool，悬停/巡航/冲刺M=1/1.08/1.35；灯耗气0，tool .02/s仅实际打捞/收网；首版无水下换气，返同Main再补气，6秒救援cooldown保留；稳定swim耗氧、切换/exit冻结，潜水时海面钟/换气/cooldown停；35%/15%加路径余量提前提示，游戏化而非现实潜水指导 | [主方案第8节](underwater_experience_plan.md#8-氧气与返程预算调优候选尚未实现)；不保存中途Air/位置/动作，候选待实现与路线实测 |
+| SEA-DIVE-R67 | planned；active/switching/frozen仅作为save busy禁capture/write/restore，不禁稳定swim内存观察/奖励；活动需active且swim且非switching/frozen，独立content_busy与单次token锁、提交无await；切换/取消/过期照片回调不回写卸载会话，已提交观察保留，文件成功且Session归属有效才挂引用 | SEA-SAVE-R20/R21；需分别验证存档门禁、内容准入与异步归属 |
+| SEA-DIVE-R68 | planned；整份capacity/稳定ID/token/epoch/配额预检→无await同线程提交库存+Session耗尽/配额/观察→最终广播，失败回滚；Inventory唯一物品写者，现add_all先广播需扩展抑制/延后广播及回滚入口，不宣称已有跨owner原子性 | SEA-SAVE-R21；需满包/失败/重入与外部观察一致性回归 |
+| SEA-DIVE-R69 | planned；家园5个新稳定资源目标产出wood2/rope1/parts1/glass1/pearl1；全图新增资源共享同额日配额，fish2；WorldClock 07:00 epoch刷新，session/切图/重入不刷新；与23旧宝箱opened奖励分账，不设单次宝箱/摄影/抄网硬上限，以内容和全局日配额约束经济 | [主方案第7节](underwater_experience_plan.md#7-三条首发体验路线与奖励预算)；跨日与跨图总额待实现实测 |
+| SEA-DIVE-R70 | planned；root v4、原dive found/opened及未知整数宝箱ID保留，可选expedition由Session唯一输出；仅缺整个模块迁移空，已有version1的version/resource_epoch/consumed/daily_yield/photos及照片记录必填字段须完整 | SEA-SAVE-R20；不改当前wire，未来可选模块一旦存在即严格验证必填字段 |
+| SEA-DIVE-R71 | planned；严格校验必填字段/类型/未来版本与晨次/重复ID/非法计数/路径遍历，未知稳定ID保留；version1缺字段或consumed坏拒绝，不能补空刷资源；失败不改现场/有效备份 | SEA-SAVE-R20；缺整个模块迁移与已有模块损坏拒绝分别待验 |
+| SEA-DIVE-R72 | planned；照片JSON不存二进制/绝对路径/雾颜色/渲染资源；异步成功且Session归属有效才挂相对引用，切换/取消/过期不回写卸载会话；缺图/失败仍保留已提交观察，迟到有效引用仅入内存待下次普通save，不逐图强写 | SEA-SAVE-R20/R21；图片生命周期与摘要恢复待实现 |
+| SEA-DIVE-R73 | planned；每次返回同Main且全busy解锁后仅一次SaveGame.write请求，尊重禁存/nosave/坏档保护/保存意愿，失败不重发/撤销资源，只提示重试；迟到图片引用等下次普通save，不追加返回请求 | SEA-SAVE-R21；跨文件照片与存档不承诺原子提交 |
+| SEA-DIVE-R74 | planned；覆盖连续3–5分钟、提前返回、交互失败、日配额、照片、进出水录像、多体型/帧率/宽高比/Compatibility | [开发记录验收矩阵](../../development/2026-11-14_underwater_experience_plan.md#5-预计实施与验收未执行)；当前全部pending |
+| SEA-DIVE-R75 | planned；本轮仅规划，联动CAMERA/MOVE/SAVE并扩展既有入口，不新增假测试名或借历史PASS | [开发记录](../../development/2026-11-14_underwater_experience_plan.md)；功能仍partial |
+
+本轮P0已改动潜水代码/测试，但没有新增宝箱、装备资产、摄影文件或家园资源目标；家园当前无宝箱/捕鱼奖励，旧九图23个宝箱继续沿原链路。首版路线、返程方式、无水下换气、资源与摄影规则已锁定；P0实现了候选耗氧、远广角镜头、KEEP_HEIGHT、近浅层安全出水表现与深处压缩返回。打捞/捕鱼/摄影内容、跨owner奖励事务、镜片后处理、完整3–5分钟路线仍未实现。
+
+P0退出时序补验已收口：正式Session不在真实黑帧前切到surface；Controller保留exit和水下角色可见，黑帧绘制确认后才清理runtime。相关headless与Forward+专项均exit0；这只是P0表现时序修复，不改变R52–R75内容闭环的planned/pending状态。
+
+### 2026-11-14 本轮口径收口与委派边界
+
+R52–R75逐条承接不增删ID；设计规划仍全部 `planned/pending`，其中P0实现证据单独登记，不将整条内容闭环提前标成完成。本次不改历史和登记头，主方案详设由主线程补齐。委派写作阶段未运行全局checker/sync或Godot，仅做四文件diff-check与条款对应静态核对；主线程最终checker/sync静态结果见[开发记录](../../development/2026-11-14_underwater_experience_plan.md)，不以静态结果代签新体验运行通过。
+
+### 2026-11-14 P0实现承接与专项证据
+
+已实现的P0范围：`DiveAir`候选A耗气（深度归一化、悬停/巡航/冲刺倍率、工具动作可选微成本、头灯不额外耗气、正式潜水关闭水下续气）；Shared Controller镜头候选默认9.5m、5–16m、vFOV74/冲刺80、显式`KEEP_HEIGHT`；同一Controller在Session冻结期间受白名单授权推进exit表现tick；旧九图与家园出水改为浅层碰撞安全短段，否则0.45秒短表现后交由圆幕压缩返程，不在明场线性穿墙到水面。相关测试口径同步至dive-control、dive-transition、dive-maps、underwater-experience与core selftest的耗气断言。
+
+专项实测：隔离headless `dive-control 406/0`、`dive-transition PASS`、`dive-maps PASS`，证据 `/Users/zyq/work/sea-work/verification/20261114-165857-dive-p0-air-camera-exit-ef80b0`；Forward+真实渲染1280x800/60FPS `visual-dive-control PASS`、`visual-dive-transition PASS`，证据 `/Users/zyq/work/sea-work/verification/20261114-170124-dive-p0-visual-air-camera-exit-15ee28`；`underwater-experience PASS`，以及修正72°旧断言后 `visual-underwater-experience PASS`，证据 `/Users/zyq/work/sea-work/verification/20261114-170450-dive-p0-underwater-experience-f412f8`、`/Users/zyq/work/sea-work/verification/20261114-171701-dive-p0-visual-underwater-fixed-8ab139`。未宣称真实3–5分钟完整路线、P1内容结算、P2动画装备或P3宽高比/Compatibility矩阵完成。
+
+直接运行工程内`tests/integration/selftest.gd`未获有效结果：脚本在既有前置环境下报`Identifier not found: Zones`，外层exit0但不能算通过；隔离`core`批次曾包含多项未归因的视觉、资产、NPC和资源生命周期失败，不作为P0证据。
+
+### 2026-11-14 P0退出时序收口补验
+
+复审发现正式Session在 `dive_exit_tick()` 返回完成时可能过早进入 `surface`，导致 `dive_end()` 在真实黑帧前隐藏水下画面。现已改为：正式Session在 `exit` 中保留同一runtime和潜水角色，由 `exit_presentation_finished` 表示短表现完成；Session先完成 `cover_blank()` 与真实 `frame_post_draw` 黑帧，再调用Controller的 `complete_exit_presentation()` 清理到 `surface`。低级无Session预览继续保持同步退出兼容行为。
+
+同时收口三处P0边界：工具动作参数接入Air更新；冲刺倍率要求实际运动且碰撞挡停清除冲刺意图；浅层出水首帧零位移不再误报阻塞。新增 `dive-transition` 断言确认收幕期间 `runtime`、Controller的 `exit` 和潜水角色仍可见。
+
+补验报告：`dive-control`、`dive-transition`、`dive-maps` 均exit0，批次 `/Users/zyq/work/sea-work/verification/20261114-175029-dive-p0-exit-sequencing-fix-e76e34`；`visual-dive-transition`、`visual-dive-control` 均exit0，Forward+批次 `/Users/zyq/work/sea-work/verification/20261114-175307-dive-p0-exit-sequencing-visual-fix-1fc609`；加入黑帧前可见断言后的 `dive-transition` exit0，批次 `/Users/zyq/work/sea-work/verification/20261114-175537-dive-p0-exit-sequencing-regression-assertion-7cf265`。这只收口P0退出时序，不升级R52–R75的完整内容闭环状态。
+
+状态更正：此前记录“core批次仍在运行”只反映中间观察；该批已安全停止，最终状态为killed、无全局最终退出码。观察到的其它失败保留为未完成/未归因，不写成已证实与本P0无关。
+
+### 2026-11-14 主线程文档验收与全局阻塞
+
+主方案已补齐16节详设，GDD及四功能共29条spec/ledger逐条对应，定向检查0问题，58个新增本地链接/锚点通过，8份功能文档历史前缀与4登记头未变；diff-check exit0。全局sync实际exit1/539 issues，正式check exit1/540 issues；与复审开始前工作区check的问题集合完全相同，新增0/减少0。主要为472运行hash、14源hash、51历史断链及3项资产配对/植物资源引用/派生索引；未刷hash或伪造报告，完整结果见开发记录第8节。设计交付完成不等于全局门禁通过，游戏代码/新装备/新目标/摄影链路及连续玩法视觉验收均未实施，新增条款继续planned/pending。
+
+### 2026-11-14 P1远征数据协议第一阶段
+
+本节覆盖当前工作区中已落地、但尚未等同于完整玩法闭环的 P1 协议实现；不改登记头、不删除上方历史。状态仍为 `partial`，R52–R75 的真实内容与表现验收仍 `planned/pending`。
+
+| 对应设计条款 | 当前实施状态 | 当前证据 / 未完成边界 |
+|---|---|---|
+| SEA-DIVE-R58/R59/R61/R70/R71 | **协议已接入，真实目标未接入**：`DiveSession` 持有可选 `expedition.version=1`、07:00 epoch、consumed/daily_yield/photos；旧 found/opened 独立保留。`SaveSchema` 将 expedition 作为可选模块，缺整个模块迁移为空，已有模块缺字段/类型/重复ID/分数不一致/路径引用非法会拒绝；Main 注册表按候选存档 `time` 校验 epoch/照片日期。 | P1 `dive-maps` 873/0：legacy wire、目标归属、token 并发/取消/过期、配额、照片构图摘要、相对引用、JSON往返。尚未有正式地图打捞/捕鱼/摄影节点、交互UI或异步图片文件生产者。 |
+| SEA-SAVE-R21 | **跨owner奖励协议第一阶段已接入**：Inventory 新增静默 `begin_add_all/commit_add_all/rollback_add_all`，Session 先做固定目标奖励与日配额校验，再预留库存、提交 expedition 与库存并统一广播；失败回滚且不耗目标。旧宝箱仍使用既有 `give_rewards` 原子入口。 | `b2-pickup-transactions` 191/0；`dive-maps` P1 事务夹具覆盖满包/重复/取消/奖励不匹配。尚未接真实打捞/捕鱼动作的距离、LOS、动作中断、捕鱼命中和目标实体消费。 |
+| SEA-DIVE-R63/R72/R73 | **Session门禁已接入**：活动要求 active + swim + 非 switching/frozen，token绑定session代次、target、action、epoch；换图、出水、读档、dispose会失效。照片记录先存摘要，改进分数以旧最佳为准，图片引用仅接受受控相对字符串。 | `dive-control` 406/0、`dive-transition` exit0、`dive-maps` 873/0；存档回写/返回后单次保存请求、真实异步图片成功/失败/迟到回调尚未接入。 |
+
+P1当前结论：**远征 wire、严格校验、Session token、Inventory静默事务和协议级照片记录已实现并完成窄范围回归；家园5个打捞目标、2个捕鱼代理、6个摄影观察点、HUD/UI、真实活动时长与图片异步链路仍未实现，不能签完整海底玩法。**
+
+本阶段证据：`/Users/zyq/work/sea-work/verification/20261114-190910-dive-p1-target-ownership-6653a6`、`/Users/zyq/work/sea-work/verification/20261114-191056-dive-p1-final-control-regression-b2f959`、`/Users/zyq/work/sea-work/verification/20261114-191206-dive-p1-final-transition-regression-6f86c2`、`/Users/zyq/work/sea-work/verification/20261114-191428-dive-p1-final-inventory-regression-223e8d`、`/Users/zyq/work/sea-work/verification/20261114-191710-dive-p1-save-schema-seed-5b4c3b`、`/Users/zyq/work/sea-work/verification/20261114-191827-dive-p1-save-schema-corrupt-seed-c90d60`、`/Users/zyq/work/sea-work/verification/20261114-191946-dive-p1-save-schema-protection-6b4546`、`/Users/zyq/work/sea-work/verification/20261114-192115-dive-p1-framework-regression-bcfc34`。

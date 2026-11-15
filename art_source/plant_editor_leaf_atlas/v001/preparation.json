@@ -1,0 +1,84 @@
+{
+  "source": "/Users/zyq/work/sea/art_source/plant_editor_leaf_atlas/v001/image26_leaf_atlas_source.png",
+  "source_size": [
+    1024,
+    1024
+  ],
+  "source_sha256": "60639a939f9452ecdf01efdde3ee71c85b215a53284db1cec445db94a549f406",
+  "runtime": "/Users/zyq/work/sea/godot/assets/textures/vegetation/workshop_leaf_atlas_512.png",
+  "runtime_size": [
+    512,
+    512
+  ],
+  "runtime_sha256": "9c00769e2198bfee97e710198079d88792f8f9c7a38e451528107037336ac135",
+  "runtime_file_bytes": 218744,
+  "tiles": [
+    {
+      "species": "camphor",
+      "source_bounds": [
+        124,
+        27,
+        396,
+        493
+      ],
+      "runtime_bounds": [
+        8,
+        8,
+        248,
+        248
+      ],
+      "alpha_test_coverage": 0.558135986328125
+    },
+    {
+      "species": "maple",
+      "source_bounds": [
+        28,
+        28,
+        480,
+        490
+      ],
+      "runtime_bounds": [
+        8,
+        8,
+        248,
+        248
+      ],
+      "alpha_test_coverage": 0.396575927734375
+    },
+    {
+      "species": "birch",
+      "source_bounds": [
+        75,
+        20,
+        439,
+        482
+      ],
+      "runtime_bounds": [
+        8,
+        8,
+        248,
+        248
+      ],
+      "alpha_test_coverage": 0.4486846923828125
+    },
+    {
+      "species": "vine",
+      "source_bounds": [
+        51,
+        40,
+        442,
+        480
+      ],
+      "runtime_bounds": [
+        8,
+        8,
+        248,
+        248
+      ],
+      "alpha_test_coverage": 0.548675537109375
+    }
+  ],
+  "filter": "premultiplied Lanczos with RGB-only 8px padding dilation",
+  "rgba8_base_bytes": 1048576,
+  "note": "Texture has transparent alpha; generated GPU mipmaps require import configuration"
+}
