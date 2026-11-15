@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/zone5_aqua_platform.tscn" id="24_zone5"]
 [ext_resource type="Script" uid="uid://bnmvsw7hxisaf" path="res://src/rendering/water_surface.gd" id="25_ocean"]
 [ext_resource type="Script" uid="uid://dg16a2540iktn" path="res://src/rendering/boat_wake.gd" id="26_wake"]
+[ext_resource type="PackedScene" uid="uid://r6l85ggjiknk" path="res://scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/building.tscn" id="32_qkpxi"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_shop.tscn" id="33_floating_shop"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="34_ranch"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/neon_garden_quarter.tscn" id="35_neon_garden"]
@@ -32,7 +33,7 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/water_building_002.tscn" id="42_water_building_002"]
 [ext_resource type="Script" uid="uid://bnlpdixomk08r" path="res://src/ambient/vegetation/wind_controller.gd" id="vegetation_wind"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_yq6so"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_5q0nq"]
 _surfaces = [{
 "aabb": AABB(-640, 0, -640, 1280, 1e-05, 1280),
 "format": 34359742471,
@@ -94,7 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
 material_override = ExtResource("15_water")
 cast_shadow = 0
 extra_cull_margin = 2.0
-mesh = SubResource("ArrayMesh_yq6so")
+mesh = SubResource("ArrayMesh_5q0nq")
 script = ExtResource("25_ocean")
 ocean_waves = PackedVector4Array(0.94, 0.34, 0.16, 12, -0.42, 0.91, 0.085, 7.6, 0.72, -0.69, 0.0325, 4.9, -0.85, -0.53, 0.0105, 2.55)
 
@@ -118,10 +119,10 @@ transform = Transform3D(-0.2076603, 0, -1.7574136, -0.1392592, 2.4054115, 0.0270
 process_physics_priority = -100
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.57135, 1.12, 143.89136)
 
-[node name="water_building_001" parent="World/SeaStructures" instance=ExtResource("41_water_building_001")]
+[node name="water_building_001" parent="World/SeaStructures" unique_id=713310082 instance=ExtResource("41_water_building_001")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.07135, 1.12, 143.89136)
 
-[node name="water_building_002" parent="World/SeaStructures" instance=ExtResource("42_water_building_002")]
+[node name="water_building_002" parent="World/SeaStructures" unique_id=815702349 instance=ExtResource("42_water_building_002")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.57135, 1.12, 143.89136)
 
 [node name="rooftop_ranch" parent="World/SeaStructures" unique_id=1142350009 instance=ExtResource("34_ranch")]
@@ -177,3 +178,23 @@ script = ExtResource("9_prompt")
 
 [node name="ColorGrade" type="CanvasLayer" parent="." unique_id=110587236]
 script = ExtResource("13_grade")
+
+[node name="Placement_building" type="Node3D" parent="." unique_id=2136578837]
+transform = Transform3D(0.77749413, 0, -0.62889016, 0, 1, 0, 0.62889016, 0, 0.77749413, -13.851727, -7.553648, 69.27746)
+metadata/sea_placement = {
+"animated": false,
+"asset_id": "shell_l_1794387870_107701812",
+"candidate_only": true,
+"editable": true,
+"instance_id": "1794750924.187_123930560036041",
+"kind": "building",
+"label": "海风公寓 · 连续实体",
+"manifest_path": "res://scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/candidate_manifest.json",
+"preview_path": "res://scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/building.tscn",
+"purpose": "above_water",
+"recipe_path": "res://scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/building.recipe.json",
+"revision": "revision_0001",
+"scene_path": "res://scenes/workshop_buildings/shell_l_1794387870_107701812/revision_0001/building.tscn"
+}
+
+[node name="Asset" parent="Placement_building" unique_id=568993355 instance=ExtResource("32_qkpxi")]
