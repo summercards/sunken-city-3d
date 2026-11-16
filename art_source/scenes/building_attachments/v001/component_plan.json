@@ -1,0 +1,355 @@
+{
+  "schema": "sea.scene.component_plan",
+  "schema_version": 1,
+  "suite": "building_attachments",
+  "version": "v001",
+  "frozen_at": "2026-11-16",
+  "status": "implemented_pending_current_verification",
+  "plan_status": "frozen_32_types_96_condition_variants",
+  "freeze_scope": "冻结目录、来源边界与交付规则；原生实现已经存在，不追称建模前冻结或已验收。后续源码修改须新证据承接。",
+  "feature_ids": ["SEA-WORLD", "SEA-WORKSHOP", "SEA-ASSET"],
+  "rule_ids": ["SEA-WORLD-R37", "SEA-WORLD-R38", "SEA-WORLD-R39", "SEA-WORLD-R40", "SEA-WORKSHOP-R92", "SEA-ASSET-R69", "SEA-ASSET-R70", "SEA-ASSET-R71", "SEA-ASSET-R72", "SEA-ASSET-R73"],
+  "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "name_policy": "name与raw_title逐字等于catalog.entries[].name；type_id、category、mount_mode、anchor及默认尺寸均据目录。"},
+  "counts": {"families": 4, "subfamilies_per_family": 8, "unique_types": 32, "unique_type_limit": 50, "conditions_per_type": 3, "condition_axis_limit": 5, "planned_condition_variants": 96, "counting_rule": "32种不同轮廓×3状态=96状态交付项，不是96个type；广告style、英文内容、色格、尺寸与实例变换不增加type计数。"},
+  "families": [
+    {"id": "signage", "name": "招牌广告", "subfamilies": ["sign_fascia", "sign_vertical", "sign_projecting", "sign_rooftop", "sign_letters", "sign_lightbox", "sign_arrow", "sign_hanging"]},
+    {"id": "hvac", "name": "机电通信", "subfamilies": ["ac_wall_single", "ac_wall_twin", "ac_roof_upflow", "fan_wall", "utility_junction", "utility_meter_pair", "satellite_dish", "tv_antenna"]},
+    {"id": "water", "name": "水箱管线", "subfamilies": ["tank_round_short", "tank_tower_cone", "tank_horizontal", "tank_rect", "pipe_downspout", "pipe_elbow", "pipe_t_valve", "pipe_bundle"]},
+    {"id": "shelter", "name": "风管棚盖", "subfamilies": ["duct_straight", "duct_elbow", "vent_louver", "vent_mushroom", "chimney", "awning_slope", "awning_barrel", "canopy_entry"]}
+  ],
+  "condition_axis": {"key": "condition", "values": [{"id": "fresh", "name": "全新"}, {"id": "damaged", "name": "破损"}, {"id": "ruined", "name": "残破"}], "independent_from": ["form_style", "sign_style"], "damage_rule": "真实缺件、缺口、断框、弯折与残架；非只改色、整体缩放或SF-A/B/C。文本完整保留，破损不删用户字。", "authorization": "本轮用户明确允许此外挂套件三档损伤，局部覆盖旧参考套件禁止损坏的风格；旧资产、房屋core及其他套件不变。"},
+  "coordinate_system": {"units": "meter", "up_axis": "+Y", "front_axis": "-Z", "origin": "bottom_center", "root_transform": "identity", "mesh_transform": "identity_geometry_baked_to_root", "wall_anchor": {"name": "mount_back", "semantic": "anchorBack", "formula": "[bounds.center.x, bounds.center.y, bounds.max.z]"}, "roof_anchor": {"name": "mount_roof", "semantic": "anchorRoof", "formula": "[bounds.center.x, bounds.min.y, bounds.center.z]"}, "anchor_rule": "根底心与挂载锚点分开；每档最终bounds重算锚点。any类型按显式wall/roof选锚；当前目录默认anchor不是已验适配证据。", "blender_derived_mapping": {"godot_to_blender": "(x,y,z)->(x,-z,y)", "blender_to_godot": "(x,y,z)->(x,z,-y)", "status": "derive_pending"}},
+  "dimensions_policy": {"basis": "目录默认宽X、高Y、深Z，最终Godot米制；不是宿主的绝对世界摆位或已测AABB。", "dimension_input_ratio_range": [0.75, 1.25], "scale_range": [0.75, 1.25], "combined_nominal_extent_ratio_range": [0.5625, 1.5625], "bounds_rule": "每条position_bounds为默认尺寸的底心名义包络假设；字、支架、收分、损伤、style可能改变真实包络，须从最终网格测量，不能用名义包络签通过。", "host_position_authority": "当前TSCN transform；不钉死Main坐标，不反改用户摆位。"},
+  "form_style": "SF-B",
+  "form_contract": {"rho_definition": "rho=1-top_section/bottom_section，按对应边长而非面积", "volume_part_abs_rho_range": [0.01, 0.10], "taper_along": "最长轴，仅变截面不变长边长度", "linear_diameter_ratio_max": 0.953, "each_volume_part_requires_real_taper": true, "at_least_one_reverse_taper": true, "no_volume_exception": "只有真贴片/线缆/螺栓等非体量件可明确no_volume=true并给理由，不允许给体量件批量豁免。", "bevel_segments": 1, "bevel_exception_authorization": "用户明确低面预算：此套件可用单段实体倒角，保厚实轮廓，不修改项目默认3段。", "bevel_width_rule": "按实际截面选取，严格小于最薄厚度一半；非方体、圆截面与字形的真实边处理逐part登记，现有0段自报不是完成验收。", "contacts_allowed": ["inset", "clearance", "boolean_cut", "miter"], "contacts_forbidden": ["coplanar", "face_to_face", "interpenetrate", "overlap", "flush"], "internal_clearance_m_range": [0.002, 0.02], "internal_clearance_assumption_m": 0.008, "mount_world_clearance_assumption_m": 0.012, "boolean_cut_requires": "cut_verified真实证据；本任务不改宿主开槽", "status": "pending_actual_part_audit"},
+  "materials": {"palette_source": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png", "palette_runtime": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png", "uv_name": "PaletteUV", "grid": [8, 8], "texture_size_px": [512, 512], "safe_inset_px_min": 8, "native_declared_inset_px": 16, "filter": "Closest", "uv_rule": "逐面非零面积小岛完整留在单格；不用单点UV，不复制色板，不增加污渍贴图通道。", "roles": {"SEA_Matte": "godot/assets/materials/solar_cabin/sunny_matte.tres", "SEA_Metal": "godot/assets/materials/solar_cabin/sunny_metal.tres", "SEA_Gloss": "godot/assets/materials/solar_cabin/sunny_gloss.tres", "SEA_Emission": "godot/assets/materials/solar_cabin/sunny_emission.tres"}, "role_limit": 4, "emission_rule": "仅灯条/灯泡几何，残破熄灭；源parts分离，运行可按角色合批。", "shared_resources_mutable": false, "verification": "pending"},
+  "budget": {"default_triangles_max": 1800, "long_text_triangles_max": 3500, "long_text_trigger_characters_gt": 8, "glyph_triangles_max": 128, "basis": "每个最终静态交付项全部可见几何三角化累计，含背板、支架、双面字、style边饰；不能只算母型或以N边面藏三角形。", "over_budget_action": "拒绝并保留原文/旧节点/输入，不静默截字、改字或删类型。", "actual_measurement_status": "pending_current_verification"},
+  "sign_text": {"applies_to_family": "signage", "style_values": ["frame", "block", "marquee"], "style_labels": {"frame": "框式", "block": "块式", "marquee": "灯泡边饰"}, "style_is_not_new_type": true, "source": "godot/src/building_attachments/glyphs.gd", "glyph_version": "sea_original_strokes_v1", "supported_characters": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .-!&", "max_characters": 24, "invalid_input": "拒绝并保留原输入，不upper/替换/裁剪；非招牌类型不开放无效文字字段。", "geometry": "原创粗笔画低面实体挤出，编辑期烘焙；运行不得有TextMesh、字体依赖或文字重建脚本。", "readability": "前轴-Z和双面从各自外侧可读，逐字不镜像；O/B/R留真实空隙，等比排版不单轴压细。", "verification": "blocked_r6_mirrored_text"},
+  "usage_profiles": {"above_water": {"label": "水上装饰，可显式人物阻挡；不代表可走或导航", "requires_collision": false, "collision_override_allowed": true, "collision_layer": 256, "collision_mask": 0}, "decorative_underwater": {"label": "水下纯观赏，无碰撞及全部空间/玩法职责", "requires_collision": false, "collision_enabled_required": false, "collision_true_action": "明确拒绝，不静默关开关"}},
+  "collision_contract": {"owner": "独立外挂生成器逐part简化静态代理；场景装配只序列化用户显式选择", "catalog_heavy_defaults_true": ["ac_roof_upflow", "tank_round_short", "tank_tower_cone", "tank_horizontal", "tank_rect"], "layer": 256, "mask": 0, "empty_space_rule": "中空/缺件/破口逐壁段代理，不用整件AABB或总凸包封洞；字形不生碰撞。", "world_derivation_excluded": ["WalkArea", "LandingPoint", "NavigationRegion3D", "NavigationObstacle3D", "BlockerSet", "shoreline", "foam", "dive", "interaction", "production", "gameplay_save"], "visual_only_meaning": "排除世界几何派生，不等于允许忽略已显式开启的256层静态碰撞；水下则全子树必须无碰撞。", "verification": "pending_actual_shapes_and_player_mask"},
+  "editor_contract": {"owner": "SEA-WORLD addons/scene_assembly", "entry": "现有场景装配内独立外挂页，不新feature/plugin，不扩房屋编辑器", "templates": "Templates/图库可见按钮，四分类按钮、全局condition三按钮和名称/type_id搜索，真实缩略图；不以多层dropdown作主路径。", "placement": "锁定只读宿主，点击真实可见三角面或从图库拖到真实面，wall/roof明确；不是旧Y平面投放。", "hierarchy": "Placement/{Asset,Attachments/<independent attachment>}；Attachments为Asset兄弟，不进Asset外链内部。", "host_revision": "只换Asset，保留Attachments及全部子节点当前transform；提示检查贴合，只有用户显式重新贴合才重投。", "transactions": "新增/编辑/复制/删除/重新贴合使用EditorUndoRedoManager；无命中、取消、失败与过期上下文不改树/历史/输入。", "serialization": "静态无脚本运行层级，显式owner和可追溯元数据；候选只读JSON重建，不执行未知候选TSCN脚本。", "save": "场景Ctrl+S手动保存，不自动保存Main；外挂Store独立新revision，不覆历史。", "verification": "editor_hook_not_executed_at_handoff"},
+  "provenance": {"kind": "native/project-authored", "authoritative_source": "godot/src/building_attachments/*.gd + godot/data/building_attachments/catalog_v1.json", "geometry_source": "原创原生代码生成，不抽取或复用旧mesh", "external_mesh_reuse": false, "reference_use": "项目既有轮廓仅作风格与类型参考，全部旧mesh复用pending且本套件禁止依赖旧mesh；本轮无需用户新图。", "commercial_legal_review": "pending", "blender": {"role": "derived_native_snapshot", "status": "derive_pending", "owner": "另代理", "original_blender_authorship_claim": false, "source_record_rule": "衍生blend/GLB必须回链原生源/配方/native JSON哈希与坐标映射，不能反写为原生Blender原创。"}, "source_hash_scope": "以下是真实读取的冻结字节SHA-256；并行代理后续修复不自动晋升此快照，交付须重新绑定实际源码与报告。"},
+  "source_records": [
+    {"id": "catalog", "path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39"},
+    {"id": "native_catalog", "path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e"},
+    {"id": "native_forms", "path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59"},
+    {"id": "native_generator", "path": "godot/src/building_attachments/generator.gd", "sha256": "362591708059be9b48bce0e4ebe984e4cba9764c4c9a4533bf1e01950c9479c5"},
+    {"id": "native_geometry", "path": "godot/src/building_attachments/geometry.gd", "sha256": "9a8b404c9812d261211fed10ca59e825f3d45c11263729866d3152c36e9aed97"},
+    {"id": "native_glyphs", "path": "godot/src/building_attachments/glyphs.gd", "sha256": "99e46532d09c9f367e77afec706ace5f798985d3602b25626b39754ee5043404"},
+    {"id": "native_hvac", "path": "godot/src/building_attachments/hvac.gd", "sha256": "19c713e4c60af0437efff38104d64ade8c96bf4387fc87592e2bf19f9e20c84e"},
+    {"id": "native_recipe", "path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d"},
+    {"id": "native_shelter", "path": "godot/src/building_attachments/shelter.gd", "sha256": "be9a8096532899067966dab7861d018d3c9ef8e280459e21d11137b85bd30d2c"},
+    {"id": "native_signage", "path": "godot/src/building_attachments/signage.gd", "sha256": "77922d97dc0b1ca13470e452828d1a68cf9474bff193cd25ed2712ca9e8515d1"},
+    {"id": "native_store", "path": "godot/src/building_attachments/store.gd", "sha256": "c617f32a774484408a456b1938bc8bbd63043eed504df2c247daa5e61bb6a06a"},
+    {"id": "native_water", "path": "godot/src/building_attachments/water.gd", "sha256": "d7958192c7677d79694da11168e7d9b9518a588ab4e02786512cb5baaa1f5c3c"}
+  ],
+  "reference_sources": [
+    {"id": "ref_002", "path": "art_source/scenes/water_building_002/v003/component_plan.json", "sha256": "c3536c6203fb2846cbe2241e398cfdcdbd8ff7a17647953724b62f08e900c271", "use": "屋顶空调、管线、厚实低面设施的轮廓参考；不消费旧图/mesh、不继承其来源签署", "mesh_reuse": false},
+    {"id": "ref_kiosk", "path": "art_source/scenes/gift_kiosk/v001/component_plan.json", "sha256": "12c00931d7e8a3ad11f521ea7dee087a5a0a35c64d024c15981b0953fdc0b462", "use": "招牌、棚与厚字的项目轮廓关系参考；该旧套件禁止损伤等约束不反向禁止本次授权三档", "mesh_reuse": false},
+    {"id": "ref_neon", "path": "art_source/scenes/neon_garden_quarter/v004/component_plan.json", "sha256": "6a5b3e8d97bccdc303ab03954cfe653ef4fc20e60a193434d7794aa56e12263e", "use": "仅既有独立外挂组织/轮廓参考；未消费其广告画或外部参考文件", "mesh_reuse": false}
+  ],
+  "native_json_interop": {"schema": "sea.building_attachments.native_geometry", "required_top_level": ["coordinate_system", "meshes", "source_parts", "collision_proxies", "bounds"], "required_part_fields": ["name", "kind", "material_role", "dimensions", "center", "rotation_euler", "rho", "taper", "taper_along", "bottom", "top", "no_volume", "bevel_segments", "bevel_width_m", "missing_sectors", "contacts", "contact_verification", "triangle_count", "source"], "linear_required": ["d_bottom", "d_top"], "contact_fields": ["attached_to", "mode", "clearance_m", "verification"], "rule": "每个真实体量part的rho/taper、bottom/top必须据真实截面，不抄默认常数；圆件记录缺失扇区，非圆件显式0或不适用理由；attached_to必须有contacts，boolean_cut附真实cut_verified。parts保留源语义，角色合批不抹掉它。", "observed_gaps": ["contacts当前只部分声明，接缝尚pending_source_contact_audit", "部分自定义锥顶/锥帽/凹碟字段与实几何未校核，不能以统一rho默认或功能锥顶rho=1冒充1%..10%合格", "非圆part missing_sectors需补显式0/不适用；无真实数据时保持pending不伪填", "逐part闭合、文本正向与typed Array proxy错误在r6仍阻塞"], "part_records_status": "pending_export_and_actual_geometry_audit", "source_snapshot_status": "pending_qualified_delivery", "derived_blender_status": "derive_pending"},
+  "registration": {"formal_registration": "pending", "formal_records_written": 0, "asset_id_policy": "每type正式asset_id暂为null，planned_key唯一；后续由登记脚本经ledger_index路由/全库查重分配，不把96状态另算96个type或自动发96个AssetID。", "ledger_route_reference": "assets/registry/ledger_index.json:domains.scenes", "target_ledger_reference": "assets/registry/ledgers/scenes.json", "component_plan_is_asset_ledger": false, "runtime_path": null},
+  "delivery_plan": {"library_root_planned": "godot/scenes/components/facilities/building_attachments/v001", "per_condition_files": ["<type_id>/<condition>.tscn", "<type_id>/<condition>.native.json", "<type_id>/<condition>.recipe.json"], "manifest": "library_manifest.json", "candidate_root": "godot/scenes/workshop_attachments/<attachment_id>/revision_NNNN", "candidate_files": ["attachment.tscn", "attachment.recipe.json", "geometry.native.json", "catalog_snapshot.json", "source_manifest.json", "candidate_manifest.json"], "status": "implemented_pending_current_verification", "library_96_record_count_does_not_imply_qualified": true},
+  "housing_core_locked": {"policy": "只读消费者。以下sha256与git diff_sha256是本任务读取时既有工作区基线；不恢复HEAD、不接管并行修改、不改shell算法或旧screen。", "files": [
+    {"path": "godot/src/workshop/recipe.gd", "sha256": "729839cc818aef67dfc55f1afa6c28b4f72a76a8237735d244f7332b149bc131", "diff_sha256": "18fe75ef77d1c80dcbf09578c7bcddfcf4dd2f240dc89aa009c3be5a3487cf20"},
+    {"path": "godot/src/workshop/shell_geometry.gd", "sha256": "2e58bfe27dd54a25eb668aaf2007c69a80003300a3c68614043ec9066bd1e533", "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "godot/src/workshop/shell_generator.gd", "sha256": "efff2c5fd8a35fc32becca0e43446743b6aba569f20b99d313a181d213379269", "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "godot/src/workshop/shell_union_geometry.gd", "sha256": "e8274ed8d104e5cf91bc1dec386d352a85fc2097f4886f5b75e7f9f7f690b345", "diff_sha256": "9dde882a05c271a255e411651758cd805128fb606f05fff7040d259987e8c3e8"},
+    {"path": "godot/src/workshop/generator.gd", "sha256": "e435b32ad25e0fc1d7767c4057e6b79e840e0cfa4f933c03cffd836a5b4f2498", "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "godot/src/workshop/session.gd", "sha256": "4864eaa50b9a182401f5af634b965aad36d9c8e8407b9709b9abd1740464100c", "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "godot/src/workshop/store.gd", "sha256": "61dec97bdce32d4c5185b996209c860b4213659589159ad23b8ea652fe665925", "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "godot/addons/building_workshop/editor_screen.gd", "sha256": "91aaed15b2c60d386bf4a95d586acd50612d1b474486590f4c557090a6902732", "diff_sha256": "46ac42d037128e613ed93cc15c62a82698cde6fff88900498ae819dd73b98058"}
+  ]},
+  "verification_snapshot": {"report": "/Users/zyq/work/sea-work/verification/20261116-032945-attachments-frozen-r6-1b18e2/report.json", "evidence_mode": "只读已有报告，本次未运行", "core": {"checks": 7712, "failure_count": 10, "exit_code": 1, "passed": false, "issues": ["typed Array proxy错误与凹碟/锥顶/蘑菇帽逐part闭合失败", "前轴-Z的F文字镜像"]}, "library": {"records": 96, "exit_code": 0, "inner_passed": true, "script_errors": 9, "outer_passed": false}, "visual": {"checks": 484, "failures": 0, "unexpected_errors": 13, "exit_code": 0, "passed": false, "visual_acceptance": "blocked_not_signed"}, "editor": {"status": "hook_not_executed_at_handoff", "passed": null}, "not_run_by_this_task": ["Godot", "Blender", "run_verification.py", "check_feature_contracts.py --sync", "check_feature_contracts.py", "style_checker"], "historical_workshop_1453_0_is_attachment_evidence": false},
+  "components": [
+    {
+      "type_id": "sign_fascia", "type": "sign_fascia", "kind": "fascia_sign", "family": "signage", "subfamily": "sign_fascia", "name": "横招", "raw_title": "横招", "asset_id": null, "planned_key": "building_attachments/v001/sign_fascia",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 3.6, "height": 1.0, "depth": 0.28, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.8, 0, -0.14], "max": [1.8, 1.0, 0.14], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "横向厚边三段牌板、背轨和墙托，非竖牌缩放", "default_text": "SEA", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "完整厚边横板与后托", "damaged": "右角缺板、边框折段", "ruined": "残留左板与断边框"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_kiosk", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_vertical", "type": "sign_vertical", "kind": "vertical_sign", "family": "signage", "subfamily": "sign_vertical", "name": "竖招", "raw_title": "竖招", "asset_id": null, "planned_key": "building_attachments/v001/sign_vertical",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 0.85, "height": 3.2, "depth": 0.32, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.425, 0, -0.16], "max": [0.425, 3.2, 0.16], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "分节竖板与纵向字列、两侧包边、上下墙托", "default_text": "SEA", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "竖向字列与两侧包边", "damaged": "侧边缺段", "ruined": "下段板缺失、双竖残架"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_projecting", "type": "sign_projecting", "kind": "double_sided_projecting_sign", "family": "signage", "subfamily": "sign_projecting", "name": "双面悬挑招牌", "raw_title": "双面悬挑招牌", "asset_id": null, "planned_key": "building_attachments/v001/sign_projecting",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 0.65, "height": 1.55, "depth": 1.7, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.325, 0, -0.85], "max": [0.325, 1.55, 0.85], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "沿墙法向悬挑的双面纵深牌与双臂，两面分别向外读字", "default_text": "SEA", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "双面纵深牌与双悬臂", "damaged": "牌面缺角、下悬臂弯折", "ruined": "半牌残框和断悬臂"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_rooftop", "type": "sign_rooftop", "kind": "rooftop_frame_sign", "family": "signage", "subfamily": "sign_rooftop", "name": "屋顶架招牌", "raw_title": "屋顶架招牌", "asset_id": null, "planned_key": "building_attachments/v001/sign_rooftop",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 4.0, "height": 2.5, "depth": 1.0, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-2.0, 0, -0.5], "max": [2.0, 2.5, 0.5], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "架高横牌、双脚底轨与三角后撑，非横招等比放大", "default_text": "SEA", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "三角后撑与高架牌", "damaged": "缺顶框、后撑折弯", "ruined": "半幅牌、保留独立脚架"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_letters", "type": "sign_letters", "kind": "freestanding_bold_letters", "family": "signage", "subfamily": "sign_letters", "name": "独立粗字", "raw_title": "独立粗字", "asset_id": null, "planned_key": "building_attachments/v001/sign_letters",
+      "mount_mode": "any", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 3.2, "height": 1.1, "depth": 0.3, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.6, 0, -0.15], "max": [1.6, 1.1, 0.15], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "无背板的实体粗字与后连接轨、独立支脚", "default_text": "SEA", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "无背板粗字与连接轨", "damaged": "连接轨断段、挂钉弯折", "ruined": "断轨和残存竖向支脚，文本不删字"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_lightbox", "type": "sign_lightbox", "kind": "deep_lightbox_sign", "family": "signage", "subfamily": "sign_lightbox", "name": "灯箱", "raw_title": "灯箱", "asset_id": null, "planned_key": "building_attachments/v001/sign_lightbox",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.6, "height": 1.3, "depth": 0.55, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.3, 0, -0.275], "max": [1.3, 1.3, 0.275], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "深边壳、前板与独立发光条的灯箱，不是薄牌换材质", "default_text": "OPEN", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "有深度的灯箱边壳与发光条", "damaged": "右侧盖缺口、灯条缺段", "ruined": "打开的残壳与熄灭条架"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_arrow", "type": "sign_arrow", "kind": "arrow_outline_sign", "family": "signage", "subfamily": "sign_arrow", "name": "箭头招牌", "raw_title": "箭头招牌", "asset_id": null, "planned_key": "building_attachments/v001/sign_arrow",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.8, "height": 1.25, "depth": 0.26, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.4, 0, -0.13], "max": [1.4, 1.25, 0.13], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "凹角箭头实体轮廓与厚边，不用矩形底板画箭头", "default_text": "GO", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "独立箭头轮廓与厚边", "damaged": "箭尾缺角", "ruined": "半箭尾与断下框"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "sign_hanging", "type": "sign_hanging", "kind": "arched_hanging_sign", "family": "signage", "subfamily": "sign_hanging", "name": "拱顶吊牌", "raw_title": "拱顶吊牌", "asset_id": null, "planned_key": "building_attachments/v001/sign_hanging",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.2, "height": 2.1, "depth": 0.38, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.1, 0, -0.19], "max": [1.1, 2.1, 0.19], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "拱顶牌体由双吊杆挂于墙梁，保拱形轮廓与垂挂关系", "default_text": "CAFE", "style_axis": ["frame", "block", "marquee"], "triangle_budget": 1800, "long_text_budget": 3500,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "拱顶牌、双吊杆与墙梁", "damaged": "拱侧破口、吊杆折弯", "ruined": "缺半拱与低垂残牌"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_signage", "native_glyphs", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "ac_wall_single", "type": "ac_wall_single", "kind": "single_fan_wall_ac", "family": "hvac", "subfamily": "ac_wall_single", "name": "单风扇壁挂机", "raw_title": "单风扇壁挂机", "asset_id": null, "planned_key": "building_attachments/v001/ac_wall_single",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.2, "height": 0.9, "depth": 0.55, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.6, 0, -0.275], "max": [0.6, 0.9, 0.275], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "单风扇与左压缩机偏置组合、下盘和三角墙托", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "单圆风扇、左压缩机与壁托", "damaged": "缺栅片、外盖开口", "ruined": "半壳、残扇与断托"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "ac_wall_twin", "type": "ac_wall_twin", "kind": "twin_fan_wall_ac", "family": "hvac", "subfamily": "ac_wall_twin", "name": "双风扇壁挂机", "raw_title": "双风扇壁挂机", "asset_id": null, "planned_key": "building_attachments/v001/ac_wall_twin",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.9, "height": 1.0, "depth": 0.65, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.95, 0, -0.325], "max": [0.95, 1.0, 0.325], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "双圆机位与中隔板，右机位受损后留空而非单机拉宽", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "左右双风扇与中隔板", "damaged": "右扇缺叶、上壳缺段", "ruined": "右机位开空与残框"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "ac_roof_upflow", "type": "ac_roof_upflow", "kind": "roof_upflow_unit", "family": "hvac", "subfamily": "ac_roof_upflow", "name": "屋顶上排风机", "raw_title": "屋顶上排风机", "asset_id": null, "planned_key": "building_attachments/v001/ac_roof_upflow",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.8, "height": 1.65, "depth": 1.5, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.9, 0, -0.75], "max": [0.9, 1.65, 0.75], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "顶部朝上风口、侧向换热片与四脚底盘，非壁挂机旋转", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": true, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "上排风圆口、横向换热片、四脚", "damaged": "顶圈缺段、侧栅缺板", "ruined": "开放机架、断叶与压缩机"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "fan_wall", "type": "fan_wall", "kind": "wall_axial_fan", "family": "hvac", "subfamily": "fan_wall", "name": "墙面轴流风机", "raw_title": "墙面轴流风机", "asset_id": null, "planned_key": "building_attachments/v001/fan_wall",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.15, "height": 1.15, "depth": 0.4, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.575, 0, -0.2], "max": [0.575, 1.15, 0.2], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "开放圆环四叶扇、方形挂框与斜拉件，无压缩机箱", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "独立圆环与四叶扇", "damaged": "环缺口和一片断叶", "ruined": "半环、两叶及中心轴"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "utility_junction", "type": "utility_junction", "kind": "junction_box", "family": "hvac", "subfamily": "utility_junction", "name": "接线箱", "raw_title": "接线箱", "asset_id": null, "planned_key": "building_attachments/v001/utility_junction",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 0.7, "height": 1.05, "depth": 0.3, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.35, 0, -0.15], "max": [0.35, 1.05, 0.15], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "斜顶门盖箱、接线排与多根下引弯管", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "斜顶箱、门缝和下接线弯管", "damaged": "门盖缩短露出线槽", "ruined": "门盖缺失、残壁与接线排"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "utility_meter_pair", "type": "utility_meter_pair", "kind": "paired_utility_meters", "family": "hvac", "subfamily": "utility_meter_pair", "name": "双计量表", "raw_title": "双计量表", "asset_id": null, "planned_key": "building_attachments/v001/utility_meter_pair",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.0, "height": 1.2, "depth": 0.35, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.5, 0, -0.175], "max": [0.5, 1.2, 0.175], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "双圆计量盘、独立表圈与双引线，不复用接线箱", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "两只圆表与双下引线", "damaged": "右表圈缺口", "ruined": "右表盘缺失、残接线"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "satellite_dish", "type": "satellite_dish", "kind": "concave_satellite_dish", "family": "hvac", "subfamily": "satellite_dish", "name": "卫星碟", "raw_title": "卫星碟", "asset_id": null, "planned_key": "building_attachments/v001/satellite_dish",
+      "mount_mode": "any", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.35, "height": 1.8, "depth": 1.1, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.675, 0, -0.55], "max": [0.675, 1.8, 0.55], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "双层凹碟、偏心馈源与独立脚架，非平圆盘", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "凹碟、偏置馈源和三脚架", "damaged": "碟缘缺扇区、馈杆弯折", "ruined": "半碟与断馈杆"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit_r6_closure_blocked", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "tv_antenna", "type": "tv_antenna", "kind": "roof_tv_antenna", "family": "hvac", "subfamily": "tv_antenna", "name": "电视天线", "raw_title": "电视天线", "asset_id": null, "planned_key": "building_attachments/v001/tv_antenna",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.0, "height": 2.4, "depth": 1.4, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.0, 0, -0.7], "max": [1.0, 2.4, 0.7], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "竖杆横脊与递减六横振子，细杆真实变径", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "立杆、长脊及六横振子", "damaged": "两横杆折短", "ruined": "短脊、三横杆与弯端"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_hvac", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "tank_round_short", "type": "tank_round_short", "kind": "short_round_water_tank", "family": "water", "subfamily": "tank_round_short", "name": "矮圆水箱", "raw_title": "矮圆水箱", "asset_id": null, "planned_key": "building_attachments/v001/tank_round_short",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.8, "height": 1.65, "depth": 1.8, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.9, 0, -0.9], "max": [0.9, 1.65, 0.9], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "低位鼓腹罐、顶盖和底出口，保正反收分关系", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": true, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "鼓腹罐、顶盖与底排水", "damaged": "罐口缺扇区", "ruined": "半壁开放罐与残底"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "tank_tower_cone", "type": "tank_tower_cone", "kind": "conical_roof_legged_water_tower", "family": "water", "subfamily": "tank_tower_cone", "name": "锥顶高脚水塔", "raw_title": "锥顶高脚水塔", "asset_id": null, "planned_key": "building_attachments/v001/tank_tower_cone",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.0, "height": 3.8, "depth": 2.0, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.0, 0, -1.0], "max": [1.0, 3.8, 1.0], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "高脚罐、独立锥顶与交叉斜撑，不把矮圆罐拉高", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": true, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "锥顶罐、四腿与斜撑", "damaged": "锥顶缺角、罐侧开口", "ruined": "半罐、三腿与断锥顶"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit_r6_closure_and_rho_blocked", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "tank_horizontal", "type": "tank_horizontal", "kind": "horizontal_saddle_tank", "family": "water", "subfamily": "tank_horizontal", "name": "卧式水箱", "raw_title": "卧式水箱", "asset_id": null, "planned_key": "building_attachments/v001/tank_horizontal",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.8, "height": 1.4, "depth": 1.35, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.4, 0, -0.675], "max": [1.4, 1.4, 0.675], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "水平罐、双鞍座与独立腰箍、顶检修口", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": true, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "卧罐、双鞍座与顶口", "damaged": "右端盖开口", "ruined": "短残罐、开口断端与双鞍座"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "tank_rect", "type": "tank_rect", "kind": "panelized_rectangular_tank", "family": "water", "subfamily": "tank_rect", "name": "拼板矩形水箱", "raw_title": "拼板矩形水箱", "asset_id": null, "planned_key": "building_attachments/v001/tank_rect",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 2.0, "height": 2.0, "depth": 1.65, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.0, 0, -0.825], "max": [1.0, 2.0, 0.825], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "拼板残壁、腰箍与独立顶口，矩形体各part保真实收分", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": true, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "拼板水箱、顶口与腰箍", "damaged": "前右板缺失", "ruined": "半底板、两残壁和断箍"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "pipe_downspout", "type": "pipe_downspout", "kind": "funnel_downspout", "family": "water", "subfamily": "pipe_downspout", "name": "落水管", "raw_title": "落水管", "asset_id": null, "planned_key": "building_attachments/v001/pipe_downspout",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 0.65, "height": 3.0, "depth": 0.55, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.325, 0, -0.275], "max": [0.325, 3.0, 0.275], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "上漏斗、长竖空管与外折出口，独立墙抱箍", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "漏斗口、竖管与外折出口", "damaged": "中段短缺口", "ruined": "上段与开放断管、残抱箍"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "pipe_elbow", "type": "pipe_elbow", "kind": "segmented_elbow_pipe", "family": "water", "subfamily": "pipe_elbow", "name": "独立弯管", "raw_title": "独立弯管", "asset_id": null, "planned_key": "building_attachments/v001/pipe_elbow",
+      "mount_mode": "any", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.1, "height": 1.1, "depth": 0.45, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.55, 0, -0.225], "max": [0.55, 1.1, 0.225], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "四折空心弯头与两端开放法兰，非落水管裁短", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "连续四折弯头及双法兰", "damaged": "外弯段缺口", "ruined": "两截开放断端"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "pipe_t_valve", "type": "pipe_t_valve", "kind": "tee_valve_pipe", "family": "water", "subfamily": "pipe_t_valve", "name": "三通阀管", "raw_title": "三通阀管", "asset_id": null, "planned_key": "building_attachments/v001/pipe_t_valve",
+      "mount_mode": "any", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.6, "height": 1.3, "depth": 0.6, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.8, 0, -0.3], "max": [0.8, 1.3, 0.3], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "T形主管与竖阀、独立手轮及辐条", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "三通主管、立阀及手轮", "damaged": "手轮缺角、右口断短", "ruined": "断主管与半轮阀座"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "pipe_bundle", "type": "pipe_bundle", "kind": "bundled_offset_pipes", "family": "water", "subfamily": "pipe_bundle", "name": "成束管线", "raw_title": "成束管线", "asset_id": null, "planned_key": "building_attachments/v001/pipe_bundle",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.15, "height": 2.6, "depth": 0.55, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.575, 0, -0.275], "max": [0.575, 2.6, 0.275], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "三根错高错折管与双抱梁，作为完整不同接口组件", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "三根不同弯折管与双抱梁", "damaged": "中管断口", "ruined": "三根不同高度残管与断梁"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_water", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "duct_straight", "type": "duct_straight", "kind": "straight_hollow_duct", "family": "shelter", "subfamily": "duct_straight", "name": "直风管", "raw_title": "直风管", "asset_id": null, "planned_key": "building_attachments/v001/duct_straight",
+      "mount_mode": "any", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.25, "height": 1.0, "depth": 2.2, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.625, 0, -1.1], "max": [0.625, 1.0, 1.1], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "八角空腔长管与双端口框，逐壁保厚度", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "八角中空管与双口框", "damaged": "侧壁开大口", "ruined": "短残管与独立端框"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "duct_elbow", "type": "duct_elbow", "kind": "elbow_hollow_duct", "family": "shelter", "subfamily": "duct_elbow", "name": "转角风管", "raw_title": "转角风管", "asset_id": null, "planned_key": "building_attachments/v001/duct_elbow",
+      "mount_mode": "any", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.9, "height": 1.0, "depth": 1.9, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.95, 0, -0.95], "max": [0.95, 1.0, 0.95], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "转角空腔两端管壁与斜折角缝，不是直风管换旋转", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "转角大方管与分段咬口", "damaged": "外角缺板", "ruined": "两端残壁和开放转角"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "vent_louver", "type": "vent_louver", "kind": "louver_vent", "family": "shelter", "subfamily": "vent_louver", "name": "百叶风口", "raw_title": "百叶风口", "asset_id": null, "planned_key": "building_attachments/v001/vent_louver",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.5, "height": 1.15, "depth": 0.32, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.75, 0, -0.16], "max": [0.75, 1.15, 0.16], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "厚框内六片倾斜叶板与中撑，非封口平板", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "框内六片倾斜百叶", "damaged": "缺两片百叶", "ruined": "仅两片百叶和半框"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "vent_mushroom", "type": "vent_mushroom", "kind": "mushroom_vent_cap", "family": "shelter", "subfamily": "vent_mushroom", "name": "蘑菇通气帽", "raw_title": "蘑菇通气帽", "asset_id": null, "planned_key": "building_attachments/v001/vent_mushroom",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.15, "height": 1.35, "depth": 1.15, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.575, 0, -0.575], "max": [0.575, 1.35, 0.575], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "宽锥帽、空心细颈及四支撑，帽颈之间有可见出气环隙", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "锥帽、细颈和四支撑", "damaged": "帽缘缺扇区", "ruined": "半帽和断颈开口"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_002"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit_r6_closure_blocked", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "chimney", "type": "chimney", "kind": "open_chimney", "family": "shelter", "subfamily": "chimney", "name": "烟囱", "raw_title": "烟囱", "asset_id": null, "planned_key": "building_attachments/v001/chimney",
+      "mount_mode": "roof", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 1.1, "height": 2.2, "depth": 1.0, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-0.55, 0, -0.5], "max": [0.55, 2.2, 0.5], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "收分四壁烟道、开口顶框与短底座，不做实心盒", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "收分烟道、开口顶框和底座", "damaged": "顶框缺角", "ruined": "低残筒、断顶与可见烟道"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_neon"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "awning_slope", "type": "awning_slope", "kind": "single_slope_awning", "family": "shelter", "subfamily": "awning_slope", "name": "单坡雨篷", "raw_title": "单坡雨篷", "asset_id": null, "planned_key": "building_attachments/v001/awning_slope",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 3.0, "height": 1.2, "depth": 1.8, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.5, 0, -0.9], "max": [1.5, 1.2, 0.9], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "单坡厚篷条、双三角墙架与前沿梁，保真实坡向", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "厚实斜篷条与双三角支架", "damaged": "缺两条篷板", "ruined": "三条残板与断下梁"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "awning_barrel", "type": "awning_barrel", "kind": "barrel_vault_awning", "family": "shelter", "subfamily": "awning_barrel", "name": "圆拱雨篷", "raw_title": "圆拱雨篷", "asset_id": null, "planned_key": "building_attachments/v001/awning_barrel",
+      "mount_mode": "wall", "anchor": "mount_back", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 3.0, "height": 1.6, "depth": 1.8, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.5, 0, -0.9], "max": [1.5, 1.6, 0.9], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "分片厚拱壳与两侧拱肋，非单坡篷扭曲缩放", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "五片拱壳与双拱肋", "damaged": "拱中缺板", "ruined": "两侧残拱与短中肋"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    },
+    {
+      "type_id": "canopy_entry", "type": "canopy_entry", "kind": "columned_entry_canopy", "family": "shelter", "subfamily": "canopy_entry", "name": "入口柱式棚", "raw_title": "入口柱式棚", "asset_id": null, "planned_key": "building_attachments/v001/canopy_entry",
+      "mount_mode": "any", "anchor": "mount_roof", "origin": "bottom_center", "front_axis": "-Z", "form_style": "SF-B",
+      "dimension_assumptions": {"width": 3.2, "height": 3.1, "depth": 2.2, "unit": "meter", "basis": "catalog_nominal_not_measured"}, "position_bounds": {"min": [-1.6, 0, -1.1], "max": [1.6, 3.1, 1.1], "actual": null, "status": "nominal_pending_actual"},
+      "silhouette": "独立双柱、双坡尖脊、外挑檐与柱脚，非无柱雨篷加高", "triangle_budget": 1800,
+      "collision_responsibility": {"default_enabled": false, "explicit_layer": 256, "underwater_requires_false": true, "status": "pending"},
+      "state_profiles": {"fresh": "双柱、尖脊顶和外挑檐", "damaged": "右顶板缺失", "ruined": "左半屋顶、双柱及断脊"}, "state_profiles_status": "implemented_pending_current_verification",
+      "reference_sources": ["catalog", "native_shelter", "ref_kiosk"], "source_parts": null, "source_parts_status": "pending_actual_native_json_audit", "registration": "planned_not_registered"
+    }
+  ]
+}

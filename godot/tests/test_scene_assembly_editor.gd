@@ -9,8 +9,24 @@ const PlantRecipe = preload("res://src/plant_authoring/recipe.gd")
 const PlantStore = preload("res://src/plant_authoring/store.gd")
 var checks := 0
 var failures: Array[String] = []
+var check_results: Array[Dictionary] = []
 var plugin: EditorPlugin
 var evidence: Dictionary = {}
+var drag_evidence: Dictionary = {}
+var window_was_on_top := false
+
+func input_state(stage: String) -> void:
+	var viewport: Viewport = plugin.dock.get_viewport()
+	var hovered: Control = viewport.gui_get_hovered_control()
+	drag_evidence[stage] = {
+		"focused": plugin.get_window().has_focus(),
+		"mouse": str(viewport.get_mouse_position()),
+		"dragging": viewport.gui_is_dragging(),
+		"hovered": str(hovered.get_path()) if hovered != null else "null",
+		"window_position": str(plugin.get_window().position),
+		"window_size": str(plugin.get_window().size),
+		"viewport_rect": str(viewport.get_visible_rect()),
+	}
 
 static func run(p: EditorPlugin) -> void:
 	var suite = load("res://tests/test_scene_assembly_editor.gd").new()
@@ -19,6 +35,7 @@ static func run(p: EditorPlugin) -> void:
 
 func check(value: bool, label: String) -> void:
 	checks += 1
+	check_results.append({"label": label, "passed": value})
 	if not value:
 		failures.append(label)
 		printerr("[scene-assembly-fail] " + label)
@@ -45,12 +62,20 @@ func mouse(point: Vector2, pressed: bool, motion: bool = false) -> void:
 		button.pressed = pressed
 		button.button_mask = MOUSE_BUTTON_MASK_LEFT if pressed else 0
 		event = button
+	event.window_id = plugin.get_window().get_window_id()
 	event.position = point
 	event.global_position = point
 	Input.parse_input_event(event)
 
 func drag(index: int) -> void:
+	plugin._show_attachment_page(false)
 	while plugin._thumbnail_busy: await frames()
+	drag_evidence = {}
+	input_state("before_input")
+	DisplayServer.window_move_to_foreground(plugin.get_window().get_window_id())
+	plugin.get_window().grab_focus()
+	await frames(8)
+	input_state("after_foreground")
 	var child: Node = plugin.dock
 	while child.get_parent() != null:
 		var ancestor := child.get_parent()
@@ -69,12 +94,18 @@ func drag(index: int) -> void:
 	var start: Vector2 = plugin.items.global_position + plugin.items.get_item_rect(0).get_center()
 	evidence["drag_start"] = str(start)
 	mouse(start, false, true)
+	await frames(2)
+	input_state("source_hover")
+	check(plugin.dock.get_viewport().gui_get_hovered_control() == plugin.items, "按下前真实悬停候选库：" + str(row.kind))
 	mouse(start, true)
 	await frames(2)
 	mouse(start + Vector2(35, 20), true, true)
 	await frames(3)
 	check(plugin.dock.get_viewport().gui_is_dragging(), "真实鼠标按下和移动启动库拖放")
+	input_state("drag_started")
 	var surface: Control = plugin.surfaces[0]
+	surface.set_meta("can_drop_seen", false)
+	surface.set_meta("drop_seen", false)
 	var end: Vector2 = surface.global_position + surface.size * Vector2(0.55, 0.55)
 	evidence["drop_surface"] = {"class": surface.get_parent().get_class(), "size": str(surface.size), "position": str(surface.global_position)}
 	mouse(end, true, true)
@@ -83,18 +114,34 @@ func drag(index: int) -> void:
 	evidence["hovered"] = str(hovered.get_path()) if hovered != null else "null"
 	evidence["surface_path"] = str(surface.get_path())
 	evidence["surface_visible"] = surface.is_visible_in_tree()
+	input_state("target_hover")
+	drag_evidence["target_hover"]["can_insert"] = plugin.can_insert()
+	drag_evidence["target_hover"]["os_mouse"] = str(DisplayServer.mouse_get_position())
+	drag_evidence["target_hover"]["window_id"] = plugin.get_window().get_window_id()
+	check(bool(surface.get_meta("can_drop_seen", false)), "释放前真实移动已触发can_drop：" + str(row.kind))
 	mouse(end, false)
 	await frames(5)
 	check(not plugin.dock.get_viewport().gui_is_dragging(), "真实鼠标释放结束拖放")
 	check(not surface.visible, "拖动结束接收层关闭，不拦原生编辑")
 	evidence["can_drop_seen"] = surface.get_meta("can_drop_seen", false)
 	evidence["drop_seen"] = surface.get_meta("drop_seen", false)
+	check(bool(evidence.can_drop_seen), "本次真实移动经过接收层can_drop：" + str(row.kind))
+	check(bool(evidence.drop_seen), "本次真实释放经过接收层drop：" + str(row.kind))
+	input_state("released")
+	drag_evidence["can_drop_seen"] = evidence.can_drop_seen
+	drag_evidence["drop_seen"] = evidence.drop_seen
+	drag_evidence["kind"] = row.kind
+	if not evidence.has("drags"): evidence["drags"] = []
+	evidence.drags.append(drag_evidence.duplicate(true))
 
 func execute() -> void:
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name", "")).begins_with("sea-verification/") or FileAccess.file_exists("res://scenes/main.tscn"):
 		printerr("装配验证只允许无Main的隔离runner工程")
 		plugin.get_tree().quit(1)
 		return
+	window_was_on_top = plugin.get_window().always_on_top
+	# 原生窗口被别的应用遮挡时，warp鼠标的OS命中窗口与注入GUI窗口不一致。
+	plugin.get_window().always_on_top = true
 	print("[scene-assembly-stage] fixtures")
 	check(Engine.is_editor_hint(), "真实Editor运行")
 	check(not EditorInterface.is_playing_scene(), "未运行游戏")
@@ -345,7 +392,8 @@ func screenshot(label: String) -> void:
 	image.save_png("res://outputs/scene_assembly_" + label + ".png")
 
 func finish() -> void:
-	evidence.merge({"checks": checks, "failures": failures, "passed": failures.is_empty(), "enginehint": Engine.is_editor_hint(), "input_chain": "Input.parse_input_event → ItemList._get_drag_data → Control._can_drop_data/_drop_data → EditorUndoRedoManager"})
+	evidence.merge({"checks": checks, "check_results": check_results, "failures": failures, "passed": failures.is_empty(), "enginehint": Engine.is_editor_hint(), "main_protection": {"main_absent": not FileAccess.file_exists("res://scenes/main.tscn"), "isolated_user_dir": ProjectSettings.get_setting("application/config/custom_user_dir_name", "")}, "input_chain": "Viewport.warp_mouse + Input.parse_input_event → ItemList._get_drag_data → Control._can_drop_data/_drop_data → EditorUndoRedoManager", "automation_boundary": "自动GUI覆盖建筑和动态树真实拖放；补充静态树/同源实例由API建立；工坊保存、undo/redo及真实Editor保存重开自动断言。未替代人工OS窗口激活、物理鼠标和gizmo手感验收。"})
+	plugin.get_window().always_on_top = window_was_on_top
 	var file := FileAccess.open("res://outputs/scene_assembly_report.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(evidence, "\t"))
 	file.close()

@@ -416,3 +416,48 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 | SEA-ASSET-R68 | SEA-WORKSHOP V1 生成的楼房是候选资产，不因工坊导出自动成为正式主场景资产。每栋保持独立 `building_id`、版本配方和 `revision_NNNN` 目录，候选固定包含 `building.recipe.json`、`building.tscn`、`catalog_snapshot.json`、`candidate_manifest.json`、`ledger.json`；正式登记由 SEA-ASSET 唯一路由，正式摆位由 SEA-WORLD 负责，`runtime_path=null` 时不得宣称已接入正式运行世界。当前正式样例仅登记 `SEA-SCENE-WORKSHOP-SAMPLE-001` 与 `SEA-SCENE-WORKSHOP-SAMPLE-002` 两个主记录，源为 `art_source/scenes/building_workshop/v001/workshop_sample_001/`、`workshop_sample_002/`，每楼5件候选文件；不得把 `catalog_v1.json` 内部10个组件ID拆作独立正式 Asset 主记录。 |
 | SEA-ASSET-R68a | 工坊的原生参数化来源必须如实标为 native/project-authored，不伪造 Blender、GLB 或 02b 生产链；真实 UV 共享色板与 8px 安全边、Native 圆角、`partial_source_style` 与局部空间声明均是当前 V1 工程事实，不等于美术终验、正式导航或全楼可达。水上功能、水下观赏、独立潜水三 profile 的碰撞/走域/水面职责分开记，walk/water 局部声明不能替代正式世界接入。 |
 
+## 2026-11-16 独立建筑外挂32类型与96状态（R69–R73）
+
+全文核号后接最大R68（含R68a），不是接早期R31或R50；旧重复R57与其他历史保持，不新建重复feature。生产范围冻结在 [component_plan.json](../../../art_source/scenes/building_attachments/v001/component_plan.json)，作者源已存在，不追称其在首次建模前已冻结。当前条目统一 `implemented_pending_current_verification`，不代表完整美术Skill、Blender或运行验收通过。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R69 | 以 `godot/data/building_attachments/catalog_v1.json` 的准确type_id/name冻结32个不同轮廓：signage/hvac/water/shelter四族，每族8个明确子族；unique type=32≤50。每type有fresh全新/damaged破损/ruined残破三态，condition axis=3≤5，合计96状态项，不把状态、配色、文字、尺寸、旋转、style计作96个type。逐type计划含唯一planned_key、正式asset_id=null、family/kind/type/mount_mode、底心名义position_bounds、尺寸假设、碰撞责任、三态轮廓、参考来源与hash；后续正式AssetID仅由登记脚本经ledger_index路由scenes并全库查重分配，计划与候选ledger不是正式资产分账本。 |
+| SEA-ASSET-R70 | 八类招牌独立style=frame/block/marquee，均可编辑原创粗低面英文实体字，不使用系统字体、第三方字体轮廓、运行TextMesh或运行文字重建脚本；style不是SF档位或新type。当前支持A–Z、0–9、空格及.-!&，最多24字符；不支持、空白招牌或超预算明确拒绝且保留原输入，不静默upper、截断、替字或删字。正面-Z与双面各自外侧须逐字可读不镜像，等比排版、O/B/R保留真实空隙；破损只改载体/框/轨/支架，不删除用户字。未做当前正反面真实视觉不得签读字合格。 |
+| SEA-ASSET-R71 | 本套件固定form_style=SF-B，condition三态与SF-A/B/C无关。按用户明确低面预算登记单段实体倒角例外，不改其他套件默认3段；保厚实轮廓、公共暖木8×8色板、逐面有面积PaletteUV与≥8px安全边（原生声明16px）、Closest及solar_cabin四共享角色Matte/Metal/Gloss/Emission，不复制材质/色板。单状态最终全部可见几何默认≤1800 triangles，英文长文>8字符例外≤3500，单glyph≤128，双面字及style边饰也累计。每个真实体量part必须沿最长轴变截面且1%≤abs(rho/taper)≤10%，线性件d_top/d_bottom≤0.953，至少一件反锥；不以常数metadata代替真实截面，不把尖锥rho=1冒充合格，当前自定义锥顶/锥帽等实几何待审。三态必须真实缺件、缺口或弯折，不只重着色/缩放；本次用户授权仅对此外挂套件覆盖旧参考的禁止损伤风格，不修改旧资产或全局规则。 |
+| SEA-ASSET-R72 | 作者源为项目原创native代码与版本catalog，不复用旧mesh；既有002、商亭、霓虹花园仅作轮廓/组织参考，旧模型授权/复用pending不能升级为本套件已验复用。计划记录真实源/参考文件SHA-256，商业权属仍pending。每个native JSON保留米制Y-up/-Z/底心、真实meshes/source_parts/collision_proxies/bounds及独立anchorBack/roof；逐part含kind、rho/taper、taper_along、bottom/top、线性d_bottom/d_top、missing_sectors（非圆为显式0或理由）、材质角色、倒角和contacts。attached_to必须有接缝记录，只允许inset/2–20mm clearance/经真实cut_verified的boolean_cut/miter，禁止共面/穿插/flush；未测接触、截面、闭合与实际包络写pending，不补造。Blender由另代理从native快照派生，记derive_pending/derived_native_snapshot并回链源/配方/hash及坐标映射，不能冒称原生Blender创作或已完成02b。 |
+| SEA-ASSET-R73 | 每type三态独立静态场景/native JSON/recipe与库manifest计划共96项，保存后独立重载与真实几何/材质/UV/预算/字向/碰撞/脚本安全分别验证。运行层级无脚本、无TextMesh，编辑器controller与生成源不进入静态子树；碰撞仅显式layer256/mask0的逐part简化代理，五类重件可默认开，观赏水下必须显式false且拒绝true。不得从外挂派生WalkArea/导航/泊位/水面阻挡/岸线/泡沫/潜水或玩法状态。候选根与正式库/正式registry分离，不自动正式登记或Main接入；源、衍生Blender、96静态交付、内核、真实视觉、editor、商业权属、用户艺术及性能分域，脚本错误/闭合失败/镜像/未执行hook不被exit0或文件数量掩盖。 |
+
+本轮实读r6报告：核心7712项/10失败、exit1；库96 records且内部passed=true/exit0，但9条脚本错误使outer passed=false；真实视觉484/0、exit0仍有13条unexpected、passed=false。editor在任务交接时无hook执行证据。全部保留 `implemented_pending_current_verification`，不得引用旧工坊1453/0代签。计划中的source_records仅冻结输入，不写资产分账本、runtime清单、派生索引或新AssetID。本次不跑引擎、contracts或style checker，详见[开发记录](../../development/2026-11-16_building_attachments.md)。
+
+## 2026-11-16 v002交付测量与限定例外（R69–R73当前签署）
+
+本节更新旧冻结时点的pending与未登记，不删除r6失败或更改v001计划SHA `246a8a68b51dcd7bf2215475a3c19cf919a377d89391c017cc87742aa7f53fe7`。新增[v002 delivery_validation.json](../../../art_source/scenes/building_attachments/v002/delivery_validation.json)为当前实测及旧计划的明确范围覆盖；不另建FeatureID，不改source/blend目录或注册JSON，全局partial保持。
+
+| 既有条款 | 当前状态 | 实测与登记边界 |
+|---|---|---|
+| SEA-ASSET-R69 | implemented_verified_in_scope | 四族各8子族仍32type×3态=96项。32个SEA-SCENE-BAT-*正式主记录及32新source index已登记，domain=scenes/category=furnishing；building_class=null、water_layer/role=none/none，tools/apply_water_layer.py:FAMILIES显式SEA-SCENE-BAT-前缀，不自动当水上建筑。v001 asset_id=null是当时计划，不反写。 |
+| SEA-ASSET-R70 | implemented_verified_in_scope | 原创stroke实体字与carrier背托，框式/块式/灯泡边饰独立于condition；A–Z/0–9/空格/.-!&最多24字符。中文、小写、未知/超限明确拒绝保输入，不upper/截字；98核心样本=96默认+2改字。破损保原字符串而载体真实缺件，不要求全部笔画断裂；独立字近背板carrier属当前候选美术取舍。 |
+| SEA-ASSET-R71 | implemented_verified_in_scope | 当前96项140..1204 triangles、合计45376，221 surfaces、逐件2..4 mesh/surfaces；单件1800/长文3500/glyph128预算门禁保留。SF-B普通box约3.5%、rod约4.8%实形收分与单段倒角；功能锥rho=1、圆件/字形bevel=0及embedded_support必须按下方局部例外承接，不签“全套SF百分百合规”。完整contacts/style及用户美术仍pending。 |
+| SEA-ASSET-R72 | implemented_verified_in_scope | native代码/配方/native JSON仍为原创作者与runtime权威；Blender可编辑派生快照32包、1577part、总览96 Collection Instance/0 local mesh，96GLB仅视觉交换。重开exit0/passed=true、90752面UV检查、最小512px²/16px安全边/32px跨度、96GLB无image/texture，最大normal误差0.0001999679≤原0.0003；四图Cycles CPU完成，不称GPU或原生Blender创作。来源/商业权属pending。 |
+| SEA-ASSET-R73 | implemented_verified_in_scope | 正式制作库v002有96静态native Godot场景，r10b12103/0完成96冷load+96user重存重载，生产322文件SHA未变；441碰撞代理/15默认碰撞状态。32主记录stage为authoring_library_integrated_art_review_pending_not_world_installed，native源回链保留；初登记313 runtime目标不是当前全库数量，后续librarytest/runner/policy追加由主线程负责。本任务只读不改registry，无生产Main/地图安装。 |
+
+### 对旧计划的显式限定例外（只限本套件v002）
+
+- **BAT-V002-EMBEDDED-SUPPORT**：`geometry.require_connection` 的 `mode=embedded_support` 在字背carrier及少量连接轴/杆使用真实几何嵌入/重叠，clearance=0；这是对v001禁止overlap/interpenetrate的局部覆盖，不是普通宿主挂面净空，更不是任意穿插许可。保逐part contacts/witness和真实修复，不只改metadata伪合规。原生witness只partial，未证明全接缝、全总成无穿插，完整审计继续pending。
+- **BAT-V002-FUNCTIONAL-CONE**：锥顶水塔 `tower_conical_roof` 与蘑菇帽 `mushroom_cap` 功能收尖实测rho=1，按功能锥形例外，不将其虚报成普通1%..10%收分；保真实厚度/闭合。
+- **BAT-V002-ROUND-GLYPH-BEVEL**：十段圆截面/功能曲面及原创字形实体笔画bevel_segments=0，保低面轮廓和glyph128预算；自定义箭头/拱牌薄挤出按原逐part边处理例外留证。普通box单段真实倒角，不据此宣称每条硬边均已倒角。三态损伤覆盖旧禁止损伤的授权仍仅限此外挂，不改旧资产。
+
+### 内容目录（准确catalog中文名，4×8）
+
+| 分类 | 八种类型 |
+|---|---|
+| 招牌广告 signage | 横招、竖招、双面悬挑招牌、屋顶架招牌、独立粗字、灯箱、箭头招牌、拱顶吊牌 |
+| 机电通信 hvac | 单风扇壁挂机、双风扇壁挂机、屋顶上排风机、墙面轴流风机、接线箱、双计量表、卫星碟、电视天线 |
+| 水箱管线 water | 矮圆水箱、锥顶高脚水塔、卧式水箱、拼板矩形水箱、落水管、独立弯管、三通阀管、成束管线 |
+| 风管棚盖 shelter | 直风管、转角风管、百叶风口、蘑菇通气帽、烟囱、单坡雨篷、圆拱雨篷、入口柱式棚 |
+
+可用制作源为 `art_source/scenes/building_attachments/v002/components/<type_id>.blend`，每包三态独立view layer、逐part可编辑；总览为 `source/overview.blend`，交换为 `export/<type_id>__<condition>.glb`。运行权威用 `godot/scenes/components/facilities/building_attachments/v002/<type_id>/<condition>.tscn`，不用交换GLB反盖native运行库；Blender不自动参数重建或自动刷新合批。实际改字通过Godot外挂编辑器保存新revision。derived_manifest里早期formal_registration=pending保留为源制作时点，后续正式32登记由本节承接；不能因glTF可导出自动称版权clear。
+
+证据：r10b `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`，库12103/0、core11122/0、editor328/0、旧装配78/0、房屋1453/0同工程串行，import/五项exit0、completion=true、unexpected=[]、source_consistent=true；核心有NaN负例警告。视觉r9c507/0、131PNG为当前几何，之前八个悬空bug修闭不等于全接缝美术终审。Blender源独立重开 `/Users/zyq/work/sea-work/building_attachments_source/v002/reopen_validation_final.json`；每state真实bounds/预算/代理与源hash回链由v002补充及原始报告承载，未伪造新测量。使用步骤见[WORLD](../world/spec.md)，[交付页](../../../outputs/building_attachments_review_20261116/index.html)与[开发记录](../../development/2026-11-16_building_attachments.md)。全工程sync/check、性能/GPU、人工/多视口/gizmo、商业权属、艺术终审和生产Main/Walk/shore/boat/dive均未签；不预写历史488为当前门禁。
+

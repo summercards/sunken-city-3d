@@ -31,8 +31,7 @@ static func combine(parts: Array, cutter: Mesh = null) -> Dictionary:
 		source_ids.append(str(part.id))
 		for record: Dictionary in part.mesh_records:
 			var operand := CSGMesh3D.new()
-			operand.mesh = record.mesh
-			operand.transform = Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * BOOLEAN_SCALE), part.position * BOOLEAN_SCALE) * record.transform
+			operand.mesh = _boolean_mesh(record.mesh, Transform3D(Basis.IDENTITY, part.position) * record.transform)
 			operand.calculate_tangents = false
 			if operand.has_method("set_snap"): operand.call("set_snap", 0.000001)
 			operand.operation = CSGShape3D.OPERATION_UNION
@@ -121,6 +120,27 @@ static func combine(parts: Array, cutter: Mesh = null) -> Dictionary:
 	if not bool(boundary_audit.valid):
 		return {"ok": false, "reason": "结构union实体边界校核失败: " + str(boundary_audit), "audit": audit, "boundary_audit": boundary_audit}
 	return {"ok": true, "mesh": mesh, "audit": audit, "boundary_audit": boundary_audit, "source_slots": source_ids, "backend": "Godot4.7.2_CSG_sync_boolean"}
+
+## 各件局部居中及CSG变换会使同一水平接面落在不同浮点平面。
+## 先烘入世界坐标，仅统一高程到既有WELD精度；XZ不预量化，保留收分窄斜面。
+static func _boolean_mesh(source: Mesh, transform: Transform3D) -> ArrayMesh:
+	var mesh := ArrayMesh.new()
+	for surface: int in source.get_surface_count():
+		var arrays: Array = source.surface_get_arrays(surface)
+		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		for index: int in vertices.size():
+			var point: Vector3 = transform * vertices[index]
+			point.y = snappedf(point.y, WELD)
+			vertices[index] = point * BOOLEAN_SCALE
+		arrays[Mesh.ARRAY_VERTEX] = vertices
+		var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+		var normal_basis: Basis = transform.basis.inverse().transposed()
+		for index: int in normals.size(): normals[index] = (normal_basis * normals[index]).normalized()
+		arrays[Mesh.ARRAY_NORMAL] = normals
+		arrays[Mesh.ARRAY_TANGENT] = null
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+		mesh.surface_set_material(surface, source.surface_get_material(surface))
+	return mesh
 
 ## 折叠量化产生的细长三角；link条件保持流形，可靠邻面须在0.1mm误差内且不翻转。
 static func _collapse_quantization_slivers(surfaces: Array) -> void:

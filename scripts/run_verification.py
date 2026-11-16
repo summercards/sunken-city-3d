@@ -171,6 +171,7 @@ CORE = list(TESTS)
 TESTS.update({
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
     'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
+    'workshop-adjustment': ('tests/test_workshop_adjustment.gd', r'\[workshop-adjustment\] \d+ checks, 0 failures'),
     'workshop-random': ('tests/test_workshop_random.gd', r'\[workshop-random\] \d+ checks, 0 failures'),
     'workshop-damage': ('tests/test_workshop_damage.gd', r'\[workshop-damage\] \d+ checks, 0 failures'),
     'plant-performance': ('tests/test_plant_performance.gd', r'\[plant-performance\] \d+ checks, 0 failures'),
@@ -181,6 +182,11 @@ TESTS.update({
     'plant-authoring': ('tests/test_plant_authoring.gd', r'\[plant-authoring\] \d+ checks, 0 failures'),
     'editor-plant': ('', r'\[plant-editor\] \d+ checks, 0 failures'),
     'editor-scene-assembly': ('', r'\[scene-assembly\] \d+ checks, 0 failures'),
+    'verify-attachment-library': ('tests/test_building_attachments_library.gd', r'\[attachment-library\] \d+ checks, 0 failures'),
+    'building-attachments': ('tests/test_building_attachments.gd', r'BUILDING_ATTACHMENTS_RESULT .*"passed":true'),
+    'build-attachment-library': ('tools/build_attachment_library.gd', r'ATTACHMENT_LIBRARY_RESULT .*"passed":true'),
+    'visual-building-attachments': ('tests/test_building_attachments_visual.gd', r'\[building-attachments-visual\] \d+ checks, 0 failures'),
+    'editor-building-attachments': ('', r'\[building-attachments-editor\] \d+ checks, 0 failures'),
     'workshop-samples': ('tools/export_workshop_samples.gd', r'\[workshop-samples\] \d+ checks, 0 failures'),
     'workshop-rules': ('tests/test_workshop_rules.gd', r'\[workshop-rules\] \d+ checks, 0 failures'),
     'workshop-shell': ('tests/test_workshop_shell.gd', r'\[workshop-shell\] \d+ checks, 0 failures'),
@@ -474,7 +480,7 @@ def inspect_log(name, code, text, marker):
 def derive_check_config(full_config, name):
     """每项检查从完整配置独立派生，避免工坊配置污染后续游戏检查。"""
     config_source = full_config
-    if name in ['plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'workshop-random', 'workshop-damage']:
+    if name in ['plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'workshop-adjustment', 'workshop-random', 'workshop-damage']:
         config_source = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S)
         config_source = re.sub(r'^theme/custom_font=.*\n?', '', config_source, flags=re.M)
     config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S) if name in ['workshop-union','workshop-shell','workshop-samples','workshop-rules','workshop-deep','visual-workshop','modules','framework-modules','building','kit-safety','npc-shop','npc-people','npc-profile-ui','npc-shop-site','npc-rules','shop-rules','npc-performance','npc-world','visual-npc-world','npc-appearance','visual-npc-appearance','residence','visual-residence','flower-crops','npc-careers'] else config_source
@@ -487,7 +493,32 @@ def derive_check_config(full_config, name):
         if name == 'editor-scene-assembly':
             editor_plugins = editor_plugins[:-1] + ', "res://addons/scene_assembly/plugin.cfg")'
         config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', lambda m: m.group(1) + 'enabled=' + editor_plugins, config)
+    if name in ATTACHMENT_CHECKS:
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config, flags=re.S)
+        config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
+        config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
+        plugins = ('PackedStringArray("res://addons/building_workshop/plugin.cfg", '
+                   '"res://addons/plant_editor/plugin.cfg", "res://addons/scene_assembly/plugin.cfg")') if name == 'editor-building-attachments' else 'PackedStringArray()'
+        config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', lambda m: m.group(1) + 'enabled=' + plugins, config)
     return config
+
+
+ATTACHMENT_CHECKS = {'verify-attachment-library', 'building-attachments', 'build-attachment-library', 'visual-building-attachments', 'editor-building-attachments'}
+
+
+def attachment_source_hashes(base):
+    paths = [base / 'project.godot']
+    for rel in ['src/building_attachments', 'data/building_attachments', 'src/workshop',
+                'src/plant_authoring', 'addons/building_attachments', 'addons/scene_assembly',
+                'addons/building_workshop', 'addons/plant_editor', 'assets/materials/solar_cabin',
+                'assets/textures/shared', 'shaders', 'scenes/workshop_buildings/shell_rect_1794338160_71001671/revision_0001',
+                'scenes/components/facilities/building_attachments/v002']:
+        paths.extend(path for path in (base / rel).rglob('*') if path.is_file() and path.suffix != '.uid')
+    paths.extend(base / rel for rel in ['tools/build_attachment_library.gd', 'tests/test_building_attachments.gd',
+                 'tests/test_building_attachments_visual.gd', 'tests/test_building_attachments_editor.gd',
+                 'tests/test_scene_assembly_editor.gd', 'tests/test_building_attachments_library.gd'])
+    return {str(path.relative_to(base)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted(set(paths)) if path.is_file()}
 
 
 def run_minimum_loop_baseline(exe, project, full_config, run_dir, user_name, args):
@@ -577,14 +608,14 @@ def mount_readonly(target, source):
     shutil.copytree(source, target)
 
 
-def isolated_editor_workshop_project(run_dir, include_plants=False, include_assembly=False):
+def isolated_editor_workshop_project(run_dir, include_plants=False, include_assembly=False, include_attachments=False):
     """Minimal real editor project: no game scripts, Autoload, mutable asset junctions or Main."""
     project = run_dir / 'project'
     project.mkdir()
     for rel in ['addons/building_workshop', 'data/workshop']:
         shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'src/workshop').mkdir(parents=True)
-    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'random_recipe',
+    for name in ['recipe', 'catalog', 'generator', 'mesh_builder', 'session', 'store', 'random_recipe', 'generation_adjustment',
                  'shell_geometry', 'shell_generator', 'shell_damage_geometry', 'shell_union_geometry', 'structural_damage',
                  'architecture_config', 'roof_edge_geometry', 'shell_window_geometry']:
         shutil.copy2(GODOT_ROOT / 'src/workshop' / (name + '.gd'), project / 'src/workshop' / (name + '.gd'))
@@ -603,11 +634,30 @@ def isolated_editor_workshop_project(run_dir, include_plants=False, include_asse
     if include_assembly:
         shutil.copytree(GODOT_ROOT / 'addons/scene_assembly', project / 'addons/scene_assembly')
         shutil.copy2(GODOT_ROOT / 'tests/test_scene_assembly_editor.gd', project / 'tests/test_scene_assembly_editor.gd')
-    for name in (['test_workshop_random.gd', 'test_workshop_damage.gd', 'test_plant_authoring.gd', 'test_plant_performance.gd', 'test_plant_canopy.gd', 'test_plant_integration.gd', 'test_host_scene_guard.gd'] if include_plants else ['test_workshop_random.gd', 'test_workshop_damage.gd']):
+    for name in (['test_workshop_adjustment.gd', 'test_workshop_random.gd', 'test_workshop_damage.gd', 'test_plant_authoring.gd', 'test_plant_performance.gd', 'test_plant_canopy.gd', 'test_plant_integration.gd', 'test_host_scene_guard.gd'] if include_plants else ['test_workshop_adjustment.gd', 'test_workshop_random.gd', 'test_workshop_damage.gd']):
         if (GODOT_ROOT / 'tests' / name).exists():
             shutil.copy2(GODOT_ROOT / 'tests' / name, project / 'tests' / name)
+    if include_attachments or include_assembly:
+        for rel in ['src/building_attachments', 'data/building_attachments']:
+            shutil.copytree(GODOT_ROOT / rel, project / rel)
+    if include_attachments:
+        (project / 'tools').mkdir()
+        shutil.copy2(GODOT_ROOT / 'tools/build_attachment_library.gd', project / 'tools/build_attachment_library.gd')
+        for name in ['test_building_attachments.gd', 'test_building_attachments_visual.gd', 'test_building_attachments_editor.gd', 'test_building_attachments_library.gd']:
+            source = GODOT_ROOT / 'tests' / name
+            if source.is_file():
+                shutil.copy2(source, project / 'tests' / name)
+        if (GODOT_ROOT / 'addons/building_attachments').is_dir():
+            shutil.copytree(GODOT_ROOT / 'addons/building_attachments', project / 'addons/building_attachments')
     (project / 'scenes/components').mkdir(parents=True)
+    if include_attachments and (project / 'tests/test_building_attachments_library.gd').is_file():
+        rel = 'scenes/components/facilities/building_attachments/v002'
+        shutil.copytree(GODOT_ROOT / rel, project / rel)
     (project / 'outputs').mkdir()
+    if include_attachments:
+        fixture = 'scenes/workshop_buildings/shell_rect_1794338160_71001671/revision_0001/building.tscn'
+        (project / 'outputs/attachment_fixtures').mkdir()
+        shutil.copy2(GODOT_ROOT / fixture, project / 'outputs/attachment_fixtures/house.tscn')
     texture_dir = project / 'assets/textures/shared'
     texture_dir.mkdir(parents=True)
     for filename in ['sea_cabin_timber_8x8_512.png']:
@@ -782,8 +832,22 @@ def main():
     label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
-    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-random', 'workshop-damage', 'host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly'}
-    project, user_name = isolated_editor_workshop_project(run_dir, include_plants=any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly']), include_assembly='editor-scene-assembly' in checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+    minimal_checks = {'editor-workshop', 'editor-workshop-upgrade', 'workshop-adjustment', 'workshop-random', 'workshop-damage', 'host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly'}
+    attachment_regression_checks = ATTACHMENT_CHECKS | {'editor-scene-assembly', 'editor-workshop-upgrade'}
+    attachment_checks = bool(set(checks) & attachment_regression_checks)
+    if attachment_checks and not set(checks).issubset(attachment_regression_checks):
+        parser.error('附件专项须独立批次运行，避免改变既有检查配置')
+    source_before = attachment_source_hashes(GODOT_ROOT) if attachment_checks else {}
+    minimal_checks |= ATTACHMENT_CHECKS
+    attachment_editor = 'editor-building-attachments' in checks
+    project, user_name = isolated_editor_workshop_project(
+        run_dir,
+        include_plants=attachment_editor or any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-scene-assembly']),
+        include_assembly=attachment_editor or 'editor-scene-assembly' in checks,
+        include_attachments=attachment_checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+    if attachment_checks:
+        write_project_config(project / 'project.godot', derive_check_config(
+            (project / 'project.godot').read_text(encoding='utf-8'), 'building-attachments'))
     if canopy_check:
         preparation_dir = project / 'outputs/plant_canopy_sources'
         preparation_dir.mkdir(parents=True, exist_ok=True)
@@ -811,7 +875,31 @@ def main():
               'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
               'renderer': 'per check; visual-* always use real renderer', 'results': {},
               'source_overlay': str(args.source_overlay.resolve()) if args.source_overlay else None}
+    if attachment_checks:
+        report['source_hashes_before'] = source_before
+        report['runner_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+        report['isolated_source_hashes'] = attachment_source_hashes(project)
+        report['source_copy_mismatches'] = [rel for rel, digest in report['isolated_source_hashes'].items()
+                                            if rel != 'project.godot' and source_before.get(rel) != digest]
+        report['isolated_copy_types'] = sorted({str(path.relative_to(project).parts[0]) for path in project.iterdir()})
+        report['library_dir'] = str(user_data_root(user_name + '/build-attachment-library') / 'building_attachments/library/v002')
+        report['library_output_uri'] = 'user://building_attachments/library/v002'
+        library_rel = 'scenes/components/facilities/building_attachments/v002'
+        report['production_library_hashes_before'] = {str(p.relative_to(GODOT_ROOT / library_rel)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted((GODOT_ROOT / library_rel).rglob('*')) if p.is_file()}
+        report['isolated_library_hashes_before'] = {str(p.relative_to(project / library_rel)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted((project / library_rel).rglob('*')) if p.is_file()}
+        report['library_copy_identical'] = report['production_library_hashes_before'] == report['isolated_library_hashes_before']
     print('Evidence:', run_dir, flush=True)
+    if attachment_editor and '--building-attachments-verify' not in (project / 'addons/scene_assembly/plugin.gd').read_text(encoding='utf-8'):
+        report['results']['editor-building-attachments'] = {
+            'passed': False, 'executed': False, 'exit_code': None,
+            'reason': 'UI插件尚未接入--building-attachments-verify；未启动引擎，不伪报Editor通过',
+            'unexpected_errors': [], 'completion_marker': False}
+        (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        print('editor-building-attachments NOT RUN: 缺少插件验证flag入口', flush=True)
+        release_user_data(user_name, run_dir)
+        return 1
     if checks == ['minimum-loop', 'minimum-loop-visual-baseline']:
         results, baseline_report = run_minimum_loop_baseline(
             exe, project, full_config, run_dir, user_name, args)
@@ -842,7 +930,13 @@ def main():
             return 1
     for name in checks:
         config = derive_check_config(full_config, name)
-        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant', 'editor-scene-assembly']
+        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-plant', 'editor-scene-assembly', 'editor-building-attachments']
+        if is_editor_workshop and attachment_checks:
+            # 保留同一最小工程，但将前项候选库归档，保留旧装配初始空库门禁。
+            for rel in ['scenes/workshop_buildings', 'scenes/workshop_plants', 'scenes/workshop_attachments']:
+                candidate_dir = project / rel
+                if candidate_dir.is_dir():
+                    shutil.move(str(candidate_dir), str(run_dir / (name + '-prior-' + candidate_dir.name)))
         if is_editor_workshop:
             # 编辑器主屏/打开场景不属于user://；串行专项不能继承上一项的UI状态。
             editor_state = project / '.godot/editor'
@@ -870,10 +964,10 @@ def main():
         else:
             cmd += ['--resolution', '1280x800']
             # 性能专项需要真实wall-clock帧间隔，不能用固定步长模拟帧率。
-            if name not in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']:
+            if name not in ATTACHMENT_CHECKS and name not in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']:
                 cmd += ['--fixed-fps', '60']
         if is_editor_workshop:
-            editor_flag = '--scene-assembly-verify' if name == 'editor-scene-assembly' else '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
+            editor_flag = '--building-attachments-verify' if name == 'editor-building-attachments' else '--scene-assembly-verify' if name == 'editor-scene-assembly' else '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
             cmd += ['--editor', '--', editor_flag]
         elif script:
             cmd += ['--script', 'res://' + script]
@@ -882,6 +976,9 @@ def main():
         if 'title-screen' not in name:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--skip-title')
+        if name == 'build-attachment-library':
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--attachment-library-out=user://building_attachments/library/v002')
         if name == 'plant-canopy-preview':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--preview-only')
@@ -921,14 +1018,42 @@ def main():
             result['scope'] = 'visual_only'
             result['full_suite_passed'] = False
         result['log'] = str(log)
+        result['warnings'] = [line for line in text.splitlines() if 'WARNING:' in line]
         result['user_data_name'] = check_user_name
         result['renderer'] = 'real' if is_visual else 'headless'
         result['command'] = cmd
+        if attachment_checks:
+            summary = re.search(r'\[(?:attachment-library|building-attachments-visual|building-attachments-editor|scene-assembly|workshop-upgrade)\] (\d+) checks, (\d+) failures', text)
+            for prefix in ['BUILDING_ATTACHMENTS_RESULT ', 'ATTACHMENT_LIBRARY_RESULT ']:
+                for line in text.splitlines():
+                    if line.startswith(prefix):
+                        result['test_summary'] = json.loads(line[len(prefix):])
+            if summary:
+                result['checks'], result['failures'] = map(int, summary.groups())
+            result['artifacts'] = [str(path) for path in sorted((project / 'outputs').rglob('*')) if path.suffix in ['.png', '.json']]
+            report['source_hashes_after'] = attachment_source_hashes(GODOT_ROOT)
+            report['source_changed_during_run'] = report['source_hashes_after'] != source_before
+            result['source_consistent'] = not report['source_changed_during_run'] and not report['source_copy_mismatches']
+            result['isolated_source_hashes_after'] = attachment_source_hashes(project)
+            result['isolated_source_changed'] = {rel: digest for rel, digest in result['isolated_source_hashes_after'].items()
+                                                 if rel != 'project.godot' and report['isolated_source_hashes'].get(rel) != digest}
+            result['source_consistent'] = result['source_consistent'] and not result['isolated_source_changed']
+            library_rel = 'scenes/components/facilities/building_attachments/v002'
+            report['production_library_hashes_after'] = {str(p.relative_to(GODOT_ROOT / library_rel)): hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted((GODOT_ROOT / library_rel).rglob('*')) if p.is_file()}
+            report['isolated_library_hashes_after'] = {str(p.relative_to(project / library_rel)): hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted((project / library_rel).rglob('*')) if p.is_file()}
+            result['library_bytes_unchanged'] = (report['production_library_hashes_before'] == report['production_library_hashes_after']
+                and report['isolated_library_hashes_before'] == report['isolated_library_hashes_after'] and report['library_copy_identical'])
         report['results'][name] = result
         print(name, 'PASS' if result['passed'] else 'FAIL', 'exit=' + str(code), flush=True)
         if not result['passed']:
             print('\n'.join(text.splitlines()[-18:]), flush=True)
         (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        if attachment_checks and not result['passed']:
+            report['not_executed'] = checks[checks.index(name) + 1:]
+            (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+            break
     release_user_data(user_name, run_dir)
     return 0 if all(x['passed'] for x in report['results'].values()) else 1
 

@@ -14,7 +14,15 @@
   "code_paths": [
     "art_source",
     "assets/registry",
-    "tools/blender"
+    "tools/blender",
+    "godot/src/building_attachments",
+    "godot/data/building_attachments/catalog_v1.json",
+    "godot/scenes/components/facilities/building_attachments/v002",
+    "godot/tools/build_attachment_library.gd",
+    "godot/tests/test_building_attachments.gd",
+    "godot/tests/test_building_attachments_library.gd",
+    "godot/tests/test_building_attachments_visual.gd",
+    "tools/apply_water_layer.py"
   ],
   "verification": [
     "gift-kiosk-interior",
@@ -40,7 +48,11 @@
     "fishery-environment",
     "visual-fishery-environment",
     "sunroom-underwater",
-    "visual-sunroom-underwater"
+    "visual-sunroom-underwater",
+    "building-attachments",
+    "build-attachment-library",
+    "verify-attachment-library",
+    "visual-building-attachments"
   ]
 }
 ```
@@ -826,3 +838,43 @@ R01哈希checker对二进制CRLF替换；R02水密passed未纳入boundary/nonman
 - 当前重置矩阵已另有124724及124828–124832批：unit0/0、五seed engine-9/runner1预期SIGKILL、五recover0/0；只签进程中断恢复，不签物理断电或发行设备可靠性，详见审计和quality分层记录。
 
 B4仍未完成真实发行包、许可裁决、设备/跨平台及长期矩阵，审计无B5；登记头原状态保留，不升级verified。R06许可pending继续待审，既有计数不在本次重新盘点或晋升；R18四份`.r2-*`事务文件不删除、不覆盖主表、不擅自裁决归档政策。AssetID、source/runtime哈希、license、源/GLB/材质/场景与用户摆位均不由本次修改；未启动Godot、runner或导出。
+
+## 2026-11-16 建筑外挂32类型／96状态源计划冻结
+
+本轮全文核号最大R68（含R68a），新增R69–R73，不覆盖R31/R50或修历史重复R57；登记头及正式资产分账本保持。源计划[building_attachments/v001/component_plan.json](../../../art_source/scenes/building_attachments/v001/component_plan.json)是计划与source records，不是scenes主记录；新目录在检查父目录后按用户明确授权创建。
+
+| 对应设计条款 | 当前实施状态 | 当前事实 / 未验边界 |
+|---|---|---|
+| SEA-ASSET-R69 | implemented_pending_current_verification | 实读catalog并冻结准确32个type/name、四族各8子族、每type三态共96项；32个planned_key唯一、asset_id=null，formal_records_written=0。逐项尺寸/底心名义bounds/挂载/碰撞/三态/参考齐备，静态JSON对照成功只签计划一致，不签实际96模型合格或正式登记。 |
+| SEA-ASSET-R70 | implemented_pending_current_verification | 八招牌style与原创粗字源码已存在，24字符白名单、保输入及预算拒绝有实现；r6前轴-Z观察F镜像真实失败，双面/正向/可读性仍blocked。不是TextMesh运行字，不用旧商亭字体/mesh代签。 |
+| SEA-ASSET-R71 | implemented_pending_current_verification | 冻结SF-B、低面1段例外、四solar角色/暖木PaletteUV及1800/长文3500/字128硬上限；三态几何损伤仅本套件授权覆盖旧禁止损伤风格。每part真实1%..10%收分、线性变径、实际倒角/UV/预算和自定义尖锥等尚pending，不把metadata数值当已验。 |
+| SEA-ASSET-R72 | implemented_pending_current_verification | 11份native脚本+catalog真实SHA、3份项目轮廓参考计划真实SHA已写source_records/reference_sources；旧mesh不复用。逐part native JSON真实截面、missing_sectors与contacts接缝尚pending，未造source_parts值；Blender另代理衍生，derive_pending，native代码是作者源，不是原生Blender创作。商业法务仍pending。 |
+| SEA-ASSET-R73 | implemented_pending_current_verification | 三态静态库及候选六件路径已计划，scriptfree/256层逐part代理/水下显式false/不派生世界职责已定；r6库96项不是合格交付，独立重载、曲面闭合、当前editor、碰撞与全子树无功能均须新证据。正式runtime_path=null，无正式AssetID/主场景接入，不写资产或运行清单。 |
+
+实读同一r6外层报告 `/Users/zyq/work/sea-work/verification/20261116-032945-attachments-frozen-r6-1b18e2/report.json`：核心 **7712项/10失败、exit1、passed=false**；构建 **96 records、inner passed=true/exit0但9条脚本错误、outer passed=false**；真实视觉 **484/0、exit0但13条unexpected、passed=false**。失败包含卫星碟/锥顶水塔/蘑菇帽三态闭合与typed Array proxy，及F镜像文字；仍blocked，未目检新图或以图存在签通过。editor任务交接时尚未hook/执行，不引用旧房屋1453/0。本任务不启动引擎、Blender、runner、contracts或style checker，不改登记头/registry/runtime清单/源索引/memory；本次只写sourceplan、设计和[开发记录](../../development/2026-11-16_building_attachments.md)。并行修复不自动更新本冻结SHA或推翻r6原失败，主线程另行追加当前证据。
+
+## 2026-11-16 v002正式制作库与派生源当前签署
+
+本节覆盖上节当前pending/未登记结论，不改v001冻结计划、r6与中间失败历史或source_blend目录；登记头仍partial。本次只读已完成报告/32登记现状，不修改registry。
+
+| 对应设计条款 | 当前实施状态 | 当前证据 / 未签范围 |
+|---|---|---|
+| SEA-ASSET-R69 | implemented_verified_in_scope | 32type×3=96状态，scenes已32个SEA-SCENE-BAT-*唯一主记录、source index32new；源路径为32派生blend并回链原始native，分类furnishing/building_class=null、none/none。tools/apply_water_layer.py:FAMILIES前缀策略防误归水上建筑；是资产分类辅助脚本，不是新增world职责。 |
+| SEA-ASSET-R70 | implemented_verified_in_scope | 八招牌框式/块式/灯泡边饰、原创粗stroke+carrier，保原字符串；A–Z/0–9/空格/.-!&24字符，中文/小写明确拒绝保输入不upper/丢字。core98样本=96+2改字，旧镜像修复有当前数值/视觉证据；独立字近背板取舍及用户美术终审未签。 |
+| SEA-ASSET-R71 | implemented_verified_in_scope | 96默认140..1204三角面，总45376，221 surfaces、逐件2..4mesh/surfaces；glyph128/default1800/long3500保持。普通box3.5%/rod4.8%真实收分；功能cone rho1、round/glyph bevel0与embedded_support三组局部例外已在spec及v002补充正式注明，不能说100%符合旧禁止overlap或所有硬边倒角。full contacts/style pending。 |
+| SEA-ASSET-R72 | implemented_verified_in_scope | v002派生32blend/96交换GLB、1577可编辑part，总览重开96 Collection Instance/0 localMesh；重开exit0 passed=true、90752面UV最小512px²/16安全边/32跨度、96无image/texture，max normal error0.0001999679≤0.0003，CPU四图完成无GPU。native为作者/runtime权威，GLB仅视觉交换，legal/art及完整接缝/风格未签。 |
+| SEA-ASSET-R73 | implemented_verified_in_scope | 已实际复制静态native Godot96场景到v002制作库，r10b库12103/0含96冷加载+96user重存重载，322生产文件hash不变；core11122/0、editor328/0等同批通过。stage=authoring_library_integrated_art_review_pending_not_world_installed，初审313 runtime目标只代表当时定点清单，后续librarytest/runner/policy由主线程追加；不是生产世界安装。 |
+
+最终同工程串行报告 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`：库12103/0、core11122/0、editor328/0、旧装配78/0、房屋1453/0，import/各项exit0、completion=true、unexpected=[]、source_consistent=true；核心NaN负例JSON警告如实保留，不称零warnings。core96默认合计441碰撞代理、15默认开碰撞状态；12physics case人物0.22/1.3撞实体、脚间可通，细管空腔为小胶囊非人物。水下true拒绝，无Walk/shore/boat/dive/正式Main职责。GUI自动非人工、首视口、gizmo未测。
+
+视觉原生r9c `/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/report.json` 为507/0、131PNG，八个悬空bug由v2修闭；source重开原报告 `/Users/zyq/work/sea-work/building_attachments_source/v002/reopen_validation_final.json`。衍生源manifest的pending登记是历史时点，不能改其来源身份或以当前登记伪称原生Blender创作/商业clear。`geometry.require_connection` embedded_support的真实witness只partial，局部字背carrier/少量连接轴有意嵌入重叠，与宿主普通12mm净空不同；完整contacts/style/用户美术审查保pending，见[当前范围覆盖](../../../art_source/scenes/building_attachments/v002/delivery_validation.json)。实际draw以visual captures逐项记录，不把2..4surface等同Main draw/FPS。
+
+[交付HTML](../../../outputs/building_attachments_review_20261116/index.html)、[审阅ZIP](../../../outputs/building_attachments_review_20261116.zip)（20352407 bytes）、[源资产ZIP](../../../outputs/building_attachments_assets_v002.zip)（8992971 bytes）；32准确中文目录/使用步骤已追加spec和[开发记录](../../development/2026-11-16_building_attachments.md)。本任务不改code/registry/Blender、不运行contracts/引擎；全库门禁待主线程真实sync/check，不再把488/489历史值写成当前结果。
+
+### 主线程最终定点登记与全库结果
+
+本轮当前315个唯一runtime目标SHA/bytes一致（初313含runner，另补正式库测试及分类策略两路径），32个新主记录和32个source index新增准确，96静态场景及322件制作库原始文件入前出后保持；其他资产/source/runtime记录不重签。登记头补齐native模块、catalog、静态库、构建器、三项测试与职责策略code_paths及四个实际验证入口；world登记外挂Editor入口。
+
+最终真实全库sync **489 issues / exit1**、check **490 issues / exit1**，46 features、1105 source assets、1873 runtime hashes。421项运行漂移、14项源漂移、51断链及历史资产条款集合/派生索引保留；本轮 `store.gd` 候选输出根 `scenes/workshop_attachments` 在首次另存前不存在，被通用res引用扫描计为缺资源。未凭空创建空目录掩盖扫描边界，候选存储已通过真实成功/失败/防链接验收。本轮32 BAT项无分类/重复身份/来源回链错误，不能据此宣称全库绿。
+
+日志与退出码 `/Users/zyq/work/sea-work/building_attachments_release/contracts_{sync,check}.log`、`contracts_results.json`，交付页列同样边界。主线程目检原生v2八张组件墙及支撑关键近景，原八项悬空缺陷已在可见范围闭合；完整contacts/style/用户艺术和许可仍pending。共享色盘/材质、Main与房屋8件冻结内核无本轮改变，未提交推送。

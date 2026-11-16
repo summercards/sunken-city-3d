@@ -282,3 +282,72 @@ R23–R27 的编辑器门窗范围明确为全局、当前楼层、当前立面�
 | SEA-WORKSHOP-R88 | plugin.request_document(path, token) 仅切到原工坊并委托 screen 的既有打开/脏确认流程；成功后 document_opened(path, token)，取消或失败由 document_request_finished(token, result) 返回，不提前建立装配绑定。普通打开、新建和样例载入成功以 token=0 解除旧绑定。成功保存新 revision 发 revision_saved(token, result)，工坊不自行修改场景树或保存 Main；由 SEA-WORLD 校验绑定并仅替换当前目标 Asset，保留当前 Placement transform、旧版和同源兄弟实例。历史 modular 不开放回编。 |
 
 本条是 R13“不自动修改当前场景”的显式用户回编扩展，不转移配方/Store 所有权，也不把两工坊合并。场景装配规则见 [SEA-WORLD](../world/spec.md)，正式登记仍归 SEA-ASSET；动态树、WalkArea、航行及潜水接线不由楼房工坊代做。
+
+## 2026-11-15 晚至11-16 阳光房默认、显式少量冲突调整与配色目标按钮
+
+用户11/15晚要求房屋初始值和配色参考阳光房；“杨光放”按项目 `solar_cabin` 理解，不创建新参考对象。本轮先核对条款未占用，再追加R89–R91；R89仅覆盖R32/R38的新建默认值，R90不放松既有严格生成/保存契约，R91仅覆盖配色目标选择的呈现，不改其他页的视图行。历史设计与失败证据均保留。本轮实施状态为 `implemented_pending_current_verification`，最终editor验收尚待主线程回填。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R89 | 仅 `Recipe.authoring_defaults()` 新建参考阳光房：层高5.1m、板厚0.2m、净高4.9m、`column_width=0.5m`、`architecture.pilaster.width=0.5m`；贴墙柱只近似参考粗细，不等同原型主柱构造或承载。净窗1.5×1.9m、窗台0.95m、净门1.6×2.4m维持，原型门窗外包尺寸不得当净洞迁入。clean和既有新建功能保留；palette.slots采用下表手动格，shading保持空覆盖、继承正式四共享材质。不得修改公共.tres/shader/PNG、旧 `Recipe.defaults()`、旧档缺省解释、已保存配方或历史revision。新建form保持原seed、8°与其他档位，仅structure.max固定为0.059（min=0.030），使默认12×9m、5.1m单层在原倾角/字段边界内合法；不是按楼层动态clamp，不放宽validator或阈值，其他体量超限仍明确拒绝。 |
+| SEA-WORKSHOP-R90 | “调整冲突…”只提议少量白名单数值，最多3个独立parameter、共6项数值变化；alias/derived不冒充独立参数，但均计入6项并披露真实path、中文参数、原/新值、单位、原因与kind。helper只读原candidate/catalog，经完整 `Recipe.validate` 与真实 `Generator.build` 验证原输入和建议后才给可确认方案，生成探针不写Session。UI从成功snapshot构造候选，只收basic白名单及actual failed/pending窗字段与实际scope，不收未排队窗差异；无关屋顶/身份/组件/植物/形体/配色等保输入不提交，无法安全分离的无关队列或局部输入明确拒绝。独立modal以“Session原值→用户输入”和“输入→建议”两区完整披露本次提交与helper调整，默认焦点取消，不复用脏文档确认。取消、过期或实际生成失败时原模型/root、配方、catalog、历史及输入保持，不重启timer、不后台重试；配方/目录/输入/scope/文档token变化使方案过期。显式确认只调用一次真实 `Session.preview_candidate`，同一次构建用于预览、单条history，undo回原楼与失败/排队输入，redo及历史分支不串输入。静态保存继续严格失败，不auto修复、不异步保存。不可解prefab、未知/非法输入、拓扑冲突（含改变既有单窗ordinal）或超3参数/6数值拒绝；不得关柱/窗/功能、缩净窗、清局部覆盖或换模板绕过失败。 |
+| SEA-WORKSHOP-R91 | 配色目标用13个可见按钮取代唯一下拉入口：全部、墙、柱、腰线、框、玻璃、植物、楼板、屋顶及Matte/Metal/Gloss/Emission四角色。横向单行滚动、左右箭头、选中高亮并滚入可见区；按钮至少40px高、18px字号。位于main nav正下方第二行，仅配色页显示，并替换 `views_scroll` 所占的同一行，不能额外叠加第三行；其他页隐藏目标行并恢复视图行。切目标仅换上下文、不改配色或生成。R79–R81紧凑布局、16/18px字号与1280×800、1000×700、860×600真实Control面积门禁不变：模型预览宽≥52%、高≥60%，不得为新按钮降门禁或缩字号。 |
+
+### R89 手动PaletteUV与继承边界
+
+色格按零基 `[row,column]`，不是像素坐标；只设置新建配方的稀疏slots，不复制公共材质或重画色板。
+
+| 色名 | 色格 | palette.slots |
+|---|---|---|
+| white | `[0,4]` | wall / pillar / band |
+| wood | `[1,1]` | slab / roof |
+| teal | `[2,3]` | frame |
+| sky | `[2,1]` | glass |
+
+`architecture.shading.materials`保持空对象继承公共资源；原存档、olddefaults与保存配方不迁移。新建初始配色参考不等于同光照像素一致或完整美术终验。
+
+### R90 候选与只读端口
+
+- basic白名单为 `width/depth/floors/floor_height/slab_thickness/wall_thickness/column_width/bay_width/door_width/door_height/bevel_width`；窗字段只从真实failed/pending队列按global/floor/facade/single实际owner收集，必要全局尺寸alias同步也必须明示。不能把“控件可见”或“与baseline相同”当成可静默提交/丢弃的理由。
+- helper为 `godot/src/workshop/generation_adjustment.gd` 的 `evaluate/propose`；优先增加可用层高/开间或框深保留净洞与玻璃，不进行随机重试。建议稳定接口含 `ok/reason/candidate/changes/original_reason/parameter_count`，逐项变化含 `path/label/before/after/unit/reason/kind`，未设置的稀疏数值覆盖明确标识新增。
+- `Session`仍是唯一配方/历史写入者；确认不吞非候选UI及其baseline，无法分离的队列先拒绝。只读提议中完整生成探针不等于确认提交；“确认生成一次”特指确认事务真实Session提交及预览复用，不冒称全流程从不生成探针。
+
+### 当前几何修复、验证与未签范围
+
+实际两层回归不是参数本身不合法：CSG各part局部居中后分别变换，使同一水平接面落在不同world Y浮点平面。`shell_union_geometry._boolean_mesh`入CSG前先bake世界坐标，仅将Y统一到既有 `WELD=0.00001m` 量级；XZ不预量化以保留收分窄斜面。audit、validator阈值及既有后处理不放宽，不以提高容差/关部件/换fixture掩盖几何失败。
+
+统一runner新增 `workshop-adjustment` → `godot/tests/test_workshop_adjustment.gd`；只读核对最新内核357/0、union16组合6291/0。新增原始新建1/2/3层×form开/关、两层柱腰线四组合及大窗、旧L五层、空palette继承/植被/窗沿关闭与真实Session联合修复/静态保存回归。真实editor1349/0是审查收紧前中间版，不能签当前UI隔离/历史与几何修订后的最终通过；357/0内核所在批次的旧shell25失败属oldauto/weathering fixture与manual slots语义冲突，维护和复跑待主线程，不删除或改签旧失败。本轮未运行Godot/runner或sync/check，实际报告与待补证据见[账本追加](ledger.md)及[既有开发记录追加](../../development/2026-11-14_random_house_independent_tree_workshop.md)。
+
+### 2026-11-16 最终回填：当前范围内验证完成
+
+本节更新上文“待最终editor/fixture维护”的当前状态；上文是当时真实历史，不删除、不把旧失败改签成功。R89–R91规则维持，当前逐条状态更新如下，全局仍为partial，不代签完整美术、性能或世界接入。
+
+| 条款 | 当前状态 | 本次可靠证据与范围 |
+|---|---|---|
+| SEA-WORKSHOP-R89 | implemented_verified_in_scope | 最终UI1453/0及集成七项headless通过承接新建solar_cabin参考、原净窗/门、旧defaults不迁移、manual slots真实UV与共享继承；完整union64cases/filter空24533/0补足旧16组合边界。结构Y统一精度为既有WELD=0.00001m、XZ不预量化，audit/validator和后处理未放宽。 |
+| SEA-WORKSHOP-R90 | implemented_verified_in_scope | adjustment357/0与最终UI1453/0覆盖≤3独立参数/≤6数值完整披露、basic+真实failed/pending窗白名单、双明细/默认取消、过期失败原子保持、不起timer、单次Session确认构建/单history、精确UI与历史分支恢复、静态保存严格失败。源码与最终UI隔离快照一致；不将helper探针计作用户确认提交。 |
+| SEA-WORKSHOP-R91 | implemented_verified_in_scope | 最终UI1453/0覆盖13目标40px/18px按钮、配色页替换同一视图行及三档真实52%宽/60%高门禁。新增快速墙→框双选色事务、失败原target/input保持、无pending切target零build/零history；按钮无pending只换上下文，有pending必须先安全提交原target队列再切换，失败不切，不吞输入。 |
+
+最终UI报告：`/Users/zyq/work/sea-work/verification/20261116-015027-workshop-humanized-final-0b50f8/report.json`，inner `project/outputs/workshop_upgrade_report.json` **1453/0**、editor exit0、unexpected_errors=[]、import0。快速选色覆盖墙选色后160ms内切框再选色；真实GUI自动检查与渲染不等于人工艺术验收，fixed-fps60不作性能证明。
+
+结构批 `20261116-005853-workshop-humanized-integration-f2532e/report.json` 前七项headless均pass/exit0/unexpected_errors=[]：adjustment357/0、union64组合24533/0（filter空）、shell18077/0、random17831/0、damage1582/0、rules879/0、deep41/0。旧shell25失败以四行auto fixture维护（两注释、两处palette={}）后实跑通过，新manual slots真实UV另验，原断言不降；历史失败保留。**该批第八项装配仍exit1、529条unexpected，full/minimal隔离Autoload配置冲突未修，不是整批通过。**
+
+独立minimal装配早期12项/1个drop失败保留；只维护测试 `test_scene_assembly_editor.gd` 的窗口置顶、window_id、source warp两帧等待、逐次reset和真实can_drop/drop断言，不改产品插件。`20261116-014228-workshop-default-assembly-fix-743e93`、`20261116-014332-workshop-default-assembly-fix-255e0d` 两次各78/0、editor/import0、unexpected_errors=[]、main_protection通过；原70业务+8输入检查。遮挡/输入时序相关但不宣称单变量唯一根因或OS focus已激活，自动GUI不替代人工物理鼠标/gizmo验收。装配测试与职责归SEA-WORLD，不新增重复feature。
+
+以上报告目录均在 `/Users/zyq/work/sea-work/verification/`。主线程minimal串行 `workshop-defaults-delivery` 仍在跑，合并证据由其后续追加；本节仅引用已完成可靠分批。交付 `outputs/workshop_defaults_review_20261116/index.html` final源待主线程更新；shared .tres/shader/PNG、Main/project无diff。美术终审/性能/正式Main接入/全库门禁未签，全库待实际sync。本次只追加文档，不运行runner/contracts或修改代码/registry/memory，不commit/push。
+
+## 2026-11-16 建筑外挂只读消费与房屋core隔离（R92）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R92 | 32类型×3状态外挂由独立 `godot/src/building_attachments/` 原生core与SEA-WORLD场景装配维护；楼房工坊只是宿主资产提供方，外挂只读其已保存Asset/真实可见表面，不给房屋Recipe、shell几何/union、Generator、Session、Store或旧editor_screen增加外挂字段、生成分支、历史写入或UI页。配方/版本/历史各自唯一所有者保持；Attachments是Asset兄弟，房屋换版不删外挂、不自动重投，当前transform保护归SEA-WORLD-R39。房屋core已有未提交差异作为基线保留，禁止回退HEAD或为外挂改算法、阈值、默认值与旧screen；锁定文件及读取时SHA/diff SHA见组件计划housing_core_locked。外挂候选不通过房屋Store保存，不伪装成房屋slot或正式AssetID。 |
+
+当前状态 `implemented_pending_current_verification`：只冻结隔离契约与既有差异基线，独立目录已创建、装配UI/controller实施中；本次不修改任何core/screen，不执行引擎或contracts。此前房屋1453/0只属于原R89–R91，不是本轮外挂回归，更不是editor hook通过。跨功能入口见[WORLD-R37–R40](../world/spec.md)、[源计划](../../../art_source/scenes/building_attachments/v001/component_plan.json)与[本轮开发记录](../../development/2026-11-16_building_attachments.md)。
+
+## 2026-11-16 R92最终隔离签署（v002）
+
+| 既有条款 | 当前状态 | 当前范围 |
+|---|---|---|
+| SEA-WORKSHOP-R92 | implemented_verified_in_scope | v001 housing_core_locked中的房屋recipe、三shell、generator、session、store与旧screen八件当前文件SHA及完整diff SHA均保持冻结基线。外挂仅只读消费宿主，独立core/Store/配方不扩房屋；房屋换版只换Asset并刷新旧Asset释放后的引用，Attachments及全部当前transform保留，显式重新贴合归WORLD。 |
+
+最终 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json` 同一minimal工程串行包含本次真实房屋1453/0、旧装配78/0及外挂editor328/0、core11122/0、库12103/0，五项/import均exit0、completion=true、unexpected=[]、source_consistent=true。这次1453/0是当前同批回归，不是借旧R89–R91历史数据；仍不代签外挂全部手工交互或艺术终验。Main SHA保持 `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`，生产Main未运行。旧pending/r6失败原文保留，本节更新当前签署、全局partial保持；使用步骤见[WORLD当前使用节](../world/spec.md)，当前实测与例外见[v002补充](../../../art_source/scenes/building_attachments/v002/delivery_validation.json)。本任务不改core/registry/Blender，不运行引擎或contracts。

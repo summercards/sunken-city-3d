@@ -15,6 +15,11 @@ func capture(path: String) -> Texture2D:
 	if packed == null: return null
 	var root := packed.instantiate() as Node3D
 	if root == null: return null
+	return await capture_root(root)
+
+# 仅供原生 Generator 已创建的可信静态 root；不读取候选资源路径。
+func capture_root(root: Node3D, view_direction: Vector3 = Vector3(1, 0.65, 1.4)) -> Texture2D:
+	if root == null: return null
 	add_child(root)
 	var bounds := AABB()
 	var first := true
@@ -22,12 +27,15 @@ func capture(path: String) -> Texture2D:
 		var box: AABB = node.global_transform * node.get_aabb()
 		bounds = box if first else bounds.merge(box)
 		first = false
+	if first or not bounds.position.is_finite() or not bounds.size.is_finite():
+		root.free()
+		return null
 	var camera := Camera3D.new()
 	add_child(camera)
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = maxf(bounds.size.length() * 0.9, 1.0)
 	var center := bounds.get_center()
-	camera.position = center + Vector3(1, 0.65, 1.4).normalized() * maxf(bounds.size.length() * 2.0, 4.0)
+	camera.position = center + view_direction.normalized() * maxf(bounds.size.length() * 2.0, 4.0)
 	camera.look_at(center)
 	camera.current = true
 	var light := DirectionalLight3D.new()
@@ -42,7 +50,8 @@ func capture(path: String) -> Texture2D:
 	render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
-	var texture := ImageTexture.create_from_image(get_texture().get_image())
+	var image: Image = get_texture().get_image()
+	var texture: Texture2D = ImageTexture.create_from_image(image) if image != null and not image.is_empty() else null
 	render_target_update_mode = SubViewport.UPDATE_DISABLED
 	root.free()
 	camera.free()

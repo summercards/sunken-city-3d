@@ -10,7 +10,7 @@ var _document_token: int = 0
 var _request_token: int = 0
 
 func request_document(path: String, token: int) -> void:
-	if _confirm.visible:
+	if _confirm.visible or not _repair_pending.is_empty():
 		document_request_finished.emit(token, {"ok": false, "reason": "请先处理当前确认窗口"})
 		return
 	_request_token = token
@@ -33,6 +33,9 @@ const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
 const Generator = preload("res://src/workshop/generator.gd")
 const RandomRecipe = preload("res://src/workshop/random_recipe.gd")
 const StructuralDamage = preload("res://src/workshop/structural_damage.gd")
+const GenerationAdjustment = preload("res://src/workshop/generation_adjustment.gd")
+const PALETTE_TARGETS: Array = [["global", "全部", "全部原生材质"], ["slots:wall", "墙", "墙体"], ["slots:pillar", "柱", "立面柱"], ["slots:band", "腰线", "腰线 / 束带 / 勒脚"], ["slots:frame", "框", "门窗框"], ["slots:glass", "玻璃", "窗玻璃"], ["slots:plant", "植物", "附着植物"], ["slots:slab", "楼板", "楼板"], ["slots:roof", "屋顶", "屋顶"], ["materials:SEA_Matte", "哑光", "SEA_Matte · 哑光材质"], ["materials:SEA_Metal", "金属", "SEA_Metal · 金属材质"], ["materials:SEA_Gloss", "光泽", "SEA_Gloss · 光泽材质"], ["materials:SEA_Emission", "发光", "SEA_Emission · 发光材质"]]
+const REPAIR_BASE_KEYS: Array[String] = ["width", "depth", "floors", "floor_height", "slab_thickness", "wall_thickness", "column_width", "bay_width", "door_width", "door_height", "bevel_width"]
 const WINDOW_PREVIEW_DELAY: float = 0.16
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
@@ -157,6 +160,19 @@ var _random_house_rng := RandomNumberGenerator.new()
 var _random_house_rng_ready: bool = false
 var _random_house_undo_inputs: Dictionary = {}
 var _random_house_confirming: bool = false
+var _repair_dialog: ConfirmationDialog
+var _repair_text: RichTextLabel
+var _repair_input_text: RichTextLabel
+var _history_document_epoch: int = 0
+var _history_inputs_redo: Array[Dictionary] = []
+var _history_navigating: bool = false
+var _repair_pending: Dictionary = {}
+var repair_result: Dictionary = {}
+var _views_scroll: ScrollContainer
+var _palette_target_row: HBoxContainer
+var _palette_target_strip: ScrollContainer
+var _palette_target_buttons: Dictionary = {}
+var _palette_target_context: String = "global"
 
 func configure(ports: Dictionary = {}) -> void:
 	_ports.merge(ports, true)
@@ -167,7 +183,9 @@ func configure(ports: Dictionary = {}) -> void:
 	if ports.has("session") and ports["session"] != null:
 		if session != null and session.changed.is_connected(_on_session_changed):
 			session.changed.disconnect(_on_session_changed)
-		session = ports["session"] as Session
+		if session != ports["session"]:
+			session = ports["session"] as Session
+			_reset_document_inputs()
 		_connect_session()
 	if _initialized:
 		_ensure_editor_catalog()
@@ -260,7 +278,7 @@ func generate_building() -> Dictionary:
 func random_house(seed_value: int = -1) -> Dictionary:
 	if not _initialized or preview == null or not preview.is_node_ready():
 		return _report_failure("独立预览尚未就绪，当前房屋保持。")
-	if _window_preview_busy or _random_house_confirming:
+	if _window_preview_busy or _random_house_confirming or not _repair_pending.is_empty():
 		return {"ok": false, "reason": "请先完成当前操作"}
 	if seed_value < 0:
 		if not _random_house_rng_ready:
@@ -282,9 +300,7 @@ func _random_house_now(seed_value: int) -> Dictionary:
 	_confirm.title = "未保存修改"
 	_confirm.ok_button_text = "丢弃并继续"
 	var before: String = Recipe.fingerprint(snapshot())
-	var inputs: Dictionary = {"previous": before, "ui_values": _capture_ui_values(),
-		"building_id": _id_edit.text, "display_name": _name_edit.text,
-		"baseline": _local_baseline.duplicate(true)}
+	var inputs: Dictionary = _capture_input_context()
 	_set_status("正在生成随机房屋 · seed %d；当前模型保留至成功。" % seed_value, WORKSHOP_ACCENT_HOVER)
 	var reasons: Array[String] = []
 	var current_recipe: Dictionary = snapshot()
@@ -299,7 +315,7 @@ func _random_house_now(seed_value: int) -> Dictionary:
 			reasons.append(str(result.get("reason", "生成失败")))
 			continue
 		if Recipe.fingerprint(snapshot()) != before:
-			_random_house_undo_inputs[Recipe.fingerprint(snapshot())] = inputs
+			_remember_undo_inputs(inputs)
 		_reset_window_preview()
 		_slot_cache.clear()
 		_opening_cache.clear()
@@ -319,6 +335,8 @@ func _random_house_now(seed_value: int) -> Dictionary:
 func apply_parameters() -> Dictionary:
 	if not _initialized:
 		return {"ok": false, "reason": "编辑器主屏尚未初始化"}
+	if not _repair_pending.is_empty():
+		return _report_failure("请先确认或取消调整方案，当前生成/保存未提交。")
 	var window_result: Dictionary = flush_window_preview()
 	if not bool(window_result.get("ok", false)) or not _window_failed_keys.is_empty():
 		return _report_failure("窗输入尚未通过：" + str(window_preview_result.get("reason", "请先修正窗滑块")))
@@ -339,6 +357,240 @@ func apply_parameters() -> Dictionary:
 		_set_status("参数未提交：" + str(result.get("reason", "未知错误")))
 	_update_state()
 	return result
+
+func _capture_input_context() -> Dictionary:
+	return {"previous": Recipe.fingerprint(snapshot()), "document": _input_document_key(), "ui_values": _capture_ui_values(),
+		"building_id": _id_edit.text, "display_name": _name_edit.text, "baseline": _local_baseline.duplicate(true),
+		"failed": _window_failed_keys.duplicate(true), "pending": _window_preview_keys.duplicate(true),
+		"target": _window_preview_target.duplicate(true), "scope": _last_window_scope,
+		"selected": _selected_id, "opening": _selected_opening_id, "floor": _last_floor_index,
+		"facade": _last_facade, "preview_result": window_preview_result.duplicate(true)}
+
+func _input_document_key() -> String:
+	return "%d|%d|%s" % [session.get_instance_id(), _history_document_epoch, str(snapshot().get("building_id", ""))]
+
+func _reset_document_inputs() -> void:
+	_history_document_epoch += 1
+	_random_house_undo_inputs.clear()
+	_history_inputs_redo.clear()
+
+func _remember_undo_inputs(inputs: Dictionary) -> void:
+	var current: String = Recipe.fingerprint(snapshot())
+	if current == str(inputs.previous) or str(inputs.document) != _input_document_key(): return
+	var entry: Dictionary = inputs.duplicate(true)
+	entry["current"] = current
+	var entries: Array = _random_house_undo_inputs.get(current, [])
+	entries.append(entry)
+	_random_house_undo_inputs[current] = entries
+
+func _repair_fingerprint() -> String:
+	return var_to_bytes([snapshot(), session.catalog, _capture_input_context(), _document_token]).hex_encode().sha256_text()
+
+func _repair_window_path(key: String) -> Array[String]:
+	var field: String = _window_numeric_field(key)
+	var scope: String = "global"
+	if key.begins_with("architecture_window_"):
+		field = key.trim_prefix("architecture_window_")
+		if field not in ARCHITECTURE_WINDOW_FIELDS: return []
+		scope = _window_scope()
+	elif key.begins_with("floor_override_"):
+		scope = "floor"
+	elif key.begins_with("facade_"):
+		scope = "facade"
+	elif key not in ["window_width", "window_height", "window_sill"]:
+		return []
+	if field.is_empty(): return []
+	if scope == "global": return ["architecture", "window", field]
+	var container: String = {"floor": "floor_windows", "facade": "facade_windows", "single": "window_overrides"}[scope]
+	return ["architecture", container, str(_window_preview_target.get(scope, "")), field]
+
+func _repair_read_path(data: Dictionary, path: Array) -> Variant:
+	var value: Variant = data
+	for key: String in path:
+		if not value is Dictionary or not value.has(key): return null
+		value = value[key]
+	return value
+
+func _repair_value_equal(left: Variant, right: Variant) -> bool:
+	if (left is int or left is float) and (right is int or right is float):
+		return is_equal_approx(float(left), float(right))
+	return left == right
+
+func _repair_control_matches(key: String, value: Variant) -> bool:
+	var control: Control = controls[key]
+	if control is Range and (value is int or value is float):
+		var slider: Range = control as Range
+		# min=0.25、step=0.1时1.9处于两个格点正中；允许引擎浮点舍入的任一相邻显示值。
+		var displayed: float = clampf(float(value), slider.min_value, slider.max_value)
+		return absf(slider.value - displayed) <= slider.step * 0.5 + 0.000001
+	return _repair_value_equal(_raw_control_value(key), value)
+
+func _repair_delta(path: Array, before: Variant, after: Variant, control_key: String) -> Dictionary:
+	var title: String = str(_range_readouts.get(control_key, {}).get("title", control_key))
+	if path.back() == "enabled": title = "窗口启用"
+	if path.back() == "sill_enabled": title = "窗沿启用"
+	if path.back() == "type": title = "窗型"
+	return {"path": path.duplicate(), "before": before, "after": after, "label": title, "unit": "层" if path.back() == "floors" else ("°" if path.back() == "open_angle" else ("" if after is bool or after is String else "m"))}
+
+func _repair_visible_window_base() -> Dictionary:
+	var data: Dictionary = snapshot()
+	var scope: String = _window_scope()
+	if scope == "global":
+		var window: Dictionary = Config.normalized(data.get("architecture", {})).window.duplicate(true)
+		for field: String in ["width", "height", "sill"]:
+			if not window.has(field): window[field] = data["window_" + field]
+		return window
+	if scope == "floor":
+		data.facade_overrides = {}
+		data.architecture.facade_windows = {}
+		return Config.window_settings(data, int(_spin_value("floor_override_index")), "front")
+	if scope == "facade":
+		data.floor_overrides = {}
+		data.architecture.floor_windows = {}
+		return Config.window_settings(data, 0, _option_value("facade_index"))
+	var opening: String = _window_override_id()
+	var parts: PackedStringArray = opening.split("_")
+	return Config.window_settings(data, int(parts[2]), parts[1], opening) if parts.size() == 4 else {}
+
+func _collect_repair_candidate() -> Dictionary:
+	var edits: Dictionary = _window_failed_keys.duplicate(true)
+	edits.merge(_window_preview_keys, true)
+	var window_paths: Dictionary = {}
+	for key: String in edits:
+		if key in REPAIR_BASE_KEYS: continue
+		var path: Array[String] = _repair_window_path(key)
+		if path.is_empty():
+			return {"ok": false, "reason": "排队输入 %s 不属于冲突窗字段，请先处理；原输入与队列保留。" % key}
+		if _raw_control_value(key) != edits[key]:
+			return {"ok": false, "reason": "窗输入 %s 与排队值不一致，请重新滑动该字段。" % key}
+		window_paths[".".join(path)] = key
+	if not window_paths.is_empty():
+		var target: Dictionary = {"scope": _window_scope(), "floor": str(int(_spin_value("floor_override_index"))), "facade": _option_value("facade_index"), "single": _window_override_id()}
+		if target != _window_preview_target:
+			return {"ok": false, "reason": "待处理窗输入的目标范围已改变，请先处理原范围。"}
+	var visible_base: Dictionary = _repair_visible_window_base()
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		var key: String = "architecture_window_" + field
+		if not visible_base.has(field) or _repair_control_matches(key, visible_base[field]): continue
+		if not window_paths.has(".".join(_repair_window_path(key))):
+			return {"ok": false, "reason": "未排队窗输入 %s，不能静默丢弃；请重新滑动该字段。" % key}
+	for key: String in _pending_local_fields():
+		var path: Array[String] = _repair_window_path(key)
+		if not path.is_empty() and window_paths.has(".".join(path)): continue
+		if key.begins_with("architecture_window_"):
+			return {"ok": false, "reason": "未排队窗输入 %s，不能静默丢弃；请重新滑动该字段。" % key}
+		return {"ok": false, "reason": "存在无关未应用输入（%s），请先处理对应局部应用。" % key}
+	var original: Dictionary = snapshot()
+	for key: String in ["window_width", "window_height", "window_sill"]:
+		if not _repair_control_matches(key, original[key]) and not window_paths.has(".".join(_repair_window_path(key))):
+			return {"ok": false, "reason": "未排队窗输入 %s（控件%s / Session%s / min%s / step%s），不能静默丢弃；请重新滑动该字段。" % [key, _raw_control_value(key), original[key], (controls[key] as Range).min_value, (controls[key] as Range).step]}
+	var candidate: Dictionary = original.duplicate(true)
+	var deltas: Array = []
+	var submitted: Dictionary = {}
+	for key: String in REPAIR_BASE_KEYS:
+		var value: Variant = _control_value(key)
+		if _repair_control_matches(key, original[key]): continue
+		candidate[key] = value
+		deltas.append(_repair_delta([key], original[key], value, key))
+		submitted[key] = true
+	for path_string: String in window_paths:
+		var key: String = window_paths[path_string]
+		var path: Array[String] = _repair_window_path(key)
+		if path.size() == 4 and path[2].is_empty():
+			return {"ok": false, "reason": "请先选择实际窗目标：" + key}
+		var owner: Dictionary = candidate
+		for index: int in path.size() - 1:
+			if not owner.has(path[index]): owner[path[index]] = {}
+			owner = owner[path[index]]
+		owner[path.back()] = edits[key]
+		var before: Variant = _repair_read_path(original, path)
+		if before != edits[key]: deltas.append(_repair_delta(path, before, edits[key], key))
+		if path.size() == 3 and path.back() in ["width", "height", "sill"]:
+			var alias: String = "window_" + str(path.back())
+			candidate[alias] = edits[key]
+			if original[alias] != edits[key]: deltas.append(_repair_delta([alias], original[alias], edits[key], alias))
+		for control_key: String in controls:
+			if _repair_window_path(control_key) == path: submitted[control_key] = true
+	return {"ok": true, "candidate": candidate, "input_changes": deltas, "submitted": submitted, "edits": edits}
+
+func propose_generation_adjustment() -> Dictionary:
+	if not _repair_pending.is_empty() or _confirm.visible:
+		return {"ok": false, "reason": "请先处理当前确认窗口"}
+	_window_preview_timer.stop()
+	var collected: Dictionary = _collect_repair_candidate()
+	if not bool(collected.get("ok", false)):
+		repair_result = _report_failure(str(collected.reason))
+		return repair_result
+	# 只读端口；不补目录、不flush、不提交会话或历史。
+	var proposal: Dictionary = GenerationAdjustment.propose(collected.candidate, session.catalog)
+	repair_result = proposal.duplicate(true)
+	repair_result["input_changes"] = collected.input_changes.duplicate(true)
+	if not bool(proposal.get("ok", false)):
+		return _report_failure("无法调整冲突：" + str(proposal.reason))
+	if proposal.changes.is_empty():
+		_set_status("当前输入可生成，无需调整；未修改模型或历史。")
+		return proposal
+	_repair_pending = {"proposal": proposal, "fingerprint": _repair_fingerprint(), "inputs": _capture_input_context(), "submitted": collected.submitted, "edits": collected.edits}
+	var input_lines: Array[String] = ["本次一并提交的用户输入（Session原值 → 当前输入）", "仅以下白名单输入参与；其它控件保持未应用。", ""]
+	for change: Dictionary in collected.input_changes:
+		input_lines.append("%s\n%s\n%s → %s %s\n" % [change.label, ".".join(change.path), "未设置（新增覆盖）" if change.before == null else str(change.before), str(change.after), change.unit])
+	if collected.input_changes.is_empty(): input_lines.append("无新增用户输入。")
+	_repair_input_text.text = "\n".join(input_lines)
+	var lines: Array[String] = ["修复建议（当前输入 → 建议值）", "是否按以下已验证可生成的方案调整？不重置整楼。", "原冲突：" + str(proposal.original_reason), str(proposal.reason), ""]
+	for change: Dictionary in proposal.changes:
+		var label: String = str(change.label)
+		var field: String = str(change.path.back())
+		var readout_key: String = "architecture_window_" + field if change.path.size() > 1 and str(change.path[0]) == "architecture" else field
+		if _range_readouts.has(readout_key): label = str(_range_readouts[readout_key].title)
+		lines.append("%s\n%s\n%s → %s %s\n原因：%s\n" % [label, ".".join(change.path), "未设置（新增覆盖）" if change.before == null else str(change.before), str(change.after), change.unit, change.reason])
+	_repair_text.text = "\n".join(lines)
+	_repair_dialog.popup_centered(Vector2i(660, 420))
+	_repair_dialog.get_cancel_button().grab_focus()
+	return proposal
+
+func _cancel_generation_adjustment() -> void:
+	_repair_pending.clear()
+	_repair_dialog.hide()
+	_window_preview_timer.stop()
+	_set_status("已取消调整；原模型、历史及冲突输入保持，未自动重试。")
+
+func _confirm_generation_adjustment() -> void:
+	_window_preview_timer.stop()
+	if _repair_pending.is_empty(): return
+	var pending: Dictionary = _repair_pending
+	var current: String = _repair_fingerprint()
+	_repair_pending = {}
+	_repair_dialog.hide()
+	if current != str(pending.fingerprint):
+		repair_result = _report_failure("调整方案已过期：配方、目录、输入或目标范围已改变，请重新请求；未提交。")
+		return
+	var result: Dictionary = session.preview_candidate(pending.proposal.candidate)
+	repair_result = {"ok": bool(result.get("ok", false)), "reason": str(result.get("reason", ""))}
+	if not bool(result.get("ok", false)):
+		_report_failure("实际生成失败，调整未提交，模型与输入保持：" + str(result.get("reason", "")))
+		return
+	_remember_undo_inputs(pending.inputs)
+	var submitted: Dictionary = pending.submitted.duplicate(true)
+	for change: Dictionary in pending.proposal.changes:
+		var path: Array = change.path
+		if path.size() == 1 and controls.has(path[0]): submitted[path[0]] = true
+		for key: String in pending.inputs.ui_values:
+			if _repair_window_path(key) == path: submitted[key] = true
+		if path.size() == 3 and path[0] == "floor_overrides" and path[1] == str(int(pending.inputs.floor)) and path[2] == "floor_height": submitted["floor_override_height"] = true
+	_reset_window_preview()
+	_refresh_from_session()
+	refresh_preview(true, result)
+	# 仅回填本次提交字段；非候选字段逐控件、逐基线严格恢复（含文本）。
+	_ignore_fields = true
+	for key: String in pending.inputs.ui_values:
+		if not submitted.has(key): _set_control_value(key, pending.inputs.ui_values[key])
+	_id_edit.text = str(pending.inputs.building_id)
+	_name_edit.text = str(pending.inputs.display_name)
+	for key: String in pending.inputs.baseline:
+		if not submitted.has(key): _local_baseline[key] = pending.inputs.baseline[key]
+	_ignore_fields = false
+	_update_state()
+	_set_status("已按确认方案调整并生成；仅一次提交，可撤销回原楼房与冲突输入。", WORKSHOP_ACCENT_HOVER)
 
 func save_building() -> Dictionary:
 	if _store == null:
@@ -382,6 +634,7 @@ func _open_recipe_now(path: String) -> Dictionary:
 	var accepted: Dictionary = session.accept_loaded(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})))
 	if not bool(accepted.get("ok", false)):
 		return _report_result(accepted, "配方被拒绝")
+	_reset_document_inputs()
 	_document_token = 0
 	document_opened.emit(path, 0)
 	_reset_window_preview()
@@ -689,6 +942,7 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 		if session.changed.is_connected(_on_session_changed):
 			session.changed.disconnect(_on_session_changed)
 		session = recovered
+		_reset_document_inputs()
 		_connect_session()
 	_selected_opening_id = str(data.get("selected_opening_id", ""))
 	_last_window_scope = str(data.get("window_scope", "global"))
@@ -804,6 +1058,8 @@ func _build_ui() -> void:
 	_preview_split.add_child(_preview_column)
 	_build_module_strip(_preview_column)
 	var views_scroll := ScrollContainer.new()
+	_views_scroll = views_scroll
+	views_scroll.name = "WorkshopViewsRow"
 	views_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	views_scroll.custom_minimum_size.y = 36
 	var views := HBoxContainer.new()
@@ -815,6 +1071,7 @@ func _build_ui() -> void:
 	wire.toggled.connect(func(value: bool) -> void: preview.set_wireframe(value))
 	var collision: CheckButton = _check("碰撞", "collision_overlay", views)
 	collision.toggled.connect(func(value: bool) -> void: preview.set_collision_overlay(value))
+	_build_palette_target_row(_preview_column)
 	preview = Preview.new()
 	preview.name = "EditorWorkshopPreview"
 	preview.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -837,6 +1094,7 @@ func _build_ui() -> void:
 	status_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	status_row.add_child(status_label)
 	status_copy_button = _button("复制提示", "copy_status")
+	status_row.add_child(_button("调整冲突…", "repair_generation"))
 	status_row.add_child(_button("详情…", "status_details"))
 	status_row.add_child(status_copy_button)
 	root.add_child(status_panel)
@@ -849,6 +1107,29 @@ func _build_ui() -> void:
 	_confirm.confirmed.connect(_confirm_discard)
 	_confirm.canceled.connect(_cancel_discard)
 	add_child(_confirm)
+	_repair_dialog = ConfirmationDialog.new()
+	_repair_dialog.name = "WorkshopRepairDialog"
+	_repair_dialog.title = "确认调整数值冲突"
+	_repair_dialog.ok_button_text = "按此方案调整并生成"
+	_repair_dialog.cancel_button_text = "取消，保留输入"
+	_repair_dialog.confirmed.connect(_confirm_generation_adjustment)
+	_repair_dialog.canceled.connect(_cancel_generation_adjustment)
+	var repair_body := VBoxContainer.new()
+	_repair_dialog.add_child(repair_body)
+	_repair_input_text = RichTextLabel.new()
+	_repair_input_text.custom_minimum_size = Vector2(590, 140)
+	_repair_input_text.selection_enabled = true
+	_repair_input_text.scroll_active = true
+	_repair_input_text.add_theme_font_size_override("normal_font_size", 18)
+	repair_body.add_child(_repair_input_text)
+	repair_body.add_child(HSeparator.new())
+	_repair_text = RichTextLabel.new()
+	_repair_text.custom_minimum_size = Vector2(590, 190)
+	_repair_text.selection_enabled = true
+	_repair_text.scroll_active = true
+	_repair_text.add_theme_font_size_override("normal_font_size", 18)
+	repair_body.add_child(_repair_text)
+	add_child(_repair_dialog)
 	_save_as_dialog = ConfirmationDialog.new()
 	_save_as_dialog.title = "另存为新建筑"
 	_save_as_dialog.ok_button_text = "保存新建筑"
@@ -963,6 +1244,64 @@ func _build_module_strip(parent: VBoxContainer) -> void:
 			style.content_margin_bottom = 3
 			action.add_theme_stylebox_override(state, style)
 		row.add_child(action)
+
+func _build_palette_target_row(parent: VBoxContainer) -> void:
+	_palette_target_row = HBoxContainer.new()
+	_palette_target_row.name = "WorkshopPaletteTargets"
+	_palette_target_row.add_theme_constant_override("separation", 3)
+	parent.add_child(_palette_target_row)
+	_palette_target_row.add_child(_button("‹", "palette_scroll_left"))
+	_palette_target_strip = ScrollContainer.new()
+	_palette_target_strip.name = "WorkshopPaletteTargetStrip"
+	_palette_target_strip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_palette_target_strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_palette_target_strip.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	_palette_target_row.add_child(_palette_target_strip)
+	_palette_target_row.add_child(_button("›", "palette_scroll_right"))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 4)
+	_palette_target_strip.add_child(row)
+	for index: int in PALETTE_TARGETS.size():
+		var target: Array = PALETTE_TARGETS[index]
+		var action := _button(str(target[1]), "palette_target_%02d" % index)
+		action.custom_minimum_size = Vector2(58, 40)
+		action.toggle_mode = true
+		action.tooltip_text = "选色目标：%s\n%s · 仅切换上下文，不修改颜色。" % [target[2], target[0]]
+		row.add_child(action)
+		_palette_target_buttons[str(target[0])] = action
+	_palette_target_row.hide()
+
+func _select_palette_target(target: String) -> Dictionary:
+	var previous: String = _palette_target_context
+	# 隐藏适配器的item_selected发生时已选新项，先恢复旧上下文再处理旧队列。
+	_set_option("palette_target", previous)
+	if target == previous:
+		_sync_palette_target_buttons.call_deferred()
+		return {"ok": true, "reason": "目标未改变"}
+	if not _repair_pending.is_empty() or _random_house_confirming:
+		_sync_palette_target_buttons.call_deferred()
+		return _report_failure("确认期间不能切换配色目标；当前输入保留，请先确认或取消。")
+	if not _window_preview_keys.is_empty() or not _window_failed_keys.is_empty():
+		_window_preview_keys.merge(_window_failed_keys, false)
+		var result: Dictionary = flush_window_preview()
+		if not bool(result.get("ok", false)) or not _window_failed_keys.is_empty():
+			_sync_palette_target_buttons.call_deferred()
+			return _report_failure("原目标输入尚未通过，未切换配色目标；输入保留：" + str(result.get("reason", "请先修正输入")))
+	_set_option("palette_target", target)
+	_refresh_palette_controls()
+	_sync_palette_target_buttons.call_deferred()
+	return {"ok": true, "reason": "已切换配色上下文"}
+
+func _sync_palette_target_buttons() -> void:
+	if _palette_target_strip == null: return
+	var selected: String = _option_value("palette_target")
+	_palette_target_context = selected
+	for target: String in _palette_target_buttons:
+		var action: Button = _palette_target_buttons[target]
+		var active: bool = target == selected
+		action.set_pressed_no_signal(active)
+		action.add_theme_color_override("font_color", WORKSHOP_GOLD if active else WORKSHOP_TEXT)
+		if active: _palette_target_strip.ensure_control_visible.call_deferred(action)
 
 func _on_layout_resized() -> void:
 	if _workspace == null or _preview_split == null or size.x <= 0:
@@ -1341,15 +1680,15 @@ func _add_option(parent: Control, key: String, title: String, options: Array) ->
 func _build_palette_page(page: VBoxContainer) -> void:
 	page.add_child(_label("共享棋盘色板 · 8×8 / 64色", 16))
 	page.add_child(_label("仅选择PaletteUV色格，不复制或修改材质球。部件覆盖优先于材质角色；外部prefab不重着色。", 12))
-	var targets: Array = [["global", "全部原生材质"]]
-	for slot: String in Config.PALETTE_SLOTS:
-		targets.append(["slots:" + slot, str(ROLE_LABELS.get(slot, "腰线" if slot == "band" else "屋顶"))])
-	for role: String in Config.PALETTE_ROLES:
-		targets.append(["materials:" + role, "材质球 " + role])
-	_add_option(page, "palette_target", "选色目标", targets)
-	controls.palette_target.item_selected.connect(func(_index: int) -> void:
-		flush_window_preview()
-		_refresh_palette_controls())
+	# 隐藏适配器保留恢复/旧测试接口；可见入口只在预览第二行。
+	var target_adapter := OptionButton.new()
+	for target: Array in PALETTE_TARGETS:
+		target_adapter.add_item(str(target[2]))
+		target_adapter.set_item_metadata(target_adapter.item_count - 1, str(target[0]))
+	target_adapter.hide()
+	controls["palette_target"] = target_adapter
+	page.add_child(target_adapter)
+	target_adapter.item_selected.connect(func(index: int) -> void: _select_palette_target(str(PALETTE_TARGETS[index][0])))
 	_add_option(page, "palette_mode", "选色模式", [["auto", "auto · 稳定自动"], ["manual", "manual · 手动选格"]])
 	controls.palette_mode.item_selected.connect(func(_index: int) -> void: _palette_changed())
 	_window_slider(page, ["palette_seed", "颜色种子", 0, 999999, 1], "")
@@ -1463,6 +1802,7 @@ func _palette_control_settings() -> Dictionary:
 
 func _refresh_palette_controls() -> void:
 	if not controls.has("palette_target"): return
+	_sync_palette_target_buttons()
 	var palette: Dictionary = _architecture_snapshot().palette
 	var target: PackedStringArray = _option_value("palette_target").split(":")
 	var entry: Dictionary = palette.duplicate(true)
@@ -1571,7 +1911,7 @@ func _build_slider(parent: Control, spec: Array, bounds: Array, realtime: bool, 
 			_window_history_key = "")
 		slider.drag_ended.connect(func(_changed: bool) -> void:
 			_window_drag_key = ""
-			if not _window_preview_keys.is_empty():
+			if not _window_preview_keys.is_empty() and _repair_pending.is_empty():
 				_window_preview_timer.start(0.01)
 			else:
 				_window_history_key = "")
@@ -1609,7 +1949,7 @@ func _queue_window_preview(key: String) -> void:
 			_window_preview_keys.erase(previous)
 	_window_preview_keys[key] = {"target": _option_value("palette_target"), "settings": _palette_control_settings()} if key == "palette_settings" else ({"target": _option_value("shading_role"), "settings": _shading_control_settings()} if key == "shading_settings" else _raw_control_value(key))
 	_set_status("预览排队中… 继续拖动会合并为一次更新。", WORKSHOP_GOLD)
-	if _window_drag_key.is_empty() or _window_preview_timer.is_stopped():
+	if _repair_pending.is_empty() and (_window_drag_key.is_empty() or _window_preview_timer.is_stopped()):
 		_window_preview_timer.start(WINDOW_PREVIEW_DELAY)
 	_update_window_limit_hint()
 
@@ -1680,6 +2020,8 @@ func _window_preview_patch(values: Dictionary) -> Dictionary:
 ## 单次真实构建后再提交现有Session历史/状态，不走apply_patch探针+refresh双重建模。
 ## 只在同步主线程内操作；不为每个鼠标像素创建撤销项。
 func flush_window_preview() -> Dictionary:
+	if not _repair_pending.is_empty() or _random_house_confirming:
+		return {"ok": false, "reason": "确认期间暂停自动提交"}
 	if _window_preview_busy or _window_preview_keys.is_empty(): return {"ok": true, "reason": "没有待预览窗输入"}
 	_window_preview_timer.stop()
 	if preview == null or not preview.is_node_ready(): return {"ok": false, "reason": "预览尚未就绪"}
@@ -1793,9 +2135,15 @@ func _button_pressed(id: String) -> void:
 		"module_scroll_right": _module_strip.scroll_horizontal += 220
 		"edit_identity": _identity_dialog.popup_centered()
 		"show_defaults": _defaults_dialog.popup_centered()
+		"repair_generation": propose_generation_adjustment()
+		"palette_scroll_left": _palette_target_strip.scroll_horizontal = maxi(0, _palette_target_strip.scroll_horizontal - 220)
+		"palette_scroll_right": _palette_target_strip.scroll_horizontal += 220
 		"status_details": _show_status_details()
 		"copy_status": DisplayServer.clipboard_set(_last_status_text)
 		_:
+			if id.begins_with("palette_target_"):
+				_select_palette_target(str(PALETTE_TARGETS[int(id.trim_prefix("palette_target_"))][0]))
+				return
 			if id.begins_with("default_module_"):
 				_load_default_module(int(id.trim_prefix("default_module_")))
 				return
@@ -1806,19 +2154,53 @@ func _button_pressed(id: String) -> void:
 				preview.set_view(id.trim_prefix("view_"))
 
 func _undo(redo: bool) -> void:
-	var random_inputs: Dictionary = _random_house_undo_inputs.get(Recipe.fingerprint(snapshot()), {}) if not redo else {}
+	if not _repair_pending.is_empty():
+		_report_failure("请先确认或取消调整方案。")
+		return
+	var current: String = Recipe.fingerprint(snapshot())
+	var document: String = _input_document_key()
 	_reset_window_preview()
+	_history_navigating = true
 	var changed: bool = session.redo() if redo else session.undo()
+	_history_navigating = false
 	if changed:
+		var destination: String = Recipe.fingerprint(snapshot())
+		var random_inputs: Dictionary = {}
+		if redo:
+			if not _history_inputs_redo.is_empty():
+				var entry: Dictionary = _history_inputs_redo.back()
+				if str(entry.document) == document and str(entry.previous) == current and str(entry.current) == destination:
+					_history_inputs_redo.pop_back()
+					if entry.has("ui_values"):
+						var entries: Array = _random_house_undo_inputs.get(destination, [])
+						entries.append(entry)
+						_random_house_undo_inputs[destination] = entries
+		else:
+			var entries: Array = _random_house_undo_inputs.get(current, [])
+			if not entries.is_empty():
+				var entry: Dictionary = entries.back()
+				if str(entry.document) == document and str(entry.current) == current and str(entry.previous) == destination:
+					random_inputs = entries.pop_back()
+					_random_house_undo_inputs[current] = entries
+			_history_inputs_redo.append(random_inputs if not random_inputs.is_empty() else {"document": document, "previous": destination, "current": current})
 		_refresh_from_session()
 		refresh_preview()
-		if not random_inputs.is_empty() and Recipe.fingerprint(snapshot()) == str(random_inputs.previous):
+		if not random_inputs.is_empty() and document == _input_document_key():
 			_ignore_fields = true
 			for key: String in random_inputs.ui_values:
 				if controls.has(key): _set_control_value(key, random_inputs.ui_values[key])
 			_id_edit.text = str(random_inputs.building_id)
 			_name_edit.text = str(random_inputs.display_name)
 			_local_baseline = random_inputs.baseline.duplicate(true)
+			_window_failed_keys = random_inputs.get("failed", {}).duplicate(true)
+			_window_preview_keys = random_inputs.get("pending", {}).duplicate(true)
+			_window_preview_target = random_inputs.get("target", {}).duplicate(true)
+			_last_window_scope = str(random_inputs.get("scope", "global"))
+			_selected_id = str(random_inputs.get("selected", ""))
+			_selected_opening_id = str(random_inputs.get("opening", ""))
+			_last_floor_index = float(random_inputs.get("floor", 0.0))
+			_last_facade = str(random_inputs.get("facade", "front"))
+			window_preview_result = random_inputs.get("preview_result", {}).duplicate(true)
 			_ignore_fields = false
 			_update_state()
 		_set_status("已重做" if redo else "已撤销")
@@ -1831,7 +2213,7 @@ func handle_input(event: InputEvent) -> bool:
 	var key: InputEventKey = event as InputEventKey
 	if key == null or not key.pressed or key.echo or not key.ctrl_pressed:
 		return false
-	if _confirm.visible or _save_as_dialog.visible or _file_dialog.visible or _component_dialog.visible:
+	if _confirm.visible or _repair_dialog.visible or _save_as_dialog.visible or _file_dialog.visible or _component_dialog.visible:
 		return false
 	var focus: Control = get_viewport().gui_get_focus_owner()
 	if focus is LineEdit or focus is TextEdit or (focus != null and not is_ancestor_of(focus) and focus != self):
@@ -1874,6 +2256,7 @@ func _new_document() -> void:
 		return
 	var result: Dictionary = session.new_document("building_" + str(int(Time.get_unix_time_from_system())), Recipe.authoring_defaults())
 	if bool(result.get("ok", false)):
+		_reset_document_inputs()
 		_document_token = 0
 		document_opened.emit("", 0)
 		_last_export.clear()
@@ -1905,6 +2288,7 @@ func _save_as_confirmed() -> void:
 	if not bool(result.get("ok", false)):
 		_report_result(result, "另存新ID被拒绝")
 		return
+	_reset_document_inputs()
 	_last_export.clear()
 	_refresh_from_session()
 	save_building()
@@ -1979,6 +2363,7 @@ func _load_sample(path: String, copy_as_new: bool) -> void:
 	if not bool(accepted.get("ok", false)):
 		_report_result(accepted, "样例校验失败")
 		return
+	_reset_document_inputs()
 	_document_token = 0
 	document_opened.emit(path, 0)
 	_slot_cache.clear()
@@ -2906,6 +3291,9 @@ func _slot_family(id: String, kind: String) -> String:
 func _select_page(index: int) -> void:
 	if index < 0 or index >= PAGES.size(): return
 	_page_picker.select(index)
+	if _palette_target_row != null:
+		_palette_target_row.visible = PAGES[index] == "配色"
+		_views_scroll.visible = PAGES[index] != "配色"
 	if _parameter_title != null:
 		_parameter_title.text = PAGES[index] + " · 参数"
 	if _layout_ready:
@@ -2961,6 +3349,7 @@ func _set_option(key: String, value: String) -> void:
 	for index: int in option.item_count:
 		if str(option.get_item_metadata(index)) == value:
 			option.select(index)
+			if key == "palette_target": _sync_palette_target_buttons()
 			return
 
 func _set_architecture_control(key: String, value: Variant) -> void:
@@ -2968,6 +3357,8 @@ func _set_architecture_control(key: String, value: Variant) -> void:
 		_set_control_value(key, value)
 
 func _on_session_changed() -> void:
+	# 新提交分支使已撤销的输入记录失效；导航本身保留redo配对。
+	if not _history_navigating: _history_inputs_redo.clear()
 	# 不在 changed 回调回填字段，避免槽位操作吞掉尚未应用的基础输入。
 	_update_state()
 

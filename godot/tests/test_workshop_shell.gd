@@ -64,6 +64,8 @@ func run() -> void:
 		fixture.merge({"building_id": str(spec[0]), "shape": str(spec[1]), "width": 12.0, "depth": float(spec[2]), "floors": int(spec[3]), "taper": 0.02}, true)
 		# 本文件用显式taper做受控基线；形体开启后taper是派生值，必须关掉，否则断言口径与几何不一致。
 		fixture["architecture"]["form"]["enabled"] = false
+		# 旧自动语义色契约使用空覆盖；不继承新建默认的手动色格，尺寸仍沿用当前默认。
+		fixture.architecture.palette = {}
 		fixtures.append(fixture)
 	var per_floor: Dictionary = fixtures[0].duplicate(true)
 	per_floor.building_id = "floor_1_override"
@@ -545,6 +547,8 @@ func _test_window_weathering(source: Dictionary, catalog: Dictionary) -> void:
 	var recipe: Dictionary = source.duplicate(true)
 	recipe.merge({"building_id": "window_weathering", "shape": "rectangle", "width": 12.0, "depth": 9.0, "floors": 3, "taper": 0.0, "aging": 0.0, "damage": 0.0, "vegetation_density": 0.0}, true)
 	recipe.architecture.form.enabled = false
+	# 本测试要求老化驱动自动色格变化；手动色格的真实UV由upgrade专项验收。
+	recipe.architecture.palette = {}
 	var built: Dictionary = Generator.build(recipe, catalog)
 	var root: Node3D = built.get("root") as Node3D
 	check(bool(built.get("ok", false)) and root != null, "门窗风化clean基线生成", str(built.get("reason", "")))

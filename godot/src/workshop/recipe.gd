@@ -97,9 +97,10 @@ static func authoring_defaults() -> Dictionary:
 	result["damage"] = 0.0
 	result["vegetation_density"] = 0.0
 	result["vegetation_variation"] = 0.5
-	# 住宅比例：3.6m 层高、0.18m 板厚、1.5×1.9 窗、2.4m 门；不再用 5.1m 层高留大片空白墙。
-	result["floor_height"] = 3.6
-	result["slab_thickness"] = 0.18
+	# 正式阳光房 v008 的取整参考：层高5.1m、板厚0.2m、净高4.9m。
+	# 原型门窗为外包体块而非净洞口，保留工坊自己的净窗与净门尺寸。
+	result["floor_height"] = 5.1
+	result["slab_thickness"] = 0.2
 	result["window_width"] = 1.5
 	result["window_height"] = 1.9
 	result["window_sill"] = 0.95
@@ -124,15 +125,27 @@ static func authoring_defaults() -> Dictionary:
 	roof["cap_overhang"] = 0.05
 	architecture["roof"] = roof
 	# 新建默认开承重柱与腰线：立面有竖向结构分节与水平楼层线。
+	# 贴墙壁柱仅参考阳光房0.5m粗细，不宣称与原型主柱为同构造。
 	architecture.pilaster = {"enabled": true, "corner": true, "middle": true,
-		"width": 0.36, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
+		"width": 0.5, "projection": 0.18, "bite": 0.06, "bevel": 0.014}
 	architecture.band = {"enabled": true, "projection": 0.10, "thickness": 0.34, "bevel": 0.012}
-	# 新建默认开启形体变形：区间落在4°墙倾角内（默认12m宽、3.6m层高上限≈0.0210）。
-	# 默认幅度按"看得见"设定：12m×3层楼在8°倾角内可用收分约12.6%，这里取3–6%留出余量。
+	# 正式solar_cabin共享色板：白#D7D8BA、木#C49C6E、青蓝#329EBE、sky#92D9E6。
+	architecture.palette = {"slots": {
+		"wall": {"color_mode": "manual", "color_cell": [0, 4]},
+		"pillar": {"color_mode": "manual", "color_cell": [0, 4]},
+		"band": {"color_mode": "manual", "color_cell": [0, 4]},
+		"slab": {"color_mode": "manual", "color_cell": [1, 1]},
+		"roof": {"color_mode": "manual", "color_cell": [1, 1]},
+		"frame": {"color_mode": "manual", "color_cell": [2, 3]},
+		"glass": {"color_mode": "manual", "color_cell": [2, 1]}
+	}}
+	# shading保持空覆盖，继承正式公共四材质；其余形体设定不变。
+	# 新建默认开启形体变形，保留seed与8°倾角；上限0.059也适用于5.1m单层。
+	# 0.060略超单层倾角合法域0.0597，不靠校验器容差或按楼层静默压幅度。
 	# opening 用 mixed：同一栋楼里既有上窄下宽的窗，也有上宽下窄的窗，立面才有手作感。
 	architecture["form"] = {
 		"enabled": true, "preset": "SF-B", "seed": 11010, "max_tilt_deg": 8.0,
-		"structure": {"min": 0.030, "max": 0.060, "sign": "positive"},
+		"structure": {"min": 0.030, "max": 0.059, "sign": "positive"},
 		"opening": {"min": 0.030, "max": 0.060, "sign": "mixed"},
 		"accessory": {"min": 0.040, "max": 0.100, "sign": "positive"}
 	}

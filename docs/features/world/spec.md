@@ -226,3 +226,38 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 | SEA-WORLD-R36 | 候选摆放不生成 WalkArea、泊位、航行/水面阻挡接线、潜水适配或正式 AssetID；原候选自身数据不代表这些职责已接入。editor-scene-assembly 经统一 runner 在无 Main/Autoload 隔离编辑器执行；真实 GUI 注入、直接方法调用、原生变换属性检查、截图与未验项分别登记，不把自动输入称为人工验收，也不以截图中 gizmo 可见声称轴拖动已测。 |
 
 本轮仅首个 3D 视口完成拖放验证；四视口接收层实现存在不等于四分屏全覆盖。gizmo 轴拖动、生产 Main 装配、WalkArea/航行/潜水/正式登记均未验或未做。细项与最终两张截图入口见[本功能账本](ledger.md)及[交付使用说明](../../../outputs/scene_assembly_review_20261115/index.html)。
+
+## 2026-11-16 独立建筑外挂层（R37–R40，冻结计划）
+
+继续归 SEA-WORLD 的编辑器场景装配，不新建 FeatureID 或第二个装配插件。目录与源计划为 [building_attachments/v001/component_plan.json](../../../art_source/scenes/building_attachments/v001/component_plan.json)：四族各八子族，共32个不同type，每type含全新/破损/残破三态，共96状态项；不是96个type。原生core已创建，UI/controller实施中，以下当前状态全部为 `implemented_pending_current_verification`，目标契约不等于已验行为。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORLD-R37 | 在现有“场景装配”中提供独立外挂 Templates/图库与编辑入口；四分类按钮、全局全新/破损/残破三按钮、name/type_id搜索和真实缩略图作为直接主路径，不能层叠dropdown代替。condition不是SF风格，广告style独立frame/block/marquee；只选中不切房屋工坊。用途UI明示“水上装饰/可显式人物阻挡”或“水下纯观赏/无空间职责”，显示实际预算、状态及未登记。缩略图生成失败须有可见反馈，不能空白或冒用另一状态。 |
+| SEA-WORLD-R38 | 锁定当前编辑场景中的建筑Placement/Asset或安全本地Node3D，只读宿主最终可见三角面；支持图库拖放及点选真实surface point，按wall/roof合法法向挂载，不把R33旧世界Y平面投放冒充贴面。米制、Y向上、-Z正面、底心根与独立mount_back/anchorBack、mount_roof/anchorRoof；any类型显式选挂载面。最终包络派生锚点，法向净空参考0.012m、额外偏移0..0.5m及绕法线角度-180..180°；这些是局部安装参数，不是Main绝对坐标。非均匀父变换须逆矩阵补偿世界尺寸，奇异/镜像/非有限或外链内部/不安全脚本宿主拒绝，取消/无命中不写场景。 |
+| SEA-WORLD-R39 | 层级为Placement下Asset与Attachments兄弟，独立外挂实例放Attachments下，不写Asset外链内部、房屋配方或shell。新增/编辑/复制/删除/显式重新贴合均走EditorUndoRedoManager并序列化owner、稳定实例身份、type/condition、配方、来源与挂点信息；生成成功且场景/宿主/选择上下文仍有效后才提交。宿主换版只替换Asset，Attachments及所有子节点保留保存瞬间当前transform，不自动重投、不根据旧挂点回弹；提示检查贴合，只有用户显式重新贴合才变位。场景Ctrl+S手动保存，外挂候选独立revision；不自动写Main，不覆盖旧revision、同源兄弟或已保存房屋。 |
+| SEA-WORLD-R40 | 运行交付为静态无脚本层级，不挂生成器、controller或TextMesh；源代码与编辑配方另留。仅用户显式启用的简化StaticBody3D使用layer=256/mask=0，中空和破口逐壁段代理，不用总凸包封空；目录五类重件可default=true，但不意味着玩家mask/接触已验。所有外挂排除WalkArea、泊位、导航、船阻挡、岸线/泡沫与潜水派生，不继承宿主玩法或存档；decorative_underwater必须collision_enabled=false（requires_collision=false），true明确拒绝且全子树无空间/玩法职责。验证须分列内核/96交付/真实视觉/editor/正式接入，脚本错误、镜像文字或hook未执行均不合格，不借旧房屋1453/0签外挂。 |
+
+当前r6核心7712项/10失败，96项构建虽exit0仍有9条脚本错误，真实视觉484/0仍有13条unexpected；均未合格。editor hook在任务交接时尚未执行，UI少dropdown/三状态按钮等仍需真实验收；计划冻结不是兑现声明。本次不运行Godot/runner或contracts，不改变旧R33–R36历史证据。详见[本轮开发记录](../../development/2026-11-16_building_attachments.md)。
+
+## 2026-11-16 v002最终实施与使用（R37–R40当前签署）
+
+本节更新前节“当前pending/未hook”的时点结论，旧r6失败与旧冻结原文不改。R37–R40逐条为 **implemented_verified_in_scope**，全局仍partial；当前测量与局部例外由[v002 delivery_validation.json](../../../art_source/scenes/building_attachments/v002/delivery_validation.json)补充，不修改v001冻结计划或source/blend目录。
+
+| 既有条款 | 当前状态 | 当前实施口径 |
+|---|---|---|
+| SEA-WORLD-R37 | implemented_verified_in_scope | 场景装配→建筑外挂，四类中文按钮、全新/破损/残破三按钮、名称/type_id搜索与真实缩略图；单击只选择、保留drag源，双击或“编辑组件”才进入编辑。三态是真实损伤，不是SF档；广告style另为框式/块式/灯泡边饰。 |
+| SEA-WORLD-R38 | implemented_verified_in_scope | 按材质cull选择真实可见mesh face；双面法向朝观察者。绿色ghost表示合法，红色拒绝roof edge/窄支撑/脚下洞/邻墙穿透，无force。多脚/背部支点从实际tri极值2mm薄带提取，不是AABB，外偏0.012m、支撑误差4mm。117挂载矩阵=96默认+21个any另一挂载面；actual profile/foot/collision已核。 |
+| SEA-WORLD-R39 | implemented_verified_in_scope | arm后改文字/状态/尺寸/碰撞/挂载取消旧事务并保输入；选择/host revision/geometry变化拒stale。any墙/屋顶切换不可直接apply，需显式重新贴合。Attachments与Asset兄弟、sea_attachment独立metadata及无脚本层级；房屋换版刷新已释放旧Asset引用，只换Asset、保外挂当前transform、提示不自动重投，undo/reference恢复旧节点不regen。 |
+| SEA-WORLD-R40 | implemented_verified_in_scope | 96正式制作库场景冷加载+96次user重存重载通过；显式layer256/mask0残存part代理不封空，五重件默认开共15状态。12个物理case含人物半径0.22m/高1.3m撞实体及脚间通行，细管只用小胶囊，不称人物通管。水下true拒绝，所有外挂无Walk/导航/岸线/泡沫/船阻挡/潜水/Main地图职责。 |
+
+### 使用步骤
+
+1. 打开Godot编辑器“场景装配”→“建筑外挂”，在本地Node3D编辑场景选择建筑Placement/Asset或安全宿主并锁定；不用运行Main。
+2. 用四类按钮与三态按钮/搜索选组件；图库单击保留拖放源，需改参数时双击或点“编辑组件”。招牌可选框式/块式/灯泡边饰并输入大写英文。
+3. 从图库拖到宿主真实可见面，或点“贴到宿主”后在3D视口点wall/roof。绿色ghost才可落位；红色表示支点、边缘、孔洞或穿透拒绝，请换位置，不强行安装。已测自动GUI含damaged、offset=0.03m、angle=7°真实拖放，以及墙牌/屋顶箱surface click。
+4. 修改、复制、删除沿编辑器undo/redo；arm后修改输入会取消旧放置，输入保留，需重新发起。any从墙换屋顶应显式“重新贴合”，不能用apply偷换挂点。
+5. 宿主楼房另存新revision后，仅Asset换版；外挂全部当前transform保留。收到提示后人工检查，必要时显式重新贴合，不自动回弹。
+6. 场景用Ctrl+S手动保存。独立候选“保存新修订”依赖Python3原子O_NOFOLLOW/O_EXCL目录操作、manifest最后提交；缺Python3清楚拒绝候选保存，但场景Ctrl+S不依赖Python3。打开候选只做hash+JSON重生成，不执行外部TSCN。
+
+最终同一minimal工程串行报告 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`：制作库12103/0、core11122/0、外挂editor328/0、旧装配78/0、房屋1453/0；import/五项exit0、completion=true、unexpected=[]、source_consistent=true，生产322文件hash不变。核心有NaN负例JSON警告，不称零warnings。r9j分开批次不再作最终证据。真实GUI为Input.parse+warp自动事件，117矩阵/部分负例为直接调用；仅首视口、gizmo轴未测，生产Main未运行。当前视觉另用r9c507/0与131PNG，不等于用户艺术终审或全接缝审计；内部embedded_support与功能锥/倒角例外见ASSET当前补充。审阅与下载见[交付页](../../../outputs/building_attachments_review_20261116/index.html)。全库contracts由主线程后续实跑，本任务不执行。

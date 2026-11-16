@@ -1005,3 +1005,56 @@ SEA-PLANT-EDITOR-R25–R29当前implemented，最终真实证据更新前述待�
 跨功能交接：SEA-WORLD拥有装配与目标绑定；[SEA-WORKSHOP-R88](docs/features/workshop/spec.md)及[SEA-PLANT-EDITOR-R30](docs/features/plant_editor/spec.md)只增加打开/保存事件薄桥接，原Session/Store继续拥有独立配方与版本，不造成两工坊或运行世界的相互状态写入。树库为空提示先保存，不自动灌样例。候选用途不是正式登记：本轮未做WalkArea、航行、潜水适配或正式AssetID登记。
 
 最终批次`/Users/zyq/work/sea-work/verification/20261115-142031-scene-assembly-delivery-74cfc2/report.json`：装配70/0、树工坊2271/0、楼房工坊991/0，全部exit0、unexpected_errors=[]、import0。建筑与动态树为真实编辑器GUI自动注入（Input.parse_input_event+warp_mouse），不是人工验收；gizmo轴未拖测、四分屏只首视口、隔离场景非生产Main。Main SHA256仍为`f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`。详细契约与证据见[world文档](docs/features/world/spec.md)、[world账本](docs/features/world/ledger.md)及[使用说明预览](outputs/scene_assembly_review_20261115/index.html)。全库检查另列真实结果，不以专项通过宣称全工程绿。
+
+## 2026-11-15 晚至11-16 阳光房参考默认、少量冲突确认与配色导航（当前验证待完成）
+
+用户11/15晚要求房屋新建初始值与配色参考项目阳光房（用户文本“杨光放”按 `solar_cabin` 理解），失败时只确认几个冲突数值并明示参数，色彩目标改为主导航下第二行按钮且只在配色页显示。新增 **SEA-WORKSHOP-R89–R91**，细则见[功能文档](docs/features/workshop/spec.md)，实施状态统一为 `implemented_pending_current_verification`；不把早期editor中间版通过写成本轮最终通过，不手改本页同步摘要。
+
+- **R89**：仅 `Recipe.authoring_defaults()` 新建层高5.1m、板厚0.2m、净高4.9m、主柱宽0.5m、贴墙柱宽0.5m（只参考粗细，不宣称与阳光房主柱同构造）。保留净窗1.5×1.9m和净门1.6×2.4m，原型外包不是净洞。手动PaletteUV为white `[0,4]` 墙/柱/腰线、wood `[1,1]` 板/屋顶、teal `[2,3]` 框、sky `[2,1]` 玻璃；shading空覆盖继承公共四材质，不改公共资源、旧defaults或已保存配方。新建structure区间上限固定0.059，保证默认12×9m、5.1m单层/8°在原边界合法，不按楼层静默clamp。
+- **R90**：只读helper严格经完整Recipe与Generator验证后提议，最多3个独立参数、共6项数值（alias/derived也逐项披露）。UI仅以basic白名单与实际failed/pending窗输入构candidate；无关屋顶/身份/植物等保输入不提交，不能安全分离的队列/局部输入明确拒绝。独立modal展示“原→用户输入”与“输入→建议”双明细，默认取消；取消/过期/失败保原模型、配方、历史和输入、不起timer。显式确认才真实 `Session.preview_candidate` 一次提交、单条history，undo回原楼与失败输入；静态保存继续严格失败，不自动修复或异步保存。不可解prefab/拓扑、超限方案拒绝，不关功能、不缩净窗。
+- **R91**：13个色彩目标为横滚按钮，至少40px高、18px字，位于main nav正下方；配色时替换 `views_scroll` 的同一行，不额外叠加，其他页隐藏。沿用三档真实Control面积门禁：预览宽≥52%、高≥60%，不缩字号、不降门禁。
+
+已只读核对：`20261115-233320-workshop-humanized-r1-026f4f` editor **1349/0**只是中间版；审查收紧无关UI/历史隔离与两层几何之后，最终editor仍待主线程运行完成并追加证据。`20261116-002844-workshop-adjustment-y-grid-final-34376a`内核 **357/0、exit0**，但同批旧shell **18077项/25失败、exit1**（旧auto/weathering fixture与新manual slots语义冲突，正在维护）；`20261116-003223-workshop-adjustment-y-grid-union-ab520f` union **16组合、6291/0、exit0**，不是旧64全矩阵。目录均在 `/Users/zyq/work/sea-work/verification/`，不签整批或全工程通过。真实几何根因为CSG各part居中变换使接面world Y浮点不一致；`shell_union_geometry._boolean_mesh`入CSG前bake世界坐标，仅统一Y到既有WELD量级，XZ不预量化，audit/validator阈值及后处理不放宽。新增1/2/3层form开/关、旧L5与柱腰线回归已列证；真实渲染、未完成editor及失败历史分列于[账本](docs/features/workshop/ledger.md)和[既有开发记录追加](docs/development/2026-11-14_random_house_independent_tree_workshop.md)。本次仅四文档维护，不运行sync/check、Godot或runner，不修改production/tests/registry/memory，不commit/push；最终验证和统一同步由主线程完成。
+
+### 2026-11-16 最终当前证据回填（R89–R91范围内已验）
+
+本节以新证据更新前节“最终待验”的当前状态，旧pending、中间版1349/0、shell25失败与几何失败历史原样保留，不追溯改成通过。**SEA-WORKSHOP-R89、R90、R91当前逐条为 `implemented_verified_in_scope`**，功能全局 `partial`、本页同步摘要不改。阳光房默认/净洞与manual slots、完整只读建议和显式确认事务、13目标配色行与52%/60%真实面积门禁均仅签被测范围；Y精度明确为既有 **WELD=0.00001m**，XZ不预量化，校验阈值与后处理不放宽。
+
+- 当前UI：`/Users/zyq/work/sea-work/verification/20261116-015027-workshop-humanized-final-0b50f8/report.json`，inner **1453/0**、editor exit0、unexpected_errors=[]、import0；相关当前源码与隔离snapshot字节一致。包含墙选色后160ms内切框再选色不丢队列、切换失败保原target/input、无pending切target零build/零history；有pending时先按原target真实提交，失败不偷切上下文。真实GUI自动验证，不是人工艺术终审或性能证据。
+- 结构/逻辑：`20261116-005853-workshop-humanized-integration-f2532e/report.json`前七项headless全部pass、exit0、unexpected_errors=[]：adjustment357/0、union完整64cases（filter空）24533/0、shell18077/0、random17831/0、damage1582/0、rules879/0、deep41/0。旧auto/weathering fixture仅四行维护（含两行注释及两处palette={}），新manual slots真实UV另验，未放宽断言。**同批第八项editor-scene-assembly仍exit1、529条unexpected**：full src扫描而使用minimal Autoload导致Zones/GameState等未定义，未修，不能称整批通过。
+- 装配独立minimal先有12项/1失败的drop历史；仅维护 `test_scene_assembly_editor.gd` 的窗口置顶、window_id、source warp等待两帧、每次reset及实际can_drop/drop断言，产品插件不改。`20261116-014228-workshop-default-assembly-fix-743e93`和`20261116-014332-workshop-default-assembly-fix-255e0d`各 **78/0、import0/editor0、unexpected_errors=[]、main_protection通过**，原70业务断言全留+8输入检查。遮挡和输入时序相关，非单变量唯一根因结论，不声称OS focus已激活；这是自动GUI、非人工拖放终验。装配仍归SEA-WORLD，不增重复feature。
+
+以上批次均在 `/Users/zyq/work/sea-work/verification/`。主线程另开的minimal串行 `workshop-defaults-delivery`（editor-workshop-upgrade+editor-scene-assembly+adjustment）尚运行，合并批次由主线程随后追加，本节不预签、不等待。交付页 `outputs/workshop_defaults_review_20261116/index.html` 的final源即将由主线程更新，仅登记路径、不称更新已完成。shared .tres/shader/PNG、Main和project.godot无diff；美术终审、性能、正式Main接入和全库门禁仍未签，全库待实际sync。本次只追加四文档，不跑runner/contracts、不改code/registry/memory，不commit/push。
+
+### 2026-11-16 主线程最终交付批次
+
+`20261116-015632-workshop-defaults-delivery-90bc20/report.json` 已完成同一最小隔离工程串行验证：楼房编辑器1453/0、场景装配78/0、冲突内核357/0，导入及各进程exit0、unexpected_errors=[]。源码快照已核对，原全src扫描失败批次原样保留。交付预览已更新至[默认与冲突调整审阅页](outputs/workshop_defaults_review_20261116/index.html)，当前新默认只影响新建，不覆盖旧配方或用户Main摆位。主线程审阅真实新默认、确认明细与配色按钮图，未签用户艺术终验、性能或生产Main运行；全库门禁另列，不将本批成功扩大成全工程通过。
+
+## 2026-11-16 独立建筑外挂：32类型×三档状态冻结
+
+用户要求至少30件独立外挂，本轮按实际 [catalog_v1.json](godot/data/building_attachments/catalog_v1.json) 冻结 **32个type×fresh全新/damaged破损/ruined残破=96状态交付项**，不是96个type，也不是SF-A/B/C。四族signage/hvac/water/shelter各8个不同子族轮廓，32≤50、状态轴3≤5；广告frame/block/marquee样式、英文内容/色格/尺寸/摆位不另算类型。逐type准确name、planned_key、尺寸/底心名义bounds、挂载/碰撞责任与三态描述见[源计划](art_source/scenes/building_attachments/v001/component_plan.json)。正式AssetID暂null，未正式登记；计划是source records，不是资产分账本。
+
+- **SEA-WORLD-R37–R40**拥有现有场景装配中的Templates/图库分类与condition按钮/搜索、真实surface point点击/拖放、独立Attachments兄弟层、编辑器事务和静态无脚本交付；不是旧世界Y平面投放。宿主换版只换Asset，保外挂全部当前transform，不auto重投，只有显式重新贴合才变位；场景手动Ctrl+S，不自动保存Main。用途UI明示，不新增feature/plugin。
+- **SEA-WORKSHOP-R92**隔离房屋core：外挂仅只读消费已保存Asset与真实表面，独立native目录/配方/Store；房屋recipe、shell/union、generator、session、store及旧screen锁定读取时既有diff基线，不改算法/阈值/默认/旧UI，不恢复HEAD，也不将外挂塞入房屋slot或配方。
+- **SEA-ASSET-R69–R73**拥有32/96与名称/身份/来源互操作：原创native代码是作者源，只参考项目既有轮廓、不复用旧mesh；Blender由另代理做derived snapshot，当前derive_pending，不伪称原生Blender创作。Godot meter/Y-up/-Z、底心与独立anchorBack/roof；逐part真实rho/taper/bottom/top/线性径比/missing_sectors/contacts均待实际审计，不造已验数据。
+- 本套件固定**SF-B**，按用户低面授权采用**单段实体倒角例外**，保公共暖木PaletteUV与四solar材质角色、逐part真实1%..10%收分；单件≤1800、长英文>8字符≤3500、每glyph≤128 triangles，双面和style也累计。粗低面英文编辑期烘焙，无运行TextMesh/字体重建；正反向不镜像，非法/超限保原输入不截字。用户三态真实几何损伤授权只覆盖此外挂套件的旧禁止损伤风格，不修改旧资产。
+- 碰撞只显式简化静态layer256/mask0，五类重件可default=true，但不等于行走/导航/船阻挡/岸线/潜水接入；所有外挂排除这些派生。水下纯观赏requires_collision=false且必须collision_enabled=false，true明确拒绝，不静默关开关，不继承宿主玩法。
+
+本轮新增条目全部 **implemented_pending_current_verification**；原功能登记头partial和主表同步摘要保持。实读r6 `/Users/zyq/work/sea-work/verification/20261116-032945-attachments-frozen-r6-1b18e2/report.json`：核心7712项/10失败（typed Array proxy/三类曲面闭合与镜像字）、exit1；库虽96 records/exit0仍9脚本错误；真实视觉484/0仍13条unexpected，外层均passed=false。editor任务交接时尚无hook、未执行；不能借旧工坊1453/0或旧装配78/0签新验。文档/源计划仅冻结，不冒称已完成美术、碰撞、editor或正式接入；细则及逐条状态见[WORLD](docs/features/world/spec.md)、[WORKSHOP](docs/features/workshop/spec.md)、[ASSET](docs/features/asset/spec.md)与[开发记录](docs/development/2026-11-16_building_attachments.md)。本任务不跑contracts/引擎，不改code/registry/runtime/memory或用户摆位，后续验证与最终同步由主线程承接。
+
+## 2026-11-16 建筑外挂v002最终交付与设计回填
+
+本节更新上节当前pending/未hook/未登记，旧r6失败及v001冻结原文保留。**SEA-WORLD-R37–R40、SEA-WORKSHOP-R92、SEA-ASSET-R69–R73逐条 implemented_verified_in_scope**，功能全局partial/主表摘要不手改，不新增FeatureID。[v002 delivery_validation.json](art_source/scenes/building_attachments/v002/delivery_validation.json)承载当前实测与局部例外；v001 SHA仍 `246a8a68b51dcd7bf2215475a3c19cf919a377d89391c017cc87742aa7f53fe7`，不将旧冻结源hash冒充v002来源。
+
+- **当前最终证据**：`/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`，同一minimal隔离工程串行库12103/0（96冷load+96user重存重载）、core11122/0（96默认+2改字）、外挂editor328/0（117挂载=96+21any另一面）、旧装配78/0、房屋1453/0；import/各项exit0、completion=true、unexpected=[]、source_consistent=true、生产322文件hash不变。核心NaN负例JSON警告保留，不称零warnings；r9j分批非最终证据。当前视觉r9c507/0+131PNG，八个悬空bug真实v2支撑修闭，旧失败不回写成功。
+- **使用**：场景装配→建筑外挂，四中文分类+三态按钮/搜索；图库单击选中保drag源，双击或编辑组件进参数，锁宿主后drag/click真实可见面。材质cull/双面法向、多脚/背支点从2mm真实tri薄带检测；12mm外偏/4mm支撑误差，绿ghost合法、红色拒屋顶边缘/窄支撑/孔洞/邻墙穿透，无force。arm后改输入取消旧事务保输入；stale拒，any换墙/顶须reproject。Attachments与Asset兄弟，房屋换版只换Asset保其余当前transform，不auto重投，场景Ctrl+S手动保存。
+- **安全保存**：独立候选Python3原子O_NOFOLLOW/O_EXCL、manifest最后提交；无Python明确拒候选导出但不影响Ctrl+S。WRITE临时.tscn-random引发ERR_FILE_UNRECOGNIZED=15已由READ_WRITE/get_path/close修复，base/id/rev/file symlink负例已过；候选只hash+JSON重生成，不执行外部TSCN。
+- **资产与来源**：32type×三态仍96项，32条SEA-SCENE-BAT-*主记录/source index32new已登记；scenes/furnishing、building_class=null、none/none，分类helper显式BAT前缀，非自动水上建筑。静态native Godot库在 `godot/scenes/components/facilities/building_attachments/v002/`，初定点313runtime目标不是当前全库数量。阶段authoring_library_integrated_art_review_pending_not_world_installed，不代表Main/地图安装。
+- **测量与例外**：默认96项140..1204 triangles、总45376、221surfaces/逐件2..4mesh，441碰撞代理/15默认开状态；12物理case人物0.22m/1.3m撞实体及脚间可通，细管小胶囊不称人物通管。水下禁true、无Walk/shore/boat/dive职责。SF-B普通box3.5%/rod4.8%、单段实体倒角；字背carrier/少量连接轴embedded_support允许真实局部嵌入重叠，功能cone rho1与圆件/glyph bevel0例外明确记录，不伪称完全符合旧禁止overlap或全套style通过。完整contacts/style与艺术终审仍pending。
+- **Blender派生**：32可编辑blend/1577part、96交换GLB，总览96 Collection Instance/0 localMesh；重开报告 `/Users/zyq/work/sea-work/building_attachments_source/v002/reopen_validation_final.json` exit0/passed=true、90752面UV最小512px²/16px安全边/32px跨度、96无image/texture、normal误差0.0001999679≤0.0003，CPU四图无GPU。native代码仍作者/runtime权威，Blender派生/GLB交换不是原生Blender创作或自动版权clear。
+
+[审阅页](outputs/building_attachments_review_20261116/index.html) · [审阅ZIP约20MB](outputs/building_attachments_review_20261116.zip) · [源资产ZIP约9MB](outputs/building_attachments_assets_v002.zip)。32准确4×8目录、逐条状态、使用步骤、r6→r10b失败简史与报告路径见[开发记录](docs/development/2026-11-16_building_attachments.md)及三功能spec/ledger。房屋core八件冻结SHA/diff及Main SHA `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`保持；GUI自动Input.parse+warp非人工、首视口/gizmo轴未测、生产Main未运行。完整接缝/风格、艺术/商业权属、性能/GPU与全工程门禁未签；本次不改code/registry/Blender，不跑contracts/引擎，主线程之后sync/check补真实当前数字，不预写历史488。
+
+### 主线程最终全库门禁与资源核对
+
+本轮32制作库主记录、96静态状态及315个明确运行目标核对一致，未将制作库登记当成Main安装。最终实际同步489 issues／正式检查490 issues，均exit1，统计46功能、1105源资产、1873运行资源；421运行漂移、14源漂移、51历史断链及资产条款集合/派生索引问题保留。本轮新增候选写入根 `scenes/workshop_attachments` 在首次另存前不存在，被通用资源扫描计为缺输入，未创建空目录或样例掩盖；真实候选成功/失败/防链接及静态重载已由r10b实测通过。详见[最终开发记录](docs/development/2026-11-16_building_attachments.md)和工程外 `building_attachments_release/contracts_results.json`，不以专项通过宣称全工程通过。房屋冻结内核与Main字节不变，用户摆位未改，未提交推送。

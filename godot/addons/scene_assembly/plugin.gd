@@ -5,6 +5,14 @@ const Library = preload("res://addons/scene_assembly/library.gd")
 const LibraryList = preload("res://addons/scene_assembly/library_list.gd")
 const DropSurface = preload("res://addons/scene_assembly/drop_surface.gd")
 const META := "sea_placement"
+const AttachmentController = preload("res://addons/scene_assembly/attachment_controller.gd")
+const AttachmentPanel = preload("res://addons/scene_assembly/attachment_panel.gd")
+
+var attachment_controller: Node
+var attachment_panel: VBoxContainer
+var candidate_panel: VBoxContainer
+var attachment: Node:
+	get: return attachment_controller
 
 var dock: VBoxContainer
 var items: ItemList
@@ -12,11 +20,13 @@ var edit_button: Button
 var status: Label
 var drop_height: SpinBox
 var surfaces: Array[Control] = []
+var _resize_connections: Array[Dictionary] = []
 var bridges: Dictionary = {}
 var pending: Dictionary = {}
 var binding: Dictionary = {}
 var serial := 0
 var _routing := false
+var _exiting := false
 var _selection: EditorSelection
 var _thumbnails: Dictionary = {}
 var _thumbnail_queue: Array[String] = []
@@ -24,8 +34,10 @@ var _thumbnail_busy := false
 var _thumbnail_view: SubViewport
 
 func _enter_tree() -> void:
+	_exiting = false
 	dock = VBoxContainer.new()
 	dock.name = "场景装配"
+	dock.add_theme_font_size_override("font_size", 16)
 	dock.custom_minimum_size.x = 260
 	var note := Label.new()
 	note.text = "候选库 · 拖入3D视口\n原生 gizmo 移动/旋转/缩放\n用途未正式注册；不自动接入通行或水下适配"
@@ -61,13 +73,62 @@ func _enter_tree() -> void:
 	status = Label.new()
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	dock.add_child(status)
+	candidate_panel = VBoxContainer.new()
+	candidate_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	for control in dock.get_children():
+		dock.remove_child(control)
+		candidate_panel.add_child(control)
+	var tabs := HBoxContainer.new()
+	dock.add_child(tabs)
+	var tab_group := ButtonGroup.new()
+	for title: String in ["候选", "建筑外挂"]:
+		var button := Button.new()
+		button.text = title
+		button.custom_minimum_size.y = 34
+		button.add_theme_font_size_override("font_size", 16)
+		button.toggle_mode = true
+		button.button_group = tab_group
+		button.button_pressed = title == "候选"
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.pressed.connect(_show_attachment_page.bind(title == "建筑外挂"))
+		tabs.add_child(button)
+	dock.add_child(candidate_panel)
+	attachment_controller = AttachmentController.new()
+	attachment_controller.assembly = self
+	add_child(attachment_controller)
+	attachment_panel = AttachmentPanel.new()
+	attachment_panel.controller = attachment_controller
+	dock.add_child(attachment_panel)
+	attachment_panel.hide()
+	for control: Control in dock.find_children("*", "Control", true, false):
+		control.add_theme_font_size_override("font_size", 16)
+		if control is BaseButton: control.custom_minimum_size.y = maxf(control.custom_minimum_size.y, 34)
 	add_control_to_dock(DOCK_SLOT_RIGHT_UL, dock)
 	_selection = EditorInterface.get_selection()
 	_selection.selection_changed.connect(_selection_changed)
 	scene_closed.connect(_scene_closed)
+	scene_changed.connect(_attachment_scene_changed)
 	call_deferred("_setup")
 
+func _show_attachment_page(show_attachments: bool) -> void:
+	candidate_panel.visible = not show_attachments
+	attachment_panel.visible = show_attachments
+	if not show_attachments: attachment_controller.cancel_arm(false)
+
+func arm_attachment_drop() -> void:
+	for surface in surfaces:
+		surface.get_parent().move_child(surface, -1)
+		surface.show()
+		surface.queue_redraw()
+
+func cancel_attachment_drop() -> void:
+	for surface in surfaces:
+		if is_instance_valid(surface):
+			surface.clear_attachment_preview()
+			surface.hide()
+
 func _setup() -> void:
+	if _exiting or not is_inside_tree(): return
 	_thumbnail_view = preload("res://addons/scene_assembly/thumbnail.gd").new()
 	add_child(_thumbnail_view)
 	for index in 4:
@@ -81,13 +142,33 @@ func _setup() -> void:
 		container.get_parent().add_child(surface)
 		surface.position = container.position
 		surface.size = container.size
-		container.resized.connect(func() -> void:
-			surface.position = container.position
-			surface.size = container.size)
+		var callback := _resize_drop_surface.bind(weakref(container), weakref(surface))
+		container.resized.connect(callback)
+		_resize_connections.append({"container": weakref(container), "callback": callback})
 		surface.hide()
 		surfaces.append(surface)
 	_connect_bridges(get_tree().root)
 	refresh_library()
+	if OS.get_cmdline_user_args().has("--building-attachments-verify"):
+		var path := "res://tests/test_building_attachments_editor.gd"
+		if not FileAccess.file_exists(path):
+			push_error("外挂验证入口不存在：" + path)
+			get_tree().quit(1)
+			return
+		var verifier: Script = load(path)
+		if verifier == null or not verifier.can_instantiate() or not verifier.has_method("run"):
+			push_error("外挂验证脚本不可实例化或缺少 run(self)：" + path)
+			get_tree().quit(1)
+			return
+		var started := int(Time.get_unix_time_from_system())
+		await verifier.run(self)
+		if _exiting or not is_inside_tree(): return
+		# 提前返回而未写本次结果视为失败，不静默等 runner 超时。
+		var report_path := "res://outputs/building_attachments_editor_report.json"
+		var result: Variant = JSON.parse_string(FileAccess.get_file_as_string(report_path)) if FileAccess.file_exists(report_path) else null
+		var passed: bool = result is Dictionary and result.get("passed", false) == true and FileAccess.get_modified_time(report_path) >= started
+		get_tree().quit(0 if passed else 1)
+		return
 	if OS.get_cmdline_user_args().has("--scene-assembly-verify"):
 		await get_tree().create_timer(2.0).timeout
 		var verifier: Script = load("res://tests/test_scene_assembly_editor.gd")
@@ -95,6 +176,13 @@ func _setup() -> void:
 			get_tree().quit(1)
 			return
 		await verifier.run(self)
+
+func _resize_drop_surface(container_ref: WeakRef, surface_ref: WeakRef) -> void:
+	var container := container_ref.get_ref() as Control
+	var surface := surface_ref.get_ref() as Control
+	if container == null or surface == null: return
+	surface.position = container.position
+	surface.size = container.size
 
 func _connect_bridges(node: Node) -> void:
 	var script: Script = node.get_script()
@@ -109,7 +197,34 @@ func _connect_bridges(node: Node) -> void:
 	for child in node.get_children(): _connect_bridges(child)
 
 func _exit_tree() -> void:
-	if is_instance_valid(_selection): _selection.selection_changed.disconnect(_selection_changed)
+	_exiting = true
+	_routing = true
+	# 在取消overlay/释放UI可能触发选择与布局回调之前，断开所有外部事件来源。
+	if is_instance_valid(_selection) and _selection.selection_changed.is_connected(_selection_changed):
+		_selection.selection_changed.disconnect(_selection_changed)
+	if scene_closed.is_connected(_scene_closed): scene_closed.disconnect(_scene_closed)
+	if scene_changed.is_connected(_attachment_scene_changed): scene_changed.disconnect(_attachment_scene_changed)
+	for kind: String in bridges:
+		var bridge: Node = bridges[kind]
+		if not is_instance_valid(bridge) or not is_instance_valid(bridge.screen): continue
+		for pair: Array in [[bridge.screen.document_opened, _document_opened.bind(kind)], [bridge.screen.document_request_finished, _request_finished.bind(kind)], [bridge.screen.revision_saved, _revision_saved.bind(kind)]]:
+			var source: Signal = pair[0]
+			var callback: Callable = pair[1]
+			if source.is_connected(callback): source.disconnect(callback)
+	bridges.clear()
+	for connection: Dictionary in _resize_connections:
+		var container := connection.container.get_ref() as Control
+		var callback: Callable = connection.callback
+		if container != null and container.resized.is_connected(callback):
+			container.resized.disconnect(callback)
+	_resize_connections.clear()
+	if is_instance_valid(attachment_controller):
+		attachment_controller.set_process(false)
+		if is_instance_valid(attachment_panel):
+			if attachment_controller.changed.is_connected(attachment_panel.refresh_selection): attachment_controller.changed.disconnect(attachment_panel.refresh_selection)
+			if attachment_controller.message.is_connected(attachment_panel.report): attachment_controller.message.disconnect(attachment_panel.report)
+		attachment_controller.cancel_arm(false)
+		attachment_controller.queue_free()
 	for surface in surfaces:
 		if is_instance_valid(surface): surface.queue_free()
 	remove_control_from_docks(dock)
@@ -120,6 +235,7 @@ func report(message: String) -> void:
 	status.tooltip_text = message
 
 func refresh_library(announce: bool = true) -> void:
+	if _exiting or not is_inside_tree(): return
 	items.clear()
 	var plants := 0
 	for row: Dictionary in Library.collect():
@@ -171,7 +287,19 @@ func selected_placement() -> Node3D:
 	return placement_for(selected[0]) if selected.size() == 1 else null
 
 func _selection_changed() -> void:
-	if _routing: return
+	if _routing or _exiting or not is_inside_tree(): return
+	var editor: Control = EditorInterface.get_base_control()
+	if not is_instance_valid(editor) or not editor.is_inside_tree(): return
+	var nodes := EditorInterface.get_selection().get_selected_nodes()
+	var selected_attachment: Node3D = attachment_controller.attachment_for(nodes[0]) if nodes.size() == 1 and is_instance_valid(attachment_controller) else null
+	if is_instance_valid(attachment_controller): attachment_controller.selection_will_change(selected_attachment)
+	if selected_attachment != null:
+		edit_button.disabled = true
+		attachment_controller.select_attachment(selected_attachment)
+		if not nodes.has(selected_attachment): _select_nodes([selected_attachment])
+		return
+	if is_instance_valid(attachment_controller):
+		attachment_controller.selected = null
 	var placement := selected_placement()
 	edit_button.disabled = placement == null or not bool(placement.get_meta(META).get("editable", false))
 	if placement == null: return
@@ -226,6 +354,7 @@ func _detach(parent: Node, node: Node) -> void:
 	parent.remove_child(node)
 
 func _select_nodes(nodes: Array) -> void:
+	if _exiting or not is_inside_tree(): return
 	_routing = true
 	var selection := EditorInterface.get_selection()
 	selection.clear()
@@ -267,7 +396,11 @@ func _request_finished(token: int, result: Dictionary, _kind: String) -> void:
 		pending.clear()
 		if not result.get("ok", false): report("未切换编辑绑定：" + str(result.get("reason", "打开失败")))
 
+func _attachment_scene_changed(_root: Node) -> void:
+	if is_instance_valid(attachment_controller): attachment_controller.cancel_arm(false)
+
 func _scene_closed(path: String) -> void:
+	if is_instance_valid(attachment_controller): attachment_controller.cancel_arm(false)
 	if not binding.is_empty() and binding.scene == path: binding["closed"] = true
 	if not pending.is_empty() and pending.scene == path: pending["closed"] = true
 
@@ -310,7 +443,9 @@ func _revision_saved(token: int, result: Dictionary, kind: String) -> void:
 	undo.commit_action()
 	binding.data = data.duplicate(true)
 	binding.asset = weakref(asset)
-	report("新版本已保存，仅绑定实例已更新；摆放变换保持，场景尚未自动保存。")
+	report("新版本已保存，仅绑定实例已更新；摆放变换保持，场景尚未自动保存。" + attachment_controller.revision_warning(target))
+	if not attachment_controller.revision_warning(target).is_empty():
+		attachment_controller.message.emit("宿主换版完成；Attachments 及全部子变换保持，请检查贴合，不会自动重投射。")
 
 func _replace(target: Node, old: Node, next: Node, owner_node: Node, index: int, data: Dictionary, selected: Array) -> void:
 	target.remove_child(old)

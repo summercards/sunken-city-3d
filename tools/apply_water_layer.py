@@ -51,6 +51,9 @@ ROLES = {'entity', 'part', 'none'}
 
 # prefix -> (layer, role); role 'assembly' means "assembly id -> entity, siblings -> part".
 FAMILIES = [
+    # 独立建筑外挂库不是建筑空间实体；人物碰撞由具体实例显式配置，
+    # 不从资产家族自动生成水面阻挡/岸线/行走职责，亦不继承宿主水层。
+    ('SEA-SCENE-BAT-', 'none', 'none'),
     # 工坊已登记的水上样楼；未放入主场景，空间接入仍须设施专项验收。
     ('SEA-SCENE-WORKSHOP-SAMPLE-', 'surface', 'entity'),
     ('SEA-SCENE-SUBMERGED-', 'submerged', 'entity'),

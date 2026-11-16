@@ -59,7 +59,15 @@ func execute(editor_plugin: EditorPlugin) -> void:
 		if parsed_default is Dictionary:
 			var default_reason: String = Recipe.validate(parsed_default as Dictionary, Catalog.definitions())
 			check(default_reason.is_empty(), "默认模组配方合规 " + str(item.label), default_reason)
+	await verify_authoring_defaults()
+	await verify_generation_adjustment()
+	await verify_repair_review()
+	await verify_palette_target_transactions()
 	var recipe: Dictionary = Recipe.authoring_defaults()
+	# 此旧拒绝用例专测3.6m层高，不把新默认5.1m误判为原夹具。
+	recipe.floor_height = 3.6
+	recipe.slab_thickness = 0.18
+	recipe.architecture.pilaster.width = 0.36
 	recipe.building_id = "upgrade_live"
 	recipe.architecture.form.enabled = false
 	recipe.taper = 0.0
@@ -109,7 +117,8 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	await settle("修正无效输入")
 	# 2.5倍净窗需真实可用开间和层高；不缩小洞口或偷偷改楼房。
 	recipe = Recipe.authoring_defaults()
-	recipe.merge({"building_id": "upgrade_large", "width": 12.0, "depth": 12.0, "bay_width": 6.0, "floor_height": 6.8, "floors": 2, "taper": 0.0}, true)
+	recipe.merge({"building_id": "upgrade_large", "width": 12.0, "depth": 12.0, "bay_width": 6.0, "floor_height": 6.8, "floors": 2, "taper": 0.0, "slab_thickness": 0.18}, true)
+	recipe.architecture.pilaster.width = 0.36
 	recipe.architecture.form.enabled = false
 	accepted = screen.session.new_document("upgrade_large", recipe)
 	check(bool(accepted.ok), "大开间高楼层fixture", accepted.get("reason", ""))
@@ -183,6 +192,422 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	await verify_compact_layout()
 	await verify_structural_damage()
 	finish()
+
+func verify_authoring_defaults() -> void:
+	screen._new_document()
+	check(screen.snapshot().floor_height == 5.1 and screen.snapshot().slab_thickness == 0.2 and screen.snapshot().architecture.pilaster.width == 0.5, "新建按钮实际作者默认5.1/0.2/0.5")
+	check(screen.snapshot().architecture.shading.materials.is_empty(), "新建shading保持空覆盖")
+	var root: Node = screen.preview._model_root.get_child(0)
+	var shared: Dictionary = preload("res://src/workshop/mesh_builder.gd").shared_materials()
+	for slot: Dictionary in screen._slot_cache.values():
+		var kind: String = str(slot.kind)
+		var id: String = str(slot.id)
+		if id.begins_with("canopy_"): continue
+		if id == "roof_main" or id.begins_with("roofcap_"): kind = "roof"
+		if id.begins_with("band_") or id.begins_with("belt_") or id.begins_with("plinth_"): kind = "band"
+		if not screen.snapshot().architecture.palette.slots.has(kind): continue
+		var expected: Array = screen.snapshot().architecture.palette.slots[kind].color_cell
+		var meshes: Array = []
+		if screen.preview._semantic_sources.has(str(slot.id)):
+			for record: Dictionary in screen.preview._semantic_sources[str(slot.id)].mesh_records: meshes.append(record.mesh)
+		else:
+			var visible_node: MeshInstance3D = root.get_node_or_null(str(slot.node_path)) as MeshInstance3D
+			if visible_node != null: meshes.append(visible_node.mesh)
+		var correct: bool = not meshes.is_empty()
+		for mesh: Mesh in meshes:
+			for surface: int in mesh.get_surface_count():
+				for point: Vector2 in mesh.surface_get_arrays(surface)[Mesh.ARRAY_TEX_UV]:
+					correct = correct and floori(point.y * 8) == expected[0] and floori(point.x * 8) == expected[1]
+		check(correct, "新默认实际部件UV " + str(slot.id), expected)
+		if id.begins_with("slab_") and not meshes.is_empty():
+			check(is_equal_approx((meshes[0] as Mesh).get_aabb().size.y, 0.2), "新默认真实楼板厚0.2m " + str(slot.id))
+	var cells: Dictionary = {}
+	var uv_valid: bool = true
+	var materials_valid: bool = true
+	for node: MeshInstance3D in root.find_children("*", "MeshInstance3D", true, false):
+		for surface: int in node.mesh.get_surface_count():
+			materials_valid = materials_valid and node.get_active_material(surface) in shared.values()
+			var uv: PackedVector2Array = node.mesh.surface_get_arrays(surface)[Mesh.ARRAY_TEX_UV]
+			for point: Vector2 in uv:
+				var cell := Vector2i(floori(point.x * 8), floori(point.y * 8))
+				cells[str(cell)] = true
+				var inside: Vector2 = point * 512.0 - Vector2(cell) * 64.0
+				uv_valid = uv_valid and inside.x >= 8.0 and inside.x <= 56.0 and inside.y >= 8.0 and inside.y <= 56.0
+	check(materials_valid and uv_valid, "新默认实际Mesh共享材质及UV内缩")
+	for cell: Vector2i in [Vector2i(4, 0), Vector2i(1, 1), Vector2i(3, 2), Vector2i(1, 2)]:
+		check(cells.has(str(cell)), "新默认最终可见UV色格 " + str(cell), cells)
+	var window_found: bool = false
+	var door_found: bool = false
+	for opening: Dictionary in screen._opening_cache.values():
+		if str(opening.get("type", "")) == "window":
+			window_found = window_found or (is_equal_approx(float(opening.get("clear_width", 0)), 1.5) and is_equal_approx(float(opening.get("clear_height", 0)), 1.9))
+		if str(opening.get("type", "")) == "door":
+			door_found = door_found or (is_equal_approx(float(opening.get("clear_width", 0)), 1.6) and is_equal_approx(float(opening.get("clear_height", 0)), 2.4))
+	check(window_found and door_found, "新默认真实净窗1.5x1.9净门1.6x2.4", screen._opening_cache.values())
+	screen.preview.set_view("perspective")
+	await capture("default_solar_ref")
+
+func repair_fixture(id: String = "upgrade_repair") -> void:
+	screen._reset_window_preview()
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe.architecture.form.enabled = false
+	recipe.taper = 0.0
+	# 保留原两层回归，不以三层绕过待内核诊断的union问题。
+	recipe.floors = 2
+	var accepted: Dictionary = screen.session.new_document(id, recipe)
+	check(bool(accepted.ok), "调整真实基线 " + id, accepted.get("reason", ""))
+	screen._last_window_scope = "global"
+	screen._refresh_from_session()
+	screen.refresh_preview()
+	screen._select_page(screen.PAGES.find("门窗"))
+
+func confirm_repair() -> void:
+	screen._repair_dialog.get_ok_button().pressed.emit()
+
+func verify_generation_adjustment() -> void:
+	repair_fixture()
+	var before: Dictionary = screen.snapshot()
+	var root: Node = screen.preview._model_root.get_child(0)
+	var mesh: String = visual_hash()
+	var history: int = screen.session._undo.size()
+	# 联合候选必须同时携带未应用层高、开间与当前窗，不先flush。
+	screen.controls.floor_height.value = 2.5
+	screen.controls.bay_width.value = 2.8
+	screen.controls.architecture_window_height.value = 3.0
+	screen.controls.architecture_window_glass_thickness.value = 0.1
+	screen.controls.architecture_window_frame_depth.value = 0.04
+	screen._window_preview_timer.stop()
+	var staged: Dictionary = screen._collect_repair_candidate()
+	check(bool(staged.ok) and staged.candidate.floor_height == 2.5 and staged.candidate.bay_width == 2.8 and staged.candidate.architecture.window.height == 3.0, "联合候选含层高开间及当前窗")
+	screen.buttons.repair_generation.pressed.emit()
+	check(screen._repair_dialog.visible and not screen._confirm.visible, "真实调整按钮打开独立确认窗", screen.repair_result)
+	if not screen._repair_dialog.visible: return
+	check(screen.snapshot() == before and screen.preview._model_root.get_child(0) == root and screen.session._undo.size() == history, "提议纯只读不换模型不增历史")
+	check(screen._repair_dialog.get_cancel_button().has_focus(), "调整默认焦点取消")
+	check(screen._repair_text.selection_enabled and screen._repair_text.scroll_active and screen._repair_text.text.contains("architecture.window.frame_depth") and screen._repair_text.text.contains("→") and screen._repair_text.text.contains("原因"), "方案中文参数完整path原新值单位原因可选择滚动")
+	await capture("repair_dialog", true)
+	screen._repair_dialog.get_cancel_button().pressed.emit()
+	await plugin.get_tree().create_timer(0.25).timeout
+	check(screen.snapshot() == before and visual_hash() == mesh and screen.controls.floor_height.value == 2.5 and screen._window_preview_timer.is_stopped(), "取消保持楼模型历史输入且不重启timer")
+	screen.buttons.repair_generation.pressed.emit()
+	screen.controls.floor_height.value = 2.6
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before and not screen._repair_dialog.visible, "过期UI拒绝提交并清确认")
+	screen.controls.floor_height.value = 2.5
+	screen.buttons.repair_generation.pressed.emit()
+	var catalog: Dictionary = screen.session.catalog.duplicate(true)
+	screen.session.catalog.components.wall_sun["profile"] = "invalid_stale"
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before and screen.session._undo.size() == history, "过期catalog拒绝且无历史")
+	screen.session.catalog = catalog
+	screen.buttons.repair_generation.pressed.emit()
+	# 在UI边界模拟提议后实际构建拒绝，不改Session/Generator实现。
+	screen._repair_pending.proposal.candidate.door_height = 5.0
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before and screen.preview._model_root.get_child(0) == root and visual_hash() == mesh and screen.session._undo.size() == history and screen.controls.floor_height.value == 2.5, "真实build失败保root模型历史冲突输入")
+	screen.buttons.repair_generation.pressed.emit()
+	screen.controls.palette_seed.value += 1
+	await plugin.get_tree().create_timer(0.25).timeout
+	check(screen.snapshot() == before and screen._window_preview_timer.is_stopped(), "确认期间配色窗timer不得提交")
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before and screen._window_preview_timer.is_stopped(), "配色输入变化使方案过期且不偷重启timer")
+	# 丢弃测试中新排队的配色输入，原冲突窗仍原样保留。
+	screen._window_preview_keys.erase("palette_settings")
+	screen._refresh_palette_controls()
+	screen.buttons.repair_generation.pressed.emit()
+	screen._set_option("window_scope", "floor")
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before, "目标scope过期拒绝提交")
+	screen._set_option("window_scope", "global")
+	screen.buttons.repair_generation.pressed.emit()
+	screen._document_token += 1
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot() == before, "绑定token过期拒绝提交")
+	screen._document_token -= 1
+	screen.buttons.repair_generation.pressed.emit()
+	var changed_recipe: Dictionary = before.duplicate(true)
+	changed_recipe.display_name = "外部更新的配方"
+	check(bool(screen.session.accept_loaded(changed_recipe, screen.session.catalog).ok), "外部配方合法变更夹具")
+	confirm_repair()
+	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot().display_name == "外部更新的配方", "recipe过期拒绝覆盖外部更新")
+	check(bool(screen.session.accept_loaded(before, screen.session.catalog).ok), "恢复外部配方过期测试基线")
+	# 无关slot输入必须显式拒绝，不能吞掉。
+	screen.controls.offset_x.value = 0.2
+	screen.buttons.repair_generation.pressed.emit()
+	check(not screen._repair_dialog.visible and screen._last_status_text.contains("offset_x"), "无关未应用slot明确拒绝")
+	screen.controls.offset_x.value = 0.0
+	screen.controls.floor_override_height.value += 0.1
+	screen.buttons.repair_generation.pressed.emit()
+	check(not screen._repair_dialog.visible and screen._last_status_text.contains("floor_override_height"), "无关未应用floor字段明确拒绝")
+	screen.controls.floor_override_height.set_value_no_signal(float(screen._local_baseline.floor_override_height))
+	screen.controls.facade_width.value += 0.1
+	screen._window_preview_timer.stop()
+	screen._window_preview_keys.erase("facade_width")
+	screen.buttons.repair_generation.pressed.emit()
+	check(not screen._repair_dialog.visible and screen._last_status_text.contains("facade_width"), "无关未应用facade字段明确拒绝")
+	screen.controls.facade_width.set_value_no_signal(float(screen._local_baseline.facade_width))
+	screen.buttons.repair_generation.pressed.emit()
+	var expected: Dictionary = screen.repair_result.candidate.duplicate(true)
+	var inputs: Dictionary = screen._capture_input_context()
+	confirm_repair()
+	check(bool(screen.repair_result.get("ok", false)), "确认实际build成功", screen.repair_result)
+	check(Recipe.fingerprint(screen.snapshot()) == Recipe.fingerprint(Recipe.normalized(expected)) and visual_hash() != mesh and screen.session._undo.size() == history + 1, "调整仅提交候选diff且一次真实楼历史")
+	var repaired: Dictionary = screen.snapshot()
+	var repaired_mesh: String = visual_hash()
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == before and visual_hash() == mesh and screen._capture_ui_values() == inputs.ui_values and screen._window_failed_keys == inputs.failed and screen._window_preview_keys == inputs.pending and screen._window_preview_target == inputs.target, "一次undo恢复前有效楼冲突UI及失败key目标scope")
+	screen.buttons.redo.pressed.emit()
+	check(screen.snapshot() == repaired and visual_hash() == repaired_mesh, "redo恢复修复后真实楼")
+	var count: int = screen.session._undo.size()
+	screen.buttons.repair_generation.pressed.emit()
+	check(not screen._repair_dialog.visible and screen.session._undo.size() == count, "有效无冲突不弹不改无历史")
+	# 固定窗非法开角可在局部范围修正，不能扩散至其他owner。
+	for scope: String in ["floor", "facade", "single"]:
+		repair_fixture("repair_" + scope)
+		screen._set_option("window_scope", scope)
+		screen._window_scope_changed(screen.ARCHITECTURE_WINDOW_SCOPES.find(scope))
+		var baseline: Dictionary = screen.snapshot()
+		screen.controls.architecture_window_open_angle.value = 30
+		await settle("局部固定窗冲突 " + scope, false)
+		var failed_keys: Dictionary = screen._window_failed_keys.duplicate(true)
+		screen.buttons.repair_generation.pressed.emit()
+		check(screen._repair_dialog.visible, "局部冲突可建议 " + scope, screen.repair_result)
+		var owner: String = {"floor": "floor_windows", "facade": "facade_windows", "single": "window_overrides"}[scope]
+		confirm_repair()
+		check(bool(screen.repair_result.get("ok", false)) and screen.snapshot().architecture.window == baseline.architecture.window, "局部修复不改变全局 " + scope, screen.repair_result)
+		for other: String in ["floor_windows", "facade_windows", "window_overrides"]:
+			if other != owner: check(screen.snapshot().architecture[other] == baseline.architecture[other], "局部修复保其他owner " + scope + other)
+		screen.buttons.undo.pressed.emit()
+		check(screen._window_failed_keys == failed_keys and screen._window_scope() == scope and screen.controls.architecture_window_open_angle.value == 30, "局部undo还原失败context " + scope)
+		screen.buttons.redo.pressed.emit()
+	# 不支持的生成冲突不得冒充可修；保存失败不emit也不异步弹窗。
+	repair_fixture("repair_save")
+	var emitted: Array = []
+	var listener: Callable = func(token: int, result: Dictionary) -> void: emitted.append([token, result])
+	screen.revision_saved.connect(listener)
+	screen._document_token = 712
+	screen.controls.door_height.value = 5.0
+	var saved: Dictionary = screen.save_building()
+	check(not bool(saved.ok) and emitted.is_empty() and not screen._repair_dialog.visible, "保存严格失败不误emit不自动弹窗")
+	screen.buttons.repair_generation.pressed.emit()
+	check(not bool(screen.repair_result.get("ok", true)) and not screen._repair_dialog.visible, "无解生成明确拒绝建议", screen.repair_result.get("reason", ""))
+	screen.controls.door_height.value = 2.4
+	screen.controls.architecture_window_open_angle.value = 30
+	screen._window_preview_timer.stop()
+	screen.buttons.repair_generation.pressed.emit()
+	confirm_repair()
+	saved = screen.save_building()
+	check(bool(saved.ok) and emitted.size() == 1 and emitted[0][0] == 712 and screen._document_token == 712, "调整后真实保存保持binding token及成功revision事件", saved.get("reason", ""))
+	if bool(saved.ok):
+		var loaded: Dictionary = screen._store.load_recipe(saved.recipe_path)
+		check(bool(loaded.ok) and Recipe.fingerprint(loaded.recipe) == Recipe.fingerprint(screen.snapshot()), "调整保存重载配方一致")
+		var packed: PackedScene = ResourceLoader.load(saved.scene_path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+		var restored: Node = packed.instantiate()
+		check(bool(Union.audit_faces(restored.get_node("GeneratedVisual/structure_union").mesh.get_faces()).valid), "调整保存重载实际union")
+		restored.free()
+	screen.revision_saved.disconnect(listener)
+
+func verify_repair_review() -> void:
+	repair_fixture("review_whitelist")
+	var before: Dictionary = screen.snapshot()
+	# 合法门输入属于白名单；其它未应用UI必须留在控件而不是被候选吸入。
+	screen.controls.door_height.value = 2.5
+	screen.controls.architecture_roof_height.value = 1.2
+	screen.controls.growth_small.set_value_no_signal(0.8)
+	screen._id_edit.text = "unsubmitted_identity"
+	screen._name_edit.text = "未应用建筑名称"
+	screen._set_option("binding_wall", "wall_warm")
+	screen.controls.wing_x.set_value_no_signal(0.65)
+	screen.controls.pilaster_width.set_value_no_signal(0.65)
+	screen.controls.band_thickness.set_value_no_signal(0.4)
+	screen._set_option("shape", "l")
+	screen._set_option("architecture_shape_variant", "l")
+	screen.controls.form_enabled.set_pressed_no_signal(true)
+	screen.controls.vegetation_density.set_value_no_signal(0.2)
+	screen.controls.damage.set_value_no_signal(0.2)
+	screen.controls.palette_seed.set_value_no_signal(1291)
+	screen.controls.shading_roughness.set_value_no_signal(0.72)
+	screen.controls.architecture_window_glass_thickness.value = 0.1
+	screen.controls.architecture_window_frame_depth.value = 0.04
+	screen._window_preview_timer.stop()
+	var inputs: Dictionary = screen._capture_input_context()
+	var collected: Dictionary = screen._collect_repair_candidate()
+	check(bool(collected.ok), "review白名单收集成功", collected.get("reason", ""))
+	if not bool(collected.ok): return
+	var expected: Dictionary = before.duplicate(true)
+	expected.door_height = 2.5
+	expected.architecture.window.glass_thickness = 0.1
+	expected.architecture.window.frame_depth = 0.04
+	check(collected.candidate == expected, "review候选只含合法门输入及实际窗队列，不吸入身份屋顶组件植物plan柱腰线")
+	screen.buttons.repair_generation.pressed.emit()
+	check(screen._repair_dialog.visible, "review真实按钮提议", screen.repair_result)
+	if not screen._repair_dialog.visible: return
+	check(screen._repair_input_text.selection_enabled and screen._repair_input_text.scroll_active and screen._repair_input_text.text.contains("door_height") and screen._repair_input_text.text.contains("2.4 → 2.5") and screen._repair_input_text.text.contains("architecture.window.glass_thickness"), "用户输入独立可滚动明细披露Session原值到输入")
+	check(screen._repair_text.text.contains("修复建议") and not screen._repair_text.text.contains("door_height") and not screen._repair_input_text.text.contains("architecture.roof") and not screen._repair_input_text.text.contains("unsubmitted_identity"), "helper修复区与用户输入区分离且不混无关字段")
+	var target: Dictionary = screen.repair_result.candidate.duplicate(true)
+	await capture("repair_review_dialog", true)
+	confirm_repair()
+	check(bool(screen.repair_result.get("ok", false)) and Recipe.fingerprint(screen.snapshot()) == Recipe.fingerprint(target), "review确认只提交完整披露的白名单candidate", screen.repair_result)
+	for key: String in ["architecture_roof_height", "growth_small", "binding_wall", "wing_x", "pilaster_width", "band_thickness", "shape", "architecture_shape_variant", "form_enabled", "vegetation_density", "damage", "palette_seed", "shading_roughness"]:
+		check(screen._raw_control_value(key) == inputs.ui_values[key], "非候选UI精确保留 " + key)
+	check(screen._id_edit.text == inputs.building_id and screen._name_edit.text == inputs.display_name and screen.snapshot().building_id == before.building_id and screen.snapshot().display_name == before.display_name, "非候选身份文本精确保留不提交")
+	for key: String in inputs.baseline:
+		if not collected.submitted.has(key): check(screen._local_baseline[key] == inputs.baseline[key], "非候选local baseline保留 " + key)
+	check(screen.snapshot().architecture.roof == before.architecture.roof and screen.snapshot().growth_weights == before.growth_weights and screen.snapshot().component_bindings == before.component_bindings, "真实楼不混入屋顶growth组件")
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == before and screen._capture_ui_values() == inputs.ui_values and screen._window_preview_target == inputs.target and screen._window_preview_keys == inputs.pending, "review undo恢复非候选UI及原冲突链")
+	screen.buttons.redo.pressed.emit()
+	check(Recipe.fingerprint(screen.snapshot()) == Recipe.fingerprint(target), "review redo真实候选")
+	# 排队非窗字段选择明确拒绝，队列和输入保持；恢复草稿式无信号窗输入也必须具体拒绝。
+	for key: String in ["growth_small", "palette_seed", "shading_roughness"]:
+		repair_fixture("review_queue_" + key)
+		screen.controls.architecture_window_frame_depth.value = 0.04
+		screen.controls.architecture_window_glass_thickness.value = 0.1
+		(screen.controls[key] as Range).value += 0.01 if key != "palette_seed" else 1
+		screen._window_preview_timer.stop()
+		var queued: Dictionary = screen._capture_input_context()
+		screen.buttons.repair_generation.pressed.emit()
+		check(not screen._repair_dialog.visible and not bool(screen.repair_result.get("ok", true)) and screen._window_preview_keys == queued.pending and screen._window_failed_keys == queued.failed and screen._capture_ui_values() == queued.ui_values, "排队非窗明确拒绝且保输入队列 " + key, screen._last_status_text)
+	for scope: String in ["global", "floor", "facade", "single"]:
+		repair_fixture("review_noqueue_" + scope)
+		screen._set_option("window_scope", scope)
+		screen._window_scope_changed(screen.ARCHITECTURE_WINDOW_SCOPES.find(scope))
+		screen.controls.architecture_window_frame_depth.value = 0.04
+		screen.controls.architecture_window_glass_thickness.value = 0.1
+		screen.controls.architecture_window_recess.set_value_no_signal(0.2)
+		screen._window_preview_timer.stop()
+		var original: Dictionary = screen._capture_input_context()
+		var recipe: Dictionary = screen.snapshot()
+		screen.buttons.repair_generation.pressed.emit()
+		check(not screen._repair_dialog.visible and screen._last_status_text.contains("architecture_window_recess") and screen._capture_ui_values() == original.ui_values and screen._local_baseline == original.baseline and screen.snapshot() == recipe and screen._window_preview_keys == original.pending, "未排队可见窗具体拒绝不吞输入 " + scope, screen._last_status_text)
+		screen._local_baseline["architecture_window_recess"] = 0.2
+		var restored: Dictionary = screen._collect_repair_candidate()
+		check(not bool(restored.get("ok", true)) and str(restored.get("reason", "")).contains("architecture_window_recess"), "恢复草稿baseline相同仍检查Session可见窗差异 " + scope, restored.get("reason", ""))
+		screen._local_baseline = original.baseline.duplicate(true)
+	await verify_repair_history_branches()
+
+func verify_repair_history_branches() -> void:
+	repair_fixture("review_history")
+	var original: Dictionary = screen.snapshot()
+	var first: Dictionary = {}
+	for marker: String in ["第一分支名称", "第二分支名称"]:
+		screen._name_edit.text = marker
+		screen.controls.architecture_window_glass_thickness.value = 0.1
+		screen.controls.architecture_window_frame_depth.value = 0.04
+		screen._window_preview_timer.stop()
+		screen.buttons.repair_generation.pressed.emit()
+		confirm_repair()
+		check(bool(screen.repair_result.get("ok", false)), "重复指纹分支实际修复 " + marker, screen.repair_result)
+		if first.is_empty(): first = screen.snapshot()
+		check(screen.snapshot() == first, "不同未应用文本仍得到同一候选fingerprint " + marker)
+		screen.buttons.undo.pressed.emit()
+		check(screen.snapshot() == original and screen._name_edit.text == marker, "同fingerprint历史分支不串原输入 " + marker)
+		if marker == "第二分支名称":
+			screen.buttons.redo.pressed.emit()
+			screen.buttons.undo.pressed.emit()
+			check(screen._name_edit.text == marker and screen.snapshot() == original, "重复分支redo后undo仍恢复该分支输入")
+	# 连续历史重复到达同一fingerprint，逆序两次undo不得由后一次覆盖前一次。
+	screen.buttons.redo.pressed.emit()
+	var changed: Dictionary = original.duplicate(true)
+	var built: Dictionary = screen.session.preview_candidate(changed)
+	check(bool(built.ok), "重复指纹中间真实历史")
+	if bool(built.ok):
+		screen._refresh_from_session()
+		screen.refresh_preview(false, built)
+	screen._name_edit.text = "最新未应用名"
+	# 只记录公开事务真实生成的输入保护，不伪造Session历史。
+	screen.controls.architecture_window_glass_thickness.value = 0.1
+	screen.controls.architecture_window_frame_depth.value = 0.04
+	screen._window_preview_timer.stop()
+	screen.buttons.repair_generation.pressed.emit()
+	confirm_repair()
+	check(bool(screen.repair_result.get("ok", false)) and screen.snapshot() == first, "连续历史再次到达相同fingerprint", screen.repair_result)
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == original and screen._name_edit.text == "最新未应用名", "连续同fingerprint最近记录正确")
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == first and screen._name_edit.text != "最新未应用名", "普通中间历史不错误恢复repair输入")
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == original and screen._name_edit.text == "第二分支名称", "连续同fingerprint早期记录未被覆盖")
+	screen.buttons.redo.pressed.emit()
+	var records: Dictionary = screen._random_house_undo_inputs.duplicate(true)
+	var recovery: Dictionary = screen.get_recovery()
+	check(screen._random_house_undo_inputs == records, "get_recovery不清同Session输入历史")
+	check(bool(screen.restore_recovery(recovery).ok) and screen._random_house_undo_inputs == records, "同Session恢复不清输入历史")
+	screen._new_document()
+	check(screen._random_house_undo_inputs.is_empty() and screen._history_inputs_redo.is_empty(), "new文档清理输入历史映射")
+	var saved: Dictionary = screen.save_building()
+	check(bool(saved.get("ok", false)), "历史文档隔离保存fixture", saved.get("reason", ""))
+	if bool(saved.get("ok", false)):
+		screen._random_house_undo_inputs["sentinel"] = [{"document": "旧文档"}]
+		screen._history_inputs_redo.append({"document": "旧文档"})
+		var opened: Dictionary = screen._open_recipe_now(saved.recipe_path)
+		check(bool(opened.get("ok", false)) and screen._random_house_undo_inputs.is_empty() and screen._history_inputs_redo.is_empty(), "open文档清理输入历史映射", opened.get("reason", ""))
+
+func palette_target_button(target: String) -> Button:
+	for index: int in screen.PALETTE_TARGETS.size():
+		if str(screen.PALETTE_TARGETS[index][0]) == target:
+			return screen.buttons["palette_target_%02d" % index]
+	return null
+
+func verify_palette_target_transactions() -> void:
+	repair_fixture("palette_target_transactions")
+	screen._select_page(screen.PAGES.find("配色"))
+	palette_target_button("slots:wall").pressed.emit()
+	var history: int = screen.session._undo.size()
+	# 无await：墙色仍在160ms队列时立即切框并选色，不能覆盖墙的palette_settings。
+	screen.controls.palette_grid.get_child(9).pressed.emit()
+	palette_target_button("slots:frame").pressed.emit()
+	check(screen.snapshot().architecture.palette.slots.wall.color_cell == [1, 1] and screen._option_value("palette_target") == "slots:frame", "快速切目标前先真实提交墙色")
+	screen.controls.palette_grid.get_child(18).pressed.emit()
+	await settle("快速两目标颜色分别实际提交")
+	check(screen.snapshot().architecture.palette.slots.wall.color_cell == [1, 1] and screen.snapshot().architecture.palette.slots.frame.color_cell == [2, 2], "墙框快速连续颜色无队列丢失")
+	check(screen.session._undo.size() == history + 2, "快速两次选色各一条历史")
+	var original: Dictionary = screen.snapshot()
+	var root: Node = screen.preview._model_root.get_child(0)
+	var uv: String = palette_hash(root)
+	history = screen.session._undo.size()
+	palette_target_button("slots:glass").pressed.emit()
+	palette_target_button("slots:wall").pressed.emit()
+	check(screen.snapshot() == original and screen.preview._model_root.get_child(0) == root and palette_hash(root) == uv and screen.session._undo.size() == history and screen._window_preview_keys.is_empty(), "无pending切目标零模型替换无历史不改色")
+	screen.controls.palette_grid.get_child(10).pressed.emit()
+	var pending: Dictionary = screen._window_preview_keys.duplicate(true)
+	palette_target_button("slots:wall").pressed.emit()
+	check(screen.snapshot() == original and screen._window_preview_keys == pending and screen.session._undo.size() == history, "同target不flush不做额外工作")
+	# 坏窗与配色一起失败，切target必须保原选色模式/seed/cell与旧target，不能刷新覆盖。
+	screen.controls.architecture_window_open_angle.value = 30
+	screen._window_preview_timer.stop()
+	var settings: Dictionary = screen._palette_control_settings()
+	palette_target_button("slots:frame").pressed.emit()
+	check(screen._option_value("palette_target") == "slots:wall" and screen._palette_control_settings() == settings and screen.controls.architecture_window_open_angle.value == 30 and screen.snapshot() == original and screen.preview._model_root.get_child(0) == root and screen.session._undo.size() == history, "目标切换失败保旧target上下文输入模型历史")
+	check(screen._window_failed_keys.has("palette_settings") and screen._window_failed_keys.palette_settings.target == "slots:wall" and screen._last_status_text.contains("未切换配色目标"), "目标失败保原配色failed队列并提示")
+	# 修正窗后重试切换，先提交失败队列中的墙色再切上下文。
+	screen.controls.architecture_window_open_angle.value = 0
+	palette_target_button("slots:frame").pressed.emit()
+	check(screen._option_value("palette_target") == "slots:frame" and screen._window_failed_keys.is_empty() and screen.snapshot().architecture.palette.slots.wall.color_cell == [1, 2], "修正后切目标恢复原墙色队列")
+	# 隐藏适配器复用同一事务入口，且切换前不得已换到新上下文。
+	screen.controls.palette_grid.get_child(20).pressed.emit()
+	var adapter: OptionButton = screen.controls.palette_target
+	var index: int = -1
+	for item: int in screen.PALETTE_TARGETS.size():
+		if str(screen.PALETTE_TARGETS[item][0]) == "slots:glass": index = item
+	adapter.select(index)
+	adapter.item_selected.emit(index)
+	check(screen._option_value("palette_target") == "slots:glass" and screen.snapshot().architecture.palette.slots.frame.color_cell == [2, 4], "隐藏adapter先提交原框色再切目标")
+	# repair确认期间目标入口不flush、不切换、不刷新输入。
+	screen.controls.architecture_window_open_angle.value = 30
+	screen._window_preview_timer.stop()
+	screen.buttons.repair_generation.pressed.emit()
+	check(screen._repair_dialog.visible, "配色切换确认期阻断fixture", screen.repair_result)
+	if screen._repair_dialog.visible:
+		var before: Dictionary = screen.snapshot()
+		pending = screen._window_preview_keys.duplicate(true)
+		settings = screen._palette_control_settings()
+		palette_target_button("slots:wall").pressed.emit()
+		check(screen._option_value("palette_target") == "slots:glass" and screen.snapshot() == before and screen._window_preview_keys == pending and screen._palette_control_settings() == settings and screen._last_status_text.contains("确认期间不能切换"), "repair确认期间target禁止切换且不flush")
+		screen._repair_dialog.get_cancel_button().pressed.emit()
+	screen._reset_window_preview()
+	screen._refresh_from_session()
+	await capture("palette_target_transactions", true)
 
 func verify_structural_damage() -> void:
 	var recipe: Dictionary = Recipe.authoring_defaults()
@@ -520,6 +945,11 @@ func verify_palette() -> void:
 	for role: String in shared: hashes[role] = FileAccess.get_sha256(shared[role].resource_path)
 	var recipe: Dictionary = Recipe.authoring_defaults()
 	recipe.building_id = "upgrade_palette"
+	# 旧角色继承断言必须留未覆盖的面；新manual slots另由新建默认专项核验。
+	recipe.architecture.palette = {}
+	recipe.floor_height = 3.6
+	recipe.slab_thickness = 0.18
+	recipe.architecture.pilaster.width = 0.36
 	recipe.architecture.form.enabled = false
 	recipe.architecture.window.sill_enabled = false
 	recipe.taper = 0.0
@@ -738,6 +1168,49 @@ func verify_compact_layout() -> void:
 		var path: String = "res://outputs/compact_layout_%dx%d.png" % [target.x, target.y]
 		check(image.get_size() == target and image.save_png(path) == OK, "真实定尺寸布局截图 " + str(target))
 		artifacts.append(ProjectSettings.globalize_path(path))
+		var view_rect: Rect2 = screen._views_scroll.get_global_rect()
+		var palette_before: Dictionary = screen.snapshot()
+		var palette_history: int = screen.session._undo.size()
+		screen.buttons.module_02.pressed.emit()
+		for frame: int in 4: await plugin.get_tree().process_frame
+		var target_rect: Rect2 = screen._palette_target_row.get_global_rect()
+		check(screen._palette_target_row.visible and not screen._views_scroll.visible and not screen.controls.palette_target.visible, "配色仅显式目标按钮且隐藏视角下拉 " + str(target))
+		check(absf(target_rect.position.y - view_rect.position.y) <= 1 and target_rect.size.y <= 44 and screen._palette_target_row.get_parent() == screen._preview_column, "配色目标原位替代views第二行 " + str(target), target_rect)
+		check(screen.preview.size.x >= target.x * 0.52 and screen.preview.size.y >= target.y * 0.60, "配色页保R81真实预览面积 " + str(target), screen.preview.size)
+		check(screen._palette_target_buttons.size() == 13, "十三配色目标无遗漏 " + str(target))
+		for spec: Array in screen.PALETTE_TARGETS:
+			var action: Button = screen._palette_target_buttons[str(spec[0])]
+			action.pressed.emit()
+			for frame: int in 2: await plugin.get_tree().process_frame
+			check(action.get_theme_font_size("font_size") >= 18 and action.size.y >= 40 and action.position.y == 0 and action.pressed.get_connections().size() == 1, "配色目标字号高度单行单连接 " + str(spec[0]) + str(target))
+			check(screen._palette_target_strip.get_global_rect().encloses(action.get_global_rect()) and action.button_pressed and screen._option_value("palette_target") == str(spec[0]), "配色目标实际pressed滚入高亮 " + str(spec[0]) + str(target), action.get_global_rect())
+		check(screen.snapshot() == palette_before and screen.session._undo.size() == palette_history, "十三目标上下文切换不变色无历史 " + str(target))
+		# 经真实Control GUI输入派发，不只直接调业务函数。
+		var gui_button: Button = screen._palette_target_buttons["materials:SEA_Emission"]
+		screen._set_option("palette_target", "global")
+		var gui_events: Array = []
+		var observed: Callable = func() -> void: gui_events.append(true)
+		gui_button.pressed.connect(observed)
+		gui_button.grab_focus()
+		var press := InputEventKey.new()
+		press.keycode = KEY_ENTER
+		press.pressed = true
+		host.push_input(press)
+		var release := InputEventKey.new()
+		release.keycode = KEY_ENTER
+		host.push_input(release)
+		await plugin.get_tree().process_frame
+		check(gui_button.has_focus() and gui_events.size() == 1 and screen._option_value("palette_target") == "materials:SEA_Emission", "配色目标真实Control键盘GUI事件 " + str(target), gui_events.size())
+		gui_button.pressed.disconnect(observed)
+		for frame: int in 4: await plugin.get_tree().process_frame
+		check(screen._palette_target_strip.get_global_rect().encloses(gui_button.get_global_rect()) and gui_button.button_pressed, "GUI切换后当前目标滚入且高亮 " + str(target), {"target": screen._option_value("palette_target"), "pressed": gui_button.button_pressed, "strip": screen._palette_target_strip.get_global_rect(), "button": gui_button.get_global_rect(), "scroll": screen._palette_target_strip.scroll_horizontal})
+		RenderingServer.force_draw()
+		var palette_path: String = "res://outputs/upgrade_palette_button_rows_%dx%d.png" % [target.x, target.y]
+		check(host.get_texture().get_image().save_png(palette_path) == OK, "配色按钮行真实截图 " + str(target))
+		artifacts.append(ProjectSettings.globalize_path(palette_path))
+		screen.buttons.module_00.pressed.emit()
+		for frame: int in 3: await plugin.get_tree().process_frame
+		check(not screen._palette_target_row.visible and screen._views_scroll.visible, "非配色页隐藏十三目标恢复视角 " + str(target))
 		# 展开右栏时小窗口自动让左栏退让，不能挤压中心。
 		screen.buttons.toggle_right.emit_signal("pressed")
 		for frame: int in 4: await plugin.get_tree().process_frame
@@ -849,7 +1322,8 @@ func capture(label: String, full_ui: bool = false, damage_closeup: bool = false)
 	elif full_ui:
 		await plugin.get_tree().process_frame
 		RenderingServer.force_draw()
-		image = EditorInterface.get_base_control().get_viewport().get_texture().get_image()
+		# macOS原生子窗口不在主Viewport截图里；直接取实际确认Window渲染纹理。
+		image = screen._repair_dialog.get_texture().get_image() if label.begins_with("repair_") else EditorInterface.get_base_control().get_viewport().get_texture().get_image()
 	else:
 		image = await screen.preview.capture_model_image(Vector2i(1400, 1100))
 	check(image != null and not image.is_empty(), label + "真实渲染图")
@@ -861,7 +1335,7 @@ func capture(label: String, full_ui: bool = false, damage_closeup: bool = false)
 func finish() -> void:
 	check(EditorInterface.get_edited_scene_root() == original_scene, "不改当前编辑scene")
 	check(plugin.get_tree().paused == original_pause, "不改编辑树暂停")
-	var report: Dictionary = {"checks": checks, "failures": failures, "passed": failures.is_empty(), "artifacts": artifacts, "timings": timings, "layout_metrics": layout_metrics, "enginehint": Engine.is_editor_hint(), "is_playing": EditorInterface.is_playing_scene(), "actual_window": str(DisplayServer.window_get_size()), "input_method": "真实HSlider值和drag信号，经Timer自动提交；非人工鼠标操作", "visual_acceptance": "需主线程目检，截图非空不等于美术终验", "scene_unchanged": EditorInterface.get_edited_scene_root() == original_scene}
+	var report: Dictionary = {"checks": checks, "failures": failures, "passed": failures.is_empty(), "artifacts": artifacts, "timings": timings, "layout_metrics": layout_metrics, "enginehint": Engine.is_editor_hint(), "is_playing": EditorInterface.is_playing_scene(), "actual_window": str(DisplayServer.window_get_size()), "input_method": "真实HSlider值/drag与Button pressed，经Timer提交；另经SubViewport.push_input派发Control键盘GUI事件并计数；非人工鼠标操作", "visual_acceptance": "需主线程目检，截图非空不等于美术终验", "scene_unchanged": EditorInterface.get_edited_scene_root() == original_scene}
 	var file: FileAccess = FileAccess.open("res://outputs/workshop_upgrade_report.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "\t"))
 	file.close()

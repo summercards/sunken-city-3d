@@ -19,7 +19,8 @@
     "godot/scenes/world",
     "godot/assets/data/zones.json",
     "godot/addons/scene_assembly",
-    "godot/tests/test_scene_assembly_editor.gd"
+    "godot/tests/test_scene_assembly_editor.gd",
+    "godot/tests/test_building_attachments_editor.gd"
   ],
   "verification": [
     "water-building-002",
@@ -52,7 +53,8 @@
     "seabed-scene",
     "visual-sunken-seabed",
     "sunken-city",
-    "editor-scene-assembly"
+    "editor-scene-assembly",
+    "editor-building-attachments"
   ]
 }
 ```
@@ -447,3 +449,49 @@ G07由RoomService拥有床布局/四边OBB净空与安全门路线，World/Groun
 `python3 scripts/check_feature_contracts.py --sync` 实际 **exit1 / 488 issues**；无参数正式检查 **exit1 / 489 issues**，均统计 **46 features / 1073 source assets / 1560 runtime resource hashes**。两次共同有421项runtime hash drift、14项source hash drift、51条断链、SEA-ASSET条款账本集合问题及`plant_authoring/store.gd`候选根`scenes/workshop_plants`缺资源扫描问题；正式检查另有derived feature index stale。因全库错误，sync未写派生索引；不创建空候选目录、不修改其他hash或条款凑绿。SEA-WORLD、SEA-WORKSHOP、SEA-PLANT-EDITOR均无条款/入口错误，不能据此称全库通过。
 
 完整exit与每条issue：`outputs/scene_assembly_review_20261115/contracts_results.json`；原始日志同目录`contracts_sync.log`、`contracts_check.log`。定点13项SHA/bytes一致、其他运行记录及顶层元数据不变；两工坊既有code_paths已覆盖各自桥接文件，未重复登记。本轮HTML本地链接/图片存在性与`git diff --check`通过；未运行浏览器布局验收。未提交、未push、未调用present_files。
+
+## 2026-11-16 工坊新默认与交互调整后的装配回归
+
+归R33–R36，不增加产品插件或FeatureID；本轮只加强 `test_scene_assembly_editor.gd` 的真实GUI输入准备与证据：窗口置顶、实际window_id、源点warp后等两帧、每次独立reset及断言can_drop/drop。保原70条业务断言、增加8条输入断言；建筑/动态树仍走真实ItemList→Control drop→EditorUndoRedoManager链，未用直接insert冒充两次GUI拖放。相关因素为桌面遮挡与输入时序，未做单变量唯一根因证明，不声称OS焦点激活、人工拖放或gizmo手感已验。
+
+最终同批 `/Users/zyq/work/sea-work/verification/20261116-015632-workshop-defaults-delivery-90bc20/report.json` 串行楼房编辑器1453/0、装配78/0、调整内核357/0，import及各项exit0、unexpected_errors=[]。78/0内层报告为同批 `project/outputs/scene_assembly_report.json`，保存/重载/回编/仅目标换版与同源实例变换保护均通过。先前fullsrc无Autoload扫描批529条意外错误、minimal首drop12/1及其他失败保留，不改签历史通过；本次产品装配plugin/drop_surface无diff。
+
+Main、bootstrap/main.gd、project.godot保持当前HEAD，Main SHA256仍 `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`。未在生产Main实际拖入或自动保存，不签WalkArea/航行/潜水/正式登记；当前回归随建筑工坊交付 `outputs/workshop_defaults_review_20261116/index.html`。运行清单仅刷新本轮明确测试字节，不发AssetID。
+
+## 2026-11-16 独立建筑外挂计划与挂载职责承接
+
+保留登记头 `partial`、原code_paths/verification和全部历史；本轮只追加设计承接，不因本节写入未经hook注册的验证名。32type×3condition=96项已冻结于[组件计划](../../../art_source/scenes/building_attachments/v001/component_plan.json)，其正式asset_id全部null、planned_key唯一，不是资产登记表。
+
+| 对应设计条款 | 当前实施状态 | 已知实现 / 待验边界 |
+|---|---|---|
+| SEA-WORLD-R37 | implemented_pending_current_verification | 现有scene_assembly新增attachment_panel/gallery，四分类/搜索/真实缩略图源码已存在；交接时图库condition仍有dropdown，三按钮及少dropdown目标待UI代理落实和实测，不签可用性或缩略图全绿。 |
+| SEA-WORLD-R38 | implemented_pending_current_verification | attachment_surface/controller已有真实三角射线、wall/roof、锚点与逆矩阵补偿；当前点面/拖放/上下文锁定在实施，不以旧Y平面拖放78/0或core逻辑代替本轮editor。 |
+| SEA-WORLD-R39 | implemented_pending_current_verification | controller已写Attachments兄弟层与undo/redo、独立候选、宿主换版提示；当前全部transform保护、陈旧上下文拒绝、失败原子性、重开及真实gizmo尚待当前editor hook执行。房屋core与旧screen仅记录既有diff基线，不由本任务编辑。 |
+| SEA-WORLD-R40 | implemented_pending_current_verification | 独立native生成器声明静态scriptfree/显式256层碰撞/世界派生排除与水下拒绝true；r6仍有脚本错误与字镜像，不签96静态交付、真实碰撞、无功能全子树或正式接入。 |
+
+证据为只读 `/Users/zyq/work/sea-work/verification/20261116-032945-attachments-frozen-r6-1b18e2/report.json`：building-attachments **7712项/10失败，exit1、passed=false**（三类自定义曲面九项闭合失败与F前轴镜像，typed Array proxy脚本异常仍在）；build-attachment-library **96 records、exit0、inner passed=true，但9条SCRIPT ERROR、outer passed=false**；visual-building-attachments **484/0、exit0、13条unexpected、passed=false**。不是合格批次。任务交接时editor尚无hook、未执行；本轮未补跑也未目检新图，不借旧工坊1453/0或装配78/0签外挂。
+
+本任务只写GDD、三个现有feature的spec/ledger、新计划和指定[开发记录](../../development/2026-11-16_building_attachments.md)；不改code/runtime/registry/memory、用户transform或Main，不跑Godot/Blender/runner/contracts。并行内核与UI后续修复须由主线程绑定新源码/报告追加，不追改r6失败史。
+
+## 2026-11-16 r10b最终当前签署（R37–R40）
+
+本节承接最终已完成实现，更新上节pending/未hook的当前结论，r6及中间失败保持原样；登记头全局partial不变，不新增FeatureID。本任务只读报告，不执行引擎/contracts或改code/registry/Blender。
+
+| 对应设计条款 | 当前实施状态 | 当前实测 / 限制 |
+|---|---|---|
+| SEA-WORLD-R37 | implemented_verified_in_scope | 中文四分类、三状态按钮、搜索与真实图库，单击选中保drag源、双击/编辑组件进入编辑，非法文字保输入与状态/参数上下文；当前editor328/0覆盖。 |
+| SEA-WORLD-R38 | implemented_verified_in_scope | 材质cull真实面、双面normaltowardobserver、多脚/背部2mm实际tri薄带profile，12mm外偏/4mm支撑门槛；117case=96+21any另一面actualprofile/foot/collision通过。自动GUI真drag damaged/offset0.03/angle7及墙牌/roof箱surfaceclick；宽屋顶正例、边缘/窄梁/脚洞/邻墙穿透拒绝分列，不用AABB替支点。 |
+| SEA-WORLD-R39 | implemented_verified_in_scope | 输入变更取消arm保输入，selected/hostrev/geometry变stale拒，any跨wall/roof apply拒须reproject；宿主换版后旧Assetfree引用刷新、Attachments兄弟及当前transform保持、提示不auto重投，undo/reference恢复旧节点而非regen。候选hash+JSON重生成，不执行外部候选TSCN。 |
+| SEA-WORLD-R40 | implemented_verified_in_scope | 静态库96冷load+96隔离user重存重载/脚本安全通过，显式256/mask0代理共441、默认15状态。12物理case真实人物0.22半径/1.3高撞实体及脚间可通；细管用小胶囊，不写人物通管。水下禁止true、无Walk/岸线/船/潜水/Main职责，building_class=null与none/none非自动水上建筑。 |
+
+当前最终外层 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`：同一minimal工程串行 **verify-attachment-library12103/0、building-attachments11122/0、editor-building-attachments328/0、editor-scene-assembly78/0、editor-workshop-upgrade1453/0**。导入和各项均exit0，completion=true、unexpected=[]、source_consistent=true，source_changed_during_run=false；生产库322文件前后hash一致。核心NaN负例有JSON warning，不能称零warnings。r9j分开editor/scene只作历史，非最终签署源；这次房屋1453/0/装配78/0是同批实跑，不借旧报告。
+
+当前视觉另绑定r9c `20261116-052700-attachments-v2-support-r9c-a4e161/report.json` **507/0、131PNG**；当前支撑几何与r10b一致，早期八个悬空bug修闭，完整contacts/style/用户艺术未签。GUI是Input.parse_input_event+warp_mouse自动链，矩阵/部分负例及房屋回编用直接调用，不称人工；仅首3D视口，gizmo轴未测，生产Main未运行。8件房屋core与旧screen的冻结文件/hash/diff均保持，Main SHA仍 `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`。
+
+候选Store早期WRITE临时备份产生.tscn-random/ERR_FILE_UNRECOGNIZED=15，当前READ_WRITE+get_path/close修复；Python3 O_NOFOLLOW/O_EXCL原子写、manifest-last和base/id/rev/file真实symlink负例已过。无Python拒绝独立候选导出，但Ctrl+S场景保存不依赖Python。内部embedded_support不是宿主普通clearance，局部例外及未签完整审计见[v002实测补充](../../../art_source/scenes/building_attachments/v002/delivery_validation.json)。用户步骤已追加[spec](spec.md)，审阅[交付页](../../../outputs/building_attachments_review_20261116/index.html)及[开发记录](../../development/2026-11-16_building_attachments.md)。全库sync/check由主线程实跑后另追加，不预填历史数字。
+
+### 主线程最终门禁与交付范围
+
+最终实跑同步 **489 issues / exit1**、无参数正式检查 **490 issues / exit1**，46功能、1105源资产、1873运行资源。新32个BAT AssetID的职责分类为null/none/none且没有分类/主记录/源索引错误；315个明确源码与运行目标SHA/bytes一致，不改其他漂移。仍有421运行hash漂移、14源hash漂移、51历史断链、SEA-ASSET条款集合、候选写入根扫描与派生索引问题；本轮新增 `scenes/workshop_attachments` 是用户首次另存才创建的输出根，被通用res引用扫描当缺输入。未创建空目录或样例凑绿，也不把该条掩饰为已修复，静态保存与真实候选另存已由r10b实测通过。
+
+原始日志与退出码 `/Users/zyq/work/sea-work/building_attachments_release/contracts_{sync,check}.log`、`contracts_results.json`。外层汇总进程exit0仅代表记录完成，不能替代两个内部exit1。主线程实际审阅v2原生八张组件墙、关键支撑近景、最终1280编辑器及房屋装配示例；图库与参数分层、文字正向和原八个悬空缺陷修正可见，不签全部接缝/用户美术/人工手感。交付HTML和两个ZIP真实存在，均CRC与哈希核验；未提交推送、未改Main及冻结8件房屋内核。
