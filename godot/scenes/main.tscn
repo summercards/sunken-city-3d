@@ -120,10 +120,10 @@ process_physics_priority = -100
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.57135, 1.12, 143.89136)
 
 [node name="water_building_001" parent="World/SeaStructures" unique_id=713310082 instance=ExtResource("41_water_building_001")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.07135, 1.12, 143.89136)
+transform = Transform3D(0.7600031, 0, -1.0423506, 0, 1.2899998, 0, 1.0423506, 0, 0.7600031, 171.76233, -8.024703, 160.89743)
 
 [node name="water_building_002" parent="World/SeaStructures" unique_id=815702349 instance=ExtResource("42_water_building_002")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.57135, 1.12, 143.89136)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 190.24971, -24.078953, 159.75792)
 
 [node name="rooftop_ranch" parent="World/SeaStructures" unique_id=1142350009 instance=ExtResource("34_ranch")]
 transform = Transform3D(0.945029, 0, -0.32698637, 0, 1, 0, 0.32698637, 0, 0.945029, -87.471634, -55.92, 6.712494)
