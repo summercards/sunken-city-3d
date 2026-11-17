@@ -107,6 +107,22 @@ static func create(seed_value: int, palette_override: Variant = null, current_re
 		architecture.palette = (palette_override as Dictionary).duplicate(true)
 	return Recipe.normalized(recipe)
 
+static func solar_colors(recipe: Dictionary) -> Dictionary:
+	# Explicit authoring action: remove inherited auto/per-window colors as well as
+	# role overrides, otherwise a manual glass/window override wins over the palette.
+	var result: Dictionary = recipe.duplicate(true)
+	var reference: Dictionary = Recipe.authoring_defaults()
+	result.aging = reference.aging
+	result.architecture.palette = reference.architecture.palette.duplicate(true)
+	result.architecture.shading = reference.architecture.shading.duplicate(true)
+	for field: String in COLOR_FIELDS:
+		result.architecture.window[field] = reference.architecture.window[field].duplicate(true) if reference.architecture.window[field] is Array else reference.architecture.window[field]
+	for scope: String in ["floor_windows", "facade_windows", "window_overrides"]:
+		for key: String in result.architecture[scope]:
+			for field: String in COLOR_FIELDS:
+				result.architecture[scope][key].erase(field)
+	return Recipe.normalized(result)
+
 static func generate_candidates(seed_value: int, palette_override: Variant = null, current_recipe: Dictionary = {}) -> Array[Dictionary]:
 	# 合法域内构造一个方案；非法输入无候选，不在失败后偷偷替换固定模板。
 	var candidate: Dictionary = create(seed_value, palette_override, current_recipe)

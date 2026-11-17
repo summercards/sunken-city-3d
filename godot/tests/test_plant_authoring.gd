@@ -6,6 +6,7 @@ const Geometry = preload("res://src/plant_authoring/geometry.gd")
 const Species = preload("res://src/plant_authoring/species.gd")
 const Session = preload("res://src/plant_authoring/session.gd")
 const Store = preload("res://src/plant_authoring/store.gd")
+const Preview = preload("res://addons/plant_editor/preview.gd")
 const Library = preload("res://src/ambient/vegetation/library.gd")
 var checks := 0
 var failures: Array[String] = []
@@ -41,6 +42,7 @@ func run() -> void:
 		await process_frame
 	test_independent_streams()
 	test_attachments()
+	test_grass_failures()
 	test_session()
 	test_store()
 	test_snapshot_regressions()
@@ -49,7 +51,7 @@ func run() -> void:
 	for path in ["res://src/plant_authoring/session.gd", "res://src/plant_authoring/store.gd", "res://src/plant_authoring/generator.gd", "res://src/plant_authoring/geometry.gd", "res://src/plant_authoring/leaf.gdshader"]:
 		var source := FileAccess.get_file_as_string(path)
 		check(not source.contains("global_shader_parameter_set") and not source.contains("global uniform") and not source.contains("building_workshop") and not source.contains("/workshop/"), "作者层不写 global 或依赖建筑层 " + path)
-	for section in ["recipe", "camphor", "maple", "birch", "streams", "attachments", "session", "store", "snapshot"]:
+	for section in ["recipe", "camphor", "maple", "birch", "streams", "attachments", "grass_failures", "session", "candidate_validation", "preview_candidate", "store", "snapshot"]:
 		check(completed_sections.has(section), "专项完整执行而非脚本错误后跳过 " + section)
 	var report := {"suite": "plant-authoring", "checks": checks, "failures": failures, "completed_sections": completed_sections,
 		"artifacts": artifact_paths, "engine": Engine.get_version_info(), "rendering_method": RenderingServer.get_current_rendering_method(),
@@ -300,6 +302,91 @@ func test_attachments() -> void:
 	if off.ok: off.root.free()
 	completed_sections.append("attachments")
 
+func test_grass_failures() -> void:
+	var unknown := "__plant_authoring_missing_grass__"
+	check(Library.mesh(unknown) == null and not Library._meshes.has(unknown), "未知草键安全返回 null 且不缓存失败")
+	var entries := Library.catalog()
+	var original_catalog := entries.duplicate(true)
+	for entry in [{}, {"model": 1}, {"model": "res://__plant_authoring_missing_grass__.glb"}, {"model": Geometry.PALETTE_PATH}]:
+		Library._catalog = {unknown: entry}
+		check(Library.mesh(unknown) == null and not Library._meshes.has(unknown), "缺路径或错类型资源安全返回 null", entry)
+	Library._catalog = entries
+	check(Library.catalog() == original_catalog, "资源负例恢复原 catalog")
+
+	var recipe := small_recipe()
+	var session := Session.new()
+	var loaded := session.load_recipe(recipe)
+	check(loaded.ok, "缺草事务测试先建立成功模型", loaded.reason)
+	if not loaded.ok: return
+	var before := session.export_draft()
+	var state := session.state_fingerprint()
+	var seen := [0]
+	session.changed.connect(func() -> void: seen[0] += 1)
+	var candidate := recipe.duplicate(true)
+	candidate.grass_enabled = true
+	candidate.grass_count = 2
+	var key: String = candidate.grass_asset
+	var had_cached: bool = Library._meshes.has(key)
+	var cached: Variant = Library._meshes.get(key)
+	var shared := Library.mesh(key)
+	check(shared != null and Library.mesh(key) == shared, "成功草资源仍返回同一共享网格")
+	for invalid in [null, BoxMesh.new(), ArrayMesh.new()]:
+		Library._meshes[key] = invalid
+		var built := Generator.build(candidate)
+		check(not built.ok and built.root == null and built.branches.is_empty() and built.stats.is_empty() and String(built.reason).contains(key), "必需草失败不返回残缺模型或成功统计", built.reason)
+		if built.ok: built.root.free()
+		var failed := session.preview_candidate(candidate)
+		check(not failed.ok and session.build().root == loaded.root and is_instance_valid(loaded.root), "缺草候选不替换或释放原成功模型", failed.reason)
+		check(session.export_draft() == before and session.state_fingerprint() == state and not session.can_undo() and not session.can_redo() and not session.is_dirty() and seen[0] == 0, "缺草失败不提交配方/历史/dirty/信号")
+		var parent := Node3D.new()
+		check(not Generator._build_grass(parent, candidate, null).is_empty() and parent.get_child_count() == 0, "草构建端口返回错误且不追加节点")
+		parent.free()
+	Library._meshes[key] = null
+	for optional in [recipe, candidate.merged({"grass_count": 0}, true)]:
+		var built := Generator.build(optional)
+		check(built.ok and built.root.get_node("Grass").get_child_count() == 0, "草关闭或数量为零时不要求草资源", built.reason)
+		if built.ok: built.root.free()
+	var no_uv_arrays := triangle_mesh().surface_get_arrays(0)
+	no_uv_arrays[Mesh.ARRAY_TEX_UV] = null
+	var no_uv := ArrayMesh.new()
+	no_uv.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, no_uv_arrays)
+	var lines := ArrayMesh.new()
+	var line_arrays: Array = []
+	line_arrays.resize(Mesh.ARRAY_MAX)
+	line_arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array([Vector3.ZERO, Vector3.UP])
+	line_arrays[Mesh.ARRAY_TEX_UV] = PackedVector2Array([Vector2.ZERO, Vector2.ONE])
+	lines.add_surface_from_arrays(Mesh.PRIMITIVE_LINES, line_arrays)
+	for invalid in [no_uv, lines]:
+		Library._meshes[key] = invalid
+		var built := Generator.build(candidate)
+		check(not built.ok and built.root == null and not built.reason.is_empty(), "缺 UV 或非三角草网格整树拒绝", built.reason)
+		if built.ok: built.root.free()
+	if had_cached:
+		Library._meshes[key] = cached
+	else:
+		Library._meshes.erase(key)
+	check((Library._meshes.get(key) == cached) if had_cached else not Library._meshes.has(key), "负例后精确恢复原共享草缓存状态")
+	loaded.root.free()
+
+	var valid_arrays := triangle_mesh().surface_get_arrays(0)
+	check(Generator._grass_surface_error(valid_arrays).is_empty(), "合法草三角数组通过预检")
+	check(not Generator._grass_surface_error([]).is_empty(), "草数组长度错误拒绝")
+	for pair in [[Mesh.ARRAY_VERTEX, null], [Mesh.ARRAY_VERTEX, PackedVector2Array()], [Mesh.ARRAY_VERTEX, PackedVector3Array()], [Mesh.ARRAY_TEX_UV, null], [Mesh.ARRAY_TEX_UV, PackedVector2Array([Vector2.ZERO])], [Mesh.ARRAY_INDEX, PackedInt32Array([0, 1])], [Mesh.ARRAY_INDEX, PackedInt32Array([-1, 1, 2])], [Mesh.ARRAY_INDEX, PackedInt32Array([0, 1, 3])], [Mesh.ARRAY_INDEX, PackedVector3Array()], [Mesh.ARRAY_NORMAL, PackedVector2Array()]]:
+		var malformed := valid_arrays.duplicate(true)
+		malformed[pair[0]] = pair[1]
+		check(not Generator._grass_surface_error(malformed).is_empty(), "畸形草数组拒绝且不访问越界", pair[0])
+	var unindexed := valid_arrays.duplicate(true)
+	unindexed[Mesh.ARRAY_INDEX] = null
+	check(Generator._grass_surface_error(unindexed).is_empty(), "合法非索引三角数组保持兼容")
+	unindexed[Mesh.ARRAY_VERTEX].append(Vector3.ONE)
+	unindexed[Mesh.ARRAY_TEX_UV].append(Vector2.ONE)
+	check(not Generator._grass_surface_error(unindexed).is_empty(), "非索引顶点非三倍数拒绝")
+	for field in [Mesh.ARRAY_VERTEX, Mesh.ARRAY_NORMAL, Mesh.ARRAY_TEX_UV]:
+		var nonfinite := valid_arrays.duplicate(true)
+		nonfinite[field][0].x = NAN
+		check(not Generator._grass_surface_error(nonfinite).is_empty(), "草顶点/法线/UV 非有限数拒绝", field)
+	completed_sections.append("grass_failures")
+
 func test_session() -> void:
 	var session := Session.new()
 	var loaded := session.load_recipe(small_recipe())
@@ -359,6 +446,8 @@ func test_session() -> void:
 	remember(normalized)
 	check(normalized.ok and session.snapshot() == Recipe.normalized(old) and not session.can_undo() and not session.is_dirty(), "load_recipe 归一化旧文档")
 	test_session_state_regressions()
+	test_candidate_validation()
+	test_preview_candidate_preparation()
 	for owned in session_roots:
 		if is_instance_valid(owned): owned.free()
 	session_roots.clear()
@@ -441,6 +530,139 @@ func test_session_state_regressions() -> void:
 	invalid_a.height = -1.0
 	invalid_b.height = -2.0
 	check(Session.canonical_state_fingerprint(invalid_a, {}) != Session.canonical_state_fingerprint(invalid_b, {}), "非法待应用配方不坍缩为同一个空指纹")
+
+func _candidate_session_state(session: Session) -> Dictionary:
+	return {"snapshot": session.snapshot(), "context": session.authoring_context(), "state": session.state_fingerprint(),
+		"draft": session.export_draft(), "undo": session._undo.duplicate(true), "redo": session._redo.duplicate(true),
+		"revision": session._revision, "merge": session._merge_fingerprint, "last_build": session._last_build.duplicate(true),
+		"dirty": [session.is_dirty(), session.is_recipe_dirty(), session.is_context_dirty()]}
+
+func test_candidate_validation() -> void:
+	for operation in ["candidate", "new", "load", "restore", "undo", "redo", "build"]:
+		var session := Session.new()
+		var displayed := Node3D.new()
+		if operation != "build":
+			remember(session.load_recipe(small_recipe()))
+			var binding := {"host_path": "res://outputs/plant_editor/host/building.tscn", "matrix": Session.HostAttachment.encode_transform(Transform3D.IDENTITY), "opening_id": "opening_00", "enabled": true}
+			remember(session.preview_candidate_with_context(session.snapshot(), {"host_binding": binding}))
+			remember(session.apply_patch({"height": session.snapshot().height + 0.1}))
+			remember(session.apply_patch({"height": session.snapshot().height + 0.1}))
+			check(session.undo(), operation + " 拒绝夹具同时保留 undo/redo")
+			remember(session.build())
+			displayed.add_child(session.build().root)
+		var seen := [0]
+		session.changed.connect(func() -> void: seen[0] += 1)
+		var before := _candidate_session_state(session)
+		var next := session.snapshot()
+		next.height += 0.3
+		var context := session.authoring_context()
+		if not context.host_binding.is_empty(): context.host_binding.matrix[12] += 0.4
+		var draft := session.export_draft()
+		draft.recipe = next.duplicate(true)
+		draft.authoring_context = context.duplicate(true)
+		var action: Callable
+		var target_recipe := next
+		match operation:
+			"candidate": action = func() -> Dictionary: return session.preview_candidate_with_context(next, context)
+			"new":
+				action = func() -> Dictionary: return session.new_document("maple")
+				target_recipe = Recipe.defaults("maple")
+			"load": action = func() -> Dictionary: return session.load_recipe(next)
+			"restore": action = func() -> Dictionary: return session.restore_draft(draft)
+			"undo", "redo":
+				var transaction := session.peek_history(operation)
+				target_recipe = transaction.state.recipe
+				action = func() -> Dictionary: return session.commit_history(transaction)
+			"build":
+				action = session.build
+				target_recipe = session.snapshot()
+		var rejected_roots: Array[WeakRef] = []
+		session.candidate_validator = func(generated: Dictionary) -> Dictionary:
+			check(_candidate_session_state(session) == before and seen[0] == 0, operation + " validator 在任何状态写入之前执行")
+			check(generated.root.get_parent() == null and generated.root != session._last_build.get("root"), operation + " 校验对象为独立新候选")
+			rejected_roots.append(weakref(generated.root))
+			return {"ok": false, "reason": "注入风准备拒绝"}
+		for attempt in 2:
+			var failed: Dictionary = action.call()
+			check(not failed.ok and failed.reason == "注入风准备拒绝" and failed.root == null and failed.branches.is_empty() and failed.stats.is_empty(), operation + " 返回结构化拒绝且不泄漏成功数据")
+			check(rejected_roots.size() == attempt + 1 and rejected_roots.back().get_ref() == null, operation + " 每次拒绝释放独立候选 root")
+			check(_candidate_session_state(session) == before and seen[0] == 0, operation + " 拒绝保持快照/上下文/双历史/版本/保存基线/dirty/信号/lastroot")
+		if operation != "build":
+			var cached := session.build()
+			check(is_instance_valid(cached.root) and cached.root == before.last_build.root and cached.root.get_parent() == displayed, operation + " 拒绝未释放或移除当前显示 cache")
+			check(session.preview_candidate(session.snapshot()).root == cached.root and rejected_roots.size() == 2, operation + " 有效 cache 查询不重新校验或生成")
+		session.candidate_validator = func(_generated: Dictionary) -> Dictionary: return {"ok": true, "reason": ""}
+		var accepted: Dictionary = action.call()
+		remember(accepted)
+		check(accepted.ok and session.fingerprint() == Recipe.fingerprint(target_recipe), operation + " 恢复 validator 后原操作同一 recipe 成功")
+		check(seen[0] == (0 if operation == "build" else 1), operation + " 仅成功提交发一次 changed，build 不发")
+		if operation == "candidate":
+			check(session.authoring_context() == context, "拒绝后重试同时提交原目标上下文")
+			if accepted.ok: displayed.add_child(accepted.root)
+			var calls := [0]
+			session.candidate_validator = func(_generated: Dictionary) -> Dictionary:
+				calls[0] += 1
+				return {"ok": false, "reason": "缓存不应进入校验"}
+			var moved := session.authoring_context()
+			moved.host_binding.matrix[12] += 0.1
+			var reused := session.preview_candidate_with_context(session.snapshot(), moved)
+			check(reused.ok and reused.root == accepted.root and session.undo() and session.redo() and calls[0] == 0, "纯上下文编辑及历史保持有效 cache，不校验或释放已显示模型")
+		displayed.free()
+	completed_sections.append("candidate_validation")
+
+func test_preview_candidate_preparation() -> void:
+	var preview := Preview.new()
+	# 不进入场景树；仅构造 mount 容器，避免此处启动 GUI 或导航生命周期。
+	preview._plant_space = Node3D.new()
+	preview.add_child(preview._plant_space)
+	preview._highlight = MeshInstance3D.new()
+	preview.add_child(preview._highlight)
+	var recipe := small_recipe()
+	var old := Generator.build(recipe)
+	check(preview.set_build(old), "预览准备夹具安装旧模型")
+	var old_materials := preview.materials()
+	var old_branches: Array = preview.branches.duplicate(true)
+	recipe.height += 0.3
+	var candidate := Generator.build(recipe)
+	var store := Store.new()
+	var static_before := store._geometry_snapshot(candidate.root)
+	var sources: Array[Mesh] = []
+	var source_arrays: Array = []
+	for visual: MeshInstance3D in candidate.root.find_children("*", "MeshInstance3D", true, false):
+		sources.append(visual.mesh)
+		var surfaces: Array = []
+		for surface in visual.mesh.get_surface_count(): surfaces.append(visual.mesh.surface_get_arrays(surface))
+		source_arrays.append(surfaces)
+	var prepared := preview.prepare_candidate(candidate)
+	check(prepared.ok and candidate.root.get_parent() == null and preview.model == old.root and is_instance_valid(old.root), "prepare_candidate 不挂载候选也不替换或释放旧模型")
+	check(preview.materials() == old_materials and preview.branches == old_branches and preview.local_time == 0.0, "prepare_candidate 不改当前材质列表/分枝/时钟")
+	check(store._verify_wind_geometry(static_before, store._geometry_snapshot(candidate.root)).is_empty(), "风准备只增风权重，保留静态几何/材质参数及外链数据")
+	for source_index in sources.size():
+		for surface in sources[source_index].get_surface_count():
+			check(sources[source_index].surface_get_arrays(surface) == source_arrays[source_index][surface], "prepare_candidate 不改原始静态 mesh 数据")
+	var meshes: Array[Mesh] = []
+	for visual: MeshInstance3D in candidate.root.find_children("*", "MeshInstance3D", true, false): meshes.append(visual.mesh)
+	var repeated := preview.prepare_candidate(candidate)
+	check(repeated.ok and repeated.materials == prepared.materials, "重复 prepare_candidate 收集同一批材质")
+	var index := 0
+	for visual: MeshInstance3D in candidate.root.find_children("*", "MeshInstance3D", true, false):
+		check(visual.mesh == meshes[index], "重复 prepare_candidate 保持 mesh 身份")
+		index += 1
+	check(preview.set_build(candidate) and preview.model == candidate.root and not is_instance_valid(old.root), "set_build 复用准备逻辑后才替换并释放旧模型")
+	index = 0
+	for visual: MeshInstance3D in candidate.root.find_children("*", "MeshInstance3D", true, false):
+		check(visual.mesh == meshes[index], "set_build 重复准备仍不复制 mesh")
+		index += 1
+	for reject_at in ["root", "mesh"]:
+		var rejected := Generator.build(recipe)
+		var node: Node = rejected.root if reject_at == "root" else rejected.root.find_children("*", "MeshInstance3D", true, false)[0]
+		node.set_meta("plant_wind_prepare_rejected", "注入拒绝 " + reject_at)
+		var failed := preview.prepare_candidate(rejected)
+		check(not failed.ok and failed.reason.contains("注入拒绝 " + reject_at), "prepare_candidate 检查拒绝 meta " + reject_at)
+		check(not preview.set_build(rejected) and preview.model == candidate.root and is_instance_valid(candidate.root) and rejected.root.get_parent() == null, "set_build 拒绝保持旧显示且不挂载候选 " + reject_at)
+		rejected.root.free()
+	preview.free()
+	completed_sections.append("preview_candidate")
 
 func test_store() -> void:
 	var store := Store.new()

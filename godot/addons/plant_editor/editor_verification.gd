@@ -24,6 +24,14 @@ var _source_snapshot: Dictionary = {}
 static func run(plugin: EditorPlugin) -> void:
 	if not Engine.is_editor_hint() or not OS.get_cmdline_user_args().has("--plant-editor-verify"):
 		return
+	if OS.get_cmdline_user_args().has("--workshop-switch-verify"):
+		var switch_script: Script = load("res://addons/plant_editor/switch_verification.gd") as Script
+		if switch_script == null:
+			printerr("[workshop-switch] 1 checks, 1 failures: verifier unavailable")
+			plugin.get_tree().quit(1)
+			return
+		await switch_script.run(plugin)
+		return
 	var verifier = load("res://addons/plant_editor/editor_verification.gd").new()
 	await verifier._execute(plugin)
 
@@ -67,6 +75,7 @@ func _execute(plugin: EditorPlugin) -> void:
 	_check("顶部独立主屏名称", str(_plugin._get_plugin_name()) == "树木工坊")
 	_check("独立 World3D", _screen.preview.viewport.own_world_3d and _screen.preview.viewport.world_3d != _tree.root.world_3d)
 	_check("主屏真实可见", _screen.is_visible_in_tree())
+	await _test_preview_navigation()
 	await _test_species_and_images()
 	await _test_sliders_and_failure()
 	var leaf_completed: Array[String] = []
@@ -93,7 +102,9 @@ func _execute(plugin: EditorPlugin) -> void:
 	for path in ["res://addons/plant_editor/plugin.gd", "res://addons/plant_editor/editor_screen.gd", "res://addons/plant_editor/preview.gd"]:
 		var source: String = FileAccess.get_file_as_string(path)
 		_check("预览不写 shader global " + path.get_file(), not source.contains("global_shader_parameter_set"))
-		_check("主屏不引用房屋或启动游戏 " + path.get_file(), not source.contains("res://addons/building_workshop/") and not source.contains("res://src/bootstrap/") and not source.contains("add_autoload_singleton"))
+		# 草稿IO隔离门禁只读检查bootstrap目录是否存在，不等于加载或启动游戏。
+		var loads_bootstrap: bool = source.contains('load("res://src/bootstrap/') or source.contains("load('res://src/bootstrap/")
+		_check("主屏不引用房屋或启动游戏 " + path.get_file(), not source.contains("res://addons/building_workshop/") and not loads_bootstrap and not source.contains("add_autoload_singleton"))
 	_check("共享 PNG 哈希未变", _shared_hash == FileAccess.get_sha256(Screen.PALETTE.resource_path))
 	_check("编辑场景未打开或修改", EditorInterface.get_edited_scene_root() == _edited_root and _scene_state(_edited_root) == _edited_state)
 	if is_instance_valid(_building):
@@ -139,6 +150,62 @@ func _legacy_document(screen: Control, species: String) -> Dictionary:
 		screen._accept_result(result, true)
 		screen._sync_controls()
 	return result
+
+func _nav_mouse(point: Vector2, button: MouseButton, pressed: bool) -> void:
+	Input.warp_mouse(point)
+	var event := InputEventMouseButton.new()
+	event.position = point
+	event.global_position = point
+	event.button_index = button
+	event.pressed = pressed
+	Input.parse_input_event(event)
+	await _frames(2)
+
+func _test_preview_navigation() -> void:
+	var preview = _screen.preview
+	# Editor startup import dialog owns mouse focus until the initial scan completes.
+	for attempt in 1200:
+		if not EditorInterface.get_resource_filesystem().is_scanning():
+			break
+		await _frames(1)
+	await _tree.create_timer(1.0).timeout
+	var surface: Control = preview._input_surface
+	_check("预览独立输入面", surface.mouse_filter == Control.MOUSE_FILTER_STOP and preview._surface.mouse_filter == Control.MOUSE_FILTER_IGNORE)
+	for index in 4:
+		var button: Button = preview._tools.get_child(index)
+		await _nav_mouse(button.get_global_rect().get_center(), MOUSE_BUTTON_LEFT, true)
+		await _nav_mouse(button.get_global_rect().get_center(), MOUSE_BUTTON_LEFT, false)
+		_check("GUI视图按钮点击仍可见 " + button.text, button.is_visible_in_tree() and not button.get_global_rect().intersects(surface.get_global_rect()))
+		_check("GUI按钮实际切换投影 " + button.text, preview.camera.projection == (Camera3D.PROJECTION_ORTHOGONAL if index < 2 else Camera3D.PROJECTION_PERSPECTIVE))
+		await _capture("navigation_after_button_%d" % index, EditorInterface.get_base_control().get_viewport())
+	var point: Vector2 = surface.get_global_rect().get_center()
+	for button in [MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_LEFT]:
+		var before: Vector3 = preview.target
+		var old_yaw: float = preview.yaw
+		await _nav_mouse(point, button, true)
+		var motion := InputEventMouseMotion.new()
+		motion.position = point + Vector2(40, 20)
+		motion.global_position = motion.position
+		motion.relative = Vector2(40, 20)
+		motion.button_mask = 1 << (button - 1)
+		Input.parse_input_event(motion)
+		await _frames(2)
+		await _nav_mouse(motion.position, button, false)
+		_check("GUI导航实际改变相机 %d" % button, not preview.target.is_equal_approx(before) if button == MOUSE_BUTTON_MIDDLE else not is_equal_approx(preview.yaw, old_yaw))
+	await _capture("navigation_after_pan_orbit", EditorInterface.get_base_control().get_viewport())
+	var old_distance: float = preview.distance
+	await _nav_mouse(point, MOUSE_BUTTON_WHEEL_UP, true)
+	await _nav_mouse(point, MOUSE_BUTTON_WHEEL_UP, false)
+	_check("GUI滚轮缩放", preview.distance < old_distance)
+	preview.select_branch("")
+	var key := InputEventKey.new()
+	key.keycode = KEY_F
+	key.pressed = true
+	Input.parse_input_event(key)
+	await _frames(2)
+	key.pressed = false
+	Input.parse_input_event(key)
+	_check("GUI F适配回模型", preview.target.is_equal_approx((preview.model.global_transform * preview._bounds(preview.model)).get_center()))
 
 func _test_species_and_images() -> void:
 	var fingerprints: Array[String] = []
@@ -1157,6 +1224,7 @@ func _test_fixed_wind_frames(completed: Array[String]) -> void:
 	completed.append("wind")
 
 func _test_species_wind_frames(species: String, sampled: Array[String], mode: String = "geometry") -> void:
+	print("[plant-editor-stage] wind ", species, "/", mode, " build")
 	if mode == "geometry":
 		_legacy_document(_screen, species)
 	else:
@@ -1171,9 +1239,12 @@ func _test_species_wind_frames(species: String, sampled: Array[String], mode: St
 	_screen.controls.grass_enabled.button_pressed = false
 	_screen.controls.vine_enabled.button_pressed = false
 	_screen.flush_pending()
+	print("[plant-editor-stage] wind ", species, "/", mode, " save")
 	var saved: Dictionary = _screen.save_animated()
+	print("[plant-editor-stage] wind ", species, "/", mode, " saved")
 	if not _check("确定风帧使用真实保存的动态旁车", bool(saved.get("ok", false)), str(saved.get("reason", ""))): return
 	_check_export_bundle(saved, true)
+	print("[plant-editor-stage] wind ", species, "/", mode, " bundle checked")
 	var packed = ResourceLoader.load(saved.animated_scene_path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
 	if not _check("风旁车可实例化采样", packed != null): return
 	var model: Node3D = packed.instantiate()
@@ -1188,6 +1259,7 @@ func _test_species_wind_frames(species: String, sampled: Array[String], mode: St
 	var geometry = _mesh_hash(model)
 	var color_data = _wind_color_data(model)
 	var clock: float = _screen.preview.local_time
+	print("[plant-editor-stage] wind ", species, "/", mode, " sampling")
 	var a = await _sample_wind_png(model, 0.0, prefix + "wind_t0000")
 	var b = await _sample_wind_png(model, 2.75, prefix + "wind_t0275")
 	_check("风两时刻真实 PNG 像素可见变化 " + species, _pixel_difference(a, b) > 20, "变化像素 %d" % _pixel_difference(a, b))

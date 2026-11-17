@@ -60,6 +60,7 @@
     "workshop-architecture",
     "workshop-union",
     "editor-workshop-upgrade",
+    "editor-workshop-switch",
     "workshop-random",
     "editor-scene-assembly",
     "workshop-adjustment"
@@ -575,3 +576,27 @@ R89–R91旧最终UI1453/0与装配78/0保持原历史签署，不拿来冒充32
 最终 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json` 同一minimal工程串行：当前房屋1453/0、旧装配78/0、外挂editor328/0、core11122/0、库12103/0；import/五项exit0，completion=true、unexpected=[]、source_consistent=true。1453/0是本次实际回归，不借旧通过代签；GUI自动Input.parse+warp非人工，房屋打开/保存部分直接桥接调用，首视口/gizmo未测与生产Main未运行边界保留。Main SHA `f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`保持。
 
 本节更新上节pending，旧r6失败不改；全局partial保持。文档操作没有写code/registry/source_blend或运行contracts/引擎。[当前v002测量与局部例外](../../../art_source/scenes/building_attachments/v002/delivery_validation.json) · [使用步骤与职责](../world/spec.md) · [最终开发记录](../../development/2026-11-16_building_attachments.md)。完整艺术/contacts、性能/商业权属、正式Main/地图接入及全工程门禁仍未签，主线程后补真实sync/check数字。
+
+## 2026-11-17 预览恢复与导航（R17、R18）
+
+本轮用户单独授权修复旧screen/preview交互，不属于前轮外挂的房屋冻结范围；几何内核、Store、配方和用户摆位未改。实施包括可见布局后首次取景、恢复失败不伪报成功、无效根保留原预览、中键旋转/Shift平移、右键环视+WASD/QE飞行、Shift加速、F聚焦选件/无选择整栋及显示整栋按钮。隐藏/失焦/框外松键清理导航，实时同楼编辑保持镜头。
+
+当前 `../sea-work/verification/20261117-154700-workshop-preview-release-3216b8/report.json`：真实editor/import/runner均exit0，1474检查/0失败、completion=true、unexpected=[]、source_consistent=true、source_changed_during_run=false；三个改动GDScript与隔离快照字节一致。隐藏重建后直接嵌入viewport前景像素断言通过，图 `project/outputs/workshop_live_preview_recovered.png`；已目检同代码前轮该图可见完整建筑。新增导航部分直接handler/端口验证，不签人工物理输入全链。原用户进程截图唯一根因未复现，生命周期风险不冒称唯一原因。
+
+前轮1453/2失败、1471/0但依赖脚本错误、1474/0但依赖脚本错误、source_changed中间批原样保留，runner已补齐attachments→scene_assembly→plant依赖。全库sync exit1/539 issues，check exit1/540 issues，既有哈希漂移/索引失败不批量改写；全局partial不变。main.tscn与HEAD规范化内容一致，无场景摆位修改。生产Main、跨平台/原用户草稿冷启、完整手工输入、性能/艺术终验未执行。详见[开发记录](../../development/2026-11-17_workshop_preview_navigation.md)。
+
+## 2026-11-17 随机颜色修订（R84/R89）
+
+用户要求随机建筑全部沿用阳光房配色，不随机窗玻璃/窗框。编辑器随机事务提交前显式应用纯 `RandomRecipe.solar_colors`，锁完整手动角色色板、清旧auto与各窗作用域颜色、保几何；shading/aging同阳光房默认，手动编辑/旧文件保持，成功仍单次undo，取消/失败不动原房。未改Main/公共材质/PNG。
+
+core `../sea-work/verification/20261117-160131-workshop-solar-colors-core-final-6fe2fe/report.json` 为17851/0、exit0。首轮17851/1为新增立面几何夹具与通用audit全局尺寸前提冲突，修夹具不放宽断言。editor首轮1499/0但捕获并行plant preview未完成源码的parse错误，整批不签通过；最终稳定editor `../sea-work/verification/20261117-161422-workshop-solar-delivery-4825fe/report.json` 为1499/0，import/editor/runner均exit0、unexpected=[]、source_consistent=true、source_changed_during_run=false；阳光房色板及真实窗/框UV、同seed、撤销/重做/失败/取消通过。本轮全库sync543项、check544项问题，均exit1，保留既有漂移/索引问题，未批量改哈希。详见[本轮记录](../../development/2026-11-17_workshop_solar_random.md)。
+
+## 2026-11-17 双工坊切换生命周期深检与修复
+
+承接R02/R11/R17/R18，不改房屋几何、Store、随机配色或Main摆位。隐藏停参数Timer/结束滑块合并，保留pending/failed/目标作用域；返回只调度未尝试输入，显式应用仍可重试失败。重复激活幂等。恢复在候选Session生成成功后提交，复用同次root；recovery坏JSON/读失败/恢复失败锁住原文件写入。主屏重建保持active，旧preview只幂等补焦点。
+
+当前真实专项 `/Users/zyq/work/sea-work/verification/20261117-193911-workshop-switch-serial-r5-1b3255/report.json`：**editor-workshop-switch 336/0、import/editor/runner exit0、completion=true、unexpected_errors=[]**。不手调显隐，用真实顶部标签点击往返，检查实际面积、嵌入像素、参数隐藏不构建/返回一次、失败不重试、滑块事务、滚轮拖动、active rebuild、房屋坏JSON及非法配方草稿真实写入正反对照。8张PNG，已目检房屋active_rebuild整屏及树模拟旧结构迁移整屏；模型/导航栏可见，无重复栏。树迁移图是导航放大后近景裁切，不冒称整树完整入镜。
+
+早批保留：183249首次标签焦点/输入时序12/3 exit1；184616虽大部通过但等待未请求draw触发内部期限283/3、退出-6，非合格；185501为JSON数字字典直接比较正对照336/2、exit1，已改为规范指纹；185618并发GUI与扫描阻塞5/1、exit1。此后GUI串行。完整editor与当前源一致性、全库contracts及未测边界见[本轮记录](../../development/2026-11-17_workshop_switch_deep_check.md)，不借旧1499/0签当前。真实热重载、跨进程原用户草稿恢复、物理按住跨标签、全平台/性能未签。
+
+最终当前源码回归 `20261117-201128-workshop-switch-integration-accepted-8cf925`：房屋1499/0、装配159/0，import/两项/runner均exit0、completion=true、unexpected=[]、source_consistent=true、source_changed_during_run=false。树完整另为 `20261117-200321-workshop-switch-tree-accepted-412775` 2289/0、exit0。两工坊及装配/内核产品与隔离快照一致，main.tscn/project.godot无diff、git diff --check exit0；14条明确目标运行字节登记一致，其他漂移未刷新。最终全库sync540/check541 issues、均exit1，46功能/1105源/1876运行；本轮14目标无漂移，原始日志见深检记录。其他资产/断链/输出根扫描问题不批量重签，不将功能通过扩大为全库绿。

@@ -261,3 +261,7 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 6. 场景用Ctrl+S手动保存。独立候选“保存新修订”依赖Python3原子O_NOFOLLOW/O_EXCL目录操作、manifest最后提交；缺Python3清楚拒绝候选保存，但场景Ctrl+S不依赖Python3。打开候选只做hash+JSON重生成，不执行外部TSCN。
 
 最终同一minimal工程串行报告 `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`：制作库12103/0、core11122/0、外挂editor328/0、旧装配78/0、房屋1453/0；import/五项exit0、completion=true、unexpected=[]、source_consistent=true，生产322文件hash不变。核心有NaN负例JSON警告，不称零warnings。r9j分开批次不再作最终证据。真实GUI为Input.parse+warp自动事件，117矩阵/部分负例为直接调用；仅首视口、gizmo轴未测，生产Main未运行。当前视觉另用r9c507/0与131PNG，不等于用户艺术终审或全接缝审计；内部embedded_support与功能锥/倒角例外见ASSET当前补充。审阅与下载见[交付页](../../../outputs/building_attachments_review_20261116/index.html)。全库contracts由主线程后续实跑，本任务不执行。
+
+## 2026-11-17 工坊桥接生命周期（R35、R36细化）
+
+场景装配按plugin与screen双实例身份维护回编信号；主屏重建、工坊禁用/启用后须移除旧连接并重新发现，不能永久持有已释放screen。screen/plugin退出只取消其对应pending/binding，其他工坊即使token相同也不能串绑；陈旧回调不得换版。相关节点进入树合并延迟刷新，请求前再检查，不每帧扫描全树。装配卸载断开树监听和原始信号源，取消排队刷新。此为原R35薄桥接加固，不改变Placement用户transform、保存时只换Asset或静动态旁车边界。

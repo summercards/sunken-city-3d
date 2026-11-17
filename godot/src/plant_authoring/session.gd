@@ -18,6 +18,8 @@ var _saved_context: Dictionary = {"host_binding": {}}
 var _last_build: Dictionary = {}
 var _merge_fingerprint := ""
 var _revision := 0
+# 同步候选端口：接收生成结果，返回 {ok, reason}；不挂载 root，也不改 Session。
+var candidate_validator: Callable = Callable()
 
 func _init(species: String = "camphor") -> void:
 	var selected := species if Recipe.SPECIES.has(species) else "camphor"
@@ -92,7 +94,7 @@ func preview_candidate_with_context(candidate: Dictionary, context: Dictionary, 
 		return build()
 	var generated := _build_candidate(next)
 	if not _successful(generated):
-		return _reject_build(generated)
+		return generated
 	if not merge_history:
 		_undo.push_back(state_snapshot())
 	_redo.clear()
@@ -107,13 +109,24 @@ func preview_candidate_with_context(candidate: Dictionary, context: Dictionary, 
 func _build_candidate(next: Dictionary) -> Dictionary:
 	if Recipe.fingerprint(next) == fingerprint() and _successful(_last_build):
 		return _last_build
-	return Generator.build(next)
+	return _generate_candidate(next)
+
+func _generate_candidate(next: Dictionary) -> Dictionary:
+	var generated := Generator.build(next)
+	if not _successful(generated):
+		return _reject_build(generated)
+	if candidate_validator.is_valid():
+		var validation: Dictionary = candidate_validator.call(generated)
+		if not bool(validation.get("ok", false)):
+			generated.reason = str(validation.get("reason", "候选校验失败"))
+			return _reject_build(generated)
+	return generated
 
 func build() -> Dictionary:
 	if not _successful(_last_build):
-		var generated := Generator.build(snapshot())
+		var generated := _generate_candidate(snapshot())
 		if not _successful(generated):
-			return _reject_build(generated)
+			return generated
 		_last_build = generated
 	return _result(_last_build)
 
@@ -130,9 +143,9 @@ func _replace_document(data: Dictionary, saved: bool) -> Dictionary:
 	var reason := Recipe.validate(next)
 	if not reason.is_empty():
 		return _failure(reason)
-	var generated := Generator.build(next)
+	var generated := _generate_candidate(next)
 	if not _successful(generated):
-		return _reject_build(generated)
+		return generated
 	_recipe = next
 	_authoring_context = {"host_binding": {}}
 	_saved_context = authoring_context()
@@ -177,7 +190,7 @@ func commit_history(transaction: Dictionary) -> Dictionary:
 	var next: Dictionary = expected.state
 	var generated := _build_candidate(next.recipe)
 	if not _successful(generated):
-		return _reject_build(generated)
+		return generated
 	var source := _undo if direction == "undo" else _redo
 	var target := _redo if direction == "undo" else _undo
 	target.push_back(state_snapshot())
@@ -245,9 +258,9 @@ func restore_draft(draft: Dictionary) -> Dictionary:
 	var reason := Recipe.validate(next)
 	if not reason.is_empty():
 		return _failure(reason)
-	var generated := Generator.build(next)
+	var generated := _generate_candidate(next)
 	if not _successful(generated):
-		return _reject_build(generated)
+		return generated
 	_recipe = next
 	_authoring_context = _normalized_context(context)
 	_saved_context = _normalized_context(saved_context)
@@ -290,7 +303,7 @@ func _successful(generated: Dictionary) -> bool:
 
 func _reject_build(generated: Dictionary) -> Dictionary:
 	var root: Variant = generated.get("root")
-	if is_instance_valid(root):
+	if is_instance_valid(root) and root != _last_build.get("root"):
 		root.free()
 	return _failure(str(generated.get("reason", "植物生成失败")))
 

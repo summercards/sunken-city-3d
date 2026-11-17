@@ -19,6 +19,7 @@
   ],
   "verification": [
     "selftest",
+    "plant-authoring",
     "decorations",
     "visual-decorations",
     "visual-birds",
@@ -288,3 +289,7 @@ b2-session51/0中暂停雨夜/晴昼互读即时同步、clock.changed计数0，
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 最新012421 session53/0、exit0承接恢复纯消费者覆盖；010438房间/菜园/睡眠三真实视觉入口均exit0、共18PNG，仅目检room-inside、garden-bubble-single、sleep-wake三张。
 - 上述非鸟群/雨层GPU像素验收；sleep-wake为室外太阳房，uniform索引/agent_radius/zone2glass警告保留，不称零警告，全库契约仍失败，登记头partial不变。
+
+## 2026-11-17 树工坊深检的共享资源库加固（R02）
+
+仅 `godot/src/ambient/vegetation/library.gd` 增加catalog/key/导入产物/PackedScene/单mesh检查，失败null且不污染共享成功缓存。树作者生成器负责预检并结构化拒绝，不迁移资源库owner、不改原草GLB/material/布局。实际 `plant-authoring` 440/0、plant-integration540/0、host-scene-guard155/0，报告 `/Users/zyq/work/sea-work/verification/20261117-194137-workshop-switch-kernel-release-41a4f7/report.json`，真实后端、import及三项exit0、unexpected=[]，含缺资源/坏数据/Session原子失败断言。仅定点字节登记，不签环境全功能、生产Main、性能或艺术；见[深检记录](../../development/2026-11-17_workshop_switch_deep_check.md)。

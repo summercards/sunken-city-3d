@@ -5,6 +5,7 @@ extends Control
 signal document_opened(path: String, token: int)
 signal document_request_finished(token: int, result: Dictionary)
 signal revision_saved(token: int, result: Dictionary)
+signal recovery_restore_finished(result: Dictionary)
 
 var _document_token: int = 0
 var _request_token: int = 0
@@ -136,6 +137,7 @@ var _selected_opening_id: String = ""
 var _last_window_scope: String = "global"
 var _ignore_fields: bool = false
 var _screen_visible: bool = false
+var _preview_active: bool = false
 var _initialized: bool = false
 var _pending_recovery: Dictionary = {}
 var _replacement_component_id: String = ""
@@ -211,7 +213,7 @@ func _ready() -> void:
 	_window_preview_timer = Timer.new()
 	_window_preview_timer.one_shot = true
 	_window_preview_timer.wait_time = WINDOW_PREVIEW_DELAY
-	_window_preview_timer.timeout.connect(flush_window_preview)
+	_window_preview_timer.timeout.connect(_on_window_preview_timeout)
 	add_child(_window_preview_timer)
 	_initialized = true
 	_connect_session()
@@ -238,15 +240,59 @@ func _connect_session() -> void:
 func set_screen_visible(value: bool) -> void:
 	_screen_visible = value
 	visible = value
-	set_process_unhandled_key_input(value)
-	if preview != null:
-		preview.set_screen_visible(value)
-	if value and _initialized and preview._slots.is_empty():
-		refresh_preview()
+	_sync_preview_activity()
+
+func is_screen_active() -> bool:
+	return _screen_visible
 
 func _on_visibility_changed() -> void:
+	_sync_preview_activity()
+
+func _sync_preview_activity() -> void:
+	var active: bool = _screen_visible and is_visible_in_tree() and _initialized
+	var activated: bool = active and not _preview_active
+	_preview_active = active
+	set_process_unhandled_key_input(active)
 	if preview != null:
-		preview.set_screen_visible(_screen_visible and is_visible_in_tree())
+		preview.set_screen_visible(active)
+	if _window_preview_timer != null:
+		# 热重载旧实例也要移除原先无可见性门禁的 timeout 连接。
+		if _window_preview_timer.timeout.is_connected(flush_window_preview):
+			_window_preview_timer.timeout.disconnect(flush_window_preview)
+		if not _window_preview_timer.timeout.is_connected(_on_window_preview_timeout):
+			_window_preview_timer.timeout.connect(_on_window_preview_timeout)
+	if not active:
+		_pause_window_preview()
+	elif activated:
+		if preview != null and preview._slots.is_empty():
+			refresh_preview()
+		_schedule_window_preview()
+
+func _pause_window_preview() -> void:
+	if _window_preview_timer != null:
+		_window_preview_timer.stop()
+	_window_drag_key = ""
+	_window_history_key = ""
+	_window_history_fingerprint = ""
+
+func _schedule_window_preview(delay: float = WINDOW_PREVIEW_DELAY) -> void:
+	if not _initialized or not _screen_visible or not is_visible_in_tree(): return
+	if _window_preview_busy or _window_preview_keys.is_empty(): return
+	if not _repair_pending.is_empty() or _random_house_confirming: return
+	if _window_preview_timer.is_stopped():
+		_window_preview_timer.start(delay)
+
+func _on_window_preview_timeout() -> void:
+	if not _screen_visible or not is_visible_in_tree():
+		_pause_window_preview()
+		return
+	flush_window_preview(false)
+
+func get_window_preview_state() -> Dictionary:
+	return {"active": _preview_active, "timer_running": _window_preview_timer != null and not _window_preview_timer.is_stopped(),
+		"pending": _window_preview_keys.duplicate(true), "failed": _window_failed_keys.duplicate(true),
+		"target": _window_preview_target.duplicate(true), "drag_key": _window_drag_key,
+		"history_key": _window_history_key, "result": window_preview_result.duplicate(true)}
 
 func snapshot() -> Dictionary:
 	return session.snapshot() if session != null else {}
@@ -307,7 +353,8 @@ func _random_house_now(seed_value: int) -> Dictionary:
 	var current_architecture: Dictionary = current_recipe.get("architecture", {})
 	var current_palette: Dictionary = current_architecture.get("palette", {}).duplicate(true)
 	for candidate: Dictionary in RandomRecipe.generate_candidates(seed_value, current_palette, current_recipe):
-		# 同一文档内替换参数，身份/版本与当前显式/空色板保持不变；不写Session私有状态。
+		# 随机只变结构/窗形；用户指定统一阳光房配色，清除旧自动/局部窗色。
+		candidate = RandomRecipe.solar_colors(candidate)
 		candidate.building_id = current_recipe.building_id
 		candidate.revision = snapshot().revision
 		var result: Dictionary = session.preview_candidate(candidate)
@@ -918,32 +965,83 @@ func _capture_ui_values() -> Dictionary:
 func get_recovery() -> Dictionary:
 	if session == null:
 		return {}
-	return {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {}, "ui_values": _capture_ui_values(), "dirty": session.is_dirty(), "selected_slot": _selected_id, "selected_opening_id": _selected_opening_id, "window_scope": _window_scope() if _initialized else "global", "local_baseline": _local_baseline.duplicate(true), "page": _page_picker.selected if _initialized else 0, "last_export": _last_export.duplicate(true), "slot_cache": _slot_cache.duplicate(true), "opening_cache": _opening_cache.duplicate(true)}
+	return {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {},
+		"ui_values": _capture_ui_values(), "dirty": session.is_dirty(), "selected_slot": _selected_id,
+		"selected_opening_id": _selected_opening_id, "window_scope": _window_scope() if _initialized else "global",
+		"local_baseline": _local_baseline.duplicate(true), "page": _page_picker.selected if _initialized else 0,
+		"last_export": _last_export.duplicate(true), "slot_cache": _slot_cache.duplicate(true), "opening_cache": _opening_cache.duplicate(true),
+		"window_preview_keys": _window_preview_keys.duplicate(true), "window_failed_keys": _window_failed_keys.duplicate(true),
+		"window_preview_target": _window_preview_target.duplicate(true), "window_preview_result": window_preview_result.duplicate(true)}
 
 func restore_recovery(data: Dictionary) -> Dictionary:
 	if not _initialized:
 		_pending_recovery = data.duplicate(true)
-		return {"ok": true, "reason": "草稿将在主屏就绪时恢复"}
-	var recipe: Dictionary = data.get("recipe", {}) as Dictionary
+		return {"ok": true, "deferred": true, "reason": "草稿将在主屏就绪时恢复"}
+	var result: Dictionary = _restore_recovery_now(data)
+	recovery_restore_finished.emit(result.duplicate(true))
+	return result
+
+func _restore_recovery_now(data: Dictionary) -> Dictionary:
+	if preview == null or not preview.is_node_ready():
+		return _report_failure("恢复草稿失败：独立预览尚未就绪，当前会话保持。")
+	for key: String in ["recipe", "catalog", "ui_patch", "ui_values", "local_baseline", "last_export", "slot_cache", "opening_cache", "window_preview_keys", "window_failed_keys", "window_preview_target", "window_preview_result"]:
+		if data.has(key) and not data[key] is Dictionary:
+			return _report_failure("恢复草稿失败：%s 必须为对象；当前会话保持。" % key)
+	# 在提交候选前检查会被 UI 直接解引用/转数值的恢复边界。
+	var patch_to_check: Dictionary = data.get("ui_patch", {})
+	for values_to_check: Dictionary in [data.get("ui_values", {}), patch_to_check]:
+		for key: String in values_to_check:
+			if not controls.has(key): continue
+			var control: Control = controls[key] as Control
+			var value: Variant = values_to_check[key]
+			if control is Range and (not (value is int or value is float) or not is_finite(float(value))):
+				return _report_failure("恢复草稿失败：滑条 %s 必须为有限数值。" % key)
+			if control is CheckButton and not value is bool:
+				return _report_failure("恢复草稿失败：开关 %s 必须为布尔值。" % key)
+			if control is OptionButton and not value is String:
+				return _report_failure("恢复草稿失败：选项 %s 必须为字符串。" % key)
+	if patch_to_check.has("component_bindings") and not patch_to_check.component_bindings is Dictionary:
+		return _report_failure("恢复草稿失败：组件绑定必须为对象。")
+	var weights_to_check: Variant = patch_to_check.get("growth_weights", [])
+	if not weights_to_check is Array:
+		return _report_failure("恢复草稿失败：生长权重必须为数组。")
+	for value: Variant in weights_to_check:
+		if not (value is int or value is float) or not is_finite(float(value)):
+			return _report_failure("恢复草稿失败：生长权重必须为有限数值。")
+	var page_to_check: Variant = data.get("page", 0)
+	if not (page_to_check is int or page_to_check is float) or not is_finite(float(page_to_check)):
+		return _report_failure("恢复草稿失败：模块页码必须为有限数值。")
+	for cache_key: String in ["slot_cache", "opening_cache"]:
+		var cache_to_check: Dictionary = data.get(cache_key, {})
+		for value: Variant in cache_to_check.values():
+			if not value is Dictionary:
+				return _report_failure("恢复草稿失败：%s 条目必须为对象。" % cache_key)
+	var recipe: Dictionary = data.get("recipe", {})
 	if str(recipe.get("construction_mode", "modular_v1")) != "shell_v2":
 		return _report_failure("旧版拼装草稿已停止使用；原文件保留，请点击「新建」使用连续实体。")
-	var cat: Dictionary = Catalog.editor_catalog(data.get("catalog", {}) as Dictionary)
-	var reason: String = Recipe.validate(recipe, cat)
+	var cat: Dictionary = Catalog.editor_catalog(data.get("catalog", {}))
+	var reason: String = Catalog.validate(cat)
+	if reason.is_empty(): reason = Recipe.validate(recipe, cat)
 	if not reason.is_empty():
 		return _report_failure("恢复草稿失败：" + reason)
-	# 同一实例重启插件时不重载会话，保留其撤销栈和保存指纹。
-	if Recipe.fingerprint(snapshot()) != Recipe.fingerprint(recipe) or Catalog.fingerprint(session.catalog) != Catalog.fingerprint(cat) or (bool(data.get("dirty", false)) and not session.is_dirty()):
-		var recovered: Session = Session.new(cat)
-		var accepted: Dictionary = recovered.replace_recipe(recipe)
-		if not bool(accepted.get("ok", false)):
-			return accepted
-		if not bool(data.get("dirty", false)):
-			recovered.mark_saved()
+	# 在隔离候选 Session 完成真实构建，成功之前不改当前会话、队列或控件。
+	var recovered: Session = Session.new(cat)
+	var restored_preview: Dictionary = recovered.preview_candidate(recipe)
+	if not bool(restored_preview.get("ok", false)):
+		return _report_failure("恢复草稿失败，当前会话与模型保持：" + str(restored_preview.get("reason", "构建失败")))
+	var restored_root: Node3D = restored_preview.get("root") as Node3D
+	if not is_instance_valid(restored_root) or restored_root.get_parent() != null:
+		return _report_failure("恢复草稿失败，当前会话与模型保持：" + str(restored_preview.get("reason", "构建未返回独立模型")))
+	if not bool(data.get("dirty", false)):
+		recovered.mark_saved()
+	# 相同文档和 dirty 状态保留原会话的撤销栈；构建仍复用上面的候选结果。
+	if Recipe.fingerprint(snapshot()) != Recipe.fingerprint(recovered.snapshot()) or Catalog.fingerprint(session.catalog) != Catalog.fingerprint(cat) or bool(data.get("dirty", false)) != session.is_dirty():
 		if session.changed.is_connected(_on_session_changed):
 			session.changed.disconnect(_on_session_changed)
 		session = recovered
 		_reset_document_inputs()
 		_connect_session()
+	_reset_window_preview()
 	_selected_opening_id = str(data.get("selected_opening_id", ""))
 	_last_window_scope = str(data.get("window_scope", "global"))
 	if _last_window_scope not in ARCHITECTURE_WINDOW_SCOPES:
@@ -978,8 +1076,10 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	_selected_id = str(data.get("selected_slot", ""))
 	_local_baseline = data.get("local_baseline", {}).duplicate(true)
 	_select_page(clampi(int(data.get("page", 0)), 0, PAGES.size() - 1))
-	refresh_preview()
+	refresh_preview(false, restored_preview)
 	# 重建会重新同步选中槽和范围控件，最后还原草稿 UI 与基线。
+	# 先按恢复的材质角色更新滑条边界，再回填该角色的未应用数值。
+	_refresh_shading_controls()
 	_ignore_fields = true
 	for key: Variant in ui_values:
 		if controls.has(key):
@@ -994,8 +1094,20 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	_sync_window_selection(snapshot())
 	preview.set_wireframe(bool(controls["wireframe"].button_pressed))
 	preview.set_collision_overlay(bool(controls["collision_overlay"].button_pressed))
+	_last_floor_index = _spin_value("floor_override_index")
+	_last_facade = _option_value("facade_index")
+	_window_preview_keys = data.get("window_preview_keys", {}).duplicate(true)
+	_window_failed_keys = data.get("window_failed_keys", {}).duplicate(true)
+	_window_preview_target = data.get("window_preview_target", {}).duplicate(true)
+	window_preview_result = data.get("window_preview_result", {}).duplicate(true)
+	_update_window_limit_hint()
+	_update_palette_grid()
 	_update_state()
-	_set_status("连续实体草稿已恢复；缺失内置组件已检查，原有替件保持。")
+	if _window_failed_keys.is_empty():
+		_set_status("连续实体草稿已恢复；未尝试输入保留，缺失内置组件已检查，原有替件保持。")
+	else:
+		_set_status("草稿与最后成功模型已恢复；失败输入保留，未自动重试：" + str(window_preview_result.get("reason", "请修正或显式应用")), WORKSHOP_WARN)
+	_schedule_window_preview()
 	return {"ok": true, "reason": "编辑器草稿已恢复"}
 
 func _build_ui() -> void:
@@ -1061,10 +1173,13 @@ func _build_ui() -> void:
 	_views_scroll = views_scroll
 	views_scroll.name = "WorkshopViewsRow"
 	views_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	views_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	views_scroll.custom_minimum_size.y = 36
 	var views := HBoxContainer.new()
 	views_scroll.add_child(views)
 	_preview_column.add_child(views_scroll)
+	views.add_child(_button("聚焦物体 (F)", "focus_object"))
+	views.add_child(_button("显示整栋", "frame_building"))
 	for pair: Array in [["front", "正面"], ["back", "背面"], ["top", "俯视"], ["perspective", "透视"]]:
 		views.add_child(_button(str(pair[1]), "view_" + str(pair[0])))
 	var wire: CheckButton = _check("线框", "wireframe", views)
@@ -1077,7 +1192,7 @@ func _build_ui() -> void:
 	preview.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	preview.slot_selected.connect(select_slot)
-	preview.tooltip_text = "左键点选；拖动旋转；滚轮缩放。顶部模块切换左侧参数，不改变模型镜头。"
+	preview.tooltip_text = "左键点选；中键旋转，Shift+中键平移；右键环视并按 WASD/QE 飞行，Shift 加速；滚轮缩放；F 聚焦选中件（未选则整栋）。左键拖动旋转兼容保留。"
 	_preview_column.add_child(preview)
 	_right_panel = _make_right_panel()
 	_right_panel.name = "WorkshopSlotInspector"
@@ -1911,8 +2026,9 @@ func _build_slider(parent: Control, spec: Array, bounds: Array, realtime: bool, 
 			_window_history_key = "")
 		slider.drag_ended.connect(func(_changed: bool) -> void:
 			_window_drag_key = ""
-			if not _window_preview_keys.is_empty() and _repair_pending.is_empty():
-				_window_preview_timer.start(0.01)
+			if not _window_preview_keys.is_empty() and _screen_visible and is_visible_in_tree():
+				_window_preview_timer.stop()
+				_schedule_window_preview(0.01)
 			else:
 				_window_history_key = "")
 	body.add_child(slider)
@@ -1936,21 +2052,24 @@ func _reset_window_preview() -> void:
 	_window_failed_keys.clear()
 	_window_preview_target.clear()
 	_window_history_key = ""
+	_window_history_fingerprint = ""
 	_window_drag_key = ""
 
 func _queue_window_preview(key: String) -> void:
 	if _ignore_fields or not _initialized or _window_preview_busy: return
 	if str(snapshot().get("construction_mode", "")) != "shell_v2": return
-	if _window_preview_keys.is_empty():
+	if _window_preview_keys.is_empty() and _window_failed_keys.is_empty():
 		_window_preview_target = {"scope": _window_scope(), "floor": str(int(_spin_value("floor_override_index"))), "facade": _option_value("facade_index"), "single": _window_override_id()}
-	_window_preview_keys.merge(_window_failed_keys, true)
+	# 新的用户编辑显式更正上一失败事务；显示/恢复本身不走此路径。
+	_window_preview_keys.merge(_window_failed_keys, false)
+	_window_failed_keys.clear()
 	for previous: String in _window_preview_keys.keys():
 		if _window_edit_identity(previous) == _window_edit_identity(key):
 			_window_preview_keys.erase(previous)
 	_window_preview_keys[key] = {"target": _option_value("palette_target"), "settings": _palette_control_settings()} if key == "palette_settings" else ({"target": _option_value("shading_role"), "settings": _shading_control_settings()} if key == "shading_settings" else _raw_control_value(key))
 	_set_status("预览排队中… 继续拖动会合并为一次更新。", WORKSHOP_GOLD)
-	if _repair_pending.is_empty() and (_window_drag_key.is_empty() or _window_preview_timer.is_stopped()):
-		_window_preview_timer.start(WINDOW_PREVIEW_DELAY)
+	if _window_drag_key.is_empty(): _window_preview_timer.stop()
+	_schedule_window_preview()
 	_update_window_limit_hint()
 
 func _window_edit_identity(key: String) -> String:
@@ -2019,11 +2138,14 @@ func _window_preview_patch(values: Dictionary) -> Dictionary:
 
 ## 单次真实构建后再提交现有Session历史/状态，不走apply_patch探针+refresh双重建模。
 ## 只在同步主线程内操作；不为每个鼠标像素创建撤销项。
-func flush_window_preview() -> Dictionary:
+func flush_window_preview(retry_failed: bool = true) -> Dictionary:
 	if not _repair_pending.is_empty() or _random_house_confirming:
 		return {"ok": false, "reason": "确认期间暂停自动提交"}
-	if _window_preview_busy or _window_preview_keys.is_empty(): return {"ok": true, "reason": "没有待预览窗输入"}
+	if _window_preview_busy: return {"ok": false, "reason": "预览正在生成"}
 	_window_preview_timer.stop()
+	# 显式应用/保存可在隐藏时 flush，也可主动重试保留的失败事务。
+	if retry_failed: _window_preview_keys.merge(_window_failed_keys, false)
+	if _window_preview_keys.is_empty(): return {"ok": true, "reason": "没有待预览窗输入"}
 	if preview == null or not preview.is_node_ready(): return {"ok": false, "reason": "预览尚未就绪"}
 	_window_preview_busy = true
 	_set_status("正在生成预览… 请稍候，当前修改不会丢失。", WORKSHOP_ACCENT_HOVER)
@@ -2063,14 +2185,23 @@ func flush_window_preview() -> Dictionary:
 		var failed_root: Node = result.get("root") as Node
 		if failed_root != null: failed_root.free()
 		_set_status("窗预览被拒绝，保留最后成功模型和滑块输入：" + str(result.get("reason", "未知错误")))
-	_window_failed_keys = {} if bool(result.get("ok", false)) else edits.duplicate(true)
+	if bool(result.get("ok", false)):
+		for key: String in _window_failed_keys.keys():
+			for edit_key: String in edits:
+				if _window_edit_identity(key) == _window_edit_identity(edit_key):
+					_window_failed_keys.erase(key)
+					break
+	else:
+		_window_failed_keys.merge(edits, true)
 	_window_preview_keys.clear()
 	_window_preview_busy = false
 	if _window_drag_key.is_empty(): _window_history_key = ""
-	window_preview_result = {"ok": bool(result.get("ok", false)), "reason": str(result.get("reason", "")), "fields": edits.keys()}
+	if not bool(result.get("ok", false)) or _window_failed_keys.is_empty():
+		window_preview_result = {"ok": bool(result.get("ok", false)), "reason": str(result.get("reason", "")), "fields": edits.keys()}
+	else:
+		_set_status("未尝试输入已预览；之前失败的输入仍保留，未自动重试：" + str(window_preview_result.get("reason", "请修正或显式应用")), WORKSHOP_WARN)
 	_update_window_limit_hint()
 	_update_palette_grid()
-	_refresh_shading_controls()
 	_update_state()
 	return window_preview_result
 
@@ -2124,6 +2255,8 @@ func _button_pressed(id: String) -> void:
 			_request_sample(true)
 		"replace_component": _choose_component()
 		"export_module": export_module_component()
+		"focus_object": preview.focus_object()
+		"frame_building": preview.focus_object(true)
 		"toggle_left": _toggle_sidebar(true)
 		"toggle_right": _toggle_sidebar(false)
 		"focus_preview":
@@ -3398,7 +3531,7 @@ func _cancel_discard() -> void:
 		_random_house_confirming = false
 		_confirm.title = "未保存修改"
 		_confirm.ok_button_text = "丢弃并继续"
-		if not _window_preview_keys.is_empty(): _window_preview_timer.start(WINDOW_PREVIEW_DELAY)
+		_schedule_window_preview()
 		_set_status("已取消随机房屋，当前模型与输入保留。")
 
 func _status_style(color: Color) -> StyleBoxFlat:

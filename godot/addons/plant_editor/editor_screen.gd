@@ -93,6 +93,10 @@ var _info_dialog: AcceptDialog
 var _info_text: TextEdit
 var _module = 0
 var _ready_done = false
+var _screen_active: bool = false
+# 记录实际尝试过的原始输入；失败后切屏不得隐式重试。
+var _attempted_input: String = ""
+var _draft_notice: String = ""
 var host_attachment = HostAttachment.new()
 # 仅为未应用输入；已应用绑定及历史始终由 Session 持有。
 var host_binding: Dictionary = {}
@@ -140,7 +144,7 @@ func _ready() -> void:
 	_timer = Timer.new()
 	_timer.one_shot = true
 	_timer.wait_time = 0.16
-	_timer.timeout.connect(flush_pending)
+	_timer.timeout.connect(_flush_scheduled)
 	add_child(_timer)
 	_build_toolbar()
 	_build_modules()
@@ -171,6 +175,7 @@ func _ready() -> void:
 	_build_parameters()
 	preview = Preview.new()
 	content.add_child(preview)
+	session.candidate_validator = preview.prepare_candidate
 	module_bar.reparent(preview)
 	preview.move_child(module_bar, 0)
 	preview.branch_selected.connect(select_branch)
@@ -178,8 +183,11 @@ func _ready() -> void:
 	_build_dialogs()
 	_ready_done = true
 	show_module(0)
-	_accept_result(session.build(), true)
+	_attempted_input = _input_signature()
+	_accept_result(session.build())
 	_sync_controls()
+	visibility_changed.connect(_sync_screen_activity)
+	_sync_screen_activity()
 
 func _button(parent: Node, key: String, text: String, action: Callable) -> Button:
 	var button = Button.new()
@@ -413,6 +421,8 @@ func _build_status() -> void:
 	status_box.set_border_width_all(2)
 	status.add_theme_stylebox_override("read_only", status_box)
 	row.add_child(status)
+	_button(row, "retry_preview", "重试预览", flush_pending)
+	buttons.retry_preview.tooltip_text = "资源扫描完成或修正失败原因后显式重试；切换主屏不会反复重试失败输入。"
 	_button(row, "details", "复制详情", copy_details)
 
 func _build_dialogs() -> void:
@@ -490,7 +500,7 @@ func _field(key: String, value: Variant) -> void:
 			if int(str(id).trim_prefix("branch_")) >= int(value):
 				overrides.erase(id)
 		input_recipe.branch_overrides = overrides
-	_timer.start()
+	_schedule_pending()
 	buttons.undo.disabled = false
 	_set_status("等待预览 · 输入已保留", false)
 
@@ -504,20 +514,25 @@ func _branch_field(key: String, value: Variant) -> void:
 	_field("branch_overrides", overrides)
 
 func _begin_drag(key: String) -> void:
-	flush_pending()
+	if not _screen_active:
+		return
+	if has_pending_fields() and _input_signature() != _attempted_input:
+		flush_pending()
 	_dragging = true
 	_merge_drag = false
 	_drag_key = key
 
 func _end_drag(_changed: bool) -> void:
-	flush_pending()
+	if _dragging and _screen_active and _input_signature() != _attempted_input:
+		flush_pending()
 	_dragging = false
 	_merge_drag = false
 	_drag_key = ""
 
 func flush_pending() -> Dictionary:
 	_timer.stop()
-	var context = {"host_binding": host_binding.duplicate(true)}
+	_attempted_input = _input_signature()
+	var context: Dictionary = {"host_binding": host_binding.duplicate(true)}
 	if input_recipe.get("species") != session.snapshot().species:
 		context.host_binding = {}
 	var prepared = _precheck_state(input_recipe, context)
@@ -532,7 +547,8 @@ func flush_pending() -> Dictionary:
 		_install_host(prepared)
 		input_recipe = session.snapshot()
 		host_binding = session.host_binding()
-		_accept_result(result)
+		if not _accept_result(result):
+			return {"ok": false, "reason": "预览准备失败；保留上次成功画面，请显式重试"}
 		_sync_controls()
 	else:
 		_discard_host(prepared)
@@ -552,8 +568,11 @@ func _accept_result(result: Dictionary, fit: bool = false) -> bool:
 	if not bool(result.get("ok", false)):
 		_set_status(str(result.get("reason", "生成失败")), true)
 		return false
-	preview.set_build(result)
+	if not preview.set_build(result):
+		_set_status("预览准备失败；保留上次成功画面，可显式重试预览", true)
+		return false
 	_apply_host_transform()
+	# 新建/打开不再传 fit；仅保留显式调用者请求适配的入口。
 	if fit:
 		preview.fit_model()
 	var stats: Dictionary = result.get("stats", {})
@@ -736,7 +755,7 @@ func new_document(id: String) -> Dictionary:
 		last_export = {}
 		_dragging = false
 		_merge_drag = false
-		_accept_result(result, true)
+		_accept_result(result)
 		_sync_controls()
 	else:
 		_set_status(str(result.get("reason", "新建失败")), true)
@@ -762,7 +781,7 @@ func open_recipe(path: String) -> Dictionary:
 		selected_branch = ""
 		_dragging = false
 		_merge_drag = false
-		_accept_result(result, true)
+		_accept_result(result)
 		_sync_controls()
 	else:
 		_set_status(str(result.get("reason", "载入失败")), true)
@@ -797,6 +816,9 @@ func _open_list_item(index: int) -> void:
 	request_open(str(_file_rows[index].recipe_path))
 
 func _set_status(message: String, error: bool) -> void:
+	if not _draft_notice.is_empty() and message != _draft_notice:
+		message += "\n" + _draft_notice
+		error = true
 	status.text = message.replace("\n", " ")
 	status.tooltip_text = message
 	status.add_theme_color_override("font_uneditable_color", Color("ffb7a5") if error else Color("c0ead0"))
@@ -1089,6 +1111,7 @@ func set_host_transform(value: Transform3D) -> Dictionary:
 func _apply_candidate(candidate: Dictionary, binding: Dictionary) -> Dictionary:
 	input_recipe = candidate.duplicate(true)
 	host_binding = binding.duplicate(true)
+	_attempted_input = _input_signature()
 	buttons.undo.disabled = false
 	_sync_controls()
 	var prepared = _precheck_state(candidate, {"host_binding": binding})
@@ -1211,14 +1234,41 @@ func _relative_manifest_path(directory: String, target: String) -> String:
 func set_screen_visible(value: bool) -> void:
 	visible = value
 	if _ready_done:
-		if not value:
-			_timer.stop()
-		preview.set_active(value)
-		if value and has_pending_fields():
-			_timer.start()
+		_sync_screen_activity()
+
+func _sync_screen_activity() -> void:
+	if not _ready_done:
+		return
+	var effective: bool = is_visible_in_tree()
+	var changed: bool = effective != _screen_active
+	_screen_active = effective
+	preview.set_active(effective)
+	if not effective:
+		_timer.stop()
+		_dragging = false
+		_merge_drag = false
+		_drag_key = ""
+	elif changed:
+		_schedule_pending()
+
+func _input_signature() -> String:
+	# 不规范化非法输入，避免不同待修字段被归并成同一已尝试状态。
+	return Recipe._stable_json({"recipe": input_recipe, "host_binding": host_binding})
+
+func _schedule_pending() -> void:
+	if _screen_active and has_pending_fields() and _input_signature() != _attempted_input:
+		_timer.start()
+
+func _flush_scheduled() -> void:
+	if _screen_active and is_visible_in_tree() and has_pending_fields() and _input_signature() != _attempted_input:
+		flush_pending()
+
+func report_draft_preserved(message: String) -> void:
+	_draft_notice = message
+	_set_status(message, true)
 
 func get_recovery() -> Dictionary:
-	return {"version": 1, "session": session.export_draft(), "input": input_recipe.duplicate(true), "selected_branch": selected_branch, "last_export": last_export.duplicate(true), "host_binding": host_binding.duplicate(true), "applied_host_binding": session.host_binding()}
+	return {"version": 1, "session": session.export_draft(), "input": input_recipe.duplicate(true), "selected_branch": selected_branch, "last_export": last_export.duplicate(true), "host_binding": host_binding.duplicate(true), "applied_host_binding": session.host_binding(), "attempted_input": _attempted_input}
 
 func restore_recovery(data: Dictionary) -> Dictionary:
 	if data.get("version") != 1 or not (data.get("session") is Dictionary):
@@ -1274,9 +1324,14 @@ func restore_recovery(data: Dictionary) -> Dictionary:
 	selected_branch = str(data.get("selected_branch", ""))
 	var exported: Variant = data.get("last_export", {})
 	last_export = exported.duplicate(true) if exported is Dictionary else {}
-	_accept_result(result)
+	if not _accept_result(result):
+		return {"ok": false, "reason": "草稿已应用状态的预览准备失败；原草稿必须保留"}
 	_sync_controls()
+	var attempted: Variant = data.get("attempted_input")
+	# 旧草稿没有尝试标记时保守保留待修输入，不在切屏时猜测重试。
+	_attempted_input = attempted if attempted is String else _input_signature()
 	if has_pending_fields():
 		buttons.undo.disabled = false
 		_set_status("已恢复待应用输入；模型与位置保持上次成功状态", false)
+		_schedule_pending()
 	return result

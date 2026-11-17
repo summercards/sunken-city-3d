@@ -134,6 +134,130 @@ func drag(index: int) -> void:
 	if not evidence.has("drags"): evidence["drags"] = []
 	evidence.drags.append(drag_evidence.duplicate(true))
 
+func check_bridge_connections(kind: String, label: String) -> void:
+	check(plugin._bridge_connections.has(kind), label + "：存在连接记录")
+	if not plugin._bridge_connections.has(kind): return
+	var connection: Dictionary = plugin._bridge_connections[kind]
+	check(connection.bridge_id == plugin.bridges[kind].get_instance_id() and connection.screen_id == plugin.bridges[kind].screen.get_instance_id(), label + "：plugin/screen双身份一致")
+	for pair: Dictionary in connection.connections:
+		var source: Signal = pair.source
+		var count := 0
+		for entry: Dictionary in source.get_connections():
+			if entry.callable == pair.callback: count += 1
+		check(count == 1, label + "：" + str(source.get_name()) + "仅连接一次")
+
+func check_disconnected(connections: Array, label: String) -> void:
+	for pair: Dictionary in connections:
+		var source: Signal = pair.source
+		check(not is_instance_valid(source.get_object()) or not source.is_connected(pair.callback), label + "：" + str(source.get_name()) + "已断开")
+
+func bridge_lifecycle(house: Node3D, tree: Node3D) -> void:
+	var building: EditorPlugin = plugin.bridges.building
+	var plant_screen: Control = plugin.bridges.plant.screen
+	# 另一工坊重建不能取消当前树的确认事务或既有绑定。
+	plant_screen.input_recipe.height = float(plant_screen.input_recipe.height) + 0.2
+	select(tree)
+	plugin.edit_selected()
+	var plant_pending: Dictionary = plugin.pending.duplicate()
+	var plant_binding: Dictionary = plugin.binding.duplicate()
+	check(not plant_pending.is_empty() and plant_screen._confirm.visible, "树存在待确认请求供跨工坊隔离验证")
+	building.rebuild_screen_for_verification()
+	await frames()
+	check(plugin.pending == plant_pending and plugin.binding == plant_binding, "房屋screen重建不清理树pending/binding")
+	plant_screen._confirm.canceled.emit()
+	plant_screen._confirm.hide()
+	plant_screen.input_recipe = plant_screen.session.snapshot()
+	check_bridge_connections("building", "房屋重建后事件自动重连")
+
+	select(house)
+	plugin.edit_selected()
+	var screen: Control = building.screen
+	if screen._confirm.visible:
+		screen._confirm.hide()
+		screen._confirm.confirmed.emit()
+	await frames()
+	check(screen.is_visible_in_tree() and screen.is_screen_active(), "重建后经装配请求真实显示房屋主屏")
+	check(not plugin.binding.is_empty() and plugin.binding.screen_id == screen.get_instance_id(), "重建后的房屋可重新绑定")
+	screen.session.apply_patch({"display_name": "重建前未保存"})
+	plugin.edit_selected()
+	var old_pending: Dictionary = plugin.pending.duplicate()
+	var old_connection: Dictionary = plugin._bridge_connections.building.duplicate()
+	check(not old_pending.is_empty() and screen._confirm.visible, "房屋重建前保留待确认请求")
+	var same_token: int = plugin.pending.token
+	plant_screen.document_opened.emit("", 0)
+	plant_screen.document_opened.emit("", same_token)
+	plant_screen.document_request_finished.emit(same_token, {"ok": false})
+	plant_screen.revision_saved.emit(same_token, {})
+	check(plugin.pending == old_pending and plugin.binding.kind == "building", "另一工坊相同token不能改绑或完成pending")
+	building.rebuild_screen_for_verification()
+	check(plugin.pending.is_empty() and plugin.binding.is_empty(), "旧screen退出立即取消对应pending和binding")
+	check_disconnected(old_connection.connections, "旧房屋screen及plugin回调")
+	# 旧screen已排队但尚未释放，发信号及重放已捕获回调均不能污染新事务。
+	screen.document_opened.emit("", same_token)
+	screen.document_request_finished.emit(same_token, {"ok": true})
+	screen.revision_saved.emit(same_token, {})
+	select(house)
+	plugin.edit_selected()
+	screen = building.screen
+	var fresh_pending: Dictionary = plugin.pending.duplicate()
+	var fresh_binding: Dictionary = plugin.binding.duplicate()
+	old_connection.connections[0].callback.call("", same_token)
+	old_connection.connections[1].callback.call(same_token, {"ok": false})
+	old_connection.connections[2].callback.call(same_token, {})
+	check(plugin.pending == fresh_pending and plugin.binding == fresh_binding, "请求前刷新且旧双身份回调不能污染新事务")
+	if screen._confirm.visible:
+		screen._confirm.hide()
+		screen._confirm.confirmed.emit()
+	await frames()
+	check(not plugin.binding.is_empty() and plugin.binding.screen_id == screen.get_instance_id(), "失效pending不再堵塞新请求")
+	var token: int = plugin.binding.get("token", -1)
+	plugin._refresh_bridges()
+	plugin._refresh_bridges()
+	check(plugin.binding.get("token", -2) == token, "重复刷新保留当前有效绑定")
+	check_bridge_connections("building", "重复刷新幂等")
+
+	for kind: String in ["building", "plant"]:
+		var addon := "building_workshop" if kind == "building" else "plant_editor"
+		var target := house if kind == "building" else tree
+		select(target)
+		plugin.edit_selected()
+		var previous: EditorPlugin = plugin.bridges[kind]
+		var previous_screen: Control = previous.screen
+		if previous_screen._confirm.visible:
+			previous_screen._confirm.hide()
+			previous_screen._confirm.confirmed.emit()
+		if kind == "building": previous_screen.session.apply_patch({"display_name": "禁用前未保存"})
+		else: previous_screen.input_recipe.height = float(previous_screen.input_recipe.height) + 0.2
+		plugin.edit_selected()
+		var previous_id := previous.get_instance_id()
+		var previous_connections: Array = plugin._bridge_connections[kind].connections.duplicate()
+		check(not plugin.pending.is_empty(), kind + "禁用前有pending")
+		EditorInterface.set_plugin_enabled(addon, false)
+		check(plugin.pending.is_empty() and plugin.binding.is_empty() and not plugin.bridges.has(kind), kind + "禁用立即清理对应事务和bridge")
+		check_disconnected(previous_connections, kind + "禁用断开旧回调")
+		await frames()
+		EditorInterface.set_plugin_enabled(addon, true)
+		await frames(8)
+		check(plugin.bridges.has(kind) and plugin.bridges[kind].get_instance_id() != previous_id, kind + "重启后node_added自动发现新plugin")
+		if not plugin.bridges.has(kind): continue
+		check_bridge_connections(kind, kind + "重启后连接")
+		select(target)
+		plugin.edit_selected()
+		var current_screen: Control = plugin.bridges[kind].screen
+		if current_screen._confirm.visible:
+			current_screen._confirm.hide()
+			current_screen._confirm.confirmed.emit()
+		await frames()
+		check(current_screen.is_visible_in_tree() and (current_screen.is_screen_active() if kind == "building" else current_screen._screen_active), kind + "重启后请求真实显示主屏")
+		check(not plugin.binding.is_empty() and plugin.binding.bridge_id == plugin.bridges[kind].get_instance_id(), kind + "新plugin成功绑定")
+		var transform_before := target.transform
+		var saved: Dictionary = current_screen.save_building() if kind == "building" else current_screen.save_animated()
+		var expected_path := str(saved.get("scene_path" if kind == "building" else "animated_scene_path", ""))
+		check(saved.get("ok", false) and not expected_path.is_empty() and target.get_node("Asset").scene_file_path == expected_path, kind + "重启后保存仅更新绑定Asset")
+		check(target.transform == transform_before, kind + "重启换版保持用户transform")
+		if kind == "building":
+			check(current_screen.open_recipe(str(saved.recipe_path)).get("ok", false) and plugin.binding.is_empty(), "普通打开token零解除当前实例绑定")
+
 func execute() -> void:
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name", "")).begins_with("sea-verification/") or FileAccess.file_exists("res://scenes/main.tscn"):
 		printerr("装配验证只允许无Main的隔离runner工程")
@@ -240,6 +364,7 @@ func execute() -> void:
 		screen._confirm.hide()
 		screen._confirm.confirmed.emit()
 	await frames()
+	check(screen.is_visible_in_tree() and screen.is_screen_active(), "装配请求真实切换房屋主屏，不手调可见性")
 	check(not plugin.binding.is_empty(), "打开成功才建立token绑定")
 	a.position += Vector3(2, 3, 4)
 	var edited_transform := a.transform
@@ -290,6 +415,7 @@ func execute() -> void:
 		plant_screen._confirm.hide()
 		plant_screen._confirm.confirmed.emit()
 	await frames()
+	check(plant_screen.is_visible_in_tree() and plant_screen._screen_active, "装配请求真实切换树主屏，不手调可见性")
 	check(plugin.binding.kind == "plant", "树安全打开绑定")
 	var tree_old: String = b.get_node("Asset").scene_file_path
 	var tree_saved: Dictionary = plant_screen.save_recipe()
@@ -342,6 +468,9 @@ func execute() -> void:
 	await plugin.get_tree().create_timer(0.5).timeout
 	check(not plugin._thumbnails.is_empty(), "已保存候选有真实静态缩略图缓存")
 	await screenshot("assembled")
+	print("[scene-assembly-stage] bridge lifecycle")
+	await bridge_lifecycle(a, b)
+	plant_screen = plugin.bridges.plant.screen
 	check(EditorInterface.save_scene() == OK, "真实Editor保存隔离场景")
 	var text := FileAccess.get_file_as_string("res://outputs/assembly_fixture.tscn")
 	check(text.contains("instance=ExtResource") and text.contains("metadata/sea_placement"), "场景序列化外链与绑定metadata")
@@ -394,10 +523,6 @@ func screenshot(label: String) -> void:
 func finish() -> void:
 	evidence.merge({"checks": checks, "check_results": check_results, "failures": failures, "passed": failures.is_empty(), "enginehint": Engine.is_editor_hint(), "main_protection": {"main_absent": not FileAccess.file_exists("res://scenes/main.tscn"), "isolated_user_dir": ProjectSettings.get_setting("application/config/custom_user_dir_name", "")}, "input_chain": "Viewport.warp_mouse + Input.parse_input_event → ItemList._get_drag_data → Control._can_drop_data/_drop_data → EditorUndoRedoManager", "automation_boundary": "自动GUI覆盖建筑和动态树真实拖放；补充静态树/同源实例由API建立；工坊保存、undo/redo及真实Editor保存重开自动断言。未替代人工OS窗口激活、物理鼠标和gizmo手感验收。"})
 	plugin.get_window().always_on_top = window_was_on_top
-	var file := FileAccess.open("res://outputs/scene_assembly_report.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify(evidence, "\t"))
-	file.close()
-	print("[scene-assembly] %d checks, %d failures" % [checks, failures.size()])
 	EditorInterface.get_selection().clear()
 	EditorInterface.edit_node(EditorInterface.get_edited_scene_root())
 	var tree := plugin.get_tree()
@@ -416,7 +541,20 @@ func finish() -> void:
 	Input.parse_input_event(close_scene)
 	print("[scene-assembly-stage] closed root: ", EditorInterface.get_edited_scene_root())
 	await tree.create_timer(1.0).timeout
+	var bridge_connections: Array = []
+	for connection: Dictionary in plugin._bridge_connections.values(): bridge_connections.append_array(connection.connections)
+	var node_added_callback := Callable(plugin, "_bridge_node_added")
+	# 留一个已排队刷新，确认卸载后不会重新接回工坊。
+	plugin._queue_bridge_refresh()
 	EditorInterface.set_plugin_enabled("scene_assembly", false)
+	await tree.process_frame
+	check_disconnected(bridge_connections, "装配卸载")
+	check(not tree.node_added.is_connected(node_added_callback), "装配卸载断开editor tree监听")
+	evidence.merge({"checks": checks, "check_results": check_results, "failures": failures, "passed": failures.is_empty()}, true)
+	var file := FileAccess.open("res://outputs/scene_assembly_report.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify(evidence, "\t"))
+	file.close()
+	print("[scene-assembly] %d checks, %d failures" % [checks, failures.size()])
 	EditorInterface.set_plugin_enabled("plant_editor", false)
 	EditorInterface.set_plugin_enabled("building_workshop", false)
 	await tree.create_timer(0.5).timeout

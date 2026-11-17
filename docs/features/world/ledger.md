@@ -495,3 +495,11 @@ Main、bootstrap/main.gd、project.godot保持当前HEAD，Main SHA256仍 `f246e
 最终实跑同步 **489 issues / exit1**、无参数正式检查 **490 issues / exit1**，46功能、1105源资产、1873运行资源。新32个BAT AssetID的职责分类为null/none/none且没有分类/主记录/源索引错误；315个明确源码与运行目标SHA/bytes一致，不改其他漂移。仍有421运行hash漂移、14源hash漂移、51历史断链、SEA-ASSET条款集合、候选写入根扫描与派生索引问题；本轮新增 `scenes/workshop_attachments` 是用户首次另存才创建的输出根，被通用res引用扫描当缺输入。未创建空目录或样例凑绿，也不把该条掩饰为已修复，静态保存与真实候选另存已由r10b实测通过。
 
 原始日志与退出码 `/Users/zyq/work/sea-work/building_attachments_release/contracts_{sync,check}.log`、`contracts_results.json`。外层汇总进程exit0仅代表记录完成，不能替代两个内部exit1。主线程实际审阅v2原生八张组件墙、关键支撑近景、最终1280编辑器及房屋装配示例；图库与参数分层、文字正向和原八个悬空缺陷修正可见，不签全部接缝/用户美术/人工手感。交付HTML和两个ZIP真实存在，均CRC与哈希核验；未提交推送、未改Main及冻结8件房屋内核。
+
+## 2026-11-17 双工坊重建与装配桥接重连（R35、R36）
+
+本次用户授权工坊故障排查，不属于前次外挂冻结改动。scene_assembly按plugin+screen双实例跟踪回编连接；相关节点上线合并延迟发现、请求前刷新，退出从原始信号源断开。旧screen释放只清对应工坊pending/binding，陈旧回调及另一工坊同token不能串绑，不每帧整树扫描。Placement当前transform、只换Asset、动态旁车和用户手动保存边界保持。
+
+新增 `test_scene_assembly_editor.gd` 重建/两工坊禁用重启/失效pending/旧回调/幂等/卸载断连断言。早批 `/Users/zyq/work/sea-work/verification/20261117-185513-workshop-switch-integration-0dc248/report.json` 实际装配159/0、房屋1499/0、各exit0，但source_changed_during_run=true，不能签最终源码；串行当前最终与图像/未测项见[本轮深检](../../development/2026-11-17_workshop_switch_deep_check.md)。未修改Main、原用户摆位或生产候选，不新增正式资产/WalkArea/航行/潜水职责。
+
+最终 `20261117-201128-workshop-switch-integration-accepted-8cf925/report.json`：装配159/0、房屋1499/0，import/两项/runner均exit0、completion=true、unexpected=[]、source_consistent=true，source_changed_during_run=false；新增重建/启停/旧回调/跨工坊相同token与卸载断连均执行。当前产品/测试与隔离快照一致。另树2289/0、真实切换336/0，均exit0。原gizmo轴/其余视口/生产Main边界不因本轮扩大。最终全库sync540/check541 issues、均exit1，其他漂移/断链/输出根扫描保留，不签全库通过；本轮14条明确源码/测试登记无漂移。

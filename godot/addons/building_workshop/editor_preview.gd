@@ -19,8 +19,11 @@ var _slots: Array = []
 var _semantic_sources: Dictionary = {}
 var _building_id: String = ""
 var _camera_fitted: bool = false
+var _initial_frame_pending: bool = false
 var _selected_id: String = ""
 var _dragging: bool = false
+var _navigation_button: int = 0
+var _move_keys: Dictionary = {}
 var _last_mouse: Vector2 = Vector2.ZERO
 var _drag_moved: bool = false
 var _yaw: float = 0.65
@@ -34,6 +37,7 @@ var _screen_visible: bool = false
 func _ready() -> void:
 	stretch = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	ensure_navigation_focus()
 	custom_minimum_size = Vector2(300, 260)
 	viewport = SubViewport.new()
 	viewport.name = "EditorWorkshopViewport"
@@ -88,20 +92,44 @@ func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
 	_sync_update_mode()
 
+## 为热重载前已就绪的实例补挂焦点能力，不重建 viewport 或镜头。
+func ensure_navigation_focus() -> void:
+	focus_mode = Control.FOCUS_ALL
+	if not focus_exited.is_connected(_cancel_navigation):
+		focus_exited.connect(_cancel_navigation)
+
 func set_screen_visible(value: bool) -> void:
+	ensure_navigation_focus()
+	if _screen_visible != value or not value:
+		_cancel_navigation()
 	_screen_visible = value
-	_dragging = false
 	_sync_update_mode()
 
 func _on_visibility_changed() -> void:
-	_dragging = false
+	ensure_navigation_focus()
+	if not is_visible_in_tree():
+		_cancel_navigation()
 	_sync_update_mode()
 
 func _sync_update_mode() -> void:
 	if viewport != null:
 		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if _screen_visible and is_visible_in_tree() else SubViewport.UPDATE_DISABLED
+		if _screen_visible and is_visible_in_tree() and not _camera_fitted and not _initial_frame_pending:
+			_initial_frame_pending = true
+			_fit_after_layout()
+
+func _fit_after_layout() -> void:
+	# Recovery can build while hidden, before containers receive their final size.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_initial_frame_pending = false
+	if is_inside_tree() and _screen_visible and is_visible_in_tree() and not _camera_fitted:
+		_fit_camera(true)
 
 func set_build_result(result: Dictionary) -> void:
+	var root: Node3D = result.get("root") as Node3D
+	if not is_instance_valid(root) or root.get_parent() != null:
+		return
 	_clear_children(_model_root)
 	_clear_children(_highlight_root)
 	_clear_children(_wireframe_root)
@@ -109,7 +137,6 @@ func set_build_result(result: Dictionary) -> void:
 	_slots = result.get("slots", []) as Array
 	_semantic_sources = result.get("semantic_sources", {}) as Dictionary
 	_selected_id = ""
-	var root: Node3D = result.get("root") as Node3D
 	if root != null:
 		_model_root.add_child(root)
 		root.owner = _model_root
@@ -172,11 +199,19 @@ func selected_slot() -> String:
 	return _selected_id
 
 func _gui_input(event: InputEvent) -> void:
+	ensure_navigation_focus()
 	if not _screen_visible or not is_visible_in_tree():
 		return
 	if event is InputEventMouseButton:
 		var button: InputEventMouseButton = event as InputEventMouseButton
-		if button.button_index == MOUSE_BUTTON_LEFT:
+		if button.pressed:
+			grab_focus()
+		if button.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
+			_navigation_button = button.button_index if button.pressed else 0
+			_move_keys.clear()
+			_last_mouse = button.position
+			accept_event()
+		elif button.button_index == MOUSE_BUTTON_LEFT:
 			if button.pressed:
 				_dragging = true
 				_drag_moved = false
@@ -198,16 +233,78 @@ func _gui_input(event: InputEvent) -> void:
 				camera.size = clampf(camera.size * 1.1, 1.0, 400.0)
 			_fit_camera(false)
 			accept_event()
-	elif event is InputEventMouseMotion and _dragging:
+	elif event is InputEventKey:
+		var key: InputEventKey = event as InputEventKey
+		if key.keycode == KEY_F and key.pressed and not key.echo:
+			focus_object()
+			accept_event()
+		elif _navigation_button == MOUSE_BUTTON_RIGHT and key.physical_keycode in [KEY_W, KEY_A, KEY_S, KEY_D, KEY_Q, KEY_E]:
+			_move_keys[key.physical_keycode] = key.pressed
+			accept_event()
+	elif event is InputEventMouseMotion and (_dragging or _navigation_button != 0):
 		var motion: InputEventMouseMotion = event as InputEventMouseMotion
 		var delta: Vector2 = motion.position - _last_mouse
 		_last_mouse = motion.position
 		if delta.length_squared() > 1.0:
 			_drag_moved = true
-		_yaw -= delta.x * 0.008
-		_pitch = clampf(_pitch - delta.y * 0.008, -1.48, 0.35)
-		_fit_camera(false)
+		if _navigation_button == MOUSE_BUTTON_MIDDLE and motion.shift_pressed:
+			_pan_camera(delta)
+		else:
+			var previous_position: Vector3 = camera.position
+			_yaw -= delta.x * 0.008
+			_pitch = clampf(_pitch - delta.y * 0.008, -1.55, 1.55)
+			_fit_camera(false)
+			if _navigation_button == MOUSE_BUTTON_RIGHT:
+				_target += previous_position - camera.position
+				_fit_camera(false)
 		accept_event()
+
+func _cancel_navigation() -> void:
+	_dragging = false
+	_navigation_button = 0
+	_move_keys.clear()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_cancel_navigation()
+
+func _process(delta: float) -> void:
+	if _dragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_dragging = false
+	if _navigation_button == MOUSE_BUTTON_MIDDLE and not Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		_cancel_navigation()
+	if not _screen_visible or not is_visible_in_tree() or _navigation_button != MOUSE_BUTTON_RIGHT:
+		return
+	# Release outside the preview must not leave navigation stuck.
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		_cancel_navigation()
+		return
+	var movement := Vector3(float(_move_keys.get(KEY_D, false)) - float(_move_keys.get(KEY_A, false)), float(_move_keys.get(KEY_E, false)) - float(_move_keys.get(KEY_Q, false)), float(_move_keys.get(KEY_S, false)) - float(_move_keys.get(KEY_W, false)))
+	if not movement.is_zero_approx():
+		_target += camera.basis * movement.normalized() * maxf(2.0, _distance * 0.4) * minf(delta, 0.1) * (3.0 if Input.is_key_pressed(KEY_SHIFT) else 1.0)
+		_fit_camera(false)
+
+func _pan_camera(delta: Vector2) -> void:
+	var span: float = camera.size if camera.projection == Camera3D.PROJECTION_ORTHOGONAL else 2.0 * _distance * tan(deg_to_rad(camera.fov * 0.5))
+	var pixels: float = maxf(1.0, size.x if camera.keep_aspect == Camera3D.KEEP_WIDTH else size.y)
+	_target += (-camera.basis.x * delta.x + camera.basis.y * delta.y) * span / pixels
+	_fit_camera(false)
+
+func focus_object(whole_building: bool = false) -> void:
+	if camera == null or viewport == null:
+		return
+	_cancel_navigation()
+	var box: AABB = _model_aabb()
+	if not whole_building:
+		for slot: Dictionary in _slots:
+			if str(slot.get("id", "")) == _selected_id:
+				var selected_box: AABB = _slot_aabb(slot)
+				if selected_box.has_volume():
+					box = selected_box
+				break
+	_frame_camera(camera, viewport.size, box, true)
+	_camera_fitted = box.has_volume()
+	view_changed.emit()
 
 func _try_select(screen_position: Vector2) -> void:
 	if camera == null or viewport == null or size.x <= 0.0 or size.y <= 0.0:
@@ -278,7 +375,7 @@ func _fit_camera(reset_distance: bool = false) -> void:
 		return
 	var box: AABB = _model_aabb()
 	_frame_camera(camera, viewport.size, box, reset_distance)
-	if reset_distance and box.size.length_squared() > 0.0001 and viewport.size.x > 0 and viewport.size.y > 0:
+	if reset_distance and box.size.length_squared() > 0.0001 and not _initial_frame_pending and _screen_visible and is_visible_in_tree() and viewport.size.x >= 300 and viewport.size.y >= 260:
 		_camera_fitted = true
 
 func _frame_camera(view_camera: Camera3D, dimensions: Vector2i, model_box: AABB, reset_distance: bool) -> void:

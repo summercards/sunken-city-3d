@@ -104,6 +104,7 @@ func run() -> void:
 	var overridden_b: Dictionary = RandomRecipe.create(202, user_palette)
 	check(Recipe._stable_string(overridden_a.architecture.palette) == user_palette_fingerprint and Recipe._stable_string(overridden_b.architecture.palette) == user_palette_fingerprint, "用户显式palette不被随机seed覆盖")
 	check(Recipe._stable_string(user_palette) == user_palette_fingerprint, "用户当前palette输入未被修改")
+	test_solar_random_colors()
 	test_color_inputs()
 	await test_current_colors()
 	test_transaction()
@@ -216,6 +217,23 @@ func compare_colors(before: Dictionary, after: Dictionary, label: String, compar
 		common += 1
 		check(before[id] == after[id], label + " 最终Mesh角色/色格不变 " + id, [before[id], after[id]])
 	check(common > 0, label + " 存在共同实际网格，不空过")
+
+func test_solar_random_colors() -> void:
+	var source: Dictionary = RandomRecipe.create(17)
+	source.architecture.palette = {"color_mode": "auto", "color_seed": 999}
+	source.architecture.window.color_mode = "manual"
+	source.architecture.window.color_cell = [7, 7]
+	source.architecture.facade_windows = {"front": {"color_mode": "manual", "color_cell": [7, 0], "width": source.window_width}}
+	var before: Dictionary = source.duplicate(true)
+	var fixed: Dictionary = RandomRecipe.solar_colors(source)
+	check(source == before, "阳光房配色转换不修改当前原房")
+	check(fixed.architecture.palette == Recipe.authoring_defaults().architecture.palette, "随机强制阳光房完整色板")
+	check(not fixed.architecture.facade_windows.front.has("color_mode") and fixed.architecture.facade_windows.front.width == source.window_width, "清局部窗色但保留窗几何")
+	var built: Dictionary = Generator.build(fixed, Catalog.definitions())
+	check(bool(built.get("ok", false)), "带旧局部色的随机房真实构建", built.get("reason", ""))
+	if bool(built.get("ok", false)):
+		audit_build(built, fixed, "锁阳光房")
+		built.root.free()
 
 func test_color_inputs() -> void:
 	for invalid: Variant in [42, "auto", [], false, {"slots": []}, {"color_cell": [8, 0]}]:

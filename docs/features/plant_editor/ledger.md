@@ -21,6 +21,7 @@
     "godot/addons/plant_editor/editor_screen.gd",
     "godot/addons/plant_editor/preview.gd",
     "godot/addons/plant_editor/editor_verification.gd",
+    "godot/addons/plant_editor/switch_verification.gd",
     "godot/tests/test_plant_authoring.gd",
     "godot/src/plant_authoring/trunk_path.gd",
     "godot/src/plant_authoring/game_wind.gdshaderinc",
@@ -36,7 +37,7 @@
     "godot/src/plant_authoring/leaf_volume.gdshader",
     "godot/tests/test_plant_canopy.gd"
   ],
-  "verification": ["plant-authoring", "plant-integration", "plant-performance", "plant-canopy", "host-scene-guard", "editor-plant", "editor-workshop-upgrade", "editor-scene-assembly"]
+  "verification": ["plant-authoring", "plant-integration", "plant-performance", "plant-canopy", "host-scene-guard", "editor-plant", "editor-workshop-upgrade", "editor-workshop-switch", "editor-scene-assembly"]
 }
 ```
 
@@ -253,3 +254,28 @@ Godot4.7.2、Apple M6、Metal Forward+、1280×800、4×MSAA、无阴影、VSync
 登记头code_paths已有本工坊plugin.gd/editor_screen.gd，不重复追加；verification登记editor-scene-assembly。空树库不灌样例，先保存静态/动态候选再刷新；Placement无脚本，动态Asset保wind_runtime。未做WalkArea/航行/潜水/正式资产登记，Main hash保持`f246ee6aa3bd474ec20979783e0f0c9e606f99de1dcfe899400ccb686e8b1291`，不自动保存或更改已有摆位。上节“project.godot无diff”仅为r9历史；此次实现已追加scene_assembly插件启用，本轮文档收尾不再改该文件。[装配账本](../world/ledger.md) · [浅色使用说明与证据](../../../outputs/scene_assembly_review_20261115/index.html)。
 
 本次收尾全库实测：sync **488 issues / exit1**，正式check **489 issues / exit1**；46功能、1073源资产、1560运行资源。本功能无条款/verification错误；store候选根缺资源扫描仍保留，不创建空目录消错。其他421运行漂移、14源漂移、51断链及资产条款/派生索引问题不批量修；完整结果与日志为`outputs/scene_assembly_review_20261115/contracts_results.json`及`contracts_{sync,check}.log`。13目标外运行记录及元数据均未变，不发AssetID。
+
+## 2026-11-17 树预览按钮消失与相机导航修复
+
+| 对应条款 | 实施与证据 | 边界 |
+|---|---|---|
+| SEA-PLANT-EDITOR-R10 | implemented；工具栏高层、预览框裁切、只显示纹理的SubViewportContainer与独立GUI输入Control分离。支持左/右旋转、中键/Shift拖平移、滚轮、选枝双击与F聚焦，失焦/隐藏停拖；不改变配方或场景摆位。 | 保留重建机位；不改植物生成或其他工坊。 |
+| SEA-PLANT-EDITOR-R13 | 真实editor-plant通过统一runner自动注入鼠标与键盘，四按钮逐次点击后整屏截图与平移/旋转后截图。最终批20261117-161432-tree-preview-gui-final-8e18f4执行中，import exit0；最终结果后续追加。 | 已目检navigation_after_button_1.png与navigation_after_pan_orbit.png，俯视和导航有效、按钮仍可见；截图不替代未执行的Shift/双击/失焦/DPI极值验证。 |
+
+前两批失败保留：160455测试动态类型推断parse（exit124，runner1），160937未导入草资源/初始导入对话框截获GUI（exit124，runner1）。最终批增加--import-assets并等待资源扫描，不能将前两批当通过。全部证据位于工程外sea-work/verification；真实Metal Forward+ Godot4.7.2 Apple M6；无性能或Main/移动/Web/艺术终审。详细开发记录[本次修复](../../development/2026-11-17_tree_preview_navigation.md)。主线程最终同步契约，未改登记头/资产哈希或运行清单。
+
+### 最终实测收口
+
+最终批`20261117-161432-tree-preview-gui-final-8e18f4/report.json`：editor-plant **2289/0、exit0、passed=true、completion_marker=true、unexpected_errors=[]**，asset-import0、runner0。相对2271项增加18项（13个真实GUI/结构断言+5张截图验证），五张navigation图均已产生；总artifacts329，不能说全部人工目检。当前preview.gd/editor_verification.gd与隔离快照逐字节一致。已目检正面、俯视、平移旋转后3张整屏，按钮不消失。
+
+必要内核`20261117-162050-tree-navigation-kernel-real-d078f3/report.json`：plant-authoring **260/0**、plant-integration **540/0**、host-scene-guard **155/0**，各exit0、passed=true、unexpected_errors=[]，import0。该批--visual真实后端逻辑回归，无新图；此前162000未带visual的Dummy后端260项5失败/exit1，因MultiMesh读回不可用，不以该结果修改生产代码，失败历史保留。`git diff --check`退出0，Main场景无diff，未提交。全库sync/check交主线程，未独立重跑或签全工程通过。
+
+## 2026-11-17 双工坊生命周期、草稿保护与生成失败原子性
+
+承接R01/R06/R07/R10/R12/R13/R20。实际祖先显隐门控渲染/process/材质风；隐藏停计时与拖拽合并但保pending，返回不自动重试已失败输入。首次取景等可见稳定尺寸；旧实例幂等补导航层与信号、不重建World3D，新增「重试预览」。草源缺失/未导入/错类型或坏网格返回结构化失败，不在空调用后提交残缺树。新增Session可注入候选校验端口，编辑器风准备在任何配方/上下文/历史/changed提交前完成；拒绝释放独立候选、保旧root，静态Store不依赖预览。
+
+草稿坏JSON/非法配方/恢复失败锁住自动及退出保存；普通editor-plant仍禁写，双工坊专项通过令牌+隔离项目+独立user+无Main/Autoload门禁走真实IO。当前 `/Users/zyq/work/sea-work/verification/20261117-193911-workshop-switch-serial-r5-1b3255/report.json`：**336/0、import/editor/runner exit0、completion=true、unexpected_errors=[]**。真实标签往返、隐藏时钟停、pending一次提交、失败不重试、滑块事务、滚轮/中拖及旧shape迁移保模型/世界/镜头通过；8张PNG。树草稿正对照实际落盘，坏JSON/非法Session恢复拒绝后保存回调与真实timer.timeout显式emit均保原hash、模型、非空pending及历史。预期警告保留，不称零warnings；未等待自然4秒，也未执行真实插件退出。
+
+内核中间批194002的575/0重复调用新增测试导致第二组fixture未清理、exit0但退出泄漏ERROR，runner判FAIL，不签通过；已删除重复调用。更早183249/184616/185501/185618专项失败均留原证据。最终内核与完整editor签署、源码一致性及contracts见[深检记录](../../development/2026-11-17_workshop_switch_deep_check.md)。真实热重载仅旧结构模拟，不签实际reload；物理按住跨标签、原用户跨进程草稿、性能/艺术/Main未测。
+
+最终内核 `20261117-194137-workshop-switch-kernel-release-41a4f7`：plant-authoring **440/0**、plant-integration **540/0**、host-scene-guard **155/0**，各exit0、unexpected=[]。完整真实editor `20261117-200321-workshop-switch-tree-accepted-412775`：**2289/0**、import/editor/runner exit0、completion=true、unexpected=[]；329 artifacts，最终主屏图已目检，非全部逐图审阅。此前195329长批2289/1为静态门禁将目录安全检查误判为加载Main，已区分只读exists与load/preload，不放宽无Autoload/运行树无Main隔离。最终房屋1499/0及装配159/0同批source_consistent=true；产品/测试与当前快照无差异，未修改生产Main/草稿。最终全库sync540/check541 issues、均exit1，14个明确目标无漂移，其他资产/断链/候选输出根扫描保留；详见深检记录及工程外contracts_results.json。

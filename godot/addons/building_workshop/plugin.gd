@@ -11,6 +11,9 @@ var screen: Control
 var store: RefCounted
 var adapter: RefCounted
 var _verification_started: bool = false
+var _recovery_write_blocked: bool = false
+var _recovery_restore_pending: bool = false
+var _recovery_warning: String = ""
 
 func _is_verification() -> bool:
 	return OS.get_cmdline_user_args().has("--workshop-editor-verify") or OS.get_cmdline_user_args().has("--workshop-upgrade-verify")
@@ -25,6 +28,7 @@ func _enter_tree() -> void:
 
 func _create_screen(recovery: Dictionary = {}) -> void:
 	screen = ScreenScript.new()
+	screen.recovery_restore_finished.connect(_on_recovery_restored)
 	screen.configure({"store": store, "editor_plugin": self,
 		"replace_component": Callable(self, "_replace_component"),
 		"export_module_component": Callable(self, "_export_module"),
@@ -34,7 +38,13 @@ func _create_screen(recovery: Dictionary = {}) -> void:
 	if recovery.is_empty() and not _is_verification():
 		recovery = _read_recovery()
 	if not recovery.is_empty():
+		_recovery_restore_pending = true
 		screen.restore_recovery(recovery)
+
+func _on_recovery_restored(result: Dictionary) -> void:
+	_recovery_restore_pending = false
+	if not bool(result.get("ok", false)):
+		_protect_recovery("恢复失败：" + str(result.get("reason", "未知错误")))
 
 func _exit_tree() -> void:
 	remove_tool_menu_item("老王场景工坊")
@@ -68,7 +78,18 @@ func request_document(path: String, token: int) -> void:
 func _save_external_data() -> void:
 	_save_recovery()
 
+func get_recovery_status() -> Dictionary:
+	return {"write_blocked": _recovery_write_blocked, "restore_pending": _recovery_restore_pending,
+		"reason": _recovery_warning, "path": RECOVERY_PATH}
+
+func _protect_recovery(reason: String) -> void:
+	_recovery_write_blocked = true
+	_recovery_warning = reason
+	push_warning("老王场景工坊草稿保护：%s；原 recovery.json 保留，本插件实例的保存回调与退出均不会覆盖。请先备份并检查原文件。" % reason)
+
 func _save_recovery() -> void:
+	if _is_verification() or _recovery_write_blocked or _recovery_restore_pending:
+		return
 	if not is_instance_valid(screen) or not screen.is_node_ready():
 		return
 	var recovery: Dictionary = screen.get_recovery()
@@ -81,25 +102,46 @@ func _save_recovery() -> void:
 	if file == null:
 		push_warning("老王场景工坊草稿未备份")
 		return
-	file.store_string(JSON.stringify(recovery, "\t"))
+	var serialized: String = JSON.stringify(recovery, "\t")
+	file.store_string(serialized)
 	file.close()
 	var verify: FileAccess = FileAccess.open(temporary, FileAccess.READ)
 	if verify == null:
+		push_warning("老王场景工坊草稿临时文件不可读，原备份保持")
 		return
-	var parsed: Variant = JSON.parse_string(verify.get_as_text())
+	var verified_text: String = verify.get_as_text()
+	var parsed: Variant = JSON.parse_string(verified_text)
 	verify.close()
-	if parsed is Dictionary:
-		DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), ProjectSettings.globalize_path(RECOVERY_PATH))
+	if not parsed is Dictionary or verified_text != serialized:
+		push_warning("老王场景工坊草稿临时文件校验失败，原备份保持")
+		return
+	var renamed: Error = DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), ProjectSettings.globalize_path(RECOVERY_PATH))
+	if renamed != OK:
+		push_warning("老王场景工坊草稿备份提交失败（%s），原备份保持" % error_string(renamed))
 
 func _read_recovery() -> Dictionary:
 	if not FileAccess.file_exists(RECOVERY_PATH):
 		return {}
 	var file: FileAccess = FileAccess.open(RECOVERY_PATH, FileAccess.READ)
 	if file == null:
+		_protect_recovery("草稿文件存在但不可读（%s）" % error_string(FileAccess.get_open_error()))
 		return {}
-	var data: Variant = JSON.parse_string(file.get_as_text())
+	var text: String = file.get_as_text()
+	var read_error: Error = file.get_error()
 	file.close()
-	return data if data is Dictionary else {}
+	if read_error != OK and read_error != ERR_FILE_EOF:
+		_protect_recovery("读取草稿失败（%s）" % error_string(read_error))
+		return {}
+	var parser: JSON = JSON.new()
+	var parsed: Error = parser.parse(text)
+	if parsed != OK:
+		_protect_recovery("草稿 JSON 损坏，第%d行：%s" % [parser.get_error_line(), parser.get_error_message()])
+		return {}
+	var data: Variant = parser.data
+	if not data is Dictionary or data.is_empty():
+		_protect_recovery("草稿根必须为非空对象，不能用空白主屏覆盖")
+		return {}
+	return data
 
 func _replace_component(session: RefCounted, _component_id: String, path: String) -> Dictionary:
 	# 默认只替换当前槽；全局同ID可能有不同尺寸，不能连带拉伸其他门窗。
@@ -134,12 +176,14 @@ func _update_saved_files() -> void:
 			filesystem.update_file(path)
 
 func rebuild_screen_for_verification() -> Dictionary:
+	var was_active: bool = screen.is_screen_active()
 	var recovery: Dictionary = screen.get_recovery()
 	_make_visible(false)
 	var old: Control = screen
 	EditorInterface.get_editor_main_screen().remove_child(old)
 	old.queue_free()
 	_create_screen(recovery)
+	_make_visible(was_active)
 	return recovery
 
 func _run_verification() -> void:

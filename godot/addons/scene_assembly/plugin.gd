@@ -7,6 +7,11 @@ const DropSurface = preload("res://addons/scene_assembly/drop_surface.gd")
 const META := "sea_placement"
 const AttachmentController = preload("res://addons/scene_assembly/attachment_controller.gd")
 const AttachmentPanel = preload("res://addons/scene_assembly/attachment_panel.gd")
+const BRIDGE_PLUGINS := {
+	"res://addons/building_workshop/plugin.gd": "building",
+	"res://addons/plant_editor/plugin.gd": "plant",
+}
+const BRIDGE_SCREENS := ["res://addons/building_workshop/editor_screen.gd", "res://addons/plant_editor/editor_screen.gd"]
 
 var attachment_controller: Node
 var attachment_panel: VBoxContainer
@@ -22,6 +27,8 @@ var drop_height: SpinBox
 var surfaces: Array[Control] = []
 var _resize_connections: Array[Dictionary] = []
 var bridges: Dictionary = {}
+var _bridge_connections: Dictionary = {}
+var _bridge_refresh_queued := false
 var pending: Dictionary = {}
 var binding: Dictionary = {}
 var serial := 0
@@ -147,7 +154,8 @@ func _setup() -> void:
 		_resize_connections.append({"container": weakref(container), "callback": callback})
 		surface.hide()
 		surfaces.append(surface)
-	_connect_bridges(get_tree().root)
+	get_tree().node_added.connect(_bridge_node_added)
+	_refresh_bridges()
 	refresh_library()
 	if OS.get_cmdline_user_args().has("--building-attachments-verify"):
 		var path := "res://tests/test_building_attachments_editor.gd"
@@ -184,17 +192,88 @@ func _resize_drop_surface(container_ref: WeakRef, surface_ref: WeakRef) -> void:
 	surface.position = container.position
 	surface.size = container.size
 
-func _connect_bridges(node: Node) -> void:
+func _bridge_node_added(node: Node) -> void:
 	var script: Script = node.get_script()
-	if script != null:
-		var path := script.resource_path
-		var kind := "building" if path == "res://addons/building_workshop/plugin.gd" else "plant" if path == "res://addons/plant_editor/plugin.gd" else ""
-		if not kind.is_empty():
-			bridges[kind] = node
-			node.screen.document_opened.connect(_document_opened.bind(kind))
-			node.screen.document_request_finished.connect(_request_finished.bind(kind))
-			node.screen.revision_saved.connect(_revision_saved.bind(kind))
-	for child in node.get_children(): _connect_bridges(child)
+	if script != null and (BRIDGE_PLUGINS.has(script.resource_path) or BRIDGE_SCREENS.has(script.resource_path)):
+		_queue_bridge_refresh()
+
+func _queue_bridge_refresh() -> void:
+	if _exiting or _bridge_refresh_queued: return
+	_bridge_refresh_queued = true
+	call_deferred("_refresh_bridges")
+
+func _refresh_bridges() -> void:
+	_bridge_refresh_queued = false
+	if _exiting or not is_inside_tree(): return
+	_connect_bridges(get_tree().root)
+
+func _find_bridges(node: Node, found: Dictionary) -> void:
+	var script: Script = node.get_script()
+	if script != null and BRIDGE_PLUGINS.has(script.resource_path) and not node.is_queued_for_deletion():
+		found[BRIDGE_PLUGINS[script.resource_path]] = node
+	for child in node.get_children(): _find_bridges(child, found)
+
+func _connect_bridges(node: Node) -> void:
+	var found: Dictionary = {}
+	_find_bridges(node, found)
+	for kind: String in ["building", "plant"]:
+		var bridge: Node = found.get(kind)
+		var screen: Control = bridge.screen if is_instance_valid(bridge) else null
+		if not is_instance_valid(screen) or not screen.is_inside_tree() or screen.is_queued_for_deletion():
+			_disconnect_bridge(kind)
+			continue
+		var bridge_id := bridge.get_instance_id()
+		var screen_id := screen.get_instance_id()
+		if _bridge_connections.has(kind) and _bridge_connections[kind].bridge_id == bridge_id and _bridge_connections[kind].screen_id == screen_id:
+			continue
+		_disconnect_bridge(kind)
+		bridges[kind] = bridge
+		var connections: Array[Dictionary] = []
+		for pair: Array in [[screen.document_opened, _document_opened.bind(kind, bridge_id, screen_id)],
+			[screen.document_request_finished, _request_finished.bind(kind, bridge_id, screen_id)],
+			[screen.revision_saved, _revision_saved.bind(kind, bridge_id, screen_id)],
+			[screen.tree_exiting, _bridge_exiting.bind(kind, bridge_id, screen_id)],
+			[bridge.tree_exiting, _bridge_exiting.bind(kind, bridge_id, screen_id)]]:
+			var source: Signal = pair[0]
+			var callback: Callable = pair[1]
+			if not source.is_connected(callback): source.connect(callback)
+			connections.append({"source": source, "callback": callback})
+		_bridge_connections[kind] = {"bridge_id": bridge_id, "screen_id": screen_id, "connections": connections}
+
+func _bridge_matches(transaction: Dictionary, kind: String, bridge_id: int, screen_id: int) -> bool:
+	return not transaction.is_empty() and transaction.get("kind") == kind and transaction.get("bridge_id") == bridge_id and transaction.get("screen_id") == screen_id
+
+func _disconnect_bridge(kind: String) -> void:
+	bridges.erase(kind)
+	if not _bridge_connections.has(kind): return
+	var connection: Dictionary = _bridge_connections[kind]
+	_bridge_connections.erase(kind)
+	# 使用连接时的信号源，不能经已替换的 plugin.screen 查找旧 screen。
+	for pair: Dictionary in connection.connections:
+		var source: Signal = pair.source
+		var callback: Callable = pair.callback
+		if is_instance_valid(source.get_object()) and source.is_connected(callback): source.disconnect(callback)
+	if _bridge_matches(pending, kind, connection.bridge_id, connection.screen_id): pending.clear()
+	if _bridge_matches(binding, kind, connection.bridge_id, connection.screen_id): binding.clear()
+
+func _bridge_exiting(kind: String, bridge_id: int, screen_id: int) -> void:
+	if not _bridge_connections.has(kind): return
+	var connection: Dictionary = _bridge_connections[kind]
+	if connection.bridge_id != bridge_id or connection.screen_id != screen_id: return
+	_disconnect_bridge(kind)
+	_queue_bridge_refresh()
+
+func _bridge_is_current(kind: String, bridge_id: int, screen_id: int) -> bool:
+	if _exiting or not _bridge_connections.has(kind): return false
+	var connection: Dictionary = _bridge_connections[kind]
+	if connection.bridge_id != bridge_id or connection.screen_id != screen_id: return false
+	var bridge: Node = bridges.get(kind)
+	if is_instance_valid(bridge) and bridge.is_inside_tree() and not bridge.is_queued_for_deletion():
+		var screen: Control = bridge.screen
+		if is_instance_valid(screen) and screen.get_instance_id() == screen_id and screen.is_inside_tree() and not screen.is_queued_for_deletion(): return true
+	_disconnect_bridge(kind)
+	_queue_bridge_refresh()
+	return false
 
 func _exit_tree() -> void:
 	_exiting = true
@@ -204,14 +283,12 @@ func _exit_tree() -> void:
 		_selection.selection_changed.disconnect(_selection_changed)
 	if scene_closed.is_connected(_scene_closed): scene_closed.disconnect(_scene_closed)
 	if scene_changed.is_connected(_attachment_scene_changed): scene_changed.disconnect(_attachment_scene_changed)
-	for kind: String in bridges:
-		var bridge: Node = bridges[kind]
-		if not is_instance_valid(bridge) or not is_instance_valid(bridge.screen): continue
-		for pair: Array in [[bridge.screen.document_opened, _document_opened.bind(kind)], [bridge.screen.document_request_finished, _request_finished.bind(kind)], [bridge.screen.revision_saved, _revision_saved.bind(kind)]]:
-			var source: Signal = pair[0]
-			var callback: Callable = pair[1]
-			if source.is_connected(callback): source.disconnect(callback)
+	if get_tree().node_added.is_connected(_bridge_node_added): get_tree().node_added.disconnect(_bridge_node_added)
+	_bridge_refresh_queued = false
+	for kind: String in _bridge_connections.keys(): _disconnect_bridge(kind)
 	bridges.clear()
+	pending.clear()
+	binding.clear()
 	for connection: Dictionary in _resize_connections:
 		var container := connection.container.get_ref() as Control
 		var callback: Callable = connection.callback
@@ -364,6 +441,8 @@ func _select_nodes(nodes: Array) -> void:
 	_selection_changed()
 
 func edit_selected() -> void:
+	if _exiting or not is_inside_tree(): return
+	_refresh_bridges()
 	var target := selected_placement()
 	if target == null: return
 	var data: Dictionary = target.get_meta(META)
@@ -378,21 +457,25 @@ func edit_selected() -> void:
 		report("请先处理工坊的未保存确认窗口。")
 		return
 	serial += 1
-	pending = {"token": serial, "kind": kind, "target": weakref(target), "root": weakref(EditorInterface.get_edited_scene_root()),
+	var connection: Dictionary = _bridge_connections[kind]
+	pending = {"token": serial, "kind": kind, "bridge_id": connection.bridge_id, "screen_id": connection.screen_id,
+		"target": weakref(target), "root": weakref(EditorInterface.get_edited_scene_root()),
 		"scene": EditorInterface.get_edited_scene_root().scene_file_path, "node_path": EditorInterface.get_edited_scene_root().get_path_to(target), "data": data.duplicate(true), "asset": weakref(target.get_node("Asset"))}
 	bridges[kind].request_document(str(data.recipe_path), serial)
 
-func _document_opened(_path: String, token: int, kind: String) -> void:
+func _document_opened(_path: String, token: int, kind: String, bridge_id: int, screen_id: int) -> void:
+	if not _bridge_is_current(kind, bridge_id, screen_id): return
 	if token == 0:
-		if not binding.is_empty() and binding.kind == kind: binding.clear()
+		if _bridge_matches(binding, kind, bridge_id, screen_id): binding.clear()
 		return
-	if not pending.is_empty() and pending.token == token and pending.kind == kind:
+	if _bridge_matches(pending, kind, bridge_id, screen_id) and pending.token == token:
 		binding = pending.duplicate()
 		pending.clear()
 		report("工坊已绑定此实例；另选节点不会改变目标。保存新版本后只更新此实例。")
 
-func _request_finished(token: int, result: Dictionary, _kind: String) -> void:
-	if not pending.is_empty() and pending.token == token:
+func _request_finished(token: int, result: Dictionary, kind: String, bridge_id: int, screen_id: int) -> void:
+	if not _bridge_is_current(kind, bridge_id, screen_id): return
+	if _bridge_matches(pending, kind, bridge_id, screen_id) and pending.token == token:
 		pending.clear()
 		if not result.get("ok", false): report("未切换编辑绑定：" + str(result.get("reason", "打开失败")))
 
@@ -404,9 +487,10 @@ func _scene_closed(path: String) -> void:
 	if not binding.is_empty() and binding.scene == path: binding["closed"] = true
 	if not pending.is_empty() and pending.scene == path: pending["closed"] = true
 
-func _revision_saved(token: int, result: Dictionary, kind: String) -> void:
+func _revision_saved(token: int, result: Dictionary, kind: String, bridge_id: int, screen_id: int) -> void:
+	if not _bridge_is_current(kind, bridge_id, screen_id): return
 	call_deferred("refresh_library", false)
-	if binding.is_empty() or binding.token != token or binding.kind != kind: return
+	if not _bridge_matches(binding, kind, bridge_id, screen_id) or binding.token != token: return
 	var target: Node3D = binding.target.get_ref()
 	var root: Node = binding.root.get_ref()
 	var old_asset: Node = binding.asset.get_ref()

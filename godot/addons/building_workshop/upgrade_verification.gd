@@ -23,6 +23,65 @@ static func run(editor_plugin: EditorPlugin) -> void:
 	var verifier: RefCounted = load("res://addons/building_workshop/upgrade_verification.gd").new()
 	await verifier.execute(editor_plugin)
 
+func verify_preview_navigation() -> void:
+	var preview: Control = screen.preview
+	check(preview._model_root.get_child_count() == 1, "首次打开已有真实预览模型")
+	check(preview.viewport.render_target_update_mode == SubViewport.UPDATE_ALWAYS, "首次打开预览实际持续渲染")
+	preview.set_view("perspective")
+	var recipe: Dictionary = screen.snapshot()
+	var history: int = screen.session._undo.size()
+	var box: AABB = preview._model_aabb()
+	preview._target = Vector3(9000, -8000, 7000)
+	preview._fit_camera(false)
+	screen._button_pressed("frame_building")
+	check(preview._target.is_equal_approx(box.get_center()), "显示整栋找回远处镜头")
+	for index: int in range(8):
+		var point: Vector2 = preview.camera.unproject_position(box.get_endpoint(index))
+		check(Rect2(Vector2.ZERO, Vector2(preview.viewport.size)).has_point(point), "找回整栋八角在画面内 %d" % index)
+	var target: Vector3 = preview._target
+	preview._pan_camera(Vector2(80, 30))
+	check(not preview._target.is_equal_approx(target), "视平面平移实际移动视点")
+	preview.grab_focus()
+	var focus_key := InputEventKey.new()
+	focus_key.keycode = KEY_F
+	focus_key.pressed = true
+	preview._gui_input(focus_key)
+	check(preview._target.is_equal_approx(box.get_center()), "预览F键找回整栋")
+	if not preview._slots.is_empty():
+		var slot: Dictionary = preview._slots[0]
+		preview.select_slot(str(slot.id), false)
+		preview.focus_object()
+		check(preview._target.is_equal_approx(preview._slot_aabb(slot).get_center()), "聚焦选中槽实际包围盒")
+	preview._navigation_button = MOUSE_BUTTON_RIGHT
+	preview._move_keys[KEY_W] = true
+	preview.set_screen_visible(false)
+	check(preview._navigation_button == 0 and preview._move_keys.is_empty(), "隐藏清理飞行输入")
+	preview.set_screen_visible(true)
+	preview.select_slot("", false)
+	preview.focus_object(true)
+	check(screen.snapshot() == recipe and screen.session._undo.size() == history, "导航聚焦不改配方历史")
+	# Exercise actual hidden-build/first-layout lifecycle, not the refitted capture viewport.
+	screen.set_screen_visible(false)
+	preview._camera_fitted = false
+	check(bool(screen.refresh_preview().get("ok", false)), "隐藏期间真实重建预览")
+	check(not preview._camera_fitted, "隐藏尺寸不提交首次取景")
+	screen.set_screen_visible(true)
+	for frame: int in range(5):
+		await plugin.get_tree().process_frame
+	RenderingServer.force_draw()
+	var live_image: Image = preview.viewport.get_texture().get_image()
+	var foreground: int = 0
+	if live_image != null and not live_image.is_empty():
+		var background: Color = live_image.get_pixel(2, 2)
+		for y: int in range(0, live_image.get_height(), 8):
+			for x: int in range(0, live_image.get_width(), 8):
+				var pixel: Color = live_image.get_pixel(x, y)
+				if Vector3(pixel.r - background.r, pixel.g - background.g, pixel.b - background.b).length() > 0.08:
+					foreground += 1
+		live_image.save_png("res://outputs/workshop_live_preview_recovered.png")
+	check(preview._camera_fitted and foreground > 50, "隐藏重建后嵌入预览实际有模型像素", foreground)
+	await capture("preview_navigation_recovered")
+
 func check(ok: bool, label: String, detail: Variant = "") -> void:
 	checks.append({"name": label, "passed": ok, "detail": str(detail)})
 	if not ok:
@@ -59,6 +118,7 @@ func execute(editor_plugin: EditorPlugin) -> void:
 		if parsed_default is Dictionary:
 			var default_reason: String = Recipe.validate(parsed_default as Dictionary, Catalog.definitions())
 			check(default_reason.is_empty(), "默认模组配方合规 " + str(item.label), default_reason)
+	await verify_preview_navigation()
 	await verify_authoring_defaults()
 	await verify_generation_adjustment()
 	await verify_repair_review()
@@ -1105,6 +1165,19 @@ func verify_random_house() -> void:
 	if not bool(screen.random_house_result.get("ok", false)): return
 	var after: Dictionary = screen.snapshot()
 	var after_hash: String = visual_hash()
+	check(after.architecture.palette == Recipe.authoring_defaults().architecture.palette, "随机房屋固定阳光房完整色板")
+	var colored_windows: int = 0
+	for node: Node in screen.preview._model_root.find_children("*", "MeshInstance3D", true, false):
+		var role: String = "glass" if str(node.name).begins_with("glass_") else ("frame" if str(node.name).begins_with("frame_") else "")
+		if role.is_empty(): continue
+		var cell: Array = after.architecture.palette.slots[role].color_cell
+		for surface: int in node.mesh.get_surface_count():
+			var uv_ok: bool = true
+			for uv: Vector2 in node.mesh.surface_get_arrays(surface)[Mesh.ARRAY_TEX_UV]:
+				uv_ok = uv_ok and Vector2i(floori(uv.x * 8.0), floori(uv.y * 8.0)) == Vector2i(int(cell[1]), int(cell[0]))
+			check(uv_ok, "随机真实窗/框UV固定阳光房 " + str(node.name))
+		colored_windows += 1
+	check(colored_windows > 0, "随机阳光房窗框真实网格非空")
 	check(screen.session._undo.size() == old_history + 1 and after_hash != original_hash, "随机一次实际模型变化只提交一次历史")
 	check(after.building_id == before.building_id and after.revision == before.revision, "随机不改变当前文档身份和版本")
 	check_structure("随机房屋")

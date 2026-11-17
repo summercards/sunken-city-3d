@@ -37,6 +37,12 @@ static func build(data: Dictionary, batch_foliage: bool = true) -> Dictionary:
 		var atlas_image := atlas.get_image()
 		if atlas.get_width() != 512 or atlas.get_height() != 512 or atlas_image == null or not atlas_image.has_mipmaps():
 			return {"ok": false, "reason": "叶卡图集必须为 512×512，并启用导入 mipmaps/generate", "root": null, "branches": [], "stats": {}}
+	var grass_source: ArrayMesh = null
+	if recipe.grass_enabled and int(recipe.grass_count) > 0:
+		grass_source = Library.mesh(recipe.grass_asset) as ArrayMesh
+		reason = _grass_source_error(grass_source)
+		if not reason.is_empty():
+			return {"ok": false, "reason": "草资源 %s：%s" % [recipe.grass_asset, reason], "root": null, "branches": [], "stats": {}}
 	var definition: Dictionary = Species.definitions()[recipe.species]
 	var root := Node3D.new()
 	root.name = String(recipe.name).validate_node_name() if not String(recipe.name).is_empty() else String(definition.name)
@@ -132,7 +138,10 @@ static func build(data: Dictionary, batch_foliage: bool = true) -> Dictionary:
 	if recipe.vine_enabled and int(recipe.vine_count) > 0 and float(recipe.vine_length) > 0.0:
 		leaf_count += _build_vines(vines_group, recipe, trunk_points, trunk_radii, materials.vine, materials.vine_leaf)
 	if recipe.grass_enabled and int(recipe.grass_count) > 0:
-		_build_grass(grass_group, recipe, grass_material)
+		reason = _build_grass(grass_group, recipe, grass_material, grass_source)
+		if not reason.is_empty():
+			root.free()
+			return {"ok": false, "reason": "草资源 %s：%s" % [recipe.grass_asset, reason], "root": null, "branches": [], "stats": {}}
 	if lightweight and batch_foliage:
 		for group: Node3D in [trunk_group, leaves_group, moss_group, vines_group, grass_group]:
 			FoliageBatch.merge_group(group)
@@ -442,9 +451,67 @@ static func _build_vines(parent: Node3D, recipe: Dictionary, trunk: Array[Vector
 		_emit(parent, id + "_Leaves", foliage, foliage_material)
 	return int(recipe.vine_count) * 4
 
-static func _build_grass(parent: Node3D, recipe: Dictionary, material: Material) -> void:
+static func _grass_source_error(source: ArrayMesh) -> String:
+	if source == null:
+		return "网格缺失、尚未导入或不是 ArrayMesh"
+	if source.get_surface_count() == 0:
+		return "网格没有表面"
+	for surface in source.get_surface_count():
+		if source.surface_get_primitive_type(surface) != Mesh.PRIMITIVE_TRIANGLES:
+			return "表面 %d 不是三角面" % surface
+		var reason := _grass_surface_error(source.surface_get_arrays(surface))
+		if not reason.is_empty():
+			return "表面 %d：%s" % [surface, reason]
+	return ""
+
+static func _grass_surface_error(arrays: Array) -> String:
+	if arrays.size() != Mesh.ARRAY_MAX:
+		return "网格数组长度无效"
+	if not arrays[Mesh.ARRAY_VERTEX] is PackedVector3Array:
+		return "顶点数组缺失或类型错误"
+	var positions: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	if positions.is_empty():
+		return "顶点数组为空"
+	if not arrays[Mesh.ARRAY_TEX_UV] is PackedVector2Array:
+		return "UV 数组缺失或类型错误"
+	var uvs: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+	if uvs.size() != positions.size():
+		return "UV 与顶点数量不一致"
+	for vertex in positions.size():
+		if not positions[vertex].is_finite() or not uvs[vertex].is_finite():
+			return "顶点或 UV 含非有限数"
+	var normals: Variant = arrays[Mesh.ARRAY_NORMAL]
+	if normals != null:
+		if not normals is PackedVector3Array:
+			return "法线数组类型错误"
+		if normals.size() == positions.size():
+			for normal: Vector3 in normals:
+				if not normal.is_finite():
+					return "法线含非有限数"
+	var indices: Variant = arrays[Mesh.ARRAY_INDEX]
+	if indices != null and not indices is PackedInt32Array:
+		return "索引数组类型错误"
+	if indices == null or indices.is_empty():
+		if positions.size() % 3 != 0:
+			return "非索引顶点数量不是三的倍数"
+	else:
+		if indices.size() % 3 != 0:
+			return "索引数量不是三的倍数"
+		for index: int in indices:
+			if index < 0 or index >= positions.size():
+				return "索引超出顶点范围"
+	return ""
+
+static func _build_grass(parent: Node3D, recipe: Dictionary, material: Material, source: ArrayMesh = null) -> String:
+	if source == null:
+		source = Library.mesh(recipe.grass_asset) as ArrayMesh
+	var reason := _grass_source_error(source)
+	if not reason.is_empty():
+		return reason
 	# 只复用源几何深副本；重建 UV 并绑定本地叶材质，绝不消费原全局风 Shader。
-	var source := Library.mesh(recipe.grass_asset).duplicate(true) as ArrayMesh
+	source = source.duplicate(true) as ArrayMesh
+	if source == null:
+		return "网格复制失败"
 	var buffer := _buffer()
 	for index in int(recipe.grass_count):
 		var id := "grass_%02d" % index
@@ -455,11 +522,11 @@ static func _build_grass(parent: Node3D, recipe: Dictionary, material: Material)
 		var basis := Basis(Vector3.UP, _range(recipe, rng, 0.0, TAU)).scaled(Vector3.ONE * scale)
 		var transform := Transform3D(basis, Vector3(cos(angle) * radius, 0.0, sin(angle) * radius))
 		for surface in source.get_surface_count():
-			if source.surface_get_primitive_type(surface) != Mesh.PRIMITIVE_TRIANGLES:
-				continue
 			var arrays := source.surface_get_arrays(surface)
 			var positions: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
-			var ns: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+			var ns := PackedVector3Array()
+			if arrays[Mesh.ARRAY_NORMAL] is PackedVector3Array:
+				ns = arrays[Mesh.ARRAY_NORMAL]
 			var source_uv: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
 			var ids := PackedInt32Array()
 			if arrays[Mesh.ARRAY_INDEX] is PackedInt32Array:
@@ -483,7 +550,9 @@ static func _build_grass(parent: Node3D, recipe: Dictionary, material: Material)
 		height = maxf(height, point.y)
 	for point: Vector3 in buffer.v:
 		buffer.colors.append(Color(clampf(point.y / height, 0.0, 1.0), 0.0, 0.0, 1.0))
-	_emit(parent, "GroundCover", buffer, material)
+	if _emit(parent, "GroundCover", buffer, material) == null:
+		return "草网格未生成"
+	return ""
 
 static func _cell(recipe: Dictionary, role: String, id: String) -> int:
 	var selected := int(recipe[role + "_cell"])

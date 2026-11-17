@@ -6,6 +6,9 @@
 /.workbuddy/*
 !/.workbuddy/skills/
 
+# .claude/skills 只是指向 .agents/skills（已入库）的软链镜像，由 sync_project_skills.py 生成
+/.claude/
+
 # Preview / verification artifacts
 /preview*.png
 /preview*.jpg
