@@ -1,0 +1,47 @@
+{
+  "状态": "本地贴图处理及静态验收通过；非完整生产交付",
+  "运行贴图": "godot/assets/textures/vegetation/surface_moss_atlas_512.png",
+  "导入配置": "godot/assets/textures/vegetation/surface_moss_atlas_512.png.import",
+  "处理环境": "/Users/zyq/work/sea-work/plant_canopy_20261115/venv/bin/python",
+  "重建命令": "/Users/zyq/work/sea-work/plant_canopy_20261115/venv/bin/python /Users/zyq/work/sea/art_source/surface_paint/v001/处理记录/process_surface_moss.py --write-runtime",
+  "检测": {
+    "源尺寸与模式": "1024×1024 RGB，无alpha，不能直接接入",
+    "烘焙棋盘": "16像素方格、32像素周期；中性像素相位中位数估计背景",
+    "去背景": "色度阈值区分中性背景与植物，保留有色实心内部，边缘保守反解并使用邻近可信RGB去白边",
+    "右下标记处理": "源半开矩形[864,944,1024,1024]全部透明；与植物轮廓不重叠",
+    "重排": "源分区横线y=450，避免按y=512切断左下悬垂苔藓；输出严格2×2，每格256×256",
+    "重采样": "有效轮廓重裁，源8像素留白，保持比例；预乘RGBa Lanczos后恢复直通RGBA，零alpha区域RGB扩边8像素"
+  },
+  "静态验收": {
+    "PNG": "512×512 RGBA，233200字节",
+    "格内最小透明留白像素": 17,
+    "可见中性污染像素": 0,
+    "可信内部像素被修改数": 0,
+    "强色植物像素丢失数": 0,
+    "右下剔除区域alpha最大值": 0,
+    "原始alpha精确复原": false,
+    "说明": "上述像素指标是保守阈值检查，不等同于证明原始alpha可逆恢复；边缘alpha为估计。",
+    "目检": "深底、浅底及256/128/64缩小图未见棋盘或右下白字，四patch独立完整。",
+    "重复构建": "第二次运行输出与运行PNG/import逐字节一致",
+    "哈希": "源图、脚本、参数、候选、运行PNG和import哈希已记录并独立核验",
+    "import": "compress/mode=2，high_quality=true，mipmaps/generate=true，fix_alpha_border=true，premult_alpha=false，size_limit=512",
+    "Git忽略": "目标PNG和.import均显示为未跟踪文件；.import未被gitignore忽略。未执行git add/commit。"
+  },
+  "报告文件": [
+    "atlas_visual_report.png",
+    "source_boundaries.png",
+    "source_alpha_mask.png",
+    "source_cleaned_rgba.png",
+    "patch_layout.json",
+    "static_image_checks.json",
+    "source_manifest.json"
+  ],
+  "主线程待办": [
+    "生成模型与原始完整prompt未提供，图像元数据未包含可核实模型/prompt；generation_model和prompt_hash为null，不能捏造。请补证后计算prompt哈希。",
+    "本次本地处理获用户授权，但源资产许可及正式发布授权仍pending；正式交付前复核。未记录Key。",
+    "Godot未运行，.import仅为配置，未生成.ctex，未验证实际VRAM压缩或引擎渲染。请由主线程统一导入与验收。",
+    "UV顺序：左上round_moss，右上radial_moss，左下hanging_moss，右下moss_ivy；每格UV宽高0.5。",
+    "最深mipmap仍可能串格；shader/材质按格钳制、限制LOD及alpha策略由主线程或核心代理协调，本线程未新增或修改shader/材质。"
+  ],
+  "边界确认": "只写art_source/surface_paint/v001/处理记录内脚本与输出，以及指定运行PNG和.import；未修改其他生产代码、docs、registry、memory、Main；未改源图、未换模型重生、未调用云图像服务、未制作占位冒充完成。"
+}

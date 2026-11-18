@@ -31,6 +31,7 @@ var _plant_space: Node3D
 var _render_active: bool = false
 var _ensuring_navigation: bool = false
 var _first_fit_queued: bool = false
+var _focus_box := AABB()
 
 func _ready() -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -280,10 +281,11 @@ func fit_model() -> void:
 func _fit_model_now() -> void:
 	if not is_instance_valid(model) or not is_instance_valid(camera):
 		return
-	var bounds: AABB = model.global_transform * _bounds(model)
-	if is_instance_valid(host_reference):
-		bounds = bounds.merge(host_reference.global_transform * _bounds(host_reference))
-	focus_bounds(bounds)
+	focus_bounds(get_plant_bounds())
+
+## 当前树的世界包络；宿主参考、高亮和预览 ghost 不属于树。
+func get_plant_bounds() -> AABB:
+	return _bounds(model, true) if is_instance_valid(model) else AABB()
 
 func set_host_reference(node: Node3D) -> void:
 	clear_host_reference()
@@ -303,8 +305,13 @@ func set_plant_transform(value: Transform3D) -> void:
 	_plant_space.transform = host_reference.transform * value if is_instance_valid(host_reference) else value
 	select_branch(selected_id)
 
+## bounds 位于 PlantPreviewSpace 局部域；branch bounds 则位于 model 根局部域。
 func focus_plant_bounds(bounds: AABB) -> void:
+	_plant_space.force_update_transform()
 	focus_bounds(_plant_space.global_transform * bounds)
+
+func focus_selection() -> void:
+	if not focus_branch(selected_id): fit_model()
 
 func focus_bounds(bounds: AABB, factor: float = 1.0) -> void:
 	if not is_instance_valid(camera) or not is_instance_valid(viewport):
@@ -312,23 +319,50 @@ func focus_bounds(bounds: AABB, factor: float = 1.0) -> void:
 	if not _render_active or not is_visible_in_tree():
 		_queue_first_fit()
 		return
+	_cancel_drag()
 	_initialized_camera = true
+	_focus_box = bounds
 	target = bounds.get_center()
+	_update_camera()
 	var aspect := float(maxi(viewport.size.x, 1)) / float(maxi(viewport.size.y, 1))
-	var radius := maxf(bounds.size.length() * 0.5, 0.2)
-	distance = radius / sin(deg_to_rad(camera.fov * 0.5)) * maxf(1.0, 1.0 / aspect) * factor
-	camera.size = radius * 2.3 * maxf(1.0, 1.0 / aspect)
+	var tangent := tan(deg_to_rad(camera.fov * 0.5))
+	var tangent_x := tangent if camera.keep_aspect == Camera3D.KEEP_WIDTH else tangent * aspect
+	var tangent_y := tangent / aspect if camera.keep_aspect == Camera3D.KEEP_WIDTH else tangent
+	var inverse: Basis = camera.global_basis.inverse()
+	var half_width := 0.0
+	var half_height := 0.0
+	var fitted_distance := 0.15
+	for index: int in 8:
+		var corner: Vector3 = inverse * (bounds.get_endpoint(index) - target)
+		half_width = maxf(half_width, absf(corner.x))
+		half_height = maxf(half_height, absf(corner.y))
+		fitted_distance = maxf(fitted_distance, corner.z + maxf(absf(corner.x) / tangent_x, absf(corner.y) / tangent_y) * 1.12 + camera.near)
+	distance = fitted_distance * maxf(factor, 1.0)
+	camera.size = maxf(0.1, maxf(half_width * 2.0, half_height * 2.0 * aspect) * 1.12) if camera.keep_aspect == Camera3D.KEEP_WIDTH else maxf(0.1, maxf(half_height * 2.0, half_width * 2.0 / aspect) * 1.12)
+	camera.size *= maxf(factor, 1.0)
 	_update_camera()
 
-func _bounds(node: Node3D) -> AABB:
-	var result := AABB(Vector3.ZERO, Vector3.ZERO)
+func _bounds(node: Node3D, world_space: bool = false) -> AABB:
+	var result := AABB()
 	var found := false
-	if node is MeshInstance3D and node.mesh != null:
-		result = node.mesh.get_aabb()
-		found = true
-	for child in node.find_children("*", "MeshInstance3D", true, false):
-		if child.mesh != null:
-			var box: AABB = node.global_transform.affine_inverse() * child.global_transform * child.mesh.get_aabb()
+	node.force_update_transform()
+	var space: Transform3D = Transform3D.IDENTITY if world_space else node.global_transform.affine_inverse()
+	var pending: Array[Node] = [node]
+	while not pending.is_empty():
+		var child: Node = pending.pop_back()
+		if child is Node3D and not child.is_visible_in_tree(): continue
+		pending.append_array(child.get_children())
+		var boxes: Array[AABB] = []
+		if child is MeshInstance3D and child.mesh != null:
+			child.force_update_transform()
+			boxes.append(space * child.global_transform * child.mesh.get_aabb())
+		elif child is MultiMeshInstance3D and child.multimesh != null and child.multimesh.mesh != null:
+			child.force_update_transform()
+			var multi: MultiMesh = child.multimesh
+			var count: int = multi.instance_count if multi.visible_instance_count < 0 else mini(multi.instance_count, multi.visible_instance_count)
+			for index: int in count:
+				boxes.append(space * child.global_transform * multi.get_instance_transform(index) * multi.mesh.get_aabb())
+		for box: AABB in boxes:
 			result = result.merge(box) if found else box
 			found = true
 	return result
@@ -340,17 +374,30 @@ func set_view(mode: String) -> void:
 	if mode == "fit":
 		fit_model()
 		return
-	_initialized_camera = true
+	if mode not in ["front", "back", "top", "bottom", "perspective"]: return
 	camera.projection = Camera3D.PROJECTION_PERSPECTIVE if mode == "perspective" else Camera3D.PROJECTION_ORTHOGONAL
-	yaw = 0.65 if mode == "perspective" else 0.0
-	pitch = 0.18 if mode == "perspective" else PI * 0.499 if mode == "top" else 0.0
-	_update_camera()
+	yaw = 0.65 if mode == "perspective" else PI if mode == "back" else 0.0
+	pitch = 0.18 if mode == "perspective" else PI * 0.5 if mode == "top" else -PI * 0.5 if mode == "bottom" else 0.0
+	_fit_model_now()
 
 func _update_camera() -> void:
 	if camera == null:
 		return
-	camera.position = target + Vector3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch)) * distance
-	camera.look_at(target, Vector3.UP)
+	var direction := Vector3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch)).normalized()
+	var up := Vector3.FORWARD if absf(direction.dot(Vector3.UP)) > 0.999 else Vector3.UP
+	camera.global_position = target + direction * distance
+	camera.force_update_transform()
+	camera.look_at(target, up)
+	camera.force_update_transform()
+	var inverse := camera.global_transform.affine_inverse()
+	var nearest := INF
+	var farthest := 0.0
+	for index: int in 8:
+		var depth: float = -(inverse * _focus_box.get_endpoint(index)).z
+		if depth > 0.0: nearest = minf(nearest, depth)
+		farthest = maxf(farthest, depth)
+	camera.near = clampf(nearest * 0.25, 0.001, 0.02) if is_finite(nearest) else 0.001
+	camera.far = maxf(500.0, farthest + maxf(10.0, _focus_box.size.length()))
 
 func _cancel_drag() -> void:
 	_drag_button = MOUSE_BUTTON_NONE
@@ -365,8 +412,7 @@ func _on_input(event: InputEvent) -> void:
 	if event is InputEventKey and not _input_surface.has_focus():
 		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F and not event.ctrl_pressed and not event.meta_pressed and not event.alt_pressed:
-		if not focus_branch(selected_id):
-			fit_model()
+		focus_selection()
 		_input_surface.accept_event()
 	elif event is InputEventMouseButton:
 		if event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
@@ -401,8 +447,8 @@ func _on_input(event: InputEvent) -> void:
 			_initialized_camera = true
 			if _drag_button == MOUSE_BUTTON_MIDDLE or event.shift_pressed:
 				var span := camera.size if camera.projection == Camera3D.PROJECTION_ORTHOGONAL else 2.0 * distance * tan(deg_to_rad(camera.fov * 0.5))
-				# Camera KEEP_HEIGHT: one screen pixel maps to span / height world metres.
-				target += (-camera.basis.x * event.relative.x + camera.basis.y * event.relative.y) * span / maxf(_input_surface.size.y, 1.0)
+				var pixels: float = _input_surface.size.x if camera.keep_aspect == Camera3D.KEEP_WIDTH else _input_surface.size.y
+				target += (-camera.global_basis.x * event.relative.x + camera.global_basis.y * event.relative.y) * span / maxf(pixels, 1.0)
 			else:
 				yaw -= event.relative.x * 0.008
 				pitch = clampf(pitch + event.relative.y * 0.008, -1.5, 1.5)
@@ -414,6 +460,7 @@ func focus_branch(id: String) -> bool:
 	if not is_instance_valid(model): return false
 	for branch: Dictionary in branches:
 		if str(branch.id) == id:
+			model.force_update_transform()
 			focus_bounds(model.global_transform * branch.bounds)
 			return true
 	return false

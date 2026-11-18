@@ -1,0 +1,78 @@
+{
+  "status": "STATIC_PROCESSED_RUNTIME_PENDING_RELEASE",
+  "source_path": "/Users/zyq/work/sea/art_source/surface_paint/v001/Production_game_texture_atlas__2026-11-17T23-36-25.png",
+  "source_sha256": "4c53f61cfbac9cd51d84dd178ecbc3ecb0ddba1b597f1c41dc7fe2ab2d4089cb",
+  "source_mode": "RGB",
+  "source_size": [
+    1024,
+    1024
+  ],
+  "source_contains_baked_checker": true,
+  "source_direct_runtime_usable": false,
+  "checker_detection": {
+    "period_px": 32,
+    "square_px": 16,
+    "phase_count": 1024,
+    "neutral_sample_count": 730652,
+    "parity_luma_medians": [
+      252.0,
+      232.33333333333334
+    ]
+  },
+  "generation_model": null,
+  "generation_model_status": "unknown_not_embedded_or_supplied",
+  "generation_output_path": "/Users/zyq/work/sea/art_source/surface_paint/v001/Production_game_texture_atlas__2026-11-17T23-36-25.png",
+  "original_prompt": null,
+  "prompt_hash": null,
+  "prompt_hash_status": "pending_original_prompt_not_available_do_not_invent",
+  "processing_script": "/Users/zyq/work/sea/art_source/surface_paint/v001/处理记录/process_surface_moss.py",
+  "processing_hash": "45b0612257d18d0ea9ed2ea039e1900113324b5a60fb3e10f0358093fb2a5e44",
+  "processing_parameters": {
+    "chroma_background_max": 10,
+    "chroma_seed_min": 45,
+    "seed_erode_size": 5,
+    "donor_radius_source_px": 20,
+    "alpha_cutoff": 0.06,
+    "source_crop_padding_px": 8,
+    "cell_size": 256,
+    "content_limit": 224,
+    "rgb_dilation_px": 8,
+    "checker_period_px": 32,
+    "excluded_source_rect": [
+      864,
+      944,
+      1024,
+      1024
+    ]
+  },
+  "processing_parameters_sha256": "999b61e573ac6059a3ef802fc591888167c413a7569f2e1fff5424a4011edbd3",
+  "authorization": {
+    "local_processing": "user_authorized_current_request",
+    "asset_license": "pending",
+    "release": "pending"
+  },
+  "watermark_cleanup": {
+    "rect_half_open": [
+      864,
+      944,
+      1024,
+      1024
+    ],
+    "method": "alpha_zero",
+    "intersects_green_seed": false
+  },
+  "candidate_output_path": "/Users/zyq/work/sea/art_source/surface_paint/v001/处理记录/surface_moss_atlas_512_candidate.png",
+  "candidate_sha256": "826b2c8f82338e13846588aa97c01cb3f9f1ff9bf741a73eb286e578623a0ef5",
+  "intended_runtime_path": "/Users/zyq/work/sea/godot/assets/textures/vegetation/surface_moss_atlas_512.png",
+  "runtime_written": true,
+  "runtime_sha256": "826b2c8f82338e13846588aa97c01cb3f9f1ff9bf741a73eb286e578623a0ef5",
+  "import_sha256": "7656b00ff1fadd87df731daaaa3d000eb1ed636cb1ed4daba106e5e3f9de7b16",
+  "godot_executed": false,
+  "alpha_method": "color-difference seed + eroded interior + phase-median background unmatting; premultiplied Lanczos; straight-alpha output",
+  "limitations": [
+    "原始alpha不可逆恢复；边缘alpha为保守估计。",
+    "生成模型及原始prompt缺失，来源与授权pending。",
+    "16像素以上格内留白及8像素RGB扩边不保证最深mipmap层无串格，需主线程shader按格钳制或限制LOD。",
+    "尚未运行Godot，未验证VRAM实际压缩、材质采样或引擎渲染。"
+  ]
+}

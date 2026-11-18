@@ -6,6 +6,10 @@ const ScreenScript = preload("res://addons/building_workshop/editor_screen.gd")
 const StoreScript = preload("res://addons/building_workshop/editor_store.gd")
 const AdapterScript = preload("res://addons/building_workshop/catalog_adapter.gd")
 const RECOVERY_PATH: String = "user://building_workshop_editor/recovery.json"
+const SURFACE_PAINT_TEXTURES := {
+	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_atlas_512.png"),
+	"vine_atlas": preload("res://assets/textures/vegetation/workshop_leaf_atlas_512.png"),
+}
 
 var screen: Control
 var store: RefCounted
@@ -16,10 +20,11 @@ var _recovery_restore_pending: bool = false
 var _recovery_warning: String = ""
 
 func _is_verification() -> bool:
-	return OS.get_cmdline_user_args().has("--workshop-editor-verify") or OS.get_cmdline_user_args().has("--workshop-upgrade-verify")
+	return OS.get_cmdline_user_args().has("--workshop-editor-verify") or OS.get_cmdline_user_args().has("--workshop-upgrade-verify") or OS.get_cmdline_user_args().has("--workshop-attachments-verify") or OS.get_cmdline_user_args().has("--workshop-surface-verify")
 
 func _enter_tree() -> void:
 	store = StoreScript.new()
+	store.surface_paint_textures = get_surface_paint_textures()
 	adapter = AdapterScript.new()
 	_create_screen()
 	add_tool_menu_item("老王场景工坊", Callable(self, "_show_workshop"))
@@ -30,6 +35,8 @@ func _create_screen(recovery: Dictionary = {}) -> void:
 	screen = ScreenScript.new()
 	screen.recovery_restore_finished.connect(_on_recovery_restored)
 	screen.configure({"store": store, "editor_plugin": self,
+		"surface_paint_textures": get_surface_paint_textures(),
+		"export_surface_paint_work_revision": Callable(self, "_export_surface_paint_work_revision"),
 		"replace_component": Callable(self, "_replace_component"),
 		"export_module_component": Callable(self, "_export_module"),
 		"open_scene": Callable(self, "_open_scene"), "rescan": Callable(self, "_rescan")})
@@ -40,6 +47,15 @@ func _create_screen(recovery: Dictionary = {}) -> void:
 	if not recovery.is_empty():
 		_recovery_restore_pending = true
 		screen.restore_recovery(recovery)
+
+func get_surface_paint_textures() -> Dictionary:
+	return SURFACE_PAINT_TEXTURES.duplicate()
+
+func _export_surface_paint_work_revision(recipe: Dictionary, catalog: Dictionary, attachments_snapshot: Dictionary, surface_paint_snapshot: Dictionary, export_root: String) -> Dictionary:
+	# 未使用表面域的旧作品仍走原8件事务；擦空或已声明表面域不能降级。
+	if not screen._surface_paint_requires_exporter():
+		return store.export_work_revision(recipe, catalog, attachments_snapshot, export_root)
+	return store.export_surface_paint_work_revision(recipe, catalog, attachments_snapshot, surface_paint_snapshot, export_root)
 
 func _on_recovery_restored(result: Dictionary) -> void:
 	_recovery_restore_pending = false
@@ -71,9 +87,10 @@ func _show_workshop() -> void:
 	EditorInterface.set_main_screen_editor(_get_plugin_name())
 	_make_visible(true)
 
-func request_document(path: String, token: int) -> void:
+func request_document(path: String, token: int, context: Dictionary = {}) -> void:
 	_show_workshop()
-	screen.request_document(path, token)
+	if context.is_empty(): screen.request_document(path, token)
+	else: screen.request_document(path, token, context)
 
 func _save_external_data() -> void:
 	_save_recovery()
@@ -170,7 +187,7 @@ func _update_saved_files() -> void:
 	if not is_instance_valid(screen):
 		return
 	var exported: Dictionary = screen.get_recovery().get("last_export", {})
-	for key: String in ["scene_path", "recipe_path", "manifest_path", "catalog_path", "ledger_path"]:
+	for key: String in ["scene_path", "work_scene_path", "attachments_path", "surface_paint_path", "surface_paint_scene_path", "recipe_path", "manifest_path", "catalog_path", "ledger_path"]:
 		var path: String = str(exported.get(key, ""))
 		if not path.is_empty() and FileAccess.file_exists(path):
 			filesystem.update_file(path)
@@ -194,7 +211,7 @@ func _run_verification() -> void:
 	# 插件启用本身处于文件扫描回调中，不在此等待同一扫描结束，避免循环等待。
 	await get_tree().create_timer(2.0).timeout
 	print("[workshop-editor-stage] starting editor checks")
-	var verifier_path: String = "res://addons/building_workshop/upgrade_verification.gd" if OS.get_cmdline_user_args().has("--workshop-upgrade-verify") else "res://addons/building_workshop/editor_verification.gd"
+	var verifier_path: String = "res://addons/building_workshop/surface_paint_verification.gd" if OS.get_cmdline_user_args().has("--workshop-surface-verify") else "res://addons/building_workshop/attachment_verification.gd" if OS.get_cmdline_user_args().has("--workshop-attachments-verify") else "res://addons/building_workshop/upgrade_verification.gd" if OS.get_cmdline_user_args().has("--workshop-upgrade-verify") else "res://addons/building_workshop/editor_verification.gd"
 	var script: Script = load(verifier_path) as Script
 	if script == null:
 		printerr("[workshop-editor] 1 checks, 1 failures: verifier unavailable")

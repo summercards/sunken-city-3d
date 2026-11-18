@@ -205,3 +205,91 @@ import及各项exit0、completion=true、unexpected=[]、source_consistent=true�
 - 最终v2原生八张组件墙与关键支撑近景已审；原镜像字、悬空字/阀轮/天线/线盒/帽/风管框缺陷在可见范围修闭。最终Editor1280与房屋外挂示例亦已审；全部131张逐张美术、人工拖动/gizmo轴、完整内部接缝、性能/GPU、商业权属及生产Main空间接入仍未签。
 - 输出页面及审阅ZIP/资源ZIP含32类×96状态、真实报告、32三态Blend及96交换GLB；原图、源hash和ZIP CRC校验，静态链接验证不冒称浏览器实测。未提交推送、不发布在线、不改用户摆位。
 - 交付补全最终门禁说明后重新组包，审阅ZIP现为20352790 bytes／170文件、SHA256 `54b89002608efd7789ee55dc9e311bce1d6798c8d0b48a02c5873fcbc7086440`；资源ZIP保持8992971 bytes／464文件、SHA256 `c336c9b20efbb4d52d4620a54e54e092d4cc313a828b6e7f83853a73384cfee2`。140张PNG、206静态引用缺失0、图像副本hash差异0、JavaScript语法exit0；浏览器实际交互未执行。315个目标是本轮定点审计集合，不能用整个scene_assembly目录全量计数混算成新增条目数。
+
+## 2026-11-18 用户纠正：外挂放建筑工坊里编辑，而非独立一块
+
+本节是现行设计/实施回填，覆盖11/16 R92“不许screen/UI页”和独立dock为主要编辑器的旧限制，历史原文、冻结时点与失败不删。沿GDD导航读完WORKSHOP/WORLD最新11/17后确认R93–R95空闲，新增 **SEA-WORKSHOP-R93（内嵌入口）/R94（完整作品双域事务保存）/R95（场景context、历史及输入防串）**；WORLD只细化已有R35、R37–R39，不新建重复Feature。
+
+### 统一操作，不改房屋core或重制资产
+
+- 生产主路径：建筑工坊→「外挂」，在同栋模型上编辑。PAGES append外挂page9、文件保8，视觉nav第二项；参数栏复用四分类/三状态gallery及style/text/buttons，中央复用同一个嵌入SubViewport。
+- 原生gallery drag，或arm后点击真实wall/roof，沿用已有cull/法向、绿红ghost与真实支点算法，无force、不拿Y平面代替。选本栋列表/actual mesh pick；XYZ按钮步距0.01..1m，沿面投影后射线重验支撑，垂直支撑面方向明确拒绝，不伪装native gizmo。非法组件参数保成功模型、历史与所有目标缓存。
+- 切页保11/17相机/导航；离开外挂页cancelghost，screen隐藏停timer/导航临时状态但保输入。dock主按钮改「到建筑工坊编辑外挂」，公开show_attachment_page直达；旧controller/panel内部API保留兼容维护，不再推荐独立页编辑。
+- `godot/src/workshop/` recipe/session/generator/store及shell/union全部不动，editor adapter拥有新增编排；shared Store不改。独立32类×三态96项v002资产/Generator不重制。native无Script静态交付、layer256/mask0简化碰撞、水下拒绝true及无Walk/shore/boat/dive派生全保持，不冒称生产Main已安装。
+
+### 真实Editor尺寸根因与原生drop链
+
+隐藏DockTab仍参与minimum；scene_assembly长note/status在约17px窄宽wrap，content最小高2864，反向撑大编辑器。scene_assembly局部ScrollContainer min-height160阻断传播后，1920×969原生窗口实测screen2779→836、preview2548→605；preview split/sidebar只rightExpand。不是缩字/缩gallery或放宽阈值，原52%宽/60%高、18px按钮/16px正文、图库160均保留。三档尺寸后缀是请求值，实际native/Control矩形另记，不冒称三种原生窗口已按请求缩放。
+
+普通Control drag receiver承接SubViewportContainer的target-control原生 `_get_drag_data→_can_drop_data/_drop_data` 链，DRAG_END查询 `gui_is_drag_successful()`；不是用直接insert制造落位。新自动GUI用Window.push_input+warp_mouse同步motion ack并查询真实drag状态；旧Input.parse事件未ack曾失败，改定向WindowGUI后再验，不称OSfocus已验证。
+
+### 八文件完整作品：双域事务、安全读取与兼容
+
+`editor_store.export_work_revision`复用父Temp→manifest→rename，所有八件在同一.tmp写入/验证、失败清理，不先发布房屋，不修改sharedStore或旧revision：
+
+| 文件 | 当前职责 |
+|---|---|
+| building.recipe.json | 原房屋配方，不嵌外挂字段 |
+| building.tscn | 原静态房屋壳体，不把外挂焊入 |
+| catalog_snapshot.json | 原房屋目录快照 |
+| candidate_manifest.json | 八件清单/hash、外挂声明/指纹与完整作品路径 |
+| ledger.json | 候选记录，不是正式资产账本 |
+| building.attachments.json | 当前layer+instance各12数Transform3D、稳定ID、metadata/recipe |
+| building.attachments.tscn | 静态无Script外挂层 |
+| building.work.tscn | 完整Work，Asset外链building.tscn + Attachments外链静态层 |
+
+schema/完整anchor/JSON-safe/uniqueID/有限正determinant>1e-9、≤256实例严格验证；JSON canonical hash与metadata按1e-9定点。nativeTSCN Transform3D单独按有限float32回读容差 `max(1,abs(expected))*9.5367431640625e-7`，不能把此相对容差扩到metadata或JSON。`JSON.new().parse`拒绝badJSON而非触发引擎error。新声明缺件/hash/schema/wrapper错误拒绝，不静默降为空；oldlegacy原五件、无新声明/旁车才empty。外部只读JSON+可信Generator重建，不执行外部附加TSCN；刚生成的可信.tmp静态资源重载用于验证。
+
+保存需apply/discard当前及其他有效installed/candidate的未应用输入，不自动吞。打开/恢复双域prepare全部成功才commit，坏草稿插件锁写保original recovery，失败保原双层/历史/输入。dirty覆盖有效installed和图库candidate；已删A缓存保undo但不阻save，undo恢复后再选A回到原未应用input。house→attachment→house按时间顺序undo/redo，只有显式navigate移动marker；手动A→B→A是新commit，不凭相同值猜undo，新分支清redo。
+
+### 场景context与当前实例保护
+
+新work候选带兄弟外挂；回编request_document传当前scene Attachments layer ctx snapshot，不读disk旧状态替代现场；打开成功才token+plugin/screen双instance binding，保11/17失效回调隔离。保存前fp确认现场未并发变化，否则“新revision已保存，实例未更新”，保newrevision、不自动写Main。同snapshot只换Asset，保layer及全部子node身份/当前transform；实际changed（含metadata）才双层同一undo。保Placement当前transform及其他同款、不重复append、不auto-reproject；场景手动Ctrl+S。
+
+### 当前最终真实证据表
+
+唯一最终五项串行minimal外层：`/Users/zyq/work/sea-work/verification/20261118-024220-workshop-embedded-attachments-reviewed-b8df68/report.json`。本次只读，不执行引擎或runner。
+
+| 入口 | checks / failures | 实测方式 / scope |
+|---|---:|---|
+| editor-workshop-attachments | 323 / 0 | 新Window GUI原生drag/arm点击；参数直接准备/read-only pick与context/历史事务直接调用分列 |
+| workshop-attachments | 129 / 0 | 逻辑direct_call：严格snapshot、原生重建、八件事务与坏旁车/legacy负例 |
+| editor-workshop-upgrade | 1506 / 0 | 当前房屋/阳光房真实UV/槽选择与导航回归 |
+| editor-scene-assembly | 159 / 0 | 当前装配与11/17生命周期兼容，不等于全部scenecontext都走GUI |
+| editor-building-attachments | 328 / 0 | 旧内部API兼容；只修identity引用，不改旧断言、不推荐独立入口 |
+
+import/五项exit0、passed=true、completion_marker=true、unexpected_errors=[]、每项source_consistent=true。独立switch `/Users/zyq/work/sea-work/verification/20261118-025131-workshop-embedded-attachments-reviewed-switch-af2d96/report.json` 为336/0，import/editor exit0、completion_marker=true、unexpected_errors=[]。交接65项GDS字节一致，本次完整隔离副本81/80个GDS（含tools/tests）也均与当前字节一致，不混计65为全副本。预期坏草稿保护Warning仍有，不宣称零warnings。
+
+实际Glob核对内层：`project/outputs/workshop_attachments_editor_report.json`、`workshop_attachments_logic_report.json`，不是猜名 `workshop_attachments_report.json`。其余同批inner为workshop_upgrade_report/scene_assembly_report/building_attachments_editor_report.json。真实七PNG在同outputs：
+
+| 图像 | 证据性质 |
+|---|---|
+| workshop_attachments_embedded_live.png | 实际嵌入视口，不是独立重取景模型图 |
+| workshop_attachments_layout_1280x800.png / workshop_attachments_gallery_1280x800.png | 请求1280×800，实际Control尺寸见inner |
+| workshop_attachments_layout_1000x700.png / workshop_attachments_gallery_1000x700.png | 请求1000×700，实际Control尺寸见inner |
+| workshop_attachments_layout_860x600.png / workshop_attachments_gallery_860x600.png | 请求860×600，实际Control尺寸见inner |
+
+### 有意义的失败简史（保留失败，不扩成长日志）
+
+| 阶段问题 | 修正与签署限制 |
+|---|---|
+| typed Panel/anchor、JSON数字直接equality | 修实际类型/完整anchor与canonical比较；不把旧失败改为绿 |
+| preview split/sidebar/rightDock minimum撑高 | 查真实Control父链，局部滚动隔断；不降字号/gallery/面积门禁 |
+| 原Input.parse焦点motion未ack | 定向Window.push_input+warp同步ack/native drag query后重跑；不宣称OSfocus唯一根因或人工通过 |
+| 旧328 identity | 修释放后引用，旧业务断言不删/不放宽 |
+| review两个P2 | 显式navigate marker防手调回原值误判undo；只对有效目标dirty gate，已删缓存留undo不锁save |
+| 少量fixture invalidrefs/退出泄漏 | 清理测试夹具引用后重新完整运行，早失败不隐藏、不借中间计数签当前 |
+
+### 本次文档权限、交接与未测
+
+仅Edit追加GDD、workshop/world各spec/ledger与本既有开发记录的2026-11-18节，登记头只加必要helpers/newtest及workshop-attachments/editor-workshop-attachments验证名。原owner与partial保持；runner路径已SEA-QUALITY不更owner。本次不写code/registry/art_source/memory/currentruntime，不跑contracts/Godot，不提交/推送。currentruntime15目标由另一任务处理，主线程实际sync/check后再追加真实数字，绝不预写旧门禁当新结果。
+
+生产src/workshop、外挂Generator、Main/project无本轮改动；生产用户PID4359未由本任务关闭/操作，进程在本环境无法额外读取确认，不冒称新做进程验收。人工全轴/物理鼠标、其它viewport、OSfocus、生产Main、真实热重载/跨进程原草稿恢复、性能、license/art均未签。矩阵logic/scenecontext的直接调用不伪称GUI；七图存在不等于逐张艺术终审。审阅页 `outputs/workshop_attachments_embedded_review_20261118/index.html` 由另一代理制作，本任务不创建新大文档或制作该页；写入时尚未见文件，不签页面/浏览器交互已验。
+
+### 2026-11-18 主线程最终交付与门禁回填
+
+当前15项明确目标SHA/bytes一致、8项更新7项新增，1868非目标entry及metadata原字节不变，无新AssetID或96件素材重制。主线程复核323/0内嵌、129/0逻辑、1506/0房屋、159/0装配、328/0旧外挂，以及独立336/0切换的退出/完成/错误与源一致性；当前报告源与工作区无差异。已目检同批1280图库与860编辑图，整栋及水塔/横招可见，左栏滚动操作不重叠，不签人工手感或全部接缝。
+
+全库实跑sync **539 issues、exit1**，无参数check **540 issues、exit1**，46功能/1105源资产/1883运行资源。无本轮World/Workshop新增条款或验证入口错；已有候选输出根 `scenes/workshop_attachments` 在首次另存前不存在，被扫描为缺资源的问题与其余漂移/断链保留，不造空目录或批量重签。真实原始日志及结果在工程外 `sea-work/workshop_attachments_embedded_20261118/contracts_{sync,check}.log`、`contracts_results.json`，记录包装进程exit0不替代内部exit1。
+
+交付 `outputs/workshop_attachments_embedded_review_20261118/index.html`、7原PNG/5原JSON及同名ZIP；页面注明自动窗口输入与直接调用/未测范围，复制hash、静态引用和ZIP CRC已核验，未做浏览器交互自动化。房屋src/workshop、Main/project和公共资源未改，未提交推送，不替用户保存正式场景。

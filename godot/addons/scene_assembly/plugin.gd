@@ -5,6 +5,15 @@ const Library = preload("res://addons/scene_assembly/library.gd")
 const LibraryList = preload("res://addons/scene_assembly/library_list.gd")
 const DropSurface = preload("res://addons/scene_assembly/drop_surface.gd")
 const META := "sea_placement"
+const AttachmentData = preload("res://addons/building_workshop/attachment_work_data.gd")
+const SurfacePaintData = preload("res://addons/building_workshop/surface_paint_data.gd")
+const SurfacePaintOutput = preload("res://addons/building_workshop/surface_paint_output.gd")
+const BuildingGenerator = preload("res://src/workshop/generator.gd")
+const BuildingMeshBuilder = preload("res://src/workshop/mesh_builder.gd")
+const SURFACE_PAINT_TEXTURES := {
+	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_atlas_512.png"),
+	"vine_atlas": preload("res://assets/textures/vegetation/workshop_leaf_atlas_512.png"),
+}
 const AttachmentController = preload("res://addons/scene_assembly/attachment_controller.gd")
 const AttachmentPanel = preload("res://addons/scene_assembly/attachment_panel.gd")
 const BRIDGE_PLUGINS := {
@@ -85,27 +94,31 @@ func _enter_tree() -> void:
 	for control in dock.get_children():
 		dock.remove_child(control)
 		candidate_panel.add_child(control)
-	var tabs := HBoxContainer.new()
-	dock.add_child(tabs)
-	var tab_group := ButtonGroup.new()
-	for title: String in ["候选", "建筑外挂"]:
-		var button := Button.new()
-		button.text = title
-		button.custom_minimum_size.y = 34
-		button.add_theme_font_size_override("font_size", 16)
-		button.toggle_mode = true
-		button.button_group = tab_group
-		button.button_pressed = title == "候选"
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.pressed.connect(_show_attachment_page.bind(title == "建筑外挂"))
-		tabs.add_child(button)
-	dock.add_child(candidate_panel)
+	var workshop_button := Button.new()
+	workshop_button.text = "到建筑工坊编辑外挂"
+	workshop_button.pressed.connect(_open_workshop_attachments)
+	dock.add_child(workshop_button)
+	# 原生 dock 会计算隐藏标签的最小尺寸；长说明/表单必须在插件自己的滚动边界内。
+	var content_scroll := ScrollContainer.new()
+	content_scroll.name = "SceneAssemblyContentScroll"
+	content_scroll.set_meta("cozy_skip", true)
+	content_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	content_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	content_scroll.clip_contents = true
+	content_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	content_scroll.custom_minimum_size.y = 160
+	dock.add_child(content_scroll)
+	var content := VBoxContainer.new()
+	content.name = "SceneAssemblyContent"
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content_scroll.add_child(content)
+	content.add_child(candidate_panel)
 	attachment_controller = AttachmentController.new()
 	attachment_controller.assembly = self
 	add_child(attachment_controller)
 	attachment_panel = AttachmentPanel.new()
 	attachment_panel.controller = attachment_controller
-	dock.add_child(attachment_panel)
+	content.add_child(attachment_panel)
 	attachment_panel.hide()
 	for control: Control in dock.find_children("*", "Control", true, false):
 		control.add_theme_font_size_override("font_size", 16)
@@ -116,6 +129,20 @@ func _enter_tree() -> void:
 	scene_closed.connect(_scene_closed)
 	scene_changed.connect(_attachment_scene_changed)
 	call_deferred("_setup")
+
+func _open_workshop_attachments() -> void:
+	_refresh_bridges()
+	if not bridges.has("building"):
+		report("建筑工坊未启用，请在插件设置启用。")
+		return
+	var target := selected_placement()
+	if target != null and str(target.get_meta(META, {}).get("kind", "")) == "building":
+		edit_selected()
+	else:
+		bridges.building._show_workshop()
+	var screen: Control = bridges.building.screen
+	if screen.has_method("show_attachment_page"): screen.call("show_attachment_page")
+	else: report("外挂统一在建筑工坊内编辑；请在工坊选择外挂页。")
 
 func _show_attachment_page(show_attachments: bool) -> void:
 	candidate_panel.visible = not show_attachments
@@ -333,10 +360,56 @@ func _render_thumbnails() -> void:
 	_thumbnail_busy = true
 	while not _thumbnail_queue.is_empty() and is_inside_tree():
 		var path: String = _thumbnail_queue.pop_front()
-		var texture: Texture2D = await _thumbnail_view.capture(path)
+		var work_entry: Dictionary = {}
+		for index in items.item_count:
+			var entry: Dictionary = items.get_item_metadata(index)
+			if entry.preview_path == path and entry.get("kind") == "building" and entry.has("work_scene_path"):
+				work_entry = Library.describe(str(entry.recipe_path), "building")
+				break
+		var texture: Texture2D
+		if not work_entry.is_empty():
+			# 完整作品缩略图也只加载原壳体；外挂从已验JSON原生重建，不执行旁车。
+			var packed := load(str(work_entry.scene_path)) as PackedScene
+			var built := AttachmentData.build(work_entry.attachments_snapshot)
+			if packed != null and built.ok:
+				var work := Node3D.new()
+				work.add_child(packed.instantiate())
+				work.add_child(built.root)
+				if work_entry.has("surface_paint_path"):
+					var painted := _build_surface_layer(str(work_entry.recipe_path), work_entry.surface_paint_snapshot)
+					if not painted.get("ok", false):
+						work.free()
+						continue
+					work.add_child(painted.root)
+				texture = await _thumbnail_view.capture_root(work)
+			elif built.ok: built.root.free()
+		elif not path.ends_with("/building.work.tscn"):
+			texture = await _thumbnail_view.capture(path)
 		if not is_inside_tree(): return
 		_preview_ready(path, texture, null, null)
 	_thumbnail_busy = false
+
+func _build_surface_layer(recipe_path: String, snapshot: Dictionary) -> Dictionary:
+	var loaded := Library.BuildingStore.new().load_recipe(recipe_path)
+	if not loaded.get("ok", false): return loaded
+	# 只从已验证JSON/catalog交给可信Generator；不执行外部surface或work TSCN。
+	var built := BuildingMeshBuilder.apply_build_palette(BuildingGenerator.build(loaded.recipe, loaded.catalog), loaded.recipe, loaded.catalog)
+	built = BuildingMeshBuilder.apply_build_shading(built, loaded.recipe, loaded.catalog)
+	if not built.get("ok", false):
+		var failed_root: Node = built.get("root") as Node
+		if failed_root != null: failed_root.free()
+		return built
+	var host: Node3D = built.root
+	var staging := Node3D.new()
+	add_child(staging)
+	staging.add_child(host)
+	var textures := SURFACE_PAINT_TEXTURES.duplicate()
+	var bridge: Node = bridges.get("building")
+	if is_instance_valid(bridge) and bridge.has_method("get_surface_paint_textures"):
+		textures = bridge.get_surface_paint_textures()
+	var painted := SurfacePaintOutput.build_from_snapshot(snapshot, host, textures)
+	staging.free()
+	return painted
 
 func _preview_ready(path: String, texture: Texture2D, _small: Texture2D, _data: Variant) -> void:
 	if texture == null: return
@@ -409,6 +482,20 @@ func insert_candidate(entry: Dictionary, world_position: Vector3) -> Dictionary:
 	placement.set_meta(META, fresh)
 	asset.name = "Asset"
 	placement.add_child(asset)
+	if fresh.kind == "building" and fresh.has("attachments_snapshot"):
+		var built := AttachmentData.build(fresh.attachments_snapshot)
+		if not built.ok:
+			placement.free()
+			report("作品外挂不可插入：" + str(built.reason))
+			return {"ok": false, "reason": built.reason}
+		placement.add_child(built.root)
+	if fresh.kind == "building" and fresh.has("surface_paint_path"):
+		var painted := _build_surface_layer(str(fresh.recipe_path), fresh.surface_paint_snapshot)
+		if not painted.get("ok", false):
+			placement.free()
+			report("作品表面植被不可插入：" + str(painted.reason))
+			return {"ok": false, "reason": painted.reason}
+		placement.add_child(painted.root)
 	placement.position = parent.to_local(world_position)
 	var undo := get_undo_redo()
 	undo.create_action("装配候选实例", UndoRedo.MERGE_DISABLE, root)
@@ -425,7 +512,15 @@ func _attach(parent: Node, node: Node, owner_node: Node, index: int) -> void:
 	parent.add_child(node, true)
 	parent.move_child(node, mini(index, parent.get_child_count() - 1))
 	node.owner = owner_node
-	if node.has_meta(META): node.get_node("Asset").owner = owner_node
+	if node.has_meta(META):
+		node.get_node("Asset").owner = owner_node
+		for name: String in ["Attachments", "SurfacePaint"]:
+			var layer := node.get_node_or_null(name)
+			if layer != null: _own_attachment_tree(layer, owner_node)
+
+func _own_attachment_tree(node: Node, owner_node: Node) -> void:
+	node.owner = owner_node
+	for child: Node in node.get_children(): _own_attachment_tree(child, owner_node)
 
 func _detach(parent: Node, node: Node) -> void:
 	parent.remove_child(node)
@@ -461,7 +556,35 @@ func edit_selected() -> void:
 	pending = {"token": serial, "kind": kind, "bridge_id": connection.bridge_id, "screen_id": connection.screen_id,
 		"target": weakref(target), "root": weakref(EditorInterface.get_edited_scene_root()),
 		"scene": EditorInterface.get_edited_scene_root().scene_file_path, "node_path": EditorInterface.get_edited_scene_root().get_path_to(target), "data": data.duplicate(true), "asset": weakref(target.get_node("Asset"))}
-	bridges[kind].request_document(str(data.recipe_path), serial)
+	if kind == "building":
+		var layer := target.get_node_or_null("Attachments")
+		if layer != null and not layer is Node3D:
+			pending.clear()
+			report("无法回编：Attachments不是Node3D")
+			return
+		var snapshot := AttachmentData.capture(layer as Node3D)
+		var reason := AttachmentData.validate(snapshot)
+		if not reason.is_empty():
+			pending.clear()
+			report("无法回编当前外挂：" + reason)
+			return
+		# 必须在请求前记录，document_opened可能在同步调用栈中发出。
+		pending["attachments_fingerprint"] = AttachmentData.fingerprint(snapshot)
+		var painted_layer := target.get_node_or_null("SurfacePaint")
+		if painted_layer != null and not painted_layer is Node3D:
+			pending.clear()
+			report("无法回编：SurfacePaint不是Node3D")
+			return
+		var painted := SurfacePaintData.capture(painted_layer as Node3D)
+		reason = SurfacePaintData.validate(painted)
+		if not reason.is_empty():
+			pending.clear()
+			report("无法回编当前表面植被：" + reason)
+			return
+		pending["surface_paint_fingerprint"] = SurfacePaintData.fingerprint(painted)
+		bridges[kind].request_document(str(data.recipe_path), serial, {"attachments_snapshot": snapshot, "surface_paint_snapshot": painted, "surface_paint_fingerprint": pending.surface_paint_fingerprint, "scene_source": pending.scene})
+	else:
+		bridges[kind].request_document(str(data.recipe_path), serial)
 
 func _document_opened(_path: String, token: int, kind: String, bridge_id: int, screen_id: int) -> void:
 	if not _bridge_is_current(kind, bridge_id, screen_id): return
@@ -491,6 +614,9 @@ func _revision_saved(token: int, result: Dictionary, kind: String, bridge_id: in
 	if not _bridge_is_current(kind, bridge_id, screen_id): return
 	call_deferred("refresh_library", false)
 	if not _bridge_matches(binding, kind, bridge_id, screen_id) or binding.token != token: return
+	if result.has("ok") and not result.get("ok", false):
+		report("保存失败，实例未更新：" + str(result.get("reason", "未知错误")))
+		return
 	var target: Node3D = binding.target.get_ref()
 	var root: Node = binding.root.get_ref()
 	var old_asset: Node = binding.asset.get_ref()
@@ -499,6 +625,44 @@ func _revision_saved(token: int, result: Dictionary, kind: String, bridge_id: in
 	elif target == null or not root.is_ancestor_of(target): reason = "目标实例已删除"
 	elif root.get_path_to(target) != binding.node_path: reason = "目标实例路径已改变"
 	elif target.get_meta(META, {}) != binding.data or old_asset == null or old_asset.get_parent() != target: reason = "目标实例已换版"
+	var has_attachments_snapshot := kind == "building" and result.has("attachments_snapshot")
+	var replace_attachments := has_attachments_snapshot
+	var current_fingerprint := ""
+	var saved_fingerprint := ""
+	var old_layer: Node = target.get_node_or_null("Attachments") if target != null else null
+	if reason.is_empty() and replace_attachments:
+		if old_layer != null and not old_layer is Node3D:
+			reason = "当前外挂层类型已改变"
+		else:
+			var current := AttachmentData.capture(old_layer as Node3D)
+			current_fingerprint = AttachmentData.fingerprint(current)
+			if current_fingerprint.is_empty() or current_fingerprint != str(binding.get("attachments_fingerprint", "")):
+				reason = "打开后场景外挂层已改变，请重新打开后再保存（新revision已保留）"
+		if reason.is_empty() and not result.attachments_snapshot is Dictionary: reason = "新作品外挂快照不是对象"
+		if reason.is_empty(): reason = AttachmentData.validate(result.attachments_snapshot)
+		if reason.is_empty():
+			saved_fingerprint = AttachmentData.fingerprint(result.attachments_snapshot)
+			# 未改外挂只换Asset，保留层及子节点身份；指纹包含空层的局部变换与全部元数据。
+			replace_attachments = saved_fingerprint != current_fingerprint
+	var has_surface_snapshot := kind == "building" and result.has("surface_paint_snapshot")
+	var replace_surface := false
+	var surface_fingerprint := ""
+	var old_surface: Node = target.get_node_or_null("SurfacePaint") if target != null else null
+	if reason.is_empty() and kind == "building" and (binding.has("surface_paint_fingerprint") or has_surface_snapshot):
+		if old_surface != null and not old_surface is Node3D:
+			reason = "当前表面植被层类型已改变"
+		else:
+			var current := SurfacePaintData.capture(old_surface as Node3D)
+			surface_fingerprint = SurfacePaintData.fingerprint(current)
+			if surface_fingerprint.is_empty() or surface_fingerprint != str(binding.get("surface_paint_fingerprint", SurfacePaintData.fingerprint(SurfacePaintData.empty_snapshot()))):
+				reason = "打开后场景表面植被层已改变，请重新打开后再保存（新revision已保留）"
+		if reason.is_empty() and has_surface_snapshot:
+			if not result.surface_paint_snapshot is Dictionary: reason = "新作品表面植被快照不是对象"
+			else: reason = SurfacePaintData.validate(result.surface_paint_snapshot)
+			if reason.is_empty():
+				replace_surface = surface_fingerprint != SurfacePaintData.fingerprint(result.surface_paint_snapshot) or old_surface == null
+		elif reason.is_empty() and surface_fingerprint != SurfacePaintData.fingerprint(SurfacePaintData.empty_snapshot()):
+			reason = "新作品缺少表面植被保存结果，拒绝丢弃当前层"
 	var path := str(result.get("animated_scene_path" if binding.data.animated else "scene_path", ""))
 	if reason.is_empty() and path.is_empty(): reason = "动态实例需要工坊的保存动态风版本，不能替换为静态场景"
 	if not reason.is_empty():
@@ -513,6 +677,26 @@ func _revision_saved(token: int, result: Dictionary, kind: String, bridge_id: in
 		report("新版本已保存，实例未更新：场景加载失败")
 		return
 	var asset := packed.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	if asset == null:
+		report("新版本已保存，实例未更新：静态根不可实例化")
+		return
+	var next_layer: Node3D
+	if replace_attachments:
+		var built := AttachmentData.build(result.attachments_snapshot)
+		if not built.ok:
+			asset.free()
+			report("新版本已保存，实例未更新：" + str(built.reason))
+			return
+		next_layer = built.root
+	var next_surface: Node3D
+	if replace_surface:
+		var painted := _build_surface_layer(str(result.recipe_path), result.surface_paint_snapshot)
+		if not painted.get("ok", false):
+			asset.free()
+			if next_layer != null: next_layer.free()
+			report("新版本已保存，实例未更新：" + str(painted.reason))
+			return
+		next_surface = painted.root
 	asset.name = old_asset.name
 	data["instance_id"] = binding.data.instance_id
 	var previous: Dictionary = target.get_meta(META).duplicate(true)
@@ -520,16 +704,68 @@ func _revision_saved(token: int, result: Dictionary, kind: String, bridge_id: in
 	var index := old_asset.get_index()
 	var undo := get_undo_redo()
 	undo.create_action("工坊更新绑定实例", UndoRedo.MERGE_DISABLE, root)
-	undo.add_do_method(self, "_replace", target, old_asset, asset, root, index, data, selected)
-	undo.add_undo_method(self, "_replace", target, asset, old_asset, old_asset.owner, index, previous, selected)
+	if replace_surface:
+		var old_layers: Array = [old_surface]
+		var next_layers: Array = [next_surface]
+		if replace_attachments:
+			old_layers.append(old_layer)
+			next_layers.append(next_layer)
+		var layer_indices: Array = []
+		for layer: Node in old_layers: layer_indices.append(layer.get_index() if layer != null else target.get_child_count())
+		undo.add_do_method(self, "_replace_work_layers", target, old_asset, asset, old_layers, next_layers, layer_indices, root, index, data, selected)
+		undo.add_undo_method(self, "_replace_work_layers", target, asset, old_asset, next_layers, old_layers, layer_indices, root, index, previous, selected)
+		for layer: Node in next_layers: undo.add_do_reference(layer)
+		for layer: Node in old_layers:
+			if layer != null: undo.add_undo_reference(layer)
+	elif replace_attachments:
+		undo.add_do_method(self, "_replace_work", target, old_asset, asset, old_layer, next_layer, root, index, data, selected)
+		undo.add_undo_method(self, "_replace_work", target, asset, old_asset, next_layer, old_layer, root, index, previous, selected)
+		undo.add_do_reference(next_layer)
+		if old_layer != null: undo.add_undo_reference(old_layer)
+	else:
+		undo.add_do_method(self, "_replace", target, old_asset, asset, root, index, data, selected)
+		undo.add_undo_method(self, "_replace", target, asset, old_asset, old_asset.owner, index, previous, selected)
 	undo.add_do_reference(asset)
 	undo.add_undo_reference(old_asset)
 	undo.commit_action()
 	binding.data = data.duplicate(true)
 	binding.asset = weakref(asset)
+	if has_attachments_snapshot:
+		binding["attachments_fingerprint"] = saved_fingerprint
+	if has_surface_snapshot:
+		binding["surface_paint_fingerprint"] = SurfacePaintData.fingerprint(result.surface_paint_snapshot)
 	report("新版本已保存，仅绑定实例已更新；摆放变换保持，场景尚未自动保存。" + attachment_controller.revision_warning(target))
 	if not attachment_controller.revision_warning(target).is_empty():
 		attachment_controller.message.emit("宿主换版完成；Attachments 及全部子变换保持，请检查贴合，不会自动重投射。")
+
+func _replace_work_layers(target: Node, old_asset: Node, next_asset: Node, old_layers: Array, next_layers: Array, layer_indices: Array, owner_node: Node, index: int, data: Dictionary, selected: Array) -> void:
+	if is_instance_valid(attachment_controller): attachment_controller.cancel_arm(false)
+	target.remove_child(old_asset)
+	for layer: Node in old_layers:
+		if layer != null: target.remove_child(layer)
+	_attach(target, next_asset, owner_node, index)
+	for offset in next_layers.size():
+		var layer: Node = next_layers[offset]
+		if layer == null: continue
+		target.add_child(layer)
+		target.move_child(layer, mini(int(layer_indices[offset]), target.get_child_count() - 1))
+		_own_attachment_tree(layer, owner_node)
+	target.set_meta(META, data.duplicate(true))
+	_select_nodes(selected)
+
+func _replace_work(target: Node, old_asset: Node, next_asset: Node, old_layer: Node, next_layer: Node, owner_node: Node, index: int, data: Dictionary, selected: Array) -> void:
+	# 选择刷新必须等两棵子树都换完，避免controller读到半次提交。
+	if is_instance_valid(attachment_controller): attachment_controller.cancel_arm(false)
+	var layer_index: int = old_layer.get_index() if old_layer != null else target.get_child_count()
+	target.remove_child(old_asset)
+	if old_layer != null: target.remove_child(old_layer)
+	_attach(target, next_asset, owner_node, index)
+	if next_layer != null:
+		target.add_child(next_layer)
+		target.move_child(next_layer, mini(layer_index, target.get_child_count() - 1))
+		_own_attachment_tree(next_layer, owner_node)
+	target.set_meta(META, data.duplicate(true))
+	_select_nodes(selected)
 
 func _replace(target: Node, old: Node, next: Node, owner_node: Node, index: int, data: Dictionary, selected: Array) -> void:
 	target.remove_child(old)

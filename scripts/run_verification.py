@@ -171,6 +171,11 @@ CORE = list(TESTS)
 TESTS.update({
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
     'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
+    'surface-paint': ('tests/test_surface_paint.gd', r'\[surface-paint\] [1-9]\d* checks, 0 failures'),
+    'workshop-camera': ('tests/test_workshop_camera.gd', r'\[workshop-camera\] [1-9]\d* checks, 0 failures'),
+    'editor-workshop-surface': ('', r'\[workshop-surface-editor\] [1-9]\d* checks, 0 failures'),
+    'workshop-attachments': ('tests/test_workshop_attachments.gd', r'\[workshop-attachments\] [1-9]\d* checks, 0 failures'),
+    'editor-workshop-attachments': ('', r'\[workshop-attachments-editor\] [1-9]\d* checks, 0 failures'),
     'editor-workshop-switch': ('', r'\[workshop-switch\] [1-9]\d* checks, 0 failures'),
     'workshop-adjustment': ('tests/test_workshop_adjustment.gd', r'\[workshop-adjustment\] \d+ checks, 0 failures'),
     'workshop-random': ('tests/test_workshop_random.gd', r'\[workshop-random\] \d+ checks, 0 failures'),
@@ -499,12 +504,12 @@ def derive_check_config(full_config, name):
         config = re.sub(r'^run/main_scene=.*$', 'run/main_scene=""', config, flags=re.M)
         config = re.sub(r'^theme/custom_font=.*\n?', '', config, flags=re.M)
         plugins = ('PackedStringArray("res://addons/building_workshop/plugin.cfg", '
-                   '"res://addons/plant_editor/plugin.cfg", "res://addons/scene_assembly/plugin.cfg")') if name == 'editor-building-attachments' else 'PackedStringArray()'
+                   '"res://addons/plant_editor/plugin.cfg", "res://addons/scene_assembly/plugin.cfg")') if name in ['editor-building-attachments', 'editor-workshop-attachments', 'editor-workshop-surface'] else 'PackedStringArray()'
         config = re.sub(r'(\[editor_plugins\]\s*)enabled=.*', lambda m: m.group(1) + 'enabled=' + plugins, config)
     return config
 
 
-ATTACHMENT_CHECKS = {'verify-attachment-library', 'building-attachments', 'build-attachment-library', 'visual-building-attachments', 'editor-building-attachments'}
+ATTACHMENT_CHECKS = {'verify-attachment-library', 'building-attachments', 'build-attachment-library', 'visual-building-attachments', 'editor-building-attachments', 'workshop-attachments', 'editor-workshop-attachments', 'surface-paint', 'workshop-camera', 'editor-workshop-surface'}
 
 
 def attachment_source_hashes(base):
@@ -512,12 +517,13 @@ def attachment_source_hashes(base):
     for rel in ['src/building_attachments', 'data/building_attachments', 'src/workshop',
                 'src/plant_authoring', 'addons/building_attachments', 'addons/scene_assembly',
                 'addons/building_workshop', 'addons/plant_editor', 'assets/materials/solar_cabin',
-                'assets/textures/shared', 'shaders', 'scenes/workshop_buildings/shell_rect_1794338160_71001671/revision_0001',
+                'assets/textures/shared', 'assets/textures/vegetation', 'assets/materials/vegetation', 'shaders', 'scenes/workshop_buildings/shell_rect_1794338160_71001671/revision_0001',
                 'scenes/components/facilities/building_attachments/v002']:
         paths.extend(path for path in (base / rel).rglob('*') if path.is_file() and path.suffix != '.uid')
     paths.extend(base / rel for rel in ['tools/build_attachment_library.gd', 'tests/test_building_attachments.gd',
                  'tests/test_building_attachments_visual.gd', 'tests/test_building_attachments_editor.gd',
-                 'tests/test_scene_assembly_editor.gd', 'tests/test_building_attachments_library.gd'])
+                 'tests/test_scene_assembly_editor.gd', 'tests/test_building_attachments_library.gd',
+                 'tests/test_workshop_attachments.gd', 'tests/test_surface_paint.gd', 'tests/test_workshop_camera.gd'])
     return {str(path.relative_to(base)): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(set(paths)) if path.is_file()}
 
@@ -611,7 +617,8 @@ def mount_readonly(target, source):
 
 def isolated_editor_workshop_project(run_dir, include_plants=False, include_assembly=False, include_attachments=False):
     """Minimal real editor project: no game scripts, Autoload, mutable asset junctions or Main."""
-    # Attachment editor tests preload scene assembly, whose library reads plant stores.
+    # 当前工坊主屏静态依赖外挂，再依赖装配和植物；所有最小工程均须闭合此链。
+    include_attachments = True
     include_plants = include_plants or include_attachments
     project = run_dir / 'project'
     project.mkdir()
@@ -647,7 +654,7 @@ def isolated_editor_workshop_project(run_dir, include_plants=False, include_asse
     if include_attachments:
         (project / 'tools').mkdir()
         shutil.copy2(GODOT_ROOT / 'tools/build_attachment_library.gd', project / 'tools/build_attachment_library.gd')
-        for name in ['test_building_attachments.gd', 'test_building_attachments_visual.gd', 'test_building_attachments_editor.gd', 'test_building_attachments_library.gd']:
+        for name in ['test_building_attachments.gd', 'test_building_attachments_visual.gd', 'test_building_attachments_editor.gd', 'test_building_attachments_library.gd', 'test_workshop_attachments.gd', 'test_surface_paint.gd', 'test_workshop_camera.gd']:
             source = GODOT_ROOT / 'tests' / name
             if source.is_file():
                 shutil.copy2(source, project / 'tests' / name)
@@ -790,6 +797,7 @@ def main():
     parser.add_argument('--label', default='verification')
     parser.add_argument('--timeout', type=int, default=180)
     parser.add_argument('--visual', action='store_true')
+    parser.add_argument('--compile-only', action='store_true', help='仅在隔离工程用 --check-only 编译脚本，不执行断言')
     parser.add_argument('--engine-verbose', action='store_true', help='Include Godot resource lifetime diagnostics in captured logs')
     parser.add_argument('--lighting-profile', type=Path, help='Stage only lighting cfg fixtures for visual atmosphere captures')
     parser.add_argument('--import-assets', action='store_true', help='Import new art in the isolated project before checks')
@@ -850,7 +858,7 @@ def main():
     project, user_name = isolated_editor_workshop_project(
         run_dir,
         include_plants=attachment_editor or any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-workshop-switch', 'editor-scene-assembly']),
-        include_assembly=attachment_editor or 'editor-scene-assembly' in checks,
+        include_assembly=attachment_editor or 'editor-scene-assembly' in checks or 'editor-workshop-attachments' in checks,
         include_attachments=attachment_checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
     if attachment_checks:
         write_project_config(project / 'project.godot', derive_check_config(
@@ -935,9 +943,17 @@ def main():
             print('\n'.join(import_text.splitlines()[-20:]), flush=True)
             release_user_data(user_name, run_dir)
             return 1
+    if attachment_checks:
+        report['isolated_post_import_hashes'] = attachment_source_hashes(project)
+        report['isolated_import_changes'] = {rel: digest for rel, digest in report['isolated_post_import_hashes'].items()
+            if rel != 'project.godot' and report['isolated_source_hashes'].get(rel) != digest}
+        if any(not rel.endswith('.import') for rel in report['isolated_import_changes']):
+            report['import_source_error'] = '隔离导入改变了非import源文件，停止执行'
+            (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+            return 1
     for name in checks:
         config = derive_check_config(full_config, name)
-        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-workshop-switch', 'editor-plant', 'editor-scene-assembly', 'editor-building-attachments']
+        is_editor_workshop = name in ['editor-workshop', 'editor-workshop-upgrade', 'editor-workshop-switch', 'editor-plant', 'editor-scene-assembly', 'editor-building-attachments', 'editor-workshop-attachments', 'editor-workshop-surface']
         if is_editor_workshop and attachment_checks:
             # 保留同一最小工程，但将前项候选库归档，保留旧装配初始空库门禁。
             for rel in ['scenes/workshop_buildings', 'scenes/workshop_plants', 'scenes/workshop_attachments']:
@@ -968,7 +984,7 @@ def main():
         cmd = [exe, '--path', str(project)]
         if args.engine_verbose:
             cmd.append('--verbose')
-        is_visual = args.visual or name.startswith('visual-') or is_editor_workshop or name in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']
+        is_visual = args.visual or name.startswith('visual-') or is_editor_workshop or name in ['surface-paint', 'workshop-camera', 'plant-performance', 'plant-canopy', 'plant-canopy-preview']
         if not is_visual:
             cmd.append('--headless')
         else:
@@ -976,13 +992,19 @@ def main():
             # 性能专项需要真实wall-clock帧间隔，不能用固定步长模拟帧率。
             if name not in ATTACHMENT_CHECKS and name not in ['plant-performance', 'plant-canopy', 'plant-canopy-preview']:
                 cmd += ['--fixed-fps', '60']
-        if is_editor_workshop:
-            editor_flag = '--building-attachments-verify' if name == 'editor-building-attachments' else '--scene-assembly-verify' if name == 'editor-scene-assembly' else '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
+        if args.compile_only and name == 'editor-workshop-surface':
+            cmd = [exe, '--headless', '--path', str(project), '--check-only', '--script', 'res://addons/building_workshop/surface_paint_verification.gd']
+            marker = r'Godot Engine v'
+        elif is_editor_workshop:
+            editor_flag = '--workshop-surface-verify' if name == 'editor-workshop-surface' else '--workshop-attachments-verify' if name == 'editor-workshop-attachments' else '--building-attachments-verify' if name == 'editor-building-attachments' else '--scene-assembly-verify' if name == 'editor-scene-assembly' else '--plant-editor-verify' if name == 'editor-plant' else '--workshop-upgrade-verify' if name == 'editor-workshop-upgrade' else '--workshop-editor-verify'
             if name == 'editor-workshop-switch':
                 cmd += ['--editor', '--', '--plant-editor-verify', '--workshop-switch-verify']
             else:
                 cmd += ['--editor', '--', editor_flag]
         elif script:
+            if args.compile_only:
+                cmd.append('--check-only')
+                marker = r'Godot Engine v'
             cmd += ['--script', 'res://' + script]
         else:
             cmd += ['--', '--selftest', '--nosave']
@@ -1031,6 +1053,9 @@ def main():
                 code = 124
         text = log.read_text(errors='replace')
         result = inspect_log(name, code, text, marker)
+        result['compile_only'] = args.compile_only
+        if args.compile_only:
+            result['scope'] = '仅编译预检；未执行逻辑断言或GUI验收'
         if name == 'editor-workshop-switch':
             inner_path = project / 'outputs/workshop_switch/report.json'
             result['artifacts'] = [str(path) for path in sorted(inner_path.parent.glob('*'))
@@ -1045,6 +1070,20 @@ def main():
             except (OSError, ValueError, KeyError, TypeError) as error:
                 result['passed'] = False
                 result['evidence_error'] = str(error)
+        if name in ['surface-paint', 'workshop-camera', 'editor-workshop-surface'] and not args.compile_only:
+            inner_name = {'surface-paint': 'surface_paint_report.json', 'workshop-camera': 'workshop_camera_report.json', 'editor-workshop-surface': 'workshop_surface_editor_report.json'}[name]
+            inner_path = project / 'outputs' / inner_name
+            result['inner_report'] = str(inner_path)
+            try:
+                inner = json.loads(inner_path.read_text(encoding='utf-8'))
+                result['checks'] = inner['checks']
+                result['failures'] = len(inner['failures'])
+                result['not_tested'] = inner.get('not_tested', inner.get('unexecuted', []))
+                result['passed'] = result['passed'] and inner['passed'] and inner['checks'] > 0
+            except (OSError, ValueError, KeyError, TypeError) as error:
+                result['passed'] = False
+                result['evidence_error'] = str(error)
+                result['not_tested'] = ['验证入口未完成，业务断言及GUI截图未执行；详见日志']
         if name == 'plant-canopy-preview':
             result['scope'] = 'visual_only'
             result['full_suite_passed'] = False
@@ -1054,7 +1093,7 @@ def main():
         result['renderer'] = 'real' if is_visual else 'headless'
         result['command'] = cmd
         if attachment_checks:
-            summary = re.search(r'\[(?:attachment-library|building-attachments-visual|building-attachments-editor|scene-assembly|workshop-upgrade)\] (\d+) checks, (\d+) failures', text)
+            summary = re.search(r'\[(?:attachment-library|building-attachments-visual|building-attachments-editor|scene-assembly|workshop-upgrade|workshop-attachments|workshop-attachments-editor|surface-paint|workshop-camera|workshop-surface-editor|plant-editor)\] (\d+) checks, (\d+) failures', text)
             for prefix in ['BUILDING_ATTACHMENTS_RESULT ', 'ATTACHMENT_LIBRARY_RESULT ']:
                 for line in text.splitlines():
                     if line.startswith(prefix):
@@ -1067,8 +1106,25 @@ def main():
             result['source_consistent'] = not report['source_changed_during_run'] and not report['source_copy_mismatches']
             result['isolated_source_hashes_after'] = attachment_source_hashes(project)
             result['isolated_source_changed'] = {rel: digest for rel, digest in result['isolated_source_hashes_after'].items()
-                                                 if rel != 'project.godot' and report['isolated_source_hashes'].get(rel) != digest}
+                                                 if rel != 'project.godot' and report['isolated_post_import_hashes'].get(rel) != digest}
             result['source_consistent'] = result['source_consistent'] and not result['isolated_source_changed']
+            result['passed'] = result['passed'] and result['source_consistent']
+            if name in ['workshop-attachments', 'editor-workshop-attachments']:
+                inner_path = project / 'outputs' / ('workshop_attachments_logic_report.json' if name == 'workshop-attachments' else 'workshop_attachments_editor_report.json')
+                result['inner_report'] = str(inner_path)
+                result['full_source_hashes'] = report['isolated_source_hashes']
+                try:
+                    inner = json.loads(inner_path.read_text(encoding='utf-8'))
+                    result['checks'] = inner['checks']
+                    result['failures'] = len(inner['failures'])
+                    result['scope'] = inner['scope']
+                    result['automatic_gui'] = inner['automatic_gui']
+                    result['direct_call'] = inner['direct_call']
+                    result['not_tested'] = inner.get('not_tested', [])
+                    result['passed'] = result['passed'] and inner['passed'] and inner['checks'] > 0
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    result['passed'] = False
+                    result['evidence_error'] = str(error)
             library_rel = 'scenes/components/facilities/building_attachments/v002'
             report['production_library_hashes_after'] = {str(p.relative_to(GODOT_ROOT / library_rel)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in sorted((GODOT_ROOT / library_rel).rglob('*')) if p.is_file()}

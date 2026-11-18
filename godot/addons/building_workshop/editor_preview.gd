@@ -9,6 +9,18 @@ var viewport: SubViewport
 var camera: Camera3D
 var _world: Node3D
 var _model_root: Node3D
+var _work_root: Node3D
+var _attachment_root: Node3D
+var _temporary_root: Node3D
+var _attachment_highlight: Node3D
+var _selected_attachment: Node3D
+var attachment_input: RefCounted
+var surface_paint_input: RefCounted
+var _surface_paint_root: Node3D
+var _surface_paint_space: Node3D
+var attachment_receiver: Control
+var _attachment_drag_trace: Array[Dictionary] = []
+var _attachment_drag_checks := 0
 var _highlight_root: Node3D
 var _wireframe_root: Node3D
 var _collision_root: Node3D
@@ -30,12 +42,14 @@ var _yaw: float = 0.65
 var _pitch: float = -0.42
 var _distance: float = 26.0
 var _target: Vector3 = Vector3.ZERO
+var _focus_box := AABB()
 var _wireframe: bool = false
 var _collision_overlay: bool = false
 var _screen_visible: bool = false
 
 func _ready() -> void:
 	stretch = true
+	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	ensure_navigation_focus()
 	custom_minimum_size = Vector2(300, 260)
@@ -45,12 +59,38 @@ func _ready() -> void:
 	viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	viewport.gui_disable_input = true
 	add_child(viewport)
+	# 普通 Control 是编辑器 GUI 拖放目标，不让 SubViewport 的 hover 改写 section target。
+	attachment_receiver = Control.new()
+	attachment_receiver.name = "WorkshopPreviewInputReceiver"
+	attachment_receiver.set_meta("cozy_skip", true)
+	attachment_receiver.mouse_filter = Control.MOUSE_FILTER_PASS
+	attachment_receiver.focus_mode = Control.FOCUS_NONE
+	add_child(attachment_receiver)
+	attachment_receiver.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	attachment_receiver.set_drag_forwarding(Callable(), _receiver_can_drop, _receiver_drop)
+	attachment_receiver.mouse_exited.connect(func() -> void:
+		if attachment_input != null: attachment_input.hide_ghost()
+		if surface_paint_input != null: surface_paint_input.pointer_exited())
 	_world = Node3D.new()
 	_world.name = "PreviewWorld"
 	viewport.add_child(_world)
+	_work_root = Node3D.new()
+	_work_root.name = "Work"
+	_world.add_child(_work_root)
 	_model_root = Node3D.new()
-	_model_root.name = "PreviewModel"
-	_world.add_child(_model_root)
+	_model_root.name = "Asset"
+	_work_root.add_child(_model_root)
+	_model_root.owner = _work_root
+	_attachment_root = Node3D.new()
+	_attachment_root.name = "Attachments"
+	_work_root.add_child(_attachment_root)
+	_attachment_root.owner = _work_root
+	_temporary_root = Node3D.new()
+	_temporary_root.name = "AttachmentTemporary"
+	_world.add_child(_temporary_root)
+	_attachment_highlight = Node3D.new()
+	_attachment_highlight.name = "AttachmentHighlight"
+	_world.add_child(_attachment_highlight)
 	_highlight_root = Node3D.new()
 	_highlight_root.name = "SlotHighlights"
 	_world.add_child(_highlight_root)
@@ -90,6 +130,9 @@ func _ready() -> void:
 	_world.add_child(camera_env)
 	viewport.size_changed.connect(_on_viewport_size_changed)
 	visibility_changed.connect(_on_visibility_changed)
+	mouse_exited.connect(func() -> void:
+		if attachment_input != null: attachment_input.hide_ghost()
+		if surface_paint_input != null: surface_paint_input.pointer_exited())
 	_sync_update_mode()
 
 ## 为热重载前已就绪的实例补挂焦点能力，不重建 viewport 或镜头。
@@ -125,6 +168,112 @@ func _fit_after_layout() -> void:
 	_initial_frame_pending = false
 	if is_inside_tree() and _screen_visible and is_visible_in_tree() and not _camera_fitted:
 		_fit_camera(true)
+
+func get_work_root() -> Node3D:
+	return _work_root
+
+func get_host_asset() -> Node3D:
+	return _model_root
+
+func get_building_root() -> Node3D:
+	return _model_root.get_child(0) as Node3D if _model_root.get_child_count() == 1 else null
+
+func get_attachment_root() -> Node3D:
+	return _attachment_root
+
+func get_temporary_root() -> Node3D:
+	return _temporary_root
+
+func get_surface_paint_root() -> Node3D:
+	return _surface_paint_root
+
+func sync_surface_paint_host() -> void:
+	var host := get_building_root()
+	if is_instance_valid(_surface_paint_space) and is_instance_valid(host):
+		_surface_paint_space.global_transform = host.global_transform
+
+func replace_surface_paint_root(root: Node3D) -> void:
+	if not is_instance_valid(root) or root.get_parent() != null: return
+	if not is_instance_valid(_surface_paint_space):
+		_surface_paint_space = Node3D.new()
+		_surface_paint_space.name = "SurfacePaintSpace"
+		_work_root.add_child(_surface_paint_space)
+		_surface_paint_space.owner = _work_root
+	sync_surface_paint_host()
+	if is_instance_valid(_surface_paint_root): _surface_paint_root.free()
+	_surface_paint_root = root
+	_surface_paint_space.add_child(root)
+	_set_work_owner(root)
+
+func replace_attachment_root(root: Node3D) -> void:
+	if not is_instance_valid(root) or root.get_parent() != null: return
+	highlight_attachment(null)
+	_attachment_root.free()
+	_attachment_root = root
+	root.name = "Attachments"
+	_work_root.add_child(root)
+	_set_work_owner(root)
+
+func _set_work_owner(node: Node) -> void:
+	node.owner = _work_root
+	for child: Node in node.get_children(): _set_work_owner(child)
+
+func ray_from_local_position(position: Vector2) -> Dictionary:
+	if camera == null or viewport == null or size.x <= 0 or size.y <= 0: return {}
+	var point := position * Vector2(viewport.size) / size
+	return {"origin": camera.project_ray_origin(point), "direction": camera.project_ray_normal(point)}
+
+func highlight_attachment(node: Node3D) -> void:
+	_selected_attachment = node
+	_clear_children(_attachment_highlight)
+	if not is_instance_valid(node): return
+	select_slot("", false)
+	var box := AABB()
+	var initialized := false
+	for child: Node in node.find_children("*", "MeshInstance3D", true, false):
+		if child.mesh == null: continue
+		var bounds: AABB = node.global_transform.affine_inverse() * child.global_transform * child.mesh.get_aabb()
+		box = box.merge(bounds) if initialized else bounds
+		initialized = true
+	if initialized:
+		_add_box_geometry(_attachment_highlight, box.grow(0.012), node.global_transform, Color.WHITE, "SelectedAttachment")
+
+func _receiver_position(position: Vector2) -> Vector2:
+	return get_global_transform_with_canvas().affine_inverse() * (attachment_receiver.get_global_transform_with_canvas() * position)
+
+func _receiver_can_drop(position: Vector2, data: Variant) -> bool:
+	var local_position := _receiver_position(position)
+	var allowed := _can_drop_data(local_position, data)
+	_attachment_drag_checks += 1
+	if _attachment_drag_checks == 1 or _attachment_drag_checks % 30 == 0:
+		record_attachment_drag("receiver_can_drop", {"allowed": allowed, "position": local_position, "checks": _attachment_drag_checks})
+	return allowed
+
+func _receiver_drop(position: Vector2, data: Variant) -> void:
+	record_attachment_drag("receiver_drop", {"position": _receiver_position(position)})
+	_drop_data(_receiver_position(position), data)
+
+func record_attachment_drag(stage: String, details: Dictionary = {}) -> void:
+	var entry := {"stage": stage, "ticks_usec": Time.get_ticks_usec(), "preview_rect": get_global_rect(),
+		"receiver_rect": attachment_receiver.get_global_rect() if is_instance_valid(attachment_receiver) else Rect2(),
+		"viewport_rect": get_viewport().get_visible_rect()}
+	entry.merge(details, true)
+	_attachment_drag_trace.append(entry)
+	if _attachment_drag_trace.size() > 32: _attachment_drag_trace.pop_front()
+	set_meta("attachment_drag_trace", _attachment_drag_trace.duplicate(true))
+
+func get_attachment_drag_diagnostics() -> Array[Dictionary]:
+	return _attachment_drag_trace.duplicate(true)
+
+func _can_drop_data(position: Vector2, data: Variant) -> bool:
+	return _screen_visible and is_visible_in_tree() and Rect2(Vector2.ZERO, size).has_point(position) and attachment_input != null and attachment_input.can_drop(position, data)
+
+func _drop_data(position: Vector2, data: Variant) -> void:
+	record_attachment_drag("drop_enter", {"position": position})
+	if attachment_input != null:
+		var result: Dictionary = attachment_input.drop(position, data)
+		set_meta("attachment_last_drop", {"ok": result.get("ok", false), "reason": result.get("reason", "")})
+		record_attachment_drag("drop_finished", get_meta("attachment_last_drop"))
 
 func set_build_result(result: Dictionary) -> void:
 	var root: Node3D = result.get("root") as Node3D
@@ -171,16 +320,23 @@ func set_view(kind: String) -> void:
 		"top":
 			_yaw = 0.0
 			_pitch = -PI * 0.5
+		"bottom":
+			_yaw = 0.0
+			_pitch = PI * 0.5
 		"perspective":
 			_yaw = 0.65
 			_pitch = -0.42
 		_:
 			return
+	_cancel_navigation()
 	camera.projection = Camera3D.PROJECTION_PERSPECTIVE if kind == "perspective" else Camera3D.PROJECTION_ORTHOGONAL
 	_fit_camera(true)
 	view_changed.emit()
 
 func select_slot(slot_id: String, notify: bool = true) -> void:
+	if not slot_id.is_empty():
+		_selected_attachment = null
+		_clear_children(_attachment_highlight)
 	if _selected_id == slot_id:
 		return
 	_selected_id = slot_id
@@ -201,6 +357,16 @@ func selected_slot() -> String:
 func _gui_input(event: InputEvent) -> void:
 	ensure_navigation_focus()
 	if not _screen_visible or not is_visible_in_tree():
+		return
+	if event is InputEventMouseButton and attachment_input != null and attachment_input.controller.armed:
+		record_attachment_drag("gui_button", {"pressed": event.pressed, "button": event.button_index, "position": event.position})
+	if surface_paint_input != null and surface_paint_input.handle_input(event):
+		_dragging = false
+		accept_event()
+		return
+	if attachment_input != null and attachment_input.handle_input(event):
+		_dragging = false
+		accept_event()
 		return
 	if event is InputEventMouseButton:
 		var button: InputEventMouseButton = event as InputEventMouseButton
@@ -236,7 +402,7 @@ func _gui_input(event: InputEvent) -> void:
 	elif event is InputEventKey:
 		var key: InputEventKey = event as InputEventKey
 		if key.keycode == KEY_F and key.pressed and not key.echo:
-			focus_object()
+			focus_selection()
 			accept_event()
 		elif _navigation_button == MOUSE_BUTTON_RIGHT and key.physical_keycode in [KEY_W, KEY_A, KEY_S, KEY_D, KEY_Q, KEY_E]:
 			_move_keys[key.physical_keycode] = key.pressed
@@ -250,12 +416,12 @@ func _gui_input(event: InputEvent) -> void:
 		if _navigation_button == MOUSE_BUTTON_MIDDLE and motion.shift_pressed:
 			_pan_camera(delta)
 		else:
-			var previous_position: Vector3 = camera.position
+			var previous_position: Vector3 = camera.global_position
 			_yaw -= delta.x * 0.008
 			_pitch = clampf(_pitch - delta.y * 0.008, -1.55, 1.55)
 			_fit_camera(false)
 			if _navigation_button == MOUSE_BUTTON_RIGHT:
-				_target += previous_position - camera.position
+				_target += previous_position - camera.global_position
 				_fit_camera(false)
 		accept_event()
 
@@ -265,10 +431,28 @@ func _cancel_navigation() -> void:
 	_move_keys.clear()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_BEGIN:
+		if has_meta("attachment_last_drop"): remove_meta("attachment_last_drop")
+		_attachment_drag_trace.clear()
+		_attachment_drag_checks = 0
+		record_attachment_drag("drag_begin")
+	if what == NOTIFICATION_DRAG_END and attachment_input != null:
+		var successful := get_viewport().gui_is_drag_successful()
+		record_attachment_drag("drag_end", {"gui_successful": successful, "last_drop": get_meta("attachment_last_drop", {})})
+		attachment_input.drag_finished(successful)
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		_cancel_navigation()
+		if surface_paint_input != null: surface_paint_input.editor.set_armed(false)
+		if attachment_input != null: attachment_input.controller.cancel_arm(false)
 
 func _process(delta: float) -> void:
+	# Window.push_input 的合成 release 在 Godot Editor 主窗口可能不经过
+	# SubViewportContainer._gui_input；若笔划已有pending且物理左键已释放，
+	# 在主线程下一帧提交一次，避免临时印记永远停在未提交状态。
+	if surface_paint_input != null and surface_paint_input.editor != null:
+		var paint_editor: Node = surface_paint_input.editor
+		if surface_paint_input.synthetic_release_due() and not Input.is_key_pressed(KEY_SHIFT) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not paint_editor._pending.is_empty():
+			paint_editor.finish_stroke()
 	if _dragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_dragging = false
 	if _navigation_button == MOUSE_BUTTON_MIDDLE and not Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
@@ -281,13 +465,13 @@ func _process(delta: float) -> void:
 		return
 	var movement := Vector3(float(_move_keys.get(KEY_D, false)) - float(_move_keys.get(KEY_A, false)), float(_move_keys.get(KEY_E, false)) - float(_move_keys.get(KEY_Q, false)), float(_move_keys.get(KEY_S, false)) - float(_move_keys.get(KEY_W, false)))
 	if not movement.is_zero_approx():
-		_target += camera.basis * movement.normalized() * maxf(2.0, _distance * 0.4) * minf(delta, 0.1) * (3.0 if Input.is_key_pressed(KEY_SHIFT) else 1.0)
+		_target += camera.global_basis * movement.normalized() * maxf(2.0, _distance * 0.4) * minf(delta, 0.1) * (3.0 if Input.is_key_pressed(KEY_SHIFT) else 1.0)
 		_fit_camera(false)
 
 func _pan_camera(delta: Vector2) -> void:
 	var span: float = camera.size if camera.projection == Camera3D.PROJECTION_ORTHOGONAL else 2.0 * _distance * tan(deg_to_rad(camera.fov * 0.5))
 	var pixels: float = maxf(1.0, size.x if camera.keep_aspect == Camera3D.KEEP_WIDTH else size.y)
-	_target += (-camera.basis.x * delta.x + camera.basis.y * delta.y) * span / pixels
+	_target += (-camera.global_basis.x * delta.x + camera.global_basis.y * delta.y) * span / pixels
 	_fit_camera(false)
 
 func focus_object(whole_building: bool = false) -> void:
@@ -295,18 +479,34 @@ func focus_object(whole_building: bool = false) -> void:
 		return
 	_cancel_navigation()
 	var box: AABB = _model_aabb()
-	if not whole_building:
+	if not whole_building and is_instance_valid(_selected_attachment):
+		box = _visual_bounds(_selected_attachment)
+	elif not whole_building:
 		for slot: Dictionary in _slots:
 			if str(slot.get("id", "")) == _selected_id:
-				var selected_box: AABB = _slot_aabb(slot)
-				if selected_box.has_volume():
+				var building: Node3D = get_building_root()
+				var source: Node3D = building.get_node_or_null(str(slot.get("node_path", ""))) as Node3D if building != null else null
+				var selected_box: AABB = _visual_bounds(source) if is_instance_valid(source) and not bool(slot.get("semantic_source_only", false)) else _slot_aabb(slot)
+				if selected_box.size.length_squared() > 0.0001:
 					box = selected_box
 				break
 	_frame_camera(camera, viewport.size, box, true)
 	_camera_fitted = box.has_volume()
 	view_changed.emit()
 
+## F 使用当前选件；工具栏房屋聚焦应显式调用 focus_object(true)。
+func focus_selection() -> void:
+	focus_object(false)
+
+## 完整作品总览与房屋结构中心分离，不污染建筑包围盒。
+func focus_work() -> void:
+	if camera == null or viewport == null: return
+	_cancel_navigation()
+	_frame_camera(camera, viewport.size, get_work_bounds(), true)
+	view_changed.emit()
+
 func _try_select(screen_position: Vector2) -> void:
+	if attachment_input != null and attachment_input.pick(screen_position): return
 	if camera == null or viewport == null or size.x <= 0.0 or size.y <= 0.0:
 		return
 	var viewport_position: Vector2 = screen_position * Vector2(viewport.size) / size
@@ -380,12 +580,16 @@ func _fit_camera(reset_distance: bool = false) -> void:
 
 func _frame_camera(view_camera: Camera3D, dimensions: Vector2i, model_box: AABB, reset_distance: bool) -> void:
 	if reset_distance and model_box.size.length_squared() > 0.0001:
+		_focus_box = model_box
 		_target = model_box.get_center()
 	var horizontal: Vector3 = Vector3(sin(_yaw), 0.0, -cos(_yaw))
 	var direction: Vector3 = (horizontal * cos(_pitch) + Vector3.UP * sin(-_pitch)).normalized()
 	var up: Vector3 = Vector3.FORWARD if absf(direction.dot(Vector3.UP)) > 0.999 else Vector3.UP
-	view_camera.position = _target + direction * _distance
+	view_camera.global_position = _target + direction * _distance
+	view_camera.force_update_transform()
 	view_camera.look_at(_target, up)
+	# 切视图后立即适配时，不能读取上一机位的延迟 global_basis。
+	view_camera.force_update_transform()
 	if reset_distance and model_box.size.length_squared() > 0.0001:
 		var aspect: float = float(maxi(1, dimensions.x)) / float(maxi(1, dimensions.y))
 		var tangent: float = tan(deg_to_rad(view_camera.fov * 0.5))
@@ -403,8 +607,22 @@ func _frame_camera(view_camera: Camera3D, dimensions: Vector2i, model_box: AABB,
 		_distance = fitted_distance
 		# KEEP_WIDTH 的正交 size 是宽；不使用透视 FOV 冒充正立面。
 		view_camera.size = maxf(1.0, maxf(half_width * 2.0, half_height * 2.0 * aspect) * 1.12) if view_camera.keep_aspect == Camera3D.KEEP_WIDTH else maxf(1.0, maxf(half_height * 2.0, half_width * 2.0 / aspect) * 1.12)
-	view_camera.position = _target + direction * _distance
-	view_camera.far = maxf(500.0, _distance * 4.0)
+	view_camera.global_position = _target + direction * _distance
+	view_camera.force_update_transform()
+	view_camera.look_at(_target, up)
+	view_camera.force_update_transform()
+	_update_camera_clip(view_camera, model_box.merge(_focus_box))
+
+func _update_camera_clip(view_camera: Camera3D, box: AABB) -> void:
+	var inverse: Transform3D = view_camera.global_transform.affine_inverse()
+	var nearest: float = INF
+	var farthest: float = 0.0
+	for index: int in range(8):
+		var depth: float = -(inverse * box.get_endpoint(index)).z
+		if depth > 0.0: nearest = minf(nearest, depth)
+		farthest = maxf(farthest, depth)
+	view_camera.near = clampf(nearest * 0.25, 0.001, 0.05) if is_finite(nearest) else 0.001
+	view_camera.far = maxf(500.0, farthest + maxf(10.0, box.size.length()))
 
 # 仅验证器调用：复制真实预览世界离屏渲染，不改变主屏容器尺寸、伸缩或灯光。
 func capture_model_image(dimensions: Vector2i = Vector2i(1400, 1100)) -> Image:
@@ -421,16 +639,18 @@ func capture_model_image(dimensions: Vector2i = Vector2i(1400, 1100)) -> Image:
 	var capture_world: Node3D = _world.duplicate(0) as Node3D
 	capture_viewport.add_child(capture_world)
 	# 高亮和调试叠加不是模型；原始材质、相机投影和有阴影灯光原样复制。
-	for overlay: Node3D in [_highlight_root, _wireframe_root, _collision_root]:
+	for overlay: Node3D in [_highlight_root, _wireframe_root, _collision_root, _temporary_root, _attachment_highlight]:
 		var copied_overlay: Node = capture_world.get_node(_world.get_path_to(overlay))
 		copied_overlay.free()
 	var capture_camera: Camera3D = capture_world.get_node(_world.get_path_to(camera)) as Camera3D
 	capture_camera.current = true
 	var saved_distance: float = _distance
 	var saved_target: Vector3 = _target
-	_frame_camera(capture_camera, dimensions, _model_aabb(), true)
+	var saved_focus_box: AABB = _focus_box
+	_frame_camera(capture_camera, dimensions, get_work_bounds(), true)
 	_distance = saved_distance
 	_target = saved_target
+	_focus_box = saved_focus_box
 	for frame: int in range(3):
 		await get_tree().process_frame
 	RenderingServer.force_draw()
@@ -438,16 +658,40 @@ func capture_model_image(dimensions: Vector2i = Vector2i(1400, 1100)) -> Image:
 	capture_viewport.free()
 	return image
 
+## 世界坐标下的实际建筑包络；不从语义槽或 Work 原点猜中心。
+func get_building_bounds() -> AABB:
+	var building: Node3D = get_building_root()
+	if building == null: return AABB()
+	return _visual_bounds(building.get_node_or_null("GeneratedVisual") as Node3D)
+
+func get_work_bounds() -> AABB:
+	return _visual_bounds(_work_root)
+
 func _model_aabb() -> AABB:
-	var result: AABB = AABB()
-	var initialized: bool = false
-	for node: Node in _model_root.find_children("*", "MeshInstance3D", true, false):
-		var mesh_node: MeshInstance3D = node as MeshInstance3D
-		if mesh_node == null or mesh_node.mesh == null:
-			continue
-		var box: AABB = mesh_node.global_transform * mesh_node.mesh.get_aabb()
-		result = box if not initialized else result.merge(box)
-		initialized = true
+	return get_building_bounds()
+
+func _visual_bounds(root: Node3D) -> AABB:
+	var result := AABB()
+	var initialized := false
+	if not is_instance_valid(root): return result
+	var pending: Array[Node] = [root]
+	while not pending.is_empty():
+		var node: Node = pending.pop_back()
+		if node is Node3D and not node.is_visible_in_tree(): continue
+		pending.append_array(node.get_children())
+		var boxes: Array[AABB] = []
+		if node is MeshInstance3D and node.mesh != null:
+			node.force_update_transform()
+			boxes.append(node.global_transform * node.mesh.get_aabb())
+		elif node is MultiMeshInstance3D and node.multimesh != null and node.multimesh.mesh != null:
+			node.force_update_transform()
+			var multi: MultiMesh = node.multimesh
+			var count: int = multi.instance_count if multi.visible_instance_count < 0 else mini(multi.instance_count, multi.visible_instance_count)
+			for index: int in count:
+				boxes.append(node.global_transform * multi.get_instance_transform(index) * multi.mesh.get_aabb())
+		for box: AABB in boxes:
+			result = result.merge(box) if initialized else box
+			initialized = true
 	return result
 
 func _on_viewport_size_changed() -> void:
@@ -457,7 +701,9 @@ func _on_viewport_size_changed() -> void:
 func _slot_aabb(slot: Dictionary) -> AABB:
 	var building_transform: Transform3D = _model_root.global_transform
 	if _model_root.get_child_count() == 1:
-		building_transform = (_model_root.get_child(0) as Node3D).global_transform
+		var building: Node3D = _model_root.get_child(0) as Node3D
+		building.force_update_transform()
+		building_transform = building.global_transform
 	# 生成器给出的实际 mesh bounds 已包含植物底部 / 藤蔓顶部 pivot 偏差。
 	if slot.has("bounds_position") and slot.has("bounds_size"):
 		var actual_bounds: AABB = AABB(_vec3(slot["bounds_position"]), _vec3(slot["bounds_size"]))

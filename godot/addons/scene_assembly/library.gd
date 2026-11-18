@@ -22,7 +22,11 @@ static func describe(path: String, kind: String, animated: bool = false) -> Dict
 	var directory := path.get_base_dir()
 	var scene := directory.path_join("building.tscn" if kind == "building" else "plant_wind.tscn" if animated else "plant.tscn")
 	if not FileAccess.file_exists(scene): return {}
-	return {"kind": kind, "recipe_path": path, "scene_path": scene,
+	var work: Dictionary = {}
+	if kind == "building":
+		work = BuildingStore.new().load_recipe(path)
+		if not work.get("ok", false): return {}
+	var descriptor := {"kind": kind, "recipe_path": path, "scene_path": scene,
 		"preview_path": directory.path_join("building.tscn" if kind == "building" else "plant.tscn"),
 		"manifest_path": directory.path_join("candidate_manifest.json" if kind == "building" else "plant.manifest.json"),
 		"asset_id": str(recipe.get("building_id", directory.get_base_dir().get_file())),
@@ -31,6 +35,17 @@ static func describe(path: String, kind: String, animated: bool = false) -> Dict
 		"purpose": str(recipe.get("spatial_profile", "visual_only")),
 		"editable": kind != "building" or recipe.get("construction_mode", "modular_v1") == "shell_v2",
 		"candidate_only": true}
+	if work.has("attachments_snapshot"):
+		descriptor["attachments_snapshot"] = work.attachments_snapshot.duplicate(true)
+	if work.has("surface_paint_snapshot"):
+		descriptor["surface_paint_snapshot"] = work.surface_paint_snapshot.duplicate(true)
+	if not str(work.get("surface_paint_path", "")).is_empty():
+		descriptor["surface_paint_path"] = work.surface_paint_path
+		descriptor["surface_paint_scene_path"] = work.surface_paint_scene_path
+	if work.has("work_scene_path"):
+		descriptor["work_scene_path"] = work.work_scene_path
+		descriptor["preview_path"] = work.work_scene_path
+	return descriptor
 
 static func collect() -> Array[Dictionary]:
 	var rows: Array[Dictionary] = []

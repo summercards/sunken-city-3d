@@ -10,25 +10,26 @@ signal recovery_restore_finished(result: Dictionary)
 var _document_token: int = 0
 var _request_token: int = 0
 
-func request_document(path: String, token: int) -> void:
+func request_document(path: String, token: int, context: Dictionary = {}) -> void:
 	if _confirm.visible or not _repair_pending.is_empty():
 		document_request_finished.emit(token, {"ok": false, "reason": "请先处理当前确认窗口"})
 		return
 	_request_token = token
-	_guard_action(_open_bound_document.bind(path, token), "打开绑定建筑将丢弃未保存修改，是否继续？")
+	_guard_action(_open_bound_document.bind(path, token, context.duplicate(true)), "打开绑定建筑将丢弃未保存修改，是否继续？")
 
-func _open_bound_document(path: String, token: int) -> void:
+func _open_bound_document(path: String, token: int, context: Dictionary = {}) -> void:
 	_request_token = 0
-	var result: Dictionary = _open_recipe_now(path)
-	if result.get("ok", false):
-		_document_token = token
-		document_opened.emit(path, token)
+	var result: Dictionary = _open_recipe_now(path, context, token)
 	document_request_finished.emit(token, result)
 
 const Session = preload("res://src/workshop/session.gd")
 const Recipe = preload("res://src/workshop/recipe.gd")
 const Catalog = preload("res://src/workshop/catalog.gd")
 const Preview = preload("res://addons/building_workshop/editor_preview.gd")
+const AttachmentEditor = preload("res://addons/building_workshop/attachment_editor.gd")
+const AttachmentData = preload("res://addons/building_workshop/attachment_work_data.gd")
+const SurfacePaintEditor = preload("res://addons/building_workshop/surface_paint_editor.gd")
+const SurfacePaintData = preload("res://addons/building_workshop/surface_paint_data.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const WindowGeometry = preload("res://src/workshop/shell_window_geometry.gd")
 const Generator = preload("res://src/workshop/generator.gd")
@@ -40,7 +41,7 @@ const REPAIR_BASE_KEYS: Array[String] = ["width", "depth", "floors", "floor_heig
 const WINDOW_PREVIEW_DELAY: float = 0.16
 const DEFAULT_ROOT: String = "res://scenes/workshop_buildings"
 const SAMPLE_ROOT: String = "res://data/workshop/samples"
-const PAGES: Array[String] = ["结构", "门窗", "配色", "破旧", "植物", "空间", "构架", "形体", "文件"]
+const PAGES: Array[String] = ["结构", "门窗", "配色", "破旧", "植物", "空间", "构架", "形体", "文件", "外挂", "表面植被"]
 const DEFAULT_MODULES: Array[Dictionary] = [
 	{"id": "default_sea_breeze", "label": "海风公寓", "description": "矩形 · 住宅", "file": "workshop_default_sea_breeze.recipe.json"},
 	{"id": "default_harbor_market", "label": "码头商铺", "description": "矩形 · 商业", "file": "workshop_default_harbor_market.recipe.json"},
@@ -90,6 +91,10 @@ const MATERIAL_ROLE_DEFAULTS: Dictionary = {
 
 var session: Session
 var preview: Preview
+var attachment_editor: Node
+var surface_paint_editor: Node
+var _document_loading := false
+var _timeline_merge_key := ""
 var buttons: Dictionary = {}
 var controls: Dictionary = {}
 var pages: Dictionary = {}
@@ -175,6 +180,7 @@ var _palette_target_row: HBoxContainer
 var _palette_target_strip: ScrollContainer
 var _palette_target_buttons: Dictionary = {}
 var _palette_target_context: String = "global"
+var _attachment_page_requested := false
 
 func configure(ports: Dictionary = {}) -> void:
 	_ports.merge(ports, true)
@@ -188,7 +194,10 @@ func configure(ports: Dictionary = {}) -> void:
 		if session != ports["session"]:
 			session = ports["session"] as Session
 			_reset_document_inputs()
+			if attachment_editor != null: attachment_editor.reset_timeline()
 		_connect_session()
+	if surface_paint_editor != null and ports.has("surface_paint_textures"):
+		surface_paint_editor.textures = ports.surface_paint_textures.duplicate()
 	if _initialized:
 		_ensure_editor_catalog()
 		_refresh_from_session()
@@ -209,6 +218,18 @@ func _ready() -> void:
 		session = Session.new(Catalog.editor_catalog())
 		session.replace_recipe(Recipe.authoring_defaults())
 	_build_ui()
+	attachment_editor = AttachmentEditor.new()
+	attachment_editor.name = "WorkshopAttachmentEditor"
+	add_child(attachment_editor)
+	attachment_editor.configure(self, pages["外挂"], preview)
+	attachment_editor.changed.connect(_update_state)
+	attachment_editor.selected.connect(func() -> void: _select_page(PAGES.find("外挂")))
+	surface_paint_editor = SurfacePaintEditor.new()
+	surface_paint_editor.name = "WorkshopSurfacePaintEditor"
+	add_child(surface_paint_editor)
+	surface_paint_editor.configure(self, pages["表面植被"], preview, _ports.get("surface_paint_textures", {}))
+	surface_paint_editor.changed.connect(_update_state)
+	surface_paint_editor.committed.connect(_surface_paint_committed)
 	_select_page(0)
 	_window_preview_timer = Timer.new()
 	_window_preview_timer.one_shot = true
@@ -226,6 +247,9 @@ func _ready() -> void:
 		_pending_recovery = {}
 		restore_recovery(recovery)
 	set_screen_visible(_screen_visible)
+	if _attachment_page_requested: show_attachment_page()
+	# 子控件与恢复数据均构造完成后，再清理首轮最小尺寸膨胀留下的布局偏移。
+	_on_layout_resized.call_deferred()
 
 func _ensure_editor_catalog() -> Dictionary:
 	var upgraded: Dictionary = Catalog.editor_catalog(session.catalog)
@@ -236,6 +260,13 @@ func _ensure_editor_catalog() -> Dictionary:
 func _connect_session() -> void:
 	if session != null and not session.changed.is_connected(_on_session_changed):
 		session.changed.connect(_on_session_changed)
+
+func show_attachment_page() -> void:
+	if not _initialized:
+		_attachment_page_requested = true
+		return
+	_attachment_page_requested = false
+	_select_page(PAGES.find("外挂"))
 
 func set_screen_visible(value: bool) -> void:
 	_screen_visible = value
@@ -255,6 +286,10 @@ func _sync_preview_activity() -> void:
 	set_process_unhandled_key_input(active)
 	if preview != null:
 		preview.set_screen_visible(active)
+	if attachment_editor != null:
+		attachment_editor.set_active(active and _page_picker.selected == PAGES.find("外挂"))
+	if surface_paint_editor != null:
+		surface_paint_editor.set_active(active and _page_picker.selected == PAGES.find("表面植被"))
 	if _window_preview_timer != null:
 		# 热重载旧实例也要移除原先无可见性门禁的 timeout 连接。
 		if _window_preview_timer.timeout.is_connected(flush_window_preview):
@@ -278,7 +313,7 @@ func _pause_window_preview() -> void:
 func _schedule_window_preview(delay: float = WINDOW_PREVIEW_DELAY) -> void:
 	if not _initialized or not _screen_visible or not is_visible_in_tree(): return
 	if _window_preview_busy or _window_preview_keys.is_empty(): return
-	if not _repair_pending.is_empty() or _random_house_confirming: return
+	if not _repair_pending.is_empty() or _random_house_confirming or (_confirm != null and _confirm.visible): return
 	if _window_preview_timer.is_stopped():
 		_window_preview_timer.start(delay)
 
@@ -639,19 +674,57 @@ func _confirm_generation_adjustment() -> void:
 	_update_state()
 	_set_status("已按确认方案调整并生成；仅一次提交，可撤销回原楼房与冲突输入。", WORKSHOP_ACCENT_HOVER)
 
+## 回调签名：(recipe, catalog, attachments_snapshot, surface_paint_snapshot, export_root) -> Dictionary。
+## 回调必须全域原子保存；只有 ok=true 才推进两个独立层的已保存基线。
+func _export_work_snapshot(recipe: Dictionary, catalog: Dictionary, attachments: Dictionary, painted: Dictionary) -> Dictionary:
+	var exporter: Callable = _ports.get("export_surface_paint_work_revision", Callable())
+	if exporter.is_valid():
+		return exporter.call(recipe.duplicate(true), catalog.duplicate(true), attachments.duplicate(true), painted.duplicate(true), export_root)
+	if _surface_paint_requires_exporter():
+		return {"ok": false, "reason": "未接入 export_surface_paint_work_revision 原子保存回调，拒绝丢弃表面植被（含清空修改）。"}
+	return _store.export_work_revision(recipe, catalog, attachments, export_root) if _store.has_method("export_work_revision") else _store.export_revision(recipe, catalog, export_root)
+
+func _surface_paint_requires_exporter() -> bool:
+	return not str(_last_export.get("surface_paint_path", "")).is_empty() or (surface_paint_editor != null and (surface_paint_editor.has_unsaved() or not get_surface_paint_snapshot().stamps.is_empty() or surface_paint_editor.saved_fingerprint != SurfacePaintData.fingerprint(SurfacePaintData.empty_snapshot())))
+
+func _surface_paint_save_reason() -> String:
+	if surface_paint_editor == null: return ""
+	var reason: String = surface_paint_editor.save_block_reason()
+	if not reason.is_empty(): return reason
+	var exporter: Callable = _ports.get("export_surface_paint_work_revision", Callable())
+	if _surface_paint_requires_exporter() and not exporter.is_valid():
+		return "未接入表面植被全域原子保存回调；作品与未保存状态保持。"
+	return ""
+
 func save_building() -> Dictionary:
+	var surface_reason := _surface_paint_save_reason()
+	if not surface_reason.is_empty(): return _report_failure(surface_reason)
 	if _store == null:
 		return _report_failure("未注入编辑器 Store，不能保存。")
+	var attachment_reason: String = attachment_editor.save_block_reason() if attachment_editor != null else ""
+	if not attachment_reason.is_empty(): return _report_failure(attachment_reason)
+	var attachments: Dictionary = get_attachment_snapshot()
+	if not _store.has_method("export_work_revision") and not (_ports.get("export_surface_paint_work_revision", Callable()) as Callable).is_valid() and not attachments.get("instances", []).is_empty():
+		return _report_failure("当前 Store 不支持完整作品原子保存，拒绝丢弃外挂；请使用支持 export_work_revision 的编辑器 Store。")
 	var applied: Dictionary = apply_parameters()
 	if not bool(applied.get("ok", false)):
 		return applied
-	var result: Dictionary = _store.export_revision(snapshot(), session.catalog, export_root)
+	attachments = get_attachment_snapshot()
+	surface_reason = _surface_paint_save_reason()
+	if not surface_reason.is_empty(): return _report_failure(surface_reason)
+	var result: Dictionary = _export_work_snapshot(snapshot(), session.catalog, attachments, get_surface_paint_snapshot())
 	if not bool(result.get("ok", false)):
 		return _report_result(result, "保存失败，草稿仍保留")
 	_last_export = result.duplicate(true)
 	revision_saved.emit(_document_token, result.duplicate(true))
 	var saved_recipe: Dictionary = result.get("recipe", {}) as Dictionary
+	_document_loading = true
 	var synced: Dictionary = session.sync_exported_revision(int(saved_recipe.get("revision", snapshot().get("revision", 1))))
+	_document_loading = false
+	if attachment_editor != null:
+		attachment_editor.observe_house()
+		attachment_editor.mark_saved()
+	if surface_paint_editor != null: surface_paint_editor.mark_saved()
 	if not bool(synced.get("ok", false)):
 		return _report_failure("文件已保存，但会话版本同步失败：" + str(synced.get("reason", "")))
 	_refresh_from_session()
@@ -659,7 +732,7 @@ func save_building() -> Dictionary:
 	var rescan: Callable = _ports.get("rescan", Callable())
 	if rescan.is_valid():
 		rescan.call()
-	_set_status("已保存并烘焙五件 bundle：%s；候选资产尚未正式登记。" % str(result.get("directory", "")))
+	_set_status("已原子保存建筑作品、外挂与表面植被：%s；候选资产尚未正式登记。" % str(result.get("directory", "")))
 	_update_state()
 	return result
 
@@ -669,7 +742,7 @@ func open_recipe(path: String) -> Dictionary:
 		return {"ok": false, "reason": "等待确认", "confirmation_required": true}
 	return _open_recipe_now(path)
 
-func _open_recipe_now(path: String) -> Dictionary:
+func _open_recipe_now(path: String, context: Dictionary = {}, token: int = 0) -> Dictionary:
 	if _store == null:
 		return _report_failure("未注入编辑器 Store，不能打开配方。")
 	var result: Dictionary = _store.load_recipe(path)
@@ -678,20 +751,62 @@ func _open_recipe_now(path: String) -> Dictionary:
 	var loaded_recipe: Dictionary = result.get("recipe", {})
 	if str(loaded_recipe.get("construction_mode", "modular_v1")) != "shell_v2":
 		return _report_failure("旧版拼装配方已停止编辑，原文件未修改；请新建连续实体楼房。")
-	var accepted: Dictionary = session.accept_loaded(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})))
-	if not bool(accepted.get("ok", false)):
-		return _report_result(accepted, "配方被拒绝")
+	var attachment_snapshot: Variant = context.get("attachments_snapshot", result.get("attachments_snapshot", AttachmentData.empty_snapshot()))
+	var painted_snapshot: Variant = context.get("surface_paint_snapshot", result.get("surface_paint_snapshot", SurfacePaintData.empty_snapshot()))
+	if context.has("surface_paint_fingerprint"):
+		if not painted_snapshot is Dictionary or not context.surface_paint_fingerprint is String or SurfacePaintData.fingerprint(painted_snapshot) != context.surface_paint_fingerprint:
+			return _report_failure("绑定表面植被快照与请求指纹不一致，当前文档保持。")
+	var prepared: Dictionary = _prepare_work_document(loaded_recipe, Catalog.editor_catalog(result.get("catalog", {})), attachment_snapshot, painted_snapshot)
+	if not prepared.get("ok", false): return _report_result(prepared, "作品被拒绝，当前文档保持")
+	_commit_work_document(prepared, true)
+	_document_token = token
+	_last_export = {"scene_path": path.get_base_dir().path_join("building.tscn"), "recipe_path": path,
+		"work_scene_path": result.get("work_scene_path", path.get_base_dir().path_join("building.tscn")),
+		"surface_paint_path": result.get("surface_paint_path", ""), "surface_paint_scene_path": result.get("surface_paint_scene_path", "")}
+	document_opened.emit(path, token)
+	_set_status("已打开建筑作品：" + path)
+	return {"ok": true, "reason": "", "attachments_snapshot": get_attachment_snapshot(), "surface_paint_snapshot": get_surface_paint_snapshot()}
+
+func _prepare_work_document(recipe: Dictionary, catalog: Dictionary, attachments: Variant, surface_paint: Variant = null) -> Dictionary:
+	if preview == null or not preview.is_node_ready(): return {"ok": false, "reason": "独立预览尚未就绪"}
+	var candidate := Session.new(catalog)
+	var built: Dictionary = candidate.preview_candidate(recipe)
+	if not built.get("ok", false): return built
+	var attached: Dictionary = attachment_editor.prepare(attachments)
+	if not attached.get("ok", false):
+		built.root.free()
+		return attached
+	var painted: Dictionary = _prepare_surface_paint_for_build(surface_paint if surface_paint != null else SurfacePaintData.empty_snapshot(), built)
+	if not painted.get("ok", false):
+		built.root.free()
+		attached.root.free()
+		return painted
+	return {"ok": true, "reason": "", "session": candidate, "built": built, "attachments": attached, "surface_paint": painted}
+
+func _prepare_surface_paint_for_build(value: Variant, built: Dictionary) -> Dictionary:
+	var host: Node3D = built.root
+	preview.get_temporary_root().add_child(host)
+	var prepared: Dictionary = surface_paint_editor.prepare(value, host)
+	preview.get_temporary_root().remove_child(host)
+	return prepared
+
+func _commit_work_document(prepared: Dictionary, saved: bool) -> void:
+	_document_loading = true
+	if session.changed.is_connected(_on_session_changed): session.changed.disconnect(_on_session_changed)
+	session = prepared.session
+	if saved: session.mark_saved()
 	_reset_document_inputs()
-	_document_token = 0
-	document_opened.emit(path, 0)
+	_connect_session()
 	_reset_window_preview()
 	_slot_cache.clear()
+	_opening_cache.clear()
 	_selected_id = ""
-	_last_export = {"scene_path": path.get_base_dir().path_join("building.tscn"), "recipe_path": path}
+	_selected_opening_id = ""
 	_refresh_from_session()
-	refresh_preview()
-	_set_status("已打开：" + path)
-	return accepted
+	refresh_preview(false, prepared.built)
+	attachment_editor.commit_document(prepared.attachments)
+	surface_paint_editor.commit(prepared.surface_paint, true)
+	_document_loading = false
 
 func refresh_preview(preserve_slot_fields: bool = false, prepared_build: Dictionary = {}) -> Dictionary:
 	if session == null or preview == null or not preview.is_node_ready():
@@ -709,6 +824,8 @@ func refresh_preview(preserve_slot_fields: bool = false, prepared_build: Diction
 	if not bool(result.get("ok", false)):
 		return _report_result(result, "生成失败，保留上一份预览")
 	preview.set_build_result(result)
+	if attachment_editor != null: attachment_editor.house_rebuilt()
+	if surface_paint_editor != null: surface_paint_editor.house_rebuilt()
 	var previous_openings: Dictionary = _opening_cache.duplicate(true)
 	_opening_cache.clear()
 	for raw_opening: Variant in result.get("openings", []):
@@ -762,7 +879,96 @@ func refresh_preview(preserve_slot_fields: bool = false, prepared_build: Diction
 	_update_state()
 	return result
 
+func has_unsaved_changes() -> bool:
+	return has_pending_fields()
+
+func get_surface_paint_snapshot() -> Dictionary:
+	return surface_paint_editor.get_surface_paint_snapshot() if surface_paint_editor != null else SurfacePaintData.empty_snapshot()
+
+func get_surface_paint_context() -> Dictionary:
+	return surface_paint_editor.get_context() if surface_paint_editor != null else {}
+
+func has_unsaved() -> bool:
+	return has_unsaved_changes()
+
+func commit_surface_paint(prepared: Dictionary, saved: bool = true) -> void:
+	surface_paint_editor.commit(prepared, saved)
+
+func reset_surface_paint() -> Dictionary:
+	return surface_paint_editor.reset()
+
+func _surface_paint_committed(before: Dictionary, after: Dictionary) -> void:
+	# 复用既有双域顺序标记，但不把植被塞入房屋 Recipe 或外挂快照。
+	attachment_editor._redo.clear()
+	attachment_editor._house_merge = ""
+	_window_history_key = ""
+	_window_history_fingerprint = ""
+	attachment_editor._done.append({"domain": "surface_paint", "before": before.duplicate(true), "after": after.duplicate(true)})
+	_update_state()
+
+func get_attachment_snapshot() -> Dictionary:
+	return attachment_editor.capture() if attachment_editor != null else AttachmentData.empty_snapshot()
+
+func get_attachment_layout_diagnostics() -> Dictionary:
+	var parent := get_parent()
+	var parent_data: Dictionary = {"path": str(parent.get_path()), "class": parent.get_class()}
+	if parent is Control:
+		parent_data.merge({"rect": parent.get_global_rect(), "size": parent.size,
+			"anchors": [parent.anchor_left, parent.anchor_top, parent.anchor_right, parent.anchor_bottom],
+			"offsets": [parent.offset_left, parent.offset_top, parent.offset_right, parent.offset_bottom]}, true)
+	elif parent is Viewport:
+		parent_data["visible_rect"] = parent.get_visible_rect()
+	var result: Dictionary = {"screen_rect": get_global_rect(), "screen_position": position, "screen_size": size,
+		"screen_anchors": [anchor_left, anchor_top, anchor_right, anchor_bottom],
+		"screen_offsets": [offset_left, offset_top, offset_right, offset_bottom], "parent": parent_data,
+		"viewport_rect": get_viewport().get_visible_rect(), "controls": {}}
+	for control: Control in [get_node("WorkshopLayout"), _workspace.get_parent(), _workspace, _left_panel,
+		_left_panel.get_child(0), pages["外挂"], attachment_editor.panel, _preview_split, _preview_column, preview, preview.attachment_receiver]:
+		result.controls[str(control.name)] = {"rect": control.get_global_rect(), "position": control.position, "size": control.size,
+			"anchors": [control.anchor_left, control.anchor_top, control.anchor_right, control.anchor_bottom],
+			"offsets": [control.offset_left, control.offset_top, control.offset_right, control.offset_bottom],
+			"parent_path": str(control.get_parent().get_path()), "minimum": control.get_combined_minimum_size(),
+			"custom_minimum": control.custom_minimum_size, "visible": control.is_visible_in_tree(),
+			"horizontal_flags": control.size_flags_horizontal, "vertical_flags": control.size_flags_vertical}
+	var ancestors: Array[Dictionary] = []
+	var ancestor: Node = self
+	while ancestor != null:
+		var entry: Dictionary = {"path": str(ancestor.get_path()), "class": ancestor.get_class(), "siblings": []}
+		if ancestor is Control: entry.merge(_layout_control_record(ancestor), true)
+		elif ancestor is Window: entry.merge({"size": ancestor.size, "visible": ancestor.visible}, true)
+		if ancestor.get_parent() != null:
+			for sibling: Node in ancestor.get_parent().get_children():
+				if sibling is Control and sibling.is_visible_in_tree(): entry.siblings.append(_layout_control_record(sibling))
+		ancestors.append(entry)
+		if ancestor is Window: break
+		ancestor = ancestor.get_parent()
+	result["ancestors"] = ancestors
+	var oversized: Array[Dictionary] = []
+	_collect_oversized_layout(get_window(), get_viewport().get_visible_rect().size.y * 0.65, oversized)
+	result["oversized_visible_controls"] = oversized
+	var dock_details: Array[Dictionary] = []
+	for dock_control: Node in get_window().find_children("场景装配", "Control", true, false):
+		dock_details.append(_layout_control_record(dock_control))
+		_collect_oversized_layout(dock_control, 160.0, dock_details, true)
+	result["assembly_dock_controls_including_hidden"] = dock_details
+	return result
+
+func _layout_control_record(control: Control) -> Dictionary:
+	return {"path": str(control.get_path()), "class": control.get_class(), "rect": control.get_global_rect(),
+		"minimum": control.get_combined_minimum_size(), "custom_minimum": control.custom_minimum_size,
+		"anchors": [control.anchor_left, control.anchor_top, control.anchor_right, control.anchor_bottom],
+		"offsets": [control.offset_left, control.offset_top, control.offset_right, control.offset_bottom],
+		"horizontal_flags": control.size_flags_horizontal, "vertical_flags": control.size_flags_vertical,
+		"visible": control.visible, "visible_in_tree": control.is_visible_in_tree()}
+
+func _collect_oversized_layout(node: Node, threshold: float, output: Array[Dictionary], include_hidden: bool = false) -> void:
+	if node is Control and not include_hidden and not node.is_visible_in_tree(): return
+	if node is Control and node.get_combined_minimum_size().y > threshold: output.append(_layout_control_record(node))
+	for child: Node in node.get_children(): _collect_oversized_layout(child, threshold, output, include_hidden)
+
 func has_pending_fields() -> bool:
+	if surface_paint_editor != null and surface_paint_editor.has_unsaved(): return true
+	if attachment_editor != null and (attachment_editor.is_dirty() or attachment_editor.has_unsaved_inputs()): return true
 	if session == null:
 		return false
 	if session.is_dirty():
@@ -965,13 +1171,16 @@ func _capture_ui_values() -> Dictionary:
 func get_recovery() -> Dictionary:
 	if session == null:
 		return {}
-	return {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {},
+	var recovery: Dictionary = {"recipe": snapshot(), "catalog": session.catalog.duplicate(true), "ui_patch": _collect_ui_patch() if _initialized else {},
 		"ui_values": _capture_ui_values(), "dirty": session.is_dirty(), "selected_slot": _selected_id,
 		"selected_opening_id": _selected_opening_id, "window_scope": _window_scope() if _initialized else "global",
 		"local_baseline": _local_baseline.duplicate(true), "page": _page_picker.selected if _initialized else 0,
 		"last_export": _last_export.duplicate(true), "slot_cache": _slot_cache.duplicate(true), "opening_cache": _opening_cache.duplicate(true),
 		"window_preview_keys": _window_preview_keys.duplicate(true), "window_failed_keys": _window_failed_keys.duplicate(true),
 		"window_preview_target": _window_preview_target.duplicate(true), "window_preview_result": window_preview_result.duplicate(true)}
+	if attachment_editor != null: recovery.merge(attachment_editor.recovery(), true)
+	if surface_paint_editor != null: recovery.merge(surface_paint_editor.recovery(), true)
+	return recovery
 
 func restore_recovery(data: Dictionary) -> Dictionary:
 	if not _initialized:
@@ -1032,13 +1241,51 @@ func _restore_recovery_now(data: Dictionary) -> Dictionary:
 	var restored_root: Node3D = restored_preview.get("root") as Node3D
 	if not is_instance_valid(restored_root) or restored_root.get_parent() != null:
 		return _report_failure("恢复草稿失败，当前会话与模型保持：" + str(restored_preview.get("reason", "构建未返回独立模型")))
+	var attached: Dictionary = attachment_editor.prepare(data.get("attachment_snapshot", AttachmentData.empty_snapshot()), data.get("attachment_panel_recovery", {}))
+	if not attached.get("ok", false):
+		restored_root.free()
+		return _report_result(attached, "恢复外挂失败，当前作品保持")
+	for key: String in ["attachment_saved_fingerprint", "attachment_document"]:
+		if data.has(key) and not data[key] is String:
+			restored_root.free()
+			attached.root.free()
+			return _report_failure("恢复外挂失败：%s 必须为字符串" % key)
+	if data.has("attachment_document") and not str(data.attachment_document).is_empty() and str(data.attachment_document) != str(recipe.get("building_id", "")):
+		restored_root.free()
+		attached.root.free()
+		return _report_failure("恢复外挂失败：作品身份与房屋配方不一致；当前作品保持。")
+	var paint_brush: Variant = data.get("surface_paint_brush", SurfacePaintData.brush_defaults())
+	var paint_pending: Variant = data.get("surface_paint_pending", {})
+	var paint_reason := ""
+	if not paint_brush is Dictionary: paint_reason = "表面笔刷恢复必须为对象"
+	else: paint_reason = SurfacePaintData.validate_brush(paint_brush)
+	if not paint_pending is Dictionary: paint_reason = "暂停笔划必须为对象"
+	for key: String in ["surface_paint_saved_fingerprint", "surface_paint_document"]:
+		if data.has(key) and not data[key] is String: paint_reason = key + " 必须为字符串"
+	if data.has("surface_paint_document") and data.surface_paint_document != str(recipe.get("building_id", "")):
+		paint_reason = "表面植被作品身份与房屋不一致"
+	if not paint_reason.is_empty():
+		restored_root.free()
+		attached.root.free()
+		return _report_failure(paint_reason)
+	var painted: Dictionary = _prepare_surface_paint_for_build(data.get("surface_paint_snapshot", SurfacePaintData.empty_snapshot()), restored_preview)
+	var pending_paint: Dictionary = {}
+	if painted.get("ok", false) and not paint_pending.is_empty():
+		pending_paint = _prepare_surface_paint_for_build(paint_pending, restored_preview)
+	if not painted.get("ok", false) or (not pending_paint.is_empty() and not pending_paint.get("ok", false)):
+		restored_root.free()
+		attached.root.free()
+		if painted.get("ok", false): painted.root.free()
+		return _report_failure("恢复表面植被失败，当前作品保持：" + str(painted.get("reason", "")) + str(pending_paint.get("reason", "")))
 	if not bool(data.get("dirty", false)):
 		recovered.mark_saved()
+	var replaced_session := false
 	# 相同文档和 dirty 状态保留原会话的撤销栈；构建仍复用上面的候选结果。
 	if Recipe.fingerprint(snapshot()) != Recipe.fingerprint(recovered.snapshot()) or Catalog.fingerprint(session.catalog) != Catalog.fingerprint(cat) or bool(data.get("dirty", false)) != session.is_dirty():
 		if session.changed.is_connected(_on_session_changed):
 			session.changed.disconnect(_on_session_changed)
 		session = recovered
+		replaced_session = true
 		_reset_document_inputs()
 		_connect_session()
 	_reset_window_preview()
@@ -1077,6 +1324,14 @@ func _restore_recovery_now(data: Dictionary) -> Dictionary:
 	_local_baseline = data.get("local_baseline", {}).duplicate(true)
 	_select_page(clampi(int(data.get("page", 0)), 0, PAGES.size() - 1))
 	refresh_preview(false, restored_preview)
+	if replaced_session or AttachmentData.fingerprint(attached.snapshot) != AttachmentData.fingerprint(get_attachment_snapshot()):
+		attachment_editor.commit_document(attached, data.get("attachment_panel_recovery", {}), str(data.get("attachment_saved_fingerprint", "")), str(data.get("attachment_document", "")))
+	else:
+		attached.root.free()
+		attachment_editor.saved_fingerprint = str(data.get("attachment_saved_fingerprint", AttachmentData.fingerprint(attached.snapshot)))
+		if not data.get("attachment_panel_recovery", {}).is_empty(): attachment_editor.panel.restore_recovery(data.attachment_panel_recovery)
+	surface_paint_editor.commit(painted, true, str(data.get("surface_paint_saved_fingerprint", "")))
+	surface_paint_editor.restore_context(data, pending_paint)
 	# 重建会重新同步选中槽和范围控件，最后还原草稿 UI 与基线。
 	# 先按恢复的材质角色更新滑条边界，再回填该角色的未应用数值。
 	_refresh_shading_controls()
@@ -1150,11 +1405,22 @@ func _build_ui() -> void:
 		summary.add_child(action)
 	root.add_child(summary)
 	_build_top_identity_and_modules(root)
+	# 普通 Control 隔离滚动表单/分隔容器的内容期望尺寸，工作区只占主屏剩余高度。
+	var workspace_bounds := Control.new()
+	workspace_bounds.name = "WorkshopWorkspaceBounds"
+	workspace_bounds.set_meta("cozy_skip", true)
+	workspace_bounds.clip_contents = true
+	workspace_bounds.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	workspace_bounds.custom_minimum_size = Vector2(0, 340)
+	workspace_bounds.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	workspace_bounds.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root.add_child(workspace_bounds)
 	_workspace = HSplitContainer.new()
 	_workspace.name = "WorkshopWorkspace"
 	_workspace.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_workspace.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	root.add_child(_workspace)
+	workspace_bounds.add_child(_workspace)
+	_workspace.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_left_panel = _make_left_panel()
 	_left_panel.name = "WorkshopParameters"
 	_workspace.add_child(_left_panel)
@@ -1178,8 +1444,13 @@ func _build_ui() -> void:
 	var views := HBoxContainer.new()
 	views_scroll.add_child(views)
 	_preview_column.add_child(views_scroll)
-	views.add_child(_button("聚焦物体 (F)", "focus_object"))
+	views.add_child(_button("聚焦选中件 (F)", "focus_object"))
+	buttons.focus_object.tooltip_text = "聚焦当前选中件；未选择时回到建筑中心。预览获得焦点时可按 F。"
 	views.add_child(_button("显示整栋", "frame_building"))
+	buttons.frame_building.tooltip_text = "以建筑结构中心适配整栋，不受选中件、外挂或植物偏移影响。"
+	views.add_child(_button("完整作品", "frame_work"))
+	buttons.frame_work.tooltip_text = "适配建筑、植物和已安装外挂的完整作品；不包含临时预览与高亮。"
+	buttons.focus_preview.tooltip_text = "仅隐藏或恢复侧栏以扩大预览区域，不改变相机中心或模型。"
 	for pair: Array in [["front", "正面"], ["back", "背面"], ["top", "俯视"], ["perspective", "透视"]]:
 		views.add_child(_button(str(pair[1]), "view_" + str(pair[0])))
 	var wire: CheckButton = _check("线框", "wireframe", views)
@@ -1350,7 +1621,9 @@ func _build_module_strip(parent: VBoxContainer) -> void:
 	row.name = "WorkshopTopModuleBar"
 	row.add_theme_constant_override("separation", 4)
 	_module_strip.add_child(row)
-	for index: int in PAGES.size():
+	# 保持恢复索引不变，把外挂按钮前移到可见导航起点，不增高横栏。
+	var navigation_order: Array[int] = [0, PAGES.find("外挂"), PAGES.find("表面植被"), 1, 2, 3, 4, 5, 6, 7, 8]
+	for index: int in navigation_order:
 		var action := _button(PAGES[index], "module_%02d" % index)
 		action.custom_minimum_size = Vector2(66, 34)
 		for state: String in ["normal", "hover", "pressed", "focus", "disabled"]:
@@ -1421,6 +1694,15 @@ func _sync_palette_target_buttons() -> void:
 func _on_layout_resized() -> void:
 	if _workspace == null or _preview_split == null or size.x <= 0:
 		return
+	# 构造期间临时最小尺寸可能扩大右/下偏移；最小尺寸回落不会自动清除此残留。
+	var layout := get_node("WorkshopLayout") as Control
+	layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	layout.offset_left = 0.0
+	layout.offset_top = 0.0
+	layout.offset_right = 0.0
+	layout.offset_bottom = 0.0
+	layout.position = Vector2.ZERO
+	layout.size = size
 	# 分隔宽度只在首次/窗口尺寸变化时归一化；不在拖动参数时重置用户分隔条。
 	if size.x < 1120.0 and _left_panel.visible and _right_panel.visible:
 		_right_panel.hide()
@@ -1683,8 +1965,12 @@ func _architecture_panel(parent: Control, key: String) -> VBoxContainer:
 func _sidebar() -> ScrollContainer:
 	var scroll: ScrollContainer = ScrollContainer.new()
 	scroll.custom_minimum_size.x = 285
+	scroll.size_flags_horizontal = Control.SIZE_FILL
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.clip_contents = true
+	scroll.custom_minimum_size.y = 0
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	return scroll
 
 func _sidebar_body(scroll: ScrollContainer) -> VBoxContainer:
@@ -1692,6 +1978,8 @@ func _sidebar_body(scroll: ScrollContainer) -> VBoxContainer:
 	body.custom_minimum_size.x = 265
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", 6)
+	body.custom_minimum_size.y = 0
+	body.size_flags_vertical = Control.SIZE_FILL
 	scroll.add_child(body)
 	return body
 
@@ -2161,7 +2449,12 @@ func flush_window_preview(retry_failed: bool = true) -> Dictionary:
 			var history_key: String = _window_scope() + "|" + str(int(_spin_value("floor_override_index"))) + "|" + _option_value("facade_index") + "|" + _window_override_id()
 			var ui: Dictionary = _capture_ui_values()
 			var baseline: Dictionary = _local_baseline.duplicate(true)
+			_timeline_merge_key = history_key if _window_history_key == history_key and _window_history_fingerprint == Recipe.fingerprint(snapshot()) else ""
+			# 首次提交也登记合并身份；跨域动作会清掉原合并身份。
+			if _timeline_merge_key.is_empty(): _timeline_merge_key = history_key + "|" + str(Time.get_ticks_usec())
+			elif attachment_editor != null: _timeline_merge_key = attachment_editor._house_merge
 			result = session.preview_candidate(candidate, _window_history_key == history_key, _window_history_fingerprint)
+			_timeline_merge_key = ""
 			if bool(result.get("ok", false)):
 				_window_history_key = history_key
 				_window_history_fingerprint = Recipe.fingerprint(candidate)
@@ -2255,8 +2548,9 @@ func _button_pressed(id: String) -> void:
 			_request_sample(true)
 		"replace_component": _choose_component()
 		"export_module": export_module_component()
-		"focus_object": preview.focus_object()
+		"focus_object": preview.focus_selection()
 		"frame_building": preview.focus_object(true)
+		"frame_work": preview.focus_work()
 		"toggle_left": _toggle_sidebar(true)
 		"toggle_right": _toggle_sidebar(false)
 		"focus_preview":
@@ -2290,11 +2584,43 @@ func _undo(redo: bool) -> void:
 	if not _repair_pending.is_empty():
 		_report_failure("请先确认或取消调整方案。")
 		return
+	if surface_paint_editor != null: surface_paint_editor.set_armed(false)
+	if attachment_editor != null:
+		var source: Array = attachment_editor._redo if redo else attachment_editor._done
+		if not source.is_empty() and source.back().domain == "surface_paint":
+			var marker: Dictionary = source.back()
+			var expected: Dictionary = marker.before if redo else marker.after
+			if SurfacePaintData.fingerprint(get_surface_paint_snapshot()) != SurfacePaintData.fingerprint(expected):
+				_report_failure("表面层已由文档提交/重置改变，旧笔划历史不再匹配；拒绝跨上下文回放。")
+				return
+			if surface_paint_editor.replay(marker.after if redo else marker.before):
+				source.pop_back()
+				var destination: Array = attachment_editor._done if redo else attachment_editor._redo
+				destination.append(marker)
+				attachment_editor._house_merge = ""
+			return
+		attachment_editor.navigate(redo, _undo_house)
+	else:
+		_undo_house(redo)
+
+func _undo_house(redo: bool) -> void:
+	if not _repair_pending.is_empty():
+		_report_failure("请先确认或取消调整方案。")
+		return
 	var current: String = Recipe.fingerprint(snapshot())
 	var document: String = _input_document_key()
 	_reset_window_preview()
 	_history_navigating = true
+	var semantic_before: Dictionary = snapshot()
+	var catalog_before: String = Catalog.fingerprint(session.catalog)
+	semantic_before.erase("revision")
 	var changed: bool = session.redo() if redo else session.undo()
+	# 保存同步的 revision 不占用户编辑时间线；仅跳过版本号转移，不读取私有历史。
+	while changed:
+		var semantic_after: Dictionary = snapshot()
+		semantic_after.erase("revision")
+		if Recipe.fingerprint(semantic_before) != Recipe.fingerprint(semantic_after) or catalog_before != Catalog.fingerprint(session.catalog): break
+		changed = session.redo() if redo else session.undo()
 	_history_navigating = false
 	if changed:
 		var destination: String = Recipe.fingerprint(snapshot())
@@ -2370,6 +2696,9 @@ func _guard_action(action: Callable, message: String) -> void:
 		action.call()
 
 func _ask_discard(action: Callable, message: String) -> void:
+	# 确认期间不得让队列偷偷改掉用户正在决定是否丢弃的文档。
+	if surface_paint_editor != null: surface_paint_editor.pause()
+	if _window_preview_timer != null: _window_preview_timer.stop()
 	_confirm_action = action
 	_confirm.dialog_text = message
 	_confirm.popup_centered(Vector2i(460, 150))
@@ -2382,26 +2711,27 @@ func _confirm_discard() -> void:
 		action.call()
 
 func _new_document() -> void:
-	_reset_window_preview()
-	var catalog_ready: Dictionary = _ensure_editor_catalog()
-	if not bool(catalog_ready.get("ok", false)):
-		_report_result(catalog_ready, "内置组件目录升级失败")
+	var recipe: Dictionary = Recipe.authoring_defaults()
+	recipe.building_id = "building_" + str(int(Time.get_unix_time_from_system()))
+	var prepared: Dictionary = _prepare_work_document(recipe, Catalog.editor_catalog(session.catalog), AttachmentData.empty_snapshot())
+	if not prepared.get("ok", false):
+		_report_result(prepared, "新建失败，当前作品与输入保持")
 		return
-	var result: Dictionary = session.new_document("building_" + str(int(Time.get_unix_time_from_system())), Recipe.authoring_defaults())
-	if bool(result.get("ok", false)):
-		_reset_document_inputs()
-		_document_token = 0
-		document_opened.emit("", 0)
-		_last_export.clear()
-		_slot_cache.clear()
-		_selected_id = ""
-		_refresh_from_session()
-		refresh_preview()
-		_set_status("新建筑已创建；修改名称和 building_id 后保存。")
-	else:
-		_report_result(result, "新建失败")
+	_commit_work_document(prepared, false)
+	_document_token = 0
+	_last_export.clear()
+	document_opened.emit("", 0)
+	_set_status("新建筑已创建；外挂在同一工坊内编辑，保存时作为完整作品。")
 
 func _show_save_as() -> void:
+	var surface_reason := _surface_paint_save_reason()
+	if not surface_reason.is_empty():
+		_report_failure(surface_reason)
+		return
+	var attachment_reason: String = attachment_editor.save_block_reason() if attachment_editor != null else ""
+	if not attachment_reason.is_empty():
+		_report_failure(attachment_reason)
+		return
 	if _has_pending_local_fields():
 		_set_status("请先应用当前楼层、立面或槽位输入，再另存新建筑。")
 		return
@@ -2410,21 +2740,49 @@ func _show_save_as() -> void:
 	_save_as_dialog.get_cancel_button().grab_focus()
 
 func _save_as_confirmed() -> void:
+	var surface_reason := _surface_paint_save_reason()
+	if not surface_reason.is_empty():
+		_report_failure(surface_reason)
+		return
 	var new_id: String = _save_as_id.text.strip_edges()
 	if new_id == str(snapshot().get("building_id", "")):
 		_set_status("另存必须输入不同的 building_id；原 ID 保存请用「保存并烘焙」。")
 		return
-	var patch: Dictionary = _collect_ui_patch()
-	patch["building_id"] = new_id
-	patch["revision"] = 1
-	var result: Dictionary = session.apply_patch(patch)
-	if not bool(result.get("ok", false)):
-		_report_result(result, "另存新ID被拒绝")
+	var reason: String = attachment_editor.save_block_reason()
+	if not reason.is_empty():
+		_report_failure(reason)
 		return
-	_reset_document_inputs()
-	_last_export.clear()
-	_refresh_from_session()
-	save_building()
+	if _store == null:
+		_report_failure("未注入编辑器 Store，不能另存。")
+		return
+	var candidate: Dictionary = snapshot()
+	candidate.merge(_collect_ui_patch(), true)
+	candidate.building_id = new_id
+	candidate.revision = 1
+	var attached: Dictionary = get_attachment_snapshot()
+	if not _store.has_method("export_work_revision") and not (_ports.get("export_surface_paint_work_revision", Callable()) as Callable).is_valid() and not attached.instances.is_empty():
+		_report_failure("Store 不支持完整作品原子另存，拒绝丢弃外挂。")
+		return
+	var painted: Dictionary = get_surface_paint_snapshot()
+	var prepared: Dictionary = _prepare_work_document(candidate, session.catalog, attached, painted)
+	if not prepared.get("ok", false):
+		_report_result(prepared, "另存新ID被拒绝，原作品保持")
+		return
+	var result: Dictionary = _export_work_snapshot(candidate, session.catalog, attached, painted)
+	if not result.get("ok", false):
+		prepared.built.root.free()
+		prepared.attachments.root.free()
+		prepared.surface_paint.root.free()
+		_report_result(result, "另存失败，原作品保持")
+		return
+	prepared.session.sync_exported_revision(int(result.get("recipe", candidate).get("revision", 1)))
+	_commit_work_document(prepared, true)
+	_document_token = 0
+	_last_export = result.duplicate(true)
+	document_opened.emit(str(result.get("recipe_path", "")), 0)
+	revision_saved.emit(0, result.duplicate(true))
+	refresh_documents()
+	_set_status("已另存完整建筑作品，新文档撤销历史已独立。")
 
 func refresh_documents() -> Array:
 	if _saved_list == null:
@@ -2492,24 +2850,23 @@ func _load_sample(path: String, copy_as_new: bool) -> void:
 	if not parsed is Dictionary:
 		_set_status("样例 JSON 不是配方对象。")
 		return
-	var accepted: Dictionary = session.accept_loaded(parsed as Dictionary, Catalog.definitions())
-	if not bool(accepted.get("ok", false)):
-		_report_result(accepted, "样例校验失败")
+	if str(parsed.get("construction_mode", "modular_v1")) != "shell_v2":
+		_report_failure("旧版拼装样例不再提供作者入口。")
 		return
-	_reset_document_inputs()
+	var prepared: Dictionary = _prepare_work_document(parsed, Catalog.editor_catalog(), AttachmentData.empty_snapshot())
+	if not prepared.get("ok", false):
+		_report_result(prepared, "样例校验失败，当前作品保持")
+		return
+	_commit_work_document(prepared, true)
 	_document_token = 0
-	document_opened.emit(path, 0)
-	_slot_cache.clear()
-	_selected_id = ""
 	_last_export.clear()
-	_refresh_from_session()
-	refresh_preview()
+	document_opened.emit(path, 0)
 	_set_status("已载入样例；使用「另存新ID」保存自己的版本，样例源不会改动。")
 	if copy_as_new:
 		_show_save_as()
 
 func _open_scene() -> void:
-	var path: String = str(_last_export.get("scene_path", ""))
+	var path: String = str(_last_export.get("work_scene_path", _last_export.get("scene_path", "")))
 	var opener: Callable = _ports.get("open_scene", Callable())
 	if path.is_empty() or not FileAccess.file_exists(path):
 		_set_status("请先保存并烘焙建筑，再显式在3D打开。")
@@ -3424,6 +3781,10 @@ func _slot_family(id: String, kind: String) -> String:
 func _select_page(index: int) -> void:
 	if index < 0 or index >= PAGES.size(): return
 	_page_picker.select(index)
+	if attachment_editor != null:
+		attachment_editor.set_active(_preview_active and PAGES[index] == "外挂")
+	if surface_paint_editor != null:
+		surface_paint_editor.set_active(_preview_active and PAGES[index] == "表面植被")
 	if _palette_target_row != null:
 		_palette_target_row.visible = PAGES[index] == "配色"
 		_views_scroll.visible = PAGES[index] != "配色"
@@ -3490,6 +3851,8 @@ func _set_architecture_control(key: String, value: Variant) -> void:
 		_set_control_value(key, value)
 
 func _on_session_changed() -> void:
+	if attachment_editor != null and not _document_loading:
+		attachment_editor.observe_house(_timeline_merge_key)
 	# 新提交分支使已撤销的输入记录失效；导航本身保留redo配对。
 	if not _history_navigating: _history_inputs_redo.clear()
 	# 不在 changed 回调回填字段，避免槽位操作吞掉尚未应用的基础输入。

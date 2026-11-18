@@ -369,3 +369,21 @@ R23–R27 的编辑器门窗范围明确为全局、当前楼层、当前立面�
 主屏隐藏与祖先不可见时停止实时预览调度并结束滑块历史合并身份，但保留未应用值、待处理队列、失败队列、目标作用域及原因。返回仅恢复未尝试队列；失败输入只能由修改输入或显式应用重试。重复显示为幂等，不重启计时、不额外生成、不清理正在使用的导航。同步生成已经开始时不宣称可中途取消。
 
 草稿恢复先在候选会话完成校验与生成，再提交当前会话和预览；恢复失败保持最后成功模型及输入。坏JSON、不可读或恢复失败必须锁定原草稿写入，自动保存回调与退出不得以默认文档覆盖。主屏重建恢复原激活状态；热重载前实例的焦点补挂须幂等且不重建World3D。新增统一入口 `editor-workshop-switch`，真实标签输入切换不得手动补调显隐；嵌入像素、实际面积、隐藏停绘、状态/历史/镜头及队列分别断言。模拟旧结构迁移不等于真实脚本热重载。
+
+## 2026-11-18 建筑外挂内嵌工坊：用户纠正与当前契约（R93–R95）
+
+用户明确纠正：「建筑外挂要放建筑工坊里，在工坊编辑，而非独立一块」。本节覆盖 R92 中“不许旧 screen/UI 页、只消费已保存房屋、外挂不经房屋编辑器保存”的旧限制，以及旧 WORLD 独立页主路径；**历史原文与当时验证保留**。统一的是操作界面和完整作品事务，不是合并房屋与外挂内核：`godot/src/workshop/` 的 recipe/session/generator/store、shell 几何/union 全不动；32类×三态96项 v002 独立资产及 `src/building_attachments/generator.gd` 不重制。静态 native 无 Script、原碰撞职责和资产来源不变，不新建 FeatureID。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORKSHOP-R93 | 建筑工坊提供内嵌「外挂」页，`PAGES` 只在末尾追加为 page 9，文件仍 page 8；视觉导航将外挂放第二项，不重排旧页编号。参数栏复用既有 gallery 的四分类/三状态、独立 style 与文字/按钮；中央仍为同一个嵌入 SubViewport。支持图库原生 drag 或 arm 后点击真实墙/屋顶，沿用真实三角面与绿/红 ghost 支撑算法，不以世界 Y 平面或直接 insert 模拟贴面；可从本栋实例列表或实际 mesh pick 选中，局部 XYZ 步移提供0.01..1m步距并投影到支撑面、重新射线与支撑校验，垂直支撑面方向明确拒绝，不提供假的 native gizmo。切页保持11/17镜头/导航；离开外挂页取消 ghost，主屏隐藏停止 timer 并保留未应用输入。非法组件参数不改最后成功模型、历史或任何目标缓存。公开 `show_attachment_page()` 直达；场景 dock 推荐「到建筑工坊编辑外挂」，不再要求独立页编辑；旧 controller/panel 内部 API 仅兼容维护。 |
+| SEA-WORKSHOP-R94 | 编辑器 `EditorStore.export_work_revision` 复用父 Store 的临时目录→manifest→rename 唯一发布事务，不改 shared Store。完整作品一次保存旧五件与新增三件共八件；`building.tscn` 仍只含房屋壳体，`building.attachments.json` 保存 layer 与各 instance 的当前12数 Transform3D、稳定 ID、metadata/recipe，`building.attachments.tscn` 为静态外挂层，`building.work.tscn` 为完整 `Work/{Asset,Attachments}` 两个外链子实例。八件均在同一 `.tmp` 写入/验证，任一失败清理，不先发布房屋。schema、完整 anchor、JSON-safe、unique ID、有限且非奇异/非镜像的 transform（determinant>1e-9）及≤256实例严格校验；JSON canonical/fingerprint按1e-9十进制定点，metadata同精度。仅 native TSCN Transform3D 使用有限 float32 回读容差 `max(1,abs(expected))*9.5367431640625e-7`，不得扩到 JSON 或 metadata。读取用 `JSON.new().parse` 拒坏 JSON，不制造引擎 error；新作品缺件/hash/schema/wrapper错误拒绝且不降为空，只有无新声明/旁车的 legacy 五件读为空外挂。外部 JSON 经可信 Generator 重建，不执行外部附加 TSCN；刚生成的临时静态资源才重载验收。保存前必须显式应用或放弃当前及其他有效目标的未应用输入，不自动吞掉。 |
+| SEA-WORKSHOP-R95 | 房屋与外挂打开/草稿恢复均先 prepare 校验和生成，双域全部成功后才 commit；失败保持原两层节点、输入、历史与文档身份。坏草稿锁住本插件自动/退出写入，不覆盖原 recovery。dirty/保存门禁覆盖有效 installed 目标及图库 candidate 草稿；已删除 A 的缓存保留用于 undo，但不阻保存，undo 恢复 A 后再选 A 恢复其未应用输入。house→attachment→house 的全局时间顺序由显式 `navigate` 移动 history marker；手动 A→B→A 是新 commit，不能因值恰同推断 undo，分支提交清 redo。回编承接 WORLD-R35/R39：打开传当前场景 layer context snapshot 而非磁盘旧旁车，成功后才建立 token+plugin/screen双实例绑定。保存前核对现场 fingerprint；并发变更时保留新 revision 并报“新revision已保存，实例未更新”。同 snapshot 只换 Asset、保原 layer 及全部子节点身份；确实 changed 才在同一 undo 中替换双层。保 Placement 保存时 transform、其他同款实例，不重复 append、不自动 reproject、不自动保存 Main。 |
+
+### 当前实现与真实布局边界
+
+嵌入预览通过普通 Control `attachment_receiver` 作为 SubViewportContainer 的目标 control，接原生 `_get_drag_data → _can_drop_data/_drop_data` 链；DRAG_END 按 `gui_is_drag_successful()` 判断，不以直接调用插入伪造 drag 成功。
+
+真实 Editor 高度异常根因是**隐藏 DockTab 仍参与 minimum**：scene_assembly 长 note/status 在约17px窄宽下 wrap，content 最小高到2864。局部 `ScrollContainer`、min-height160 阻断高度传播后，在1920×969原生窗口实测 screen2779→836、preview2548→605；不是通过缩图库/字号或降门禁解决。侧栏只给右栏 expand；R79–R81 的预览宽≥52%/高≥60%、18px按钮/16px正文、图库160px下限保持。1280×800、1000×700、860×600是请求档位，报告记录真实窗口/Control矩形，不称原生窗口确实缩到各请求尺寸，也不声称 OS focus 已测。
+
+当前 R93–R95 为 `implemented_verified_in_scope`，全局仍 `partial`。五项串行和独立 switch 的可靠证据、七张真实 PNG、失败简史与未测范围见[账本11/18节](ledger.md)和[既有开发记录11/18节](../../development/2026-11-16_building_attachments.md)。本次只追加设计文档，不执行 contracts/Godot；当前运行资源登记及最终 sync/check 实数由主线程后续追加，不预签。

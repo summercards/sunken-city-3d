@@ -265,3 +265,20 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 ## 2026-11-17 工坊桥接生命周期（R35、R36细化）
 
 场景装配按plugin与screen双实例身份维护回编信号；主屏重建、工坊禁用/启用后须移除旧连接并重新发现，不能永久持有已释放screen。screen/plugin退出只取消其对应pending/binding，其他工坊即使token相同也不能串绑；陈旧回调不得换版。相关节点进入树合并延迟刷新，请求前再检查，不每帧扫描全树。装配卸载断开树监听和原始信号源，取消排队刷新。此为原R35薄桥接加固，不改变Placement用户transform、保存时只换Asset或静动态旁车边界。
+
+## 2026-11-18 外挂在建筑工坊编辑：R35、R37–R39细化
+
+用户新指令「建筑外挂要放建筑工坊里，在工坊编辑，而非独立一块」覆盖旧 R37 及11/16步骤中独立 dock 页作为主编辑入口的口径，旧文不删。仍归 SEA-WORLD 与 SEA-WORKSHOP，不新建重复 Feature；房屋 core 与独立32类96态 v002 资产/Generator 不重制，统一编辑入口不等于把外挂写入房屋 Recipe 或 shell。
+
+| 承接既有条款 | 当前规则与边界 |
+|---|---|
+| SEA-WORLD-R37 | 场景 dock 主路径为「到建筑工坊编辑外挂」，调用建筑工坊公开 `show_attachment_page()` 直达内嵌页；不再要求先进入独立页编辑。内嵌参数复用四分类/三状态 gallery、style/text/buttons，同一 SubViewport 操作本栋外挂；旧 controller/panel 的内部 API 保留为兼容维护，不是另一个推荐编辑入口。 |
+| SEA-WORLD-R38 | 内嵌图库 drag 或 arm 点击 wall/roof 仍调用真实可见三角面、cull/法向及绿红 ghost 支撑校验，不另写支撑算法；本栋列表/actual mesh pick 选择，XYZ 的0.01..1m步移沿支撑面投影后重新射线校验，不冒充 Godot native gizmo。普通 Control receiver 承接 SubViewportContainer target-control 原生 drop 链，DRAG_END 使用 `gui_is_drag_successful()`；取消/切页/隐藏清 ghost，无效输入保模型和全部目标缓存。 |
+| SEA-WORLD-R35 | 回编请求增加 `context.attachments_snapshot`，捕获当前编辑场景 Attachments layer/instances 的当前 transform、稳定 ID、metadata/recipe，而非磁盘旧旁车；打开成功后才建立 token、目标 scene/Placement 及 plugin+screen 双实例绑定。沿用11/17旧回调/禁用重建保护。保存回调先确认现场 fingerprint 与打开基线相同；并发变更/失效不覆盖现场，保留已保存新 revision 并提示“新revision已保存，实例未更新”。 |
+| SEA-WORLD-R39 | 新完整 work 候选插入时带入兄弟 Attachments，但不重复 append；回编 snapshot 未变时只换 Asset，原 layer 和全部子节点身份/当前 transform 保留。只有 snapshot 实际 changed（包括 metadata 而非仅 transform）才把 Asset+Attachments 双层替换放进同一 EditorUndoRedoManager action；undo/redo 成对恢复。Placement 保存瞬间 transform、同源其他实例与旧revision保持，不自动重投；场景由用户 Ctrl+S，不自动写 Main。 |
+
+完整作品保存归 [WORKSHOP-R94/R95](../workshop/spec.md)：原五件加三旁车，同 `.tmp`→manifest→rename 事务，`building.tscn` 纯壳体、`building.work.tscn` 为 `Work/{Asset,Attachments}`。读取外部外挂 JSON 只经可信 Generator 重建，不执行外部附加 TSCN；新旁车损坏不得空降级，legacy 五件才为空层。房屋 `src/workshop/` Recipe/Session/Generator/Store/shell 均未因本次调整改变。
+
+scene_assembly 隐藏 DockTab 的长 note/status 在约17px窄宽下 wrap 导致2864px minimum；局部 ScrollContainer min-height160 隔离传播，1920×969真实窗口 screen2779→836、preview2548→605。不是下调工坊52%宽/60%高、18/16字号、图库160下限；sidebar仅右栏expand。R40 静态无 Script、显式layer256/mask0简化碰撞、水下拒绝碰撞及无Walk/shore/boat/dive派生职责全保持，不以作者入口合并扩大成正式地图接入。
+
+当前为 `implemented_verified_in_scope`，全局 `partial`；真实同批scene159/0、新内嵌editor323/0与旧独立兼容328/0分列，GUI/直接调用/未测范围见[账本11/18节](ledger.md)。不声称 OS focus、人工全轴或其它视口已验。

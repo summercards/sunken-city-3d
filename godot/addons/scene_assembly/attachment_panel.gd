@@ -1,6 +1,14 @@
 @tool
 extends VBoxContainer
 
+signal inputs_changed
+
+# 必须在加入场景树前设置；布局宽度由工坊父级滚动容器决定。
+var embedded_workshop := false
+var _active := true
+var _document_serial := 0
+var _category_buttons: Dictionary = {}
+
 const Recipe = preload("res://src/building_attachments/recipe.gd")
 const Catalog = preload("res://src/building_attachments/catalog.gd")
 const Generator = preload("res://src/building_attachments/generator.gd")
@@ -33,6 +41,7 @@ var _baseline_mount: Dictionary = {}
 var _context := ""
 var _drafts: Dictionary = {}
 var _refreshing := false
+var _restoring := false
 var _applying := false
 var _thumbs: Dictionary = {}
 var _thumbnail_errors: Dictionary = {}
@@ -57,8 +66,9 @@ func _ready() -> void:
 	_button(modes, "编辑", func() -> void: _show_gallery(false))
 	host_label = _label(self, "宿主未锁定\n请选择建筑后锁定")
 	_compact_label(host_label)
-	_button(self, "锁定选中节点为宿主", _lock_host)
-	_button(self, "编辑宿主（原工坊）", _edit_host)
+	_button(self, "锁定选中节点为宿主", _lock_host).visible = not embedded_workshop
+	_button(self, "编辑宿主（原工坊）", _edit_host).visible = not embedded_workshop
+	if embedded_workshop: host_label.text = "当前工坊房屋"
 	gallery_panel = VBoxContainer.new()
 	gallery_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(gallery_panel)
@@ -70,11 +80,15 @@ func _ready() -> void:
 		button.toggle_mode = true
 		button.button_group = group
 		button.button_pressed = value.is_empty()
+		_category_buttons[value] = button
 	_choice(gallery_panel, "gallery_condition", "图库状态", ["fresh", "damaged", "ruined"])
 	_choice_value("gallery_condition", gallery_condition)
 	search = LineEdit.new()
 	search.placeholder_text = "搜索名称 / type_id"
-	search.text_changed.connect(func(_value: String) -> void: refresh_gallery())
+	search.text_changed.connect(func(_value: String) -> void:
+		if _restoring: return
+		refresh_gallery()
+		if not _refreshing and not _restoring: inputs_changed.emit())
 	gallery_panel.add_child(search)
 	gallery = Gallery.new()
 	gallery.panel = self
@@ -83,7 +97,7 @@ func _ready() -> void:
 	gallery.max_columns = 2
 	gallery.fixed_column_width = 135
 	gallery.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	gallery.custom_minimum_size.y = 230
+	gallery.custom_minimum_size.y = 160 if embedded_workshop else 230
 	gallery.item_selected.connect(_choose_type)
 	gallery.item_activated.connect(_activate_type)
 	gallery_panel.add_child(gallery)
@@ -150,7 +164,11 @@ func _ready() -> void:
 	form.add_child(files)
 	_button(files, "保存独立候选新修订", save_candidate)
 	_button(files, "校验并打开候选 JSON", load_candidate)
-	status = _label(self, "32 种原生外挂；场景 Ctrl+S 手动保存，不自动写 Main。")
+	candidate_path.visible = not embedded_workshop
+	files.visible = not embedded_workshop
+	candidate_path.text_changed.connect(func(_value: String) -> void:
+		if not _refreshing and not _restoring: inputs_changed.emit())
+	status = _label(self, "32 种原生外挂；随建筑作品保存。" if embedded_workshop else "32 种原生外挂；场景 Ctrl+S 手动保存，不自动写 Main。")
 	status.max_lines_visible = 4
 	_capture = Thumbnail.new()
 	add_child(_capture)
@@ -169,6 +187,22 @@ func _ready() -> void:
 	_load_inputs(defaults.recipe)
 	_show_gallery(true)
 	refresh_gallery()
+	visibility_changed.connect(_visibility_updated)
+	_visibility_updated()
+
+func set_active(active: bool) -> void:
+	_active = active
+	visible = active
+	_visibility_updated()
+
+func _visibility_updated() -> void:
+	var running := _active and is_inside_tree() and is_visible_in_tree()
+	if is_instance_valid(controller): controller.set_active(running)
+	if not running:
+		if is_instance_valid(_preview_timer): _preview_timer.stop()
+	elif not _restoring and is_instance_valid(_preview_timer) and not draft.is_empty():
+		_preview_timer.start()
+		call_deferred("_render_thumbnails")
 
 func _resize_gallery() -> void:
 	if not is_instance_valid(gallery): return
@@ -260,10 +294,12 @@ func _show_gallery(show_gallery: bool) -> void:
 	gallery_panel.visible = show_gallery
 	editor_panel.visible = not show_gallery
 	if show_gallery and is_instance_valid(gallery): refresh_gallery()
+	if not _refreshing and not _restoring: inputs_changed.emit()
 
 func _set_category(value: String) -> void:
 	category = value
 	refresh_gallery()
+	if not _refreshing and not _restoring: inputs_changed.emit()
 
 func recipe_for_type(type_id: String) -> Dictionary:
 	var recipe: Dictionary
@@ -293,7 +329,7 @@ func prepare_drag(type_id: String) -> Dictionary:
 	return result
 
 func refresh_gallery() -> void:
-	if not is_instance_valid(gallery): return
+	if not is_instance_valid(gallery) or _restoring: return
 	gallery.clear()
 	for entry: Dictionary in Catalog.search(search.text, category):
 		var recipe := recipe_for_type(entry.type_id)
@@ -348,9 +384,10 @@ func _thumbnail_failed(recipe: Dictionary, reason: String) -> void:
 		if thumbnail_key(current) == key: _update_card(index, current)
 
 func _render_thumbnails() -> void:
-	if _busy or not is_instance_valid(_capture): return
+	if _busy or not _active or not is_visible_in_tree() or not is_instance_valid(_capture): return
 	_busy = true
-	while not _queue.is_empty() and is_inside_tree():
+	while not _queue.is_empty() and is_inside_tree() and _active and is_visible_in_tree():
+		var serial := _document_serial
 		var recipe: Dictionary = _queue.pop_front()
 		var key := thumbnail_key(recipe)
 		var built: Dictionary = controller._build_trusted(recipe)
@@ -358,7 +395,10 @@ func _render_thumbnails() -> void:
 			_thumbnail_failed(recipe, str(built.get("reason", "原生生成失败")))
 			continue
 		var texture: Texture2D = await _capture.capture_root(built.root, Vector3(1, 0.7, -1.5))
-		if not is_inside_tree(): return
+		if not is_inside_tree():
+			_busy = false
+			return
+		if serial != _document_serial: continue
 		if texture == null:
 			_thumbnail_failed(recipe, "缩略图捕获失败，未返回有效图像")
 			continue
@@ -411,7 +451,7 @@ func input_recipe() -> Dictionary:
 	return recipe
 
 func _input_changed() -> void:
-	if _refreshing: return
+	if _refreshing or _restoring: return
 	var fingerprint := _input_fingerprint()
 	if fingerprint != _last_input_fingerprint and controller.armed:
 		controller.cancel_arm(false)
@@ -428,9 +468,11 @@ func _input_changed() -> void:
 	elif _thumbs.has(_current_texture_key):
 		preview.texture = _thumbs[_current_texture_key]
 		preview.tooltip_text = ""
-	if is_instance_valid(_preview_timer): _preview_timer.start()
+	if _active and is_visible_in_tree() and is_instance_valid(_preview_timer): _preview_timer.start()
+	inputs_changed.emit()
 
 func _queue_current_preview() -> void:
+	if not _active or not is_visible_in_tree() or _restoring: return
 	_enqueue(input_recipe())
 	call_deferred("_render_thumbnails")
 
@@ -443,6 +485,7 @@ func _load_inputs(recipe: Dictionary, mount: Dictionary = {}) -> void:
 	_choice_value("condition", recipe.condition)
 	_choice_value("style", recipe.style)
 	_choice_value("mount_mode", str(mount.get("mode", "roof" if entry.anchor == "mount_roof" else "wall")))
+	_baseline_mount.merge({"mode": choices.mount_mode.value, "offset_m": float(mount.get("offset_m", 0.0)), "angle_degrees": float(mount.get("angle_degrees", 0.0))}, true)
 	choices.style.box.visible = entry.category == "signage"
 	choices.mount_mode.box.visible = entry.mount_mode == "any"
 	text_input.editable = entry.category == "signage"
@@ -468,21 +511,235 @@ func _stash() -> void:
 	if not _context.begins_with("draft:") and _inputs_clean():
 		_drafts.erase(_context)
 		return
-	_drafts[_context] = {"recipe": input_recipe(), "baseline": _baseline.duplicate(true), "baseline_mount": _baseline_mount.duplicate(true), "mount": {"mode": choices.mount_mode.value, "offset_m": fields.offset.slider.value, "angle_degrees": fields.angle.slider.value}}
+	_drafts[_context] = _snapshot_inputs()
 
 func _restore(data: Dictionary) -> void:
+	var restoring := _restoring
+	_restoring = true
 	_load_inputs(data.recipe, data.mount)
 	_baseline = data.baseline.duplicate(true)
 	_baseline_mount = data.get("baseline_mount", {}).duplicate(true)
+	if data.has("draft"): draft = data.draft.duplicate(true)
+	_restoring = restoring
+	_input_changed()
+
+func _snapshot_inputs() -> Dictionary:
+	return {"draft": draft.duplicate(true), "recipe": input_recipe(), "baseline": _baseline.duplicate(true), "baseline_mount": _baseline_mount.duplicate(true), "mount": {"mode": choices.mount_mode.value, "offset_m": fields.offset.slider.value, "angle_degrees": fields.angle.slider.value}}
+
+func _snapshot_dirty(data: Dictionary) -> bool:
+	var mount: Dictionary = data.mount
+	var baseline_mount: Dictionary = data.baseline_mount
+	return data.recipe != data.baseline or mount.mode != baseline_mount.get("mode", mount.mode) or not is_equal_approx(float(mount.offset_m), float(baseline_mount.get("offset_m", 0.0))) or not is_equal_approx(float(mount.angle_degrees), float(baseline_mount.get("angle_degrees", 0.0)))
+
+func _installed_contexts() -> Dictionary:
+	var installed: Dictionary = {}
+	if is_instance_valid(controller.host_container):
+		var layer: Node = controller.host_container.get_node_or_null("Attachments")
+		if layer != null:
+			for node: Node in layer.get_children():
+				if node.has_meta("sea_attachment"): installed[str(node.get_meta("sea_attachment").get("instance_id", ""))] = true
+	return installed
+
+# 只统计仍安装在当前预览的实例；新库默认草稿不算待应用作品。
+func has_pending_inputs() -> bool:
+	var installed := _installed_contexts()
+	if installed.has(_context) and not draft.is_empty() and not _inputs_clean(): return true
+	for context: String in _drafts:
+		if context != _context and installed.has(context) and _snapshot_dirty(_drafts[context]): return true
+	return false
+
+# 已删除实例缓存保留供撤销恢复，但不阻挡保存；新库/候选只统计修改过的草稿。
+func has_unsaved_inputs() -> bool:
+	var installed := _installed_contexts()
+	if (installed.has(_context) or _context.begins_with("draft:") or _context.begins_with("candidate:")) and not draft.is_empty() and not _inputs_clean(): return true
+	for context: String in _drafts:
+		if context != _context and (installed.has(context) or context.begins_with("draft:") or context.begins_with("candidate:")) and _snapshot_dirty(_drafts[context]): return true
+	return false
+
+func get_recovery() -> Dictionary:
+	var selected_id := ""
+	if is_instance_valid(controller.selected): selected_id = str(controller.selected.get_meta("sea_attachment", {}).get("instance_id", ""))
+	var gallery_selected := ""
+	var indices := gallery.get_selected_items()
+	if not indices.is_empty(): gallery_selected = str(gallery.get_item_metadata(indices[0]))
+	return {"schema_version": 1, "context": _context, "inputs": _snapshot_inputs(), "drafts": _drafts.duplicate(true), "category": category, "gallery_condition": gallery_condition, "search": search.text, "gallery_visible": gallery_panel.visible, "gallery_selected": gallery_selected, "selected_instance": selected_id, "candidate_path": candidate_path.text}
+
+func _recovery_recipe_reason(value: Variant) -> String:
+	if not value is Dictionary: return "配方必须为 Dictionary"
+	if not value.get("type_id") is String: return "缺少 type_id"
+	var defaults: Dictionary = Recipe.defaults(value.type_id)
+	if defaults.is_empty(): return "未知 type_id"
+	# 恢复只校验数据形状与输入控件范围，不用业务校验拒绝用户失败输入。
+	if not value.get("text") is String or not value.get("collision_enabled") is bool: return "文字或碰撞输入类型错误"
+	if not value.get("usage") is String or not ["above_water", "decorative_underwater"].has(value.usage): return "未知 usage"
+	var probe: Dictionary = value.duplicate(true)
+	probe.text = defaults.text
+	probe.collision_enabled = false
+	return Recipe.validate(probe)
+
+func _recovery_mount_reason(value: Variant, optional: bool = false) -> String:
+	if not value is Dictionary: return "挂载输入必须为 Dictionary"
+	if optional and value.is_empty(): return ""
+	if not optional and value.size() != 3: return "挂载输入字段无效"
+	if not value.get("mode") is String or not ["wall", "roof"].has(value.mode): return "挂载面无效"
+	var distance: Variant = value.get("offset_m", 0.0) if optional else value.get("offset_m")
+	var angle: Variant = value.get("angle_degrees", 0.0) if optional else value.get("angle_degrees")
+	if not Recipe.number(distance) or float(distance) < 0.0 or float(distance) > 0.5: return "偏移越界"
+	if not Recipe.number(angle) or absf(float(angle)) > 180.0: return "角度越界"
+	if optional and value.size() > 3:
+		return _recovery_anchor_reason(value)
+	return ""
+
+func _recovery_vector_reason(value: Variant) -> String:
+	if not value is Array or value.size() != 3: return "锚点向量必须为三项数组"
+	for component: Variant in value:
+		if not Recipe.number(component): return "锚点向量必须为有限数值"
+	return ""
+
+func _recovery_anchor_reason(anchor: Dictionary) -> String:
+	# 完整 anchor 与 controller._metadata 一致；不把已装实例的基线压缩为三个 UI 字段。
+	for key: String in ["mode", "mesh_path", "surface", "triangle", "host_position", "host_normal", "local_position", "native", "declared_clearance_m", "offset_m", "angle_degrees"]:
+		if not anchor.has(key): return "锚点缺少字段：" + key
+	if not anchor.get("mesh_path") is String: return "锚点缺少 mesh_path 字符串"
+	for key: String in ["surface", "triangle"]:
+		var index: Variant = anchor.get(key)
+		if not Recipe.number(index) or float(index) < 0.0 or float(index) != floorf(float(index)): return "锚点索引无效：" + key
+	for key: String in ["host_position", "host_normal", "local_position"]:
+		var reason := _recovery_vector_reason(anchor.get(key))
+		if not reason.is_empty(): return key + "：" + reason
+	if not Recipe.number(anchor.get("declared_clearance_m")) or not is_equal_approx(float(anchor.declared_clearance_m), 0.012): return "锚点声明净空无效"
+	var native: Variant = anchor.get("native")
+	if not native is Dictionary: return "锚点缺少 native"
+	if not native.get("name") is String or not ["mount_back", "mount_roof"].has(native.name): return "未知原生锚点"
+	if native.get("front_axis") != "-Z" or native.get("up_axis") != "+Y": return "原生锚点轴向无效"
+	var reason := _recovery_vector_reason(native.get("position"))
+	if not reason.is_empty(): return reason
+	return controller.anchor_error({"mount_anchor": native})
+
+func _recovery_inputs_reason(value: Variant) -> String:
+	if not value is Dictionary: return "输入快照必须为 Dictionary"
+	for key: String in ["recipe", "baseline", "draft"]:
+		var reason := _recovery_recipe_reason(value.get(key))
+		if not reason.is_empty(): return key + "：" + reason
+		if value[key].type_id != value.recipe.type_id: return "快照类型不一致"
+	var reason := _recovery_mount_reason(value.get("mount"))
+	if not reason.is_empty(): return reason
+	return _recovery_mount_reason(value.get("baseline_mount"), true)
+
+func _recovery_json(value: Variant) -> bool:
+	if value == null or value is String or value is bool: return true
+	if value is int or value is float: return is_finite(float(value))
+	if value is Array:
+		for item: Variant in value:
+			if not _recovery_json(item): return false
+		return true
+	if value is Dictionary:
+		for key: Variant in value:
+			if not key is String or not _recovery_json(value[key]): return false
+		return true
+	return false
+
+func _recovery_reason(data: Dictionary) -> String:
+	if not _recovery_json(data): return "恢复数据必须是有限数值的纯 JSON"
+	if not Recipe.number(data.get("schema_version")) or float(data.schema_version) != 1.0: return "不支持的恢复版本"
+	for key: String in ["context", "category", "gallery_condition", "search", "gallery_selected", "selected_instance", "candidate_path"]:
+		if not data.get(key) is String: return "恢复字段必须为字符串：" + key
+	if not ["", "signage", "hvac", "water", "shelter"].has(data.category): return "未知图库分类"
+	if not CONDITION_LABELS.has(data.gallery_condition): return "未知图库状态"
+	if not data.get("gallery_visible") is bool or not data.get("drafts") is Dictionary: return "图库状态或草稿缓存类型错误"
+	if not data.gallery_selected.is_empty() and Catalog.get_entry(data.gallery_selected).is_empty(): return "未知图库选择"
+	var reason := _recovery_inputs_reason(data.get("inputs"))
+	if not reason.is_empty(): return reason
+	if not _valid_recovery_context(data.context, data.inputs.recipe): return "当前草稿上下文无效"
+	for context: Variant in data.drafts:
+		if not context is String: return "草稿缓存 key 必须为字符串"
+		reason = _recovery_inputs_reason(data.drafts[context])
+		if not reason.is_empty(): return reason
+		if not _valid_recovery_context(context, data.drafts[context].recipe): return "缓存草稿上下文无效"
+	return ""
+
+func _valid_recovery_context(context: String, recipe: Dictionary) -> bool:
+	if context.begins_with("draft:"): return context == "draft:" + str(recipe.type_id)
+	if context.begins_with("candidate:"): return context == "candidate:" + str(recipe.attachment_id)
+	return not context.is_empty()
+
+func restore_recovery(data: Dictionary) -> Dictionary:
+	if not is_node_ready(): return {"ok": false, "reason": "面板尚未 ready"}
+	var reason := _recovery_reason(data)
+	if not reason.is_empty(): return {"ok": false, "reason": reason}
+	# 全部校验通过后才写 UI；不 build、不提交历史、不启用贴面。
+	_restoring = true
+	controller.cancel_arm(false)
+	_preview_timer.stop()
+	_document_serial += 1
+	_queue.clear()
+	_drafts = data.drafts.duplicate(true)
+	_context = data.context
+	_restore(data.inputs)
+	category = data.category
+	for value: String in _category_buttons: _category_buttons[value].set_pressed_no_signal(value == category)
+	gallery_condition = data.gallery_condition
+	_choice_value("gallery_condition", gallery_condition)
+	search.text = data.search
+	candidate_path.text = data.candidate_path
+	gallery_panel.visible = data.gallery_visible
+	editor_panel.visible = not data.gallery_visible
+	var targets: Array = []
+	if is_instance_valid(controller.host_container):
+		var layer: Node = controller.host_container.get_node_or_null("Attachments")
+		if layer != null:
+			for node: Node in layer.get_children():
+				if str(node.get_meta("sea_attachment", {}).get("instance_id", "")) == data.selected_instance and not data.selected_instance.is_empty(): targets.append(node)
+	controller._select_nodes(targets)
+	_last_input_fingerprint = _input_fingerprint()
+	_restoring = false
+	refresh_gallery()
+	for index: int in gallery.item_count:
+		if str(gallery.get_item_metadata(index)) == data.gallery_selected: gallery.select(index)
+	_input_changed()
+	return {"ok": true, "reason": ""}
+
+func reset_document() -> void:
+	controller.cancel_arm(false)
+	_preview_timer.stop()
+	_document_serial += 1
+	_queue.clear()
+	_drafts.clear()
+	_baseline.clear()
+	_baseline_mount.clear()
+	draft.clear()
+	_context = ""
+	_restoring = true
+	controller._select_nodes([])
+	candidate_path.text = ""
+	search.text = ""
+	category = ""
+	for value: String in _category_buttons: _category_buttons[value].set_pressed_no_signal(value.is_empty())
+	gallery_condition = "fresh"
+	_choice_value("gallery_condition", gallery_condition)
+	var defaults: Dictionary = controller.bind_candidate_defaults("sign_fascia")
+	_context = "draft:sign_fascia"
+	_load_inputs(defaults.recipe)
+	preview.texture = null
+	preview.tooltip_text = ""
+	_restoring = false
+	_show_gallery(true)
+	_input_changed()
 
 func _inputs_clean() -> bool:
 	return input_recipe() == _baseline and choices.mount_mode.value == _baseline_mount.get("mode", choices.mount_mode.value) and is_equal_approx(fields.offset.slider.value, float(_baseline_mount.get("offset_m", 0.0))) and is_equal_approx(fields.angle.slider.value, float(_baseline_mount.get("angle_degrees", 0.0)))
 
 func refresh_selection() -> void:
-	if not is_instance_valid(summary): return
+	if not is_instance_valid(summary) or _restoring: return
 	host_label.text = "锁定宿主\n" + str(controller.host_container.name) if is_instance_valid(controller.host_container) else "宿主未锁定"
 	host_label.tooltip_text = str(controller.host_container.get_path()) if is_instance_valid(controller.host_container) else "请选择建筑 Placement/Asset 或安全本地 Node3D 后锁定"
-	if _applying or not is_instance_valid(controller.selected) or not controller.selected.is_inside_tree(): return
+	if embedded_workshop:
+		host_label.text = "当前工坊房屋"
+		host_label.tooltip_text = "外挂仅写当前房屋预览，随建筑作品保存"
+	if _applying: return
+	if not is_instance_valid(controller.selected) or not controller.selected.is_inside_tree():
+		inputs_changed.emit()
+		return
 	var data: Dictionary = controller.selected.get_meta("sea_attachment", {})
 	if data.is_empty(): return
 	var context := str(data.instance_id)
@@ -503,7 +760,7 @@ func refresh_selection() -> void:
 	_show_gallery(false)
 
 func _lock_host() -> void:
-	var nodes := EditorInterface.get_selection().get_selected_nodes()
+	var nodes: Array = controller._selected_nodes()
 	if nodes.size() != 1:
 		report("请只选择一个建筑宿主")
 		return
@@ -513,7 +770,7 @@ func _edit_host() -> void:
 	if not is_instance_valid(controller.host_container):
 		report("请先锁定宿主")
 		return
-	controller.assembly._select_nodes([controller.host_container])
+	controller._select_nodes([controller.host_container])
 	controller.assembly.edit_selected()
 
 func _options() -> Dictionary:
@@ -522,7 +779,7 @@ func _options() -> Dictionary:
 func _arm() -> void:
 	if not _options().ok: return
 	controller.arm(input_recipe())
-	if controller.armed: report("已启用贴面；移到编辑器 3D 视口查看 ghost，点击确认；Escape 取消")
+	if controller.armed: report("已启用贴面；移到工坊房屋预览查看 ghost，点击确认；Escape 取消" if embedded_workshop else "已启用贴面；移到编辑器 3D 视口查看 ghost，点击确认；Escape 取消")
 
 func _reproject() -> void:
 	if not is_instance_valid(controller.selected):
@@ -558,7 +815,7 @@ func _discard() -> void:
 	if is_instance_valid(controller.selected) and str(controller.selected.get_meta("sea_attachment").instance_id) == _context:
 		var data: Dictionary = controller.selected.get_meta("sea_attachment")
 		_load_inputs(data.recipe, data.anchor)
-	else: _load_inputs(_baseline)
+	else: _load_inputs(_baseline, _baseline_mount)
 	report("已明确放弃此上下文未应用输入；场景未修改")
 
 func save_candidate() -> Dictionary:

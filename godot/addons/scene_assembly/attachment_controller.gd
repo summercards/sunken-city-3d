@@ -29,6 +29,69 @@ var _arm_context: Dictionary = {}
 var _arm_serial := 0
 var _confirming := false
 var _installation_profiles: Dictionary = {}
+var workshop_context: Dictionary = {}
+var _ui_active := true
+
+func configure_workshop(context: Dictionary) -> Dictionary:
+	if not context.is_empty():
+		for key: String in ["root", "host_asset", "selection_get", "selection_set", "arm", "cancel"]:
+			if not context.get(key) is Callable or not context[key].is_valid(): return _fail("工坊上下文缺少有效 Callable：" + key)
+		var history: Variant = context.get("history")
+		if not history is Object or not is_instance_valid(history) or history is EditorUndoRedoManager: return _fail("工坊必须使用文档本地历史，不能写编辑场景历史")
+		for method: String in ["create_action", "add_do_method", "add_undo_method", "add_do_reference", "add_undo_reference", "commit_action"]:
+			if not history.has_method(method): return _fail("工坊历史缺少方法：" + method)
+	cancel_arm(false)
+	workshop_context = context.duplicate()
+	host_container = null
+	host_asset = null
+	host_scene = null
+	selected = null
+	changed.emit()
+	return {"ok": true, "reason": ""}
+
+func set_active(active: bool) -> void:
+	_ui_active = active
+	if not active: cancel_arm(false)
+
+func _selected_nodes() -> Array:
+	if not workshop_context.is_empty():
+		var nodes: Variant = workshop_context.selection_get.call()
+		var result: Array = []
+		if nodes is Array:
+			for node: Variant in nodes:
+				var target := attachment_for(node) if node is Node and is_instance_valid(node) else null
+				if target != null and not result.has(target): result.append(target)
+		return result
+	return EditorInterface.get_selection().get_selected_nodes()
+
+func _select_nodes(nodes: Array) -> void:
+	if workshop_context.is_empty():
+		assembly._select_nodes(nodes)
+		return
+	var targets: Array = []
+	for node: Variant in nodes:
+		var target := attachment_for(node) if node is Node and is_instance_valid(node) else null
+		if target != null and not targets.has(target): targets.append(target)
+	workshop_context.selection_set.call(targets)
+	# 本地选择回调不必模拟 EditorSelection 信号；历史执行也走同一同步入口。
+	select_attachment(targets[0] if targets.size() == 1 else null)
+
+func _history() -> Object:
+	return workshop_context.history if not workshop_context.is_empty() else assembly.get_undo_redo()
+
+func _request_arm() -> void:
+	if not workshop_context.is_empty(): workshop_context.arm.call()
+	else: assembly.arm_attachment_drop()
+
+func _cancel_arm_ui() -> void:
+	if not workshop_context.is_empty(): workshop_context.cancel.call()
+	elif is_instance_valid(assembly): assembly.cancel_attachment_drop()
+
+func _workshop_asset(root: Node) -> Node3D:
+	var asset: Variant = workshop_context.host_asset.call()
+	if not is_instance_valid(root) or not root is Node3D or root.get_class() != "Node3D" or root.get_script() != null: return null
+	if not asset is Node3D or not is_instance_valid(asset) or asset.get_class() != "Node3D" or asset.get_script() != null or asset.get_parent() != root: return null
+	return asset
 
 func _profile_for(recipe: Dictionary, mode: String, built: Dictionary = {}) -> Dictionary:
 	var key := JSON.stringify(recipe).sha256_text() + "/" + mode
@@ -57,13 +120,17 @@ func validate_installation(recipe: Dictionary, hit: Dictionary, built: Dictionar
 	return result
 
 func _process(_delta: float) -> void:
-	if armed and not _confirming:
-		var reason := _context_reason()
+	if armed and _ui_active and not _confirming:
+		# 工坊每帧只检查锁定节点和查询端口；完整几何门禁留在预览与确认入口。
+		var reason := _context_reason(false, workshop_context.is_empty())
 		if not reason.is_empty():
 			cancel_arm(false)
 			message.emit("贴面上下文已过期并取消：" + reason + "；原节点和未应用输入保持")
 
 func _root() -> Node:
+	if not workshop_context.is_empty():
+		var root: Variant = workshop_context.root.call()
+		return root if root is Node and is_instance_valid(root) else null
 	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(assembly) or assembly.is_queued_for_deletion() or not assembly.is_inside_tree(): return null
 	var editor: Control = EditorInterface.get_base_control()
 	if not is_instance_valid(editor) or not editor.is_inside_tree(): return null
@@ -78,6 +145,12 @@ func _success(result: Dictionary, text: String) -> Dictionary:
 	return result
 
 func attachment_for(node: Node) -> Node3D:
+	if not workshop_context.is_empty():
+		var root := _root()
+		var layer: Node = root.get_node_or_null("Attachments") if is_instance_valid(root) else null
+		if not is_instance_valid(layer) or not is_instance_valid(node) or not layer.is_ancestor_of(node): return null
+		while node.get_parent() != layer: node = node.get_parent()
+		return node if node is Node3D and node.has_meta(META) and node.owner == root else null
 	while is_instance_valid(node):
 		if node is Node3D and node.has_meta(META): return node
 		if node == _root(): break
@@ -99,6 +172,21 @@ func _inherited_or_imported_scene(scene: Node) -> bool:
 	return inherited.search(header.get_string()) != null
 
 func set_host(node: Node) -> Dictionary:
+	if not workshop_context.is_empty():
+		var root := _root() as Node3D
+		if node != root or not is_instance_valid(root) or not root.is_inside_tree(): return _fail("工坊只允许明确传入当前预览 root")
+		var asset := _workshop_asset(root)
+		if asset == null: return _fail("预览 root/Asset 必须是无脚本的真实 Node3D，且 Asset 直接属于预览 root")
+		var layer := root.get_node_or_null("Attachments")
+		if layer != null and (not layer is Node3D or layer.get_script() != null or not layer.scene_file_path.is_empty() or layer.owner != root): return _fail("预览 Attachments 不是安全本地层")
+		if not Surface.valid_transform(root.global_transform) or not Surface.valid_transform(asset.global_transform): return _fail("预览宿主含奇异、镜像或非有限变换")
+		host_container = root
+		host_asset = asset
+		host_scene = root
+		if is_instance_valid(selected) and attachment_for(selected) == null: selected = null
+		cancel_arm(false)
+		changed.emit()
+		return _success({"ok": true, "reason": "", "host": root, "asset": asset}, "当前工坊房屋已就绪；外挂随建筑作品保存")
 	if not node is Node3D or attachment_for(node) != null: return _fail("请选择建筑 Placement/Asset 或安全的本地 Node3D 宿主")
 	var scene := _root()
 	if not scene is Node3D or not node.is_inside_tree() or (node != scene and not scene.is_ancestor_of(node)): return _fail("宿主必须属于当前 Node3D 编辑场景")
@@ -138,7 +226,12 @@ func set_host(node: Node) -> Dictionary:
 
 func _check_host() -> String:
 	if not is_instance_valid(host_container) or not host_container.is_inside_tree() or not is_instance_valid(host_scene) or host_scene != _root(): return "宿主已删除或场景已切换，请重新锁定"
-	if host_container.has_meta("sea_placement"):
+	if not workshop_context.is_empty():
+		if host_container != host_scene: return "工坊宿主不属于当前预览 root"
+		host_asset = _workshop_asset(host_scene)
+		var layer := host_container.get_node_or_null("Attachments")
+		if layer != null and (not layer is Node3D or layer.get_script() != null or not layer.scene_file_path.is_empty() or layer.owner != host_scene): return "预览 Attachments 已失效"
+	elif host_container.has_meta("sea_placement"):
 		host_asset = host_container.get_node_or_null("Asset") as Node3D
 	if not is_instance_valid(host_asset) or not host_asset.is_inside_tree(): return "宿主 Asset 已失效"
 	if not Surface.valid_transform(host_container.global_transform) or not Surface.valid_transform(host_asset.global_transform): return "宿主为奇异、镜像或非有限变换"
@@ -218,7 +311,7 @@ func _metadata(recipe: Dictionary, built: Dictionary, hit: Dictionary, id: Strin
 	var inverse := host_asset.global_transform.affine_inverse()
 	var normal: Vector3 = hit.normal
 	return {"schema_version": 1, "recipe": recipe.duplicate(true), "instance_id": id, "instanceid": id,
-		"host_path": host_scene.get_path_to(host_container), "host_instance_id": str(host_container.get_meta("sea_placement", {}).get("instance_id", "")),
+		"host_path": str(host_scene.get_path_to(host_container)), "host_instance_id": str(host_container.get_meta("sea_placement", {}).get("instance_id", "")),
 		"host_revision": str(host_container.get_meta("sea_placement", {}).get("revision", "local")),
 		"anchor": {"mode": hit.mode, "mesh_path": str(hit.mesh_path), "surface": hit.surface, "triangle": hit.triangle,
 			"host_position": _array(inverse * hit.position), "host_normal": _array((host_asset.global_basis.transposed() * normal).normalized()),
@@ -252,8 +345,8 @@ func insert_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> D
 		if new_layer: layer.free()
 		return _fail("Attachments 层变换不可逆")
 	node.transform = parent_world.affine_inverse() * _pose(built, hit, offset, angle_degrees)
-	var previous := EditorInterface.get_selection().get_selected_nodes()
-	var undo := assembly.get_undo_redo()
+	var previous := _selected_nodes()
+	var undo: Object = _history()
 	undo.create_action("新增建筑外挂", UndoRedo.MERGE_DISABLE, host_scene)
 	if new_layer:
 		layer.add_child(node)
@@ -264,10 +357,10 @@ func insert_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> D
 		undo.add_do_method(self, "_attach", layer, node, host_scene, layer.get_child_count())
 		undo.add_undo_method(self, "_detach", layer, node)
 		undo.add_do_reference(node)
-	undo.add_do_method(assembly, "_select_nodes", [node])
-	undo.add_undo_method(assembly, "_select_nodes", previous)
+	undo.add_do_method(self, "_select_nodes", [node])
+	undo.add_undo_method(self, "_select_nodes", previous)
 	undo.commit_action()
-	return _success({"ok": true, "reason": "", "attachment": node, "root": node, "hit": hit, "stats": built.stats}, "外挂已贴到真实宿主面；场景由 Ctrl+S 手动保存")
+	return _success({"ok": true, "reason": "", "attachment": node, "root": node, "hit": hit, "stats": built.stats}, "外挂已贴到真实宿主面；随建筑作品保存" if not workshop_context.is_empty() else "外挂已贴到真实宿主面；场景由 Ctrl+S 手动保存")
 
 func select_attachment(node: Node) -> Dictionary:
 	var target := attachment_for(node)
@@ -352,7 +445,7 @@ func _replace_selected(next: Node3D, action: String) -> Dictionary:
 	var parent := old.get_parent()
 	var scene := _root()
 	var index := old.get_index()
-	var undo := assembly.get_undo_redo()
+	var undo: Object = _history()
 	undo.create_action(action, UndoRedo.MERGE_DISABLE, scene)
 	undo.add_do_method(self, "_replace", parent, old, next, scene, index)
 	undo.add_undo_method(self, "_replace", parent, next, old, scene, index)
@@ -373,12 +466,12 @@ func duplicate_selected() -> Dictionary:
 	node.set_meta(META, data)
 	var parent := selected.get_parent()
 	var previous := selected
-	var undo := assembly.get_undo_redo()
+	var undo: Object = _history()
 	undo.create_action("复制建筑外挂", UndoRedo.MERGE_DISABLE, _root())
 	undo.add_do_method(self, "_attach", parent, node, _root(), parent.get_child_count())
-	undo.add_do_method(assembly, "_select_nodes", [node])
+	undo.add_do_method(self, "_select_nodes", [node])
 	undo.add_undo_method(self, "_detach", parent, node)
-	undo.add_undo_method(assembly, "_select_nodes", [previous])
+	undo.add_undo_method(self, "_select_nodes", [previous])
 	undo.add_do_reference(node)
 	undo.commit_action()
 	return _success({"ok": true, "reason": "", "attachment": node}, "已复制，保持变换；可用原生 gizmo 移动后显式重新贴合")
@@ -389,12 +482,12 @@ func delete_selected() -> Dictionary:
 	var node := selected
 	var parent := node.get_parent()
 	var index := node.get_index()
-	var undo := assembly.get_undo_redo()
+	var undo: Object = _history()
 	undo.create_action("删除建筑外挂", UndoRedo.MERGE_DISABLE, _root())
 	undo.add_do_method(self, "_detach", parent, node)
-	undo.add_do_method(assembly, "_select_nodes", [])
+	undo.add_do_method(self, "_select_nodes", [])
 	undo.add_undo_method(self, "_attach", parent, node, _root(), index)
-	undo.add_undo_method(assembly, "_select_nodes", [node])
+	undo.add_undo_method(self, "_select_nodes", [node])
 	undo.add_undo_reference(node)
 	undo.commit_action()
 	return _success({"ok": true, "reason": ""}, "已删除外挂，可撤销")
@@ -430,7 +523,7 @@ func preview_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> 
 
 func _selection_token() -> Array[int]:
 	var ids: Array[int] = []
-	for node: Node in EditorInterface.get_selection().get_selected_nodes():
+	for node: Node in _selected_nodes():
 		var attachment_node := attachment_for(node)
 		ids.append((attachment_node if attachment_node != null else node).get_instance_id())
 	ids.sort()
@@ -459,8 +552,10 @@ func _geometry_token(node: Node, full: bool) -> String:
 	context.update(var_to_bytes(state))
 	return context.finish().hex_encode()
 
-func _context_reason(full: bool = false) -> String:
+func _context_reason(full: bool = false, check_geometry: bool = true) -> String:
 	if _arm_context.is_empty(): return "没有有效的贴面事务"
+	var host_reason := _check_host()
+	if not host_reason.is_empty(): return host_reason
 	var scene: Node = _arm_context.scene.get_ref()
 	if scene == null or scene != _root() or not scene.is_inside_tree() or scene.scene_file_path != _arm_context.scene_path: return "场景已切换、关闭或路径改变"
 	for token: Dictionary in _arm_context.nodes:
@@ -470,13 +565,13 @@ func _context_reason(full: bool = false) -> String:
 		if (node.owner.get_instance_id() if node.owner != null else 0) != token.owner_id: return "节点所有者已改变"
 		if node is Node3D and (node.transform != token.local or node.global_transform != token.world): return "宿主或目标变换已改变"
 		if node.get_meta("sea_placement", {}) != token.placement or node.get_meta(META, {}) != token.attachment: return "宿主 revision 或外挂 metadata 已改变"
-	if host_container != _arm_context.host.get_ref() or host_asset != _arm_context.asset.get_ref(): return "锁定宿主已改变"
+	if host_container != _arm_context.host.get_ref() or host_asset != _arm_context.asset.get_ref(): return "锁定宿主或预览生成根已改变"
 	if host_container.get_node_or_null("Attachments") != (_arm_context.layer.get_ref() if _arm_context.layer != null else null): return "外挂层已新增、删除或替换"
 	if _selection_token() != _arm_context.selection: return "编辑器选择已改变，请重新启用贴面"
 	if selected != (_arm_context.target.get_ref() if _arm_context.target != null else null): return "选择已改变，请重新启用贴面"
 	if mount_mode != _arm_context.mode or offset != _arm_context.offset or angle_degrees != _arm_context.angle: return "挂载选项已改变，请重新启用贴面"
 	if armed_recipe != _arm_context.recipe: return "待放置配方已改变，请重新启用贴面"
-	if _geometry_token(host_asset, false) != _arm_context.quick_geometry: return "宿主层级、可见性、网格或变换已改变"
+	if check_geometry and _geometry_token(host_asset, false) != _arm_context.quick_geometry: return "宿主层级、可见性、网格或变换已改变"
 	if full and _geometry_token(host_asset, true) != _arm_context.geometry: return "宿主真实网格数据已改变"
 	if _arm_context.target != null:
 		var target: Node = _arm_context.target.get_ref()
@@ -492,6 +587,7 @@ func validate_arm(token: int = 0, full: bool = true) -> Dictionary:
 	return {"ok": true, "reason": "", "token": _arm_serial}
 
 func arm(recipe: Dictionary, reproject: bool = false) -> Dictionary:
+	if not _ui_active: return _fail("外挂界面已隐藏，请返回工坊后再贴面")
 	var reason: String = _check_selected() if reproject else _check_host()
 	if reason.is_empty(): reason = Recipe.validate(recipe)
 	if not reason.is_empty(): return _fail(reason)
@@ -511,7 +607,7 @@ func arm(recipe: Dictionary, reproject: bool = false) -> Dictionary:
 	armed = true
 	set_meta("reproject", reproject)
 	set_meta("dragging", false)
-	assembly.arm_attachment_drop()
+	_request_arm()
 	return _success({"ok": true, "reason": "", "token": _arm_serial}, "已锁定贴面事务；另选会取消。点击真实宿主面确认，Escape/右键取消")
 
 func viewportclick_place(origin: Vector3, direction: Vector3) -> Dictionary:
@@ -528,7 +624,7 @@ func cancel_arm(announce: bool = true) -> void:
 	armed_recipe.clear()
 	_arm_context.clear()
 	set_meta("dragging", false)
-	if is_instance_valid(assembly): assembly.cancel_attachment_drop()
+	_cancel_arm_ui()
 	if announce: message.emit("已取消贴面，场景未改动")
 
 func selection_will_change(target: Node3D) -> void:
@@ -586,4 +682,4 @@ func _detach(parent: Node, node: Node) -> void:
 func _replace(parent: Node, old: Node3D, next: Node3D, scene: Node, index: int) -> void:
 	parent.remove_child(old)
 	_attach(parent, next, scene, index)
-	assembly._select_nodes([next])
+	_select_nodes([next])
