@@ -14,6 +14,9 @@ const Catalog = preload("res://src/building_attachments/catalog.gd")
 const Generator = preload("res://src/building_attachments/generator.gd")
 const Gallery = preload("res://addons/scene_assembly/attachment_gallery.gd")
 const Thumbnail = preload("res://addons/scene_assembly/thumbnail.gd")
+const PALETTE_TEXTURE = preload("res://assets/textures/shared/sea_cabin_timber_8x8_512.png")
+const COLOR_ROLES := ["SEA_Matte", "SEA_Metal", "SEA_Gloss", "SEA_Emission"]
+const COLOR_ROLE_LABELS := {"SEA_Matte": "哑光", "SEA_Metal": "金属", "SEA_Gloss": "光泽", "SEA_Emission": "发光"}
 
 var controller: Node
 var gallery: ItemList
@@ -35,6 +38,14 @@ var preview: TextureRect
 var candidate_path: LineEdit
 var collision: CheckBox
 var underwater: CheckBox
+var color_box: VBoxContainer
+var color_grid: GridContainer
+var color_readout: Label
+var color_role_buttons: Dictionary = {}
+var color_buttons: Dictionary = {}
+var color_role := "SEA_Matte"
+var color_values: Dictionary = {}
+var _palette_image: Image
 var draft: Dictionary = {}
 var _baseline: Dictionary = {}
 var _baseline_mount: Dictionary = {}
@@ -147,6 +158,7 @@ func _ready() -> void:
 	underwater.tooltip_text = "须手动关闭人物阻挡；冲突时拒绝应用，不会静默修改。"
 	underwater.toggled.connect(func(_value: bool) -> void: _input_changed())
 	form.add_child(underwater)
+	_build_color_editor(form)
 	_button(form, "复制详情", _copy_details)
 	var operations := HFlowContainer.new()
 	editor_panel.add_child(operations)
@@ -264,6 +276,87 @@ func _choose(key: String, value: String) -> void:
 		gallery_condition = value
 		_choice_value("gallery_condition", value)
 	_input_changed()
+
+func _build_color_editor(parent: Node) -> void:
+	color_box = VBoxContainer.new()
+	color_box.name = "AttachmentColorEditor"
+	parent.add_child(color_box)
+	_label(color_box, "外挂颜色（仅当前外挂）")
+	var role_row := HFlowContainer.new()
+	color_box.add_child(role_row)
+	var group := ButtonGroup.new()
+	for role: String in COLOR_ROLES:
+		var button := _button(role_row, str(COLOR_ROLE_LABELS[role]), _select_color_role.bind(role))
+		button.toggle_mode = true
+		button.button_group = group
+		color_role_buttons[role] = button
+		button.set_pressed_no_signal(role == color_role)
+	color_grid = GridContainer.new()
+	color_grid.name = "AttachmentPaletteGrid"
+	color_grid.columns = 8
+	color_grid.add_theme_constant_override("h_separation", 2)
+	color_grid.add_theme_constant_override("v_separation", 2)
+	color_box.add_child(color_grid)
+	color_readout = _label(color_box, "")
+	color_readout.tooltip_text = "点击色格后应用到当前外挂；不修改房屋公共材质或色板。"
+	_palette_image = PALETTE_TEXTURE.get_image()
+	_build_palette_buttons()
+
+func _build_palette_buttons() -> void:
+	if color_grid == null: return
+	for child: Node in color_grid.get_children(): child.queue_free()
+	color_buttons.clear()
+	for index: int in 64:
+		var button := Button.new()
+		button.name = "PaletteCell_%02d" % index
+		button.custom_minimum_size = Vector2(28, 28)
+		button.tooltip_text = "色格 [%d,%d]" % [index / 8, index % 8]
+		# 只绑定格索引，点按时再取当前角色：切换角色不重建色格，外部持有的按钮引用不失效。
+		button.pressed.connect(_set_active_color_cell.bind(index))
+		color_grid.add_child(button)
+		color_buttons[index] = button
+	_update_palette_buttons()
+
+func _palette_color(index: int) -> Color:
+	if _palette_image == null or _palette_image.is_empty(): return Color(0.5, 0.5, 0.5)
+	return _palette_image.get_pixel(index % 8 * 64 + 32, index / 8 * 64 + 32)
+
+func _set_palette_style(button: Button, color: Color, selected: bool) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.border_width_left = 3 if selected else 1
+	style.border_width_top = 3 if selected else 1
+	style.border_width_right = 3 if selected else 1
+	style.border_width_bottom = 3 if selected else 1
+	style.border_color = Color("f1c56b") if selected else Color("ffffff66")
+	style.corner_radius_top_left = 3
+	style.corner_radius_top_right = 3
+	style.corner_radius_bottom_left = 3
+	style.corner_radius_bottom_right = 3
+	button.add_theme_stylebox_override("normal", style)
+	button.add_theme_stylebox_override("hover", style)
+
+func _select_color_role(role: String) -> void:
+	color_role = role
+	for key: String in color_role_buttons: color_role_buttons[key].set_pressed_no_signal(key == role)
+	_update_palette_buttons()
+
+func _set_active_color_cell(index: int) -> void:
+	_set_color_cell(color_role, index)
+
+func _set_color_cell(role: String, index: int) -> void:
+	color_values[role] = index
+	_update_palette_buttons()
+	_input_changed()
+
+func _update_palette_buttons() -> void:
+	if color_readout == null: return
+	var selected := int(color_values.get(color_role, 0))
+	for index: int in 64:
+		var button: Button = color_buttons.get(index)
+		if button == null: continue
+		_set_palette_style(button, _palette_color(index), index == selected)
+	color_readout.text = "%s：色格 [%d,%d] / %d" % [COLOR_ROLE_LABELS.get(color_role, color_role), selected / 8, selected % 8, selected]
 
 func _slider(parent: Node, key: String, caption: String, minimum: float, maximum: float, step: float) -> void:
 	var box := VBoxContainer.new()
@@ -446,6 +539,7 @@ func input_recipe() -> Dictionary:
 	recipe.text = text_input.text
 	for axis: String in ["width", "height", "depth"]: recipe.dimensions[axis] = fields[axis].slider.value
 	recipe.scale = fields.scale.slider.value
+	recipe.colors = color_values.duplicate(true)
 	recipe.collision_enabled = collision.button_pressed
 	recipe.usage = "decorative_underwater" if underwater.button_pressed else "above_water"
 	return recipe
@@ -479,6 +573,7 @@ func _queue_current_preview() -> void:
 func _load_inputs(recipe: Dictionary, mount: Dictionary = {}) -> void:
 	_refreshing = true
 	draft = recipe.duplicate(true)
+	color_values = recipe.get("colors", {}).duplicate(true)
 	_baseline = recipe.duplicate(true)
 	_baseline_mount = mount.duplicate(true)
 	var entry: Dictionary = Catalog.get_entry(recipe.type_id)
@@ -500,6 +595,7 @@ func _load_inputs(recipe: Dictionary, mount: Dictionary = {}) -> void:
 	fields.angle.slider.set_value_no_signal(float(mount.get("angle_degrees", 0.0)))
 	collision.set_pressed_no_signal(recipe.collision_enabled)
 	underwater.set_pressed_no_signal(recipe.usage == "decorative_underwater")
+	_update_palette_buttons()
 	for key: String in fields: _update_slider_label(key)
 	summary.text = "%s · %s\n%s" % [entry.name, CONDITION_LABELS[recipe.condition], BUTTON_LABELS.get(entry.mount_mode, "可选挂载面")]
 	summary.tooltip_text = "%s\n类型：%s\n候选ID：%s\n状态：%s" % [summary.text, recipe.type_id, recipe.attachment_id, recipe.condition]

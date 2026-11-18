@@ -344,6 +344,29 @@ func test_input_cancels() -> void:
 		panel._load_inputs(baseline, {"mode": "wall"})
 	evidence.gui_input.append({"method": "真实mouse/keyboard改变text condition scale collider mount_mode，取消arm保留输入"})
 
+func test_attachment_color_editor() -> void:
+	await choose_type("sign_fascia")
+	var sign_before: Dictionary = panel.input_recipe()
+	var sign_button: Button = panel.color_role_buttons.get("SEA_Matte")
+	var sign_cell: Button = panel.color_buttons.get(3)
+	check(sign_button != null and sign_cell != null and panel.color_grid.columns == 8, "招牌颜色编辑器角色与64格色板存在")
+	if sign_button != null: await click(sign_button)
+	if sign_cell != null: await click(sign_cell)
+	var sign_after: Dictionary = panel.input_recipe()
+	check(int(sign_after.colors.get("SEA_Matte", -1)) == 3 and sign_after.type_id == "sign_fascia", "招牌可实际选择PaletteUV色格")
+	check(sign_after.dimensions == sign_before.dimensions and sign_after.text == sign_before.text, "招牌换色不改尺寸或文字")
+	await choose_type("awning_slope")
+	var canopy_before: Dictionary = panel.input_recipe()
+	var metal_button: Button = panel.color_role_buttons.get("SEA_Metal")
+	var metal_cell: Button = panel.color_buttons.get(21)
+	check(metal_button != null and metal_cell != null, "顶棚颜色编辑器角色按钮与色格存在")
+	if metal_button != null: await click(metal_button)
+	if metal_cell != null: await click(metal_cell)
+	var canopy_after: Dictionary = panel.input_recipe()
+	check(int(canopy_after.colors.get("SEA_Metal", -1)) == 21 and canopy_after.type_id == "awning_slope", "顶棚可实际选择PaletteUV色格")
+	check(canopy_after.dimensions == canopy_before.dimensions and canopy_after.condition == canopy_before.condition, "顶棚换色不改尺寸或状态")
+	evidence.gui_input.append({"method": "real color role/cell clicks", "types": ["sign_fascia", "awning_slope"], "sign_matte": sign_after.colors.get("SEA_Matte"), "canopy_metal": canopy_after.colors.get("SEA_Metal")})
+
 func test_gallery_drag() -> void:
 	var original_host: Node3D = controller.host_container
 	var scene: Node3D = EditorInterface.get_edited_scene_root()
@@ -561,6 +584,7 @@ func execute() -> void:
 	await press("锁定选中节点为宿主")
 	check(controller.host_container == host and controller.host_asset == host.get_node("Asset"), "宿主锁定真实建筑Asset")
 	await test_input_cancels()
+	await test_attachment_color_editor()
 	await test_gallery_drag()
 	var sign: Node3D = await place_gui("sign_fascia", "wall")
 	if sign == null:

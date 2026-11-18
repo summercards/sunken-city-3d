@@ -615,7 +615,7 @@ core `../sea-work/verification/20261117-160131-workshop-solar-colors-core-final-
 
 | 对应设计条款 | 当前状态 | 当前实施与可靠证据 |
 |---|---|---|
-| SEA-WORKSHOP-R93 | implemented_verified_in_scope | `PAGES` append外挂page9、保文件8，视觉nav第二项；原gallery四分类/三态/style/text/buttons内嵌参数区，同SubViewport原生drag/arm点击墙顶、本栋列表/actual mesh pick、XYZ0.01..1m沿面重投支撑、绿红ghost。无假native gizmo；普通Control receiver承接SC target-control原生drop，DRAG_END查gui_is_drag_successful。切页保11/17镜头/导航，隐藏停timer/cancelghost，非法输入保模型与所有缓存。 |
+| SEA-WORKSHOP-R93 | implemented_verified_in_scope | `PAGES` append外挂page9、保文件8，视觉nav第二项；原gallery四分类/三态/style/text/buttons内嵌参数区，同SubViewport原生drag/arm点击墙顶、本栋列表/actual mesh pick、XYZ0.01..1m沿面重投支撑、绿红ghost。**外挂表单新增四材质角色按钮与64格PaletteUV色板，顶棚和招牌均可改色，recipe.colors随预览/缩略图/保存重开保留，不改房屋公共材质。**无假native gizmo；普通Control receiver承接SC target-control原生drop，DRAG_END查gui_is_drag_successful。切页保11/17镜头/导航，隐藏停timer/cancelghost，非法输入保模型与所有缓存。 |
 | SEA-WORKSHOP-R94 | implemented_verified_in_scope | EditorStore.export_work_revision复用父临时目录→manifest→rename，八件同.tmp验证、失败清理不先发房屋；纯壳体building.tscn+attachments JSON/静态层+Work完整wrapper。严格schema/anchor/JSON-safe/稳定uniqueID/有限正determinant/≤256，JSON与metadata1e-9 canonical，仅native TSCN transform有限float32容差；坏JSON用JSON.new.parse返回拒绝，新缺件/hash/schema/wrapper拒绝不空降级，旧legacy五件empty，外部JSON只Generator重建不执行旁车TSCN。 |
 | SEA-WORKSHOP-R95 | implemented_verified_in_scope | 双域prepare后commit；坏草稿锁写保original recovery；dirty覆盖有效installed与库candidate，已删A缓存留undo但不锁save，恢复A再选回未应用输入。house→attachment→house按显式navigate移动marker；手调A→B→A新commit，分支清redo。保存要求apply/discard有效目标输入；scene context取现场layer snapshot，成功才双实例token绑定，现场fp并发拒换版，同snapshot只换Asset保layer/子身份，真changed才同undo双层换版，保Placement/同源兄弟、不重复append/auto-reproject/Main保存。 |
 
@@ -652,3 +652,14 @@ Glob实查内层为同批 `project/outputs/workshop_attachments_editor_report.js
 全库实际同步 **539 issues / exit1**、无参数检查 **540 issues / exit1**；46功能、1105源资产、1883运行资源。没有本轮WORKSHOP/WORLD新增条款或入口错误；原外挂候选根 `scenes/workshop_attachments` 在首次另存前不存在，仍被通用资源扫描判缺输入，未创建空目录凑绿，其它范围外漂移/断链保留。原始 `contracts_{sync,check}.log` 与 `contracts_results.json` 位于工程外 `sea-work/workshop_attachments_embedded_20261118/`，外层记录进程exit0不替代内部两个exit1。
 
 审阅交付 `outputs/workshop_attachments_embedded_review_20261118/index.html` 与同名ZIP，7原PNG、5原始JSON；静态引用/复制hash/PNG尺寸与CRC/ZIP CRC核验，不声称浏览器交互已验。房屋src/workshop、Main/project和公共材质无本轮diff；未提交、未推送，未关闭用户生产编辑器。
+
+### 外挂涂装色板：实测、色格句柄缺陷与修复（2026-11-18）
+
+R93 的四材质角色按钮与64格 PaletteUV 色板按内嵌页实装后，本轮经统一 runner 在本机实测，并修掉一处真实缺陷。
+
+- 首跑 `20261118-165304-color-editor-20261118-1a7b2e`：`editor-building-attachments` **358 checks / 2 failures**，失败项「招牌可实际选择PaletteUV色格」「顶棚可实际选择PaletteUV色格」。根因是 `_select_color_role` 会 `_build_palette_buttons()` 销毁并重建全部64个色格按钮，切角色后先前取得的格句柄已失效，点击落到已 queue_free 的节点上，`recipe.colors` 不变；普通用户切角色时也同样是每次重建64个控件。
+- 修复：色格只在建表时绑定格索引 `_set_active_color_cell(index)`，点按瞬间再取当前 `color_role`；切角色改为只重绘选中态（`_update_palette_buttons`），不再重建。选区语义、缩略图刷新、`inputs_changed` 与保存链路不变，仍只写当前外挂 `recipe.colors`，不碰房屋公共材质或共享 `.tres`。
+- 修复后 `20261118-165459-color-editor-fix-20261118-8612af`：`editor-building-attachments` **362/0**、exit0、unexpected_errors=`[]`、source_consistent=true；内层 `building_attachments_editor_report.json` 362/0，含招牌 SEA_Matte=3、顶棚 SEA_Metal=21 的真实点击结果，并断言换色不改尺寸/文字/状态。
+- 同面板另一入口 `editor-scene-assembly` `20261118-170253-color-editor-dock4-20261118-f7b077`：**159/0**、asset-import 与 editor 均 exit0、completion_marker=true、unexpected_errors=`[]`、source_consistent=true。
+- 保留失败：`20261118-165625-…d3cada` 未带 `--import-assets`，隔离副本植被贴图未导入致树 Store 生成失败（16/1，`真实树Store保存动态旁车`）；`20261118-165754-…7af433` 同一原因修正后于「real drag house」阶段 180s 超时 exit=124；`20261118-170127-…e4e0ab` 在 mvk `SPIRVToMSLConverter::convert` 处 SIGABRT（exit=-6）。三次均不签通过，第四次成功批次才作为当前证据；前两次确属导入/超时环境问题，第三次为渲染器崩溃，未复现于后续同配置运行。
+- 本次只读既有证据之外，实际执行了上述四个 Godot 批次；未重跑房屋/逻辑/切换等其它入口，不以其历史结果代替当前实测。色板图集复用 `assets/textures/shared/sea_cabin_timber_8x8_512.png`，未新增资产或 AssetID。人工手感、全部色格逐格目检、其它 viewport 与生产 Main 接入仍未签。
