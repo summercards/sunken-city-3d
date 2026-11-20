@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_arcade/coffee_table/coffee_table.glb" id="visual"]
+
+[node name="coffee_table" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-RAC-COFFEE-TABLE"
+metadata/asset_version = "v001"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

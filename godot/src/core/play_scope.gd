@@ -15,7 +15,7 @@ static func zone_enabled(id: String) -> bool:
 	# 横滨铁道按 2026-11-03 要求放进默认范围；顶层牧场是同一批接入的海上高层农场。
 	# 圆弧农场与远海街町已按「只保留横滨」从 main.tscn 移除，不在此列。
 	# room 是太阳房上的室内房间（SEA-ROOM），和 zone1 一起属于最小可玩循环。
-	return not minimal() or id in ["zone1", "zone2", "zone5", "sea_supply", "rooftop_ranch", "neon_garden_quarter", "room"]
+	return not minimal() or id in ["zone1", "zone2", "zone5", "sea_supply", "rooftop_ranch", "neon_garden_quarter", "rooftop_arcade", "room"]
 static func command_enabled(id: String) -> bool:
 	# 潜水已重新开放：下潜、头灯、上/下游都随家园海域可用。
 	# 建造、打捞、相机等仍不在最小循环范围内。

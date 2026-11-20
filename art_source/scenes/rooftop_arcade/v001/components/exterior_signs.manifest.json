@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+  "name": "代币价牌",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.blend",
+  "source_sha256": "0493a887c43322c3dbf82f0c399478338dc7d21b6f72ce7e9a144085f25b0e30",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.22917990386486053,
+      -0.0695519968867302,
+      0.0
+    ],
+    "max_m": [
+      0.26035329699516296,
+      0.04094969853758812,
+      0.6786251664161682
+    ],
+    "size_m": [
+      0.4895332008600235,
+      0.11050169542431831,
+      0.6786251664161682
+    ]
+  },
+  "asset_key": "exterior_signs",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-EXTERIOR-SIGNS",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

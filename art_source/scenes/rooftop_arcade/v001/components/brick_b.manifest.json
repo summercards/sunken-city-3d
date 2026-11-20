@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-BRICK-B",
+  "name": "浅红砖",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/brick_b.blend",
+  "source_sha256": "3be0a869d67a059dfc892993f6425aaa1e717cda61efce69cc8ee1ec2e0645e0",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_b.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.14639151096343994,
+      -0.04349999874830246,
+      0.0
+    ],
+    "max_m": [
+      0.14619694650173187,
+      0.04349999874830246,
+      0.10784446448087692
+    ],
+    "size_m": [
+      0.2925884574651718,
+      0.08699999749660492,
+      0.10784446448087692
+    ]
+  },
+  "asset_key": "brick_b",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-BRICK-B",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

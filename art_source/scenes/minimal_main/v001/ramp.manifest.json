@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-MIN3C-RAMP",
+  "asset_id": "SEA-SCENE-MIN3C-RAMP",
+  "version": "v001",
+  "component_plan": "art_source/scenes/minimal_main/v001/component_plan.json",
+  "source_kind": "native_godot_tscn",
+  "source": "godot/scenes/components/minimal_main/ramp.tscn",
+  "source_sha256": "a7d70ee843e28ff530de29baa336fe4574d935f87296ebee1d9c904ed34a76e6",
+  "bounds_m": [
+    3.2,
+    1.6,
+    6.0
+  ],
+  "origin": "bottom center of upper join",
+  "axis": "Godot Y up; +Z faces the approach/ocean; one unit = one metre",
+  "visual": "closed extruded profile",
+  "collision": "matching static convex wedge and apron box",
+  "usage": "godot/scenes/main_minimal.tscn",
+  "glb": null,
+  "license": "project_original",
+  "art_review": "not_applicable_whitebox"
+}

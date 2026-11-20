@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-MIN3C-TIMBER",
+  "asset_id": "SEA-SCENE-MIN3C-TIMBER",
+  "version": "v001",
+  "component_plan": "art_source/scenes/minimal_main/v001/component_plan.json",
+  "source_kind": "native_godot_tscn",
+  "source": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+  "source_sha256": "2c0f3c8d592c37b7a902c87f0d9c997c80bf8f6ea597e42d3933557c18177db5",
+  "bounds_m": [2.4, 0.95, 2.0],
+  "origin": "bottom center",
+  "axis": "Godot Y up; yaw editable per instance; one unit = one metre",
+  "visual": "Wood-tone BoxMesh (graybox exact-envelope exception)",
+  "collision": "Matching static BoxShape3D on the same active layer as the pier",
+  "usage": "godot/scenes/main_minimal.tscn#TimberObstacles",
+  "default_instances": 3,
+  "license": "project_original",
+  "glb": null
+}

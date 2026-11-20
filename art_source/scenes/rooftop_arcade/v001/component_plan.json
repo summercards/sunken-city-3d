@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "suite": "rooftop_arcade",
+  "display_name": "海上屋顶街机维修铺",
+  "version": "v001",
+  "feature_id": "SEA-ASSET",
+  "building_class": "above_water",
+  "source_stage": "blender_only",
+  "runtime_integration": "pending",
+  "reference_license": "pending",
+  "references": [
+    {"name": "Clipboard_Screenshot.png", "sha256": "4ef122b96672ba17a66cca8764fa8a9cd8572a43a77cda1ee71ee8cf688da197", "role": "layout, section, furnishing and cutaway"},
+    {"name": "Clipboard_Screenshot-1.png", "sha256": "30e8e424284305c41fb7ffedd2a1f666cbfd5d5693eb53e015fb19a7a16bd89d", "role": "exterior front/right/back and approximate size"}
+  ],
+  "units": "meters",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "form_style_notes": "SF-B inspired: taper, lateral drift and non-rectangular silhouettes individually modeled; not the shared solar-house class size recipe.",
+  "visual_priorities": ["参考图的小体量大细节、1F 街机维修铺＋砖墙中段＋屋顶卧室的错层比例", "红陶错缝砖真实单件，奶白转角石和退进蓝窗；保留正侧背三立面", "波浪屋面、薄荷拼板、靛蓝与陶红靠板、蓝色扇贝边雨棚；轮廓不使用整块盒体代替", "弯折排水管、电缆、木电杆、右外梯与竖爬梯形成可辨剪影", "L1 门、两款街机、代币台、工具墙、CRT、货架与设备角；L2 床、条纹布、枕头、茶桌、毯、架、排扇、灯、照片和帘全部独立建模", "圆润、厚倒角、温暖哑光和低饱和，保留参考红砖/薄荷/蓝棚色块，拒绝镜面和重锈"],
+  "dimensions": {"shell_width_m": 2.94, "shell_depth_m": 2.26, "raft_width_m": 4.60, "raft_depth_m": 3.64, "platform_top_m": 0.42, "main_masonry_top_m": 3.44, "loft_floor_top_m": 3.64, "approximate_top_m": 5.55, "scale_exception": "采用图纸紧凑体量，非阳光房同族层高；只验证 Blender 表现与几何，未测 Godot 角色净空、泊位或阻挡"},
+  "thickness_m": {"wall_shell": 0.15, "loft_deck": 0.20, "roof_panels_nominal": 0.045, "glass": 0.04, "door": 0.05, "large_platform_total": 0.50, "stair_tread": 0.10},
+  "bevel": {"L0": {"radius_m": 0.034, "segments": 3}, "L1": {"radius_m": 0.015, "segments": 2}, "L2": {"radius_m": 0.010, "segments": 1}, "small_glyph_and_fastener_exception": "轮廓文字、缝线和小铆钉按自身厚度限制；自由曲面布料和压鼓屏使用实体闭合网格"},
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "animation": {"fps": 24, "start": 1, "end": 222, "revision": "spring_drop_v4", "notes": "固定正交镜头，从上沿画外连续入画。Z 轴加速落地，按部件体量做两次衰减回弹，第二次幅度为第一次的 19%，不低于最终装配高度。不切显隐、不旋转、不缩放，静态总装保持。"},
+  "components": {
+    "architecture": ["float_base", "deck_surface", "shop_shell", "storefront", "shop_door", "brick_mortar", "brick_a", "brick_b", "brick_c", "quoin", "sash", "loft_deck", "loft_shell", "loft_front", "loft_roof", "exterior_stair", "access_ladder", "awning", "utility_pole", "drainage", "service_hardware", "exterior_signs", "mooring"],
+    "furniture": ["arcade_blue", "arcade_yellow", "token_counter", "repair_bench", "tool_board", "utility_rack", "heater", "shop_stool", "shipping_crate", "loft_bed", "coffee_table", "loft_shelf", "vent_fan", "loft_curtain", "clothesline", "loft_frames", "lighting", "side_vent"]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "asset_id": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+  "name": "外墙表箱",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.blend",
+  "source_sha256": "a1fe9a06579dbd50047760e3532cb145f5db3d82d014dc3c8f247e493fb6a526",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "bounds": {
+    "min_m": [
+      -1.199759602546692,
+      -0.10246597975492477,
+      0.0
+    ],
+    "max_m": [
+      1.107078194618225,
+      0.033999718725681305,
+      2.6733784675598145
+    ],
+    "size_m": [
+      2.306837797164917,
+      0.13646569848060608,
+      2.6733784675598145
+    ]
+  },
+  "asset_key": "service_hardware",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-SERVICE-HARDWARE",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

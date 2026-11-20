@@ -1,0 +1,57 @@
+{
+  "asset_id": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+  "name": "外楼梯",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.blend",
+  "source_sha256": "342b7cc3f348838f3e25b86e5bfbc1a6c223e6c23fe19d92e33c6f098cef856b",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.4332807660102844,
+      -1.1407489776611328,
+      0.0
+    ],
+    "max_m": [
+      0.4530225694179535,
+      1.1506118774414062,
+      1.569757342338562
+    ],
+    "size_m": [
+      0.8863033354282379,
+      2.291360855102539,
+      1.569757342338562
+    ]
+  },
+  "asset_key": "exterior_stair",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-EXTERIOR-STAIR",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

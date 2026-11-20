@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://d0io0sx5xypdr"]
 
+[ext_resource type="Resource" path="res://src/camera/surface_camera_close.tres" id="surface_lens"]
 [ext_resource type="Script" uid="uid://cvlhqp88j1g4h" path="res://src/bootstrap/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://scenes/world/environment.tscn" id="2_env"]
 [ext_resource type="Script" uid="uid://cqch51wxcfbeu" path="res://src/camera/orbit_camera.gd" id="3_cam"]
@@ -31,7 +32,11 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_rest_stop.tscn" id="40_rest_stop"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/water_building_001.tscn" id="41_water_building_001"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/water_building_002.tscn" id="42_water_building_002"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_arcade.tscn" id="43_rooftop_arcade"]
 [ext_resource type="Script" uid="uid://bnlpdixomk08r" path="res://src/ambient/vegetation/wind_controller.gd" id="vegetation_wind"]
+
+[sub_resource type="ConvexPolygonShape3D" id="FormalSkiffHull"]
+points = PackedVector3Array(0, -0.32, -3.12, 0.96, -0.32, -2.3, 1.57, -0.32, -0.88, 1.57, -0.32, 1.20, 1.19, -0.32, 2.48, 0.46, -0.32, 2.95, -0.46, -0.32, 2.95, -1.19, -0.32, 2.48, -1.57, -0.32, 1.20, -1.57, -0.32, -0.88, -0.96, -0.32, -2.3, 0, 0.76, -3.12, 0.96, 0.76, -2.3, 1.57, 0.76, -0.88, 1.57, 0.76, 1.20, 1.19, 0.76, 2.48, 0.46, 0.76, 2.95, -0.46, 0.76, 2.95, -1.19, 0.76, 2.48, -1.57, 0.76, 1.20, -1.57, 0.76, -0.88, -0.96, 0.76, -2.3)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5q0nq"]
 _surfaces = [{
@@ -131,6 +136,9 @@ transform = Transform3D(0.945029, 0, -0.32698637, 0, 1, 0, 0.32698637, 0, 0.9450
 [node name="neon_garden_quarter" parent="World/SeaStructures" unique_id=971645584 instance=ExtResource("35_neon_garden")]
 transform = Transform3D(-0.3057852, 0, -0.9521005, 0, 1, 0, 0.9521005, 0, -0.3057852, 106.55533, -15.869949, 88.88402)
 
+[node name="rooftop_arcade" parent="World/SeaStructures" instance=ExtResource("43_rooftop_arcade")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 1, 163)
+
 [node name="Interior" parent="World" unique_id=1830010001 instance=ExtResource("37_bedroom")]
 
 [node name="SunkenSeabed" parent="World" unique_id=1280680276 instance=ExtResource("39_sunken_seabed")]
@@ -155,10 +163,17 @@ script = ExtResource("12_farm")
 [node name="Camera" type="Camera3D" parent="." unique_id=1937557029]
 current = true
 script = ExtResource("3_cam")
+surface_profile = ExtResource("surface_lens")
 orbit_dir = Vector3(-54, 76.37, 54)
 
-[node name="Boat" type="Node3D" parent="." unique_id=916517458]
+[node name="Boat" type="CharacterBody3D" parent="." unique_id=916517458]
+collision_layer = 2048
+collision_mask = 4096
+safe_margin = 0.015
 script = ExtResource("4_boat")
+
+[node name="HullCollision" type="CollisionShape3D" parent="Boat"]
+shape = SubResource("FormalSkiffHull")
 
 [node name="Explorer" type="CharacterBody3D" parent="Boat" unique_id=110714910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6025, 0.32)

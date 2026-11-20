@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-LOFT-SHELF",
+  "name": "卧室货架",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "furnishing",
+  "category_label": "固定设施",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "furnishing"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.blend",
+  "source_sha256": "eb862df10139cd453ed5e2913d69f3fe5f0cd17cc7584b853dd89cb66ada8e64",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.34499070048332214,
+      -0.13876864314079285,
+      0.0
+    ],
+    "max_m": [
+      0.34499070048332214,
+      0.13945677876472473,
+      1.2200000286102295
+    ],
+    "size_m": [
+      0.6899814009666443,
+      0.2782254219055176,
+      1.2200000286102295
+    ]
+  },
+  "asset_key": "loft_shelf",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-LOFT-SHELF",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

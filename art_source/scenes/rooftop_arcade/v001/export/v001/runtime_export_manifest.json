@@ -1,0 +1,897 @@
+{
+  "sources": [
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/rooftop_arcade.blend",
+      "sha256": "175c905b18ba5bf9f2156c57d7acc3e9503429864dfc7e04042c35d78172c8df",
+      "bytes": 1842183
+    },
+    {
+      "path": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "bytes": 5698
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.blend",
+      "sha256": "fe4b797f2f7c4d5b139223ad363c87e0da626a9c1f79deef0463b10b12d72daa",
+      "bytes": 91062
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.blend",
+      "sha256": "feeb0148e6e5319b29f36d5c0f27103ed48f1cd6a72b63dbe64b36296be4d58a",
+      "bytes": 149340
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.blend",
+      "sha256": "2fc61629a8c9a594c59f8bf5725135d8e1c4688b69e9f967852300af443b8a79",
+      "bytes": 153609
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/awning.blend",
+      "sha256": "5102b249218b2380220a6f1a271eef31c8e856e20c0d32850784d13a6e8a812a",
+      "bytes": 197677
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/brick_a.blend",
+      "sha256": "635cb820f22ef7120877edeca23b5878afc4ef4aabe017085a3ed64c7dbe8d7d",
+      "bytes": 69117
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/brick_b.blend",
+      "sha256": "3be0a869d67a059dfc892993f6425aaa1e717cda61efce69cc8ee1ec2e0645e0",
+      "bytes": 68888
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/brick_c.blend",
+      "sha256": "5b7f2e6a559cb3af38d29dcb435e3dcd147aab189bc6a0fcb9ca063fe5dbb4f6",
+      "bytes": 69120
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.blend",
+      "sha256": "646dc012c76ffc871859172e7dc204d826e79be8245adccdb79a2e83045aa351",
+      "bytes": 77271
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/clothesline.blend",
+      "sha256": "07b32acebaea5ffc174e6c8a1b131930081534bdc6423964c7b0f9de5f60ff58",
+      "bytes": 111522
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.blend",
+      "sha256": "5b95726f675e49a1bf9556c00ec327054747020d43043f3deb265b81f3faae41",
+      "bytes": 110817
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.blend",
+      "sha256": "b39598f6452337dfbdf69b13f96172525c225de97cb6d1de22ae36696a96a3c4",
+      "bytes": 74791
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/drainage.blend",
+      "sha256": "ff64f01752d5c961ecb7855d671daff5a09590aa69e739cd1937ad26b1ad628b",
+      "bytes": 112596
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.blend",
+      "sha256": "0493a887c43322c3dbf82f0c399478338dc7d21b6f72ce7e9a144085f25b0e30",
+      "bytes": 87526
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.blend",
+      "sha256": "342b7cc3f348838f3e25b86e5bfbc1a6c223e6c23fe19d92e33c6f098cef856b",
+      "bytes": 106367
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/float_base.blend",
+      "sha256": "9f054fb6f56462e64f47cc3ca6f269fcc9ec09c664c2abb09534b53a538a789a",
+      "bytes": 79035
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/heater.blend",
+      "sha256": "71fb56038106320b82b526498bdb87f3baa16159a886775d2f1afa33dd06cfa9",
+      "bytes": 124092
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/lighting.blend",
+      "sha256": "730c003d9e8088986b0a6594dde0b775cc30e003353bd2d85ab24cca6da2cc0b",
+      "bytes": 95767
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.blend",
+      "sha256": "1a4eb59cb6cb7a62e56e74cdd8a667ca093184039d5b71f1fa2e0dca7f4b42da",
+      "bytes": 191414
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.blend",
+      "sha256": "56d7095c17e0972d6995fdcd509ddc3d5dfcda9872be8eaa999769f4a07aa4b7",
+      "bytes": 125080
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.blend",
+      "sha256": "e1ad843b4f52124f93eddbee015796b0520e99de8caf084411602907108c17d5",
+      "bytes": 78591
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.blend",
+      "sha256": "a768b215f3dffdceb2990f1209a23e9090e1675dc5450496371e75c4f38038d8",
+      "bytes": 100624
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_front.blend",
+      "sha256": "c1776087bb35013213010acc54eee73065a70e1322b5b76efc3be1d76d2e14c0",
+      "bytes": 87417
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.blend",
+      "sha256": "e840b84b94100ab1106c5bb1c54eef8c8a649b9d523315f6533092df70c0cd0d",
+      "bytes": 171690
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.blend",
+      "sha256": "eb862df10139cd453ed5e2913d69f3fe5f0cd17cc7584b853dd89cb66ada8e64",
+      "bytes": 121635
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.blend",
+      "sha256": "183bcef3d2716ec4ecffb5b5dbc3ced53db7e4af94870a6d03c7156b46b58278",
+      "bytes": 138719
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/mooring.blend",
+      "sha256": "cc3073794796aeb978352c218b1737659b2d5605a350c1e3d71d23d27447029a",
+      "bytes": 81316
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/quoin.blend",
+      "sha256": "1e3aa4f7b5c7bc6d39b6e883b230f0b730095c0006156dd0d5eecb3678806684",
+      "bytes": 68505
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.blend",
+      "sha256": "62953156460a38ba501896bb1c2c42c3be135de7671e9e1ba3f2195b01b7bba4",
+      "bytes": 118717
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/sash.blend",
+      "sha256": "8715b5b154a2ff01a6509b061192f57e411fa4e86c2ed7857415e857e8eb988c",
+      "bytes": 80152
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.blend",
+      "sha256": "a1fe9a06579dbd50047760e3532cb145f5db3d82d014dc3c8f247e493fb6a526",
+      "bytes": 86666
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.blend",
+      "sha256": "8cbd39c814bba1c9c54319c8b8918746bc9ddec4f8c32891295e3ab24708968f",
+      "bytes": 76406
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/shop_door.blend",
+      "sha256": "7e1daba9e8d469f9310d2f1516cdd2d67e2414e8a8ff70848d65787e7c2283b6",
+      "bytes": 91362
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.blend",
+      "sha256": "27d55d79c0bd91a7f89085a306068de8763cc67dc8367407c3929984dcd08f0f",
+      "bytes": 89172
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.blend",
+      "sha256": "4c90c05926e10919cfe8884c31a728df2d85e5ee9cc39e521a37960afbeaac97",
+      "bytes": 83224
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/side_vent.blend",
+      "sha256": "80fb92184140d5cf03c64c946816cf5bc0262e4f5a2e8ac158436bd0a056aa46",
+      "bytes": 86493
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/storefront.blend",
+      "sha256": "4af81bf76ac21457ce1ca07cdf159bf8ec0bf986afe3b96c8c881f16449065f1",
+      "bytes": 82390
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/token_counter.blend",
+      "sha256": "472d74aa3387358aba044c73f8501a3a331baea930b49b97c2c01de0fcf125b1",
+      "bytes": 127573
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/tool_board.blend",
+      "sha256": "e4674ecfdc17ec5dfdebe99af9c1755c01917fe75bb93cc0868f0ded62758574",
+      "bytes": 130226
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.blend",
+      "sha256": "ab331153de1fe009903f6b4bfe19bc621ed18d1fda8afd1c87991b7958a51146",
+      "bytes": 91513
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.blend",
+      "sha256": "f7474e6d2c884f829c81a07d8c18840830cc2e44fae7989c0145a6fc3b8ff7b5",
+      "bytes": 109152
+    },
+    {
+      "path": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.blend",
+      "sha256": "e45a60a42b9874acaf51bc1f391e3934ec587e157216b1cb6ceaa3d7c4a2ae94",
+      "bytes": 117783
+    }
+  ],
+  "components": [
+    {
+      "asset_id": "SEA-SCENE-RAC-ACCESS-LADDER",
+      "asset_key": "access_ladder",
+      "version": "v001",
+      "objects_before": 23,
+      "objects_after": 1,
+      "triangles_before": 2308,
+      "triangles_after": 2308,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "b782bd250fced8e922a788091b3ac93020d5b15169012ef5ac303b74a4b12b6b",
+      "glb_sha256": "50cbf5e0c0a2d5fea90671769b6a11ab24cef38664e052126e1f6030046dea11",
+      "glb_triangles": 2308,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/access_ladder/access_ladder.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/access_ladder.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-BLUE",
+      "asset_key": "arcade_blue",
+      "version": "v001",
+      "objects_before": 47,
+      "objects_after": 3,
+      "triangles_before": 7500,
+      "triangles_after": 7500,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "97da54153d5366abaf188fed4059f6fa8c4454c67384332fcded1d5875d70796",
+      "glb_sha256": "654e4dd88b6fb2bc7c48b33486d768a733fb6c8f1dcd07f4e603f427110dbc15",
+      "glb_triangles": 7500,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/arcade_blue/arcade_blue.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/arcade_blue.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-YELLOW",
+      "asset_key": "arcade_yellow",
+      "version": "v001",
+      "objects_before": 47,
+      "objects_after": 3,
+      "triangles_before": 8180,
+      "triangles_after": 8180,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "e421e44d255a9178924c81a718797e0ba02abc00fc9735227df78aa01036dabc",
+      "glb_sha256": "6973058190ea8645b92c7a766dd9a631f5a6961559e3fd2e444490ed561927b1",
+      "glb_triangles": 8180,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/arcade_yellow/arcade_yellow.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/arcade_yellow.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-AWNING",
+      "asset_key": "awning",
+      "version": "v001",
+      "objects_before": 15,
+      "objects_after": 1,
+      "triangles_before": 9920,
+      "triangles_after": 9920,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "204a77705e59e9f46fa98682875ef7ed23afb3e836dc127d50922a8ebc8f139f",
+      "glb_sha256": "bbd234874ac478378e89ccafa8d8209c7b7c0f4fc5fa773dda52bd99542d6d27",
+      "glb_triangles": 9920,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/awning/awning.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/awning.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-A",
+      "asset_key": "brick_a",
+      "version": "v001",
+      "objects_before": 1,
+      "objects_after": 1,
+      "triangles_before": 220,
+      "triangles_after": 220,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "3896a767342386b2951df5be0ef7ea89b8bc78790bb149e3291245cb890151cb",
+      "glb_sha256": "e9ee8e88a6b4431017e4af41480fed0cf670b972511c89aaeb2650a7865250c9",
+      "glb_triangles": 220,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_a/brick_a.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_a.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-B",
+      "asset_key": "brick_b",
+      "version": "v001",
+      "objects_before": 1,
+      "objects_after": 1,
+      "triangles_before": 204,
+      "triangles_after": 204,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "258536297cf1189f85fb0251e4456a34f1d54e75b63b5896909e9d3981eb0626",
+      "glb_sha256": "0a96fe79f1e4680e0938aca644570d7b8c025f9ebea17c8f5b43478a6b282f81",
+      "glb_triangles": 204,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_b/brick_b.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_b.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-C",
+      "asset_key": "brick_c",
+      "version": "v001",
+      "objects_before": 1,
+      "objects_after": 1,
+      "triangles_before": 220,
+      "triangles_after": 220,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "c14af1a0763d04e5b7574ad5597d9e0970079225aa5b7bac25ba26013d363a17",
+      "glb_sha256": "7702882c31dbb665455570dda7882ff343de4478d9457280ed338c846bd50bfe",
+      "glb_triangles": 220,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_c/brick_c.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_c.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-MORTAR",
+      "asset_key": "brick_mortar",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 1,
+      "triangles_before": 1156,
+      "triangles_after": 1156,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "0403286d4d7bca27cc5350844cf5136b4a5a8087119e1cbcd428c75aa5c74905",
+      "glb_sha256": "541e51db7c5812ceb13833287258e3db7e48eb4daa57759d077693e99aaf066c",
+      "glb_triangles": 1156,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_mortar/brick_mortar.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_mortar.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-CLOTHESLINE",
+      "asset_key": "clothesline",
+      "version": "v001",
+      "objects_before": 8,
+      "objects_after": 1,
+      "triangles_before": 3440,
+      "triangles_after": 3440,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "893473e99a69ae59d34d4d05039c7c5fba9c9dedea5565422fe0a2685311bbf3",
+      "glb_sha256": "790ad9de934dd1c1124b3cec44648bea33fd459470f5487074ee7874584afe40",
+      "glb_triangles": 3440,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/clothesline/clothesline.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/clothesline.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-COFFEE-TABLE",
+      "asset_key": "coffee_table",
+      "version": "v001",
+      "objects_before": 28,
+      "objects_after": 3,
+      "triangles_before": 4948,
+      "triangles_after": 4948,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "6e965d164688ccb186f635ffa40604378dd3dc8f6bc009419c0c373eb0116ac2",
+      "glb_sha256": "bde0010003b8efd42475c786e764948dbc30694d505c25bce269d043bf8bdbdc",
+      "glb_triangles": 4948,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/coffee_table/coffee_table.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/coffee_table.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DECK-SURFACE",
+      "asset_key": "deck_surface",
+      "version": "v001",
+      "objects_before": 12,
+      "objects_after": 1,
+      "triangles_before": 528,
+      "triangles_after": 528,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "0b7530eb3dfa882299344a66c5f2a7b372cabe0ccad20ae4490364622ffaf7a2",
+      "glb_sha256": "e959ad784689ebb453108a23da131c4a2cd29f511d69fb76e788433e038ac363",
+      "glb_triangles": 528,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/deck_surface/deck_surface.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/deck_surface.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DRAINAGE",
+      "asset_key": "drainage",
+      "version": "v001",
+      "objects_before": 12,
+      "objects_after": 1,
+      "triangles_before": 4516,
+      "triangles_after": 4516,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "746419d21cb7ad56732ffbead801ebb2578fcb71a6e5657e8e49d2895fe3af5f",
+      "glb_sha256": "d4bd1c736131237aceb05a420751e27c3ca0f0729b82cb425696395631285a8d",
+      "glb_triangles": 4516,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/drainage/drainage.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/drainage.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+      "asset_key": "exterior_signs",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 1,
+      "triangles_before": 2972,
+      "triangles_after": 2972,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "9f3360be2cca5a480d083f76f4ae2cce34b32a655cde0a411a50381b865bb538",
+      "glb_sha256": "06e4a801da549d34076d801fad1f2332f1760cd9da7f967b76040574a18f9636",
+      "glb_triangles": 2972,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/exterior_signs/exterior_signs.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/exterior_signs.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+      "asset_key": "exterior_stair",
+      "version": "v001",
+      "objects_before": 34,
+      "objects_after": 2,
+      "triangles_before": 4680,
+      "triangles_after": 4680,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "16dd37c99080c832354a945ccbd19add45fe2c48c40f98b0e28f7e144e0972b9",
+      "glb_sha256": "611bd05c7d6c1134c16f0b0d134574c2cb56d8b303c39a873383a6a31506e584",
+      "glb_triangles": 4680,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/exterior_stair/exterior_stair.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/exterior_stair.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-FLOAT-BASE",
+      "asset_key": "float_base",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 1,
+      "triangles_before": 1316,
+      "triangles_after": 1316,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "f02019688f64baa25297a8ec6da5de007ead27650d72c031530ccc568dbe7e42",
+      "glb_sha256": "58850c66464100eeee1705139cb50d5060d459dc147d36c60f3425a630bf7192",
+      "glb_triangles": 1316,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/float_base/float_base.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/float_base.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-HEATER",
+      "asset_key": "heater",
+      "version": "v001",
+      "objects_before": 29,
+      "objects_after": 3,
+      "triangles_before": 6056,
+      "triangles_after": 6056,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "f7eb1a21a41cb805a37ff01dd92eb3aa01b6509f25acf58bae18358de666f529",
+      "glb_sha256": "29f6446fef965f437a87d091338371db82256fa686b827dacef7b7c8c8823b93",
+      "glb_triangles": 6056,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/heater/heater.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/heater.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LIGHTING",
+      "asset_key": "lighting",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 4,
+      "triangles_before": 2552,
+      "triangles_after": 2552,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "779ecb690022f2c46b1e845ffd0152a15fba52f40a488ad8f11e134204b90a56",
+      "glb_sha256": "f8e57feeab70a9b320aeb8d279905638d8c24185fb34c4efec3d61d3d96f75dc",
+      "glb_triangles": 2552,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/lighting/lighting.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/lighting.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-BED",
+      "asset_key": "loft_bed",
+      "version": "v001",
+      "objects_before": 28,
+      "objects_after": 1,
+      "triangles_before": 12316,
+      "triangles_after": 12316,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "cde3efce69005b32065c6451cfe515e64d1c7be1e53b61c9b81878df6393120d",
+      "glb_sha256": "9d7bdee74105c419b7d200c2901db8df635648140f23b8a84569eab5408f25d9",
+      "glb_triangles": 12316,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_bed/loft_bed.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_bed.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-CURTAIN",
+      "asset_key": "loft_curtain",
+      "version": "v001",
+      "objects_before": 12,
+      "objects_after": 2,
+      "triangles_before": 6020,
+      "triangles_after": 6020,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "938e365f2757331afd5ffbf349410830184ad4edb0f454295a02ce6475fd0e55",
+      "glb_sha256": "83c347ca97fc8df1a5e92b4055261ccaab7c4a89fcdeddd017366dd0b54b9485",
+      "glb_triangles": 6020,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_curtain/loft_curtain.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_curtain.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-DECK",
+      "asset_key": "loft_deck",
+      "version": "v001",
+      "objects_before": 14,
+      "objects_after": 1,
+      "triangles_before": 824,
+      "triangles_after": 824,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "48d0a132dfc748d81d2918c1d4b172489d0d3eee0c3a0b8e57bba8495b8ae65f",
+      "glb_sha256": "81e474570ff3c0b63a6d1108ef1cbb74dac74804d607d7edfa6c67c38fb4a0a0",
+      "glb_triangles": 824,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_deck/loft_deck.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_deck.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRAMES",
+      "asset_key": "loft_frames",
+      "version": "v001",
+      "objects_before": 30,
+      "objects_after": 1,
+      "triangles_before": 3288,
+      "triangles_after": 3288,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "b0b946850e6a170cafb9b7ed35805c3d709f8156596b18a2d485518bf0884841",
+      "glb_sha256": "e9dfb068f6e3c07ad6066a7d316d517962df16c1588c5c2d4b11aedcdc1e651c",
+      "glb_triangles": 3288,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_frames/loft_frames.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_frames.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRONT",
+      "asset_key": "loft_front",
+      "version": "v001",
+      "objects_before": 11,
+      "objects_after": 1,
+      "triangles_before": 1400,
+      "triangles_after": 1400,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "5ee902056622260d17ca06fccdce0092cf0af270c7164e6812403a6245cb345b",
+      "glb_sha256": "094baa751d0cc1531f722b2e3dd404ea97b1a42745446f0d6115df0932e538d9",
+      "glb_triangles": 1400,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_front/loft_front.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_front.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-ROOF",
+      "asset_key": "loft_roof",
+      "version": "v001",
+      "objects_before": 16,
+      "objects_after": 2,
+      "triangles_before": 13180,
+      "triangles_after": 13180,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "95f219b7df3f6085779ddcdbfb48d71cfc2553374cd60d76ac4a882576b997f6",
+      "glb_sha256": "d0ab09c8b965aca41ada0d34de28b5cf4146b5800cb4d825dc9089a7e2671418",
+      "glb_triangles": 13180,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_roof/loft_roof.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_roof.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELF",
+      "asset_key": "loft_shelf",
+      "version": "v001",
+      "objects_before": 64,
+      "objects_after": 1,
+      "triangles_before": 5072,
+      "triangles_after": 5072,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "c348b1275d21d8a7c2851f0b1ec77badffc21e412abdcb2a67f63c88dc0dd8a4",
+      "glb_sha256": "d80d5082b5f4864754c4eaa1140aa13125a7506fb7eb1feef22c293365a2e5f1",
+      "glb_triangles": 5072,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_shelf/loft_shelf.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_shelf.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELL",
+      "asset_key": "loft_shell",
+      "version": "v001",
+      "objects_before": 81,
+      "objects_after": 1,
+      "triangles_before": 6592,
+      "triangles_after": 6592,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "6a5f867d84d439bd3baa0fb442cc6ea373e1dd44aa71eca347b7f66b5dc8071a",
+      "glb_sha256": "760f71d128d382489df00473c31711847efe0cb3c08c32b43698f8589c38e779",
+      "glb_triangles": 6592,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_shell/loft_shell.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_shell.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-MOORING",
+      "asset_key": "mooring",
+      "version": "v001",
+      "objects_before": 3,
+      "objects_after": 1,
+      "triangles_before": 1504,
+      "triangles_after": 1504,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "0f2fc7771a9aad99892fcb59aff66233f480e530294c59f72dff3f9d5a694d0f",
+      "glb_sha256": "dfe5ae571dd92188a5a6f19929eb103c53afecaa5ea57eeb4245c5d856988551",
+      "glb_triangles": 1504,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/mooring/mooring.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/mooring.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-QUOIN",
+      "asset_key": "quoin",
+      "version": "v001",
+      "objects_before": 1,
+      "objects_after": 1,
+      "triangles_before": 172,
+      "triangles_after": 172,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "a036814db332e955dec622844656acfc6c391e6644bb2c65503d5ebfa7c6afd6",
+      "glb_sha256": "727160e6b9d259500db5b512681ed5bb4bdaa93d357086a23a6745fc6db85e9e",
+      "glb_triangles": 172,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/quoin/quoin.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/quoin.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-REPAIR-BENCH",
+      "asset_key": "repair_bench",
+      "version": "v001",
+      "objects_before": 57,
+      "objects_after": 4,
+      "triangles_before": 3928,
+      "triangles_after": 3928,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "a9bc702625fdd31224029dc262611bb7f392cbf9de3bd69c1be41a2db7200853",
+      "glb_sha256": "fcc79d41b879c12ede5680674687dca0afb922fd465f9b200317254a61b660d0",
+      "glb_triangles": 3928,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/repair_bench/repair_bench.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/repair_bench.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SASH",
+      "asset_key": "sash",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 2,
+      "triangles_before": 1156,
+      "triangles_after": 1156,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "00c328a3dd2d77efbd34731cf7eb637dffd268f3bed2c7a9deb77a41c4b702df",
+      "glb_sha256": "8d5b76e74f1d36928aa9f0d4ea084ef260ff96d7a5b6716d692d25af2baf335a",
+      "glb_triangles": 1156,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/sash/sash.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/sash.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+      "asset_key": "service_hardware",
+      "version": "v001",
+      "objects_before": 9,
+      "objects_after": 2,
+      "triangles_before": 2012,
+      "triangles_after": 2012,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "f1540ae1770eae7bd7fb18e7f2fcbd2ff4ef57524f2ba68d36767af5cf4a7c64",
+      "glb_sha256": "659e6f47b57d1c3167e548d7c04fd613dc91d4f2be781381b18fcf8d85a55702",
+      "glb_triangles": 2012,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/service_hardware/service_hardware.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/service_hardware.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHIPPING-CRATE",
+      "asset_key": "shipping_crate",
+      "version": "v001",
+      "objects_before": 9,
+      "objects_after": 1,
+      "triangles_before": 756,
+      "triangles_after": 756,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "379b446684119fcda82a0a79b2cef05ddd59c52929997718c0ec44b99187fa44",
+      "glb_sha256": "8ebbe878b5988b33994493c7df876a27849473b881de29d34bcc41b4d70d404c",
+      "glb_triangles": 756,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shipping_crate/shipping_crate.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shipping_crate.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-DOOR",
+      "asset_key": "shop_door",
+      "version": "v001",
+      "objects_before": 11,
+      "objects_after": 3,
+      "triangles_before": 1876,
+      "triangles_after": 1876,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "decf9a11d95e8e9e0e4fd162906b311100950eaf1882a720b737117da4471158",
+      "glb_sha256": "70627a84bf69d68d577e38f128c1bf5b0d2b1651d59476bd476f7e3b94223164",
+      "glb_triangles": 1876,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_door/shop_door.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_door.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-SHELL",
+      "asset_key": "shop_shell",
+      "version": "v001",
+      "objects_before": 25,
+      "objects_after": 1,
+      "triangles_before": 1980,
+      "triangles_after": 1980,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "29897e320fbb1fb3694c8c5e4849634f0979201d9e66570e2809fde2dcacadb6",
+      "glb_sha256": "131d55a274750996b60fb155a63577153207127a9daf9c1720cac3836c00d397",
+      "glb_triangles": 1980,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_shell/shop_shell.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_shell.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-STOOL",
+      "asset_key": "shop_stool",
+      "version": "v001",
+      "objects_before": 9,
+      "objects_after": 2,
+      "triangles_before": 2268,
+      "triangles_after": 2268,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "ed6555880fc114de5ca1180919d2c06ea60632df4c11f93de19d9d98e52c52ac",
+      "glb_sha256": "3b1d8cf8a3fb9777b1defeab8916214d0f6e8841e70f4f9fccc64eead81a292e",
+      "glb_triangles": 2268,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_stool/shop_stool.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_stool.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SIDE-VENT",
+      "asset_key": "side_vent",
+      "version": "v001",
+      "objects_before": 24,
+      "objects_after": 2,
+      "triangles_before": 1904,
+      "triangles_after": 1904,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "4531908fe458f709022c495a9f7ea9ed2fc972f4bd7f1359327b2b0a7207b79e",
+      "glb_sha256": "581362b34242d2d0e4b305fb01d1543cec7032946407f08ad594e1f9ae15fb7a",
+      "glb_triangles": 1904,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/side_vent/side_vent.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/side_vent.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-STOREFRONT",
+      "asset_key": "storefront",
+      "version": "v001",
+      "objects_before": 7,
+      "objects_after": 1,
+      "triangles_before": 1352,
+      "triangles_after": 1352,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "fd2546351ae90cdb124bf7f21c5d256cd965ceccc4a5245d844840fa386b8bd2",
+      "glb_sha256": "f86fd14987ae31f54e06bb1c61e1f31afd084f5194b09b9d04dbad606631d77e",
+      "glb_triangles": 1352,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/storefront/storefront.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/storefront.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOKEN-COUNTER",
+      "asset_key": "token_counter",
+      "version": "v001",
+      "objects_before": 61,
+      "objects_after": 3,
+      "triangles_before": 7760,
+      "triangles_after": 7760,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "d62d30e6866b42541eb6cb38e0faa6c610e501f92c84db4d3505370a9d75a251",
+      "glb_sha256": "d1f10ea0d183780f02db11f23b973675e13ba1b96c5e594314487b138d4ca213",
+      "glb_triangles": 7760,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/token_counter/token_counter.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/token_counter.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOOL-BOARD",
+      "asset_key": "tool_board",
+      "version": "v001",
+      "objects_before": 80,
+      "objects_after": 2,
+      "triangles_before": 14492,
+      "triangles_after": 14492,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "7c9e80afe44fc73bdb8a12a8029b5d41a259a946a6034f34f810837a8727caf7",
+      "glb_sha256": "9f503139e2aa835c8980d6ad412f22d29bb4ff37337603694243784b9ebd4168",
+      "glb_triangles": 14492,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/tool_board/tool_board.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/tool_board.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-POLE",
+      "asset_key": "utility_pole",
+      "version": "v001",
+      "objects_before": 27,
+      "objects_after": 3,
+      "triangles_before": 2908,
+      "triangles_after": 2908,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "8450ff93120282c32acd06704116ea7082854313880767358579ffd7b9532cfd",
+      "glb_sha256": "3b37ffd3ce27a30703eb81bff237a313330e18398ee9b67a6e0f4ab795e66c02",
+      "glb_triangles": 2908,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/utility_pole/utility_pole.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/utility_pole.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-RACK",
+      "asset_key": "utility_rack",
+      "version": "v001",
+      "objects_before": 57,
+      "objects_after": 2,
+      "triangles_before": 3020,
+      "triangles_after": 3020,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "d01e3c4d15f33517f3c069e8c902f4d36d3c848351a6fda4d601d2dce5e87699",
+      "glb_sha256": "a9afcee55a6c3b2d375f3ad2bf38b6f3ab121564fef3eac105605be58e7fbf04",
+      "glb_triangles": 3020,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/utility_rack/utility_rack.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/utility_rack.tscn"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-VENT-FAN",
+      "asset_key": "vent_fan",
+      "version": "v001",
+      "objects_before": 38,
+      "objects_after": 2,
+      "triangles_before": 6868,
+      "triangles_after": 6868,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "position_uv_role_sha256": "925677b00c5aa277a5b1e02c411d4ff26394df7a3b1d3cde4b0ac210da273296",
+      "glb_sha256": "62cc392cb6c6d1ba04a13fea6b92e026c7d42396603f96a18352a79815697df6",
+      "glb_triangles": 6868,
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/vent_fan/vent_fan.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/vent_fan.tscn"
+    }
+  ],
+  "optimization": [
+    "evaluated mesh triangles",
+    "merge within each component by material role",
+    "remove exact same-material face duplicates and zero-area faces; omit unused vertices",
+    "retain enclosed faces and silhouette detail when impact is not proven"
+  ],
+  "optimized_blend": {
+    "path": "art_source/scenes/rooftop_arcade/v001/export/v001/rooftop_arcade_runtime_optimized_v001.blend",
+    "sha256": "dee2d5fd60cd21b99387be15d1a9205e02dc81771ced53e6a4c502e57a5c5d27",
+    "bytes": 3797157
+  },
+  "role": "optimized",
+  "source_unchanged_after_export": true,
+  "source_unchanged_after_assembly": true,
+  "fidelity_psnr_db": {
+    "front": 69.024411,
+    "back": 71.782114,
+    "right": 66.696318,
+    "hero": 42.437227
+  }
+}

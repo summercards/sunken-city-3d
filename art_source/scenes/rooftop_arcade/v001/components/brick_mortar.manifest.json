@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-BRICK-MORTAR",
+  "name": "砖墙承托",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.blend",
+  "source_sha256": "646dc012c76ffc871859172e7dc204d826e79be8245adccdb79a2e83045aa351",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -1.449195384979248,
+      -1.0744999647140503,
+      0.0
+    ],
+    "max_m": [
+      1.449195384979248,
+      1.0945712327957153,
+      1.1799999475479126
+    ],
+    "size_m": [
+      2.898390769958496,
+      2.1690711975097656,
+      1.1799999475479126
+    ]
+  },
+  "asset_key": "brick_mortar",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-BRICK-MORTAR",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

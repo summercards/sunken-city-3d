@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3120" height="2080" viewBox="0 0 1560 1040" role="img" aria-labelledby="title desc">
+<title id="title">淹没之城：晴空水巷 · 海上总平面规划图</title>
+<desc id="desc">基于 Godot 主场景手摆位置的虚构游戏场景规划图。现状地标、概念航线和规划预留分别标明。图上北为世界负 Z 轴。</desc>
+<defs>
+  <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#111e29"/><stop offset="1" stop-color="#0b1721"/></linearGradient>
+  <linearGradient id="sea" x2="0.85" y2="1"><stop stop-color="#1a484d"/><stop offset=".51" stop-color="#153e4a"/><stop offset="1" stop-color="#102a3d"/></linearGradient>
+  <radialGradient id="shoal"><stop stop-color="#86d0ab" stop-opacity=".28"/><stop offset="1" stop-color="#62bba5" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" patternUnits="userSpaceOnUse" width="61" height="61" x="442" y="360"><path d="M61 0H0V61" fill="none" stroke="#8cc7c0" stroke-opacity=".18"/><circle cx="0" cy="0" r="2" fill="#95dcd1" opacity=".27"/></pattern>
+  <pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(38)"><path d="M0 0V9" stroke="#edbd72" opacity=".28" stroke-width="2"/></pattern>
+  <pattern id="wood" patternUnits="userSpaceOnUse" width="5" height="5"><rect width="5" height="5" fill="#d0a17c"/><path d="M0 1H5" stroke="#7c6555" stroke-opacity=".37" stroke-width=".8"/></pattern>
+  <pattern id="bed" patternUnits="userSpaceOnUse" width="8" height="7"><rect width="8" height="7" fill="#566643"/><circle cx="2" cy="2" r="1.7" fill="#a9bd72"/><circle cx="6" cy="5" r="1.4" fill="#7e9c59"/></pattern>
+  <clipPath id="frame"><rect x="37" y="163" width="1096" height="808" rx="12"/></clipPath>
+  <marker id="arrow" viewBox="0 0 12 12" markerWidth="9" markerHeight="9" refX="9" refY="6" orient="auto-start-reverse"><path d="m1 1 10 5-10 5 2-5z" fill="#9de2cc"/></marker>
+  <marker id="arrowGold" viewBox="0 0 12 12" markerWidth="9" markerHeight="9" refX="9" refY="6" orient="auto-start-reverse"><path d="m1 1 10 5-10 5 2-5z" fill="#efc17a"/></marker>
+  <g id="spark" fill="none" stroke="#a9e3d6" stroke-width="1" stroke-linecap="round"><path d="M-8 0q4-2 8 0t8 0m-12 4q4-2 8 0"/></g>
+  <g id="tree"><circle cx="2" cy="3" r="6" fill="#142f2d" opacity=".5"/><circle r="6" fill="#678d60" stroke="#385e4d"/><circle cx="-1.5" cy="-1.5" r="3.2" fill="#b8c586"/></g>
+  <g id="dock"><circle r="9" fill="#163c45" stroke="#a4e0cd" stroke-width="1.4"/><path d="M0-3.3v8M-4 1q0 3.1 4 3.1t4-3.1m-6-2h4" fill="none" stroke="#d0fae1" stroke-width="1.1" stroke-linecap="round"/><circle cy="-4" r="1.3" fill="#cfeddf"/></g>
+  <g id="house" stroke="#405254" stroke-width="1.1" stroke-linejoin="round">
+    <path d="M-38-34h68v54h19v17H-37z" fill="#b1e2c0" opacity=".33" transform="translate(3 6) scale(1.10)" stroke="#aff4da" stroke-width="2"/>
+    <path d="M-35-31h65v51h17v15h-82z" transform="translate(4 5)" fill="#453e3a" opacity=".55"/>
+    <path d="M-36-32h65v50h19v16h-84z" fill="url(#wood)"/>
+    <path d="M-25-27 18-27 22-20 22 8-25 8z" fill="#d3cbb1"/>
+    <path d="M-28-28h51V1h-51z" fill="#ede4cf"/>
+    <path d="M-26-28h47L17-32h-37z" fill="#fff3d9"/>
+    <path d="M-23-24h30v18h-30z" fill="#2b6081"/><path d="M-14-24v18m11-18v18m-20-9h30" fill="none" stroke="#8cb7c2"/>
+    <path d="M10-23h8v15h-8z" fill="#93c7c2"/><path d="M-24 3h46v17l-11 7h-35z" fill="#c9e2d6"/><path d="M-22 6h41v13l-9 5h-32z" fill="#6bb4b5"/>
+    <path d="M-10 6v18M0 6v18M10 6v18m-32-9h39" fill="none" stroke="#deeee2"/>
+    <path d="M27 23h14v7H27z" fill="#b86348"/><path d="M-32-28v57m0-61h60m11 62h7" fill="none" stroke="#f5d7b1" stroke-width="2"/>
+    <use href="#tree" x="-29" y="26"/><use href="#tree" x="25" y="9"/>
+    <circle cx="46" cy="32" r="2" fill="#f4e8c5"/>
+  </g>
+  <g id="rail" transform="rotate(-14)" stroke-linejoin="round">
+    <rect x="-43" y="-16" width="86" height="32" rx="4" fill="#9de2cb" opacity=".28"/>
+    <path d="M-40-13h75l7 9-8 12-72 4z" fill="#c7c0a7" stroke="#557275"/>
+    <path d="M-39 4 38 0m-75 10 71-4" stroke="#5c5c51" stroke-width="1.7"/>
+    <path d="M-31 2v9m8-10v9m8-10v9m8-9v8M1-1v9m8-9v8m8-9v8m8-8v7m8-7v6" stroke="#8d7763"/>
+    <rect x="-29" y="-9" width="52" height="12" rx="4" fill="#354e53" opacity=".55" transform="translate(1 2)"/>
+    <rect x="-29" y="-10" width="52" height="12" rx="4" fill="#7db9a7" stroke="#395c63"/>
+    <rect x="-25" y="-8" width="43" height="6" rx="2" fill="#eee3c8"/>
+    <path d="M-18-9v7m8-7v7m8-7v7m8-7v7m8-7v7" stroke="#599196"/>
+    <path d="M-36-14h14m48 0h7" stroke="#e3d6af" stroke-width="2"/>
+  </g>
+  <g id="ranch" transform="rotate(-19)" stroke="#48604e" stroke-width="1.1" stroke-linejoin="round">
+    <rect x="-39" y="-35" width="81" height="75" rx="12" fill="#76bd9f" opacity=".26" stroke="#a7dac9"/>
+    <path d="M-33-30h66v61h-66z" fill="#5a8282" transform="translate(3 6)"/>
+    <path d="M-34-32h67v61h-67z" fill="#d4cbb3"/><path d="M-31-28h60v54h-60z" fill="#91a566"/>
+    <path d="M-30 6 29-4m-45-24 12 53" fill="none" stroke="#d9cb98" stroke-width="4"/>
+    <path d="M-24-23h24v18h-24z" fill="#7aafa6"/><path d="M-24-23h24v18h-24zM-16-23v18m8-18v18m-16-9H0" fill="none" stroke="#dfdfc4"/>
+    <path d="M6 4h17v14H6z" fill="url(#bed)"/><path d="M8-22h16v11H8z" fill="#ba7e55"/><path d="M8-17h16" stroke="#f1bb84"/>
+    <path d="M33-8h8v32h-8m1-28h6m-6 6h6m-6 6h6m-6 6h6m-6 6h6" fill="none" stroke="#dcc09b" stroke-width="1.6"/>
+    <use href="#tree" x="-22" y="18"/><use href="#tree" x="14" y="-1"/>
+  </g>
+  <g id="plot" stroke="#555a46" stroke-width=".9">
+    <rect x="-26" y="-20" width="52" height="40" rx="8" fill="#b5e9c8" opacity=".3" stroke="#c8f3d9"/>
+    <rect x="-23" y="-17" width="47" height="34" rx="2" fill="url(#wood)"/>
+    <g fill="url(#bed)" stroke="#a57452" stroke-width="1.6"><rect x="-17" y="-11" width="9" height="9"/><rect x="-4" y="-11" width="9" height="9"/><rect x="9" y="-11" width="9" height="9"/><rect x="-17" y="3" width="9" height="9"/><rect x="-4" y="3" width="9" height="9"/><rect x="9" y="3" width="9" height="9"/></g>
+  </g>
+  <g id="winch" transform="rotate(-42)" stroke-linejoin="round">
+    <rect x="-16" y="-12" width="33" height="25" rx="3" fill="url(#wood)" stroke="#5d6660"/>
+    <path d="m-9 7 3-13h11l4 13m-11-8h6m-3-4v14" fill="none" stroke="#514e42" stroke-width="2"/><circle cx="9" cy="-5" r="2.7" fill="#e0c59e"/>
+  </g>
+  <g id="neon" transform="rotate(-16)" stroke="#465e68" stroke-width="1.1" stroke-linejoin="round">
+    <path d="M-59-28 16-39l45 34-6 35-59 18-55-27Z" fill="#5f9aa0" opacity=".32" stroke="#9ccbce" stroke-dasharray="3 3"/>
+    <path d="M-50-20h34v52h-34zm37-13h35v30h-35zm35 19h22l11 9v31l-11 10H14v-48Z" fill="#6c8994" transform="translate(2 6)"/>
+    <path d="M-51-25h36v52h-36zm38-13h35v30h-35zm34 19h23l11 9v31l-11 10H14v-48Z" fill="#c0c4b3"/>
+    <rect x="-47" y="-21" width="28" height="31" fill="#798e67"/><rect x="-43" y="-15" width="19" height="15" fill="url(#bed)"/>
+    <path d="M-10-34h29v23h-29zM19-16h24l8 7v28l-8 8H19z" fill="#879d8f"/><path d="M-6-30h10v13H-6zM28-10h14v29H28z" fill="#526c72"/>
+    <path d="M-16 4h30v11h-30z" fill="#cab68d"/><path d="M-13 6h24v6h-24z" fill="#809a69"/>
+    <path d="M-51 17h25v5h-25z" fill="#b97555"/><path d="M48-13v36" stroke="#b6e0d3" stroke-width="2"/>
+    <use href="#tree" x="-39" y="8"/><use href="#tree" x="9" y="-25"/>
+  </g>
+  <g id="shop" stroke="#536261" stroke-width="1.05" stroke-linejoin="round">
+    <rect x="-39" y="-29" width="78" height="62" rx="9" fill="#a6d6bd" opacity=".28" stroke="#a8e2d1"/>
+    <rect x="-36" y="-26" width="72" height="55" rx="3" fill="#53606a" transform="translate(2 4)"/>
+    <rect x="-36" y="-26" width="72" height="55" rx="3" fill="url(#wood)"/>
+    <path d="M-26-21h52v35h-52z" fill="#e4d8b8"/>
+    <path d="M-24-19h48v29h-48z" fill="#f0e1c7"/><path d="M-23-17h46v8h-46z" fill="#fff0d6"/>
+    <path d="M-28 11h56l5 10h-66z" fill="#dbe8d9"/><path d="M-23 11h6l-3 10h-7zm13 0h5l-1 10h-6zm13 0h5l1 10H3zm13 0h5l4 10h-6z" fill="#547d97" stroke="none"/>
+    <path d="M-34-22v48m68-48v48M-33-24h66m-65 51h21m22 0h21" stroke="#f4d1ab" stroke-width="1.7" fill="none"/>
+    <circle cx="30" cy="24" r="3" fill="#bd674e"/>
+  </g>
+  <g id="ruin" stroke="#7ca7ae" stroke-width="1.25" fill="#4b7987" stroke-linejoin="round">
+    <path d="M-21-11h18v6l-3 4v11h-15zm24-4h18v20h-7l-1 7H3z"/><path d="M-17-7h8v11h-8m24-14h10v11H7" fill="none" stroke-dasharray="2 2"/><path d="M-23 15h39" fill="none" stroke-dasharray="3 3"/>
+  </g>
+  <style>
+    text{font-family:'Hiragino Sans GB','PingFang SC','Microsoft YaHei',sans-serif;fill:#e9efe8} .latin{font-family:'DIN Alternate','Arial',sans-serif;letter-spacing:2.5px} .mono{font-family:'Menlo','Consolas',monospace;letter-spacing:1px} .muted{fill:#9eb9ba} .mint{fill:#a8dfc6} .amber{fill:#f1c582} .navy{fill:#142f3b} .mapname{font-size:17px;font-weight:700} .mapsub{font-size:12px;fill:#b8d8d7} .sideTitle{font-size:17px;font-weight:700} .sideCopy{font-size:14px;fill:#a8bec1} .badgeText{font-size:12px;dominant-baseline:middle;text-anchor:middle;font-family:'Menlo',monospace;font-weight:700} .leader{fill:none;stroke:#b0d3c7;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round} .label{fill:#112f3a;fill-opacity:.94;stroke:#56857f;stroke-width:1} .edge{fill:#9ac9c6;font-size:10.5px;font-family:'Menlo',monospace;letter-spacing:1px}
+  </style>
+</defs>
+<path d="M0 0h1560v1040H0z" fill="url(#paper)"/>
+<!-- Editorial header -->
+<g transform="translate(39 29)"><rect width="48" height="47" rx="10" fill="#a8dfc6"/><path d="M9 19q5-4 10 0t10 0 10 0m-30 9q5-4 10 0t10 0 10 0" fill="none" stroke="#153840" stroke-width="2" stroke-linecap="round"/></g>
+<text x="103" y="47" class="latin mint" font-size="14">SEA / WORLD DESIGN</text>
+<text x="103" y="72" fill="#cedfda" font-size="16" letter-spacing="2">淹没之城：晴空水巷</text>
+<text x="38" y="131" font-size="45" letter-spacing="1.2" font-weight="700">海上总平面规划图</text>
+<text x="477" y="124" class="muted" font-size="17">从阳光房出发：近海生活、屋顶探索、外海补给</text>
+<g transform="translate(1257 34)"><rect width="264" height="102" rx="10" fill="#172833" stroke="#3a545e"/><text x="16" y="26" class="latin mint" font-size="14">SITE PLAN</text><text x="247" y="26" class="mono muted" font-size="13" text-anchor="end">SEA–01</text><path d="M16 39h232" stroke="#3d5860"/><text x="16" y="64" font-size="17" font-weight="700">布局推演 · 概念稿</text><text x="16" y="86" class="mono muted" font-size="11">V01 / 2026.11.19</text></g>
+<!-- Plan field -->
+<g clip-path="url(#frame)">
+  <rect x="37" y="163" width="1096" height="808" fill="url(#sea)"/>
+  <ellipse cx="369" cy="360" rx="365" ry="260" fill="url(#shoal)"/>
+  <ellipse cx="750" cy="660" rx="300" ry="264" fill="url(#shoal)" opacity=".4"/>
+  <ellipse cx="862" cy="800" rx="251" ry="198" fill="url(#shoal)" opacity=".7"/>
+  <g fill="none" stroke="#9ad5c6" opacity=".2" stroke-width="1">
+    <path d="M35 309c63-2 184-116 310-118 172-3 303 96 284 195-26 124-167 106-234 182-79 89-10 199-186 224-55 8-125-22-183-68"/>
+    <path d="M35 334c69-27 196-119 306-122 166-5 288 90 271 172-24 116-172 105-245 187-76 87-28 185-177 190-50 2-115-14-162-55"/>
+    <path d="M24 366c74-37 203-136 321-139 153-4 270 83 248 156-32 106-173 99-249 178-71 76-39 147-163 161-58 7-114-15-154-49"/>
+    <path d="M37 394c95-36 190-139 305-146 129-8 238 79 223 133-28 98-182 111-250 178-62 62-42 135-148 142-47 4-92-14-141-52"/>
+    <path d="M1073 281c-93 89-194 65-241 151-62 114 101 163-10 257-44 37-157 35-165 147-6 72 63 123 148 140M1128 304c-114 77-227 70-272 147-62 106 100 158 2 248-47 44-166 42-174 142-5 63 53 108 152 135M1137 341c-106 65-214 61-257 130-60 97 103 150 4 239-62 55-161 37-174 142-7 54 73 106 153 125M1138 381c-98 45-201 44-236 113-43 86 100 138 4 226-60 55-163 34-173 139-6 56 81 97 154 117"/>
+  </g>
+  <rect x="37" y="163" width="1096" height="808" fill="url(#grid)"/>
+  <g opacity=".35"><use href="#spark" x="153" y="263"/><use href="#spark" x="218" y="281"/><use href="#spark" x="226" y="491"/><use href="#spark" x="268" y="642"/><use href="#spark" x="538" y="603"/><use href="#spark" x="692" y="546"/><use href="#spark" x="930" y="605"/><use href="#spark" x="1018" y="647"/><use href="#spark" x="1098" y="731"/><use href="#spark" x="1032" y="780"/><use href="#spark" x="527" y="816"/><use href="#spark" x="456" y="863"/><use href="#spark" x="519" y="890"/><use href="#spark" x="651" y="272"/><use href="#spark" x="790" y="242"/><use href="#spark" x="855" y="275"/><use href="#spark" x="955" y="344"/><use href="#spark" x="923" y="412"/><use href="#spark" x="607" y="705"/><use href="#spark" x="350" y="831"/></g>
+  <!-- Underwater context: illustrative plans rather than surveyed silhouettes -->
+  <g transform="translate(427 408) rotate(-14)" opacity=".41" stroke="#6d9fa3" stroke-width="1.2" fill="#285665">
+    <path d="M-169-40h52v48h-52zm64-10h38v55h-38zm47 8h24v22h-24zM-159 23h34v36h-34zm47 2h61v18h-61zM-148 71h45v32h-45zm62-15h33v49h-33zm46 4h38v17h-38zm54 10h61v42H14zm72-13h37v32H86zm52-13h38v32h-38zM-85 124h29v38h-29zm43-20h32v29h-32zm52 26h46v19H10zm67-13h25v32H77z"/>
+    <path d="M-182 14h122M-174 64h120m17 33h199m-201 23h109M-100 3v123m95-70v62M69 52v93m62-100v67" fill="none" stroke-width="2" stroke-dasharray="3 4"/>
+  </g>
+  <use href="#ruin" x="655" y="502" opacity=".69" transform="rotate(-17 655 502)"/>
+  <use href="#ruin" x="966" y="851" opacity=".8" transform="rotate(39 966 851)"/>
+  <use href="#ruin" x="1022" y="847" opacity=".62" transform="rotate(-4 1022 847)"/>
+  <path d="M932 822q60-17 108 4l17 33-13 18-99-1-12-18Z" fill="none" stroke="#82adb3" stroke-width="1" stroke-dasharray="3 5" opacity=".7"/>
+  <!-- Future reservable spaces and routes -->
+  <path d="M560 256q49-15 79 4l20 26-30 28-58-3-24-24Z" fill="#a87540" fill-opacity=".19" stroke="#efc17a" stroke-width="1.8" stroke-dasharray="7 5"/><path d="M560 256q49-15 79 4l20 26-30 28-58-3-24-24Z" fill="url(#hatch)"/>
+  <path d="M755 447q36-13 77 1l18 27-26 23-61-3-23-26Z" fill="#a87540" fill-opacity=".19" stroke="#efc17a" stroke-width="1.8" stroke-dasharray="7 5"/><path d="M755 447q36-13 77 1l18 27-26 23-61-3-23-26Z" fill="url(#hatch)"/>
+  <path d="M540 366Q562 332 580 318M695 555Q736 534 764 504" fill="none" stroke="#f1c482" stroke-width="1.6" stroke-dasharray="4 5" marker-end="url(#arrowGold)"/>
+  <g fill="none" stroke="#9de2cc" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="6 7" marker-end="url(#arrow)">
+    <path d="M450 442C441 476 427 495 411 498C347 512 276 473 235 430C220 415 208 404 192 395"/>
+    <path d="M184 379C200 325 222 301 259 297C285 295 304 300 316 303"/>
+    <path d="M369 320C386 333 396 354 415 371"/>
+    <path d="M454 441C464 455 478 455 490 439"/>
+    <path d="M497 459C511 509 534 539 576 555C626 573 654 550 704 551C741 551 790 574 802 601"/>
+    <path d="M816 640C845 672 857 710 859 749C860 763 867 779 876 788"/>
+  </g>
+  <!-- Projected landmark anchors, x=442+3.05*X / y=360+3.05*Z -->
+  <use href="#house" x="461" y="368"/>
+  <use href="#rail" x="351" y="305"/>
+  <use href="#plot" x="509" y="409"/>
+  <use href="#winch" x="400" y="399"/>
+  <use href="#ranch" x="175" y="380"/>
+  <use href="#neon" x="767" y="631"/>
+  <use href="#shop" x="892" y="799"/>
+  <use href="#dock" x="452" y="431"/><use href="#dock" x="327" y="316"/><use href="#dock" x="491" y="410"/><use href="#dock" x="185" y="388"/><use href="#dock" x="813" y="629"/><use href="#dock" x="883" y="827"/>
+  <!-- Labels and callouts -->
+  <path class="leader" d="M452 331l-11-92h-21M352 285v-18l-25-14M155 410l-18 35h-24M394 413l-20 24h-30M530 404l22-20h14M749 656l-24 44h-18M883 829l-24 35h-17"/>
+  <g transform="translate(396 211)"><rect class="label" width="167" height="52" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">01</text><text x="40" y="25" class="mapname">阳光房家园</text><text x="40" y="43" class="mapsub">主泊位 · 修缮</text></g>
+  <g transform="translate(232 222)"><rect class="label" width="150" height="51" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">02</text><text x="40" y="25" class="mapname">横滨铁道</text><text x="40" y="42" class="mapsub">旧站台 · 复古电车</text></g>
+  <g transform="translate(563 351)"><rect class="label" width="170" height="51" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">03</text><text x="40" y="25" class="mapname">浅水种植台</text><text x="40" y="42" class="mapsub">初始六格培养土</text></g>
+  <g transform="translate(63 442)"><rect class="label" width="160" height="51" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">04</text><text x="40" y="25" class="mapname">顶层牧场</text><text x="40" y="42" class="mapsub">从原消防梯登顶</text></g>
+  <g transform="translate(617 695)"><rect class="label" width="196" height="52" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">05</text><text x="40" y="25" class="mapname">霓虹花园</text><text x="40" y="43" class="mapsub">街道沉没 · 左楼可登顶</text></g>
+  <g transform="translate(737 861)"><rect class="label" width="175" height="52" rx="7"/><rect x="8" y="8" width="25" height="22" rx="4" fill="#b7e8c8"/><text x="20.5" y="20" class="badgeText" style="fill:#193641">06</text><text x="40" y="25" class="mapname">海上补给站</text><text x="40" y="43" class="mapsub">独立浮店 · 可停靠</text></g>
+  <g transform="translate(267 432)"><rect class="label" width="92" height="26" rx="6"/><text x="46" y="18" text-anchor="middle" class="mapsub">绞盘打捞台</text></g>
+  <path d="M655 481v7m334 388 9 23h68M359 550l-23 23h-42" class="leader" opacity=".6"/>
+  <text x="655" y="475" class="mapsub" text-anchor="middle">旧驿站 · 水下景观</text><text x="936" y="919" class="mapsub">沉没建筑列 001 / 002</text>
+  <text x="232" y="592" class="mapsub" letter-spacing="1">沉没旧城 · 水下轮廓示意</text>
+  <g transform="translate(565 273)"><rect width="25" height="24" rx="6" fill="#f1c582"/><text x="12.5" y="13" class="badgeText" style="fill:#193641">A</text><text x="32" y="17" class="amber" font-size="14" font-weight="700">扩建浮台</text></g>
+  <g transform="translate(753 459)"><rect width="25" height="24" rx="6" fill="#f1c582"/><text x="12.5" y="13" class="badgeText" style="fill:#193641">B</text><text x="32" y="17" class="amber" font-size="14" font-weight="700">中途泊点</text></g>
+  <text x="84" y="218" class="latin mint" font-size="13" opacity=".8">01 / HOME WATERS</text>
+  <text x="951" y="562" class="latin mint" font-size="12" opacity=".62">02 / OPEN WATER</text>
+  <g transform="translate(1047 246)"><circle r="36" fill="#143643" stroke="#7eb6b1" stroke-opacity=".7"/><circle r="27" fill="none" stroke="#80b7b4" stroke-opacity=".35" stroke-dasharray="2 5"/><path d="M0-26 9 11 0 6-9 11Z" fill="#e5f3df"/><path d="M0-26V6l-9 5Z" fill="#7fc2ae"/><path d="M-24 0h7m34 0h7M0 17v7" stroke="#88bbb7" stroke-width="1"/><text x="0" y="-45" text-anchor="middle" class="mono mint" font-size="14">N</text><text x="0" y="57" text-anchor="middle" class="edge">−Z</text></g>
+  <g transform="translate(69 909)"><rect x="-10" y="-22" width="195" height="47" rx="6" fill="#153744" opacity=".9"/><path d="M0 7h153M0 2v10m76-10v10m77-10v10" fill="none" stroke="#d0e7dc" stroke-width="1.3"/><path d="M0 7h76" stroke="#c6e6d5" stroke-width="4"/><text x="0" y="-5" class="edge">0</text><text x="70" y="-5" class="edge">25</text><text x="139" y="-5" class="edge">50 m</text></g>
+</g>
+<rect x="37" y="163" width="1096" height="808" rx="12" fill="none" stroke="#4f737b" stroke-width="1.2"/>
+<!-- Right reading column -->
+<g transform="translate(1155 163)">
+  <rect width="367" height="808" rx="12" fill="#172934" stroke="#38535e"/>
+  <text x="25" y="34" class="latin mint" font-size="12">READ THE PLAN</text>
+  <text x="25" y="70" font-size="25" font-weight="700">分区与游玩动线</text>
+  <path d="M25 90h317" stroke="#3d5962"/>
+  <g transform="translate(26 113)">
+    <rect width="77" height="23" rx="5" fill="#243d47"/><text x="9" y="16" class="mono mint" font-size="11">01—03</text>
+    <text x="88" y="17" class="sideTitle">家园近海 · 日常生活</text>
+    <text x="0" y="47" class="sideCopy">修缮阳光房、种植和打捞集中在近海。</text>
+    <text x="0" y="69" class="sideCopy">主泊位留出进出水面，扩建向东北侧展开。</text>
+  </g>
+  <g transform="translate(26 204)">
+    <rect width="77" height="23" rx="5" fill="#243d47"/><text x="9" y="16" class="mono mint" font-size="11">02 / 04</text>
+    <text x="88" y="17" class="sideTitle">西侧 · 短程探索</text>
+    <text x="0" y="47" class="sideCopy">串联铁道站台与顶层牧场，绕回家园。</text>
+    <text x="0" y="69" class="sideCopy">用电车和露出水面的屋顶作辨向地标。</text>
+  </g>
+  <g transform="translate(26 295)">
+    <rect width="77" height="23" rx="5" fill="#243d47"/><text x="9" y="16" class="mono mint" font-size="11">05 / 06</text>
+    <text x="88" y="17" class="sideTitle">东南 · 屋顶与补给</text>
+    <text x="0" y="47" class="sideCopy">先沿水道到霓虹花园，从左楼上屋顶。</text>
+    <text x="0" y="69" class="sideCopy">再往东南靠浮店；沉没街口不作登陆点。</text>
+  </g>
+  <path d="M25 386h317" stroke="#3d5962"/>
+  <text x="25" y="420" font-size="18" font-weight="700">建议新增</text>
+  <text x="342" y="420" text-anchor="end" class="latin amber" font-size="11">PROPOSED</text>
+  <g transform="translate(25 439)"><rect width="317" height="51" rx="7" fill="#332f2b" stroke="#766346"/><rect x="9" y="12" width="25" height="25" rx="6" fill="#f1c582"/><text x="21.5" y="25" class="badgeText" style="fill:#193641">A</text><text x="46" y="22" class="sideTitle">家园扩建浮台</text><text x="46" y="41" class="sideCopy">预留拼接平台、花圃与休憩位。</text></g>
+  <g transform="translate(25 501)"><rect width="317" height="51" rx="7" fill="#332f2b" stroke="#766346"/><rect x="9" y="12" width="25" height="25" rx="6" fill="#f1c582"/><text x="21.5" y="25" class="badgeText" style="fill:#193641">B</text><text x="46" y="22" class="sideTitle">外海中途泊点</text><text x="46" y="41" class="sideCopy">小浮台作停船休息与辨向节点。</text></g>
+  <path d="M25 579h317" stroke="#3d5962"/>
+  <text x="25" y="612" font-size="18" font-weight="700">图例</text>
+  <g transform="translate(25 638)"><rect y="-9" width="19" height="16" rx="3" fill="#b7e8c8"/><text x="29" y="5" class="sideCopy">现有地标</text><use href="#dock" x="174" y="-1"/><text x="193" y="5" class="sideCopy">靠泊点示意</text></g>
+  <g transform="translate(25 672)"><path d="M0-1h24" stroke="#9de2cc" stroke-width="2" stroke-dasharray="4 3"/><text x="29" y="5" class="sideCopy">建议航线</text><rect x="165" y="-9" rx="3" width="19" height="16" fill="url(#hatch)" stroke="#efc17a"/><text x="193" y="5" class="sideCopy">规划预留</text></g>
+  <g transform="translate(25 706)"><rect y="-9" width="19" height="16" rx="3" fill="#4c7481" stroke-dasharray="2 2" stroke="#8fb3ba"/><text x="29" y="5" class="sideCopy">水下观赏景观（不表示码头）</text></g>
+  <g transform="translate(25 734)"><rect width="317" height="52" rx="7" fill="#203742"/><text x="12" y="21" class="sideCopy">比例尺仅用于地标间距。建筑外形、</text><text x="12" y="40" class="sideCopy">水深线与航线为示意，未作通航验收。</text></g>
+</g>
+<text x="38" y="1005" class="latin muted" font-size="11">SEA • WORLD DESIGN / SURFACE LAYER</text>
+<text x="519" y="1006" class="muted" font-size="12">地标按 Godot 主场景现状投影 · 本图未改动场景 · 北向为游戏坐标示意</text>
+<text x="1520" y="1007" class="mono mint" font-size="14" text-anchor="end">SEA–01 / V01</text>
+</svg>

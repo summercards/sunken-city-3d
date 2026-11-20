@@ -1,0 +1,57 @@
+{
+  "asset_id": "SEA-SCENE-RAC-UTILITY-RACK",
+  "name": "底层货架",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "furnishing",
+  "category_label": "固定设施",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "furnishing"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.blend",
+  "source_sha256": "f7474e6d2c884f829c81a07d8c18840830cc2e44fae7989c0145a6fc3b8ff7b5",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.349846750497818,
+      -0.15292160212993622,
+      0.0
+    ],
+    "max_m": [
+      0.349846750497818,
+      0.1488349884748459,
+      1.440000057220459
+    ],
+    "size_m": [
+      0.699693500995636,
+      0.3017565906047821,
+      1.440000057220459
+    ]
+  },
+  "asset_key": "utility_rack",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-UTILITY-RACK",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

@@ -1,0 +1,52 @@
+{
+  "version": "v001",
+  "scope": "minimal_3c_graybox",
+  "source_kind": "native_godot_scene",
+  "reference_image": null,
+  "style_exception": "Godot whitebox for physics and 3C; no Blender, GLB, decorative mesh, or architectural finish. The checked-in TSCNs are the editable geometry sources.",
+  "axis": "Godot Y up; +Z faces the approach/ocean; one unit = one metre",
+  "components": [
+    {
+      "asset_id": "SEA-SCENE-MIN3C-DECK",
+      "building_class": "above_water",
+      "family": "structure/platform",
+      "runtime": "godot/scenes/components/minimal_main/deck.tscn",
+      "origin": "bottom center",
+      "bounds_m": [8.0, 1.6, 6.0],
+      "visual": "BoxMesh",
+      "collision": "one matching static BoxShape3D",
+      "instances": 1,
+      "mesh_budget": 1,
+      "material_budget": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-RAMP",
+      "building_class": "above_water",
+      "family": "structure/grade_transition",
+      "runtime": "godot/scenes/components/minimal_main/ramp.tscn",
+      "origin": "bottom center of upper join",
+      "bounds_m": [3.2, 1.6, 6.0],
+      "rise_m": 1.0,
+      "slope_run_m": 3.6,
+      "apron_run_m": 2.4,
+      "visual": "closed extruded profile",
+      "collision": "matching static convex wedge and apron box",
+      "instances": 1,
+      "mesh_budget": 1,
+      "material_budget": 1
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-TIMBER",
+      "building_class": "above_water",
+      "family": "structure/fixed_water_obstacle",
+      "runtime": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+      "origin": "bottom center",
+      "bounds_m": [2.4, 0.95, 2.0],
+      "visual": "wood-tone BoxMesh; exact-envelope graybox exception",
+      "collision": "matching static BoxShape3D; no movement or gameplay service",
+      "instances": 3,
+      "mesh_budget": 1,
+      "material_budget": 1
+    }
+  ]
+}

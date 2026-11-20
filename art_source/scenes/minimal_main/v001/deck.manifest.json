@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-MIN3C-DECK",
+  "asset_id": "SEA-SCENE-MIN3C-DECK",
+  "version": "v001",
+  "component_plan": "art_source/scenes/minimal_main/v001/component_plan.json",
+  "source_kind": "native_godot_tscn",
+  "source": "godot/scenes/components/minimal_main/deck.tscn",
+  "source_sha256": "d9a9f38b5f3bc94a5fae7b3d62dfa816292bf3dbd0d04f015589c1af73e30c06",
+  "bounds_m": [
+    8.0,
+    1.6,
+    6.0
+  ],
+  "origin": "bottom center",
+  "axis": "Godot Y up; +Z faces the approach/ocean; one unit = one metre",
+  "visual": "BoxMesh",
+  "collision": "one matching static BoxShape3D",
+  "usage": "godot/scenes/main_minimal.tscn",
+  "glb": null,
+  "license": "project_original",
+  "art_review": "not_applicable_whitebox"
+}

@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_arcade/brick_c/brick_c.glb" id="visual"]
+
+[node name="brick_c" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-RAC-BRICK-C"
+metadata/asset_version = "v001"
+metadata/building_class = "above_water"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

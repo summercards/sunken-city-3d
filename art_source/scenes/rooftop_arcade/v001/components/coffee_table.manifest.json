@@ -1,0 +1,58 @@
+{
+  "asset_id": "SEA-SCENE-RAC-COFFEE-TABLE",
+  "name": "矮茶桌",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "furnishing",
+  "category_label": "固定设施",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "furnishing"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.blend",
+  "source_sha256": "5b95726f675e49a1bf9556c00ec327054747020d43043f3deb265b81f3faae41",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.3784498870372772,
+      -0.269155889749527,
+      0.0
+    ],
+    "max_m": [
+      0.3784498870372772,
+      0.269155889749527,
+      0.48100000619888306
+    ],
+    "size_m": [
+      0.7568997740745544,
+      0.538311779499054,
+      0.48100000619888306
+    ]
+  },
+  "asset_key": "coffee_table",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-COFFEE-TABLE",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

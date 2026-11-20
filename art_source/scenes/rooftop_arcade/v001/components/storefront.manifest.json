@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-STOREFRONT",
+  "name": "店面框",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/storefront.blend",
+  "source_sha256": "4af81bf76ac21457ce1ca07cdf159bf8ec0bf986afe3b96c8c881f16449065f1",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/storefront.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -1.4608383178710938,
+      -0.22922399640083313,
+      0.0
+    ],
+    "max_m": [
+      1.4694454669952393,
+      0.08703150600194931,
+      2.0855000019073486
+    ],
+    "size_m": [
+      2.930283784866333,
+      0.31625550240278244,
+      2.0855000019073486
+    ]
+  },
+  "asset_key": "storefront",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-STOREFRONT",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

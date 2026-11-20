@@ -1,0 +1,2617 @@
+{
+  "schema_version": 1,
+  "suite": "rooftop_arcade",
+  "version": "v001",
+  "source": {
+    "path": "art_source/scenes/rooftop_arcade/v001/rooftop_arcade.blend",
+    "sha256": "175c905b18ba5bf9f2156c57d7acc3e9503429864dfc7e04042c35d78172c8df",
+    "bytes": 1842183
+  },
+  "source_sha256": "175c905b18ba5bf9f2156c57d7acc3e9503429864dfc7e04042c35d78172c8df",
+  "display_name": "海上屋顶街机维修铺",
+  "feature_id": "SEA-ASSET",
+  "source_stage": "blender_only",
+  "runtime_integration": "integrated_static_west_deck",
+  "runtime_export_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+  "runtime_scene": "godot/scenes/facilities/rooftop_arcade.tscn",
+  "reference_license": "pending",
+  "references": [
+    {
+      "name": "Clipboard_Screenshot.png",
+      "sha256": "4ef122b96672ba17a66cca8764fa8a9cd8572a43a77cda1ee71ee8cf688da197",
+      "role": "layout, section, furnishing and cutaway"
+    },
+    {
+      "name": "Clipboard_Screenshot-1.png",
+      "sha256": "30e8e424284305c41fb7ffedd2a1f666cbfd5d5693eb53e015fb19a7a16bd89d",
+      "role": "exterior front/right/back and approximate size"
+    }
+  ],
+  "palette": {
+    "path": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+    "sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+    "bytes": 5698
+  },
+  "plan": {
+    "path": "art_source/scenes/rooftop_arcade/v001/component_plan.json",
+    "sha256": "15cd8172e0f8b06a20a1fe0cb00d8c7ff32d74fe78d0c8843b91b8ce84b48fea",
+    "bytes": 3474
+  },
+  "catalog": {
+    "path": "art_source/scenes/rooftop_arcade/v001/catalog.json",
+    "sha256": "4c2c3cb7fa14f7cf5e929feec2f8182bfab347b114cf2e55954e322938f5b798",
+    "bytes": 72507
+  },
+  "component_instances": {
+    "path": "art_source/scenes/rooftop_arcade/v001/component_instances.json",
+    "sha256": "6858104bb03caf9cf262fbe627383a83d2dc2316bd7ea811456da5dd3ba182f9",
+    "bytes": 412680
+  },
+  "scenes": [
+    "街机屋_参考装配",
+    "街机屋_室内剖视",
+    "街机屋_组件母版",
+    "街机屋_组装动画"
+  ],
+  "components": [
+    {
+      "asset_key": "access_ladder",
+      "asset_id": "SEA-SCENE-RAC-ACCESS-LADDER",
+      "collection": "SEA-SCENE-RAC-ACCESS-LADDER",
+      "bounds": {
+        "min_m": [
+          -0.22261179983615875,
+          -0.0520591139793396,
+          0.0
+        ],
+        "max_m": [
+          0.23061178624629974,
+          0.1974211037158966,
+          1.7890114784240723
+        ],
+        "size_m": [
+          0.4532235860824585,
+          0.2494802176952362,
+          1.7890114784240723
+        ]
+      },
+      "geometry_sha256": "419d30984397d83f562d002db81b7d4b311566a0ebb7e152b291f70ae8372901",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 23,
+      "vertices": 1200,
+      "polygons": 970,
+      "triangles": 2308,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 23,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.blend",
+        "sha256": "fe4b797f2f7c4d5b139223ad363c87e0da626a9c1f79deef0463b10b12d72daa",
+        "bytes": 91062
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/access_ladder.glb",
+        "sha256": "bc1bcbba7ae4f428b4bddda8d73309d5ba296971135d2f66091bf75f5b2802f3",
+        "bytes": 154452,
+        "mesh_count": 23,
+        "primitive_count": 23,
+        "texcoord_0_primitive_count": 23,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "arcade_blue",
+      "asset_id": "SEA-SCENE-RAC-ARCADE-BLUE",
+      "collection": "SEA-SCENE-RAC-ARCADE-BLUE",
+      "bounds": {
+        "min_m": [
+          -0.2280000001192093,
+          -0.25720447301864624,
+          0.0
+        ],
+        "max_m": [
+          0.2280000001192093,
+          0.24250000715255737,
+          1.3259999752044678
+        ],
+        "size_m": [
+          0.4560000002384186,
+          0.4997044801712036,
+          1.3259999752044678
+        ]
+      },
+      "geometry_sha256": "7ebfd0e933617f682708e743b0bd2820cf5963de0b97c5c554d050eeec180a06",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 27,
+      "objects": 47,
+      "vertices": 3982,
+      "polygons": 3929,
+      "triangles": 7500,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 47,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.blend",
+        "sha256": "feeb0148e6e5319b29f36d5c0f27103ed48f1cd6a72b63dbe64b36296be4d58a",
+        "bytes": 149340
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/arcade_blue.glb",
+        "sha256": "a9571bbd8736764077e1a29a08619dc845aa69b27e815fb12a16f7fedae8c707",
+        "bytes": 541836,
+        "mesh_count": 47,
+        "primitive_count": 47,
+        "texcoord_0_primitive_count": 47,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "arcade_yellow",
+      "asset_id": "SEA-SCENE-RAC-ARCADE-YELLOW",
+      "collection": "SEA-SCENE-RAC-ARCADE-YELLOW",
+      "bounds": {
+        "min_m": [
+          -0.21799999475479126,
+          -0.23863354325294495,
+          0.0
+        ],
+        "max_m": [
+          0.21799999475479126,
+          0.23999999463558197,
+          1.2949999570846558
+        ],
+        "size_m": [
+          0.4359999895095825,
+          0.4786335378885269,
+          1.2949999570846558
+        ]
+      },
+      "geometry_sha256": "3d4c9e5193df12f7ee455a6d9d85bd17469d9838e3ee005d5a62abe9aa21de4a",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 22,
+      "objects": 47,
+      "vertices": 4242,
+      "polygons": 4248,
+      "triangles": 8180,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 47,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.blend",
+        "sha256": "2fc61629a8c9a594c59f8bf5725135d8e1c4688b69e9f967852300af443b8a79",
+        "bytes": 153609
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/arcade_yellow.glb",
+        "sha256": "708125b3e6d6a2e36427c002c6cdfb32f023c96778d71893477f0136078a5b69",
+        "bytes": 584168,
+        "mesh_count": 47,
+        "primitive_count": 47,
+        "texcoord_0_primitive_count": 47,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "awning",
+      "asset_id": "SEA-SCENE-RAC-AWNING",
+      "collection": "SEA-SCENE-RAC-AWNING",
+      "bounds": {
+        "min_m": [
+          -0.7072897553443909,
+          -0.50437331199646,
+          0.0
+        ],
+        "max_m": [
+          0.7357551455497742,
+          0.33061403036117554,
+          0.7581828236579895
+        ],
+        "size_m": [
+          1.443044900894165,
+          0.8349873423576355,
+          0.7581828236579895
+        ]
+      },
+      "geometry_sha256": "f7532ad10d44030ed5c1c9c3f737794c3681f9235cc58f39bec0118d3c2e9d36",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 2,
+      "objects": 15,
+      "vertices": 5056,
+      "polygons": 4980,
+      "triangles": 9920,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 15,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/awning.blend",
+        "sha256": "5102b249218b2380220a6f1a271eef31c8e856e20c0d32850784d13a6e8a812a",
+        "bytes": 197677
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/awning.glb",
+        "sha256": "5e25aeac07d88b345462cf41cfa9aa4efe1ac7493fef3488e17c74ff0209765d",
+        "bytes": 661584,
+        "mesh_count": 15,
+        "primitive_count": 15,
+        "texcoord_0_primitive_count": 15,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "brick_a",
+      "asset_id": "SEA-SCENE-RAC-BRICK-A",
+      "collection": "SEA-SCENE-RAC-BRICK-A",
+      "bounds": {
+        "min_m": [
+          -0.16152434051036835,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.16135470569133759,
+          0.04349999874830246,
+          0.11286527663469315
+        ],
+        "size_m": [
+          0.32287904620170593,
+          0.08699999749660492,
+          0.11286527663469315
+        ]
+      },
+      "geometry_sha256": "9aa3e6582bdeb66555f2ec64cffce4edfce96c8d2aa29226aee5bfdd7f9eddf1",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 1,
+      "objects": 1,
+      "vertices": 112,
+      "polygons": 106,
+      "triangles": 220,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 1,
+      "family": "architecture",
+      "instance_count": 183,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/brick_a.blend",
+        "sha256": "635cb820f22ef7120877edeca23b5878afc4ef4aabe017085a3ed64c7dbe8d7d",
+        "bytes": 69117
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/brick_a.glb",
+        "sha256": "d54876ea90a6730032ccd3ebdcdd9873524c7439098c1ed7daa802cfee7e8380",
+        "bytes": 16488,
+        "mesh_count": 1,
+        "primitive_count": 1,
+        "texcoord_0_primitive_count": 1,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "brick_b",
+      "asset_id": "SEA-SCENE-RAC-BRICK-B",
+      "collection": "SEA-SCENE-RAC-BRICK-B",
+      "bounds": {
+        "min_m": [
+          -0.14639151096343994,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.14619694650173187,
+          0.04349999874830246,
+          0.10784446448087692
+        ],
+        "size_m": [
+          0.2925884574651718,
+          0.08699999749660492,
+          0.10784446448087692
+        ]
+      },
+      "geometry_sha256": "eafabf316a26b243007439cc519be854595df22c18d23792eacd64d2457d6c08",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 1,
+      "objects": 1,
+      "vertices": 104,
+      "polygons": 98,
+      "triangles": 204,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 1,
+      "family": "architecture",
+      "instance_count": 58,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/brick_b.blend",
+        "sha256": "3be0a869d67a059dfc892993f6425aaa1e717cda61efce69cc8ee1ec2e0645e0",
+        "bytes": 68888
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/brick_b.glb",
+        "sha256": "74ede190069073ee0da551a95cea8194305e62254d96f764a09ec4fce36f67bc",
+        "bytes": 15368,
+        "mesh_count": 1,
+        "primitive_count": 1,
+        "texcoord_0_primitive_count": 1,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "brick_c",
+      "asset_id": "SEA-SCENE-RAC-BRICK-C",
+      "collection": "SEA-SCENE-RAC-BRICK-C",
+      "bounds": {
+        "min_m": [
+          -0.15551376342773438,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.1553419679403305,
+          0.04349999874830246,
+          0.11186033487319946
+        ],
+        "size_m": [
+          0.3108557313680649,
+          0.08699999749660492,
+          0.11186033487319946
+        ]
+      },
+      "geometry_sha256": "f914ed86835b668f31b054a0bd0a2c68db4c1dfd88a8cd76afe21ad889a4770e",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 1,
+      "objects": 1,
+      "vertices": 112,
+      "polygons": 106,
+      "triangles": 220,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 1,
+      "family": "architecture",
+      "instance_count": 43,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/brick_c.blend",
+        "sha256": "5b7f2e6a559cb3af38d29dcb435e3dcd147aab189bc6a0fcb9ca063fe5dbb4f6",
+        "bytes": 69120
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/brick_c.glb",
+        "sha256": "43430a30e2501e9b503035bfba88b8780969d088fc5e21bd041912e11d5bcd42",
+        "bytes": 16488,
+        "mesh_count": 1,
+        "primitive_count": 1,
+        "texcoord_0_primitive_count": 1,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "brick_mortar",
+      "asset_id": "SEA-SCENE-RAC-BRICK-MORTAR",
+      "collection": "SEA-SCENE-RAC-BRICK-MORTAR",
+      "bounds": {
+        "min_m": [
+          -1.449195384979248,
+          -1.0744999647140503,
+          0.0
+        ],
+        "max_m": [
+          1.449195384979248,
+          1.0945712327957153,
+          1.1799999475479126
+        ],
+        "size_m": [
+          2.898390769958496,
+          2.1690711975097656,
+          1.1799999475479126
+        ]
+      },
+      "geometry_sha256": "ac16272f51a46ab7b8923cf18a420585b56406be3a5ec5e3865571fb190a37f6",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 7,
+      "objects": 7,
+      "vertices": 592,
+      "polygons": 598,
+      "triangles": 1156,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.blend",
+        "sha256": "646dc012c76ffc871859172e7dc204d826e79be8245adccdb79a2e83045aa351",
+        "bytes": 77271
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/brick_mortar.glb",
+        "sha256": "cf8080a0e79ee7868884e0c5f9336fdd2a4162f2f0719c9312a0d9022fa9f2b8",
+        "bytes": 87684,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "clothesline",
+      "asset_id": "SEA-SCENE-RAC-CLOTHESLINE",
+      "collection": "SEA-SCENE-RAC-CLOTHESLINE",
+      "bounds": {
+        "min_m": [
+          -0.2502245008945465,
+          -0.10845514386892319,
+          0.0
+        ],
+        "max_m": [
+          0.2502245008945465,
+          0.060489170253276825,
+          0.4241330027580261
+        ],
+        "size_m": [
+          0.500449001789093,
+          0.1689443141222,
+          0.4241330027580261
+        ]
+      },
+      "geometry_sha256": "a49f50ae118a25b07f21190758b16fd336c8ad971fdd54c8c408caa1c0d90a7d",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 4,
+      "objects": 8,
+      "vertices": 1736,
+      "polygons": 1718,
+      "triangles": 3440,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 8,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/clothesline.blend",
+        "sha256": "07b32acebaea5ffc174e6c8a1b131930081534bdc6423964c7b0f9de5f60ff58",
+        "bytes": 111522
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/clothesline.glb",
+        "sha256": "16676b81162ac6f0383e22a51b9f7b8962d45addfe412829b439285344cf71f7",
+        "bytes": 239712,
+        "mesh_count": 8,
+        "primitive_count": 8,
+        "texcoord_0_primitive_count": 8,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "coffee_table",
+      "asset_id": "SEA-SCENE-RAC-COFFEE-TABLE",
+      "collection": "SEA-SCENE-RAC-COFFEE-TABLE",
+      "bounds": {
+        "min_m": [
+          -0.3784498870372772,
+          -0.269155889749527,
+          0.0
+        ],
+        "max_m": [
+          0.3784498870372772,
+          0.269155889749527,
+          0.48100000619888306
+        ],
+        "size_m": [
+          0.7568997740745544,
+          0.538311779499054,
+          0.48100000619888306
+        ]
+      },
+      "geometry_sha256": "20be17a73619703d78f748554434d6afe5d63661006ba409a42d8ee4bcf35b04",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 9,
+      "objects": 28,
+      "vertices": 2526,
+      "polygons": 2598,
+      "triangles": 4948,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 28,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.blend",
+        "sha256": "5b95726f675e49a1bf9556c00ec327054747020d43043f3deb265b81f3faae41",
+        "bytes": 110817
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/coffee_table.glb",
+        "sha256": "2b6de64130a4b8a85b7582a038d1dd88cf6ec6ed750a03755917fd8bd0fdd3ee",
+        "bytes": 343304,
+        "mesh_count": 28,
+        "primitive_count": 28,
+        "texcoord_0_primitive_count": 28,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "deck_surface",
+      "asset_id": "SEA-SCENE-RAC-DECK-SURFACE",
+      "collection": "SEA-SCENE-RAC-DECK-SURFACE",
+      "bounds": {
+        "min_m": [
+          -2.1579737663269043,
+          -1.6057976484298706,
+          0.0
+        ],
+        "max_m": [
+          2.1479737758636475,
+          1.6577976942062378,
+          0.0860000029206276
+        ],
+        "size_m": [
+          4.305947542190552,
+          3.2635953426361084,
+          0.0860000029206276
+        ]
+      },
+      "geometry_sha256": "d093087290a73b1408e73ca4dda4c7898cc2ae4fc3c4f139d095d3ce75d28bd9",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 12,
+      "objects": 12,
+      "vertices": 288,
+      "polygons": 312,
+      "triangles": 528,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 12,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.blend",
+        "sha256": "b39598f6452337dfbdf69b13f96172525c225de97cb6d1de22ae36696a96a3c4",
+        "bytes": 74791
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/deck_surface.glb",
+        "sha256": "d8904f62ea6dcd26e8cecef8ad48fdea8f5264206b54e7697252053f6edf824e",
+        "bytes": 45908,
+        "mesh_count": 12,
+        "primitive_count": 12,
+        "texcoord_0_primitive_count": 12,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "drainage",
+      "asset_id": "SEA-SCENE-RAC-DRAINAGE",
+      "collection": "SEA-SCENE-RAC-DRAINAGE",
+      "bounds": {
+        "min_m": [
+          -1.869275689125061,
+          -1.3450000286102295,
+          0.0
+        ],
+        "max_m": [
+          1.5856372117996216,
+          1.1915292739868164,
+          3.3072476387023926
+        ],
+        "size_m": [
+          3.4549129009246826,
+          2.536529302597046,
+          3.3072476387023926
+        ]
+      },
+      "geometry_sha256": "bca0ee58073005bb813171027906b4d14fb1af47f192d3de8270d160de1ecca1",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 12,
+      "vertices": 2282,
+      "polygons": 2164,
+      "triangles": 4516,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 12,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/drainage.blend",
+        "sha256": "ff64f01752d5c961ecb7855d671daff5a09590aa69e739cd1937ad26b1ad628b",
+        "bytes": 112596
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/drainage.glb",
+        "sha256": "8a6e59ecdae25cea1069e1e5f4a1e52315480e74e2474a39d3bbf7a8fd555373",
+        "bytes": 316368,
+        "mesh_count": 12,
+        "primitive_count": 12,
+        "texcoord_0_primitive_count": 12,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "exterior_signs",
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+      "collection": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+      "bounds": {
+        "min_m": [
+          -0.22917990386486053,
+          -0.0695519968867302,
+          0.0
+        ],
+        "max_m": [
+          0.26035329699516296,
+          0.04094969853758812,
+          0.6786251664161682
+        ],
+        "size_m": [
+          0.4895332008600235,
+          0.11050169542431831,
+          0.6786251664161682
+        ]
+      },
+      "geometry_sha256": "61318247d155742ee9fb9e4af93607e262c7b16d1eade2aadd89c2b7b3d9b6d5",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 2,
+      "objects": 7,
+      "vertices": 1936,
+      "polygons": 1490,
+      "triangles": 2972,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.blend",
+        "sha256": "0493a887c43322c3dbf82f0c399478338dc7d21b6f72ce7e9a144085f25b0e30",
+        "bytes": 87526
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/exterior_signs.glb",
+        "sha256": "b5c50ddf523ddee02bb44c2d55cb1289897f6fb0d3a085b8d30d49c5aff56858",
+        "bytes": 212488,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "exterior_stair",
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+      "collection": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+      "bounds": {
+        "min_m": [
+          -0.4332807660102844,
+          -1.1407489776611328,
+          0.0
+        ],
+        "max_m": [
+          0.4530225694179535,
+          1.1506118774414062,
+          1.569757342338562
+        ],
+        "size_m": [
+          0.8863033354282379,
+          2.291360855102539,
+          1.569757342338562
+        ]
+      },
+      "geometry_sha256": "197aef3a131b19bb2f43f72cdcb15df663a0d2f149be5ee077e1aeb15e6cd91f",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 19,
+      "objects": 34,
+      "vertices": 2408,
+      "polygons": 2490,
+      "triangles": 4680,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 34,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.blend",
+        "sha256": "342b7cc3f348838f3e25b86e5bfbc1a6c223e6c23fe19d92e33c6f098cef856b",
+        "bytes": 106367
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/exterior_stair.glb",
+        "sha256": "16cc93d3f3b08b442293512d08f0d5b43b9f2a075b61a52fda38260c660dc672",
+        "bytes": 334440,
+        "mesh_count": 34,
+        "primitive_count": 34,
+        "texcoord_0_primitive_count": 34,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "float_base",
+      "asset_id": "SEA-SCENE-RAC-FLOAT-BASE",
+      "collection": "SEA-SCENE-RAC-FLOAT-BASE",
+      "bounds": {
+        "min_m": [
+          -2.3345954418182373,
+          -1.8200000524520874,
+          0.0
+        ],
+        "max_m": [
+          2.2997095584869385,
+          1.8200000524520874,
+          0.40299999713897705
+        ],
+        "size_m": [
+          4.634305000305176,
+          3.640000104904175,
+          0.40299999713897705
+        ]
+      },
+      "geometry_sha256": "c754fc75da8d7441b24b55e90135453fb222746bc1edbaf3d7b0c824214da969",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 7,
+      "objects": 7,
+      "vertices": 672,
+      "polygons": 686,
+      "triangles": 1316,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/float_base.blend",
+        "sha256": "9f054fb6f56462e64f47cc3ca6f269fcc9ec09c664c2abb09534b53a538a789a",
+        "bytes": 79035
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/float_base.glb",
+        "sha256": "ea24312e193ab48f01caf980f179aee2decb2787d7df77cb8c54bb01b9229942",
+        "bytes": 94576,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "heater",
+      "asset_id": "SEA-SCENE-RAC-HEATER",
+      "collection": "SEA-SCENE-RAC-HEATER",
+      "bounds": {
+        "min_m": [
+          -0.15000000596046448,
+          -0.17999999225139618,
+          0.0
+        ],
+        "max_m": [
+          0.17681336402893066,
+          0.15000000596046448,
+          1.243699550628662
+        ],
+        "size_m": [
+          0.32681336998939514,
+          0.32999999821186066,
+          1.243699550628662
+        ]
+      },
+      "geometry_sha256": "643a02668a8ebdd8c903b66b249151d40cddc0b492d167382ca0737947604e48",
+      "materials": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 12,
+      "objects": 29,
+      "vertices": 3080,
+      "polygons": 3103,
+      "triangles": 6056,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 29,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/heater.blend",
+        "sha256": "71fb56038106320b82b526498bdb87f3baa16159a886775d2f1afa33dd06cfa9",
+        "bytes": 124092
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/heater.glb",
+        "sha256": "535d1ec596af1b7fb8c3a6ea582cf43e108b916d62eff3d482185914b13748a1",
+        "bytes": 422644,
+        "mesh_count": 29,
+        "primitive_count": 29,
+        "texcoord_0_primitive_count": 29,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "lighting",
+      "asset_id": "SEA-SCENE-RAC-LIGHTING",
+      "collection": "SEA-SCENE-RAC-LIGHTING",
+      "bounds": {
+        "min_m": [
+          -0.13740654289722443,
+          -0.13740654289722443,
+          0.0
+        ],
+        "max_m": [
+          0.1373765617609024,
+          0.13740654289722443,
+          0.4129999876022339
+        ],
+        "size_m": [
+          0.27478310465812683,
+          0.27481308579444885,
+          0.4129999876022339
+        ]
+      },
+      "geometry_sha256": "5f078ec69d4a2d84095e759576d9213fb7833a72c30d980b7bf8536feefc9a99",
+      "materials": [
+        "SEA_Emission",
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 7,
+      "vertices": 1288,
+      "polygons": 1334,
+      "triangles": 2552,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "furniture",
+      "instance_count": 2,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/lighting.blend",
+        "sha256": "730c003d9e8088986b0a6594dde0b775cc30e003353bd2d85ab24cca6da2cc0b",
+        "bytes": 95767
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/lighting.glb",
+        "sha256": "e7d8b53f9c9ef5464ffae1a758bb0180b51c01eba08fdeb0d5afaea672198f54",
+        "bytes": 176704,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_bed",
+      "asset_id": "SEA-SCENE-RAC-LOFT-BED",
+      "collection": "SEA-SCENE-RAC-LOFT-BED",
+      "bounds": {
+        "min_m": [
+          -0.38305023312568665,
+          -0.7224047183990479,
+          0.0
+        ],
+        "max_m": [
+          0.38199982047080994,
+          0.6815000176429749,
+          0.4779999852180481
+        ],
+        "size_m": [
+          0.7650500535964966,
+          1.4039047360420227,
+          0.4779999852180481
+        ]
+      },
+      "geometry_sha256": "58a1deeee888bbde74608e0a744f0d12789f4ccee9d276bb9f40a59c41588caa",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 9,
+      "objects": 28,
+      "vertices": 6210,
+      "polygons": 6154,
+      "triangles": 12316,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 28,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.blend",
+        "sha256": "1a4eb59cb6cb7a62e56e74cdd8a667ca093184039d5b71f1fa2e0dca7f4b42da",
+        "bytes": 191414
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_bed.glb",
+        "sha256": "cb7d073a9a739f302019da8322fac104718378a7e3c2db643bfbab0f6a49713f",
+        "bytes": 797640,
+        "mesh_count": 28,
+        "primitive_count": 28,
+        "texcoord_0_primitive_count": 28,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_curtain",
+      "asset_id": "SEA-SCENE-RAC-LOFT-CURTAIN",
+      "collection": "SEA-SCENE-RAC-LOFT-CURTAIN",
+      "bounds": {
+        "min_m": [
+          -0.3399999737739563,
+          -0.058286916464567184,
+          0.0
+        ],
+        "max_m": [
+          0.3399999737739563,
+          0.04867251217365265,
+          0.46025216579437256
+        ],
+        "size_m": [
+          0.6799999475479126,
+          0.10695942863821983,
+          0.46025216579437256
+        ]
+      },
+      "geometry_sha256": "caee6e34ccd5455168f8b4669deb6f2512478f4e761ae537a790d835837cd41b",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 12,
+      "vertices": 3022,
+      "polygons": 3022,
+      "triangles": 6020,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 12,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.blend",
+        "sha256": "56d7095c17e0972d6995fdcd509ddc3d5dfcda9872be8eaa999769f4a07aa4b7",
+        "bytes": 125080
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_curtain.glb",
+        "sha256": "380b6f0660ab2ed42580d57d7c4b4e9318410aae8f54e5ea3fb96a6bb3f1e047",
+        "bytes": 408516,
+        "mesh_count": 12,
+        "primitive_count": 12,
+        "texcoord_0_primitive_count": 12,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_deck",
+      "asset_id": "SEA-SCENE-RAC-LOFT-DECK",
+      "collection": "SEA-SCENE-RAC-LOFT-DECK",
+      "bounds": {
+        "min_m": [
+          -1.5943224430084229,
+          -1.2376357316970825,
+          0.0
+        ],
+        "max_m": [
+          1.6366329193115234,
+          1.2376357316970825,
+          0.23399999737739563
+        ],
+        "size_m": [
+          3.2309553623199463,
+          2.475271463394165,
+          0.23399999737739563
+        ]
+      },
+      "geometry_sha256": "a1c450110b846de20411c36321c91849b0f50dcc5a2073d260970d55a60a2dda",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 14,
+      "objects": 14,
+      "vertices": 440,
+      "polygons": 464,
+      "triangles": 824,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 14,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.blend",
+        "sha256": "e1ad843b4f52124f93eddbee015796b0520e99de8caf084411602907108c17d5",
+        "bytes": 78591
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_deck.glb",
+        "sha256": "0b099f983a055371e4eb7eb9f0baa505566976b58eb87f5c5532002e8fb38cb4",
+        "bytes": 68928,
+        "mesh_count": 14,
+        "primitive_count": 14,
+        "texcoord_0_primitive_count": 14,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_frames",
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRAMES",
+      "collection": "SEA-SCENE-RAC-LOFT-FRAMES",
+      "bounds": {
+        "min_m": [
+          -0.26165464520454407,
+          -0.030000001192092896,
+          0.0
+        ],
+        "max_m": [
+          0.2828812599182129,
+          0.025478381663560867,
+          0.46023914217948914
+        ],
+        "size_m": [
+          0.544535905122757,
+          0.05547838285565376,
+          0.46023914217948914
+        ]
+      },
+      "geometry_sha256": "4f3abaaa9288753af995ccac9b19c05c9ff3e28a2b803c7eaf8850751c133d70",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 24,
+      "objects": 30,
+      "vertices": 1704,
+      "polygons": 1794,
+      "triangles": 3288,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 30,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.blend",
+        "sha256": "a768b215f3dffdceb2990f1209a23e9090e1675dc5450496371e75c4f38038d8",
+        "bytes": 100624
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_frames.glb",
+        "sha256": "b934d5c7d4e894a72f4e1948ad88c8d3a45dcc2752bf44b9fa6dfb1791710baa",
+        "bytes": 245216,
+        "mesh_count": 30,
+        "primitive_count": 30,
+        "texcoord_0_primitive_count": 30,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_front",
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRONT",
+      "collection": "SEA-SCENE-RAC-LOFT-FRONT",
+      "bounds": {
+        "min_m": [
+          -1.3878464698791504,
+          -0.14228500425815582,
+          0.0
+        ],
+        "max_m": [
+          1.3565876483917236,
+          0.09995800256729126,
+          1.5509328842163086
+        ],
+        "size_m": [
+          2.744434118270874,
+          0.24224300682544708,
+          1.5509328842163086
+        ]
+      },
+      "geometry_sha256": "d32a5b3e0adf14f49d25017e0deeb0f0dc33cf9e73f5e712c541013762d92e45",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 8,
+      "objects": 11,
+      "vertices": 722,
+      "polygons": 708,
+      "triangles": 1400,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 11,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_front.blend",
+        "sha256": "c1776087bb35013213010acc54eee73065a70e1322b5b76efc3be1d76d2e14c0",
+        "bytes": 87417
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_front.glb",
+        "sha256": "67ce00ebb09675344ae8245e1812592570624fed4e017e6d471a45aab892f1f1",
+        "bytes": 106472,
+        "mesh_count": 11,
+        "primitive_count": 11,
+        "texcoord_0_primitive_count": 11,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_roof",
+      "asset_id": "SEA-SCENE-RAC-LOFT-ROOF",
+      "collection": "SEA-SCENE-RAC-LOFT-ROOF",
+      "bounds": {
+        "min_m": [
+          -1.607421875,
+          -1.321854591369629,
+          0.0
+        ],
+        "max_m": [
+          1.6057751178741455,
+          1.3652777671813965,
+          0.7749292254447937
+        ],
+        "size_m": [
+          3.2131969928741455,
+          2.6871323585510254,
+          0.7749292254447937
+        ]
+      },
+      "geometry_sha256": "42108a3beb87dc6abc2731479afbb89a80d23f578bd01a9655c7d4e4026393e7",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 1,
+      "objects": 16,
+      "vertices": 6622,
+      "polygons": 6530,
+      "triangles": 13180,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 16,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.blend",
+        "sha256": "e840b84b94100ab1106c5bb1c54eef8c8a649b9d523315f6533092df70c0cd0d",
+        "bytes": 171690
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_roof.glb",
+        "sha256": "376cc88e42c5ab79ea3cbe180d1a4b5b0aec444a29a4bda690316ec370cc87fd",
+        "bytes": 831132,
+        "mesh_count": 16,
+        "primitive_count": 16,
+        "texcoord_0_primitive_count": 16,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_shelf",
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELF",
+      "collection": "SEA-SCENE-RAC-LOFT-SHELF",
+      "bounds": {
+        "min_m": [
+          -0.34499070048332214,
+          -0.13876864314079285,
+          0.0
+        ],
+        "max_m": [
+          0.34499070048332214,
+          0.13945677876472473,
+          1.2200000286102295
+        ],
+        "size_m": [
+          0.6899814009666443,
+          0.2782254219055176,
+          1.2200000286102295
+        ]
+      },
+      "geometry_sha256": "115d2ced4f1634de419d23b5510e6675f031b82ca0fdf8498e63793b2390ca59",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 57,
+      "objects": 64,
+      "vertices": 2716,
+      "polygons": 2804,
+      "triangles": 5072,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 64,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.blend",
+        "sha256": "eb862df10139cd453ed5e2913d69f3fe5f0cd17cc7584b853dd89cb66ada8e64",
+        "bytes": 121635
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_shelf.glb",
+        "sha256": "e711eb3b154625e7aa086c83841035da4a632210dba70518e86e2b8522eee867",
+        "bytes": 393680,
+        "mesh_count": 64,
+        "primitive_count": 64,
+        "texcoord_0_primitive_count": 64,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "loft_shell",
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELL",
+      "collection": "SEA-SCENE-RAC-LOFT-SHELL",
+      "bounds": {
+        "min_m": [
+          -1.4980696439743042,
+          -1.0904731750488281,
+          0.0
+        ],
+        "max_m": [
+          1.4980697631835938,
+          1.1324867010116577,
+          1.7245770692825317
+        ],
+        "size_m": [
+          2.996139407157898,
+          2.222959876060486,
+          1.7245770692825317
+        ]
+      },
+      "geometry_sha256": "bbda001f1d49c302b77c168c1c8208a4611a2a591d294af74251cb79e3f1273e",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 79,
+      "objects": 81,
+      "vertices": 3458,
+      "polygons": 3409,
+      "triangles": 6592,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 81,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.blend",
+        "sha256": "183bcef3d2716ec4ecffb5b5dbc3ced53db7e4af94870a6d03c7156b46b58278",
+        "bytes": 138719
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/loft_shell.glb",
+        "sha256": "5817bb3ba9ad31dbc3af21e2ef2ddee6e2bea1db122de981a5298f9a0f1710e7",
+        "bytes": 501636,
+        "mesh_count": 81,
+        "primitive_count": 81,
+        "texcoord_0_primitive_count": 81,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "mooring",
+      "asset_id": "SEA-SCENE-RAC-MOORING",
+      "collection": "SEA-SCENE-RAC-MOORING",
+      "bounds": {
+        "min_m": [
+          -0.1815238744020462,
+          -0.16434495151042938,
+          0.0
+        ],
+        "max_m": [
+          0.18299999833106995,
+          0.179909810423851,
+          0.39357471466064453
+        ],
+        "size_m": [
+          0.36452387273311615,
+          0.3442547619342804,
+          0.39357471466064453
+        ]
+      },
+      "geometry_sha256": "b01afb990d2a386fe05868a77c7ce9a9a59d4aac264f1a6d31f1025b9eca1a83",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 3,
+      "vertices": 756,
+      "polygons": 736,
+      "triangles": 1504,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 3,
+      "family": "architecture",
+      "instance_count": 2,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/mooring.blend",
+        "sha256": "cc3073794796aeb978352c218b1737659b2d5605a350c1e3d71d23d27447029a",
+        "bytes": 81316
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/mooring.glb",
+        "sha256": "5eb06e53a02c2bce65442616ababd033c296ac58d152fb0b5091b3843f5ca55a",
+        "bytes": 106952,
+        "mesh_count": 3,
+        "primitive_count": 3,
+        "texcoord_0_primitive_count": 3,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "quoin",
+      "asset_id": "SEA-SCENE-RAC-QUOIN",
+      "collection": "SEA-SCENE-RAC-QUOIN",
+      "bounds": {
+        "min_m": [
+          -0.14203529059886932,
+          -0.07199999690055847,
+          0.0
+        ],
+        "max_m": [
+          0.14399999380111694,
+          0.07199999690055847,
+          0.18000000715255737
+        ],
+        "size_m": [
+          0.28603528439998627,
+          0.14399999380111694,
+          0.18000000715255737
+        ]
+      },
+      "geometry_sha256": "ddc0e44e18d97acadc3872534d2a18d93288baf34d28d6308c42d0151e423145",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 1,
+      "objects": 1,
+      "vertices": 88,
+      "polygons": 82,
+      "triangles": 172,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 1,
+      "family": "architecture",
+      "instance_count": 24,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/quoin.blend",
+        "sha256": "1e3aa4f7b5c7bc6d39b6e883b230f0b730095c0006156dd0d5eecb3678806684",
+        "bytes": 68505
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/quoin.glb",
+        "sha256": "229f07210f91f3f8cafdf144cd6dbcdfc8d4e84f4d7da0632a63fd1455116cff",
+        "bytes": 13104,
+        "mesh_count": 1,
+        "primitive_count": 1,
+        "texcoord_0_primitive_count": 1,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "repair_bench",
+      "asset_id": "SEA-SCENE-RAC-REPAIR-BENCH",
+      "collection": "SEA-SCENE-RAC-REPAIR-BENCH",
+      "bounds": {
+        "min_m": [
+          -0.3682013750076294,
+          -0.2537468671798706,
+          0.0
+        ],
+        "max_m": [
+          0.3682013750076294,
+          0.2232895940542221,
+          1.1209999322891235
+        ],
+        "size_m": [
+          0.7364027500152588,
+          0.4770364612340927,
+          1.1209999322891235
+        ]
+      },
+      "geometry_sha256": "1dc5d9f00071d8bc71abfc254d7645a30d007ec66dfcbd70b689fe8814e7842b",
+      "materials": [
+        "SEA_Emission",
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 45,
+      "objects": 57,
+      "vertices": 2078,
+      "polygons": 2134,
+      "triangles": 3928,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 57,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.blend",
+        "sha256": "62953156460a38ba501896bb1c2c42c3be135de7671e9e1ba3f2195b01b7bba4",
+        "bytes": 118717
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/repair_bench.glb",
+        "sha256": "99f4beb2127b8c54d35ac46b4c82928321b8233e8074f0343ff244081c599bd5",
+        "bytes": 310280,
+        "mesh_count": 57,
+        "primitive_count": 57,
+        "texcoord_0_primitive_count": 57,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "sash",
+      "asset_id": "SEA-SCENE-RAC-SASH",
+      "collection": "SEA-SCENE-RAC-SASH",
+      "bounds": {
+        "min_m": [
+          -0.6097877621650696,
+          -0.23811690509319305,
+          0.0
+        ],
+        "max_m": [
+          0.6107975840568542,
+          0.09749999642372131,
+          0.9044322371482849
+        ],
+        "size_m": [
+          1.2205853462219238,
+          0.33561690151691437,
+          0.9044322371482849
+        ]
+      },
+      "geometry_sha256": "facd58a41c9fdc4fd071f0bc97c45d5374b9d90550be5723650b6ce6a5708fad",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 7,
+      "objects": 7,
+      "vertices": 592,
+      "polygons": 598,
+      "triangles": 1156,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/sash.blend",
+        "sha256": "8715b5b154a2ff01a6509b061192f57e411fa4e86c2ed7857415e857e8eb988c",
+        "bytes": 80152
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/sash.glb",
+        "sha256": "6697a2d24ec10b481973dcefcb21722e2d562f45d109dffa0b81af9b137fbba8",
+        "bytes": 88728,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "service_hardware",
+      "asset_id": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+      "collection": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+      "bounds": {
+        "min_m": [
+          -1.199759602546692,
+          -0.10246597975492477,
+          0.0
+        ],
+        "max_m": [
+          1.107078194618225,
+          0.033999718725681305,
+          2.6733784675598145
+        ],
+        "size_m": [
+          2.306837797164917,
+          0.13646569848060608,
+          2.6733784675598145
+        ]
+      },
+      "geometry_sha256": "e5ad581f88493a58dc3433c70a323c3b386e5cca8e3a4d179799b3e895039d88",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 7,
+      "objects": 9,
+      "vertices": 1024,
+      "polygons": 998,
+      "triangles": 2012,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 9,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.blend",
+        "sha256": "a1fe9a06579dbd50047760e3532cb145f5db3d82d014dc3c8f247e493fb6a526",
+        "bytes": 86666
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/service_hardware.glb",
+        "sha256": "550f59ec4cf2b361612001f7c66d8462cc265276a29169bc44a4a379e50d00a6",
+        "bytes": 142964,
+        "mesh_count": 9,
+        "primitive_count": 9,
+        "texcoord_0_primitive_count": 9,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "shipping_crate",
+      "asset_id": "SEA-SCENE-RAC-SHIPPING-CRATE",
+      "collection": "SEA-SCENE-RAC-SHIPPING-CRATE",
+      "bounds": {
+        "min_m": [
+          -0.15393231809139252,
+          -0.14048950374126434,
+          0.0
+        ],
+        "max_m": [
+          0.15393231809139252,
+          0.13294965028762817,
+          0.2824999988079071
+        ],
+        "size_m": [
+          0.30786463618278503,
+          0.2734391540288925,
+          0.2824999988079071
+        ]
+      },
+      "geometry_sha256": "9e98edea763b4e9d4e210ec3cd0d52eeb41fb3bf387c630fe3993a4d43ca6b8f",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 9,
+      "objects": 9,
+      "vertices": 396,
+      "polygons": 396,
+      "triangles": 756,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 9,
+      "family": "furniture",
+      "instance_count": 5,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.blend",
+        "sha256": "8cbd39c814bba1c9c54319c8b8918746bc9ddec4f8c32891295e3ab24708968f",
+        "bytes": 76406
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/shipping_crate.glb",
+        "sha256": "b0959574604213da47801310af18ddabe026455a53d89a271989722acc29a65b",
+        "bytes": 60568,
+        "mesh_count": 9,
+        "primitive_count": 9,
+        "texcoord_0_primitive_count": 9,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "shop_door",
+      "asset_id": "SEA-SCENE-RAC-SHOP-DOOR",
+      "collection": "SEA-SCENE-RAC-SHOP-DOOR",
+      "bounds": {
+        "min_m": [
+          -0.36276593804359436,
+          -0.0889434739947319,
+          0.0
+        ],
+        "max_m": [
+          0.37894168496131897,
+          0.056949224323034286,
+          1.4419270753860474
+        ],
+        "size_m": [
+          0.7417076230049133,
+          0.1458926983177662,
+          1.4419270753860474
+        ]
+      },
+      "geometry_sha256": "7c000cdeb68c17215ebda520627f3def0dd7e97117d56781c26e5a6df68dd584",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 8,
+      "objects": 11,
+      "vertices": 1036,
+      "polygons": 934,
+      "triangles": 1876,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 11,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/shop_door.blend",
+        "sha256": "7e1daba9e8d469f9310d2f1516cdd2d67e2414e8a8ff70848d65787e7c2283b6",
+        "bytes": 91362
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/shop_door.glb",
+        "sha256": "48c43b89d716c998ca729e52d7ef96eae3a484efc991ef84b6d75c177a7dec1b",
+        "bytes": 140604,
+        "mesh_count": 11,
+        "primitive_count": 11,
+        "texcoord_0_primitive_count": 11,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "shop_shell",
+      "asset_id": "SEA-SCENE-RAC-SHOP-SHELL",
+      "collection": "SEA-SCENE-RAC-SHOP-SHELL",
+      "bounds": {
+        "min_m": [
+          -1.4443084001541138,
+          -1.0395736694335938,
+          0.0
+        ],
+        "max_m": [
+          1.4443655014038086,
+          1.1954803466796875,
+          1.774999976158142
+        ],
+        "size_m": [
+          2.8886739015579224,
+          2.2350540161132812,
+          1.774999976158142
+        ]
+      },
+      "geometry_sha256": "06d01b25e0c0c845518b6b96615ce8baf99847915d6f5e6ffcc95488c235d55a",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 25,
+      "objects": 25,
+      "vertices": 1040,
+      "polygons": 1062,
+      "triangles": 1980,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 25,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.blend",
+        "sha256": "27d55d79c0bd91a7f89085a306068de8763cc67dc8367407c3929984dcd08f0f",
+        "bytes": 89172
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/shop_shell.glb",
+        "sha256": "69f055b2023914d199d7d9c3e0d5accdd0cc153564729c544ce7b84cd710edfe",
+        "bytes": 156692,
+        "mesh_count": 25,
+        "primitive_count": 25,
+        "texcoord_0_primitive_count": 25,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "shop_stool",
+      "asset_id": "SEA-SCENE-RAC-SHOP-STOOL",
+      "collection": "SEA-SCENE-RAC-SHOP-STOOL",
+      "bounds": {
+        "min_m": [
+          -0.1509999930858612,
+          -0.1550000011920929,
+          0.0
+        ],
+        "max_m": [
+          0.1509999930858612,
+          0.1509999930858612,
+          0.44999998807907104
+        ],
+        "size_m": [
+          0.3019999861717224,
+          0.3059999942779541,
+          0.44999998807907104
+        ]
+      },
+      "geometry_sha256": "48751485fec1cdc8e181c6a88260aea219188bbc4ce609d1081f67c1b0126e7a",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 0,
+      "objects": 9,
+      "vertices": 1148,
+      "polygons": 1174,
+      "triangles": 2268,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 9,
+      "family": "furniture",
+      "instance_count": 2,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.blend",
+        "sha256": "4c90c05926e10919cfe8884c31a728df2d85e5ee9cc39e521a37960afbeaac97",
+        "bytes": 83224
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/shop_stool.glb",
+        "sha256": "224cfbe9cd4d647486897f54a19a1ed6bd084d93432efc3d9cfbdc7c41970efc",
+        "bytes": 160208,
+        "mesh_count": 9,
+        "primitive_count": 9,
+        "texcoord_0_primitive_count": 9,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "side_vent",
+      "asset_id": "SEA-SCENE-RAC-SIDE-VENT",
+      "collection": "SEA-SCENE-RAC-SIDE-VENT",
+      "bounds": {
+        "min_m": [
+          -0.16769763827323914,
+          -0.08343934267759323,
+          0.0
+        ],
+        "max_m": [
+          0.16769763827323914,
+          0.05792440101504326,
+          0.2800000011920929
+        ],
+        "size_m": [
+          0.33539527654647827,
+          0.1413637436926365,
+          0.2800000011920929
+        ]
+      },
+      "geometry_sha256": "d26da214a1c6726dc7b99322185407ba88982a37c15748e9d495f1474a146694",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 20,
+      "objects": 24,
+      "vertices": 1000,
+      "polygons": 1088,
+      "triangles": 1904,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 24,
+      "family": "furniture",
+      "instance_count": 2,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/side_vent.blend",
+        "sha256": "80fb92184140d5cf03c64c946816cf5bc0262e4f5a2e8ac158436bd0a056aa46",
+        "bytes": 86493
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/side_vent.glb",
+        "sha256": "063efab4a7763c9df0165cb9067b2dd9d9dd2e445eae136accdf39dec4d64dd1",
+        "bytes": 148776,
+        "mesh_count": 24,
+        "primitive_count": 24,
+        "texcoord_0_primitive_count": 24,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "storefront",
+      "asset_id": "SEA-SCENE-RAC-STOREFRONT",
+      "collection": "SEA-SCENE-RAC-STOREFRONT",
+      "bounds": {
+        "min_m": [
+          -1.4608383178710938,
+          -0.22922399640083313,
+          0.0
+        ],
+        "max_m": [
+          1.4694454669952393,
+          0.08703150600194931,
+          2.0855000019073486
+        ],
+        "size_m": [
+          2.930283784866333,
+          0.31625550240278244,
+          2.0855000019073486
+        ]
+      },
+      "geometry_sha256": "d9705d231dd83e0919f2576f12b364d8a887658ce9ea354d8b527748dc87fdcf",
+      "materials": [
+        "SEA_Matte"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 6,
+      "objects": 7,
+      "vertices": 776,
+      "polygons": 692,
+      "triangles": 1352,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 7,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/storefront.blend",
+        "sha256": "4af81bf76ac21457ce1ca07cdf159bf8ec0bf986afe3b96c8c881f16449065f1",
+        "bytes": 82390
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/storefront.glb",
+        "sha256": "0bea1720106b1665961561ff0e384440429923380ea5bd4ae1899f4d53aed43b",
+        "bytes": 102044,
+        "mesh_count": 7,
+        "primitive_count": 7,
+        "texcoord_0_primitive_count": 7,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "token_counter",
+      "asset_id": "SEA-SCENE-RAC-TOKEN-COUNTER",
+      "collection": "SEA-SCENE-RAC-TOKEN-COUNTER",
+      "bounds": {
+        "min_m": [
+          -0.44588154554367065,
+          -0.24299019575119019,
+          0.0
+        ],
+        "max_m": [
+          0.44588154554367065,
+          0.23232313990592957,
+          0.733954668045044
+        ],
+        "size_m": [
+          0.8917630910873413,
+          0.47531333565711975,
+          0.733954668045044
+        ]
+      },
+      "geometry_sha256": "9b81efa30acc7b42641869f3715633723555f95375e529eb699a4e0ad604bae4",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 37,
+      "objects": 61,
+      "vertices": 4110,
+      "polygons": 4376,
+      "triangles": 7760,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 61,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/token_counter.blend",
+        "sha256": "472d74aa3387358aba044c73f8501a3a331baea930b49b97c2c01de0fcf125b1",
+        "bytes": 127573
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/token_counter.glb",
+        "sha256": "11deca2237da2a21a108efde16752a95cc93f560d2357e78c58f84e26909d804",
+        "bytes": 562424,
+        "mesh_count": 61,
+        "primitive_count": 61,
+        "texcoord_0_primitive_count": 61,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "tool_board",
+      "asset_id": "SEA-SCENE-RAC-TOOL-BOARD",
+      "collection": "SEA-SCENE-RAC-TOOL-BOARD",
+      "bounds": {
+        "min_m": [
+          -0.46960875391960144,
+          -0.11013423651456833,
+          0.0
+        ],
+        "max_m": [
+          0.46960875391960144,
+          0.06096169725060463,
+          0.5379999876022339
+        ],
+        "size_m": [
+          0.9392175078392029,
+          0.17109593376517296,
+          0.5379999876022339
+        ]
+      },
+      "geometry_sha256": "a4975fc368cc13638346c2a17302b2d8b5e7aecb9341011bccf72f2c2d1ba2fa",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 10,
+      "objects": 80,
+      "vertices": 7400,
+      "polygons": 7982,
+      "triangles": 14492,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 80,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/tool_board.blend",
+        "sha256": "e4674ecfdc17ec5dfdebe99af9c1755c01917fe75bb93cc0868f0ded62758574",
+        "bytes": 130226
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/tool_board.glb",
+        "sha256": "58020fd46dc7d10d316808d74f451d8a23406b373641e026921252fd8a5d6de1",
+        "bytes": 992276,
+        "mesh_count": 80,
+        "primitive_count": 80,
+        "texcoord_0_primitive_count": 80,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "utility_pole",
+      "asset_id": "SEA-SCENE-RAC-UTILITY-POLE",
+      "collection": "SEA-SCENE-RAC-UTILITY-POLE",
+      "bounds": {
+        "min_m": [
+          -0.4396291971206665,
+          -0.17298148572444916,
+          0.0
+        ],
+        "max_m": [
+          0.5864344835281372,
+          0.10533393174409866,
+          5.059503555297852
+        ],
+        "size_m": [
+          1.0260636806488037,
+          0.2783154174685478,
+          5.059503555297852
+        ]
+      },
+      "geometry_sha256": "c28ddab14f7985401cdcde8c92c5c729bbe565583266aadd1a03c57f36923f5a",
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 4,
+      "objects": 27,
+      "vertices": 1508,
+      "polygons": 1486,
+      "triangles": 2908,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 27,
+      "family": "architecture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.blend",
+        "sha256": "ab331153de1fe009903f6b4bfe19bc621ed18d1fda8afd1c87991b7958a51146",
+        "bytes": 91513
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/utility_pole.glb",
+        "sha256": "92b0e8760040fbc3b70f92a0750bdde16eb0960bb705f1f2bb44d189430abc38",
+        "bytes": 204248,
+        "mesh_count": 27,
+        "primitive_count": 27,
+        "texcoord_0_primitive_count": 27,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "utility_rack",
+      "asset_id": "SEA-SCENE-RAC-UTILITY-RACK",
+      "collection": "SEA-SCENE-RAC-UTILITY-RACK",
+      "bounds": {
+        "min_m": [
+          -0.349846750497818,
+          -0.15292160212993622,
+          0.0
+        ],
+        "max_m": [
+          0.349846750497818,
+          0.1488349884748459,
+          1.440000057220459
+        ],
+        "size_m": [
+          0.699693500995636,
+          0.3017565906047821,
+          1.440000057220459
+        ]
+      },
+      "geometry_sha256": "9693b8cbb9338ea1bd5e391e9e75c8eda4a38c22094ac948bb551e6adeedd51b",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 56,
+      "objects": 57,
+      "vertices": 1624,
+      "polygons": 1694,
+      "triangles": 3020,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 57,
+      "family": "furniture",
+      "instance_count": 1,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.blend",
+        "sha256": "f7474e6d2c884f829c81a07d8c18840830cc2e44fae7989c0145a6fc3b8ff7b5",
+        "bytes": 109152
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/utility_rack.glb",
+        "sha256": "f63296a618af1f2d1479850551d2190f6a088abab2b8cdbb734110fea40d743f",
+        "bytes": 252732,
+        "mesh_count": 57,
+        "primitive_count": 57,
+        "texcoord_0_primitive_count": 57,
+        "image_count": 0
+      }
+    },
+    {
+      "asset_key": "vent_fan",
+      "asset_id": "SEA-SCENE-RAC-VENT-FAN",
+      "collection": "SEA-SCENE-RAC-VENT-FAN",
+      "bounds": {
+        "min_m": [
+          -0.16318096220493317,
+          -0.17400000989437103,
+          0.0
+        ],
+        "max_m": [
+          0.16394121944904327,
+          0.11280485987663269,
+          0.33000001311302185
+        ],
+        "size_m": [
+          0.32712218165397644,
+          0.2868048697710037,
+          0.33000001311302185
+        ]
+      },
+      "geometry_sha256": "644a72a7a25e6314cda496fe625d6b4713c47239a171390768be5d9d4e5437a5",
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "weighted_normal_modifier_meshes": 0,
+      "custom_normal_meshes": 15,
+      "objects": 38,
+      "vertices": 3502,
+      "polygons": 3486,
+      "triangles": 6868,
+      "wire_edges": 0,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "non_manifold_vertices": 0,
+      "loose_vertices": 0,
+      "inconsistent_winding_edges": 0,
+      "closed_manifold_meshes": 38,
+      "family": "furniture",
+      "instance_count": 3,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_blend": {
+        "path": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.blend",
+        "sha256": "e45a60a42b9874acaf51bc1f391e3934ec587e157216b1cb6ceaa3d7c4a2ae94",
+        "bytes": 117783
+      },
+      "staging_glb": {
+        "path": "art_source/scenes/rooftop_arcade/v001/export/v001/vent_fan.glb",
+        "sha256": "d5f60d6de334f394ec27ee627971ee04e844609f6cb5e4456a59ae2015e7306b",
+        "bytes": 479144,
+        "mesh_count": 38,
+        "primitive_count": 38,
+        "texcoord_0_primitive_count": 38,
+        "image_count": 0
+      }
+    }
+  ],
+  "component_count": 41,
+  "assembly": {
+    "static_instance_count": 355,
+    "animation_instance_count": 355,
+    "keyed_instance_count": 355,
+    "source_fps": 24.0,
+    "landed_counts": [
+      {
+        "frame": 1,
+        "landed": 0,
+        "by_phase": {}
+      },
+      {
+        "frame": 46,
+        "landed": 1,
+        "by_phase": {
+          "0": 1
+        }
+      },
+      {
+        "frame": 78,
+        "landed": 8,
+        "by_phase": {
+          "0": 4,
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "frame": 110,
+        "landed": 192,
+        "by_phase": {
+          "0": 4,
+          "1": 2,
+          "2": 18,
+          "3": 168
+        }
+      },
+      {
+        "frame": 142,
+        "landed": 336,
+        "by_phase": {
+          "0": 4,
+          "1": 2,
+          "2": 18,
+          "3": 311,
+          "4": 1
+        }
+      },
+      {
+        "frame": 178,
+        "landed": 349,
+        "by_phase": {
+          "0": 4,
+          "1": 2,
+          "2": 18,
+          "3": 311,
+          "4": 4,
+          "5": 8,
+          "6": 2
+        }
+      },
+      {
+        "frame": 222,
+        "landed": 355,
+        "by_phase": {
+          "0": 4,
+          "1": 3,
+          "2": 18,
+          "3": 311,
+          "4": 4,
+          "5": 8,
+          "6": 5,
+          "7": 2
+        }
+      }
+    ],
+    "landed_definition": "实例可见（对象可见性标志）且求值后的世界矩阵与静态实例相符；不代表碰撞或支撑接触验证。",
+    "matrix_tolerance": 0.0001,
+    "final_mismatches": [],
+    "vertical_motion": {
+      "mode": "spring_drop_v4",
+      "fixed_orthographic_camera": true,
+      "instances": 355,
+      "frame_samples": 78810,
+      "errors": 0,
+      "no_visibility_tracks": true,
+      "minimum_offscreen_margin_m": 0.16,
+      "minimum_top_edge_crossing_frames": 1.4583
+    },
+    "expanded_polygons": 128837,
+    "expanded_triangles": 253216
+  },
+  "master_mesh_stats": {
+    "objects": 967,
+    "polygons": 84733,
+    "triangles": 163364,
+    "closed_manifold_meshes": 967,
+    "boundary_edges": 0,
+    "wire_edges": 0,
+    "non_manifold_edges": 0,
+    "non_manifold_vertices": 0,
+    "loose_vertices": 0,
+    "inconsistent_winding_edges": 0,
+    "weighted_normal_modifier_meshes": 0,
+    "custom_normal_meshes": 568
+  },
+  "optimized_blend": {
+    "path": "art_source/scenes/rooftop_arcade/v001/export/v001/rooftop_arcade_optimized_v001.blend",
+    "sha256": "5461ef99a7b2a4b69d76d6c0cda122514feaa05ca83d1372fe479dc611b885da",
+    "bytes": 1818269,
+    "unused_local_datablocks_removed": {
+      "meshes": 0,
+      "curves": 0,
+      "cameras": 0,
+      "lights": 0,
+      "materials": 0,
+      "images": 0
+    },
+    "geometry_policy": "原网格不修改；仅清理零用户的本地叶数据块并压缩写盘。",
+    "visual_comparison": "pending"
+  },
+  "contact_dimensions": {
+    "status": "descriptive_only",
+    "planned_dimensions": {
+      "shell_width_m": 2.94,
+      "shell_depth_m": 2.26,
+      "raft_width_m": 4.6,
+      "raft_depth_m": 3.64,
+      "platform_top_m": 0.42,
+      "main_masonry_top_m": 3.44,
+      "loft_floor_top_m": 3.64,
+      "approximate_top_m": 5.55,
+      "scale_exception": "采用图纸紧凑体量，非阳光房同族层高；只验证 Blender 表现与几何，未测 Godot 角色净空、泊位或阻挡"
+    },
+    "planned_thickness_m": {
+      "wall_shell": 0.15,
+      "loft_deck": 0.2,
+      "roof_panels_nominal": 0.045,
+      "glass": 0.04,
+      "door": 0.05,
+      "large_platform_total": 0.5,
+      "stair_tread": 0.1
+    },
+    "not_verified": [
+      "承重与支撑接触",
+      "角色净空",
+      "碰撞及穿插",
+      "Godot 接入"
+    ]
+  },
+  "staging_glb_policy": {
+    "texcoord_0": "required on all primitives",
+    "images": "none",
+    "runtime_palette_binding": "pending"
+  },
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "asset_id": "SEA-SCENE-RAC",
+  "name": "海上屋顶街机维修铺",
+  "domain": "scenes",
+  "category": "building_assembly",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "building_assembly"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/asset_manifest.json",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "instance_count": 355,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed",
+  "category_label": "建筑总成",
+  "motion_revision": "spring_drop_v4"
+}

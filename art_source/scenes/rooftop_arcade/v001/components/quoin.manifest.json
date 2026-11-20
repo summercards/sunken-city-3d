@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-QUOIN",
+  "name": "转角石",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/quoin.blend",
+  "source_sha256": "1e3aa4f7b5c7bc6d39b6e883b230f0b730095c0006156dd0d5eecb3678806684",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/quoin.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.14203529059886932,
+      -0.07199999690055847,
+      0.0
+    ],
+    "max_m": [
+      0.14399999380111694,
+      0.07199999690055847,
+      0.18000000715255737
+    ],
+    "size_m": [
+      0.28603528439998627,
+      0.14399999380111694,
+      0.18000000715255737
+    ]
+  },
+  "asset_key": "quoin",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-QUOIN",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

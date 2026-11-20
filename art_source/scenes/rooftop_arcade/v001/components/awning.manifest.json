@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-SCENE-RAC-AWNING",
+  "name": "蓝色雨棚与侧招",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "structure",
+  "category_label": "建筑结构",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/awning.blend",
+  "source_sha256": "5102b249218b2380220a6f1a271eef31c8e856e20c0d32850784d13a6e8a812a",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/awning.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.7072897553443909,
+      -0.50437331199646,
+      0.0
+    ],
+    "max_m": [
+      0.7357551455497742,
+      0.33061403036117554,
+      0.7581828236579895
+    ],
+    "size_m": [
+      1.443044900894165,
+      0.8349873423576355,
+      0.7581828236579895
+    ]
+  },
+  "asset_key": "awning",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-AWNING",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

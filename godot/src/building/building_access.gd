@@ -92,6 +92,12 @@ func landing_data(id: String, rows: Variant = null, walk_override: Variant = nul
 		"landStand":[stand.x,Catalog.ORIGIN.y,stand.y],"boatPark":[park.x,1.12,park.y],
 		"boatYaw":atan2(tangent.x,tangent.y),"dockEdge":[edge.x,Catalog.ORIGIN.y,edge.y]}
 
+func berth_ids() -> Array[String]:
+	var result: Array[String] = []
+	for marker: Dictionary in markers.items:
+		if marker.get("dynamic_build", false): result.append(str(marker.landing))
+	return result
+
 func landing_node(id: String) -> Node3D:
 	if _nodes.has(id) and is_instance_valid(_nodes[id]): return _nodes[id]
 	var data:=landing_data(id,null,world.area.rects)

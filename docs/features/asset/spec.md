@@ -461,3 +461,52 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 
 证据：r10b `/Users/zyq/work/sea-work/verification/20261116-064110-attachments-production-library-r10b-c8e894/report.json`，库12103/0、core11122/0、editor328/0、旧装配78/0、房屋1453/0同工程串行，import/五项exit0、completion=true、unexpected=[]、source_consistent=true；核心有NaN负例警告。视觉r9c507/0、131PNG为当前几何，之前八个悬空bug修闭不等于全接缝美术终审。Blender源独立重开 `/Users/zyq/work/sea-work/building_attachments_source/v002/reopen_validation_final.json`；每state真实bounds/预算/代理与源hash回链由v002补充及原始报告承载，未伪造新测量。使用步骤见[WORLD](../world/spec.md)，[交付页](../../../outputs/building_attachments_review_20261116/index.html)与[开发记录](../../development/2026-11-16_building_attachments.md)。全工程sync/check、性能/GPU、人工/多视口/gizmo、商业权属、艺术终审和生产Main/Walk/shore/boat/dive均未签；不预写历史488为当前门禁。
 
+## 2026-11-19 海上屋顶街机维修铺 · Blender 源与动画
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R74 | `rooftop_arcade/v001` 为 `above_water` 制作源。按同批内外图还原街机维修铺、红砖中段、屋顶卧室和外部梯具；不规则砖、屋顶、布棚和家具以实体网格表达。母版、完整装配、室内剖视与组装动画分场景；底座至屋顶分阶段入位，砖块各自错峰，片尾与静态装配对齐。按共享 8×8 外链 PaletteUV 与四材质角色验收，逐件提供独立 Blender 包和静态交换 GLB。角色净空、泊位、运行接入、整套接缝及参考商业授权不由源级检查签署。 |
+
+[开发和自检记录](../../development/2026-11-19_rooftop_arcade.md)。
+
+### 组装动画修订：工整入位
+
+R74 源资产沿用 v001。实例在动画中保持最终装配朝向、尺寸和平面位置，仅沿 Z 轴缓降；各排砖自下而上、同排按固定顺序进场，不做斜飘、翻转、缩放或落地反弹。动画采用固定正交机位，静态造型、摆位与用色保持原样。
+
+v3 进场规则：全部实例先完整停在画面上沿之外，再沿 Z 轴连续从上方落入；不以显隐切换或缩放代替进场。v3 片尾第 345 帧与静态总装对齐。
+
+v4 按用户反馈缩短装配节奏，保留画外入场与固定镜头，改为加速下落、触地后两次衰减微弹。大件回弹幅度小于砖块和轻型陈设，反弹仅沿 Z，不低于原装配高度；第 222 帧全部与静态总装对齐。
+
+## 海上屋顶街机维修铺 · Godot 接入
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R75 | 沿用 `SEA-SCENE-RAC` 与 41 个组件 ID，以单独的优化 Blend 派生静态 GLB；原始模型和 Blender 组装动画不改。正式总装引用稳定组件 PackedScene，运行材质使用独立共享 8×8 色板；参考图权属仍待确认。游戏落点与空间职责见 SEA-WORLD-R42。 |
+
+
+
+## 2026-11-19 最小入口原生平台与斜坡组件
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R76 | 登记 `SEA-SCENE-MIN3C-DECK`、`SEA-SCENE-MIN3C-RAMP` 两个水上结构组件。原生 Godot 白盒以独立 TSCN 为几何源，无 Blender/GLB、成品建筑形体或贴图流程。根保持单位缩放，编辑器可见网格与静态碰撞分离。旧可玩总览登记为可选入口，来源和路径保留。 |
+
+[开发与证据](../../development/2026-11-19_minimal_main.md)。
+
+
+## 2026-11-19 最小海面入口：海上 3C
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R77 | 白盒直接引用 `SEA-SCENE-SKIFF-ASSEMBLY` 的现有外观、座点与握点，不发行新美术资产 ID。原生碰撞和码头标识属于 `main_minimal.tscn` 的装配。保留模型、源、预制体和商业参考权属 pending。 |
+
+[开发与验证](../../development/2026-11-19_minimal_sea_3c.md)。
+
+
+## 2026-11-19 现成划桨复用与固定木块补充
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R78 | 一个项目原创 Godot 白盒木块组件、三个实例，登记 `SEA-SCENE-MIN3C-TIMBER`，不复制模型或发三个 ID。木块用严格一致的长方体网格与形状；不套成品建筑造型，也不重做船。 |
+
+[开发与复验](../../development/2026-11-19_minimal_sea_3c.md#补充复验现成划桨与海面木块)。

@@ -524,6 +524,21 @@
     "note": "walk/landings 由场景绑定在运行时填写（Zones.bind_scene），这里只保留区块身份与取景；不是第二份地面数据。"
   },
   {
+    "id": "rooftop_arcade",
+    "name": "海上屋顶街机维修铺",
+    "role": "landmark",
+    "purpose": "礼品商亭附近的海上地标，可停船上西侧甲板；室内与阁楼仅作展示。",
+    "unlock": null,
+    "origin": [148, 1, 163],
+    "camera": [148, 2.5, 163],
+    "hover": [148, 5, 163],
+    "site": null,
+    "landings": [],
+    "walk": [],
+    "harbor": [],
+    "scene_binding": "World/SeaStructures/rooftop_arcade"
+  },
+  {
     "id": "rooftop_ranch",
     "name": "顶层牧场",
     "role": "facility",

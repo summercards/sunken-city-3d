@@ -1,0 +1,57 @@
+{
+  "asset_id": "SEA-SCENE-RAC-SIDE-VENT",
+  "name": "百叶风口",
+  "suite": "rooftop_arcade",
+  "domain": "scenes",
+  "category": "furnishing",
+  "category_label": "固定设施",
+  "scope": "scene_local",
+  "classification": {
+    "category": "building",
+    "subcategory": "furnishing"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v001",
+  "source": "art_source/scenes/rooftop_arcade/v001/components/side_vent.blend",
+  "source_sha256": "80fb92184140d5cf03c64c946816cf5bc0262e4f5a2e8ac158436bd0a056aa46",
+  "manifest": "art_source/scenes/rooftop_arcade/v001/components/side_vent.manifest.json",
+  "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+  "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "runtime_path": null,
+  "prefab": null,
+  "license_status": "pending",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "stage": "source_verified_runtime_pending",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "bounds": {
+    "min_m": [
+      -0.16769763827323914,
+      -0.08343934267759323,
+      0.0
+    ],
+    "max_m": [
+      0.16769763827323914,
+      0.05792440101504326,
+      0.2800000011920929
+    ],
+    "size_m": [
+      0.33539527654647827,
+      0.1413637436926365,
+      0.2800000011920929
+    ]
+  },
+  "asset_key": "side_vent",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-RAC-SIDE-VENT",
+  "visual_acceptance": "user_review_pending",
+  "saved_package_reopen": "passed",
+  "source_verification": "palette_uv_and_saved_source_reopen_passed"
+}

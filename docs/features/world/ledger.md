@@ -543,3 +543,67 @@ import/各项exit0、passed=true、completion_marker=true、unexpected_errors=[]
 15项定点运行字节登记全部一致、1868非目标entry字节未动；当前五项323/129/1506/159/328均0失败、exit0、unexpected=[]、source_consistent=true，独立switch336/0。主线程已目检同批1280图库与860编辑图，工坊同预览整楼及外挂可见；自动窗口GUI与人工手感边界不变。房屋内核/Main/project无diff，未提交推送。
 
 全库实际sync539/check540 issues、均exit1（46功能、1105源、1883运行资源），不因专项通过签全工程绿。候选输出根 `scenes/workshop_attachments` 首次另存前不存在的扫描问题仍保留，未造空目录；本轮World/Workshop条款与入口无新增错误，其他hash漂移和历史断链未批量重签。原始门禁日志在工程外 `sea-work/workshop_attachments_embedded_20261118/`。交付为 `outputs/workshop_attachments_embedded_review_20261118/index.html` 及同名ZIP，源图报告hash与ZIP完整性已静态核验，不代签浏览器实测、人工物理输入或生产Main运行。
+
+## 2026-11-19 海上总平面图的设计基线
+
+| 对应设计条款 | 当前状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R41 | SEA–01 / V01 底图已归档，供后续重新设计；世界功能状态不变 | [GDD 当前版](../../../GDD_V1.0.md#sea-surface-plan) · [V01 SVG](sea-surface-plan/v01/sea-surface-plan.svg) · [V01 PNG](sea-surface-plan/v01/sea-surface-plan.png)。家园扩建浮台和外海中途泊点仍为提案；本次未改主场景、摆位、导航或运行资源，未做通航验收。核验见[交付记录](../../development/2026-11-19_sea_surface_plan.md)。 |
+
+## 海上屋顶街机维修铺 · 运行接入
+
+| 对应设计条款 | 当前状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R42 | 已接入完整玩法场景 `main.tscn`；当前 F5 最小白盒不包含此建筑。西侧甲板可从既有泊位交互链上岸、步行并返船；没有经营交互。 | `rooftop-arcade` / `visual-rooftop-arcade`；[运行记录](../../development/2026-11-19_rooftop_arcade_runtime.md)。室内和阁楼不开放，摆放以 TSCN 为准。 |
+
+
+## 2026-11-19 独立海面通行白盒
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-WORLD-R43 | 最小入口范围内已实现并验证；既有功能条款状态不变 | 平台、楔坡和坡脚的碰撞与通行：`minimal-main` 35/0，真实渲染 42/0；两个组件初摆已登记，参考位不是硬规则。 [开发与证据](../../development/2026-11-19_minimal_main.md)。 |
+
+
+## 2026-11-19 最小海面入口：海上 3C
+
+| 对应设计条款 | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R44 | 专项走过坡脚至泊位，实碰 Ramp 后脱离，回泊下船；位置另见 [摆放台账](placed_positions.md)。 |
+
+[开发与验证](../../development/2026-11-19_minimal_sea_3c.md)。
+
+
+## 2026-11-19 现成划桨复用与固定木块补充
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R45 | 默认三个固定木块均核对可见包络与实际阻挡，碰撞及绕行证据见交付。 |
+
+[开发与复验](../../development/2026-11-19_minimal_sea_3c.md#补充复验现成划桨与海面木块)。
+
+## 2026-11-20 正式世界总集成门禁
+
+R05/R07/R44–R45：正式摆位和既有场景未改。候选只试接栈桥与完工平台船体接触实体；未接入、未退役 BlockerSet、GroundSpace 派生或水域查询。 部署状态不变，结果及未验边界见[开发与证据](../../development/2026-11-20_formal_world_integration.md)。
+
+## 2026-11-20 阳光房实体阻挡迁移门禁
+
+R05/R07：正式阳光房无自带碰撞体，派生岸线及水下纯景观边界保留；其他区块暂缓。 详见[实测](../../development/2026-11-20_sunroom_collision_handoff.md)。
+
+## 2026-11-20 正式家园临时试坡（已接入）
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R46 | `zone1_home_harbor.tscn` 的 `WalkAreas/TemporaryHomeRamp` 已实际接入正式 F5。单实例拥有可见坡体、标识和三角支撑，视觉件不另挡角色。默认启动及实窗试玩 exit 0，18/0；不是旧的内存夹具。没有移动原实例，没修改船、存档或阳光房碰撞盒。[路线、拆除与证据](../../development/2026-11-20_formal_home_ramp.md)。 |
+
+## 2026-11-20 窗前甲板局部支撑
+
+R05/R07：`Walk_zone1_home_dock` 按可见铺板补一个连接段，不移动模型，也不废弃 `GroundBoundary`、`GroundFloor` 或水域 BlockerSet。原内部边线不再拦人，临水外缘仍实碰；见[同机位对照](../../development/2026-11-20_formal_sunroom_deck.md)。
+
+
+## 2026-11-20 正式 Main 手动海上 3C
+
+R05/R44：原家园栈桥下挂手工可编辑 `BoardHullContact`，随原组件变换走、不依渲染 Mesh 生成。临水窗前保持阶段性局部支撑修复；不替换 BlockerSet 或其他岛屿的数据。 [实窗、碰撞来源和未覆盖范围](../../development/2026-11-20_formal_manual_sea.md)。
+
+## 2026-11-20 晚间正式 Main 复核
+
+R05/R07/R12/R46：GroundSpace 仍从正式场景的 WalkArea 派生地板和外缘体，家园试坡走同一支撑体系。正式场景运行确认船的物理掩码只匹配家园栈桥实体，其余旧轮廓仍参与船中心禁入。证据见[正式 Main 复核](../../development/2026-11-20_3c_structure_audit.md#2026-11-20-晚间--正式-main-现状复核)。
