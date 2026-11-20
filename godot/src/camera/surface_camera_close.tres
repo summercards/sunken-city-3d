@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/camera/surface_camera_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+vertical_fov = 46.0
+start_distance = 16.8
+far_zoom = 29.0

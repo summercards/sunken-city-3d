@@ -1,9 +1,9 @@
 extends SceneTree
 ## 缩放上限的真实渲染证据（SEA-CAMERA-R11）。
 ##
-## 只抓图与断言，不改玩法：连续往外滚 20 档，距离必须钉在 zoom_max(35.14)；
+## 只抓图与断言，不改玩法：连续往外滚 20 档，距离必须钉在 zoom_max(29)；
 ## 再连续往里滚 20 档，必须停到 zoom_min(13.82)。三个机位各存一张图
-## （最远 / 顶到上限后 / 最近），便于肉眼核对「最远 38% / 最近 7%」就是主人给的两张截图取景。
+## （最远 / 顶到上限后 / 最近），便于肉眼核对「最远 29% / 最近 7%」就是主人给的两张截图取景。
 ##
 ## 机位锚在**船**上而不是甲板某点：13.82 m 的最近档离目标只有十几米，
 ## 对着甲板会被屋子挡住，拍出来是一整屏空景，看不出取景对不对。
@@ -90,7 +90,7 @@ func run() -> void:
 	main.ribbon.hide()
 
 	var cam: Camera3D = main.cam
-	check(absf(cam.zoom_max - 35.14) < 0.001, "缩放上限=35.14")
+	check(absf(cam.zoom_max - 29.0) < 0.001, "缩放上限=29")
 	check(absf(cam.zoom_min - 13.82) < 0.001, "缩放下限=13.82")
 	# 机位对**船**，不对甲板上的某个点：13.82 m 时镜头离目标只有十来米，
 	# 对着甲板块会被屋子/檐口挡住，拍出来是一整屏空景（7% 那张曾是这样，
@@ -104,9 +104,9 @@ func run() -> void:
 	cam.distance = cam.zoom_max
 	cam.refresh()
 
-	# 最远档就是主人给的第一张图：读数必须仍是「视野 38%」。
+	# 最远档就是主人给的第一张图：保持刻度基准，29m 读约 29%。
 	check(is_equal_approx(cam.distance, cam.zoom_max), "拉到顶=上限")
-	check(absf(cam.zoom_ratio() - 0.38) < 0.01, "最远读作 38%% 实际=%.3f" % cam.zoom_ratio())
+	check(absf(cam.zoom_ratio() - (29.0-9.0)/(77.8-9.0)) < 0.01, "最远读作 29%% 实际=%.3f" % cam.zoom_ratio())
 	print("[camera-zoom-focus] boat=", boat.global_position, " target=", cam.target)
 	check(cam.is_position_in_frustum(boat.global_position), "最远档船在取景内")
 	await shot("camera-zoom-far.png")
@@ -120,7 +120,7 @@ func run() -> void:
 	check(cam.position.distance_to(cam._cur_target) < cam.zoom_max + 0.5, "相机没被甩出上限")
 	await shot("camera-zoom-clamped.png")
 
-	# 往里滚到底：下限 9 m 仍然有效，说明上限收紧没有把缩放整体压死。
+	# 往里滚到底：下限 13.82 m 仍然有效，说明上限收紧没有把缩放整体压死。
 	_wheel(cam, 0.86, 20)
 	# 平滑收敛：ZOOM_DAMP=9，20 帧只走 90%，读数会停在 8.5% 而不是 7%。
 	for i in 60:

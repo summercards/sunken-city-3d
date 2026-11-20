@@ -11,16 +11,31 @@ func run() -> void:
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	var cam: Node = main.cam
-	# SEA-CAMERA-R11（2026-11-09 修订）：主人指认「最远 = 视野 38%」「最近 = 视野 7%」，
-	# 百分比刻度沿用 9–77.8 的参照区间，反解得 35.14 m 与 13.82 m。
-	# 开局 54.25 已超出新上限，重取新区间的 66%（=27.9，与旧值同一百分比档）。
-	check(absf(cam.zoom_max-35.14)<.001,"缩放上限35.14 实际=%.2f"%cam.zoom_max)
-	check(absf(cam.zoom_min-13.82)<.001,"缩放下限13.82 实际=%.2f"%cam.zoom_min)
-	check(absf(cam.distance-27.9)<.001,"开局27.9（两端之间）实际=%.2f"%cam.distance)
-	check(absf(cam.zoom_ratio()-0.275)<.01,"开局读作 27.5%% 实际=%.3f"%cam.zoom_ratio())
-	check(cam.follow_enabled and cam.follow_subject==main.player,"默认跟随角色")
+	# Outdoor bounds change; the reference scale and base optics do not.
+	check(absf(cam.zoom_max-29.0)<.001,"outdoor zoom maximum")
+	check(absf(cam.zoom_min-13.82)<.001,"outdoor zoom minimum")
+	check(absf(cam.distance-16.8)<.001,"outdoor starting distance")
+	check(absf(cam.zoom_ratio()-(16.8-9.0)/(77.8-9.0))<.001,"unchanged reference scale")
+	check(cam.projection == Camera3D.PROJECTION_PERSPECTIVE and cam.keep_aspect == Camera3D.KEEP_HEIGHT and is_equal_approx(cam.fov, 46.0) and is_equal_approx(cam.near, 0.5), "outdoor perspective and vertical FOV")
+	var base := OrbitCam.new()
+	root.add_child(base)
+	check(is_equal_approx(base.fov,31.0) and is_equal_approx(base.distance,27.9) and is_equal_approx(base.zoom_max,35.14), "unconfigured camera keeps base defaults")
+	base.queue_free()
+	var saved_distance: float = cam.distance
+	cam.orbit_only = true
+	cam.refresh()
+	check(is_equal_approx(cam.fov,31.0), "interior lens unchanged")
+	cam.orbit_only = false
+	cam.pose_lock = true
+	cam.refresh()
+	check(is_equal_approx(cam.fov,31.0), "locked lens unchanged")
+	cam.pose_lock = false
+	cam.distance = saved_distance
+	cam.refresh()
+	check(is_equal_approx(cam.fov,46.0) and is_equal_approx(cam.distance,saved_distance), "restore to the outdoor lens and saved distance")
+	check(main.player.get_parent() == main.boat and cam.follow_enabled and cam.follow_subject == main.boat, "跳过开场的船上夹具默认跟随船")
 	cam._process(.1)
-	check(cam.target.distance_to(main.player.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<.001,"跟随世界坐标 aim=%.3fm"%main.BodyScale.CAMERA_FOCUS)
+	check(cam.target.distance_to(main.boat.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<.001,"跟随船体世界坐标 aim=%.3fm"%main.BodyScale.CAMERA_FOCUS)
 	var e := InputEventMouseButton.new()
 	e.button_index = MOUSE_BUTTON_LEFT
 	e.position = Vector2(500,400)
@@ -47,7 +62,7 @@ func run() -> void:
 		for i in fps: cam._process(1.0/fps)
 		outputs.append(cam._cur_target)
 	check(outputs[0].distance_to(outputs[2])<.001,"阻尼帧率一致")
-	# 连续往外滚：被 zoom_max 钉在 35.14 m（主人截图那一档），拉不出更远的画面。
+	# 连续往外滚停在场景自己的上限。
 	cam.suspend_follow()
 	for i in 12:
 		cam.zoom_action.execute(cam,1.0/0.86,Vector2(500,400))
@@ -63,7 +78,7 @@ func run() -> void:
 		cam._process(0.1)
 	check(absf(cam.distance-cam.zoom_min)<.001,"内侧停在下限 实际=%.2f"%cam.distance)
 	check(absf(cam.zoom_ratio()-0.07)<.01,"最近读作 7%% 实际=%.3f"%cam.zoom_ratio())
-	print("[camera-follow] 14 checks, failures=",failures)
+	print("[camera-follow] 19 checks, failures=",failures)
 	main.queue_free()
 	await process_frame
 	quit(0 if failures==0 else 1)

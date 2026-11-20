@@ -4,6 +4,10 @@ class_name OrbitCam
 ## 参考网页版 dampingFactor=0.06，采用时间相关指数阻尼平滑目标。
 ## 松手后保持手动构图；顶部按钮恢复跟随。滚轮缩放、右键旋转保留。
 const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
+const SurfaceProfile = preload("res://src/camera/surface_camera_profile.gd")
+
+@export var surface_profile: SurfaceProfile
+var _authored_zoom_max: float
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
@@ -158,8 +162,11 @@ func suspend_follow() -> void:
 
 func _ready() -> void:
 	camera_machine.configure(self,{"follow":preload("res://src/camera/states/follow.gd").new(),"manual":preload("res://src/camera/states/manual.gd").new()},{"follow":["manual"],"manual":["follow"]},"follow")
+	_authored_zoom_max = zoom_max
+	if surface_profile != null:
+		distance = surface_profile.start_distance
+		zoom_max = surface_profile.far_zoom
 	_cur_target = target
-	_cur_distance = clampf(distance, zoom_min, zoom_max)
 	refresh()
 
 
@@ -168,7 +175,9 @@ func refresh() -> void:
 	dir = orbit_dir.normalized() if orbit_dir.length() > 0.001 else Vector3(-0.5, 0.7, 0.5).normalized()
 	_keep_pitch_valid()
 	keep_aspect = Camera3D.KEEP_HEIGHT
-	fov = cam_fov
+	# Interior or locked views keep the authored base lens; title and arrival
+	# continue to own their temporary projection and restore gameplay on exit.
+	fov = surface_profile.vertical_fov if surface_profile != null and not orbit_only and not pose_lock else cam_fov
 	near = cam_near
 	far = cam_far
 	distance = clampf(distance, _zoom_low(), _zoom_high())
@@ -187,7 +196,7 @@ func setup(cam_pos: Vector3, cam_target: Vector3) -> void:
 
 
 func set_distance(d: float) -> void:
-	distance = clampf(d, zoom_min, zoom_max)
+	distance = clampf(d, zoom_min, _direct_zoom_high())
 	_cur_distance = distance
 	_apply()
 
@@ -203,8 +212,14 @@ func focus_zone(zone: Dictionary) -> void:
 ## 立刻应用（截图/调试用；正常交互走 _process 的平滑）。
 func _apply() -> void:
 	_cur_target = target
-	_cur_distance = clampf(distance, zoom_min, zoom_max)
+	_cur_distance = clampf(distance, zoom_min, _direct_zoom_high())
 	_update_pose()
+
+
+func _direct_zoom_high() -> float:
+	if surface_profile != null and (orbit_only or pose_lock):
+		return _authored_zoom_max
+	return zoom_max
 
 
 func _update_pose() -> void:
@@ -447,7 +462,7 @@ func _zoom_low() -> float:
 
 
 func _zoom_high() -> float:
-	return orbit_zoom_max if orbit_only else zoom_max
+	return orbit_zoom_max if orbit_only else _direct_zoom_high()
 
 
 func _keep_pitch_valid() -> void:

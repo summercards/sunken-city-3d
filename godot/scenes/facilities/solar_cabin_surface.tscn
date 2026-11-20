@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_front_platform.tscn" id="front_platform"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_bridge.tscn" id="bridge"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_lighting.tscn" id="lamps"]
+[ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/solar_cabin_surface_collision.tscn" id="surface_collision"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_view.gd" id="sunroom_view"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_damage_visual.gd" id="damage_visual"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_repair_interactable.gd" id="repair_interactable"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_ladder_interactable.gd" id="ladder_interactable"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_upper_interactable.gd" id="upper_interactable"]
 [node name="太阳能木屋-海上区域" type="Node3D"]
+[node name="SurfaceCollision" parent="." instance=ExtResource("surface_collision")]
 metadata/asset_id = "SEA-SCENE-SBR-ASSEMBLY"
 metadata/front_godot = Vector3(0, 0, 1)
 metadata/deck_height = 2.15

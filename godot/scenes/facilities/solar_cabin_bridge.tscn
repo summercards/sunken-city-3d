@@ -1,7 +1,18 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 [ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="1"]
+[sub_resource type="BoxShape3D" id="BridgeBoards"]
+size = Vector3(4.26, 0.26, 5.23)
+
 [node name="太阳能木屋-栈桥-暖木" type="Node3D"]
 script = ExtResource("1")
 module_key = "bridge"
 metadata/module = "bridge"
 metadata/deck_height = 2.15
+
+[node name="BoardHullContact" type="StaticBody3D" parent="."]
+position = Vector3(3.066, 2.02, 14.535)
+collision_layer = 4096
+collision_mask = 0
+
+[node name="Boards" type="CollisionShape3D" parent="BoardHullContact"]
+shape = SubResource("BridgeBoards")

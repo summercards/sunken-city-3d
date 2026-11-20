@@ -12,6 +12,7 @@ func run() -> void:
 	root.add_child(main)
 	main._autosave_on = false
 	check(main._title_active and main.start_screen != null,"default boot shows title")
+	check(is_equal_approx(main.cam.fov,31.0), "title lens remains 31 degrees")
 	var time: Dictionary = main.world_clock.to_dict()
 	var coins: int = root.get_node("Economy").coins
 	var pickups: Dictionary = main.props.to_dict()
@@ -47,6 +48,7 @@ func run() -> void:
 		await process_frame
 	await create_timer(1.9).timeout
 	check(not main._title_active and main.start_screen==null,"actual start click enters world")
+	check(is_equal_approx(main.cam.fov,46.0), "title hands off to selected outdoor lens")
 	check(main.hud.visible and main.markers.visible,"gameplay UI restored")
 	check(main.world_clock.seconds>float(time.seconds),"world time resumes")
 	main._on_click_command("shop")

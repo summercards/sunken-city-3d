@@ -194,3 +194,8 @@ SEA-QUALITY-R01/R03/R04/R05：只改`test_quick_tools.gd:save_frame`，从当前
 - 当前`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`及11份原报告已更新：124724单位批engine0/runner0；124828–124832的intent/archive/replace/commit/future五seed均engine-9/runner1、expected_sigkill=true，五recover均engine0/runner0。此为当前矩阵的已有重跑，不是本次文档作业运行；收集器“历史引用未重跑”的描述仅属于它自己的采集批。accepted=true不抹seed非零，不签物理断电、目录fsync、磁盘满或并发写。
 
 B4发行包/许可闭包、设备/跨平台、长期生命周期/性能仍未完成；agent_radius/zone2_glass/2D MSAA警告保留，不签零警告或零泄漏。审计没有B5；不升级verified。本次只追加指定六文档，不改代码/测试/runner/资产/登记JSON，不刷hash、不删R18事务文件，不启动Godot或sync；共享工作区既有他人修改全部保留。
+
+
+## 2026-11-19 白盒海上 3C 分层验证
+
+承接 SEA-QUALITY-R01–R05（规则不改）：`minimal-skiff` 与 `visual-minimal-skiff` 走默认入口，无头和真实窗口脚本输入分列；旧入口另用隔离导入批。保留斜碰、拖拽及旧导入缓存失败；拒绝场景是预期业务结果，不是白名单引擎错误。报告、设备与未验项见[交付](../../development/2026-11-19_minimal_sea_3c.md#补读与契约复核)。

@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3]
+
+[sub_resource type="BoxShape3D" id="WallSide"]
+size = Vector3(0.36, 4.86, 6.04)
+
+[sub_resource type="BoxShape3D" id="WallBack"]
+size = Vector3(8.62, 4.86, 0.36)
+
+[sub_resource type="BoxShape3D" id="WallFrontLeft"]
+size = Vector3(3.05, 4.86, 0.36)
+
+[sub_resource type="BoxShape3D" id="WallFrontRight"]
+size = Vector3(3.18, 4.86, 0.36)
+
+[sub_resource type="BoxShape3D" id="UpperSide"]
+size = Vector3(0.55, 2.6, 6.1)
+
+[sub_resource type="BoxShape3D" id="UpperBack"]
+size = Vector3(10.0, 2.6, 0.55)
+
+[node name="SunroomSurfaceCollision" type="StaticBody3D"]
+collision_layer = 256
+collision_mask = 512
+metadata/collision_owner = "SEA-SUNROOM"
+metadata/visual_only = false
+metadata/door_opening = "front_x_3.30_to_5.80"
+metadata/ladder_corridor = "front_x_3.30_to_5.80"
+
+[node name="LeftWall" type="CollisionShape3D" parent="."]
+position = Vector3(0.04, 4.45, -0.40)
+shape = SubResource("WallSide")
+
+[node name="RightWall" type="CollisionShape3D" parent="."]
+position = Vector3(10.45, 4.45, -0.40)
+shape = SubResource("WallSide")
+
+[node name="BackWall" type="CollisionShape3D" parent="."]
+position = Vector3(4.30, 4.45, -3.30)
+shape = SubResource("WallBack")
+
+[node name="FrontWallLeft" type="CollisionShape3D" parent="."]
+position = Vector3(1.70, 4.45, 2.45)
+shape = SubResource("WallFrontLeft")
+
+[node name="FrontWallRight" type="CollisionShape3D" parent="."]
+position = Vector3(8.05, 4.45, 2.45)
+shape = SubResource("WallFrontRight")
+
+[node name="UpperLeftWall" type="CollisionShape3D" parent="."]
+position = Vector3(0.35, 8.75, -0.40)
+shape = SubResource("UpperSide")
+
+[node name="UpperRightWall" type="CollisionShape3D" parent="."]
+position = Vector3(10.45, 8.75, -0.40)
+shape = SubResource("UpperSide")
+
+[node name="UpperBackWall" type="CollisionShape3D" parent="."]
+position = Vector3(5.40, 8.75, -3.30)
+shape = SubResource("UpperBack")

@@ -14,6 +14,8 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 GODOT_ROOT = ROOT / 'godot'
+MINIMAL_MAIN_CHECKS = {'minimal-main', 'visual-minimal-main', 'minimal-main-launch', 'minimal-skiff', 'visual-minimal-skiff', 'visual-minimal-surface-reuse'}
+LEGACY_MAIN_CHECK = 'legacy-main-restore'
 TESTS = {
     'underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
     'visual-underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
@@ -57,6 +59,8 @@ TESTS = {
     'roof-reveal-component': ('tests/test_roof_reveal_component.gd', r'\[roof-reveal-component\] \d+ checks, 0 failures'),
     'roof-reveal': ('tests/test_roof_reveal.gd', r'\[roof-reveal\] \d+ checks, 0 failures'),
     'visual-roof-reveal': ('tools/capture_roof_reveal.gd', r'\[roof-reveal-render\] \d+ checks, 0 failures'),
+    'rooftop-arcade': ('tests/test_rooftop_arcade.gd', r'\[rooftop-arcade\] \d+ checks, 0 failures'),
+    'visual-rooftop-arcade': ('tests/test_rooftop_arcade.gd', r'\[rooftop-arcade\] \d+ checks, 0 failures'),
     'gift-kiosk': ('tests/test_gift_kiosk.gd', r'\[gift-kiosk\] \d+ checks, 0 failures'),
     'visual-gift-kiosk': ('tools/capture_gift_kiosk.gd', r'\[gift-kiosk-render\] \d+ checks, 0 failures'),
     'water-building-002': ('tests/test_water_building_002.gd', r'\[water-building-002\] \d+ checks, 0 failures'),
@@ -391,6 +395,12 @@ TESTS.update({
     'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
     'sunroom-repair': ('tests/test_sunroom_repair.gd', r'\[sunroom-repair\] \d+ checks, 0 failures'),
     'sunroom-runtime': ('tests/test_sunroom_runtime.gd', r'\[sunroom-runtime\] \d+ checks, 0 failures'),
+    'sunroom-surface-collision': ('tests/test_sunroom_surface_collision.gd', r'\[sunroom-surface-collision\] \d+ checks, 0 failures'),
+    'visual-formal-manual-sea': ('tests/test_formal_manual_sea.gd', r'\[formal-manual-sea\] [1-9]\d* checks, 0 failures'),
+    'visual-formal-surface-handoff': ('tests/test_formal_surface_handoff.gd', r'\[formal-surface-handoff\] [1-9]\d* checks, 0 failures'),
+    'visual-formal-sunroom-deck': ('tests/test_formal_sunroom_deck.gd', r'\[formal-sunroom-deck\] [1-9]\d* checks, 0 failures'),
+    'visual-formal-home-ramp': ('tests/test_formal_home_ramp.gd', r'\[formal-home-ramp\] [1-9]\d* checks, 0 failures'),
+    'visual-formal-default-launch': (None, r'Godot Engine v'),
     'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
     # 鱼群专项：模型/动画/配色/单群散布 + 近景渲染证据。
@@ -450,6 +460,17 @@ TESTS.update({
     # 重置存档的两屏：暂停菜单入口 + 确认页。只抓图，确认那一下归 save-reset。
     'visual-save-reset': ('tools/capture_save_reset.gd', r'\[save-reset-render\] 0 failures'),
 })
+TESTS.update({
+    'minimal-main': ('tests/test_minimal_main.gd', r'\[minimal-main\] [1-9]\d* checks, 0 failures'),
+    'visual-minimal-main': ('tests/test_minimal_main.gd', r'\[minimal-main\] [1-9]\d* checks, 0 failures'),
+    'visual-surface-camera-compare': ('tests/probe_surface_camera.gd', r'\[surface-camera\] done'),
+    'minimal-main-launch': (None, r'Godot Engine v'),
+    'minimal-skiff': ('tests/test_minimal_skiff.gd', r'\[minimal-skiff\] [1-9]\d* checks, 0 failures'),
+    'visual-minimal-skiff': ('tests/test_minimal_skiff.gd', r'\[minimal-skiff\] [1-9]\d* checks, 0 failures'),
+    'visual-minimal-surface-reuse': ('tests/test_surface_visual_reuse.gd', r'\[surface-visual-reuse\] [1-9]\d* checks, 0 failures'),
+    'visual-legacy-surface-reference': ('tests/test_surface_visual_reuse.gd', r'\[surface-visual-reuse\] [1-9]\d* checks, 0 failures'),
+    'legacy-main-restore': ('tests/test_legacy_main_restore.gd', r'\[legacy-main-restore\] [1-9]\d* checks, 0 failures'),
+})
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 
 
@@ -486,6 +507,17 @@ def inspect_log(name, code, text, marker):
 def derive_check_config(full_config, name):
     """每项检查从完整配置独立派生，避免工坊配置污染后续游戏检查。"""
     config_source = full_config
+    # Whitebox checks explicitly select the whitebox in their isolated copy.
+    # F5/default launch checks still inherit the real project configuration.
+    if name in MINIMAL_MAIN_CHECKS:
+        config_source = re.sub(r'^run/main_scene=.*$', 'run/main_scene="res://scenes/main_minimal.tscn"', full_config, flags=re.M)
+        config_source = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S)
+    elif name != LEGACY_MAIN_CHECK and 'run/main_scene="res://scenes/main_minimal.tscn"' in full_config:
+        profile = (GODOT_ROOT / 'profiles/legacy_main.cfg').read_text(encoding='utf-8')
+        legacy_entry = re.search(r'^run/main_scene=.*$', profile, flags=re.M).group()
+        autoloads = re.search(r'^\[autoload\].*\Z', profile, flags=re.M | re.S).group()
+        config_source = re.sub(r'^run/main_scene=.*$', legacy_entry, full_config, flags=re.M)
+        config_source += '\n' + autoloads
     if name in ['plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'workshop-adjustment', 'workshop-random', 'workshop-damage']:
         config_source = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', config_source, flags=re.S)
         config_source = re.sub(r'^theme/custom_font=.*\n?', '', config_source, flags=re.M)
@@ -537,7 +569,7 @@ def run_minimum_loop_baseline(exe, project, full_config, run_dir, user_name, arg
     for name, script in cases:
         config = re.sub(r'^config/custom_user_dir_name=.*$',
                         'config/custom_user_dir_name="' + user_name + '/' + name + '"',
-                        full_config, flags=re.M)
+                        derive_check_config(full_config, name), flags=re.M)
         write_project_config(project / 'project.godot', config)
         cmd = [exe, '--path', str(project), '--headless', '--script', 'res://' + script,
                '--', '--skip-title']
@@ -701,7 +733,7 @@ def isolated_editor_workshop_project(run_dir, include_plants=False, include_asse
     return project, user_name
 
 
-def isolated_project(run_dir):
+def isolated_project(run_dir, import_assets=False):
     project = run_dir / 'project'
     project.mkdir()
     for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons']:
@@ -709,14 +741,22 @@ def isolated_project(run_dir):
         if source.exists():
             shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))
     # Assets and imported binary cache are read-only inputs to test scripts.
-    mount_readonly(project / 'assets', GODOT_ROOT / 'assets')
+    if import_assets:
+        # Godot's editor writes .import sidecars and imported cache. Never point
+        # a writing import run at the live checkout via symlink or junction.
+        shutil.copytree(GODOT_ROOT / 'assets', project / 'assets')
+    else:
+        mount_readonly(project / 'assets', GODOT_ROOT / 'assets')
     mount_readonly(project / 'terrain', GODOT_ROOT / 'terrain')
     mount_readonly(project / 'icon.svg', GODOT_ROOT / 'icon.svg')
     cache = project / '.godot'
     cache.mkdir()
     (cache / '.gdignore').touch()
     if (GODOT_ROOT / '.godot/imported').exists():
-        mount_readonly(cache / 'imported', GODOT_ROOT / '.godot/imported')
+        if import_assets:
+            shutil.copytree(GODOT_ROOT / '.godot/imported', cache / 'imported')
+        else:
+            mount_readonly(cache / 'imported', GODOT_ROOT / '.godot/imported')
     classes = GODOT_ROOT / '.godot/global_script_class_cache.cfg'
     if classes.exists():
         shutil.copy2(classes, cache / classes.name)
@@ -859,7 +899,7 @@ def main():
         run_dir,
         include_plants=attachment_editor or any(n in checks for n in ['host-scene-guard', 'plant-authoring', 'plant-performance', 'plant-canopy', 'plant-canopy-preview', 'plant-integration', 'editor-plant', 'editor-workshop-switch', 'editor-scene-assembly']),
         include_assembly=attachment_editor or 'editor-scene-assembly' in checks or 'editor-workshop-attachments' in checks,
-        include_attachments=attachment_checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir)
+        include_attachments=attachment_checks) if set(checks).issubset(minimal_checks) else isolated_project(run_dir, import_assets=args.import_assets)
     if attachment_checks:
         write_project_config(project / 'project.godot', derive_check_config(
             (project / 'project.godot').read_text(encoding='utf-8'), 'building-attachments'))
@@ -885,6 +925,10 @@ def main():
             parser.error('--source-overlay must be an external snapshot containing godot/src')
         shutil.copytree(overlay / 'godot/src', project / 'src', dirs_exist_ok=True)
     full_config = (project / 'project.godot').read_text()
+    if LEGACY_MAIN_CHECK in checks and checks != [LEGACY_MAIN_CHECK]:
+        parser.error('legacy-main-restore must run alone (project override)')
+    if checks == [LEGACY_MAIN_CHECK]:
+        shutil.copy2(GODOT_ROOT / 'profiles/legacy_main.cfg', project / 'override.cfg')
     report = {'label': label, 'run_dir': str(run_dir), 'user_data_name': user_name,
               'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
               'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
@@ -1001,6 +1045,8 @@ def main():
                 cmd += ['--editor', '--', '--plant-editor-verify', '--workshop-switch-verify']
             else:
                 cmd += ['--editor', '--', editor_flag]
+        elif name in {'minimal-main-launch', 'visual-formal-default-launch'}:
+            cmd += ['--quit-after', '120']
         elif script:
             if args.compile_only:
                 cmd.append('--check-only')
@@ -1008,9 +1054,11 @@ def main():
             cmd += ['--script', 'res://' + script]
         else:
             cmd += ['--', '--selftest', '--nosave']
-        if 'title-screen' not in name:
+        if 'title-screen' not in name and name not in {'visual-formal-default-launch', 'visual-formal-home-ramp', 'visual-formal-surface-handoff'}:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--skip-title')
+        if name == 'visual-legacy-surface-reference':
+            cmd.append('--nosave')
         if name == 'build-attachment-library':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--attachment-library-out=user://building_attachments/library/v002')

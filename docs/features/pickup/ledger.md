@@ -197,3 +197,12 @@ b2-pickup-transactions191/0、b2-session51/0、transactions103/0已PASS/exit0；
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 005436 pickup191/0、transactions103/0均PASS/exit0；最新012421 session53/0、exit0，原子复合奖励及重入仅按实际覆盖签署。
 - 010438三视觉入口exit0不等于拾取专属美术全验；密度/产量/补货与岸边Gather政策不变，全库契约仍失败，登记头partial保持，冻结证据及未签范围见主记录。
+
+
+## 2026-11-20 正式 Main 手动海上 3C
+
+R23：共享实窗在同一旅程中放置测试浮木，远处点击无移动和奖励，划到原半径内、停稳后用既有结算入账。鱼群、漂流物新增美术不在此批。 [实窗、碰撞来源和未覆盖范围](../../development/2026-11-20_formal_manual_sea.md)。
+
+| 条款 ID | 实施与证据 |
+|---|---|
+| SEA-PICKUP-R23 | 远点击拒绝、手动收取验证，距离和结算不变；[实窗证据](../../development/2026-11-20_formal_manual_sea.md)。 |

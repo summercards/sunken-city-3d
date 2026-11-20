@@ -26,6 +26,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / 'godot' / 'scenes' / 'main.tscn'
+MINIMAL = MAIN.with_name('main_minimal.tscn')
+MINIMAL_PREFIX = 'main_minimal.tscn#'
+HOME = MAIN.parent / 'zones' / 'zone1_home_harbor.tscn'
+HOME_PREFIX = 'zone1_home_harbor.tscn#'
+HOME_RAMP = 'WalkAreas/TemporaryHomeRamp'
 ZONES = ROOT / 'godot' / 'assets' / 'data' / 'zones.json'
 LEDGER = ROOT / 'docs' / 'features' / 'world' / 'placed_positions.md'
 
@@ -44,7 +49,7 @@ def parse_numbers(text, count):
     return values if all(math.isfinite(value) for value in values) else None
 
 
-def parse_main(path):
+def parse_main(path, include_trs=False):
     """返回节点平移与按 Godot 序列化顺序保存的三个 basis 列向量。"""
     text = path.read_text(encoding='utf-8')
     nodes = {}
@@ -72,6 +77,17 @@ def parse_main(path):
                                  % (path, line_no, current))
             nodes[current]['basis'] = [nums[0:3], nums[3:6], nums[6:9]]
             nodes[current]['translation'] = nums[9:12]
+        elif include_trs and current and re.match(r'(position|scale)\s*=', line):
+            inner = re.fullmatch(r'(position|scale)\s*=\s*Vector3\((.*)\)', line)
+            nums = parse_numbers(inner.group(2), 3) if inner else None
+            if nums is None:
+                raise ValueError('%s:%d: %s: expected three finite numbers' % (path, line_no, current))
+            if inner.group(1) == 'position':
+                nodes[current]['translation'] = nums
+                if nodes[current]['basis'] is None:
+                    nodes[current]['basis'] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+            else:
+                nodes[current]['basis'] = [[nums[i] if i == j else 0 for j in range(3)] for i in range(3)]
     return nodes
 
 
@@ -216,8 +232,61 @@ def main():
         if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
             warnings.append('%s: non-uniform scale without user confirmation' % binding)
 
+    # The opt-in legacy Main still owns all zone placements. The default 3C
+    # sample has no zones; its own TSCN owns the pieces and berth-local markers.
+    try:
+        minimal_nodes = parse_main(MINIMAL, include_trs=True)
+    except (OSError, ValueError) as error:
+        print('FAIL: ' + str(error))
+        return 1
+    obstacle_names = [name for name in minimal_nodes if name.startswith('TimberObstacles/')
+                      and name.count('/') == 1]
+    for name in ('Deck', 'Ramp', 'Boat', 'Ramp/Berth', 'Ramp/Berth/Shore', 'Ramp/Berth/BoatPark', *obstacle_names):
+        key = MINIMAL_PREFIX + name
+        node = minimal_nodes.get(name)
+        row = rows.get(key)
+        if node is None or node['translation'] is None:
+            problems.append('%s: no explicit scene placement' % key)
+            continue
+        checked += 1
+        if row is None or row['ref'] is None or row['actual'] is None:
+            problems.append('%s: missing reference or measured position in ledger' % key)
+            continue
+        if dist(row['actual'], node['translation']) > POS_TOL:
+            problems.append('%s: ledger actual %s != scene %s' % (key, row['actual'], node['translation']))
+        lengths = [col_len(node['basis'], i) for i in range(3)]
+        if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
+            warnings.append('%s: non-uniform scale without user confirmation' % key)
+
+    # The removable test slope is authored inside the instantiated home zone,
+    # not a standalone zone binding or a node serialized directly in Main.
+    try:
+        home_ramp = parse_main(HOME, include_trs=True).get(HOME_RAMP)
+    except (OSError, ValueError) as error:
+        print('FAIL: ' + str(error))
+        return 1
+    ramp_key = HOME_PREFIX + HOME_RAMP
+    if home_ramp is not None:
+        checked += 1
+        row = rows.get(ramp_key)
+        if home_ramp['translation'] is None or row is None or row['ref'] is None or row['actual'] is None:
+            problems.append('%s: missing explicit placement or reference/measured ledger position' % ramp_key)
+        else:
+            if dist(row['actual'], home_ramp['translation']) > POS_TOL:
+                problems.append('%s: ledger actual %s != scene %s' % (ramp_key, row['actual'], home_ramp['translation']))
+            lengths = [col_len(home_ramp['basis'], i) for i in range(3)]
+            if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
+                warnings.append('%s: non-uniform scale without user confirmation' % ramp_key)
+    elif ramp_key in rows:
+        problems.append('ledger row %s: fixture removed; move its row to history' % ramp_key)
+
     for node in rows:
-        if node not in nodes:
+        if node == ramp_key:
+            continue
+        if node.startswith(MINIMAL_PREFIX):
+            if node.removeprefix(MINIMAL_PREFIX) not in minimal_nodes:
+                problems.append('ledger row %s: node no longer exists in main_minimal.tscn' % node)
+        elif node not in nodes:
             problems.append('ledger row %s: node no longer exists in main.tscn' % node)
 
     if not args.quiet:

@@ -47,6 +47,22 @@ func is_geometric_water(x: float, z: float) -> bool:
 				return false
 	return true
 
+## Unbuffered point exclusion for the native manual vessel. Unlike route queries,
+## this neither expands legacy shapes nor steers/sweeps a substitute hull.
+func can_enter_raw_water(from: Vector2, to: Vector2) -> bool:
+	if not to.is_finite() or (allowed_area.has_area() and not allowed_area.has_point(to)): return false
+	if _block_index.is_empty(): _build_block_index()
+	for shape: Dictionary in _block_index.get(_block_key(to.x,to.y), []):
+		var center := Vector2(float(shape.x),float(shape.z))
+		var r := float(shape.hx)
+		var dims := Vector2(r,float(shape.get("hz",r)))
+		if _raw_shape_contains(to-center, dims, bool(shape.get("round",false))) and not _raw_shape_contains(from-center, dims, bool(shape.get("round",false))):
+			return false
+	return true
+
+static func _raw_shape_contains(p: Vector2, dims: Vector2, rounded: bool) -> bool:
+	return p.length_squared() <= dims.x*dims.x if rounded else absf(p.x) <= dims.x and absf(p.y) <= dims.y
+
 func _block_key(x: float, z: float) -> Vector2i:
 	return Vector2i(int(floor(x / BLOCK_INDEX_CELL)), int(floor(z / BLOCK_INDEX_CELL)))
 

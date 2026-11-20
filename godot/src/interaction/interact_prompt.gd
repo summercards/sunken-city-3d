@@ -17,6 +17,8 @@ signal action_requested
 ## 没有交互焦点时也能说的一句话（上船/上岸，SEA-INTERACT-R13）。
 ## 由 Main 每帧写；这里只负责在「焦点为空」时把它画出来，不判断条件。
 var shortcut := ""
+## A nearby but unsafe berth can explain why without displaying an E action.
+var unavailable_hint := ""
 var _panel: PanelContainer
 var _key_label: Button
 var _text: Label
@@ -131,26 +133,26 @@ func update_from(actor: Node) -> void:
 		return
 	if _finish_left > 0.0: return
 	_fill.bg_color = Color("#8edbb3")
-	if actor == null or not actor.active or actor.target == null:
-		# 交互焦点为空时，仍要说清「现在按 E 会做什么」（上下船）。
-		if shortcut != "":
-			if not visible:
-				visible = true
+	if shortcut != "" or actor == null or not actor.active or actor.target == null:
+		# Main arbitrates the executable shortcut against any ordinary land focus.
+		var hint := shortcut if shortcut != "" else unavailable_hint
+		if hint != "":
+			visible = true
 			if _blocked_left <= 0.0:
 				_text.add_theme_color_override("font_color", HINT_COLOR)
-				_last_text = shortcut
-				_text.text = shortcut
+				_last_text = hint
+				_text.text = hint
 			_key_label.disabled = false
 			_key_label.text = "E"
+			_key_label.visible = shortcut != ""
 			_bar.value = 0.0
-			# 没在按住时不要留一条空槽：它会读成「进度 0%，还差一点」。
-			# 只有真的在按（progress > 0）才把进度条显出来。
 			_bar.visible = false
 			return
 		if visible:
 			visible = false
 			_bar.value = 0.0
 		return
+	_key_label.visible = true
 	if not visible:
 		visible = true
 	var spot: Node3D = actor.target

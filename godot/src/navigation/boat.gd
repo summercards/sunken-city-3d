@@ -1,4 +1,4 @@
-extends Node3D
+extends CharacterBody3D
 class_name Boat
 ## 小船：独立 Blender 组件装配；运动、靠泊和起伏由 Boat 保持原契约。
 
@@ -7,6 +7,41 @@ signal navigation_blocked
 
 ## 主场景提供岸线判定；轨迹圆角与每步运动共用它。
 var segment_clear := Callable()
+var berth_query := Callable()
+var water_position_guard := Callable()
+var _manual_hull: RefCounted
+var _visual_heave := 0.0
+
+func configure_formal_hull() -> void:
+	var hull := get_node_or_null("HullCollision") as CollisionShape3D
+	if hull == null: return
+	_manual_hull = preload("res://src/navigation/formal_hull_motion.gd").new()
+	_manual_hull.configure(self, hull)
+
+func hull_clear() -> bool:
+	return _manual_hull != null and not _manual_hull.overlaps_shore(global_transform)
+
+func is_still() -> bool:
+	return _manual_hull != null and _manual_hull.is_still()
+
+func shore_contact() -> Object:
+	return _manual_hull.shore_contact() if _manual_hull != null else null
+
+func _physics_process(delta: float) -> void:
+	if _manual_hull == null or not manual_drive: return
+	var berth: Vector3 = berth_query.call(global_position) if berth_query.is_valid() else Vector3.INF
+	var before: Object = _manual_hull.shore_contact()
+	_manual_hull.advance(Vector3(drive_dir.x, 0.0, drive_dir.y), minf(delta, 0.05), berth, cruise_speed(), water_position_guard)
+	_vel = _manual_hull._speed
+	_turn_rate = _manual_hull._turn_rate
+	_speed_actual = velocity.length()
+	_travel_dir = Vector2(velocity.x, velocity.z).normalized()
+	if _manual_hull.shore_contact() != null and before == null:
+		navigation_blocked.emit()
+	if drive_dir == Vector2.ZERO and is_still():
+		manual_drive = false
+		_sailing = false
+
 var _row_blend := 0.0
 var water_surface: MeshInstance3D
 var _wave_pitch := 0.0
@@ -14,6 +49,7 @@ var _wave_roll := 0.0
 
 const WATER_LEVEL := 1.12
 const VISUAL_SCENE = preload("res://scenes/props/reference_skiff.tscn")
+const RowingRig = preload("res://src/player/animation/rowing_rig.gd")
 ## 巡航速度。网页版 `sailDuration = 曲线长度 / 3.6`，这里取同一量级。
 const SPEED := 2.6
 
@@ -143,6 +179,7 @@ func build() -> void:
 
 
 func place_at(pos: Vector3, yaw: float) -> void:
+	if _manual_hull != null: _manual_hull.reset()
 	position = Vector3(pos.x, WATER_LEVEL, pos.z)
 	rotation.y = yaw
 	manual_drive = false
@@ -172,6 +209,7 @@ func place_at(pos: Vector3, yaw: float) -> void:
 ## 多转一下船头（主人反馈的「打捞时自动转向一下」就是这段）；靠泊仍传 true。
 func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path: Array = [],
 		align_at_arrival := true) -> void:
+	if _manual_hull != null: return
 	# 点目标 = 自动航行接管：手动驾驶必须当场放掉，否则两条控制同时写位置。
 	manual_drive = false
 	drive_dir = Vector2.ZERO
@@ -287,6 +325,7 @@ func would_hit_shore(dir: Vector2, probe := 0.55) -> bool:
 
 ## 外部（上下船、读档、取消）强制结束手动驾驶。
 func stop_drive() -> void:
+	if _manual_hull != null: _manual_hull.reset()
 	manual_drive = false
 	drive_dir = Vector2.ZERO
 	_manual_blocked = false
@@ -397,7 +436,9 @@ func remaining_route() -> Array:
 
 func _process(delta: float) -> void:
 	var now := Time.get_ticks_msec() / 1000.0
-	if manual_drive:
+	if _manual_hull != null:
+		pass # formal motion is exclusively owned by the physics tick
+	elif manual_drive:
 		_drive(delta)
 	elif _sailing:
 		_steer(delta)
@@ -419,11 +460,12 @@ func _process(delta: float) -> void:
 		var port: Vector3 = water_surface.sample_surface(center - side * 1.0)
 		var starboard: Vector3 = water_surface.sample_surface(center + side * 1.0)
 		var response := 1.0 - exp(-5.0 * delta)
-		position.y = lerpf(position.y, WATER_LEVEL + (bow.x + stern.x + port.x + starboard.x) * 0.25, response)
+		_visual_heave = lerpf(_visual_heave, (bow.x + stern.x + port.x + starboard.x) * 0.25, response)
 		_wave_pitch = lerpf(_wave_pitch, atan2(bow.x - stern.x, 4.0), response)
 		_wave_roll = lerpf(_wave_roll, atan2(starboard.x - port.x, 2.0), response)
 	else:
-		position.y = WATER_LEVEL + sin(now * 2.1) * 0.065
+		_visual_heave = sin(now * 2.1) * 0.065
+	if _manual_hull == null: position.y = WATER_LEVEL + _visual_heave
 	if model == null:
 		return
 	_animate_oars(delta)
@@ -432,7 +474,7 @@ func _process(delta: float) -> void:
 		model.rotation.z = lerp(model.rotation.z, _wave_roll, clamp(delta * 5.0, 0.0, 1.0))
 		model.rotation.x = lerp(model.rotation.x, _wave_pitch, clamp(delta * 5.0, 0.0, 1.0))
 		model.rotation.y = lerp(model.rotation.y, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		model.position.y = lerp(model.position.y, 0.0, clamp(delta * 4.0, 0.0, 1.0))
+		model.position.y = lerp(model.position.y, _visual_heave if _manual_hull != null else 0.0, clamp(delta * 4.0, 0.0, 1.0))
 	else:
 		# 航行：船身向转弯内侧倾、随每桨左右轻摆、桨频带一点点上下起伏。
 		var bank := clampf(-_turn_rate * 0.22, -0.09, 0.09)
@@ -441,7 +483,7 @@ func _process(delta: float) -> void:
 		model.rotation.x = lerp(model.rotation.x, _wave_pitch - 0.012 + sin(_stroke * 2.0) * 0.008,
 			clamp(delta * 6.0, 0.0, 1.0))
 		model.rotation.y = sin(_stroke) * 0.018
-		model.position.y = sin(_stroke * 2.0) * 0.012
+		model.position.y = (_visual_heave if _manual_hull != null else 0.0) + sin(_stroke * 2.0) * 0.012
 
 
 ## 对可安全切角的折线生成相切圆角；岸边保留原折线，靠减速转向通过。
@@ -562,19 +604,10 @@ func _animate_oars(delta: float) -> void:
 	if _oar_l == null or _oar_r == null:
 		return
 	var effort := clampf(_vel / cruise_speed(), 0.0, 1.0) if _sailing else 0.0
-	_row_blend = lerpf(_row_blend, effort, 1.0 - exp(-4.0 * delta))
-	_stroke = fmod(_stroke + delta * (0.65 + _row_blend * 0.45) * TAU, TAU)
-	_oar_l.visible = true
-	_oar_r.visible = true
-	var swing := sin(_stroke)
-	var dip := cos(_stroke)
 	var turn := clampf(_turn_rate / TURN_RATE, -1.0, 1.0)
-	_oar_l.rotation.y = lerpf(0.08, swing * 0.06 * (1.0 - turn * 0.3), _row_blend)
-	_oar_r.rotation.y = lerpf(-0.08, -swing * 0.06 * (1.0 + turn * 0.3), _row_blend)
-	# The authored oarlocks sit on the higher gunwale; the blade still dips below
-	# the original waterline on the power stroke and clears it on recovery.
-	_oar_l.rotation.z = lerpf(0.22, 0.36 + dip * 0.14, _row_blend)
-	_oar_r.rotation.z = lerpf(-0.22, -0.36 - dip * 0.14, _row_blend)
+	var state := RowingRig.sample_oars(_oar_l, _oar_r, Vector2(_stroke, _row_blend), effort, turn, delta)
+	_stroke = state.x
+	_row_blend = state.y
 
 
 func wake_uniform() -> Vector4:
@@ -593,9 +626,7 @@ func boarding_position() -> Vector3:
 	return model.transform * model.get_node("RowingSeat").position
 
 func rowing_pose() -> Dictionary:
-	return {"seat":model.get_node("RowingSeat").global_transform,
-		"left_grip":_oar_l.get_node("OarLVisual/Grip").global_position,
-		"right_grip":_oar_r.get_node("OarRVisual/Grip").global_position}
+	return RowingRig.contacts(model.get_node("RowingSeat"), _oar_l, _oar_r)
 
 
 ## Read-only visual contacts. Rendering owns the resulting water effects.

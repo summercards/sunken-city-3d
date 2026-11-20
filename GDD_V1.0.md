@@ -21,13 +21,21 @@
 - **位置权威链（2026-11-06 用户指定）：主场景 `godot/scenes/main.tscn` 里用户手动摆放的 `transform` > 场景回填（`Zones.bind_scene` 从场景取 landings／walk）> `zones.json` 的 `origin`（参考位）> 本文与功能文档里写的坐标（参考位）。** 文档中的绝对坐标一律读作「初次带入时的参考位」，不是验收标准；用户手动摆过之后以他摆的为准，不得改回参考值，也不得据此判失败。参考与实测的偏差必须记在 `docs/features/world/placed_positions.md`，由 `python3 scripts/check_placed_positions.py` 盯着：台账漏行、台账与 TSCN 不符才失败。详见 [AGENTS.md 第 12 条](AGENTS.md)。
 - 本次分类只管理海上主场景，独立海底／潜水场景另外处理。海上场景建筑职责只有水上功能建筑与水下观赏建筑两类；海下基座归水下，只负责观赏，不提供任何阻挡、活动区域或玩法功能。以[两类账本入口](assets/registry/BUILDING_CLASSES.md)及职责规范为准。
 
-[功能导航](#feature-control) · [模块接口与状态机](docs/architecture/module_contracts.md) · [场景组件分类](assets/registry/SCENE_COMPONENTS.md) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
+[功能导航](#feature-control) · [海上总平面规划图](#sea-surface-plan) · [模块接口与状态机](docs/architecture/module_contracts.md) · [场景组件分类](assets/registry/SCENE_COMPONENTS.md) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
 
 ---
 
 ## 当前可玩版本与阶段记录
 
 本节条目按时间**倒序**追加：最新的变更在最上面，`2026-10-27`「太阳房最小生活循环」的原始阶段描述保留在本节末尾，其中已被后续阶段覆盖的部分就地标注。当前默认可玩范围与各功能状态以本节顶部条目和各功能账本为准。
+
+**2026-11-20 · 白盒复用原版上午海面表现。** 保留既有水材质、天空和白盒波场，只补原版上午主光与补光、可见几何岸线泡沫及实际船壳接触。不改物理水线和操控，不挂旧时钟或尾迹；旧 zone1 水下视觉单独取证，白盒潜水交接待集成。归 SEA-OCEAN-R49。[相近机位与同机位前后对照](docs/development/2026-11-20_minimal_surface_visual_reuse.md)。
+
+**2026-11-20 · 白盒小船贴边脱离与进泊减速。** 正斜碰仍由原生船壳扫掠挡住；改变画面方向可在转头时低速划离。主动朝泊位接近时平滑限速，松手不吸附、离开不回拉；原上岸门槛与提示不变。开阔水巡航大幅改向加快，保留近岸低速微调和旋转净空检查。归 SEA-NAV-R27/R28。[同口径实窗对照](docs/development/2026-11-20_minimal_skiff_handling.md)。
+
+**2026-11-19 · 默认 F5 白盒新增海上 3C。** 仍由 `scenes/main_minimal.tscn` 启动：保留陆地及原相机操作，在坡脚指定泊位按 E 登离同一艘黄白木船；陆地与船均按当前镜头画面的方向响应 WASD／方向键；船朝所指方向转头并推进，松手减速，原生船壳扫掠挡岸，能按离开障碍的画面方向脱困。安全落脚及唯一操控主体由白盒装配裁决，镜头随当前主体切换。不迁移自动航线、潜水、经营或存读档，旧完整入口不动。默认另有三个可独立摆放的固定木块，与码头共用船只碰撞；开放绕行通道。小船和旅人共用现成划桨动画及船座、握点。归 SEA-BOOT-R09 / SEA-WORLD-R44–R45 / SEA-MOVE-R38–R39 / SEA-NAV-R25–R26 / SEA-CAMERA-R21 / SEA-INTERACT-R30 / SEA-OCEAN-R48 / SEA-ASSET-R77–R78。[操作和验证](docs/development/2026-11-19_minimal_sea_3c.md)。
+
+**2026-11-19 · 默认 F5 切换为最小海面 3C 白盒（初版记录）。** `godot/project.godot` 启动 `scenes/main_minimal.tscn`：只装海面、实体平台与约 1 米高差的斜坡和坡脚、可操作旅人、镜头和灯光。旧经营、建筑群、HUD 与存读档不启动；原 `scenes/main.tscn`、其摆位与玩法仍由旧入口拥有，可通过本地配置切回。海上总平面及下列阶段内容描述旧玩法和目标，不是默认白盒内容。本轮不迁移玩法。海上屋顶街机维修铺已接入完整玩法场景 `main.tscn`，位于礼品商亭附近，可靠泊并登上西侧甲板，不加入 F5 白盒。归 SEA-WORLD-R42 / SEA-ASSET-R75，[接入与验收](docs/development/2026-11-19_rooftop_arcade_runtime.md)。归 SEA-BOOT-R08 / SEA-WORLD-R43 / SEA-MOVE-R37 / SEA-CAMERA-R20 / SEA-OCEAN-R47 / SEA-ASSET-R76 / SEA-SAVE-R22。[操作、独立备份与实测](docs/development/2026-11-19_minimal_main.md)。
 
 2026-11-12 Alt 快捷工具环：新增独立 **SEA-QUICKTOOLS** 瞬态编排，Alt 单次打开、松开后再按收起；陆地建造/拆除、船上钓鱼/潜水，四种本地原创 Godot 程序化白色剪影，每次只显示对应两枚76px青绿/奶油边按钮，跟随角色头顶并沿左右上弧展开。动效复用0.24s BACK、0.035s错峰、0.16s收起与SEA-UI减少动态偏好；普通 world action 菜单隔离。打开环不主动取消既有自动航线；手动键盘驾驶因 modal 不再读驾驶意图，按既有 `release_drive` 自然减速，不承诺 manual sailing 状态不变。建造/拆除与潜水仍转发原入口；钓鱼只接最近24m鱼群与SEA-PICKUP既有停船+1.6s采集链，无鱼提示，不是新鱼竿咬钩小游戏。**无存档变更**：根v4及模块字段保持，不改用户手摆TSCN/场景资源，运行时 `QuickTools` 节点真实装配。**本轮正式验收回填**：加固后release-913ecd共8入口均exit0、passed=true、completion_marker=true、unexpected_errors=[]；quick-tools116/0、真实渲染266/0、建造40/0、潜水501/0、面板81/0、海上拾取48/0，save-corrupt-seed/save-protection均PASS（无数值计数）。会话token、取消旧命令/退场、读档立即失效、失焦、non-echo Alt/echo及edge caption均纳入当前专项。30张PNG覆盖3分辨率×land/boat×opening/open/hover/closing/closed；主线程ViewImage仅目检最终1280 land-open、1920 boat-hover及前轮1600两图，确认已审图无挡脸/裁切、青绿奶油边白剪影与暖金hover，不称30张全目检。SEA-QUICKTOOLS保守登记为`partial`（代码及专项已完成，全局登记同步受范围外问题阻断），用户最终美术确认/手柄/各体型仍pending；架构已PASS 25/0。证据对应报告head+working_tree快照，隔离user://不改原save数据、不改main.tscn；旧失败与资源/退出泄漏警告保留。全局最终sync83项/check84项均exit1，脚本因其他资产哈希与条款/并行资源问题拒绝写回派生索引；current_source_index仅定向补4条已修source index差异，不预签全工程通过。归SEA-QUICKTOOLS-R01–R10 / SEA-UI-R60。[功能设计](docs/features/quick_tools/spec.md) · [功能账本](docs/features/quick_tools/ledger.md) · [UI设计](docs/features/ui/spec.md) · [既有采集链](docs/features/pickup/spec.md) · [模块契约](docs/architecture/module_contracts.md#2026-11-12-sea-quicktools-快捷工具端口说明) · [过程与证据](docs/development/2026-11-12_quick_tools.md)。
 
@@ -318,6 +326,22 @@
 第一次游玩只需要 A、B、C、D 四个功能真正可用。E 只保留视觉预留或锁定入口，避免新玩家一开始面对过多系统。
 
 当前工程中的横滨沉没铁道、天台种植园和太阳能木屋可继续作为第一版三个主要可玩点，但需要把它们与 A-D 的功能身份重新对齐，避免“场景名称”和“玩法功能”脱节。
+
+<a id="sea-surface-plan"></a>
+
+### 3.4 海上总平面规划图
+
+**SEA–01 / V01 · 2026-11-19 · 可修订的概念稿。** 本图以当前海上主场景为底图，用于重新设计分区、地标关系和游玩动线；不替代 3.1–3.3 的早期设计记录。现状地标按 Godot 场景手摆位置投影，早期文档里的参考位不是当前坐标。
+
+![SEA–01 V01 海上总平面规划图：现状地标、泊位示意、建议航线与预留区](docs/features/world/sea-surface-plan/v01/sea-surface-plan.png)
+
+- **现状层**：家园近海为阳光房、横滨铁道、浅水种植台与绞盘打捞台；西侧为顶层牧场，向东南是霓虹花园与海上补给站。霓虹花园标注的是左楼屋顶入口，水下街口不作为泊位；旧驿站、沉没旧城和沉没建筑列仅作景观参考。建筑外形、水深线与泊位符号都是示意。
+- **提案层**：薄荷色虚线为建议航线，未做通航验证。琥珀色 **A** 为家园东北侧扩建浮台，**B** 为外海中途泊点，均未落地；此处 A/B 是图纸代号，与 3.2 的旧分区代号无关。
+- **下次改版**：打开下表当前版 SVG，另存为 `v02` 等新版并导出同版 PNG；替换本节的图和当前版标识，在下表追加变更，保留旧版。更新现状先核对场景，提案确认前不回写摆位。具体规则见 [SEA-WORLD 图纸维护流程](docs/features/world/spec.md#surface-plan-maintenance)。
+
+| 版本 | 日期 | 变更摘要 | 文件 |
+| --- | --- | --- | --- |
+| **V01（当前）** | 2026-11-19 | 建立海上分区底图，标注现状、建议航线与两处预留。 | [可编辑 SVG](docs/features/world/sea-surface-plan/v01/sea-surface-plan.svg) · [高清 PNG](docs/features/world/sea-surface-plan/v01/sea-surface-plan.png) |
 
 ---
 
@@ -953,6 +977,10 @@ B4 Q03槽位、D05只读闭包、A08证据协议及Q04六入口仅完成安全�
 
 2026-11-14 P0退出时序补验：正式Session不再在exit表现完成的明场帧提前进入surface；同一Controller保持exit和水下角色可见，待圆幕真实黑帧确认后才清理runtime并恢复Main。工具耗气参数已接入，挡墙时清除冲刺倍率/FOV意图，浅层首帧不再误判阻塞。`dive-control`、`dive-transition`、`dive-maps`与Forward+ `visual-dive-transition`、`visual-dive-control`均exit0；新增黑帧前可见断言的`dive-transition`也exit0。P0专项收口不等同完整R52–R75、全局契约或全工程通过。
 
+### 2026-11-19 水中下潜、踢蹼与近障操控
+
+家园和旧九图继续共用一套潜水控制器。圆幕退场后的可见入水及水中主动下行使用头先、腿后抬的姿态；水平前游用髋—膝—踝错相踢蹼，面朝镜头前向时可按 S 保持朝向倒游，非对齐方向仍可自由平滑转身。墙面与海床读取地图的净空：接近墙面减速收臂，保留碰撞后的切向滑移；贴底放平并收蹼，不靠弹开、伤害或震屏提示。角色和脚蹼仅表现，不改角色主碰撞、Air、切图、用户手摆与存档。归 [SEA-DIVE-R76–R81](docs/features/dive/spec.md#dive-swim-feel-design)、[SEA-MOVE-R33–R36](docs/features/move/spec.md#move-dive-swim-feel-design)，[参考、验证与未签范围](docs/development/2026-11-19_dive_swim_feel.md)。
+
 ### 2026-11-14 P1远征协议第一阶段实现
 
 在不增加第二套潜水控制器、不过度改动root v4的前提下，已完成 P1 数据协议第一阶段：
@@ -1087,3 +1115,26 @@ import及每项exit0、passed=true、completion_marker=true、unexpected_errors=
 本任务只Edit六份授权文档末尾及必要登记头，不改code/registry/art_source/memory/currentruntime、不执行contracts/Godot；15个currentruntime目标由另一任务处理，sync/check后主线程再追加真实数字，不预填旧值。审阅页 `outputs/workshop_attachments_embedded_review_20261118/index.html` 由另一代理制作，本任务不代做或签已验。逐条实施和证据范围见[WORKSHOP账本](docs/features/workshop/ledger.md)、[WORLD账本](docs/features/world/ledger.md)。
 
 主线程最终交付回填：15项定点运行字节一致、非目标1868entry不动，当前五专项323/129/1506/159/328均0失败、独立切换336/0；全部进程exit0、无意外错误，当前源与隔离证据一致。主线程已目检1280图库与860编辑两张同工坊实图，房屋与外挂完整；HTML及ZIP静态来源/完整性校验完成，入口 `outputs/workshop_attachments_embedded_review_20261118/index.html`。全库实际同步539 issues／正式检查540 issues、均exit1（46功能/1105源/1883运行），原候选输出根扫描及其他漂移/断链保留，不以专项通过称全工程通过。房屋壳体内核、Main/project无diff，未提交推送；用户美术/人工手感/性能/生产Main边界不变。
+
+## 2026-11-18 建筑工坊外挂挂载排查与表面植被
+
+- **外挂挂载（承接 SEA-WORKSHOP-R93）**：图库拖放使用被拖卡片自己的配方和挂载参数，不借用当前编辑对象的挂载面、偏移或角度；释放只走一次拖放提交，不再被当成点击贴面。默认阳光房的屋顶有水塔、入口棚和天线的合法落点。默认阳光房 +Z 背面 174 个命中点上，两款雨篷在默认比例均为 0 个合法点，显式缩到 0.75 后各 6 个；横招在 1.0 和 0.75 均为 0。结果仅适用于本次采样，不放宽实体支承、相交或玻璃限制，也不自动缩放组件。
+- **表面植被（SEA-WORKSHOP-R96）**：苔藓是一张 256×256 四方连续贴图，按 0.64 m 周期贴面平铺，可跨同一表面共边的三角形，每次落笔形成一个区域；藤蔓是一张 256×512 竖图，沿表面上的重力投影下垂，横向拖动排出一列列独立竖藤。贴图透底、使用 mipmap 并保留旧快照键；植被用独立快照，不写入 Main。
+
+[工坊契约](docs/features/workshop/spec.md) · [首轮隔离证据](docs/features/workshop/ledger.md) · [排查记录](docs/development/2026-11-16_building_attachments.md)。首轮记录只覆盖逻辑与真实渲染夹具，不作为真实工坊 GUI 或最终验收签署。
+
+## 2026-11-19 工坊冲突调整交互深化
+
+“调整冲突”现行语义为：**点击后只展示拟修改清单，不自动改值；用户明确确认“是，自动修改并生成”后，才一次性提交建议值并生成。** 清单分为“Session原值 → 当前输入”和“当前输入 → 建议值”，逐项展示完整路径、原值、新值、单位、原因及 alias/derived 归类。取消、过期、无稳定窗口 owner、恢复基线漂移或真实生成失败均保持原模型、输入、队列、历史和目标范围；不后台重试、不静默缩放、不关窗/关柱/清覆盖绕过冲突。确认按钮必须可用且默认焦点仍在取消按钮。
+
+## 2026-11-20 正式世界总集成门禁（未切换）
+
+完整入口的旧玩法基线已复验；隔离候选的正式入口和包数据通过，但凸船壳候选未通过原航线的离泊和回泊，**共享 F5 保持白盒，既有完整入口和功能范围不变**。正式切换必须先保住原交互和经营、既有选图与旧档，并以同一船潜水往返和实际静动态碰撞通过为门禁。见[验证与阻断记录](docs/development/2026-11-20_formal_world_integration.md)。
+
+## 2026-11-20 阳光房实体阻挡迁移门禁（未迁移）
+
+正式实体阻挡先限于阳光房，全图清理暂缓。运行盘点未找到阳光房自带碰撞盒，保留现有支撑、角色边界和水域判定，不切换入口或修改手摆。[首处预检与实测](docs/development/2026-11-20_sunroom_collision_handoff.md)。
+
+## 2026-11-20 陆地与海面近距广角
+
+白盒和原完整入口共用室外近距广角；启动入口、潜水、标题和室内镜头不变。详见[镜头设计](docs/features/camera/spec.md#2026-11-20-陆地与海面近距广角)及[实测](docs/development/2026-11-20_surface_camera.md)。
