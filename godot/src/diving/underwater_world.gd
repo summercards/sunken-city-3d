@@ -479,7 +479,12 @@ func _inside_basin(p: Vector3, margin: float) -> bool:
 
 
 func blocked(p: Vector3, margin := 0.35) -> bool:
-	if not _inside_basin(p, margin + 1.0):
+	return _blocked_at(p, margin, true)
+
+
+func _blocked_at(p: Vector3, margin: float, enforce_container_above_rim: bool) -> bool:
+	# 容器外沿在 +4 m 收口，但这里没有水面顶盖；余下仍是原地形和实体代理。
+	if (enforce_container_above_rim or p.y < 4.0) and not _inside_basin(p, margin + 1.0):
 		return true
 	for s in _solids:
 		if p.y < float(s.top) + 0.5 and p.y > float(s.bottom) \
@@ -620,6 +625,35 @@ func dive_move(displacement: Vector3) -> Vector3:
 			var probe_z := Vector3(diver_pos.x, diver_pos.y, next.z)
 			if not blocked(probe_z): diver_pos.z = next.z
 	return diver_pos - before
+
+func dive_motion_clearance(direction: Vector3, distance: float) -> float:
+	distance = 0.0 if is_nan(distance) else maxf(0.0, distance)
+	if distance <= 0.0 or not is_finite(distance) or not direction.is_finite():
+		return distance
+	if _terraces.is_empty() or not diver_pos.is_finite():
+		return distance
+	var axis := direction.normalized()
+	var start := diver_pos
+	if axis == Vector3.ZERO or not (start + axis * distance).is_finite():
+		return distance
+	# 沿原方向检查实体与地形代理，不施加 MOVE_MIN/MAX_Y、XZ 夹限或轴向滑移。
+	var clear_distance := 0.0
+	for i in range(1, 4097):
+		var sample_distance := minf(distance, float(i) * 0.12)
+		if _blocked_at(start + axis * sample_distance, 0.35, false):
+			# 保留最后一个安全位置，并细分首个被挡的子步，不推算碰撞法线。
+			for refinement in 5:
+				var middle := (clear_distance + sample_distance) * 0.5
+				if _blocked_at(start + axis * middle, 0.35, false):
+					sample_distance = middle
+				else:
+					clear_distance = middle
+			return clear_distance
+		if sample_distance >= distance:
+			return distance
+		clear_distance = sample_distance
+	# 预算用尽的超长查询不凭空报阻挡。生产探针远小于此范围。
+	return distance
 
 func dive_route(destination: Vector3) -> Array:
 	destination.y = clampf(destination.y, MOVE_MIN_Y, MOVE_MAX_Y)

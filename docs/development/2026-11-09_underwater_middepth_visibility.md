@@ -151,3 +151,19 @@ Forward+中`sky depth<=0.0005`把220/400m几何误判为空背景，导致远处
 ### 8.5 文档门禁与收尾
 
 已执行`check_feature_contracts.py --sync`：exit1、70issues；只读复查exit1、71issues（增加派生索引过期）。当前43features、1037source assets、1422runtime hashes，错误为既有/并行/本次资源hash漂移，无本轮新增条款缺失。脚本在有问题时不写索引，因此未成功同步；不批量更新未知资产hash来凑全绿。GDD保持LF，其余既有六份规格/账本/模块契约保持CRLF，新开发记录LF；无CRCRLF，条款OceanR30–35、AmbientR32–36完整成对，限定范围git diff --check通过。上方PENDING为实施过程中历史，本轮最终以第8节为准。
+
+## 2026-11-19 Abyssal Garden 参考试做
+
+### 参考与移植
+
+- 阅读了 [Abyssal Garden 演示](https://noniv.github.io/abyssal-garden/)、[固定版本 WGSL](https://github.com/Noniv/abyssal-garden/blob/a596354eff400d458bc2aeb9bdf5e0a9734b2bcf/source/src/shaders.js) 和[原项目实拍](https://github.com/Noniv/abyssal-garden/blob/a596354eff400d458bc2aeb9bdf5e0a9734b2bcf/.github/screenshots/light-rays.jpg)。它走原生 WebGPU，不是 Three.js。可借鉴的是三段分工：分色的路径消光与入散射、沿日光投回水面的焦散、按场景深度和水面截断的光束积分。参考另有半分辨率深度上采样与逐点阴影；本批不搬源码、材质、模型或声音，也不把两种实现宣称为等价。
+- `sunroom_underwater_{color.gdshaderinc,fog.gdshader}`：保留原 85m 密度封顶/背景水色，在一个 HDR 合成里按真正的视线路径把红光消得更快；表面保护继续以水位附近几何判定，掠视时比仰视更早融入水色。光束用世界空间程序化亮斑、折射后的太阳方向，步进最多 64m，遇首个不透明表面或水面停止；Forward+ 8 次，其余分支 4 次。没有逐样本遮阳，也未实测 GPU 帧耗时，不能推断一定比旧十柱更快。
+- `sunroom_underwater_palette.gdshader`、`sunroom_region.gd`：建筑与珊瑚保留原 Palette/PBR，在浅处加投影焦散，强度随光照、受光面朝向、深度和像素足迹衰减；地图继续注入同一个日照和表现时钟。`sunroom_underwater_atmosphere.gd` 不再提交 10 个代理柱（编辑预览、原锚点和接口保留），两批泡尘及鱼群保留。没有改 Main/潜水 TSCN、场景摆位、碰撞、存档、旧九图或原海面。
+
+### 当次验证
+
+- 基线 `20261119-134734-abyssal-baseline-13764f`：`visual-underwater-experience` 475/0、exit 0；旧区域 `visual-sunroom-underwater` 125/5、exit 1。其中旧 `ray-street` 实拍为 112.6m 深的近墙视角，不具备浅层日光视线，保留原图并另用 20m 同机位重新测试日光束，不删旧三处远点及组件断言。
+- 最终 `20261119-140207-abyssal-final-265e7c/report.json`：`visual-underwater-experience` 502/0、exit 0，103 张专项 PNG、另有 72 帧实际动态预览；`underwater-experience` 179/0、exit 0（逻辑，无截图）；真实 `visual-dive-transition` 406/0、exit 0；`ocean` 147/0、exit 0（海面回归）。主机为 Apple M6，Godot 4.7.2 / Metal Forward+。
+- 同机位单独关光束，20m ROI 中 78.88% 像素通道差大于 0.008；1m 不透明挡片和零日照两组在 ROI 内开关差均为 0。8m 灰片焦散开关差 5.33%，固定相机 0→2 秒差 11.52%。55m 水面均亮度 0.43318、亮纹约 13.94%、接近全白占比 0；目检比较 20m 水柱、55m 楼群和 8m 灰片三类图，不宣称逐张审完。
+- 最终 `visual-sunroom-underwater` 129/4、exit 1（整批 exit 1）；20m 光束断言通过，三处既有远景连续性 maxima 超过 0.025（edge 0.259、corner 0.282、west 0.282），加上既有的旧城 PackedScene 引用核对失败。保留诊断图和原阈值，不用 220m/400m 黑盒 PASS 覆盖这些结果。首轮夹具忘记恢复光束可见性、读取 shader 隐式参数得到 null；并行首批过场超时，在修正后顺序批次重新通过。
+- 工程外输出：终批目录的 `home-underwater-before-after.png` 是 20m 同机位前后并排图，`project/outputs/underwater-experience-home-abyssal-city-55m.png` 是正式资产的 55m 机位。`check_feature_contracts.py --sync`/只读检查分别 exit 1（541/542 issues，仓库范围条款/资源差异，未写派生索引）；本次仅定点登记所改的 6 条资源，不批量签未知变化。低端设备、Mobile/Compatibility 渲染、完整昼夜和长期性能未执行，用户美术定稿未签。

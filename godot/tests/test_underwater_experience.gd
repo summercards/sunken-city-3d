@@ -679,7 +679,7 @@ func optical_view(map, id: String, camera: Camera3D, time: float) -> void:
 		map._diving = false
 		map._update_underwater_view()
 		map._diving = diving
-		map._surface_material.set_shader_parameter("elapsed", time)
+		map.sample_underwater_optical_time(time)
 		map.get_node("Atmosphere").sample(time)
 	else:
 		var player: Vector3 = map.diver_pos
@@ -1271,7 +1271,7 @@ func capture_surface_motion(map, id: String, camera: Camera3D, values: Dictionar
 	var saved: int = 0
 	for i in 72:
 		var clock := 0.000001 + float(i) / 18.0
-		map._surface_material.set_shader_parameter("elapsed", clock)
+		map.sample_underwater_optical_time(clock)
 		map.get_node("Atmosphere").sample(clock)
 		controller.character._process(1.0 / 18.0)
 		for school in map.get_node("FishSchools").get_children(): school.sample(clock)
@@ -1291,6 +1291,99 @@ func capture_surface_motion(map, id: String, camera: Camera3D, values: Dictionar
 	controller.debug_teleport(previous)
 	update_view(map, id)
 
+func test_home_scattering(map, camera: Camera3D, values: Dictionary) -> void:
+	var level: float = map.dive_water_level()
+	var observer := Vector3(-160.0, level - 20.0, -160.0)
+	var forward := Vector3(0.0, 0.23, -1.0).normalized()
+	camera.global_position = observer
+	camera.look_at(observer + forward)
+	camera.fov = 74.0
+	hide_particle_kind(map, "home", "all")
+	var shafts: Node3D = map.get_node("Atmosphere/LightShafts")
+	shafts.show()
+	var atmosphere = map.get_node("Atmosphere")
+	check(atmosphere.statistics().screen_shafts and atmosphere.statistics().draw_submissions == 2,
+		"home：运行时不叠画预览光柱，环境绘制仅保留两个粒子批次")
+	optical_view(map, "home", camera, ZERO_TIME)
+	var on: Image = await shot("home-shafts-20m-on")
+	shafts.hide()
+	var off: Image = await shot("home-shafts-20m-off")
+	shafts.show()
+	var crop := Rect2(0.18, 0.24, 0.64, 0.52)
+	var shaft_delta := difference(on, off, crop)
+	check(shaft_delta.changed_fraction > 0.10 and shaft_delta.mean_abs_rgb > 0.009,
+		"home：20m 同机位单独开关光束有可见面积及平均亮差")
+	# An unshaded opaque card 1m away must stop almost all light integration.
+	var block := MeshInstance3D.new()
+	var quad := QuadMesh.new()
+	quad.size = Vector2(3, 3)
+	block.mesh = quad
+	var black := StandardMaterial3D.new()
+	black.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	black.albedo_color = Color(0.04, 0.04, 0.04)
+	block.material_override = black
+	map.add_child(block)
+	block.global_transform = Transform3D(camera.global_basis, observer + forward)
+	var blocked_on: Image = await shot("home-shafts-opaque-on")
+	shafts.hide()
+	var blocked_off: Image = await shot("home-shafts-opaque-off")
+	var blocked_delta := difference(blocked_on, blocked_off, crop)
+	check(blocked_delta.mean_abs_rgb < shaft_delta.mean_abs_rgb * 0.18,
+		"home：前景不透明遮挡按实际深度截断，透过黑片的光束亮差低于空水18%")
+	block.free()
+	map.configure_underwater_light({"direction": SUN.normalized(), "strength": 0.0})
+	optical_view(map, "home", camera, ZERO_TIME)
+	var night_off: Image = await shot("home-shafts-night-off")
+	shafts.show()
+	var night_on: Image = await shot("home-shafts-night-on")
+	var night_delta := difference(night_on, night_off, crop)
+	check(night_delta.peak <= 0.004, "home：同机位零日照时开关光束不改变画面")
+	map.configure_underwater_light({"direction": SUN.normalized(), "strength": 1.0})
+	# Neutral patch avoids authored geometry drift and isolates projected caustic motion.
+	var patch := MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(10.0, 10.0)
+	patch.mesh = plane
+	var caustics := ShaderMaterial.new()
+	caustics.shader = preload("res://shaders/sunroom_underwater_palette.gdshader")
+	caustics.set_shader_parameter("has_palette", false)
+	caustics.set_shader_parameter("base_color", Color(0.45, 0.45, 0.45))
+	caustics.set_shader_parameter("water_level", map.dive_water_level())
+	caustics.set_shader_parameter("sun_direction", SUN.normalized())
+	const PATCH_GAIN := 0.24
+	caustics.set_shader_parameter("caustic_gain", PATCH_GAIN)
+	patch.material_override = caustics
+	map.add_child(patch)
+	patch.global_position = Vector3(-160.0, map.dive_water_level() - 8.0, -160.0)
+	camera.global_position = patch.global_position + Vector3(0.0, 3.0, 3.0)
+	camera.look_at(patch.global_position)
+	shafts.hide()
+	optical_view(map, "home", camera, ZERO_TIME)
+	var caustic_on: Image = await shot("home-caustics-8m-on")
+	caustics.set_shader_parameter("caustic_gain", 0.0)
+	var caustic_off: Image = await shot("home-caustics-8m-off")
+	caustics.set_shader_parameter("caustic_gain", PATCH_GAIN)
+	caustics.set_shader_parameter("elapsed", 2.0)
+	var caustic_later: Image = await shot("home-caustics-8m-time2")
+	var patch_roi := Rect2(0.29, 0.34, 0.42, 0.32)
+	var caustic_delta := difference(caustic_on, caustic_off, patch_roi)
+	var caustic_motion := difference(caustic_on, caustic_later, patch_roi)
+	check(caustic_delta.changed_fraction > 0.03 and caustic_motion.changed_fraction > 0.04,
+		"home：近水线表面焦散可见且在固定相机下随光学时钟移动")
+	patch.free()
+	shafts.show()
+	show_particle_kind(map, "home", "all")
+	# Composition samples use the actual buildings without changing placements.
+	var column := surface_column(map, [20.0, 55.0], true)
+	for meters in [20.0, 55.0]:
+		var at := Vector3(column.x, map.dive_water_level() - meters, column.y)
+		camera.global_position = at
+		camera.look_at(at + Vector3(0.48, 0.33, 1.0))
+		optical_view(map, "home", camera, ZERO_TIME)
+		await shot("home-abyssal-city-%dm" % int(meters))
+	values.abyssal_optics = {"shaft_open": shaft_delta, "shaft_opaque": blocked_delta,
+		"shaft_no_sun": night_delta, "caustic_on_off": caustic_delta, "caustic_time0_time2": caustic_motion}
+
 func render_map(map, id: String, values: Dictionary) -> void:
 	if DisplayServer.get_name() == "headless":
 		values.visual_mode = "headless仅行为；不等待frame_post_draw，不声称视觉通过"
@@ -1309,6 +1402,8 @@ func render_map(map, id: String, values: Dictionary) -> void:
 	await test_far_fog_clip(map, id, camera, values)
 	await test_particle_pixels(map, id, camera, values)
 	await capture_surface_motion(map, id, camera, values)
+	if id == "home":
+		await test_home_scattering(map, camera, values)
 	camera.global_transform = original_camera
 	camera.fov = original_fov
 	values.visual_mode = "真实renderer，PNG已在脚本内执行ROI验收"
@@ -1357,6 +1452,6 @@ func run() -> void:
 		Materials.clear_cache()
 	if DisplayServer.get_name() != "headless":
 		check(report.images.size() >= 36, "真实渲染保留原有PNG数量下限36")
-		check(report.maps.size() == 2 and report.images.size() == 92,
-			"真实渲染固定92张：保留既有81张，新增home 20/55m三clock、wave/sun toggle、FlatNormal、恢复纹理和55m开阔比较共11张")
+		check(report.maps.size() == 2 and report.images.size() == 103,
+			"保留92张原验收图，新增11张同机位光束/遮挡/零日光/焦散与楼群实拍")
 	finish()

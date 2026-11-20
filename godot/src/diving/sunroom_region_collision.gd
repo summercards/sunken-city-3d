@@ -243,6 +243,27 @@ func _sync_preview_camera() -> void:
 		_camera.global_position = viewer.global_position
 
 
+func viewer_motion_clearance(direction: Vector3, distance: float) -> float:
+	distance = 0.0 if is_nan(distance) else maxf(0.0, distance)
+	if distance <= 0.0 or not is_finite(distance) or not direction.is_finite():
+		return distance
+	if not is_instance_valid(viewer) or not viewer.is_inside_tree():
+		return distance
+	if not PhysicsServer3D.body_get_space(viewer.get_rid()).is_valid():
+		return distance
+	var axis := direction.normalized()
+	var motion := axis * distance
+	var pose := viewer.global_transform
+	if axis == Vector3.ZERO or not motion.is_finite() or not pose.is_finite() or not (pose.origin + motion).is_finite():
+		return distance
+	# 从真实胶囊的 body 姿态试扫；引擎排除本体、沿用实际 mask 和移动余量。
+	# 不报告单纯的重叠恢复，不套用 move_viewer 的深度/XZ 夹限。
+	var hit := KinematicCollision3D.new()
+	if not viewer.test_move(pose, motion, hit, viewer.safe_margin, false):
+		return distance
+	return clampf(hit.get_travel().dot(axis), 0.0, distance)
+
+
 func move_viewer(displacement: Vector3) -> Vector3:
 	if trace_enabled:
 		motion_trace.clear()

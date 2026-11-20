@@ -47,6 +47,14 @@ var _mote_specs: Array[Dictionary] = []
 var _observer := Vector3.ZERO
 var _has_observer := false
 var _sunlight_strength := 1.0
+var _screen_shafts := false
+
+## 保留手摆入口与独立编辑预览；正式地图用单一深度合成，不再绘制代理体。
+func use_screen_shafts() -> void:
+	_ensure_built()
+	_screen_shafts = true
+	for beam in _beams:
+		beam.hide()
 
 func configure_water(level: float) -> void:
 	water_level = level if is_finite(level) else DEFAULT_WATER_LEVEL
@@ -246,8 +254,9 @@ func _prepare_geometry(node: GeometryInstance3D) -> void:
 
 func set_view_depth(depth: float) -> void:
 	_ensure_built()
-	for beam in _beams:
-		beam.material_override.set_shader_parameter("region_view_depth", depth)
+	if not _screen_shafts:
+		for beam in _beams:
+			beam.material_override.set_shader_parameter("region_view_depth", depth)
 	if _bubble_material != null:
 		_bubble_material.set_shader_parameter("region_view_depth", depth)
 	if _mote_material != null:
@@ -264,10 +273,11 @@ func sample(time: float) -> void:
 		var state := _mote_state(_mote_specs[i], _clock)
 		_mote_mm.set_instance_transform(i, state.transform)
 		_mote_mm.set_instance_color(i, Color(0.88, 1.0, 0.91, state.alpha))
-	for beam in _beams:
-		var material := beam.material_override as ShaderMaterial
-		material.set_shader_parameter("elapsed", _clock)
-		material.set_shader_parameter("gain", beam_gain)
+	if not _screen_shafts:
+		for beam in _beams:
+			var material := beam.material_override as ShaderMaterial
+			material.set_shader_parameter("elapsed", _clock)
+			material.set_shader_parameter("gain", beam_gain)
 	_bubble_material.set_shader_parameter("gain", particle_gain)
 	_mote_material.set_shader_parameter("gain", particle_gain)
 	_bubble_material.set_shader_parameter("water_level", water_level)
@@ -380,7 +390,8 @@ func statistics() -> Dictionary:
 		"mote_instances": _mote_specs.size(),
 		"beam_instances": _beams.size(),
 		"multimeshes": 2,
-		"draw_submissions": 2 + _beams.size(),
+		"draw_submissions": 2 + (0 if _screen_shafts else _beams.size()),
+		"screen_shafts": _screen_shafts,
 		"lights": 0,
 		"particle_ceiling_y": _bubble_top(),
 		"fixed_bubble_instances": mini(FIXED_BUBBLE_COUNT, _bubble_specs.size()),

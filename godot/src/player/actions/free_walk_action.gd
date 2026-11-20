@@ -87,11 +87,11 @@ func step(c, delta: float) -> void:
 			continue
 		var probe := here
 		probe[axis] = here[axis] + part
-		if _standable(area, probe, here):
+		if _standable_step(area, probe, here):
 			step_vec[axis] = part
 	# 单轴各自可走，合成点仍可能落在内凹角里（两条直角边都够、斜点不够）。
 	# 这时退化为其中一支，沿边走 —— 不能靠物理去兜，那会让人卡在角上抖。
-	if step_vec.x != 0.0 and step_vec.z != 0.0 and not _standable(area, here + step_vec, here):
+	if step_vec.x != 0.0 and step_vec.z != 0.0 and not _standable_step(area, here + step_vec, here):
 		step_vec = Vector3(step_vec.x, 0.0, 0.0) if absf(step_vec.x) >= absf(step_vec.z) else Vector3(0.0, 0.0, step_vec.z)
 	if step_vec.length_squared() < 0.0000000001:
 		# 顶住边界：吃掉这一帧的动量，避免持续推墙时越攒越大的「弹墙」。
@@ -140,6 +140,16 @@ func _area_under(c) -> Node3D:
 		if found != null:
 			return found
 	return null
+
+## When one authored patch ends, a contiguous patch in the same GroundSpace
+## can support the next step. The motor still sweeps against all physical bodies.
+func _standable_step(area: Node3D, point: Vector3, from: Vector3) -> bool:
+	if _standable(area, point, from): return true
+	var space: Node3D = area.ground_space
+	if not is_instance_valid(space): return false
+	var next: Node3D = space.area_at(point, MAX_STEP_HEIGHT)
+	if next == null or next == area: return false
+	return _standable(next, point, from)
 
 func _standable(area: Node3D, point: Vector3, from: Vector3) -> bool:
 	var at: Vector3 = area.surface_point(Vector3(point.x, from.y, point.z))

@@ -1,6 +1,6 @@
 extends SceneTree
 ## 仅在 run_verification.py 创建的工程副本运行；不实例化 Main，不访问存档。
-## 固定步运动与真实物理提交分离；真实渲染只输出单图，不做截图对比。
+## 固定步运动与真实物理提交分离；视觉证据抓取实际运行帧，不做截图对比。
 const Shared = preload("res://src/diving/dive_runtime_controller.gd")
 const Machine = preload("res://src/core/state_machine.gd")
 const Catalog = preload("res://src/diving/dive_map_catalog.gd")
@@ -17,7 +17,7 @@ const BINDINGS := {
 var checks := 0
 var failures := 0
 var report := {"test": "dive-control", "fixed_dt": DT, "maps": {}, "legacy_maps": {},
-	"failure_labels": [], "renders": [], "isolation": "harness 工程副本；无 Main、无存档读写"}
+	"failure_labels": [], "renders": [], "swim_side_renders": [], "isolation": "harness 工程副本；无 Main、无存档读写"}
 
 func _init() -> void:
 	call_deferred("run")
@@ -200,6 +200,9 @@ func finish_map(map, id: String) -> void:
 	step(runtime, 5)
 	check(events.size() == 1 and runtime.velocity == Vector3.ZERO, id + "：surface 不重复 end 且速度归零")
 	check(not runtime.character.gear.visible and not runtime.character.mask.visible, id + "：返回后装备隐藏")
+	for foot in dive_feet(runtime.character):
+		var fin := foot.get_node_or_null("DiveFin") as MeshInstance3D
+		check(fin != null and not fin.visible and not fin.is_visible_in_tree(), id + "：退场后脚蹼自身隐藏 " + str(foot.get_parent().name))
 	if id == "home":
 		check(not map._diving, "home：dive_end 清除潜水标记")
 	else:
@@ -452,6 +455,99 @@ func test_animation(runtime, origin: Vector3, id: String, values: Dictionary) ->
 		"sprint_actual_speed": sprint_actual, "sprint_ratio": sprint_snapshot.speed_ratio}
 	runtime.clear_motion_input()
 
+func dive_feet(character) -> Array[Node3D]:
+	return [character.left_knee.get_node("Foot") as Node3D, character.right_knee.get_node("Foot") as Node3D]
+
+func test_swim_pose(runtime, origin: Vector3, id: String, values: Dictionary) -> void:
+	reset(runtime, origin)
+	var character: Character = runtime.character
+	var feet := dive_feet(character)
+	var fins: Array[MeshInstance3D] = []
+	for foot in feet:
+		var fin := foot.get_node_or_null("DiveFin") as MeshInstance3D
+		check(fin != null and fin.mesh != null and fin.is_visible_in_tree(), id + "：每只 Foot 有可见脚蹼网格")
+		fins.append(fin)
+	Input.action_press("dive_down")
+	step(runtime, 42)
+	var head: Vector3 = character.head_pivot.global_position
+	var pelvis: Vector3 = (character.left_leg.global_position + character.right_leg.global_position) * 0.5
+	check(runtime.machine.current == "swim" and runtime.velocity.y < -3.5 and head.y < pelvis.y - 0.15
+		and head.y < minf(feet[0].global_position.y, feet[1].global_position.y) - 0.25,
+		id + "：Q 实际下行，世界空间 HeadLook 低于骨盆和双脚")
+	values.head_first = {"head": v3(head), "pelvis": v3(pelvis), "feet": [v3(feet[0].global_position), v3(feet[1].global_position)], "velocity": v3(runtime.velocity)}
+	if id == "zone1": await render_swim_side(runtime, id, "q-head-first")
+	Input.action_release("dive_down")
+
+	reset(runtime, origin)
+	Input.action_press("dive_forward")
+	step(runtime, 66)
+	check(absf(character.body_pivot.global_basis.y.normalized().y) < 0.18 and runtime.velocity.z < -4.0,
+		id + "：W 巡航实速向前，躯干近水平")
+	if id == "zone1": await render_swim_side(runtime, id, "w-cruise")
+	# 采足一个实际踢蹼周期：取同一个回摆中的髋谷、屈膝峰、踝谷，而不是只检查计时器。
+	var low := Vector3(INF, INF, INF)
+	var high := Vector3(-INF, -INF, -INF)
+	var extrema_phase := Vector3.ZERO
+	var opposite_hip := 0.0
+	var fins_follow := true
+	var foot_start: Array[Basis] = [feet[0].global_basis, feet[1].global_basis]
+	var fin_offsets: Array[Transform3D] = []
+	for i in feet.size():
+		fin_offsets.append(feet[i].global_transform.affine_inverse() * fins[i].global_transform if fins[i] != null else Transform3D.IDENTITY)
+	var foot_turn := Vector2.ZERO
+	for _i in 80:
+		step(runtime)
+		var phase: float = character.swim_snapshot().phase
+		var angles := Vector3(character.left_leg.rotation.x, character.left_knee.rotation.x, feet[0].rotation.x)
+		if angles.x < low.x:
+			extrema_phase.x = phase
+			opposite_hip = character.right_leg.rotation.x - angles.x
+		if angles.y > high.y: extrema_phase.y = phase
+		if angles.z < low.z: extrema_phase.z = phase
+		low = low.min(angles)
+		high = high.max(angles)
+		for i in feet.size():
+			foot_turn[i] = maxf(foot_turn[i], feet[i].global_basis.y.angle_to(foot_start[i].y))
+			fins_follow = fins_follow and fins[i] != null and fins[i].is_visible_in_tree() \
+				and (feet[i].global_transform * fin_offsets[i]).is_equal_approx(fins[i].global_transform)
+	var knee_lag := fposmod(extrema_phase.y - extrema_phase.x, TAU)
+	var ankle_lag := fposmod(extrema_phase.z - extrema_phase.y, TAU)
+	var amplitude := high - low
+	check(amplitude.x > 0.40 and amplitude.y > 0.15 and amplitude.z > 0.35 and opposite_hip > 0.40
+		and knee_lag > 0.25 and knee_lag < 1.05 and ankle_lag > 0.25 and ankle_lag < 1.05,
+		id + "：前游双髋交替，髋→膝→踝依次滞相且实际转动")
+	check(fins_follow and minf(foot_turn.x, foot_turn.y) > 0.18, id + "：双脚转动时可见蹼网格保持各自 Foot 局部变换")
+	Input.action_release("dive_forward")
+	var facing := character.global_basis.z.normalized()
+	var reverse_start := position(runtime)
+	Input.action_press("dive_back")
+	step(runtime, 65)
+	var reverse_actual := speed(runtime)
+	var reverse_facing := character.global_basis.z.normalized().dot(facing)
+	var reverse_style: float = character.swim_snapshot().reverse
+	var knee_min := INF
+	var knee_max := -INF
+	var flare := 0.0
+	var captured := false
+	for _i in 100:
+		step(runtime)
+		knee_min = minf(knee_min, character.left_knee.rotation.x)
+		knee_max = maxf(knee_max, character.left_knee.rotation.x)
+		flare = maxf(flare, minf(-feet[0].rotation.y, feet[1].rotation.y))
+		reverse_facing = minf(reverse_facing, character.global_basis.z.normalized().dot(facing))
+		if id == "zone1" and not captured and character.left_knee.rotation.x > 0.43:
+			captured = true
+			await render_swim_side(runtime, id, "s-back-kick")
+		if _i >= 59 and flare > 0.16 and knee_max - knee_min > 0.20 and (captured or id != "zone1"): break
+	Input.action_release("dive_back")
+	check(absf(reverse_actual - 2.7) < 0.08 and runtime.velocity.normalized().dot(facing) < -0.98
+		and (position(runtime) - reverse_start).dot(facing) < -2.0 and reverse_facing > 0.99,
+		id + "：对齐后按 S 实速 2.7m/s 向后移动，保持原朝向")
+	check(reverse_style > 0.90 and flare > 0.16 and knee_max - knee_min > 0.20, id + "：倒游有双脚外撇和实际屈膝回收，不是前游翻向")
+	values.swim_pose = {"joint_range": v3(amplitude), "knee_lag_rad": knee_lag, "ankle_lag_rad": ankle_lag,
+		"opposite_hip_rad": opposite_hip, "reverse_speed": reverse_actual, "reverse_facing_dot": reverse_facing,
+		"reverse_blend": reverse_style, "reverse_foot_flare": flare, "reverse_knee_range": knee_max - knee_min}
+
 func test_oxygen(runtime, origin: Vector3, id: String, values: Dictionary) -> void:
 	var measurements := []
 	# 独立的标定样本，不用 air.drain_rate() 作为自身的预期答案。
@@ -574,6 +670,214 @@ func test_home_collision(runtime, values: Dictionary) -> void:
 			break
 	check(found, "home：找到真实周边模型而非人工障碍进行相机碰撞验收")
 
+func obstacle_candidate(runtime, start: Vector3, into: Vector3, id: String) -> bool:
+	var map = runtime.map
+	if id == "home":
+		if not map._dive_point_in_bounds(start) or not capsule_clear(map, start): return false
+	elif map.blocked(start):
+		return false
+	runtime.debug_teleport(start)
+	var before := position(runtime)
+	var clearance: float = map.dive_motion_clearance(into, 6.0)
+	var away: float = map.dive_motion_clearance(-into, 3.0)
+	return before.is_equal_approx(start) and clearance > 2.3 and clearance < 5.2 and away > 2.9
+
+func home_obstacle(runtime, floor_case: bool, values: Dictionary) -> Dictionary:
+	var map = runtime.map
+	var space: PhysicsDirectSpaceState3D = map.get_world_3d().direct_space_state
+	if floor_case:
+		var city: Node3D = map.get_node("ExistingModels/SunkenCity")
+		var tried := 0
+		for child in city.get_children():
+			var tile := child as Node3D
+			if tile == null or not (str(tile.name).begins_with("street_intact") or str(tile.name).begins_with("plaza_tile")): continue
+			for offset in [Vector3.ZERO, Vector3(3, 0, 3), Vector3(-3, 0, -3)]:
+				var at: Vector3 = tile.global_position + offset
+				var top := Vector3(at.x, maxf(at.y + 8.0, float(map.viewer_min_y) + 8.0), at.z)
+				var hit := space.intersect_ray(PhysicsRayQueryParameters3D.create(top, top + Vector3.DOWN * 14.0, 1))
+				tried += 1
+				if not hit.is_empty() and hit.normal.y > 0.9999 and hit.get("collider") is Node \
+					and hit.collider.get_meta("collision_role", "") in ["city_road", "seabed"]:
+					var surface: Vector3 = hit.position
+					var start := surface + Vector3.UP * 4.3
+					if surface.y + 0.8 > float(map.viewer_min_y) + 0.02 and obstacle_candidate(runtime, start, Vector3.DOWN, "home"):
+						return {"start": start, "into": Vector3.DOWN, "source": str(hit.collider.get_meta("proxy_source_path")), "surface": surface}
+				if tried >= 96: return {}
+		return {}
+	# 从既有真实墙相机样本出发，另找近乎垂直的墙面，避免斜面滑动冒充挡停。
+	var camera_case: Dictionary = values.get("camera_collision", {})
+	if camera_case.is_empty(): return {}
+	var xyz: Array = camera_case.target
+	var center := Vector3(xyz[0], xyz[1], xyz[2])
+	for y_offset in [0.0, -5.0, 5.0]:
+		for i in 24:
+			var at := center + Vector3.UP * float(y_offset)
+			var angle := TAU * float(i) / 24.0
+			var ray := Vector3(cos(angle), 0, sin(angle))
+			var hit := space.intersect_ray(PhysicsRayQueryParameters3D.create(at, at + ray * 38.0, 1))
+			if hit.is_empty() or absf(hit.normal.y) > 0.015 or not hit.collider.has_meta("proxy_source_path"): continue
+			var into := -Vector3(hit.normal.x, 0, hit.normal.z).normalized()
+			var surface: Vector3 = hit.position
+			var start := surface - into * 4.5
+			if obstacle_candidate(runtime, start, into, "home") and float(map.dive_motion_clearance(Vector3.DOWN, 1.5)) > 1.45:
+				return {"start": start, "into": into, "source": str(hit.collider.get_meta("proxy_source_path")), "surface": surface}
+	return {}
+
+func test_obstacle(runtime, origin: Vector3, id: String, floor_case: bool, values: Dictionary) -> void:
+	var map = runtime.map
+	var label := id + (" 贴底" if floor_case else " 靠墙")
+	var sample: Dictionary
+	var fixture: StaticBody3D
+	if id == "home":
+		sample = home_obstacle(runtime, floor_case, values)
+		if sample.is_empty():
+			# 手摆地形不保证存在可正对且完全挡停的面。仅在找不到合格路线时补真实物理夹具。
+			var into := Vector3.DOWN if floor_case else Vector3.FORWARD
+			var surface := origin + into * 4.5
+			fixture = StaticBody3D.new()
+			fixture.name = "DiveControlFloorFixture" if floor_case else "DiveControlWallFixture"
+			var solid := BoxShape3D.new()
+			solid.size = Vector3(10, 1, 10) if floor_case else Vector3(10, 8, 1)
+			var shape := CollisionShape3D.new()
+			shape.shape = solid
+			fixture.add_child(shape)
+			var mesh := BoxMesh.new()
+			mesh.size = solid.size
+			var view := MeshInstance3D.new()
+			view.mesh = mesh
+			fixture.add_child(view)
+			map.add_child(fixture)
+			fixture.global_position = surface + into * 0.5
+			await physics_frame
+			await physics_frame
+			sample = {"start": origin, "into": into, "source": str(fixture.name), "surface": surface}
+	else:
+		# zone1 现有楼体 x=14/z=-6，以及街区首个地台；避开叠在台面上的楼体判阻。
+		sample = {"start": Vector3(-8, -13.6, 2), "into": Vector3.DOWN, "source": "terraces[0]", "surface": Vector3(-8, -18, 2)} if floor_case \
+			else {"start": Vector3(5.5, -10, -6), "into": Vector3.RIGHT, "source": "solids[2]", "surface": Vector3(9.8, -10, -6)}
+	var start: Vector3 = sample.start
+	var into: Vector3 = sample.into
+	var eligible := obstacle_candidate(runtime, start, into, id)
+	check(eligible, label + "：实际地图净空能定位可接近、可撤离的障碍 " + str(sample.source))
+	if not eligible:
+		if fixture != null: fixture.free()
+		return
+	reset(runtime, start)
+	if not floor_case:
+		runtime.yaw = atan2(-into.x, -into.z)
+		runtime.update_camera(0.0, true)
+	var before_probe := position(runtime)
+	var clearance: float = map.dive_motion_clearance(into, 6.0)
+	check(position(runtime).is_equal_approx(before_probe), label + "：净空查询不移动角色")
+	var press := "dive_down" if floor_case else "dive_forward"
+	var key := "bottom" if floor_case else "brace"
+	var character: Character = runtime.character
+	var near_speed := -1.0
+	var far_speed := 0.0
+	var open_elbow := character.left_elbow.rotation.x
+	var open_knee := character.left_knee.rotation.x
+	Input.action_press(press)
+	for _i in 155:
+		step(runtime)
+		var response: Dictionary = runtime.snapshot().swim_response
+		var remaining := float(response.bottom_clearance if floor_case else response.wall_clearance)
+		if remaining > 1.30: far_speed = maxf(far_speed, speed(runtime))
+		if remaining > 0.14 and remaining < 0.62 and speed(runtime) > 0.15: near_speed = speed(runtime)
+	var held_position := position(runtime)
+	var held: Dictionary = character.swim_snapshot()
+	var held_phase := float(held.phase)
+	var held_knee := character.left_knee.rotation.x
+	var held_elbow := character.left_elbow.rotation.x
+	var max_held_speed := 0.0
+	var max_into_speed := 0.0
+	var phase_delta := 0.0
+	var knee_delta := 0.0
+	for _i in 24:
+		step(runtime)
+		max_held_speed = maxf(max_held_speed, speed(runtime))
+		max_into_speed = maxf(max_into_speed, runtime.velocity.dot(into))
+		phase_delta = maxf(phase_delta, absf(wrapf(float(character.swim_snapshot().phase) - held_phase, -PI, PI)))
+		knee_delta = maxf(knee_delta, absf(character.left_knee.rotation.x - held_knee))
+	check(far_speed > 3.0 and near_speed > 0.15 and near_speed < far_speed - 0.7,
+		label + "：真实净空消耗时，接触前已经从开阔速度降速")
+	var held_delta := position(runtime) - held_position
+	# The real home façade can leave slow tangential motion. Check the blocked
+	# component separately; a façade is not an axis-aligned stop fixture.
+	if id == "home" and not floor_case and fixture == null:
+		# The candidate ray's normal is measured on one triangle, not necessarily
+		# the same facet that the swept capsule reaches after glancing along the wall.
+		check(max_into_speed < 0.30 and held_delta.length() < 0.12 and max_held_speed < 0.30
+			and phase_delta < 0.01 and knee_delta < 0.025,
+			label + "：不规则墙面只剩低速擦移，不再空踢（速度 %.3f，位移 %.3f）" % [max_held_speed, held_delta.length()])
+	else:
+		check(max_held_speed < 0.10 and held_delta.length() < 0.025 and float(held.speed_ratio) < 0.03
+			and phase_delta < 0.01 and knee_delta < 0.025,
+			label + "：持续按住已挡停，无漂移、无推进相位或膝关节假踢")
+	var guarded := float(held[key])
+	var trim_y := absf(character.body_pivot.global_basis.y.normalized().y)
+	if floor_case:
+		check(guarded > 0.80 and held_knee > open_knee + 0.24 and trim_y < 0.18, label + "：收腿且实际躯干保持近水平")
+	else:
+		check(guarded > 0.80 and held_elbow < open_elbow - 0.45, label + "：近墙发生实际屈肘收臂")
+	if id == "home": await render_swim_side(runtime, id, "bottom-trim" if floor_case else "wall-brace")
+	Input.action_release(press)
+	var away_press := "dive_up" if floor_case else "dive_back"
+	Input.action_press(away_press)
+	step(runtime)
+	var first_away := float(character.swim_snapshot()[key])
+	step(runtime, 65)
+	Input.action_release(away_press)
+	var away_distance := (position(runtime) - held_position).dot(-into)
+	var relaxed := float(character.swim_snapshot()[key])
+	check(away_distance > 1.7 and first_away > guarded * 0.70 and relaxed < 0.15,
+		label + "：反向实移离障，防护一帧不消失并在拉开后衰减")
+	values["bottom_approach" if floor_case else "wall_approach"] = {"source": sample.source, "fixture": fixture != null,
+		"surface": v3(sample.surface), "start": v3(start), "into": v3(into), "start_clearance": clearance,
+		"far_speed": far_speed, "near_speed": near_speed, "held_position": v3(held_position), "max_held_speed": max_held_speed,
+		"held_phase_delta": phase_delta, "held_knee_delta": knee_delta, "guarded": guarded, "first_away": first_away,
+		"relaxed": relaxed, "away_distance": away_distance, "body_up_y_abs": trim_y, "knee": held_knee, "elbow": held_elbow}
+	if fixture != null: fixture.free()
+
+func render_swim_side(runtime, id: String, label: String) -> void:
+	if DisplayServer.get_name() == "headless": return
+	var camera: Camera3D = runtime.camera
+	var character: Character = runtime.character
+	var feet := dive_feet(character)
+	var target := (character.head_pivot.global_position + (feet[0].global_position + feet[1].global_position) * 0.5) * 0.5
+	var side := Vector3.UP.cross(character.global_basis.z).normalized()
+	var left: Vector3 = runtime.map.dive_camera_clip(target, target - side * 3.2 + Vector3.UP * 0.22, 0.20)
+	var right: Vector3 = runtime.map.dive_camera_clip(target, target + side * 3.2 + Vector3.UP * 0.22, 0.20)
+	var eye := right if right.distance_squared_to(target) >= left.distance_squared_to(target) - 0.01 else left
+	var room := eye.distance_to(target)
+	check(room >= 1.8, id + "：实际侧视镜头有构图净空 " + label)
+	if room < 1.8: return
+	var saved := camera.global_transform
+	var fov := camera.fov
+	camera.global_position = eye
+	camera.look_at(target, Vector3.UP)
+	camera.fov = 40.0
+	var screen := root.get_visible_rect()
+	check(screen.has_point(camera.unproject_position(character.head_pivot.global_position))
+		and screen.has_point(camera.unproject_position(feet[0].global_position))
+		and screen.has_point(camera.unproject_position(feet[1].global_position)), id + "：侧视镜头实际容纳头和双脚 " + label)
+	if id == "home": runtime.map._process(DT)
+	# 只换取景：角色和碰撞仍是刚才实际按键/固定步得到的状态，不改骨姿也不另跑动画。
+	await process_frame
+	await RenderingServer.frame_post_draw
+	var image := root.get_texture().get_image()
+	camera.global_transform = saved
+	camera.fov = fov
+	check(image != null and not image.is_empty(), id + "：实际侧视渲染帧非空 " + label)
+	if image != null and not image.is_empty():
+		var path := "res://outputs/dive-control-" + id + "-" + label + ".png"
+		var saved_png := image.save_png(path) == OK
+		check(saved_png, id + "：侧视画面写入副本outputs " + label)
+		if saved_png:
+			report.swim_side_renders.append({"path": path, "case": label, "camera": v3(eye), "position": v3(position(runtime)),
+				"velocity": v3(runtime.velocity), "phase": character.swim_snapshot().phase})
+	# 离开绘制信号回调后再继续物理查询与固定步。
+	await process_frame
+
 func render_map(runtime, point: Vector3, id: String, values: Dictionary) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
@@ -620,6 +924,9 @@ func test_runtime(map, id: String) -> void:
 		await physics_frame
 	check(absf(runtime.air.air - air_before) < 0.000001, id + "：自动physics禁用后真实物理帧不重复耗氧")
 	test_camera(runtime, origin, id, values)
+	await test_swim_pose(runtime, origin, id, values)
+	await test_obstacle(runtime, origin, id, false, values)
+	await test_obstacle(runtime, origin, id, true, values)
 	await render_map(runtime, entry, id, values)
 	runtime.clear_motion_input()
 
@@ -701,5 +1008,6 @@ func run() -> void:
 		finish_map(map, id)
 	await test_home()
 	if DisplayServer.get_name() != "headless":
-		check(report.renders.size() == 2, "真实显示模式仅保存home和zone1两张运行画面")
+		check(report.renders.size() == 2, "真实显示模式保留 home 和 zone1 两张原主视角画面")
+		check(report.swim_side_renders.size() == 5, "真实显示模式另保存头先、前游、倒游、靠墙和贴底五张侧视帧")
 	finish()

@@ -141,6 +141,16 @@ var _swim_speed_target := 0.0
 var _swim_vertical_target := 0.0
 var _swim_turn_target := 0.0
 var _swim_sprint_target := 0.0
+## Only the dive controller feeds these presentation channels; they never move the motor.
+var swim_trim := 0.0
+var swim_reverse := 0.0
+var swim_brace := 0.0
+var swim_bottom := 0.0
+var swim_brake := 0.0
+var swim_entry := -1.0
+var _swim_style_target := Vector4.ZERO
+var _swim_brake_target := 0.0
+var _dive_fins: Array[MeshInstance3D] = []
 const SWIM_MOTION_TAU := 0.18
 const SWIM_SPRINT_TAU := 0.14
 
@@ -150,10 +160,17 @@ func set_swim_motion(speed_ratio: float, vertical_ratio: float, turn_ratio: floa
 	_swim_turn_target = clampf(turn_ratio if is_finite(turn_ratio) else 0.0, -1.0, 1.0)
 	_swim_sprint_target = 1.0 if sprint else 0.0
 
+func set_swim_style(trim: float, reverse: float, brace: float, bottom: float, brake: float, entry: float) -> void:
+	_swim_style_target = Vector4(clampf(trim, -1.0, 1.0), reverse, brace, bottom)
+	_swim_brake_target = brake
+	swim_entry = entry
+
 func swim_snapshot() -> Dictionary:
 	return {"action":_action,"speed_ratio":swim_speed_ratio,"vertical_ratio":swim_vertical_ratio,
 		"turn_ratio":swim_turn_ratio,"sprint":_swim_sprint_target > 0.5,
-		"phase":_swim_phase,"blend":swim_sprint_blend,"sprint_blend":swim_sprint_blend}
+		"phase":_swim_phase,"blend":swim_sprint_blend,"sprint_blend":swim_sprint_blend,
+		"trim":swim_trim,"reverse":swim_reverse,"brace":swim_brace,"bottom":swim_bottom,
+		"brake":swim_brake,"entry":swim_entry}
 
 func set_climbing(on: bool) -> void:
 	_climbing = on
@@ -219,6 +236,47 @@ func build() -> void:
 	preload("res://src/avatar/avatar_face.gd").new().build_dive_mask(mask)
 	apply_appearance(preload("res://src/avatar/avatar_catalog.gd").defaults())
 
+## The ankle marker already drives leg.*.tip in the continuous skin. The fin
+## rides that same control and never enters the CharacterMotor collision rig.
+func _ensure_dive_fins() -> void:
+	if not _dive_fins.is_empty(): return
+	var outline := PackedVector2Array([
+		Vector2(-0.052, -0.040), Vector2(0.052, -0.040), Vector2(0.084, 0.245),
+		Vector2(0.065, 0.308), Vector2(-0.065, 0.308), Vector2(-0.084, 0.245)])
+	var builder := SurfaceTool.new()
+	builder.begin(Mesh.PRIMITIVE_TRIANGLES)
+	# Closed tapered blade plus foot pocket, in the avatar's existing metre scale.
+	for face in [0, 1]:
+		for i in range(1, outline.size() - 1):
+			for j in ([0, i, i + 1] if face == 0 else [0, i + 1, i]):
+				builder.add_vertex(_fin_vertex(outline[j], face))
+	for i in outline.size():
+		var p := outline[i]
+		var q := outline[(i + 1) % outline.size()]
+		for vertex in [_fin_vertex(p, 0), _fin_vertex(q, 1), _fin_vertex(q, 0),
+				_fin_vertex(p, 0), _fin_vertex(p, 1), _fin_vertex(q, 1)]:
+			builder.add_vertex(vertex)
+	builder.generate_normals()
+	var blade := builder.commit()
+	var rubber := _mat(Color("#22646b"))
+	var rib_material := _mat(Color("#76b0a5"))
+	var rib := BoxMesh.new()
+	rib.size = Vector3(0.022, 0.011, 0.145)
+	for knee in [left_knee, right_knee]:
+		var fin := MeshInstance3D.new()
+		fin.name = "DiveFin"
+		fin.mesh = blade
+		fin.material_override = rubber
+		knee.get_node("Foot").add_child(fin)
+		var stripe := MeshInstance3D.new()
+		stripe.mesh = rib
+		stripe.material_override = rib_material
+		stripe.position = Vector3(0, 0.018, 0.180)
+		fin.add_child(stripe)
+		_dive_fins.append(fin)
+
+static func _fin_vertex(point: Vector2, face: int) -> Vector3:
+	return Vector3(point.x, (1.0 if face == 0 else -1.0) * lerpf(0.032, 0.008, smoothstep(0.0, 0.31, point.y)), point.y)
 
 func _mat(color: Color, metal := false) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()
@@ -306,7 +364,15 @@ func set_diving(on: bool) -> void:
 		mask.visible = on
 	if hat:
 		hat.visible = _hat_visible_before_diving if not on else false
+	if on and left_knee != null: _ensure_dive_fins()
+	for fin in _dive_fins: fin.visible = on
 	if not on:
+		swim_trim = 0.0
+		swim_reverse = 0.0
+		swim_brace = 0.0
+		swim_bottom = 0.0
+		swim_brake = 0.0
+		set_swim_style(0.0, 0.0, 0.0, 0.0, 0.0, -1.0)
 		swim_speed_ratio = 0.0
 		swim_vertical_ratio = 0.0
 		swim_turn_ratio = 0.0
@@ -393,6 +459,8 @@ func _reset_action_pose() -> void:
 	for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
 		joint.rotation = Vector3.ZERO
 	body_pivot.position = Vector3.ZERO
+	left_knee.get_node("Foot").rotation = Vector3.ZERO
+	right_knee.get_node("Foot").rotation = Vector3.ZERO
 	left_arm.position = avatar_shoulder(-1)
 	right_arm.position = avatar_shoulder(1)
 	left_arm.scale = Vector3.ONE
@@ -453,8 +521,18 @@ func _process(delta: float) -> void:
 		swim_vertical_ratio = lerpf(swim_vertical_ratio,_swim_vertical_target,swim_k)
 		swim_turn_ratio = lerpf(swim_turn_ratio,_swim_turn_target,swim_k)
 		swim_sprint_blend = lerpf(swim_sprint_blend,_swim_sprint_target,sprint_k)
-		if swim_speed_ratio > 0.001:
-			_swim_phase = fmod(_swim_phase + delta * lerpf(1.15,5.8,clampf(swim_speed_ratio / 1.65,0.0,1.0)) * lerpf(1.0,1.18,swim_sprint_blend),TAU)
+		var pose_k := 1.0 - exp(-delta / 0.10)
+		swim_trim = lerpf(swim_trim, _swim_style_target.x, pose_k)
+		swim_reverse = lerpf(swim_reverse, _swim_style_target.y, pose_k)
+		swim_brace = lerpf(swim_brace, _swim_style_target.z, pose_k)
+		swim_bottom = lerpf(swim_bottom, _swim_style_target.w, pose_k)
+		swim_brake = lerpf(swim_brake, _swim_brake_target, pose_k)
+		# A very slow tangential scrape is an unpowered glide, not a kick cycle.
+		var kick_threshold := lerpf(0.025, 0.075, swim_brace)
+		if _swim_speed_target > kick_threshold and (swim_entry < 0.0 or swim_entry > 0.25):
+			var rate := lerpf(2.2, 7.2, clampf(swim_speed_ratio / 1.65, 0.0, 1.0))
+			rate *= lerpf(1.0, 0.72, swim_reverse) * lerpf(1.0, 1.12, swim_sprint_blend)
+			_swim_phase = fposmod(_swim_phase + delta * rate, TAU)
 	_actions[_action].sample(self,delta)
 	var visible_progress:=action_progress()
 	if not playback.is_empty(): visible_progress=clampf((float(playback.elapsed)+delta)/float(playback.duration),0.0,1.0)

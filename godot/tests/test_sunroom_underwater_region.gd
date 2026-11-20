@@ -205,11 +205,22 @@ func run() -> void:
 		await shot("canal-lights",Vector3(-25,-15,-12),Vector3(-45,-22,-36))
 		await shot("bridge",Vector3(48,-6,48),Vector3(20,-14,15))
 		await shot("outer-slope",Vector3(-150,-24,60),Vector3(-115,-24,35))
+		# Historical street camera is behind a sealed wall at 112m; keep the
+		# shot, but test day shafts in the 20m band where sunlight still reaches.
 		await shot("ray-street",Vector3(-67,-11,38),Vector3(-80,-9,23))
+		var shaft_camera := Vector3(-160.0, scene.water_level - 20.0, -160.0)
+		var shaft_target := shaft_camera + Vector3(0.0, 0.23, -1.0)
+		scene.set_process(false)
+		atmosphere.autonomous = false
+		scene.sample_underwater_optical_time(0.001)
+		atmosphere.sample(0.001)
+		var camera: Camera3D = scene.get_node("Camera")
+		camera.global_position = shaft_camera
+		scene._update_underwater_view()
+		await shot("ray-20m-on", shaft_camera, shaft_target)
 		var shafts_on: Image = root.get_texture().get_image()
 		atmosphere.get_node("LightShafts").hide()
-		for i in 3: await process_frame
-		await RenderingServer.frame_post_draw
+		await shot("ray-20m-off", shaft_camera, shaft_target)
 		var shafts_off := root.get_texture().get_image()
 		var lit_pixels := 0
 		for y in range(100,shafts_on.get_height()-5,3):
@@ -220,6 +231,8 @@ func run() -> void:
 		check(lit_pixels>150,"real shaft on/off render has visible illuminated pixels")
 		report["shaft_lit_pixel_samples"]=lit_pixels
 		atmosphere.get_node("LightShafts").show()
+		atmosphere.autonomous = true
+		scene.set_process(true)
 		await shot("bubble-close",Vector3(-75,-12.5,30),Vector3(-79,-11.5,25))
 		await shot("deep-layer",Vector3(-170,-26,42),Vector3(-112,-19,35))
 		await shot("far-fog-north",Vector3(0,-12,-18),Vector3(0,-12,-220))

@@ -183,6 +183,7 @@ func set_move_intent(dir: Vector3) -> void:
 func strolling() -> bool: return machine.current == "strolling"
 
 func start_walk(area: Node3D, target: Vector3) -> bool:
+	if mode() != 0 and ports.has("berth"): return false
 	var result: Dictionary = ground.prepare(self, area, target)
 	if not result.get("ok", false): return false
 	clear_interaction()
@@ -192,6 +193,7 @@ func start_walk(area: Node3D, target: Vector3) -> bool:
 func approach(target: Node3D) -> bool: return approach_action.execute(self,target)
 
 func depart(action: Callable) -> bool:
+	if ports.has("berth") and mode() == 0: return false
 	if mode() == 3: return false
 	if mode() != 0:
 		action.call()
@@ -203,7 +205,29 @@ func depart(action: Callable) -> bool:
 		action.call()
 	return true
 
-func board_player() -> void: machine.change("boarding")
+func board_player() -> void:
+	if ports.has("berth"):
+		transfer_berth(false)
+	else:
+		machine.change("boarding")
+
+func transfer_berth(afloat: bool) -> bool:
+	if not ports.has("berth") or (mode() != 1 if afloat else mode() != 0): return false
+	if not afloat and "boarding" not in machine.edges.get(machine.current, []): return false
+	var result: Dictionary = ports.berth.call(afloat)
+	if not result.has("point"): return false
+	move_intent = Vector3.ZERO
+	move_velocity = Vector3.ZERO
+	walk_path.clear()
+	walk_area = null
+	after_walk = Callable()
+	if afloat:
+		disembark.execute(self, result.point)
+		machine.change("ashore_idle", {}, true)
+	elif not machine.change("boarding"):
+		return false
+	if ports.has("berth_completed"): ports.berth_completed.call(afloat, result)
+	return true
 
 func clear_interaction() -> void:
 	auto_target = null

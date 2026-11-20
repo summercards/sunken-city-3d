@@ -1,17 +1,15 @@
 shader_type spatial;
-// 本地包装：保留原调色板与 PBR 角色，只补一层移动焦散。
-// 旧九图不做逐材质深度染色（深度衰减全部交给统一水雾通道），这里也去掉，
-// 否则会在指数雾之上再压一层青色，画面比参考图更闷。
+// 保留原调色板与 PBR；只在受日照的表面加投影焦散，不把水体染色写入材质。
 render_mode cull_disabled, diffuse_burley, specular_schlick_ggx;
+#include "res://shaders/sunroom_underwater_color.gdshaderinc"
 uniform sampler2D palette : source_color, filter_nearest, repeat_disable;
 uniform bool has_palette = true;
 uniform bool vertex_color = false;
 uniform vec4 base_color : source_color = vec4(1.0);
 uniform float roughness_value = 0.7;
 uniform float metallic_value = 0.0;
-uniform float water_level = 101.587442;
-uniform float sun_strength : hint_range(0.0, 1.0) = 1.0;
-uniform float caustic_gain : hint_range(0.0, 2.0) = 0.075;
+uniform float caustic_gain : hint_range(0.0, 2.0) = 0.24;
+uniform float elapsed = 0.0;
 uniform float saturation_gain : hint_range(0.0, 2.0) = 1.0;
 varying vec3 world_position;
 varying vec3 world_normal;
@@ -32,11 +30,23 @@ void fragment() {
  ROUGHNESS=roughness_value;
  METALLIC=metallic_value;
  SPECULAR=0.5;
- // 与 uw_common 的 uw_emission 同一条公式：焦散网纹按世界 XZ 投影，浅水区朝上的面最亮。
- vec2 p=world_position.xz*0.85+world_position.y*0.2;
- p+=vec2(sin(p.y+TIME*0.40),cos(p.x-TIME*0.32))*0.38;
- float net=abs(sin(p.x*2.1+sin(p.y*1.8)+TIME*0.48)+sin(p.y*2.2-TIME*0.37));
- float light=(1.0-smoothstep(0.035,0.16,net))*0.24;
- float shallow=1.0-smoothstep(12.0,55.0,depth);
- EMISSION=saturated*vec3(0.45,1.0,0.88)*light*shallow*caustic_gain*sun_strength;
+ // Back-project to the same waterline and refracted sun as the shafts.
+ vec3 toward_sun = region_refracted_sun();
+ vec2 p = region_sun_footprint(world_position, toward_sun) * 1.35;
+ vec2 warp = vec2(sin(p.y * 1.12 - elapsed * 0.50), cos(p.x * 0.77 + elapsed * 0.44));
+ p += warp * 0.71;
+ float a = cos(dot(p, vec2(1.0, 0.39)) + elapsed * 0.32);
+ float b = cos(dot(p, vec2(-0.44, 1.25)) - elapsed * 0.27);
+ float c = cos(dot(p, vec2(0.56, 1.64)) + elapsed * 0.17);
+ float ridge = abs(a + b + c * 0.65 - 0.38);
+ float pixel_span = length(dFdx(p)) + length(dFdy(p));
+ float detail = 1.0 - smoothstep(0.20, 0.85, pixel_span);
+ float ink = 1.0 - smoothstep(0.045, 0.23, ridge);
+ float incidence = max(dot(normalize(world_normal), toward_sun), 0.0);
+ float solar_path = depth / toward_sun.y;
+ float daylight = sun_strength * smoothstep(0.01, 0.20, sun_direction.y);
+ float shallow = exp(-solar_path * 0.042) * (1.0 - smoothstep(44.0, 72.0, depth));
+ float submerged = smoothstep(0.08, 0.60, water_level - world_position.y);
+ EMISSION = saturated * vec3(0.56, 0.91, 1.0) * sun_color * ink * detail * incidence
+     * shallow * submerged * daylight * caustic_gain;
 }

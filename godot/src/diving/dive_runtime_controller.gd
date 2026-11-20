@@ -21,6 +21,9 @@ const DEFAULT_DISTANCE := 9.5
 const ACCEL_TAU := 0.22
 const BRAKE_TAU := 0.16
 const TURN_TAU := 0.14
+const REVERSE_SPEED := 2.7
+const WALL_LOOKAHEAD := 1.65
+const BOTTOM_LOOKAHEAD := 1.32
 const INPUT_ACTIONS := {
 	"dive_left": [KEY_A, KEY_LEFT], "dive_right": [KEY_D, KEY_RIGHT],
 	"dive_forward": [KEY_W, KEY_UP], "dive_back": [KEY_S, KEY_DOWN],
@@ -74,6 +77,13 @@ var _entry_yaw := 0.0
 var _entry_pitch := -0.03
 var _entry_effect_started := false
 var _turn_ratio := 0.0
+var _reverse_requested := false
+var _reverse_swim := false
+var _wall_clearance := WALL_LOOKAHEAD
+var _bottom_clearance := BOTTOM_LOOKAHEAD
+var _wall_brace := 0.0
+var _bottom_trim := 0.0
+var _brake_pose := 0.0
 var _blocked_seconds := 0.0
 var _test_input_enabled := false
 var _test_axis := Vector3.ZERO
@@ -230,6 +240,7 @@ func debug_teleport(p: Vector3) -> void:
 	cancel_navigation()
 	map.call("dive_set_position", p)
 	velocity = Vector3.ZERO
+	_reset_swim_response()
 	if machine.current != "swim": machine.change("swim", {}, true)
 	update_character(0.0)
 	update_camera(0.0, true)
@@ -297,12 +308,21 @@ func step_swim(dt: float) -> void:
 		return
 	var axis := _motion_input()
 	var desired := Vector3.ZERO
+	_reverse_requested = false
 	sprinting = (_test_sprint if _test_input_enabled else Input.is_action_pressed("dive_sprint")) and axis.length_squared() > 0.001
 	if axis.length_squared() > 0.001:
 		cancel_navigation()
 		var basis := camera.global_basis
+		var camera_forward := Vector3(-basis.z.x, 0.0, -basis.z.z).normalized()
+		var facing := Vector3(sin(_facing), 0.0, cos(_facing))
+		# A short retreat while facing into the view is a back kick, not a camera turn.
+		# Off-axis/back input still turns naturally and follows the original world-space path.
+		_reverse_requested = axis.z > 0.15 and absf(axis.x) < axis.z * 0.45 and absf(axis.y) < axis.z * 0.45 \
+			and camera_forward.dot(facing) > (0.50 if _reverse_swim else 0.74)
+		if _reverse_requested: sprinting = false
 		desired = basis * Vector3(axis.x, 0.0, axis.z) + Vector3.UP * axis.y
-		desired = desired.limit_length(1.0) * (SPRINT_SPEED if sprinting else CRUISE_SPEED)
+		var target_speed := REVERSE_SPEED if _reverse_requested else (SPRINT_SPEED if sprinting else CRUISE_SPEED)
+		desired = desired.limit_length(1.0) * target_speed
 	elif not route.is_empty():
 		var to_target: Vector3 = route[0] - _map_position()
 		if to_target.length() <= 0.30:
@@ -311,12 +331,41 @@ func step_swim(dt: float) -> void:
 			desired = to_target.normalized() * minf(CRUISE_SPEED, to_target.length() * 2.4)
 	var tau := ACCEL_TAU if desired.length_squared() > 0.001 else BRAKE_TAU
 	if desired.dot(velocity) < 0.0: tau = 0.13
-	velocity = velocity.lerp(desired, 1.0 - exp(-dt / tau))
-	if desired == Vector3.ZERO and velocity.length() < 0.035: velocity = Vector3.ZERO
-	var moved: Vector3 = map.call("dive_move", velocity * dt)
+	var approach := desired if desired.length_squared() > 0.001 else velocity
+	var horizontal := Vector3(approach.x, 0.0, approach.z)
+	_wall_clearance = _probe_clearance(horizontal, WALL_LOOKAHEAD)
+	_bottom_clearance = _probe_clearance(Vector3.DOWN, BOTTOM_LOOKAHEAD)
+	# Shape the approach before sweeping. Keep enough inward intent for the map's
+	# own contact/slide solver; never replace the solve with a teleport or bounce.
+	var wall_limit := lerpf(0.70, SPRINT_SPEED, smoothstep(0.04, WALL_LOOKAHEAD, _wall_clearance))
+	var down_limit := lerpf(0.46, SPRINT_SPEED, smoothstep(0.03, BOTTOM_LOOKAHEAD, _bottom_clearance))
+	var next := velocity.lerp(desired, 1.0 - exp(-dt / tau))
+	var flat_next := Vector3(next.x, 0.0, next.z)
+	if horizontal.dot(flat_next) > 0.0:
+		flat_next = flat_next.limit_length(wall_limit)
+	next = flat_next + Vector3.UP * maxf(next.y, -down_limit)
+	if desired == Vector3.ZERO and next.length() < 0.035: next = Vector3.ZERO
+	var moved: Vector3 = map.call("dive_move", next * dt)
 	velocity = moved / dt
-	# 冲刺倍率/FOV只代表实际推进；撞墙后按键仍按着也不能继续显示冲刺或烧冲刺气。
-	if sprinting and velocity.length() < 0.12:
+	var toward_wall := horizontal.normalized()
+	var wall_amount := 1.0 - smoothstep(0.11, 1.41, _wall_clearance)
+	var clipped_wall := next.dot(toward_wall) - velocity.dot(toward_wall) > 0.10
+	var brace_target := wall_amount * smoothstep(0.06, 1.55, horizontal.length())
+	if _reverse_requested: brace_target *= 0.42 # retreat from the face; no reaching backwards
+	if clipped_wall and _wall_clearance < 0.25 and not _reverse_requested: brace_target = 1.0
+	var bottom_target := 1.0 - smoothstep(0.07, BOTTOM_LOOKAHEAD, _bottom_clearance)
+	_wall_brace = lerpf(_wall_brace, brace_target, 1.0 - exp(-dt / (0.07 if brace_target > _wall_brace else 0.21)))
+	_bottom_trim = lerpf(_bottom_trim, bottom_target, 1.0 - exp(-dt / 0.10))
+	var braking := desired.length_squared() < 0.01 or desired.dot(next) < 0.0
+	_brake_pose = lerpf(_brake_pose, smoothstep(0.12, 2.0, next.length()) if braking else 0.0, 1.0 - exp(-dt / 0.10))
+	# Keep retreat facing while there is actual reverse motion, including coasting after release.
+	var face := Vector3(sin(_facing), 0.0, cos(_facing))
+	var backward_speed := -velocity.dot(face)
+	var aligned_recovery := axis.z < -0.15 and desired.normalized().dot(face) > 0.72
+	_reverse_swim = (_reverse_requested or (_reverse_swim and (axis.length_squared() < 0.001 or aligned_recovery))) and backward_speed > 0.10
+	# No dash FOV or extra oxygen while motion is reduced to a near-wall squeeze.
+	if sprinting and (velocity.length() < 0.12 or (velocity.length() < CRUISE_SPEED \
+			and (_wall_clearance < 0.90 or (next.y < -0.01 and _bottom_clearance < 0.65)))):
 		sprinting = false
 	if not route.is_empty() and desired.length() > 0.5 and velocity.length() < 0.12:
 		_blocked_seconds += dt
@@ -337,20 +386,46 @@ func step_swim(dt: float) -> void:
 		_air_emit = 0.15
 		_emit_air()
 	motion = "加速游动" if sprinting else ("自动游动" if not route.is_empty() else ("游动" if velocity.length() > 0.2 else "悬浮"))
+	if _reverse_swim: motion = "倒游"
+	if _wall_brace > 0.40: motion = "沿壁缓行" if velocity.length() > 0.25 else "靠墙收势"
+	elif _bottom_trim > 0.56 and velocity.y < 0.30: motion = "贴底收蹼"
 	update_character(dt)
+
+func _probe_clearance(direction: Vector3, reach: float) -> float:
+	if direction.length_squared() < 0.0025 or not map.has_method("dive_motion_clearance"): return reach
+	return clampf(float(map.call("dive_motion_clearance", direction, reach)), 0.0, reach)
+
+func _reset_swim_response() -> void:
+	_reverse_requested = false
+	_reverse_swim = false
+	_wall_clearance = WALL_LOOKAHEAD
+	_bottom_clearance = BOTTOM_LOOKAHEAD
+	_wall_brace = 0.0
+	_bottom_trim = 0.0
+	_brake_pose = 0.0
 
 func update_character(dt: float) -> void:
 	if character == null or map == null: return
 	character.global_position = _map_position() + Vector3(0.0, _root_height, 0.0)
 	var horizontal := Vector2(velocity.x, velocity.z)
 	_turn_ratio = 0.0
-	if horizontal.length() > 0.12:
+	if horizontal.length() > 0.12 and not (_reverse_swim or _reverse_requested):
 		var wanted := atan2(velocity.x, velocity.z)
 		var difference := wrapf(wanted - _facing, -PI, PI)
 		_turn_ratio = clampf(difference / 0.8, -1.0, 1.0)
 		_facing = lerp_angle(_facing, wanted, 1.0 if dt <= 0.0 else 1.0 - exp(-dt / TURN_TAU))
 	character.rotation.y = _facing
-	character.set_swim_motion(velocity.length() / CRUISE_SPEED,
+	var speed := velocity.length()
+	var trim := 0.0
+	if speed > 0.05:
+		# Straight Q reads as a near-vertical dive; a shallow camera-directed glide
+		# stays shallow. The trim also relaxes as the real movement stops.
+		trim = velocity.y / speed * smoothstep(0.08, 1.9, speed)
+	if _reverse_swim: trim *= 0.55
+	var entry := _entry_progress() if machine.current == "enter" and _entry_released and entry_is_prepared() else -1.0
+	character.set_swim_style(trim, smoothstep(0.10, 1.40, speed) if _reverse_swim else 0.0,
+		_wall_brace, _bottom_trim, _brake_pose, entry)
+	character.set_swim_motion(speed / CRUISE_SPEED,
 		clampf(velocity.y / CRUISE_SPEED, -1.0, 1.0), _turn_ratio, sprinting)
 
 func update_camera(dt: float, snap := false) -> void:
@@ -407,6 +482,8 @@ func snapshot() -> Dictionary:
 		"navigation": not route.is_empty(), "route": route.duplicate(), "camera_fov": camera.fov if camera != null else FOV,
 		"entry_progress": _entry_progress(), "entry_released": _entry_released,
 		"entry_ready": entry_is_prepared(), "entry_effect": entry_effect.snapshot() if entry_effect != null else {},
+		"swim_response": {"wall_clearance": _wall_clearance, "bottom_clearance": _bottom_clearance,
+			"brace": _wall_brace, "bottom": _bottom_trim, "brake": _brake_pose, "reverse": _reverse_swim},
 		"air": air.ratio(), "lamp": air.lamp, "state_owner": "shared_dive_runtime"}
 
 func toggle_lamp() -> void:
@@ -487,6 +564,7 @@ func _state_enter(id: String, _payload: Dictionary) -> void:
 	match id:
 		"surface":
 			velocity = Vector3.ZERO
+			_reset_swim_response()
 			sprinting = false
 			exit_presentation_granted = false
 			exit_presentation_finished = false
@@ -514,6 +592,7 @@ func _state_enter(id: String, _payload: Dictionary) -> void:
 			# 不在状态切换瞬间重置相机；下一帧沿入水终点连续回到基础镜头。
 		"exit":
 			cancel_navigation()
+			_reset_swim_response()
 			reset_pointer()
 			map.call("dive_exit_begin")
 			# Production session starts its iris immediately for manual/oxygen exit.

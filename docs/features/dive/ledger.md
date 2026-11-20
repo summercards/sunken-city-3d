@@ -416,3 +416,26 @@ R52–R75逐条承接不增删ID；设计规划仍全部 `planned/pending`，其
 P1当前结论：**远征 wire、严格校验、Session token、Inventory静默事务和协议级照片记录已实现并完成窄范围回归；家园5个打捞目标、2个捕鱼代理、6个摄影观察点、HUD/UI、真实活动时长与图片异步链路仍未实现，不能签完整海底玩法。**
 
 本阶段证据：`/Users/zyq/work/sea-work/verification/20261114-190910-dive-p1-target-ownership-6653a6`、`/Users/zyq/work/sea-work/verification/20261114-191056-dive-p1-final-control-regression-b2f959`、`/Users/zyq/work/sea-work/verification/20261114-191206-dive-p1-final-transition-regression-6f86c2`、`/Users/zyq/work/sea-work/verification/20261114-191428-dive-p1-final-inventory-regression-223e8d`、`/Users/zyq/work/sea-work/verification/20261114-191710-dive-p1-save-schema-seed-5b4c3b`、`/Users/zyq/work/sea-work/verification/20261114-191827-dive-p1-save-schema-corrupt-seed-c90d60`、`/Users/zyq/work/sea-work/verification/20261114-191946-dive-p1-save-schema-protection-6b4546`、`/Users/zyq/work/sea-work/verification/20261114-192115-dive-p1-framework-regression-bcfc34`。
+
+<a id="dive-swim-feel-ledger"></a>
+## 2026-11-19 潜水游感与障碍缓冲实施承接
+
+承接 [SEA-DIVE-R76–R81](spec.md#dive-swim-feel-design) 与 [SEA-MOVE-R33–R36](../move/ledger.md#move-dive-swim-feel-ledger)。已实现并完成当前范围专项；功能总体仍为 `partial`。批次、实测和未验范围见[开发记录](../../development/2026-11-19_dive_swim_feel.md#dive-swim-feel-signoff)。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-DIVE-R76 | 已接入十图共享 Controller 和独立潜水 Character；Map 保留原碰撞执行 | `dive-maps` 873/0；`dive-control` 466/0。 |
+| SEA-DIVE-R77 | 已验证开幕静止、释放后头先且后踢、稳定水中 Q 头先 | `dive-transition` 504/0，真实 408/0；家园连续取帧 21 张，操控侧拍另含 Q。 |
+| SEA-DIVE-R78 | 已验证前游/松键滑行、对齐 S 倒蹼、反向侧移转身、原点击和手动接管 | `dive-control` 466/0，真实 494/0；倒游定值 2.7 m/s。 |
+| SEA-DIVE-R79 | 已验证家园胶囊扫查询和旧图判阻抽样，无位置副作用 | 家园真实塔墙、街面与 zone1 楼体、地台均无夹具；`sunroom-collision` 2824/0。 |
+| SEA-DIVE-R80 | 已验证接触前降速、收臂收蹼、挡停不空踢及撤离衰减 | 保留家园不规则墙面低速擦移，不按完全静止签；全路线、多体型、多帧率待验。 |
+| SEA-DIVE-R81 | 未改场景、摆位、镜头逻辑、Air、过场/读存档，并完成相关回归 | `framework-integration` 52/0，`save-seed` exit 0，摆位 6 处通过。全库静态门禁仍受已有登记问题阻塞。 |
+
+## 2026-11-20 正式世界总集成门禁
+
+R08/R09/R65/R76：旧正式入口正常选中 zone1、走实际 HUD 完整出入水链并返回同一船、人、Main、镜头及环境；不改潜图选区、不把旧入口结果冒签为白盒接线。 部署状态不变，结果及未验边界见[开发与证据](../../development/2026-11-20_formal_world_integration.md)。
+
+
+## 2026-11-20 正式 Main 手动海上 3C
+
+R09/R76：同一实体船通过海面按键航行后按正式指令下潜，家园水域仍优先 `dive_home_seabed`；恢复同一 Main、船、人、姿态和镜头、再次手动划行。旧九图兼容 `dive-maps` 882/0。 [实窗、碰撞来源和未覆盖范围](../../development/2026-11-20_formal_manual_sea.md)。

@@ -374,7 +374,14 @@ func entry_sample(controller, elapsed: float) -> Dictionary:
 	var camera: Camera3D = controller.camera
 	var air_state := air_snapshot()
 	var bubble_state: Dictionary = state.get("entry_effect", {})
-	return {"t":elapsed, "wall_t":float(Time.get_ticks_msec() - int(sample.entry_start_ms)) / 1000.0,
+	var diver: Character = controller.character
+	var pelvis_y := (diver.left_leg.global_position.y + diver.right_leg.global_position.y) * 0.5
+	var left_foot := diver.left_knee.get_node("Foot") as Node3D
+	var right_foot := diver.right_knee.get_node("Foot") as Node3D
+	var swim_pose: Dictionary = diver.swim_snapshot()
+	return {"head_below_pelvis_m":pelvis_y - diver.head_pivot.global_position.y,
+		"head_below_feet_m":minf(left_foot.global_position.y, right_foot.global_position.y) - diver.head_pivot.global_position.y,
+		"kick_phase":float(swim_pose.phase), "t":elapsed, "wall_t":float(Time.get_ticks_msec() - int(sample.entry_start_ms)) / 1000.0,
 		"phase":str(controller.machine.current), "progress":float(state.get("entry_progress", -1.0)),
 		"released":bool(state.get("entry_released", false)), "position":[point.x, point.y, point.z],
 		"velocity":[controller.velocity.x, controller.velocity.y, controller.velocity.z],
@@ -497,6 +504,18 @@ func entry_motion_check(id: String) -> void:
 	check(final.switching and final.frozen, id + "：到达 swim 的同步边界仍 switching/freeze")
 	check(final.air == before_air and not sample.get("entering_changed", false),
 		id + "：可见下沉全程圆幕idle/不可见，输入/save/clock/Air保持冻结")
+	var head_first := false
+	var later_kick := false
+	var initial_kick := float(sample.entry_samples[0].kick_phase)
+	var early_still := true
+	for row in sample.entry_samples:
+		if float(row.progress) >= 0.18 and float(row.progress) <= 0.60:
+			head_first = head_first or (float(row.head_below_pelvis_m) > 0.25 and float(row.head_below_feet_m) > 0.50)
+		if float(row.progress) < 0.22:
+			early_still = early_still and absf(float(row.kick_phase) - initial_kick) < 0.001
+		if float(row.progress) > 0.43 and float(row.progress) < 0.70:
+			later_kick = later_kick or absf(float(row.kick_phase) - initial_kick) > 0.10
+	check(head_first and early_still and later_kick, id + "：可见入水先折身头下脚上，随后才推进蹼相位")
 	if id == "home_seabed":
 		var water := float(runtime.call("dive_water_level"))
 		var start_depth := water - before.y

@@ -34,6 +34,7 @@ var _palette_materials: Array[ShaderMaterial] = []
 var _surface_material: ShaderMaterial
 var _sky_material: ShaderMaterial
 var _fog_material: ShaderMaterial
+var _projection_ior := -1.0
 var _environment: Environment
 var collision_runtime: RegionCollision
 var dive_controller: Node
@@ -106,6 +107,9 @@ func _ready() -> void:
 	_environment.sky.process_mode = Sky.PROCESS_MODE_REALTIME
 	_build_water_fog()
 	$Atmosphere.configure_water(water_level)
+	$Atmosphere.use_screen_shafts()
+	$Atmosphere/LightShafts.visibility_changed.connect(_update_shaft_visibility)
+	_update_shaft_visibility()
 	_apply_underwater_light()
 	for school in $FishSchools.get_children():
 		school.apply_underwater_materials(MaterialLib)
@@ -177,12 +181,31 @@ func _apply_underwater_light() -> void:
 		mat.set_shader_parameter("sun_strength", _sun_strength)
 	for mat in _palette_materials:
 		mat.set_shader_parameter("water_level", water_level)
+		mat.set_shader_parameter("sun_direction", _sun_direction)
+		mat.set_shader_parameter("sun_color", _sun_color)
 		mat.set_shader_parameter("sun_strength", _sun_strength)
 	$Atmosphere.set_sunlight(_sun_strength)
+
+func _update_shaft_visibility() -> void:
+	_fog_material.set_shader_parameter("shaft_gain", 1.0 if $Atmosphere/LightShafts.is_visible_in_tree() else 0.0)
+
+func sample_underwater_optical_time(time: float) -> void:
+	_surface_material.set_shader_parameter("elapsed", time)
+	_fog_material.set_shader_parameter("elapsed", time)
+	for mat in _palette_materials:
+		mat.set_shader_parameter("elapsed", time)
 
 func _update_underwater_view() -> void:
 	var viewer_y: float = dive_position().y if _diving else $Camera.global_position.y
 	var view_depth := maxf(0.0, water_level - viewer_y)
+	# ShaderMaterial can return null for implicit shader defaults (notably headless).
+	var ior_override: Variant = _surface_material.get_shader_parameter("underside_sun_ior")
+	var active_ior: float = 1.333 if ior_override == null else float(ior_override)
+	if not is_equal_approx(active_ior, _projection_ior):
+		_projection_ior = active_ior
+		_fog_material.set_shader_parameter("surface_ior", _projection_ior)
+		for mat in _palette_materials:
+			mat.set_shader_parameter("surface_ior", _projection_ior)
 	for mat in [_surface_material, _sky_material, _fog_material]:
 		mat.set_shader_parameter("view_depth", view_depth)
 		mat.set_shader_parameter("region_view_depth", view_depth)
@@ -211,9 +234,6 @@ func _build_water_fog() -> void:
 	mat.render_priority = -128
 	pass_node.material_override = mat
 	_fog_material = mat
-	# Forward+ 使用 Reverse-Z，Compatibility 使用常规深度；shader 保留兼容 uniform 接口。
-	var rendering_method: String = RenderingServer.get_current_rendering_method()
-	_fog_material.set_shader_parameter("u_reverse_z", 0.0 if rendering_method.begins_with("gl_compatibility") else 1.0)
 	pass_node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	pass_node.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
 	pass_node.extra_cull_margin = 16384.0
@@ -344,7 +364,7 @@ func _process(delta: float) -> void:
 	if _notice != null:
 		var viewer_y: float = dive_position().y if _diving else $Camera.global_position.y
 		_notice.text="水深 %.1f 米 · 旧城 240 × 240 米" % maxf(0.0,water_level-viewer_y)
-	_surface_material.set_shader_parameter("elapsed",_clock)
+	sample_underwater_optical_time(_clock)
 
 ## 世界对齐入水：海面 XZ 原样保留，只在水面下方找一处真实净空。
 ## 刚进树时物理空间还没有这座旧城的碰撞体，此刻选点等于闭眼——先占住水面点，
@@ -446,6 +466,11 @@ func dive_move(displacement: Vector3) -> Vector3:
 	var moved := collision_runtime.move_viewer(displacement)
 	diver_pos = collision_runtime.viewer.global_position
 	return moved
+
+func dive_motion_clearance(direction: Vector3, distance: float) -> float:
+	if not is_instance_valid(collision_runtime) or (_diving and not entry_verified):
+		return 0.0 if is_nan(distance) else maxf(0.0, distance)
+	return collision_runtime.viewer_motion_clearance(direction, distance)
 
 func dive_route(dest: Vector3) -> Array:
 	if collision_runtime == null or not dest.is_finite():

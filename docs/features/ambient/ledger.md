@@ -293,3 +293,7 @@ b2-session51/0中暂停雨夜/晴昼互读即时同步、clock.changed计数0，
 ## 2026-11-17 树工坊深检的共享资源库加固（R02）
 
 仅 `godot/src/ambient/vegetation/library.gd` 增加catalog/key/导入产物/PackedScene/单mesh检查，失败null且不污染共享成功缓存。树作者生成器负责预检并结构化拒绝，不迁移资源库owner、不改原草GLB/material/布局。实际 `plant-authoring` 440/0、plant-integration540/0、host-scene-guard155/0，报告 `/Users/zyq/work/sea-work/verification/20261117-194137-workshop-switch-kernel-release-41a4f7/report.json`，真实后端、import及三项exit0、unexpected=[]，含缺资源/坏数据/Session原子失败断言。仅定点字节登记，不签环境全功能、生产Main、性能或艺术；见[深检记录](../../development/2026-11-17_workshop_switch_deep_check.md)。
+
+## 2026-11-19 家园光束交接 SEA-OCEAN-R45
+
+`sunroom_underwater_atmosphere.gd` 保留编辑预览的光柱及锚点位置、升降水面和快照行为；生产场景启动后关闭十个代理的可见性与逐帧材质更新，不再重复提交；既有泡尘仍为两次 MultiMesh 绘制。视觉测试区分浅中层日光束和深街暗水，不以节点计数代替真实像素。见 [本轮实测](../../development/2026-11-09_underwater_middepth_visibility.md#2026-11-19-abyssal-garden-参考试做)。
