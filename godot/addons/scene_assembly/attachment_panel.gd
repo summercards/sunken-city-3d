@@ -394,31 +394,39 @@ func _set_category(value: String) -> void:
 	refresh_gallery()
 	if not _refreshing and not _restoring: inputs_changed.emit()
 
-func recipe_for_type(type_id: String) -> Dictionary:
-	var recipe: Dictionary
-	if draft.get("type_id", "") == type_id:
-		recipe = input_recipe()
-	elif _drafts.has("draft:" + type_id):
-		recipe = _drafts["draft:" + type_id].recipe.duplicate(true)
+func _gallery_inputs(type_id: String, entry: Dictionary = {}) -> Dictionary:
+	var key := "draft:" + type_id
+	if entry.is_empty(): entry = Catalog.get_entry(type_id)
+	if entry.is_empty(): return {"recipe": {}, "mount": {}}
+	var inputs: Dictionary
+	if _context == key and draft.get("type_id", "") == type_id:
+		inputs = {"recipe": input_recipe(), "mount": _mount_inputs()}
+	elif _drafts.has(key):
+		inputs = {"recipe": _drafts[key].recipe.duplicate(true), "mount": _drafts[key].mount.duplicate(true)}
 	else:
-		recipe = Recipe.defaults(type_id)
-	if not recipe.is_empty(): recipe.condition = gallery_condition
-	return recipe
+		inputs = {"recipe": Recipe.defaults(type_id), "mount": {"mode": "roof" if entry.anchor == "mount_roof" else "wall", "offset_m": 0.0, "angle_degrees": 0.0}}
+	inputs.recipe.condition = gallery_condition
+	if entry.mount_mode != "any": inputs.mount.mode = entry.mount_mode
+	return inputs
+
+func recipe_for_type(type_id: String) -> Dictionary:
+	return _gallery_inputs(type_id).recipe
 
 func prepare_drag(type_id: String) -> Dictionary:
-	if draft.get("type_id", "") == type_id and _context.begins_with("draft:"):
-		_choice_value("condition", gallery_condition)
-	var options: Dictionary = _options()
-	if not options.ok: return options
-	var recipe: Dictionary = recipe_for_type(type_id)
+	var inputs := _gallery_inputs(type_id)
+	var recipe: Dictionary = inputs.recipe
 	var reason: String = Recipe.validate(recipe)
 	if not reason.is_empty():
 		report(reason)
 		return {"ok": false, "reason": reason}
+	var mount: Dictionary = inputs.mount
+	var options: Dictionary = controller.set_mount_options(mount.mode, mount.offset_m, mount.angle_degrees)
+	if not options.ok: return options
 	var result: Dictionary = controller.arm(recipe)
 	if result.ok:
 		controller.set_meta("dragging", true)
 		result.recipe = recipe.duplicate(true)
+		report("拖到%s的实体面；仅支撑有效才可放置。" % BUTTON_LABELS[mount.mode])
 	return result
 
 func refresh_gallery() -> void:
@@ -452,7 +460,9 @@ func _update_card(index: int, recipe: Dictionary) -> void:
 	var reason := str(_thumbnail_errors.get(key, ""))
 	gallery.set_item_text(index, ("[失败] " if not reason.is_empty() else "") + str(entry.name) + "\n" + str(CONDITION_LABELS[recipe.condition]))
 	gallery.set_item_icon(index, _failure_icon() if not reason.is_empty() else _thumbs.get(key))
-	gallery.set_item_tooltip(index, "%s · %s · %s\n%s%s" % [entry.category, entry.mount_mode, recipe.condition, entry.damage[recipe.condition], "\n生成失败：" + reason if not reason.is_empty() else ""])
+	var mount: Dictionary = _gallery_inputs(str(recipe.type_id), entry).mount
+	var mount_note: String = "（可在编辑组件中切换）" if entry.mount_mode == "any" else ""
+	gallery.set_item_tooltip(index, "%s · %s%s · %s\n%s%s" % [entry.category, BUTTON_LABELS[mount.mode], mount_note, CONDITION_LABELS[recipe.condition], entry.damage[recipe.condition], "\n生成失败：" + reason if not reason.is_empty() else ""])
 
 func _failure_icon() -> Texture2D:
 	if _failure_texture != null: return _failure_texture
@@ -619,8 +629,11 @@ func _restore(data: Dictionary) -> void:
 	_restoring = restoring
 	_input_changed()
 
+func _mount_inputs() -> Dictionary:
+	return {"mode": choices.mount_mode.value, "offset_m": fields.offset.slider.value, "angle_degrees": fields.angle.slider.value}
+
 func _snapshot_inputs() -> Dictionary:
-	return {"draft": draft.duplicate(true), "recipe": input_recipe(), "baseline": _baseline.duplicate(true), "baseline_mount": _baseline_mount.duplicate(true), "mount": {"mode": choices.mount_mode.value, "offset_m": fields.offset.slider.value, "angle_degrees": fields.angle.slider.value}}
+	return {"draft": draft.duplicate(true), "recipe": input_recipe(), "baseline": _baseline.duplicate(true), "baseline_mount": _baseline_mount.duplicate(true), "mount": _mount_inputs()}
 
 func _snapshot_dirty(data: Dictionary) -> bool:
 	var mount: Dictionary = data.mount

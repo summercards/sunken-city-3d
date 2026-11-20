@@ -6207,6 +6207,276 @@
     {"asset_id": "SEA-SCENE-BAT-AWNING-BARREL", "source": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend", "source_sha256": "ae104763ac6cd14e21aae27beadacff110d7f79910280f876726149f25ec9c01", "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/registration_manifest.json"},
     {"asset_id": "SEA-SCENE-BAT-CANOPY-ENTRY", "source": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "manifest": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/registration_manifest.json"},
     {
+      "asset_id": "SEA-SCENE-RAC",
+      "source": "art_source/scenes/rooftop_arcade/v001/rooftop_arcade.blend",
+      "source_sha256": "175c905b18ba5bf9f2156c57d7acc3e9503429864dfc7e04042c35d78172c8df",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ACCESS-LADDER",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.blend",
+      "source_sha256": "fe4b797f2f7c4d5b139223ad363c87e0da626a9c1f79deef0463b10b12d72daa",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-BLUE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.blend",
+      "source_sha256": "feeb0148e6e5319b29f36d5c0f27103ed48f1cd6a72b63dbe64b36296be4d58a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-YELLOW",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.blend",
+      "source_sha256": "2fc61629a8c9a594c59f8bf5725135d8e1c4688b69e9f967852300af443b8a79",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-AWNING",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/awning.blend",
+      "source_sha256": "5102b249218b2380220a6f1a271eef31c8e856e20c0d32850784d13a6e8a812a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/awning.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-A",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_a.blend",
+      "source_sha256": "635cb820f22ef7120877edeca23b5878afc4ef4aabe017085a3ed64c7dbe8d7d",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_a.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-B",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_b.blend",
+      "source_sha256": "3be0a869d67a059dfc892993f6425aaa1e717cda61efce69cc8ee1ec2e0645e0",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_b.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-C",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_c.blend",
+      "source_sha256": "5b7f2e6a559cb3af38d29dcb435e3dcd147aab189bc6a0fcb9ca063fe5dbb4f6",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_c.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-MORTAR",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.blend",
+      "source_sha256": "646dc012c76ffc871859172e7dc204d826e79be8245adccdb79a2e83045aa351",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-CLOTHESLINE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/clothesline.blend",
+      "source_sha256": "07b32acebaea5ffc174e6c8a1b131930081534bdc6423964c7b0f9de5f60ff58",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/clothesline.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-COFFEE-TABLE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.blend",
+      "source_sha256": "5b95726f675e49a1bf9556c00ec327054747020d43043f3deb265b81f3faae41",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DECK-SURFACE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.blend",
+      "source_sha256": "b39598f6452337dfbdf69b13f96172525c225de97cb6d1de22ae36696a96a3c4",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DRAINAGE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/drainage.blend",
+      "source_sha256": "ff64f01752d5c961ecb7855d671daff5a09590aa69e739cd1937ad26b1ad628b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/drainage.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.blend",
+      "source_sha256": "0493a887c43322c3dbf82f0c399478338dc7d21b6f72ce7e9a144085f25b0e30",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.blend",
+      "source_sha256": "342b7cc3f348838f3e25b86e5bfbc1a6c223e6c23fe19d92e33c6f098cef856b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-FLOAT-BASE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/float_base.blend",
+      "source_sha256": "9f054fb6f56462e64f47cc3ca6f269fcc9ec09c664c2abb09534b53a538a789a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/float_base.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-HEATER",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/heater.blend",
+      "source_sha256": "71fb56038106320b82b526498bdb87f3baa16159a886775d2f1afa33dd06cfa9",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/heater.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LIGHTING",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/lighting.blend",
+      "source_sha256": "730c003d9e8088986b0a6594dde0b775cc30e003353bd2d85ab24cca6da2cc0b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/lighting.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-BED",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.blend",
+      "source_sha256": "1a4eb59cb6cb7a62e56e74cdd8a667ca093184039d5b71f1fa2e0dca7f4b42da",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-CURTAIN",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.blend",
+      "source_sha256": "56d7095c17e0972d6995fdcd509ddc3d5dfcda9872be8eaa999769f4a07aa4b7",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-DECK",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.blend",
+      "source_sha256": "e1ad843b4f52124f93eddbee015796b0520e99de8caf084411602907108c17d5",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRAMES",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.blend",
+      "source_sha256": "a768b215f3dffdceb2990f1209a23e9090e1675dc5450496371e75c4f38038d8",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRONT",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_front.blend",
+      "source_sha256": "c1776087bb35013213010acc54eee73065a70e1322b5b76efc3be1d76d2e14c0",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_front.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-ROOF",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.blend",
+      "source_sha256": "e840b84b94100ab1106c5bb1c54eef8c8a649b9d523315f6533092df70c0cd0d",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELF",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.blend",
+      "source_sha256": "eb862df10139cd453ed5e2913d69f3fe5f0cd17cc7584b853dd89cb66ada8e64",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELL",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.blend",
+      "source_sha256": "183bcef3d2716ec4ecffb5b5dbc3ced53db7e4af94870a6d03c7156b46b58278",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-MOORING",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/mooring.blend",
+      "source_sha256": "cc3073794796aeb978352c218b1737659b2d5605a350c1e3d71d23d27447029a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/mooring.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-QUOIN",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/quoin.blend",
+      "source_sha256": "1e3aa4f7b5c7bc6d39b6e883b230f0b730095c0006156dd0d5eecb3678806684",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/quoin.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-REPAIR-BENCH",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.blend",
+      "source_sha256": "62953156460a38ba501896bb1c2c42c3be135de7671e9e1ba3f2195b01b7bba4",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SASH",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/sash.blend",
+      "source_sha256": "8715b5b154a2ff01a6509b061192f57e411fa4e86c2ed7857415e857e8eb988c",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/sash.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.blend",
+      "source_sha256": "a1fe9a06579dbd50047760e3532cb145f5db3d82d014dc3c8f247e493fb6a526",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHIPPING-CRATE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.blend",
+      "source_sha256": "8cbd39c814bba1c9c54319c8b8918746bc9ddec4f8c32891295e3ab24708968f",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-DOOR",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_door.blend",
+      "source_sha256": "7e1daba9e8d469f9310d2f1516cdd2d67e2414e8a8ff70848d65787e7c2283b6",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_door.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-SHELL",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.blend",
+      "source_sha256": "27d55d79c0bd91a7f89085a306068de8763cc67dc8367407c3929984dcd08f0f",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-STOOL",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.blend",
+      "source_sha256": "4c90c05926e10919cfe8884c31a728df2d85e5ee9cc39e521a37960afbeaac97",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SIDE-VENT",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/side_vent.blend",
+      "source_sha256": "80fb92184140d5cf03c64c946816cf5bc0262e4f5a2e8ac158436bd0a056aa46",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/side_vent.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-STOREFRONT",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/storefront.blend",
+      "source_sha256": "4af81bf76ac21457ce1ca07cdf159bf8ec0bf986afe3b96c8c881f16449065f1",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/storefront.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOKEN-COUNTER",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/token_counter.blend",
+      "source_sha256": "472d74aa3387358aba044c73f8501a3a331baea930b49b97c2c01de0fcf125b1",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/token_counter.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOOL-BOARD",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/tool_board.blend",
+      "source_sha256": "e4674ecfdc17ec5dfdebe99af9c1755c01917fe75bb93cc0868f0ded62758574",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/tool_board.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-POLE",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.blend",
+      "source_sha256": "ab331153de1fe009903f6b4bfe19bc621ed18d1fda8afd1c87991b7958a51146",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-RACK",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.blend",
+      "source_sha256": "f7474e6d2c884f829c81a07d8c18840830cc2e44fae7989c0145a6fc3b8ff7b5",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-VENT-FAN",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.blend",
+      "source_sha256": "e45a60a42b9874acaf51bc1f391e3934ec587e157216b1cb6ceaa3d7c4a2ae94",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-DECK",
+      "source": "godot/scenes/components/minimal_main/deck.tscn",
+      "source_sha256": "d9a9f38b5f3bc94a5fae7b3d62dfa816292bf3dbd0d04f015589c1af73e30c06",
+      "manifest": "art_source/scenes/minimal_main/v001/deck.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-RAMP",
+      "source": "godot/scenes/components/minimal_main/ramp.tscn",
+      "source_sha256": "a7d70ee843e28ff530de29baa336fe4574d935f87296ebee1d9c904ed34a76e6",
+      "manifest": "art_source/scenes/minimal_main/v001/ramp.manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-TIMBER",
+      "source": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+      "source_sha256": "2c0f3c8d592c37b7a902c87f0d9c997c80bf8f6ea597e42d3933557c18177db5",
+      "manifest": "art_source/scenes/minimal_main/v001/timber_obstacle.manifest.json"
+    },
+    {
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "source": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
       "source_sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",

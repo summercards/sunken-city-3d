@@ -123,10 +123,10 @@ func configure(owner_screen: Control, page: VBoxContainer, view: Control) -> voi
 	set_active(false)
 
 func set_active(active: bool) -> void:
-	if _active == active: return
+	if _active == active and is_instance_valid(panel): return
 	_active = active
-	panel.set_active(active)
-	controller.set_active(active)
+	if is_instance_valid(panel): panel.set_active(active)
+	if is_instance_valid(controller): controller.set_active(active)
 
 func get_selection() -> Array:
 	var valid: Array = []

@@ -373,6 +373,7 @@ func _gui_input(event: InputEvent) -> void:
 		if button.pressed:
 			grab_focus()
 		if button.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
+			_dragging = false
 			_navigation_button = button.button_index if button.pressed else 0
 			_move_keys.clear()
 			_last_mouse = button.position
@@ -383,8 +384,9 @@ func _gui_input(event: InputEvent) -> void:
 				_drag_moved = false
 				_last_mouse = button.position
 			else:
+				var click: bool = _dragging and not _drag_moved and Rect2(Vector2.ZERO, size).has_point(button.position)
 				_dragging = false
-				if not _drag_moved:
+				if click:
 					_try_select(button.position)
 			accept_event()
 		elif button.button_index == MOUSE_BUTTON_WHEEL_UP and button.pressed:
@@ -432,6 +434,7 @@ func _cancel_navigation() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_BEGIN:
+		_cancel_navigation()
 		if has_meta("attachment_last_drop"): remove_meta("attachment_last_drop")
 		_attachment_drag_trace.clear()
 		_attachment_drag_checks = 0
@@ -451,8 +454,11 @@ func _process(delta: float) -> void:
 	# 在主线程下一帧提交一次，避免临时印记永远停在未提交状态。
 	if surface_paint_input != null and surface_paint_input.editor != null:
 		var paint_editor: Node = surface_paint_input.editor
-		if surface_paint_input.synthetic_release_due() and not Input.is_key_pressed(KEY_SHIFT) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not paint_editor._pending.is_empty():
+		var synthetic_release: bool = surface_paint_input.synthetic_release_due()
+		if synthetic_release and not surface_paint_input._release_shift and not Input.is_key_pressed(KEY_SHIFT) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and not paint_editor._pending.is_empty():
 			paint_editor.finish_stroke()
+		elif synthetic_release:
+			paint_editor.cancel_stroke()
 	if _dragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_dragging = false
 	if _navigation_button == MOUSE_BUTTON_MIDDLE and not Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
@@ -507,11 +513,15 @@ func focus_work() -> void:
 
 func _try_select(screen_position: Vector2) -> void:
 	if attachment_input != null and attachment_input.pick(screen_position): return
-	if camera == null or viewport == null or size.x <= 0.0 or size.y <= 0.0:
-		return
-	var viewport_position: Vector2 = screen_position * Vector2(viewport.size) / size
-	var origin: Vector3 = camera.project_ray_origin(viewport_position)
-	var direction: Vector3 = camera.project_ray_normal(viewport_position)
+	var best_id: String = slot_at(screen_position)
+	if not best_id.is_empty():
+		slot_selected.emit(best_id)
+
+func slot_at(screen_position: Vector2) -> String:
+	var ray: Dictionary = ray_from_local_position(screen_position)
+	if ray.is_empty(): return ""
+	var origin: Vector3 = ray.origin
+	var direction: Vector3 = ray.direction
 	var best_id: String = ""
 	var best_distance: float = INF
 	for raw: Variant in _slots:
@@ -525,8 +535,7 @@ func _try_select(screen_position: Vector2) -> void:
 		if hit >= 0.0 and hit < best_distance:
 			best_distance = hit
 			best_id = str(slot.get("id", ""))
-	if not best_id.is_empty():
-		select_slot(best_id, true)
+	return best_id
 
 func _ray_slot_surface(slot: Dictionary, origin: Vector3, direction: Vector3) -> float:
 	if _model_root.get_child_count() != 1:

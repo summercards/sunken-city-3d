@@ -7,8 +7,8 @@ const StoreScript = preload("res://addons/building_workshop/editor_store.gd")
 const AdapterScript = preload("res://addons/building_workshop/catalog_adapter.gd")
 const RECOVERY_PATH: String = "user://building_workshop_editor/recovery.json"
 const SURFACE_PAINT_TEXTURES := {
-	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_atlas_512.png"),
-	"vine_atlas": preload("res://assets/textures/vegetation/workshop_leaf_atlas_512.png"),
+	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_tile_256.png"),
+	"vine_atlas": preload("res://assets/textures/vegetation/surface_vine_strip_256.png"),
 }
 
 var screen: Control

@@ -14776,6 +14776,7 @@
       "asset_key": "sea_playable_facilities",
       "domain": "scenes",
       "stage": "runtime_reference_verified",
+      "entry_status": "legacy_opt_in_not_default",
       "source": "art_source/scenes/runtime_building_reference/v003/sea_playable_facilities_v0.3.blend",
       "source_sha256": "ebc73506b04d404c0229e0335e3e0ed1a7011e7f6c74f78276fb30441e4b3126",
       "manifest": "art_source/scenes/runtime_building_reference/v003/sea_playable_facilities_manifest.json",
@@ -18923,6 +18924,12 @@
         "subcategory": "assembly"
       },
       "note": "12 components/44 source instances; base boat replacement, existing lantern reused; hull envelope exactly matches legacy. 2026-11-04: existing Blender/GLB retained; runtime TSCN owns shortened oar placement and seat/Grip markers. Prior recorded CRLF hash traced to 3e683fe2, intervening changes reviewed; commercial reference rights remain pending.",
+      "minimal_scene_reuse": {
+        "consumer": "godot/scenes/main_minimal.tscn#Boat/Model",
+        "contract": "docs/development/2026-11-19_minimal_sea_3c.md",
+        "verification": ["minimal-skiff", "visual-minimal-skiff"],
+        "scope": "Same visual, seat and grips; the minimal scene owns its native collision proxy. Source/runtime asset files and provenance status unchanged. The runtime inventory's existing CRLF digest matches commit 33914ca7 with CRLF; Mac reused the byte-identical HEAD/LF version."
+      },
       "previous_runtime_sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47",
       "runtime_layout_revision": {
         "id": "2026-11-04-seated-rowing",
@@ -85194,6 +85201,2611 @@
     {"asset_id": "SEA-SCENE-BAT-CHIMNEY", "name": "烟囱", "label": "烟囱", "type_id": "chimney", "domain": "scenes", "category": "furnishing", "category_label": "固定设施", "classification": {"category": "furnishing", "subcategory": "building_attachments"}, "catalog_category": "shelter", "stage": "authoring_library_integrated_art_review_pending_not_world_installed", "version": "v002", "source_version": "v002", "source": "art_source/scenes/building_attachments/v002/components/chimney.blend", "source_path": "art_source/scenes/building_attachments/v002/components/chimney.blend", "source_sha256": "d1f09527a5c0a5f85f539a77de6f65ceba7fe42a8d18f61d1c7d2a7486d3f36f", "source_blend": {"path": "art_source/scenes/building_attachments/v002/components/chimney.blend", "sha256": "d1f09527a5c0a5f85f539a77de6f65ceba7fe42a8d18f61d1c7d2a7486d3f36f", "bytes": 120940}, "source_kind": "derived_native_snapshot", "source_manifest": "art_source/scenes/building_attachments/v002/source/derived_manifest.json", "source_manifest_sha256": "003dc7627a8daff5d4477463d67f2cb7cd139f937a56ba7efdf99c01ef18a1bb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/chimney/registration_manifest.json", "original_native_sources": [{"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}, "library_sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "current": {"path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}, "library_sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "current": {"path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}, "library_sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "current": {"path": "godot/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}, "library_sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "current": {"path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}, "library_sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "current": {"path": "godot/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}, "library_sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "current": {"path": "godot/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}, "library_sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "current": {"path": "godot/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}, "library_sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "current": {"path": "godot/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}, "library_sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "current": {"path": "godot/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}, "library_sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "current": {"path": "godot/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/store.gd", "sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "bytes": 17728}, "library_sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "current": {"path": "godot/src/building_attachments/store.gd", "sha256": "45b5ad000e236da369ea995ccbe789afc05b94206f3c4ae7bc503a25c710afda", "bytes": 18208}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "library_sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "current": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}}], "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "runtime_path": "godot/scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn", "prefab": "res://scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn", "runtime_scene": {"fresh": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn", "sha256": "a9f9827f8560ad286dbec3b331d6b765f6774e48b75fa1a2508f5c38b8a8e4d9", "bytes": 32742, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn"}, "damaged": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/damaged.tscn", "sha256": "557ec9a140d3501228f63852e5e901cd4dc7f27a7973cda7967f2ae9c558288f", "bytes": 32746, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/damaged.tscn"}, "ruined": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/ruined.tscn", "sha256": "b718b697e8d2247d63951cc1dc228af95b96801bcb1d9cc6abccbc2b6818d2fd", "bytes": 26029, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/ruined.tscn"}}, "default_condition": "fresh", "variants": {"fresh": {"condition": "fresh", "damage_description": "收分烟道、开口顶框和底座", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-0.5390000343322754, 0.0, -0.48500001430511475], "size": [1.0780000686645508, 2.183500051498413, 0.9700000286102295]}, "budget": 1800, "collision_proxy_count": 9, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "305ebe588bc334004f89869ead31669d5370d39dc59bd76234ca470b7ee2dbfa", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "47025c79674d13298fd32a4e1a6fb9b282eee81e837613d243d76b95a5ea303e", "occupancy_16_sha256": "00d04da1c03f4fb0f8e42bd212940ad0be12392893c7bf4cee862b1456604d91", "occupied_cells": 72, "triangle_count": 252}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 9, "surfaces": 2, "text": [], "triangles": 252, "vertices": 756}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn", "sha256": "a9f9827f8560ad286dbec3b331d6b765f6774e48b75fa1a2508f5c38b8a8e4d9", "bytes": 32742, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/fresh.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/fresh.native.json", "sha256": "f6d907f6d3692057a48df5689d543f2790caf0e787deab1733baeda1121b65fb", "bytes": 175760, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/fresh.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/fresh.recipe.json", "sha256": "a74fb77fd51fba7f380dc4b3070753547afdd5cefcbb5850015a61d854589c13", "bytes": 363, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/fresh.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/chimney__fresh.glb", "sha256": "f8918a774979a75a2febf443139969df519b8361ea222422f2180cdfbf14a8f2", "bytes": 28176, "purpose": "visual_exchange_only_not_runtime"}}, "damaged": {"condition": "damaged", "damage_description": "顶框缺角", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-0.5390000343322754, 0.0, -0.48500001430511475], "size": [1.0780000686645508, 1.743499994277954, 0.9700000286102295]}, "budget": 1800, "collision_proxy_count": 9, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "14f4ae1570c29e7a3c495710c2b96c88a54042f4d7fd9ea71c89f1969d1e107c", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "931468979d094d008cc30f1bc2def1236ecae9dd595d290a5fb2a2b6ea89b34e", "occupancy_16_sha256": "71adcbe6b1b4e7cf70278764cab17707252021f5baf5f3ac033f53704ebecc34", "occupied_cells": 88, "triangle_count": 252}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 9, "surfaces": 2, "text": [], "triangles": 252, "vertices": 756}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/damaged.tscn", "sha256": "557ec9a140d3501228f63852e5e901cd4dc7f27a7973cda7967f2ae9c558288f", "bytes": 32746, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/damaged.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/damaged.native.json", "sha256": "cdd5b5da17246fdededc7e34d7d2615862aeb726e554b192d08b7fcc229d4cc7", "bytes": 175921, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/damaged.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/damaged.recipe.json", "sha256": "ed68fda911b47a2a7a0797bacfe99b5a08bfc4e433de3aa388981d8fa96c123c", "bytes": 365, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/damaged.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/chimney__damaged.glb", "sha256": "34f889fcb269fe959c0ea9e6710fc7a17d2104f9de06cffd8a73bb19ffaa2356", "bytes": 28184, "purpose": "visual_exchange_only_not_runtime"}}, "ruined": {"condition": "ruined", "damage_description": "低残筒、断顶与可见烟道", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-0.5390000343322754, 0.0, -0.48500001430511475], "size": [1.0780000686645508, 1.3034999370574951, 0.9700000286102295]}, "budget": 1800, "collision_proxy_count": 7, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "75799ed3675d4235c110ee31ff4b2d4a3e181d2f35f85a3792cfc5fe4884f026", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "7b18590b1545cf33c375392294bd2852cc5da37e674ecdd8e3bc4f0764779fdc", "occupancy_16_sha256": "49b07c1140f09290a22fa886bed77199e08d989d08066df538444c9d871d2061", "occupied_cells": 69, "triangle_count": 196}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 7, "surfaces": 2, "text": [], "triangles": 196, "vertices": 588}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/ruined.tscn", "sha256": "b718b697e8d2247d63951cc1dc228af95b96801bcb1d9cc6abccbc2b6818d2fd", "bytes": 26029, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/ruined.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/ruined.native.json", "sha256": "f50a7aa0bb82bbf95ea0156f77dc5e9e72450625eb5a8a7638a4c804894c4ef7", "bytes": 137326, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/ruined.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/chimney/ruined.recipe.json", "sha256": "1325b930e15d7e3e0d99516b933543020b49159e272668c3f629d6c008668032", "bytes": 364, "resource_path": "res://scenes/components/facilities/building_attachments/v002/chimney/ruined.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/chimney__ruined.glb", "sha256": "7696cb754c5ad9b784860d10e8724116abe6c850a34e2838502ab66c54101ac6", "bytes": 22468, "purpose": "visual_exchange_only_not_runtime"}}}, "delivery_manifest": "godot/scenes/components/facilities/building_attachments/v002/delivery_manifest.json", "building_class": null, "water_layer": "none", "water_layer_role": "none", "usage_profiles": {"available": ["above_water", "decorative_underwater"], "building_responsibility": "由挂载consumer决定，不是独立建筑", "decorative_underwater": {"collision_allowed": false, "world_derivation": false}}, "collision": {"optional": true, "catalog_default": false, "layer": 256, "navigation_obstacle": false, "dive_auto_registration": false, "world_space_derivation": false}, "runtime_world_installed": false, "production_loading": "Generator按catalog构建；不自动读取静态库", "provenance": "project_original_no_external_mesh", "external_mesh_reuse": false, "license": "pending_provenance_review", "commercial_legal_review": "pending", "art_review": "pending", "consumer_features": ["SEA-ASSET", "SEA-WORLD"]},
     {"asset_id": "SEA-SCENE-BAT-AWNING-SLOPE", "name": "单坡雨篷", "label": "单坡雨篷", "type_id": "awning_slope", "domain": "scenes", "category": "furnishing", "category_label": "固定设施", "classification": {"category": "furnishing", "subcategory": "building_attachments"}, "catalog_category": "shelter", "stage": "authoring_library_integrated_art_review_pending_not_world_installed", "version": "v002", "source_version": "v002", "source": "art_source/scenes/building_attachments/v002/components/awning_slope.blend", "source_path": "art_source/scenes/building_attachments/v002/components/awning_slope.blend", "source_sha256": "311621264c840bae00a7df4787c4234b6382f484b39536be2ed51c0d5b1e22dd", "source_blend": {"path": "art_source/scenes/building_attachments/v002/components/awning_slope.blend", "sha256": "311621264c840bae00a7df4787c4234b6382f484b39536be2ed51c0d5b1e22dd", "bytes": 135073}, "source_kind": "derived_native_snapshot", "source_manifest": "art_source/scenes/building_attachments/v002/source/derived_manifest.json", "source_manifest_sha256": "003dc7627a8daff5d4477463d67f2cb7cd139f937a56ba7efdf99c01ef18a1bb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/registration_manifest.json", "original_native_sources": [{"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}, "library_sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "current": {"path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}, "library_sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "current": {"path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}, "library_sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "current": {"path": "godot/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}, "library_sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "current": {"path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}, "library_sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "current": {"path": "godot/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}, "library_sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "current": {"path": "godot/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}, "library_sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "current": {"path": "godot/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}, "library_sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "current": {"path": "godot/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}, "library_sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "current": {"path": "godot/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}, "library_sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "current": {"path": "godot/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/store.gd", "sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "bytes": 17728}, "library_sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "current": {"path": "godot/src/building_attachments/store.gd", "sha256": "45b5ad000e236da369ea995ccbe789afc05b94206f3c4ae7bc503a25c710afda", "bytes": 18208}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "library_sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "current": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}}], "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "runtime_path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn", "prefab": "res://scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn", "runtime_scene": {"fresh": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn", "sha256": "336c355d2f78754a61dd2fae9c00bc99c9b2e4d4e1cbd89e9bfc98ddd9de68a1", "bytes": 53018, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn"}, "damaged": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/damaged.tscn", "sha256": "e27b4e4e169442c31a940eb8faebead2fefb6d04705454092f1cc44bc3bc0648", "bytes": 46313, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/damaged.tscn"}, "ruined": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/ruined.tscn", "sha256": "6c2cd0af09381367dd6e2d0ce62e92f0ddda5a920b949fa30233d640702efea2", "bytes": 39592, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/ruined.tscn"}}, "default_condition": "fresh", "variants": {"fresh": {"condition": "fresh", "damage_description": "厚实斜篷条与双三角支架", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5715000629425049, 0.9089999198913574], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.4879999160766602, 0.0, -0.9089999198913574], "size": [2.9759998321533203, 1.1430001258850098, 1.8179998397827148]}, "budget": 1800, "collision_proxy_count": 15, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "c27a57af636b1e1c846957aa8e0ab155e1f7666095c658024e2b26f9ff8d4f2a", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "a27f7727138a681f15665763faddb3cd60b67fcadf492fd6e166812ca536481f", "occupancy_16_sha256": "ed47a9c12530ea2fa17a8896b60a70642b1ffd2acab3d6e442ab37de2d85cd85", "occupied_cells": 89, "triangle_count": 420}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 15, "surfaces": 2, "text": [], "triangles": 420, "vertices": 1260}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn", "sha256": "336c355d2f78754a61dd2fae9c00bc99c9b2e4d4e1cbd89e9bfc98ddd9de68a1", "bytes": 53018, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/fresh.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/fresh.native.json", "sha256": "867262cb169671db9244a062d0b4cfe654d916381bb07f97d86f5a0701d4ff6c", "bytes": 311118, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/fresh.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/fresh.recipe.json", "sha256": "c5cc0e80d0d5894a6093b803ba08d3db0f801ffe43738f0d3015c45280dc429f", "bytes": 373, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/fresh.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_slope__fresh.glb", "sha256": "dda1e7126883f8f96d49e514c6430a56f8dda1f9ce28158cc7e6d6e0e0e402c0", "bytes": 45316, "purpose": "visual_exchange_only_not_runtime"}}, "damaged": {"condition": "damaged", "damage_description": "缺两条篷板", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5715000629425049, 0.9089999198913574], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.4879999160766602, 0.0, -0.9089999198913574], "size": [2.9759998321533203, 1.1430001258850098, 1.8179998397827148]}, "budget": 1800, "collision_proxy_count": 13, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "70a5aec022edc77e472f694fd10a285019da6a99f15e00f06363d9b419a99bee", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "e8e3a051d8422a188facff7b3a9c665c0218b0508cf11ebc0f55db26eea4d36f", "occupancy_16_sha256": "062758f4458ceb62428783ec0207a3686ee049e5072de8727626f1534a02164e", "occupied_cells": 89, "triangle_count": 364}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 13, "surfaces": 2, "text": [], "triangles": 364, "vertices": 1092}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/damaged.tscn", "sha256": "e27b4e4e169442c31a940eb8faebead2fefb6d04705454092f1cc44bc3bc0648", "bytes": 46313, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/damaged.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/damaged.native.json", "sha256": "8a400ebb36270dee3408aa542f46d219e05a9bfa15d38efe8aea1cc0e98de43e", "bytes": 271327, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/damaged.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/damaged.recipe.json", "sha256": "2d601725cb7c890d512ace61441005dbe4d8e8d08599b40c475de0ae1392cd05", "bytes": 375, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/damaged.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_slope__damaged.glb", "sha256": "221b39e0f523705598d3b7f5def1122b151cd63b1c21db79cdd0541ba0baddcd", "bytes": 39608, "purpose": "visual_exchange_only_not_runtime"}}, "ruined": {"condition": "ruined", "damage_description": "三条残板与断下梁", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5715000629425049, 0.9089999198913574], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.4879999160766602, 0.0, -0.9089999198913574], "size": [2.9759998321533203, 1.1430001258850098, 1.8179998397827148]}, "budget": 1800, "collision_proxy_count": 11, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "7f13b75f158e84a5bfe0708d1a440ae5043554f06f7b55a84c13c18894391146", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "6a3c5bb6852f09854b84713ce64854502da8e9cccd13ded7934aa8043ce0ae61", "occupancy_16_sha256": "bf59b7232defa6f681f507da7386022f7696dde5472fc2ea5f251715d4616ccc", "occupied_cells": 74, "triangle_count": 308}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 11, "surfaces": 2, "text": [], "triangles": 308, "vertices": 924}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/ruined.tscn", "sha256": "6c2cd0af09381367dd6e2d0ce62e92f0ddda5a920b949fa30233d640702efea2", "bytes": 39592, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/ruined.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/ruined.native.json", "sha256": "2f8ccc476a96ac1afa54d313013f92c188923357cd53989cb92a3f89839701bf", "bytes": 229982, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/ruined.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/ruined.recipe.json", "sha256": "0168a8e3c984e286568c4e952f08ab02f321aa5b5a9a596ff62734148df87ae6", "bytes": 374, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_slope/ruined.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_slope__ruined.glb", "sha256": "8da2860a75230d53da651ac129beb73fd52b4515f1cee857769c957c431d4142", "bytes": 33892, "purpose": "visual_exchange_only_not_runtime"}}}, "delivery_manifest": "godot/scenes/components/facilities/building_attachments/v002/delivery_manifest.json", "building_class": null, "water_layer": "none", "water_layer_role": "none", "usage_profiles": {"available": ["above_water", "decorative_underwater"], "building_responsibility": "由挂载consumer决定，不是独立建筑", "decorative_underwater": {"collision_allowed": false, "world_derivation": false}}, "collision": {"optional": true, "catalog_default": false, "layer": 256, "navigation_obstacle": false, "dive_auto_registration": false, "world_space_derivation": false}, "runtime_world_installed": false, "production_loading": "Generator按catalog构建；不自动读取静态库", "provenance": "project_original_no_external_mesh", "external_mesh_reuse": false, "license": "pending_provenance_review", "commercial_legal_review": "pending", "art_review": "pending", "consumer_features": ["SEA-ASSET", "SEA-WORLD"]},
     {"asset_id": "SEA-SCENE-BAT-AWNING-BARREL", "name": "圆拱雨篷", "label": "圆拱雨篷", "type_id": "awning_barrel", "domain": "scenes", "category": "furnishing", "category_label": "固定设施", "classification": {"category": "furnishing", "subcategory": "building_attachments"}, "catalog_category": "shelter", "stage": "authoring_library_integrated_art_review_pending_not_world_installed", "version": "v002", "source_version": "v002", "source": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend", "source_path": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend", "source_sha256": "ae104763ac6cd14e21aae27beadacff110d7f79910280f876726149f25ec9c01", "source_blend": {"path": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend", "sha256": "ae104763ac6cd14e21aae27beadacff110d7f79910280f876726149f25ec9c01", "bytes": 186501}, "source_kind": "derived_native_snapshot", "source_manifest": "art_source/scenes/building_attachments/v002/source/derived_manifest.json", "source_manifest_sha256": "003dc7627a8daff5d4477463d67f2cb7cd139f937a56ba7efdf99c01ef18a1bb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/registration_manifest.json", "original_native_sources": [{"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}, "library_sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "current": {"path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}, "library_sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "current": {"path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}, "library_sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "current": {"path": "godot/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}, "library_sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "current": {"path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}, "library_sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "current": {"path": "godot/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}, "library_sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "current": {"path": "godot/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}, "library_sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "current": {"path": "godot/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}, "library_sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "current": {"path": "godot/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}, "library_sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "current": {"path": "godot/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}, "library_sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "current": {"path": "godot/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/store.gd", "sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "bytes": 17728}, "library_sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "current": {"path": "godot/src/building_attachments/store.gd", "sha256": "45b5ad000e236da369ea995ccbe789afc05b94206f3c4ae7bc503a25c710afda", "bytes": 18208}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "library_sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "current": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}}], "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "runtime_path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn", "prefab": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn", "runtime_scene": {"fresh": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn", "sha256": "9f379d8d630f5bb44663df5507d2f6c847746edccf64ae3049765dc24e464155", "bytes": 147103, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn"}, "damaged": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.tscn", "sha256": "bef3ea1081ab244291dc95d91e32e88c6c915e4a33de144e8688d478660f422b", "bytes": 137026, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.tscn"}, "ruined": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.tscn", "sha256": "19e099bdf39b7cc06b2b657232d5a52b8d285e48eeb5c96603b4dae4411cc880", "bytes": 79901, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.tscn"}}, "default_condition": "fresh", "variants": {"fresh": {"condition": "fresh", "damage_description": "五片拱壳与双拱肋", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5819275975227356, 0.8922290802001953], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5225000381469727, 0.0, -0.8922290802001953], "size": [3.0450000762939453, 1.1638551950454712, 1.7844581604003906]}, "budget": 1800, "collision_proxy_count": 43, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "1aaa5e1b2c23347f0e577d1069000de4400913f8550fb0730b32ddbb8f0b9f87", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "dbe831ef90ffd7b4c4fd68fea3b7f346b3403a5c6b2960ebe89f2800fa4ae53e", "occupancy_16_sha256": "70cadcb585ec605cad765f5035a74f43efc2da707aa74e45847d2ea22e3bb0db", "occupied_cells": 118, "triangle_count": 1204}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 43, "surfaces": 2, "text": [], "triangles": 1204, "vertices": 3612}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn", "sha256": "9f379d8d630f5bb44663df5507d2f6c847746edccf64ae3049765dc24e464155", "bytes": 147103, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.native.json", "sha256": "9ad6a875d5000c5df7b68158111ab4802ee6b50ac163eea1d127f24ee86cfa97", "bytes": 865260, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.recipe.json", "sha256": "c52ac44d68fba85ec0682832746d75ade808993c99c3a3567281bdd179624ba4", "bytes": 375, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/fresh.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_barrel__fresh.glb", "sha256": "ee22c7f3a6ef152832d268add183d2c7cbde22f8d46a56c88293b10c1fe0048d", "bytes": 125304, "purpose": "visual_exchange_only_not_runtime"}}, "damaged": {"condition": "damaged", "damage_description": "拱中缺板", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5819275975227356, 0.8922290802001953], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5225000381469727, 0.0, -0.8922290802001953], "size": [3.0450000762939453, 1.1638551950454712, 1.7844581604003906]}, "budget": 1800, "collision_proxy_count": 40, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "39fe09f05e1a6b4a35dc207c36739c154f18dca8d1055cf8c6d3908650336534", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "9ef3a360f73e57f444f1e4959e630b60240a34ae7565492ea1fc96f7bf78baf5", "occupancy_16_sha256": "1626ca5583e715649f8b2319a8cf7391393ec4dc2c65fa5a6c99282f26c6164a", "occupied_cells": 116, "triangle_count": 1120}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 40, "surfaces": 2, "text": [], "triangles": 1120, "vertices": 3360}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.tscn", "sha256": "bef3ea1081ab244291dc95d91e32e88c6c915e4a33de144e8688d478660f422b", "bytes": 137026, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.native.json", "sha256": "4817b597b137085e588dfed3a6bf7680b87ce49bea6e4c4e3aad4be108c961a1", "bytes": 805575, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.recipe.json", "sha256": "b4ca16d2b024679d8e7adc8ab08439efc4224e7aaeff5c5e84ce540868c4a423", "bytes": 377, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/damaged.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_barrel__damaged.glb", "sha256": "a70a4809b878292e628e343730b610464568266dd8c667a566d5abd42775f8d0", "bytes": 116740, "purpose": "visual_exchange_only_not_runtime"}}, "ruined": {"condition": "ruined", "damage_description": "两侧残拱与短中肋", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_back", "position": [0.0, 0.5819275975227356, 0.8922290802001953], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5225000381469727, 0.0, -0.8922290802001953], "size": [3.0450000762939453, 1.1638551950454712, 1.7844581604003906]}, "budget": 1800, "collision_proxy_count": 23, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "c3c116aaa68fb589ae466d88067c1893379a903665a0e39118a41baa6bfa17e5", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "d662996bd1f0308e48512707dc561114492a085c2453e7a9fdd3fb5514a82f97", "occupancy_16_sha256": "6eae7ceb4f5572c03f9d7381a993ef1d44de416cdf9389f489667e6e470b87a6", "occupied_cells": 70, "triangle_count": 644}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 23, "surfaces": 2, "text": [], "triangles": 644, "vertices": 1932}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.tscn", "sha256": "19e099bdf39b7cc06b2b657232d5a52b8d285e48eeb5c96603b4dae4411cc880", "bytes": 79901, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.native.json", "sha256": "26b71e7459d917753859ed5195d9515e2690caf9faec42f148daf956d1d54af3", "bytes": 466011, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.recipe.json", "sha256": "f04005e1164877db3d0adccd5626a05e985f05da8c3c2fbb4850cedf094df00f", "bytes": 376, "resource_path": "res://scenes/components/facilities/building_attachments/v002/awning_barrel/ruined.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/awning_barrel__ruined.glb", "sha256": "afc4d036cc47858504ccd67b8d1befa2e3b57d96f167d716be444adeab1b35b4", "bytes": 68176, "purpose": "visual_exchange_only_not_runtime"}}}, "delivery_manifest": "godot/scenes/components/facilities/building_attachments/v002/delivery_manifest.json", "building_class": null, "water_layer": "none", "water_layer_role": "none", "usage_profiles": {"available": ["above_water", "decorative_underwater"], "building_responsibility": "由挂载consumer决定，不是独立建筑", "decorative_underwater": {"collision_allowed": false, "world_derivation": false}}, "collision": {"optional": true, "catalog_default": false, "layer": 256, "navigation_obstacle": false, "dive_auto_registration": false, "world_space_derivation": false}, "runtime_world_installed": false, "production_loading": "Generator按catalog构建；不自动读取静态库", "provenance": "project_original_no_external_mesh", "external_mesh_reuse": false, "license": "pending_provenance_review", "commercial_legal_review": "pending", "art_review": "pending", "consumer_features": ["SEA-ASSET", "SEA-WORLD"]},
-    {"asset_id": "SEA-SCENE-BAT-CANOPY-ENTRY", "name": "入口柱式棚", "label": "入口柱式棚", "type_id": "canopy_entry", "domain": "scenes", "category": "furnishing", "category_label": "固定设施", "classification": {"category": "furnishing", "subcategory": "building_attachments"}, "catalog_category": "shelter", "stage": "authoring_library_integrated_art_review_pending_not_world_installed", "version": "v002", "source_version": "v002", "source": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_path": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "source_blend": {"path": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "bytes": 140930}, "source_kind": "derived_native_snapshot", "source_manifest": "art_source/scenes/building_attachments/v002/source/derived_manifest.json", "source_manifest_sha256": "003dc7627a8daff5d4477463d67f2cb7cd139f937a56ba7efdf99c01ef18a1bb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/registration_manifest.json", "original_native_sources": [{"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}, "library_sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "current": {"path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}, "library_sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "current": {"path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}, "library_sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "current": {"path": "godot/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}, "library_sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "current": {"path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}, "library_sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "current": {"path": "godot/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}, "library_sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "current": {"path": "godot/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}, "library_sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "current": {"path": "godot/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}, "library_sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "current": {"path": "godot/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}, "library_sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "current": {"path": "godot/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}, "library_sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "current": {"path": "godot/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/store.gd", "sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "bytes": 17728}, "library_sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "current": {"path": "godot/src/building_attachments/store.gd", "sha256": "45b5ad000e236da369ea995ccbe789afc05b94206f3c4ae7bc503a25c710afda", "bytes": 18208}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "library_sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "current": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}}], "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "runtime_path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "prefab": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "runtime_scene": {"fresh": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "sha256": "03cca9d2907b4dba9957b536233263a315abc8f2737c2bf743246fb016372aa2", "bytes": 56298, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn"}, "damaged": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn", "sha256": "70edc5e4354a2a09a183c01e097d2ccdc4fafed68395cedc2e2ce431a4f54cdc", "bytes": 52943, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn"}, "ruined": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn", "sha256": "cb60bf08d578d7f562523c5ecd01e9e3009797911a5e642a6d3e8ba86644534e", "bytes": 46229, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn"}}, "default_condition": "fresh", "variants": {"fresh": {"condition": "fresh", "damage_description": "双柱、尖脊顶和外挑檐", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5290873050689697, 0.0, -1.0780000686645508], "size": [3.0581746101379395, 3.1559998989105225, 2.1560001373291016]}, "budget": 1800, "collision_proxy_count": 16, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "2ec40f78e0fd97c76fd3e9c58bf4f346fd29d289aa82b4bff960943275192eb9", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "43871d7b2c9cd1640dc0760f0be2d09583419324548f9d44b4967c948b5ab05d", "occupancy_16_sha256": "5f3d4f4b6a9acca453b5a69f189d230b39bb1a3f7bc554f465f596faa881b0ed", "occupied_cells": 66, "triangle_count": 448}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 16, "surfaces": 2, "text": [], "triangles": 448, "vertices": 1344}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "sha256": "03cca9d2907b4dba9957b536233263a315abc8f2737c2bf743246fb016372aa2", "bytes": 56298, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.native.json", "sha256": "d53c85fe6d853403d52a92fc6f945a3ac45e8fb1c588ece339ee14772b608209", "bytes": 325156, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.recipe.json", "sha256": "dc39ceb40240337fa57888835cc5cb7aa549f71d8ff1f2d17fe5b73bf984b4a8", "bytes": 373, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__fresh.glb", "sha256": "42a89452fa7ff5fbba7dc3b41c165fdde8858d68ebf149308477c66f00ebeedd", "bytes": 46696, "purpose": "visual_exchange_only_not_runtime"}}, "damaged": {"condition": "damaged", "damage_description": "右顶板缺失", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5290873050689697, 0.0, -1.0826913118362427], "size": [3.0581746101379395, 3.1519179344177246, 2.1653826236724854]}, "budget": 1800, "collision_proxy_count": 15, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "7099e87311300eccb9e5cb283e339af2ea6a2c0b5880fcc0b976e4261f032378", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "f45c9362094634e58ac6e1c66eebb441ddecc685302a32dd55e77b38efd5454a", "occupancy_16_sha256": "0f85eeda852071f60b22fbc822e491400d0bc35d82c3b1722049f15c987a98b6", "occupied_cells": 63, "triangle_count": 420}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 15, "surfaces": 2, "text": [], "triangles": 420, "vertices": 1260}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn", "sha256": "70edc5e4354a2a09a183c01e097d2ccdc4fafed68395cedc2e2ce431a4f54cdc", "bytes": 52943, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.native.json", "sha256": "4d555c8d191dedaa5c65aae1f73f1bafd21892da00678cf8a47bd540ab313df8", "bytes": 307203, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.recipe.json", "sha256": "712ffcbc97bb8c44ccf0692453869df6989208c79f51374d57e0d06ea2fd9ff3", "bytes": 375, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__damaged.glb", "sha256": "91f99741ba8e0900550f71a996ecd80e2fb929f01a2ef413750e15b21ece12a5", "bytes": 45324, "purpose": "visual_exchange_only_not_runtime"}}, "ruined": {"condition": "ruined", "damage_description": "左半屋顶、双柱及断脊", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5245436429977417, 0.0, -1.0893081426620483], "size": [3.0490872859954834, 3.148700714111328, 2.1786162853240967]}, "budget": 1800, "collision_proxy_count": 13, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "046780b3ffa7689dedab8c523a72989bb91b6f4ecc043b6f4529fce098ec2e82", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "f3ecd9b1ba77ff0a7383a8698dfb7bbb8b42f1e6f58b660ccac4be589d9ec64e", "occupancy_16_sha256": "46d4309b03e9d1888caaf4f77043e2a9af2d3b7717ca2d9362c43d7430036738", "occupied_cells": 60, "triangle_count": 364}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 13, "surfaces": 2, "text": [], "triangles": 364, "vertices": 1092}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn", "sha256": "cb60bf08d578d7f562523c5ecd01e9e3009797911a5e642a6d3e8ba86644534e", "bytes": 46229, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.native.json", "sha256": "e90a7598429e377bc023f2fd8f4d0bd2e81c5fcd50eb666d593083adc3eb9345", "bytes": 268142, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.recipe.json", "sha256": "bf75b078b2e32c762f78a4043ee3ccc005d0ed3d411a971b054c5917fe06b198", "bytes": 374, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__ruined.glb", "sha256": "ef09e4bf4379d154162e698d4ac298fc19d3f1466c22fc77b1a3f5e7dbce774a", "bytes": 39604, "purpose": "visual_exchange_only_not_runtime"}}}, "delivery_manifest": "godot/scenes/components/facilities/building_attachments/v002/delivery_manifest.json", "building_class": null, "water_layer": "none", "water_layer_role": "none", "usage_profiles": {"available": ["above_water", "decorative_underwater"], "building_responsibility": "由挂载consumer决定，不是独立建筑", "decorative_underwater": {"collision_allowed": false, "world_derivation": false}}, "collision": {"optional": true, "catalog_default": false, "layer": 256, "navigation_obstacle": false, "dive_auto_registration": false, "world_space_derivation": false}, "runtime_world_installed": false, "production_loading": "Generator按catalog构建；不自动读取静态库", "provenance": "project_original_no_external_mesh", "external_mesh_reuse": false, "license": "pending_provenance_review", "commercial_legal_review": "pending", "art_review": "pending", "consumer_features": ["SEA-ASSET", "SEA-WORLD"]}
+    {"asset_id": "SEA-SCENE-BAT-CANOPY-ENTRY", "name": "入口柱式棚", "label": "入口柱式棚", "type_id": "canopy_entry", "domain": "scenes", "category": "furnishing", "category_label": "固定设施", "classification": {"category": "furnishing", "subcategory": "building_attachments"}, "catalog_category": "shelter", "stage": "authoring_library_integrated_art_review_pending_not_world_installed", "version": "v002", "source_version": "v002", "source": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_path": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "source_blend": {"path": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "bytes": 140930}, "source_kind": "derived_native_snapshot", "source_manifest": "art_source/scenes/building_attachments/v002/source/derived_manifest.json", "source_manifest_sha256": "003dc7627a8daff5d4477463d67f2cb7cd139f937a56ba7efdf99c01ef18a1bb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/registration_manifest.json", "original_native_sources": [{"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}, "library_sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "current": {"path": "godot/src/building_attachments/catalog.gd", "sha256": "2c728c7d707cf3f31b67e2fd49ff29b2f2826f0703d11eab673393721943656e", "bytes": 1908}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}, "library_sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "current": {"path": "godot/src/building_attachments/recipe.gd", "sha256": "2cfa4f4f0fa5938dfdf627d7b7e281b78d0e0ecd3002ab9f13e828ac29d74b8d", "bytes": 4234}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}, "library_sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "current": {"path": "godot/src/building_attachments/geometry.gd", "sha256": "5395c629e7582e0fd94e87405ad7da984f1ef2d4ef7b6cd8f13d30bc17d38559", "bytes": 18679}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}, "library_sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "current": {"path": "godot/src/building_attachments/forms.gd", "sha256": "ab28fbc26fd8211374467a729c69ae3fce85311032a9fe146ede2346ca454a59", "bytes": 4857}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}, "library_sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "current": {"path": "godot/src/building_attachments/glyphs.gd", "sha256": "9582430b40d32739397ab539cc8ac60d93757b4781290804ca7a4bc07fbb1fa8", "bytes": 5066}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}, "library_sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "current": {"path": "godot/src/building_attachments/signage.gd", "sha256": "13b27bb9d337dd68dbdb44194d388eb860363e0ce162975067cf3f5784513b28", "bytes": 8205}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}, "library_sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "current": {"path": "godot/src/building_attachments/hvac.gd", "sha256": "e6023fa738a1eaf784b90d14b873c9999c756f24127c20a782483e7b31389820", "bytes": 7705}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}, "library_sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "current": {"path": "godot/src/building_attachments/water.gd", "sha256": "f407fc15ff8d96e71db1349cfb7457f15b22956d98b4480691589c736eacdbbf", "bytes": 8385}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}, "library_sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "current": {"path": "godot/src/building_attachments/shelter.gd", "sha256": "f65a5298f77433f1009ca48fb01826f51dd293227945f441f3d8da1fc419e862", "bytes": 9774}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}, "library_sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "current": {"path": "godot/src/building_attachments/generator.gd", "sha256": "b23e384b7c44e71fccf051f64234c8fec085c55b281835cac230a9d4f016cacc", "bytes": 9132}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/src/building_attachments/store.gd", "sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "bytes": 17728}, "library_sha256": "d9840379ac5e354119c2de30d0de17283e3f5485ad06c6ebc64b578573ac50df", "current": {"path": "godot/src/building_attachments/store.gd", "sha256": "45b5ad000e236da369ea995ccbe789afc05b94206f3c4ae7bc503a25c710afda", "bytes": 18208}}, {"snapshot": {"path": "/Users/zyq/work/sea-work/verification/20261116-052700-attachments-v2-support-r9c-a4e161/project/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "library_sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "current": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}}], "catalog": {"path": "godot/data/building_attachments/catalog_v1.json", "sha256": "917a5a1dbf4bd6f23950eecd78af14ca8e6876cebc7a0019a713df9644082f39", "bytes": 12908}, "runtime_path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "prefab": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "runtime_scene": {"fresh": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "sha256": "03cca9d2907b4dba9957b536233263a315abc8f2737c2bf743246fb016372aa2", "bytes": 56298, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn"}, "damaged": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn", "sha256": "70edc5e4354a2a09a183c01e097d2ccdc4fafed68395cedc2e2ce431a4f54cdc", "bytes": 52943, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn"}, "ruined": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn", "sha256": "cb60bf08d578d7f562523c5ecd01e9e3009797911a5e642a6d3e8ba86644534e", "bytes": 46229, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn"}}, "default_condition": "fresh", "variants": {"fresh": {"condition": "fresh", "damage_description": "双柱、尖脊顶和外挑檐", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5290873050689697, 0.0, -1.0780000686645508], "size": [3.0581746101379395, 3.1559998989105225, 2.1560001373291016]}, "budget": 1800, "collision_proxy_count": 16, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "2ec40f78e0fd97c76fd3e9c58bf4f346fd29d289aa82b4bff960943275192eb9", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "43871d7b2c9cd1640dc0760f0be2d09583419324548f9d44b4967c948b5ab05d", "occupancy_16_sha256": "5f3d4f4b6a9acca453b5a69f189d230b39bb1a3f7bc554f465f596faa881b0ed", "occupied_cells": 66, "triangle_count": 448}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 16, "surfaces": 2, "text": [], "triangles": 448, "vertices": 1344}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn", "sha256": "03cca9d2907b4dba9957b536233263a315abc8f2737c2bf743246fb016372aa2", "bytes": 56298, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.native.json", "sha256": "d53c85fe6d853403d52a92fc6f945a3ac45e8fb1c588ece339ee14772b608209", "bytes": 325156, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.recipe.json", "sha256": "dc39ceb40240337fa57888835cc5cb7aa549f71d8ff1f2d17fe5b73bf984b4a8", "bytes": 373, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/fresh.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__fresh.glb", "sha256": "42a89452fa7ff5fbba7dc3b41c165fdde8858d68ebf149308477c66f00ebeedd", "bytes": 46696, "purpose": "visual_exchange_only_not_runtime"}}, "damaged": {"condition": "damaged", "damage_description": "右顶板缺失", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5290873050689697, 0.0, -1.0826913118362427], "size": [3.0581746101379395, 3.1519179344177246, 2.1653826236724854]}, "budget": 1800, "collision_proxy_count": 15, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "7099e87311300eccb9e5cb283e339af2ea6a2c0b5880fcc0b976e4261f032378", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "f45c9362094634e58ac6e1c66eebb441ddecc685302a32dd55e77b38efd5454a", "occupancy_16_sha256": "0f85eeda852071f60b22fbc822e491400d0bc35d82c3b1722049f15c987a98b6", "occupied_cells": 63, "triangle_count": 420}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 15, "surfaces": 2, "text": [], "triangles": 420, "vertices": 1260}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn", "sha256": "70edc5e4354a2a09a183c01e097d2ccdc4fafed68395cedc2e2ce431a4f54cdc", "bytes": 52943, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.native.json", "sha256": "4d555c8d191dedaa5c65aae1f73f1bafd21892da00678cf8a47bd540ab313df8", "bytes": 307203, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.recipe.json", "sha256": "712ffcbc97bb8c44ccf0692453869df6989208c79f51374d57e0d06ea2fd9ff3", "bytes": 375, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/damaged.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__damaged.glb", "sha256": "91f99741ba8e0900550f71a996ecd80e2fb929f01a2ef413750e15b21ece12a5", "bytes": 45324, "purpose": "visual_exchange_only_not_runtime"}}, "ruined": {"condition": "ruined", "damage_description": "左半屋顶、双柱及断脊", "mount_anchor": {"basis": [1, 0, 0, 0, 1, 0, 0, 0, 1], "front_axis": "-Z", "name": "mount_roof", "position": [0.0, 0.0, 0.0], "up_axis": "+Y"}, "stats": {"bounds": {"position": [-1.5245436429977417, 0.0, -1.0893081426620483], "size": [3.0490872859954834, 3.148700714111328, 2.1786162853240967]}, "budget": 1800, "collision_proxy_count": 13, "collision_shapes": 0, "fingerprint": {"algorithm": "quantized_sorted_triangles_v1", "geometry_sha256": "046780b3ffa7689dedab8c523a72989bb91b6f4ecc043b6f4529fce098ec2e82", "normalization": "AABB_unit_scale_translation_invariant_no_type_id_salt", "normalized_sha256": "f3ecd9b1ba77ff0a7383a8698dfb7bbb8b42f1e6f58b660ccac4be589d9ec64e", "occupancy_16_sha256": "46d4309b03e9d1888caaf4f77043e2a9af2d3b7717ca2d9362c43d7430036738", "occupied_cells": 60, "triangle_count": 364}, "mesh_nodes": 2, "physics_bodies": 0, "source_part_count": 13, "surfaces": 2, "text": [], "triangles": 364, "vertices": 1092}, "material_roles": ["SEA_Matte", "SEA_Metal"], "scene": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn", "sha256": "cb60bf08d578d7f562523c5ecd01e9e3009797911a5e642a6d3e8ba86644534e", "bytes": 46229, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.tscn"}, "native_geometry": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.native.json", "sha256": "e90a7598429e377bc023f2fd8f4d0bd2e81c5fcd50eb666d593083adc3eb9345", "bytes": 268142, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.native.json"}, "recipe": {"path": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.recipe.json", "sha256": "bf75b078b2e32c762f78a4043ee3ccc005d0ed3d411a971b054c5917fe06b198", "bytes": 374, "resource_path": "res://scenes/components/facilities/building_attachments/v002/canopy_entry/ruined.recipe.json"}, "visual_exchange": {"path": "art_source/scenes/building_attachments/v002/export/canopy_entry__ruined.glb", "sha256": "ef09e4bf4379d154162e698d4ac298fc19d3f1466c22fc77b1a3f5e7dbce774a", "bytes": 39604, "purpose": "visual_exchange_only_not_runtime"}}}, "delivery_manifest": "godot/scenes/components/facilities/building_attachments/v002/delivery_manifest.json", "building_class": null, "water_layer": "none", "water_layer_role": "none", "usage_profiles": {"available": ["above_water", "decorative_underwater"], "building_responsibility": "由挂载consumer决定，不是独立建筑", "decorative_underwater": {"collision_allowed": false, "world_derivation": false}}, "collision": {"optional": true, "catalog_default": false, "layer": 256, "navigation_obstacle": false, "dive_auto_registration": false, "world_space_derivation": false}, "runtime_world_installed": false, "production_loading": "Generator按catalog构建；不自动读取静态库", "provenance": "project_original_no_external_mesh", "external_mesh_reuse": false, "license": "pending_provenance_review", "commercial_legal_review": "pending", "art_review": "pending", "consumer_features": ["SEA-ASSET", "SEA-WORLD"]},
+    {
+      "asset_id": "SEA-SCENE-RAC",
+      "name": "海上屋顶街机维修铺",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "building_assembly",
+      "category_label": "建筑总成",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "building_assembly"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "entity",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/rooftop_arcade.blend",
+      "source_sha256": "175c905b18ba5bf9f2156c57d7acc3e9503429864dfc7e04042c35d78172c8df",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/scenes/facilities/rooftop_arcade.tscn",
+      "prefab": "godot/scenes/facilities/rooftop_arcade.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_count": 41,
+      "instance_count": 355,
+      "runtime_sha256": "1ca2757e4e8cfa30914c78ff256630252f2b1fef9a95919d751f37148375e9f0",
+      "prefab_sha256": "1ca2757e4e8cfa30914c78ff256630252f2b1fef9a95919d751f37148375e9f0",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": {
+        "walkable_deck": true,
+        "water_blocker": "float_base_geometry"
+      },
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ACCESS-LADDER",
+      "name": "挂梯",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.blend",
+      "source_sha256": "fe4b797f2f7c4d5b139223ad363c87e0da626a9c1f79deef0463b10b12d72daa",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/access_ladder.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/access_ladder/access_ladder.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/access_ladder.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.22261179983615875,
+          -0.0520591139793396,
+          0.0
+        ],
+        "max_m": [
+          0.23061178624629974,
+          0.1974211037158966,
+          1.7890114784240723
+        ],
+        "size_m": [
+          0.4532235860824585,
+          0.2494802176952362,
+          1.7890114784240723
+        ]
+      },
+      "asset_key": "access_ladder",
+      "runtime_sha256": "50cbf5e0c0a2d5fea90671769b6a11ab24cef38664e052126e1f6030046dea11",
+      "prefab_sha256": "99e6fe8589750800159f78903a4ac8866748c7b0031f13e1a63c6502e519f70f",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-BLUE",
+      "name": "蓝色街机",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.blend",
+      "source_sha256": "feeb0148e6e5319b29f36d5c0f27103ed48f1cd6a72b63dbe64b36296be4d58a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/arcade_blue.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/arcade_blue/arcade_blue.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/arcade_blue.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.2280000001192093,
+          -0.25720447301864624,
+          0.0
+        ],
+        "max_m": [
+          0.2280000001192093,
+          0.24250000715255737,
+          1.3259999752044678
+        ],
+        "size_m": [
+          0.4560000002384186,
+          0.4997044801712036,
+          1.3259999752044678
+        ]
+      },
+      "asset_key": "arcade_blue",
+      "runtime_sha256": "654e4dd88b6fb2bc7c48b33486d768a733fb6c8f1dcd07f4e603f427110dbc15",
+      "prefab_sha256": "14dbed2cfd8215c47e1b23c7b161b1bc3f756293360a3116d67b89c09540c8e3",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-ARCADE-YELLOW",
+      "name": "黄色街机",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.blend",
+      "source_sha256": "2fc61629a8c9a594c59f8bf5725135d8e1c4688b69e9f967852300af443b8a79",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/arcade_yellow.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/arcade_yellow/arcade_yellow.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/arcade_yellow.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.21799999475479126,
+          -0.23863354325294495,
+          0.0
+        ],
+        "max_m": [
+          0.21799999475479126,
+          0.23999999463558197,
+          1.2949999570846558
+        ],
+        "size_m": [
+          0.4359999895095825,
+          0.4786335378885269,
+          1.2949999570846558
+        ]
+      },
+      "asset_key": "arcade_yellow",
+      "runtime_sha256": "6973058190ea8645b92c7a766dd9a631f5a6961559e3fd2e444490ed561927b1",
+      "prefab_sha256": "967af518d344eac736673669a7f521dbde04f06e1627ed1ad7beb5f87e95b805",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-AWNING",
+      "name": "蓝色雨棚与侧招",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/awning.blend",
+      "source_sha256": "5102b249218b2380220a6f1a271eef31c8e856e20c0d32850784d13a6e8a812a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/awning.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/awning/awning.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/awning.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.7072897553443909,
+          -0.50437331199646,
+          0.0
+        ],
+        "max_m": [
+          0.7357551455497742,
+          0.33061403036117554,
+          0.7581828236579895
+        ],
+        "size_m": [
+          1.443044900894165,
+          0.8349873423576355,
+          0.7581828236579895
+        ]
+      },
+      "asset_key": "awning",
+      "runtime_sha256": "bbd234874ac478378e89ccafa8d8209c7b7c0f4fc5fa773dda52bd99542d6d27",
+      "prefab_sha256": "7a1386b8480c0eb9f6bded17bccf9b5f1b4842692d14ad20921c4810398733e3",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-A",
+      "name": "陶红砖",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_a.blend",
+      "source_sha256": "635cb820f22ef7120877edeca23b5878afc4ef4aabe017085a3ed64c7dbe8d7d",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_a.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_a/brick_a.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_a.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.16152434051036835,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.16135470569133759,
+          0.04349999874830246,
+          0.11286527663469315
+        ],
+        "size_m": [
+          0.32287904620170593,
+          0.08699999749660492,
+          0.11286527663469315
+        ]
+      },
+      "asset_key": "brick_a",
+      "runtime_sha256": "e9ee8e88a6b4431017e4af41480fed0cf670b972511c89aaeb2650a7865250c9",
+      "prefab_sha256": "be3381592041e33ca85d3d577aa48c6ff01f1c8a005d682f7b75ea28224c5e28",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-B",
+      "name": "浅红砖",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_b.blend",
+      "source_sha256": "3be0a869d67a059dfc892993f6425aaa1e717cda61efce69cc8ee1ec2e0645e0",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_b.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_b/brick_b.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_b.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.14639151096343994,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.14619694650173187,
+          0.04349999874830246,
+          0.10784446448087692
+        ],
+        "size_m": [
+          0.2925884574651718,
+          0.08699999749660492,
+          0.10784446448087692
+        ]
+      },
+      "asset_key": "brick_b",
+      "runtime_sha256": "0a96fe79f1e4680e0938aca644570d7b8c025f9ebea17c8f5b43478a6b282f81",
+      "prefab_sha256": "ce57183924619e366fd84c413bd783e44422ea278d7441384568a119bedfe2ce",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-C",
+      "name": "深红砖",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_c.blend",
+      "source_sha256": "5b7f2e6a559cb3af38d29dcb435e3dcd147aab189bc6a0fcb9ca063fe5dbb4f6",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_c.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_c/brick_c.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_c.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.15551376342773438,
+          -0.04349999874830246,
+          0.0
+        ],
+        "max_m": [
+          0.1553419679403305,
+          0.04349999874830246,
+          0.11186033487319946
+        ],
+        "size_m": [
+          0.3108557313680649,
+          0.08699999749660492,
+          0.11186033487319946
+        ]
+      },
+      "asset_key": "brick_c",
+      "runtime_sha256": "7702882c31dbb665455570dda7882ff343de4478d9457280ed338c846bd50bfe",
+      "prefab_sha256": "40f7f65ef1cc30a5e047b727b05b5087854d0a74c4d5a0bab6ed06b5a8c34eee",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-BRICK-MORTAR",
+      "name": "砖墙承托",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.blend",
+      "source_sha256": "646dc012c76ffc871859172e7dc204d826e79be8245adccdb79a2e83045aa351",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/brick_mortar.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/brick_mortar/brick_mortar.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/brick_mortar.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.449195384979248,
+          -1.0744999647140503,
+          0.0
+        ],
+        "max_m": [
+          1.449195384979248,
+          1.0945712327957153,
+          1.1799999475479126
+        ],
+        "size_m": [
+          2.898390769958496,
+          2.1690711975097656,
+          1.1799999475479126
+        ]
+      },
+      "asset_key": "brick_mortar",
+      "runtime_sha256": "541e51db7c5812ceb13833287258e3db7e48eb4daa57759d077693e99aaf066c",
+      "prefab_sha256": "6c1943ac301179797a2f44fc62a3f28b3426be794a7390caa140d0f9d6849901",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-CLOTHESLINE",
+      "name": "晾衣绳",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/clothesline.blend",
+      "source_sha256": "07b32acebaea5ffc174e6c8a1b131930081534bdc6423964c7b0f9de5f60ff58",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/clothesline.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/clothesline/clothesline.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/clothesline.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.2502245008945465,
+          -0.10845514386892319,
+          0.0
+        ],
+        "max_m": [
+          0.2502245008945465,
+          0.060489170253276825,
+          0.4241330027580261
+        ],
+        "size_m": [
+          0.500449001789093,
+          0.1689443141222,
+          0.4241330027580261
+        ]
+      },
+      "asset_key": "clothesline",
+      "runtime_sha256": "790ad9de934dd1c1124b3cec44648bea33fd459470f5487074ee7874584afe40",
+      "prefab_sha256": "b22555f37ac28a5fd21641b9b7cd8ae2515565ed9f5666dee5689e466a19e0bd",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-COFFEE-TABLE",
+      "name": "矮茶桌",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.blend",
+      "source_sha256": "5b95726f675e49a1bf9556c00ec327054747020d43043f3deb265b81f3faae41",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/coffee_table.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/coffee_table/coffee_table.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/coffee_table.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.3784498870372772,
+          -0.269155889749527,
+          0.0
+        ],
+        "max_m": [
+          0.3784498870372772,
+          0.269155889749527,
+          0.48100000619888306
+        ],
+        "size_m": [
+          0.7568997740745544,
+          0.538311779499054,
+          0.48100000619888306
+        ]
+      },
+      "asset_key": "coffee_table",
+      "runtime_sha256": "bde0010003b8efd42475c786e764948dbc30694d505c25bce269d043bf8bdbdc",
+      "prefab_sha256": "34735edce86005811a27a97abb81b8f38ba2ce42cb8ceb00ddc588ba49955ace",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DECK-SURFACE",
+      "name": "浮台铺板",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.blend",
+      "source_sha256": "b39598f6452337dfbdf69b13f96172525c225de97cb6d1de22ae36696a96a3c4",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/deck_surface.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/deck_surface/deck_surface.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/deck_surface.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -2.1579737663269043,
+          -1.6057976484298706,
+          0.0
+        ],
+        "max_m": [
+          2.1479737758636475,
+          1.6577976942062378,
+          0.0860000029206276
+        ],
+        "size_m": [
+          4.305947542190552,
+          3.2635953426361084,
+          0.0860000029206276
+        ]
+      },
+      "asset_key": "deck_surface",
+      "runtime_sha256": "e959ad784689ebb453108a23da131c4a2cd29f511d69fb76e788433e038ac363",
+      "prefab_sha256": "fd4bd00bd9efefbdea588b88db7e025f6515bcb5989bf0e96e813589177f0370",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-DRAINAGE",
+      "name": "落水管",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/drainage.blend",
+      "source_sha256": "ff64f01752d5c961ecb7855d671daff5a09590aa69e739cd1937ad26b1ad628b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/drainage.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/drainage/drainage.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/drainage.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.869275689125061,
+          -1.3450000286102295,
+          0.0
+        ],
+        "max_m": [
+          1.5856372117996216,
+          1.1915292739868164,
+          3.3072476387023926
+        ],
+        "size_m": [
+          3.4549129009246826,
+          2.536529302597046,
+          3.3072476387023926
+        ]
+      },
+      "asset_key": "drainage",
+      "runtime_sha256": "d4bd1c736131237aceb05a420751e27c3ca0f0729b82cb425696395631285a8d",
+      "prefab_sha256": "12691885ff42850f4ff64a4ca2f086a9f4388bf5a3662ec3e29902fe945f3fd4",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-SIGNS",
+      "name": "代币价牌",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.blend",
+      "source_sha256": "0493a887c43322c3dbf82f0c399478338dc7d21b6f72ce7e9a144085f25b0e30",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_signs.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/exterior_signs/exterior_signs.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/exterior_signs.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.22917990386486053,
+          -0.0695519968867302,
+          0.0
+        ],
+        "max_m": [
+          0.26035329699516296,
+          0.04094969853758812,
+          0.6786251664161682
+        ],
+        "size_m": [
+          0.4895332008600235,
+          0.11050169542431831,
+          0.6786251664161682
+        ]
+      },
+      "asset_key": "exterior_signs",
+      "runtime_sha256": "06e4a801da549d34076d801fad1f2332f1760cd9da7f967b76040574a18f9636",
+      "prefab_sha256": "0be452d5f77365fc1afe04e4cd818736ef9613e2b13a2e448f6299202cd22884",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-EXTERIOR-STAIR",
+      "name": "外楼梯",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.blend",
+      "source_sha256": "342b7cc3f348838f3e25b86e5bfbc1a6c223e6c23fe19d92e33c6f098cef856b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/exterior_stair.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/exterior_stair/exterior_stair.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/exterior_stair.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.4332807660102844,
+          -1.1407489776611328,
+          0.0
+        ],
+        "max_m": [
+          0.4530225694179535,
+          1.1506118774414062,
+          1.569757342338562
+        ],
+        "size_m": [
+          0.8863033354282379,
+          2.291360855102539,
+          1.569757342338562
+        ]
+      },
+      "asset_key": "exterior_stair",
+      "runtime_sha256": "611bd05c7d6c1134c16f0b0d134574c2cb56d8b303c39a873383a6a31506e584",
+      "prefab_sha256": "47c732891104415a887215a5e97b1a96488b1465fe5a99afc42671207f49ddd8",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-FLOAT-BASE",
+      "name": "浮台基座",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/float_base.blend",
+      "source_sha256": "9f054fb6f56462e64f47cc3ca6f269fcc9ec09c664c2abb09534b53a538a789a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/float_base.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/float_base/float_base.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/float_base.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -2.3345954418182373,
+          -1.8200000524520874,
+          0.0
+        ],
+        "max_m": [
+          2.2997095584869385,
+          1.8200000524520874,
+          0.40299999713897705
+        ],
+        "size_m": [
+          4.634305000305176,
+          3.640000104904175,
+          0.40299999713897705
+        ]
+      },
+      "asset_key": "float_base",
+      "runtime_sha256": "58850c66464100eeee1705139cb50d5060d459dc147d36c60f3425a630bf7192",
+      "prefab_sha256": "93baf54f262894fbcd06313cb3166b9ee2c25ed079e56903ae98c06eb31127e7",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-HEATER",
+      "name": "热水罐",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/heater.blend",
+      "source_sha256": "71fb56038106320b82b526498bdb87f3baa16159a886775d2f1afa33dd06cfa9",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/heater.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/heater/heater.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/heater.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.15000000596046448,
+          -0.17999999225139618,
+          0.0
+        ],
+        "max_m": [
+          0.17681336402893066,
+          0.15000000596046448,
+          1.243699550628662
+        ],
+        "size_m": [
+          0.32681336998939514,
+          0.32999999821186066,
+          1.243699550628662
+        ]
+      },
+      "asset_key": "heater",
+      "runtime_sha256": "29f6446fef965f437a87d091338371db82256fa686b827dacef7b7c8c8823b93",
+      "prefab_sha256": "e16ec625fd85bd454ecb07058e5d664cff3c1e8a1f8f67bfa2ea82e7089e7f13",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LIGHTING",
+      "name": "吊灯",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/lighting.blend",
+      "source_sha256": "730c003d9e8088986b0a6594dde0b775cc30e003353bd2d85ab24cca6da2cc0b",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/lighting.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/lighting/lighting.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/lighting.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.13740654289722443,
+          -0.13740654289722443,
+          0.0
+        ],
+        "max_m": [
+          0.1373765617609024,
+          0.13740654289722443,
+          0.4129999876022339
+        ],
+        "size_m": [
+          0.27478310465812683,
+          0.27481308579444885,
+          0.4129999876022339
+        ]
+      },
+      "asset_key": "lighting",
+      "runtime_sha256": "f8e57feeab70a9b320aeb8d279905638d8c24185fb34c4efec3d61d3d96f75dc",
+      "prefab_sha256": "9871a54a41142f9123514dfc320e4c8f2d8a81e19c9fa91315b8349b9a72b669",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-BED",
+      "name": "条纹床",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.blend",
+      "source_sha256": "1a4eb59cb6cb7a62e56e74cdd8a667ca093184039d5b71f1fa2e0dca7f4b42da",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_bed.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_bed/loft_bed.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_bed.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.38305023312568665,
+          -0.7224047183990479,
+          0.0
+        ],
+        "max_m": [
+          0.38199982047080994,
+          0.6815000176429749,
+          0.4779999852180481
+        ],
+        "size_m": [
+          0.7650500535964966,
+          1.4039047360420227,
+          0.4779999852180481
+        ]
+      },
+      "asset_key": "loft_bed",
+      "runtime_sha256": "9d7bdee74105c419b7d200c2901db8df635648140f23b8a84569eab5408f25d9",
+      "prefab_sha256": "679603bf05fcc947313f3025491bc28b133225735f95cc3431635c7873305576",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-CURTAIN",
+      "name": "窗帘",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.blend",
+      "source_sha256": "56d7095c17e0972d6995fdcd509ddc3d5dfcda9872be8eaa999769f4a07aa4b7",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_curtain.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_curtain/loft_curtain.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_curtain.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.3399999737739563,
+          -0.058286916464567184,
+          0.0
+        ],
+        "max_m": [
+          0.3399999737739563,
+          0.04867251217365265,
+          0.46025216579437256
+        ],
+        "size_m": [
+          0.6799999475479126,
+          0.10695942863821983,
+          0.46025216579437256
+        ]
+      },
+      "asset_key": "loft_curtain",
+      "runtime_sha256": "83c347ca97fc8df1a5e92b4055261ccaab7c4a89fcdeddd017366dd0b54b9485",
+      "prefab_sha256": "b4ed2e6ead8f5acc8a2e1ab125958cbe5ca4854aaabb159d8d818ceca169cbb0",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-DECK",
+      "name": "阁楼楼板",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.blend",
+      "source_sha256": "e1ad843b4f52124f93eddbee015796b0520e99de8caf084411602907108c17d5",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_deck.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_deck/loft_deck.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_deck.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.5943224430084229,
+          -1.2376357316970825,
+          0.0
+        ],
+        "max_m": [
+          1.6366329193115234,
+          1.2376357316970825,
+          0.23399999737739563
+        ],
+        "size_m": [
+          3.2309553623199463,
+          2.475271463394165,
+          0.23399999737739563
+        ]
+      },
+      "asset_key": "loft_deck",
+      "runtime_sha256": "81e474570ff3c0b63a6d1108ef1cbb74dac74804d607d7edfa6c67c38fb4a0a0",
+      "prefab_sha256": "e57aa613bbad50689bf2b7c967e6a767757bb4d6de8268f233c4cd4936c9e20c",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRAMES",
+      "name": "相框",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.blend",
+      "source_sha256": "a768b215f3dffdceb2990f1209a23e9090e1675dc5450496371e75c4f38038d8",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_frames.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_frames/loft_frames.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_frames.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.26165464520454407,
+          -0.030000001192092896,
+          0.0
+        ],
+        "max_m": [
+          0.2828812599182129,
+          0.025478381663560867,
+          0.46023914217948914
+        ],
+        "size_m": [
+          0.544535905122757,
+          0.05547838285565376,
+          0.46023914217948914
+        ]
+      },
+      "asset_key": "loft_frames",
+      "runtime_sha256": "e9dfb068f6e3c07ad6066a7d316d517962df16c1588c5c2d4b11aedcdc1e651c",
+      "prefab_sha256": "dcf634bac0a02b708935eacadb20c073c31bd7d13f1887655579a8815627f2a6",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-FRONT",
+      "name": "阁楼前墙",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_front.blend",
+      "source_sha256": "c1776087bb35013213010acc54eee73065a70e1322b5b76efc3be1d76d2e14c0",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_front.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_front/loft_front.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_front.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.3878464698791504,
+          -0.14228500425815582,
+          0.0
+        ],
+        "max_m": [
+          1.3565876483917236,
+          0.09995800256729126,
+          1.5509328842163086
+        ],
+        "size_m": [
+          2.744434118270874,
+          0.24224300682544708,
+          1.5509328842163086
+        ]
+      },
+      "asset_key": "loft_front",
+      "runtime_sha256": "094baa751d0cc1531f722b2e3dd404ea97b1a42745446f0d6115df0932e538d9",
+      "prefab_sha256": "bb64d6a596072b912e0df32715161407b2a055ca4b9cd6853ba7c5dd4af33a48",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-ROOF",
+      "name": "波纹屋盖",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.blend",
+      "source_sha256": "e840b84b94100ab1106c5bb1c54eef8c8a649b9d523315f6533092df70c0cd0d",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_roof.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_roof/loft_roof.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_roof.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.607421875,
+          -1.321854591369629,
+          0.0
+        ],
+        "max_m": [
+          1.6057751178741455,
+          1.3652777671813965,
+          0.7749292254447937
+        ],
+        "size_m": [
+          3.2131969928741455,
+          2.6871323585510254,
+          0.7749292254447937
+        ]
+      },
+      "asset_key": "loft_roof",
+      "runtime_sha256": "d0ab09c8b965aca41ada0d34de28b5cf4146b5800cb4d825dc9089a7e2671418",
+      "prefab_sha256": "81daab7a509ac09a21394b1cd8d06d99a4d3d8fc03554d14900d7e50eb4a3adf",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELF",
+      "name": "卧室货架",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.blend",
+      "source_sha256": "eb862df10139cd453ed5e2913d69f3fe5f0cd17cc7584b853dd89cb66ada8e64",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_shelf.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_shelf/loft_shelf.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_shelf.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.34499070048332214,
+          -0.13876864314079285,
+          0.0
+        ],
+        "max_m": [
+          0.34499070048332214,
+          0.13945677876472473,
+          1.2200000286102295
+        ],
+        "size_m": [
+          0.6899814009666443,
+          0.2782254219055176,
+          1.2200000286102295
+        ]
+      },
+      "asset_key": "loft_shelf",
+      "runtime_sha256": "d80d5082b5f4864754c4eaa1140aa13125a7506fb7eb1feef22c293365a2e5f1",
+      "prefab_sha256": "b23b996fda070ad59b067761ca80d784280f5b104c548dddea83d4d26d333d9f",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-LOFT-SHELL",
+      "name": "阁楼外壳",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.blend",
+      "source_sha256": "183bcef3d2716ec4ecffb5b5dbc3ced53db7e4af94870a6d03c7156b46b58278",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/loft_shell.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/loft_shell/loft_shell.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/loft_shell.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.4980696439743042,
+          -1.0904731750488281,
+          0.0
+        ],
+        "max_m": [
+          1.4980697631835938,
+          1.1324867010116577,
+          1.7245770692825317
+        ],
+        "size_m": [
+          2.996139407157898,
+          2.222959876060486,
+          1.7245770692825317
+        ]
+      },
+      "asset_key": "loft_shell",
+      "runtime_sha256": "760f71d128d382489df00473c31711847efe0cb3c08c32b43698f8589c38e779",
+      "prefab_sha256": "79bf91898cda49126dd2c923b43b074734d07df81f972e4cffa181a5aa7d49df",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-MOORING",
+      "name": "系泊件",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/mooring.blend",
+      "source_sha256": "cc3073794796aeb978352c218b1737659b2d5605a350c1e3d71d23d27447029a",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/mooring.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/mooring/mooring.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/mooring.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.1815238744020462,
+          -0.16434495151042938,
+          0.0
+        ],
+        "max_m": [
+          0.18299999833106995,
+          0.179909810423851,
+          0.39357471466064453
+        ],
+        "size_m": [
+          0.36452387273311615,
+          0.3442547619342804,
+          0.39357471466064453
+        ]
+      },
+      "asset_key": "mooring",
+      "runtime_sha256": "dfe5ae571dd92188a5a6f19929eb103c53afecaa5ea57eeb4245c5d856988551",
+      "prefab_sha256": "b2c30d874e0e4f896db75d1ab8ff2b2b8851793cce954d5019f78bc1d0f2e506",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-QUOIN",
+      "name": "转角石",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/quoin.blend",
+      "source_sha256": "1e3aa4f7b5c7bc6d39b6e883b230f0b730095c0006156dd0d5eecb3678806684",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/quoin.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/quoin/quoin.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/quoin.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.14203529059886932,
+          -0.07199999690055847,
+          0.0
+        ],
+        "max_m": [
+          0.14399999380111694,
+          0.07199999690055847,
+          0.18000000715255737
+        ],
+        "size_m": [
+          0.28603528439998627,
+          0.14399999380111694,
+          0.18000000715255737
+        ]
+      },
+      "asset_key": "quoin",
+      "runtime_sha256": "727160e6b9d259500db5b512681ed5bb4bdaa93d357086a23a6745fc6db85e9e",
+      "prefab_sha256": "85bf0450ef030a5d35ede985ebaa592ec51611592495de128c214ff2ac06cd11",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-REPAIR-BENCH",
+      "name": "CRT 维修桌",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.blend",
+      "source_sha256": "62953156460a38ba501896bb1c2c42c3be135de7671e9e1ba3f2195b01b7bba4",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/repair_bench.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/repair_bench/repair_bench.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/repair_bench.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.3682013750076294,
+          -0.2537468671798706,
+          0.0
+        ],
+        "max_m": [
+          0.3682013750076294,
+          0.2232895940542221,
+          1.1209999322891235
+        ],
+        "size_m": [
+          0.7364027500152588,
+          0.4770364612340927,
+          1.1209999322891235
+        ]
+      },
+      "asset_key": "repair_bench",
+      "runtime_sha256": "fcc79d41b879c12ede5680674687dca0afb922fd465f9b200317254a61b660d0",
+      "prefab_sha256": "a8db12c34449e2e34861c088dc13c05d6511c8e5bd6661af0b4d7fd20dc489d4",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SASH",
+      "name": "梯形蓝窗",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/sash.blend",
+      "source_sha256": "8715b5b154a2ff01a6509b061192f57e411fa4e86c2ed7857415e857e8eb988c",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/sash.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/sash/sash.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/sash.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.6097877621650696,
+          -0.23811690509319305,
+          0.0
+        ],
+        "max_m": [
+          0.6107975840568542,
+          0.09749999642372131,
+          0.9044322371482849
+        ],
+        "size_m": [
+          1.2205853462219238,
+          0.33561690151691437,
+          0.9044322371482849
+        ]
+      },
+      "asset_key": "sash",
+      "runtime_sha256": "8d5b76e74f1d36928aa9f0d4ea084ef260ff96d7a5b6716d692d25af2baf335a",
+      "prefab_sha256": "206ad7817f892653dcc9d3869d36d10292100cd900b743b8e4b7c61a08c142d4",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SERVICE-HARDWARE",
+      "name": "外墙表箱",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.blend",
+      "source_sha256": "a1fe9a06579dbd50047760e3532cb145f5db3d82d014dc3c8f247e493fb6a526",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/service_hardware.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/service_hardware/service_hardware.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/service_hardware.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.199759602546692,
+          -0.10246597975492477,
+          0.0
+        ],
+        "max_m": [
+          1.107078194618225,
+          0.033999718725681305,
+          2.6733784675598145
+        ],
+        "size_m": [
+          2.306837797164917,
+          0.13646569848060608,
+          2.6733784675598145
+        ]
+      },
+      "asset_key": "service_hardware",
+      "runtime_sha256": "659e6f47b57d1c3167e548d7c04fd613dc91d4f2be781381b18fcf8d85a55702",
+      "prefab_sha256": "590180f862d93aa92b1a826bf0c2328530da0878be0c26cde949cb6b20127b4e",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHIPPING-CRATE",
+      "name": "纸箱",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.blend",
+      "source_sha256": "8cbd39c814bba1c9c54319c8b8918746bc9ddec4f8c32891295e3ab24708968f",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shipping_crate.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shipping_crate/shipping_crate.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shipping_crate.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.15393231809139252,
+          -0.14048950374126434,
+          0.0
+        ],
+        "max_m": [
+          0.15393231809139252,
+          0.13294965028762817,
+          0.2824999988079071
+        ],
+        "size_m": [
+          0.30786463618278503,
+          0.2734391540288925,
+          0.2824999988079071
+        ]
+      },
+      "asset_key": "shipping_crate",
+      "runtime_sha256": "8ebbe878b5988b33994493c7df876a27849473b881de29d34bcc41b4d70d404c",
+      "prefab_sha256": "38543beb5904caa66944f8de8eaee2f96025bd2e5364e32e208d4c011f2c7a39",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-DOOR",
+      "name": "店门",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_door.blend",
+      "source_sha256": "7e1daba9e8d469f9310d2f1516cdd2d67e2414e8a8ff70848d65787e7c2283b6",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_door.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_door/shop_door.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_door.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.36276593804359436,
+          -0.0889434739947319,
+          0.0
+        ],
+        "max_m": [
+          0.37894168496131897,
+          0.056949224323034286,
+          1.4419270753860474
+        ],
+        "size_m": [
+          0.7417076230049133,
+          0.1458926983177662,
+          1.4419270753860474
+        ]
+      },
+      "asset_key": "shop_door",
+      "runtime_sha256": "70627a84bf69d68d577e38f128c1bf5b0d2b1651d59476bd476f7e3b94223164",
+      "prefab_sha256": "920055e13ad0b790bd27121f3d5c147ca585921836e9dc3c7fd6ce4fae162f0d",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-SHELL",
+      "name": "底层围护",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.blend",
+      "source_sha256": "27d55d79c0bd91a7f89085a306068de8763cc67dc8367407c3929984dcd08f0f",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_shell.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_shell/shop_shell.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_shell.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.4443084001541138,
+          -1.0395736694335938,
+          0.0
+        ],
+        "max_m": [
+          1.4443655014038086,
+          1.1954803466796875,
+          1.774999976158142
+        ],
+        "size_m": [
+          2.8886739015579224,
+          2.2350540161132812,
+          1.774999976158142
+        ]
+      },
+      "asset_key": "shop_shell",
+      "runtime_sha256": "131d55a274750996b60fb155a63577153207127a9daf9c1720cac3836c00d397",
+      "prefab_sha256": "7cf027d2f8e89167c1379b28cc7b30c177413f0b41d9583b74c052b33edfbb3c",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SHOP-STOOL",
+      "name": "圆凳",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.blend",
+      "source_sha256": "4c90c05926e10919cfe8884c31a728df2d85e5ee9cc39e521a37960afbeaac97",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/shop_stool.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/shop_stool/shop_stool.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/shop_stool.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.1509999930858612,
+          -0.1550000011920929,
+          0.0
+        ],
+        "max_m": [
+          0.1509999930858612,
+          0.1509999930858612,
+          0.44999998807907104
+        ],
+        "size_m": [
+          0.3019999861717224,
+          0.3059999942779541,
+          0.44999998807907104
+        ]
+      },
+      "asset_key": "shop_stool",
+      "runtime_sha256": "3b1d8cf8a3fb9777b1defeab8916214d0f6e8841e70f4f9fccc64eead81a292e",
+      "prefab_sha256": "73163fabf88129ea6bb42a1b6d2be26c58b1061c9360e15f0de484e701fd80c3",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-SIDE-VENT",
+      "name": "百叶风口",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/side_vent.blend",
+      "source_sha256": "80fb92184140d5cf03c64c946816cf5bc0262e4f5a2e8ac158436bd0a056aa46",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/side_vent.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/side_vent/side_vent.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/side_vent.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.16769763827323914,
+          -0.08343934267759323,
+          0.0
+        ],
+        "max_m": [
+          0.16769763827323914,
+          0.05792440101504326,
+          0.2800000011920929
+        ],
+        "size_m": [
+          0.33539527654647827,
+          0.1413637436926365,
+          0.2800000011920929
+        ]
+      },
+      "asset_key": "side_vent",
+      "runtime_sha256": "581362b34242d2d0e4b305fb01d1543cec7032946407f08ad594e1f9ae15fb7a",
+      "prefab_sha256": "91184fdf11dda6407578b56bd3a154de4c0e7256b54899f26e584907e425477d",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-STOREFRONT",
+      "name": "店面框",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/storefront.blend",
+      "source_sha256": "4af81bf76ac21457ce1ca07cdf159bf8ec0bf986afe3b96c8c881f16449065f1",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/storefront.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/storefront/storefront.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/storefront.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "bounds": {
+        "min_m": [
+          -1.4608383178710938,
+          -0.22922399640083313,
+          0.0
+        ],
+        "max_m": [
+          1.4694454669952393,
+          0.08703150600194931,
+          2.0855000019073486
+        ],
+        "size_m": [
+          2.930283784866333,
+          0.31625550240278244,
+          2.0855000019073486
+        ]
+      },
+      "asset_key": "storefront",
+      "runtime_sha256": "f86fd14987ae31f54e06bb1c61e1f31afd084f5194b09b9d04dbad606631d77e",
+      "prefab_sha256": "8228b2fa56f6e194a10813cc4a6e0a4f7258358c1b076ba7f8f133ba8412004d",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOKEN-COUNTER",
+      "name": "代币柜台",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/token_counter.blend",
+      "source_sha256": "472d74aa3387358aba044c73f8501a3a331baea930b49b97c2c01de0fcf125b1",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/token_counter.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/token_counter/token_counter.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/token_counter.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.44588154554367065,
+          -0.24299019575119019,
+          0.0
+        ],
+        "max_m": [
+          0.44588154554367065,
+          0.23232313990592957,
+          0.733954668045044
+        ],
+        "size_m": [
+          0.8917630910873413,
+          0.47531333565711975,
+          0.733954668045044
+        ]
+      },
+      "asset_key": "token_counter",
+      "runtime_sha256": "d1f10ea0d183780f02db11f23b973675e13ba1b96c5e594314487b138d4ca213",
+      "prefab_sha256": "d6847dffdd5760c78cfc2f9d327f67aff31ff59bfb7164d43e3242b717b8ae08",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-TOOL-BOARD",
+      "name": "工具板",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/tool_board.blend",
+      "source_sha256": "e4674ecfdc17ec5dfdebe99af9c1755c01917fe75bb93cc0868f0ded62758574",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/tool_board.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/tool_board/tool_board.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/tool_board.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.46960875391960144,
+          -0.11013423651456833,
+          0.0
+        ],
+        "max_m": [
+          0.46960875391960144,
+          0.06096169725060463,
+          0.5379999876022339
+        ],
+        "size_m": [
+          0.9392175078392029,
+          0.17109593376517296,
+          0.5379999876022339
+        ]
+      },
+      "asset_key": "tool_board",
+      "runtime_sha256": "9f503139e2aa835c8980d6ad412f22d29bb4ff37337603694243784b9ebd4168",
+      "prefab_sha256": "83ea8603f9006687765cdb880349d0148ef82d0752379747a5ef7a02fb868419",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-POLE",
+      "name": "木电杆",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.blend",
+      "source_sha256": "ab331153de1fe009903f6b4bfe19bc621ed18d1fda8afd1c87991b7958a51146",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/utility_pole.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/utility_pole/utility_pole.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/utility_pole.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.4396291971206665,
+          -0.17298148572444916,
+          0.0
+        ],
+        "max_m": [
+          0.5864344835281372,
+          0.10533393174409866,
+          5.059503555297852
+        ],
+        "size_m": [
+          1.0260636806488037,
+          0.2783154174685478,
+          5.059503555297852
+        ]
+      },
+      "asset_key": "utility_pole",
+      "runtime_sha256": "3b37ffd3ce27a30703eb81bff237a313330e18398ee9b67a6e0f4ab795e66c02",
+      "prefab_sha256": "fb90cfca39539246eaec8f1421eff190bc19997afab059ef7aef738ba23467a3",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-UTILITY-RACK",
+      "name": "底层货架",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.blend",
+      "source_sha256": "f7474e6d2c884f829c81a07d8c18840830cc2e44fae7989c0145a6fc3b8ff7b5",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/utility_rack.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/utility_rack/utility_rack.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/utility_rack.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.349846750497818,
+          -0.15292160212993622,
+          0.0
+        ],
+        "max_m": [
+          0.349846750497818,
+          0.1488349884748459,
+          1.440000057220459
+        ],
+        "size_m": [
+          0.699693500995636,
+          0.3017565906047821,
+          1.440000057220459
+        ]
+      },
+      "asset_key": "utility_rack",
+      "runtime_sha256": "a9afcee55a6c3b2d375f3ad2bf38b6f3ab121564fef3eac105605be58e7fbf04",
+      "prefab_sha256": "f0b09284e71f936f0edf34ce59a09eeee573087f328128d4c1ac09fed7c0db43",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-RAC-VENT-FAN",
+      "name": "风扇",
+      "suite": "rooftop_arcade",
+      "domain": "scenes",
+      "category": "furnishing",
+      "category_label": "固定设施",
+      "scope": "scene_local",
+      "classification": {
+        "category": "building",
+        "subcategory": "furnishing"
+      },
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "version": "v001",
+      "source": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.blend",
+      "source_sha256": "e45a60a42b9874acaf51bc1f391e3934ec587e157216b1cb6ceaa3d7c4a2ae94",
+      "manifest": "art_source/scenes/rooftop_arcade/v001/components/vent_fan.manifest.json",
+      "palette": "art_source/shared/palettes/sea_rooftop_arcade_8x8_512.png",
+      "palette_sha256": "9ec9f1be9f3717bd615b149046481918b9b8c79177651dcdac0eff38f2246b53",
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "runtime_path": "godot/assets/models/facilities/rooftop_arcade/vent_fan/vent_fan.glb",
+      "prefab": "godot/scenes/components/facilities/rooftop_arcade/vent_fan.tscn",
+      "license_status": "pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "stage": "source_runtime_verified_provenance_pending",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "bounds": {
+        "min_m": [
+          -0.16318096220493317,
+          -0.17400000989437103,
+          0.0
+        ],
+        "max_m": [
+          0.16394121944904327,
+          0.11280485987663269,
+          0.33000001311302185
+        ],
+        "size_m": [
+          0.32712218165397644,
+          0.2868048697710037,
+          0.33000001311302185
+        ]
+      },
+      "asset_key": "vent_fan",
+      "runtime_sha256": "62cc392cb6c6d1ba04a13fea6b92e026c7d42396603f96a18352a79815697df6",
+      "prefab_sha256": "0f7365cdcbbd9999897cec02d5dabe165232e67c02c1be68dd3041b095a61ca6",
+      "runtime_version": "v001",
+      "optimization_manifest": "art_source/scenes/rooftop_arcade/v001/export/v001/runtime_export_manifest.json",
+      "collision": false,
+      "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-DECK",
+      "name": "最小3C平台",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "stage": "native_graybox_runtime_verified",
+      "version": "v001",
+      "source_kind": "native_godot_tscn",
+      "source": "godot/scenes/components/minimal_main/deck.tscn",
+      "source_sha256": "d9a9f38b5f3bc94a5fae7b3d62dfa816292bf3dbd0d04f015589c1af73e30c06",
+      "manifest": "art_source/scenes/minimal_main/v001/deck.manifest.json",
+      "runtime_path": "godot/scenes/components/minimal_main/deck.tscn",
+      "prefab": "godot/scenes/components/minimal_main/deck.tscn",
+      "runtime_verified": true,
+      "used_by": [
+        "godot/scenes/main_minimal.tscn"
+      ],
+      "license": "project_original",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "walkable": true,
+      "blocks_actor": true,
+      "blocks_water": false,
+      "has_landing": false,
+      "collision": {
+        "enabled": true,
+        "method": "one matching static BoxShape3D"
+      },
+      "consumer_features": [
+        "SEA-WORLD",
+        "SEA-ASSET"
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-RAMP",
+      "name": "最小3C斜坡与坡脚",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "stage": "native_graybox_runtime_verified",
+      "version": "v001",
+      "source_kind": "native_godot_tscn",
+      "source": "godot/scenes/components/minimal_main/ramp.tscn",
+      "source_sha256": "a7d70ee843e28ff530de29baa336fe4574d935f87296ebee1d9c904ed34a76e6",
+      "manifest": "art_source/scenes/minimal_main/v001/ramp.manifest.json",
+      "runtime_path": "godot/scenes/components/minimal_main/ramp.tscn",
+      "prefab": "godot/scenes/components/minimal_main/ramp.tscn",
+      "runtime_verified": true,
+      "used_by": [
+        "godot/scenes/main_minimal.tscn"
+      ],
+      "license": "project_original",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "walkable": true,
+      "blocks_actor": true,
+      "blocks_water": false,
+      "has_landing": false,
+      "collision": {
+        "enabled": true,
+        "method": "matching static convex wedge and apron box"
+      },
+      "consumer_features": [
+        "SEA-WORLD",
+        "SEA-ASSET"
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-MIN3C-TIMBER",
+      "name": "最小3C海面固定木块",
+      "domain": "scenes",
+      "category": "structure",
+      "category_label": "建筑结构",
+      "scope": "scene_local",
+      "stage": "native_graybox_runtime_integrated",
+      "version": "v001",
+      "source_kind": "native_godot_tscn",
+      "source": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+      "source_sha256": "2c0f3c8d592c37b7a902c87f0d9c997c80bf8f6ea597e42d3933557c18177db5",
+      "manifest": "art_source/scenes/minimal_main/v001/timber_obstacle.manifest.json",
+      "runtime_path": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+      "prefab": "godot/scenes/components/minimal_main/timber_obstacle.tscn",
+      "used_by": [
+        "godot/scenes/main_minimal.tscn#TimberObstacles"
+      ],
+      "license": "project_original",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "walkable": false,
+      "blocks_water": true,
+      "has_landing": false,
+      "collision": {
+        "enabled": true,
+        "method": "static BoxShape3D matched to BoxMesh"
+      },
+      "consumer_features": [
+        "SEA-WORLD",
+        "SEA-NAV",
+        "SEA-ASSET"
+      ]
+    }
   ]
 }

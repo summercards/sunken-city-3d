@@ -663,3 +663,54 @@ R93 的四材质角色按钮与64格 PaletteUV 色板按内嵌页实装后，本
 - 同面板另一入口 `editor-scene-assembly` `20261118-170253-color-editor-dock4-20261118-f7b077`：**159/0**、asset-import 与 editor 均 exit0、completion_marker=true、unexpected_errors=`[]`、source_consistent=true。
 - 保留失败：`20261118-165625-…d3cada` 未带 `--import-assets`，隔离副本植被贴图未导入致树 Store 生成失败（16/1，`真实树Store保存动态旁车`）；`20261118-165754-…7af433` 同一原因修正后于「real drag house」阶段 180s 超时 exit=124；`20261118-170127-…e4e0ab` 在 mvk `SPIRVToMSLConverter::convert` 处 SIGABRT（exit=-6）。三次均不签通过，第四次成功批次才作为当前证据；前两次确属导入/超时环境问题，第三次为渲染器崩溃，未复现于后续同配置运行。
 - 本次只读既有证据之外，实际执行了上述四个 Godot 批次；未重跑房屋/逻辑/切换等其它入口，不以其历史结果代替当前实测。色板图集复用 `assets/textures/shared/sea_cabin_timber_8x8_512.png`，未新增资产或 AssetID。人工手感、全部色格逐格目检、其它 viewport 与生产 Main 接入仍未签。
+
+## 2026-11-18 外挂挂载排查与表面植被首轮证据
+
+**SEA-WORKSHOP-R93 补记**：图库已改为从被拖卡片取配方、挂载面、偏移和角度；原生 drop 单独提交，同次释放不再进入点击贴面。首轮 `workshop-attachments` 为 **153 checks / 0 failures，exit 0**。默认阳光房屋顶有水塔、入口棚和天线的可安装点；其 +Z 背面的 174 个射线命中点中，两款雨篷在 1.0 均 0 个合法点、0.75 各 6 个，横招在 1.0 与 0.75 均为 0。支承、玻璃及实体相交判定不放宽；这些是采样及逻辑证据，不是用户现场拖放结果。采样明细见[开发记录](../../development/2026-11-16_building_attachments.md)。
+
+| 条款 ID | 实施状态与证据 |
+|---|---|
+| SEA-WORKSHOP-R96 | 已实现，最终验收待补。苔藓 256×256 单图四方连续、0.64 m 贴面平铺、同面共边跨三角、每次落笔一个区域；藤蔓 256×512 单图沿投影重力下垂、横拖成排。透明区露底、使用 mipmap；保留 `moss_atlas`、`vine_atlas` 旧键，独立植被快照不写 Main。首轮 `surface-paint` 为 **94 checks / 0 failures，exit 0**，含真实渲染夹具图，不签真实工坊 GUI。 |
+
+首轮隔离批次：`/Users/zyq/work/sea-work/verification/20261118-195201-workshop-patch-and-mount-c4008b/report.json`，资源导入 **exit 0**。同批 `project/outputs/` 记录 `surface_paint_report.json`、`workshop_attachments_logic_report.json` 和 `surface_logic_grass.png`、`surface_logic_moss.png`、`surface_logic_vine.png`。三张 PNG 是真实渲染的测试夹具，不是工坊 GUI 截图；贴图来源终验、真实工坊 GUI 和最终门禁不预签，主线程实跑后回填。现有登记头及功能 `partial` 不变。
+
+### 当前挂载与贴图回归
+
+最终隔离批次 `20261118-201154-workshop-vegetation-mount-final-7220d5`：导入 exit 0，表面植被 **98/0、exit 0**，外挂 **153/0、exit 0**；两项均有完成标记、无意外错误且与源一致。目检测试墙实图显示相邻苔图的贴面纹理连续、两条藤竖直下垂。横招宽度手动降至 2.70 m 且大小 0.75 时，默认房屋背面的 174 个采点中有 8 个通过；未在其他立面逐件验收。独立真实编辑器输入验证 `20261118-201333-workshop-vegetation-editor-5370f1` 超时 exit 124，未签真实刷涂和保存闭环。全库 `--sync` / 正式检查仍分别有 547 / 548 项问题，均 exit 1；不批量刷新其他哈希。不修改 Main、公共材质或默认组件尺寸。
+
+## 2026-11-19 冲突调整交互深化与当前证据
+
+用户明确要求：调整冲突按钮可以改变数值，但必须先告知将修改哪些数值，用户确认“是”后才自动修改。当前 UI 已改为“查看并调整冲突…”；按钮只读采集当前失败/排队输入与当前可见窗口值，停止相关 timer，不写 Session、不刷新模型、不自动重试。弹窗明确分成两块：`Session原值 → 当前输入` 与 `当前输入 → 建议值`，逐项显示完整 path、原值、新值、单位、原因及 alias/derived；正文明确“当前没有任何数值被自动修改”，按钮为“是，自动修改并生成”与“取消，保留输入”，确认按钮强制可用，默认焦点仍在取消。
+
+确认后只调用一次真实 `Session.preview_candidate`；成功才替换预览、增加一条历史并保留非候选输入，失败/过期/取消/无稳定 owner/recovery baseline 漂移均拒绝或取消且保留原模型、输入、队列、历史和目标范围。不自动缩窗、关柱、清覆盖、换模板或后台重试。
+
+当前实测：`workshop-adjustment`（`/Users/zyq/work/sea-work/verification/20261119-024609-final-conflict-adjustment-core-c0c32d`）资源导入 exit0、专项 PASS；编辑器 `editor-workshop-upgrade` 可稳定生成真实确认弹窗并验证确认按钮可用、当前值清单与未自动修改语义。该批仍有1条既有 recovery 历史污染失败：跨文档表面植被 recovery 身份不一致导致“同Session恢复不清输入历史”红项；不影响冲突建议/确认主体，不将整项改写为 0 failures。
+
+## 2026-11-19 U 形屋顶诊断和构造应用
+
+**SEA-WORKSHOP-R23/R26/R27/R90**：结构页对待应用的平面、尺寸/层数、退台、屋顶和当前单边取同一候选；不再用旧形态或不含单边开口的候选报「可生成」。退台 `0 → -1` 只在确认后提交，取消以及实际几何拒绝均持有旧模型和历史；越界开口不自动截短。合法 U 形第八边 0.50 m 开口由真实按钮应用，成功单历史，撤销/重做覆盖草稿。**R17/R96 相邻回归**：会话内成功改建筑 ID 及撤销/重做同步表面层草稿身份，不改植被数据、保存基线或异文档校验；原同 Session 恢复历史用例现通过。
+
+| 隔离证据（工程外 sea-work/verification） | 当前结果 |
+|---|---|
+| `20261119-120356-u-roof-final-editor-18c557/report.json` | 真实 Godot 编辑器 `editor-workshop-upgrade` **1534/0，exit 0**，有完成标记，无意外错误/警告。U 形真实俯视 `project/outputs/upgrade_u_roof_applied.png` 已目检；本轮 U 形确认文案用真实控件断言，不把主视口截图当原生弹窗。 |
+| `20261119-115514-u-roof-shared-adjustment-fb0b4d/report.json` | 无头 `workshop-adjustment` **368/0，exit 0**，无截图。 |
+| `20261119-115514-u-roof-shared-geometry-005012/report.json` | 无头 `workshop-architecture` **3534/0，exit 0**，无截图。 |
+
+三批资源导入均 exit 0。负例是预期的业务拒绝，不是运行异常；未执行用户原草稿、人工鼠标验收或完整主场景回归。全库契约的 `--sync` / 正式检查分别 **549 / 550 项，均 exit 1**（既存条款账本不齐、旧报告链接和范围外资源哈希；普通检查另报派生索引过期）。只定点校对本轮四个运行清单文件，不刷新其它哈希或标全库通过。登记头状态仍 `partial`，未改 Main 或现有正式作品。
+
+## 2026-11-19 模拟建造式改装操作
+
+**承接 R17/R25/R69/R79–R81/R91/R93/R96**。新工具排与原配色目标行互斥、复用原高度。视口命中走真实三角面确认，先判断是否可以离开旧目标，再写入选件状态；窗口直达、部件入口、配色目标选择均不为选中本身增加历史。挂载、笔划、结构和调色仍由原入口验证/提交，保留全部侧栏参数与原格式。切页不自动提交；绘画的窗口桥只拥有在视口内起手的已启用画笔，迟到的释放不提交或删除暂停笔划。
+
+- `20261119-135827-build-mode-delivery-3265c0`：真实编辑器 **1561/0，Godot exit 0**，无意外错误。三档预览实际 `957×568 / 712×469 / 572×369`；结构、摆件和刷涂的第二行按钮均在矩形内，配色原位替代。截图 `project/outputs/upgrade_build_mode_{window,brush,structure}.png`；射线点选在真实预览 Control 中注入输入，不是人工鼠标。工坊五个变更文件与隔离快照逐字节一致；外层 runner 因并行改动的 `shaders/sunroom_underwater_palette.gdshader` 判整体 `source_consistent=false`，runner exit 1，不签全批通过。
+- `20261119-135044-build-mode-logic-31f0ab`：相机 **743/0**，刷涂夹具 **98/0**，两项 exit 0，使用真实渲染。`20261119-135419-build-mode-attachment-stable-154d51`：外挂 **153/0，exit 0**，无头。上述资源导入均 exit 0。
+- 单独真实刷涂套件 `20261119-135559-build-mode-brush-editor-58b2f7`：前段视角、悬停断言完成，但首次左拖未命中，**21 检查 / 2 失败，exit 1**；后续真实笔划/保存依赖未执行。真实外挂 `20261119-135105-build-mode-domain-editor-9023a8` **exit 124**，未完成；不以逻辑验证代签真实刷涂/外挂，也未进行人工操作或改 Main。
+- 全库契约 `--sync` / 正式检查分别 **548 / 549 项，均 exit 1**，仍被范围外条款、历史链接、资源哈希和派生索引阻塞。仅定点登记本轮工坊 UI、拾取、笔刷输入与验证脚本。
+
+## 2026-11-19 管道接头与顶棚连排回归
+
+承接 **R93–R95**。管道按可信生成的管口面对接，顶棚按同款实物侧边连排；每段继续复用原有实面、支承、实体相交与本地历史。此功能只在建筑工坊启用；普通挂件、图库拖放及世界装配保持原路径，不改目录、模型源和存档格式。
+
+- `20261119-144245-chained-attachments-final-cf274f/report.json`：无头 **205/0，exit 0**，含放首段、吸附预览与确认姿态一致、三段继续、空处/已占口拒绝、撤销重做、实际保存重开。无运行异常，无截图。
+- `20261119-144624-chained-attachments-editor-final-804c42/report.json`：真实编辑器 **1570/0，exit 0**，图库按钮可直接启动、同一预览连续摆三段、Esc 保留，截图 `project/outputs/upgrade_attachment_chain_canopy.png`。使用工坊预览的自动输入，不是人工鼠标；没有测试正式主场景、任意跨立面或所有尺寸配对。
+- 两批导入均 exit 0、范围内源码一致。前版真实编辑器第三段因夹具墙宽不足被拒，保留旧报告，本轮不放宽产品支承约束。全库契约 `--sync` / 正式检查分别有 **541 / 542 项问题，均 exit 1**，仍被范围外条款、历史链接和资源哈希等阻塞；只定点更新本轮五份源码登记，详见最终批 `contracts-sync.log` 与 `contracts-check.log`。

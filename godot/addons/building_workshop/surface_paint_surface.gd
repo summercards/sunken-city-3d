@@ -221,6 +221,30 @@ func triangle_for_stamp(stamp: Dictionary) -> Dictionary:
 	var triangle: Dictionary = _triangles[index]
 	return triangle if triangle.mesh_fingerprint == stamp.mesh_fingerprint and triangle.paintable else {}
 
+## 贴图横跨同一网格的共面三角边，仍逐三角裁切；不包住洞口或绕过不同面。
+func coplanar_faces(anchor: Dictionary, center: Vector3, radius: float) -> Dictionary:
+	var faces: Array[Dictionary] = []
+	for leaf: Dictionary in _leaves:
+		if not _box_sphere(leaf.box, center, radius): continue
+		for index: int in range(leaf.start, leaf.end):
+			var face: Dictionary = _triangles[index]
+			if not face.paintable or face.mesh_path != anchor.mesh_path or face.surface != anchor.surface: continue
+			if face.normal.dot(anchor.normal) < 0.99999 or not _box_sphere(face.box, center, radius): continue
+			var plane: Vector3 = anchor.normal
+			if absf(plane.dot(face.a - center)) > 0.0001 or absf(plane.dot(face.b - center)) > 0.0001 or absf(plane.dot(face.c - center)) > 0.0001: continue
+			faces.append(face)
+			if faces.size() > MAX_PATCH_LEAVES: return _fail("贴图覆盖超过2048个共面三角预算")
+	return {"ok": true, "faces": faces}
+
+static func vine_down(normal: Vector3) -> Vector3:
+	var projected := Vector3.DOWN - normal * Vector3.DOWN.dot(normal)
+	if projected.length_squared() < 0.0001:
+		projected = Vector3.FORWARD - normal * Vector3.FORWARD.dot(normal)
+	return projected.normalized()
+
+static func vine_height(stamp: Dictionary) -> float:
+	return maxf(float(stamp.params.radius), float(stamp.params.size)) * 2.0 * float(stamp.scale[2])
+
 func validate_snapshot_surface(snapshot: Dictionary) -> String:
 	var reason := Data.validate(snapshot)
 	if not reason.is_empty(): return reason
@@ -279,6 +303,7 @@ func apply_brush_command(snapshot: Dictionary, command: Dictionary) -> Dictionar
 	var triangle: Dictionary = hit.face
 	if not triangle.paintable or triangle.normal.dot(ray) >= -0.000001: return _fail("最近面透明、玻璃、未知材质或背面，拒绝穿透刷涂")
 	if brush.kind == "grass" and triangle.normal.y < 0.7: return _fail("草只允许世界向上 dot>=0.7 的建筑真实表面")
+	if brush.kind == "vine" and absf(triangle.normal.y) > 0.85: return _fail("藤蔓请刷在立面或斜墙上，沿面向下排列")
 	var center: Vector3 = hit.position
 	if command.has("previous_world"):
 		if center.distance_to(command.previous_world) < float(brush.spacing) or float(command.elapsed) < 1.0 / float(brush.rate):
@@ -289,20 +314,39 @@ func apply_brush_command(snapshot: Dictionary, command: Dictionary) -> Dictionar
 		var kept: Array = []
 		for stamp: Dictionary in result.stamps:
 			var point: Vector3 = _host_world * Data.vec(stamp.center_local)
+			var anchor := triangle_for_stamp(stamp)
 			var touches: bool = point.distance_to(center) <= float(brush.radius)
-			var erase_point := point
-			for index: int in range(1, stamp.path_points.size()):
-				var a: Vector3 = _host_world * Data.vec(stamp.path_points[index - 1])
-				var b: Vector3 = _host_world * Data.vec(stamp.path_points[index])
-				var closest: Vector3 = Geometry3D.get_closest_point_to_segment(center, a, b)
-				if closest.distance_to(center) <= float(brush.radius):
-					touches = true
-					erase_point = closest
-			if touches and _visible(origin, erase_point, triangle_for_stamp(stamp)):
-				removed += 1
+			if stamp.kind != "grass" and anchor.mesh_path == triangle.mesh_path and anchor.surface == triangle.surface and (anchor.normal as Vector3).dot(triangle.normal) > 0.99999 and absf((anchor.normal as Vector3).dot(center - point)) < 0.0001:
+				if stamp.kind == "moss":
+					touches = center.distance_to(point) <= float(brush.radius) + float(stamp.params.radius)
+				else:
+					var height := vine_height(stamp)
+					var along := vine_down(anchor.normal)
+					var side := (anchor.normal as Vector3).cross(along).normalized()
+					var delta := center - point
+					var half_width := height * 0.25 * float(stamp.scale[0])
+					var closest := point + along * clampf(delta.dot(along), 0.0, height) + side * clampf(delta.dot(side), -half_width, half_width)
+					touches = center.distance_to(closest) <= float(brush.radius)
+				if touches:
+					removed += 1  # 中心已是射线最近命中，且与印记属于同一共面表面。
+					continue
+			if touches and _visible(origin, point, anchor): removed += 1
 			else: kept.append(stamp)
 		if _comparisons > MAX_COMPARISONS: return _fail("擦除遮挡检查超过预算，未提交")
 		result.stamps = kept
+	elif brush.kind == "moss" or brush.kind == "vine":
+		# 每次落笔只加一个连续覆盖片或一张竖藤，而不是随机散布数十张贴片。
+		var min_spacing := maxf(float(brush.spacing), float(brush.radius) * (0.7 if brush.kind == "vine" else 0.35))
+		for stamp: Dictionary in result.stamps:
+			if stamp.kind == brush.kind and stamp.mesh_path == triangle.mesh_path and stamp.surface == triangle.surface and (_host_world * Data.vec(stamp.center_local)).distance_to(center) < min_spacing:
+				return {"ok": true, "reason": "", "changed": false, "snapshot": result, "center_world": center, "added": 0, "removed": 0}
+		if result.stamps.size() >= Data.MAX_STAMPS: return _fail("表面印记已达4096上限，本次未提交")
+		var id := "%s_%d_0" % [command.stroke_id, command.sequence]
+		for stamp: Dictionary in result.stamps:
+			if stamp.id == id: return _fail("笔划序号重复，不能覆盖稳定印记 ID")
+		var rng := RandomNumberGenerator.new()
+		rng.seed = int(command.seed)
+		result.stamps.append(_make_stamp(id, brush, center, triangle, rng))
 	else:
 		var patches := _sphere_patches(center, float(brush.radius), origin, str(brush.kind))
 		if not patches.ok: return patches

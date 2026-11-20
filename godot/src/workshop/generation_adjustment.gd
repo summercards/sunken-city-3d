@@ -21,15 +21,18 @@ static func evaluate(probe: Dictionary, catalog: Dictionary) -> Dictionary:
 	return result
 
 static func propose(candidate: Dictionary, catalog: Dictionary) -> Dictionary:
-	var boundary: String = _boundary(candidate, catalog)
+	# 先处理唯一可无歧义修复的离散输入：退台起始层0不是“第0层”，
+	# 合法语义只有关闭退台(-1)。这个修复仍只进入候选清单，绝不直接写Session。
+	var work: Dictionary = candidate.duplicate(true)
+	var edits: Array = []
+	_repair_discrete_plan(work, edits)
+	var boundary: String = _boundary(work, catalog)
 	if not boundary.is_empty(): return _refuse(candidate, boundary, boundary)
 	var original: Dictionary = evaluate(candidate, catalog)
-	if bool(original.ok):
+	if bool(original.ok) and edits.is_empty():
 		return {"ok": true, "reason": "", "candidate": candidate.duplicate(true), "changes": [], "original_reason": "", "parameter_count": 0}
 	if str(candidate.get("construction_mode", "modular_v1")) != "shell_v2":
 		return _refuse(candidate, "本轮调整仅支持shell_v2，不迁移或修写旧配方：" + str(original.reason), str(original.reason))
-	var work: Dictionary = candidate.duplicate(true)
-	var edits: Array = []
 	_domains(work, edits)
 	var scope_reason: String = Recipe._validate_floor_overrides(work.floor_overrides, int(work.floors))
 	if scope_reason.is_empty(): scope_reason = Recipe._validate_facade_overrides(work.facade_overrides)
@@ -108,6 +111,16 @@ static func _boundary(r: Dictionary, c: Dictionary) -> String:
 			reason = Config._validate_window(checked, ".".join(path))
 			if not reason.is_empty(): return reason
 	return ""
+
+static func _repair_discrete_plan(r: Dictionary, edits: Array) -> void:
+	if r.get("construction_mode") != "shell_v2": return
+	var architecture: Variant = r.get("architecture")
+	if not architecture is Dictionary: return
+	var plan: Variant = architecture.get("plan")
+	if not plan is Dictionary: return
+	var raw: Variant = plan.get("setback_start")
+	if (raw is int or raw is float) and float(raw) == 0.0:
+		_edit_number(r, ["architecture", "plan", "setback_start"], -1, "退台起始层", "层", "0不是合法退台层索引；建议明确关闭退台，不更改平面形态、楼层或屋顶参数", edits)
 
 static func _domains(r: Dictionary, edits: Array) -> void:
 	for spec: Array in [["floor_height", 2.0, 12.0, 0.1], ["slab_thickness", 0.08, 0.6, 0.01], ["wall_thickness", 0.12, 0.6, 0.01], ["bay_width", 2.0, 6.0, 0.1]]:

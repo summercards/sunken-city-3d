@@ -11,8 +11,8 @@ const SurfacePaintOutput = preload("res://addons/building_workshop/surface_paint
 const BuildingGenerator = preload("res://src/workshop/generator.gd")
 const BuildingMeshBuilder = preload("res://src/workshop/mesh_builder.gd")
 const SURFACE_PAINT_TEXTURES := {
-	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_atlas_512.png"),
-	"vine_atlas": preload("res://assets/textures/vegetation/workshop_leaf_atlas_512.png"),
+	"moss_atlas": preload("res://assets/textures/vegetation/surface_moss_tile_256.png"),
+	"vine_atlas": preload("res://assets/textures/vegetation/surface_vine_strip_256.png"),
 }
 const AttachmentController = preload("res://addons/scene_assembly/attachment_controller.gd")
 const AttachmentPanel = preload("res://addons/scene_assembly/attachment_panel.gd")

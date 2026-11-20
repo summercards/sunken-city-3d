@@ -259,6 +259,30 @@ func _write_json(path: String, value: Dictionary) -> bool:
 		if not written: _work_failure = "作品JSON重读校验失败：" + path.get_file()
 	return written
 
+func _json_mismatch_reason(expected: Variant, actual: Variant, path: String) -> String:
+	if expected is Dictionary:
+		if not actual is Dictionary: return "%s 类型 %s != Dictionary" % [path, typeof(actual)]
+		if expected.size() != actual.size(): return "%s 字段数 %d != %d" % [path, actual.size(), expected.size()]
+		for key: Variant in expected:
+			if not actual.has(key): return "%s 缺少字段 %s" % [path, key]
+			var child := _json_mismatch_reason(expected[key], actual[key], path + "." + str(key))
+			if not child.is_empty(): return child
+		return ""
+	if expected is Array:
+		if not actual is Array: return "%s 类型 %s != Array" % [path, typeof(actual)]
+		if expected.size() != actual.size(): return "%s 长度 %d != %d" % [path, actual.size(), expected.size()]
+		for index in expected.size():
+			var child := _json_mismatch_reason(expected[index], actual[index], "%s[%d]" % [path, index])
+			if not child.is_empty(): return child
+		return ""
+	if expected is int or expected is float:
+		if not actual is int and not actual is float: return "%s 数字类型漂移" % path
+		if not is_finite(float(expected)) or not is_finite(float(actual)): return "%s 非有限数值" % path
+		if AttachmentData._canonical(expected) != AttachmentData._canonical(actual): return "%s 数值 %s != %s" % [path, expected, actual]
+		return ""
+	if typeof(expected) != typeof(actual): return "%s 类型 %s != %s" % [path, typeof(expected), typeof(actual)]
+	return "" if expected == actual else "%s 值 %s != %s" % [path, expected, actual]
+
 func _json_values_equal(expected: Variant, actual: Variant) -> bool:
 	if expected is Dictionary:
 		if not actual is Dictionary or expected.size() != actual.size(): return false
@@ -308,7 +332,8 @@ func _prepare_work_files(directory: String, manifest: Dictionary) -> String:
 	instance.free()
 	if not geometry_reason.is_empty(): return geometry_reason
 	if int(after.scripts) != 0 or int(after.unowned_nodes) != 0: return "外挂静态场景脚本或owner校验失败"
-	if not _static_snapshot_matches(captured, _work_snapshot): return "外挂静态重载快照不一致"
+	var snapshot_reason := _static_snapshot_mismatch_reason(captured, _work_snapshot)
+	if not snapshot_reason.is_empty(): return snapshot_reason
 	if _surface_export:
 		var surface_reason := _prepare_surface_files(directory)
 		if not surface_reason.is_empty(): return surface_reason
@@ -413,17 +438,25 @@ func _surface_static_reason(actual: Node3D, expected: Node3D) -> String:
 	return ""
 
 func _static_snapshot_matches(actual: Dictionary, expected: Dictionary) -> bool:
-	if not AttachmentData.validate(actual).is_empty() or actual.instances.size() != expected.instances.size(): return false
+	return _static_snapshot_mismatch_reason(actual, expected).is_empty()
+
+func _static_snapshot_mismatch_reason(actual: Dictionary, expected: Dictionary) -> String:
+	var validation := AttachmentData.validate(actual)
+	if not validation.is_empty(): return "外挂静态重载快照无效：" + validation
+	if actual.instances.size() != expected.instances.size(): return "外挂静态重载实例数不一致"
 	# Godot文本资源按引擎real_t精度重载；JSON原值和冲突指纹仍严格保留1e-9。
 	for index in 12:
-		if not _native_transform_number_equal(float(actual.layer_transform[index]), float(expected.layer_transform[index])): return false
+		if not _native_transform_number_equal(float(actual.layer_transform[index]), float(expected.layer_transform[index])):
+			return "外挂静态重载层变换不一致[%d]" % index
 	for index in actual.instances.size():
 		var a: Dictionary = actual.instances[index]
 		var b: Dictionary = expected.instances[index]
-		if not _json_values_equal(a.sea_attachment, b.sea_attachment): return false
+		var metadata_reason := _json_mismatch_reason(a.sea_attachment, b.sea_attachment, "sea_attachment")
+		if not metadata_reason.is_empty(): return "外挂静态重载元数据不一致[%d]：%s" % [index, metadata_reason]
 		for axis in 12:
-			if not _native_transform_number_equal(float(a.transform[axis]), float(b.transform[axis])): return false
-	return true
+			if not _native_transform_number_equal(float(a.transform[axis]), float(b.transform[axis])):
+				return "外挂静态重载实例变换不一致[%d,%d]" % [index, axis]
+	return ""
 
 func _native_transform_number_equal(actual: float, expected: float) -> bool:
 	# 仅用于TSCN的Transform3D；原生文本序列化与float32回读留8个机器epsilon。

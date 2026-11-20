@@ -251,3 +251,7 @@ A06已将楼梯吸附纯实现归入`AssemblyRules.snap_stairs`，`BuildingCatal
 P1高空孤台/循环支撑存档绕过已在Service按rooted支撑修复：无支持的新旧高空布局均拒绝，地面历史孤立布局合法；GroundSpace坡脚sharedpoint及胶囊法线修复4.7cm stuck，不放宽WalkAction。未修改main场景手摆、阳光小屋位置尺寸或玩家真实存档。
 
 过程失败保留：211435中`kit-safety`94/7、`building-kit`141/8已由signed94/0、221/0收口；同旧报告`farming`35/2仍是13地格/3床（含已移除圆弧农场）的历史fixture残留，不修改业务凑通过，也不由键盘农场606/0掩盖。最终已执行全局sync与无参检查，分别4/5问题：水下派生视图、动物源、水材质、并行Main哈希及派生索引；本功能条款/路径/哈希无残留，不批量接纳其他改动。架构17服务0问题、diff检查0。触摸/手柄、低端GPU、任意规模层数未验，因此feature仍implemented（已实现待完整验收），R30–R33本范围已通过。[任务交付](../../development/2026-11-06_building_5m_and_ui.md)；[机器汇总](../../development/2026-11-06_building_5m_verification.json)已绑定最新release-signed，13项全PASS，其中12专项2965 checks/0 failures，另几何守卫62 rows/0 failures。
+
+## 2026-11-20 正式世界总集成门禁
+
+未更改 `geometry_changed`、所有权、种植或工程内几何。候选由完工底层平台投影船体接触体；未签署移动、拆除、恢复全矩阵或替换地面派生。 部署状态不变，结果及未验边界见[开发与证据](../../development/2026-11-20_formal_world_integration.md)。

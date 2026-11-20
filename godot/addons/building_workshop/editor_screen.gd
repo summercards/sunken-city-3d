@@ -58,6 +58,7 @@ const FORM_PRESETS: Dictionary = {
 const PARAMETER_KEYS: Array[String] = ["construction_mode", "shape", "width", "depth", "floors", "floor_height", "wall_thickness", "slab_thickness", "column_width", "window_width", "window_height", "window_sill", "bay_width", "door_width", "door_height", "aging", "damage", "bevel_segments", "bevel_width", "vegetation_density", "vegetation_random_enabled", "vegetation_variation", "taper", "structure_seed", "damage_seed", "vegetation_seed", "spatial_profile"]
 const ARCHITECTURE_WINDOW_FIELDS: Array[String] = ["enabled", "type", "open_angle", "frame_width", "frame_depth", "glass_thickness", "recess", "sill_enabled", "sill_projection", "sill_thickness", "sill_extension", "width", "height", "sill"]
 const ARCHITECTURE_WINDOW_SCOPES: Array[String] = ["global", "floor", "facade", "single"]
+const ARCHITECTURE_PLAN_FIELDS: Array[String] = ["wing_x", "wing_z", "setback_start", "setback_step"]
 const ARCHITECTURE_ROOF_FIELDS: Array[String] = ["mode", "height", "thickness", "cap_thickness", "cap_overhang", "post_spacing", "rail_spacing", "bar_width"]
 const VEGETATION_KEYS: Array[String] = ["vegetation_density", "vegetation_random_enabled", "vegetation_variation", "vegetation_seed", "growth_small", "growth_medium", "growth_large"]
 const INTEGER_KEYS: Array[String] = ["floors", "bevel_segments", "structure_seed", "damage_seed", "vegetation_seed"]
@@ -176,6 +177,10 @@ var _history_navigating: bool = false
 var _repair_pending: Dictionary = {}
 var repair_result: Dictionary = {}
 var _views_scroll: ScrollContainer
+var _build_tools: HBoxContainer
+var _build_hint: Label
+var _camera_menu: MenuButton
+var _brush_menu: MenuButton
 var _palette_target_row: HBoxContainer
 var _palette_target_strip: ScrollContainer
 var _palette_target_buttons: Dictionary = {}
@@ -339,7 +344,7 @@ func _collect_ui_patch() -> Dictionary:
 	if _option_value("construction_mode") == "shell_v2" and controls.has("architecture_shape_variant"):
 		patch["shape"] = _option_value("architecture_shape_variant")
 	if snapshot().has("architecture"):
-		patch["architecture"] = _architecture_snapshot() if _option_value("construction_mode") != "shell_v2" else _architecture_ui_patch(true)
+		patch["architecture"] = _architecture_snapshot() if _option_value("construction_mode") != "shell_v2" else _architecture_ui_patch()
 	var bindings: Dictionary = snapshot().get("component_bindings", {}).duplicate(true)
 	for role: String in Recipe.COMPONENT_ROLES:
 		bindings[role] = _option_value("binding_" + role)
@@ -468,6 +473,9 @@ func _remember_undo_inputs(inputs: Dictionary) -> void:
 func _repair_fingerprint() -> String:
 	return var_to_bytes([snapshot(), session.catalog, _capture_input_context(), _document_token]).hex_encode().sha256_text()
 
+func _repair_active_target() -> Dictionary:
+	return {"scope": _window_scope(), "floor": str(int(_spin_value("floor_override_index"))), "facade": _option_value("facade_index"), "single": _window_override_id()}
+
 func _repair_window_path(key: String) -> Array[String]:
 	var field: String = _window_numeric_field(key)
 	var scope: String = "global"
@@ -484,7 +492,8 @@ func _repair_window_path(key: String) -> Array[String]:
 	if field.is_empty(): return []
 	if scope == "global": return ["architecture", "window", field]
 	var container: String = {"floor": "floor_windows", "facade": "facade_windows", "single": "window_overrides"}[scope]
-	return ["architecture", container, str(_window_preview_target.get(scope, "")), field]
+	var target := _repair_active_target()
+	return ["architecture", container, str(target.get(scope, "")), field]
 
 func _repair_read_path(data: Dictionary, path: Array) -> Variant:
 	var value: Variant = data
@@ -512,7 +521,13 @@ func _repair_delta(path: Array, before: Variant, after: Variant, control_key: St
 	if path.back() == "enabled": title = "窗口启用"
 	if path.back() == "sill_enabled": title = "窗沿启用"
 	if path.back() == "type": title = "窗型"
-	return {"path": path.duplicate(), "before": before, "after": after, "label": title, "unit": "层" if path.back() == "floors" else ("°" if path.back() == "open_angle" else ("" if after is bool or after is String else "m"))}
+	var field: String = str(path.back())
+	var unit: String = "m" if after is int or after is float else ""
+	if field in ["floors", "setback_start"]: unit = "层"
+	if field == "open_angle": unit = "°"
+	if field in ["wing_x", "wing_z", "gap_center"]: unit = "比例"
+	if field == "shape": title = "结构形态"
+	return {"path": path.duplicate(), "before": before, "after": after, "label": title, "unit": unit}
 
 func _repair_visible_window_base() -> Dictionary:
 	var data: Dictionary = snapshot()
@@ -538,24 +553,42 @@ func _collect_repair_candidate() -> Dictionary:
 	var edits: Dictionary = _window_failed_keys.duplicate(true)
 	edits.merge(_window_preview_keys, true)
 	var window_paths: Dictionary = {}
+	var active_target: Dictionary = _repair_active_target()
 	for key: String in edits:
 		if key in REPAIR_BASE_KEYS: continue
 		var path: Array[String] = _repair_window_path(key)
-		if path.is_empty():
-			return {"ok": false, "reason": "排队输入 %s 不属于冲突窗字段，请先处理；原输入与队列保留。" % key}
+		if path.is_empty() or (path.size() == 4 and path[2].is_empty()):
+			return {"ok": false, "reason": "输入 %s 没有稳定窗目标；请先选择实际范围，原输入保留。" % key}
 		if _raw_control_value(key) != edits[key]:
 			return {"ok": false, "reason": "窗输入 %s 与排队值不一致，请重新滑动该字段。" % key}
 		window_paths[".".join(path)] = key
-	if not window_paths.is_empty():
-		var target: Dictionary = {"scope": _window_scope(), "floor": str(int(_spin_value("floor_override_index"))), "facade": _option_value("facade_index"), "single": _window_override_id()}
-		if target != _window_preview_target:
-			return {"ok": false, "reason": "待处理窗输入的目标范围已改变，请先处理原范围。"}
+	if not window_paths.is_empty() and not _window_preview_target.is_empty() and active_target != _window_preview_target:
+		return {"ok": false, "reason": "待处理窗输入的目标范围已改变，请先处理原范围。"}
 	var visible_base: Dictionary = _repair_visible_window_base()
+	# recovery/UI baseline 若与 Session 原值不一致，且控件又恰好回到了
+	# baseline，不能猜测用户意图或静默吸收这笔漂移；先明确报错并保留输入。
+	for field: String in ARCHITECTURE_WINDOW_FIELDS:
+		var baseline_key := "architecture_window_" + field
+		if not visible_base.has(field) or not _local_baseline.has(baseline_key): continue
+		var raw_value: Variant = _raw_control_value(baseline_key)
+		var baseline_value: Variant = _local_baseline[baseline_key]
+		if _repair_value_equal(raw_value, baseline_value) and not _repair_value_equal(raw_value, visible_base[field]):
+			return {"ok": false, "reason": "恢复基线与Session原值不一致：%s；请重新加载当前窗口范围后再调整。" % baseline_key}
+	# 按下“查看并调整冲突…”就是显式请求一次候选收集：当前可见的
+	# architecture_window_* 数值也会进入下方“Session原值→当前输入”。
+	# 这里只收集和展示，绝不写Session、刷新模型或自动重试。
 	for field: String in ARCHITECTURE_WINDOW_FIELDS:
 		var key: String = "architecture_window_" + field
 		if not visible_base.has(field) or _repair_control_matches(key, visible_base[field]): continue
-		if not window_paths.has(".".join(_repair_window_path(key))):
-			return {"ok": false, "reason": "未排队窗输入 %s，不能静默丢弃；请重新滑动该字段。" % key}
+		var path: Array[String] = _repair_window_path(key)
+		if path.is_empty() or (path.size() == 4 and path[2].is_empty()):
+			return {"ok": false, "reason": "当前窗输入 %s 没有稳定owner；不能自动调整，请先选择实际窗范围。" % key}
+		var path_string := ".".join(path)
+		if not window_paths.has(path_string):
+			edits[key] = _raw_control_value(key)
+			window_paths[path_string] = key
+	if not _window_preview_target.is_empty() and not window_paths.is_empty() and active_target != _window_preview_target:
+		return {"ok": false, "reason": "待处理窗输入的目标范围已改变，请先处理原范围。"}
 	for key: String in _pending_local_fields():
 		var path: Array[String] = _repair_window_path(key)
 		if not path.is_empty() and window_paths.has(".".join(path)): continue
@@ -599,26 +632,40 @@ func propose_generation_adjustment() -> Dictionary:
 	if not _repair_pending.is_empty() or _confirm.visible:
 		return {"ok": false, "reason": "请先处理当前确认窗口"}
 	_window_preview_timer.stop()
-	var collected: Dictionary = _collect_repair_candidate()
+	# 结构页有待应用的轮廓/屋顶时，诊断必须覆盖屋顶按钮真正会构建的候选。
+	# 其它页继续使用既有基础/门窗白名单，不暗中吸收别页的屋顶草稿。
+	var roof_input: Dictionary = {}
+	if _page_picker.selected == PAGES.find("结构") and str(snapshot().get("construction_mode", "")) == "shell_v2":
+		roof_input = _collect_roof_candidate()
+	var reviewing_roof: bool = not roof_input.get("input_changes", []).is_empty()
+	var collected: Dictionary = roof_input if reviewing_roof else _collect_repair_candidate()
+	if reviewing_roof and _has_unresolved_window_input():
+		collected = {"ok": false, "reason": "门窗还有未完成的输入，请先处理，再检查或应用屋顶。"}
 	if not bool(collected.get("ok", false)):
 		repair_result = _report_failure(str(collected.reason))
 		return repair_result
 	# 只读端口；不补目录、不flush、不提交会话或历史。
 	var proposal: Dictionary = GenerationAdjustment.propose(collected.candidate, session.catalog)
+	if reviewing_roof and bool(proposal.get("ok", false)):
+		for change: Dictionary in proposal.changes:
+			if change.path != ["architecture", "plan", "setback_start"]:
+				proposal = {"ok": false, "reason": "无法只调整退台并生成；未修改屋顶、门窗或其他参数。原冲突：" + str(proposal.original_reason), "changes": []}
+				break
 	repair_result = proposal.duplicate(true)
 	repair_result["input_changes"] = collected.input_changes.duplicate(true)
 	if not bool(proposal.get("ok", false)):
-		return _report_failure("无法调整冲突：" + str(proposal.reason))
+		_report_failure(("屋顶/结构输入不可应用：" if reviewing_roof else "无法调整冲突：") + str(proposal.reason))
+		return repair_result
 	if proposal.changes.is_empty():
-		_set_status("当前输入可生成，无需调整；未修改模型或历史。")
-		return proposal
+		_set_status("当前屋顶与结构输入可生成；请点「应用屋顶构造」提交，模型与历史未改。" if reviewing_roof else "已检查基础与窗参数：无需调整，模型与历史未改。")
+		return repair_result
 	_repair_pending = {"proposal": proposal, "fingerprint": _repair_fingerprint(), "inputs": _capture_input_context(), "submitted": collected.submitted, "edits": collected.edits}
 	var input_lines: Array[String] = ["本次一并提交的用户输入（Session原值 → 当前输入）", "仅以下白名单输入参与；其它控件保持未应用。", ""]
 	for change: Dictionary in collected.input_changes:
 		input_lines.append("%s\n%s\n%s → %s %s\n" % [change.label, ".".join(change.path), "未设置（新增覆盖）" if change.before == null else str(change.before), str(change.after), change.unit])
 	if collected.input_changes.is_empty(): input_lines.append("无新增用户输入。")
 	_repair_input_text.text = "\n".join(input_lines)
-	var lines: Array[String] = ["修复建议（当前输入 → 建议值）", "是否按以下已验证可生成的方案调整？不重置整楼。", "原冲突：" + str(proposal.original_reason), str(proposal.reason), ""]
+	var lines: Array[String] = ["修复建议（当前输入 → 建议值）", "以下仅是拟修改清单，当前没有任何数值被自动修改。", "请确认后才会一次性应用并生成；取消则完全保留。", "原冲突：" + str(proposal.original_reason), str(proposal.reason), ""]
 	for change: Dictionary in proposal.changes:
 		var label: String = str(change.label)
 		var field: String = str(change.path.back())
@@ -626,8 +673,10 @@ func propose_generation_adjustment() -> Dictionary:
 		if _range_readouts.has(readout_key): label = str(_range_readouts[readout_key].title)
 		lines.append("%s\n%s\n%s → %s %s\n原因：%s\n" % [label, ".".join(change.path), "未设置（新增覆盖）" if change.before == null else str(change.before), str(change.after), change.unit, change.reason])
 	_repair_text.text = "\n".join(lines)
+	_repair_dialog.get_ok_button().disabled = false
 	_repair_dialog.popup_centered(Vector2i(660, 420))
 	_repair_dialog.get_cancel_button().grab_focus()
+	_set_status("已生成冲突调整方案；尚未修改。请查看建议值后确认或取消。", WORKSHOP_GOLD)
 	return proposal
 
 func _cancel_generation_adjustment() -> void:
@@ -656,33 +705,47 @@ func _confirm_generation_adjustment() -> void:
 	for change: Dictionary in pending.proposal.changes:
 		var path: Array = change.path
 		if path.size() == 1 and controls.has(path[0]): submitted[path[0]] = true
+		# 结构plan不是窗owner，不能通过 _repair_window_path 识别；否则
+		# 确认后 refresh 会把修好的 setback_start 又覆盖回确认前的非法UI值。
+		if path.size() == 3 and path[0] == "architecture" and path[1] == "plan" and controls.has(str(path[2])):
+			submitted[str(path[2])] = true
 		for key: String in pending.inputs.ui_values:
 			if _repair_window_path(key) == path: submitted[key] = true
 		if path.size() == 3 and path[0] == "floor_overrides" and path[1] == str(int(pending.inputs.floor)) and path[2] == "floor_height": submitted["floor_override_height"] = true
 	_reset_window_preview()
+	_refresh_with_remaining_inputs(result, pending.inputs, submitted)
+	_set_status("已按确认方案调整并生成；仅一次提交，可撤销回原楼房与冲突输入。", WORKSHOP_ACCENT_HOVER)
+
+func _refresh_with_remaining_inputs(result: Dictionary, inputs: Dictionary, submitted: Dictionary) -> void:
 	_refresh_from_session()
 	refresh_preview(true, result)
 	# 仅回填本次提交字段；非候选字段逐控件、逐基线严格恢复（含文本）。
 	_ignore_fields = true
-	for key: String in pending.inputs.ui_values:
-		if not submitted.has(key): _set_control_value(key, pending.inputs.ui_values[key])
-	_id_edit.text = str(pending.inputs.building_id)
-	_name_edit.text = str(pending.inputs.display_name)
-	for key: String in pending.inputs.baseline:
-		if not submitted.has(key): _local_baseline[key] = pending.inputs.baseline[key]
+	if not submitted.has("architecture_shape_variant"):
+		_refresh_roof_edge_options(str(inputs.ui_values.architecture_shape_variant))
+	for key: String in inputs.ui_values:
+		if not submitted.has(key): _set_control_value(key, inputs.ui_values[key])
+	_id_edit.text = str(inputs.building_id)
+	_name_edit.text = str(inputs.display_name)
+	for key: String in inputs.baseline:
+		if not submitted.has(key): _local_baseline[key] = inputs.baseline[key]
 	_ignore_fields = false
 	_update_state()
-	_set_status("已按确认方案调整并生成；仅一次提交，可撤销回原楼房与冲突输入。", WORKSHOP_ACCENT_HOVER)
 
 ## 回调签名：(recipe, catalog, attachments_snapshot, surface_paint_snapshot, export_root) -> Dictionary。
 ## 回调必须全域原子保存；只有 ok=true 才推进两个独立层的已保存基线。
 func _export_work_snapshot(recipe: Dictionary, catalog: Dictionary, attachments: Dictionary, painted: Dictionary) -> Dictionary:
 	var exporter: Callable = _ports.get("export_surface_paint_work_revision", Callable())
-	if exporter.is_valid():
+	var complete_store: bool = _store != null and _store.has_method("export_work_revision")
+	# 测试/替换Store不能被插件级回调绕过：含外挂时必须具备八件完整作品事务；
+	# 空外挂才允许兼容旧五件 export_revision。表面层仍要求完整导出回调。
+	if not complete_store and not attachments.get("instances", []).is_empty():
+		return {"ok": false, "reason": "当前 Store 不支持完整作品原子保存，拒绝丢失外挂。"}
+	if exporter.is_valid() and complete_store:
 		return exporter.call(recipe.duplicate(true), catalog.duplicate(true), attachments.duplicate(true), painted.duplicate(true), export_root)
 	if _surface_paint_requires_exporter():
 		return {"ok": false, "reason": "未接入 export_surface_paint_work_revision 原子保存回调，拒绝丢弃表面植被（含清空修改）。"}
-	return _store.export_work_revision(recipe, catalog, attachments, export_root) if _store.has_method("export_work_revision") else _store.export_revision(recipe, catalog, export_root)
+	return _store.export_work_revision(recipe, catalog, attachments, export_root) if complete_store else _store.export_revision(recipe, catalog, export_root)
 
 func _surface_paint_requires_exporter() -> bool:
 	return not str(_last_export.get("surface_paint_path", "")).is_empty() or (surface_paint_editor != null and (surface_paint_editor.has_unsaved() or not get_surface_paint_snapshot().stamps.is_empty() or surface_paint_editor.saved_fingerprint != SurfacePaintData.fingerprint(SurfacePaintData.empty_snapshot())))
@@ -1009,6 +1072,60 @@ func _raw_control_value(key: String) -> Variant:
 		return (control as CheckButton).button_pressed
 	return _control_value(key)
 
+func _live_opening_for_slot(id: String) -> String:
+	for prefix: String in ["frame_", "glass_", "sash_", "sill_"]:
+		if id.begins_with(prefix):
+			var opening_id: String = "opening_" + id.trim_prefix(prefix)
+			if str(_opening_cache.get(opening_id, {}).get("type", "")) == "window": return opening_id
+	return ""
+
+func _edit_viewport_slot(id: String) -> void:
+	if not _live_slot_ids.has(id) or _workshop_modal_open(): return
+	var opening: String = _live_opening_for_slot(id)
+	var coloring: bool = _page_picker.selected == PAGES.find("配色")
+	if coloring:
+		var family: String = _slot_family(id, str(_slot_cache.get(id, {}).get("kind", "")))
+		var target: String = "slots:" + ("roof" if id.begins_with("roof_") else family)
+		for rule: Array in PALETTE_TARGETS:
+			if str(rule[0]) == target:
+				if not _select_palette_target(target).ok: return
+				if _live_slot_ids.has(id): preview.select_slot(id, false)
+				_set_status("配色目标：%s · 选色后才修改" % str(rule[1]), WORKSHOP_ACCENT_HOVER)
+				return
+		return
+	var same_window: bool = _window_scope() == "single" and not opening.is_empty() and opening == _selected_opening_id
+	var relocating: bool = not same_window and (id != _selected_id or not opening.is_empty())
+	if relocating:
+		if not _window_preview_keys.is_empty(): flush_window_preview()
+		if _has_unresolved_window_input():
+			_set_status("先处理当前门窗输入；未切换对象。", WORKSHOP_WARN)
+			return
+		if not _live_slot_ids.has(id): return
+	if id != _selected_id:
+		for field: String in _pending_local_fields():
+			if field in ["component_id", "disabled", "offset_x", "offset_y", "offset_z", "growth_key", "vegetation_lock"]:
+				_set_status("当前部件有未应用输入，请先应用或恢复；未切换对象。", WORKSHOP_WARN)
+				return
+	if id != _selected_id and not same_window: select_slot(id)
+	else:
+		# 重选部件或同一扇窗不同构件，不重读表单，不吞尚未应用的数值。
+		preview.select_slot(_selected_id, false)
+	if _selected_id != id and not same_window: return
+	if not opening.is_empty():
+		if not same_window:
+			_set_option("window_scope", "single")
+			_last_window_scope = "single"
+			_sync_architecture_window_scope()
+		_select_page(PAGES.find("门窗"))
+		_right_panel.hide()
+		_left_panel.set_deferred("scroll_vertical", 0)
+		_set_status("正在编辑这扇窗 · %s；不会修改同立面其他窗。" % opening, WORKSHOP_ACCENT_HOVER)
+	else:
+		_right_panel.show()
+		if size.x < 1120.0: _left_panel.hide()
+		_set_status("已选部件 · %s；可在槽位栏替换、调整或恢复。" % id, WORKSHOP_ACCENT_HOVER)
+	_refresh_build_tools()
+
 func select_slot(id: String) -> void:
 	if _initialized and not _ignore_fields and not _window_preview_busy and id != _selected_id:
 		flush_window_preview()
@@ -1314,6 +1431,7 @@ func _restore_recovery_now(data: Dictionary) -> Dictionary:
 		_set_spin("growth_medium", float(weights[1]))
 		_set_spin("growth_large", float(weights[2]))
 	var ui_values: Dictionary = data.get("ui_values", {}) as Dictionary
+	_refresh_roof_edge_options(str(ui_values.get("architecture_shape_variant", recipe.shape)))
 	for key: Variant in ui_values:
 		if controls.has(key):
 			_set_control_value(str(key), ui_values[key])
@@ -1441,9 +1559,44 @@ func _build_ui() -> void:
 	views_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	views_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	views_scroll.custom_minimum_size.y = 36
-	var views := HBoxContainer.new()
-	views_scroll.add_child(views)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 5)
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	views_scroll.add_child(row)
 	_preview_column.add_child(views_scroll)
+	_build_tools = HBoxContainer.new()
+	_build_tools.name = "WorkshopBuildTools"
+	row.add_child(_build_tools)
+	for action: Array in [["摆件", "tool_objects"], ["刷涂", "tool_brush"], ["图库", "tool_gallery"], ["贴面放置", "tool_place"], ["连续衔接", "tool_chain"], ["开始刷涂", "tool_paint"], ["提交笔划", "tool_finish"], ["取消本笔", "tool_discard"], ["应用屋顶", "tool_roof"], ["应用部件", "tool_slot"], ["检查冲突", "tool_check"]]:
+		_build_tools.add_child(_button(str(action[0]), str(action[1])))
+	_brush_menu = MenuButton.new()
+	_brush_menu.name = "tool_brush_kind"
+	_brush_menu.add_theme_font_size_override("font_size", 18)
+	_apply_button_theme(_brush_menu)
+	_build_tools.add_child(_brush_menu)
+	var brush_popup: PopupMenu = _brush_menu.get_popup()
+	for item: Array in [["grass", "草丛"], ["moss", "苔藓"], ["vine", "藤蔓"], ["erase", "擦除"]]:
+		brush_popup.add_item(str(item[1]))
+		brush_popup.set_item_metadata(brush_popup.item_count - 1, item[0])
+	brush_popup.add_theme_font_size_override("font_size", 18)
+	brush_popup.id_pressed.connect(func(id: int) -> void:
+		if not surface_paint_editor._pending.is_empty(): return
+		surface_paint_editor._set_kind(str(brush_popup.get_item_metadata(brush_popup.get_item_index(id))))
+		if surface_paint_editor.armed: preview.grab_focus())
+	_camera_menu = MenuButton.new()
+	_camera_menu.text = "视角"
+	_camera_menu.tooltip_text = "相机视角、聚焦、碰撞与线框；F 聚焦，滚轮缩放，中键旋转。"
+	_camera_menu.add_theme_font_size_override("font_size", 18)
+	_apply_button_theme(_camera_menu)
+	row.add_child(_camera_menu)
+	_build_hint = _label("", 16)
+	_build_hint.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_build_hint.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_build_hint.custom_minimum_size.x = 110
+	row.add_child(_build_hint)
+	var views := HBoxContainer.new()
+	views.hide()
+	row.add_child(views)
 	views.add_child(_button("聚焦选中件 (F)", "focus_object"))
 	buttons.focus_object.tooltip_text = "聚焦当前选中件；未选择时回到建筑中心。预览获得焦点时可按 F。"
 	views.add_child(_button("显示整栋", "frame_building"))
@@ -1457,12 +1610,25 @@ func _build_ui() -> void:
 	wire.toggled.connect(func(value: bool) -> void: preview.set_wireframe(value))
 	var collision: CheckButton = _check("碰撞", "collision_overlay", views)
 	collision.toggled.connect(func(value: bool) -> void: preview.set_collision_overlay(value))
+	var camera_popup: PopupMenu = _camera_menu.get_popup()
+	for id: String in ["focus_object", "frame_building", "frame_work", "view_front", "view_back", "view_top", "view_perspective", "wireframe", "collision_overlay"]:
+		if id in ["wireframe", "collision_overlay"]:
+			camera_popup.add_check_item(str(controls[id].text))
+		else:
+			camera_popup.add_item(str(buttons[id].text))
+		camera_popup.set_item_metadata(camera_popup.item_count - 1, id)
+	camera_popup.add_theme_font_size_override("font_size", 18)
+	camera_popup.about_to_popup.connect(func() -> void:
+		for index: int in camera_popup.item_count:
+			var id: String = str(camera_popup.get_item_metadata(index))
+			if id in ["wireframe", "collision_overlay"]: camera_popup.set_item_checked(index, controls[id].button_pressed))
+	camera_popup.id_pressed.connect(func(id: int) -> void: _camera_action(str(camera_popup.get_item_metadata(camera_popup.get_item_index(id)))))
 	_build_palette_target_row(_preview_column)
 	preview = Preview.new()
 	preview.name = "EditorWorkshopPreview"
 	preview.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	preview.slot_selected.connect(select_slot)
+	preview.slot_selected.connect(_edit_viewport_slot)
 	preview.tooltip_text = "左键点选；中键旋转，Shift+中键平移；右键环视并按 WASD/QE 飞行，Shift 加速；滚轮缩放；F 聚焦选中件（未选则整栋）。左键拖动旋转兼容保留。"
 	_preview_column.add_child(preview)
 	_right_panel = _make_right_panel()
@@ -1480,7 +1646,9 @@ func _build_ui() -> void:
 	status_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	status_row.add_child(status_label)
 	status_copy_button = _button("复制提示", "copy_status")
-	status_row.add_child(_button("调整冲突…", "repair_generation"))
+	var repair_button := _button("查看并调整冲突…", "repair_generation")
+	repair_button.tooltip_text = "只读取当前冲突并列出拟修改数值；确认后才自动修改并生成，取消不会改动。"
+	status_row.add_child(repair_button)
 	status_row.add_child(_button("详情…", "status_details"))
 	status_row.add_child(status_copy_button)
 	root.add_child(status_panel)
@@ -1496,12 +1664,18 @@ func _build_ui() -> void:
 	_repair_dialog = ConfirmationDialog.new()
 	_repair_dialog.name = "WorkshopRepairDialog"
 	_repair_dialog.title = "确认调整数值冲突"
-	_repair_dialog.ok_button_text = "按此方案调整并生成"
+	_repair_dialog.ok_button_text = "是，自动修改并生成"
 	_repair_dialog.cancel_button_text = "取消，保留输入"
 	_repair_dialog.confirmed.connect(_confirm_generation_adjustment)
 	_repair_dialog.canceled.connect(_cancel_generation_adjustment)
 	var repair_body := VBoxContainer.new()
 	_repair_dialog.add_child(repair_body)
+	# ConfirmationDialog 在部分 Godot 编辑器主题/复用场景中会保留 OK
+	# disabled 状态，导致“按方案调整并生成”看起来存在但无法使用。
+	# 方案弹出后始终显式启用；真正提交仍只发生在 confirmed 回调。
+	_repair_dialog.get_ok_button().disabled = false
+	_repair_dialog.get_ok_button().tooltip_text = "确认后才会一次性应用下方建议值并生成；取消不会改动"
+	_repair_dialog.get_cancel_button().tooltip_text = "不修改任何数值，保留当前输入与最后成功模型"
 	_repair_input_text = RichTextLabel.new()
 	_repair_input_text.custom_minimum_size = Vector2(590, 140)
 	_repair_input_text.selection_enabled = true
@@ -1764,8 +1938,10 @@ func _build_page(page_name: String, page: VBoxContainer) -> void:
 			plan_panel.add_child(_label("连续实体建筑架构", 16))
 			_add_option(plan_panel, "architecture_shape_variant", "结构形态", [["rectangle", "矩形"], ["l", "L 形"], ["t", "T 形"], ["u", "U 形"]])
 			(controls["architecture_shape_variant"] as OptionButton).item_selected.connect(_architecture_shape_changed)
-			for spec: Array in [["wing_x", "翼部 X 比例", 0.25, 0.75, 0.01], ["wing_z", "翼部 Z 比例", 0.25, 0.75, 0.01], ["setback_start", "退台起始层", -1, 7, 1], ["setback_step", "退台步长", 0.0, 1.2, 0.01]]:
+			for spec: Array in [["wing_x", "翼部 X 比例", 0.25, 0.75, 0.01], ["wing_z", "翼部 Z 比例", 0.25, 0.75, 0.01]]:
 				_spin_spec(plan_panel, spec)
+			_spin_spec(plan_panel, ["setback_start", "退台起始层（-1=关闭；不使用0）", -1, 7, 1])
+			_spin_spec(plan_panel, ["setback_step", "退台步长", 0.0, 1.2, 0.01])
 			_add_option(plan_panel, "architecture_roof_mode", "屋顶结构", [["none", "无"], ["parapet", "女儿墙"], ["railing", "栏杆"], ["mixed", "女儿墙 + 栏杆"]])
 			for spec: Array in [["architecture_roof_height", "围护总高", 0.4, 2.0, 0.01], ["architecture_roof_thickness", "女儿墙厚", 0.12, 0.6, 0.01], ["architecture_roof_cap_thickness", "压顶厚度", 0.06, 0.25, 0.01], ["architecture_roof_cap_overhang", "压顶外挑", 0.0, 0.15, 0.01], ["architecture_roof_post_spacing", "立柱间距", 0.5, 3.0, 0.01], ["architecture_roof_rail_spacing", "竖杆节距", 0.1, 0.6, 0.01], ["architecture_roof_bar_width", "杆件宽度", 0.02, 0.12, 0.01]]:
 				_spin_spec(plan_panel, spec)
@@ -2505,7 +2681,96 @@ func _update_window_limit_hint() -> void:
 	var limits: Vector2 = WindowGeometry.recess_limits(depth, wall)
 	(controls["window_limit_hint"] as Label).text = "自动预览（160ms防抖，拖动合并撤销）。框可突出墙面，不缩窗。\n当前墙厚%.3fm / 框深%.3fm：recess有效范围 %.3f..%.3fm。玻璃上限 %.3fm；更大窗需先应用更大开间/层高。冲突保留输入并显示原因。" % [wall, depth, maxf(limits.x, float(Config.WINDOW_BOUNDS.recess[0])), minf(limits.y, float(Config.WINDOW_BOUNDS.recess[1])), depth - (0.008 if _option_value("architecture_window_type") != "fixed" else 0.004)]
 
+func _camera_action(id: String) -> void:
+	if id in ["wireframe", "collision_overlay"]:
+		var toggle: CheckButton = controls[id]
+		toggle.button_pressed = not toggle.button_pressed
+	else:
+		_button_pressed(id)
+
+func _refresh_build_tools() -> void:
+	if _build_tools == null: return
+	var page: String = PAGES[maxi(0, _page_picker.selected)]
+	_build_tools.tooltip_text = "视口聚焦时：B 摆件，P 刷涂，F 聚焦；Esc 退出当前工具"
+	var active: Array = ["tool_objects", "tool_brush"]
+	var hint := "点击模型编辑 · F 聚焦"
+	if page == "结构" and _option_value("construction_mode") == "shell_v2":
+		active.append_array(["tool_roof", "tool_check"])
+	elif page == "外挂" and attachment_editor != null:
+		active = ["tool_gallery", "tool_place"]
+		var placing: bool = attachment_editor.controller.armed
+		var chaining: bool = attachment_editor.controller.chain_active
+		var editing: bool = attachment_editor.panel.editor_panel.visible
+		if chaining or attachment_editor.controller.supports_chain(_chain_tool_inputs().get("recipe", {})):
+			active.append("tool_chain")
+		if chaining: active.erase("tool_place")
+		buttons.tool_chain.text = "结束衔接" if chaining else "连续衔接"
+		buttons.tool_place.text = "退出贴面" if placing else "贴面放置"
+		buttons.tool_place.disabled = not placing and not editing
+		hint = "指向管口或棚边 · 左键接长 · Esc 结束" if chaining else ("点击实面确认 · Esc 取消" if placing else "拖图库卡片到模型；点已装摆件编辑")
+	elif page == "表面植被" and surface_paint_editor != null:
+		var pending: bool = not surface_paint_editor._pending.is_empty() and not surface_paint_editor.armed
+		active = ["tool_finish", "tool_discard"] if pending else ["tool_paint", "tool_brush_kind"]
+		var kind: String = str(surface_paint_editor.brush.kind)
+		_brush_menu.text = {"grass": "草丛", "moss": "苔藓", "vine": "藤蔓", "erase": "擦除"}.get(kind, "笔刷")
+		_brush_menu.visible = not pending
+		buttons.tool_paint.text = "停止刷涂" if surface_paint_editor.armed else "开始刷涂"
+		hint = "提交或取消暂停笔划" if pending else ("左键拖刷 · Esc 停止" if surface_paint_editor.armed else "选笔刷后开始；滚轮缩放")
+	elif page == "门窗" and _window_scope() == "single":
+		hint = "当前窗 · %s" % _window_override_id()
+	if _right_panel != null and _right_panel.visible and _live_slot_ids.has(_selected_id) and page not in ["外挂", "表面植被"]:
+		active = ["tool_slot", "tool_objects", "tool_brush"]
+		hint = "已选部件 · %s" % _selected_id
+	for button: Node in _build_tools.get_children():
+		button.visible = str(button.name) in active
+	_build_hint.text = hint
+	_build_hint.tooltip_text = hint
+
+func _chain_tool_inputs() -> Dictionary:
+	var panel: Control = attachment_editor.panel
+	if panel.editor_panel.visible:
+		var target: Node3D = attachment_editor.controller.selected
+		var from_selected: bool = is_instance_valid(target) and panel._context == str(target.get_meta("sea_attachment", {}).get("instance_id", ""))
+		return {"recipe": panel.input_recipe(), "mount": panel._mount_inputs(), "from_selected": from_selected}
+	var cards: PackedInt32Array = panel.gallery.get_selected_items()
+	if cards.is_empty(): return {}
+	return panel._gallery_inputs(str(panel.gallery.get_item_metadata(cards[0])))
+
+func _use_tool(id: String) -> void:
+	match id:
+		"tool_objects": _select_page(PAGES.find("外挂"))
+		"tool_brush": _select_page(PAGES.find("表面植被"))
+		"tool_gallery":
+			attachment_editor.panel._show_gallery(true)
+			_left_panel.set_deferred("scroll_vertical", 0)
+		"tool_place":
+			if attachment_editor.controller.armed: attachment_editor.controller.cancel_arm()
+			else: attachment_editor.panel._arm()
+			if attachment_editor.controller.armed: preview.grab_focus()
+		"tool_chain":
+			if attachment_editor.controller.chain_active:
+				attachment_editor.controller.cancel_arm()
+			else:
+				var inputs := _chain_tool_inputs()
+				if inputs.is_empty(): return
+				var mount: Dictionary = inputs.mount
+				if attachment_editor.controller.set_mount_options(mount.mode, mount.offset_m, mount.angle_degrees).ok:
+					attachment_editor.controller.arm_chain(inputs.recipe, bool(inputs.get("from_selected", false)))
+					if attachment_editor.controller.chain_active: preview.grab_focus()
+		"tool_paint":
+			surface_paint_editor.set_armed(not surface_paint_editor.armed)
+			if surface_paint_editor.armed: preview.grab_focus()
+		"tool_finish": surface_paint_editor.finish_stroke()
+		"tool_discard": surface_paint_editor.cancel_stroke()
+		"tool_roof": _apply_architecture_roof()
+		"tool_slot": _apply_slot_override()
+		"tool_check": propose_generation_adjustment()
+	_refresh_build_tools()
+
 func _button_pressed(id: String) -> void:
+	if id.begins_with("tool_"):
+		_use_tool(id)
+		return
 	match id:
 		"new": _guard_action(_new_document, "新建将丢弃当前未保存修改，是否继续？")
 		"generate": generate_building()
@@ -2666,18 +2931,41 @@ func _undo_house(redo: bool) -> void:
 	else:
 		_set_status("没有可重做的修改" if redo else "没有可撤销的修改")
 
+func _workshop_modal_open() -> bool:
+	for dialog: Window in [_confirm, _repair_dialog, _save_as_dialog, _file_dialog, _component_dialog, _identity_dialog, _defaults_dialog, _details_dialog]:
+		if is_instance_valid(dialog) and dialog.visible: return true
+	return false
+
 func handle_input(event: InputEvent) -> bool:
 	if not _screen_visible or not is_visible_in_tree():
 		return false
 	var key: InputEventKey = event as InputEventKey
-	if key == null or not key.pressed or key.echo or not key.ctrl_pressed:
+	if key == null or not key.pressed or key.echo:
 		return false
-	if _confirm.visible or _repair_dialog.visible or _save_as_dialog.visible or _file_dialog.visible or _component_dialog.visible:
+	if _workshop_modal_open():
 		return false
 	var focus: Control = get_viewport().gui_get_focus_owner()
 	if focus is LineEdit or focus is TextEdit or (focus != null and not is_ancestor_of(focus) and focus != self):
 		return false
 	var code: int = key.keycode if key.keycode != 0 else key.physical_keycode
+	if key.alt_pressed: return false
+	if not key.ctrl_pressed and not key.meta_pressed:
+		if key.shift_pressed: return false
+		if code == KEY_ESCAPE:
+			if attachment_editor.controller.armed:
+				attachment_editor.controller.cancel_arm()
+				return true
+			if surface_paint_editor.armed:
+				surface_paint_editor.set_armed(false)
+				return true
+			return false
+		# 只在模型持有焦点时用工具键，不抢滑块、输入框、相机飞行或拖放。
+		if focus != preview or preview._navigation_button != 0 or preview._dragging or get_viewport().gui_is_dragging(): return false
+		match code:
+			KEY_B: _use_tool("tool_objects")
+			KEY_P: _use_tool("tool_brush")
+			_: return false
+		return true
 	match code:
 		KEY_Z: _undo(key.shift_pressed)
 		KEY_Y: _undo(true)
@@ -2989,19 +3277,26 @@ func _restore_slot() -> void:
 func _architecture_snapshot() -> Dictionary:
 	return Config.normalized(snapshot().get("architecture", {}))
 
+func _architecture_plan_ui_values(plan: Dictionary) -> Dictionary:
+	var values: Dictionary = plan.duplicate(true)
+	for field: String in ARCHITECTURE_PLAN_FIELDS:
+		values[field] = _raw_control_value(field)
+	return values
+
+func _architecture_roof_ui_values(roof: Dictionary) -> Dictionary:
+	var values: Dictionary = roof.duplicate(true)
+	for field: String in ARCHITECTURE_ROOF_FIELDS:
+		values[field] = _raw_control_value("architecture_roof_" + field)
+	return values
+
 func _architecture_patch_with(changes: Dictionary) -> Dictionary:
 	var architecture: Dictionary = _architecture_snapshot()
 	architecture.merge(changes, true)
 	return architecture
 
-func _architecture_ui_patch(force_global: bool = false) -> Dictionary:
+func _architecture_ui_patch() -> Dictionary:
 	var architecture: Dictionary = _architecture_snapshot()
-	var plan: Dictionary = architecture.get("plan", {}).duplicate(true)
-	plan["wing_x"] = _spin_value("wing_x")
-	plan["wing_z"] = _spin_value("wing_z")
-	plan["setback_start"] = int(_spin_value("setback_start"))
-	plan["setback_step"] = _spin_value("setback_step")
-	architecture["plan"] = plan
+	architecture["plan"] = _architecture_plan_ui_values(architecture.plan)
 	var scope: String = _window_scope()
 	if scope == "global":
 		var window: Dictionary = architecture.get("window", {}).duplicate(true)
@@ -3025,11 +3320,7 @@ func _architecture_ui_patch(force_global: bool = false) -> Dictionary:
 			var overrides: Dictionary = architecture.get("window_overrides", {}).duplicate(true)
 			overrides[opening_id] = _architecture_window_control_values()
 			architecture["window_overrides"] = overrides
-	var roof: Dictionary = architecture.get("roof", {}).duplicate(true)
-	for field: String in ARCHITECTURE_ROOF_FIELDS:
-		var key: String = "architecture_roof_" + field
-		roof[field] = _raw_control_value(key)
-	architecture["roof"] = roof
+	architecture["roof"] = _architecture_roof_ui_values(architecture.roof)
 	architecture["form"] = _form_values(architecture)
 	architecture["pilaster"] = _frame_pilaster_values(architecture)
 	architecture["band"] = _frame_band_values(architecture)
@@ -3458,28 +3749,67 @@ func _clear_architecture_window_scope() -> Dictionary:
 		_report_result(result, "清除架构窗覆盖被拒绝")
 	return result
 
-func _apply_architecture_roof() -> Dictionary:
-	if _option_value("construction_mode") != "shell_v2":
-		return _report_failure("架构屋顶只在shell_v2连续实体模式生效。")
-	var architecture: Dictionary = _architecture_ui_patch(true)
-	var roof: Dictionary = architecture.get("roof", {}).duplicate(true)
-	var edge_overrides: Dictionary = roof.get("edge_overrides", {}).duplicate(true)
+func _record_roof_input(collected: Dictionary, path: Array, before: Variant, after: Variant, control_key: String) -> void:
+	if _repair_value_equal(before, after): return
+	collected.input_changes.append(_repair_delta(path, before, after, control_key))
+	collected.submitted[control_key] = true
+
+func _collect_roof_candidate() -> Dictionary:
+	var candidate: Dictionary = snapshot()
+	var collected := {"ok": true, "candidate": candidate, "input_changes": [], "submitted": {}, "edits": {}}
+	var shape: String = _option_value("architecture_shape_variant")
+	_record_roof_input(collected, ["shape"], candidate.shape, shape, "architecture_shape_variant")
+	collected.submitted["shape"] = true
+	candidate.shape = shape
+	for field: String in ["width", "depth", "floors"]:
+		if _repair_control_matches(field, candidate[field]): continue
+		var value: Variant = _control_value(field)
+		_record_roof_input(collected, [field], candidate[field], value, field)
+		candidate[field] = value
+	var architecture: Dictionary = _architecture_snapshot()
+	var plan: Dictionary = _architecture_plan_ui_values(architecture.plan)
+	for field: String in ARCHITECTURE_PLAN_FIELDS:
+		_record_roof_input(collected, ["architecture", "plan", field], architecture.plan[field], plan[field], field)
+	architecture.plan = plan
+	var roof: Dictionary = _architecture_roof_ui_values(architecture.roof)
+	for field: String in ARCHITECTURE_ROOF_FIELDS:
+		_record_roof_input(collected, ["architecture", "roof", field], architecture.roof[field], roof[field], "architecture_roof_" + field)
 	var edge_id: String = _option_value("architecture_roof_edge_index")
-	if bool((controls["architecture_roof_edge_override_enabled"] as CheckButton).button_pressed):
-		var edge: Dictionary = {}
-		edge["mode"] = _option_value("architecture_roof_edge_mode")
-		edge["gap_center"] = _spin_value("architecture_roof_gap_center")
-		edge["gap_width"] = _spin_value("architecture_roof_gap_width")
-		edge_overrides[edge_id] = edge
-	roof["edge_overrides"] = edge_overrides
-	architecture["roof"] = roof
-	var result: Dictionary = session.apply_patch({"architecture": architecture})
-	if bool(result.get("ok", false)):
-		_refresh_from_session()
-		refresh_preview()
-		_set_status("屋顶构造已应用，可撤销。")
-	else:
-		_report_result(result, "屋顶构造被拒绝")
+	if not edge_id.is_empty() and bool(_raw_control_value("architecture_roof_edge_override_enabled")):
+		# 保留导入配方可含的单边 height 等非 UI 字段。
+		var edge: Dictionary = roof.edge_overrides.get(edge_id, {}).duplicate(true)
+		for field: String in ["mode", "gap_center", "gap_width"]:
+			var key: String = "architecture_roof_edge_mode" if field == "mode" else "architecture_roof_" + field
+			var value: Variant = _raw_control_value(key)
+			_record_roof_input(collected, ["architecture", "roof", "edge_overrides", edge_id, field], edge.get(field), value, key)
+			edge[field] = value
+		roof.edge_overrides[edge_id] = edge
+		collected.submitted["architecture_roof_edge_override_enabled"] = true
+	architecture.roof = roof
+	candidate.architecture = architecture
+	return collected
+
+func _has_unresolved_window_input() -> bool:
+	return not _window_preview_keys.is_empty() or not _window_failed_keys.is_empty() or _has_pending_window_fields()
+
+func _apply_architecture_roof() -> Dictionary:
+	if str(snapshot().get("construction_mode", "")) != "shell_v2":
+		return _report_failure("架构屋顶只在shell_v2连续实体模式生效。")
+	if not _repair_pending.is_empty() or _confirm.visible:
+		return _report_failure("请先处理当前确认窗口，屋顶未应用。")
+	var collected: Dictionary = _collect_roof_candidate()
+	if _has_unresolved_window_input():
+		return _report_failure("门窗还有未完成的输入，请先处理，再检查或应用屋顶。")
+	if collected.input_changes.is_empty():
+		_set_status("屋顶与结构没有待应用的修改。")
+		return {"ok": true, "reason": "未发生变化"}
+	var inputs: Dictionary = _capture_input_context()
+	var result: Dictionary = session.preview_candidate(collected.candidate)
+	if not bool(result.get("ok", false)):
+		return _report_result(result, "屋顶构造未应用，可点「查看并调整冲突…」")
+	_remember_undo_inputs(inputs)
+	_refresh_with_remaining_inputs(result, inputs, collected.submitted)
+	_set_status("屋顶构造已应用，可撤销。")
 	return result
 
 func _clear_architecture_roof_edge() -> Dictionary:
@@ -3595,8 +3925,8 @@ func _refresh_architecture_controls(data: Dictionary) -> void:
 	if controls.has("window_scope"):
 		_set_option("window_scope", _last_window_scope)
 	var plan: Dictionary = architecture.get("plan", {})
-	for pair: Array in [["wing_x", "wing_x"], ["wing_z", "wing_z"], ["setback_start", "setback_start"], ["setback_step", "setback_step"]]:
-		_set_spin(str(pair[0]), float(plan.get(pair[1], 0.0)))
+	for field: String in ARCHITECTURE_PLAN_FIELDS:
+		_set_spin(field, float(plan[field]))
 	var window: Dictionary = architecture.get("window", {})
 	for field: String in ARCHITECTURE_WINDOW_FIELDS:
 		_set_control_value("architecture_window_" + field, window.get(field, false if field in ["enabled", "sill_enabled"] else 0.0))
@@ -3806,6 +4136,7 @@ func _select_page(index: int) -> void:
 		module_button.add_theme_color_override("font_color", WORKSHOP_GOLD if active else WORKSHOP_TEXT)
 		if active and _module_strip != null:
 			_module_strip.ensure_control_visible.call_deferred(module_button)
+	_refresh_build_tools()
 	_set_status("已切换模块：" + PAGES[index], WORKSHOP_ACCENT_HOVER)
 
 func _control_value(key: String) -> Variant:
@@ -3851,8 +4182,11 @@ func _set_architecture_control(key: String, value: Variant) -> void:
 		_set_control_value(key, value)
 
 func _on_session_changed() -> void:
-	if attachment_editor != null and not _document_loading:
-		attachment_editor.observe_house(_timeline_merge_key)
+	if not _document_loading:
+		if attachment_editor != null: attachment_editor.observe_house(_timeline_merge_key)
+		if surface_paint_editor != null:
+			# 建筑信息可重命名同一 Session；草稿身份跟有效房屋，不重置笔划或已保存基线。
+			surface_paint_editor.document_id = str(snapshot().get("building_id", ""))
 	# 新提交分支使已撤销的输入记录失效；导航本身保留redo配对。
 	if not _history_navigating: _history_inputs_redo.clear()
 	# 不在 changed 回调回填字段，避免槽位操作吞掉尚未应用的基础输入。
@@ -3883,6 +4217,7 @@ func _update_state() -> void:
 	state_label.text = "%s · %s · %s" % [str(data.get("display_name", "")), str(data.get("building_id", "")), "未保存 / 待应用" if has_pending_fields() else "已保存"]
 	state_label.tooltip_text = state_label.text + " · revision_%04d" % int(data.get("revision", 1))
 	buttons["open_scene"].disabled = str(_last_export.get("scene_path", "")).is_empty()
+	_refresh_build_tools()
 
 func _cancel_discard() -> void:
 	if _request_token != 0:
@@ -3905,6 +4240,7 @@ func _status_style(color: Color) -> StyleBoxFlat:
 
 func _set_status(text: String, color: Color = WORKSHOP_MUTED) -> void:
 	_last_status_text = text
+	if _initialized: _refresh_build_tools()
 	if status_label != null:
 		status_label.text = text.replace("\n", " ")
 		status_label.tooltip_text = text

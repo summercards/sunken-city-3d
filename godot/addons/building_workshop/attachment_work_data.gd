@@ -5,6 +5,7 @@ extends RefCounted
 const Recipe = preload("res://src/building_attachments/recipe.gd")
 const Generator = preload("res://src/building_attachments/generator.gd")
 const META := "sea_attachment"
+const CANONICAL_META := "sea_attachment_canonical"
 const MAX_INSTANCES := 256
 const MAX_JSON_BYTES := 8 * 1024 * 1024
 
@@ -21,8 +22,26 @@ static func capture(layer: Node3D) -> Dictionary:
 		if not node is Node3D or not node.has_meta(META) or not _static_tree(node):
 			return {"capture_error": "外挂层含非外挂节点、外链或运行脚本"}
 		var metadata: Variant = node.get_meta(META)
+		var canonical_meta: Variant = node.get_meta(CANONICAL_META, "")
 		if not metadata is Dictionary: return {"capture_error": "外挂元数据不是对象"}
+		# 静态TSCN会把普通metadata中的浮点写成real_t精度。若当前
+		# metadata仍与原始canonical副本相同，优先读取canonical副本；若
+		# 用户/编辑器显式改过metadata，则保留当前值并重新canonicalize，
+		# 不能用旧副本吞掉真实metadata修改。
+		var current_canonical := _canonical(metadata)
+		if canonical_meta is String and not canonical_meta.is_empty():
+			var parser := JSON.new()
+			if parser.parse(canonical_meta) == OK and parser.data is Dictionary and _native_metadata_equal(metadata, parser.data):
+				# 只把TSCN real_t回读造成的机器精度漂移还原为JSON权威值；
+				# 显式metadata改动必须保留，不能被旧canonical副本吞掉。
+				metadata = parser.data
 		metadata = metadata.duplicate(true)
+		node.set_meta(CANONICAL_META, _canonical(metadata))
+		# 现场元数据先规范化到1e-9十进制定点，避免Node3D float32
+		# 重载后的说明字段漂移；这不是对Transform3D的相对容差放宽。
+		var metadata_parser := JSON.new()
+		if metadata_parser.parse(_canonical(metadata)) == OK and metadata_parser.data is Dictionary:
+			metadata = metadata_parser.data
 		# 旧独立场景的宿主提示只是说明文字，绝不用于查找或构造节点。
 		if metadata.get("host_path") is NodePath: metadata.host_path = str(metadata.host_path)
 		snapshot.instances.append({"transform": _encode_transform(node.transform), META: metadata})
@@ -134,9 +153,25 @@ static func build(snapshot: Dictionary) -> Dictionary:
 		node.name = "Attachment_" + str(metadata.get("instance_id", metadata.get("instanceid")))
 		node.transform = _decode_transform(item.transform)
 		node.set_meta(META, metadata.duplicate(true))
+		node.set_meta(CANONICAL_META, _canonical(metadata))
 		root.add_child(node)
 		_own_local(node, root)
 	return {"ok": true, "reason": "", "root": root}
+
+static func _native_metadata_equal(expected: Variant, actual: Variant) -> bool:
+	if expected is Dictionary:
+		if not actual is Dictionary or expected.size() != actual.size(): return false
+		for key: Variant in expected:
+			if not actual.has(key) or not _native_metadata_equal(expected[key], actual[key]): return false
+		return true
+	if expected is Array:
+		if not actual is Array or expected.size() != actual.size(): return false
+		for index in expected.size():
+			if not _native_metadata_equal(expected[index], actual[index]): return false
+		return true
+	if expected is int or expected is float:
+		return (actual is int or actual is float) and is_finite(float(expected)) and is_finite(float(actual)) and absf(float(expected) - float(actual)) <= maxf(1.0, absf(float(expected))) * 0.00000095367431640625
+	return typeof(expected) == typeof(actual) and expected == actual
 
 static func _safe_id(value: String) -> bool:
 	if value.is_empty() or value.length() > 128: return false

@@ -8,6 +8,8 @@ const Catalog = preload("res://src/workshop/catalog.gd")
 const Union = preload("res://src/workshop/shell_union_geometry.gd")
 const Config = preload("res://src/workshop/architecture_config.gd")
 const Adapter = preload("res://addons/building_workshop/catalog_adapter.gd")
+const AttachmentData = preload("res://addons/building_workshop/attachment_work_data.gd")
+const SurfacePaintData = preload("res://addons/building_workshop/surface_paint_data.gd")
 const RandomRecipe = preload("res://src/workshop/random_recipe.gd")
 var checks: Array = []
 var failures: Array[String] = []
@@ -82,6 +84,130 @@ func verify_preview_navigation() -> void:
 	check(preview._camera_fitted and foreground > 50, "隐藏重建后嵌入预览实际有模型像素", foreground)
 	await capture("preview_navigation_recovered")
 
+func verify_build_tools() -> void:
+	repair_fixture("direct_build_tools")
+	screen._select_page(screen.PAGES.find("结构"))
+	var view: Control = screen.preview
+	view.set_view("front")
+	await plugin.get_tree().process_frame
+	var points: Dictionary = {}
+	# 用真实生成网格的射线结果定位两扇窗，而不是伪造被选中的 ID。
+	for slot: Dictionary in view._slots:
+		var slot_id: String = str(slot.id)
+		var opening: String = screen._live_opening_for_slot(slot_id)
+		if opening.is_empty() or points.has(opening): continue
+		var center: Vector3 = view._slot_aabb(slot).get_center()
+		var local: Vector2 = view.camera.unproject_position(center) * view.size / Vector2(view.viewport.size)
+		if Rect2(Vector2.ZERO, view.size).has_point(local) and screen._live_opening_for_slot(view.slot_at(local)) == opening:
+			points[opening] = local
+		if points.size() >= 2: break
+	check(points.size() >= 2, "视口能命中两扇实际窗", points)
+	if points.size() < 2: return
+	var openings: Array = points.keys()
+	var before: Dictionary = screen.snapshot()
+	var mesh: Node = view.get_building_root()
+	var history: int = screen.session._undo.size()
+	var camera_before: Transform3D = view.camera.transform
+	var mouse := InputEventMouseButton.new()
+	mouse.button_index = MOUSE_BUTTON_LEFT
+	mouse.position = points[openings[0]]
+	view._gui_input(mouse)
+	check(view.selected_slot().is_empty(), "孤立左键释放不选件")
+	mouse.pressed = true
+	view._gui_input(mouse)
+	mouse.pressed = false
+	view._gui_input(mouse)
+	check(screen._page_picker.selected == screen.PAGES.find("门窗") and screen._window_scope() == "single" and screen._window_override_id() == openings[0], "视口点选直接编辑当前窗", screen._last_status_text)
+	check(screen.snapshot() == before and screen.session._undo.size() == history and view.get_building_root() == mesh and view.camera.transform == camera_before, "直接选窗不写配方、不重建、不改镜头")
+	var selected: String = view.selected_slot()
+	screen.controls.architecture_window_recess.set_value_no_signal(0.3)
+	mouse.position = points[openings[1]]
+	mouse.pressed = true
+	view._gui_input(mouse)
+	mouse.pressed = false
+	view._gui_input(mouse)
+	check(view.selected_slot() == selected and screen._window_override_id() == openings[0] and is_equal_approx(screen.controls.architecture_window_recess.value, 0.3), "拒绝切换时高亮、目标和未提交输入一致", screen._last_status_text)
+	screen._sync_architecture_window_scope()
+	await capture("build_mode_window", true)
+	screen._select_page(screen.PAGES.find("配色"))
+	mouse.position = points[openings[0]]
+	mouse.pressed = true
+	view._gui_input(mouse)
+	mouse.pressed = false
+	view._gui_input(mouse)
+	check(screen._option_value("palette_target") in ["slots:frame", "slots:glass"] and screen.snapshot() == before, "配色模式点窗构件只选材质目标")
+	var hotkey := InputEventKey.new()
+	hotkey.keycode = KEY_B
+	hotkey.pressed = true
+	view.grab_focus()
+	check(screen.handle_input(hotkey) and screen._page_picker.selected == screen.PAGES.find("外挂") and not screen.attachment_editor.controller.armed, "B 打开摆件但不自行贴面")
+	hotkey.keycode = KEY_P
+	check(screen.handle_input(hotkey) and screen._page_picker.selected == screen.PAGES.find("表面植被") and not screen.surface_paint_editor.armed, "P 打开刷涂但不自行落笔")
+	screen.buttons.tool_paint.pressed.emit()
+	check(screen.surface_paint_editor.armed and screen.buttons.tool_paint.text == "停止刷涂", "视口工具条启动原笔刷")
+	hotkey.keycode = KEY_ESCAPE
+	check(screen.handle_input(hotkey) and not screen.surface_paint_editor.armed and screen.get_surface_paint_snapshot().stamps.is_empty(), "Esc 退出笔刷且不提交")
+	await capture("build_mode_brush", true)
+	screen._select_page(screen.PAGES.find("结构"))
+	await capture("build_mode_structure", true)
+	# 下面的升级检查以全局窗为初始范围，不能沿用本用例的单窗状态。
+	repair_fixture("after_direct_build_tools")
+
+func verify_chain_tool() -> void:
+	repair_fixture("upgrade_attachment_chain")
+	screen._select_page(screen.PAGES.find("外挂"))
+	var panel: Control = screen.attachment_editor.panel
+	var controller: Node = screen.attachment_editor.controller
+	var view: Control = screen.preview
+	var building: Node3D = view.get_building_root()
+	# 真实预览和用户输入路由；专用实墙用来隔开原厂样楼上的窗、柱等支承因素。
+	var wall := MeshInstance3D.new()
+	var wall_mesh := BoxMesh.new()
+	# 三段向同一侧排，第三段中心接近 6 m，连支点也需在测试墙上。
+	wall_mesh.size = Vector3(22, 8, 0.6)
+	wall.mesh = wall_mesh
+	wall.position.y = 4.0
+	view.get_host_asset().add_child(wall)
+	building.hide()
+	view.set_view("front")
+	panel._show_gallery(true)
+	var index: int = -1
+	for i: int in panel.gallery.item_count:
+		if panel.gallery.get_item_metadata(i) == "awning_slope":
+			index = i
+			break
+	check(index >= 0, "图库有可连排顶棚卡片")
+	if index >= 0:
+		panel.gallery.select(index)
+		panel.gallery.item_selected.emit(index)
+		check(screen.buttons.tool_chain.visible and panel.gallery_panel.visible, "无需进入组件长表单即可打开连续衔接")
+		screen.buttons.tool_chain.pressed.emit()
+		check(controller.chain_active and screen.buttons.tool_chain.text == "结束衔接", "连续衔接按钮接管预览输入")
+		await plugin.get_tree().process_frame
+		for x: float in [0.0, 2.4, 5.0]:
+			var point: Vector2 = view.camera.unproject_position(Vector3(x, 4.2, 0.3)) * view.size / Vector2(view.viewport.size)
+			var mouse := InputEventMouseButton.new()
+			mouse.button_index = MOUSE_BUTTON_LEFT
+			mouse.position = point
+			mouse.pressed = true
+			view._gui_input(mouse)
+			mouse.pressed = false
+			view._gui_input(mouse)
+		check(view.get_attachment_root().get_child_count() == 3 and controller.chain_active, "原预览 GUI 释放连续放置三段且不关闭工具", screen._last_status_text)
+		var cancel := InputEventKey.new()
+		cancel.keycode = KEY_ESCAPE
+		cancel.pressed = true
+		view._gui_input(cancel)
+		check(not controller.chain_active and view.get_attachment_root().get_child_count() == 3, "预览 Esc 结束但保留三段")
+		var layer: Node3D = view.get_attachment_root()
+		if layer.get_child_count() == 3:
+			view.set_view("perspective")
+			view.focus_work()
+			await capture("attachment_chain_canopy", true)
+	building.show()
+	wall.free()
+	repair_fixture("after_attachment_chain")
+
 func check(ok: bool, label: String, detail: Variant = "") -> void:
 	checks.append({"name": label, "passed": ok, "detail": str(detail)})
 	if not ok:
@@ -122,7 +248,11 @@ func execute(editor_plugin: EditorPlugin) -> void:
 	await verify_authoring_defaults()
 	await verify_generation_adjustment()
 	await verify_repair_review()
+	await verify_roof_plan_apply_guard()
+	verify_recovery_after_rename()
 	await verify_palette_target_transactions()
+	await verify_build_tools()
+	await verify_chain_tool()
 	var recipe: Dictionary = Recipe.authoring_defaults()
 	# 此旧拒绝用例专测3.6m层高，不把新默认5.1m误判为原夹具。
 	recipe.floor_height = 3.6
@@ -314,11 +444,12 @@ func repair_fixture(id: String = "upgrade_repair") -> void:
 	recipe.taper = 0.0
 	# 保留原两层回归，不以三层绕过待内核诊断的union问题。
 	recipe.floors = 2
-	var accepted: Dictionary = screen.session.new_document(id, recipe)
-	check(bool(accepted.ok), "调整真实基线 " + id, accepted.get("reason", ""))
+	recipe.building_id = id
+	var prepared: Dictionary = screen._prepare_work_document(recipe, screen.session.catalog, AttachmentData.empty_snapshot())
+	check(bool(prepared.ok), "调整真实基线 " + id, prepared.get("reason", ""))
+	if not prepared.ok: return
 	screen._last_window_scope = "global"
-	screen._refresh_from_session()
-	screen.refresh_preview()
+	screen._commit_work_document(prepared, false)
 	screen._select_page(screen.PAGES.find("门窗"))
 
 func confirm_repair() -> void:
@@ -341,10 +472,11 @@ func verify_generation_adjustment() -> void:
 	check(bool(staged.ok) and staged.candidate.floor_height == 2.5 and staged.candidate.bay_width == 2.8 and staged.candidate.architecture.window.height == 3.0, "联合候选含层高开间及当前窗")
 	screen.buttons.repair_generation.pressed.emit()
 	check(screen._repair_dialog.visible and not screen._confirm.visible, "真实调整按钮打开独立确认窗", screen.repair_result)
+	check(not screen._repair_dialog.get_ok_button().disabled and screen._repair_dialog.get_ok_button().text == "是，自动修改并生成", "确认按钮可用且明确表示确认后自动修改")
 	if not screen._repair_dialog.visible: return
 	check(screen.snapshot() == before and screen.preview._model_root.get_child(0) == root and screen.session._undo.size() == history, "提议纯只读不换模型不增历史")
 	check(screen._repair_dialog.get_cancel_button().has_focus(), "调整默认焦点取消")
-	check(screen._repair_text.selection_enabled and screen._repair_text.scroll_active and screen._repair_text.text.contains("architecture.window.frame_depth") and screen._repair_text.text.contains("→") and screen._repair_text.text.contains("原因"), "方案中文参数完整path原新值单位原因可选择滚动")
+	check(screen._repair_text.selection_enabled and screen._repair_text.scroll_active and screen._repair_text.text.contains("architecture.window.frame_depth") and screen._repair_text.text.contains("→") and screen._repair_text.text.contains("原因") and screen._repair_text.text.contains("当前没有任何数值被自动修改"), "方案中文参数完整path原新值单位原因可选择滚动")
 	await capture("repair_dialog", true)
 	screen._repair_dialog.get_cancel_button().pressed.emit()
 	await plugin.get_tree().create_timer(0.25).timeout
@@ -391,6 +523,8 @@ func verify_generation_adjustment() -> void:
 	confirm_repair()
 	check(not bool(screen.repair_result.get("ok", true)) and screen.snapshot().display_name == "外部更新的配方", "recipe过期拒绝覆盖外部更新")
 	check(bool(screen.session.accept_loaded(before, screen.session.catalog).ok), "恢复外部配方过期测试基线")
+	# accept_loaded 按契约清空历史；从实际恢复基线计算后面的单次提交。
+	history = screen.session._undo.size()
 	# 无关slot输入必须显式拒绝，不能吞掉。
 	screen.controls.offset_x.value = 0.2
 	screen.buttons.repair_generation.pressed.emit()
@@ -467,6 +601,79 @@ func verify_generation_adjustment() -> void:
 		restored.free()
 	screen.revision_saved.disconnect(listener)
 
+func verify_roof_plan_apply_guard() -> void:
+	repair_fixture("roof_plan_guard")
+	screen._select_page(screen.PAGES.find("结构"))
+	var before: Dictionary = screen.snapshot()
+	var root: Node = screen.preview.get_building_root()
+	var history: int = screen.session._undo.size()
+	var shape: OptionButton = screen.controls.architecture_shape_variant
+	screen._set_option("architecture_shape_variant", "u")
+	shape.item_selected.emit(shape.selected)
+	screen._set_option("architecture_roof_mode", "parapet")
+	screen.controls.setback_start.value = 0
+	screen._name_edit.text = "不随屋顶提交的名称"
+	var inputs: Dictionary = screen._capture_input_context()
+	screen.buttons.roof_apply.pressed.emit()
+	check(screen._last_status_text.contains("setback_start") and screen.snapshot() == before and screen.preview.get_building_root() == root and screen.session._undo.size() == history, "屋顶应用拒绝非法退台且不改模型历史", screen._last_status_text)
+	screen.buttons.repair_generation.pressed.emit()
+	check(screen._repair_dialog.visible and screen._repair_input_text.text.contains("rectangle → u") and screen._repair_text.text.contains("architecture.plan.setback_start") and screen._repair_text.text.contains("0 → -1"), "诊断同一份U形屋顶候选，并披露退台0到关闭值", screen.repair_result)
+	if not screen._repair_dialog.visible: return
+	# 弹窗内容由真实 Control 断言；连续开关的原生子窗口不可靠截图。
+	screen._repair_dialog.get_cancel_button().pressed.emit()
+	check(screen.snapshot() == before and screen._capture_input_context() == inputs and screen.preview.get_building_root() == root and screen.session._undo.size() == history, "取消U形屋顶建议完全保留输入、模型与历史")
+	screen.buttons.repair_generation.pressed.emit()
+	confirm_repair()
+	check(bool(screen.repair_result.get("ok", false)) and screen.snapshot().shape == "u" and screen.snapshot().architecture.roof.mode == "parapet" and int(screen.snapshot().architecture.plan.setback_start) == -1 and screen.controls.setback_start.value == -1 and screen.session._undo.size() == history + 1, "确认后仅一次提交U形和屋顶，退台才改为关闭", screen.repair_result)
+	check(screen._name_edit.text == inputs.display_name and screen.snapshot().display_name == before.display_name, "屋顶确认不吞身份输入")
+	var committed: Dictionary = screen.snapshot()
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot() == before and screen._capture_input_context() == inputs, "撤销屋顶调整恢复原楼与U形退台0草稿")
+	screen.buttons.redo.pressed.emit()
+	check(screen.snapshot() == committed and screen.controls.setback_start.value == -1, "重做恢复U形合法屋顶")
+	var u_root: Node = screen.preview.get_building_root()
+	# 合法字段值仍可能与真实U形短边冲突；诊断不能只做架构数值校验。
+	screen._set_option("architecture_roof_edge_index", "edge_7")
+	screen.controls.architecture_roof_edge_override_enabled.button_pressed = true
+	screen._set_option("architecture_roof_edge_mode", "parapet")
+	screen.controls.architecture_roof_gap_width.value = 24.0
+	var illegal: Dictionary = screen._capture_input_context()
+	var illegal_history: int = screen.session._undo.size()
+	screen.buttons.repair_generation.pressed.emit()
+	check(not screen.repair_result.ok and not screen._repair_dialog.visible and screen._last_status_text.contains("gap_width"), "诊断识别U形屋顶边实际越界，不给虚假可生成结论", screen.repair_result)
+	screen.buttons.roof_apply.pressed.emit()
+	check(screen._last_status_text.contains("gap_width") and screen.snapshot() == committed and screen._capture_input_context() == illegal and screen.preview.get_building_root() == u_root and screen.session._undo.size() == illegal_history, "应用拒绝同一越界，不截短开口、不写历史", screen._last_status_text)
+	screen.controls.architecture_roof_gap_width.value = 0.5
+	screen.buttons.repair_generation.pressed.emit()
+	check(screen.repair_result.ok and screen.repair_result.changes.is_empty() and screen.snapshot() == committed and screen.preview.get_building_root() == u_root, "合法U形开口诊断为可应用但不提交", screen.repair_result)
+	screen.buttons.roof_apply.pressed.emit()
+	check(screen.snapshot().architecture.roof.edge_overrides.get("edge_7", {}).get("gap_width") == 0.5 and screen.preview.get_building_root() != u_root and screen.session._undo.size() == illegal_history + 1, "实际按钮一次生成U形第八边及合法开口", screen._last_status_text)
+	screen.preview.set_view("top")
+	await capture("u_roof_applied")
+	screen.preview.set_view("perspective")
+
+func verify_recovery_after_rename() -> void:
+	repair_fixture("recovery_before_rename")
+	var before: String = screen.snapshot().building_id
+	var paint: Dictionary = screen.get_surface_paint_snapshot()
+	var baseline: String = screen.surface_paint_editor.saved_fingerprint
+	screen._id_edit.text = "recovery_after_rename"
+	screen.buttons.generate.pressed.emit()
+	var recovery: Dictionary = screen.get_recovery()
+	check(recovery.recipe.building_id == "recovery_after_rename" and recovery.surface_paint_document == recovery.recipe.building_id, "生成后未保存的草稿也同步表面层身份", screen._last_status_text)
+	var live: RefCounted = screen.session
+	var persisted: Dictionary = JSON.parse_string(JSON.stringify(recovery, "", true, true))
+	var restored: Dictionary = screen.restore_recovery(persisted)
+	var same_paint: bool = SurfacePaintData.fingerprint(screen.get_surface_paint_snapshot()) == SurfacePaintData.fingerprint(paint)
+	check(restored.ok and screen.session == live and same_paint and screen.surface_paint_editor.saved_fingerprint == baseline, "重命名草稿JSON往返保留同Session、表面快照与基线", {"result": restored, "same_session": screen.session == live, "same_paint": same_paint, "same_baseline": screen.surface_paint_editor.saved_fingerprint == baseline})
+	persisted.surface_paint_document = "foreign_paint_document"
+	var refused: Dictionary = screen._restore_recovery_now(persisted)
+	check(not refused.ok and screen.session == live and screen.snapshot().building_id == "recovery_after_rename", "异文档表面层仍严格拒绝且保持原作品", refused)
+	screen.buttons.undo.pressed.emit()
+	check(screen.snapshot().building_id == before and screen.get_recovery().surface_paint_document == before, "撤销重命名时表面层身份同步")
+	screen.buttons.redo.pressed.emit()
+	check(screen.snapshot().building_id == "recovery_after_rename" and screen.get_recovery().surface_paint_document == "recovery_after_rename", "重做重命名时表面层身份同步")
+
 func verify_repair_review() -> void:
 	repair_fixture("review_whitelist")
 	var before: Dictionary = screen.snapshot()
@@ -539,10 +746,11 @@ func verify_repair_review() -> void:
 		var original: Dictionary = screen._capture_input_context()
 		var recipe: Dictionary = screen.snapshot()
 		screen.buttons.repair_generation.pressed.emit()
-		check(not screen._repair_dialog.visible and screen._last_status_text.contains("architecture_window_recess") and screen._capture_ui_values() == original.ui_values and screen._local_baseline == original.baseline and screen.snapshot() == recipe and screen._window_preview_keys == original.pending, "未排队可见窗具体拒绝不吞输入 " + scope, screen._last_status_text)
+		check(screen._repair_dialog.visible and screen._repair_text.text.contains("当前没有任何数值被自动修改") and screen._capture_ui_values() == original.ui_values and screen._local_baseline == original.baseline and screen.snapshot() == recipe and screen._window_preview_keys == original.pending, "当前可见窗值进入确认清单且未自动修改 " + scope, screen._last_status_text)
+		screen._repair_dialog.get_cancel_button().pressed.emit()
 		screen._local_baseline["architecture_window_recess"] = 0.2
 		var restored: Dictionary = screen._collect_repair_candidate()
-		check(not bool(restored.get("ok", true)) and str(restored.get("reason", "")).contains("architecture_window_recess"), "恢复草稿baseline相同仍检查Session可见窗差异 " + scope, restored.get("reason", ""))
+		check(not bool(restored.get("ok", true)) and str(restored.get("reason", "")).contains("恢复基线与Session原值不一致"), "恢复草稿baseline漂移明确拒绝且不自动修改 " + scope, restored.get("reason", ""))
 		screen._local_baseline = original.baseline.duplicate(true)
 	await verify_repair_history_branches()
 
@@ -1242,6 +1450,14 @@ func verify_compact_layout() -> void:
 		check(image.get_size() == target and image.save_png(path) == OK, "真实定尺寸布局截图 " + str(target))
 		artifacts.append(ProjectSettings.globalize_path(path))
 		var view_rect: Rect2 = screen._views_scroll.get_global_rect()
+		for page: String in ["结构", "外挂", "表面植被"]:
+			screen._select_page(screen.PAGES.find(page))
+			for frame: int in 2: await plugin.get_tree().process_frame
+			var wrapped: bool = not screen._views_scroll.get_global_rect().encloses(screen._camera_menu.get_global_rect())
+			for tool: Control in screen._build_tools.get_children():
+				if tool.visible and not screen._views_scroll.get_global_rect().encloses(tool.get_global_rect()): wrapped = true
+			check(not wrapped and screen.preview.size.x >= target.x * 0.52 and screen.preview.size.y >= target.y * 0.60, "改装工具单行完整可达 " + page + str(target), screen._views_scroll.get_global_rect())
+		screen._select_page(screen.PAGES.find("结构"))
 		var palette_before: Dictionary = screen.snapshot()
 		var palette_history: int = screen.session._undo.size()
 		screen.buttons.module_02.pressed.emit()

@@ -239,7 +239,12 @@ static func _crossing(a: Array, b: Array) -> bool:
 		if hit != null and start.distance_to(hit) > 0.001 and end.distance_to(hit) > 0.001: return true
 	return false
 
-static func _intersections(host: Node3D, local_faces: Array, pose: Transform3D) -> Dictionary:
+## 接长不把已装外挂当作支承；此端口只检查两份附件实体是否穿插。
+static func validate_neighbor(neighbor: Node3D, local_faces: Array, pose: Transform3D) -> Dictionary:
+	var result := _intersections(neighbor, local_faces, pose, true)
+	return result if result.ok else _fail("与已装外挂相交或无法安全核验：" + str(neighbor.name))
+
+static func _intersections(host: Node3D, local_faces: Array, pose: Transform3D, neighbor: bool = false) -> Dictionary:
 	var faces: Array = []
 	var bounds := AABB()
 	var first := true
@@ -250,7 +255,9 @@ static func _intersections(host: Node3D, local_faces: Array, pose: Transform3D) 
 		bounds = box if first else bounds.merge(box)
 		first = false
 	var comparisons := 0
-	for mesh: MeshInstance3D in meshes(host):
+	var targets: Array = host.find_children("*", "MeshInstance3D", true, false) if neighbor else meshes(host)
+	for mesh: MeshInstance3D in targets:
+		if mesh.mesh == null or not mesh.is_visible_in_tree(): continue
 		if not valid_transform(mesh.global_transform): return _fail("宿主网格变换无效")
 		if not bounds.intersects(mesh.global_transform * mesh.get_aabb()): continue
 		for surface: int in mesh.mesh.get_surface_count():

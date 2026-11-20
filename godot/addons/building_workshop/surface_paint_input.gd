@@ -10,7 +10,10 @@ var ghost: MeshInstance3D
 var normal_line: MeshInstance3D
 var _left_owned := false
 var _last_input_usec := 0
+var _release_request_usec: int = 0
 var _release_guard_usec: int = 0
+var _release_pending := false
+var _release_shift := false
 var _window: Window
 var _green: StandardMaterial3D
 var _red: StandardMaterial3D
@@ -77,20 +80,29 @@ func _on_window_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_last_input_usec = Time.get_ticks_usec()
 		if event.pressed:
-			# Window.push_input 可能绕过 SubViewportContainer._gui_input；
-			# 先记录合成按下，避免下一帧把仍在拖动的pending误判为release。
-			_left_owned = true
-		else:
+			# 只拥有已启用笔刷在视口内开始的手势；侧栏和空闲点选不属于笔刷。
+			if editor.active and editor.armed and preview.get_global_rect().has_point(event.position):
+				_left_owned = true
+		elif _left_owned:
 			_handle_release(event)
 
 func synthetic_release_due() -> bool:
-	# Editor 中 Window.push_input 的 release 可能不会回到同一个 Control，
-	# 因而 _left_owned 仍为 true；真实物理左键状态才是是否仍在拖动的权威。
-	# 仅在有待提交笔划、物理键已松开且输入静默一小段时间后合成一次 release。
-	if editor == null or editor._pending.is_empty() or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return false
-	# 正常 release 仍由 _handle_release 即时处理，watchdog 只兜底丢失的窗口事件。
-	# 约4帧：先给真实GUI专项观察pending，再及时提交，不让笔划卡住。
-	return Time.get_ticks_usec() - _last_input_usec >= 70000
+	# Window.push_input 的 release 可能不会回到同一个 Control；release 请求
+	# 由窗口桥记录，下一帧只在 pending 仍存在时完成一次提交/取消。
+	if editor == null or not editor.active or not editor.armed or editor._pending.is_empty():
+		_release_pending = false
+		return false
+	var now := Time.get_ticks_usec()
+	# macOS 编辑器有时只送到 Window，不送到预览 Control；若左键已不在
+	# 全局状态且输入静默超过一小段时间，使用最后 ownership 作为丢失release兜底。
+	if not _release_pending and _left_owned and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and now - _last_input_usec >= 200000:
+		_release_pending = true
+		_release_request_usec = now
+		_release_shift = false
+	if not _release_pending or now - _release_request_usec < 20000: return false
+	_release_pending = false
+	_left_owned = false
+	return true
 
 func _handle_release(event: InputEvent) -> bool:
 	var now: int = Time.get_ticks_usec()
@@ -99,11 +111,13 @@ func _handle_release(event: InputEvent) -> bool:
 		return true
 	var had_stroke: bool = _left_owned or (editor != null and not editor._pending.is_empty())
 	_left_owned = false
-	if had_stroke and editor.active and editor.armed and not event.shift_pressed:
-		_release_guard_usec = now + 100000
-		editor.finish_stroke()
-	else:
-		editor.cancel_stroke()
+	if had_stroke and editor.active and editor.armed:
+		_release_pending = true
+		_release_request_usec = now
+		_release_shift = event.shift_pressed
+		_release_guard_usec = now + 20000
+		return true
+	# 切页或失去捕获后的迟到 release 不能丢弃已暂停的笔划。
 	return had_stroke
 
 func pointer_exited() -> void:
@@ -237,7 +251,10 @@ func _nearest_visible(ray: Dictionary, include_painted: bool) -> Dictionary:
 func dispose() -> void:
 	_left_owned = false
 	_last_input_usec = 0
+	_release_request_usec = 0
 	_release_guard_usec = 0
+	_release_pending = false
+	_release_shift = false
 	if _window != null and _window.window_input.is_connected(_on_window_input):
 		_window.window_input.disconnect(_on_window_input)
 	_window = null

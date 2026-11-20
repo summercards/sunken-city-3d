@@ -475,3 +475,21 @@ UI 使用两枚76px按钮、左右上弧、0.24s BACK错峰0.035s、0.16s收起�
 | Placement checker | Transform3D严格12个有限浮点，支持科学计数法/显式正号/`.25`，按序列化basis列测缩放；位置真值仍来自用户main.tscn与摆位台账。 |
 
 B3本批只确认上述接口边界与治理检查；全局资产登记、产品Scope裁决、完整位置闭包、视觉/设备/发行/长期边界不在本节签署范围。
+
+## 2026-11-20 正式世界总集成门禁（候选，非现行）
+
+在现行所有权不变前提下，候选船壳使用平均水位下的同一实体凸壳；`Boat` 仍唯一写位姿。原中心线查询仍供 `WaterNavigation`、路由和停靠，完工建造实体与施工预留是不同投影。后续应先验证真实船壳的离/入泊和动态世界航路，再撤销重复的实际步进阻挡，不从静态名称删除 `BlockerSet` 或 `GroundSpace`。`area_at`、`surface_point`、`route`、水域及泊位查询、`geometry_changed`、存档校验和视觉端口继续保留。两轮候选均未通过正式进出泊，**没有生产契约或引用退役**。见[分阶段记录](../development/2026-11-20_formal_world_integration.md)。
+
+## 2026-11-20 阳光房实体阻挡迁移门禁
+
+正式阳光房装配走 `SunnyBloomVisual` 的网格批处理；独立包装及实际海上/水下实例均未读到实体盒。当前 `GroundSpace` 派生层 256 地板与边界，角色岸上层 512、掩码 256；水面继续用海上子树 `BlockerSet` 与 `WaterNavigation`，下沉基座不参与。迁移须先证明组件有自带且入树的实体，分辨墙、门洞、支撑、梯子端点和临水阻挡；通过后只撤本处重复的实际阻挡，不撤导航等独立查询。全图暂缓。[证据](../development/2026-11-20_sunroom_collision_handoff.md)。
+
+## 2026-11-20 陆地与海面近距广角
+
+白盒与完整 Main 的室外 Camera 节点显式共享 `surface_camera_close.tres`；未注入的 OrbitCam 保持原全局默认。同一镜头的室内/固定机位保留基础镜头与各自范围，TitleCamera 和 ArrivalCamera 仍拥有临时镜头，潜水控制器不引用资源。百分比参照 9–77.8 m、跟随主体、交接清输入和镜头相对移动端口不变。[实测](../development/2026-11-20_surface_camera.md)。
+
+
+## 2026-11-20 正式 Main 手动海上 3C（覆盖旧自动水路接线）
+
+- `Main` 把镜头相对意图交给 `Boat`。正式 `Boat` 的物理步骤委托 `FormalHullMotion`，同一 CharacterBody3D 处理旋转净空、平移扫掠与步进。划桨与浪只改变表现；白盒和无正式凸壳的旧测试夹具有各自路径。正式上下船由 `BerthTransfer` 查询、`ActorController` 执行；成功事件单次交接镜头，保留 ActorController.vessel、Explorer 与 DiveSession 的对象身份。
+- `BoardHullContact` 是家园栈桥随模型的实体；GroundSpace、SurfaceCollision 继续负责人物而非船。WaterNavigation / BlockerSet 保留水域、建设、存档与岸线查询，未迁移岸只保留无缓冲中心禁入，不把 Rect2 冒充船壳实体。旧自动航路玩家入口暂停，旧工具/查询不删。

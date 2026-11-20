@@ -120,7 +120,7 @@ func _build_ui(page: VBoxContainer) -> void:
 	_status = Label.new()
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	page.add_child(_status)
-	report("点「开始刷涂」后左键点击/拖动；Shift、右键或 Esc 取消本笔。中/右键导航保留。草仅刷上朝面；擦除使用相同球采样。")
+	_update_brush_help()
 
 func _set_kind(kind: String) -> void:
 	cancel_stroke()
@@ -128,7 +128,14 @@ func _set_kind(kind: String) -> void:
 	for key: String in _mode_buttons:
 		_mode_buttons[key].set_pressed_no_signal(key == kind)
 	input.refresh_ghost()
+	_update_brush_help()
 	changed.emit()
+
+func _update_brush_help() -> void:
+	var density: HSlider = _ranges.density
+	density.editable = brush.kind == "grass"
+	var hint := {"grass": "草只刷朝上的实体面；密度控制草丛数量。", "moss": "单张连续苔图贴面平铺；半径控制覆盖，拖动可接着刷。", "vine": "单张藤条从落点向下；沿墙横向拖动可逐条竖排。", "erase": "用相同球形笔刷擦除命中的草、苔藓或藤条。"}
+	report(str(hint[brush.kind]) + " 点击「开始刷涂」后左键操作；Esc 取消本笔。")
 
 func set_armed(value: bool) -> void:
 	if value and not _pending.is_empty():
@@ -182,6 +189,7 @@ func restore_context(value: Dictionary, prepared_pending: Dictionary = {}) -> vo
 		_ranges[key].set_value_no_signal(brush[key])
 		_range_readouts[key].call(brush[key])
 	for kind: String in _mode_buttons: _mode_buttons[kind].set_pressed_no_signal(kind == brush.kind)
+	_update_brush_help()
 	if not prepared_pending.is_empty():
 		_pending = prepared_pending.snapshot.duplicate(true)
 		_staging = Node3D.new()
@@ -232,10 +240,17 @@ func mark_saved() -> void:
 	changed.emit()
 
 func house_rebuilt() -> void:
+	# 主屏重建时表面编辑器可能先于预览重新挂载；不读取空预览，
+	# 等下一次有效激活/房屋重建再同步真实宿主。
+	if not is_instance_valid(preview): return
 	cancel_stroke()
 	input.hide_ghost()
+	var building: Node3D = preview.get_building_root()
+	if not is_instance_valid(building):
+		report("房屋预览尚未生成，等待有效结构后再刷涂。")
+		return
 	cache.invalidate_cache()
-	var result: Dictionary = cache.build_cache(preview.get_building_root())
+	var result: Dictionary = cache.build_cache(building)
 	_cache_reason = str(result.get("reason", ""))
 	if result.get("ok", false): _cache_reason = cache.validate_snapshot_surface(_snapshot)
 	preview.sync_surface_paint_host()
@@ -253,6 +268,9 @@ func probe(ray: Dictionary) -> Dictionary:
 	if result.get("ok", false) and brush.kind == "grass" and (result.normal_world as Vector3).y < 0.7:
 		result.ok = false
 		result.reason = "草只允许世界向上 dot>=0.7 的真实面"
+	if result.get("ok", false) and brush.kind == "vine" and absf((result.normal_world as Vector3).y) > 0.85:
+		result.ok = false
+		result.reason = "藤蔓请刷在立面或斜墙上，沿面向下排列"
 	return result
 
 func begin_stroke(position: Vector2) -> void:
@@ -275,8 +293,13 @@ func _tick() -> void:
 		set_armed(false)
 		return
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		# 视口外松键不能提交最后一次旧落点。
-		cancel_stroke()
+		if _pending.is_empty():
+			# 尚未形成临时印记时，视口外松键不能启动空笔。
+			cancel_stroke()
+		else:
+			# Window.push_input 的合成按下不一定更新全局 Input 状态；
+			# 已有 pending 时等待 release/watchdog，不能提前清掉本笔。
+			return
 		return
 	if input.pointer_inside: _sample(input.pointer_position)
 

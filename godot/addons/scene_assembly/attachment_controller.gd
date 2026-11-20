@@ -12,6 +12,16 @@ const Store = preload("res://src/building_attachments/store.gd")
 const Surface = preload("res://addons/scene_assembly/attachment_surface.gd")
 const META := "sea_attachment"
 const CLEARANCE := 0.012
+# 只开放已有可重复对接的实体接口；落水管斜出口、成束管错台不冒充标准接头。
+const CHAIN_PORTS := {
+	"pipe_elbow": [["elbow_left_flange", 1], ["elbow_top_flange", 1]],
+	"pipe_t_valve": [["valve_left", -1], ["valve_right", 1]],
+}
+const CHAIN_SHELTERS := ["awning_slope", "awning_barrel", "canopy_entry"]
+const CHAIN_SNAP_RADIUS := 0.85
+var chain_active := false
+var _chain_has_anchor := false
+var _chain_ports_cache: Dictionary = {}
 
 var assembly: EditorPlugin
 var host_container: Node3D
@@ -114,8 +124,22 @@ func validate_installation(recipe: Dictionary, hit: Dictionary, built: Dictionar
 	# profile 只缓存原生安装几何；每次命中仍只读当前宿主三角面，不缓存旧支撑结果。
 	var source: Dictionary = built
 	if source.is_empty(): source = profile.source
-	var pose := _pose(source, hit, offset, angle_degrees)
+	var pose := _pose(source, hit, offset, float(hit.get("chain_angle", angle_degrees)))
 	var result: Dictionary = Surface.validate_installation(host_asset, profile, pose, hit.normal, hit.mode, CLEARANCE + offset)
+	if result.ok and chain_active:
+		var layer := host_container.get_node_or_null("Attachments")
+		if layer != null and layer.get_child_count() >= 256:
+			result = {"ok": false, "reason": "作品最多保存256件外挂，不能再接长"}
+		elif layer != null:
+			for neighbor: Node in layer.get_children():
+				if not neighbor is Node3D: continue
+				# 重合的实体面可能共面，不能只靠三角穿插识别重复段。
+				if neighbor.global_position.distance_to(pose.origin) < 0.005:
+					result = {"ok": false, "reason": "该接头已占用，不能重复接长"}
+				else:
+					var neighbor_check: Dictionary = Surface.validate_neighbor(neighbor, profile.triangles, pose)
+					if not neighbor_check.ok: result = neighbor_check
+				if not result.ok: break
 	result.pose = pose
 	return result
 
@@ -316,12 +340,12 @@ func _metadata(recipe: Dictionary, built: Dictionary, hit: Dictionary, id: Strin
 		"anchor": {"mode": hit.mode, "mesh_path": str(hit.mesh_path), "surface": hit.surface, "triangle": hit.triangle,
 			"host_position": _array(inverse * hit.position), "host_normal": _array((host_asset.global_basis.transposed() * normal).normalized()),
 			"local_position": _array(_anchor(built, hit.mode)), "native": built.mount_anchor.duplicate(true),
-			"declared_clearance_m": CLEARANCE, "offset_m": offset, "angle_degrees": angle_degrees}, "stats": built.stats.duplicate(true)}
+			"declared_clearance_m": CLEARANCE, "offset_m": offset, "angle_degrees": float(hit.get("chain_angle", angle_degrees))}, "stats": built.stats.duplicate(true)}
 
 func insert_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> Dictionary:
 	var reason: String = Recipe.validate(recipe)
 	if not reason.is_empty(): return _fail(reason)
-	var hit := _hit(recipe, origin, direction)
+	var hit: Dictionary = _chain_hit(recipe, origin, direction) if chain_active else _hit(recipe, origin, direction)
 	if not hit.ok: return _fail(hit.reason)
 	var built: Dictionary = _build_trusted(recipe)
 	if not built.ok: return _fail(built.reason)
@@ -344,7 +368,7 @@ func insert_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> D
 		node.free()
 		if new_layer: layer.free()
 		return _fail("Attachments 层变换不可逆")
-	node.transform = parent_world.affine_inverse() * _pose(built, hit, offset, angle_degrees)
+	node.transform = parent_world.affine_inverse() * (installation.pose as Transform3D)
 	var previous := _selected_nodes()
 	var undo: Object = _history()
 	undo.create_action("新增建筑外挂", UndoRedo.MERGE_DISABLE, host_scene)
@@ -510,10 +534,107 @@ func reproject_selected(origin: Vector3, direction: Vector3) -> Dictionary:
 	next.set_meta(META, _metadata(data.recipe, built, hit, data.instance_id))
 	return _replace_selected(next, "重新贴合建筑外挂")
 
+func supports_chain(recipe: Dictionary) -> bool:
+	var kind: String = str(recipe.get("type_id", ""))
+	return not workshop_context.is_empty() and (kind in CHAIN_SHELTERS or (CHAIN_PORTS.has(kind) and recipe.get("condition") == "fresh"))
+
+func arm_chain(recipe: Dictionary, from_selected: bool = true) -> Dictionary:
+	if not supports_chain(recipe): return _fail("此组件没有可连续衔接的边或完整管口")
+	var result := arm(recipe)
+	if result.ok:
+		chain_active = true
+		_chain_has_anchor = from_selected and is_instance_valid(selected)
+		message.emit("连续衔接：将指针移向选中件的可用端口或侧边；点击确认，Esc 结束。" if _chain_has_anchor else "连续衔接：先点实面放首段，随后可连续接长。Esc 或右键结束。")
+	return result
+
+# 端点取可信原生生成的收心后局部几何，不用 nominal 尺寸模拟管口。
+func chain_ports(recipe: Dictionary) -> Array:
+	if not supports_chain(recipe): return []
+	var key := JSON.stringify(recipe).sha256_text()
+	if _chain_ports_cache.has(key): return _chain_ports_cache[key]
+	var built := _build_trusted(recipe)
+	if not built.ok: return []
+	var result: Array = []
+	if str(recipe.type_id) in CHAIN_SHELTERS:
+		var bounds: Dictionary = built.stats.bounds
+		var lo := _vector(bounds.position)
+		var dim := _vector(bounds.size)
+		for side: int in [-1, 1]:
+			result.append({"position": Vector3(lo.x if side < 0 else lo.x + dim.x, lo.y, 0), "direction": Vector3.RIGHT * side, "size": 0.0})
+	else:
+		for descriptor: Array in CHAIN_PORTS[recipe.type_id]:
+			for part: Dictionary in built.source_parts:
+				if part.name != descriptor[0] or int(part.get("missing_sectors", 0)) != 0: continue
+				var side: int = descriptor[1]
+				var axis := Basis.from_euler(_vector(part.rotation_euler)).y.normalized() * side
+				result.append({"position": _vector(part.center) + axis * float(part.dimensions[1]) * 0.5,
+					"direction": axis, "size": float(part.d_bottom if side < 0 else part.d_top)})
+				break
+	built.root.free()
+	if _chain_ports_cache.size() >= 16: _chain_ports_cache.erase(_chain_ports_cache.keys()[0])
+	_chain_ports_cache[key] = result
+	return result
+
+func _chain_hit(recipe: Dictionary, origin: Vector3, direction: Vector3) -> Dictionary:
+	if not _chain_has_anchor: return _hit(recipe, origin, direction)
+	if not is_instance_valid(selected): return {"ok": false, "reason": "续接起点已失效，请重新选择"}
+	var data: Dictionary = selected.get_meta(META, {})
+	var anchor: Dictionary = data.get("anchor", {})
+	var source: Dictionary = data.get("recipe", {})
+	var mode: String = _mode(recipe)
+	var shelter: bool = str(recipe.type_id) in CHAIN_SHELTERS
+	if anchor.get("mode") != mode or (shelter and source.get("type_id") != recipe.type_id) or (not shelter and not CHAIN_PORTS.has(source.get("type_id"))):
+		return {"ok": false, "reason": "选中件与待接组件的挂载面或接口不兼容"}
+	var profile := _profile_for(recipe, mode)
+	if not profile.ok: return profile
+	var hit := _hit(recipe, origin, direction)
+	if not hit.ok: return hit
+	var normal: Vector3 = (host_asset.global_basis.inverse().transposed() * _vector(anchor.host_normal)).normalized()
+	var surface_point: Vector3 = host_asset.global_transform * _vector(anchor.host_position)
+	if normal.dot(hit.normal) < 0.999 or absf(normal.dot(hit.position - surface_point)) > 0.004:
+		return {"ok": false, "reason": "接长只沿同一连续实墙或屋面，不能跨转角或台阶"}
+	var ports: Array = chain_ports(source)
+	var candidate_ports: Array = chain_ports(recipe)
+	var best: Dictionary = {}
+	var best_score := INF
+	var zero_pose := _pose(profile.source, hit, offset, 0.0)
+	for target: Dictionary in ports:
+		var world_port: Vector3 = selected.global_transform * (target.position as Vector3)
+		var outward: Vector3 = (selected.global_basis * (target.direction as Vector3)).normalized()
+		var outward_flat: Vector3 = outward.slide(normal).normalized()
+		if outward_flat.length_squared() < 0.5: continue
+		var pointer: Vector3 = hit.position - (world_port - normal * normal.dot(world_port - surface_point))
+		# 以指向哪一侧为主；允许将鼠标移动到下一段所在处，而非必须点中管口像素。
+		if pointer.dot(outward_flat) < -0.07 or pointer.length() > 12.0 or (pointer - outward_flat * pointer.dot(outward_flat)).length() > CHAIN_SNAP_RADIUS: continue
+		for incoming: Dictionary in candidate_ports:
+			var angle := float(anchor.angle_degrees)
+			if not shelter:
+				var port_size: float = float(target.size)
+				if absf(port_size - float(incoming.size)) > port_size * 0.14: continue
+				var inward_zero: Vector3 = zero_pose.basis * (incoming.direction as Vector3)
+				var flat: Vector3 = inward_zero.slide(normal).normalized()
+				if flat.length_squared() < 0.5: continue
+				angle = rad_to_deg(flat.signed_angle_to(-outward_flat, normal))
+			var basis := Basis(normal, deg_to_rad(angle)) * zero_pose.basis
+			if (basis * (incoming.direction as Vector3)).dot(outward) > -0.998: continue
+			var attachment_origin: Vector3 = world_port + outward * (0.002 if shelter else 0.001) - basis * (incoming.position as Vector3)
+			var center: Vector3 = attachment_origin + basis * _anchor(profile.source, mode) - normal * (CLEARANCE + offset)
+			if absf(normal.dot(center - surface_point)) > 0.003: continue
+			var score: float = pointer.length_squared() + absf(wrapf(angle - float(anchor.angle_degrees), -180.0, 180.0)) * 0.0001
+			if score >= best_score: continue
+			best_score = score
+			best = {"center": center, "angle": angle}
+	if best.is_empty(): return {"ok": false, "reason": "没有对齐的接口；请移向可用管口或同一棚侧，尺寸、离面距离和方向不得自动改动"}
+	var snapped: Dictionary = Surface.raycast(host_asset, (best.center as Vector3) + normal * 0.005, -normal, mode)
+	if not snapped.ok or snapped.normal.dot(normal) < 0.999 or absf(float(snapped.distance) - 0.005) > 0.003:
+		return {"ok": false, "reason": "接头位置没有连续实面支承；不能跨洞口、玻璃或转角"}
+	snapped.chain_angle = best.angle
+	return snapped
+
 func preview_at_ray(recipe: Dictionary, origin: Vector3, direction: Vector3) -> Dictionary:
 	var reason: String = Recipe.validate(recipe)
 	if not reason.is_empty(): return {"ok": false, "reason": reason}
-	var hit := _hit(recipe, origin, direction)
+	var hit: Dictionary = _chain_hit(recipe, origin, direction) if chain_active else _hit(recipe, origin, direction)
 	if not hit.ok: return hit
 	var installation := validate_installation(recipe, hit)
 	if not installation.ok: return installation
@@ -580,7 +701,9 @@ func _context_reason(full: bool = false, check_geometry: bool = true) -> String:
 
 func validate_arm(token: int = 0, full: bool = true) -> Dictionary:
 	if not armed: return {"ok": false, "reason": "贴面已取消或未启用"}
-	var reason := "拖放事务已失效" if token != 0 and token != _arm_serial else _context_reason(full)
+	# 旧拖放事件不得取消用户随后新启用的事务。
+	if token != 0 and token != _arm_serial: return {"ok": false, "reason": "拖放事务已失效"}
+	var reason := _context_reason(full)
 	if not reason.is_empty():
 		cancel_arm(false)
 		return _fail("贴面上下文已过期并取消：" + reason + "；原节点和输入保持")
@@ -613,19 +736,27 @@ func arm(recipe: Dictionary, reproject: bool = false) -> Dictionary:
 func viewportclick_place(origin: Vector3, direction: Vector3) -> Dictionary:
 	var valid := validate_arm()
 	if not valid.ok: return valid
+	var continuing := chain_active and not bool(get_meta("dragging", false))
+	var next_recipe := armed_recipe.duplicate(true) if continuing else {}
 	_confirming = true
 	var result := reproject_selected(origin, direction) if bool(get_meta("reproject", false)) else insert_at_ray(armed_recipe, origin, direction)
 	_confirming = false
-	if result.ok: cancel_arm(false)
+	if result.ok:
+		cancel_arm(false)
+		if continuing and arm_chain(next_recipe).ok:
+			message.emit("已接上一段；指向新段的另一端继续，Esc 或右键结束。")
 	return result
 
 func cancel_arm(announce: bool = true) -> void:
+	var was_chain := chain_active
+	chain_active = false
+	_chain_has_anchor = false
 	armed = false
 	armed_recipe.clear()
 	_arm_context.clear()
 	set_meta("dragging", false)
 	_cancel_arm_ui()
-	if announce: message.emit("已取消贴面，场景未改动")
+	if announce: message.emit("已结束衔接；已确认段保留，末段可撤销。" if was_chain else "已取消贴面，场景未改动")
 
 func selection_will_change(target: Node3D) -> void:
 	if armed and not _confirming and target != selected:

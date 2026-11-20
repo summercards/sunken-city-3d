@@ -86,6 +86,12 @@ func execute(p: EditorPlugin) -> void:
 	if gui_blocked:
 		finish()
 		return
+	# 横招默认尺寸跨窗/柱时严格支撑会全部拒绝；沿用已验证的
+	# 阳光房夹具档位，显式缩小，不放宽产品支撑或自动缩放。
+	panel.fields.width.slider.value = 2.7
+	panel.fields.scale.slider.value = 0.75
+	panel._input_changed()
+	await frames(3)
 	panel._choice_value("gallery_condition", "damaged")
 	panel.gallery_condition = "damaged"
 	panel.refresh_gallery()
@@ -216,7 +222,7 @@ func click(control: Control) -> void:
 	var acknowledged := false
 	# macOS Editor 的 Window.push_input 在插件刚切换主屏时可能丢掉首个 motion；
 	# 只重发有限次数的真实窗口事件，不直接调用私有 _gui_input 或伪造点击结果。
-	for attempt: int in 3:
+	for attempt: int in 5:
 		if attempt > 0:
 			DisplayServer.window_move_to_foreground(wid)
 			control.get_window().grab_focus()

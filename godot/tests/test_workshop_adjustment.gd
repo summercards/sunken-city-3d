@@ -138,6 +138,11 @@ func run() -> void:
 	r.architecture.plan = {"wing_x": "bad"}
 	rejected(r, catalog, "非法非数值配置拒绝无运行时异常")
 	r = fixture()
+	r.architecture.plan["setback_start"] = 0
+	var setback_zero: Dictionary = success(r, "退台起始层0只建议关闭退台", [["architecture", "plan", "setback_start"]])
+	if setback_zero.ok:
+		check(setback_zero.candidate.architecture.plan.setback_start == -1, "退台0修复为显式关闭而非静默改层")
+	r = fixture()
 	r.architecture.window.type = "future_window"
 	rejected(r, catalog, "未知窗型拒绝")
 	r = fixture()

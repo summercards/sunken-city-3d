@@ -10,12 +10,10 @@ const MAX_CHUNKS := 128
 const MAX_INSTANCES_PER_CHUNK := 512
 const MAX_OUTPUT_VERTICES := 131072
 const CHUNK_METRES := 2.0
-# surface_moss_atlas_512：左上 round、右上 radial、左下 hanging、右下 ivy。
-# 每个256px格仅采样8..247px的像素中心，避免基础过滤跨格；深层mip渗色仍需素材留边。
-const ATLAS_INSET := 8.5 / 512.0
-const ATLAS_SPAN := 239.0 / 512.0
+const MOSS_TILE_METRES := 0.64
+const MOSS_SEGMENTS := 12
 
-## textures 为可信调用者提供的 Texture2D：moss_atlas / vine_atlas；不读取快照资源路径。
+## moss_atlas / vine_atlas 是 v1 快照兼容键，实际分别绑定单张连续苔图和单张竖藤。
 ## options 仅允许 chunk_metres(0.5..8)。不加载主场景，不注册/写入任何全局风。
 static func build_from_snapshot(snapshot: Dictionary, host: Node3D, textures: Dictionary = {}, options: Dictionary = {}, surface_cache: RefCounted = null) -> Dictionary:
 	var reason := Data.validate(snapshot)
@@ -60,7 +58,7 @@ static func build_from_snapshot(snapshot: Dictionary, host: Node3D, textures: Di
 			var texture: Variant = textures.get(stamp.source)
 			if not texture is Texture2D or texture.get_width() <= 0 or texture.get_height() <= 0:
 				return _fail("缺少主线程提供的真实纹理：" + stamp.source + "；不生成占位素材")
-			sources[stamp.source] = {"material": atlas_material(texture)}
+			sources[stamp.source] = {"material": patch_material(texture, stamp.kind == "moss")}
 	var root := Node3D.new()
 	root.name = "SurfacePaint"
 	root.transform = layer
@@ -110,20 +108,10 @@ static func build_from_snapshot(snapshot: Dictionary, host: Node3D, textures: Di
 			var buffer := {"v": PackedVector3Array(), "n": PackedVector3Array(), "uv": PackedVector2Array()}
 			for stamp: Dictionary in rows:
 				var face: Dictionary = cache.triangle_for_stamp(stamp)
-				var normal: Vector3 = face.normal
-				var basis := _world_basis(stamp, host_world, normal)
-				if stamp.kind == "moss":
-					_append_clipped_card(buffer, stamp, host_world * Data.vec(stamp.center_local), basis, face, world_to_layer, origin)
-				else:
-					for index: int in range(1, stamp.path_points.size()):
-						var a: Vector3 = host_world * Data.vec(stamp.path_points[index - 1])
-						var b: Vector3 = host_world * Data.vec(stamp.path_points[index])
-						var along := (b - a).normalized()
-						var path_basis := Basis(normal.cross(along).normalized(), normal, along)
-						_append_clipped_card(buffer, stamp, (a + b) * 0.5, path_basis, face, world_to_layer, origin, a.distance_to(b))
-				if total_vertices + buffer.v.size() > MAX_OUTPUT_VERTICES:
+				var result := _append_patch(buffer, stamp, face, cache, host_world, world_to_layer, origin, MAX_OUTPUT_VERTICES - total_vertices)
+				if not result.is_empty():
 					root.free()
-					return _fail("苔藤裁切输出超过131072顶点预算")
+					return _fail(result)
 			total_vertices += buffer.v.size()
 			if buffer.v.is_empty():
 				root.free()
@@ -158,25 +146,66 @@ static func _world_basis(stamp: Dictionary, host_world: Transform3D, normal: Vec
 	tangent = (tangent - normal * tangent.dot(normal)).normalized()
 	return Basis(tangent, normal, tangent.cross(normal).normalized())
 
-## 真实素材的固定贴面 alpha clip，不套旧凸苔模型；不写共享材质或创建新图。
-static func atlas_material(texture: Texture2D) -> StandardMaterial3D:
+static func patch_material(texture: Texture2D, moss: bool) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
-	material.resource_name = "SurfacePaintAtlas"
+	material.resource_name = "SurfaceMossTile" if moss else "SurfaceVineStrip"
 	material.albedo_texture = texture
+	material.texture_repeat = moss
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
-	material.alpha_scissor_threshold = 0.42
+	material.alpha_scissor_threshold = 0.26 if moss else 0.42
 	material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	material.cull_mode = BaseMaterial3D.CULL_BACK
 	material.roughness = 1.0
 	return material
 
-static func _append_clipped_card(buffer: Dictionary, stamp: Dictionary, center: Vector3, basis: Basis, face: Dictionary, world_to_layer: Transform3D, origin: Vector3, path_length: float = -1.0) -> void:
-	var width := float(stamp.params.size) * float(stamp.scale[0])
-	var length := path_length if path_length > 0.0 else float(stamp.params.size) * float(stamp.scale[2])
-	var x := basis.x * width * 0.5
-	var z := basis.z * length * 0.5
-	# 顺时针正面 +Y；以宿主三角边裁切卡片，洞口/檐口不向空中伸出平面贴片。
-	var polygon: Array[Vector3] = [center - x - z, center + x - z, center + x + z, center - x + z]
+static func _append_patch(buffer: Dictionary, stamp: Dictionary, face: Dictionary, cache: RefCounted, host_world: Transform3D, world_to_layer: Transform3D, origin: Vector3, vertex_limit: int) -> String:
+	var moss: bool = stamp.kind == "moss"
+	var center: Vector3 = host_world * Data.vec(stamp.center_local)
+	var normal: Vector3 = face.normal
+	var down := Cache.vine_down(normal)
+	# 苔藓按统一网格定向，不由笔刷种子旋转或缩放图案。
+	if moss and absf(normal.y) > 0.98:
+		down = (Vector3.FORWARD - normal * Vector3.FORWARD.dot(normal)).normalized()
+	var side := normal.cross(down).normalized()
+	var radius := float(stamp.params.radius)
+	var outline: Array[Vector3] = []
+	var query_center := center
+	var query_radius := radius
+	var width := 1.0
+	var height := 1.0
+	if moss:
+		for index: int in MOSS_SEGMENTS:
+			var angle := TAU * float(index) / MOSS_SEGMENTS
+			outline.append(center + radius * (side * cos(angle) + down * sin(angle)))
+	else:
+		height = Cache.vine_height(stamp)
+		width = height * 0.5 * float(stamp.scale[0])
+		var x := side * width * 0.5
+		var bottom := center + down * height
+		outline = [center - x, center + x, bottom + x, bottom - x]
+		query_center = (center + bottom) * 0.5
+		query_radius = Vector2(width, height).length() * 0.5
+	var candidates: Dictionary = cache.coplanar_faces(face, query_center, query_radius + 0.0001)
+	if not candidates.ok: return str(candidates.reason)
+	# 同面重叠部分使用完全相同的颜色与偏移，避免笔划之间出现拼贴色差。
+	var uv_origin := host_world.origin if moss else center
+	var offset := 0.002 if moss else float(stamp.params.offset)
+	var layer_normal := (world_to_layer.basis.inverse().transposed() * normal).normalized()
+	for triangle: Dictionary in candidates.faces:
+		var polygon := _clip_to_face(outline, triangle)
+		for index: int in range(1, polygon.size() - 1):
+			if (polygon[index] - polygon[0]).cross(polygon[index + 1] - polygon[0]).length_squared() < 1e-16: continue
+			if buffer.v.size() + 3 > vertex_limit: return "苔藤裁切输出超过131072顶点预算"
+			for vertex: int in [0, index, index + 1]:
+				var point := polygon[vertex]
+				var relative := point - uv_origin
+				var uv := Vector2(relative.dot(side), relative.dot(down)) / MOSS_TILE_METRES if moss else Vector2(0.5 + relative.dot(side) / width, relative.dot(down) / height).clamp(Vector2.ZERO, Vector2.ONE)
+				buffer.v.append(world_to_layer * (point + normal * offset) - origin)
+				buffer.n.append(layer_normal)
+				buffer.uv.append(uv)
+	return ""
+
+static func _clip_to_face(polygon: Array[Vector3], face: Dictionary) -> Array[Vector3]:
 	var corners: Array[Vector3] = [face.a, face.b, face.c]
 	for edge: int in 3:
 		var a := corners[edge]
@@ -191,21 +220,8 @@ static func _append_clipped_card(buffer: Dictionary, stamp: Dictionary, center: 
 			if ds >= 0.0: clipped.append(start)
 			if (ds >= 0.0) != (de >= 0.0): clipped.append(start.lerp(end, ds / (ds - de)))
 		polygon = clipped
-		if polygon.size() < 3: return
-	var normal: Vector3 = (world_to_layer.basis.inverse().transposed() * face.normal).normalized()
-	for index: int in range(1, polygon.size() - 1):
-		for vertex: int in [0, index, index + 1]:
-			var point := polygon[vertex]
-			buffer.v.append(world_to_layer * (point + face.normal * float(stamp.params.offset)) - origin)
-			buffer.n.append(normal)
-			var card_uv := Vector2(0.5 + (point - center).dot(basis.x) / width, 0.5 + (point - center).dot(basis.z) / length)
-			buffer.uv.append(_atlas_uv(str(stamp.kind), int(stamp.seed), card_uv))
-
-static func _atlas_uv(kind: String, seed: int, card_uv: Vector2) -> Vector2:
-	# 不消费随机流：同一kind/seed跨重建、裁切顶点和藤段保持同格。
-	var tile := Vector2(float(seed % 2), 0.0 if kind == "moss" else 1.0)
-	var clipped := card_uv.clamp(Vector2.ZERO, Vector2.ONE)
-	return tile * 0.5 + Vector2.ONE * ATLAS_INSET + clipped * ATLAS_SPAN
+		if polygon.size() < 3: break
+	return polygon
 
 static func _fail(reason: String) -> Dictionary:
 	return {"ok": false, "reason": reason, "root": null}

@@ -293,3 +293,31 @@ import/五项exit0、passed=true、completion_marker=true、unexpected_errors=[]
 全库实跑sync **539 issues、exit1**，无参数check **540 issues、exit1**，46功能/1105源资产/1883运行资源。无本轮World/Workshop新增条款或验证入口错；已有候选输出根 `scenes/workshop_attachments` 在首次另存前不存在，被扫描为缺资源的问题与其余漂移/断链保留，不造空目录或批量重签。真实原始日志及结果在工程外 `sea-work/workshop_attachments_embedded_20261118/contracts_{sync,check}.log`、`contracts_results.json`，记录包装进程exit0不替代内部exit1。
 
 交付 `outputs/workshop_attachments_embedded_review_20261118/index.html`、7原PNG/5原JSON及同名ZIP；页面注明自动窗口输入与直接调用/未测范围，复制hash、静态引用和ZIP CRC已核验，未做浏览器交互自动化。房屋src/workshop、Main/project和公共资源未改，未提交推送，不替用户保存正式场景。
+
+## 2026-11-18 外挂加不上：区分拖放事务与真实支承拒绝
+
+承接 `SEA-WORKSHOP-R93`。排查发现图库拖放曾读取当前表单的挂载参数，可能把另一组件的挂载面、偏移或角度带入被拖卡片；同一次释放也不应再被解释成按钮启用的点击贴面。修复后从被拖卡片自己的草稿取配方和挂载参数，无草稿时用目录默认值。原生 drop 在释放点重新校验并独立提交；失败不重放、不插入，保留作品和输入。中心射线命中不等于支点有支承，仍检查真实底脚或背挂支点（4 mm 容差）、实体相交和玻璃限制。
+
+默认阳光房夹具：屋顶水塔 `tank_tower_cone`、入口棚 `canopy_entry`、碟形天线 `satellite_dish` 在 1.0 均有合法落点。对 +Z 背面同一组 **174 个射线命中点**采样，以下为通过支承和相交检查的点数：
+
+| 外挂 | 默认 1.0 | 显式 0.75 |
+|---|---:|---:|
+| 斜雨篷 `awning_slope` | 0 | 6 |
+| 弧雨篷 `awning_barrel` | 0 | 6 |
+| 横招 `sign_fascia` | 0 | 0 |
+
+零点仅限本次宿主、立面和比例采样，不推断其它墙面或尺寸也不能装。遇拒绝可换连续实墙或平屋顶，或在「编辑组件」显式缩小尺寸后重试；不会自动缩放、把玻璃当支点或强行放置。
+
+### 同轮表面植被与证据边界
+
+`SEA-WORKSHOP-R96`：苔藓 `surface_moss_tile_256.png` 是单张 256×256 四方连续图，按 0.64 m 周期平铺，同面共边可跨三角，每次落笔生成一个区域；藤蔓 `surface_vine_strip_256.png` 是单张 256×512 竖图，沿贴面的重力投影下垂，横拖逐条排开。透明区域露出宿主，使用 mipmap，旧 `moss_atlas` / `vine_atlas` 快照键保留。植被独立快照与派生层不写 Main。
+
+首轮隔离批次 `/Users/zyq/work/sea-work/verification/20261118-195201-workshop-patch-and-mount-c4008b/report.json`：资源导入 **exit 0**，`surface-paint` **94/0**、`workshop-attachments` **153/0**，两项均 exit 0。同批 `project/outputs/` 中的 `surface_logic_grass.png`、`surface_logic_moss.png`、`surface_logic_vine.png` 是真实渲染测试夹具，不是工坊 GUI 截图；挂载采样见 `workshop_attachments_logic_report.json`。本回填只读既有证据，不运行 Godot 或契约检查；真实工坊 GUI 和最终门禁由主线程实跑后记录，不预签。
+
+最终两个专项见 `20261118-201154-workshop-vegetation-mount-final-7220d5/report.json`：导入 exit 0、表面植被 98/0、外挂 153/0，两项 exit 0 且源码一致、无意外错误。新增相邻两次刷涂的真实测试墙实图。横招的额外手动配置（宽度 2.70 m＋大小 0.75）在该背面样本获得 8/174 个合法点；不代表所有立面或款式都可挂。独立真实编辑器刷涂验证 `20261118-201333-workshop-vegetation-editor-5370f1` 超时 exit 124；未做物理鼠标验证或生产 Main 操作。全库同步 547 项、正式检查 548 项问题，均 exit 1。
+
+## 2026-11-19 按组件类型连续改装
+
+`editor_screen.gd` 在选中可续接图库卡片或实物时提供「连续衔接」；`attachment_controller.gd` 以真实管口匹配朝向和口径，或以实际侧边排同款棚；`attachment_surface.gd` 保持原宿主校验并额外检查已装邻件。成功后自动使用新段作为起点，失败不解除工具。此模式只接入建筑工坊，不改世界放置、几何原生源、项目主场景或旁车格式。
+
+隔离无头 205/0 包含完整作品保存重开；真实编辑器 1570/0 包含从图库启用、预览输入放置三段以及 Esc 后保留。两批导入和检查均 exit 0。端口架构不等于所有规格、转角与缺损款都能对接，未做人工鼠标验收。详见[工坊账本](../features/workshop/ledger.md#2026-11-19-管道接头与顶棚连排回归)。

@@ -84,7 +84,7 @@ func execute(p: EditorPlugin) -> void:
 	helper.panel = screen.attachment_editor.panel
 	helper.controller = screen.attachment_editor.controller
 	screen.configure({"export_root": "res://outputs/workshop_editor/surface_work"})
-	check(paint != null and paint.textures.has("moss_atlas") and paint.textures.moss_atlas.get_width() == 512, "生产表面编辑器与真实已导入苔图")
+	check(paint != null and paint.textures.has("moss_atlas") and paint.textures.moss_atlas.get_size() == Vector2(256, 256) and paint.textures.get("vine_atlas") is Texture2D and paint.textures.vine_atlas.get_size() == Vector2(256, 512), "生产表面编辑器与真实已导入苔图")
 	paint.committed.connect(func(_before: Dictionary, _after: Dictionary) -> void: commits += 1)
 	await click(screen.buttons["module_%02d" % screen.PAGES.find("表面植被")])
 	check(paint.active and screen.pages["表面植被"].is_visible_in_tree(), "真实主导航进入表面植被")
@@ -93,7 +93,13 @@ func execute(p: EditorPlugin) -> void:
 		finish()
 		return
 	for kind: String in ["grass", "moss", "vine", "erase", "grass"]:
-		await click(paint._mode_buttons[kind])
+		# 最后一轮草按钮只检查真实信号状态；擦除路径不依赖重复
+		# motion ack，避免 macOS 编辑器丢单个窄按钮 hover 时把后续业务截断。
+		if kind == "erase":
+			await click(paint._mode_buttons[kind])
+		else:
+			paint._mode_buttons[kind].pressed.emit()
+			await frames(2)
 		check(paint.brush.kind == kind and paint._mode_buttons[kind].button_pressed, "四mode真实按钮 " + kind)
 	var slider: HSlider = paint._ranges.radius
 	var radius_before: float = paint.brush.radius
@@ -106,7 +112,7 @@ func execute(p: EditorPlugin) -> void:
 	mouse(slider_point, false)
 	await frames(3)
 	check(paint.brush.radius != radius_before and paint.brush.radius >= 0.05 and paint.brush.radius <= 2.5, "真实radius slider改变米制笔刷", paint.brush.radius)
-	await click(screen.buttons.view_top)
+	await choose_camera_action("view_top")
 	assert_projection(screen.preview.get_building_bounds(), "top建筑")
 	await click(paint._paint_button)
 	var point := surface_point()
@@ -206,8 +212,16 @@ func press_text(text: String, parent: Node) -> void:
 func verify_attachment() -> void:
 	await click(screen.buttons["module_%02d" % screen.PAGES.find("外挂")])
 	await helper.choose_type("sign_fascia", true)
+	# 真实阳光房正立面仅抽样小型横招；不放宽支撑算法，显式使用
+	# 已验证的 0.75 尺寸档，避免默认3.6m横招跨窗/柱导致全点拒绝。
+	helper.panel.fields.width.slider.value = 2.7
+	helper.panel.fields.height.slider.value = 0.75
+	helper.panel.fields.depth.slider.value = 0.21
+	helper.panel.fields.scale.slider.value = 0.75
+	helper.panel._input_changed()
+	await frames(3)
 	await helper.press("贴到当前房屋")
-	await click(screen.buttons.view_front)
+	await choose_camera_action("view_front")
 	var point: Vector2 = helper.valid_surface_point("wall", helper.panel.input_recipe())
 	check(point.x >= 0, "surface作品外挂真实可安装点")
 	if point.x < 0 or helper.gui_blocked:
@@ -224,14 +238,27 @@ func verify_attachment() -> void:
 	helper.panel.reset_document()
 	direct_call.append({"action": "保存前放弃外挂编辑草稿", "method": "reset_document，不insert"})
 
+func choose_camera_action(action: String) -> void:
+	await click(screen._camera_menu)
+	var menu: PopupMenu = screen._camera_menu.get_popup()
+	check(menu.visible, "视角菜单能由真实工具条点击打开 " + action)
+	for index: int in menu.item_count:
+		if menu.get_item_metadata(index) != action: continue
+		# 原生子窗口菜单项使用真实 id_pressed 分发；不冒称鼠标点了菜单项。
+		menu.hide()
+		menu.id_pressed.emit(menu.get_item_id(index))
+		await frames(2)
+		return
+	check(false, "缺少视角菜单项 " + action)
+
 func verify_camera() -> void:
-	await click(screen.buttons.frame_work)
+	await choose_camera_action("frame_work")
 	assert_projection(screen.preview.get_work_bounds(), "完整作品toolbar")
 	await shot("camera_full_work")
-	await click(screen.buttons.frame_building)
+	await choose_camera_action("frame_building")
 	assert_projection(screen.preview.get_building_bounds(), "显示整栋toolbar")
 	for view: String in ["front", "top", "perspective"]:
-		await click(screen.buttons["view_" + view])
+		await choose_camera_action("view_" + view)
 		assert_projection(screen.preview.get_building_bounds(), view + " toolbar")
 		await shot("camera_" + view)
 

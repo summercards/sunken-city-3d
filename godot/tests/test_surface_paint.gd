@@ -144,10 +144,10 @@ func run() -> void:
 			await capture_layer(host, built.root, "grass")
 			built.root.free()
 	check(not cache.apply_brush_command(empty, command("grass", Vector3(0, 0, 5), Vector3.FORWARD)).ok, "草拒绝竖直面")
-	var textures := {"moss_atlas": load("res://assets/textures/vegetation/surface_moss_atlas_512.png"), "vine_atlas": load("res://assets/textures/vegetation/workshop_leaf_atlas_512.png")}
+	var textures := {"moss_atlas": load("res://assets/textures/vegetation/surface_moss_tile_256.png"), "vine_atlas": load("res://assets/textures/vegetation/surface_vine_strip_256.png")}
 	for kind: String in ["moss", "vine"]:
 		var result: Dictionary = cache.apply_brush_command(empty, command(kind, Vector3(0.4, 0.3, 5), Vector3.FORWARD, kind))
-		check(result.get("ok", false) and result.get("added", 0) > 0, kind + "真实外墙命中", result)
+		check(result.get("ok", false) and result.get("added", 0) == 1, kind + "一次真实外墙落笔仅一个印记", result)
 		check(not cache.apply_brush_command(empty, command(kind, Vector3.ZERO, Vector3.BACK)).ok, kind + "拒绝从内部穿背面")
 		if not result.get("ok", false): continue
 		var built := Output.build_from_snapshot(result.snapshot, host, textures)
@@ -156,21 +156,36 @@ func run() -> void:
 		var ids := 0
 		var vertices := 0
 		var uv_ok := true
+		var crosses_diagonal := Vector2i.ZERO
 		for batch: Node in built.root.get_children():
 			check(batch is MeshInstance3D and batch.mesh is ArrayMesh, kind + "按空间块合并而非逐印记节点")
 			ids += batch.get_meta("surface_paint_stamp_ids").size()
 			var arrays: Array = batch.mesh.surface_get_arrays(0)
 			vertices += arrays[Mesh.ARRAY_VERTEX].size()
-			for uv: Vector2 in arrays[Mesh.ARRAY_TEX_UV]:
-				var row := 0.0 if kind == "moss" else 0.5
-				var column: float = floorf(uv.x * 2.0) * 0.5
-				uv_ok = uv_ok and uv.x >= column + Output.ATLAS_INSET - 0.00001 and uv.x <= column + Output.ATLAS_INSET + Output.ATLAS_SPAN + 0.00001 and uv.y >= row + Output.ATLAS_INSET - 0.00001 and uv.y <= row + Output.ATLAS_INSET + Output.ATLAS_SPAN + 0.00001
-		check(uv_ok, kind + "tile UV固定上下行与8px内缩")
-		check(ids == result.snapshot.stamps.size() and vertices == built.patch_vertices and built.chunks == built.root.get_child_count() and built.chunks < ids, kind + "merged patch IDs/顶点/块计数")
+			var mat: StandardMaterial3D = batch.material_override
+			uv_ok = uv_ok and mat.texture_repeat == (kind == "moss") and mat.albedo_texture == textures[result.snapshot.stamps[0].source]
+			for i: int in arrays[Mesh.ARRAY_TEX_UV].size():
+				var uv: Vector2 = arrays[Mesh.ARRAY_TEX_UV][i]
+				var p: Vector3 = arrays[Mesh.ARRAY_VERTEX][i] + batch.position
+				if p.y > p.x * 0.5 + 0.001: crosses_diagonal.x += 1
+				if p.y < p.x * 0.5 - 0.001: crosses_diagonal.y += 1
+				var expected := Vector2(p.x, -p.y) / Output.MOSS_TILE_METRES if kind == "moss" else Vector2(0.5 + (p.x - 0.4) / 0.35, (0.3 - p.y) / 0.7)
+				uv_ok = uv_ok and uv.distance_to(expected) < 0.0001 and absf(p.z - 2.002) < 0.0001
+		check(uv_ok, kind + "真实顶点：统一米制平铺或单图重力方向，贴面无悬空")
+		if kind == "moss": check(crosses_diagonal.x > 0 and crosses_diagonal.y > 0, "单苔印记连续跨过两个三角的公共边")
+		check(ids == result.snapshot.stamps.size() and vertices == built.patch_vertices and built.chunks == built.root.get_child_count(), kind + "merged patch IDs/顶点/块计数")
 		var erased: Dictionary = cache.apply_brush_command(result.snapshot, command("erase", Vector3(0.4, 0.3, 5), Vector3.FORWARD))
 		check(erased.get("ok", false) and erased.snapshot.stamps.is_empty(), kind + "erase球对称")
-		await capture_layer(host, built.root, kind)
 		built.root.free()
+		var second := command(kind, Vector3(0.85, 0.3, 5), Vector3.FORWARD, kind + "_next")
+		var extended: Dictionary = cache.apply_brush_command(result.snapshot, second)
+		check(extended.get("added", 0) == 1 and extended.snapshot.stamps.size() == 2, kind + "横向拖刷可连续落第二笔")
+		if extended.get("ok", false):
+			var preview_built := Output.build_from_snapshot(extended.snapshot, host, textures)
+			check(preview_built.ok, kind + "连续贴面可合批输出")
+			if preview_built.ok:
+				await capture_layer(host, preview_built.root, kind)
+				preview_built.root.free()
 	for label: String in ["Vegetation", "Attachments"]:
 		var excluded := box(visual, label, Vector3(0.4, 3, 0.3))
 		check(cache.build_cache(host).meshes == 1, "缓存排除 " + label)

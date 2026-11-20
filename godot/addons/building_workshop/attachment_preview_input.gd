@@ -11,6 +11,7 @@ var ghost: Node3D
 var _green: StandardMaterial3D
 var _red: StandardMaterial3D
 var _armed_press := false
+var _drag_reason := ""
 
 func configure(view: Control, target: Node, selection: Callable) -> void:
 	preview = view
@@ -28,6 +29,7 @@ func _material(color: Color) -> StandardMaterial3D:
 
 func cancel() -> void:
 	_armed_press = false
+	_drag_reason = ""
 	if is_instance_valid(ghost): ghost.free()
 	ghost = null
 
@@ -50,8 +52,12 @@ func _paint(material: Material) -> void:
 		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func update_ghost(position: Vector2) -> Dictionary:
-	var ray: Dictionary = preview.ray_from_local_position(position)
-	if ray.is_empty(): return {"ok": false, "reason": "预览射线尚未就绪"}
+	return _update_ghost_at_ray(preview.ray_from_local_position(position))
+
+func _update_ghost_at_ray(ray: Dictionary) -> Dictionary:
+	if ray.is_empty():
+		hide_ghost()
+		return {"ok": false, "reason": "预览射线尚未就绪"}
 	var result: Dictionary = controller.preview_at_ray(controller.armed_recipe, ray.origin, ray.direction)
 	if is_instance_valid(ghost):
 		var pose: Variant = result.get("pose")
@@ -63,14 +69,11 @@ func update_ghost(position: Vector2) -> Dictionary:
 
 func drag_finished(successful: bool) -> void:
 	if not bool(controller.get_meta("dragging", false)): return
-	controller.set_meta("dragging", false)
-	if successful:
-		if controller.armed: controller.cancel_arm(false)
-	else:
-		# 引擎先尝试 drop 再广播结束；失败不重放、不插入，也不把失败伪装成取消成功。
-		_armed_press = false
-		hide_ghost()
-		controller.message.emit("拖放未被视口接受，作品未改动；输入保持，可重新拖放、点击真实表面或显式取消。")
+	# 拖放与按钮贴面是独立事务；松开后不能遗留一次隐式点击放置。
+	var reason := _drag_reason if not _drag_reason.is_empty() else "拖放未被视口接受"
+	controller.cancel_arm(false)
+	if not successful:
+		controller.message.emit("%s；作品未改动，输入保持。%s" % [reason, _placement_hint(reason)])
 
 func hide_ghost() -> void:
 	if is_instance_valid(ghost): ghost.hide()
@@ -88,6 +91,8 @@ func handle_input(event: InputEvent) -> bool:
 		# 取消不吞右键，继续进入原有飞行导航。
 		return false
 	if event.button_index != MOUSE_BUTTON_LEFT: return false
+	# 原生拖放只由 drop 提交，不把同一次鼠标释放再解释为贴面点击。
+	if bool(controller.get_meta("dragging", false)): return false
 	if event.pressed and controller.armed:
 		_armed_press = true
 		return true
@@ -95,7 +100,10 @@ func handle_input(event: InputEvent) -> bool:
 		_armed_press = false
 		if controller.armed:
 			var ray: Dictionary = preview.ray_from_local_position(event.position)
-			if not ray.is_empty(): controller.viewportclick_place(ray.origin, ray.direction)
+			if not ray.is_empty():
+				var placed: Dictionary = controller.viewportclick_place(ray.origin, ray.direction)
+				if not placed.ok and _needs_support_hint(str(placed.reason)):
+					controller.message.emit("%s；%s" % [placed.reason, _placement_hint(placed.reason)])
 		return true
 	return false
 
@@ -146,13 +154,35 @@ func _distance(root: Node3D, origin: Vector3, direction: Vector3) -> float:
 				if hit != null: nearest = minf(nearest, origin.distance_to(instance.global_transform * (hit as Vector3)))
 	return nearest
 
+func _needs_support_hint(reason: String) -> bool:
+	return reason.contains("支承不足") or reason.contains("相交")
+
+func _placement_hint(reason: String) -> String:
+	if _needs_support_hint(reason):
+		return "请换到连续实墙或平屋顶；跨窗或碰柱时，可先在「编辑组件」中减小宽度或大小，再重新试放。"
+	return "可重新拖放或启用点击贴面。"
+
+func _validate_drag(data: Variant) -> Dictionary:
+	if not data is Dictionary or data.get("type") != "sea_building_attachment":
+		return {"ok": false, "reason": "不是建筑外挂图库拖放"}
+	var token: Variant = data.get("arm_token")
+	if not token is int or token <= 0 or not bool(controller.get_meta("dragging", false)) or data.get("recipe") != controller.armed_recipe:
+		return {"ok": false, "reason": "拖放与当前贴面事务不符"}
+	return controller.validate_arm(token, false)
+
 func can_drop(position: Vector2, data: Variant) -> bool:
-	if not data is Dictionary or data.get("type") != "sea_building_attachment": return false
-	if not controller.armed or data.get("recipe") != controller.armed_recipe: return false
-	var valid: Dictionary = controller.validate_arm(int(data.get("arm_token", 0)), false)
-	return valid.get("ok", false) and update_ghost(position).get("ok", false)
+	if not _validate_drag(data).ok: return false
+	var result := update_ghost(position)
+	_drag_reason = str(result.get("reason", ""))
+	return result.ok
 
 func drop(position: Vector2, data: Variant) -> Dictionary:
-	if not can_drop(position, data): return {"ok": false, "reason": "落点或拖放事务无效；作品保持"}
+	var valid := _validate_drag(data)
+	if not valid.ok: return valid
 	var ray: Dictionary = preview.ray_from_local_position(position)
-	return controller.viewportclick_place(ray.origin, ray.direction)
+	var result: Dictionary = controller.viewportclick_place(ray.origin, ray.direction) if not ray.is_empty() else _update_ghost_at_ray(ray)
+	if not result.ok:
+		# 即使 Godot 已接受 drag，也不代表释放位置通过最终几何检查。
+		_drag_reason = str(result.reason)
+		controller.message.emit("%s；未放置外挂，作品保持。%s" % [_drag_reason, _placement_hint(_drag_reason)])
+	return result
