@@ -54,6 +54,8 @@ FAMILIES = [
     # 独立建筑外挂库不是建筑空间实体；人物碰撞由具体实例显式配置，
     # 不从资产家族自动生成水面阻挡/岸线/行走职责，亦不继承宿主水层。
     ('SEA-SCENE-BAT-', 'none', 'none'),
+    # Standalone 3C whitebox: two collision-bearing surface components, no boat/navigation.
+    ('SEA-SCENE-MIN3C-', 'surface', 'part'),
     # 工坊已登记的水上样楼；未放入主场景，空间接入仍须设施专项验收。
     ('SEA-SCENE-WORKSHOP-SAMPLE-', 'surface', 'entity'),
     ('SEA-SCENE-SUBMERGED-', 'submerged', 'entity'),
@@ -182,6 +184,10 @@ def classify(asset_id):
         return 'surface', 'entity'
     if asset_id in KIT_FURNITURE:
         return 'none', 'none'
+    if asset_id == 'SEA-SCENE-RAC':
+        return 'surface', 'entity'
+    if asset_id.startswith('SEA-SCENE-RAC-'):
+        return 'surface', 'part'
     if asset_id.startswith('SEA-SCENE-B1109A-'):
         key = asset_id.removeprefix('SEA-SCENE-B1109A-')
         if key in {'LEAF-CLUSTER', 'SUCCULENT', 'VINE', 'CITRUS'}:

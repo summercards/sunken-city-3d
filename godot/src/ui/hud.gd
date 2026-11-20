@@ -23,6 +23,7 @@ var game_state: Node
 var player_query: Callable
 ## SEA-UI: one physical card; gameplay mutations only through existing commands.
 signal destination_pressed(zone_id: String)
+var manual_sea_travel := false
 signal dive_pressed
 signal build_pressed
 signal site_focus_requested(id: String)
@@ -462,12 +463,15 @@ func _refresh_panel() -> void:
 		"build": _panel.show_detail("建造计划");_refresh_build()
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
 		"map":
-			_panel.show_detail("海风带你去哪里？")
+			_panel.show_detail("海图" if manual_sea_travel else "海风带你去哪里？")
 			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;atlas.player_query=player_query;_tab_body.add_child(atlas)
-			_tab_body.add_child(_label("橙点是你现在的位置",16,DIM))
+			_tab_body.add_child(_label("橙点是你现在的位置 · WASD / 方向键手动划船" if manual_sea_travel else "橙点是你现在的位置",16,DIM))
 			for entry in DESTINATIONS:
 				if not Scope.zone_enabled(entry.id): continue
 				var unlocked: bool=zones.is_unlocked(entry.id)
+				if manual_sea_travel:
+					_tab_body.add_child(_label(entry.name + (" · 已在这里" if entry.id == game_state.current_zone else "" if unlocked else " · 需要升级小船"), 16))
+					continue
 				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == game_state.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
 				button.disabled=not unlocked or _diving;_tab_body.add_child(button)
 				button.set_meta("zone_id",str(entry.id));_map_buttons.append(button)
@@ -503,7 +507,8 @@ func _refresh_panel() -> void:
 			else:
 				var trade := _plain_button("前往码头交易")
 				trade.pressed.connect(func(): _toggle_panel();destination_pressed.emit("zone1"))
-				_tab_body.add_child(trade)
+				if not manual_sea_travel: _tab_body.add_child(trade)
+				else: trade.free()
 				_tab_body.add_child(_label("在码头订单中交付，换取瓶盖。",14,DIM))
 	_style_details(_tab_body)
 	_layout()

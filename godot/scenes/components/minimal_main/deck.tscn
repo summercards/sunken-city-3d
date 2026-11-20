@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="DeckMaterial"]
+albedo_color = Color(0.79, 0.52, 0.31, 1)
+roughness = 0.89
+
+[sub_resource type="BoxMesh" id="DeckMesh"]
+material = SubResource("DeckMaterial")
+size = Vector3(8, 1.6, 6)
+
+[sub_resource type="BoxShape3D" id="DeckShape"]
+size = Vector3(8, 1.6, 6)
+
+[node name="Deck" type="StaticBody3D"]
+collision_layer = 256
+collision_mask = 0
+metadata/asset_id = "SEA-SCENE-MIN3C-DECK"
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, 0)
+mesh = SubResource("DeckMesh")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.8, 0)
+shape = SubResource("DeckShape")
+
+[node name="RampJoin" type="Marker3D" parent="."]
+position = Vector3(0, 1.6, 3)

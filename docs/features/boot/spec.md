@@ -71,3 +71,29 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 | SEA-BOOT-R07 | Main只装配稳定DiveSession轻节点及来源/奖励端口，不挂海底地图几何。地图preflight后把同一Main实例移出场景树缓存，不free、不重建、不重新读取存档；SceneTree.current_scene切到唯一海底runtime。海面时钟、天气、经营与自动存档暂停，挂起退出不得清空注册表/端口；返回恢复原Main的船人姿态、角色模式、相机与环境，并恢复外部信号、可见性及因出树释放的GroundSpace/表现端口，不重跑Main._ready；实际结束会话才执行原清理。失败应留在或回滚到同一海面实例，不能留下半切换态。 |
 
 本条与 SEA-DIVE-R08/R09、SEA-SAVE-R19 交接，不在装配层复制潜水规则。功能仍 `partial`；`dive-maps / visual-dive-maps` 运行验证 pending，待父线程补充。[完整机制与验收占位](../../development/2026-11-07_dive_map_switch.md)。
+
+
+## 2026-11-20 正式 Main 默认入口恢复
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-BOOT-R10 | 默认 F5 恢复 `main.tscn` 并装配 `Zones`、`Economy`、`GameState`；必须在隔离用户目录实际启动并通过正式 Main 节点检查。白盒 `main_minimal.tscn` 和本地 profile 保留为兼容/回退入口。此入口恢复不等待未完成的阳光房碰撞或手动海面迁移，不因此宣称这些功能已完成。 |
+
+[当前恢复证据](../../development/2026-11-20_formal_main_default_entry.md)。
+
+## 2026-11-19 默认入口与可回退旧入口
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-BOOT-R08 | F5 默认装配独立 `main_minimal.tscn`，不启动旧 `Zones`、`Economy`、`GameState`，不实例化船、旧界面、建筑群或玩法服务。R01–R07 保留为旧入口的契约；原 `main.tscn` 路径、UID、内容和依赖不得因切换被覆盖。改入口前独立冻结当前工作树并跑通旧入口；本地恢复配置须同时恢复场景和 Autoload。 |
+
+[开发与证据](../../development/2026-11-19_minimal_main.md)。
+
+
+## 2026-11-19 最小海面入口：海上 3C
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-BOOT-R09 | 白盒原 F5 路径不变，仅装配单船、指定泊位与最小操作提示。此条覆盖 R08 初版的无船限制；旧完整入口与三项 Autoload 的可选配置不动，不接入旧 UI、潜水、经济或存档。 |
+
+[开发与验证](../../development/2026-11-19_minimal_sea_3c.md)。

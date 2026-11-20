@@ -37,6 +37,8 @@
 # Godot 移植工程缓存与验收截图
 /godot/.godot/
 /godot/outputs/
+# Local opt-in startup profile; do not ship it as the default project override.
+/godot/override.cfg
 
 # Godot 运行时用户数据（日志、Vulkan 管线缓存、临时状态 ~13MB）
 # 正常位置在 %APPDATA%\Godot，这份是某次以 godot/ 为工作目录启动时误生成的

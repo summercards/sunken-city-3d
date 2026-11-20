@@ -27,17 +27,7 @@ func update(t: float, boat: Node3D, surface: MeshInstance3D) -> void:
 	if visual == null or not visual.is_visible_in_tree() or not boat.is_visible_in_tree():
 		mat.set_shader_parameter("boat_hull_count",0)
 		return
-	if visual.get_instance_id()!=_model_id:
-		_model_id=visual.get_instance_id()
-		outline=_waterline(boat.hull_visual(),visual) if boat.has_method("hull_visual") else PackedVector2Array()
-		_wet=[false,false]
-	world_outline.resize(MAX_OUTLINE)
-	world_outline.fill(Vector4.ZERO)
-	for i in outline.size():
-		var p: Vector3=visual.global_transform*Vector3(outline[i].x,0.0,outline[i].y)
-		world_outline[i]=Vector4(p.x,p.z,p.y,0)
-	mat.set_shader_parameter("boat_hull_points",world_outline)
-	mat.set_shader_parameter("boat_hull_count",outline.size())
+	update_hull(visual, boat.hull_visual() if boat.has_method("hull_visual") else null, mat)
 	var position := Vector2(boat.global_position.x,boat.global_position.z)
 	if _previous.is_finite() and position.distance_to(_previous)>8.0:
 		_wet=[false,false]
@@ -76,6 +66,23 @@ func update(t: float, boat: Node3D, surface: MeshInstance3D) -> void:
 			blade_uniform[i]=Vector4(p.x,p.z,t,lerpf(0.65,1.0,effort))
 	mat.set_shader_parameter("boat_blade_points",blade_uniform)
 	mat.set_shader_parameter("boat_blade_count",MAX_BLADES)
+
+## Read-only vessel waterline projection; usable without drive or wake wiring.
+func update_hull(visual: Node3D, hull: Node3D, mat: ShaderMaterial) -> void:
+	if visual == null or not visual.is_visible_in_tree():
+		mat.set_shader_parameter("boat_hull_count", 0)
+		return
+	if visual.get_instance_id() != _model_id:
+		_model_id = visual.get_instance_id()
+		outline = _waterline(hull, visual)
+		_wet = [false, false]
+	world_outline.resize(MAX_OUTLINE)
+	world_outline.fill(Vector4.ZERO)
+	for i in outline.size():
+		var p := visual.global_transform * Vector3(outline[i].x, 0.0, outline[i].y)
+		world_outline[i] = Vector4(p.x, p.z, p.y, 0.0)
+	mat.set_shader_parameter("boat_hull_points", world_outline)
+	mat.set_shader_parameter("boat_hull_count", outline.size())
 
 func _waterline(hull: Node3D, model: Node3D) -> PackedVector2Array:
 	var points := PackedVector2Array()

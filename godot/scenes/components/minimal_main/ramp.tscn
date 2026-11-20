@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="RampMaterial"]
+albedo_color = Color(0.92, 0.73, 0.47, 1)
+roughness = 0.89
+
+[sub_resource type="ConvexPolygonShape3D" id="WedgeShape"]
+points = PackedVector3Array(-1.6, 0, 0, 1.6, 0, 0, -1.6, 1.6, 0, 1.6, 1.6, 0, -1.6, 0, 3.6, 1.6, 0, 3.6, -1.6, 0.6, 3.6, 1.6, 0.6, 3.6)
+
+[sub_resource type="BoxShape3D" id="ApronShape"]
+size = Vector3(3.2, 0.6, 2.4)
+
+[node name="Ramp" type="StaticBody3D"]
+collision_layer = 256
+collision_mask = 0
+metadata/asset_id = "SEA-SCENE-MIN3C-RAMP"
+
+[node name="Visual" type="CSGPolygon3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.6, 0, 0)
+polygon = PackedVector2Array(0, 0, 6, 0, 6, 0.6, 3.6, 0.6, 0, 1.6)
+depth = 3.2
+material = SubResource("RampMaterial")
+
+[node name="SlopeCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("WedgeShape")
+
+[node name="ApronCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.3, 4.8)
+shape = SubResource("ApronShape")
+
+[node name="UpperJoin" type="Marker3D" parent="."]
+position = Vector3(0, 1.6, 0)
+
+[node name="LowerJoin" type="Marker3D" parent="."]
+position = Vector3(0, 0.6, 3.6)

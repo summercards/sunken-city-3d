@@ -137,3 +137,29 @@ b2-session51/0、reset-atomic98/0、transactions103/0 PASS/exit0；集成B19入�
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 012421强化真实可支付及旧确认Callable有效后session53/0、exit0；010438十入口全exit0，含修订save-protection行为门禁与三视觉，旧失败保留；当前去重33最新入口33PASS/exit0（30逻辑+3视觉），非单批/全selftest。
 - 当前012203矩阵unit0、五seed预期引擎-9/runner1、五recover0、外层0，详见`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`；契约sync532/check533 issues均exit1，未写派生/刷hash。设备断电/磁盘满/并发写/长时泄漏未签，登记头partial不变。
+
+
+## 2026-11-20 正式 Main 默认入口恢复
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-BOOT-R10 | 已恢复共享默认入口为 `res://scenes/main.tscn`，并恢复 Zones/Economy/GameState 三项 Autoload；隔离实际启动检查 9/0、asset-import exit 0。阳光房实体盒、手动海面、上下船迁移仍未完成，F5 恢复不代签这些功能。 | `/Users/zyq/work/sea-work/formal-main-default-jcAzcj/verification/20261120-100955-verification-1be1cc`；[本次记录](../../development/2026-11-20_formal_main_default_entry.md) |
+
+## 2026-11-19 默认入口与可回退旧入口
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-BOOT-R08 | 最小入口范围内已实现并验证；既有功能条款状态不变 | 独立备份旧循环 112/0；默认真实启动 exit 0；本地恢复配置 9/0。并行新增 GLB 导入后对当前树复验同样 9/0。 [开发与证据](../../development/2026-11-19_minimal_main.md)。 |
+
+
+## 2026-11-19 最小海面入口：海上 3C
+
+| 对应设计条款 | 当前实施与证据 |
+|---|---|
+| SEA-BOOT-R09 | 默认入口真实窗口启动 120 帧 exit 0；隔离重导入后旧入口 9/0、exit 0。 |
+
+[开发与验证](../../development/2026-11-19_minimal_sea_3c.md)。
+
+## 2026-11-20 正式世界总集成门禁
+
+R02/R04/R07：原完整入口及三 Autoload 隔离重启通过，zone1 往返恢复原 Main。R09 白盒入口现状不变；正式入口候选未落地。 部署状态不变，结果及未验边界见[开发与证据](../../development/2026-11-20_formal_world_integration.md)。

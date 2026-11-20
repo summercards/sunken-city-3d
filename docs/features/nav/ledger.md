@@ -15,9 +15,12 @@
     "godot/src/navigation/water_navigation.gd",
     "godot/src/navigation/sail_nav.gd",
     "godot/src/navigation/boat.gd",
-    "godot/src/navigation/route_ribbon.gd"
+    "godot/src/navigation/route_ribbon.gd",
+    "godot/src/navigation/minimal_skiff.gd"
   ],
   "verification": [
+    "minimal-skiff",
+    "visual-minimal-skiff",
     "boat-unstick",
     "visual-boat-unstick",
     "facing-interaction",
@@ -282,3 +285,68 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 - 当前`/Users/zyq/work/sea-work/b2-reset-atomic-results.json`已为124724及124828–124832重跑：unit engine0/runner0，intent/archive/replace/commit/future五seed engine-9/runner1、预期SIGKILL，五recover engine0/runner0；只证明进程中断恢复，不宣称物理断电、目录fsync、磁盘满或并发同槽。
 
 B3已有10逻辑入口及management minimal/full-world双profile各exit0，治理31/31、架构25/0、摆位6/0、diff-check exit0；契约最近实跑仍sync535/check536 issues、均exit1，本次只读回填、未重跑契约。D05无发行输入及A08无真实输入均UNEXECUTED/exit2；B4仍未完成真实发行包/许可、设备/跨平台和长期矩阵，审计无B5，不签零警告或全工程绿。本次只追加六份文档，不改生产代码、测试、资产、runner、登记头、哈希、派生索引或事务文件，不启动Godot或sync。
+
+
+## 2026-11-19 最小海面入口：海上 3C
+
+| 对应设计条款 | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R25 | `minimal-skiff` 43/0、`visual-minimal-skiff` 57/0；实际船壳顶 Ramp、持续输入不穿、倒划脱离和手动回泊均通过。 |
+
+[开发与验证](../../development/2026-11-19_minimal_sea_3c.md)。
+
+
+## 2026-11-19 现成划桨复用与固定木块补充
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R26 | 使用键位实走正碰、斜碰、倒划脱困及在两块木块之间继续航行，证据见交付。 |
+
+[开发与复验](../../development/2026-11-19_minimal_sea_3c.md#补充复验现成划桨与海面木块)。
+
+
+## 2026-11-19 sea 0.1 镜头相对四向复验
+
+R25 按现行镜头相对目标航向复验，R26 继续覆盖正斜碰、止推、相反画面方向脱离与绕行；不再把旧倒划/转舵作为白盒的按键说明。无头 104/0、实际窗口 132/0，完整入口 R15 源码未动。 [方向更正与复验](../../development/2026-11-19_minimal_sea_3c.md#sea-01-方向更正)。
+
+## 2026-11-20 白盒贴边脱离与进泊减速
+
+| 对应设计条款 | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R27 | 已实现白盒改向低速扫掠脱离和指定泊位的主动进泊限速；沿用原碰撞及 E 门禁。配对实窗由 24 项 5 失败到 24/0；两种斜碰沿边位移分别 0.653→2.376 m、0.554→2.363 m；三角度均停在泊位内且 E 成功，离泊不回拉。回归海面 123/0、157/0，陆地 35/0、42/0。 |
+
+[测量、退出码与边界](../../development/2026-11-20_minimal_skiff_handling.md)。
+
+## 2026-11-20 白盒巡航快速改向
+
+| 对应设计条款 | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R28 | 真窗口同口径 90°/180° 响应均由 0.150 降至 0.083 s，稳定驶向新方向分别由 1.567 降至 0.600 s、3.283 降至 1.017 s。配对均 32/0，贴边和斜向靠泊对照不变；完整场景回归与输入范围见交付。 |
+
+[巡航前后实测](../../development/2026-11-20_minimal_skiff_handling.md#巡航中快速改向)。
+
+## 2026-11-20 正式世界总集成门禁
+
+R25–R28：白盒船控证据不外推至完整世界；候选真实凸壳扫掠仍导致正式 zone1 离泊和回泊回归。旧航线契约不变，未退役旧步进边界。 部署状态不变，结果及未验边界见[开发与证据](../../development/2026-11-20_formal_world_integration.md)。
+
+## 2026-11-20 阳光房实体阻挡迁移门禁
+
+保留阳光房 BlockerSet、开阔水、航线和泊位查询。旧泊位实窗专项 33/0；未把它作为原生船壳证据。 详见[实测](../../development/2026-11-20_sunroom_collision_handoff.md)。
+
+
+## 2026-11-20 正式 Main 手动海上 3C
+
+R29：已接入共享正式 Main；家园栈桥有显式实体正碰、连续顶船不挤入、改向释放、两种手动进泊。其他岸段逐件实体未完备。R30：前台自动水面命令暂停，独立水域与历史对照接口保留。 [实窗、碰撞来源和未覆盖范围](../../development/2026-11-20_formal_manual_sea.md)。
+
+| 条款 ID | 实施与证据 |
+|---|---|
+| SEA-NAV-R29 | 家园栈桥原生船壳、脱困及两类进泊通过；各岛实体覆盖待补；[实窗证据](../../development/2026-11-20_formal_manual_sea.md)。 |
+| SEA-NAV-R30 | 暂停玩家自动水路；保留法定水域、建设、存档等查询；[实窗证据](../../development/2026-11-20_formal_manual_sea.md)。 |
+
+## 2026-11-20 正式 F5 手动划行复验
+
+R29：保留正式船壳与靠泊限速；真窗口 33/0 覆盖随船镜头下的 WASD 起停、转镜后方向键按屏幕轴航行、手动进泊和下船。正式物理船专项 32/0，白盒实窗 157/0。R30 保持既有状态，本轮不修改或验收自动水路、召船与规划。[复验记录](../../development/2026-11-20_formal_manual_sea.md#正式-f5-角色镜头操控补齐与实窗复验)。
+
+## 2026-11-20 晚间正式 Main 复核
+
+R29/R30：正式手动推进已扫掠凸壳，仍逐步执行 WaterNavigation 的船中心旧轮廓禁入。无头运行时探针命中唯一匹配船掩码的栈桥物理体，并另测得一次旧轮廓拒绝而船壳无接触。晚间实窗靠泊交接受失焦干扰，详见[正式 Main 复核](../../development/2026-11-20_3c_structure_audit.md#2026-11-20-晚间--正式-main-现状复核)。

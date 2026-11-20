@@ -176,3 +176,11 @@ R20/R21及对应潜水24条仍为 `planned/pending`，首版产品选择已由�
 4. 协议级照片记录已限制为稳定摘要、最佳分数、首次日期与受控相对引用；实际图片异步生成/验证/迟到回调仍未接入。
 
 当前证据为 `dive-maps` 873/0、`b2-pickup-transactions` 191/0、`save-seed` exit0、`save-corrupt-seed` exit0、`save-protection` exit0、`framework-integration` 52/0。真实地图目标、UI、跨07:00多潜路线、返回单次保存意愿、图片文件链路及全套R20/R21验收仍为 planned/pending。
+
+## 2026-11-19 最小入口不读写旧存档
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-SAVE-R22 | 默认最小入口不注册旧存档模块或 UI，不读写旧档，坡脚复位只是临时角色状态。旧入口保留原路径、槽和存读规则；外部备份及所有验证均使用隔离用户目录。 |
+
+[开发与证据](../../development/2026-11-19_minimal_main.md)。

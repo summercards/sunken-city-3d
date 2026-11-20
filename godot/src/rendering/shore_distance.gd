@@ -17,6 +17,7 @@ var _level := 1.12
 var _region := Rect2()
 var _field := PackedFloat32Array()
 var cache_enabled := true
+var include_csg := false
 var cache_directory := "user://shore_distance_cache"
 var metrics := {"cache_hit": false, "build_ms": 0.0, "edt_ms": 0.0}
 # 全进程只保留一个有上限的原始图条目；不按地图/几何建立大图字典。
@@ -260,6 +261,10 @@ func _visit(node: Node) -> void:
 	if node is Node3D and not node.is_visible_in_tree(): return
 	if node is MeshInstance3D and node.mesh != null:
 		_slice(node.mesh, node.global_transform)
+	elif include_csg and node is CSGShape3D and node.is_root_shape():
+		var meshes: Array = node.get_meshes()
+		if meshes.size() >= 2 and meshes[1] is Mesh:
+			_slice(meshes[1], node.global_transform * meshes[0])
 	elif node is MultiMeshInstance3D and node.multimesh != null:
 		var mm: MultiMesh = node.multimesh
 		if mm.mesh != null:
