@@ -2,6 +2,25 @@
   "schema": 1,
   "modules": [
     {
+      "id": "workshop_dock",
+      "name": "制造区码头",
+      "asset_id": "SEA-KIT-WORKSHOP-DOCK",
+      "profile": "dock",
+      "footprint": [5, 2.5],
+      "height": 0.5,
+      "seconds": 4,
+      "cost": {"wood": 10},
+      "category": "platform",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/workshop_dock.tscn",
+      "description": "贴在木平台的外沿，保留外侧停船水面。",
+      "source_origin": "surface_center",
+      "front_axis": "+Z"
+    },
+    {
       "id": "platform_5x5",
       "name": "5×5米木平台",
       "asset_id": "SEA-KIT-PLATFORM-5X5",

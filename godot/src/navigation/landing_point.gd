@@ -8,10 +8,7 @@ func ground() -> Node3D:
 	return get_parent() as Node3D
 
 func stand_position() -> Vector3:
-	var p := global_position
-	var support: Vector3 = ground().surface_point(p)
-	if support.is_finite(): p = support
-	return p
+	return global_position
 
 func data() -> Dictionary:
 	var stand := stand_position()

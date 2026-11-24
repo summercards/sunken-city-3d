@@ -1,0 +1,232 @@
+{
+  "key": "deep_bay",
+  "name": "破窗砌体",
+  "component_family": "facade",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-BAY",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay/deep_bay.blend",
+  "source_sha256": "0959c76f9ae40d1e7308bd4ced259a68914392c2dcbe27ac516cc3fb776905e7",
+  "collection": "MASTER | deep_bay",
+  "bounds_m": [
+    3.7200000286102295,
+    0.6000000238418579,
+    4.099999904632568
+  ],
+  "form": [
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.4,
+      "top": 0.3916,
+      "extent": [
+        0.9909999999999999,
+        0.4,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.48,
+      "top": 0.46991999999999995,
+      "extent": [
+        1.1159999999999999,
+        0.48,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.42,
+      "top": 0.41118,
+      "extent": [
+        0.696,
+        0.42,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.33,
+      "top": 0.32307,
+      "extent": [
+        0.851,
+        0.33,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.48,
+      "top": 0.46991999999999995,
+      "extent": [
+        0.5309999999999999,
+        0.48,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.42,
+      "top": 0.41118,
+      "extent": [
+        0.916,
+        0.42,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.33,
+      "top": 0.32307,
+      "extent": [
+        1.066,
+        0.33,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Dressed stone course",
+      "kind": "vertical_structure",
+      "bottom": 0.4,
+      "top": 0.3916,
+      "extent": [
+        1.141,
+        0.4,
+        0.49
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Deep return",
+      "kind": "vertical_structure",
+      "bottom": 0.28,
+      "top": 0.27412000000000003,
+      "extent": [
+        0.28,
+        0.42,
+        3.04
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Deep return",
+      "kind": "vertical_structure",
+      "bottom": 0.28,
+      "top": 0.27412000000000003,
+      "extent": [
+        0.28,
+        0.42,
+        3.04
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Deep stone lintel",
+      "kind": "vertical_structure",
+      "bottom": 0.48,
+      "top": 0.46991999999999995,
+      "extent": [
+        3.72,
+        0.48,
+        0.48
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Broken window sill",
+      "kind": "vertical_structure",
+      "bottom": 0.48,
+      "top": 0.46991999999999995,
+      "extent": [
+        3.47,
+        0.48,
+        0.18
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Recessed sash head",
+      "kind": "vertical_structure",
+      "bottom": 0.12,
+      "top": 0.11747999999999999,
+      "extent": [
+        1.39,
+        0.12,
+        0.12
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Recessed sash head",
+      "kind": "vertical_structure",
+      "bottom": 0.12,
+      "top": 0.11747999999999999,
+      "extent": [
+        1.39,
+        0.12,
+        0.12
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Center sash",
+      "kind": "vertical_structure",
+      "bottom": 0.11,
+      "top": 0.10769,
+      "extent": [
+        0.11,
+        0.12,
+        2.24
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.040000006556510925,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_bay.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_bay.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-BAY"
+}

@@ -240,7 +240,7 @@ func _ensure_bedside_wiring() -> void:
 				var area = room.area_at(start_world, 0.8)
 				if area == null:
 					return []
-				var route: Array = area.path_between(start_world, goal_world)
+				var route: Array = room.ground_space.native_route(start_world, goal_world) if is_instance_valid(room.ground_space) else []
 				for index in route.size():
 					route[index] = room.to_local(route[index])
 				return route

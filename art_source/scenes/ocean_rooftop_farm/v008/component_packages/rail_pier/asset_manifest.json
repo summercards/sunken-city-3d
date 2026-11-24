@@ -1,0 +1,37 @@
+{
+  "key": "rail_pier",
+  "asset_id": "SEA-SCENE-ORF7-RAIL-PIER",
+  "name": "栏杆柱头",
+  "category": "structure",
+  "component_family": "rail",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/rail_pier/rail_pier.blend",
+  "source_sha256": "1a6c2a6c1f9d34b8f9ece3683d64b00d4ac597496b19cceaaecee019e9fdbb53",
+  "collection": "MASTER | rail_pier",
+  "bounds_m": [
+    0.7900000214576721,
+    0.7599999904632568,
+    1.1800000667572021
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-RAIL-PIER",
+  "version": "v008"
+}

@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
 [ext_resource type="PackedScene" path="res://assets/models/building_kit/stairs/stairs.glb" id="2"]
+[sub_resource type="ConcavePolygonShape3D" id="StairRamp"]
+backface_collision = true
+data = PackedVector3Array(-0.6, 2.8, -2, -0.6, 0, 2, 0.6, 0, 2, -0.6, 2.8, -2, 0.6, 0, 2, 0.6, 2.8, -2)
+
 [node name="stairs" type="Node3D"]
 script = ExtResource("1")
 content_id = "stairs"
 metadata/water_layer = "surface"
 metadata/water_layer_role = "entity"
 [node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="StairRamp" type="StaticBody3D" parent="."]
+position = Vector3(0, 0, 0)
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="StairRamp"]
+shape = SubResource("StairRamp")

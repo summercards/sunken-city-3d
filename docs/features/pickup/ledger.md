@@ -15,7 +15,6 @@
     "godot/src/pickups"
   ],
   "verification": [
-    "selftest",
     "visual-sea-style",
     "visual-fish-schools",
     "framework-integration",

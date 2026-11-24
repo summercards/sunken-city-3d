@@ -80,7 +80,7 @@ func run() -> void:
 	main.cam._apply()
 	await settle(12)
 
-	var box: Node3D = main._zone_nodes.zone1.get_node("Objects/ShippingBox")
+	var box: Node3D = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/ShippingBox")
 	var plot: Node3D = main.farm_field.find("home_plot")
 	var far: Node3D = main.farm_field.find("platform_plot")
 	check(box != null and plot != null and far != null, "找到出货箱、木屋菜箱与水上平台地格")

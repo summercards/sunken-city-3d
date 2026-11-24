@@ -29,7 +29,7 @@ func run() -> void:
 		quit(2)
 		return
 	left = quarter.get_node_or_null("Visual/LeftBuilding") as Node3D
-	var roof: Node3D = quarter.get_node_or_null("WalkAreas/WalkLeftRoof")
+	var roof: Node3D = quarter.get_node_or_null("Visual/LeftBuilding/WalkLeftRoof")
 	if roof == null:
 		print("[roof] 找不到 WalkLeftRoof")
 		quit(2)

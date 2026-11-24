@@ -17,7 +17,7 @@ static func surface_height(screen: Vector2,camera: Camera3D,rows: Array,fallback
 	var distance:=INF
 	var result:=fallback
 	var base_point:=plane_point(screen,camera,0.0)
-	if base_point.is_finite() and Catalog.BASE.has_point(Vector2(base_point.x-Catalog.ORIGIN.x,base_point.z-Catalog.ORIGIN.z)):
+	if not Catalog.has_starter(rows) and base_point.is_finite() and Catalog.BASE.has_point(Vector2(base_point.x-Catalog.ORIGIN.x,base_point.z-Catalog.ORIGIN.z)):
 		distance=origin.distance_squared_to(base_point);result=0.0
 	for row in rows:
 		if float(row.left)>0.0: continue
@@ -48,7 +48,10 @@ static func mesh_hit(origin: Vector3,direction: Vector3,root_node: Node3D,cache:
 	var best:=INF
 	for node in root_node.find_children("*","MeshInstance3D",true,false):
 		var mesh_node:=node as MeshInstance3D
-		if mesh_node.mesh==null or not mesh_node.is_visible_in_tree(): continue
+		if mesh_node.mesh == null or mesh_node.has_meta("construction_overlay"): continue
+		if not mesh_node.is_visible_in_tree() and not (
+			mesh_node.has_meta("construction_hidden") and (mesh_node.get_parent() as Node3D).is_visible_in_tree()
+		): continue
 		var mesh_id:=mesh_node.mesh.get_instance_id()
 		if not cache.has(mesh_id): cache[mesh_id]=mesh_node.mesh.get_faces()
 		var inverse:=mesh_node.global_transform.affine_inverse()

@@ -61,7 +61,7 @@ func run() -> void:
 	main._autosave_on = false
 	for i in 70: await process_frame
 	var zone: Node3D = main._zone_nodes.zone1
-	var box: Node3D = zone.get_node("Objects/ShippingBox")
+	var box: Node3D = zone.get_node("Models/太阳能木屋/Facilities/ShippingBox")
 	check(box != null, "码头有出货箱")
 	if box != null:
 		var ba := world_aabb(box)

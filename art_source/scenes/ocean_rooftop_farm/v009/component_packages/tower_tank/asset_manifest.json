@@ -1,0 +1,38 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "tower_tank",
+  "asset_id": "SEA-SCENE-ORF7-TOWER-TANK",
+  "name": "水塔罐体、锥顶及箍带",
+  "category": "facility",
+  "component_family": "tower",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/tower_tank/tower_tank.blend",
+  "source_sha256": "596407c14504930a42dc5df6c479762ea3164e63e87b8d312e7660c8ce4c3b75",
+  "collection": "MASTER | tower_tank",
+  "bounds_m": [
+    2.828000068664551,
+    2.828000068664551,
+    2.3600001335144043
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.07999999821186066
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-TOWER-TANK",
+  "version": "v009"
+}

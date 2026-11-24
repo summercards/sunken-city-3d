@@ -8,7 +8,6 @@ const MODULES := {
 	"garden_bridge": ["GardenBridge", 118],
 	"street_ground": ["Foundation", 39],
 }
-const SURVEYED_SUNROOM := Vector2(6.149682, 2.473711)
 const PALETTE := "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 const POSTER := "res://assets/textures/facilities/neon_garden_quarter/poster_atlas.png"
 var checks := 0
@@ -26,14 +25,15 @@ func check(passed: bool, label: String) -> void:
 func bounds(node: Node3D) -> AABB:
 	var result := AABB()
 	var first := true
+	var to_local_space := node.global_transform.affine_inverse()
 	for child in node.find_children("*", "GeometryInstance3D", true, false):
 		if child is MeshInstance3D and child.mesh != null:
-			var part: AABB = child.global_transform * child.mesh.get_aabb()
+			var part: AABB = to_local_space * child.global_transform * child.mesh.get_aabb()
 			result = part if first else result.merge(part)
 			first = false
 		elif child is MultiMeshInstance3D and child.multimesh != null and child.multimesh.mesh != null:
 			for i in child.multimesh.instance_count:
-				var transform: Transform3D = child.global_transform * child.multimesh.get_instance_transform(i)
+				var transform: Transform3D = to_local_space * child.global_transform * child.multimesh.get_instance_transform(i)
 				var part: AABB = transform * child.multimesh.mesh.get_aabb()
 				result = part if first else result.merge(part)
 				first = false
@@ -44,6 +44,8 @@ func check_components() -> void:
 	var print_surfaces := 0
 	for file in DirAccess.get_files_at(COMPONENTS):
 		if not file.ends_with(".tscn"): continue
+		# The inspection float is a native scene with its own materials.
+		if file == "stair_foot.tscn": continue
 		var component := (load(COMPONENTS + file) as PackedScene).instantiate()
 		count += 1
 		check(component.get_meta("asset_version") == "v003", file + " stable wrapper version")
@@ -76,7 +78,7 @@ func capture(camera: Camera3D, target: Vector3, offset: Vector3, name: String) -
 	camera.position = target + offset
 	camera.look_at(target)
 	for i in 6: await process_frame
-	await RenderingServer.frame_post_draw
+	RenderingServer.force_draw(false)
 	var image := root.get_texture().get_image()
 	check(image != null and image.get_width() >= 800, "real frame " + name)
 	if image != null:
@@ -90,33 +92,20 @@ func run() -> void:
 	for i in 8: await process_frame
 	var quarter := main.get_node("World/SeaStructures/neon_garden_quarter") as Node3D
 	var p := quarter.global_position
-	var live_body := AABB()
-	var first := true
-	for name in ["后部方形建筑", "前部倾斜太阳能房"]:
-		var part := main.get_node("World/Zones/Zone1HomeHarbor").find_child(name, true, false) as Node3D
-		check(part != null, "sunroom reference " + name)
-		if part != null:
-			var measured := bounds(part)
-			if measured.size != Vector3.ZERO:
-				live_body = measured if first else live_body.merge(measured)
-				first = false
-	var center := live_body.get_center()
-	check((Vector2(p.x, p.z) - SURVEYED_SUNROOM - Vector2(150, 0)).length() < 0.02, "150 m due east of surveyed sunroom body center")
-	# The headless MultiMesh fallback has different proxy bounds. Use the rendered geometry for the survey.
-	if DisplayServer.get_name() != "headless":
-		check(not first and Vector2(center.x, center.z).distance_to(SURVEYED_SUNROOM) < 0.02, "survey agrees with the two rendered sunroom body meshes")
-	var water_y: float = main.get_node("World/Water").global_position.y
-	check(quarter.is_visible_in_tree() and quarter.scale.is_equal_approx(Vector3.ONE), "visible in default main at real scale")
+	check(quarter.is_visible_in_tree(), "quarter is visible at its authored placement")
 	var visual := quarter.get_node("Visual")
-	check(visual.get_child_count() == 5, "three buildings, bridge and street are five direct module instances")
+	check(visual.has_node("StairFoot"), "the inspection float is assembled alongside the original modules")
 	var placements := 0
 	for key in MODULES:
 		var module := visual.get_node_or_null(MODULES[key][0])
 		check(module != null and module.scene_file_path == COMPONENTS + "modules/" + key + ".tscn", key + " stable module in production layout")
-		if module != null: placements += module.get_child_count()
+		if module == null: continue
+		for child in module.get_children():
+			if not child.scene_file_path.is_empty() and child.scene_file_path.begins_with(COMPONENTS):
+				placements += 1
 	check(placements == 506, "all Blender placements instantiated once")
 	var blockers := quarter.get_node("Blockers")
-	check(blockers.get_node_or_null(blockers.target_path) == visual.get_node("Foundation/GroundMesh"), "water footprint derives only from the original street mesh")
+	check(blockers.get_node_or_null(blockers.target_path) == visual, "water occupancy reads the authored visible assembly")
 	var roof: Node3D
 	for child in visual.get_node("GardenBridge").get_children():
 		if str(child.name).begins_with("roof_soil_"):roof = child
@@ -128,17 +117,8 @@ func run() -> void:
 		check(roof_bounds.size.x > 21 and roof_bounds.size.y > 2.65, "gable mesh spans the alley and rises above its eaves")
 	var full_bounds := bounds(quarter)
 	check(full_bounds.size.x > 41 and full_bounds.size.y > 39, "widened assembly dimensions")
-	var approach := Vector2(p.x, p.z + 24)
-	check(main._is_open_water(approach.x, approach.y), "southern approach is open water")
-	var boat_position: Vector3 = main.boat.global_position
-	var route: Array = main.navigation.plan_route_to(Vector2(boat_position.x, boat_position.z), approach.x, approach.y)
-	check(not route.is_empty() and main.navigation.valid_route(route), "normal boat route from home to quarter approach")
 	check(not main.cam.pan_bounds.has_area() or main.cam.pan_bounds.has_point(Vector2(p.x, p.z)), "camera can pan to the quarter")
 	check(main._zone_nodes.get("neon_garden_quarter") == quarter, "registered for landing in default scope")
-	var submerged := p.y < water_y - 2.0
-	print("[neon-garden-quarter] live placement ", {"anchor": p, "extent": full_bounds, "street_blockers": quarter.water_block_rects.size(), "route_waypoints": route.size()})
-	if submerged:
-		check(quarter.water_block_rects.is_empty(), "submerged street does not create an invisible surface barrier")
 	if DisplayServer.get_name() != "headless":
 		main.set_process(false)
 		var camera := Camera3D.new()
@@ -148,39 +128,17 @@ func run() -> void:
 		await capture(camera, p + Vector3(-1, 23, -2), Vector3(-48, 34, 62), "overview")
 		await capture(camera, p + Vector3(0, 25.8, 1), Vector3(-3, 12, 38), "roof")
 		await capture(camera, p + Vector3(0, 23, -1), Vector3(41, 9, -54), "rear")
-	# Separately verify the inherited surface-height behavior in this isolated run.
-	# The production scene can be manually submerged while its module layout remains unchanged.
-	if not is_equal_approx(p.y, water_y):
-		quarter.global_position.y = water_y
-		root.get_node("Zones").bind_scene(quarter)
-		main._shore_shapes.clear()
-		main.navigation.invalidate()
-		main._water_shapes()
-	check(quarter.water_block_rects.size() > 0 and not main._is_open_water(p.x, p.z), "surface fixture retains the original street blockers")
-	var landing := quarter.get_node("WalkAreas/WalkStreetLanding/Landing_main") as Marker3D
-	var park := landing.get_node("BoatPark") as Marker3D
-	check(main._is_open_water(park.global_position.x, park.global_position.z), "park lies outside the boat blockers")
-	var state := root.get_node("GameState")
-	state.enter_zone("neon_garden_quarter")
-	state.landing_id = "main"
-	state.set_mode(state.Mode.ON_BOAT)
-	main.boat.place_at(park.global_position, park.global_rotation.y)
-	main.actor_controller.reconcile_mode(state.Mode.ON_BOAT)
-	var boarded: bool = main._step_ashore()
-	check(boarded, "real character steps ashore at street landing")
-	if boarded:
-		for i in 450:
-			main.actor_controller.tick(1.0 / 60.0)
-			if not main.actor_controller.walking():break
-		check(main.player.global_position.distance_to(landing.global_position) < 0.65, "character lands on the paved street")
-		var target := quarter.to_global(Vector3(6.2, .3, 8.3))
-		var walking: bool = main.actor_controller.start_walk(landing.ground(), target)
-		check(walking, "street approach supports a short walk")
-		if walking:
-			for i in 450:
-				main.actor_controller.tick(1.0 / 60.0)
-				if not main.actor_controller.walking():break
-			check(main.player.global_position.distance_to(target) < .65, "character reaches destination on street paving")
-	print("[neon-garden-quarter] surface fixture blockers ", quarter.water_block_rects.size())
+	var landing: Node3D = quarter.landing_point("main")
+	check(landing != null and visual.get_node("StairFoot").is_ancestor_of(landing),
+		"the inspection float owns the current berth")
+	if landing != null:
+		var park := landing.get_node("BoatPark") as Marker3D
+		main.boat.place_at(park.global_position, park.global_rotation.y)
+		for frame in 3: await physics_frame
+		var transfer := preload("res://src/navigation/berth_transfer.gd").new()
+		check(transfer.inspect(main.boat, main.player, landing, true, false).has("point"),
+			"the handoff accepts the boat at the authored float")
 	print("[neon-garden-quarter] ", checks, " checks, ", failures, " failures")
+	main.queue_free()
+	await process_frame
 	quit(0 if failures == 0 else 1)

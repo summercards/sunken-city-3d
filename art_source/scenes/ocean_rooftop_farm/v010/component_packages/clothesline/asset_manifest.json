@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "clothesline",
+  "asset_id": "SEA-SCENE-ORF7-CLOTHESLINE",
+  "name": "晾衣杆与衣物",
+  "category": "facility",
+  "component_family": "patio",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/clothesline/clothesline.blend",
+  "source_sha256": "09376312d48f06a395517e874d8fa30d7330664b3302a54c520c1b395b9f371e",
+  "collection": "MASTER | clothesline",
+  "bounds_m": [
+    5.200000286102295,
+    0.3749768137931824,
+    2.7200000286102295
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0024884045124053955,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-CLOTHESLINE",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/clothesline.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/clothesline.tscn"
+}

@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/house/v010/wall_stone_cool.glb" id="model"]
+
+[node name="Piece" type="Node3D"]
+
+metadata/asset_id = "SEA-SCENE-ORF7-WALL-STONE-COOL"
+
+[node name="Visual" parent="." instance=ExtResource("model")]

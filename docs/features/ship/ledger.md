@@ -17,8 +17,8 @@
   ],
   "verification": [
     "management",
-    "surface",
-    "framework-modules"
+    "framework-modules",
+    "visual-formal-manual-sea"
   ]
 }
 ```

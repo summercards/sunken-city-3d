@@ -133,12 +133,59 @@ func detector_contract() -> void:
 				notch=true; break
 	check(notch,"detector regression fixture contains a real waist gap inside outer bounds")
 
-func tail_connections() -> void:
-	for style in ["ponytail","high_ponytail","low_ponytail","braid"]:
+func hair_topology() -> void:
+	for option in Catalog.options("hair_style"):
+		var style: String = option.id
 		for volume in [0.0,1.0]:
-			actor.apply_avatar(Support.profile({"hair_style":style,"hat":"none"},{"hair_length":1.0,"hair_volume":volume}))
-			var gap:=Support.tail_attachment_gap(actor)
-			check(is_finite(gap) and gap<.018,"actual scalp/tail surface contact %s volume%.0f gap=%.4fm"%[style,volume,gap])
+			actor.apply_avatar(Support.profile({"hair_style":style,"hat":"none","hair_accessory":"none"},
+				{"hair_length":1.0,"hair_volume":volume}))
+			var head: Node3D = actor.head_pivot.get_node("AvatarHead")
+			var hair := Support.meshes(head,"hair")
+			var label := "%s volume%.0f" % [style,volume]
+			check(hair.size()==1 and hair[0].mesh.get_surface_count()==1,"one hair surface "+label)
+			if hair.size()!=1:
+				continue
+			var data := Support.arrays(hair[0].mesh,0)
+			var points: PackedVector3Array = data[Mesh.ARRAY_VERTEX]
+			var indices: PackedInt32Array = data[Mesh.ARRAY_INDEX]
+			var adjacency: Array[PackedInt32Array] = []
+			adjacency.resize(points.size())
+			var edges := {}
+			var degenerate := 0
+			for i in range(0,indices.size(),3):
+				var a := indices[i]
+				var b := indices[i+1]
+				var c := indices[i+2]
+				if (points[b]-points[a]).cross(points[c]-points[a]).length_squared()<1e-15:
+					degenerate += 1
+				for j in 3:
+					var first := indices[i+j]
+					var second := indices[i+(j+1)%3]
+					adjacency[first].append(second)
+					adjacency[second].append(first)
+					var edge := Vector2i(mini(first,second),maxi(first,second))
+					edges[edge] = int(edges.get(edge,0))+1
+			var reached := {0:true}
+			var pending := [0]
+			while not pending.is_empty():
+				var vertex: int = pending.pop_back()
+				for neighbor in adjacency[vertex]:
+					if not reached.has(neighbor):
+						reached[neighbor] = true
+						pending.append(neighbor)
+			var boundary := {}
+			var manifold := true
+			for edge in edges:
+				manifold = manifold and edges[edge]<=2
+				if edges[edge]==1:
+					boundary[edge.x] = int(boundary.get(edge.x,0))+1
+					boundary[edge.y] = int(boundary.get(edge.y,0))+1
+			# A connected cap with one hem and no extra holes is a topological disk.
+			check(reached.size()==points.size() and degenerate==0 and manifold and not boundary.is_empty()
+				and boundary.values().all(func(degree): return degree==2)
+				and points.size()-edges.size()+indices.size()/3==1,
+				"continuous indexed hair, including any ties "+label)
+			check(indices.size()/3<=3700,"hair triangle budget %s: %d"%[label,indices.size()/3])
 
 func geometry_case(id: String) -> void:
 	var result := Support.geometry(actor)
@@ -215,7 +262,7 @@ func run() -> void:
 	var skeleton: Skeleton3D=actor.limb_skinning
 	var collision: CollisionShape3D=actor.get_node("BodyCollision")
 	var shape: CapsuleShape3D=collision.shape
-	morphology(); blush_contract(); detector_contract(); tail_connections()
+	morphology(); blush_contract(); detector_contract(); hair_topology()
 	for entry in Support.cases():
 		Support.sample_action(actor,"idle",0); actor.apply_avatar(entry.profile); geometry_case(entry.id)
 		check(actor.transform==original and actor.scale.is_equal_approx(Vector3.ONE) and collision.shape==shape and is_equal_approx(shape.radius,.22) and is_equal_approx(shape.height,1.3) and actor.limb_skinning==skeleton,"cosmetic matrix preserves actor, collision and rig "+entry.id)

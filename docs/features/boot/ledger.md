@@ -20,9 +20,9 @@
     "visual-title-screen-day",
     "visual-title-screen-night",
     "visual-title-screen-dawn",
-    "selftest",
     "framework-integration",
-    "save-protection"
+    "save-protection",
+    "visual-formal-default-launch"
   ]
 }
 ```
@@ -52,7 +52,7 @@ Main._setup_save_registry 装配模块快照；capture_world_state / restore_wor
 
 ## 验证记录
 
-当前入口：`python3 scripts/run_verification.py selftest framework-integration save-protection`。
+当前入口为 `python3 scripts/run_verification.py visual-formal-default-launch framework-integration save-protection`。
 
 2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 

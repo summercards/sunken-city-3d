@@ -99,7 +99,7 @@ func run() -> void:
 	main.grade._light_write("sun_energy",base)
 	main.daylight_rig.apply(9.0)
 	var cabin=main.get_node("World/Zones/Zone1HomeHarbor/Models/太阳能木屋")
-	var box=main._zone_nodes.zone1.get_node("Objects/ShippingBox")
+	var box=main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/ShippingBox")
 	var visual=box.get_node_or_null("Visual")
 	check(visual!=null and visual.is_visible_in_tree(),"functional dock box owns a visible PackedScene")
 	if visual==null:main.queue_free();quit(1);return

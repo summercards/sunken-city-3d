@@ -4,6 +4,8 @@ func run() -> void:
 	var main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main.set_process(false)
+	await physics_frame
+	await process_frame
 	root.get_node("Economy").coins=98765
 	main.world_clock.day=17
 	main.weather_service.set_weather("rain")

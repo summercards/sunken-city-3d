@@ -4,6 +4,8 @@ extends "res://src/interaction/interactable.gd"
 signal opened
 
 func _on_ready() -> void:
+	interaction_context = "shore"
+	trigger_padding = 0.35
 	id = "home_shipping_box"
 	label = "出货箱"
 	verb = "放入 / 取回"

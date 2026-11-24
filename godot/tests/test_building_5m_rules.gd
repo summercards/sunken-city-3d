@@ -237,7 +237,7 @@ func snapshot_roots() -> void:
 	var ground: Dictionary={"version":1,"next_id":3,"instances":[row("platform_5x5",1,Vector2(800,800)),row("raft_4x4",2,Vector2(900,900))]}
 	check(Service.validate_snapshot(ground)=="","历史新旧水面孤台继续合法")
 func geometry_and_compatibility() -> void:
-	check(Catalog.RECIPES.size()==35,"双目录22+10件与3个旧配方")
+	check(Catalog.RECIPES.size()==36 and Catalog.enabled("workshop_dock"),"现有配方与新码头")
 	check(Catalog.LAYER_HEIGHT==5.086335 and Catalog.LEGACY_LAYER_HEIGHT==2.8,"新旧层高常量独立")
 	check(Catalog.TILE==Vector2(2.15,2.575) and Catalog.BASE==Rect2(-3.225,-2.575,6.45,5.15),"旧网格不变")
 	check(not Catalog.enabled("deck") and not Catalog.enabled("wall") and Catalog.api_enabled("wall"),"菜单隐藏与兼容API分离")

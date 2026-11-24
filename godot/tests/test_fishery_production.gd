@@ -27,6 +27,7 @@ func click(point: Vector2) -> void:
 		var event := InputEventMouseButton.new()
 		event.button_index = MOUSE_BUTTON_LEFT
 		event.position = point
+		event.global_position = point
 		event.pressed = pressed
 		root.push_input(event,true)
 		await process_frame
@@ -74,7 +75,8 @@ func run() -> void:
 	main.cam.suspend_follow(); main.cam.target=Vector3(-17,1.1,18)
 	main.cam.distance=37; main.cam.orbit_dir=Vector3(-.45,.8,.6); main.cam.refresh()
 	main.daylight_rig.apply(9)
-	main._reach_cache.clear()
+	for frame in 3:
+		await physics_frame
 	check(main._land_reach_reason(marker)=="","harvest point is reachable on the upgraded shore")
 	main._open_spot_bubbles(marker)
 	var labels: Array=[]
@@ -82,12 +84,16 @@ func run() -> void:
 	check(labels==["收获鱼类"],"fishery offers only harvest without shop, warehouse or shipping")
 	await shot("harvest-menu")
 	main.hud.world_actions.close(true)
+	main.interactor.set_interaction_context("shore")
+	main.interactor.active = true
 	main._fishery_marker._process(0.0)
 	check(main._fishery_marker.visible and main._fishery_marker.button.kind=="fish" and main._fishery_marker.button.item_icon=="","screen button reuses the existing white fish action silhouette")
-	await click(main._fishery_marker.button.get_global_rect().get_center())
+	var button: Button = main._fishery_marker.button
+	var click_position := button.get_global_transform_with_canvas() * (button.size * 0.5)
+	await click(click_position)
 	await drive_interaction()
-	check(economy.count("fish")==3 and fishery.pending==0,"screen button approaches, interacts and deposits the complete catch into the backpack")
-	check(marker.interact(main.player).has("blocked") and economy.count("fish")==3,"repeat harvest cannot award twice")
+	check(economy.count("fish")==3 and fishery.pending==0,"screen button collects the catch while the actor is inside the trigger")
+	check(fishery.harvest_reason() != "" and economy.count("fish")==3,"empty fishery blocks a repeat harvest")
 	await click(main._fishery_marker.button.get_global_rect().get_center())
 	check(not main.hud.is_panel_open() and fishery.pending==0 and main._fishery_marker.button.caption=="生长中","empty fishery shows growth and never opens supply services")
 	advance(8)

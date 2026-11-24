@@ -1,6 +1,61 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3]
 [ext_resource type="Script" path="res://src/building/deck_visual.gd" id="1"]
+
+[sub_resource type="BoxMesh" id="Plank"]
+size = Vector3(0.405, 0.5, 2.575)
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.722, 0.545, 0.333, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="WoodLight"]
+albedo_color = Color(0.748, 0.584, 0.378, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="WoodLighter"]
+albedo_color = Color(0.776, 0.622, 0.424, 1)
+roughness = 0.94
+
+[sub_resource type="BoxShape3D" id="Deck"]
+resource_local_to_scene = true
+size = Vector3(2.15, 0.5, 2.575)
+
 [node name="WoodDeck" type="Node3D"]
 script = ExtResource("1")
 metadata/water_layer = "surface"
 metadata/water_layer_role = "entity"
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="Plank01" type="MeshInstance3D" parent="Model"]
+position = Vector3(-0.86, -0.25, 0)
+mesh = SubResource("Plank")
+material_override = SubResource("Wood")
+
+[node name="Plank02" type="MeshInstance3D" parent="Model"]
+position = Vector3(-0.43, -0.25, 0)
+mesh = SubResource("Plank")
+material_override = SubResource("WoodLight")
+
+[node name="Plank03" type="MeshInstance3D" parent="Model"]
+position = Vector3(0, -0.25, 0)
+mesh = SubResource("Plank")
+material_override = SubResource("WoodLighter")
+
+[node name="Plank04" type="MeshInstance3D" parent="Model"]
+position = Vector3(0.43, -0.25, 0)
+mesh = SubResource("Plank")
+material_override = SubResource("Wood")
+
+[node name="Plank05" type="MeshInstance3D" parent="Model"]
+position = Vector3(0.86, -0.25, 0)
+mesh = SubResource("Plank")
+material_override = SubResource("WoodLight")
+
+[node name="SurfaceCollision" type="StaticBody3D" parent="."]
+collision_layer = 12288
+collision_mask = 0
+
+[node name="Deck" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(0, -0.25, 0)
+shape = SubResource("Deck")

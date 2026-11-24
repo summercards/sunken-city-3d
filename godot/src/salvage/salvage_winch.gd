@@ -8,8 +8,7 @@ var rewards: RewardsDependency
 ## 现在它是一台真实的绞盘：木架、卷筒、摇柄、垂到水里的钩子。
 ## 走近按 E 打开打捞小游戏（见 `src/salvage/salvage.gd`），玩完才结算产出。
 ##
-## 节点放在 zone1 的打捞浮台上（坐标由 `assets/data/build_sites.json` 之外单独给，
-## 因为打捞台是固定设施而不是可升级建筑）。
+## 绞盘实例与触发区随打捞浮台摆放。
 
 signal opened(winch: Node3D)
 
@@ -33,20 +32,6 @@ var _hook: Node3D
 var _lamp_mat: StandardMaterial3D
 var _spin := 0.0
 var _idle := 0.0
-
-
-func setup(data: Dictionary) -> void:
-	id = str(data.get("id", "salvage_winch"))
-	zone_id = str(data.get("zone", "zone1"))
-	label = str(data.get("name", "绞盘打捞台"))
-	verb = "打捞"
-	priority = 4
-	focus_radius = 2.6
-	hold_time = 0.0
-	accent = ACCENT
-	position = Vector3(float(data.get("x", 0.0)), float(data.get("y", 0.0)), float(data.get("z", 0.0)))
-	rotation.y = float(data.get("yaw", 0.0))
-	name = "SalvageWinch"
 
 
 func _on_ready() -> void:

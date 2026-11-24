@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_pending_runtime",
+  "key": "roof_ladder_damage",
+  "asset_id": "SEA-SCENE-ORF7-ROOF-LADDER-DAMAGE",
+  "name": "缺档受损屋顶梯",
+  "category": "facility",
+  "component_family": "house_ladder",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder_damage/roof_ladder_damage.blend",
+  "source_sha256": "f6fe5eb54b901c931c80efcac10c68adc0c599824430fe99f93feff27f2ffa4d",
+  "collection": "MASTER | roof_ladder_damage",
+  "bounds_m": [
+    1.11899995803833,
+    1.0361363887786865,
+    4.5836381912231445
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.003500014543533325,
+    0.3210681676864624,
+    -0.43630385398864746
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/roof_ladder_damage.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/roof_ladder_damage.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ROOF-LADDER-DAMAGE",
+  "version": "v010"
+}

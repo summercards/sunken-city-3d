@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "base_slab",
+  "asset_id": "SEA-SCENE-ORF7-BASE-SLAB",
+  "name": "底层楼板",
+  "category": "structure",
+  "component_family": "deck",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/base_slab/base_slab.blend",
+  "source_sha256": "a9e862accfaf3f1089f39cd3a865b102f7e41ebe93674b71144644f0506b2af0",
+  "collection": "MASTER | base_slab",
+  "bounds_m": [
+    34.400001525878906,
+    13.800000190734863,
+    0.20000000298023224
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BASE-SLAB",
+  "version": "v009"
+}

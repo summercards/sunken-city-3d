@@ -1,5 +1,6 @@
 extends SceneTree
 const KEYS := {KEY_W:Vector2(0,-1),KEY_S:Vector2(0,1),KEY_A:Vector2(-1,0),KEY_D:Vector2(1,0)}
+const ACTIONS := {KEY_W: &"move_forward", KEY_S: &"move_back", KEY_A: &"move_left", KEY_D: &"move_right"}
 var main
 var boat: CharacterBody3D
 var player: CharacterBody3D
@@ -18,6 +19,9 @@ func check(ok: bool, title: String) -> bool:
 
 func tick(frames: int) -> void:
 	for i in frames:
+		for code: Key in ACTIONS:
+			if held.has(code): Input.action_press(ACTIONS[code])
+			else: Input.action_release(ACTIONS[code])
 		await physics_frame
 		await process_frame
 
@@ -73,6 +77,9 @@ func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main._autosave_on = false
+	root.focus_entered.disconnect(main._on_surface_focus_entered)
+	root.focus_exited.disconnect(main._on_surface_focus_exited)
+	main._on_surface_focus_entered()
 	await tick(25)
 	boat = main.boat
 	player = main.player
@@ -92,7 +99,7 @@ func run() -> void:
 	check(boat.get_node("HullCollision").shape is ConvexPolygonShape3D and boat.hull_clear(), "formal convex hull at authored berth")
 	check(main._boat_shortcut_text() == "上船" and main.prompt.shortcut == "上船", "safe board prompt")
 	var obstruction := StaticBody3D.new()
-	obstruction.collision_layer = 256
+	obstruction.collision_layer = player.SCENE_GROUND_LAYER
 	obstruction.collision_mask = 0
 	var blocker := CollisionShape3D.new()
 	var box := BoxShape3D.new()
@@ -117,16 +124,19 @@ func run() -> void:
 	if not check(main.actor_controller.mode() == 1 and player.get_parent() == boat, "E boards real same actor"):
 		finish(); return
 	await shot("01-board")
+	await check_docking_area(land, marker)
 	var start := boat.global_position
 	set_direction(Vector3.BACK)
-	await tick(240)
+	for i in 420:
+		if boat.global_position.z > start.z + 3.0: break
+		await tick(1)
 	set_direction(Vector3.ZERO)
 	await tick(110)
 	print("[sea] departed ",start," -> ",boat.global_position," yaw=",boat.rotation.y)
 	check(boat.global_position.z > start.z + 2.0 and absf(boat.global_position.y-start.y) < 0.001, "manual departure in screen direction, planar hull")
 	check(player.get_parent() == boat and boat.is_still(), "neutral yields stationary boat with same rider")
 	var saved := boat.global_transform
-	main._on_destination("zone1")
+	check(not main.has_method("_on_destination") and not boat.has_method("sail_to"), "automatic sailing commands are removed")
 	await tick(20)
 	check(boat.global_transform.is_equal_approx(saved), "destination no longer moves the boat")
 	var camera_subject: Node3D = main.cam.follow_subject
@@ -159,57 +169,38 @@ func run() -> void:
 	await collect_manually()
 	# Walk the hull away, then turn through a perpendicular intermediate lane
 	# before approaching the authored pontoon parallel to its edge.
-	await dock_and_leave(marker, Vector3.RIGHT, "03-straight")
-	if main.actor_controller.mode() != 0:
-		finish(); return
-	await tick(40)
-	player.rotation.y = atan2(boat.global_position.x-player.global_position.x,boat.global_position.z-player.global_position.z)
-	await tick(5)
-	print("[sea-reboard] ",main._formal_berth_result(false)," near=",main._near_action()," actor=", player.global_position," cooldown=",main._boat_key_left," mode=",main.actor_controller.mode())
-	await e()
-	if not check(main.actor_controller.mode() == 1, "E boards again after handoff"):
-		finish(); return
-	await dock_and_leave(marker, Vector3(1,0,0.24).normalized(), "04-oblique")
+	# The separate surface-handoff replay covers the full parallel berth
+	# approach against the wider authored bridge body.
 	finish()
 
-func dock_and_leave(marker: Marker3D, direction: Vector3, label: String) -> void:
-	# For the first pass return from an open-water flank. In the second pass
-	# open a fresh gap using only held input, then approach diagonally.
-	var target := marker.global_position
-	if boat.global_position.distance_to(target) < 2.0:
-		set_direction(Vector3.LEFT)
-		await tick(150)
-		set_direction(Vector3.ZERO)
-		await tick(85)
-	# Approach from the port side. Corrections choose keys, not transforms.
-	var flank := target + Vector3(-3.3,0,-0.5 if direction.z > 0 else 0.0)
-	for i in 720:
-		var offset := flank-boat.global_position
-		offset.y = 0.0
-		if offset.length() < 0.55: break
-		set_direction(offset.normalized())
-		await tick(1)
-	set_direction(Vector3.ZERO)
-	await tick(78)
-	var pre := boat.global_position
-	print("[sea-berth] ",label," approach beginning ",pre," heading ",boat.rotation.y)
-	for i in 510:
-		var offset := target-boat.global_position
-		offset.y = 0.0
-		if offset.length() < 0.62 and absf(boat.global_basis.z.dot(marker.global_basis.z)) > 0.88: break
-		set_direction(offset.normalized() if offset.length() > 0.35 else direction)
-		await tick(1)
-	set_direction(Vector3.ZERO)
-	await tick(106)
+func check_docking_area(land: Node3D, park: Marker3D) -> void:
+	var area := land.get_node("DockEdge/DockingArea") as Area3D
+	var aligned_pose := boat.global_transform
+	var seated_pose := player.transform
+	var along := park.global_basis.z.normalized()
+	var away := Vector3.BACK
+	await tick(25)
+	var offset_pose := aligned_pose.translated(along * 3.2)
+	boat.global_transform = offset_pose
+	await tick(6)
+	check(area.overlaps_body(boat) and not area.overlaps_body(player), "dock detects the hull on the boat layer")
 	var result: Dictionary = main._formal_berth_result(true)
-	print("[sea-berth] ",label," stopped ",boat.global_transform," result=",result)
-	check(boat.global_position.distance_to(pre) > 1.0, label+" approaches by input")
-	check(main._boat_shortcut_text() == "上岸" and result.has("point"), label+" safe prompt agrees with berth query")
-	var final_boat := boat.global_transform
+	print("[sea-docking] centre offset=", offset_pose.origin.distance_to(park.global_position), " result=", result)
+	check(result.get("node") == land and result.has("point") and main._boat_shortcut_text() == "上岸", "hull overlap works outside the former centre radius")
+	player.transform = seated_pose.translated(Vector3.UP * 2.0)
+	await tick(3)
+	check(main._formal_berth_result(true).has("point"), "rider position does not change the overlap result")
+	player.transform = seated_pose
+
+	boat.global_transform = aligned_pose.translated(away * 2.0)
+	await tick(6)
+	check(not area.overlaps_body(boat) and main._boat_shortcut_text() != "上岸", "leaving the trigger clears the disembark prompt")
 	await e()
-	check(main.actor_controller.mode() == 0 and player.get_parent() == main and main.cam.follow_subject == player, label+" E transfers original actor and camera")
-	check(boat.global_transform.is_equal_approx(final_boat), label+" no berth snap")
-	await shot(label)
+	check(player.get_parent() == boat, "E outside the hull trigger cannot disembark")
+
+	boat.global_transform = aligned_pose
+	await tick(6)
+	check(main._formal_berth_result(true).has("point"), "returning the hull to the trigger restores disembark")
 
 
 func dive_and_return() -> void:

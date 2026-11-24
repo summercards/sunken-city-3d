@@ -40,13 +40,14 @@
     "visual-walk-facing",
     "walk-deck-fit",
     "visual-walk-deck",
-    "surface",
     "click",
     "framework-modules",
     "framework-integration",
     "sleep-cycle",
     "building-kit",
-    "character-space-save"
+    "character-space-save",
+    "visual-formal-surface-handoff",
+    "formal-facility-berths"
   ]
 }
 ```
@@ -78,13 +79,13 @@
 
 2026-10-30表现：`play_receive_item(crop_id)`、`play_farm_action(event,payload={})`、`play_action(id,context={})`。业务成功事件负责发起，动画不持有背包或Farm；原动作token、取消和查询接口保留。
 
-start_walk / approach / depart / cancel / request_mode / restore_pose / state_id / snapshot；state_changed、mode_changed；状态/动作目录见模块约定。
+`set_move_intent()` 接收岸上移动输入，`transfer_berth()` 执行上下船，`restore_pose()` 恢复角色姿势。`state_changed` 和 `mode_changed` 发布状态变化。
 
 [模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-当前入口：`python3 scripts/run_verification.py surface click framework-modules framework-integration`。
+正式船岸往返与划桨表现的验证入口为 `python3 scripts/run_verification.py formal-facility-berths visual-formal-surface-handoff visual-rowing-fit`。
 
 2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
@@ -347,3 +348,45 @@ R41：相反方向键互相抵消时仍视为按住，不得误触登船；成�
 ## 2026-11-20 晚间正式 Main 复核
 
 R11/R12/R20/R40：键盘行走仍在胶囊扫掠前逐步查询 WalkArea 支撑和边缘，点击行走仍由 WalkArea 定落点、GroundSpace 寻路。正式家园试坡实窗 18 项全过，窗前甲板探测命中生成地板、生成外缘和场景墙体。晚间部分实窗输入专项受窗口失焦影响，证据见[正式 Main 复核](../../development/2026-11-20_3c_structure_audit.md#2026-11-20-晚间--正式-main-现状复核)。
+
+## 2026-11-20 阳光房实体行走
+
+| 对应设计条款 | 实施与证据 |
+|---|---|
+| SEA-MOVE-R42 | 正式家园主泊位步行绕过 WalkArea 步进与自动接近。实窗往返 38 项全过，包含同一角色 E 登离船、镜头交接、离船后重新接地以及返回阳光房庭院。[运行记录](../../development/2026-11-20_native_home_roundtrip.md)。 |
+
+## 2026-11-20 家园船壳下船判定
+
+| 对应设计条款 | 实施与证据 |
+|---|---|
+| SEA-MOVE-R43 | 下船候选优先匹配与船壳重叠的泊位，进入或离开区域后提示与 E 同步。实窗边界专项 27 项、正常往返 38 项通过。[验证记录](../../development/2026-11-20_home_docking_hull.md)。 |
+
+## 2026-11-21 正式 Main 移动复核
+
+R42/R43：阳光房 1.6 当前树往返实窗 38 项通过。场景地面仅由家园主泊位启用，其他泊位、设施和室内仍用旧行走判定。Main 存档和交互存在迁移差异。[审计与证据](../../development/2026-11-21_main_3c_audit.md)。
+
+## 2026-11-21 正式设施实体行走
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-MOVE-R44 | 正式 Main 的岸上角色统一使用胶囊和场景碰撞。拆除点击走路、自动接近及相关状态。阳光房实窗往返 38 项通过，设施泊位与船壳扫掠专项 28 项通过。 [开发与验证](../../development/2026-11-21_main_native_facilities.md)。 |
+
+## 2026-11-22 原生导航与 NPC 行为收口
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-MOVE-R45 | `GroundSpace.native_route()` 返回引擎导航意图，`CharacterMotor.move_ground()` 执行玩家/NPC 胶囊扫掠。正式建造、房间和住所查询已切换到该入口；兼容入口转发到同一实现。`npc-world`、`ground-space`、`room`、`building-integration` 均 exit 0。 |
+
+NPC 集成测试改为手动 `Boat.set_drive()`，通过船壳泊位触发区和 E 交接，不恢复自动航行。完整 Main 集成启动仍记录既有 `building_world.gd` 装配错误，未冒签为移动逻辑通过。
+
+## 2026-11-22 运动中船壳交接
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-MOVE-R46 | 航行中检查船壳热区重叠、实体落脚支撑和角色胶囊净空。成功后船体归位，由 `ActorController` 恢复同一角色的岸上碰撞和镜头跟随。`formal-facility-berths` 43/0，退出码 0，覆盖推进时的交接资格。`visual-formal-surface-handoff` 42/0，退出码 0，覆盖停稳后实窗按 E、船体归位和角色返岸。[验证记录](../../development/2026-11-23_manual_rowing.md)。 |
+
+## 2026-11-23 加速划桨表现
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-MOVE-R47 | 在原划桨相位中混合加速出力。桨柄和座位继续作为角色姿态目标。`visual-rowing-fit` 102173/0，退出码 0。九种外观、三个帧率下覆盖普通与加速划桨完整周期，含五张实窗画面。[验证记录](../../development/2026-11-23_manual_rowing.md)。 |

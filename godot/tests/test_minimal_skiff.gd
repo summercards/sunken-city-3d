@@ -4,6 +4,7 @@ const Entry = preload("res://src/bootstrap/minimal_main.gd")
 const Skiff = preload("res://src/navigation/minimal_skiff.gd")
 const Walker = preload("res://src/player/minimal_walker.gd")
 const AvatarProbe = preload("res://tests/avatar_customization_support.gd")
+const MOORING_PROBE_RADIUS := 0.95
 var _scene: Entry
 var _boat: Skiff
 var _player: Walker
@@ -308,7 +309,7 @@ func _test_shore_boundary() -> void:
 func _test_water_boundary(parked: Transform3D) -> void:
 	var waterline := parked.origin.y
 	for margin in [0.04, -0.04]:
-		var point: Vector3 = _park.global_position + Vector3.BACK * (_scene.mooring_radius + float(margin))
+		var point: Vector3 = _park.global_position + Vector3.BACK * (MOORING_PROBE_RADIUS + float(margin))
 		point.y = waterline
 		_boat.global_transform = Transform3D(_park.global_basis, point)
 		await _wait(12)
@@ -604,7 +605,7 @@ func _run() -> void:
 	await _sail(Vector3.FORWARD, _boat.global_position.z - _park.global_position.z)
 	var parked := _boat.global_transform
 	_point_view(Vector3.FORWARD)
-	_check(Vector2(parked.origin.x - _park.global_position.x, parked.origin.z - _park.global_position.z).length() < _scene.mooring_radius, "boat returns to berth by input, not a snap")
+	_check(Vector2(parked.origin.x - _park.global_position.x, parked.origin.z - _park.global_position.z).length() < MOORING_PROBE_RADIUS, "boat returns to berth by input, not a snap")
 	_check(_prompt_is("E 上岸", true), "returning under input shows E 上岸")
 	await _capture("06-moored")
 	await _test_water_boundary(parked)

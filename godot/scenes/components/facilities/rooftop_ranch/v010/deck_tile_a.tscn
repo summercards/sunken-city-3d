@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/deck_tile_a.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="ConcavePolygonShape3D" id="SolidFloor"]
+data = PackedVector3Array(-1.077, 0.2, -1.148, 1.077, 0.2, 1.148, -1.077, 0.2, 1.148, -1.077, 0.2, -1.148, 1.077, 0.2, -1.148, 1.077, 0.2, 1.148)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-DECK-TILE-A"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Solid"]
+shape = SubResource("SolidFloor")
+metadata/walk_surface = true
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

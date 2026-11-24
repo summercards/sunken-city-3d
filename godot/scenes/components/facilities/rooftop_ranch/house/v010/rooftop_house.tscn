@@ -1,0 +1,663 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/facilities/rooftop_house_repair.gd" id="repair"]
+
+[ext_resource type="Script" path="res://src/facilities/rooftop_house_repair_prompt.gd" id="prompt"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/bench.tscn" id="bench"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/doghouse.tscn" id="doghouse"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/entry_assembly.tscn" id="entry_assembly"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/flowers.tscn" id="flowers"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/greens.tscn" id="greens"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_corner_patch.tscn" id="house_corner_patch"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_damage.tscn" id="house_damage"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_eaves.tscn" id="house_eaves"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_eaves_damage.tscn" id="house_eaves_damage"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_pipe.tscn" id="house_pipe"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_pipe_damage.tscn" id="house_pipe_damage"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_roof.tscn" id="house_roof"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/house_shell.tscn" id="house_shell"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/planter.tscn" id="planter"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/roof_ladder.tscn" id="roof_ladder"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/roof_ladder_damage.tscn" id="roof_ladder_damage"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/rubble.tscn" id="rubble"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/wall_stone_cool.tscn" id="wall_stone_cool"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/wall_stone_sand.tscn" id="wall_stone_sand"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/house/v010/wall_stone_warm.tscn" id="wall_stone_warm"]
+
+[node name="RooftopHouse" type="Node3D"]
+
+script = ExtResource("repair")
+
+metadata/asset_id = "SEA-SCENE-ORF7-ASSEMBLY"
+
+metadata/building_class = "above_water"
+
+[node name="Blockers" type="Node3D" parent="."]
+
+script = ExtResource("blockers")
+
+mode = "none"
+
+blocks_water = false
+
+[node name="BuildingAnimation" type="AnimationPlayer" parent="."]
+
+[node name="RepairPrompt" type="Node3D" parent="."]
+
+position = Vector3(2, 0.02, 3.85)
+
+script = ExtResource("prompt")
+
+id = "rooftop_ranch_house_repair"
+
+label = "屋顶小屋"
+
+verb = "修复"
+
+focus_anchor = "node"
+
+focus_radius = 1.55
+
+auto_radius = false
+
+[node name="Part00" parent="." instance=ExtResource("house_shell")]
+
+position = Vector3(-0.019909, -0.06, 0.060376)
+
+quaternion = Quaternion(0.0, 0.0436194, 0.0, 0.9990482)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Shell"
+
+metadata/component_key = "house_shell"
+
+[node name="Part01" parent="." instance=ExtResource("house_corner_patch")]
+
+position = Vector3(1.188008, -2.31, 2.224156)
+
+quaternion = Quaternion(0.0, 0.0436194, 0.0, 0.9990482)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Corner Patch"
+
+metadata/component_key = "house_corner_patch"
+
+[node name="Part02" parent="." instance=ExtResource("house_damage")]
+
+position = Vector3(0.276422, -0.0135, 1.744063)
+
+quaternion = Quaternion(0.0, 0.0436194, 0.0, 0.9990482)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Damage"
+
+metadata/component_key = "house_damage"
+
+[node name="Part03" parent="." instance=ExtResource("house_roof")]
+
+position = Vector3(-0.013406, 2.767253, -0.10918)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Roof"
+
+metadata/component_key = "house_roof"
+
+[node name="Part04" parent="." instance=ExtResource("house_eaves")]
+
+position = Vector3(0.002742, 2.827819, 0.022332)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = false
+
+metadata/placement = "House Eaves"
+
+metadata/component_key = "house_eaves"
+
+[node name="Part05" parent="." instance=ExtResource("house_eaves_damage")]
+
+position = Vector3(0.059958, 2.827819, 0.039217)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Eaves Damage"
+
+metadata/component_key = "house_eaves_damage"
+
+[node name="Part06" parent="." instance=ExtResource("house_pipe")]
+
+position = Vector3(1.060712, 0.169, 2.730837)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = false
+
+metadata/placement = "House Pipe"
+
+metadata/component_key = "house_pipe"
+
+[node name="Part07" parent="." instance=ExtResource("house_pipe_damage")]
+
+position = Vector3(0.852277, 0.060121, 2.756429)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "House Pipe Damage"
+
+metadata/component_key = "house_pipe_damage"
+
+[node name="Part08" parent="." instance=ExtResource("roof_ladder")]
+
+position = Vector3(-3.32242, -0.135, 3.301441)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = false
+
+metadata/placement = "Roof Ladder"
+
+metadata/component_key = "roof_ladder"
+
+[node name="Part09" parent="." instance=ExtResource("roof_ladder_damage")]
+
+position = Vector3(-3.319311, -0.436304, 3.298037)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "Roof Ladder Damage"
+
+metadata/component_key = "roof_ladder_damage"
+
+[node name="Part10" parent="." instance=ExtResource("doghouse")]
+
+position = Vector3(-2.650317, -0.012, 6.039961)
+
+quaternion = Quaternion(0.0, -0.1045285, 0.0, 0.9945219)
+
+scale = Vector3(1, 1, 1)
+
+visible = true
+
+metadata/placement = "Doghouse"
+
+metadata/component_key = "doghouse"
+
+[node name="Part11" parent="." instance=ExtResource("entry_assembly")]
+
+position = Vector3(0.583446, 4.2, 2.913747)
+
+quaternion = Quaternion(0.0, 0.0610485, 0.0, 0.9981348)
+
+scale = Vector3(0.88, 0.88, 0.88)
+
+visible = false
+
+metadata/placement = "Entry Assembly"
+
+metadata/component_key = "entry_assembly"
+
+[node name="Solid" parent="Part11" index="1"]
+
+collision_layer = 0
+
+[node name="Part12" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(-4.009898, 2.26301, 2.385147)
+
+quaternion = Quaternion(-0.0057824, -0.6625949, 0.0065358, 0.7489272)
+
+scale = Vector3(0.76, 0.5472, 1)
+
+visible = true
+
+metadata/placement = "Masonry 01"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part13" parent="." instance=ExtResource("wall_stone_warm")]
+
+position = Vector3(-4.040361, 1.393158, 2.003456)
+
+quaternion = Quaternion(0.0346789, -0.661712, -0.0391973, 0.7479293)
+
+scale = Vector3(0.93, 0.6696, 1)
+
+visible = false
+
+metadata/placement = "Masonry 02"
+
+metadata/component_key = "wall_stone_warm"
+
+[node name="Part14" parent="." instance=ExtResource("wall_stone_cool")]
+
+position = Vector3(-4.018346, 0.546519, 2.396368)
+
+quaternion = Quaternion(-0.0289031, -0.6619894, 0.032669, 0.7482429)
+
+scale = Vector3(0.75, 0.54, 1)
+
+visible = false
+
+metadata/placement = "Masonry 03"
+
+metadata/component_key = "wall_stone_cool"
+
+[node name="Part15" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(-4.188986, 0.352015, 1.391802)
+
+quaternion = Quaternion(0.0750107, -0.6583607, -0.0847842, 0.7441413)
+
+scale = Vector3(0.61, 0.4392, 1)
+
+visible = true
+
+metadata/placement = "Masonry 04"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part16" parent="." instance=ExtResource("wall_stone_cool")]
+
+position = Vector3(-4.15724, 2.073208, 0.902026)
+
+quaternion = Quaternion(-0.0346789, -0.661712, 0.0391973, 0.7479293)
+
+scale = Vector3(0.76, 0.5472, 1)
+
+visible = false
+
+metadata/placement = "Masonry 05"
+
+metadata/component_key = "wall_stone_cool"
+
+[node name="Part17" parent="." instance=ExtResource("wall_stone_warm")]
+
+position = Vector3(-4.276437, 0.8408, 0.220812)
+
+quaternion = Quaternion(0.0519886, -0.6605775, -0.0587624, 0.7466469)
+
+scale = Vector3(0.81, 0.5832, 1)
+
+visible = false
+
+metadata/placement = "Masonry 06"
+
+metadata/component_key = "wall_stone_warm"
+
+[node name="Part18" parent="." instance=ExtResource("wall_stone_warm")]
+
+position = Vector3(-4.347159, 2.444194, -0.725448)
+
+quaternion = Quaternion(-0.040452, -0.6613842, 0.0457227, 0.7475588)
+
+scale = Vector3(0.66, 0.4752, 1)
+
+visible = false
+
+metadata/placement = "Masonry 07"
+
+metadata/component_key = "wall_stone_warm"
+
+[node name="Part19" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(-4.500293, 0.466519, -1.181567)
+
+quaternion = Quaternion(0.0057824, -0.6625949, -0.0065358, 0.7489272)
+
+scale = Vector3(0.75, 0.54, 1)
+
+visible = true
+
+metadata/placement = "Masonry 08"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part20" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(-4.339159, 1.523727, -0.432434)
+
+quaternion = Quaternion(0.046222, -0.661006, -0.0522445, 0.7471313)
+
+scale = Vector3(0.54, 0.3888, 1)
+
+visible = false
+
+metadata/placement = "Masonry 09"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part21" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(-3.223129, 2.492612, 3.038449)
+
+quaternion = Quaternion(0.003195, 0.0609649, 0.0522383, 0.9967669)
+
+scale = Vector3(0.63, 0.4914, 1)
+
+visible = false
+
+metadata/placement = "Masonry 10"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part22" parent="." instance=ExtResource("wall_stone_cool")]
+
+position = Vector3(-3.383598, 0.723575, 3.058152)
+
+quaternion = Quaternion(-0.0021306, 0.0610114, -0.0348344, 0.9975268)
+
+scale = Vector3(0.74, 0.5772, 1)
+
+visible = false
+
+metadata/placement = "Masonry 11"
+
+metadata/component_key = "wall_stone_cool"
+
+[node name="Part23" parent="." instance=ExtResource("wall_stone_warm")]
+
+position = Vector3(1.204236, 1.773722, 2.494837)
+
+quaternion = Quaternion(0.0037269, 0.0609347, 0.0609347, 0.996273)
+
+scale = Vector3(0.59, 0.4602, 1)
+
+visible = false
+
+metadata/placement = "Masonry 12"
+
+metadata/component_key = "wall_stone_warm"
+
+[node name="Part24" parent="." instance=ExtResource("wall_stone_sand")]
+
+position = Vector3(1.313731, 0.58159, 2.481392)
+
+quaternion = Quaternion(-0.0042585, 0.0608998, -0.0696264, 0.9957034)
+
+scale = Vector3(0.57, 0.4446, 1)
+
+visible = false
+
+metadata/placement = "Masonry 13"
+
+metadata/component_key = "wall_stone_sand"
+
+[node name="Part25" parent="." instance=ExtResource("rubble")]
+
+position = Vector3(-4.803959, 0.11296, 0.67172)
+
+quaternion = Quaternion(0.0, -0.3563304, 0.0, 0.93436)
+
+scale = Vector3(0.72, 0.72, 0.72)
+
+visible = true
+
+metadata/placement = "Rubble.025"
+
+metadata/component_key = "rubble"
+
+[node name="Part26" parent="." instance=ExtResource("rubble")]
+
+position = Vector3(2.24692, 0.11008, 2.77356)
+
+quaternion = Quaternion(0.0, 0.922201, 0.0, 0.3867109)
+
+scale = Vector3(0.56, 0.56, 0.56)
+
+visible = true
+
+metadata/placement = "Rubble.026"
+
+metadata/component_key = "rubble"
+
+[node name="Part27" parent="." instance=ExtResource("rubble")]
+
+position = Vector3(-1.903299, 0.1108, 3.2831)
+
+quaternion = Quaternion(0.0, 0.2651353, 0.0, 0.9642112)
+
+scale = Vector3(0.6, 0.6, 0.6)
+
+visible = true
+
+metadata/placement = "Rubble.027"
+
+metadata/component_key = "rubble"
+
+[node name="Part28" parent="." instance=ExtResource("bench")]
+
+position = Vector3(4.01, 3.727532, 4.108938)
+
+quaternion = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+scale = Vector3(0.88, 0.88, 0.88)
+
+visible = false
+
+metadata/placement = "Bench"
+
+metadata/component_key = "bench"
+
+[node name="Part29" parent="." instance=ExtResource("planter")]
+
+position = Vector3(-4.15, 3.08735, 4.61)
+
+quaternion = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+scale = Vector3(0.88, 0.88, 0.88)
+
+visible = false
+
+metadata/placement = "Planter"
+
+metadata/component_key = "planter"
+
+[node name="Part30" parent="." instance=ExtResource("greens")]
+
+position = Vector3(-4.492625, 2.627599, 4.587577)
+
+quaternion = Quaternion(0.0, -0.2164396, 0.0, 0.9762961)
+
+scale = Vector3(0.8184, 0.9152, 0.8536)
+
+visible = false
+
+metadata/placement = "Greens"
+
+metadata/component_key = "greens"
+
+[node name="Part31" parent="." instance=ExtResource("greens")]
+
+position = Vector3(-3.878147, 2.627599, 4.62058)
+
+quaternion = Quaternion(0.0, 0.2164396, 0.0, 0.9762961)
+
+scale = Vector3(0.8184, 0.9152, 0.8536)
+
+visible = false
+
+metadata/placement = "Greens.001"
+
+metadata/component_key = "greens"
+
+[node name="Part32" parent="." instance=ExtResource("planter")]
+
+position = Vector3(2.97, 3.089879, 3.34)
+
+quaternion = Quaternion(0.0, 0.0871557, 0.0, 0.9961948)
+
+scale = Vector3(0.704, 0.704, 0.704)
+
+visible = false
+
+metadata/placement = "Planter.001"
+
+metadata/component_key = "planter"
+
+[node name="Part33" parent="." instance=ExtResource("flowers")]
+
+position = Vector3(2.719604, 2.480695, 3.320449)
+
+quaternion = Quaternion(0.0, 0.0348995, 0.0, 0.9993908)
+
+scale = Vector3(0.65472, 0.73216, 0.68288)
+
+visible = false
+
+metadata/placement = "Flowers"
+
+metadata/component_key = "flowers"
+
+[node name="Part34" parent="." instance=ExtResource("greens")]
+
+position = Vector3(3.195412, 2.52208, 3.362198)
+
+quaternion = Quaternion(0.0, 0.4539905, 0.0, 0.8910065)
+
+scale = Vector3(0.65472, 0.73216, 0.68288)
+
+visible = false
+
+metadata/placement = "Greens.002"
+
+metadata/component_key = "greens"
+
+[node name="Part35" parent="." instance=ExtResource("planter")]
+
+position = Vector3(-0.35944, 6.577741, 1.585624)
+
+quaternion = Quaternion(0.0, 0.0436194, 0.0, 0.9990482)
+
+scale = Vector3(0.704, 0.704, 0.704)
+
+visible = false
+
+metadata/placement = "Planter.007"
+
+metadata/component_key = "planter"
+
+[node name="Part36" parent="." instance=ExtResource("flowers")]
+
+position = Vector3(-0.6071, 5.968556, 1.605318)
+
+quaternion = Quaternion(0.0, 0.9998477, 0.0, 0.0174524)
+
+scale = Vector3(0.65472, 0.73216, 0.68288)
+
+visible = false
+
+metadata/placement = "Flowers.004"
+
+metadata/component_key = "flowers"
+
+[node name="Part37" parent="." instance=ExtResource("greens")]
+
+position = Vector3(-0.086655, 6.00994, 1.565908)
+
+quaternion = Quaternion(-0.0, -0.9135454, -0.0, 0.4067367)
+
+scale = Vector3(0.65472, 0.73216, 0.68288)
+
+visible = false
+
+metadata/placement = "Greens.010"
+
+metadata/component_key = "greens"
+
+[node name="Part38" parent="." instance=ExtResource("planter")]
+
+position = Vector3(-4.629999, 3.089122, 7.07)
+
+quaternion = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+scale = Vector3(0.7568, 0.7568, 0.7568)
+
+visible = false
+
+metadata/placement = "Planter.008"
+
+metadata/component_key = "planter"
+
+[node name="Part39" parent="." instance=ExtResource("greens")]
+
+position = Vector3(-4.864128, 2.553735, 7.059762)
+
+quaternion = Quaternion(-0.0, -0.9723699, -0.0, 0.2334454)
+
+scale = Vector3(0.703824, 0.787072, 0.734096)
+
+visible = false
+
+metadata/placement = "Greens.011"
+
+metadata/component_key = "greens"
+
+[node name="Part40" parent="." instance=ExtResource("flowers")]
+
+position = Vector3(-4.342547, 2.509246, 7.073682)
+
+quaternion = Quaternion(-0.0, -0.7826082, -0.0, 0.6225146)
+
+scale = Vector3(0.703824, 0.787072, 0.734096)
+
+visible = false
+
+metadata/placement = "Flowers.005"
+
+metadata/component_key = "flowers"
+
+[editable path="Part11"]

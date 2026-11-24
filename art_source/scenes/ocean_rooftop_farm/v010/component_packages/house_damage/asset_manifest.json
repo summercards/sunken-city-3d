@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "house_damage",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-DAMAGE",
+  "name": "小屋剥落残片",
+  "category": "structure",
+  "component_family": "house",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_damage/house_damage.blend",
+  "source_sha256": "0b07ade499250083931dfe86a8b31ac0fc6055f1ace3b8bfd1d93bea3694155b",
+  "collection": "MASTER | house_damage",
+  "bounds_m": [
+    8.023627281188965,
+    2.049499750137329,
+    3.5188791751861572
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.06181347370147705,
+    -1.7647498846054077,
+    0.04650000110268593
+  ],
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/house_damage.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/house_damage.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-DAMAGE",
+  "version": "v010"
+}

@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
 [ext_resource type="PackedScene" path="res://assets/models/building_kit/lamp_post/lamp_post.glb" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/kit_lamp_post.scn" id="kit_lamp_post"]
+
 [node name="lamp_post" type="Node3D"]
 script = ExtResource("1")
 content_id = "lamp_post"
 metadata/water_layer = "none"
 metadata/water_layer_role = "none"
 [node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="SurfaceCollision" parent="." instance=ExtResource("kit_lamp_post")]

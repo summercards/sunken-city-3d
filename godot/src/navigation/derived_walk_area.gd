@@ -8,9 +8,7 @@ extends "res://src/navigation/walk_area.gd"
 ##   真实三角形里找出「水平、够大、上方有站立净空」的那一层，自己算出 rects。
 ##   模型移动、缩放、改版，下一次重建自动跟随，场景数据不用动。
 ##
-## 与 BlockerSet 的分工：
-##   BlockerSet 管「船不能进」（水线到船高这一段），本节点管「人能站」
-##   （净空 0.06–1.75 米这一段）。两者都从同一份几何派生，互不引用。
+## 输出供导航和地面查询使用，设施的 StaticBody3D 负责角色与船的实际碰撞。
 ##
 ## 只读：派生结果写在 rects / surface_y 上，不回写场景文件。
 
@@ -136,15 +134,11 @@ func _erode(cells: Dictionary) -> Dictionary:
 	return result
 
 
-## 世界点 → 本节点的 XZ 格号。
-##
-## 必须走 to_local：这栋楼在主场景里被用户转了约 72°，
-## 用「世界坐标减原点」当局部坐标会把整片楼顶算到别的位置去
-## （实测 rects 全挤在 x[-1.5,3.5]、z[-11.5,-8]，落在后楼那边）。
-## 局部 XZ + 世界 y → 世界点。只处理 Y 轴旋转 + 平移（本楼体无缩放）。
-func _world_corner(local_x: float, local_z: float, world_y: float) -> Vector3:
-	var mapped := global_transform * Vector3(local_x, world_y - global_position.y, local_z)
-	return Vector3(mapped.x, world_y, mapped.z)
+## 坡面顶点以 WalkArea 的局部空间保存，由 surface_faces() 统一转到世界空间。
+func _local_corner(local_x: float, local_z: float, world_y: float) -> Vector3:
+	var world := to_global(Vector3(local_x, 0.0, local_z))
+	world.y = world_y
+	return to_local(world)
 
 
 func _cell_of(point: Vector3) -> Vector2i:
@@ -265,7 +259,6 @@ func _build_band(tris: PackedVector3Array) -> void:
 		return
 	# 先收候选面与它们的格，再只为这些格建遮挡区间表 ——
 	# 对整座桥的每个三角形都逐格 append 会让启动卡到十几秒。
-	var origin := global_position
 	var kept_tris: Array = []
 	var cand := {}
 	var cells := {}
@@ -285,12 +278,9 @@ func _build_band(tris: PackedVector3Array) -> void:
 		else:
 			cand[key] = Vector2(center.y, center.y)
 	var blocked := _blocked_intervals(tris, lo - 2.0, hi + 3.0, cand)
-	var usable_tris: PackedVector3Array = PackedVector3Array()
-	var usable_cells := {}
 	# 每格只留一块：双坡上多条面会重叠（土面 + 菜床底 + 边条），
 	# 全留下会让导航烘焙从几百块涨到几万块，启动多花十几秒。
-	# 取该格**最低**的可用面 —— 种植土面在最下，菜床和压条在它上面；
-	# 若取最高，留下的会是一排菜床顶，人被抬到槽沿上。
+	# 每格保留最高的候选面，以免下表面盖过同一片台面。
 	var best_in_cell := {}
 	for entry in kept_tris:
 		var a3: Vector3 = entry[0]
@@ -301,16 +291,13 @@ func _build_band(tris: PackedVector3Array) -> void:
 		var area2 := (b3.x - a3.x) * (c3.z - a3.z) - (c3.x - a3.x) * (b3.z - a3.z)
 		if absf(area2) < 1e-9:
 			continue
-		var min_x := minf(a3.x, minf(b3.x, c3.x))
-		var max_x := maxf(a3.x, maxf(b3.x, c3.x))
-		var min_z := minf(a3.z, minf(b3.z, c3.z))
-		var max_z := maxf(a3.z, maxf(b3.z, c3.z))
-		var c0 := _cell_of(Vector3(min_x, 0.0, min_z))
-		var c1 := _cell_of(Vector3(max_x, 0.0, max_z))
-		var i0: int = mini(c0.x, c1.x)
-		var i1: int = maxi(c0.x, c1.x)
-		var j0: int = mini(c0.y, c1.y)
-		var j1: int = maxi(c0.y, c1.y)
+		var ca := _cell_of(a3)
+		var cb := _cell_of(b3)
+		var cc := _cell_of(c3)
+		var i0 := mini(ca.x, mini(cb.x, cc.x))
+		var i1 := maxi(ca.x, maxi(cb.x, cc.x))
+		var j0 := mini(ca.y, mini(cb.y, cc.y))
+		var j1 := maxi(ca.y, maxi(cb.y, cc.y))
 		if (i1 - i0 + 1) * (j1 - j0 + 1) > 4000:
 			continue
 		for jj in range(j0, j1 + 1):
@@ -334,7 +321,6 @@ func _build_band(tris: PackedVector3Array) -> void:
 					if float(previous[3]) >= cell_y:
 						continue
 				best_in_cell[key2] = [a3, b3, c3, cell_y]
-				usable_cells[key2] = true
 	var solid := best_in_cell
 	if not flatten_slopes:
 		# 精确斜面：已内收过，之后让 GroundSpace 别再腐蚀一遍。
@@ -388,11 +374,10 @@ func _build_band(tris: PackedVector3Array) -> void:
 		var lz0 := float(key6.y) * precision
 		var lx1 := lx0 + precision
 		var lz1 := lz0 + precision
-		# 角点用局部 XZ + 世界 y：楼体在主场景里带旋转，局部与世界的 XZ 不同轴。
-		var p00 := _world_corner(lx0, lz0, float(corner_y[Vector2i(key6.x, key6.y)]))
-		var p10 := _world_corner(lx1, lz0, float(corner_y[Vector2i(key6.x + 1, key6.y)]))
-		var p11 := _world_corner(lx1, lz1, float(corner_y[Vector2i(key6.x + 1, key6.y + 1)]))
-		var p01 := _world_corner(lx0, lz1, float(corner_y[Vector2i(key6.x, key6.y + 1)]))
+		var p00 := _local_corner(lx0, lz0, float(corner_y[Vector2i(key6.x, key6.y)]))
+		var p10 := _local_corner(lx1, lz0, float(corner_y[Vector2i(key6.x + 1, key6.y)]))
+		var p11 := _local_corner(lx1, lz1, float(corner_y[Vector2i(key6.x + 1, key6.y + 1)]))
+		var p01 := _local_corner(lx0, lz1, float(corner_y[Vector2i(key6.x, key6.y + 1)]))
 		slope_tris.append(p00); slope_tris.append(p10); slope_tris.append(p11)
 		slope_tris.append(p00); slope_tris.append(p11); slope_tris.append(p01)
 	rects = []
@@ -418,16 +403,13 @@ func _blocked_intervals(tris: PackedVector3Array, lo: float, hi: float, cand: Di
 		var y_max := maxf(a.y, maxf(b.y, c.y))
 		if y_max < lo or y_min > hi:
 			continue
-		var min_x := minf(a.x, minf(b.x, c.x))
-		var max_x := maxf(a.x, maxf(b.x, c.x))
-		var min_z := minf(a.z, minf(b.z, c.z))
-		var max_z := maxf(a.z, maxf(b.z, c.z))
-		var c0 := _cell_of(Vector3(min_x, 0.0, min_z))
-		var c1 := _cell_of(Vector3(max_x, 0.0, max_z))
-		var i0: int = mini(c0.x, c1.x)
-		var i1: int = maxi(c0.x, c1.x)
-		var j0: int = mini(c0.y, c1.y)
-		var j1: int = maxi(c0.y, c1.y)
+		var ca := _cell_of(a)
+		var cb := _cell_of(b)
+		var cc := _cell_of(c)
+		var i0 := mini(ca.x, mini(cb.x, cc.x))
+		var i1 := maxi(ca.x, maxi(cb.x, cc.x))
+		var j0 := mini(ca.y, mini(cb.y, cc.y))
+		var j1 := maxi(ca.y, maxi(cb.y, cc.y))
 		if (i1 - i0 + 1) * (j1 - j0 + 1) > 4000:
 			continue
 		for j in range(j0, j1 + 1):

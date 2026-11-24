@@ -1,0 +1,38 @@
+{
+  "key": "facility_footing",
+  "asset_id": "SEA-SCENE-ORF7-FACILITY-FOOTING",
+  "name": "温室与水塔共用安装基座",
+  "category": "structure",
+  "component_family": "footing",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "separate_component_local_proxy_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/facility_footing/facility_footing.blend",
+  "source_sha256": "57058d6e641d18d7cb0b5aa1732989e8cdc4bee90bdc62bbbeace1490ac0849f",
+  "collection": "MASTER | facility_footing",
+  "bounds_m": [
+    0.6200000047683716,
+    0.5799999833106995,
+    0.19300000369548798
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-FACILITY-FOOTING",
+  "version": "v008"
+}

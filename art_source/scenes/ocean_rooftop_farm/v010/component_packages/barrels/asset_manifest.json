@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "barrels",
+  "asset_id": "SEA-SCENE-ORF7-BARRELS",
+  "name": "三色接水桶",
+  "category": "facility",
+  "component_family": "storage",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/barrels/barrels.blend",
+  "source_sha256": "d9ac038ba90172f040ad241c3f0abd549a4dfd38fe7d57f5c300f5f6fcc28b79",
+  "collection": "MASTER | barrels",
+  "bounds_m": [
+    2.3070898056030273,
+    0.9470899701118469,
+    0.9479999542236328
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.11089497804641724,
+    0.06089499592781067,
+    0.03999999910593033
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BARRELS",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/barrels.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/barrels.tscn"
+}

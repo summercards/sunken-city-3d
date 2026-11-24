@@ -11,6 +11,8 @@ const ItemDBLib = preload("res://src/inventory/item_db.gd")
 const CROPS_TABLE := "res://assets/data/crops.json"
 const PLOTS_TABLE := "res://assets/data/plots.json"
 const WATER_CAPACITY := 12
+const RETIRED_WORKSHOP_PLOTS := ["platform_plot", "platform_plot:1", "platform_plot:2",
+	"platform_plot:3", "platform_plot:4", "platform_plot:5"]
 const Ports = preload("res://src/farming/farming_ports.gd")
 const CatalogLib = preload("res://src/crops/crop_catalog.gd")
 var ports: RefCounted
@@ -267,6 +269,7 @@ func advance_day(accessible_only := false) -> Dictionary:
 	var grew := 0
 	var ready := 0
 	for id in states.keys():
+		if id in RETIRED_WORKSHOP_PLOTS and spec(id).is_empty(): continue
 		if accessible_only and str(ports.access_reason.call(spec(id))) != "": continue
 		var st: Dictionary = states[id]
 		if phase(id) == "growing" and float(st.water) > 0:
@@ -375,9 +378,9 @@ func from_dict(data: Dictionary) -> void:
 	for row in specs: states[str(row.id)] = _empty_state()
 	var saved: Dictionary = data.get("plots",{})
 	for id in saved:
-		if not states.has(str(id)): continue
 		var st: Dictionary = saved[id]
 		var crop_id := str(st.get("crop",""))
+		if not states.has(str(id)) and (id not in RETIRED_WORKSHOP_PLOTS or crop_id.is_empty()): continue
 		if not crops.has(crop_id): continue
 		var total := float(st.get("total",1.0))
 		var remaining := float(st.get("remaining",total))
@@ -390,6 +393,15 @@ func from_dict(data: Dictionary) -> void:
 	selected_crop = str(data.get("selected_crop","lettuce"))
 	if not crops.has(selected_crop): selected_crop = "lettuce"
 	plots_changed.emit()
+
+func restore_retired_workshop_crop(plot_id: String) -> void:
+	if spec(plot_id).is_empty() or not is_empty(plot_id): return
+	for id in RETIRED_WORKSHOP_PLOTS:
+		if not spec(id).is_empty() or is_empty(id): continue
+		states[plot_id] = states[id]
+		states.erase(id)
+		plots_changed.emit()
+		return
 
 ## 2026-10-28：太阳房菜箱由 6 格并为 1 格。
 ##

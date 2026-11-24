@@ -175,7 +175,7 @@ func run() -> void:
 	check(absf(floor_area.surface_y - room.global_position.y) < 0.01, "站立面高度取自房间世界高度")
 	check(room.area_at(room.global_position + Vector3(0, 1, 8), 0.6) == null, "房间外的空中不是可走面")
 	check(room.area_at(room.global_position + Vector3(0, 0.05, 0), 0.5) != null, "室内中心是可走面")
-	var door = main._zone_nodes.zone1.get_node_or_null("Objects/RoomDoor")
+	var door = main._zone_nodes.zone1.get_node_or_null("Models/太阳能木屋/Facilities/RoomDoor")
 	check(door != null, "太阳房入口节点存在")
 	check(main._zone_nodes.zone1.get_node_or_null("Objects/SleepCheckpoint") == null, "旧睡觉点已移除")
 	check(str(door.verb) == "进入房间", "入口按钮文案是「进入房间」")
@@ -389,14 +389,14 @@ func run() -> void:
 	await settle(3)
 
 	# ---- 室内走动 ---------------------------------------------------------------
-	var hit: Dictionary = room.pick_walk(room.global_position + Vector3(1.2, 2.0, 1.4), Vector3.DOWN)
-	check(not hit.is_empty(), "室内地面点得到落点")
 	var before: Vector3 = main.player.global_position
-	check(main._start_walk(hit.area, hit.point), "室内可以走")
-	for i in 400:
+	var toward: Vector3 = room.to_global(Vector3(0, 0, 1.4)) - before
+	main.actor_controller.set_move_intent(toward)
+	for i in 25:
 		main.actor_controller.tick(1.0 / 60.0)
-		if not main.actor_controller.walking():
-			break
+	main.actor_controller.set_move_intent(Vector3.ZERO)
+	for i in 25:
+		main.actor_controller.tick(1.0 / 60.0)
 	check(main.player.global_position.distance_to(before) > 0.4, "角色真的走动了")
 	check(inside_room(main.player), "走动没有走出房间")
 
@@ -419,6 +419,7 @@ func run() -> void:
 	check(exit_point.is_in_group("interactable") and exit_point.is_visible_in_tree(),
 		"屋里时出门热区进交互组且可见")
 	# 这一帧不按住：把上一轮的「已用掉」闸门放开，模拟真实的「先松手再按」。
+	main.interactor.set_interaction_context("room")
 	main.interactor.active = true
 	main.interactor.update(1.0 / 60.0, false)
 	main.interactor.refresh_now()
@@ -431,7 +432,8 @@ func run() -> void:
 			fired = true
 			break
 	check(fired, "按交互键从门口触发出门过场")
-	await rc.exited
+	if fired:
+		await rc.exited
 	check(not service.inside, "出门后状态是「在屋外」")
 	check(not exit_point.is_in_group("interactable"), "出门后门口热区退出交互组")
 	check(gs.current_zone == "zone1", "出门后回到 zone1")

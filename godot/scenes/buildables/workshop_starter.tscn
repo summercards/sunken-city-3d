@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/platform_5x5.tscn" id="platform"]
+[ext_resource type="PackedScene" path="res://scenes/buildables/kit/workshop_dock.tscn" id="dock"]
+
+[node name="WorkshopStarter" type="Node3D"]
+
+[node name="DeckNW" parent="." instance=ExtResource("platform")]
+position = Vector3(0.725, 0, 4.925)
+content_id = "platform_5x5"
+
+[node name="DeckNE" parent="." instance=ExtResource("platform")]
+position = Vector3(5.725, 0, 4.925)
+content_id = "platform_5x5"
+
+[node name="DeckSW" parent="." instance=ExtResource("platform")]
+position = Vector3(0.725, 0, 9.925)
+content_id = "platform_5x5"
+
+[node name="DeckSE" parent="." instance=ExtResource("platform")]
+position = Vector3(5.725, 0, 9.925)
+content_id = "platform_5x5"
+
+[node name="Dock" parent="." instance=ExtResource("dock")]
+position = Vector3(0.725, 0, 13.675)
+content_id = "workshop_dock"

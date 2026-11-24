@@ -18,7 +18,6 @@
     "godot/scenes/vegetation_authoring"
   ],
   "verification": [
-    "selftest",
     "plant-authoring",
     "decorations",
     "visual-decorations",
@@ -35,7 +34,8 @@
     "visual-scenic-fish-structure",
     "visual-scenic-fish-distribution",
     "sunroom-underwater",
-    "visual-sunroom-underwater"
+    "visual-sunroom-underwater",
+    "framework-integration"
   ]
 }
 ```

@@ -1,0 +1,37 @@
+{
+  "key": "terrace_step",
+  "asset_id": "SEA-SCENE-ORF7-TERRACE-STEP",
+  "name": "露台台阶",
+  "category": "structure",
+  "component_family": "access",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/terrace_step/terrace_step.blend",
+  "source_sha256": "09f6e5fe6ebd15cb1a97604154a7dc66faf4156cd87dc7c518d94fa9f30e1223",
+  "collection": "MASTER | terrace_step",
+  "bounds_m": [
+    4.260000228881836,
+    0.8600000143051147,
+    0.36000001430511475
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-TERRACE-STEP",
+  "version": "v007"
+}

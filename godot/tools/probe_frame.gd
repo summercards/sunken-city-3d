@@ -37,7 +37,7 @@ func run() -> void:
 			probe_y = float(arg.substr(4))
 	# 泊位三件套
 	for landing_name in ["Landing_main"]:
-		var landing: Node3D = quarter.get_node_or_null("WalkAreas/WalkLeftRoof/" + landing_name) as Node3D
+		var landing: Node3D = quarter.landing_point("main")
 		if landing == null:
 			continue
 		print("[frame] %s 世界 (%.2f, %.2f, %.2f)" % [landing_name,

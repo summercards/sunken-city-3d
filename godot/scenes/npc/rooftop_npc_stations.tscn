@@ -7,7 +7,7 @@ script = ExtResource("provider")
 
 ; 船老大 2026-11-08 迁到霓虹花园屋顶（RoofNpcStations），此处不再保留站点
 [node name="residence_sunroom_greenhouse" type="Node3D" parent="."]
-position = Vector3(-5, 60.05, 7)
+position = Vector3(-4.1, 62.24, 5.64)
 metadata/npc_id = "npc_mu_he"
 metadata/home_label = "天台草地 · 豆豆暂驻"
 
@@ -26,7 +26,7 @@ position = Vector3(0, 0, 0.6)
 position = Vector3(0, 0, -0.3)
 
 [node name="residence_salvage_cabin" type="Node3D" parent="."]
-position = Vector3(-1.5, 60.05, 7)
+position = Vector3(-1.05, 62.24, 5.64)
 metadata/npc_id = "npc_ji_chen"
 metadata/home_label = "天台草地 · 阿海暂驻"
 
@@ -45,7 +45,7 @@ position = Vector3(0, 0, 0.6)
 position = Vector3(0, 0, -0.3)
 
 [node name="residence_builder_loft" type="Node3D" parent="."]
-position = Vector3(2.5, 60.05, 7)
+position = Vector3(3.5, 62.24, 5.64)
 metadata/npc_id = "npc_nan_zhi"
 metadata/home_label = "天台草地 · 木头叔暂驻"
 
@@ -64,7 +64,7 @@ position = Vector3(0, 0, 0.6)
 position = Vector3(0, 0, -0.3)
 
 [node name="residence_lantern_archive" type="Node3D" parent="."]
-position = Vector3(6.5, 60.05, 7)
+position = Vector3(7.5, 62.24, 5.64)
 metadata/npc_id = "npc_bai_shi"
 metadata/home_label = "天台草地 · 灯伯暂驻"
 
@@ -83,7 +83,7 @@ position = Vector3(0, 0, 0.6)
 position = Vector3(0, 0, -0.3)
 
 [node name="residence_flower_shop" type="Node3D" parent="."]
-position = Vector3(10.5, 60.05, 7)
+position = Vector3(12.5, 62.24, 5.64)
 metadata/npc_id = "npc_hua_yi"
 metadata/home_label = "天台草地 · 小花暂驻"
 metadata/work_anchor_id = "anchor_flower_shop"

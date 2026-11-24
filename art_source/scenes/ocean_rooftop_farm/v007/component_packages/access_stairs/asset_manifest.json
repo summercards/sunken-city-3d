@@ -1,0 +1,37 @@
+{
+  "key": "access_stairs",
+  "asset_id": "SEA-SCENE-ORF7-ACCESS-STAIRS",
+  "name": "登顶折返楼梯",
+  "category": "structure",
+  "component_family": "access",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/access_stairs/access_stairs.blend",
+  "source_sha256": "b12b01e7d930f0c6e2241a64a7681ec28a3710baf6a0c5b521b956fa3b15ad2f",
+  "collection": "MASTER | access_stairs",
+  "bounds_m": [
+    2.8999998569488525,
+    5.329999923706055,
+    5.695137977600098
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.08000004291534424,
+    -0.08129000663757324
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ACCESS-STAIRS",
+  "version": "v007"
+}

@@ -102,21 +102,21 @@
     },
     {
       "asset_id": "SEA-CHAR-HAIR-001",
-      "name": "模块化发型与参数DIY",
+      "name": "旅人发型与参数DIY",
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_hair.gd",
-      "source_sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
+      "source_sha256": "4f6158c8f12277d3d7c8594002a4cf992aafbb376bd394f8446199c4bbec0acc",
       "manifest": "assets/registry/manifests/sea-char-hair-001.json",
-      "version": "v002",
+      "version": "v004",
       "runtime_path": "godot/src/avatar/avatar_hair.gd",
-      "license": "project_authored_procedural_mesh_and_texture",
+      "license": "project_authored_procedural_mesh",
       "consumer_features": [
         "SEA-AVATAR"
       ],
-      "verification": "docs/features/onboarding/ledger.md",
-      "note": "独立可维护的Godot程序源/自制透明遮罩；未使用外部游戏资产，未声称Blender或GLB产物。；2026-11-04新旅程美术/交互",
-      "previous_source_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d"
+      "verification": "docs/development/2026-11-20_avatar_hair_flow.md",
+      "note": "十四款按发束走向重塑，沿用外观 ID、滑杆和头部挂点。主体为一张网格，发饰独立。",
+      "previous_source_sha256": "b6e3f8ab13c609fa59393d0cde54781ccfa8aa5789eee703b452f586e1d7edd6"
     },
     {
       "asset_id": "SEA-CHAR-SHAPE-001",

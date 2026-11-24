@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v014/deep_bay_open.glb" id="model"]
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-DEEP-BAY-OPEN"
+metadata/visual_only = true
+metadata/building_class = "underwater"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+
+[node name="Visual" parent="." instance=ExtResource("model")]

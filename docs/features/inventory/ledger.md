@@ -17,7 +17,6 @@
   ],
   "verification": [
     "visual-corner-notebook",
-    "selftest",
     "management",
     "minimum-loop",
     "visual-plot-shipping",

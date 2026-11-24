@@ -39,7 +39,7 @@ func run() -> void:
 		quit(1)
 		return
 	var station: Node3D = zone.get_node_or_null("Models/绞盘打捞台")
-	var area: Node3D = zone.get_node_or_null("WalkAreas/Walk_zone1_salvage")
+	var area: Node3D = zone.landing_point("salvage").ground()
 	var pole: Node3D = station.get_node_or_null("salvage_station/PoleAndFlowers")
 	print("[salvage-shot] station=", station.global_transform.origin,
 		" rot_y_deg=", snappedf(rad_to_deg(station.global_rotation.y), 0.1))

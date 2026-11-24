@@ -32,7 +32,6 @@ KNOWN_INTEGRATION = [
     'godot/src/bootstrap/main.gd',
     'godot/src/navigation/walk_area.gd',
     'godot/src/navigation/ground_space.gd',
-    'godot/src/player/actions/walk_action.gd',
     'godot/assets/data/building_kit.json',
 ]
 

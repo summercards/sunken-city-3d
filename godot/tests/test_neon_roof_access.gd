@@ -36,7 +36,7 @@ func settle(n := 4) -> void:
 
 
 func area_of(zone: Node, area_id: String) -> Node3D:
-	for child in zone.get_node("WalkAreas").get_children():
+	for child in zone.walk_areas:
 		if str(child.get("area_id")) == area_id:
 			return child
 	return null
@@ -113,8 +113,8 @@ func run() -> void:
 	# 3. 屋顶 ↔ 梯顶 ↔ 梯脚：真的求一条路。
 	var landing: Node3D = quarter.landing_point("main") if quarter.has_method("landing_point") else null
 	check(landing != null, "霓虹花园有登岸点")
-	if landing != null and quarter.ground_space != null:
-		var stand: Vector3 = landing.stand_position()
+	if roof != null and quarter.ground_space != null:
+		var stand: Vector3 = roof.surface_point(bridge_exit)
 		for pair in [["梯顶", stair_high], ["梯脚", stair_low]]:
 			var goal: Vector3 = stair.surface_point(pair[1])
 			var path: Array = quarter.ground_space.route(stand, goal)
@@ -125,8 +125,8 @@ func run() -> void:
 				check(off < 1.0, "%s路径终点落在目标上（偏 %.2f m）" % [pair[0], off])
 
 	# 4. 浮台：水面高度 + 与平台之间没有可走面（这一段只能靠梯子）。
-	check(absf(float(float_area.get("surface_y")) - 1.12) < 0.03,
-		"浮台面在水面高度（%.2f m）" % float(float_area.get("surface_y")))
+	check(absf(float_area.floor_y() - 1.12) < 0.03,
+		"浮台面在水面高度（%.2f m）" % float_area.floor_y())
 	check(not (float_area.get("rects") as Array).is_empty(), "浮台走域非空")
 	var float_mid: Vector3 = local(-7.30, 16.69, -2.50)
 	var flat: Vector3 = float_area.surface_point(Vector3(float_mid.x, 1.12, float_mid.z))
@@ -163,8 +163,8 @@ func run() -> void:
 			check(rail_box.end.y > 4.83 and rail_box.end.y < 5.10,
 				"梯顶到平台面并留扶手（%.2f m）" % rail_box.end.y)
 
-	var bottom: Node = quarter.get_node_or_null("Ladders/StairFootBottom")
-	var top: Node = quarter.get_node_or_null("Ladders/StairFootTop")
+	var bottom: Node = quarter.get_node_or_null("Visual/StairFoot/Ladders/StairFootBottom")
+	var top: Node = quarter.get_node_or_null("Visual/StairFoot/Ladders/StairFootTop")
 	check(bottom != null and top != null, "直梯上下各有一个交互点")
 	if bottom != null and top != null:
 		check(bottom.can_interact(), "梯脚交互点已接上攀爬系统")

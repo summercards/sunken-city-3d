@@ -140,7 +140,7 @@ func configure(npc_service, residence: Node3D, world_query: Callable = Callable(
 		interact.configure(id, str(row.display_name), str(row.get("shop_id", "")))
 		interact.npc_requested.connect(open_npc)
 		actors[id] = body
-		_routes[id] = {"spawned": false, "path": [], "target": {}, "requested_anchor": "", "anchor_id": "", "action": "", "fallback": false, "reason": "", "stalled": 0.0, "distance_walked": 0.0}
+		_routes[id] = {"spawned": false, "state": "idle", "path": [], "target": {}, "requested_anchor": "", "anchor_id": "", "action": "", "behavior": "", "behavior_left": 0.0, "fallback": false, "reason": "", "stalled": 0.0, "distance_walked": 0.0}
 	_index_boundaries()
 	var clock: Variant = _ports.query("world")
 	if clock is Dictionary: notify_world(clock)
@@ -232,40 +232,25 @@ func _sync_npc(id: String) -> void:
 	var unchanged: bool = route.anchor_id == str(target.anchor_id) and Ports.anchor_layout(route.target) == Ports.anchor_layout(target) and route.reason == reason and body.visible
 	route.requested_anchor = requested
 	route.action = str(result.action)
-	if unchanged: return
+	route.behavior = str(result.action)
+	route.behavior_left = 0.0
+	if unchanged:
+		_tick_behavior(body, route, 0.0)
+		return
 	var support: Vector3 = target.ground.surface_point(body.global_position)
 	if support.is_finite() and absf(support.y - body.global_position.y) < 0.3:
 		body.visible = true
 		if not body.grounded_motion_enabled: body.set_grounded_motion(true)
 	var path := _ports.path(body.global_position, target)
 	if path.is_empty():
-		# 跨区块换场：天台草地与海上结构之间没有连通的陆地，寻路必然为空。
-		# 以前这里直接判“原地停止”，于是改过日程的居民永远留在旧场地。
-		# 只在「当前站立点不在目标那块可走面内」时才直接落位，
-		# 同一区块内仍然坚持真实寻路，不把“无路可达”悄悄变成瞬移。
-		var landing: Vector3 = target.ground.surface_point(target.position)
-		var already_there: bool = target.ground.contains_position(body.global_position, 1.5)
-		if landing.is_finite() and not already_there:
-			body.global_position = landing
-			body.set_grounded_motion(true)
-			body.visible = true
-			route.path = []
-			route.target = target
-			route.anchor_id = str(target.anchor_id)
-			route.requested_anchor = requested
-			route.action = str(result.action)
-			route.fallback = false
-			route.reason = ""
-			route.stalled = 0.0
-			if not route.spawned:
-				route.spawned = true
-			return
-		reason = "目标无可行路线且住所不可用，原地停止"
+		# 不跨区块写坐标。没有连续地面路径时，NPC 明确进入受阻状态，
+		# 再尝试回到自己的住所，避免把旧的坐标落位伪装成寻路。
+		reason = "目标无连续地面路线，尝试返回住所"
 		var home := _ports.resolve(str(row.home_anchor), row, _world, "home_fallback")
 		if _valid_anchor(home):
 			path = _ports.path(body.global_position, home)
 			target = home
-		reason = "目标无可行路线，尝试返回住所" if not path.is_empty() else "住所也无路可达，原地停止"
+		reason = "目标无连续地面路线，返回住所" if not path.is_empty() else "目标与住所都无连续地面路线，原地停止"
 	route.path = path
 	route.target = target
 	route.anchor_id = str(target.anchor_id)
@@ -273,6 +258,7 @@ func _sync_npc(id: String) -> void:
 	route.reason = reason
 	route.stalled = 0.0
 	if reason != "": _report(id, requested, str(target.anchor_id), reason)
+	route.state = "moving" if not path.is_empty() else "blocked"
 
 func _valid_anchor(anchor: Dictionary) -> bool:
 	return Ports.valid_anchor(anchor)
@@ -337,7 +323,7 @@ func _step(id: String, delta: float) -> void:
 	var body = actors[id]
 	var route: Dictionary = _routes[id]
 	if not route.spawned or route.path.is_empty():
-		_stop(body)
+		_tick_behavior(body, route, delta)
 		return
 	if not _valid_anchor(route.target):
 		_report(id, str(route.requested_anchor), str(route.anchor_id), "站立面失效，原地停止")
@@ -349,19 +335,21 @@ func _step(id: String, delta: float) -> void:
 		_report(id, str(route.requested_anchor), str(route.anchor_id), "当前位置失去地面支撑，停止并隐藏")
 		_halt(id, "失去地面支撑", true)
 		return
-	while not route.path.is_empty() and body.global_position.distance_to(route.path[0]) <= ARRIVAL:
+	while not route.path.is_empty():
+		var waypoint: Vector3 = route.path[0]
+		var horizontal_distance := Vector2(waypoint.x - body.global_position.x, waypoint.z - body.global_position.z).length()
+		if horizontal_distance > ARRIVAL or absf(waypoint.y - body.global_position.y) > 0.06:
+			break
 		route.path.pop_front()
 	if route.path.is_empty():
-		_stop(body)
+		_tick_behavior(body, route, delta)
 		return
+	route.state = "moving"
 	var offset: Vector3 = route.path[0] - body.global_position
 	var step: Vector3 = offset.limit_length(WALK_SPEED * delta)
-	var point: Vector3 = ground.surface_point(body.global_position + step)
-	if not point.is_finite():
-		_report(id, str(route.requested_anchor), str(route.anchor_id), "路线跨越无地面区域，原地停止")
-		_halt(id, "路线无支撑")
-		return
-	var motion: Dictionary = body.move_ground(point - body.global_position, delta)
+	# Navigation points express intent only. CharacterMotor performs the actual
+	# capsule sweep against authored scene collision and resolves sliding/gravity.
+	var motion: Dictionary = body.move_ground(Vector3(step.x, 0.0, step.z), delta)
 	var moved: Vector3 = motion.moved
 	var distance := Vector2(moved.x, moved.z).length()
 	route.distance_walked += distance
@@ -378,10 +366,32 @@ func _stop(body) -> void:
 	body.walk_speed_ratio = 0.0
 	body.set_walking(false)
 
+func _tick_behavior(body, route: Dictionary, delta: float) -> void:
+	_stop(body)
+	route.state = "performing" if not str(route.get("behavior", "")).is_empty() else "idle"
+	var action := str(route.get("behavior", ""))
+	if action.is_empty(): return
+	if float(route.get("behavior_left", 0.0)) <= 0.0:
+		var presentation := _behavior_presentation(action)
+		if presentation != "" and body.has_method("play_action"):
+			body.play_action(presentation)
+		route.behavior_left = 1.25
+	else:
+		route.behavior_left = maxf(0.0, float(route.behavior_left) - delta)
+
+static func _behavior_presentation(action: String) -> String:
+	var id := action.to_lower()
+	if id.contains("water") or id.contains("sprout") or id.contains("flower") or id.contains("seed") or id.contains("cover"):
+		return "watering"
+	if id.contains("harvest") or id.contains("collect"):
+		return "harvesting"
+	return ""
+
 func _halt(id: String, reason: String, hide_actor := false) -> void:
 	var route: Dictionary = _routes[id]
 	route.path = []
 	route.reason = reason
+	route.state = "blocked"
 	route.fallback = true
 	_stop(actors[id])
 	if hide_actor:
@@ -424,6 +434,7 @@ func world_snapshot() -> Dictionary:
 	for id in actors:
 		var route: Dictionary = _routes[id]
 		residents[id] = {"anchor_id": route.anchor_id, "requested_anchor": route.requested_anchor, "action": route.action,
+			"state": route.get("state", "idle"),
 			"fallback": route.fallback, "reason": route.reason, "spawned": route.spawned,
 			"position": actors[id].global_position, "moving": not route.path.is_empty() and _enabled() and not is_modal(),
 			"remaining_waypoints": route.path.size(), "distance_walked": route.distance_walked}

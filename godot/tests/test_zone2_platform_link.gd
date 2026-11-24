@@ -31,7 +31,7 @@ func settle(n := 4) -> void:
 
 
 func area_of(zone: Node, area_id: String) -> Node3D:
-	for child in zone.get_node("WalkAreas").get_children():
+	for child in zone.walk_areas:
 		if str(child.get("area_id")) == area_id:
 			return child
 	return null

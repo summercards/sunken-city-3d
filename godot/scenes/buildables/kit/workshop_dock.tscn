@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="visual"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/workshop_dock/v004/workshop_dock.glb" id="model"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="PackedScene" path="res://scenes/components/docking_area.tscn" id="trigger"]
+
+[sub_resource type="BoxShape3D" id="Deck"]
+size = Vector3(5, 0.5, 2.5)
+
+[sub_resource type="BoxShape3D" id="Bollard"]
+size = Vector3(0.9, 1.4145, 0.9)
+
+[sub_resource type="BoxShape3D" id="Fender"]
+size = Vector3(1.24, 1.22, 0.2)
+
+[node name="WorkshopDock" type="Node3D"]
+script = ExtResource("visual")
+content_id = "workshop_dock"
+metadata/asset_id = "SEA-KIT-WORKSHOP-DOCK"
+metadata/asset_version = "v004"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+
+[node name="Model" parent="." instance=ExtResource("model")]
+
+[node name="SurfaceCollision" type="StaticBody3D" parent="."]
+collision_layer = 12288
+collision_mask = 0
+
+[node name="Deck" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(0, -0.25, 0)
+shape = SubResource("Deck")
+
+[node name="LeftBollard" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(-1.99, 0.70725, 0.75)
+shape = SubResource("Bollard")
+
+[node name="RightBollard" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(1.99, 0.70725, 0.75)
+shape = SubResource("Bollard")
+
+[node name="Fender1" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(-1.92, -0.53325, 1.36)
+shape = SubResource("Fender")
+
+[node name="Fender2" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(-0.64, -0.53325, 1.36)
+shape = SubResource("Fender")
+
+[node name="Fender3" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(0.64, -0.53325, 1.36)
+shape = SubResource("Fender")
+
+[node name="Fender4" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(1.92, -0.53325, 1.36)
+shape = SubResource("Fender")
+
+[node name="DockWalk" type="Node3D" parent="."]
+script = ExtResource("walk")
+area_id = "workshop_dock"
+zone_id = "zone5"
+surface_y = 0.0
+local_surface_height = true
+scene_collision = true
+rects = [Rect2(-2.5, -1.25, 5, 2.5)]
+
+[node name="Berth" type="Marker3D" parent="DockWalk"]
+position = Vector3(0, 0, 0.57)
+script = ExtResource("landing")
+landing_id = "main"
+landing_label = "制造区码头"
+metadata/check_park_clearance = true
+metadata/require_standing_on_dock = true
+
+[node name="BoatPark" type="Marker3D" parent="DockWalk/Berth"]
+position = Vector3(0, -0.36, 2.55)
+rotation = Vector3(0, 1.5707963, 0)
+
+[node name="DockEdge" type="Marker3D" parent="DockWalk/Berth"]
+position = Vector3(0, 0, 0.68)
+
+[node name="DockingArea" parent="DockWalk/Berth/DockEdge" instance=ExtResource("trigger")]
+position = Vector3(0, -0.36, 1.55)
+

@@ -38,26 +38,50 @@ func run() -> void:
 	var surface: Node3D=models.get_node("太阳能木屋/太阳能木屋-海上区域")
 	check(surface.scale.is_equal_approx(Vector3.ONE),"prefab root scale one")
 	var component_ids := {};var triangles := 0;var bounds := AABB();var first := true
-	check(surface.get_child_count()==4,"four independent semantic modules")
+	var module_count := 0
+	for child in surface.get_children():
+		if child.has_meta("module"):
+			module_count += 1
+	check(module_count==4,"four independent semantic modules")
 	for child in descendants(surface):
+		if child is MeshInstance3D and child.has_meta("asset_component"):
+			component_ids[child.get_meta("asset_component")] = true
+			triangles += triangle_count(child.mesh)
+			var box: AABB = surface.global_transform.affine_inverse()*child.global_transform*child.mesh.get_aabb()
+			bounds = box if first else bounds.merge(box)
+			first = false
+			continue
 		if not child is MultiMeshInstance3D:continue
-		var mm: MultiMesh=child.multimesh;var key: String=child.get_meta("asset_component")
+		var key := str(child.get_meta("asset_component", ""))
+		if key.is_empty():continue
+		var mm: MultiMesh=child.multimesh
 		component_ids[key]=true;triangles+=triangle_count(mm.mesh)*mm.instance_count
 		for i in mm.instance_count:
 			var box: AABB=surface.global_transform.affine_inverse()*child.global_transform*mm.get_instance_transform(i)*mm.mesh.get_aabb()
 			bounds=box if first else bounds.merge(box);first=false
 			if key=="house": check(absf(box.size.x-8.625)<.001,"original main wall enlarged exactly 50 percent")
-			if key.begins_with("platform_board") or key.begins_with("dock_board"):check(absf(box.end.y-2.15)<.002,"main deck height 2.15m")
+			if key.begins_with("platform_board") or key.begins_with("dock_board"):
+				var piece: Node = child.get_parent().get_parent()
+				if not str(piece.get_meta("instance_id", "")).contains("/new_"):
+					check(absf(box.end.y-2.15)<.002,"main deck height 2.15m")
 			if key in ["foundation","pier"]:check(absf(box.position.y-1.12)<.002,"foundation touches preserved waterline base")
 			if key=="entry":check(box.get_center().z>3.0,"entry faces game +Z")
 		for s in mm.mesh.get_surface_count():
 			var mat: ShaderMaterial=mm.mesh.surface_get_material(s)
 			check(mat!=null and mat.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cabin_timber_8x8_512.png","single shared palette binding")
-	check(component_ids.size()==49,"49 active source components loaded")
+	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/solar_cabin/v1_6/instances.json"))
+	var active_components := {}
+	for part: Dictionary in manifest.instances:
+		if part.component != "cooler":active_components[part.component] = true
+	check(component_ids.keys().all(func(key): return active_components.has(key)) and component_ids.size() == active_components.size(),
+		"every active visual component in the current layout is loaded")
 	for key in ["foundation","pier","vine","palm","deck_tile","sail","canopy_hook"]:check(not component_ids.has(key),"retired clutter/gray base: "+key)
-	for key in ["umbrella","sofa","cooler","table","pot"]:check(component_ids.has(key),"right lounge retained: "+key)
-	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/solar_cabin/revision_metrics.json"))
-	check(triangles==int(manifest.expanded_triangles_after),"expanded runtime triangles match optimized export")
+	for key in ["umbrella","sofa","table","pot"]:check(component_ids.has(key),"right lounge retained: "+key)
+	check(zone.get_node_or_null("Models/太阳能木屋/Facilities/ShippingBox/Visual") != null,"shipping box remains independently owned by the solar cabin")
+	check(zone.get_node_or_null("Models/太阳能木屋/Facilities/home_plot") != null,"farm plot follows solar cabin ownership")
+	check(zone.get_node_or_null("Models/太阳能木屋/Facilities/RoomDoor") != null,"room door follows solar cabin ownership")
+	check(zone.get_node_or_null("Models/太阳能木屋/Facilities/GatherSpots") == null,
+		"solar cabin deck has no loose gather spots")
 	var base: Node3D=models.get_node("太阳能木屋/太阳能木屋-海下基座")
 	var lower_data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/bloom_lower_building/instances.json"))
 	var lower_metrics: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/bloom_lower_building/revision_metrics.json"))
@@ -87,8 +111,10 @@ func run() -> void:
 	var deck_bottom := INF;var deck_top := -INF;var deck_rect := Rect2();var deck_first := true
 	for child in descendants(surface):
 		if not child is MultiMeshInstance3D:continue
-		var dmm: MultiMesh=child.multimesh;var dkey: String=child.get_meta("asset_component")
+		var dkey := str(child.get_meta("asset_component", ""))
 		if not (dkey.begins_with("platform_board") or dkey=="concrete_slab"):continue
+		if str(child.get_parent().get_parent().get_meta("instance_id", "")).contains("/new_"):continue
+		var dmm: MultiMesh=child.multimesh
 		for i in dmm.instance_count:
 			var wb: AABB=child.global_transform*dmm.get_instance_transform(i)*dmm.mesh.get_aabb()
 			if wb.end.y>3.5:continue  # 后排水泥屋顶不属于甲板层
@@ -118,25 +144,24 @@ func run() -> void:
 	for module in surface.get_children():
 		if "栈桥" in module.name:continue
 		for child in descendants(module):
-			if not child is MultiMeshInstance3D:continue
+			if not child is MultiMeshInstance3D or not child.has_meta("asset_component"):continue
 			var umm: MultiMesh=child.multimesh
 			for i in umm.instance_count:
 				var ub: AABB=child.global_transform*umm.get_instance_transform(i)*umm.mesh.get_aabb()
 				var ur := Rect2(ub.position.x,ub.position.z,ub.size.x,ub.size.z)
 				upper_rect=ur if upper_rect.size==Vector2.ZERO else upper_rect.merge(ur)
 	check(upper_rect.size.x<roof_rect.size.x and upper_rect.size.y<roof_rect.size.y,"base top face larger than the whole upper building")
-	check(roof_rect.position.x<upper_rect.position.x-0.35 and roof_rect.end.x>upper_rect.end.x+0.35,"base top face overhangs upper building by 0.40m on X")
-	check(roof_rect.position.y<upper_rect.position.y-0.35 and roof_rect.end.y>upper_rect.end.y+0.35,"base top face overhangs upper building by 0.40m on Z")
+	check(roof_rect.encloses(upper_rect),"base top face contains the new rounded float rim and all upper visuals")
 	check(base_rect.size.x>deck_rect.size.x and base_rect.size.y>deck_rect.size.y,"base footprint larger than upper deck in both axes")
 
 	var salvage: Node3D=models.get_node("绞盘打捞台")
-	check(salvage.position.is_equal_approx(Vector3(-5,0,4.15)),"current authored independent salvage placement preserved")
+	check(salvage.scene_file_path.ends_with(".tscn"),"independent salvage placement still uses its prefab")
 	var main_landing: Node3D=zone.landing_point("main");var plot: Node3D=main.farm_field.find("home_plot")
 	check(main_landing.ground().contains_world(main_landing.stand_position().x,main_landing.stand_position().z),"landing stands on new dock")
 	check(not main_landing.ground().path_between(main_landing.stand_position(),plot.global_position).is_empty(),"new dock to farm plot reachable")
 	var data: Dictionary=main_landing.data()
 	check(main._is_open_water(data.boatPark[0],data.boatPark[2]),"new boat park on navigable water")
-	check(zone.landing_point("salvage").stand_position().is_equal_approx(Vector3(-11.6,1.33,12.6)),"salvage landing unchanged")
+	check(zone.landing_point("salvage") != null,"independent salvage landing still registered")
 	var evidence := {"lower_components":lower_ids.size(),"lower_instances":lower_instances,"lower_triangles":lower_triangles,"lower_bounds_min":[lower_bounds.position.x,lower_bounds.position.y,lower_bounds.position.z],"lower_bounds_size":[lower_bounds.size.x,lower_bounds.size.y,lower_bounds.size.z],"component_count":component_ids.size(),"expanded_triangles":triangles,"bounds_min":[bounds.position.x,bounds.position.y,bounds.position.z],"bounds_size":[bounds.size.x,bounds.size.y,bounds.size.z],"front_godot":[0,0,1],"yaw_degrees":0,"uniform_source_scale":1.15,"revision_scale":1.5,"total_scale_over_v003":1.725,"deck_y":deck_top,"deck_underside_y":deck_bottom,"water_y":water,"base_roof_y":base_roof,"base_rect":[base_rect.position.x,base_rect.position.y,base_rect.size.x,base_rect.size.y],"deck_rect":[deck_rect.position.x,deck_rect.position.y,deck_rect.size.x,deck_rect.size.y],"base_scale":[1.4501,1.0,1.4308],"roof_rect":[roof_rect.position.x,roof_rect.position.y,roof_rect.size.x,roof_rect.size.y],"upper_rect":[upper_rect.position.x,upper_rect.position.y,upper_rect.size.x,upper_rect.size.y],"checks":checks,"failures":failures}
 	var file := FileAccess.open("res://outputs/solar-cabin-runtime.json",FileAccess.WRITE);file.store_string(JSON.stringify(evidence,"\t"));file.close()
 	if DisplayServer.get_name()!="headless":

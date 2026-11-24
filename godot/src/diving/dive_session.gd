@@ -1028,7 +1028,6 @@ func _release_suspended_host() -> void:
 		host.remove_meta("dive_map_suspended")
 		if host.actor_controller != null:
 			host.actor_controller.ports.clear()
-			host.actor_controller.after_walk = Callable()
 		host.save_registry.clear()
 		host.navigation.shape_query = Callable()
 		if host.npc_service != null: host.npc_service.dispose()

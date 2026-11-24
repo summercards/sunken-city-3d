@@ -22,8 +22,6 @@ var game_state: Node
 ## 海上地图的「你在哪」：返回 {"zone": String, "position": Vector3}。由 Main 注入。
 var player_query: Callable
 ## SEA-UI: one physical card; gameplay mutations only through existing commands.
-signal destination_pressed(zone_id: String)
-var manual_sea_travel := false
 signal dive_pressed
 signal build_pressed
 signal site_focus_requested(id: String)
@@ -106,9 +104,6 @@ var _refresh_deferred := false
 ## PERF-AUTH: diagnostic counters keep coalescing and synchronous refresh behavior testable.
 var _refresh_request_count := 0
 var _actual_refresh_count := 0
-var _map_buttons: Array[Button] = []
-var _map_zone_id := ""
-var _map_scroll_pending := false
 
 func _ready() -> void:
 	layer = 60
@@ -126,8 +121,6 @@ func _ready() -> void:
 	_root.add_child(_backdrop);_backdrop.hide()
 	_panel = Card.new();_panel.font = _font;_panel.feedback_enabled = OXYGEN_FEEDBACK_ENABLED
 	_root.add_child(_panel);_panel.hide();_tab_body = _panel.body
-	_tab_body.resized.connect(func():
-		if _panel_open and _tab=="map": _map_scroll_pending=true)
 	_panel.activated.connect(_activate)
 	_panel.page_changed.connect(func(_page): _tab = "manual")
 	pockets = preload("res://src/ui/pocket_inventory.gd").new()
@@ -446,7 +439,6 @@ func _refresh_panel() -> void:
 		return
 	if _tab == "manual":
 		_panel.show_grid(1);return
-	_map_buttons.clear()
 	for node in _tab_body.get_children():
 		_tab_body.remove_child(node);node.queue_free()
 	_build_rows.clear();_plant_rows.clear()
@@ -463,24 +455,13 @@ func _refresh_panel() -> void:
 		"build": _panel.show_detail("建造计划");_refresh_build()
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
 		"map":
-			_panel.show_detail("海图" if manual_sea_travel else "海风带你去哪里？")
+			_panel.show_detail("海图")
 			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;atlas.player_query=player_query;_tab_body.add_child(atlas)
-			_tab_body.add_child(_label("橙点是你现在的位置 · WASD / 方向键手动划船" if manual_sea_travel else "橙点是你现在的位置",16,DIM))
+			_tab_body.add_child(_label("橙点是你现在的位置",16,DIM))
 			for entry in DESTINATIONS:
 				if not Scope.zone_enabled(entry.id): continue
 				var unlocked: bool=zones.is_unlocked(entry.id)
-				if manual_sea_travel:
-					_tab_body.add_child(_label(entry.name + (" · 已在这里" if entry.id == game_state.current_zone else "" if unlocked else " · 需要升级小船"), 16))
-					continue
-				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == game_state.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
-				button.disabled=not unlocked or _diving;_tab_body.add_child(button)
-				button.set_meta("zone_id",str(entry.id));_map_buttons.append(button)
-				button.focus_entered.connect(func():
-					_map_zone_id=str(button.get_meta("zone_id"));_map_scroll_pending=true;_scroll_map_focus.call_deferred())
-				button.pressed.connect(func():
-					if button.disabled or not _panel_open or _tab!="map": return
-					_map_zone_id=str(button.get_meta("zone_id"))
-					_toggle_panel();destination_pressed.emit(_map_zone_id))
+				_tab_body.add_child(_label(entry.name + (" · 已在这里" if entry.id == game_state.current_zone else "" if unlocked else " · 需要升级小船"), 16))
 		_:
 			_panel.show_detail(ItemDBLib.label(_tab))
 			var art := _item_tile(_tab,economy.count(_tab));art.mouse_filter=Control.MOUSE_FILTER_IGNORE;art.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;_tab_body.add_child(art)
@@ -505,50 +486,9 @@ func _refresh_panel() -> void:
 				var note := _label("会同时出售背包中的蔬菜、番茄和南瓜，
 包含订单用料。",13,DIM);_tab_body.add_child(note)
 			else:
-				var trade := _plain_button("前往码头交易")
-				trade.pressed.connect(func(): _toggle_panel();destination_pressed.emit("zone1"))
-				if not manual_sea_travel: _tab_body.add_child(trade)
-				else: trade.free()
 				_tab_body.add_child(_label("在码头订单中交付，换取瓶盖。",14,DIM))
 	_style_details(_tab_body)
 	_layout()
-	if _tab=="map" and _panel_open: _restore_map_focus.call_deferred()
-
-func _restore_map_focus() -> void:
-	if not _panel_open or _tab!="map": return
-	var fallback: Button
-	for button in _map_buttons:
-		if button.disabled: continue
-		if fallback==null: fallback=button
-		if str(button.get_meta("zone_id"))==_map_zone_id:
-			button.grab_focus();_scroll_map_focus();return
-	if _map_zone_id=="":
-		for button in _map_buttons:
-			if not button.disabled and str(button.get_meta("zone_id"))==game_state.current_zone: fallback=button;break
-	if fallback!=null:
-		fallback.grab_focus();_scroll_map_focus()
-	else: _panel_feedback.text="当前没有可前往的目的地 · Esc 返回"
-
-func _scroll_map_focus() -> void:
-	if not _panel_open or _tab!="map": return
-	var focused:=get_viewport().gui_get_focus_owner()
-	if focused in _map_buttons:
-		# 卡片是普通 Control，没人向详情容器查询最小尺寸；显式刷新其内容范围后再排版。
-		_panel.detail.get_minimum_size()
-		_panel.detail.queue_sort()
-		_panel.detail.ensure_control_visible(focused)
-		# 重建首帧容器尚未更新滚动范围；保留待办直至布局完成且整个按钮可见。
-		_map_scroll_pending=not _panel.detail.get_global_rect().grow(1).encloses(focused.get_global_rect())
-
-func _move_map_focus(step: int) -> void:
-	var enabled: Array[Button]=[]
-	for button in _map_buttons:
-		if not button.disabled: enabled.append(button)
-	if enabled.is_empty(): return
-	var index:=enabled.find(get_viewport().gui_get_focus_owner())
-	if index<0: _restore_map_focus();return
-	enabled[posmod(index+step,enabled.size())].grab_focus()
-	_scroll_map_focus()
 
 func _crop_sale_ids() -> Array:
 	var ids: Array = []
@@ -604,10 +544,6 @@ func _activate_selection() -> void:
 		if focus is Button and focus.is_visible_in_tree() and not focus.disabled and not _hints.is_ancestor_of(focus):
 			focus.pressed.emit()
 		return
-	if _tab=="map" and _panel.detail.visible:
-		var focused:=get_viewport().gui_get_focus_owner()
-		if focused is Button and focused in _map_buttons and not focused.disabled: focused.pressed.emit()
-		return
 	if _panel.detail.visible or _panel.turning: return
 	for tile in _panel.tiles.values():
 		if tile.selected and tile.is_visible_in_tree() and not tile.disabled:
@@ -632,10 +568,8 @@ func _input(event: InputEvent) -> void:
 		_panel_keys[key]=true
 		if key == KEY_ESCAPE:
 			back()
-		elif _tab=="map" and key in [KEY_TAB,KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
-			_move_map_focus(-1 if key in [KEY_LEFT,KEY_UP] or (key==KEY_TAB and event.shift_pressed) else 1)
-		elif _tab=="map" and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE]:
-			_activate_selection()
+		elif _tab == "map" and key in [KEY_UP, KEY_DOWN]:
+			_panel.detail.scroll_vertical += -48 if key == KEY_UP else 48
 		elif key in [KEY_B,KEY_TAB]:
 			_toggle_panel()
 		elif event.shift_pressed and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN] and (_pocket_mode or _service_mode):
@@ -769,7 +703,6 @@ func _flush_refresh() -> void:
 
 func _process(delta: float) -> void:
 	if _root.size != _layout_size: _layout()
-	if _map_scroll_pending and _panel_open and _tab=="map": _scroll_map_focus()
 	corner.status.visible=not _panel_open and not _external_modal and not menu.active and not _diving
 	_panel_feedback.visible=_panel_open and not menu.active and not _external_modal
 	corner.place(_root.size)

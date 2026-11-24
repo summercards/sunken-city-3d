@@ -5,19 +5,26 @@ const Catalog = preload("res://src/building/building_catalog.gd")
 signal changed
 signal completed(id: String)
 var _rows: Array = []
+var _fixed: Dictionary = {}
 var _next_id := 1
 var _ports: Dictionary = {}
 var _committing := false
 var _by_id: Dictionary = {}
 var _deck_cells: Dictionary = {}
 var _finished_tiles: Array = []
+var _starter_planters_initialized := false
+var _introduced_planters: Array[String] = []
 
-func configure(ports: Dictionary) -> void:
+func configure(ports: Dictionary, fixed: Array = []) -> void:
 	for key in ["eligibility","space_reason","pay"]:
 		assert(ports.has(key) and ports[key].is_valid())
 	_ports=ports.duplicate()
+	_fixed.clear()
+	for item: Dictionary in fixed:
+		_fixed[item.id] = item.duplicate(true)
 func catalog() -> Dictionary: return Catalog.RECIPES.duplicate(true)
 func query() -> Array: return _rows.duplicate(true)
+func layout() -> Array: return _fixed.values().duplicate(true) + query()
 func busy() -> bool: return _committing
 func context_reason() -> String:
 	var drift:=Catalog.content_reason()
@@ -25,7 +32,7 @@ func context_reason() -> String:
 	var reason: String=_ports.eligibility.call() if _ports.has("eligibility") else "建造未就绪"
 	return reason if reason!="" else Catalog.content_reason()
 func row(id: String) -> Dictionary:
-	return (_by_id.get(id,{}) as Dictionary).duplicate(true)
+	return (_by_id.get(id,_fixed.get(id,{})) as Dictionary).duplicate(true)
 
 func _index(item: Dictionary) -> void:
 	_by_id[item.id]=item
@@ -77,7 +84,7 @@ func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
 	var geometry_request:=request
 	if grid:
 		geometry_request=request.duplicate();geometry_request.px=0.0;geometry_request.pz=0.0;geometry_request.support=""
-	var geometry:=Assembly.reason(geometry_request,query(),strict_join)
+	var geometry:=Assembly.reason(geometry_request,layout(),strict_join)
 	if geometry!="": return geometry
 	return _platform_join_reason(request) if strict_join else ""
 
@@ -88,7 +95,7 @@ func _platform_join_reason(request: Dictionary) -> String:
 	if str(request.get("origin","shore"))=="boat" and Catalog.same_level(Catalog.elevation(request),0.0): return ""
 	var own:=str(request.get("exclude_id",""))
 	var rows: Array=[]
-	for item in _rows:
+	for item in layout():
 		if str(item.id)!=own: rows.append(item)
 	if Catalog.platform_contact(Catalog.footprint_rect(request),rows,Catalog.elevation(request))>=Catalog.JOIN_MIN: return ""
 	# Historical upper floors can still use their actual wall/post support.
@@ -118,7 +125,7 @@ func _proposed(request: Dictionary, operation: String, id: String) -> Array:
 		if item.id!=id: result.append(item.duplicate(true))
 	if operation!="remove":
 		result.append(_record(request,id,0.0 if operation=="move" else float(Catalog.RECIPES[request.kind].seconds)))
-	return Assembly.rebind_supports(result) if operation=="remove" else result
+	return _rebind(result) if operation=="remove" else result
 
 func _layout_reason(request: Dictionary, operation: String, id: String) -> String:
 	var drift:=Catalog.verify_content()
@@ -135,7 +142,8 @@ func _layout_reason(request: Dictionary, operation: String, id: String) -> Strin
 		drift=Catalog.verify_content()
 		if drift!="": return drift
 	if not _ports.has("layout_reason") or not _ports.layout_reason.is_valid(): return Catalog.verify_content()
-	var reason: String=_ports.layout_reason.call(query(),proposed,context)
+	var fixed: Array = _fixed.values().duplicate(true)
+	var reason: String=_ports.layout_reason.call(fixed + query(),fixed + proposed,context)
 	return reason if reason!="" else Catalog.verify_content()
 
 static func _layout_bytes(rows: Array, sequence: int) -> int:
@@ -176,7 +184,7 @@ func snap_planter(request: Dictionary) -> Dictionary:
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is float or rotation is int) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return request.duplicate()
-	if Catalog.covered(Catalog.plot_rect(request).grow(Catalog.PLANTER_MARGIN),Catalog.platform_tiles_at_level(_rows,Catalog.elevation(request))): return request.duplicate()
+	if Catalog.covered(Catalog.plot_rect(request).grow(Catalog.PLANTER_MARGIN),Catalog.platform_tiles_at_level(layout(),Catalog.elevation(request))): return request.duplicate()
 	var base:=Vector2(float(request.px),float(request.pz))
 	var best: Dictionary={}
 	var best_distance:=INF
@@ -228,6 +236,7 @@ func _spend_energy(action: String) -> void:
 	if _ports.has("spend_energy") and _ports.spend_energy.is_valid(): _ports.spend_energy.call(action)
 
 func can_move(id: String, request: Dictionary) -> String:
+	if _fixed.has(id): return "初始建造区不能搬移"
 	var drift:=Catalog.verify_content()
 	if drift!="": return drift
 	var item: Dictionary=_by_id.get(id,{})
@@ -261,6 +270,7 @@ func move(id: String, request: Dictionary) -> Dictionary:
 	return {"ok":true,"id":id}
 
 func can_remove(id: String) -> String:
+	if _fixed.has(id): return "初始建造区不能拆除"
 	var drift:=Catalog.verify_content()
 	if drift!="": return drift
 	var reason:=context_reason()
@@ -272,12 +282,13 @@ func can_remove(id: String) -> String:
 	var remaining: Array=[]
 	for other in _rows:
 		if other.id!=id: remaining.append(other)
-	remaining=Assembly.rebind_supports(remaining)
-	var old_rooted:=Assembly.rooted_ids(_rows)
-	var new_rooted:=Assembly.rooted_ids(remaining)
+	remaining=_rebind(remaining)
+	var fixed := _fixed.values()
+	var old_rooted:=Assembly.rooted_ids(fixed + _rows)
+	var new_rooted:=Assembly.rooted_ids(fixed + remaining)
 	for other in remaining:
 		if old_rooted.has(str(other.id)) and not new_rooted.has(str(other.id)): return "先拆除依附在此构件上的结构或摆件"
-		if not Catalog.is_platform(str(other.kind)) and Assembly.reason(other,remaining,false)!="": return "先拆除依附在此构件上的结构或摆件"
+		if (not Catalog.is_platform(str(other.kind)) or Catalog.is_dock(other.kind)) and Assembly.reason(other,fixed + remaining,false)!="": return "先拆除依附在此构件上的结构或摆件"
 	var request: Dictionary=item.duplicate(true)
 	request.operation="remove"
 	return _layout_reason(request,"remove",id)
@@ -298,10 +309,13 @@ func remove(id: String) -> Dictionary:
 		_committing=false
 		return {"ok":false,"reason":"背包空间不足，请先整理再回收"}
 	_spend_energy("remove")
-	_rows.erase(item);_rows=Assembly.rebind_supports(_rows);_reindex()
+	_rows.erase(item);_rows=_rebind(_rows);_reindex()
 	_committing=false
 	changed.emit()
 	return {"ok":true,"id":id,"refund":cost}
+
+func _rebind(rows: Array) -> Array:
+	return Assembly.rebind_supports(_fixed.values() + rows).filter(func(item): return not _fixed.has(item.id))
 
 func tick(delta: float) -> void:
 	# 公开目录没有可追踪写入代次；逐字段检查，不复用上一帧的安全结论。
@@ -315,24 +329,112 @@ func tick(delta: float) -> void:
 		_reindex()
 		changed.emit()
 		for id in done: completed.emit(id)
-func to_dict() -> Dictionary: return {"version":1,"next_id":_next_id,"instances":query()}
+func to_dict() -> Dictionary:
+	var snapshot := {"version":1,"next_id":_next_id,"instances":query()}
+	if _starter_planters_initialized:
+		snapshot.starter_planters = true
+		snapshot.starter_planters_packed = true
+	return snapshot
+func validate_layout_snapshot(data: Dictionary) -> String:
+	return validate_snapshot(data, _fixed.values())
+
 func from_dict(data: Dictionary) -> bool:
-	if validate_snapshot(data)!="": return false
+	if validate_layout_snapshot(data)!="": return false
 	_rows=data.instances.duplicate(true);_next_id=int(data.next_id)
+	_introduced_planters.clear()
+	_starter_planters_initialized = bool(data.get("starter_planters", false))
+	if _fixed.has("@starter/DeckSE"):
+		var beds := _packed_starter_planters()
+		if not _starter_planters_initialized:
+			_place_starter_planters(beds)
+		elif not data.get("starter_planters_packed", false):
+			_reposition_starter_planters(beds)
 	_reindex();changed.emit()
 	return true
+
+func take_introduced_planters() -> Array[String]:
+	var ids := _introduced_planters.duplicate()
+	_introduced_planters.clear()
+	return ids
+
+func _packed_starter_planters() -> Array[Dictionary]:
+	var front: Dictionary = _fixed["@starter/DeckSE"]
+	var center := Vector2(front.px, front.pz) + Vector2(-.2, -2.5)
+	var size: Vector2 = Catalog.RECIPES.planter.footprint
+	var beds: Array[Dictionary] = []
+	for z in range(-1, 2):
+		for x: float in [-.5, .5]:
+			var point := center + Vector2(x, z) * size
+			var support: String = front.id
+			for tile: Dictionary in _fixed.values():
+				if Catalog.footprint_rect(tile).has_point(point):
+					support = tile.id
+					break
+			beds.append({"kind":"planter","px":point.x,"pz":point.y,"turn":0,"support":support})
+	return beds
+
+func _reposition_starter_planters(beds: Array[Dictionary]) -> void:
+	var front: Dictionary = _fixed["@starter/DeckSW"]
+	var moved := {}
+	var index := 0
+	for z: float in [-3.55, -0.35]:
+		for x: float in [-0.9, 2.5, 5.9]:
+			for row: Dictionary in _rows:
+				if row.kind == "planter" and row.turn == 0 and row.left == 0 \
+					and Catalog.same_level(Catalog.elevation(row), 0.0) and str(row.support).begins_with("@starter/") \
+					and Vector2(row.px, row.pz).is_equal_approx(Vector2(front.px, front.pz) + Vector2(x, z)):
+					moved[row.id] = row.merged(beds[index], true)
+					break
+			index += 1
+	if moved.is_empty(): return
+	var occupied := _fixed.values() + _rows.filter(func(row): return not moved.has(row.id))
+	for bed: Dictionary in moved.values():
+		if Assembly.reason(bed, occupied) != "": return
+	for i in _rows.size():
+		if moved.has(_rows[i].id): _rows[i] = moved[_rows[i].id]
+
+func _place_starter_planters(beds: Array[Dictionary]) -> void:
+	_starter_planters_initialized = true
+	var proposed := _fixed.values() + _rows
+	# Check against the existing layout first. The six computed footprints
+	# share their edges, so the usual clearance between loose items is unnecessary here.
+	if beds.all(func(bed): return Assembly.reason(bed, proposed) == ""):
+		for bed in beds: _add_starter_planter(bed)
+		return
+	var front: Dictionary = _fixed["@starter/DeckSW"]
+	# Occupied legacy spots can use another free place on the same starter deck.
+	for z in range(-6, 4):
+		for x in range(-3, 14):
+			var request := {"kind":"planter","px":float(front.px)+x*.5,"pz":float(front.pz)+z*.5,"turn":0}
+			for support: Dictionary in _fixed.values():
+				if Catalog.is_dock(support.kind): continue
+				request.support = support.id
+				if Assembly.reason(request, proposed) != "": continue
+				_add_starter_planter(request)
+				proposed.append(_rows.back())
+				break
+			if _introduced_planters.size() == 6: return
+
+func _add_starter_planter(request: Dictionary) -> void:
+	var item := _record(request, "built_%d" % _next_id, 0.0)
+	_rows.append(item)
+	_introduced_planters.append(item.id)
+	_next_id += 1
+
 static func empty_snapshot() -> Dictionary: return {"version":1,"next_id":1,"instances":[]}
 
-static func validate_snapshot(data: Dictionary) -> String:
+static func validate_snapshot(data: Dictionary, fixed: Array = []) -> String:
 	var drift:=Catalog.verify_content()
 	if drift!="": return drift
+	for key in ["starter_planters", "starter_planters_packed"]:
+		if data.has(key) and not data[key] is bool: return "Invalid starter planter state"
 	if data.get("version")!=1 or not data.get("instances") is Array: return "Invalid building snapshot"
 	var sequence: Variant=data.get("next_id")
 	if not (sequence is float or sequence is int) or not is_finite(float(sequence)) or sequence<1 or sequence!=floor(sequence):
 		return "Invalid building sequence"
 	var validator=load("res://src/building/building_service.gd").new()
 	var ids: Dictionary={}
-	var furnishings: Array=[]
+	var needs_starter := false
 	# Validate scalar contracts first. All supports are indexed before any
 	# furnishing is checked: a moved box can use a deck built later than itself.
 	for raw in data.instances:
@@ -349,6 +451,7 @@ static func validate_snapshot(data: Dictionary) -> String:
 			if raw[key]!=floor(raw[key]): return "Fractional building grid"
 		if raw.turn<0 or raw.turn>3 or raw.left<0: return "Invalid building rotation/timer"
 		if not Catalog.RECIPES.has(raw.kind) or raw.left>Catalog.RECIPES[raw.kind].seconds: return "Invalid building recipe/timer"
+		needs_starter = needs_starter or raw.support.begins_with("@starter/") or Catalog.is_dock(raw.kind)
 		var suffix: String=raw.id.trim_prefix("built_")
 		if not suffix.is_valid_int() or raw.id!="built_%d"%int(suffix) or int(suffix)<1 or int(suffix)>=sequence or ids.has(raw.id):
 			return "Invalid building identity"
@@ -359,14 +462,18 @@ static func validate_snapshot(data: Dictionary) -> String:
 		validator._rows.append(raw.duplicate(true))
 	# 先拒绝非有限标量，再计算JSON容量，避免坏档进入序列化器产生NaN警告。
 	if _layout_bytes(data.instances,int(sequence))>Catalog.MAX_LAYOUT_BYTES: return "Building layout exceeds save byte budget"
+	if fixed.is_empty() and needs_starter: fixed = Catalog.starter_rows()
+	for item: Dictionary in fixed: validator._fixed[item.id] = item
 	var elevated_platforms: Array=[]
 	for raw in validator._rows:
-		if validator.geometry_reason(raw,false)!="": return "Invalid building support or overlap"
+		var request: Dictionary = raw.duplicate()
+		request.exclude_id = raw.id
+		if validator.geometry_reason(request,false)!="": return "Invalid building support or overlap"
 		if Catalog.is_platform(str(raw.kind)) and not Catalog.same_level(Catalog.elevation(raw),0.0): elevated_platforms.append(raw)
 	if not elevated_platforms.is_empty():
 		# 恢复允许历史水面孤台，但高层必须从真实完工承载根派生。
 		# 在完整候选集上求不动点，不能让互接平台或命名引用自行形成根。
-		var rooted: Array[String]=Assembly.rooted_ids(validator._rows)
+		var rooted: Array[String]=Assembly.rooted_ids(validator.layout())
 		for raw in elevated_platforms:
 			if not rooted.has(str(raw.id)): return "Elevated building platform has no rooted support"
 	return ""

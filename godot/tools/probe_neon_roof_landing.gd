@@ -24,7 +24,7 @@ func _run() -> void:
 	print("[neon-roof] 楼根=%s rotY=%.1f° 水面=%.2f" % [
 		str(quarter.global_position), rad_to_deg(quarter.global_rotation.y), main.WATER_LEVEL])
 
-	var area: Node3D = quarter.get_node_or_null("WalkAreas/WalkLeftRoof")
+	var area: Node3D = quarter.get_node_or_null("Visual/LeftBuilding/WalkLeftRoof")
 	if area == null:
 		print("[neon-roof] FAIL 没有 WalkLeftRoof")
 		quit(1)

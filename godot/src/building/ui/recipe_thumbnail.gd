@@ -26,7 +26,7 @@ func request_image() -> void:
 	env.tonemap_mode=Environment.TONE_MAPPER_FILMIC;environment.environment=env;world.add_child(environment)
 	var model:=_model()
 	world.add_child(model)
-	# AABB coordinates include each GLB child transform and the legacy deck's generated boards.
+	# Include transforms from the authored model hierarchy.
 	var box:=AABB();var first:=true
 	for mesh: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
 		var bounds: AABB=mesh.global_transform*mesh.get_aabb()
@@ -51,7 +51,10 @@ func request_image() -> void:
 
 func _model() -> Node3D:
 	if Catalog.is_kit(kind):
-		var model: Node3D=load("res://assets/models/building_kit/"+kind+"/"+kind+".glb").instantiate()
+		var component: Node3D = load(Catalog.RECIPES[kind].prefab).instantiate()
+		var model: Node3D = component.get_node("Model")
+		component.remove_child(model)
+		component.free()
 		for mesh: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
 			for i in mesh.mesh.get_surface_count():
 				var source: Material=mesh.mesh.surface_get_material(i);var role:="matte"
@@ -61,11 +64,7 @@ func _model() -> Node3D:
 				mesh.set_surface_override_material(i,load("res://assets/materials/building_kit/"+role+".tres"))
 		return model
 	if kind=="deck": return load("res://scenes/buildables/wood_deck.tscn").instantiate()
-	# Reuse the existing farm-cell mesh builder without entering its gameplay lifecycle.
-	var cell=load("res://src/farming/farm_plot.gd").new();cell._build_box()
-	var model:=Node3D.new()
-	for child in cell.get_children(): cell.remove_child(child);model.add_child(child)
-	cell.free()
+	var model := preload("res://scenes/buildables/cultivation_bed_model.tscn").instantiate() as Node3D
 	var footprint: Vector2=Catalog.RECIPES[kind].footprint
 	model.scale=Vector3(footprint.x/1.30,.65,footprint.y/.90)
 	return model

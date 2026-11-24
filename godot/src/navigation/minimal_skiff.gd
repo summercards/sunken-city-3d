@@ -124,6 +124,18 @@ func advance(intent: Vector3, delta: float, berth: Marker3D) -> void:
 			move_and_collide(step, false, safe_margin)
 	velocity = (global_position - before) / delta
 
+func dock_at(park: Marker3D) -> void:
+	global_position = Vector3(park.global_position.x, global_position.y, park.global_position.z)
+	global_rotation.y = park.global_rotation.y
+	_speed = 0.0
+	_turn_rate = 0.0
+	velocity = Vector3.ZERO
+	_last_contact = null
+	_blocked_intent = Vector3.ZERO
+	_impact_position = Vector3.INF
+	_impact_direction = Vector3.ZERO
+	_travel_direction = Vector3.ZERO
+
 func _approach_speed(direction: Vector3, berth: Marker3D) -> float:
 	if direction == Vector3.ZERO:
 		return cruise_speed

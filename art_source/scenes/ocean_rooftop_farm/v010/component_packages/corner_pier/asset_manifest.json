@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "corner_pier",
+  "asset_id": "SEA-SCENE-ORF7-CORNER-PIER",
+  "name": "圆角主柱",
+  "category": "structure",
+  "component_family": "facade",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/corner_pier/corner_pier.blend",
+  "source_sha256": "f9a7f2adfebe37c578a22480df7471e2025197faadab2cdc6d377c7f4a0cc43c",
+  "collection": "MASTER | corner_pier",
+  "bounds_m": [
+    0.5,
+    0.5,
+    4.900000095367432
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-CORNER-PIER",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/corner_pier.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/corner_pier.tscn"
+}

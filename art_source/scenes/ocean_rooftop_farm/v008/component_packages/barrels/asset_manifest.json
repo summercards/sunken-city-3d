@@ -1,0 +1,37 @@
+{
+  "key": "barrels",
+  "asset_id": "SEA-SCENE-ORF7-BARRELS",
+  "name": "三色接水桶",
+  "category": "facility",
+  "component_family": "storage",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/barrels/barrels.blend",
+  "source_sha256": "7d4e6db8dbe7e166336a9e5cc84e52175ac60125209a00abc23b69eeff7026c6",
+  "collection": "MASTER | barrels",
+  "bounds_m": [
+    2.3070898056030273,
+    0.9470899701118469,
+    0.9479999542236328
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.11089497804641724,
+    0.06089499592781067,
+    0.03999999910593033
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BARRELS",
+  "version": "v008"
+}

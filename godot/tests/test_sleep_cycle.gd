@@ -60,7 +60,7 @@ func run() -> void:
 	# 2026-11-05：睡觉从「太阳房入口的月亮点」搬到房间里的床上（SEA-ROOM）。
 	# 所以这里的入口流程拆成两步：门口点「进入房间」→ 屋里的床上点「睡到早上 06:00」。
 	# 过场本身（圆幕、时机、黑幕文字）一个字没改，断言仍然守着同一件事。
-	var doorstep=main._zone_nodes.zone1.get_node("Objects/RoomDoor")
+	var doorstep=main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/RoomDoor")
 	main.restore_world_state({"zone":"zone1","landing":"main","mode":1})
 	check(main.validate_world_state(main.capture_world_state()).is_empty(),"sunroom doorstep is valid walkable ground")
 	main.cam.set_process(false)

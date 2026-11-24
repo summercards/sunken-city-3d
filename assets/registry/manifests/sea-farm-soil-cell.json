@@ -3,5 +3,10 @@
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-FARM-SOIL-CELL",
   "source": "godot/src/farming/farm_plot.gd",
   "prefab": "godot/scenes/props/farm_cell.tscn",
-  "note": "程序几何；独立代码/场景入口。经营状态由Farm拥有。"
+  "note": "程序几何；独立代码/场景入口。经营状态由Farm拥有。",
+  "construction_variant": {
+    "prefab": "godot/scenes/buildables/cultivation_bed.tscn",
+    "source_sha256": "d722f200f1e03cbdedaaea398f9c810ab412e4c8dabf6134370a15e27b8a4815",
+    "verification": "docs/development/2026-11-23_building_construction.md"
+  }
 }

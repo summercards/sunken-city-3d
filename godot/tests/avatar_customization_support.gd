@@ -221,18 +221,6 @@ static func produce_geometry(actor) -> Dictionary:
 					if p.length_squared()<.98: result.hat+=1
 	return result
 
-static func tail_attachment_gap(actor) -> float:
-	var head: Node3D=actor.head_pivot.get_node("AvatarHead")
-	var scalp: MeshInstance3D=head.get_node("Hair/Scalp")
-	var scalp_points:=points(scalp,head)
-	var minimum:=INF
-	for mesh in meshes(head,"hair"):
-		if mesh.get_meta("hair_zone","")!="ponytail": continue
-		for p in points(mesh,head):
-			if (p/RADII).length_squared()>2.4: continue
-			for q in scalp_points: minimum=minf(minimum,p.distance_to(q))
-	return minimum
-
 static func geometry(actor: Node3D) -> Dictionary:
 	var result := {"finite":true,"hair_skull":0,"hair_eye":0,"arm_head":0,"arm_shirt":0,"hair_shirt":0,"beard_shirt":0,"hair_tank":0,"samples":0,"meshes":0}
 	var head: Node3D=actor.head_pivot.get_node("AvatarHead")

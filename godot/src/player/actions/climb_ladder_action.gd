@@ -3,10 +3,9 @@ extends RefCounted
 ## The ladder is a special action, not a walkable rectangle and not a teleport.
 
 const SPEED := 1.35
-const END_TOLERANCE := 0.025
 
 func prepare(c, start: Vector3, end: Vector3, subject: Node3D) -> Dictionary:
-	if c.mode() != 0 or c.machine.current in ["diving", "sleeping", "interacting", "boarding"]:
+	if c.mode() != 0 or c.machine.current in ["diving", "sleeping", "boarding"]:
 		return {"ok": false}
 	if subject == null or not is_instance_valid(subject):
 		return {"ok": false}
@@ -28,4 +27,4 @@ func step(c, delta: float) -> bool:
 	# one-frame teleport and cannot be used by ordinary walking.
 	c.actor.global_position = next
 	c.actor.rotation.y = atan2((to - from).x, (to - from).z)
-	return c.climb_progress >= 1.0 - END_TOLERANCE
+	return c.climb_progress >= 1.0

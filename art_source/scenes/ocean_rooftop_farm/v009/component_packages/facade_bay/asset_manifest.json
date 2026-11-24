@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "facade_bay",
+  "asset_id": "SEA-SCENE-ORF7-FACADE-BAY",
+  "name": "缺口窗墙模块",
+  "category": "structure",
+  "component_family": "facade",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/facade_bay/facade_bay.blend",
+  "source_sha256": "4781c0e306cc90e4debb13a7713358fad18b2cef4b4552b04daac9a87eaa8aba",
+  "collection": "MASTER | facade_bay",
+  "bounds_m": [
+    4.259999752044678,
+    0.7000000476837158,
+    4.920000076293945
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.040000006556510925,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-FACADE-BAY",
+  "version": "v009"
+}

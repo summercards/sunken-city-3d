@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" uid="uid://vpv6o33ks6e5" path="res://assets/models/facilities/floating_shop/floating_shop.glb" id="model"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="matte"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="gloss"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/emission.tres" id="emission"]
 [ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/rest_stop_hull_collision.scn" id="hull"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
 [ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
@@ -63,4 +64,6 @@ mode = "auto"
 target_path = NodePath("../Visual")
 blocks_water = true
 cell = 0.4
+
+[node name="HullCollision" parent="." instance=ExtResource("hull")]
 

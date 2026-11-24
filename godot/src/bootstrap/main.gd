@@ -11,7 +11,6 @@ extends Node3D
 ##
 ## 调试：`Godot --path . -- --capture` 会在 outputs/godot-preview.png 落一张图后退出。
 
-const SailNavLib = preload("res://src/navigation/sail_nav.gd")
 const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
 var navigation = preload("res://src/navigation/water_navigation.gd").new()
 const WATER_LEVEL := 1.12
@@ -19,7 +18,6 @@ const WATER_LEVEL := 1.12
 const RenderFlagsLib = preload("res://src/rendering/render_flags.gd")
 const OrbitCamScript = preload("res://src/camera/orbit_camera.gd")
 const WaterSurfaceScript = preload("res://src/rendering/water_surface.gd")
-const BoatScript = preload("res://src/navigation/boat.gd")
 const GullFlockScript = preload("res://src/ambient/building_gull_flock.gd")
 const HUDScript = preload("res://src/ui/hud.gd")
 const MarkersScript = preload("res://src/ui/landing_markers.gd")
@@ -34,13 +32,9 @@ const PromptScript = preload("res://src/interaction/interact_prompt.gd")
 const ColorGradeScript = preload("res://src/rendering/color_grade_panel.gd")
 const CameraPanelScript = preload("res://src/camera/camera_panel.gd")
 const HoverCardScript = preload("res://src/interaction/hover_card.gd")
-const ClickReticleScript = preload("res://src/interaction/click_reticle.gd")
 const SalvagePanelScript = preload("res://src/salvage/salvage_panel.gd")
-const SalvageWinchScript = preload("res://src/salvage/salvage_winch.gd")
-const TradeBoardScript = preload("res://src/orders/trade_board.gd")
 const OrderPanelScript = preload("res://src/orders/order_panel.gd")
 const SalvageModelLib = preload("res://src/salvage/salvage.gd")
-const RouteRibbonScript = preload("res://src/navigation/route_ribbon.gd")
 const ItemDB = preload("res://src/inventory/item_db.gd")
 const SaveGameLib = preload("res://src/save/save_game.gd")
 const NpcServiceScript = preload("res://src/npc/npc_service.gd")
@@ -81,7 +75,6 @@ var cam_panel = null
 var prompt: CanvasLayer
 ## 悬停铭牌 / 落点环 / 打捞面板：网页版里都是「操作反馈」，这里各自一个节点。
 var hover = null
-var reticle: Node3D
 var salvage_panel = null
 var salvage_winch: Node3D
 ## 码头订单板：世界里的板子 + 面板。规则在 `Economy.orders`（OrderBoard）。
@@ -92,15 +85,10 @@ var _fishery_harvest: Node3D
 var _fishery_marker: CanvasLayer
 var _fishery_schools: Node3D
 var order_panel = null
-## 航线预览（虚线 + 终点环）与水面寻路栅格（第一次开船时才建，约 10ms）。
-var ribbon: Node3D
-## 岸线形状缓存（判断「点的是水面还是陆地」）。
+## 岸线占用缓存，供漂流物和建造查询。
 var _shore_shapes: Array = []
-## 手动航行的航线刷新节流。
-var _ribbon_left := 0.0
 ## 上一帧的相机距离（判断是否在缩放）。
 var _zoom_seen := 0.0
-## 点击某个可交互物后自动走过去的目标；到位后自动按住 E。
 var actor_controller = preload("res://src/player/actor_controller.gd").new()
 ## SEA-ROOM：房间状态（床的摆放 / 在不在屋里）与进出过场。
 ## 房间是 `World/Interior` 下的一个区块（zone_id="room"），和其它区块共用行走接口。
@@ -109,46 +97,15 @@ var room_controller = preload("res://src/room/room_controller.gd").new()
 var room: Node3D
 var sunroom_surface: Node3D
 var sunroom_view: Node3D
-var _auto_target: Node3D:
-	get: return actor_controller.auto_target
-	set(value): actor_controller.auto_target = value
 ## 截图/回归用：把鼠标「钉」在某个屏幕位置（真实鼠标在 headless 截图里永远在 0,0）。
 var _debug_mouse := ""
 var _surface_lights: Array = []
 
 var _zone_nodes: Dictionary = {}
-var _walk_target: Vector3:
-	get: return actor_controller.walk_target
-	set(value): actor_controller.walk_target = value
-var _walk_area: Node3D:
-	get: return actor_controller.walk_area
-	set(value): actor_controller.walk_area = value
 var _walking: bool:
 	get: return actor_controller.walking()
-	set(value):
-		if not value and actor_controller.walking():
-			actor_controller.machine.change("interacting" if is_instance_valid(_auto_target) else "ashore_idle",{},true)
-var _walk_path: Array[Vector3]:
-	get: return actor_controller.walk_path
-	set(value): actor_controller.walk_path = value
-var _after_walk: Callable:
-	get: return actor_controller.after_walk
-	set(value): actor_controller.after_walk = value
-## 岸上行走速度的参考值（与 `free_walk_action.SPEED`、`walk_action.SPEED` 同值）。
-## 2026-11-11 由 2.3 提到 2.8。真正的执行仍在这两个动作里，这里只是让文档里的数字有处可查。
-const WALK_SPEED := 2.8
-## 上船热区·到泊位站立点的半径（米）。走进这个圈，船边就出上船图标。
-const BOAT_KEY_REACH := 2.4
-## 上船热区·直接贴到船舷的半径（米）。码头很长、站立点在另一头时兜住玩家。
-const BOAT_HULL_REACH := 3.0
 ## 岸上「朝谁操作」的仲裁带宽（与 Interactor.FACING_TIE 同值，见那里注释）。
 const FACING_TIE := 0.08
-## 靠妥容差（米）：船与泊位锚点的距离在这个范围内就算「停在泊位」。
-##
-## 旧值 1.0 太紧 —— 自动靠泊收在余速下常常停在 1.1–1.4 米，船明明贴着码头，
-## 按 E 却说「船不在泊位」。上下船判定被抱怨「体验不好」有一部分来自这里。
-## `_landing_is_docked`、点船体、登陆标记图标三处共用，不再各写一个数。
-const DOCK_SETTLE_TOLERANCE := 1.6
 ## 按 E 上/下船后的冷却（秒）。切换是一次性动作：按住不放时键盘只会补 echo 事件，
 ## 但「走位到一半再按一下」会立刻反向 —— 表现为刚上船又上岸。0.35 秒足够过场起势，
 ## 又不会让有意连按失效（真连按通常是误触，本来就该被吞掉）。
@@ -166,19 +123,8 @@ var _pending_pick := {}
 ## 拾取进度条（漂流浮木 / 鱼群）。故意不加静态类型：
 ## PickupProgress 的 begin/set_ratio/refresh 等方法不在 CanvasLayer 基类上。
 var pickup_progress = null
-## 一次海上拾取的生命周期。**这是玩法状态，不是表现状态。**
-##
-##   IDLE      —— 没有拾取。
-##   SAILING   —— 点了浮木/鱼群，船正朝它划过去。这一段**没有任何进度**，
-##                因为人还没开始捞，只是在赶路。
-##   GATHERING —— 船**已经停稳**、目标在打捞范围内，正在捞。进度从这个阶段
-##                的第一帧才出现，走完才结算。
-##
-## 为什么要分成三段：早先拿「剩余航程 / 总航程」当进度，结果船还在划、
-## 人还没碰到东西，条就已经在走了 —— 玩家读到的是「我明明还没开始捞」。
-## 拾取本来就是「停下来做的动作」，所以先停下、再开始、才有进度。
+## 打捞从船已停稳且目标在范围内时开始计时。
 const PICK_PHASE_IDLE := 0
-const PICK_PHASE_SAILING := 1
 const PICK_PHASE_GATHERING := 2
 
 ## 打捞耗时（秒）。这是本轮新增的玩法时长（原先到站瞬收）。
@@ -193,10 +139,6 @@ var _pick_phase := PICK_PHASE_IDLE
 var _pick_left := 0.0
 ## 当前这次打捞的总时长（用来算比例，避免每帧再查类型）。
 var _pick_span := 1.0
-## 点登陆标记时的意图：靠妥这一趟之后是否直接上岸。
-## 玩家点「浅水养殖台」想要的是「过去并站上去」，不是「开过去还坐在船里」。
-## 中途取消/改道必须清掉，否则下一条航线会莫名把人送下船。
-var _ashore_on_arrival := false
 ## 存档：当前槽位路径、自动存档倒计时、是否允许自动存档（截图/自检时关掉）。
 var _save_path := SaveGameLib.SLOT_PATH
 var _autosave_left := AUTOSAVE_SECONDS
@@ -310,7 +252,6 @@ func _ready() -> void:
 	_setup_salvage()
 	_setup_trade()
 	_setup_hover()
-	_setup_ribbon()
 	_apply_play_scope()
 	hud.presenter_sources = {"camera":cam_panel,"grade":grade,"orders":order_panel,"salvage":salvage_panel,"prompt":prompt,"hover":hover}
 	_setup_actor_controller()
@@ -327,18 +268,12 @@ func _ready() -> void:
 	_setup_quick_tools()
 	_setup_save_registry()
 	_setup_avatar()
-	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
-	# 免得第一次点水面时忽然卡一下；算完 _shore_shapes 就固定，运行期只做查询。
+	# 提前准备漂流物和建造所需的水域占用查询。
 	call_deferred("_warm_water_shapes")
 	get_tree().node_added.connect(_cozy_node_added)
 	call_deferred("_apply_cozy_ui")
 	_log_render_settings()
 	var args := OS.get_cmdline_user_args()
-	if args.has("--selftest"):
-		_autosave_on = false
-		var t: Node = load("res://tests/integration/selftest.gd").new()
-		add_child(t)
-		return
 	# 读档必须在 --zone / --grant 这些调试参数之前：
 	# 否则存档会把调试参数覆盖掉（或者反过来，看起来像「存档丢了」）。
 	for a in args:
@@ -351,7 +286,12 @@ func _ready() -> void:
 			explicit_load = true
 			if a.begins_with("--load="): _save_path = a.trim_prefix("--load=")
 	if explicit_load or (not args.has("--nosave") and not args.has("--capture") and (FileAccess.file_exists(_save_path) or FileAccess.file_exists(_save_path+".bak") or SaveGameLib.ResetTransaction.new().pending(_save_path))):
+		# Publish the scene bodies to PhysicsServer before validating saved poses.
+		set_physics_process(false)
+		await get_tree().physics_frame
+		await get_tree().process_frame
 		var loaded := load_game()
+		set_physics_process(true)
 		# 失败只暂停原槽写入，不改用户/截图/测试选择的自动保存开关。
 		_save_protected = not loaded.get("ok",false)
 	if args.has("--capture"):
@@ -404,18 +344,11 @@ func _ready() -> void:
 			_open_orders(trade_board)
 		if a == "--winchinfo":
 			_dump_winch()
-		if a.begins_with("--sailto="):
-			# 调试：立刻朝某个区块出航（截图核对航线预览与绕岛用）。
-			_on_destination(a.trim_prefix("--sailto="))
 		if a.begins_with("--focusboat"):
 			cam.target = boat.position
 			cam.apply_pose()
-		if a.begins_with("--autosail="):
-			_autosail(a.trim_prefix("--autosail="))
 		if a.begins_with("--zone="):
 			_debug_teleport(a.trim_prefix("--zone="))
-		if a.begins_with("--source="):
-			_debug_source(a.trim_prefix("--source="))
 		if a.begins_with("--uwat="):
 			var xyz := a.trim_prefix("--uwat=").split(",")
 			if xyz.size() == 3 and dive != null:
@@ -533,7 +466,6 @@ func _ready() -> void:
 				player.set_rowing(false)
 				player.set_walking(false)
 				actor_controller.reconcile_mode(GameState.Mode.ASHORE)
-				_walking = false
 
 	if not args.has("--skip-title") and not args.has("--capture"):
 		_begin_title()
@@ -805,12 +737,7 @@ func _register_sea_structures(root: Node) -> void:
 		Zones.bind_scene(child)
 
 
-## 室内房间登记为区块（SEA-ROOM）。
-##
-## 为什么不放进 `World/Zones`：那里是「有植物、有建造等级、要水面阻挡」的户外生活区，
-## 而房间是挂在太阳房上的室内空间（y≈120，不接触水面）。但它必须满足同一套区块接口
-## （`zone_id` / `walk_areas` / `area_at` / `pick_walk`），否则「在屋里点地面走路」
-## 与「房间位置存档校验」就得另开一条通道 —— 那正是要避免的第二套行走系统。
+## 室内房间也登记为区块，供室内交接、家具布置和存档识别。
 func _register_interior() -> void:
 	if room == null:
 		push_error("main.tscn 缺少 World/Interior 房间实例")
@@ -841,110 +768,11 @@ func _sync_zone_levels() -> void:
 		node.set_zone_level(maxi(level, 1))
 
 
-## 当前区块里，屏幕点命中的可行走区域（含落点）
-func pick_walk_at(screen: Vector2) -> Dictionary:
-	var zone: Node3D = _zone_nodes.get(GameState.current_zone, null)
-	if zone == null:
-		return {}
-	var origin: Vector3 = cam.project_ray_origin(screen)
-	var dir: Vector3 = cam.project_ray_normal(screen)
-	return zone.pick_walk(origin, dir)
-
-
-func _try_walk(screen: Vector2) -> bool:
-	if dive.active or boat.starts_sailing():
-		return false
-	var hit: Dictionary = pick_walk_at(screen)
-	if hit.is_empty():
-		return false
-	var area: Node3D = hit.area
-	var point: Vector3 = hit.point
-	_auto_target = null
-	_cancel_pending_pick()
-	interactor.auto_hold = false
-	if _start_walk(area, point):
-		reticle.show_at(point)
-	# 点击了地面就消费输入；不通的地面不能继续被解释成水面航行。
-	return true
-
-
 func _current_landing() -> Node3D:
 	if building_access!=null and building_access.is_dynamic(GameState.landing_id):
 		return building_access.landing_node(GameState.landing_id)
 	var zone: Node3D = _zone_nodes.get(GameState.current_zone)
 	return zone.landing_point(GameState.landing_id) if zone != null else null
-
-## 泊位数据的唯一出口。**返回的 `boatPark` 一定是合法水面** —— 本轮修的就是这条保证。
-##
-## BoatPark 是手摆的 Marker（静态泊位）或按边推导的点（自建平台），两者都可能落进
-## 岸线的 0.9 m 缓冲里：zone1 的绞盘泊位实测 park=(-9.95, 18.21) 就在缓冲里，于是
-## 「按 E 靠岸」走完整条链路后报「无法到达该泊位」，而船其实早就贴在那儿了。
-## 这里把 park 挪到最近的开阔水（≤3.5 m）并缓存；挪不出去才原样返回，让上层如实报错。
-const PARK_ESCAPE := 3.5
-var _park_cache := {}
-
-func _landing_data(zone_id: String,landing_id: String) -> Dictionary:
-	var data: Dictionary
-	if building_access!=null and building_access.is_dynamic(landing_id):
-		data = building_access.landing_data(landing_id) if zone_id=="zone5" else {}
-	else:
-		data = Zones.landing(zone_id,landing_id)
-	if data.is_empty() or not data.has("boatPark") or navigation == null:
-		return data
-	var raw := Vector2(float(data.boatPark[0]), float(data.boatPark[2]))
-	var key := zone_id + "/" + landing_id
-	var legal: Variant = _park_cache.get(key)
-	# 自建平台会随着木板增删换边，缓存按原始 park 值失效。
-	if legal == null or (legal as Vector2).distance_to(raw) > 0.01:
-		var found: Variant = navigation.nearest_open_water(raw.x, raw.y, PARK_ESCAPE)
-		legal = raw if found == null else found
-		if _park_cache.size() > 64: _park_cache.clear()
-		_park_cache[key] = legal
-	if (legal as Vector2).distance_to(raw) < 0.01:
-		return data
-	var fixed := data.duplicate()
-	fixed["boatPark"] = [legal.x, float(data.boatPark[1]), legal.y]
-	return fixed
-
-
-func _start_walk(area: Node3D, target: Vector3) -> bool:
-	return actor_controller.start_walk(area,target)
-
-## 离岸必须先沿同一块地面走回上岸点；到位后才上船并执行航行。
-func _depart(action: Callable) -> bool:
-	return actor_controller.depart(action)
-
-## 点击水面：划过去。
-##
-## 网页版在 IDLE_ASHORE 时只允许点甲板走路，船上模式才点水面。
-## 但玩家真正想做的是「我点哪儿，船就去哪儿」，所以这里合并了：
-##   · 在岸上点水面 → 先上船，再划过去（船就停在泊位，不用额外操作）；
-##   · 已在船上/航行中 → 直接改道（可以中途换目标）。
-## 目标点必须是开阔水面：落在岸线形状里（pad 0.9m）就拒绝并提示。
-func _try_sail_to(_screen: Vector2) -> bool:
-	return false # Sea clicks are no longer movement commands.
-
-## 屏幕点 → 水面上的世界坐标。没点到水面返回 null。
-func _water_point(screen: Vector2) -> Variant:
-	if cam == null:
-		return null
-	var origin: Vector3 = cam.project_ray_origin(screen)
-	var d: Vector3 = cam.project_ray_normal(screen)
-	if absf(d.y) < 0.0001:
-		return null
-	var t := (WATER_LEVEL - origin.y) / d.y
-	if t <= 0.0:
-		return null
-	var p := origin + d * t
-	if not _is_open_water(p.x, p.z):
-		return null
-	return p
-
-
-## 岸线形状内（外扩 0.9m）算陆地；再超出场景范围也不让划。
-func _is_open_water(x: float, z: float) -> bool:
-	return navigation.is_open_water(x,z)
-
 
 ## 水面阻挡形状的唯一入口。
 ##
@@ -999,29 +827,14 @@ func _collect_water_shapes(root: Node) -> void:
 				"round": false})
 
 
-## Unmigrated shore geometry is a separate no-entry guard at the boat centre.
-## No path, buffering, pose rewrite or physics collider is built from these data.
-## An older saved pose already in a raw shape can still sail out of it.
-func _formal_water_step(from: Vector3, to: Vector3) -> bool:
-	return navigation.can_enter_raw_water(Vector2(from.x,from.z), Vector2(to.x,to.z))
-
-
-## 下船：把小人从船锚挂到世界上，落在离目标最近的可站立点
-func _disembark_near(area: Node3D, _target: Vector3) -> void:
-	var landing: Node3D = _formal_berth_result(true).get("node")
-	if landing != null and landing.ground() == area:
-		_step_ashore()
-
-func _board_player() -> void:
-	if _boat_key_action() == "board": _toggle_boat_by_key()
-
-func _update_walk(delta: float) -> void:
-	actor_controller.tick(delta)
-
 func _physics_process(delta: float) -> void:
 	if _title_active or sleep_cycle.busy or room_controller.busy or _exhausted_rest or (dive != null and dive.switching) or actor_controller.actor == null: return
 	_update_keyboard_move(delta)
-	_update_walk(delta)
+	actor_controller.tick(delta)
+	if actor_controller.mode() == GameState.Mode.ASHORE and player.global_position.y < WATER_LEVEL - 2.0:
+		actor_controller.restore_pose({"mode": GameState.Mode.ON_BOAT})
+		cam.restore_follow(boat)
+		player.reset_physics_interpolation()
 
 
 ## ---- 键盘移动（SEA-MOVE-R20 / SEA-NAV-R15）---------------------------------
@@ -1091,7 +904,7 @@ func _on_surface_focus_entered() -> void:
 func _update_keyboard_move(delta: float) -> void:
 	_boat_key_left = maxf(0.0, _boat_key_left - maxf(delta, 0.0))
 	var axis := Vector2.ZERO
-	# 建造/拆除模式里左右方向键是「换件/换层」，不驱动角色；那边仍用点击走位。
+	# 建造模式使用方向键操作施工光标。
 	var building_busy: bool = building_controller != null and building_controller.active
 	if _boat_wait_for_neutral and _surface_has_focus and not _surface_movement_held():
 		_boat_wait_for_neutral = false
@@ -1099,17 +912,16 @@ func _update_keyboard_move(delta: float) -> void:
 		axis = Input.get_vector("move_left","move_right","move_forward","move_back")
 	var world := _camera_relative(axis)
 	var mode := actor_controller.mode()
+	var shift_held := axis != Vector2.ZERO and Input.is_physical_key_pressed(KEY_SHIFT)
 	if mode == 0:
 		if actor_controller.climbing():
 			actor_controller.set_move_intent(Vector3.ZERO)
 			actor_controller.set_sprint_held(false)
 			return
-		# Shift 只在岸上自由行走生效；小跑是同一套物理步进的轻微提速，
-		# 面板/过场已在 input_blocked() 里统一挡住，不会穿透到世界。
 		actor_controller.set_move_intent(world)
 		# 先让 set_move_intent 进入 strolling，再写入 Shift；否则从站立
 		# 起步的第一帧会因为状态还没切换而丢掉小跑意图。
-		actor_controller.set_sprint_held(axis != Vector2.ZERO and Input.is_physical_key_pressed(KEY_SHIFT))
+		actor_controller.set_sprint_held(shift_held)
 		return
 	actor_controller.set_sprint_held(false)
 	if boat == null or (dive != null and dive.active):
@@ -1119,26 +931,14 @@ func _update_keyboard_move(delta: float) -> void:
 			boat.release_drive()
 			# 松手滑行停稳后回到「船上待机」：HUD 与交互都以 mode 为准，
 			# 挂在 SAILING 会让船明明停了还显示在航行。
-			if mode == 2 and not boat.driving() and not boat.starts_sailing():
+			if mode == 2 and not boat.driving():
 				actor_controller.request_mode(GameState.Mode.ON_BOAT)
 			return
 		if mode == 1:
 			actor_controller.request_mode(GameState.Mode.SAILING)
-		boat.set_drive(Vector2(world.x, world.z))
+		boat.set_drive(Vector2(world.x, world.z), shift_held)
 
-## 近距交互的**唯一仲裁**：图标画什么、点下去执行什么，都读这一个结果。
-##
-## 拆成两个函数是 2026-11-07 那类 bug 的温床（图标说「上岸」、点下去在采集）。
-## 返回 {"kind": ..., "node": ...}；kind 只有五种：
-##   boat_board —— 岸上船边，点击上船
-##   boat_leave —— 船上泊位，点击靠妥并上岸
-##   dock       —— 水面泊位热区，点击开过去靠岸并上岸
-##   spot       —— 世界交互物（采集点 / 菜箱 / 出货箱 / 房门 …）
-##   pick       —— 海面漂流物 / 鱼群（仅 `near` 时进入仲裁：图标 = 已进判定区）
-##
-## `pick` 的 `near` 门槛只管**图标**：够不着的时候不出「点它就捞」的图标，
-## 否则等于告诉玩家「现在点能捞」却要开船过去。热区外按 E 仍然会划过去捞，
-## 那是 `_press_boat_key()` 的赶路兜底，文案由 `_boat_shortcut_text()` 同步兜底。
+## Input and icons share the same nearby action.
 func _near_action() -> Dictionary:
 	if hover == null or hud == null or input_blocked():
 		return {}
@@ -1167,20 +967,10 @@ func _near_action() -> Dictionary:
 		var root: Node3D = item.get("root")
 		if is_instance_valid(root):
 			return {"kind": "pick", "node": root, "pick": pick}
-	var dock := _near_landing_key()
-	if not dock.is_empty():
-		var point: Node3D = _zone_nodes[str(dock.zone)].landing_point(str(dock.landing))
-		if point != null:
-			return {"kind": "dock", "node": point, "dock": dock}
 	return {}
 
 
-## 上一帧近距仲裁的结果，供码头标记让位使用（见 `_marker_suppressed`）。
-##
-## 不在这里保存会重复算一次 `_near_action()`：它带寻路缓存、还会顺手刷新
-## 交互目标，每帧多调一次没有意义，也容易引入「谁先算」的不确定性。
 var _near_kind := ""
-var _near_landing_id := ""
 
 ## 只在玩家已接近、输入可用时出现原悬停图标，不显示教程或按键说明。
 ##
@@ -1192,7 +982,6 @@ func _update_near_interaction(arbitrated: Variant = null) -> void:
 		return
 	var action: Dictionary = _near_action() if arbitrated == null else arbitrated
 	_near_kind = str(action.get("kind", ""))
-	_near_landing_id = str(action.get("dock", {}).get("landing", ""))
 	if action.is_empty():
 		hover.hide_near_focus()
 		return
@@ -1207,15 +996,6 @@ func _update_near_interaction(arbitrated: Variant = null) -> void:
 			# 图标贴在落脚的岸边：点击即靠妥并上岸。
 			hover.keyboard_focus = node
 			hover.show_near_action(node.stand_position() + Vector3.UP * 0.55, "anchor")
-		"dock":
-			# 图标贴在水面泊位锚点：点击即开过去靠岸并上岸。
-			var dock: Dictionary = action.get("dock", {})
-			var data: Dictionary = _landing_data(str(dock.get("zone", "")), str(dock.get("landing", "")))
-			var at: Vector3 = node.stand_position()
-			if not data.is_empty():
-				at = Vector3(float(data.boatPark[0]), WATER_LEVEL + 0.35, float(data.boatPark[2]))
-			hover.keyboard_focus = node
-			hover.show_near_action(at, "anchor")
 		"pick":
 			hover.keyboard_focus = node
 			hover.show_near_action(node.global_position + Vector3.UP * 0.5,
@@ -1364,16 +1144,10 @@ func _subtree_xz_bounds(root: Node) -> Rect2:
 
 
 func _setup_boat() -> void:
-	boat = get_node_or_null("Boat") as Node3D
-	if boat == null:
-		boat = BoatScript.new()
-		boat.name = "Boat"
-		add_child(boat)
+	boat = $Boat
 	boat.build()
 	boat.configure_formal_hull()
 	boat.berth_query = _formal_berth_position
-	boat.water_position_guard = _formal_water_step
-	boat.segment_clear = _water_segment_clear
 	if water_node.has_method("sample_surface"):
 		boat.water_surface = water_node
 		# 水面装饰鱼群与船、漂流物共用同一套波浪采样：鱼要跟着浪面走，
@@ -1384,24 +1158,9 @@ func _setup_boat() -> void:
 				if school.has_method("set_water"):
 					school.set_water(water_node)
 	boat.navigation_blocked.connect(func() -> void:
-		# 手动划行撞住时，Boat 会保留方向盘，让玩家继续转头脱困；
-		# 这里不能把状态切回 boat_idle，否则又会吃掉这次修复。
-		if boat.driving():
-			if hud != null: hud.toast("前方是岸")
-			return
-		_cancel_pending_pick()
-		_ashore_on_arrival = false
-		actor_controller.request_mode(GameState.Mode.ON_BOAT)
-		player.set_rowing(false)
-		if ribbon != null:
-			ribbon.clear()
-		if hud != null:
-			# 自动航行撞阻挡才回到待机；手动驾驶不在这里结束。
-			hud.toast("前方是岸" if not _near_landing_key().is_empty()
-				else "前方靠岸过近，请重新选择航路"))
+		if hud != null: hud.toast("前方是岸"))
 	var l := Zones.landing("zone1", "main")
 	boat.place_at(Vector3(l.boatPark[0], WATER_LEVEL, l.boatPark[2]), float(l.boatYaw))
-	boat.arrived.connect(_on_boat_arrived)
 
 
 func _setup_birds() -> void:
@@ -1464,14 +1223,8 @@ func _landing_icon_world(zone_id: String, landing_id: String, fallback: Vector3)
 		return fallback
 	if zone_id != GameState.current_zone or landing_id != GameState.landing_id:
 		return fallback
-	var l: Dictionary = _landing_data(zone_id, landing_id)
-	if l.is_empty():
-		return fallback
-	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
-	# starts_sailing() 不在 Node3D 基类上：不显式写 bool，整条表达式会退化成
-	# Variant，Godot 推不出类型直接报解析错误，整个 main.gd 加载不了。
-	var sailing: bool = boat.starts_sailing()
-	if sailing or boat.position.distance_to(park) > DOCK_SETTLE_TOLERANCE:
+	var landing := _current_landing()
+	if landing == null or not _berth_transfer.hull_at_berth(boat, landing):
 		return fallback
 	# 抬到船舱上方，和 dockEdge 的 +0.55 观感一致，不被船体挡住。
 	return boat.global_position + Vector3.UP * 1.35
@@ -1522,7 +1275,6 @@ func _setup_player() -> void:
 	player.add_child(interactor)
 
 
-## 世界里的采集点：从 assets/data/gather_spots.json 生成，坐标是与区块同一套世界坐标。
 func _setup_sunroom() -> void:
 	var zone: Node = _zone_nodes.get("zone1")
 	if zone == null:
@@ -1530,8 +1282,7 @@ func _setup_sunroom() -> void:
 	sunroom_surface = zone.get_node_or_null("Models/太阳能木屋/太阳能木屋-海上区域") as Node3D
 	if sunroom_surface == null:
 		return
-	# Runtime helpers live under the existing VegetationTurf child so the four
-	# semantic surface modules remain the scene's only direct children.
+	# Interaction helpers use the anchors on the solar-room module.
 	var runtime_parent: Node3D = sunroom_surface.get_node_or_null("前部倾斜太阳能房") as Node3D
 	if runtime_parent == null:
 		runtime_parent = sunroom_surface
@@ -1559,9 +1310,13 @@ func _setup_sunroom() -> void:
 		upper.configure(Economy.sunroom, refresh)
 	var bottom: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderBottom", "res://src/facilities/sunroom_ladder_interactable.gd")
 	var top: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomLadderTop", "res://src/facilities/sunroom_ladder_interactable.gd")
-	var damage: Node = _ensure_sunroom_runtime_node(runtime_parent, "SunroomDamage", "res://src/facilities/sunroom_damage_visual.gd")
+	var ladder := sunroom_surface.find_child("ladder_022", true, false)
+	var damage_parent: Node3D = ladder.get_node_or_null("ConstructionPose") if ladder != null else null
+	if damage_parent == null:
+		damage_parent = runtime_parent
+	var damage: Node3D = _ensure_sunroom_runtime_node(damage_parent, "SunroomDamage", "res://src/facilities/sunroom_damage_visual.gd")
 	if damage != null:
-		damage.position = damage_anchor.position
+		damage.global_position = damage_anchor.global_position
 	var base: Vector3 = bottom_anchor.global_position
 	var roof: Vector3 = top_anchor.global_position
 	if bottom != null and bottom.has_method("configure"):
@@ -1573,6 +1328,12 @@ func _setup_sunroom() -> void:
 	if not Economy.sunroom.changed.is_connected(_apply_sunroom_state):
 		Economy.sunroom.changed.connect(_apply_sunroom_state)
 	_apply_sunroom_state()
+
+func _sunroom_facility(name: String) -> Node3D:
+	if sunroom_surface == null:
+		return null
+	var root := sunroom_surface.get_parent() as Node3D
+	return root.get_node_or_null("Facilities/" + name) as Node3D if root != null else null
 
 func _ensure_sunroom_runtime_node(parent: Node3D, node_name: String, script_path: String) -> Node3D:
 	var existing: Node3D = parent.get_node_or_null(node_name) as Node3D
@@ -1610,14 +1371,14 @@ func _apply_sunroom_state() -> void:
 	var damage: Node = sunroom_surface.find_child("SunroomDamage", true, false) if sunroom_surface != null else null
 	if damage != null:
 		damage.visible = Economy.sunroom.stage == "ruined"
-	var lower: Variant = _zone_nodes.get("zone1")
-	if lower != null:
-		for area in lower.walk_areas:
+	var zone: Variant = _zone_nodes.get("zone1")
+	if zone != null:
+		for area in zone.walk_areas:
 			if str(area.area_id) == "sunroom_upper_deck":
-				var was_active: bool = bool(area.active)
-				area.active = Economy.sunroom.upper_restored()
-				if area.active != was_active:
-					lower.rebuild_ground()
+				var accessible: bool = Economy.sunroom.ladder_repaired()
+				if area.active != accessible:
+					area.active = accessible
+					zone.rebuild_ground()
 
 func _setup_gather() -> void:
 	gather = get_node_or_null("World/Gameplay/GatherField") as Node3D
@@ -1627,9 +1388,6 @@ func _setup_gather() -> void:
 		add_child(gather)
 	gather.construction = Economy.construction
 	gather.energy_reason = Economy.energy.reason
-	# 装配时按场景回算落点高度（SEA-GATHER-R06）：甲板被手工改过之后，
-	# gather_spots.json 里的 y 会过期，靠这里自愈。
-	gather.zone_query = func(zone_id: String) -> Variant: return _zone_nodes.get(zone_id)
 	gather.build()
 	gather.collected.connect(_on_gathered)
 	gather.blocked.connect(func(reason: String) -> void:
@@ -1729,10 +1487,9 @@ func _setup_prompt() -> void:
 	prompt.enabled = false
 	interactor.target_changed.connect(prompt.focus_changed)
 	prompt.action_requested.connect(func() -> void:
-		if interactor.target != null: _approach(interactor.target))
+		if interactor.target != null: _interact_here(interactor.target))
 	if interactor != null:
 		interactor.blocked.connect(func(reason: String) -> void:
-			_auto_target = null
 			interactor.auto_hold = false
 			hud.toast(reason)
 			if prompt != null:
@@ -1741,39 +1498,15 @@ func _setup_prompt() -> void:
 		interactor.completed.connect(func(_spot: Node3D, _reward: Dictionary) -> void:
 			# 展开选择不是成功结算，不能提前播放“完成啦”。
 			if str(_reward.get("event", "")) != "options": prompt.celebrate()
-			_auto_target = null
 			interactor.auto_hold = false)
 
 
 ## ---- 打捞绞盘 ---------------------------------------------------------------
 
-## 打捞台立在 zone1 打捞浮台靠水的一侧，悬臂朝外伸到水面。
-## 位置从 zones.json 的 walk 矩形推出来（西边缘内缩 0.7m、z 取中点），不在这里写死坐标。
-func _salvage_winch_spot() -> Vector3:
-	for w in Zones.get_zone("zone1").get("walk", []):
-		if str(w.get("id", "")) != "zone1_salvage":
-			continue
-		var rects: Array = w.get("rects", [])
-		if rects.is_empty():
-			continue
-		var r: Array = rects[0]
-		var x := float(r[0]) + 0.7
-		var z := (float(r[2]) + float(r[3])) * 0.5
-		return Vector3(x, float(w.get("y", 1.33)), z)
-	return Vector3(-14.5, 1.33, 12.9)
-
+@onready var _salvage_site: Node3D = $World/Zones/Zone1HomeHarbor/Models/绞盘打捞台
 
 func _setup_salvage() -> void:
-	if salvage_winch == null:
-		salvage_winch = get_node_or_null("SalvageWinch")
-	if salvage_winch == null:
-		var spot := _salvage_winch_spot()
-		salvage_winch = SalvageWinchScript.new()
-		salvage_winch.setup({
-			"id": "salvage_winch", "zone": "zone1", "name": "绞盘打捞台",
-			"x": spot.x, "y": spot.y, "z": spot.z, "yaw": PI * 0.5,
-		})
-		add_child(salvage_winch)
+	salvage_winch = _salvage_site.get_node("Facilities/SalvageWinch")
 	salvage_winch.rewards = Economy.salvage
 	salvage_winch.opened.connect(_open_salvage)
 
@@ -1785,22 +1518,9 @@ func _setup_salvage() -> void:
 	salvage_panel.finished.connect(_on_salvage_finished)
 
 
-## 码头订单板：世界里的板子（位置由 tools/place_trade_board.py 求解）+ 面板。
 func _setup_trade() -> void:
-	trade_board = get_node_or_null("TradeBoard")
-	if trade_board == null:
-		var data: Dictionary = _load_json("res://assets/data/trade_board.json")
-		var rows: Array = data.get("boards", [])
-		if rows.is_empty():
-			push_error("trade_board.json 里没有板子")
-		else:
-			trade_board = TradeBoardScript.new()
-			trade_board.setup(rows[0])
-			add_child(trade_board)
-	if trade_board != null:
-		trade_board.opened.connect(_open_fishery_construction)
-
-	if trade_board != null: trade_board.order_model = null
+	trade_board = _salvage_site.get_node("Facilities/TradeBoard")
+	trade_board.opened.connect(_open_fishery_construction)
 	order_panel = get_node_or_null("OrderPanel")
 	if order_panel == null:
 		order_panel = OrderPanelScript.new()
@@ -1818,12 +1538,12 @@ func _setup_trade() -> void:
 				order_panel.refresh())
 	_bind_supply_counter()
 	var fishery_zone: Node3D = _zone_nodes.get("zone1")
-	_fishery_visual = fishery_zone.get_node("Models/WildFishery")
-	_fishery_visual.configure(fishery_zone,fishery_zone.get_node("WalkAreas/Walk_zone1_salvage"),fishery_zone.get_node("Models/绞盘打捞台/salvage_station/绞盘打捞台-海上区域-01_001"),water_node)
+	_fishery_visual = _salvage_site.get_node("WildFishery")
+	_fishery_visual.configure(fishery_zone, water_node)
 	_fishery_visual.projection_changed.connect(_on_fishery_projection_changed)
-	_fishery_schools = fishery_zone.get_node("FisherySchools")
+	_fishery_schools = _fishery_visual.get_node("FisherySchools")
 	for school in _fishery_schools.get_children(): school.set_water(water_node)
-	_fishery_harvest = fishery_zone.get_node("Objects/FisheryHarvest")
+	_fishery_harvest = _fishery_visual.get_node("Facilities/FisheryHarvest")
 	_fishery_harvest.configure(Economy.fishery,_harvest_fishery)
 	_fishery_marker = preload("res://src/ui/fishery_marker.gd").new()
 	add_child(_fishery_marker)
@@ -1850,7 +1570,7 @@ func _request_fishery_harvest() -> void:
 	if reason != "":
 		hud.toast(reason)
 		return
-	_approach_command(_fishery_harvest,_harvest_fishery)
+	_interact_here(_fishery_harvest,_harvest_fishery)
 
 func _harvest_fishery() -> Dictionary:
 	var result: Dictionary = Economy.fishery.harvest()
@@ -1864,8 +1584,8 @@ func _on_fishery_changed() -> void:
 	var unlocked: bool = Economy.fishery.unlocked
 	if trade_board != null:
 		trade_board.visible = not unlocked
-		trade_board.label = "渔场 · 待建"
-		trade_board.verb = "建造渔场"
+	if salvage_winch != null:
+		salvage_winch.visible = not unlocked and Scope.command_enabled("salvage")
 	if _fishery_visual != null: _fishery_visual.apply_upgrade(unlocked)
 	if _fishery_schools != null: _fishery_schools.visible = unlocked
 	if _fishery_harvest != null: _fishery_harvest.refresh()
@@ -1874,7 +1594,6 @@ func _on_fishery_changed() -> void:
 func _on_fishery_projection_changed() -> void:
 	navigation.invalidate()
 	Zones.bind_scene(_zone_nodes.zone1)
-	_reach_cache.clear()
 	if props != null:
 		props.ocean.invalidate()
 		props.sync_population(world_clock.query(),boat.position)
@@ -1909,7 +1628,6 @@ func _open_orders(_board: Node3D) -> void:
 	if order_panel == null or order_panel.is_open():
 		return
 	order_panel.set_open(true)
-	_auto_target = null
 	if interactor != null:
 		interactor.auto_hold = false
 
@@ -1958,7 +1676,6 @@ func _open_salvage(_winch: Node3D) -> void:
 	if salvage_panel == null or salvage_panel.is_open():
 		return
 	salvage_panel.begin()
-	_auto_target = null
 	if interactor != null:
 		interactor.auto_hold = false
 	hud.toast("已下钩")
@@ -1987,56 +1704,7 @@ func _on_salvage_finished(haul: Dictionary, ok: bool) -> void:
 	hud.toast("打捞上来 · " + "  ".join(parts))
 
 
-## ---- 航行目标水纹 / 水面寻路 -------------------------------------------------
-
-## 目标点只留一圈荡开的水纹，不再铺航路虚线（2026-10-28 按用户要求去掉）。
-## 水面引用在这里注入，波纹才能贴着真实浪面走。
-func _setup_ribbon() -> void:
-	ribbon = get_node_or_null("RouteRibbon")
-	if ribbon == null:
-		ribbon = RouteRibbonScript.new()
-		ribbon.name = "RouteRibbon"
-		add_child(ribbon)
-	ribbon.water = water_node
-
-
-## 岸线栅格按需建一次：25 个形状 ≈ 268×265 格，一次十几毫秒，不值得每帧算。
-##
-## 用 `SailNavLib.create_nav_grid()`（src/navigation 中的正式算法）建矩形障碍，
-## 再手工把圆形轮廓（圆弧农场塔、一座圆岛）补进 blocked —— 那个接口只吃 Rect2，
-## 用外接正方形会把旁边 3m 的水道也堵死。
-func nav_grid() -> Dictionary:
-	return navigation.nav_grid()
-
-
-## 巡航沿用原岸线网格；首尾或窄水道不能通过时，用精确水域网格重规划。
-## 失败明确返回空路径，禁止穿岸直线兜底。
-func plan_route_to(x: float, z: float) -> Array:
-	return navigation.plan_route_to(Vector2(boat.position.x,boat.position.z),x,z)
-
-func _valid_water_route(path: Variant) -> bool:
-	return navigation.valid_route(path)
-
-func _water_segment_clear(a: Vector2, b: Vector2) -> bool:
-	return navigation.segment_clear(a,b)
-
-
-## 出航统一入口：规划 → 交给船 → 铺航线预览。
-## `then_ashore` 让「点登陆标记」这条链路一次走完：航行 → 靠妥 → 上岸。
-func _sail_to_landing(_landing: Dictionary, _zone_id: String, _landing_id: String, _then_ashore := false) -> bool:
-	return false # Suspended: destination routes do not drive the formal boat.
-
-## ---- 悬停铭牌 / 落点环 -------------------------------------------------------
-
-## 落点环仍服务岸上走位（那里没有水面可荡）。
-## 海面点击的反馈由 RouteRibbon 的终点水纹承担，见 _setup_ribbon。
 func _setup_hover() -> void:
-	reticle = get_node_or_null("ClickReticle")
-	if reticle == null:
-		reticle = ClickReticleScript.new()
-		reticle.name = "ClickReticle"
-		add_child(reticle)
-
 	hover = get_node_or_null("HoverCard")
 	if hover == null:
 		hover = HoverCardScript.new()
@@ -2070,9 +1738,6 @@ func _activate_near_action() -> void:
 	match str(action.get("kind", "")):
 		"boat_board", "boat_leave":
 			_toggle_boat_by_key()
-		"dock":
-			var dock: Dictionary = action.get("dock", {})
-			_select_landing({"zone": str(dock.get("zone", "")), "landing": str(dock.get("landing", ""))})
 		"pick":
 			_press_sea_pick(action.get("pick", {}))
 		"spot":
@@ -2138,20 +1803,13 @@ func _dump_winch() -> void:
 
 
 ## 缩放时给一句「缩放 62%」的反馈；手动航行时把已走过的航段从虚线上裁掉。
-func _update_camera_feedback(delta: float) -> void:
+func _update_camera_feedback() -> void:
 	if cam != null and hud != null:
 		hud.set_follow_locked(cam.follow_enabled)
 		var d: float = cam.distance
 		if absf(d - _zoom_seen) > maxf(0.4, _zoom_seen * 0.004):
 			_zoom_seen = d
 			hud.note_zoom(cam.zoom_ratio())
-	if boat != null and boat.starts_sailing() and boat.manual and ribbon != null:
-		_ribbon_left -= delta
-		if _ribbon_left <= 0.0:
-			_ribbon_left = 0.30
-			ribbon.show_route(boat.remaining_route(), WATER_LEVEL)
-
-
 ## 鼠标位置：正常取真实指针；调试参数可以钉在绞盘或指定像素上。
 func _pointer_pos() -> Vector2:
 	if _debug_mouse.is_empty():
@@ -2164,14 +1822,11 @@ func _pointer_pos() -> Vector2:
 	return get_viewport().get_mouse_position()
 
 
-## 点击「走过去」，到位后由 _update_pointer_ui 打开自动长按。
-func _approach(node: Node3D) -> bool:
-	if not actor_controller.approach(node): return false
-	_cancel_pending_pick()
-	if reticle != null: reticle.show_at(_walk_target)
-	return true
+func _interact_here(node: Node3D, command := Callable()) -> void:
+	if not actor_controller.interact_here(node, command):
+		hud.toast("请走近后互动")
 
-## 点在悬停目标上：按类型分派（可交互物走过去 / 上岸桩开船 / 漂流物划过去）。
+## 点中悬停目标时分派交互、上下船或近距拾取。
 func _activate_hover(hit: Dictionary) -> bool:
 	match str(hit.get("type", "")):
 		"spot":
@@ -2322,8 +1977,6 @@ func _setup_hud() -> void:
 		return {"zone":GameState.current_zone,"position":player.global_position}
 	hud.bind_models()
 	hud.command_requested.connect(_on_click_command)
-	hud.manual_sea_travel = true
-	hud.destination_pressed.connect(_on_destination)
 	hud.dive_pressed.connect(_on_dive)
 	hud.site_focus_requested.connect(_on_focus_site)
 	hud.plot_focus_requested.connect(_on_focus_plot)
@@ -2347,9 +2000,7 @@ func _cancel_action() -> void:
 	if hud != null: hud.world_actions.close(true)
 	actor_controller.cancel()
 	_cancel_pending_pick()
-	_ashore_on_arrival = false
 	if dive.active: dive.cancel_navigation()
-	if ribbon != null: ribbon.clear()
 	hud.toast("已停止")
 
 func _on_click_command(command: String) -> void:
@@ -2374,7 +2025,6 @@ func _on_click_command(command: String) -> void:
 		"shop":
 			shop_panel.open_shop("shop_general")
 		"bag", "notes", "plant", "build", "storage", "shipping":
-			_auto_target = null
 			interactor.auto_hold = false
 			cam_panel.set_open(false)
 			grade.set_open(false)
@@ -2414,34 +2064,6 @@ func _on_click_command(command: String) -> void:
 		"rise": dive.swim_to(dive.diver_pos + Vector3.UP*3.0)
 		"descend": dive.swim_to(dive.diver_pos + Vector3.DOWN*3.0)
 		"lamp": dive.toggle_lamp()
-
-
-func _on_destination(_zone_id: String) -> void:
-	if not _title_active: hud.toast("请用 WASD 或方向键手动划船")
-
-func _on_boat_arrived(zone_id: String, landing_id: String) -> void:
-	if ribbon != null:
-		ribbon.clear()
-	# 手动点水面划过来的：没有区块可切，停在原地继续等指令。
-	if zone_id == "":
-		player.set_rowing(false)
-		actor_controller.request_mode(GameState.Mode.ON_BOAT)
-		_ashore_on_arrival = false
-		if not Scope.minimal(): hud.toast("已停船")
-		return
-	GameState.landing_id = landing_id
-	GameState.enter_zone(zone_id)
-	actor_controller.request_mode(GameState.Mode.ON_BOAT)
-	markers.set_highlight(zone_id)
-	player.set_rowing(false)
-	var ashore := _ashore_on_arrival
-	_ashore_on_arrival = false
-	if ashore:
-		# 玩家点的是登陆标记，不是泊位锚点：靠妥即上岸。
-		if _step_ashore():
-			hud.toast("靠岸 · " + Zones.label(zone_id))
-			return
-	if not Scope.minimal(): hud.toast("抵达 · " + Zones.label(zone_id))
 
 
 ## 按下必须发生在世界里；拖出去再拖回来也仍是拖动。
@@ -2491,7 +2113,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			hud.toggle_panel()
 			get_viewport().set_input_as_handled()
 			return
-		# ESC：先关面板，再取消「自动走过去」，与网页版 closeActionMenus 的层级一致。
+		# ESC 先关面板，再取消当前交互。
 		if key == KEY_ESCAPE:
 			if hud.is_panel_open(): hud.toggle_panel()
 			else: _cancel_action()
@@ -2574,7 +2196,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_world_press = false
 			if dive.active:
 				return
-			# 悬停命中的目标优先：点图标 → 小人自己走过去，到位自动动手。
+			# 点击角色身边的交互图标。
 			if hover != null:
 				# 在释放点重新命中，避免读取拖动前的旧目标。
 				if _activate_hover(hover._pick(mb.position)):
@@ -2589,10 +2211,7 @@ func _unhandled_input(event: InputEvent) -> void:
 						return
 			# 在屋里：只认房间里的东西（家具/床/门）。海上的漂流物、登陆点、
 			# 船、水面航行全部不参与 —— 屋里没有一片海，点了也不该有反应。
-			if room_service.inside:
-				if _try_walk(mb.position):
-					return
-				return
+			if room_service.inside: return
 			var prop: Dictionary = props.pick(mb.position, cam)
 			if not prop.is_empty():
 				_handle_prop_click(prop)
@@ -2606,30 +2225,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			# 让精确点图标的行为保持优先。
 			if _click_boat(mb.position):
 				return
-			if actor_controller.mode()!=0 and building_access!=null:
-				var built_landing: Dictionary=building_access.pick_landing(mb.position)
-				if not built_landing.is_empty():
-					_select_landing(built_landing);return
-			# 只保留陆地点击走路；海面点击不写船的运动。
-			_try_walk(mb.position)
-
-
-## 点登陆标记 / 键盘靠岸：在船与岸之间来回。
-##
-## 一个标记承担两个方向，用「角色现在在哪」决定，而不是再分两个按钮：
-##   · 已经在岸上 → 走回泊位、上船（"坐在船上"）；
-##   · 已经在船上且就在这个泊位 → 上岸；
-##   · 船还没停到这个泊位（含别的区块）→ 开过去，**靠妥后自动上岸**。
-## 第三种是本次改动的重点：以前开到就跑完了，玩家还得再点一次标记。
-##
-## **2026-11-09 补「已经在旁边」这一档**（主人：「我明明停在这里，标记都出来了，
-## 按 E 却说无法到达」）。键盘划船不走航线网格，船可以贴到岸线 0.9 m 缓冲以内；
-## 而旧实现只认「身份 + 1.6 m」才算靠妥，于是键盘划回来的船身份还是上一个泊位，
-## 掉进规划分支、规划又因起点在缓冲里失败，弹出「无法到达该泊位」。
-## 现在：船没在航行、就在 park 的 `DOCK_ADOPT_TOLERANCE` 内、且直线能滑到位 ——
-## 认领这个泊位的身份并直着滑进去，**不寻路**，也就不会有这句谎话。
-const DOCK_ADOPT_TOLERANCE := 3.0
-
+## Choose the same physical berth for click and keyboard handoffs.
 func _select_landing(hit: Dictionary) -> void:
 	var afloat := actor_controller.mode() == GameState.Mode.ON_BOAT
 	var candidate := _formal_berth_candidate(afloat, 3.0)
@@ -2638,36 +2234,22 @@ func _select_landing(hit: Dictionary) -> void:
 	var result := _formal_berth_result(afloat)
 	hud.toast(str(result.get("reason", "请靠近这个泊位")))
 
-## 「最后一小段能不能直着滑进泊位」——只看物理水面，不看航线网格。
-##
-## 起点可能就在缓冲里（船贴着码头停），所以先抬到最近的开阔水再判线段，
-## 抬不出去（离岸超过 2.6 m）视为不能滑，交回正常规划。
-func _park_glide_clear(park: Vector3) -> bool:
-	if navigation == null: return false
-	var from: Variant = navigation.nearest_open_water(boat.position.x, boat.position.z)
-	if from == null: return false
-	return navigation.segment_clear(from, Vector2(park.x, park.z))
-
-
-## 靠泊后上岸的唯一入口：站在泊位上走过去，到位即 ashore_idle。
-func _step_ashore() -> bool:
-	return _boat_key_action() == "leave" and _toggle_boat_by_key()
-
 ## ---- 上下船热区（SEA-INTERACT-R13 / R25，2026-11-07）------------------------
 ##
 ## 与点击登陆标记是同一对动作，只是入口从「点图标」换成「走进热区按 E / 点图标」：
 ##   · 岸上·船边：船停在本泊位，人走进船旁 → 上船；
 ##   · 水面·泊位：船开进泊位附近的水面 → 靠岸并上岸；
-##   · 船上·已靠妥：船已停稳在泊位 → 上岸。
+##   · 船上·船壳进入泊位：满足方向、净空和落脚安全 → 上岸。
 ##
 ## 朝向**不再是**上船的硬门槛。旧规则要求正对船 0.60，背对船哪怕只差一米也上不去，
 ## 玩家读成「船就在旁边却点不动」。现在它只用于**仲裁**：岸上同时够得着种植格
 ## 和上船口时，面朝谁就选谁（SEA-INTERACT-R24）。单人单目标时直接可选。
 func _boat_key_action() -> String:
 	var mode := actor_controller.mode()
-	if mode not in [GameState.Mode.ASHORE, GameState.Mode.ON_BOAT]: return ""
-	if not _formal_berth_result(mode == GameState.Mode.ON_BOAT).has("point"): return ""
-	if mode == GameState.Mode.ON_BOAT: return "leave"
+	if mode not in [GameState.Mode.ASHORE, GameState.Mode.ON_BOAT, GameState.Mode.SAILING]: return ""
+	var afloat := mode in [GameState.Mode.ON_BOAT, GameState.Mode.SAILING]
+	if not _formal_berth_result(afloat).has("point"): return ""
+	if afloat: return "leave"
 	if interactor != null and interactor.active and is_instance_valid(interactor.target):
 		var spot: Node3D = interactor.target
 		if interactor.keyboard_target == spot: return ""
@@ -2677,9 +2259,11 @@ func _boat_key_action() -> String:
 
 var _berth_transfer = preload("res://src/navigation/berth_transfer.gd").new()
 
-func _formal_berth_candidate(afloat: bool, radius: float) -> Dictionary:
+func _formal_berth_candidate(afloat: bool, radius: float, for_transfer := true) -> Dictionary:
 	if boat == null: return {}
 	var best := {}
+	var best_distance := INF
+	var best_overlaps := false
 	for key in _zone_nodes:
 		var zone_id := str(key)
 		if not afloat and zone_id != GameState.current_zone: continue
@@ -2687,9 +2271,7 @@ func _formal_berth_candidate(afloat: bool, radius: float) -> Dictionary:
 		var zone: Node = _zone_nodes[key]
 		var points: Array = zone.landing_points() if zone.has_method("landing_points") else []
 		if zone_id == "zone5" and building_access != null:
-			var ids: Array = building_access.berth_ids()
-			if building_access.is_dynamic(GameState.landing_id) and not ids.has(GameState.landing_id): ids.append(GameState.landing_id)
-			for id in ids:
+			for id in building_access.berth_ids():
 				var candidate: Node3D = building_access.landing_node(id)
 				if is_instance_valid(candidate) and not points.has(candidate): points.append(candidate)
 		for point: Node3D in points:
@@ -2697,13 +2279,18 @@ func _formal_berth_candidate(afloat: bool, radius: float) -> Dictionary:
 			var park := point.get_node_or_null("BoatPark") as Marker3D
 			if park == null: continue
 			var dist: float = _berth_transfer.planar(park.global_position - boat.global_position)
-			if dist > radius: continue
-			radius = dist
+			var overlaps: bool = afloat and for_transfer and _berth_transfer.hull_at_berth(boat, point)
+			# A long hull may reach the dock while its origin is outside the
+			# search radius, or nearer to a different marker.
+			if not overlaps and (dist > radius or best_overlaps): continue
+			if overlaps == best_overlaps and dist >= best_distance: continue
+			best_distance = dist
+			best_overlaps = overlaps
 			best = {"zone": zone_id,"landing":str(point.landing_id),"node":point,"park":park.global_position}
 	return best
 
 func _formal_berth_position(_location: Vector3) -> Vector3:
-	return _formal_berth_candidate(true, 3.0).get("park", Vector3.INF)
+	return _formal_berth_candidate(true, 4.5, false).get("park", Vector3.INF)
 
 func _formal_berth_result(afloat: bool) -> Dictionary:
 	if boat == null or player == null or _boat_key_left > 0.0 or input_blocked() or (dive != null and dive.active):
@@ -2712,24 +2299,12 @@ func _formal_berth_result(afloat: bool) -> Dictionary:
 	if _pick_phase != PICK_PHASE_IDLE or not _surface_has_focus: return {}
 	var candidate := _formal_berth_candidate(afloat, 3.0)
 	if candidate.is_empty(): return {}
-	var neutral := not _boat_wait_for_neutral and not _surface_movement_held()
+	# Entering the authored hull trigger is enough to expose E. The accepted
+	# handoff stops propulsion and snaps the hull to BoatPark exactly once.
+	var neutral := afloat or (not _boat_wait_for_neutral and not _surface_movement_held())
 	var result: Dictionary = _berth_transfer.inspect(boat, player, candidate.node, afloat, neutral)
 	result.merge(candidate)
 	return result
-
-## 岸上船边热区：站在登陆点旁（去船舱的落点）或贴着船舷，都算「走进船只」。
-##
-## 为什么两个半径取或：各区块泊位到站立点的距离差别很大（实测 3.6–8.0 米），
-## 只按站立点算，「顺着码头走到船边、离站立点 3 米」的玩家会进不了热区；
-## 只按船算，则大泊位的站立点在 8 米外同样进不去。
-func _actor_in_boarding_zone(landing: Node3D) -> bool:
-	var here: Vector3 = actor_controller.actor.global_position
-	var stand: Vector3 = landing.stand_position()
-	if Vector2(here.x - stand.x, here.z - stand.z).length() <= BOAT_KEY_REACH:
-		return true
-	if boat == null:
-		return false
-	return Vector2(here.x - boat.global_position.x, here.z - boat.global_position.z).length() <= BOAT_HULL_REACH
 
 func _actor_facing_alignment(point: Vector3) -> float:
 	var body: Node3D = actor_controller.actor
@@ -2739,30 +2314,6 @@ func _actor_facing_alignment(point: Vector3) -> float:
 	var forward := body.global_transform.basis.z
 	forward.y = 0.0
 	return forward.normalized().dot(to.normalized())
-
-
-## 泊位里按方向键：这个方向算「往岸上走」吗（SEA-MOVE-R24）。
-##
-## 两条判据取或：
-##   1. 朝登陆点的站立点（±76° 锥内）—— 玩家心里的「往岸那边」；
-##   2. 前方 1.4 米就撞岸 —— 兜住登陆点在别处的结构物泊位。
-##
-## 不只看碰撞：泊位到岸线常有 2–3 米水面，0.5 米的探针探不到，
-## 于是「朝岸按」被当成划船，人被船带着飘走，E 也不认泊位了。
-## 也不只看朝向：沿岸平划的意图必须仍然能划（锥外的方向照旧走驾驶）。
-func _key_intent_is_toward_shore(dir: Vector3) -> bool:
-	if boat == null or dir.length_squared() < 0.0001:
-		return false
-	var landing := _current_landing()
-	if landing == null:
-		return false
-	var to_shore: Vector3 = landing.stand_position() - boat.position
-	to_shore.y = 0.0
-	if to_shore.length_squared() > 0.0001:
-		var dot := Vector3(dir.x, 0.0, dir.z).normalized().dot(to_shore.normalized())
-		if dot > 0.25:
-			return true
-	return boat.would_hit_shore(Vector2(dir.x, dir.z), 1.4)
 
 
 func _toggle_boat_by_key() -> bool:
@@ -2781,16 +2332,10 @@ func _on_berth_completed(afloat: bool, result: Dictionary) -> void:
 	cam.rotating = false
 	cam.resume_follow()
 	_boat_key_left = BOAT_KEY_COOLDOWN
+	if interactor != null:
+		interactor.require_release()
 
-## ---- 海面打捞的键盘入口（SEA-INTERACT-R15，2026-11-06）--------------------
-##
-## 漂流物和鱼群**不是** Interactable：它们要「开船靠过去 → 停稳 → 计时」，
-## 所以一直只有鼠标点得到。键盘玩家在海上等于没有手 —— 这是用户原话
-## 「比如海上的采集，无法靠近使用 E 键采集」。
-##
-## 这里只加一个只读查询 + 一个按键分派，动作仍走点击那条链路
-## （`_handle_prop_click`）：航线规划、靠过去的停顿、体力、进度条、
-## 结算都还是同一份，没有第二条打捞实现。
+## 船靠近漂流物或鱼群后，键盘和点击共用拾取命令。
 const SEA_PICK_FAR := 12.0
 
 func _sea_pick_candidate() -> Dictionary:
@@ -2829,8 +2374,7 @@ func _sea_pick_candidate() -> Dictionary:
 
 ## E 的总入口：读近距仲裁的同一份结果。
 ##
-## 优先级由 `_near_action()` 一处拥有（贴到跟前的漂流物 → 上下船 → 泊位热区 →
-## 划过去捞），提示文案、图标、按键分派全读它，三者不可能不一致。
+## 提示、图标和按键分派共用 `_near_action()` 的结果。
 func _press_boat_key() -> bool:
 	if input_blocked(): return false
 	var action := _near_action()
@@ -2839,62 +2383,9 @@ func _press_boat_key() -> bool:
 		"pick": return _press_sea_pick(action.get("pick", {}))
 	return false
 
-## 键盘靠岸（SEA-INTERACT-R16 / R25，2026-11-07）。
-##
-## 原来「去哪个岛」只能点登陆标记：键盘玩家把船划到岛边就再也走不下去了。
-## 这里按「船离哪个泊位最近」挑一个，走的是点击那条同一条链路
-## （`_select_landing` → 航行 → 靠妥 → 上岸），不新增靠泊通道。
-##
-## **热区而不是方向锥**（2026-11-07）。旧实现要求船头朝泊位 0.20 以上，
-## 于是「船已经开进泊位旁边，只是船尾对着码头」也点不了靠岸 —— 玩家原话是
-## 「码头的上船区应该是在海面的，进入热区后点击即可靠岸上岸」。
-## 现在只要船开进泊位周围这片水面、且真的能划过去，就出靠岸入口；
-## 是否在热区由**位置**决定，与船头朝哪无关（航行到站本来就会摆正船头）。
-## 保留「可航」这一条：距离近但被岸线/养殖平台隔开的泊位不算，否则会画一个
-## 开不过去的入口。
-const DOCK_KEY_REACH := 6.5
-## 可航判定带缓存：热区查询每帧都跑，而路径规划不便宜。
-var _dock_cache := {}
-const DOCK_CACHE_TTL_MS := 400
-
-func _near_landing_key() -> Dictionary:
-	return {} # No automatic berth adoption.
-
-## 泊位能不能划过去。结果按「船位置 + 目标点」缓存 0.4 秒：
-## 热区查询在近距图标、按键分派、提示文案三处都会跑，不缓存就是每帧三次寻路。
-func _dock_route_ok(park: Vector3) -> bool:
-	var key := Vector3i(roundi(boat.position.x * 4.0), roundi(park.x * 4.0), roundi(park.z * 4.0))
-	var now := Time.get_ticks_msec()
-	var hit: Variant = _dock_cache.get(key)
-	if hit != null and now - int(hit.get("stamp", 0)) < DOCK_CACHE_TTL_MS:
-		return bool(hit.get("ok", false))
-	var ok := not plan_route_to(park.x, park.z).is_empty()
-	if _dock_cache.size() > 64:
-		_dock_cache.clear()
-	_dock_cache[key] = {"ok": ok, "stamp": now}
-	return ok
-
-
 func _press_sea_pick(c: Dictionary) -> bool:
 	_handle_prop_click({"type": str(c.get("type", "")), "item": c.get("item")})
 	return true
-
-
-## 船是否正停在这个泊位（与点击登陆标记、点船体同一判据）。
-##
-## 容差 1.6 米：旧值 1.0 太紧，自动靠泊在余速下常常停在 1.1–1.4 米，
-## 玩家看到船明明贴着码头，E 却说「船不在泊位」——「上下船判定经常体验不好」
-## 有相当一部分来自这里。船头朝向不参与判定，靠妥时本来就已摆正。
-func _landing_is_docked() -> bool:
-	if boat == null:
-		return false
-	var l: Dictionary = _landing_data(GameState.current_zone, GameState.landing_id)
-	if l.is_empty():
-		return false
-	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
-	var sailing: bool = boat.starts_sailing()
-	return not sailing and boat.position.distance_to(park) < DOCK_SETTLE_TOLERANCE
-
 
 
 ## 提示条上的「现在按 E 会做什么」。
@@ -2902,12 +2393,6 @@ func _landing_is_docked() -> bool:
 ## 读 `_near_action()` 的同一份仲裁：提示、图标、按键分派三处共用一个结果，
 ## 不会再出现「写着上岸、按下去在打捞」。
 ##
-## 有一档必须单独说清楚：**热区之外**的漂流物 / 鱼群。
-## 那时不出图标（图标的意思是「你已进入判定区，点一下就动手」），
-## 但 `_press_boat_key()` 仍保留「划过去捞」这条赶路指令 —— 键盘玩家
-## 隔着几米没法出发就断手了。既然 E 会开船，提示就不能空着：
-## 旧实现在 3 米处提示为空、按 E 船却直奔漂流物，正是「提示 ≠ 按键」。
-## 这里补上与 `_press_boat_key()` 兜底同源的判断。
 func _boat_shortcut_text(arbitrated: Variant = null) -> String:
 	if hud == null or input_blocked(): return ""
 	var action: Dictionary = _near_action() if arbitrated == null else arbitrated
@@ -2926,19 +2411,6 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		hud.toast("请先手动划近")
 		return
 	_begin_pick_gather()
-
-## 点了浮木/鱼群：进入「航行」阶段。
-##
-## 这个阶段**不显示任何进度**：船还没到，人也还没开始捞。
-## 条只是被重置成隐藏状态（清掉上一轮可能残留的满格）。
-func _begin_pick_sail(pick: Dictionary) -> void:
-	_pending_pick = pick
-	_pick_phase = PICK_PHASE_SAILING
-	_pick_left = 0.0
-	if pickup_progress != null:
-		pickup_progress.begin()
-		pickup_progress.hide_bar()
-
 
 ## 船停稳且目标够得着：进入「打捞」阶段。
 ##
@@ -3015,25 +2487,10 @@ func _cancel_pending_pick() -> void:
 		pickup_progress.clear()
 
 
-## 每帧推进拾取。**航行段只判断「到没到」，打捞段才走进度。**
-##
-## 顺序即语义：
-##   1. 航行中 → 条一直藏着（这一段是赶路，不是拾取）。
-##   2. 船停了 → 够得着就开始打捞（条从 0 出现）；够不着就作废。
-##   3. 打捞中 → 计时推进，条跟着走；走满结算。
+## 停船且目标仍在范围内时推进打捞进度。
 func _update_pickup_progress(delta: float) -> void:
 	if pickup_progress == null: return
 	pickup_progress.tick(delta)
-	if _pick_phase == PICK_PHASE_SAILING:
-		if boat.starts_sailing():
-			pickup_progress.hide_bar()
-			return
-		# 停稳了：够得着才算真的开始捞。
-		if _pick_in_reach():
-			_begin_pick_gather()
-		else:
-			_cancel_pending_pick()
-		return
 	if _pick_phase != PICK_PHASE_GATHERING: return
 	if boat.starts_sailing() or not _pick_in_reach():
 		_cancel_pending_pick()
@@ -3187,7 +2644,7 @@ func _on_focus_site(id: String) -> void:
 	if node.zone_id != GameState.current_zone:
 		hud.toast("请先前往 " + Zones.label(node.zone_id))
 		return
-	_approach(node)
+	_interact_here(node)
 
 
 func _on_build_facility(id: String) -> void:
@@ -3210,7 +2667,7 @@ func _on_focus_plot(plot_id: String) -> void:
 	if node.zone_id != GameState.current_zone:
 		hud.toast("请先划船前往 " + Zones.label(node.zone_id))
 		return
-	_approach(node)
+	_interact_here(node)
 
 
 func _rest_for_day() -> void:
@@ -3307,6 +2764,7 @@ func _process(delta: float) -> void:
 				zone.update_time(_t)
 	# 交互只在岸上、站定时开放：船上/航行中/潜水都不该出现采集提示。
 	if interactor != null:
+		interactor.set_interaction_context("room" if inside_room else ("shore" if actor_controller.mode() == GameState.Mode.ASHORE else "sea"))
 		interactor.active = (not dive.active) and (not _walking) \
 			and GameState.mode == GameState.Mode.ASHORE and not input_blocked()
 	# One read-only arbitration per presentation update; actual input paths still
@@ -3321,7 +2779,7 @@ func _process(delta: float) -> void:
 		prompt.update_from(interactor)
 	_update_pointer_ui()
 	_update_near_interaction(near_action)
-	_update_camera_feedback(delta)
+	_update_camera_feedback()
 	if water_node.has_method("update_surface") and not dive.active and not inside_room:
 		water_node.update_surface(_t, boat, cam.target)
 	# 拾取：推进当前这一轮（航行→打捞→结算都在里面）。
@@ -3330,13 +2788,6 @@ func _process(delta: float) -> void:
 	# 顺序在推进之后：先让上一轮结算/收条，再考虑开新一轮。
 	if props != null and not dive.active:
 		_start_idle_pick()
-
-
-## 调试用：切换静态几何来源（baked / models），用于两条路径的画面比对。
-func _debug_source(src: String) -> void:
-	for zone in _zone_nodes.values():
-		if zone.has_method("set_geometry_source"):
-			zone.set_geometry_source(src)
 
 
 ## 调试用：直接把船摆到指定区块的泊位并对齐镜头（回归截图用，不影响玩法）。
@@ -3355,11 +2806,6 @@ func _debug_teleport(zone_id: String) -> void:
 
 
 ## 调试用：自动开往指定区块，方便回归截图。
-func _autosail(zone_id: String) -> void:
-	await get_tree().create_timer(0.4).timeout
-	_on_destination(zone_id)
-
-
 func _reward_parts(reward: Dictionary) -> Array:
 	var parts: Array = []
 	for k in reward.keys():
@@ -3437,7 +2883,7 @@ func _quick_tools_context() -> Dictionary:
 	if _pick_phase != PICK_PHASE_IDLE: blocked = true
 	var context := ""
 	var state: String = actor_controller.state_id()
-	if state in ["ashore_idle", "walking", "strolling"]: context = "land"
+	if state in ["ashore_idle", "strolling"]: context = "land"
 	elif state in ["boat_idle", "sailing"]: context = "boat"
 	var anchor := Vector2.INF
 	if is_instance_valid(player) and is_instance_valid(cam):
@@ -3465,7 +2911,7 @@ func _execute_quick_tool(action_id: String) -> void:
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
 	actor_controller.mode_changed.connect(GameState.set_mode)
-	actor_controller.configure(player,boat,self,interactor,{"landing":_current_landing,"zone":func(): return _zone_nodes.get(GameState.current_zone),"notify":func(text): hud.toast(text),"input_blocked":input_blocked,"berth":_formal_berth_result,"berth_completed":_on_berth_completed})
+	actor_controller.configure(player,boat,self,interactor,{"notify":func(text): hud.toast(text),"input_blocked":input_blocked,"berth":_formal_berth_result,"berth_completed":_on_berth_completed})
 	GameState.mode_changed.connect(actor_controller.reconcile_mode)
 	cam.input_blocked = func(): return _title_active or _exhausted_rest or (dive!=null and dive.switching) or (sleep_cycle!=null and sleep_cycle.busy) or hud.camera_modal() or (salvage_panel!=null and salvage_panel.is_open()) or (order_panel!=null and order_panel.is_open()) or (cam_panel!=null and cam_panel.is_open()) or (grade!=null and grade.visible)
 	player.rowing_query = boat.rowing_state
@@ -3473,7 +2919,7 @@ func _setup_actor_controller() -> void:
 	Economy.ship.upgraded.connect(func(_level): GameState.far_sea_unlocked=true)
 	interactor.completed.connect(func(_spot,_reward): actor_controller.complete_interaction())
 	interactor.blocked.connect(func(_reason): actor_controller.complete_interaction())
-	interactor.reachable_query = func(spot: Node3D) -> bool: return _land_reach_reason(spot) == ""
+
 	# SEA-FARM-R02「水壶12份，岸上免费补满」：上岸那一刻补满。
 	#
 	# 这条以前只有文字没有实现，水壶见底后所有种下的格子都变成死局：
@@ -3492,24 +2938,19 @@ func _setup_actor_controller() -> void:
 ## ActorController 是主场景持有的 RefCounted、不在节点树上 —— 交互物顺着
 ## parent 找不到它。阳光房那架梯子同样是在这里 configure 的。
 ##
-## 这里只补世界高度：两个交互点已经在场景里摆好（浮台上 / 第一级平台上），
-## 缺的只是「从 1.12 爬到 4.83」这两个数。
-const NEON_LADDER_BOTTOM := 1.12
-const NEON_LADDER_TOP := 4.83
-
 func _setup_ladders() -> void:
 	var quarter: Node = _zone_nodes.get("neon_garden_quarter")
 	if quarter == null:
 		return
-	var bottom: Node = quarter.get_node_or_null("Ladders/StairFootBottom")
-	var top: Node = quarter.get_node_or_null("Ladders/StairFootTop")
+	var bottom: Node = quarter.get_node_or_null("Visual/StairFoot/Ladders/StairFootBottom")
+	var top: Node = quarter.get_node_or_null("Visual/StairFoot/Ladders/StairFootTop")
 	if bottom == null or top == null:
 		return
 	if not bottom.has_method("attach") or not top.has_method("attach"):
 		return
 	var climb := Callable(actor_controller, "climb_ladder")
-	bottom.attach(climb, "up", NEON_LADDER_BOTTOM, NEON_LADDER_TOP, bottom)
-	top.attach(climb, "down", NEON_LADDER_BOTTOM, NEON_LADDER_TOP, top)
+	bottom.attach(climb, top)
+	top.attach(climb, bottom)
 
 func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
@@ -3569,8 +3010,11 @@ func _setup_building() -> void:
 	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,
 		"layout_reason":_construction_layout_reason,"pay":Economy.inventory.pay,"refund":_construction_refund,
 		"capacity_reason":_construction_capacity_reason,
-		"energy_reason":Economy.energy.reason,"spend_energy":Economy.energy.spend})
-	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
+		"energy_reason":Economy.energy.reason,"spend_energy":Economy.energy.spend},
+		preload("res://src/building/building_catalog.gd").starter_rows())
+	building.from_dict(building.empty_snapshot())
+	building.take_introduced_planters()
+	building_world.configure(building,_zone_nodes.zone5,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
 		navigation.invalidate()
 		props.ocean.invalidate()
 		_zone_nodes.zone5.rebuild_ground(_zone_nodes.zone5.walk_areas[0])
@@ -3579,15 +3023,19 @@ func _setup_building() -> void:
 		if action=="storage": hud.open_tab("storage")
 		elif action=="water": Economy.farm.refill();hud.toast("水壶已补满")
 	building_access=preload("res://src/building/building_access.gd").new();add_child(building_access)
-	building_access.configure(building,building_world,navigation,boat,markers,cam,_construction_actor_state,_select_landing,func(): return GameState.landing_id)
+	building_access.configure(building,building_world,markers)
 	building.changed.connect(func():
 		if actor_controller.mode()!=0 and building_access.is_dynamic(GameState.landing_id) and building_access.landing_data(GameState.landing_id).is_empty():
 			GameState.landing_id="main")
 	cam.pan_bounds=Rect2()
-	building.completed.connect(func(_id): props.apply_population_scope())
+	building.completed.connect(func(id):
+		var item: Dictionary = building.row(id)
+		if preload("res://src/building/building_catalog.gd").role(item.kind) == "planter":
+			Economy.farm.restore_retired_workshop_crop("dynamic/" + id)
+		props.apply_population_scope())
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
 	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel,
-		_construction_stand_point,_construction_walk,_construction_actor_state)
+		_construction_in_reach, _construction_actor_state)
 	# 拆除（锤子）钮在屋里收起：房间里既有建造也没有可拆的东西，
 	# 一颗点不出任何结果的锤子只是噪声（2026-11-06 用户截图右上角那颗）。
 	building_controller.demolition.launcher_visibility_query=func(): return not _title_active and not get_tree().paused and not _exhausted_rest and not room_service.inside and (sleep_cycle==null or not sleep_cycle.busy) and building_controller.active and actor_controller.mode()!=3
@@ -3597,53 +3045,17 @@ func _bind_constructed_plot(plot: Node3D) -> void:
 	plot.use_action_menu=true
 	if not plot.interaction_requested.is_connected(_open_plot_options): plot.interaction_requested.connect(_open_plot_options)
 
-## 施工时角色该站哪：目标格旁最近的、走得到的落脚点。
-##
-## 新木板格本身还不在可行走面上（要建完才算地面），所以不能直接把格心当目标 ——
-## 沿「角色这一侧」的方向往外探几个半径，取第一个落在可走矩形里、且有通路的位置。
-## 都探不到就退回到「把格心夹到最近的可行走面」，避免在平台边缘建造成死局。
-func _construction_stand_point(center: Vector3) -> Vector3:
-	if actor_controller.mode() in [1,2]: return building_access.boat_stand(center)
-	if building_world.has_method("find_stand_point"):
-		var request: Dictionary={}
-		if building_controller!=null:
-			request=building_controller.pending if not building_controller.pending.is_empty() else building_controller.preview
-		return building_world.find_stand_point(player.global_position,center,2.8,request)
-	var zone: Node = _zone_nodes.get("zone5")
-	if zone == null: return Vector3.INF
-	var actor: Vector3 = player.global_position
-	var dir := actor - center
-	dir.y = 0.0
-	if dir.length() < 0.05: dir = Vector3(0.0, 0.0, 1.0)
-	dir = dir.normalized()
-	for radius in [1.15, 1.5, 1.9, 2.4]:
-		var probe: Vector3 = center + dir * radius
-		for ground in zone.walk_areas:
-			if not ground.contains_world(probe.x, probe.z): continue
-			if ground.path_between(actor, probe).is_empty(): continue
-			return Vector3(probe.x, ground.surface_y, probe.z)
-	for ground in zone.walk_areas:
-		var q: Vector2 = ground.clamp_point(center.x, center.z)
-		var point := Vector3(q.x, ground.surface_y, q.y)
-		if Vector2(point.x - center.x, point.z - center.z).length() < 0.35: continue
-		if ground.path_between(actor, point).is_empty(): continue
-		return point
-	return Vector3.INF
-
-## 施工前走过去。走不到就返回 false，由建造控制器说明原因，不给「原地开工」的捷径。
-func _construction_walk(point: Vector3) -> bool:
-	if actor_controller.mode() in [1,2]: return false # Manually approach from water.
-	var zone: Node = _zone_nodes.get("zone5")
-	if zone == null: return false
-	var ground: Variant = zone.area_at(point,0.5)
-	if ground == null: return false
-	if hud != null: hud.world_actions.close(true)
-	return actor_controller.start_walk(ground, point)
+func _construction_in_reach(request: Dictionary) -> bool:
+	var catalog = preload("res://src/building/building_catalog.gd")
+	var afloat: bool = actor_controller.mode() in [1, 2]
+	var origin: Vector3 = boat.global_position if afloat else player.global_position
+	var local: Vector3 = origin - catalog.ORIGIN
+	var distance: float = catalog.rect_distance(catalog.footprint_rect(request), Vector2(local.x, local.z))
+	return distance <= (3.0 if afloat else 2.0) and absf(local.y - catalog.elevation(request)) <= 3.1
 
 func _construction_actor_state() -> Dictionary:
-	var afloat: bool=actor_controller.mode() in [1,2]
-	return {"position":boat.global_position if afloat else player.global_position,
-		"walking":boat.starts_sailing() if afloat else actor_controller.walking(),"mode":actor_controller.mode()}
+	var mode: int = actor_controller.mode()
+	return {"position": boat.global_position if mode in [1, 2] else player.global_position, "mode": mode}
 
 func _construction_refund(cost: Dictionary) -> bool:
 	return Economy.inventory.add_all(cost)
@@ -3652,7 +3064,7 @@ func _construction_layout_reason(before: Array,after: Array,request: Dictionary)
 	var reason: String=building_boundary.layout_reason(before,after,request)
 	if reason!="": return reason
 	if actor_controller.mode()==0 and building_access!=null and building_access.is_dynamic(GameState.landing_id):
-		if building_access.landing_data(GameState.landing_id,after).is_empty(): return "请保留当前上下船的位置"
+		if not building_access.has_berth(GameState.landing_id,after): return "请保留当前上下船的位置"
 	return ""
 
 func _construction_capacity_reason(rows: Array) -> String:
@@ -3723,12 +3135,14 @@ func _construction_protected() -> Array:
 			result.append(Rect2(stand,Vector2.ZERO).expand(park).grow(0.45))
 	return result
 
-func _restore_building(data: Dictionary) -> void:
+func _restore_building(data: Dictionary) -> bool:
+	if not building.from_dict(data): return false
 	building_controller.close()
 	building_world.reset_projection()
-	building.from_dict(data)
 	# Registry suppresses owner signals; the projection must exist before Farm restores.
 	building_world.sync()
+	building_access.refresh_markers()
+	return true
 
 func _validate_dive_snapshot(data: Dictionary) -> String:
 	# The per-owner validator receives the candidate dive record. The cross-module
@@ -3781,7 +3195,7 @@ func _setup_npc_systems() -> void:
 	add_child(anchor_hub)
 	anchor_hub.configure([stations,
 		get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations"),
-		get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations"),
+		get_node_or_null("World/SeaStructures/neon_garden_quarter/Visual/GardenBridge/NpcStations"),
 		# 霓虹花园屋顶：船员站在派生屋顶面上，不能复用花园桥那一个站点。
 		get_node_or_null("World/SeaStructures/neon_garden_quarter/RoofNpcStations")])
 	npc_world_presenter.configure(npc_service, anchor_hub, _npc_world_query, _on_npc_interaction_requested)
@@ -4045,7 +3459,8 @@ func _on_npc_interaction_requested(npc_id: String = "") -> Dictionary:
 				player.rotation.y = atan2(offset.x, offset.z)
 	return {
 		"enabled": not _title_active and not _exhausted_rest and not actor_controller.climbing()
-			and not room_controller.busy and not dive.active and not building_controller.active
+			and not room_controller.busy and (dive == null or not dive.active)
+			and (building_controller == null or not building_controller.active)
 			and not hud.is_panel_open() and not hud.menu.active and not hud.menu.external_open()
 			and not hud.world_actions.is_open() and not hud.corner.expanded
 			and not shop_panel.is_open() and not npc_career_panel.is_open(),
@@ -4060,7 +3475,7 @@ func _setup_save_registry() -> void:
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
 	save_registry.register("profile",avatar_profile.to_dict,avatar_profile.from_dict,schemas.profile,avatar_profile.to_dict(),avatar_profile.validate_snapshot,[avatar_profile])
 	save_registry.snapshot_validator = _validate_building_world
-	save_registry.register("building",building.to_dict,_restore_building,schemas.building,building.to_dict(),building.validate_snapshot,[building])
+	save_registry.register("building",building.to_dict,_restore_building,schemas.building,building.to_dict(),building.validate_layout_snapshot,[building])
 	var owners := {"economy":Economy,"gather":gather,"pickups":props,"dive":dive,"salvage":Economy.salvage,"time":world_clock,"weather":weather_service}
 	for id in owners:
 		var owner = owners[id]
@@ -4096,15 +3511,48 @@ func restore_world_state(data: Dictionary) -> void:
 	if Scope.minimal() and not Scope.zone_enabled(str(data.get("zone","zone1"))):
 		data.merge({"zone":"zone1","landing":"main","mode":1,"boat":[],"player":[]},true)
 	_cancel_pending_pick()
-	_ashore_on_arrival = false
 	actor_controller.cancel()
 	GameState.far_sea_unlocked = bool(data.get("far_sea",false))
 	var zone_id := str(data.get("zone","zone1"))
 	if not _zone_nodes.has(zone_id): zone_id="zone1"
 	GameState.landing_id = str(data.get("landing","main"))
+	var catalog = preload("res://src/building/building_catalog.gd")
+	var retired_berth := false
 	if building_access!=null and building_access.is_dynamic(GameState.landing_id) and building_access.landing_data(GameState.landing_id).is_empty():
 		GameState.landing_id="main"
+		retired_berth = true
 	var pose: Array = data.get("boat",[])
+	if zone_id == "zone5" and GameState.landing_id == "main" and pose.size() == 4:
+		var park := _zone_nodes.zone5.landing_point("main").get_node("BoatPark") as Marker3D
+		retired_berth = retired_berth or Vector2(pose[0], pose[2]).distance_to(Vector2(park.global_position.x, park.global_position.z)) > 0.25
+		if _is_retired_workshop_park(pose): pose = []
+	if retired_berth and zone_id == "zone5" and int(data.get("mode",1)) == GameState.Mode.ASHORE:
+		var previous: Array = data.get("player", [])
+		if previous.size() == 3:
+			var previous_feet := Vector3(previous[0], previous[1], previous[2])
+			if catalog.was_on_previous_starter(previous_feet) and not building_world.contains_saved(previous_feet, building.layout()):
+				var shifted: Vector3 = previous_feet + catalog.STARTER_MOVE
+				data.player = [shifted.x, shifted.y, shifted.z]
+	if retired_berth and zone_id == "zone5" and int(data.get("mode",1)) == GameState.Mode.ASHORE:
+		# A legacy platform-edge landing cannot board the saved boat. Return
+		# the vessel to the initial berth if the player stood on connected ground.
+		var player_pose: Array = data.get("player", [])
+		if player_pose.size() == 3:
+			var feet := Vector3(player_pose[0], player_pose[1], player_pose[2])
+			var starter: Node3D = _zone_nodes.zone5.landing_point("main")
+			var space = preload("res://src/building/building_space.gd")
+			var walk: Array = building_world.area.rects
+			var groups: Array = space.components(walk)
+			var a: Vector3 = feet - catalog.ORIGIN
+			var b: Vector3 = starter.global_position - catalog.ORIGIN
+			var linked: bool = absf(a.y) < 0.25 and not space.intersect_ids(
+				space.point_components(walk, groups, Vector2(a.x,a.z)),
+				space.point_components(walk, groups, Vector2(b.x,b.z))).is_empty()
+			if linked or not _zone_nodes.zone5.ground_space.native_route(feet, starter.global_position).is_empty():
+				pose = []
+			else:
+				# A formerly berthless island has no return route after this upgrade.
+				data.mode = GameState.Mode.ON_BOAT
 	if pose.size()==4: boat.place_at(Vector3(pose[0],pose[1],pose[2]),pose[3])
 	else:
 		var landing: Dictionary = Zones.landing(zone_id,"main")
@@ -4112,20 +3560,20 @@ func restore_world_state(data: Dictionary) -> void:
 	var saved_player: Array = data.get("player",[])
 	if int(data.get("mode",1)) == GameState.Mode.ASHORE and saved_player.size()==3:
 		var saved_point := Vector3(saved_player[0],saved_player[1],saved_player[2])
-		var ground = _zone_nodes[zone_id].area_at(saved_point,0.5)
-		if ground != null:
-			var support: Vector3 = ground.surface_point(saved_point)
+		var support := _berth_transfer.safe_feet(player, saved_point, 0.45, 0.45)
+		var site: Node3D = _zone_nodes.get(zone_id)
+		if not support.is_finite() and site != null and site.has_method("restored_footing"):
+			support = site.restored_footing(saved_point, player)
+			if not support.is_finite():
+				data.mode = GameState.Mode.ON_BOAT
+		if support.is_finite():
 			data.player = [support.x,support.y,support.z]
-		elif zone_id=="zone1" and _fishery_visual != null and Economy.fishery.unlocked and _fishery_visual.supports(saved_point,false):
-			var recovered: Vector2 = _zone_nodes.zone1.get_node("WalkAreas/Walk_zone1_salvage").clamp_point(saved_point.x,saved_point.z)
-			data.player = [recovered.x,1.33,recovered.y]
-		elif zone_id=="zone5" and building_world.has_method("closest_walk_point"):
-			var recovered: Vector3=building_world.closest_walk_point(Vector3(saved_player[0],saved_player[1],saved_player[2]))
-			if recovered.is_finite(): data.player=[recovered.x,recovered.y,recovered.z]
 	actor_controller.restore_pose(data)
 	GameState.enter_zone(zone_id)
 
 func _after_restore() -> void:
+	for id: String in building.take_introduced_planters():
+		Economy.farm.restore_retired_workshop_crop("dynamic/" + id)
 	player.apply_avatar(avatar_profile.query())
 	props.sync_population(world_clock.query(),boat.position)
 	if Scope.minimal(): Economy.daily.observe(world_clock.query())
@@ -4185,34 +3633,46 @@ func _exit_tree() -> void:
 	if npc_service != null: npc_service.dispose()
 	if npc_career_panel != null: npc_career_panel.dispose()
 	actor_controller.ports.clear()
-	actor_controller.after_walk = Callable()
 	save_registry.clear()
 	navigation.shape_query = Callable()
 
 func validate_world_state(data: Dictionary, layout: Variant = null, fishery_state: Variant = null) -> String:
 	var landing: String=str(data.get("landing","main"))
 	if building_access!=null and building_access.is_dynamic(landing):
-		if str(data.get("zone",""))!="zone5" or building_access.landing_data(landing,building.query() if layout==null else layout).is_empty():
+		if str(data.get("zone",""))!="zone5":
 			return "Saved constructed landing is invalid"
+		var rows: Array = building.query() if layout == null else layout
+		if not building_access.has_berth(landing, rows):
+			var parts := landing.split(":")
+			var catalog = preload("res://src/building/building_catalog.gd")
+			if parts.size() != 3 or parts[2] not in ["0", "1", "2", "3"] or not rows.any(func(row): return row.id == parts[1] and row.left <= 0 and catalog.is_platform(row.kind) and catalog.same_level(catalog.elevation(row), 0.0)):
+				return "Saved constructed landing is invalid"
 	var pos: Array = data.get("player",[])
 	if int(data.get("mode",1))==0 and pos.size()==3:
 		var zone_id := str(data.get("zone","zone1"))
 		if not _zone_nodes.has(zone_id): return "Unknown saved zone"
-		if zone_id=="zone5" and layout!=null:
-			if not building_world.contains_saved(Vector3(pos[0],pos[1],pos[2]),layout): return "Saved player is outside constructed ground"
-		else:
-			var point := Vector3(pos[0],pos[1],pos[2])
-			var area = _zone_nodes[zone_id].area_at(point,0.5)
-			var fishery_owned: bool = zone_id=="zone1" and _fishery_visual != null and (_fishery_visual.ISLAND.has_point(Vector2(point.x,point.z)) or _fishery_visual.supports(point,false))
-			if fishery_owned:
-				var active: bool = Economy.fishery.unlocked if fishery_state==null else bool(fishery_state)
-				if not _fishery_visual.supports(point,active) and not (active and _fishery_visual.supports(point,false)): return "Saved player is outside fishery ground"
-			elif area==null: return "Saved player is outside walkable ground"
+		var point := Vector3(pos[0],pos[1],pos[2])
+		var supported := _berth_transfer.safe_feet(player, point, 0.45, 0.45).is_finite()
+		# Restore validates before the saved build and upgrade are instantiated.
+		if not supported and zone_id == "zone5" and layout != null and layout != building.query():
+			supported = building_world.contains_saved(point, preload("res://src/building/building_catalog.gd").starter_rows() + layout)
+		if not supported and zone_id == "zone5" and landing == "main" and layout != null:
+			var old_park: Array = data.get("boat", [])
+			supported = old_park.size() == 4 and _is_retired_workshop_park(old_park) and preload("res://src/building/building_catalog.gd").was_on_previous_starter(point)
+		if not supported and zone_id == "zone1" and _fishery_visual != null and fishery_state != null and bool(fishery_state) != Economy.fishery.unlocked:
+			supported = _fishery_visual.supports(point, bool(fishery_state))
+		if not supported: return "Saved player is outside walkable ground"
 	var pose: Array = data.get("boat",[])
-	var candidate_nav = preload("res://src/navigation/water_navigation.gd").new()
-	candidate_nav.shape_query=func(): return _water_shapes(fishery_state)+building_world.water_shapes(building.query() if layout==null else layout)
-	if pose.size()==4 and not candidate_nav.is_geometric_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
+	if pose.size() == 4:
+		var hull_pose := Transform3D(Basis(Vector3.UP, pose[3]), Vector3(pose[0], WATER_LEVEL, pose[2]))
+		if not boat.hull_clear_at(hull_pose):
+			var retired_park := str(data.get("zone","")) == "zone5" and landing == "main" and _is_retired_workshop_park(pose)
+			if not retired_park: return "Saved boat intersects a structure"
 	return ""
+
+static func _is_retired_workshop_park(pose: Array) -> bool:
+	var center := Vector2(pose[0], pose[2])
+	return center.distance_to(Vector2(16.42,15.91)) < 0.25 or center.distance_to(Vector2(17.725,27.725)) < 0.25
 
 func _apply_play_scope() -> void:
 	if not Scope.minimal(): return
@@ -4235,11 +3695,6 @@ func _apply_play_scope() -> void:
 		field.hide()
 		field.process_mode = Node.PROCESS_MODE_DISABLED
 	_apply_gather_scope()
-	trade_board.order_model = null
-	var supply_landing = _zone_nodes["zone1"].landing_point("salvage")
-	trade_board.position = supply_landing.stand_position()+Vector3(-1.6,0,-1.2)
-	trade_board.label = "渔场 · 待建"
-	trade_board.verb = "建造渔场"
 	# Camera remains locked; P is an available lighting/debug tool in this scope.
 	cam_panel.process_mode = Node.PROCESS_MODE_DISABLED
 
@@ -4280,7 +3735,7 @@ func _begin_title() -> void:
 func _suspend_for_avatar_or_title() -> void:
 	_title_active = true
 	daylight_rig.apply(world_clock.query().hour)
-	_zone_nodes.zone1.get_node("Objects/RoomDoor").hide()
+	(_sunroom_facility("RoomDoor") as Node3D).hide() if _sunroom_facility("RoomDoor") != null else null
 	_title_economy_ticking = Economy.ticking
 	Economy.ticking = false
 	interactor.active = false
@@ -4315,7 +3770,7 @@ func _resume_after_avatar_or_title() -> void:
 	props.process_mode = _title_props.process_mode
 	_title_props.clear()
 	_title_active = false
-	_zone_nodes.zone1.get_node("Objects/RoomDoor").show()
+	(_sunroom_facility("RoomDoor") as Node3D).show() if _sunroom_facility("RoomDoor") != null else null
 	daylight_rig.apply(world_clock.query().hour)
 	Economy.ticking = _title_economy_ticking
 	if is_instance_valid(start_screen): start_screen.queue_free()
@@ -4344,12 +3799,10 @@ func _setup_avatar() -> void:
 
 func _place_new_traveler() -> void:
 	var landing = _zone_nodes.zone1.landing_point("main")
-	# Place traveler slightly further onto the open sunny courtyard deck (z=11.2)
-	# while facing the solar cabin (-Z, yaw=PI), so the cabin veranda is right ahead.
-	var pos := Vector3(3.15, landing.stand_position().y, 11.2)
+	var arrival := landing.get_node("Arrival") as Marker3D
+	var pos := arrival.global_position
 	actor_controller.restore_pose({"mode":0,"player":[pos.x,pos.y,pos.z]})
-	# Face the solar cabin (-Z) along the harbor deck rather than looking back at the boat.
-	player.rotation=Vector3(0,PI,0)
+	player.global_rotation = arrival.global_rotation
 	GameState.landing_id="main"; GameState.enter_zone("zone1")
 	cam.restore_follow(player); cam.apply_pose()
 
@@ -4405,7 +3858,7 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 		return
 	# 居民点击直接接近交谈，不先弹物体操作气泡。
 	if spot.has_signal("npc_requested"):
-		_approach(spot)
+		_interact_here(spot)
 		return
 	actor_controller.cancel()
 	var options: Array = []
@@ -4439,10 +3892,10 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 	elif spot == _fishery_harvest or spot == trade_board:
 		if spot == _fishery_harvest:
 			options.append({"id":"harvest","icon":"fish","label":"收获鱼类","caption":"收获 ×%d" % Economy.fishery.pending,
-				"blocked":Economy.fishery.harvest_reason(),"command":func(): _approach_command(spot,_harvest_fishery)})
+				"blocked":Economy.fishery.harvest_reason(),"command":func(): _interact_here(spot,_harvest_fishery)})
 		elif not Economy.fishery.unlocked:
 			options.append({"id":"fishery","icon":"fish","label":"建造渔场","blocked":Economy.fishery.reason(),
-				"command":func(): _approach_command(spot,func() -> Dictionary:
+				"command":func(): _interact_here(spot,func() -> Dictionary:
 					hud.open_aqua_upgrade(_upgrade_fishery);return {"event":"fishery_opened"})})
 	else:
 		var icon := "hand"
@@ -4452,66 +3905,16 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 		elif str(spot.verb).contains("采"): icon="harvest"
 		elif str(spot.verb).contains("挖"): icon="dig"
 		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
-		options.append({"id":"interact","icon":icon,"label":str(spot.verb),"blocked":blocked,"command":func(): _approach(spot)})
+		options.append({"id":"interact","icon":icon,"label":str(spot.verb),"blocked":blocked,"command":func(): _interact_here(spot)})
 	var title := str(spot.label)
 	if spot.is_in_group("farm_plots"): title += " · " + Economy.farm.status_text(str(spot.plot_id))
 	hud.open_world_actions(_bubble_anchor(spot),options,title,screen)
 
-## 这一处目标，从玩家脚下能不能走过去？空串表示能。
-##
-## 只看陆地：人在船上或水里时不做预检 —— 那种情况 `approach` 自己会先靠岸，
-## 提前判死会让「在船上点岸上的箱子」变成一堆点不动的目标。
-##
-## 分三类原因，因为玩家能做的补救不一样：
-##   别的区域 → 需要坐船过去；同一区域但断开 → 中间真的没有路。
-##
-## 悬停层每帧都会问，所以带 350ms 缓存：路径规划不算便宜，
-## 全场景每个候选都现算会把悬停拖卡。过期就重算 —— 走两步之后结论可能就变了。
-var _reach_cache := {}
-const REACH_TTL_MS := 350
-
 func _land_reach_reason(spot: Node3D) -> String:
-	if actor_controller.mode() != 0: return ""
-	if spot == null or not is_instance_valid(spot): return ""
-	var key := spot.get_instance_id()
-	var now := Time.get_ticks_msec()
-	if _reach_cache.has(key):
-		var cached: Dictionary = _reach_cache[key]
-		if now - int(cached.stamp) < REACH_TTL_MS: return str(cached.reason)
-	var reason := _compute_reach_reason(spot)
-	if _reach_cache.size() > 128:
-		for id in _reach_cache.keys():
-			if now - int(_reach_cache[id].stamp) >= REACH_TTL_MS: _reach_cache.erase(id)
-	_reach_cache[key] = {"reason": reason, "stamp": now}
-	return reason
-
-func _compute_reach_reason(spot: Node3D) -> String:
-	# 站着的那一格不等于物体中心：培养土把中心从可行走面里挖掉了，
-	# 用中心判可达会让「自己刚建好的菜箱」被说成走不过去。
-	# 有 approach_points 就按它判 —— 那本来就是给「站到哪去操作」准备的。
-	var points: Array = []
-	if spot.has_meta("approach_points"):
-		for p in spot.get_meta("approach_points"):
-			points.append(p)
-	if points.is_empty():
-		points.append(spot.focus_position() if spot.has_method("focus_position") else spot.global_position)
-	var here: Node = actor_controller.ports.zone.call()
-	var from: Vector3 = actor_controller.actor.global_position
-	var on_here := false
-	if here != null:
-		for p: Vector3 in points:
-			var area: Variant = here.area_at(p,1.4)
-			if area == null: continue
-			on_here = true
-			if not (area as Node3D).path_between(from, p).is_empty(): return ""
-	if on_here: return "那里走不过去，中间没有连通的路"
-	for zone_id in _zone_nodes:
-		var node: Node = _zone_nodes[zone_id]
-		if node == null or node == here: continue
-		for p2: Vector3 in points:
-			if node.area_at(p2,1.4) != null:
-				return "那边在别的区域，需要先坐船靠岸"
-	return "那里是水面，走不过去"
+	if not is_instance_valid(spot) or actor_controller.mode() != GameState.Mode.ASHORE:
+		return "请先上岸"
+	if not interactor.is_within_reach(spot): return "请走近后互动"
+	return ""
 
 func _owned_seeds() -> Array:
 	var result: Array=[]
@@ -4533,11 +3936,8 @@ func _open_seed_bubbles(plot: Node3D, screen: Variant = Vector2.INF) -> void:
 	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子 · " + str(plot.plot_name),screen)
 	hud.world_actions.back_action = func(): _open_spot_bubbles(plot,screen)
 
-func _approach_command(spot: Node3D, command: Callable) -> void:
-	if _approach(spot): interactor.queue_command(spot,command)
-
 func _queue_plot_action(plot: Node3D, action: String, crop: String) -> void:
-	_approach_command(plot,func() -> Dictionary:
+	_interact_here(plot,func() -> Dictionary:
 		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
 		var result: Dictionary=plot.perform(action,crop)
 		return result)
@@ -4547,15 +3947,16 @@ func _queue_plot_action(plot: Node3D, action: String, crop: String) -> void:
 ## 拆分会有两种情况出问题：只补水不浇水，玩家还以为点失败了；先浇水再补水，
 ## 中间会弹一次「水壶空了」。合成一条命令，走完只掉一块水。
 func _queue_refill_and_water(plot: Node3D) -> void:
-	_approach_command(plot,func() -> Dictionary:
+	_interact_here(plot,func() -> Dictionary:
 		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
 		Economy.farm.refill()
 		var result: Dictionary=plot.perform("water","")
 		return result)
 
 func _setup_shipping_box() -> void:
-	var box = _zone_nodes.zone1.get_node("Objects/ShippingBox")
-	box.opened.connect(func(): hud.open_tab("shipping"))
+	var box := _sunroom_facility("ShippingBox")
+	if box != null and box.has_signal("opened"):
+		box.opened.connect(func(): hud.open_tab("shipping"))
 
 
 func _setup_sleep() -> void:
@@ -4575,7 +3976,7 @@ func _setup_sleep() -> void:
 		_restore_sleep_ui()
 		hud.toast("早上好 · 作物已长一天 · 07:00 出货箱收货",4.0)
 		if _autosave_on: save_game("",true))
-	
+
 ## SEA-ROOM 接线：状态所有者、过场控制器、入口点、床铺睡觉、界面与存档。
 func _setup_room() -> void:
 	if room == null:
@@ -4596,7 +3997,10 @@ func _setup_room() -> void:
 	room_controller.world_environment = world_root.get_node_or_null("WorldEnvironment") as WorldEnvironment
 	room_controller.outdoor_nodes = _outdoor_nodes()
 	# 出门后站回门口地毯边，面朝太阳房（-Z）。
-	var door: Node3D = _zone_nodes.zone1.get_node("Objects/RoomDoor")
+	var door := _sunroom_facility("RoomDoor")
+	if door == null:
+		push_error("阳光房缺少 Facilities/RoomDoor")
+		return
 	room_controller.exit_position = door.global_position+Vector3(0,0,1.05)
 	room_controller.exit_yaw = PI
 	door.enter_requested.connect(func() -> void: room_controller.enter())
@@ -4650,7 +4054,6 @@ func _close_owned_modals() -> void:
 func _prepare_sleep() -> void:
 	actor_controller.cancel()
 	_cancel_pending_pick()
-	if ribbon != null: ribbon.clear()
 	interactor.active = false
 	# 先结束逻辑会话，再隐藏 Canvas；醒来不会复活旧确认按钮。
 	_close_owned_modals()
@@ -4670,14 +4073,14 @@ func _prepare_sleep() -> void:
 		layer.hide()
 	_sleep_calendar_visible = _calendar_label.visible
 	_calendar_label.hide()
-	_zone_nodes.zone1.get_node("Objects/RoomDoor").hide()
+	(_sunroom_facility("RoomDoor") as Node3D).hide() if _sunroom_facility("RoomDoor") != null else null
 
 func _restore_sleep_ui() -> void:
 	for entry in _sleep_ui_layers:
 		if is_instance_valid(entry.node): entry.node.visible=entry.visible
 	_sleep_ui_layers.clear()
 	_calendar_label.visible = _sleep_calendar_visible
-	_zone_nodes.zone1.get_node("Objects/RoomDoor").show()
+	(_sunroom_facility("RoomDoor") as Node3D).show() if _sunroom_facility("RoomDoor") != null else null
 
 func _wake_at_home() -> void:
 	# 在屋里床上睡的人，醒来还在屋里（床边站定）；在室外被到点/体力逼着睡的人，
@@ -4686,7 +4089,7 @@ func _wake_at_home() -> void:
 		room_controller.wake_in_room()
 		markers.set_highlight("room")
 	else:
-		var door: Node3D = _zone_nodes.zone1.get_node("Objects/RoomDoor")
+		var door := _sunroom_facility("RoomDoor")
 		var pos := door.global_position+Vector3(0,0,0.8)
 		restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[pos.x,pos.y,pos.z],"far_sea":GameState.far_sea_unlocked})
 		cam.restore_follow(player)

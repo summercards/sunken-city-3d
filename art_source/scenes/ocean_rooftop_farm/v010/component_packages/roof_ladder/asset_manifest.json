@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "roof_ladder",
+  "asset_id": "SEA-SCENE-ORF7-ROOF-LADDER",
+  "name": "外挂检修梯",
+  "category": "facility",
+  "component_family": "house_ladder",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder/roof_ladder.blend",
+  "source_sha256": "f273cbf0dd07241bac5ebbd7a206cb958eef048023c6e57595fe4bcb861e46c8",
+  "collection": "MASTER | roof_ladder",
+  "bounds_m": [
+    1.0299999713897705,
+    1.0421364307403564,
+    4.282334327697754
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.31806817650794983,
+    -0.13500000536441803
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/roof_ladder.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/roof_ladder.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ROOF-LADDER",
+  "version": "v010"
+}

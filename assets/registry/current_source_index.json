@@ -1,6 +1,12 @@
 {
   "sources": [
     {
+      "asset_id": "SEA-KIT-WORKSHOP-DOCK",
+      "source": "art_source/scenes/ocean_building_kit/v004/workshop_dock/workshop_dock.blend",
+      "source_sha256": "1778ddcb8b9814820c4cb8a549331adbba8b351f64bfab4c0bbfe425996fe998",
+      "manifest": "art_source/scenes/ocean_building_kit/v004/workshop_dock/asset_manifest.json"
+    },
+    {
       "asset_id": "ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION",
       "source": "art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION/asphalt_foundation.blend",
       "source_sha256": "82bdddb1365f97a53e30613db44ae6fcb8e32884364774cf43979c980564180b",
@@ -1413,7 +1419,7 @@
     {
       "asset_id": "SEA-SCENE-SBR-ASSEMBLY",
       "source": "art_source/scenes/sunny_bloom_retreat/v008/sunny_bloom_retreat.blend",
-      "source_sha256": "db7208f814cfde6caaff6e6b168ed97bb86e08501a941d659a483b0a82e52d2b",
+      "source_sha256": "28e5ee21f6f54c4800fe5054646052009941446528e16295814001b0b5ab7793",
       "manifest": "art_source/scenes/sunny_bloom_retreat/v008/asset_manifest.json"
     },
     {
@@ -2559,7 +2565,7 @@
     {
       "asset_id": "SEA-FARM-SOIL-CELL",
       "source": "godot/src/farming/farm_plot.gd",
-      "source_sha256": "7c456bb425e2a01761dbf190ec95bc4466874de2e61ecc0eed3c95da0334d36f",
+      "source_sha256": "d722f200f1e03cbdedaaea398f9c810ab412e4c8dabf6134370a15e27b8a4815",
       "manifest": "assets/registry/manifests/sea-farm-soil-cell.json"
     },
     {
@@ -2691,7 +2697,7 @@
     {
       "asset_id": "SEA-BUILDING-WOOD-DECK",
       "source": "godot/src/building/deck_visual.gd",
-      "source_sha256": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
+      "source_sha256": "818c28146635fd07c27427bb1a10ed2d91eb02df396134f64fea8882351eb390",
       "manifest": "assets/registry/manifests/sea-building-wood-deck.json"
     },
     {
@@ -6174,38 +6180,198 @@
       "source_sha256": "8a451fb3a0f391388bfc255d20a3ba18dad2abe1d23bcb1120a3b59ba4cee66b",
       "manifest": "assets/registry/manifests/sea-scene-workshop-sample-002.json"
     },
-    {"asset_id": "SEA-SCENE-BAT-SIGN-FASCIA", "source": "art_source/scenes/building_attachments/v002/components/sign_fascia.blend", "source_sha256": "cdfdfe44140cfc933367f30f64a335357bfcc1f3e8c817f208506c5cabf5383b", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_fascia/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-VERTICAL", "source": "art_source/scenes/building_attachments/v002/components/sign_vertical.blend", "source_sha256": "f76056e086c4f783943bf6ed6ee8597438e888d49a818d62ad0753c52ffc14de", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_vertical/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-PROJECTING", "source": "art_source/scenes/building_attachments/v002/components/sign_projecting.blend", "source_sha256": "b0691d348e391a36ef0e12d30ed7c2a4446418add676d267b6f56934b2b39006", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_projecting/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-ROOFTOP", "source": "art_source/scenes/building_attachments/v002/components/sign_rooftop.blend", "source_sha256": "058c8fd62b255e073194a69832862f3cf1375e4e5606516ae954ce4847db04d8", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_rooftop/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-LETTERS", "source": "art_source/scenes/building_attachments/v002/components/sign_letters.blend", "source_sha256": "d4578ff1d4e8218fa8736eb23a05b4d599138b5479d4ab81e693b26dee2a3b9c", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_letters/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-LIGHTBOX", "source": "art_source/scenes/building_attachments/v002/components/sign_lightbox.blend", "source_sha256": "b172ac1614fa8aab3f2d705e788b31a5919ff114abf8b9e7c991ae7e6bada942", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_lightbox/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-ARROW", "source": "art_source/scenes/building_attachments/v002/components/sign_arrow.blend", "source_sha256": "a5e0ae6e57dc532fb008ad91977f61c80126fb352e74bc068adc7d3b44c4f44f", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_arrow/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SIGN-HANGING", "source": "art_source/scenes/building_attachments/v002/components/sign_hanging.blend", "source_sha256": "2003196248729fdab0edf5cfa065ca37a079fa3206bf3639a93f3a455c78a503", "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_hanging/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-AC-WALL-SINGLE", "source": "art_source/scenes/building_attachments/v002/components/ac_wall_single.blend", "source_sha256": "a08b413caedfe6c9b1bbe5afa7e8798a65424b3de53fc1135b8511808329104b", "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_wall_single/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-AC-WALL-TWIN", "source": "art_source/scenes/building_attachments/v002/components/ac_wall_twin.blend", "source_sha256": "52751a1fe3302cc1911bbc75ccae7c73acf38e3ad5ed2b5970e67f653492f519", "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_wall_twin/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-AC-ROOF-UPFLOW", "source": "art_source/scenes/building_attachments/v002/components/ac_roof_upflow.blend", "source_sha256": "89d942bb528ae37137dbcc1a7802a0a1afcab2d180839b188058c93971aa5e14", "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_roof_upflow/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-FAN-WALL", "source": "art_source/scenes/building_attachments/v002/components/fan_wall.blend", "source_sha256": "b458d81a66aa1a27419493c274e852e3f82edea10a2908a35dfe56e97c5a4b84", "manifest": "godot/scenes/components/facilities/building_attachments/v002/fan_wall/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-UTILITY-JUNCTION", "source": "art_source/scenes/building_attachments/v002/components/utility_junction.blend", "source_sha256": "aea682724032f411b9f9376f270520ce2c9c658d198a40e1e049c1d2caf28767", "manifest": "godot/scenes/components/facilities/building_attachments/v002/utility_junction/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-UTILITY-METER-PAIR", "source": "art_source/scenes/building_attachments/v002/components/utility_meter_pair.blend", "source_sha256": "16425c33e3618ac96956af7e7b7f3dde6a4fed9b8a0c38c2edb606c6743cbd61", "manifest": "godot/scenes/components/facilities/building_attachments/v002/utility_meter_pair/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-SATELLITE-DISH", "source": "art_source/scenes/building_attachments/v002/components/satellite_dish.blend", "source_sha256": "1f2f861bae2fc3276a0f223c248ea62ca6bd335c45e7489b6bffeb0bce3e1878", "manifest": "godot/scenes/components/facilities/building_attachments/v002/satellite_dish/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-TV-ANTENNA", "source": "art_source/scenes/building_attachments/v002/components/tv_antenna.blend", "source_sha256": "0eb17f5f91b8d0d5b0d5647fd557050b648cb793e95605ece71c65e5d74366cb", "manifest": "godot/scenes/components/facilities/building_attachments/v002/tv_antenna/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-TANK-ROUND-SHORT", "source": "art_source/scenes/building_attachments/v002/components/tank_round_short.blend", "source_sha256": "31420014b2cd51bef4d77c74b68f354facb8aa6d20c20057aebec96e2c10c5b7", "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_round_short/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-TANK-TOWER-CONE", "source": "art_source/scenes/building_attachments/v002/components/tank_tower_cone.blend", "source_sha256": "0ee3c1d920d1862e7a8a452bc3f61cb890ee4293719d276a683b05c95d3902e0", "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_tower_cone/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-TANK-HORIZONTAL", "source": "art_source/scenes/building_attachments/v002/components/tank_horizontal.blend", "source_sha256": "f4938b4e0d7d1d704297329223571be766d0bfe286d0996835aa74f65c893240", "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_horizontal/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-TANK-RECT", "source": "art_source/scenes/building_attachments/v002/components/tank_rect.blend", "source_sha256": "52258522184c29e585f8ffe8c143f34b2ad863bde811f236f419262b4f7cd651", "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_rect/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-PIPE-DOWNSPOUT", "source": "art_source/scenes/building_attachments/v002/components/pipe_downspout.blend", "source_sha256": "d1db549ff23b8014b2562311aef4ca2d107050e067c55783617d6d8560d8303f", "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_downspout/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-PIPE-ELBOW", "source": "art_source/scenes/building_attachments/v002/components/pipe_elbow.blend", "source_sha256": "057f369ca94d50b27de620f46e04be9ff6003c820ad69a94de24fdbb5e2ea3d2", "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_elbow/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-PIPE-T-VALVE", "source": "art_source/scenes/building_attachments/v002/components/pipe_t_valve.blend", "source_sha256": "0c196baa2bc1c660c9e156d8077e44609cffd827283e2eb28fe8730a4bd9fb4e", "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_t_valve/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-PIPE-BUNDLE", "source": "art_source/scenes/building_attachments/v002/components/pipe_bundle.blend", "source_sha256": "0157592217c0f70b2f9bf057f739ab4f02fe74e5418e548806c13912d749bd02", "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_bundle/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-DUCT-STRAIGHT", "source": "art_source/scenes/building_attachments/v002/components/duct_straight.blend", "source_sha256": "b3946f1f7745929c963fee2d493c5e9de0cbbc4c6ae9b93f3bcd8fe426c54d6d", "manifest": "godot/scenes/components/facilities/building_attachments/v002/duct_straight/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-DUCT-ELBOW", "source": "art_source/scenes/building_attachments/v002/components/duct_elbow.blend", "source_sha256": "7adf9979548cb4a82557178c7e71429a74e2635b7913de538fd5bddc9e4223bc", "manifest": "godot/scenes/components/facilities/building_attachments/v002/duct_elbow/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-VENT-LOUVER", "source": "art_source/scenes/building_attachments/v002/components/vent_louver.blend", "source_sha256": "9d76efdb4d71ca2d0de10146b205947ad1a95894997435caae49b81adda57c0f", "manifest": "godot/scenes/components/facilities/building_attachments/v002/vent_louver/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-VENT-MUSHROOM", "source": "art_source/scenes/building_attachments/v002/components/vent_mushroom.blend", "source_sha256": "3ba87a2a6bf67fb773c40f8fe54e4e6147fe8a2a820dc3db6c924e39d56f0ded", "manifest": "godot/scenes/components/facilities/building_attachments/v002/vent_mushroom/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-CHIMNEY", "source": "art_source/scenes/building_attachments/v002/components/chimney.blend", "source_sha256": "d1f09527a5c0a5f85f539a77de6f65ceba7fe42a8d18f61d1c7d2a7486d3f36f", "manifest": "godot/scenes/components/facilities/building_attachments/v002/chimney/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-AWNING-SLOPE", "source": "art_source/scenes/building_attachments/v002/components/awning_slope.blend", "source_sha256": "311621264c840bae00a7df4787c4234b6382f484b39536be2ed51c0d5b1e22dd", "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-AWNING-BARREL", "source": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend", "source_sha256": "ae104763ac6cd14e21aae27beadacff110d7f79910280f876726149f25ec9c01", "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/registration_manifest.json"},
-    {"asset_id": "SEA-SCENE-BAT-CANOPY-ENTRY", "source": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend", "source_sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d", "manifest": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/registration_manifest.json"},
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-FASCIA",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_fascia.blend",
+      "source_sha256": "cdfdfe44140cfc933367f30f64a335357bfcc1f3e8c817f208506c5cabf5383b",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_fascia/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-VERTICAL",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_vertical.blend",
+      "source_sha256": "f76056e086c4f783943bf6ed6ee8597438e888d49a818d62ad0753c52ffc14de",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_vertical/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-PROJECTING",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_projecting.blend",
+      "source_sha256": "b0691d348e391a36ef0e12d30ed7c2a4446418add676d267b6f56934b2b39006",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_projecting/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-ROOFTOP",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_rooftop.blend",
+      "source_sha256": "058c8fd62b255e073194a69832862f3cf1375e4e5606516ae954ce4847db04d8",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_rooftop/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-LETTERS",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_letters.blend",
+      "source_sha256": "d4578ff1d4e8218fa8736eb23a05b4d599138b5479d4ab81e693b26dee2a3b9c",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_letters/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-LIGHTBOX",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_lightbox.blend",
+      "source_sha256": "b172ac1614fa8aab3f2d705e788b31a5919ff114abf8b9e7c991ae7e6bada942",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_lightbox/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-ARROW",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_arrow.blend",
+      "source_sha256": "a5e0ae6e57dc532fb008ad91977f61c80126fb352e74bc068adc7d3b44c4f44f",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_arrow/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SIGN-HANGING",
+      "source": "art_source/scenes/building_attachments/v002/components/sign_hanging.blend",
+      "source_sha256": "2003196248729fdab0edf5cfa065ca37a079fa3206bf3639a93f3a455c78a503",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/sign_hanging/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-AC-WALL-SINGLE",
+      "source": "art_source/scenes/building_attachments/v002/components/ac_wall_single.blend",
+      "source_sha256": "a08b413caedfe6c9b1bbe5afa7e8798a65424b3de53fc1135b8511808329104b",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_wall_single/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-AC-WALL-TWIN",
+      "source": "art_source/scenes/building_attachments/v002/components/ac_wall_twin.blend",
+      "source_sha256": "52751a1fe3302cc1911bbc75ccae7c73acf38e3ad5ed2b5970e67f653492f519",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_wall_twin/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-AC-ROOF-UPFLOW",
+      "source": "art_source/scenes/building_attachments/v002/components/ac_roof_upflow.blend",
+      "source_sha256": "89d942bb528ae37137dbcc1a7802a0a1afcab2d180839b188058c93971aa5e14",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/ac_roof_upflow/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-FAN-WALL",
+      "source": "art_source/scenes/building_attachments/v002/components/fan_wall.blend",
+      "source_sha256": "b458d81a66aa1a27419493c274e852e3f82edea10a2908a35dfe56e97c5a4b84",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/fan_wall/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-UTILITY-JUNCTION",
+      "source": "art_source/scenes/building_attachments/v002/components/utility_junction.blend",
+      "source_sha256": "aea682724032f411b9f9376f270520ce2c9c658d198a40e1e049c1d2caf28767",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/utility_junction/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-UTILITY-METER-PAIR",
+      "source": "art_source/scenes/building_attachments/v002/components/utility_meter_pair.blend",
+      "source_sha256": "16425c33e3618ac96956af7e7b7f3dde6a4fed9b8a0c38c2edb606c6743cbd61",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/utility_meter_pair/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-SATELLITE-DISH",
+      "source": "art_source/scenes/building_attachments/v002/components/satellite_dish.blend",
+      "source_sha256": "1f2f861bae2fc3276a0f223c248ea62ca6bd335c45e7489b6bffeb0bce3e1878",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/satellite_dish/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-TV-ANTENNA",
+      "source": "art_source/scenes/building_attachments/v002/components/tv_antenna.blend",
+      "source_sha256": "0eb17f5f91b8d0d5b0d5647fd557050b648cb793e95605ece71c65e5d74366cb",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/tv_antenna/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-TANK-ROUND-SHORT",
+      "source": "art_source/scenes/building_attachments/v002/components/tank_round_short.blend",
+      "source_sha256": "31420014b2cd51bef4d77c74b68f354facb8aa6d20c20057aebec96e2c10c5b7",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_round_short/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-TANK-TOWER-CONE",
+      "source": "art_source/scenes/building_attachments/v002/components/tank_tower_cone.blend",
+      "source_sha256": "0ee3c1d920d1862e7a8a452bc3f61cb890ee4293719d276a683b05c95d3902e0",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_tower_cone/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-TANK-HORIZONTAL",
+      "source": "art_source/scenes/building_attachments/v002/components/tank_horizontal.blend",
+      "source_sha256": "f4938b4e0d7d1d704297329223571be766d0bfe286d0996835aa74f65c893240",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_horizontal/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-TANK-RECT",
+      "source": "art_source/scenes/building_attachments/v002/components/tank_rect.blend",
+      "source_sha256": "52258522184c29e585f8ffe8c143f34b2ad863bde811f236f419262b4f7cd651",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/tank_rect/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-PIPE-DOWNSPOUT",
+      "source": "art_source/scenes/building_attachments/v002/components/pipe_downspout.blend",
+      "source_sha256": "d1db549ff23b8014b2562311aef4ca2d107050e067c55783617d6d8560d8303f",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_downspout/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-PIPE-ELBOW",
+      "source": "art_source/scenes/building_attachments/v002/components/pipe_elbow.blend",
+      "source_sha256": "057f369ca94d50b27de620f46e04be9ff6003c820ad69a94de24fdbb5e2ea3d2",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_elbow/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-PIPE-T-VALVE",
+      "source": "art_source/scenes/building_attachments/v002/components/pipe_t_valve.blend",
+      "source_sha256": "0c196baa2bc1c660c9e156d8077e44609cffd827283e2eb28fe8730a4bd9fb4e",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_t_valve/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-PIPE-BUNDLE",
+      "source": "art_source/scenes/building_attachments/v002/components/pipe_bundle.blend",
+      "source_sha256": "0157592217c0f70b2f9bf057f739ab4f02fe74e5418e548806c13912d749bd02",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/pipe_bundle/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-DUCT-STRAIGHT",
+      "source": "art_source/scenes/building_attachments/v002/components/duct_straight.blend",
+      "source_sha256": "b3946f1f7745929c963fee2d493c5e9de0cbbc4c6ae9b93f3bcd8fe426c54d6d",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/duct_straight/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-DUCT-ELBOW",
+      "source": "art_source/scenes/building_attachments/v002/components/duct_elbow.blend",
+      "source_sha256": "7adf9979548cb4a82557178c7e71429a74e2635b7913de538fd5bddc9e4223bc",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/duct_elbow/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-VENT-LOUVER",
+      "source": "art_source/scenes/building_attachments/v002/components/vent_louver.blend",
+      "source_sha256": "9d76efdb4d71ca2d0de10146b205947ad1a95894997435caae49b81adda57c0f",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/vent_louver/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-VENT-MUSHROOM",
+      "source": "art_source/scenes/building_attachments/v002/components/vent_mushroom.blend",
+      "source_sha256": "3ba87a2a6bf67fb773c40f8fe54e4e6147fe8a2a820dc3db6c924e39d56f0ded",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/vent_mushroom/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-CHIMNEY",
+      "source": "art_source/scenes/building_attachments/v002/components/chimney.blend",
+      "source_sha256": "d1f09527a5c0a5f85f539a77de6f65ceba7fe42a8d18f61d1c7d2a7486d3f36f",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/chimney/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-AWNING-SLOPE",
+      "source": "art_source/scenes/building_attachments/v002/components/awning_slope.blend",
+      "source_sha256": "311621264c840bae00a7df4787c4234b6382f484b39536be2ed51c0d5b1e22dd",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_slope/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-AWNING-BARREL",
+      "source": "art_source/scenes/building_attachments/v002/components/awning_barrel.blend",
+      "source_sha256": "ae104763ac6cd14e21aae27beadacff110d7f79910280f876726149f25ec9c01",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/awning_barrel/registration_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-BAT-CANOPY-ENTRY",
+      "source": "art_source/scenes/building_attachments/v002/components/canopy_entry.blend",
+      "source_sha256": "0f484de9fa92747810469af753865d392ceff18df62ae19cc19ad5cef6fdce0d",
+      "manifest": "godot/scenes/components/facilities/building_attachments/v002/canopy_entry/registration_manifest.json"
+    },
     {
       "asset_id": "SEA-SCENE-RAC",
       "source": "art_source/scenes/rooftop_arcade/v001/rooftop_arcade.blend",
@@ -6477,6 +6643,366 @@
       "manifest": "art_source/scenes/minimal_main/v001/timber_obstacle.manifest.json"
     },
     {
+      "asset_id": "SEA-SCENE-ORF7-ASSEMBLY",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/ocean_rooftop_farm_v014.blend",
+      "source_sha256": "2ebf5649286a7f810cc8987c61c6cbb708bc6064e5f665621a14c19ca7d17718",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-ACCESS-STAIRS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/access_stairs/access_stairs.blend",
+      "source_sha256": "33504825baf2d3f41e4e29b9b8752c0dc0a3ba25b5f9e2bc8bcbdad64f0fcd26",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/access_stairs/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-BARRELS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/barrels/barrels.blend",
+      "source_sha256": "d9ac038ba90172f040ad241c3f0abd549a4dfd38fe7d57f5c300f5f6fcc28b79",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/barrels/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-BASE-SLAB",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/base_slab/base_slab.blend",
+      "source_sha256": "f62c895e400f6ff890ba7f4b886971abe347a9c5e9a2f28ec0927dc9af0fa27c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/base_slab/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-BENCH",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/bench/bench.blend",
+      "source_sha256": "7e0c085660aa815bcb36493c33685cf90277261c2933261348ceeae82fa03799",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/bench/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-CLOTHESLINE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/clothesline/clothesline.blend",
+      "source_sha256": "09376312d48f06a395517e874d8fa30d7330664b3302a54c520c1b395b9f371e",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/clothesline/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-CORNER-PIER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/corner_pier/corner_pier.blend",
+      "source_sha256": "3a095198ddcaf2ac60b59a00cac52a64911f0f404e0751a735687971ac325b91",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/corner_pier/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DECK-TILE-A",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_tile_a/deck_tile_a.blend",
+      "source_sha256": "380e604a8f6deb869f5eda3d202828a4b7d3bddc5858444d3d293b98913a412f",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_tile_a/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DECK-TILE-B",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_tile_b/deck_tile_b.blend",
+      "source_sha256": "b331ec1fa7b936ebe614a62e919a03c479d0be0016189a558e22f513a1e366eb",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_tile_b/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DECK-TILE-C",
+      "source": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/deck_tile_c/deck_tile_c.blend",
+      "source_sha256": "26b03849103a2e3c28cc2d7288fecaa5631f33767ffd69118360ff6ee90eb390",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/deck_tile_c/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DECK-UNDERFRAME",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_underframe/deck_underframe.blend",
+      "source_sha256": "4fbfe92f66a05415484223488bff57f4f9c725c9449e26ca9b510a4e4059e096",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/deck_underframe/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DOGHOUSE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/doghouse/doghouse.blend",
+      "source_sha256": "c290446340c02d8a692d7c8d09d8beffda7ac29433179efdddd3b9606b0000e6",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/doghouse/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-EDGE-BEAM",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/edge_beam/edge_beam.blend",
+      "source_sha256": "8e5616fa3e93893e3530611f2f926006ff0163ded9ee6385cd8e5f68acd35c9a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/edge_beam/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-ENTRY-ASSEMBLY",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/entry_assembly/entry_assembly.blend",
+      "source_sha256": "13b12d39b7a7d67bbef220fa94f9ab3bfa663bd2fc8eb26a6c1bd641265624d1",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/entry_assembly/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FACADE-BAY",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay/facade_bay.blend",
+      "source_sha256": "4790230ab93db076ef99264b4f2e1966ace73e617ffd3f04ad205e5e70c37df9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FACILITY-FOOTING",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/facility_footing/facility_footing.blend",
+      "source_sha256": "345213768437b4a51922317ee1b86292fa842d08386e89bfec997072e6db8762",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/facility_footing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FLOWERS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/flowers/flowers.blend",
+      "source_sha256": "1ba1f650f5cfaee926b976c1813a73fc3295aedb30ddbf9114991f95893159d8",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/flowers/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-BASE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/greenhouse_base/greenhouse_base.blend",
+      "source_sha256": "01353337566ff2ea2fec25b22d92a63ab3ddd5b7f1a1671153e3e1ea6a1c50b3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/greenhouse_base/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-DEBRIS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greenhouse_debris/greenhouse_debris.blend",
+      "source_sha256": "8fa791b8b50fa5e30f59ec2edf7e6ac04ad0c26d92273d1eee07ec176b70b14b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greenhouse_debris/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-GLAZING",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greenhouse_glazing/greenhouse_glazing.blend",
+      "source_sha256": "bf720e78567ce65fedebfd5e48137efed786aa383ba212f3f005cd12c4be7f48",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greenhouse_glazing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-GREENS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greens/greens.blend",
+      "source_sha256": "cf4330ce97666b475b6c321e06bfb9c536ba3fcffdb0ed25915d2df851b5fe86",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greens/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-DAMAGE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_damage/house_damage.blend",
+      "source_sha256": "0b07ade499250083931dfe86a8b31ac0fc6055f1ace3b8bfd1d93bea3694155b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_damage/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-ROOF",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_roof/house_roof.blend",
+      "source_sha256": "b304ba21ac9386525447af563b26e135542acfbb89f94053908e695811900d1c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_roof/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-SHELL",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_shell/house_shell.blend",
+      "source_sha256": "141ebbd1541aaa679b9c850487cc17d38d2bec3e799d2375b372674753d7be03",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_shell/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-PATIO-TABLE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/patio_table/patio_table.blend",
+      "source_sha256": "6ace469337b1f6638642ba95798175b964ff922b2b98183693f6168fcf2fd017",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/patio_table/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-PIER-DOCK",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/pier_dock/pier_dock.blend",
+      "source_sha256": "e9ec0dc8072a35f2ca6e459f6edaf18e2503bc14d7e43a214772e4568ef5c1c3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/pier_dock/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-PLANTER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/planter/planter.blend",
+      "source_sha256": "b3850b15713bcc2a13381157909643c1f8b12df11ee4196b9d0b011913eae28a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/planter/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-RAIL-PIER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rail_pier/rail_pier.blend",
+      "source_sha256": "64febef137222d2be3811483f4cc15b4fd34724cc5eac4e73757c693bbd5fa9e",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rail_pier/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-RAIL-SECTION",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rail_section/rail_section.blend",
+      "source_sha256": "fd1fa2ad4c757c2cd20c16ba684e7575110289c37eb8f49834d695e3e5ae4517",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rail_section/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-ROOF-LADDER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder/roof_ladder.blend",
+      "source_sha256": "f273cbf0dd07241bac5ebbd7a206cb958eef048023c6e57595fe4bcb861e46c8",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-RUBBLE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rubble/rubble.blend",
+      "source_sha256": "3a22eca3b7d42c8168687c0ace73b2f37387d6868ced032f491f252ad1b5810a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rubble/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-TERRACE-STEP",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/terrace_step/terrace_step.blend",
+      "source_sha256": "b2b4f6db8dc3d776d44d73451a33a7d5b055a20b39dc5c819a59be0e28d1d913",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/terrace_step/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-TOWER-DEBRIS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_debris/tower_debris.blend",
+      "source_sha256": "dec3025af4a91cd7533aea801460982248398e03a223d681d61f428389a3b76c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_debris/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-TOWER-SUPPORT",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_support/tower_support.blend",
+      "source_sha256": "187c369fd163a9b078d4d63169277874e76d0ab5195070fdb206befbb7fc3616",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_support/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-TOWER-TANK",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_tank/tower_tank.blend",
+      "source_sha256": "7d0b9e0e4a5e7c7cf008d5a4a48d205b1db0f91f6d4b0ca5888df4949e308476",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/tower_tank/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-TRELLIS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/trellis/trellis.blend",
+      "source_sha256": "20238da84e0c9dc10b76b8910d2dd39696544e5bd5d0bbfd200b51b149a9c64f",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/trellis/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-WINDMILL",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/windmill/windmill.blend",
+      "source_sha256": "40e94b942fb04686c02def22bd0e440963db01f24b9f8e42780caa6bde709dd3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/windmill/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-CORNER-PATCH",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_corner_patch/house_corner_patch.blend",
+      "source_sha256": "694930bb780f2103a369f32e37605f2ecd031eec4b8938ce78a98d82e1d4a128",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_corner_patch/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-UPPER-STAIR-BRIDGE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/upper_stair_bridge/upper_stair_bridge.blend",
+      "source_sha256": "4ed6434b4ab9de6f08ea969f0feb4072d3acc5e63fad140d1f331d944c2330ab",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/upper_stair_bridge/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-EAVES",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_eaves/house_eaves.blend",
+      "source_sha256": "4088a678abd6f877c77dc149e65e2a6f563b13a1456c8b702b7e3cbedc23fb06",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_eaves/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-EAVES-DAMAGE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_eaves_damage/house_eaves_damage.blend",
+      "source_sha256": "0c9d2505a95d338383457f60d5df4067e936ed7135f82a19785532b8b98a5da8",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_eaves_damage/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-PIPE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe/house_pipe.blend",
+      "source_sha256": "88c53ee1f315f6cb725d9f45fe73622b3721801a5e2ccdd55c425c672ad784e9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-HOUSE-PIPE-DAMAGE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe_damage/house_pipe_damage.blend",
+      "source_sha256": "7486351f2f98fc1d2c493c1dca2881cbcb1ee69ef0eb33fe6f5b57ea4fac99f1",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe_damage/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-ROOF-LADDER-DAMAGE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder_damage/roof_ladder_damage.blend",
+      "source_sha256": "f6fe5eb54b901c931c80efcac10c68adc0c599824430fe99f93feff27f2ffa4d",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/roof_ladder_damage/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-WALL-STONE-COOL",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_cool/wall_stone_cool.blend",
+      "source_sha256": "b88d3bd5e87d6abdc162a32550b5ca0b96c1d83ac6821e68bd88fdd500b13454",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_cool/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-WALL-STONE-SAND",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_sand/wall_stone_sand.blend",
+      "source_sha256": "899021bf3fdf70e81e06b5adf1174c9146fc7c1945aadc34e03d545b195921e7",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_sand/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-WALL-STONE-WARM",
+      "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_warm/wall_stone_warm.blend",
+      "source_sha256": "21003bde979db66d3341a6d64b1a91907f603e68816bfd561781361e5b0558e5",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_warm/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-BEAM-CORNER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/beam_corner/beam_corner.blend",
+      "source_sha256": "0ac30bd236bd27ff8f364a85707819fe3034fe23d53b102f3bf384a34c630336",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/beam_corner/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FACADE-BAY-CHIPPED",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_chipped/facade_bay_chipped.blend",
+      "source_sha256": "8c949a10709268718d41af684c8b47b1b3d6c3cab967573a15e8fe8c217e254c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_chipped/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FACADE-BAY-CRACKED",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_cracked/facade_bay_cracked.blend",
+      "source_sha256": "92f32e4a67aec8ef6058862c28091a0225ec00831b45df45bd461d1a7ead7b4f",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_cracked/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-FACADE-BAY-OPEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_open/facade_bay_open.blend",
+      "source_sha256": "a101e4d3e7cd838377fbce9bcefe1373c9df648e863518ecebd1fef66e3ed706",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_open/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-BAY",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay/deep_bay.blend",
+      "source_sha256": "0959c76f9ae40d1e7308bd4ced259a68914392c2dcbe27ac516cc3fb776905e7",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-BAY-OPEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay_open/deep_bay_open.blend",
+      "source_sha256": "38d146367a858693fb072cd0b4c85869fdce3a500d95ae05a5b7d69c61aee4bd",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay_open/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-BAY-SPALLED",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay_spalled/deep_bay_spalled.blend",
+      "source_sha256": "3a6fce0093ca360efbf600c0852adb1c87a579bdf2b3c34a6426e0535b54bece",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay_spalled/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-BEAM",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam/deep_beam.blend",
+      "source_sha256": "ec0352faaae511562832a2bfecd9461ed3d9214f2bf1c84359a4e4fdf6f89092",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-BEAM-BROKEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam_broken/deep_beam_broken.blend",
+      "source_sha256": "4e09d85635ff126460f3267b2a3a7b71327e27c9a2422cf248120ca6a8536dfe",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam_broken/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-DEBRIS",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_debris/deep_debris.blend",
+      "source_sha256": "3b3d7a7d532f392a33289e9eeb0ba8570e6486b6815e351d3df6f5290b6f0154",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_debris/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-PLATE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_plate/deep_plate.blend",
+      "source_sha256": "31276ddae3ef87bf6eb38444be4fecd07acb0090c922ec72d89ff05e32f8a1c5",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_plate/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-POST",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_post/deep_post.blend",
+      "source_sha256": "462488e8e90bc7ac85ee4f9f4efe80c8a262cbb1c75517cb8a64901104d4894c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF7-DEEP-POST-BROKEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_post_broken/deep_post_broken.blend",
+      "source_sha256": "1bb7870849caac1a3d7431d248a2f17ed920a3e85a41b9f25e821fca78013661",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_post_broken/asset_manifest.json"
+    },
+    {
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "source": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
       "source_sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
@@ -6569,7 +7095,7 @@
     {
       "asset_id": "SEA-CHAR-HAIR-001",
       "source": "godot/src/avatar/avatar_hair.gd",
-      "source_sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
+      "source_sha256": "4f6158c8f12277d3d7c8594002a4cf992aafbb376bd394f8446199c4bbec0acc",
       "manifest": "assets/registry/manifests/sea-char-hair-001.json"
     },
     {

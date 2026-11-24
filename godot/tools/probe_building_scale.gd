@@ -41,7 +41,8 @@ func run() -> void:
 	var upper:=NAN
 	for row: Dictionary in rows:
 		if row.component=="house": lower=float(row.world_bounds.min[1])
-		if row.component=="terrace": upper=float(row.world_bounds.max[1])
+		if row.component=="terrace" and str(row.mesh_name).contains("terrace_walk_surface"):
+			upper=float(row.world_bounds.max[1])
 	var measured_rise:=upper-lower
 	var expected_rise: float=preload("res://src/building/building_catalog.gd").LAYER_HEIGHT
 	var failures:=0
@@ -50,8 +51,8 @@ func run() -> void:
 		printerr("FAIL sunroom actual rise differs from DIY catalog: ",measured_rise," vs ",expected_rise)
 	var report := {"measured_storey_rise":measured_rise,"catalog_storey_rise":expected_rise,"tolerance":0.002,"failures":failures,"schema": "sea.building.runtime_reference", "engine": Engine.get_version_info(),
 		"facility": "solar_cabin", "scene": "res://scenes/facilities/solar_cabin.tscn",
-		"instance_data": "res://assets/models/facilities/solar_cabin/instances.json",
-		"instance_data_sha256": FileAccess.get_sha256("res://assets/models/facilities/solar_cabin/instances.json"),
+		"instance_data": "res://assets/models/facilities/solar_cabin/v1_6/instances.json",
+		"instance_data_sha256": FileAccess.get_sha256("res://assets/models/facilities/solar_cabin/v1_6/instances.json"),
 		"rows": rows}
 	var file := FileAccess.open("res://outputs/building-scale-reference.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "  "))

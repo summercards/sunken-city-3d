@@ -1,0 +1,37 @@
+{
+  "key": "upper_stair_bridge",
+  "asset_id": "SEA-SCENE-ORF7-UPPER-STAIR-BRIDGE",
+  "name": "楼梯至屋顶的固定木接板",
+  "category": "structure",
+  "component_family": "access",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_walk_surface_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/upper_stair_bridge/upper_stair_bridge.blend",
+  "source_sha256": "233581d6ee2f8be71955dfa7875a02f16e16dba6062bec4b6aa00b0ecaf6d6a9",
+  "collection": "MASTER | upper_stair_bridge",
+  "bounds_m": [
+    2.9129998683929443,
+    1.659999966621399,
+    0.3450000286102295
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    -0.14500001072883606
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-UPPER-STAIR-BRIDGE",
+  "version": "v008"
+}

@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "rail_pier",
+  "asset_id": "SEA-SCENE-ORF7-RAIL-PIER",
+  "name": "栏杆柱头",
+  "category": "structure",
+  "component_family": "rail",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/rail_pier/rail_pier.blend",
+  "source_sha256": "64febef137222d2be3811483f4cc15b4fd34724cc5eac4e73757c693bbd5fa9e",
+  "collection": "MASTER | rail_pier",
+  "bounds_m": [
+    0.7900000214576721,
+    0.7599999904632568,
+    1.1800000667572021
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-RAIL-PIER",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/rail_pier.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/rail_pier.tscn"
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://src/room/room_scene.gd" id="room_scene"]
 [ext_resource type="Script" uid="uid://ccxkxo7n0ye11" path="res://src/navigation/walk_area.gd" id="walk"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://scenes/components/room/table_lamp.tscn" id="c_lamp"]
 [ext_resource type="PackedScene" path="res://scenes/components/room/rug.tscn" id="c_rug"]
 [ext_resource type="PackedScene" path="res://scenes/components/room/shelf.tscn" id="c_shelf"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/room_wall_collision.scn" id="room_wall_collision"]
 
 [sub_resource type="BoxShape3D" id="Shape_nightstand"]
 size = Vector3(0.53, 0.52, 0.5)
@@ -43,6 +45,12 @@ size = Vector3(0.53, 0.8, 1.56)
 ;    （世界全藏、背景纯黑），所以「在不在屋顶上」没有视觉意义。
 ;    反过来，原先的 (2.5, 12.6, 1.0) 让房间 12.6~15.35 与海鸥飞行层
 ;    14.3~17.7 重叠 —— 详见 docs/development/2026-11-06_room_scale_isolation.md。
+[sub_resource type="BoxShape3D" id="RoomFloorCollision"]
+size = Vector3(5.32, 0.14, 5.32)
+
+[sub_resource type="BoxShape3D" id="PorchFloorCollision"]
+size = Vector3(3.44, 0.14, 1.81)
+
 [node name="Bedroom" type="Node3D"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 200, 0)
 script = ExtResource("room_scene")
@@ -113,6 +121,7 @@ shape = SubResource("Shape_shelf")
 [node name="Walk_room_floor" type="Node3D" parent="WalkAreas"]
 script = ExtResource("walk")
 area_id = "room_floor"
+scene_collision = true
 zone_id = "room"
 surface_y = 200
 span_min = 0.0
@@ -152,3 +161,21 @@ script = ExtResource("cutaway_script")
 [node name="ExitPoint" type="Node3D" parent="."]
 position = Vector3(0, 0, 4.25)
 script = ExtResource("exit_script")
+
+[node name="WallCollision" parent="Shell" instance=ExtResource("room_wall_collision")]
+
+[node name="RoomFloorCollision" type="StaticBody3D" parent="Shell/Floor"]
+position = Vector3(0, -0.07, 0)
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Shell/Floor/RoomFloorCollision"]
+shape = SubResource("RoomFloorCollision")
+
+[node name="PorchFloorCollision" type="StaticBody3D" parent="Shell/Porch"]
+position = Vector3(0, -0.07, 3.555)
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Shell/Porch/PorchFloorCollision"]
+shape = SubResource("PorchFloorCollision")

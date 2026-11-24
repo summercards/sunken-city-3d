@@ -1,0 +1,49 @@
+{
+  "key": "deep_beam",
+  "name": "水下横梁",
+  "component_family": "beam",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-BEAM",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam/deep_beam.blend",
+  "source_sha256": "ec0352faaae511562832a2bfecd9461ed3d9214f2bf1c84359a4e4fdf6f89092",
+  "collection": "MASTER | deep_beam",
+  "bounds_m": [
+    4.260000228881836,
+    0.6399999856948853,
+    0.5600000023841858
+  ],
+  "form": [
+    {
+      "id": "Concrete spandrel beam",
+      "kind": "vertical_structure",
+      "bottom": 0.64,
+      "top": 0.62656,
+      "extent": [
+        4.26,
+        0.64,
+        0.56
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_beam.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_beam.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-BEAM"
+}

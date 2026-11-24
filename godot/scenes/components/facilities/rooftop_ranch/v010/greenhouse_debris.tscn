@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/greenhouse_debris.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.890979, 0.544779, 0.706816)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(1.041767, 0.544779, 0.962187)
+
+[sub_resource type="BoxShape3D" id="SolidBox2"]
+size = Vector3(1.074437, 0.544779, 1.058621)
+
+[sub_resource type="BoxShape3D" id="SolidBox3"]
+size = Vector3(0.921328, 0.544779, 1.03048)
+
+[sub_resource type="BoxShape3D" id="SolidBox4"]
+size = Vector3(0.778638, 0.544779, 0.897531)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-GREENHOUSE-DEBRIS"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-2.389617, 0.32326, 2.384793)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.500789, 0.32326, 1.84119)
+shape = SubResource("SolidBox1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-0.612016, 0.32326, 1.796165)
+shape = SubResource("SolidBox2")
+
+[node name="Segment3" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.277246, 0.32326, 2.294436)
+shape = SubResource("SolidBox3")
+
+[node name="Segment4" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.174484, 0.32326, 2.877192)
+shape = SubResource("SolidBox4")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

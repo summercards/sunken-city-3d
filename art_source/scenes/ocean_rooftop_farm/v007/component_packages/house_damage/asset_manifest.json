@@ -1,0 +1,37 @@
+{
+  "key": "house_damage",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-DAMAGE",
+  "name": "小屋剥落残片",
+  "category": "structure",
+  "component_family": "house",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/house_damage/house_damage.blend",
+  "source_sha256": "bed4af5f4f6d411c3b8f7a736d840b22e3aec6bcede18491abc71c5ff8b10778",
+  "collection": "MASTER | house_damage",
+  "bounds_m": [
+    7.640652656555176,
+    0.15149998664855957,
+    2.9272613525390625
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.12382638454437256,
+    -2.6117501258850098,
+    0.04650000110268593
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-DAMAGE",
+  "version": "v007"
+}

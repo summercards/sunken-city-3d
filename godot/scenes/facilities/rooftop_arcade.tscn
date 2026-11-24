@@ -46,6 +46,10 @@
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_arcade/utility_rack.tscn" id="utility_rack"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_arcade/vent_fan.tscn" id="vent_fan"]
 
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/arcade_deck_collision.scn" id="arcade_deck_collision"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/arcade_hull_collision.scn" id="arcade_hull_collision"]
+[ext_resource type="PackedScene" path="res://scenes/components/docking_area.tscn" id="dock_area"]
+
 [node name="rooftop_arcade" type="Node3D"]
 script = ExtResource("zone")
 zone_id = "rooftop_arcade"
@@ -1134,18 +1138,27 @@ cell = 0.2
 [node name="WalkWestDeck" type="Node3D" parent="WalkAreas"]
 script = ExtResource("walk")
 area_id = "rooftop_arcade_west_deck"
+scene_collision = true
 zone_id = "rooftop_arcade"
 body_radius = 0.0
 rects = [Rect2(-1.90, -1.21, 0.21, 1.21)]
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/WalkWestDeck"]
-position = Vector3(-1.80, 0.42, -0.76)
+position = Vector3(-0.75, 0.42, -1.11)
 script = ExtResource("landing")
 landing_label = "屋顶街机维修铺"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/WalkWestDeck/Landing_main"]
-position = Vector3(-3.65, -0.30, 0)
+position = Vector3(-5.45, -0.30, 0.35)
 rotation = Vector3(0, 0, 0)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/WalkWestDeck/Landing_main"]
-position = Vector3(-0.49, 0, 0)
+position = Vector3(-1.54, 0, 0.35)
+
+[node name="DeckCollision" parent="." instance=ExtResource("arcade_deck_collision")]
+
+[node name="HullContact" parent="." instance=ExtResource("arcade_hull_collision")]
+
+[node name="DockingArea" parent="WalkAreas/WalkWestDeck/Landing_main/DockEdge" instance=ExtResource("dock_area")]
+position = Vector3(-0.95, -0.3, 0)
+rotation = Vector3(0, 0, 0)

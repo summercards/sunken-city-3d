@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/access_stairs.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="ConcavePolygonShape3D" id="SolidFloor"]
+data = PackedVector3Array(-1.39, 0.281, 2.05, -0.05, 0.281, 2.72, -1.39, 0.281, 2.72, -1.39, 0.281, 2.05, -0.05, 0.281, 2.05, -0.05, 0.281, 2.72, -1.39, 2.581, -1.755, -0.05, 0.281, 2.05, -1.39, 0.281, 2.05, -1.39, 2.581, -1.755, -0.05, 2.581, -1.755, -0.05, 0.281, 2.05, -1.425, 2.581, -2.665, 1.425, 2.581, -1.755, -1.425, 2.581, -1.755, -1.425, 2.581, -2.665, 1.425, 2.581, -2.665, 1.425, 2.581, -1.755, 0.05, 2.581, -1.755, 1.39, 4.99129, 2.05, 0.05, 4.99129, 2.05, 0.05, 2.581, -1.755, 1.39, 2.581, -1.755, 1.39, 4.99129, 2.05, 0.05, 4.99129, 2.05, 1.39, 4.99129, 2.645, 0.05, 4.99129, 2.645, 0.05, 4.99129, 2.05, 1.39, 4.99129, 2.05, 1.39, 4.99129, 2.645)
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.11, 1.02, 3.89)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(0.11, 1.02, 3.89)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-ACCESS-STAIRS"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Solid"]
+shape = SubResource("SolidFloor")
+metadata/walk_surface = true
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.39, 1.66, 0.21)
+rotation = Vector3(0.545, 0, 0)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.39, 4.18, 0.24)
+rotation = Vector3(-0.545, 0, 0)
+shape = SubResource("SolidBox1")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

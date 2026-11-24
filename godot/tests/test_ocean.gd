@@ -20,8 +20,14 @@ func run() -> void:
 	var wake := Wake.new()
 	root.add_child(wake)
 	var boat := Vessel.new()
+	var hull := CollisionShape3D.new()
+	hull.name = "HullCollision"
+	hull.shape = BoxShape3D.new()
+	boat.add_child(hull)
 	root.add_child(boat)
+	boat.configure_formal_hull()
 	boat.set_process(false)
+	boat.set_physics_process(false)
 	boat.water_surface = water
 	boat.model = Node3D.new()
 	boat.add_child(boat.model)
@@ -45,23 +51,27 @@ func run() -> void:
 	for i in 180:
 		water.time=float(i)/60.0
 		boat._process(1.0/60.0)
-	check(absf(boat.position.y-1.12)>0.005 and absf(boat.model.rotation.x)>0.001,"boat heave and pitch follow sampled wave")
+	check(absf(boat.model.position.y)>0.005 and absf(boat.model.rotation.x)>0.001,"boat visuals follow sampled wave")
 	check(Vector2(boat.position.x,boat.position.z)==Vector2.ZERO,"buoyancy does not alter navigation position")
 	# Steer through a real bend. Verify old history stays put and expires after stopping.
 	boat.place_at(Vector3(0,1.12,0),PI)
-	boat.sail_to_point(Vector3(12,1.12,12),[Vector2.ZERO,Vector2(0,12),Vector2(12,12)])
+	boat.set_drive(Vector2.DOWN)
 	var t := 0.0
 	for i in 360:
+		if i == 120:
+			boat.set_drive(Vector2.RIGHT)
 		t+=1.0/60.0
-		boat._steer(1.0/60.0)
+		boat._physics_process(1.0/60.0)
 		wake.update_wake(t,boat,water)
 	check(wake.samples.size()>10 and wake.samples.size()<=64,"bounded trail samples follow actual sailing")
+	if wake.samples.is_empty():
+		quit(1)
+		return
 	var old_position: Vector2 = wake.samples[0].pos
 	boat.rotation.y+=0.8
 	wake.update_wake(t+0.01,boat,water)
 	check(wake.samples[0].pos==old_position,"turning leaves emitted wake in world space")
-	boat._sailing=false
-	boat._speed_actual=0.0
+	boat.stop_drive()
 	wake.update_wake(t+1.0,boat,water)
 	check(wake.visible and not wake.samples.is_empty(),"wake persists after stopping")
 	wake.update_wake(t+11.0,boat,water)

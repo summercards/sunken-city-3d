@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/water_building_002_hull_collision.scn" id="hull"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/story_wall.tscn" id="c0"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/water_building_002/ground_wall.tscn" id="c1"]
@@ -1584,3 +1585,5 @@ metadata/waterline_source = "actual_source_mesh_intersection"
 metadata/activity_role = "navigation_only"
 metadata/actor_collision = false
 metadata/source_version = "v003"
+
+[node name="HullCollision" parent="." instance=ExtResource("hull")]

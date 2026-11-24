@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/models/facilities/water_building_001/water_building_001.glb" id="model"]
 [ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/water_building_001_hull_collision.scn" id="hull"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [ext_resource type="Material" path="res://assets/materials/gift_kiosk/matte.tres" id="matte"]
 [ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="palette_binding"]
@@ -36,3 +37,5 @@ mode = "auto"
 target_path = NodePath("../Visual")
 blocks_water = true
 cell = 0.4
+
+[node name="HullCollision" parent="." instance=ExtResource("hull")]

@@ -10,6 +10,9 @@ func _init() -> void: call_deferred("run")
 func run() -> void:
 	var main=load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
+	await physics_frame
+	await process_frame
+	await process_frame
 	main.set_process(false)
 	main._autosave_on=false
 	# 启动默认停在标题画面，而 `_process` 在 `_title_active` 时直接 return ——
@@ -130,14 +133,17 @@ func run() -> void:
 	main._debug_teleport("zone1")
 	main.interactor.set_process(false)
 	var plot: Node3D=main.farm_field.find("home_plot")
+	var stand: Vector3 = plot.global_position + Vector3(0, 0, 0.9)
+	main.actor_controller.restore_pose({"mode": 0, "player": [stand.x, stand.y, stand.z]})
+	# Main's process loop is disabled in this replay, so refresh the shore context.
+	main.interactor.set_interaction_context("shore")
+	await physics_frame
 	economy.farm.states["home_plot"]=economy.farm._empty_state()
 	economy.farm.select_crop("lettuce")
 	var seeds: int=economy.count("lettuce_seed")
-	check(main.actor_controller.approach(plot),"approach command accepted")
-	for i in 1200:
-		main.actor_controller.tick(1.0/60.0)
-		if not main.actor_controller.walking(): break
-	check(main.actor_controller.state_id()=="interacting","walking transitions to interacting")
+	main.interactor.active=true
+	check(main.actor_controller.interact_here(plot),"nearby interaction command accepted")
+	check(main.actor_controller.state_id()=="interacting","interaction starts in place")
 	main.hud.set_external_modal(true)
 	main.actor_controller.tick(0.0)
 	check(not main.interactor.auto_hold,"modal blocks automatic hold")
@@ -155,16 +161,17 @@ func run() -> void:
 		main.actor_controller.tick(1.0/60.0)
 		main.interactor.active=not main.actor_controller.walking()
 		main.interactor.update(1.0/60.0,main.interactor.auto_hold)
-		if i>5 and main.actor_controller.auto_target==null: break
+		if i>5 and main.actor_controller.interaction_target==null: break
 	check(economy.farm.crop_of("home_plot")=="lettuce" and economy.count("lettuce_seed")==seeds-1,"selected seed plants exactly once")
 	main.actor_controller.tick(1.0)
 	check(not main.interactor.auto_hold,"completion releases automatic input")
 	var invoked: Array=[]
-	main.actor_controller.start_walk(main._current_landing().ground(),main._current_landing().stand_position())
-	main.actor_controller.after_walk=func():invoked.append(true)
+	main.actor_controller.interact_here(plot, func() -> Dictionary:
+		invoked.append(true)
+		return {})
 	main.actor_controller.cancel()
-	main.actor_controller.tick(100.0)
-	check(invoked.is_empty() and main.actor_controller.walk_path.is_empty(),"cancel removes old route and callback")
+	main.actor_controller.tick(1.0 / 60.0)
+	check(invoked.is_empty() and main.actor_controller.interaction_target==null,"cancel clears the selected action")
 	check(storage.restore(main,good).ok,"restore clears active control state")
 	main.weather_service.set_weather("rain")
 	# 用 21:00 而不是 00:00：午夜会触发 `sleep_cycle` 的自动就寝，`_process` 在

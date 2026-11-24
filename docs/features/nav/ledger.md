@@ -13,16 +13,13 @@
   "owner": "WaterNavigation / Boat",
   "code_paths": [
     "godot/src/navigation/water_navigation.gd",
-    "godot/src/navigation/sail_nav.gd",
     "godot/src/navigation/boat.gd",
-    "godot/src/navigation/route_ribbon.gd",
+    "godot/src/navigation/formal_hull_motion.gd",
     "godot/src/navigation/minimal_skiff.gd"
   ],
   "verification": [
     "minimal-skiff",
     "visual-minimal-skiff",
-    "boat-unstick",
-    "visual-boat-unstick",
     "facing-interaction",
     "visual-facing-interaction",
     "gift-kiosk",
@@ -36,16 +33,15 @@
     "boat-water-contact",
     "visual-boat-water-contact",
     "visual-corner-notebook",
-    "surface",
-    "selftest",
     "framework-modules",
     "minimum-loop",
     "visual-home-lighting",
     "visual-atmosphere",
     "visual-boat-lamp",
-    "visual-route-ripple",
     "sail-bounds",
-    "sea-supply"
+    "sea-supply",
+    "visual-formal-manual-sea",
+    "formal-facility-berths"
   ]
 }
 ```
@@ -83,21 +79,20 @@
 ## 资源与调用入口
 
 - [godot/src/navigation/water_navigation.gd](../../../godot/src/navigation/water_navigation.gd)
-- [godot/src/navigation/sail_nav.gd](../../../godot/src/navigation/sail_nav.gd)
 - [godot/src/navigation/boat.gd](../../../godot/src/navigation/boat.gd)
-- [godot/src/navigation/route_ribbon.gd](../../../godot/src/navigation/route_ribbon.gd)
+- [船壳扫掠](../../../godot/src/navigation/formal_hull_motion.gd)
 
 资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
 
 ## 当前接口清单
 
-is_open_water / plan_route_to / valid_route / segment_clear / invalidate；shape_query；Boat.sail_to / sail_to_point / remaining_route；segment_clear、speed_multiplier 注入；arrived、navigation_blocked。
+`WaterNavigation.is_open_water` 提供海面占用查询。`Boat.set_drive` / `release_drive` 接收手动输入，`FormalHullMotion` 执行物理船壳扫掠。
 
 [模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-当前入口：`python3 scripts/run_verification.py surface selftest framework-modules`。
+当前入口为 `python3 scripts/run_verification.py formal-facility-berths visual-formal-manual-sea visual-formal-surface-handoff`。
 
 2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
@@ -105,7 +100,7 @@ is_open_water / plan_route_to / valid_route / segment_clear / invalidate；shape
 
 ## 遗留与下一步
 
-正式航路算法位于 src/navigation；WaterNavigation 拥有水域判断、网格和路线验证，Boat 逐步调用 segment_clear。30条路线回归只是样本，不代表全海域穷举。
+正式自动航行重设计待定。当前手动航行的碰撞、靠岸、加速和脱困验证见 R32、R35–R37。
 
 ## 变更记录
 
@@ -350,3 +345,47 @@ R29：保留正式船壳与靠泊限速；真窗口 33/0 覆盖随船镜头下�
 ## 2026-11-20 晚间正式 Main 复核
 
 R29/R30：正式手动推进已扫掠凸壳，仍逐步执行 WaterNavigation 的船中心旧轮廓禁入。无头运行时探针命中唯一匹配船掩码的栈桥物理体，并另测得一次旧轮廓拒绝而船壳无接触。晚间实窗靠泊交接受失焦干扰，详见[正式 Main 复核](../../development/2026-11-20_3c_structure_audit.md#2026-11-20-晚间--正式-main-现状复核)。
+
+## 2026-11-20 手动船实体裁决
+
+| 对应设计条款 | 实施与证据 |
+|---|---|
+| SEA-NAV-R31 | 移除正式手动船的旧船中心轮廓禁入，以及 Main 自动到达和自动打捞接近的旧分支。实窗往返 38 项全过，覆盖离泊、两个方向输入和手动进泊。各岛实体覆盖待补。[运行记录](../../development/2026-11-20_native_home_roundtrip.md)。 |
+
+## 2026-11-21 正式 Main 删除自动航行
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R32 | 删除自动航行、海图目的地按钮和旧航线探针。正式手动航行实窗 28 项通过，正式往返实窗 38 项通过，手动转向及尾迹 147 项通过。 [开发与验证](../../development/2026-11-21_main_native_facilities.md)。 |
+
+## 2026-11-22 原生地面导航与手动船体集成
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R33 | NPC 集成测试去掉 `Boat.arrived` 和自动目的地，改为提交 `Boat.set_drive()` 的手动方向，等待船壳进入泊位 `Area3D` 后按 E 交接。 |
+| SEA-NAV-R34 | 建造、房间和住所生产查询统一使用 `GroundSpace.native_route()`，导航点只表达意图，角色胶囊和场景碰撞决定实际结果。 |
+
+## 2026-11-22 运动中船体靠岸
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R35 | 正式 `berth_transfer.inspect()` 按船壳与 `DockingArea` 重叠及安全落脚判定。`formal-facility-berths` 43/0，退出码 0，含八处泊位的推进中资格检查。`visual-formal-surface-handoff` 42/0，退出码 0，含阳光房停稳后实窗按 E 及 `BoatPark` 归位。[验证记录](../../development/2026-11-23_manual_rowing.md)。 |
+
+## 2026-11-23 正式船转向、加速和脱困
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R36 | `formal-facility-berths` 43/0，退出码 0。从静止转 90° 约 0.85 秒，转 180° 约 1.68 秒，均测至目标方向误差 12° 以内。`visual-formal-surface-handoff` 42/0，退出码 0，实测普通巡航 2.6 米/秒、Shift 巡航 3.9 米/秒，松键恢复普通划行。[验证记录](../../development/2026-11-23_manual_rowing.md)。 |
+| SEA-NAV-R37 | `formal-facility-berths` 43/0，退出码 0。用正式船壳与碰撞夹具覆盖贴墙滑移、直角倒出、脱困后恢复转向和持续直顶受阻。截图中的具体建筑夹角未现场回放。[验证记录](../../development/2026-11-23_manual_rowing.md)。 |
+
+## 2026-11-23 制造区专用泊位
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R38 | 初始码头与新建码头均通过上下船实测，靠在普通平台上的角色没有上船资格。正式设施泊位回归 43/0。 [交付及验证](../../development/2026-11-23_workshop_dock.md)。 |
+
+## 2026-11-23 起始种植区与四轮胎护舷
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R39 | 初始与可建码头上下船通过专项，船壳与四护舷实体保持净空。 [交付和验证](../../development/2026-11-23_workshop_dock.md#起始种植区与四轮胎护舷)。 |

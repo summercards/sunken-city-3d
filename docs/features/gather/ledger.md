@@ -18,7 +18,6 @@
   "verification": [
     "interaction-reach",
     "visual-interaction-reach",
-    "selftest",
     "framework-integration"
   ]
 }
@@ -84,3 +83,15 @@ GatherField.to_dict / from_dict；GatherSpot.interact / seconds_left；collected
 - 主线程已提供 `performance-equivalence` 19/0、interactor 15/0；本次仅回填这些已提供结果，未新增测试或本地复跑，不借历史采集测试签本轮完整恢复验收。
 
 [主记录](../../development/2026-11-11_performance_optimization.md)由主线程建立；最终视觉、存档及经营回归仍处理中，本节不预签。
+
+## 2026-11-22 阳光房采集点撤下
+
+| 条款 ID | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-GATHER-R07 | 采集配置和内容索引移除阳光房甲板的 `zone1_shell`、`zone1_wood`。`GatherField` 按现有节点恢复冷却，旧记录里的这两个键无需迁移。 | `sunroom-runtime` 确认两点未装配及绳索仍登记，`visual-interaction-reach` 确认绳索焦点可用。[开发与验证](../../development/2026-11-22_sunroom_deck_cleanup.md)。 |
+
+## 2026-11-23 采集点由场景装配
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-GATHER-R08 | 五个固定采集点摆在各自设施下，`GatherField` 按稳定 ID 读取冷却。运行探针五处落脚均命中场景实体，交互专项 19/0 覆盖绳索采集、菜箱热区和船上隔离。[开发记录](../../development/2026-11-23_facility_scene_alignment.md)。 |

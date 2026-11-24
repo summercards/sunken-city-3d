@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
-[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]
 [ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/zone2_yokohama_station/detail.tscn" id="unit_detail"]
@@ -20,21 +19,20 @@
 [ext_resource type="Script" path="res://src/navigation/derived_walk_area.gd" id="5_derived"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/zone2_yokohama_station/gangway.tscn" id="6_gangway"]
 
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/station_unit_01_collision.scn" id="platform_base"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/station_unit_02_collision.scn" id="platform_east"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/station_unit_03_collision.scn" id="platform_west"]
+[ext_resource type="Script" path="res://src/gathering/gather_spot.gd" id="gather"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/station_gangway_collision.scn" id="station_gangway_collision"]
+[ext_resource type="PackedScene" path="res://scenes/components/docking_area.tscn" id="dock_area"]
+
 [node name="Zone2YokohamaStation" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.000, 0, -18.000)
 script = ExtResource("1_zone")
 zone_id = "zone2"
 zone_label = "横滨铁道"
-geometry_source = "scene"
 water_layer = "amphibious"
 water_layer_role = "entity"
-
-[node name="StaticBatch" type="Node3D" parent="."]
-script = ExtResource("2_batch")
-bake_dir = "res://assets/zones/zone2_yokohama_station"
-retired_geometries = PackedInt32Array(749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692, 693)
-retired_alpha_geometries = PackedInt32Array(747)
-
 
 ; >>> models（由 tools/build_zone_scenes.gd 生成，手改会被覆盖）
 [node name="Models" type="Node3D" parent="."]
@@ -87,57 +85,89 @@ gi_mode = 0
 [node name="Gangway" parent="." instance=ExtResource("6_gangway")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -3)
 
-[node name="WalkAreas" type="Node3D" parent="."]
+[node name="SurfaceCollision" parent="Models/unit_01" instance=ExtResource("platform_base")]
+
+[node name="SurfaceCollision" parent="Models/unit_02" instance=ExtResource("platform_east")]
+
+[node name="SurfaceCollision" parent="Models/unit_03" instance=ExtResource("platform_west")]
 
 ; 东西两块站台台面差 13 厘米（西 2.78 / 东 2.65），用一个派生面会被压平到同一高度 ——
 ; 那 13 厘米就变成「人浮在甲板上」。各派各的，两块各自贴自己的台面。
-[node name="Walk_zone2_station" type="Node3D" parent="WalkAreas"]
+[node name="Walk_zone2_station" type="Node3D" parent="Models/unit_03"]
 script = ExtResource("5_derived")
 area_id = "zone2_station"
+scene_collision = true
 zone_id = "zone2"
-source_path = NodePath("../../Models/unit_03")
+source_path = NodePath("..")
 precision = 0.5
 target_y = 2.60
 band_tolerance = 0.45
 min_layer_area = 6.0
 surface_y = 2.78
 
-[node name="Walk_zone2_east" type="Node3D" parent="WalkAreas"]
+[node name="Walk_zone2_east" type="Node3D" parent="Models/unit_02"]
 script = ExtResource("5_derived")
 area_id = "zone2_east"
+scene_collision = true
 zone_id = "zone2"
-source_path = NodePath("../../Models/unit_02")
-precision = 0.5
+source_path = NodePath("..")
+precision = 0.25
 target_y = 2.60
 band_tolerance = 0.45
 min_layer_area = 6.0
 surface_y = 2.65
 
-
-
-[node name="Walk_zone2_gangway" type="Node3D" parent="WalkAreas"]
+[node name="Walk_zone2_gangway" type="Node3D" parent="Gangway"]
 script = ExtResource("3_walk")
 area_id = "zone2_gangway"
+scene_collision = true
+local_surface_height = true
 zone_id = "zone2"
 surface_y = 2.780
 span_min = 2.500
 span_max = 3.100
-rects = [Rect2(-1.25, -3.7, 1.9, 1.4)]
+rects = [Rect2(-0.95, -0.7, 1.9, 1.4)]
 
 [node name="Plants" type="Node3D" parent="."]
 script = ExtResource("4_plants")
 zone_id = "zone2"
 placement_path = "res://assets/data/plants_zone2_yokohama_station.json"
 
-[node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone2_station"]
-position = Vector3(-2, 2.78, -0.3)
+[node name="Landing_main" type="Marker3D" parent="Models/unit_03/Walk_zone2_station"]
+position = Vector3(2.8, 2.78, 3.457)
 script = ExtResource("landing_script")
 landing_id = "main"
 landing_label = "横滨铁道"
 
-[node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone2_station/Landing_main"]
-position = Vector3(-0.8099999999999952, -1.48, 6.080000000000002)
+[node name="BoatPark" type="Marker3D" parent="Models/unit_03/Walk_zone2_station/Landing_main"]
+position = Vector3(-0.81, -1.66, 6.43)
 rotation = Vector3(0, -1.57, 0)
 
-[node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone2_station/Landing_main"]
-position = Vector3(0.5, -1.4300000000000002, 2.6000000000000014)
+[node name="DockEdge" type="Marker3D" parent="Models/unit_03/Walk_zone2_station/Landing_main"]
+position = Vector3(0.5, -1.43, 2.95)
+
+[node name="SurfaceCollision" parent="Gangway" instance=ExtResource("station_gangway_collision")]
+
+[node name="DockingArea" parent="Models/unit_03/Walk_zone2_station/Landing_main/DockEdge" instance=ExtResource("dock_area")]
+position = Vector3(-0.35, -0.23, 1.9)
+rotation = Vector3(0, 1.570796, 0)
+
+[node name="Facilities" type="Node3D" parent="Models/unit_03"]
+
+[node name="Spot_zone2_parts" type="Node3D" parent="Models/unit_03/Facilities"]
+position = Vector3(0.9, 2.78, 2.357)
+script = ExtResource("gather")
+id = "zone2_parts"
+kind = "parts"
+metadata/zone = "zone2"
+
+[node name="Facilities" type="Node3D" parent="Models/unit_02"]
+
+[node name="Spot_zone2_glass" type="Node3D" parent="Models/unit_02/Facilities"]
+position = Vector3(2.151, 2.704, 2.261)
+script = ExtResource("gather")
+id = "zone2_glass"
+kind = "glass"
+requires_site = "yokohama_station"
+requires_level = 2
+metadata/zone = "zone2"

@@ -1,4 +1,5 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
+[ext_resource type="Script" path="res://src/facilities/sunroom_assembly.gd" id="assembly"]
 [ext_resource type="Script" path="res://src/ambient/vegetation/patch.gd" id="vegetation"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_rear_building.tscn" id="rear_building"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_solar_room.tscn" id="solar_room"]
@@ -12,29 +13,37 @@
 [ext_resource type="Script" path="res://src/facilities/sunroom_ladder_interactable.gd" id="ladder_interactable"]
 [ext_resource type="Script" path="res://src/facilities/sunroom_upper_interactable.gd" id="upper_interactable"]
 [node name="太阳能木屋-海上区域" type="Node3D"]
-[node name="SurfaceCollision" parent="." instance=ExtResource("surface_collision")]
+script = ExtResource("assembly")
 metadata/asset_id = "SEA-SCENE-SBR-ASSEMBLY"
 metadata/front_godot = Vector3(0, 0, 1)
 metadata/deck_height = 2.15
 metadata/water_layer = "surface"
 metadata/water_layer_role = "part"
+
+[node name="SurfaceCollision" parent="." instance=ExtResource("surface_collision")]
 [node name="后部方形建筑" parent="." instance=ExtResource("rear_building")]
+instance_data_path = "res://assets/models/facilities/solar_cabin/v1_6/instances.json"
 [node name="前部倾斜太阳能房" parent="." instance=ExtResource("solar_room")]
+instance_data_path = "res://assets/models/facilities/solar_cabin/v1_6/instances.json"
 ; 阳光房玩法锚点（相对本模块根保存，Bootstrap 只注入服务和 ActorController）。
-; `太阳能木屋` 实例的 y 偏移为 -0.77，因此顶端局部 y=7.016335 对应当前二楼走面 y=6.246335。
+; 梯脚在补墙外侧，梯顶仍落在上端实体支撑范围内。
 [node name="SunroomRepairAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
-position = Vector3(4.66225, 2.15, 2.708127)
+position = Vector3(4.66225, 2.15, 3.08)
 [node name="SunroomLadderBottomAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
-position = Vector3(4.66225, 2.15, 2.708127)
+position = Vector3(4.66225, 2.15, 3.08)
 [node name="SunroomLadderTopAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
-position = Vector3(4.66225, 7.016335, 2.708127)
+position = Vector3(4.66225, 7.2363, 2.48)
 [node name="SunroomUpperRestoreAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
-position = Vector3(6.83575, 7.016335, -0.814)
+position = Vector3(6.5, 7.2363, 2.2)
 [node name="SunroomDamageAnchor" type="Marker3D" parent="前部倾斜太阳能房"]
-position = Vector3(4.66225, 2.15, 2.708127)
+position = Vector3(4.66225, 2.15, 3.04)
 [node name="前方可行动平台-酒红" parent="." instance=ExtResource("front_platform")]
+instance_data_path = "res://assets/models/facilities/solar_cabin/v1_6/instances.json"
 [node name="栈桥-暖木" parent="." instance=ExtResource("bridge")]
+instance_data_path = "res://assets/models/facilities/solar_cabin/v1_6/instances.json"
 [node name="家园夜灯" parent="." instance=ExtResource("lamps")]
+
+[node name="BuildingAnimation" type="AnimationPlayer" parent="."]
 
 [node name="VegetationTurf" type="Node3D" parent="."]
 script = ExtResource("vegetation")
@@ -46,12 +55,12 @@ metadata/water_layer_role = "none"
 [node name="Regions" type="Node3D" parent="VegetationTurf"]
 
 [node name="upper_roof_meadow" type="Node3D" parent="VegetationTurf/Regions"]
-position = Vector3(6.835, 10.847, -0.815)
+position = Vector3(6.835, 10.834, -0.815)
 
 [node name="left_parapet" type="Node3D" parent="VegetationTurf/Regions"]
-position = Vector3(0.04, 7.895, -0.2)
+position = Vector3(0.37, 7.236, -0.2)
 
 [node name="front_parapet" type="Node3D" parent="VegetationTurf/Regions"]
-position = Vector3(1.9, 7.895, 2.725)
+position = Vector3(1.9, 7.236, 2.31)
 
 [node name="moss_accents" type="Node3D" parent="VegetationTurf/Regions"]

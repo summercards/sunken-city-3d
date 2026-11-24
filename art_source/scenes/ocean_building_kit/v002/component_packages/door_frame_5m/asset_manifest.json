@@ -84,5 +84,20 @@
     "owner": "main_agent",
     "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
     "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  },
+  "construction_variant": {
+    "version": "v003",
+    "export_manifest": "godot/assets/models/building_kit/construction_v003/export_manifest.json",
+    "runtime_path": "godot/assets/models/building_kit/construction_v003/door_frame_5m.glb",
+    "runtime_sha256": "348d41f16773759fd9c93c49af032fbda1b5995d065d9948e58ede997a5065f7",
+    "prefab": "godot/scenes/buildables/kit/door_frame_5m.tscn",
+    "construction_animation": {
+      "clip": "construction",
+      "elements": 60,
+      "duration_seconds": 2.203,
+      "trigger": "BuildingService.completed",
+      "animation_script": "godot/src/building/construction_animation.gd",
+      "verification": "docs/development/2026-11-23_building_construction.md"
+    }
   }
 }

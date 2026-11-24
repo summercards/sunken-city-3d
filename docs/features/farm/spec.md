@@ -155,3 +155,15 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | SEA-FARM-R17 | 种植格的六个入口（播种/选种子/浇水/补水并浇水/收获/查看状态）全部**瞬发**：`FarmPlot.hold_time = 0`，走近进入判定区出图标，按一次 E 或点一次图标即出菜单并执行，不再压读条。交互语义由 SEA-INTERACT-R24 统一定义；业务规则（缺水暂停生长、满包留地、成熟再生）不变。数据侧：作物表扩到 6 种（生菜/番茄/南瓜 + 蓝星花/晨光花/珊瑚花），笔记种植页按 6 条一页自动分页，页面数由条目数决定、不得写死。 |
 
 证据：`D:/projects/sea-work/verification/20261108-030208-sweep2-006789/report.json`（keyboard-farm-loop / keyboard-panels / initial-planters / farm-day-change / harvest-receive 全 PASS）；`D:/projects/sea-work/verification/20261108-032620-visual-mark2-b3156f/report.json`（visual-keyboard-farm-loop PASS，实景确认无底部提示条与进度条）。详见[本轮总交付](../../development/2026-11-07_trigger_interaction.md)。整体仍 partial。
+
+## 2026-11-23 制造区旧种植格作物承接
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-FARM-R18 | 下线 zone5 固定六格后，旧档中的在地作物仍由 Farm 持有。归档期间暂停生长并保留浇水状态。每完工一个空的自建培养土，按原格号承接一株旧作物，原记录随即移除。 |
+
+## 2026-11-23 起始种植区与四轮胎护舷
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-FARM-R19 | 旧固定种植格的活作物在读档后依次接入首次新增的空培养土，生长、浇水和收获状态随植株保留。 |

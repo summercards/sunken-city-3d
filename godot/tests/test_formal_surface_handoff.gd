@@ -35,6 +35,7 @@ func until(predicate: Callable, frames: int) -> bool:
 func key(code: Key, pressed: bool, viewport := false) -> void:
 	var event := InputEventKey.new()
 	event.physical_keycode = code
+	event.shift_pressed = pressed if code == KEY_SHIFT else Input.is_physical_key_pressed(KEY_SHIFT)
 	event.pressed = pressed
 	if viewport:
 		event.keycode = code
@@ -69,6 +70,13 @@ func keys(next: Array[Key]) -> void:
 		if not held.has(k): key(k, true)
 	held = next
 	Input.flush_buffered_events()
+	# Maintain the replay's keys if the OS releases the injected events.
+	var actions := [&"move_left", &"move_right", &"move_forward", &"move_back"]
+	for i in actions.size():
+		if held.has(WASD[i]) or held.has(ARROWS[i]):
+			Input.action_press(actions[i])
+		else:
+			Input.action_release(actions[i])
 
 func horizontal(v: Vector3) -> Vector3: return Vector3(v.x, 0.0, v.z)
 
@@ -101,7 +109,8 @@ func move_toward_point(body: Node3D, goal: Vector3, radius: float, frames: int, 
 	return false
 
 func shot(label: String) -> void:
-	await RenderingServer.frame_post_draw
+	await process_frame
+	RenderingServer.force_draw(false)
 	var image := root.get_texture().get_image()
 	check(not image.is_empty() and not camera.is_position_behind(player.global_position) and camera.is_position_in_frustum(player.global_position) and image.save_png("res://outputs/formal-handoff-"+label+".png") == OK, "real viewport: "+label)
 	await process_frame
@@ -121,6 +130,11 @@ func run() -> void:
 	await scene_changed
 	main = current_scene
 	main._autosave_on = false
+	# This replay injects viewport events and must keep running when the host
+	# switches apps. The product window still handles genuine focus changes.
+	root.focus_entered.disconnect(main._on_surface_focus_entered)
+	root.focus_exited.disconnect(main._on_surface_focus_exited)
+	main._on_surface_focus_entered()
 	if not check(await until(func(): return main._title_active and is_instance_valid(main.start_screen), 240), "normal title opens"):
 		finish(); return
 	await tick(90)
@@ -151,6 +165,9 @@ func run() -> void:
 	var along := horizontal(park.global_basis.z).normalized()
 	var screen := root.get_visible_rect().size * Vector2(0.32,0.44)
 	check(root.get_camera_3d() == camera and camera.is_processing() and camera.follow_subject == player and camera.follow_enabled, "shore follows live Explorer")
+	var start_on_shore := player.global_position
+	check(player.collision_mask == player.SCENE_GROUND_LAYER, "Explorer uses scene-owned home bodies")
+	check(not main.has_method("pick_walk_at"), "legacy click walking entry is removed")
 	check(await move_toward_point(player,berth.stand_position(),0.7,300), "walks from arrival to the actual berth")
 	# Face the boat with real movement; land focus keeps its existing arbitration.
 	steer(away)
@@ -180,12 +197,14 @@ func run() -> void:
 	var depart := boat.global_position
 	var departure_view := camera.global_position
 	steer(away)
-	await tick(255)
+	if not check(await until(func(): return horizontal(boat.global_position-depart).dot(away) > 3.0, 420), "manual departure clears the bridge"):
+		print("[handoff] departure=", boat.global_position-depart, " yaw=", boat.rotation.y,
+			" drive=", boat.drive_dir, " contact=", boat.shore_contact())
 	keys([])
 	check(await until(func(): return boat.is_still() and main.actor_controller.mode() == 1, 130), "WASD release naturally stops the boat")
 	var travelled := horizontal(boat.global_position-depart)
 	var view_motion := horizontal(camera.global_position-departure_view)
-	check(travelled.dot(away) > 2.0 and view_motion.dot(away) > 2.0 and camera.follow_subject == boat and absf(boat.global_position.y-depart.y) < 0.001, "WASD moves the hull and a live camera follows")
+	check(travelled.dot(away) > 3.0 and view_motion.dot(away) > 2.0 and camera.follow_subject == boat and absf(boat.global_position.y-depart.y) < 0.001, "WASD moves the hull and a live camera follows")
 	var before_orbit := heading(Vector2.UP)
 	mouse(MOUSE_BUTTON_RIGHT,true,screen)
 	drag(screen,Vector2(165,0),MOUSE_BUTTON_MASK_RIGHT)
@@ -202,6 +221,20 @@ func run() -> void:
 	keys([ARROWS[arrow]])
 	await tick(180)
 	check(player.animation_state() == "rowing", "original seated rowing remains active under manual propulsion")
+	var regular_speed := boat.velocity.length()
+	key(KEY_SHIFT, true)
+	Input.flush_buffered_events()
+	await tick(80)
+	var power_speed := boat.velocity.length()
+	check(power_speed >= regular_speed * 1.42 and boat.rowing_pose().power > 0.90,
+		"Shift makes the real boat and rowing pose work harder")
+	await shot("02-power-stroke")
+	key(KEY_SHIFT, false)
+	Input.flush_buffered_events()
+	await tick(50)
+	check(absf(boat.velocity.length() - regular_speed) < 0.05 and boat.rowing_pose().power < 0.03,
+		"releasing Shift returns to the regular stroke while continuing to row")
+	print("[handoff] regular_speed=", regular_speed, " power_speed=", power_speed)
 	keys([])
 	await until(func(): return boat.is_still(),120)
 	var arrow_motion := horizontal(boat.global_position-before_arrow)
@@ -214,14 +247,20 @@ func run() -> void:
 	await tap(KEY_F)
 	check(camera.follow_subject == boat and camera.follow_enabled, "F afloat restores boat follow")
 	await shot("02-under-way")
-	# Two steering waypoints keep the boat outside the end of the original bridge.
-	var outside := park.global_position - along*3.6 + away*1.7
-	var flank := park.global_position - along*3.2
-	check(await move_toward_point(boat,outside,0.72,900), "manual approach reaches the outside approach lane")
+	# Line up clear of the outermost board, then follow the berth axis in.
+	# Use a fixed view for this leg after the orbit checks above.
+	camera.orbit_dir = Vector3(0, 0.8, 1).normalized()
+	camera.refresh()
+	var entry_lane := park.global_position + away*0.58
+	var outside := entry_lane - along*6.2 + away*2.0
+	var flank := entry_lane - along*6.2
+	check(await move_toward_point(boat,outside,0.50,750), "manual approach reaches the outside approach lane")
 	await until(func(): return boat.is_still(),125)
-	check(await move_toward_point(boat,flank,0.65,660), "manual approach reaches the berth flank")
+	check(await move_toward_point(boat,flank,0.35,500), "manual approach reaches the berth flank")
 	await until(func(): return boat.is_still(),125)
-	check(await move_toward_point(boat,park.global_position,0.67,640,along), "steers into the berth without snapping")
+	steer(along)
+	check(await until(func(): return absf(horizontal(boat.global_position-park.global_position).dot(along)) < 0.45, 600), "steers along the berth without snapping")
+	keys([])
 	check(await until(func(): return boat.is_still() and main.actor_controller.mode() == 1,125), "boat comes to rest after approach")
 	if not check(await until(func(): return main.prompt.shortcut == "上岸" and main._formal_berth_result(true).has("point"),12), "stop and real E leave prompt agree"):
 		print("[handoff] stopped=",boat.global_transform," berth=",main._formal_berth_result(true)," focus=",main._near_action()," displayed=",main.prompt.shortcut)
@@ -230,12 +269,15 @@ func run() -> void:
 	mouse(MOUSE_BUTTON_MIDDLE,true,screen)
 	await tick()
 	check(camera.rotating,"real middle press began a camera drag before leaving")
-	var dock_pose := boat.global_transform
 	await tap(KEY_E)
-	if not check(main.actor_controller.mode() == 0 and player.get_parent() == main and player.collision_mask == 256, "E returns the same actor to the ground motor"):
+	if not check(main.actor_controller.mode() == 0 and player.get_parent() == main and player.collision_mask == player.SCENE_GROUND_LAYER, "E returns the same actor to scene ground"):
 		mouse(MOUSE_BUTTON_MIDDLE,false,screen)
 		finish(); return
-	check(camera.follow_subject == player and camera.follow_enabled and not camera.rotating and not camera.panning and boat.global_transform.is_equal_approx(dock_pose), "leaving restores Explorer follow and cancels drag before mouse release without moving hull")
+	check(camera.follow_subject == player and camera.follow_enabled and not camera.rotating and not camera.panning,
+		"leaving restores Explorer follow and cancels drag before mouse release")
+	check(boat.global_position.distance_to(park.global_position) < 0.02
+		and absf(angle_difference(boat.global_rotation.y, park.global_rotation.y)) < 0.02,
+		"leaving aligns the hull with BoatPark")
 	mouse(MOUSE_BUTTON_MIDDLE,false,screen)
 	await tick(20)
 	var before_walk := player.global_position
@@ -244,5 +286,7 @@ func run() -> void:
 	check(horizontal(player.global_position-before_walk).dot(-away) > 0.55 and player.ground_contact and not boat.starts_sailing(), "ordinary grounded WASD works immediately after leaving")
 	keys([])
 	await shot("04-ashore")
+	check(await move_toward_point(player,start_on_shore,0.7,300) and player.ground_contact, "walks all the way back to the sunroom courtyard")
+	await shot("05-returned")
 	print("[handoff] travelled=",travelled," follow displacement=",view_motion," arrow=",arrow_motion," ashore=",player.global_position)
 	finish()

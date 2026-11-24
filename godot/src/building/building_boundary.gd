@@ -31,18 +31,22 @@ func space_reason(request: Dictionary) -> String:
 	if not Catalog.same_level(Catalog.elevation(request),0.0): return ""
 	var rect:=Catalog.footprint_rect(request)
 	rect.position+=Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
+	var basin := Rect2()
+	if Catalog.is_dock(str(request.kind)):
+		basin = Catalog.dock_water(request)
+		basin.position += Vector2(Catalog.ORIGIN.x, Catalog.ORIGIN.z)
 	if boat_query.is_valid():
 		var boat: Vector3=boat_query.call()
 		if rect.grow(0.9).has_point(Vector2(boat.x,boat.z)): return "请让船离开施工范围"
 	if protected_query.is_valid():
 		for protected: Rect2 in protected_query.call():
-			if rect.intersects(protected): return "请保留泊位和上下船通道"
+			if rect.intersects(protected) or (basin.has_area() and basin.grow(-0.01).intersects(protected)): return "请保留泊位和上下船通道"
 	if obstacles_query.is_valid():
 		for obstacle in obstacles_query.call():
 			if obstacle is Rect2:
-				if rect.grow(-0.01).intersects(obstacle): return "这里有既有建筑，无法建造"
+				if rect.grow(-0.01).intersects(obstacle) or (basin.has_area() and basin.grow(-0.01).intersects(obstacle)): return "这里有既有建筑，无法建造"
 			elif obstacle is Dictionary:
-				if _shape_intersects(rect,obstacle): return "这里有既有建筑，无法建造"
+				if _shape_intersects(rect,obstacle) or (basin.has_area() and _shape_intersects(basin,obstacle)): return "这里有既有建筑，无法建造"
 	return ""
 
 static func _shape_intersects(rect: Rect2, shape: Dictionary) -> bool:
@@ -84,6 +88,10 @@ func _layout_reason_now(before: Array, after: Array, request: Dictionary, contex
 		if active_landing_query.is_valid():
 			var landing_id:=str(active_landing_query.call())
 			if landing_id.begins_with("built:"+id+":"): return "这块木板是当前上下船位置，请先上船或换个泊位"
+	if operation=="remove" and Catalog.is_dock(str(request.kind)) and boat_query.is_valid():
+		var vessel: Vector3 = boat_query.call() - Catalog.ORIGIN
+		if Catalog.dock_water(request).has_point(Vector2(vessel.x, vessel.z)):
+			return "请先把船驶离码头，再拆除"
 	if operation=="remove" and int(context.get("mode",0))==0 and Catalog.RECIPES[request.kind].get("profile","")=="stairs" and preload("res://src/building/assembly_surfaces.gd").contains(at-Catalog.ORIGIN,[request]): return "请先离开楼梯，再回收"
 	if operation=="begin" and Catalog.is_deck(str(request.kind)): return ""
 	var safety: String=load("res://src/building/assembly_surfaces.gd").safety_reason(before,after,at-Catalog.ORIGIN,int(context.get("mode",0))==0,[Catalog.BASE])

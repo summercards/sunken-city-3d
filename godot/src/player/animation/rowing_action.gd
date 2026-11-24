@@ -10,7 +10,9 @@ func sample(a, _delta: float) -> void:
 		contacts=a.rowing_pose_query.call()
 		seat=contacts.seat
 	var local_seat: Transform3D=a.global_transform.affine_inverse()*seat
-	var lean := (0.035+sin(rowing.x)*0.055)*rowing.y
+	var power := float(contacts.get("power", 0.0))
+	# During a power stroke the shoulders travel with the wider grip arc.
+	var lean := (0.035 + sin(rowing.x) * lerpf(0.055, -0.12, power)) * rowing.y
 	var body_basis := local_seat.basis*Basis(Vector3.RIGHT,lean)
 	var hip_height: float=a._avatar_factors.hip_y
 	a.body_pivot.basis=body_basis

@@ -2,13 +2,9 @@ extends CharacterBody3D
 class_name Boat
 ## 小船：独立 Blender 组件装配；运动、靠泊和起伏由 Boat 保持原契约。
 
-signal arrived(zone_id: String, landing_id: String)
 signal navigation_blocked
 
-## 主场景提供岸线判定；轨迹圆角与每步运动共用它。
-var segment_clear := Callable()
 var berth_query := Callable()
-var water_position_guard := Callable()
 var _manual_hull: RefCounted
 var _visual_heave := 0.0
 
@@ -19,7 +15,10 @@ func configure_formal_hull() -> void:
 	_manual_hull.configure(self, hull)
 
 func hull_clear() -> bool:
-	return _manual_hull != null and not _manual_hull.overlaps_shore(global_transform)
+	return hull_clear_at(global_transform)
+
+func hull_clear_at(pose: Transform3D) -> bool:
+	return _manual_hull != null and not _manual_hull.overlaps_shore(pose)
 
 func is_still() -> bool:
 	return _manual_hull != null and _manual_hull.is_still()
@@ -31,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	if _manual_hull == null or not manual_drive: return
 	var berth: Vector3 = berth_query.call(global_position) if berth_query.is_valid() else Vector3.INF
 	var before: Object = _manual_hull.shore_contact()
-	_manual_hull.advance(Vector3(drive_dir.x, 0.0, drive_dir.y), minf(delta, 0.05), berth, cruise_speed(), water_position_guard)
+	_manual_hull.advance(Vector3(drive_dir.x, 0.0, drive_dir.y), minf(delta, 0.05), berth, cruise_speed(), _power_requested)
 	_vel = _manual_hull._speed
 	_turn_rate = _manual_hull._turn_rate
 	_speed_actual = velocity.length()
@@ -40,9 +39,10 @@ func _physics_process(delta: float) -> void:
 		navigation_blocked.emit()
 	if drive_dir == Vector2.ZERO and is_still():
 		manual_drive = false
-		_sailing = false
 
 var _row_blend := 0.0
+var _power_blend := 0.0
+var _power_requested := false
 var water_surface: MeshInstance3D
 var _wave_pitch := 0.0
 var _wave_roll := 0.0
@@ -54,70 +54,24 @@ const RowingRig = preload("res://src/player/animation/rowing_rig.gd")
 const SPEED := 2.6
 
 var model: Node3D
-var _mats: Array[ShaderMaterial] = []
-var _sailing := false
-## 折线航路（世界 xz）：由 SailNav 规划，最后一个点就是泊位本身。
-var route: Array = []
-var _wp := 0
-var _vel := 0.0
-## 到达判定：离泊位这么近且速度低于阈值才停稳（否则会「贴上去就瞬移」）。
-## 位置误差小于 1.5cm 且低速才完成；保留真实位置，不在最后一帧吸附泊位。
-const ARRIVE_DIST := 0.015
-const ARRIVE_SPEED := 0.15
 const ACCEL := 2.2
 const BRAKE := 3.0
-## 最大转向角速度（rad/s）。划桨船不是快艇：0.95 约等于「一秒转 55°」，
-## 转弯半径 ~3.6m，配合降速才有「船在慢慢摆头」的感觉。
 const TURN_RATE := 1.8
-## 手动驾驶的转向惯性（SEA-NAV-R17）：角速度按 TURN_ACCEL 逼近目标值，
-## 不是直接写死转到限速。1.8 / 4.6 ≈ 0.39 秒从静止到满舵 ——
-## 桨先入水、船头再跟上来，这是「有质量」的来源。
 const TURN_ACCEL := 4.6
-## 转向能力随船速变化：停船 55%、满速 100%。划桨船停着也能小角度摆头，
-## 但不会像汽车原地打方向。
 const TURN_AT_REST := 0.55
-## 侧滑：船头转了，航迹方向按 DRIFT_TAU 追上去，最多偏 DRIFT_MAX 弧度。
-## 2.6 m/s 满舵时航迹落后船头约 8°，转弯有一点「甩」，但不会像冰面。
-const DRIFT_TAU := 0.16
-const DRIFT_MAX := 0.14
-## 低速收尾的刹车折减：BRAKE 只适用于高速段，最后半米用 35% 减速度收，
-## 让船贴上去停稳，而不是最后一帧顿住。
 const BRAKE_TAIL := 0.35
-var _yaw_from := 0.0
-var _yaw_to := 0.0
-## 到站是否拧正到 `_yaw_to`。靠泊要（船头对着泊位方向），打捞/施工不要。
-var _align_at_arrival := true
-## 靠妥后还剩多少弧度要转正（按 TURN_RATE 慢慢拧）。
-var _dock_left := 0.0
-## 划桨相位（0..TAU 循环）与转向速率（给侧倾用）。
+
+var _vel := 0.0
 var _stroke := 0.0
 var _turn_rate := 0.0
-## 手动驾驶的角速度（rad/s，带惯性）与实际航迹方向（带侧滑）。
-var _yaw_rate := 0.0
 var _travel_dir := Vector2.ZERO
-## 两根桨。
 var _oar_l: Node3D
 var _oar_r: Node3D
-## 桨叶接触挂点（组件自带），只读给渲染层用。
 var _blade_l: Node
 var _blade_r: Node
-## 手动航行的目标（点水面划过去）：没有区块、没有泊位朝向。
-var manual := false
-## 键盘手动划行（SEA-NAV-R15，2026-11-05）。与「点目标自动划」并列：
-## 打开时 `_process` 走 `_drive`，完全不理 `route`；关掉后回到原自动航行。
 var manual_drive := false
-## 世界 xz 方向；零 = 松手（减速滑行到停）。
 var drive_dir := Vector2.ZERO
-var _t := 0.0
-var _duration := 1.0
-var _to_zone := ""
-var _to_landing := ""
 var _speed_actual := 0.0
-## 手动驾驶撞到岸线后仍保留方向盘，允许玩家原地摆头脱困；
-## 同一轮贴岸只反馈一次，真正划开或结束驾驶后才重新允许反馈。
-var _manual_blocked := false
-var _manual_clear_distance := 0.0
-
 
 func build() -> void:
 	if is_instance_valid(model): return
@@ -126,10 +80,6 @@ func build() -> void:
 	add_child(model)
 	_oar_l = model.get_node("OarL")
 	_oar_r = model.get_node("OarR")
-	_mats.assign([
-		preload("res://assets/materials/reference_skiff/matte.tres"),
-		preload("res://assets/materials/reference_skiff/metal.tres"),
-		preload("res://assets/materials/reference_skiff/gloss.tres")])
 	_animate_oars(0.0)
 	# A short timber post lifts the lantern clear of the gunwale. The existing
 	# wall bracket fixes to its outside face; this fitting shares the boat motion.
@@ -179,278 +129,40 @@ func build() -> void:
 
 
 func place_at(pos: Vector3, yaw: float) -> void:
-	if _manual_hull != null: _manual_hull.reset()
 	position = Vector3(pos.x, WATER_LEVEL, pos.z)
 	rotation.y = yaw
-	manual_drive = false
-	drive_dir = Vector2.ZERO
-	_manual_blocked = false
-	_manual_clear_distance = 0.0
-	manual = false
-	_dock_left = 0.0
-	_speed_actual = 0.0
-	_turn_rate = 0.0
-	_yaw_rate = 0.0
-	_travel_dir = _forward(yaw)
-	route.clear()
-	route.append(Vector2(pos.x, pos.z))
-	_wp = 0
-	_vel = 0.0
-	_yaw_from = yaw
-	_yaw_to = yaw
-	_sailing = false
+	stop_drive()
 
-
-## 出航。`path` 是 SailNav 规划好的折线（世界 xz，首点≈当前位置、末点=泊位）；
-## 不传就退化成直线（没有岸线数据的老场景/测试也能用）。
-##
-## `align_at_arrival = false`：到站不把船头拧回出发时的朝向。
-## 打捞/施工这类"开到目标旁边"的航行没有泊位朝向可言，拧正只会在停稳后
-## 多转一下船头（主人反馈的「打捞时自动转向一下」就是这段）；靠泊仍传 true。
-func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path: Array = [],
-		align_at_arrival := true) -> void:
-	if _manual_hull != null: return
-	# 点目标 = 自动航行接管：手动驾驶必须当场放掉，否则两条控制同时写位置。
-	manual_drive = false
-	drive_dir = Vector2.ZERO
-	_manual_blocked = false
-	_manual_clear_distance = 0.0
-	_yaw_rate = 0.0
-	_travel_dir = _forward(rotation.y)
-	if landing_id != "manual":
-		manual = false
-	_align_at_arrival = align_at_arrival
-	_yaw_from = rotation.y
-	_yaw_to = yaw
-	_to_zone = zone_id
-	_to_landing = landing_id
-	_sailing = true
-	_dock_left = 0.0
-	_wp = 1
-	# 中途改道保留速度与划桨相位，避免每次点击都急停重启。
-	route.clear()
-	var goal := Vector2(pos.x, pos.z)
-	if path.size() >= 2:
-		for p in path:
-			route.append(p as Vector2)
-		# 规划的终点可能是「最近可通行格」，补上真正的泊位，最后一小段直着靠岸。
-		if route[route.size() - 1].distance_to(goal) > 0.05:
-			route.append(goal)
-	else:
-		route.append(Vector2(position.x, position.z))
-		route.append(goal)
-	route = _rounded_route(route)
-	_duration = maxf(0.4, _path_length() / cruise_speed())
-
-
-func _path_length() -> float:
-	var sum := 0.0
-	for i in range(1, route.size()):
-		sum += (route[i] as Vector2).distance_to(route[i - 1])
-	return sum
-
-
-## 剩余航程（给 HUD/航线预览用）。
-func remaining_distance() -> float:
-	if not _sailing or route.is_empty():
-		return 0.0
-	var here := Vector2(position.x, position.z)
-	var sum := here.distance_to(route[mini(_wp, route.size() - 1)])
-	for i in range(_wp + 1, route.size()):
-		sum += (route[i] as Vector2).distance_to(route[i - 1])
-	return sum
-
-
-## 船头朝向的前向（模型跟网页版一致：船头朝 -Z）。
 func _forward(yaw: float) -> Vector2:
 	return Vector2(-sin(yaw), -cos(yaw))
 
+func set_drive(dir: Vector2, power := false) -> void:
+	drive_dir = dir.limit_length()
+	_power_requested = power and not drive_dir.is_zero_approx()
+	if _manual_hull != null and drive_dir.length_squared() > 0.000001:
+		manual_drive = true
 
-## 手动航行：点水面划到某个点。没有区块/泊位朝向，到站只发 arrived("", "manual")。
-func sail_to_point(pos: Vector3, path: Array = []) -> void:
-	manual = true
-	sail_to(pos, rotation.y, "", "manual", path)
-
-
-## ---- 键盘手动划行（SEA-NAV-R15） --------------------------------------------
-##
-## 方向键接管方向盘。三条硬约束：
-##   1. 不走 `route`：手动时把旧航线整条丢掉，松手后也不会自己接着跑；
-##   2. 位移仍过 `_clear`（岸线阻挡），撞岸就停并抛 `navigation_blocked`，
-##      与自动航线同一套边界，不新增第二条「能穿岸」的通路；
-##   3. 停与不停只有一条判据 —— 船速归零才关 manual_drive，避免一松手就瞬停。
-
-func set_drive(dir: Vector2) -> void:
-	var flat := Vector2(dir.x, dir.y)
-	var next := flat.normalized() if flat.length() > 0.001 else Vector2.ZERO
-	var changed_direction := drive_dir.length() > 0.001 and next.length() > 0.001 and absf(drive_dir.angle_to(next)) > 0.08
-	drive_dir = next
-	if changed_direction:
-		_manual_clear_distance = 0.0
-	if next == Vector2.ZERO:
-		return
-	if not manual_drive:
-		# 手动接管那一刻放弃自动航路，并把航迹方向对到当前船头（不继承自动航线的方向）。
-		_yaw_rate = 0.0
-		_travel_dir = _forward(rotation.y)
-		route.clear()
-		route.append(Vector2(position.x, position.z))
-		_wp = 0
-		manual = true
-		_to_zone = ""
-		_to_landing = "manual"
-		_align_at_arrival = true
-		_dock_left = 0.0
-	manual_drive = true
-	_sailing = true
-
-## 松手：只清方向，速度自己在 `_drive` 里按 BRAKE 收敛到 0。
 func release_drive() -> void:
 	drive_dir = Vector2.ZERO
+	_power_requested = false
 
 func driving() -> bool:
 	return manual_drive
 
+func starts_sailing() -> bool:
+	return manual_drive
 
-## 从当前位置朝这个世界方向迈一小步会不会撞岸（SEA-MOVE-R24）。
-##
-## 只给「泊位里按方向键」做分派用：撞岸说明这个方向只能是往岸上走，
-## 该让角色下船，而不是拿船去顶岸线。探针 0.55 米 —— 比一帧位移长，
-## 又短到不会把「沿岸平着划」误判成撞岸。
-func would_hit_shore(dir: Vector2, probe := 0.55) -> bool:
-	if dir.length() < 0.001:
-		return false
-	var here := Vector2(position.x, position.z)
-	return not _clear(here, here + dir.normalized() * probe)
-
-## 外部（上下船、读档、取消）强制结束手动驾驶。
 func stop_drive() -> void:
 	if _manual_hull != null: _manual_hull.reset()
 	manual_drive = false
-	drive_dir = Vector2.ZERO
-	_manual_blocked = false
-	_manual_clear_distance = 0.0
-	_dock_left = 0.0
+	release_drive()
 	_vel = 0.0
 	_speed_actual = 0.0
 	_turn_rate = 0.0
-	_yaw_rate = 0.0
 	_travel_dir = _forward(rotation.y)
-	if _sailing:
-		_sailing = false
-		_yaw_to = rotation.y
-
-
-func _drive(delta: float) -> void:
-	# 与自动航路共用 120Hz 细分，撞岸/恢复也不依赖渲染帧率。
-	var left := clampf(delta, 0.0, 0.25)
-	while left > 0.00001 and manual_drive:
-		var dt := minf(left, 1.0 / 120.0)
-		_advance_drive(dt)
-		left -= dt
-
-
-func _advance_drive(dt: float) -> void:
-	var want := drive_dir
-	var cruising := cruise_speed()
-	var speed_ratio := clampf(_vel / maxf(cruising, 0.001), 0.0, 1.0)
-	if want.length() > 0.001:
-		var desired := atan2(-want.x, -want.y)
-		var error := angle_difference(rotation.y, desired)
-		# 目标角速度带惯性：误差大就满舵，误差小自动收油，不在目标角上左右摆。
-		# 上限随船速走：停船能转向但慢，滑起来才有舵效。
-		var limit := TURN_RATE * (TURN_AT_REST + (1.0 - TURN_AT_REST) * speed_ratio)
-		var target_rate := clampf(error * 5.0, -limit, limit)
-		_yaw_rate = move_toward(_yaw_rate, target_rate, TURN_ACCEL * dt)
-		rotation.y += _yaw_rate * dt
-		_turn_rate = _yaw_rate
-		# 大角度先转身再加速。但保留 30% 的最低推进：划桨船本来就不是原地掉头，
-		# 完全按 alignment 归零会让「朝着反方向按一下」的船一直不动，像是坏了。
-		var alignment := maxf(0.30, pow(maxf(0.0, cos(error)), 2.0))
-		_vel = move_toward(_vel, cruising * alignment, ACCEL * dt)
-	else:
-		# 松手不是急刹：角速度先自己归零，船头摆过去的那半拍还在走。
-		_yaw_rate = move_toward(_yaw_rate, 0.0, TURN_ACCEL * dt)
-		rotation.y += _yaw_rate * dt
-		_turn_rate = _yaw_rate
-		var tail := BRAKE * (BRAKE_TAIL + (1.0 - BRAKE_TAIL) * speed_ratio)
-		_vel = move_toward(_vel, 0.0, tail * dt)
-	# 航迹方向滞后于船头（侧滑），受 DRIFT_MAX 夹住。
-	var forward := _forward(rotation.y)
-	if _travel_dir.length_squared() < 0.000001:
-		_travel_dir = forward
-	_travel_dir = _travel_dir.lerp(forward, 1.0 - exp(-dt / DRIFT_TAU))
-	if _travel_dir.length_squared() < 0.000001:
-		_travel_dir = forward
-	_travel_dir = _travel_dir.normalized()
-	var lag := _travel_dir.angle_to(forward)
-	if absf(lag) > DRIFT_MAX:
-		_travel_dir = forward.rotated(-signf(lag) * DRIFT_MAX)
-	var here := Vector2(position.x, position.z)
-	var step := _vel * dt
-	if step > 0.00001:
-		var moved := here + _travel_dir * step
-		if not _clear(here, moved):
-			# 最低推进也不能越岸：只取消平移，保留角速度继续摆头。
-			var first_block := not _manual_blocked
-			_vel = 0.0
-			_speed_actual = 0.0
-			_manual_blocked = true
-			_manual_clear_distance = 0.0
-			if first_block:
-				navigation_blocked.emit()
-		else:
-			position.x = moved.x
-			position.z = moved.y
-			if _manual_blocked:
-				# 真正划开一小段才重置反馈；贴边微进/再撞不能反复 toast。
-				_manual_clear_distance += step
-				if _manual_clear_distance >= 0.1:
-					_manual_blocked = false
-					_manual_clear_distance = 0.0
-	_speed_actual = _vel
-	if want.length() <= 0.001 and _vel <= 0.02 and absf(_yaw_rate) <= 0.02:
-		_vel = 0.0
-		_speed_actual = 0.0
-		_turn_rate = 0.0
-		_yaw_rate = 0.0
-		manual_drive = false
-		_sailing = false
-		_manual_blocked = false
-		_manual_clear_distance = 0.0
-		_yaw_to = rotation.y
-
-func starts_sailing() -> bool:
-	return _sailing
-
-
-## 已划过的航路（给航线预览裁掉已经走过的部分）。
-func remaining_route() -> Array:
-	if not _sailing or route.is_empty():
-		return []
-	var out: Array = [Vector2(position.x, position.z)]
-	for i in range(mini(_wp, route.size() - 1), route.size()):
-		out.append(route[i])
-	return out
-
 
 func _process(delta: float) -> void:
 	var now := Time.get_ticks_msec() / 1000.0
-	if _manual_hull != null:
-		pass # formal motion is exclusively owned by the physics tick
-	elif manual_drive:
-		_drive(delta)
-	elif _sailing:
-		_steer(delta)
-	else:
-		_speed_actual = lerp(_speed_actual, 0.0, clamp(delta * 6.0, 0.0, 1.0))
-		if _dock_left > 0.0:
-			var want := _yaw_to
-			var err2 := angle_difference(rotation.y, want)
-			var step2 := minf(absf(err2), TURN_RATE * delta)
-			rotation.y += signf(err2) * step2
-			_dock_left = maxf(0.0, absf(angle_difference(rotation.y, want)))
-
 	if water_surface != null:
 		var center := Vector2(position.x, position.z)
 		var f := _forward(rotation.y)
@@ -465,16 +177,15 @@ func _process(delta: float) -> void:
 		_wave_roll = lerpf(_wave_roll, atan2(starboard.x - port.x, 2.0), response)
 	else:
 		_visual_heave = sin(now * 2.1) * 0.065
-	if _manual_hull == null: position.y = WATER_LEVEL + _visual_heave
 	if model == null:
 		return
 	_animate_oars(delta)
-	if not _sailing:
+	if not manual_drive:
 		# 停泊时轻轻摇（浪），航行时收平。
 		model.rotation.z = lerp(model.rotation.z, _wave_roll, clamp(delta * 5.0, 0.0, 1.0))
 		model.rotation.x = lerp(model.rotation.x, _wave_pitch, clamp(delta * 5.0, 0.0, 1.0))
 		model.rotation.y = lerp(model.rotation.y, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		model.position.y = lerp(model.position.y, _visual_heave if _manual_hull != null else 0.0, clamp(delta * 4.0, 0.0, 1.0))
+		model.position.y = lerp(model.position.y, _visual_heave, clamp(delta * 4.0, 0.0, 1.0))
 	else:
 		# 航行：船身向转弯内侧倾、随每桨左右轻摆、桨频带一点点上下起伏。
 		var bank := clampf(-_turn_rate * 0.22, -0.09, 0.09)
@@ -483,113 +194,7 @@ func _process(delta: float) -> void:
 		model.rotation.x = lerp(model.rotation.x, _wave_pitch - 0.012 + sin(_stroke * 2.0) * 0.008,
 			clamp(delta * 6.0, 0.0, 1.0))
 		model.rotation.y = sin(_stroke) * 0.018
-		model.position.y = (_visual_heave if _manual_hull != null else 0.0) + sin(_stroke * 2.0) * 0.012
-
-
-## 对可安全切角的折线生成相切圆角；岸边保留原折线，靠减速转向通过。
-func _rounded_route(points: Array) -> Array:
-	if points.size() < 3:
-		return points.duplicate()
-	var out: Array = [points[0]]
-	for i in range(1, points.size() - 1):
-		var a: Vector2 = points[i - 1]
-		var b: Vector2 = points[i]
-		var c: Vector2 = points[i + 1]
-		var trim := minf(1.8, minf(a.distance_to(b), b.distance_to(c)) * 0.3)
-		var entry := b.move_toward(a, trim)
-		var leave := b.move_toward(c, trim)
-		var curve: Array = [entry]
-		for j in range(1, 13):
-			var t := float(j) / 12.0
-			curve.append(entry.lerp(b, t).lerp(b.lerp(leave, t), t))
-		var valid := _clear(out.back(), entry)
-		for j in range(1, curve.size()):
-			valid = valid and _clear(curve[j - 1], curve[j])
-		if valid:
-			out.append_array(curve)
-		else:
-			out.append(b)
-	out.append(points.back())
-	return out
-
-func _clear(a: Vector2, b: Vector2) -> bool:
-	return not segment_clear.is_valid() or bool(segment_clear.call(a, b))
-
-## 弧长推进保持在经过校验的航路上；提前看向前方，速度服从转弯与刹车距离。
-func _steer(delta: float) -> void:
-	# 帧率波动时也保持同样的转向/制动结果。
-	var left := minf(delta, 0.25)
-	while left > 0.00001 and _sailing:
-		var dt := minf(left, 1.0 / 120.0)
-		_advance_route(dt)
-		left -= dt
-
-func _ahead(distance: float) -> Vector2:
-	var p := Vector2(position.x, position.z)
-	for i in range(_wp, route.size()):
-		var next: Vector2 = route[i]
-		var length := p.distance_to(next)
-		if length >= distance:
-			return p.move_toward(next, distance)
-		distance -= length
-		p = next
-	return p
-
-func _advance_route(delta: float) -> void:
-	if route.size() < 2:
-		_sailing = false
-		return
-	var here := Vector2(position.x, position.z)
-	while _wp < route.size() - 1 and here.distance_to(route[_wp]) < 0.001:
-		_wp += 1
-	var to := _ahead(0.45 + _vel * 0.22) - here
-	var desired := rotation.y if to.length() < 0.001 else atan2(-to.x, -to.y)
-	var error := angle_difference(rotation.y, desired)
-	var turned := clampf(error * (1.0 - exp(-7.0 * delta)), -TURN_RATE * delta, TURN_RATE * delta)
-	rotation.y += turned
-	_turn_rate = lerpf(_turn_rate, turned / delta, 1.0 - exp(-7.0 * delta))
-	var remaining := remaining_distance()
-	var alignment := pow(maxf(0.0, cos(error)), 2.0)
-	var wanted := cruise_speed() * alignment
-	# 尖角提前减速；圆角的方向变化小，可连续通过。
-	if _wp < route.size() - 1:
-		var incoming: Vector2 = (route[_wp] - here).normalized()
-		var outgoing: Vector2 = (route[_wp + 1] - route[_wp]).normalized()
-		var turn := absf(incoming.angle_to(outgoing))
-		var corner_speed := cruise_speed() * pow(maxf(0.0, cos(turn)), 2.0)
-		wanted = minf(wanted, sqrt(corner_speed * corner_speed + 2.0 * BRAKE * here.distance_to(route[_wp])))
-	wanted = minf(wanted, minf(sqrt(2.0 * BRAKE * remaining), remaining * 1.8))
-	_vel = move_toward(_vel, wanted, (ACCEL if wanted > _vel else BRAKE) * delta)
-	var budget := _vel * delta
-	while budget > 0.0:
-		var next: Vector2 = route[_wp]
-		var distance := here.distance_to(next)
-		var step := minf(distance, budget)
-		var moved := here.move_toward(next, step)
-		if not _clear(here, moved):
-			_sailing = false
-			_vel = 0.0
-			_speed_actual = 0.0
-			navigation_blocked.emit()
-			return
-		here = moved
-		budget -= step
-		if step >= distance and _wp < route.size() - 1:
-			_wp += 1
-		else:
-			break
-	position.x = here.x
-	position.z = here.y
-	_speed_actual = _vel
-	if remaining_distance() <= ARRIVE_DIST and _vel <= ARRIVE_SPEED:
-		_sailing = false
-		_vel = 0.0
-		# 保留真实终点附近的位置；不做最后半米瞬移。
-		# 不拧正时把目标朝向就地改成当前朝向：`_dock_left` 随之归零，停稳后船不动。
-		if manual or not _align_at_arrival:
-			_yaw_to = rotation.y
-		_dock_left = absf(angle_difference(rotation.y, _yaw_to))
-		arrived.emit(_to_zone, _to_landing)
+		model.position.y = (_visual_heave) + sin(_stroke * 2.0) * 0.012
 
 
 func _flat(color: Color) -> StandardMaterial3D:
@@ -603,9 +208,11 @@ func _flat(color: Color) -> StandardMaterial3D:
 func _animate_oars(delta: float) -> void:
 	if _oar_l == null or _oar_r == null:
 		return
-	var effort := clampf(_vel / cruise_speed(), 0.0, 1.0) if _sailing else 0.0
+	var effort := clampf(_vel / cruise_speed(), 0.0, 1.0) if manual_drive else 0.0
 	var turn := clampf(_turn_rate / TURN_RATE, -1.0, 1.0)
-	var state := RowingRig.sample_oars(_oar_l, _oar_r, Vector2(_stroke, _row_blend), effort, turn, delta)
+	var power_target := effort if _power_requested and _manual_hull != null and _manual_hull.power_rowing else 0.0
+	_power_blend = lerpf(_power_blend, power_target, 1.0 - exp(-6.0 * delta))
+	var state := RowingRig.sample_oars(_oar_l, _oar_r, Vector2(_stroke, _row_blend), effort, turn, delta, _power_blend)
 	_stroke = state.x
 	_row_blend = state.y
 
@@ -613,7 +220,6 @@ func _animate_oars(delta: float) -> void:
 func wake_uniform() -> Vector4:
 	return Vector4(position.x, position.z, rotation.y, _speed_actual)
 
-## 仅手动模式持有侧滑方向；自动航行不得消费上次手动留下的航迹。
 func travel_direction() -> Vector2:
 	return _travel_dir if manual_drive and _travel_dir.length_squared() > 0.000001 else _forward(rotation.y)
 
@@ -626,7 +232,9 @@ func boarding_position() -> Vector3:
 	return model.transform * model.get_node("RowingSeat").position
 
 func rowing_pose() -> Dictionary:
-	return RowingRig.contacts(model.get_node("RowingSeat"), _oar_l, _oar_r)
+	var pose := RowingRig.contacts(model.get_node("RowingSeat"), _oar_l, _oar_r)
+	pose["power"] = _power_blend
+	return pose
 
 
 ## Read-only visual contacts. Rendering owns the resulting water effects.
@@ -636,9 +244,7 @@ func hull_visual() -> Node3D:
 
 ## 点船体命中测试（供「点船 = 上船」用）。
 ##
-## 船没有物理碰撞体（它靠航线与阻挡盒移动，不需要刚体），所以这里把相机射线
-## 变换到船的本地空间，与船体的本地包围盒求交 —— 等价于一个带旋转的 OBB，
-## 比用世界 AABB 精确：船横着停时世界 AABB 会大出一圈，点旁边的水面也会中。
+## 点击命中随可见船模起伏，泊位交接另查物理船壳。
 func pick_hull(screen: Vector2, camera: Camera3D) -> bool:
 	if model == null or camera == null:
 		return false

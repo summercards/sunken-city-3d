@@ -87,9 +87,7 @@ func run() -> void:
 	bounded.shape_query = nav.shape_query
 	bounded.allowed_area = Rect2(-50,-50,100,100)
 	check(not bounded.is_open_water(500,0),"explicit scenario boundary rejected")
-	check(not nav.segment_clear(Vector2(-10,0),Vector2(10,0)),"crossing segment rejected")
-	var route: Array=nav.plan_route_to(Vector2(-10,0),10,0)
-	check(route.size()>2 and nav.valid_route(route),"route goes around solid")
+	check(nav.is_geometric_water(500,0),"open water has no declared occupancy")
 	var registry = preload("res://src/save/snapshot_registry.gd").new()
 	var applied := []
 	registry.register("a",func():return {"v":1},func(d):applied.append(d),{"fields":{"v":{"type":"integer","min":0}},"required":["v"]},{"v":0})

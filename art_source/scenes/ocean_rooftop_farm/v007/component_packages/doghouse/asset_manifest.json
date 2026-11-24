@@ -1,0 +1,37 @@
+{
+  "key": "doghouse",
+  "asset_id": "SEA-SCENE-ORF7-DOGHOUSE",
+  "name": "蓝顶小屋",
+  "category": "facility",
+  "component_family": "house_fixture",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/doghouse/doghouse.blend",
+  "source_sha256": "f9b18d43660b98f2a1d58f0eb0517752b843b03ea033495e47a8dbbe7c7b00d5",
+  "collection": "MASTER | doghouse",
+  "bounds_m": [
+    1.5297253131866455,
+    1.5399994850158691,
+    1.432999849319458
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.0003204047679901123,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DOGHOUSE",
+  "version": "v007"
+}

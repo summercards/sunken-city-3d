@@ -117,3 +117,59 @@ python3 scripts/run_verification.py sunroom-repair
 |---|---|
 | SEA-SUNROOM-R13 | 上栏为历史盘点：正式表层现有 8 件可编辑盒，层 256／掩码 512；本轮未改这些盒。不以局部接触签署整屋对齐或船壳。 |
 | SEA-SUNROOM-R14 | 文字定位复现后，沿可见铺板补下层可行动区，消除铺板中间的派生边。实窗 19/0、exit 0：真实键盘横穿、实墙阻挡、梯脚通道、上下梯及真实水侧边缘保护。不是原录像机位；原门扇玩法未列为本次实窗断言。[A/B 与截图](../../development/2026-11-20_formal_sunroom_deck.md)。 |
+
+## 2026-11-20 家园实体碰撞往返
+
+R03/R04/R13/R14：梯子修好后先启用上端落脚面，二楼休整后切换到完整楼面，角色在实体楼面走动。下层脚下与外缘由场景甲板决定，临水无实体护栏处开放落水返回。修缮与二楼运行专项 22 项全过，退出 0。[运行记录](../../development/2026-11-20_native_home_roundtrip.md)。
+
+## 2026-11-20 阳光房制作源修订
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-SUNROOM-R15 | 梯后补墙随下层墙体落装。Blender 重开后，对旧洞做 48 点射线确认实体覆盖，另检梯级净距和梯钩高度。游戏接入待验。[制作记录](../../development/2026-11-20_sunroom_blender_structure.md)。 |
+
+## 2026-11-21 Godot 结构与动画
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-SUNROOM-R16 | 正式 Main 已引用新版阳光房，梯后墙实体化、梯脚外侧通路保留。128 个表现摆件中出货箱由已有可交互场景负责，其他 127 个实例纳入落装。原植被及修缮状态继续由游戏维护。落装实窗、修缮上下往返、补墙与梯脚碰撞均通过，实际播放契机待定。[接入与验证](../../development/2026-11-21_sunroom_godot_animation.md)。 |
+
+## 2026-11-22 阳光房组件与设施热区
+
+| 条款 ID | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-SUNROOM-R17 | 已实现。阳光房 PackedScene 自身拥有下层/上层 WalkArea、Landing_main、BoatPark、DockEdge、DockingArea 和临时坡道；zone1 不再保留同名建筑空间节点。 | `godot/scenes/facilities/solar_cabin.tscn`、`godot/scenes/zones/zone1_home_harbor.tscn`；`sunroom-runtime`、`sunroom-surface-collision` exit 0 |
+| SEA-SUNROOM-R18 | 已实现。`Facilities/home_plot`、`Facilities/ShippingBox`、`Facilities/RoomDoor` 和两个带阳光房归属的采集点作为独立物件挂在阳光房根下，脚本和 Area3D 触发器仍各自拥有，移动建筑根节点即可整体跟随。 | `godot/src/gathering/gather_field.gd`、`godot/src/bootstrap/main.gd`、`godot/src/interaction/interactable.gd`；`interaction-reach` 现有夹具仍依赖退役 ActorController 属性，需后续修测试入口。 |
+
+## 2026-11-22 家具与边缘实体阻挡
+
+| 条款 ID | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-SUNROOM-R19 | 已实现。`solar_cabin_surface_collision.tscn` 增加下层两张桌子、两个凳子的角色碰撞代理，使用 `SCENE_GROUND_LAYER`/角色掩码，不影响 `HullContact`。 | `sunroom-surface-collision` 直接胶囊碰撞断言；完整家具位置仍需实窗逐件复核。 |
+| SEA-SUNROOM-R20 | 已实现。下层前沿分段、左右临水边和上层左右边缘增加角色防跌落盒，桥口和楼梯方向保持空缺。 | `sunroom-surface-collision` 边缘胶囊断言；`visual-formal-sunroom-deck` 仍包含历史 GroundBoundary/旧梯夹具失败，未用其代签本轮。 |
+
+## 2026-11-22 桥口与屋前通行修订
+
+| 条款 ID | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SUNROOM-R21 | 左侧护栏退出桥口，栈桥两侧及外端补角色阻挡。沙发和玻璃房三面增加场景碰撞，保留沙发与梯脚之间的通路。 | 碰撞专项 49/0，正式登离船与回庭院实窗 39/0，均退出 0。桥口三条横向站位双向扫掠及地面支撑、桥沿、沙发、墙面与梯脚均有覆盖。[开发与验证](../../development/2026-11-22_sunroom_bridge_collision.md)。 |
+
+## 2026-11-22 庭院菜箱摆放
+
+| 条款 ID | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SUNROOM-R22 | `home_plot` 沿甲板朝内移 0.57 米，保留地格 ID，交互区域随箱体移动。 | `sunroom-runtime` 27/0，`framework-integration` 52/0，均退出 0。[开发与验证](../../development/2026-11-22_sunroom_deck_cleanup.md)。 |
+
+## 2026-11-22 二楼实体支撑
+
+| 条款 ID | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SUNROOM-R23 | 阳光房组件持续提供完整的楼板碰撞。梯修好后开放二楼空间查询，梯顶落点移至护栏内侧，前缘补足角色阻挡。 | `sunroom-runtime` 40/0、`sunroom-surface-collision` 49/0、`sunroom-repair` 14/0、正式上岸与回庭院 39/0，均退出 0。[开发与验证](../../development/2026-11-22_boat_ring_sunroom_upper_deck.md)。 |
+
+## 2026-11-23 二楼栏杆和花草显隐
+
+| 条款 ID | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SUNROOM-R24 | 去掉二楼 13 段共用栏杆的夹层玻璃，保留栏杆框、竖杆和防跌落碰撞。 | 正式主场景同机位近景、`visual-sunroom-animation` 444/0、`sunroom-surface-collision` 49/0，退出 0。[开发与验证](../../development/2026-11-23_sunroom_railing_and_plants.md)。 |
+
+R05/R06 复验。花草由 `SunroomView` 投影修缮阶段和季节。区块等级刷新跳过这批花草，读档后保留对应显隐。`sunroom-runtime` 修复前 49/5，修复后 49/0，退出 0。[复现与验证](../../development/2026-11-23_sunroom_railing_and_plants.md)。

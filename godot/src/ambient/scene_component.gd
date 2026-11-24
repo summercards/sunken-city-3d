@@ -16,9 +16,11 @@ signal interaction_requested(instance_id: String, action: String)
 @export var attachment_slot := ""
 ## Authored default is visible; designers may assign an unlock tier without changing rules.
 @export_range(0, 10) var unlock_level := 0
+var upgrade_controls_visibility := true
 
 func set_upgrade_level(level: int) -> void:
-	if component_kind == "upgrade_attachment": visible = level >= unlock_level
+	if component_kind == "upgrade_attachment" and upgrade_controls_visibility:
+		visible = level >= unlock_level
 
 func describe() -> Dictionary:
 	return {"instance_id":instance_id,"facility_id":facility_id,"asset_id":asset_id,

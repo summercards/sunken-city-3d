@@ -107,7 +107,7 @@ func _physical_routes(anchors: Dictionary) -> void:
 	for entry in anchors.values():
 		if entry.residence_id == row.residence_id and entry.kind == "work": target = entry
 	var body = world.actor(id)
-	var path: Array = target.ground.path_between(body.global_position, target.position)
+	var path: Array = target.ground_space.native_route(body.global_position, target.position)
 	check(not path.is_empty(), "正式home到work路径可用")
 	var route: Dictionary = world._routes[id]
 	route.path = path

@@ -150,9 +150,8 @@ def write_zone_scene(zone, asset):
     node = naming.zone_node(zid)
     ox, oz = zone["origin"][0], zone["origin"][2]
 
-    lines = ["[gd_scene load_steps=5 format=3]", ""]
+    lines = ["[gd_scene load_steps=4 format=3]", ""]
     lines.append('[ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]')
-    lines.append('[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]')
     lines.append('[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]')
     lines.append('[ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]')
     lines.append("")
@@ -161,11 +160,6 @@ def write_zone_scene(zone, asset):
     lines.append('script = ExtResource("1_zone")')
     lines.append('zone_id = "%s"' % zid)
     lines.append('zone_label = "%s"' % naming.zone_label(zid))
-    lines.append('geometry_source = "scene"')
-    lines.append("")
-    lines.append('[node name="StaticBatch" type="Node3D" parent="."]')
-    lines.append('script = ExtResource("2_batch")')
-    lines.append('bake_dir = "res://assets/zones/%s"' % zkey)
     lines.append("")
     # 建筑几何不在这里写：由 tools/build_zone_scenes.gd 把 glb 单元落成实体节点。
 

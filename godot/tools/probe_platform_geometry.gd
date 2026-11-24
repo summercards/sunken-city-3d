@@ -20,7 +20,7 @@ func _run() -> void:
 	await process_frame
 
 	_report("绞盘打捞台", zone.get_node_or_null("Models/绞盘打捞台"))
-	_report("WildFishery", zone.get_node_or_null("Models/WildFishery"))
+	_report("WildFishery", zone.get_node_or_null("Models/绞盘打捞台/WildFishery"))
 	var station := zone.get_node_or_null("Models/绞盘打捞台/salvage_station")
 	if station != null:
 		var pole := station.get_node_or_null("PoleAndFlowers")

@@ -5,13 +5,14 @@ extends Node3D
 ## surface_y 是站立面高度（绝对世界高度），span 是允许站立的真实表面窗口
 ## （原网页版 walk[].span，用来挡掉屋顶/水下）。
 ##
-## 场景里这些节点是可见、可编辑的；点击地面时用射线和这里的矩形求交，
-## 所以「哪些地方能走」是场景数据，不是写死在代码里的。
+## 场景里的可编辑空间声明，供居民路线、采集和布置查询使用。
 
 @export var area_id := ""
 @export var zone_id := ""
 @export var active := true
 @export var surface_y := 2.15
+## A flat surface can store its height relative to this facility component.
+@export var local_surface_height := false
 @export var span_min := 1.3
 @export var span_max := 2.45
 @export var rects: Array = []
@@ -37,6 +38,8 @@ const GroundPath = preload("res://src/navigation/ground_path.gd")
 ## 注意别用 AABB 角点当半径：那是斜立方体的对角线（帽檐量出 0.54），虚高一大截，
 ## 会把可走区域收得过窄。
 @export var body_radius := 0.38
+## Path data can still serve world queries for a surface with a scene-owned body.
+@export var scene_collision := false
 
 func outlines() -> Array:
 	if not active:
@@ -115,24 +118,14 @@ func walkable_local(p: Vector2) -> Vector2:
 ## 交互目标（土箱、菜箱中心）本身不需要站在它正中心，
 ## 内收会挪动落点、破坏「走到目标点」的语义。内收只在点击落点处做（`clamp_point`）。
 func path_between(start: Vector3, goal: Vector3) -> Array[Vector3]:
-	goal = surface_point(goal)
-	if not goal.is_finite(): return []
 	if not is_instance_valid(ground_space) and is_inside_tree():
 		var space := preload("res://src/navigation/ground_space.gd").new()
 		space.name = "GroundSpace"
 		add_child(space)
 		space.configure([self])
 	if is_instance_valid(ground_space):
-		return ground_space.route(start, goal)
-	var a := to_local(start)
-	var b := to_local(goal)
-	var route := GroundPath.route(outlines(), Vector2(a.x, a.z), Vector2(b.x, b.z))
-	var result: Array[Vector3] = []
-	for p in route:
-		var w := to_global(Vector3(p.x, 0, p.y))
-		w.y = surface_y
-		result.append(w)
-	return result
+		return ground_space.native_route(start, goal)
+	return []
 
 
 func contains_local(x: float, z: float) -> bool:
@@ -142,28 +135,8 @@ func contains_local(x: float, z: float) -> bool:
 func contains_world(x: float, z: float) -> bool:
 	if not surface_triangles.is_empty():
 		return surface_point(Vector3(x, surface_y, z)).is_finite()
-	var local := to_local(Vector3(x, surface_y, z))
+	var local := to_local(Vector3(x, floor_y(), z))
 	return contains_local(local.x, local.z)
-
-
-## 射线与该站立面求交，命中返回沿射线的距离，未命中返回 -1。
-func pick(origin: Vector3, dir: Vector3) -> float:
-	if not surface_triangles.is_empty():
-		var best := INF
-		var faces := surface_faces()
-		for i in range(0, faces.size(), 3):
-			var hit: Variant = Geometry3D.ray_intersects_triangle(origin, dir, faces[i], faces[i+1], faces[i+2])
-			if hit != null: best = minf(best, origin.distance_to(hit))
-		return best if is_finite(best) else -1.0
-	if absf(dir.y) < 0.0001:
-		return -1.0
-	var t := (surface_y - origin.y) / dir.y
-	if t <= 0.0:
-		return -1.0
-	var p := origin + dir * t
-	if not contains_world(p.x, p.z):
-		return -1.0
-	return t
 
 
 func center_world() -> Vector3:
@@ -174,7 +147,7 @@ func center_world() -> Vector3:
 		acc += (r as Rect2).get_center()
 	acc /= float(rects.size())
 	var p := to_global(Vector3(acc.x, 0, acc.y))
-	return Vector3(p.x, surface_y, p.z)
+	return Vector3(p.x, floor_y(), p.z)
 
 
 ## 把目标点夹进区域，避免走到甲板外面。
@@ -182,7 +155,7 @@ func center_world() -> Vector3:
 ## 两步：先夹进矩形并集（否则点在水面上会直接吸到甲板边），
 ## 再按角色轮廓内收（否则人站在边缘，帽檐和肩膀压在水面上）。
 func clamp_point(x: float, z: float) -> Vector2:
-	var local := to_local(Vector3(x, surface_y, z))
+	var local := to_local(Vector3(x, floor_y(), z))
 	var src := Vector2(local.x, local.z)
 	var p := src
 	if not contains_local(src.x, src.y):
@@ -196,12 +169,15 @@ func clamp_point(x: float, z: float) -> Vector2:
 				best_d = d
 				p = q
 	p = walkable_local(p)
-	var w := to_global(Vector3(p.x, surface_y, p.y))
+	var w := to_global(Vector3(p.x, 0.0, p.y))
 	return Vector2(w.x, w.z)
 
 
 func area_span() -> Vector2:
-	return Vector2(span_min, span_max)
+	return Vector2(span_min, span_max) + Vector2.ONE * (global_position.y if local_surface_height else 0.0)
+
+func floor_y() -> float:
+	return to_global(Vector3.UP * surface_y).y if local_surface_height else surface_y
 
 func surface_faces() -> PackedVector3Array:
 	if not active:
@@ -214,7 +190,7 @@ func surface_faces() -> PackedVector3Array:
 			var indices := Geometry2D.triangulate_polygon(outline)
 			for index in indices:
 				var p := to_global(Vector3(outline[index].x, 0.0, outline[index].y))
-				p.y = surface_y
+				p.y = floor_y()
 				faces.append(p)
 	# Recast and one-sided physical floors share the same upward winding.
 	for i in range(0, faces.size()-2, 3):
@@ -230,7 +206,7 @@ func physical_faces() -> PackedVector3Array:
 
 func surface_point(point: Vector3) -> Vector3:
 	if surface_triangles.is_empty():
-		return Vector3(point.x, surface_y, point.z) if contains_world(point.x, point.z) else Vector3.INF
+		return Vector3(point.x, floor_y(), point.z) if contains_world(point.x, point.z) else Vector3.INF
 	var best := Vector3.INF
 	var distance := INF
 	var faces := surface_faces()

@@ -1,0 +1,37 @@
+{
+  "key": "windmill",
+  "asset_id": "SEA-SCENE-ORF7-WINDMILL",
+  "name": "风车及木支架",
+  "category": "facility",
+  "component_family": "tower_fixture",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/windmill/windmill.blend",
+  "source_sha256": "054f75e1f9462f878b9024fd8aa694a697e3e5a5964505ec6f204adce6fe1c52",
+  "collection": "MASTER | windmill",
+  "bounds_m": [
+    2.3031816482543945,
+    1.2845439910888672,
+    4.761472702026367
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.054272085428237915,
+    0.06011795997619629
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-WINDMILL",
+  "version": "v008"
+}

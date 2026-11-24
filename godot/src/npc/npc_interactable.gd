@@ -6,6 +6,8 @@ var shop_id := ""
 var _available := false
 
 func configure(id_value: String, label_value: String, vendor_shop := "") -> void:
+	interaction_context = "shore"
+	trigger_padding = 0.25
 	npc_id = id_value
 	shop_id = vendor_shop
 	id = id_value

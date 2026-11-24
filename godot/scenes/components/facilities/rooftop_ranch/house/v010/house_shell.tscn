@@ -1,0 +1,125 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/house/v010/house_shell.glb" id="model"]
+
+[sub_resource type="BoxShape3D" id="box0"]
+
+size = Vector3(0.40295, 3.403892, 4.95)
+
+[sub_resource type="BoxShape3D" id="box1"]
+
+size = Vector3(0.40295, 3.340044, 4.43)
+
+[sub_resource type="BoxShape3D" id="box2"]
+
+size = Vector3(7.879131, 2.82619, 0.28)
+
+[sub_resource type="BoxShape3D" id="box3"]
+
+size = Vector3(0.939414, 3.414517, 0.33)
+
+[sub_resource type="BoxShape3D" id="box4"]
+
+size = Vector3(1.25, 3.414517, 0.33)
+
+[sub_resource type="BoxShape3D" id="box5"]
+
+size = Vector3(0.396565, 3.37277, 0.33)
+
+[sub_resource type="BoxShape3D" id="box6"]
+
+size = Vector3(0.289846, 3.37277, 0.33)
+
+[sub_resource type="BoxShape3D" id="box7"]
+
+size = Vector3(0.277983, 3.377175, 0.38)
+
+[sub_resource type="BoxShape3D" id="box8"]
+
+size = Vector3(1.660758, 1.101357, 0.318)
+
+[sub_resource type="BoxShape3D" id="box9"]
+
+size = Vector3(1.289948, 1.101357, 0.318)
+
+[sub_resource type="BoxShape3D" id="box10"]
+
+size = Vector3(0.822993, 1.087758, 0.318)
+
+[node name="Piece" type="Node3D"]
+
+metadata/asset_id = "SEA-SCENE-ORF7-HOUSE-SHELL"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+
+collision_layer = 8192
+
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(-4.041407, 1.701946, -0.0575)
+
+shape = SubResource("box0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(4.095643, 1.670022, -0.3175)
+
+shape = SubResource("box1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(0.026684, 1.413095, -2.4275)
+
+shape = SubResource("box2")
+
+[node name="Segment3" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(-3.643175, 1.707258, 2.3425)
+
+shape = SubResource("box3")
+
+[node name="Segment4" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(-1.052882, 1.707258, 2.3425)
+
+shape = SubResource("box4")
+
+[node name="Segment5" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(3.028836, 1.686385, 2.0025)
+
+shape = SubResource("box5")
+
+[node name="Segment6" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(3.997195, 1.686385, 2.0025)
+
+shape = SubResource("box6")
+
+[node name="Segment7" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(1.138127, 1.688587, 2.1925)
+
+shape = SubResource("box7")
+
+[node name="Segment8" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(-2.397503, 0.550678, 2.3425)
+
+shape = SubResource("box8")
+
+[node name="Segment9" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(0.107092, 0.550678, 2.3425)
+
+shape = SubResource("box9")
+
+[node name="Segment10" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(3.590622, 0.543879, 2.0025)
+
+shape = SubResource("box10")

@@ -1,0 +1,37 @@
+{
+  "key": "house_shell",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-SHELL",
+  "name": "小屋翻新墙壳",
+  "category": "structure",
+  "component_family": "house",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/house_shell/house_shell.blend",
+  "source_sha256": "3c0da94e10ca5f22b5d9c671aee1176424b68e1143f3b00d7c8f4eaee12d8434",
+  "collection": "MASTER | house_shell",
+  "bounds_m": [
+    8.539999961853027,
+    5.135000228881836,
+    3.0999999046325684
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.05750000476837158,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-SHELL",
+  "version": "v007"
+}

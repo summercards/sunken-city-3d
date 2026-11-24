@@ -74,8 +74,11 @@ func resolve(anchor_id: String, npc: Dictionary, world: Dictionary, action: Stri
 	var target := {}
 	# 夜间站在自家rest marker，而非床心；站位只来自住所快照。
 	if night:
+		var home := str(npc.get("residence_id", ""))
+		if scoped:
+			home = str(owner.canonical_anchor_for_npc(home, npc))
 		for entry in available.values():
-			if entry.get("residence_id") == npc.get("residence_id") and entry.get("kind") == "rest":
+			if entry.get("residence_id") == home and entry.get("kind") == "rest":
 				target = entry
 				break
 	if target.is_empty():
@@ -98,11 +101,16 @@ func resolve(anchor_id: String, npc: Dictionary, world: Dictionary, action: Stri
 func path(start: Vector3, target: Dictionary) -> Array:
 	metrics.pathfinding += 1
 	var ground: Variant = target.get("ground")
-	if not is_instance_valid(ground) or not ground.has_method("path_between") or not ground.has_method("surface_point"): return []
+	if not is_instance_valid(ground) or not ground.has_method("surface_point"): return []
 	var goal: Vector3 = ground.surface_point(target.position)
 	var support: Vector3 = ground.surface_point(start)
 	if not goal.is_finite() or not support.is_finite() or support.distance_to(start) > 0.3: return []
-	return ground.path_between(start, goal)
+	var space: Variant = target.get("ground_space")
+	if is_instance_valid(space) and space.has_method("native_route"):
+		return space.native_route(start, goal)
+	if ground.has_method("native_route"):
+		return ground.native_route(start, goal)
+	return []
 
 ## 刚性支撑的瞬时世界高度不是站位布局修订。
 static func anchor_layout(anchor: Dictionary) -> Dictionary:

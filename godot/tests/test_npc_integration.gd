@@ -166,7 +166,7 @@ func boot() -> bool:
 	sea_site = main.get_node_or_null("World/SeaStructures/floating_shop")
 	sea_provider = main.get_node_or_null("World/SeaStructures/floating_shop/Objects/NpcStations")
 	garden_site = main.get_node_or_null("World/SeaStructures/neon_garden_quarter")
-	garden_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/NpcStations")
+	garden_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/Visual/GardenBridge/NpcStations")
 	left_roof_provider = main.get_node_or_null("World/SeaStructures/neon_garden_quarter/RoofNpcStations")
 	if not check(harbor != null and roof_provider != null and sea_site != null and sea_provider != null,
 		"正式 main 包含天台与浮店站点"): return false
@@ -196,7 +196,6 @@ func boot() -> bool:
 		and not main._zone_nodes.has("resident_harbor") and zones.get_zone("resident_harbor").is_empty()
 		and zones.landing("resident_harbor", "main").is_empty(), "无 resident_harbor 实例、zone 定义或泊位绑定")
 	main.interactor.completed.connect(func(spot, result): completions.append({"spot": spot, "result": result.duplicate(true)}))
-	main.boat.arrived.connect(func(zone, landing): arrivals.append([zone, landing]))
 	main.actor_controller.state_changed.connect(func(_previous, next): actor_states.append(next))
 	await frames(8)
 	check(not main._autosave_on and not main._title_active and not main.avatar_session.active()
@@ -324,7 +323,7 @@ func walk_to(point: Vector3, label: String) -> bool:
 	if not check(site != null, label + " 当前区块存在"): return false
 	var area = site.area_at(point, 0.5)
 	if not check(area != null, label + " 目标有实际支撑面"): return false
-	if not check(not site.ground_space.route(main.player.global_position, point).is_empty(), label + " 有正式路线"): return false
+	if not check(not site.ground_space.native_route(main.player.global_position, point).is_empty(), label + " 有正式路线"): return false
 	var start: Vector3 = main.player.global_position
 	if not check(main._start_walk(area, point), label + " 正式 ActorController 接受移动"): return false
 	var supported := true
@@ -446,17 +445,11 @@ func run() -> void:
 func travel() -> void:
 	if not landing_fixture("zone1"): return
 	await frames(3)
-	var initial: Vector3 = main.boat.global_position
-	var count := arrivals.size()
-	# 发真实 HUD 意图，经 Main→航路→Boat.arrived→靠泊，不调用 arrived 或改终点位置。
-	main.hud.destination_pressed.emit("rooftop_ranch")
-	if not await until(func(): return main.boat.starts_sailing(), 12.0, "主场景离岸并实际开始天台航行"):
-		report_landing("rooftop_ranch")
-		return
-	check(main.actor_controller.mode() == 2, "真实航行态")
-	if not await until(func(): return arrivals.size() > count and not main.boat.starts_sailing(), 120.0, "船实际抵达天台消防梯泊位"): return
-	check(arrivals.back() == ["rooftop_ranch", "main"] and main.boat.global_position.distance_to(initial) > 5.0, "真实 arrived 来自完整航程")
-	check(state.current_zone == "rooftop_ranch" and main._landing_is_docked(), "到站同步 zone/landing 且船已靠妥")
+	check(main._boat_key_action() == "board", "家园船壳触发区提供上船动作")
+	await key(KEY_E)
+	if not await until(func(): return main.actor_controller.state_id() == "boat_idle", 8.0, "真实 E 上船"): return
+	if not await manual_sail_to("rooftop_ranch", "main", "手动划船到天台"): return
+	if not await until(func(): return main._landing_is_docked(), 3.0, "船壳进入天台泊位触发区"): return
 	await key(KEY_E)
 	if not await until(func(): return main.actor_controller.mode() == 0 and not main.actor_controller.walking(), 8.0, "真实 E 从消防梯泊位上岸"): return
 	var stand: Vector3 = harbor.landing_point("main").stand_position()
@@ -464,7 +457,7 @@ func travel() -> void:
 		and harbor.area_at(main.player.global_position, 0.5) != null
 		and harbor.to_local(main.player.global_position).y < harbor.ROOF_Y - 2.0, "E 上岸落在原消防梯下平台，不直接落到草地")
 	var roof: Vector3 = harbor.to_global(Vector3(0, harbor.ROOF_Y, 6))
-	var route: Array = harbor.ground_space.route(main.player.global_position, roof)
+	var route: Array = harbor.ground_space.native_route(main.player.global_position, roof)
 	check(route.size() >= 4, "原 Walk_rooftop_ranch_access 路线经过消防梯和楼顶入口")
 	if not await walk_to(roof, "从原消防梯下平台真实爬至天台草地"): return
 	check(grass_support(main.player.global_position), "爬楼后角色踩在真实草皮")
@@ -609,10 +602,10 @@ func npc_supported(id: String) -> bool:
 	if id == "npc_mu_he":
 		# 菜园桥的支撑来自从模型派生的 DerivedWalkArea，不是天台草皮。
 		var garden: Node3D = main.get_node("World/SeaStructures/neon_garden_quarter")
-		var deck: Node3D = garden.get_node("WalkAreas/WalkGardenDeck")
+		var deck: Node3D = garden.get_node("Visual/GardenBridge/WalkGardenDeck")
 		return deck.contains_position(body.global_position, 0.6)
 	if id == "npc_luo_yan":
-		var deck = garden_site.get_node("WalkAreas/WalkLeftRoof")
+		var deck = garden_site.get_node("Visual/LeftBuilding/WalkLeftRoof")
 		return deck.contains_position(body.global_position, 0.05)
 	if id != "npc_bao_he": return grass_support(body.global_position)
 	var area = sea_site.area_at(body.global_position, 0.05)
@@ -621,19 +614,46 @@ func npc_supported(id: String) -> bool:
 func sail_to_supply() -> bool:
 	await close_modals()
 	if not await walk_to(harbor.landing_point("main").stand_position(), "原消防梯实走回船边"): return false
-	var count := arrivals.size()
-	var initial: Vector3 = main.boat.global_position
-	main.hud.destination_pressed.emit("sea_supply")
-	if not await until(func(): return main.boat.starts_sailing(), 15.0, "HUD sea_supply 实际上船离岸"): return false
-	check(main.actor_controller.mode() == 2, "浮店航程进入真实航行态")
-	if not await until(func(): return arrivals.size() > count and not main.boat.starts_sailing(), 120.0, "船真实抵达东南浮店"): return false
-	check(arrivals.back() == ["sea_supply", "main"] and main.boat.global_position.distance_to(initial) > 5.0
-		and state.current_zone == "sea_supply" and main._landing_is_docked(), "浮店到站来自真实航程与靠泊")
+	if not check(main._boat_key_action() == "board", "天台泊位船壳触发区提供上船动作"): return false
+	await key(KEY_E)
+	if not await until(func(): return main.actor_controller.state_id() == "boat_idle", 8.0, "真实 E 从天台上船"): return false
+	if not await manual_sail_to("sea_supply", "main", "手动划船到浮店"): return false
+	if not await until(func(): return main._landing_is_docked(), 3.0, "船壳进入浮店泊位触发区"): return false
 	await key(KEY_E)
 	if not await until(func(): return main.actor_controller.mode() == 0 and not main.actor_controller.walking(), 8.0, "真实 E 下船进入浮店甲板"): return false
 	check(sea_site.area_at(main.player.global_position, 0.5) != null, "玩家有浮店实际甲板支撑")
 	completed_sections.append("sea-supply-travel")
 	return true
+
+## 只驱动正式 Boat 的手动方向输入。没有目的地命令、航线数组或抵达信号。
+## 测试临时停用 Main 的自动输入采样，逐物理帧提交当前画面方向，
+## 船壳扫掠和泊位 Area3D 自己决定移动与交接时机。
+func manual_sail_to(zone_id: String, landing_id: String, label: String) -> bool:
+	var landing: Node3D = main._zone_nodes[zone_id].landing_point(landing_id) as Node3D
+	var park: Vector3 = (landing.get_node("BoatPark") as Marker3D).global_position
+	var start: Vector3 = main.boat.global_position
+	var max_step := 0.0
+	var previous: Vector3 = start
+	var deadline := Time.get_ticks_msec() + 110000
+	while Time.get_ticks_msec() < deadline and not main._berth_transfer.hull_at_berth(main.boat, landing):
+		var offset: Vector3 = park - main.boat.global_position
+		offset.y = 0.0
+		if offset.length_squared() < 0.0001: break
+		var direction := Vector2(offset.x, offset.z).normalized()
+		main.boat.set_drive(direction)
+		main.actor_controller.request_mode(GameState.Mode.SAILING)
+		max_step = maxf(max_step, main.boat.global_position.distance_to(previous))
+		previous = main.boat.global_position
+		await frames(1)
+	main.boat.release_drive()
+	for i in 90:
+		await frames(1)
+	if is_instance_valid(main.boat) and main._berth_transfer.hull_at_berth(main.boat, landing):
+		main.actor_controller.request_mode(GameState.Mode.ON_BOAT)
+		check(max_step < 0.3 and main.boat.global_position.distance_to(start) > 3.0,
+			label + " 使用船壳扫掠实际位移，不传送")
+		return true
+	return check(false, label + " 未进入目标泊位船壳触发区")
 
 func verify_heave() -> void:
 	var frame: Node3D = sea_site.get_node("Objects")

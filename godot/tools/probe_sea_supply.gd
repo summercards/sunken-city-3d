@@ -5,6 +5,7 @@ extends SceneTree
 ## 真正成立的事一次打出来，避免靠截图猜。数值写进 outputs/sea-supply-probe.json。
 var main: Node
 const Scope = preload("res://src/core/play_scope.gd")
+const Transfer = preload("res://src/navigation/berth_transfer.gd")
 
 func _init() -> void:
 	call_deferred("run")
@@ -21,7 +22,7 @@ func run() -> void:
 	main.cam.follow_enabled = false
 	main.boat.set_process(false)
 	for i in 8:
-		await process_frame
+		await physics_frame
 
 	var zones: Node = root.get_node_or_null("Zones")
 	var report := {"schema": "sea.probe.sea_supply", "engine": Engine.get_version_info()}
@@ -40,23 +41,20 @@ func run() -> void:
 				"body_radius": area.body_radius,
 				"world_center": v3(area.center_world()),
 			}
-			var probe: Dictionary = shop.pick_walk(Vector3(shop.global_position.x, 20.0,
-				shop.global_position.z + 6.0), Vector3.DOWN)
-			report["pick_front_walkway"] = {
-				"hit": not probe.is_empty(),
-				"point": v3(probe.get("point", Vector3.ZERO)) if probe.has("point") else [],
-			}
 		report["landings"] = shop.landing_points().size()
 		var cfg: Dictionary = zones.get_zone("sea_supply")
 		report["zone_landings"] = cfg.get("landings", [])
 		report["zone_walk"] = cfg.get("walk", [])
 		var l: Dictionary = zones.landing("sea_supply", "main")
 		report["landing_data"] = l
-		if not l.is_empty():
-			report["boat_park_open_water"] = main._is_open_water(float(l.boatPark[0]), float(l.boatPark[2]))
-			report["stand_open_water"] = main._is_open_water(float(l.landStand[0]), float(l.landStand[2]))
-			var route: Array = main.plan_route_to(float(l.boatPark[0]), float(l.boatPark[2]))
-			report["route_points"] = route.size()
+		var berth: Node3D = shop.landing_point("main")
+		if berth != null:
+			var park := berth.get_node("BoatPark") as Marker3D
+			var center := Vector3(park.global_position.x, main.boat.WATER_LEVEL, park.global_position.z)
+			var pose := Transform3D(Basis(Vector3.UP, park.global_rotation.y), center)
+			report["boat_park_hull_clear"] = main.boat.hull_clear_at(pose)
+			var feet := Transfer.new().safe_feet(main.player, berth.stand_position(), 0.25, 0.25)
+			report["stand_has_collision_support"] = feet.is_finite()
 		var counter := shop.get_node_or_null("Objects/SupplyCounter")
 		report["counter_present"] = counter != null
 		if counter != null:

@@ -1,0 +1,355 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "greenhouse_base",
+  "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-BASE",
+  "name": "温室矮墙、门与育苗台",
+  "category": "facility",
+  "component_family": "greenhouse",
+  "source": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/greenhouse_base/greenhouse_base.blend",
+  "source_sha256": "01353337566ff2ea2fec25b22d92a63ab3ddd5b7f1a1671153e3e1ea6a1c50b3",
+  "collection": "MASTER | greenhouse_base",
+  "bounds_m": [
+    5.689000129699707,
+    7.028500080108643,
+    3.0799999237060547
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.11500000953674316,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-GREENHOUSE-BASE",
+  "version": "v012",
+  "form": [
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.275,
+      "top": 0.26785000000000003,
+      "extent": [
+        0.275,
+        0.6439999999999997,
+        0.226
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.339,
+      "top": 0.33018600000000004,
+      "extent": [
+        0.339,
+        1.074,
+        0.217
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.255,
+      "top": 0.24837,
+      "extent": [
+        0.255,
+        1.104,
+        0.228
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.315,
+      "top": 0.30680999999999997,
+      "extent": [
+        0.315,
+        0.474,
+        0.216
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.275,
+      "top": 0.26785000000000003,
+      "extent": [
+        0.275,
+        1.214,
+        0.226
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.339,
+      "top": 0.33018600000000004,
+      "extent": [
+        0.339,
+        0.714,
+        0.217
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.255,
+      "top": 0.24837,
+      "extent": [
+        0.255,
+        1.1640000000000001,
+        0.228
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.275,
+      "top": 0.26785000000000003,
+      "extent": [
+        0.275,
+        0.8539999999999996,
+        0.228
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.339,
+      "top": 0.33018600000000004,
+      "extent": [
+        0.339,
+        0.4540000000000002,
+        0.216
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.255,
+      "top": 0.24837,
+      "extent": [
+        0.255,
+        1.204,
+        0.226
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.315,
+      "top": 0.30680999999999997,
+      "extent": [
+        0.315,
+        1.164,
+        0.217
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.275,
+      "top": 0.26785000000000003,
+      "extent": [
+        0.275,
+        0.554,
+        0.228
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.339,
+      "top": 0.33018600000000004,
+      "extent": [
+        0.339,
+        1.4240000000000002,
+        0.216
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Rough stone side plinth",
+      "kind": "masonry",
+      "bottom": 0.255,
+      "top": 0.24837,
+      "extent": [
+        0.255,
+        0.734,
+        0.226
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.272,
+      "top": 0.266288,
+      "extent": [
+        0.5120000000000002,
+        0.272,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.323,
+      "top": 0.316217,
+      "extent": [
+        1.0919999999999999,
+        0.323,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.272,
+      "top": 0.266288,
+      "extent": [
+        0.6119999999999999,
+        0.272,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.323,
+      "top": 0.316217,
+      "extent": [
+        0.9920000000000002,
+        0.323,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.323,
+      "top": 0.316217,
+      "extent": [
+        1.102,
+        0.323,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.285,
+      "top": 0.27901499999999996,
+      "extent": [
+        0.802,
+        0.285,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.272,
+      "top": 0.266288,
+      "extent": [
+        1.1119999999999999,
+        0.272,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.323,
+      "top": 0.316217,
+      "extent": [
+        0.5419999999999999,
+        0.323,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Stepped stone end plinth",
+      "kind": "masonry",
+      "bottom": 0.285,
+      "top": 0.27901499999999996,
+      "extent": [
+        1.2520000000000002,
+        0.285,
+        0.228
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Low dressed threshold stone",
+      "kind": "horizontal_cover",
+      "bottom": 0.418,
+      "top": 0.407968,
+      "extent": [
+        1.53,
+        0.418,
+        0.058
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "form_style": "SF-B",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v012/greenhouse_base.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v012/greenhouse_base.tscn"
+}

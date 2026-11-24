@@ -16,7 +16,6 @@
   ],
   "verification": [
     "management",
-    "selftest",
     "framework-modules"
   ]
 }
@@ -78,3 +77,13 @@ configure / build_facility / facility_unlocked / to_dict / from_dict；sites_cha
 ## 2026-11-14 B3 Goal/设施查询边界承接
 
 设施展示目标通过`GoalService.goal_info`返回成本递归副本，查询结果修改不会污染Facility/Ship/Construction权威支付；`b3-goal-query-copy`、`management`、`framework-integration`均exit0。该项只修展示查询边界，不改变设施规则、成本数值或完整设施内容验收，登记头partial保持。
+
+## 2026-11-22 独立设施触发器归属
+
+阳光房上的种植区块、出货箱和房间入口已按独立设施处理。设施脚本继续继承统一 `Interactable`，由物件自身动态创建 `InteractionTrigger` Area3D，热区跟随物件的视觉包围盒或显式节点锚点。建筑只提供挂载关系和空间承载，不代管设施状态。海上交互上下文不会扫描岸上设施；设施行为仍由各自 Farm、Order、Room 公开端口接收。
+
+## 2026-11-23 正式设施热区
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-FACILITY-R05 | 绞盘、升级牌及养殖台菜箱在各自设施场景装配。打捞台局部平移探针同时验证泊位、船壳触发器、绞盘热区及实体支撑。收鱼按钮实窗 36/0，房间 761/0。[开发记录](../../development/2026-11-23_facility_scene_alignment.md)。 |

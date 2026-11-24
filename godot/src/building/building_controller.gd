@@ -4,8 +4,6 @@ const Catalog = preload("res://src/building/building_catalog.gd")
 const World = preload("res://src/building/building_world.gd")
 const ProgressPresenter = preload("res://src/building/ui/building_progress_presenter.gd")
 const Pointer = preload("res://src/building/building_pointer.gd")
-const ARRIVE := 0.8
-const WAIT_LIMIT := 8.0
 ## A rendering budget, never a construction limit.
 const MAX_FRONTIER_GHOSTS := 96
 const PREVIEW_CACHE_MS := 180
@@ -15,13 +13,8 @@ var camera: Camera3D
 var hud: CanvasLayer
 var cancel_actor: Callable
 var inventory_query: Callable
-var approach_point: Callable
-var stand_point: Callable
+var in_reach_query: Callable
 var actor_state: Callable
-var pending: Dictionary = {}
-var pending_stand := Vector3.INF
-var pending_left := 0.0
-var pending_age := 0.0
 var book: Control
 var overlay: Control
 var hint: Label
@@ -121,7 +114,7 @@ func _refresh_current_preview() -> void:
 
 ## 两种输入只调用这一个提交入口，规则、接近、扣费和退款仍归原请求通道。
 func submit_preview(screen: Vector2=Vector2.INF) -> void:
-	if not active or book.visible or demolition.confirmation_open() or not pending.is_empty(): return
+	if not active or book.visible or demolition.confirmation_open(): return
 	var frame:=Engine.get_process_frames()
 	if _submit_frame==frame: return
 	_submit_frame=frame
@@ -146,9 +139,9 @@ func submit_preview(screen: Vector2=Vector2.INF) -> void:
 	else: _request_build(preview)
 	_refresh_current_preview()
 
-func configure(model: RefCounted, projection: Node3D, camera_view: Camera3D, ui: CanvasLayer, items: Callable, cancel: Callable, stand: Callable = Callable(), approach: Callable = Callable(), actor: Callable = Callable()) -> void:
+func configure(model: RefCounted, projection: Node3D, camera_view: Camera3D, ui: CanvasLayer, items: Callable, cancel: Callable, in_reach: Callable, actor: Callable) -> void:
 	service=model; world=projection; camera=camera_view; hud=ui
-	inventory_query=items; cancel_actor=cancel; stand_point=stand; approach_point=approach; actor_state=actor
+	inventory_query=items; cancel_actor=cancel; in_reach_query=in_reach; actor_state=actor
 	hud.owned_modal_query=func(): return active
 	hud.owned_modal_close=close; hud.owned_modal_input=handle_input
 	preview_root=Node3D.new(); add_child(preview_root)
@@ -172,7 +165,7 @@ func configure(model: RefCounted, projection: Node3D, camera_view: Camera3D, ui:
 		if not row.is_empty(): hud.toast(Catalog.RECIPES[row.kind].name+"建造完成"))
 
 func open() -> void:
-	cancel_actor.call(); _clear_pending(); hud.close_card(); hud.set_external_modal(true,false)
+	cancel_actor.call(); hud.close_card(); hud.set_external_modal(true,false)
 	active=true; recipe=""; moving_id=""; hovered_id=""
 	demolition.set_active(false);manual_level=false;_inherit_actor_level()
 	book.refresh(); book.show();_hint_text=""
@@ -180,10 +173,9 @@ func open() -> void:
 	book.restore_focus()
 
 func close() -> void:
-	if not pending.is_empty(): cancel_actor.call()
 	active=false; recipe=""; preview={}; moving_id=""; hovered_id=""; precision_held=false
 	demolition.set_active(false)
-	book.hide(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); hud.set_external_modal(false,false); _clear_pending()
+	book.hide(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); hud.set_external_modal(false,false)
 	_sync_view()
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused!=null and view.is_ancestor_of(focused): focused.release_focus()
@@ -193,8 +185,7 @@ func select_recipe(kind: String) -> void:
 	if reason!="" and kind not in ["move","remove"]: hud.toast(reason); return
 	if not Catalog.RECIPES.has(kind) and kind not in ["move","remove"]: return
 	if Catalog.RECIPES.has(kind) and not Catalog.enabled(kind): hud.toast("该内容已停用");return
-	if not pending.is_empty(): cancel_actor.call()
-	_clear_pending(); moving_id=""; hovered_id=""; preview={}
+	moving_id=""; hovered_id=""; preview={}
 	demolition.set_active(kind=="remove")
 	recipe=kind;book.hide();_hint_text=""
 	_sync_view()
@@ -205,8 +196,7 @@ func select_recipe(kind: String) -> void:
 	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
 
 func show_book() -> void:
-	if not pending.is_empty(): cancel_actor.call()
-	_clear_pending(); moving_id=""; hovered_id=""; preview={}; recipe=""
+	moving_id=""; hovered_id=""; preview={}; recipe=""
 	demolition.set_active(false)
 	_clear_ghosts();book.refresh();book.show();selection_outline.hide()
 	_hint_text="";_sync_view()
@@ -278,7 +268,8 @@ func _cache_layout() -> void:
 	# Do not duplicate an unlimited layout on every pointer/progress frame.
 	# Structural rows change only on the service signal; live timers are read
 	# individually from the service's indexed row query.
-	_rows_cache=service.query(); _working_ids.clear()
+	_rows_cache=service.layout() if service.has_method("layout") else service.query()
+	_working_ids.clear()
 	for row in _rows_cache:
 		if float(row.left)>0.0: _working_ids.append(str(row.id))
 
@@ -328,9 +319,8 @@ func _refresh_ghosts() -> void:
 		candidate_ghosts=next
 	elif _is_furnishing(recipe):
 		if candidate_ghosts.is_empty():
-			var node: Node3D=load(Catalog.RECIPES[recipe].prefab).instantiate() if Catalog.is_kit(recipe) else World.ghost_planter()
+			var node: Node3D=load(Catalog.RECIPES[recipe].prefab).instantiate() if Catalog.is_kit(recipe) else World.ghost_planter(recipe)
 			if Catalog.is_kit(recipe): node.ghost=true
-			else: _size_ghost(node,recipe)
 			preview_root.add_child(node); node.hide()
 			candidate_ghosts.append({"node":node})
 
@@ -449,19 +439,13 @@ func _highlight(item: Dictionary, invalid: bool) -> void:
 			lines.surface_add_vertex(box.position+box.size*Vector3(other&1,(other>>1)&1,(other>>2)&1))
 	lines.surface_end();selection_outline.mesh=lines
 
-func _size_ghost(node: Node3D,kind: String) -> void:
-	var request: Dictionary={"kind":kind,"px":0.0,"pz":0.0,"turn":0}
-	var extent: Vector2=Catalog.plot_rect(request).size
-	for mesh in node.get_children():
-		if mesh is MeshInstance3D and mesh.mesh is BoxMesh: mesh.mesh.size=Vector3(extent.x,0.22,extent.y)
-
 func _ghost(kind: String) -> Node3D:
 	if focus_ghost!=null and _focus_kind==kind: return focus_ghost
 	if focus_ghost!=null: preview_root.remove_child(focus_ghost); focus_ghost.queue_free()
 	if Catalog.is_kit(kind):
 		focus_ghost=load(Catalog.RECIPES[kind].prefab).instantiate();focus_ghost.ghost=true
 	elif kind=="deck": focus_ghost=World.Deck.instantiate(); focus_ghost.ghost=true
-	else: focus_ghost=World.ghost_planter(); _size_ghost(focus_ghost,kind)
+	else: focus_ghost=World.ghost_planter(kind)
 	preview_root.add_child(focus_ghost); _focus_kind=kind
 	return focus_ghost
 
@@ -498,10 +482,9 @@ func _preview_reason(request: Dictionary,operation: String,id: String) -> String
 	if _preview_cache.get("key","")==key and now-int(_preview_cache.get("at",0))<PREVIEW_CACHE_MS: return _preview_cache.reason
 	var reason:=_operation_reason(request,operation,id)
 	if reason=="" and operation=="build": reason=_materials_reason(request)
-	if reason=="" and stand_point.is_valid():
-		var stand: Vector3=stand_point.call(world.position_for(request))
-		if not stand.is_finite(): reason="走不到施工位置；可先乘船靠近"
-	_preview_cache={"key":key,"at":now,"reason":reason}
+	if reason == "" and not bool(in_reach_query.call(request)):
+		reason = "请走近或划船靠近施工位置"
+	_preview_cache = {"key":key,"at":now,"reason":reason}
 	return reason
 
 func update_preview(screen: Vector2) -> void:
@@ -519,6 +502,7 @@ func update_preview(screen: Vector2) -> void:
 	var local:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	var operation:="build"; var reason:=""
 	if Catalog.is_platform(recipe) and recipe!="deck":
+		if Catalog.is_dock(recipe): point.y = Catalog.ORIGIN.y
 		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache,_afloat(),point.y-Catalog.ORIGIN.y,0.01 if precision_held else 0.1,snap_assist)
 		# 新平台与旧板共用船上独立起点资格；吸附位置不拥有施工来源。
 		preview.origin="boat" if _afloat() else "shore"
@@ -578,9 +562,7 @@ func handle_input(event: InputEvent) -> bool:
 			_submit_frame=Engine.get_process_frames()
 			demolition.handle_input(event);_sync_view();return true
 		if code==KEY_ESCAPE:
-			if not pending.is_empty():
-				cancel_actor.call();_clear_pending();_refresh_current_preview()
-			elif moving_id!="":
+			if moving_id!="":
 				moving_id="";preview={};_preview_cache.clear();_refresh_current_preview()
 			elif book.visible: close()
 			else: show_book()
@@ -592,7 +574,6 @@ func handle_input(event: InputEvent) -> bool:
 			keyboard_mode=true;_submit_frame=Engine.get_process_frames();book.handle_key(event)
 		elif code in [KEY_ENTER,KEY_KP_ENTER,KEY_E]: submit_preview()
 		elif code in [KEY_LEFT,KEY_A,KEY_RIGHT,KEY_D,KEY_UP,KEY_W,KEY_DOWN,KEY_S,KEY_TAB]:
-			if not pending.is_empty(): return true
 			if recipe=="remove" or (recipe=="move" and moving_id==""):
 				_cycle_keyboard_target(-1 if code in [KEY_LEFT,KEY_A,KEY_UP,KEY_W] or (code==KEY_TAB and event.shift_pressed) else 1)
 			elif code!=KEY_TAB:
@@ -628,29 +609,24 @@ func handle_input(event: InputEvent) -> bool:
 	return false
 
 func _request_build(request: Dictionary) -> void:
-	_request_action(request,"build","")
+	_request_action(request, "build", "")
 
-func _request_action(request: Dictionary,operation: String,id: String) -> void:
-	var reason:=_operation_reason(request,operation,id)
-	if reason=="" and operation=="build": reason=_materials_reason(request)
-	if reason!="": hud.toast(reason); return
-	var center: Vector3=world.position_for(request)
-	var stand: Vector3=stand_point.call(center) if stand_point.is_valid() else center
-	if not stand.is_finite(): hud.toast("走不到施工位置；可先乘船靠近"); return
-	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
-	var at: Vector3=state.get("position",Vector3.INF)
-	var action:=request.duplicate(true); action._operation=operation; action._target_id=id
-	if at.is_finite() and not bool(state.get("walking",false)) and at.distance_to(stand)<=ARRIVE:
-		_begin_now(action); return
-	if not approach_point.is_valid() or not bool(approach_point.call(stand)): hud.toast("走不到施工位置，换个地方建"); return
-	pending=action; pending_stand=stand
-	var distance: float=Vector2(at.x-stand.x,at.z-stand.z).length() if at.is_finite() else 0.0
-	pending_left=maxf(WAIT_LIMIT,distance/1.5+8.0); pending_age=0.0; preview=request.duplicate(true)
-	_hint_text="施工中：正在接近施工位置";_sync_view()
+func _request_action(request: Dictionary, operation: String, id: String) -> void:
+	var reason := _operation_reason(request, operation, id)
+	if reason == "" and operation == "build": reason = _materials_reason(request)
+	if reason != "":
+		hud.toast(reason)
+		return
+	if not bool(in_reach_query.call(request)):
+		hud.toast("请走近或划船靠近施工位置")
+		return
+	var action := request.duplicate(true)
+	action._operation = operation
+	action._target_id = id
+	_begin_now(action)
 
 func _begin_now(request: Dictionary) -> void:
 	var operation:=str(request.get("_operation","build")); var id:=str(request.get("_target_id",""))
-	_clear_pending()
 	var result: Dictionary
 	if operation=="move": result=service.move(id,_clean(request))
 	elif operation=="remove": result=service.remove(id)
@@ -660,26 +636,13 @@ func _begin_now(request: Dictionary) -> void:
 	elif operation=="remove": hud.toast("已拆回，材料已返还口袋")
 	preview={}; hovered_id=""; _preview_cache.clear()
 
-func _clear_pending() -> void:
-	pending={}; pending_stand=Vector3.INF; pending_left=0.0; pending_age=0.0
-
-func _sync_pending(delta: float) -> void:
-	if pending.is_empty(): return
-	pending_left-=delta; pending_age+=delta
-	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
-	var at: Vector3=state.get("position",Vector3.INF); var walking:=bool(state.get("walking",true))
-	var near:=at.is_finite() and at.distance_to(pending_stand)<=ARRIVE
-	if near and not walking: _begin_now(pending.duplicate(true)); return
-	if pending_left<=0.0 or (not walking and pending_age>0.4): _clear_pending(); preview={}; hud.toast("没到施工位置，已取消")
-
 func tick(delta: float) -> void:
-	service.tick(delta); _place_book(); _sync_pending(delta)
+	service.tick(delta); _place_book()
 	if active and not book.visible:
 		if service.context_reason()!="" and recipe not in ["move","remove"]: close()
-		elif pending.is_empty():
+		else:
 			_frontier_refresh_left-=delta
 			if recipe=="deck" and _frontier_refresh_left<=0: _refresh_ghosts()
 			_refresh_current_preview()
-		else: _hint_text="施工中：正在接近施工位置";_sync_view()
 	progress_presenter.sync(_working_ids,service,world,camera,overlay)
 	progress=progress_presenter.progress

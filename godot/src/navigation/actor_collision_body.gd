@@ -4,6 +4,7 @@ extends StaticBody3D
 ## Components may opt a simple shape in/out without changing inventory, crops
 ## or layout ownership. Navigation declarations remain a separate ground input.
 const GROUND_LAYER := 256
+const SCENE_GROUND_LAYER := 8192
 const ACTOR_LAYER := 512
 @export var blocks_actor := true:
 	set(value):
@@ -15,5 +16,5 @@ func _ready() -> void:
 	_apply_layers()
 
 func _apply_layers() -> void:
-	collision_layer = GROUND_LAYER if blocks_actor else 0
+	collision_layer = (GROUND_LAYER | SCENE_GROUND_LAYER) if blocks_actor else 0
 	collision_mask = ACTOR_LAYER if blocks_actor else 0

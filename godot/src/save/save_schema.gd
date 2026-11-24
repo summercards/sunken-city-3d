@@ -32,7 +32,8 @@ static func schemas() -> Dictionary:
 		"profile":object({"version":integer(1,1)}),
 		# No gameplay instance limit. The storage layer's byte budget and the
 		# building admission policy protect actual serialized capacity together.
-		"building":object({"version":integer(1,1),"next_id":{"type":"integer","min":1},
+		"building":object({"version":integer(1,1),"next_id":{"type":"integer","min":1},"starter_planters":boolean,
+			"starter_planters_packed":boolean,
 			"instances":{"type":"array","items":object({}),"max":2147483647}},["version","next_id","instances"]),
 		"economy":object({
 			"daily_loop":object({"version":integer(1,1),"cargo":inventory(),"last_morning":integer(-1),"receipt":object({"day":integer(1),"income":integer(),"items":map(integer())})},["version","cargo","last_morning","receipt"]),

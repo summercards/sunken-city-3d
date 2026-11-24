@@ -23,8 +23,9 @@ func bounds(node: Node3D, reference: Node3D) -> AABB:
 		result=b if not found else result.merge(b)
 		found=true
 	return result
-func stroke(phase: float, effort: float, turn: float, delta: float) -> void:
-	boat._stroke=phase;boat._row_blend=effort;boat._sailing=effort>0.0
+func stroke(phase: float, effort: float, turn: float, delta: float, power := 0.0) -> void:
+	boat._stroke=phase;boat._row_blend=effort;boat.manual_drive=effort>0.0
+	boat._power_blend = power
 	boat._vel=boat.cruise_speed()*effort;boat._turn_rate=turn*boat.TURN_RATE
 	boat._animate_oars(0.0)
 	actor._process(delta)
@@ -60,14 +61,15 @@ func inspect_contacts() -> void:
 	for profile_index in cases.size():
 		actor.apply_avatar(cases[profile_index])
 		for fps in [30,60,120]:
-			for effort in [0.0,0.35,1.0]:
+			for effort in [0.0,0.35,1.0,1.5]:
+				var power := 1.0 if effort > 1.0 else 0.0
 				for turn in [-1.0,0.0,1.0]:
 					var previous_axes: Array[Vector3]=[]
 					for frame in 24:
 						var phase:=TAU*frame/24.0
 						boat.model.rotation=Vector3(0.035*sin(phase),0.018*cos(phase),0.075*sin(phase+0.2))
 						boat.model.position.y=0.012*sin(phase*2.0)
-						stroke(phase,effort,turn,1.0/fps)
+						stroke(phase,minf(effort, 1.0),turn,1.0/fps,power)
 						var pose: Dictionary=boat.rowing_pose()
 						var gap: float=maxf(actor.left_elbow.get_node("Hand").global_position.distance_to(pose.left_grip),actor.right_elbow.get_node("Hand").global_position.distance_to(pose.right_grip))
 						worst_grip=maxf(worst_grip,gap)
@@ -145,7 +147,7 @@ func setup_render() -> void:
 func shot(label: String, direction: Vector3) -> void:
 	camera.position=boat.position+direction.normalized()*11.0;camera.look_at(boat.position+Vector3(0,.5,0))
 	for i in 5: await process_frame
-	await RenderingServer.frame_post_draw
+	RenderingServer.force_draw(false)
 	root.get_texture().get_image().save_png("res://outputs/rowing-fit-"+label+".png")
 func run() -> void:
 	fixture()
@@ -158,6 +160,7 @@ func run() -> void:
 		stroke(0.0,1.0,0.0,1.0/60.0);await shot("pull",Vector3(-.65,.90,.80))
 		stroke(PI,1.0,0.0,1.0/60.0);await shot("recovery",Vector3(-.65,.90,.80))
 		stroke(PI*.5,1.0,0.0,1.0/60.0);await shot("side",Vector3(1,.45,0))
+		stroke(PI*.5,1.0,0.0,1.0/60.0,1.0);await shot("power",Vector3(1,.45,0))
 		stroke(0.0,0.0,0.0,1.0/60.0);await shot("idle",Vector3(-.65,.90,.80))
 	var file:=FileAccess.open("res://outputs/rowing-fit.json",FileAccess.WRITE);file.store_string(JSON.stringify(evidence,"\t"));file.close()
 	world.queue_free();await process_frame

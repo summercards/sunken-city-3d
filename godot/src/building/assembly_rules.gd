@@ -15,7 +15,7 @@ static func snap_stairs(request: Dictionary,rows: Array,edge_assist: bool=true) 
 		if Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),Catalog.elevation(request)): guides.append({"rect":Catalog.footprint_rect(other),"stair":{}})
 		elif profile(other)=="stairs":
 			if Catalog.same_level(Catalog.elevation(other),Catalog.elevation(request)) or Catalog.same_level(Catalog.elevation(other)+Catalog.stair_rise(other),Catalog.elevation(request)): guides.append({"rect":Catalog.footprint_rect(other),"stair":other})
-	if Catalog.same_level(Catalog.elevation(request),0.0): guides.append({"rect":Catalog.BASE,"stair":{}})
+	if Catalog.same_level(Catalog.elevation(request),0.0) and not Catalog.has_starter(rows): guides.append({"rect":Catalog.BASE,"stair":{}})
 	guides.sort_custom(func(a,b): return not a.stair.is_empty() and b.stair.is_empty())
 	var best_distance:=Catalog.STAIR_SNAP_DISTANCE*Catalog.STAIR_SNAP_DISTANCE
 	var stair_match:=false
@@ -95,14 +95,14 @@ static func support_ids(row: Dictionary,rows: Array) -> Array[String]:
 	var height:=Catalog.elevation(row)
 	var shape:=Catalog.footprint_rect(row)
 	if Catalog.is_platform(kind):
-		if Catalog.same_level(height,0.0) and Catalog.contact_length(shape,Catalog.BASE)>=Catalog.JOIN_MIN: ids.append("@base")
+		if Catalog.same_level(height,0.0) and not Catalog.has_starter(rows) and Catalog.contact_length(shape,Catalog.BASE)>=Catalog.JOIN_MIN: ids.append("@base")
 		for other in rows:
 			if str(other.id)==own or float(other.left)>0.0: continue
 			if Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),height) and Catalog.contact_length(shape,Catalog.footprint_rect(other))>=Catalog.JOIN_MIN: ids.append(str(other.id))
 			elif profile(other)=="stairs" and Catalog.same_level(Catalog.elevation(other)+Catalog.stair_rise(other),height) and Catalog.stairs_top_contact(shape,other)>=Catalog.JOIN_MIN: ids.append(str(other.id))
 		return ids
 	if profile(row)=="stairs": return Catalog.stair_support_ids(row,rows)
-	if Catalog.same_level(height,0.0) and Catalog.BASE.grow(.11).intersects(shape): ids.append("@base")
+	if Catalog.same_level(height,0.0) and not Catalog.has_starter(rows) and Catalog.BASE.grow(.11).intersects(shape): ids.append("@base")
 	for other in Catalog.platform_rows_at_level(rows,height):
 		if str(other.id)!=own and Catalog.footprint_rect(other).grow(.11).intersects(shape): ids.append(str(other.id))
 	if str(Catalog.RECIPES[kind].get("placement",""))=="top":
@@ -162,11 +162,26 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 	var p:=profile(row)
 	var h:=Catalog.elevation(row)
 	var definition: Dictionary=Catalog.RECIPES[kind]
+	for other: Dictionary in rows:
+		if other.id == own: continue
+		if Catalog.is_dock(other.kind):
+			if shape.grow(-0.001).intersects(Catalog.footprint_rect(other)): return "码头甲板只用于上下船"
+			if Catalog.same_level(h, 0.0) and shape.grow(-0.001).intersects(Catalog.dock_water(other)): return "请保留码头外侧的停船水面"
+			if Catalog.is_dock(kind) and Catalog.dock_water(row).grow(-0.001).intersects(Catalog.dock_water(other)):
+				return "请留出独立的停船水面"
+		if Catalog.is_dock(kind) and (shape.grow(-0.001).intersects(Catalog.footprint_rect(other)) or (Catalog.same_level(Catalog.elevation(other), 0.0) and Catalog.dock_water(row).grow(-0.001).intersects(Catalog.footprint_rect(other)))):
+			return "码头需要空甲板和外侧停船水面"
+	if Catalog.is_dock(kind):
+		if not Catalog.same_level(h, 0.0): return "码头只能建在水面层"
+		if not Catalog.has_starter(rows) and Catalog.dock_water(row).grow(-0.001).intersects(Catalog.BASE): return "码头朝外的一侧需要停船水面"
+		var platforms := rows.filter(func(other): return other.id != own and not Catalog.is_dock(other.kind))
+		if not Catalog.dock_join(row, Catalog.platform_tiles_at_level(platforms, 0.0)):
+			return "请把码头后沿接到已完工的木平台"
 	if Catalog.is_platform(kind):
 		if not Catalog.valid_level(h): return "平台需要放在有效的楼层平面"
 		var named:=str(row.get("support",""))
 		if named!="" and not support_ids(row,rows).has(named) and not bearing_ids(row,rows).has(named): return "平台指定的承载构件没有真实同高接缝或顶部挂点"
-		if Catalog.same_level(h,0.0) and shape.grow(-0.001).intersects(Catalog.BASE): return "不能覆盖原有平台"
+		if not Catalog.has_starter(rows) and Catalog.same_level(h,0.0) and shape.grow(-0.001).intersects(Catalog.BASE): return "不能覆盖原有平台"
 		for other in rows:
 			if str(other.id)!=own and Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),h) and Catalog.footprint_rect(other).grow(-0.001).intersects(shape): return "同一楼层的平台不能重叠"
 		return ""
@@ -174,6 +189,12 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 	if str(row.get("support",""))=="@base": support=Catalog.fixed_support()
 	for other in rows:
 		if str(other.id)==str(row.get("support","")): support=other;break
+	if support.get("id") == "@base" and Catalog.has_starter(rows):
+		for other in rows:
+			if str(other.id).begins_with("@starter/") and not Catalog.is_dock(other.kind) and Catalog.footprint_rect(other).grow(.11).intersects(shape):
+				support = other
+				break
+		if support.id == "@base": return "原平台已替换，请选择组件脚下的实际支撑"
 	if support.is_empty() or support.left>0 or str(support.id)==own: return "需要已完工的承载组件"
 	var top:=str(definition.get("placement",""))=="top"
 	var bearing_support:=top and bearing_ids(row,rows).has(str(support.id))
@@ -192,7 +213,16 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 		if p in ["wall","window","door","railing","post"]: test_shape=shape.grow(-minf(shape.size.x,shape.size.y)*0.49)
 		if definition.get("group","")=="structure":
 			for i in tiles.size(): tiles[i]=tiles[i].grow(.01)
-		if not Catalog.covered(test_shape,tiles): return "组件需要完整落在当前楼层承载面内"
+		if not Catalog.covered(test_shape,tiles):
+			# A saved wall may have shared its end with the former fixed starter deck.
+			# Keep the saved transform when its named board still carries the wall.
+			var end_inset := Vector2(.15, 0).rotated(int(row.turn) * PI / 2.0).abs()
+			var carried := Rect2(test_shape.position + end_inset, test_shape.size - end_inset * 2)
+			if strict_clearance or not Catalog.has_starter(rows) or not Catalog.same_level(h, 0.0) \
+				or p not in ["wall","window","door","railing"] or not str(support.id).begins_with("built_") \
+				or not Catalog.covered(carried,[supporting_rect.grow(.01)]) \
+				or not Catalog.covered(test_shape,tiles + Catalog.previous_starter_tiles(false)):
+				return "组件需要完整落在当前楼层承载面内"
 	for other in rows:
 		if str(other.id)==own or Catalog.is_deck(str(other.kind)): continue
 		var other_h:=Catalog.elevation(other)

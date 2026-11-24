@@ -1,0 +1,37 @@
+{
+  "key": "bench",
+  "asset_id": "SEA-SCENE-ORF7-BENCH",
+  "name": "双人木长椅",
+  "category": "facility",
+  "component_family": "patio",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/bench/bench.blend",
+  "source_sha256": "db814d3e15932d396c5f2ea6a103ff3d5033b53904c0a0378785b9ff49286329",
+  "collection": "MASTER | bench",
+  "bounds_m": [
+    1.8799999952316284,
+    0.818673849105835,
+    1.0112204551696777
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.04106251895427704,
+    0.02753262221813202
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BENCH",
+  "version": "v007"
+}

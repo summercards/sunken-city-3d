@@ -1,0 +1,133 @@
+{
+  "asset_id": "SEA-SCENE-ORF7-ASSEMBLY",
+  "version": "v008",
+  "building_class": "above_water",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/ocean_rooftop_farm_v008.blend",
+  "source_sha256": "c825b647a5b475e180a48db6de50e5949fb75d74db707c3aba44409ea49dd6a9",
+  "plan": "component_plan.json",
+  "placement": "component_instances.json",
+  "fps": 30,
+  "clips": {
+    "west": {
+      "scene_prefix": "01 ",
+      "name": "西侧地块",
+      "frames": [
+        11,
+        30
+      ]
+    },
+    "center": {
+      "scene_prefix": "02 ",
+      "name": "中央地块",
+      "frames": [
+        31,
+        51
+      ]
+    },
+    "east": {
+      "scene_prefix": "03 ",
+      "name": "露台东侧地块",
+      "frames": [
+        52,
+        71
+      ]
+    },
+    "greenhouse_floor": {
+      "scene_prefix": "04 ",
+      "name": "温室地块",
+      "frames": [
+        72,
+        91
+      ]
+    },
+    "tower_floor": {
+      "scene_prefix": "05 ",
+      "name": "水塔地块",
+      "frames": [
+        92,
+        111
+      ]
+    },
+    "house": {
+      "scene_prefix": "06 ",
+      "name": "小屋翻新",
+      "frames": [
+        112,
+        145
+      ]
+    },
+    "greenhouse": {
+      "scene_prefix": "07 ",
+      "name": "倒塌温室清理",
+      "frames": [
+        146,
+        166
+      ]
+    },
+    "tower": {
+      "scene_prefix": "08 ",
+      "name": "倒塌水塔清理",
+      "frames": [
+        167,
+        188
+      ]
+    },
+    "construction": {
+      "scene_prefix": "09 ",
+      "name": "新设施落装",
+      "frames": [
+        194,
+        300
+      ]
+    }
+  },
+  "review_frames": {
+    "before": 1,
+    "repaired": 191,
+    "after": 300
+  },
+  "components": [
+    "house_corner_patch",
+    "upper_stair_bridge",
+    "facility_footing",
+    "facade_bay",
+    "corner_pier",
+    "base_slab",
+    "edge_beam",
+    "rail_section",
+    "rail_pier",
+    "deck_tile_a",
+    "deck_tile_b",
+    "deck_tile_c",
+    "deck_underframe",
+    "terrace_step",
+    "pier_dock",
+    "access_stairs",
+    "house_shell",
+    "house_damage",
+    "house_roof",
+    "entry_assembly",
+    "roof_ladder",
+    "doghouse",
+    "greenhouse_base",
+    "greenhouse_glazing",
+    "greenhouse_debris",
+    "tower_support",
+    "tower_tank",
+    "tower_debris",
+    "windmill",
+    "patio_table",
+    "bench",
+    "clothesline",
+    "trellis",
+    "planter",
+    "barrels",
+    "flowers",
+    "greens",
+    "rubble"
+  ],
+  "instances": 372,
+  "runtime_status": "pending",
+  "reference_license": "pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ASSEMBLY"
+}

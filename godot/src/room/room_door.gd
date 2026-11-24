@@ -9,6 +9,8 @@ signal enter_requested
 
 
 func _on_ready() -> void:
+	interaction_context = "shore"
+	trigger_padding = 0.25
 	id = "room_door"
 	label = "太阳房 · 房间"
 	verb = "进入房间"

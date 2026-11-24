@@ -94,7 +94,7 @@ func mesh_bounds(node: Node3D) -> AABB:
 	var result := AABB()
 	var initialized := false
 	for mesh: MeshInstance3D in node.find_children("*", "MeshInstance3D", true, false):
-		if mesh.mesh == null: continue
+		if mesh.mesh == null or mesh.has_meta("construction_overlay"): continue
 		var box: AABB = (node.global_transform.affine_inverse() * mesh.global_transform) * mesh.get_aabb()
 		result = result.merge(box) if initialized else box
 		initialized = true
@@ -237,14 +237,14 @@ func pump_pending(label: String, max_frames: int = 1600) -> bool:
 	return check(editor.pending.is_empty(), label + " 接近请求结束", {"pending":editor.pending, "actor":main.player.global_position, "toast":main.hud._toast.text})
 
 func standalone_and_catalog() -> bool:
-	if not check(Catalog.RECIPES.size() == 35 and is_equal_approx(Catalog.LAYER_HEIGHT, H), "35配方与新层高", Catalog.RECIPES.size()): return false
+	if not check(Catalog.RECIPES.size() == 36 and is_equal_approx(Catalog.LAYER_HEIGHT, H), "36配方与新层高", Catalog.RECIPES.size()): return false
 	var menu: Array[String] = []
 	var old_props := 0
 	for kind: String in Catalog.RECIPES:
 		if Catalog.enabled(kind):
 			menu.append(kind)
 			if str(Catalog.RECIPES[kind].get("group", "")) == "decoration": old_props += 1
-	check(menu.size() == 22 and old_props == 10 and menu.has("planter") and menu.has("planter_small"), "菜单=10新组件+10旧家具+2培养土", menu)
+	check(menu.size() == 23 and old_props == 10 and menu.has("planter") and menu.has("planter_small") and menu.has("workshop_dock"), "菜单含原有配方和制造区码头", menu)
 	for kind: String in NEW_KINDS:
 		check(menu.has(kind), "新组件进入正式菜单 " + kind)
 		var pack := load(str(Catalog.RECIPES[kind].prefab)) as PackedScene
@@ -540,7 +540,7 @@ func demolition_mouse() -> bool:
 		editor.book.refresh()
 		for kind: String in editor.book.cards:
 			if editor.book.cards[kind].visible: visible_recipes[kind] = true
-	check(visible_recipes.size() == 22, "正式手册三页实际展示22个配方", visible_recipes.keys())
+	check(visible_recipes.size() == 23, "正式手册三页实际展示23个配方", visible_recipes.keys())
 	for kind: String in Catalog.RECIPES:
 		check(visible_recipes.has(kind) == Catalog.enabled(kind), "手册可见性与目录一致 " + kind)
 	editor.book.page = 0

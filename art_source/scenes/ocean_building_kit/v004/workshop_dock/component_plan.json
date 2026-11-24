@@ -1,0 +1,31 @@
+{
+  "asset_id": "SEA-KIT-WORKSHOP-DOCK",
+  "building_class": "above_water",
+  "source": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+  "dimensions_m": {
+    "width": 5,
+    "depth": 2.5,
+    "deck_thickness": 0.5
+  },
+  "origin": "surface_center",
+  "front_axis": "Godot +Z, water side",
+  "elements": {
+    "long_axis_planks": 3,
+    "joists": 3,
+    "solar_cabin_bollards": 2,
+    "solar_cabin_fenders": 4,
+    "pieces_per_fender": 4
+  },
+  "board_width_m": [
+    0.824333,
+    0.815333,
+    0.824333
+  ],
+  "fender_source": "art_source/scenes/sunny_bloom_retreat/v008/components/hanging_tire/hanging_tire.blend",
+  "palette_uv": "PaletteUV",
+  "responsibility": "Walking deck, boat berth, reserved deck and basin",
+  "bollard_source": "art_source/scenes/sunny_bloom_retreat/v008/components/bollard/bollard.blend",
+  "bollard_bridge_scale": 1.725,
+  "fender_bridge_scale": 1.15,
+  "fender_spacing_m": 1.28
+}

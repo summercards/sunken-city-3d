@@ -1,0 +1,38 @@
+{
+  "key": "greenhouse_debris",
+  "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-DEBRIS",
+  "name": "倒塌温室残架",
+  "category": "facility",
+  "component_family": "greenhouse",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/greenhouse_debris/greenhouse_debris.blend",
+  "source_sha256": "ec300ef9cfb7808050e91f8feb2f8388008f71e79bd36e25fc567b7b0c89ac02",
+  "collection": "MASTER | greenhouse_debris",
+  "bounds_m": [
+    5.670212745666504,
+    6.651915550231934,
+    0.8740424513816833
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.08919715881347656,
+    -0.19520699977874756,
+    0.10871453583240509
+  ],
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-GREENHOUSE-DEBRIS",
+  "version": "v008"
+}

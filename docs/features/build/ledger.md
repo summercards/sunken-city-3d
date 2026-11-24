@@ -15,7 +15,6 @@
     "godot/src/construction"
   ],
   "verification": [
-    "selftest",
     "management",
     "framework-modules"
   ]

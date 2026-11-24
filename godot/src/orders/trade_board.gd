@@ -5,11 +5,7 @@ var order_model: Order_modelDependency
 ## 世界里的码头订单板：一块立起来的木牌，钉着三张还没被领走的单子。
 ##
 ## 只负责「长得像回事 + 按 E 打开面板」；规则在 `src/orders/orders.gd`，
-## 数值在 `assets/data/orders.json`，位置由 `tools/place_trade_board.py` 求解。
-##
-## 位置说明：上岸码头那一小块甲板被菜箱 / 施工牌 / 采集点占满了（0.35m 网格采样
-## 找不到四角都不压墙的空地），所以板子立在更宽的**打捞浮台**上——
-## 打捞一趟、上岸交单，动线反而更顺。
+## 数值在 `assets/data/orders.json`，摆位由设施场景保存。
 
 signal opened(board: Node3D)
 
@@ -23,20 +19,6 @@ var zone_id := "zone1"
 var _papers: Array = []
 var _lamp: OmniLight3D
 var _pendulum := 0.0
-
-
-func setup(data: Dictionary) -> void:
-	id = str(data.get("id", "dock_orders"))
-	zone_id = str(data.get("zone", "zone1"))
-	label = str(data.get("name", "码头订单板"))
-	verb = "交易"
-	priority = 5
-	focus_radius = 2.6
-	hold_time = 0.0
-	accent = ACCENT
-	position = Vector3(float(data.get("x", 0.0)), float(data.get("y", 0.0)), float(data.get("z", 0.0)))
-	rotation.y = float(data.get("yaw", 0.0))
-	name = "TradeBoard"
 
 
 func _on_ready() -> void:

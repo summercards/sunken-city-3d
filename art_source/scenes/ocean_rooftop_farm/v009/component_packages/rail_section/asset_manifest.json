@@ -1,0 +1,38 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "rail_section",
+  "asset_id": "SEA-SCENE-ORF7-RAIL-SECTION",
+  "name": "木扶手与铁脚栏段",
+  "category": "structure",
+  "component_family": "rail",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/rail_section/rail_section.blend",
+  "source_sha256": "13d841c9aa1a528ee88c5850b713ee4511935660416bd11d695259a8330657bf",
+  "collection": "MASTER | rail_section",
+  "bounds_m": [
+    4.249999523162842,
+    0.1599999964237213,
+    0.9249997138977051
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0020000040531158447
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-RAIL-SECTION",
+  "version": "v009"
+}

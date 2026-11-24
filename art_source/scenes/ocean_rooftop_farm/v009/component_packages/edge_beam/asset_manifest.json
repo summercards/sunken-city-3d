@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "edge_beam",
+  "asset_id": "SEA-SCENE-ORF7-EDGE-BEAM",
+  "name": "露台边梁",
+  "category": "structure",
+  "component_family": "deck",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/edge_beam/edge_beam.blend",
+  "source_sha256": "876e47a51808625264b2617ce9dbf45e75c053a5be1915e8699c1c72c5f5b908",
+  "collection": "MASTER | edge_beam",
+  "bounds_m": [
+    4.28000020980835,
+    0.6499999761581421,
+    0.7300000190734863
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.009999990463256836,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-EDGE-BEAM",
+  "version": "v009"
+}

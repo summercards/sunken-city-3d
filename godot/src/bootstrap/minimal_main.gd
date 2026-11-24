@@ -4,7 +4,6 @@ const Skiff = preload("res://src/navigation/minimal_skiff.gd")
 const Walker = preload("res://src/player/minimal_walker.gd")
 
 @export_range(0.1, 3.0, 0.05) var approach_radius := 0.85
-@export_range(0.1, 2.0, 0.05) var mooring_radius := 0.95
 @export_range(1.0, 89.0, 1.0) var mooring_angle_deg := 24.0
 @export_range(0.1, 5.0, 0.05) var max_transfer_gap := 3.6
 @export_range(0.1, 2.0, 0.05) var max_transfer_rise := 0.75
@@ -14,10 +13,11 @@ const Walker = preload("res://src/player/minimal_walker.gd")
 @onready var _dock: StaticBody3D = $Ramp
 @onready var _shore: Marker3D = $Ramp/Berth/Shore
 @onready var _park: Marker3D = $Ramp/Berth/BoatPark
+@onready var _docking_area: Area3D = $Ramp/Berth/DockingArea
 @onready var _sign: Label3D = $Ramp/Berth/BerthSign
 @onready var _status: Label = $Controls/Hint
 
-enum BerthStatus { READY, APPROACH_SHORE, STAND_ON_DOCK, APPROACH_WATER, STOP, ALIGN, BLOCKED, UNSAFE_LANDING }
+enum BerthStatus { READY, APPROACH_SHORE, STAND_ON_DOCK, APPROACH_WATER, ALIGN, BLOCKED, UNSAFE_LANDING }
 const READY_COLOR := Color("fff3c6")
 const LOCATION_COLOR := Color("9cf5ef")
 
@@ -87,6 +87,7 @@ func _try_transfer() -> void:
 		return
 	var landing := result.landing
 	if _aboard:
+		_boat.dock_at(_park)
 		_player.reparent(self, false)
 		_player.global_transform = Transform3D(_shore.global_basis.orthonormalized(), landing)
 		_player.set_boat_seated(false)
@@ -116,16 +117,8 @@ func _check_berth() -> BerthCheck:
 			return BerthCheck.new(BerthStatus.APPROACH_SHORE)
 		if not _player.is_on_floor() or _support_at(_player.global_position).get("collider") != _dock:
 			return BerthCheck.new(BerthStatus.STAND_ON_DOCK)
-	var offset := _boat.global_position - _park.global_position
-	if Vector2(offset.x, offset.z).length() > mooring_radius:
+	if not _docking_area.overlaps_body(_boat):
 		return BerthCheck.new(BerthStatus.APPROACH_WATER)
-	if not _boat.is_still():
-		return BerthCheck.new(BerthStatus.STOP)
-	var alignment := absf(_boat.global_basis.z.dot(_park.global_basis.z.normalized()))
-	if alignment < cos(deg_to_rad(mooring_angle_deg)):
-		return BerthCheck.new(BerthStatus.ALIGN)
-	if _boat.overlaps_shore(_boat.global_transform):
-		return BerthCheck.new(BerthStatus.BLOCKED)
 	var landing := _safe_landing()
 	if not landing.is_finite():
 		return BerthCheck.new(BerthStatus.UNSAFE_LANDING)
@@ -178,7 +171,6 @@ func _update_hint(state: BerthStatus) -> void:
 		BerthStatus.APPROACH_SHORE: message = "走近坡脚的泊位标记"
 		BerthStatus.STAND_ON_DOCK: message = "请站稳在坡脚甲板上"
 		BerthStatus.APPROACH_WATER: message = "划近泊位，沿甲板边停靠" if _aboard else "小船不在泊位，暂不能上船"
-		BerthStatus.STOP: message = "松开方向键，等船停稳" if _aboard else "等小船停稳"
 		BerthStatus.ALIGN: message = "让船身与甲板边平行" if _aboard else "船身还未对齐泊位"
 		BerthStatus.BLOCKED: message = "船身被挡，请挪到有净空的位置" if _aboard else "泊位船身被挡"
 		BerthStatus.UNSAFE_LANDING: message = "岸上落脚点不安全"

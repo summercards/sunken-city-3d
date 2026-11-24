@@ -4,15 +4,12 @@ extends Node3D
 ##
 ## 一个区块 = 一个 tscn，地面/泊位与独立物件均在场景里编辑：
 ##   Models       建筑几何（glb 实例节点，编辑器里可直接选中/移动/替换）
-##   StaticBatch  烘焙实例批次（MultiMesh，不可编辑；对比/回退用）
 ##   WalkAreas    共用行走地面；Landing_* 是地面子节点，定义上岸点与停船锚点
 ##   Plants       植物（通用 + 专用，按摆放表生成，随建造等级显隐）
 ##   Objects      独立玩法物件（菜箱场景实例等）
 ##
-## 区块内的坐标全部相对本节点；本节点的 transform 就是 zones.json 的 origin。
+## 场景实例变换决定实际摆位，zones.json 保存初摆参考。
 
-const ZoneBatch = preload("res://src/world/zone_batch.gd")
-const WalkArea = preload("res://src/navigation/walk_area.gd")
 const PlantField = preload("res://src/ambient/plant_field.gd")
 const BlockerSet = preload("res://src/world/blocker_set.gd")
 const GroundSpace = preload("res://src/navigation/ground_space.gd")
@@ -23,29 +20,12 @@ const GroundSpace = preload("res://src/navigation/ground_space.gd")
 ## 规则见 docs/standards/水层分类与空间职责.md；空串表示未登记，由 water-layer 专项报错。
 @export_enum("surface", "amphibious", "submerged", "backdrop") var water_layer := ""
 @export var water_layer_role := "entity"
-## 静态几何来源：
-##   scene —— Models 节点里的 glb 实例（场景资产，默认，可手动编辑）
-##   baked —— assets/zones/*/instances.bin（实例批次，回退/对比用）
-@export_enum("scene", "baked") var geometry_source := "scene"
-
 var walk_areas: Array = []
-var batch: Node3D = null
 var models: Node3D = null
 var plants: Node3D = null
 var water_block_rects: Array[Rect2] = []
 var _timed: Array = []
 var ground_space: Node3D
-
-
-func _enter_tree() -> void:
-	# 子节点的 _ready 比父节点早，必须在 _enter_tree 里先决定谁生效，
-	# 否则烘焙批次会和场景里的建筑各建一份。
-	var b := get_node_or_null("StaticBatch")
-	if b != null and "enabled" in b:
-		b.enabled = geometry_source == "baked"
-	var m := get_node_or_null("Models")
-	if m is Node3D:
-		(m as Node3D).visible = geometry_source != "baked"
 
 
 func _ready() -> void:
@@ -109,22 +89,22 @@ func rebuild_blockers(water_y: float, height := 1.6) -> void:
 
 func _register() -> void:
 	walk_areas.clear()
-	batch = null
 	models = null
 	plants = null
 	for child in get_children():
 		if child.name == "Models":
 			models = child
-		elif child is ZoneBatch or child.get_script() == ZoneBatch:
-			batch = child
 		elif child.get_script() == PlantField:
 			plants = child
-		elif child.name == "WalkAreas":
-			for walk in child.get_children():
-				# 用可走面的能力判定，而不是「脚本文件恰好等于 walk_area.gd」：
-				# 派生型可走面（DerivedWalkArea）继承同一套接口，按文件比会把它漏掉。
-				if walk.has_method("surface_faces") and walk.has_method("outlines"):
-					walk_areas.append(walk)
+	_collect_walk_areas(self)
+
+
+func _collect_walk_areas(root: Node) -> void:
+	for node in root.get_children():
+		if node.has_method("surface_faces") and node.has_method("outlines"):
+			if not walk_areas.has(node):
+				walk_areas.append(node)
+		_collect_walk_areas(node)
 
 
 ## 场景里的材质是共享 .tres（一个材质给多个单元用），收集一次即可。
@@ -146,47 +126,6 @@ func _collect_timed() -> void:
 						_timed.append(m)
 		stack.append_array(n.get_children())
 
-
-## 运行时切换几何来源（对比验收用）。
-func set_geometry_source(src: String) -> void:
-	# 旧的调试参数还会传 "models"，现在实体几何就是那条路。
-	if src == "models":
-		src = "scene"
-	if src == geometry_source:
-		return
-	geometry_source = src
-	if batch != null:
-		batch.enabled = src == "baked"
-		for c in batch.get_children():
-			c.queue_free()
-		batch.batch_count = 0
-		batch.instance_count = 0
-		if src == "baked":
-			batch.build()
-	if models != null:
-		models.visible = src != "baked"
-
-
-## 命中最靠前的可行走区域，返回 {area, point, distance}；没有命中返回 {}。
-##
-## 返回的 point 已按角色身影内收（`WalkArea.clamp_point`）：点甲板最边上时，
-## 圆心如果只夹到矩形边界，人的帽檐和肩膀会压在水面上 —— 看起来就是"走进水里"。
-## 内收只影响「点地面走路」的落点，交互目标的落点由各自的接近逻辑决定。
-func pick_walk(origin: Vector3, dir: Vector3) -> Dictionary:
-	var best := {}
-	var best_t := INF
-	for area in walk_areas:
-		var t: float = area.pick(origin, dir)
-		if t >= 0.0 and t < best_t:
-			best_t = t
-			best = {"area": area, "distance": t, "point": origin + dir * t}
-	if not best.is_empty():
-		var area: Node3D = best.area
-		var raw: Vector3 = best.point
-		if area.surface_triangles.is_empty():
-			var stand: Vector2 = area.clamp_point(raw.x, raw.z)
-			best.point = Vector3(stand.x, raw.y, stand.y)
-	return best
 
 ## Height-aware query for movement, interaction and saved poses. The legacy XZ
 ## query remains available to authoring tools, never selects a stacked floor.
@@ -214,7 +153,7 @@ func area_containing(x: float, z: float) -> Variant:
 ## 站在某点时应该踩的高度；不在任何区域内返回 NAN。
 func floor_height_at(x: float, z: float) -> float:
 	var area: Variant = area_containing(x, z)
-	return area.surface_y if area != null else NAN
+	return area.floor_y() if area != null else NAN
 
 
 func set_zone_level(level: int, instant := false) -> void:
@@ -229,8 +168,6 @@ func set_zone_level(level: int, instant := false) -> void:
 
 
 func update_time(t: float) -> void:
-	if batch != null and batch.has_method("update_time"):
-		batch.update_time(t)
 	for mat in _timed:
 		mat.set_shader_parameter("u_time", t)
 
@@ -238,6 +175,8 @@ func update_time(t: float) -> void:
 func landing_points() -> Array:
 	var result: Array = []
 	for area in walk_areas:
+		if not area.active:
+			continue
 		for child in area.get_children():
 			if child.has_method("stand_position") and child.has_method("data"):
 				result.append(child)

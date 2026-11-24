@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/tower_debris.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(1.04993, 0.664744, 0.755414)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(1.060145, 0.719087, 0.761321)
+
+[sub_resource type="BoxShape3D" id="SolidBox2"]
+size = Vector3(1.069611, 0.773161, 0.766795)
+
+[sub_resource type="BoxShape3D" id="SolidBox3"]
+size = Vector3(1.078343, 0.827064, 0.771845)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-TOWER-DEBRIS"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.048576, 0.332372, 1.329044)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.616188, 0.362402, -0.750987)
+shape = SubResource("SolidBox1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.763862, 0.392433, -1.261016)
+shape = SubResource("SolidBox2")
+
+[node name="Segment3" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.511273, 0.422466, 1.228957)
+shape = SubResource("SolidBox3")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

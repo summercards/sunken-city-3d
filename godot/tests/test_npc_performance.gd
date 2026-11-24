@@ -38,7 +38,7 @@ class SmallGround extends Node3D:
 		var local := to_local(point)
 		if not active or not rects[0].has_point(Vector2(local.x, local.z)): return Vector3.INF
 		return to_global(Vector3(local.x, surface_y, local.z))
-	func path_between(start: Vector3, goal: Vector3) -> Array:
+	func native_route(start: Vector3, goal: Vector3) -> Array:
 		paths += 1
 		return [start, goal]
 

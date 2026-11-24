@@ -44,7 +44,7 @@ def check():
             errors.append(name + ': global scene lookup')
         if 'res://tests/' in code or 'res://web/' in code:
             errors.append(name + ': production depends on test/prototype')
-        if 'SailNavLib.' in code and 'res://src/navigation/sail_nav.gd' not in code:
+        if 'SailNavLib.' in code:
             errors.append(name + ': implicit parity class dependency')
         if name.startswith('npc/') and 'res://src/shop/' in code:
             errors.append(name + ': NPC imports Shop implementation instead of a public port')

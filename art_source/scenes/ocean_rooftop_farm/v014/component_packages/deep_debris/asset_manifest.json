@@ -1,0 +1,75 @@
+{
+  "key": "deep_debris",
+  "name": "塌落楼板碎块",
+  "component_family": "debris",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-DEBRIS",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_debris/deep_debris.blend",
+  "source_sha256": "3b3d7a7d532f392a33289e9eeb0ba8570e6486b6815e351d3df6f5290b6f0154",
+  "collection": "MASTER | deep_debris",
+  "bounds_m": [
+    2.6100001335144043,
+    2.146693229675293,
+    0.5280780792236328
+  ],
+  "form": [
+    {
+      "id": "Loose masonry",
+      "kind": "vertical_structure",
+      "bottom": 0.37,
+      "top": 0.36223,
+      "extent": [
+        0.51,
+        0.37,
+        0.19
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Loose masonry",
+      "kind": "vertical_structure",
+      "bottom": 0.37,
+      "top": 0.36223,
+      "extent": [
+        0.63,
+        0.37,
+        0.22
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Loose masonry",
+      "kind": "vertical_structure",
+      "bottom": 0.37,
+      "top": 0.36223,
+      "extent": [
+        0.75,
+        0.37,
+        0.27
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    -0.05500000715255737,
+    -0.044035255908966064,
+    -0.06807805597782135
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_debris.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_debris.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-DEBRIS"
+}

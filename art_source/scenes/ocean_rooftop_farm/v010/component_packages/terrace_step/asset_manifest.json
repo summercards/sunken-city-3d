@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "terrace_step",
+  "asset_id": "SEA-SCENE-ORF7-TERRACE-STEP",
+  "name": "露台台阶",
+  "category": "structure",
+  "component_family": "access",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/terrace_step/terrace_step.blend",
+  "source_sha256": "b2b4f6db8dc3d776d44d73451a33a7d5b055a20b39dc5c819a59be0e28d1d913",
+  "collection": "MASTER | terrace_step",
+  "bounds_m": [
+    4.260000228881836,
+    0.8650000095367432,
+    0.36000001430511475
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-TERRACE-STEP",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/terrace_step.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/terrace_step.tscn"
+}

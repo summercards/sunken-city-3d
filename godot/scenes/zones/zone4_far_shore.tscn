@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
-[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]
 [ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/zone4_far_shore/detail.tscn" id="unit_detail"]
@@ -20,16 +19,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.500, 0, -41.500)
 script = ExtResource("1_zone")
 zone_id = "zone4"
 zone_label = "远海街町"
-geometry_source = "scene"
 water_layer = "amphibious"
 water_layer_role = "entity"
-
-[node name="StaticBatch" type="Node3D" parent="."]
-script = ExtResource("2_batch")
-bake_dir = "res://assets/zones/zone4_far_shore"
-retired_geometries = PackedInt32Array(749, 750, 751, 752, 753, 754, 755, 756, 757, 758)
-retired_alpha_geometries = PackedInt32Array(747)
-
 
 ; >>> models（由 tools/build_zone_scenes.gd 生成，手改会被覆盖）
 [node name="Models" type="Node3D" parent="."]

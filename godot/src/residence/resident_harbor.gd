@@ -93,4 +93,4 @@ func resolve_anchor(anchor_id: String) -> Dictionary:
 
 func route(from: Vector3, to: Vector3) -> Array:
 	if _space_pose != global_transform: refresh_space()
-	return ground_space.route(from, to) if is_instance_valid(ground_space) else []
+	return ground_space.native_route(from, to) if is_instance_valid(ground_space) else []

@@ -28,9 +28,6 @@ ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / 'godot' / 'scenes' / 'main.tscn'
 MINIMAL = MAIN.with_name('main_minimal.tscn')
 MINIMAL_PREFIX = 'main_minimal.tscn#'
-HOME = MAIN.parent / 'zones' / 'zone1_home_harbor.tscn'
-HOME_PREFIX = 'zone1_home_harbor.tscn#'
-HOME_RAMP = 'WalkAreas/TemporaryHomeRamp'
 ZONES = ROOT / 'godot' / 'assets' / 'data' / 'zones.json'
 LEDGER = ROOT / 'docs' / 'features' / 'world' / 'placed_positions.md'
 
@@ -258,36 +255,35 @@ def main():
         if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
             warnings.append('%s: non-uniform scale without user confirmation' % key)
 
-    # The removable test slope is authored inside the instantiated home zone,
-    # not a standalone zone binding or a node serialized directly in Main.
-    try:
-        home_ramp = parse_main(HOME, include_trs=True).get(HOME_RAMP)
-    except (OSError, ValueError) as error:
-        print('FAIL: ' + str(error))
-        return 1
-    ramp_key = HOME_PREFIX + HOME_RAMP
-    if home_ramp is not None:
-        checked += 1
-        row = rows.get(ramp_key)
-        if home_ramp['translation'] is None or row is None or row['ref'] is None or row['actual'] is None:
-            problems.append('%s: missing explicit placement or reference/measured ledger position' % ramp_key)
-        else:
-            if dist(row['actual'], home_ramp['translation']) > POS_TOL:
-                problems.append('%s: ledger actual %s != scene %s' % (ramp_key, row['actual'], home_ramp['translation']))
-            lengths = [col_len(home_ramp['basis'], i) for i in range(3)]
-            if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
-                warnings.append('%s: non-uniform scale without user confirmation' % ramp_key)
-    elif ramp_key in rows:
-        problems.append('ledger row %s: fixture removed; move its row to history' % ramp_key)
-
-    for node in rows:
-        if node == ramp_key:
+    # Facility markers live in their owning TSCN and use parent-local coordinates.
+    scenes = {}
+    for key, row in rows.items():
+        if key.startswith(MINIMAL_PREFIX):
+            if key.removeprefix(MINIMAL_PREFIX) not in minimal_nodes:
+                problems.append('%s: node no longer exists' % key)
             continue
-        if node.startswith(MINIMAL_PREFIX):
-            if node.removeprefix(MINIMAL_PREFIX) not in minimal_nodes:
-                problems.append('ledger row %s: node no longer exists in main_minimal.tscn' % node)
-        elif node not in nodes:
-            problems.append('ledger row %s: node no longer exists in main.tscn' % node)
+        scene_name, separator, node_name = key.partition('#')
+        if not separator:
+            if key not in nodes:
+                problems.append('ledger row %s: node no longer exists in main.tscn' % key)
+            continue
+        if scene_name not in scenes:
+            scene = MAIN.parent / scene_name
+            try:
+                scenes[scene_name] = parse_main(scene, include_trs=True)
+            except (OSError, ValueError) as error:
+                problems.append(str(error))
+                scenes[scene_name] = {}
+        node = scenes[scene_name].get(node_name)
+        checked += 1
+        if node is None or node['translation'] is None or row['ref'] is None or row['actual'] is None:
+            problems.append('%s: missing explicit placement or reference/measured ledger position' % key)
+            continue
+        if dist(row['actual'], node['translation']) > POS_TOL:
+            problems.append('%s: ledger actual %s != scene %s' % (key, row['actual'], node['translation']))
+        lengths = [col_len(node['basis'], i) for i in range(3)]
+        if max(lengths) - min(lengths) > SCALE_TOL and '有意' not in row['scale_note']:
+            warnings.append('%s: non-uniform scale without user confirmation' % key)
 
     if not args.quiet:
         print('placed structures checked: %d' % checked)

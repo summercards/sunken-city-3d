@@ -1,0 +1,51 @@
+{
+  "asset_id": "SEA-KIT-WORKSHOP-DOCK",
+  "name": "制造区码头",
+  "asset_key": "workshop_dock",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/ocean_building_kit/v003/workshop_dock/workshop_dock.blend",
+  "source_sha256": "ddb0e2f36634394530c60da24b0ebdcacb84a9866c4dec6850fc2c60058f4b8d",
+  "manifest": "art_source/scenes/ocean_building_kit/v003/workshop_dock/asset_manifest.json",
+  "version": "v003",
+  "runtime_path": "godot/assets/models/building_kit/workshop_dock/v003/workshop_dock.glb",
+  "runtime_sha256": "a75ed34365736533b3ee744a08bca0558f02443f9c97ec9273efd4b6c46c52bd",
+  "prefab": "godot/scenes/buildables/kit/workshop_dock.tscn",
+  "license": "project_authored_geometry_with_existing_project_fender_provenance",
+  "classification": {
+    "category": "building",
+    "subcategory": "modular_structure"
+  },
+  "category": "structure",
+  "category_label": "建筑结构",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "consumer_features": [
+    "SEA-BUILDING",
+    "SEA-WORLD",
+    "SEA-ASSET",
+    "SEA-NAV"
+  ],
+  "footprint": [
+    5.0,
+    2.5
+  ],
+  "origin": "surface_center",
+  "front_axis": "+Z",
+  "collision_responsibility": "甲板和系缆桩碰撞、泊位及船壳触发由预制体持有",
+  "construction_animation": {
+    "clip": "construction",
+    "elements": 14,
+    "duration_seconds": 2.689,
+    "trigger": "BuildingService.completed"
+  },
+  "fender_source": {
+    "asset_id": "SEA-SCENE-SBR-HANGING-TIRE",
+    "path": "art_source/scenes/sunny_bloom_retreat/v008/components/hanging_tire/hanging_tire.blend",
+    "sha256": "79a1559b147042a5d2e47706cafe47eb6ec649b0adca453f3f518534797a9507"
+  },
+  "verification": "docs/development/2026-11-23_workshop_dock.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WORKSHOP-DOCK",
+  "component_plan": "art_source/scenes/ocean_building_kit/v003/workshop_dock/component_plan.json"
+}

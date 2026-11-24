@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/v1_6/deck_rail.glb" id="visual"]
+
+[node name="deck_rail" type="Node3D"]
+script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-ASSEMBLY"
+metadata/asset_id = "SEA-SCENE-SBR-ASSEMBLY"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

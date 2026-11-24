@@ -18,10 +18,12 @@ signal exit_requested
 
 
 func _on_ready() -> void:
+	interaction_context = "room"
+	trigger_padding = 0.0
 	id = "room_exit"
 	label = "门口"
 	verb = "离开房间"
-	priority = 6
+	priority = 7
 	hold_time = 0.15
 	# 纯逻辑点没有视觉包围盒：半径必须手写，且不随尺寸放大。
 	focus_radius = 1.6

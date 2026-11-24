@@ -1,0 +1,89 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/tower_support.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.719184, 2.864574, 0.709263)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(0.719185, 2.864574, 0.709263)
+
+[sub_resource type="BoxShape3D" id="SolidBox2"]
+size = Vector3(0.719184, 2.864574, 0.709263)
+
+[sub_resource type="BoxShape3D" id="SolidBox3"]
+size = Vector3(0.719185, 2.864574, 0.709263)
+
+[sub_resource type="BoxShape3D" id="SolidBox4"]
+size = Vector3(2.333744, 1.849086, 0.303466)
+
+[sub_resource type="BoxShape3D" id="SolidBox5"]
+size = Vector3(2.352869, 1.814792, 0.199542)
+
+[sub_resource type="BoxShape3D" id="SolidBox6"]
+size = Vector3(0.3357, 1.890067, 2.258917)
+
+[sub_resource type="BoxShape3D" id="SolidBox7"]
+size = Vector3(2.333744, 1.849086, 0.303467)
+
+[sub_resource type="BoxShape3D" id="SolidBox8"]
+size = Vector3(2.352869, 1.814792, 0.199542)
+
+[sub_resource type="BoxShape3D" id="SolidBox9"]
+size = Vector3(0.3357, 1.890067, 2.258917)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-TOWER-SUPPORT"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.107065, 1.432287, 1.102065)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.107065, 1.432287, -1.102065)
+shape = SubResource("SolidBox1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.107065, 1.432287, 1.102065)
+shape = SubResource("SolidBox2")
+
+[node name="Segment3" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.107065, 1.432287, -1.102065)
+shape = SubResource("SolidBox3")
+
+[node name="Segment4" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-0.065657, 1.411733, 1.066027)
+shape = SubResource("SolidBox4")
+
+[node name="Segment5" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.064454, 1.403239, 1.1741)
+shape = SubResource("SolidBox5")
+
+[node name="Segment6" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.090932, 1.431834, 0.060631)
+shape = SubResource("SolidBox6")
+
+[node name="Segment7" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-0.065657, 1.411733, -1.066027)
+shape = SubResource("SolidBox7")
+
+[node name="Segment8" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.064454, 1.403239, -1.1741)
+shape = SubResource("SolidBox8")
+
+[node name="Segment9" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.090932, 1.431834, 0.060631)
+shape = SubResource("SolidBox9")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

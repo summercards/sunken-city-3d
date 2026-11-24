@@ -5,7 +5,7 @@ class_name Interactable
 ##
 ## 设计原则（与旧的「屏幕投影图标」路线相反）：
 ##   1. 物件本身在 3D 世界里，有体积、有朝向、有高度，不再是一张永远朝向相机的贴纸；
-##   2. 能不能交互由玩家与它的空间关系决定（距离/朝向），不是屏幕像素距离；
+##   2. 能不能交互由物件自己的 Area3D 触发器与玩家传感器重叠决定，不读屏幕像素；
 ##   3. 交互需要投入时间（hold_time），期间走动会中断；
 ##   4. UI 只反映「当前焦点」，不再把所有可点目标同时铺在屏幕上。
 ##
@@ -24,6 +24,7 @@ signal focus_changed(focused: bool)
 @export var verb: String = "查看"
 ## 同距离下优先级高的先被选中（例如码头上的贝床优先于背景装饰）。
 @export var priority: int = 0
+@export_enum("shore", "room", "any") var interaction_context := "shore"
 ## 进入焦点的最大距离（米）。实际取它与 Interactor.radius 的较小值。
 @export var focus_radius: float = 2.4
 ## 需要持续按住的时间；0 表示瞬发。
@@ -44,8 +45,15 @@ signal focus_changed(focused: bool)
 ## 半径是否随视觉尺寸放大：大物件站到边上就够不着，靠这个兜住。
 ## 小物件不受影响（半径取 max，不会比 focus_radius 更小）。
 @export var auto_radius := true
+## 触发器相对有效半径的额外边缘缓冲。不同设施可以按实际站位单独设置。
+@export_range(0.0, 1.5, 0.05) var trigger_padding := 0.0
 ## 编辑器里选中本节点时，画出热区范围，方便边摆边看。
 @export var show_heat_preview := true
+@export var show_trigger_preview := true
+
+const INTERACTION_TRIGGER_LAYER := 16384
+const INTERACTION_SENSOR_LAYER := 32768
+const TRIGGER_HEIGHT := 5.0
 
 var focused := false
 
@@ -56,12 +64,15 @@ var _anchor_stamp := Transform3D()
 var _anchor_valid := false
 var _heat: MeshInstance3D
 var _heat_mat: StandardMaterial3D
+var _interaction_trigger: Area3D
+var _trigger_shape: CollisionShape3D
 
 
 
 func _ready() -> void:
 	add_to_group("interactable")
 	_on_ready()
+	_build_interaction_trigger()
 
 
 func _process(delta: float) -> void:
@@ -69,9 +80,41 @@ func _process(delta: float) -> void:
 	# 但锚点要跟着视觉走 —— 摆场景时挪动模型，热区预览必须同步。
 	if Engine.is_editor_hint():
 		_update_heat_preview()
+		_update_interaction_trigger()
 		return
 	_t += delta
+	_update_interaction_trigger()
 	_on_tick(delta)
+
+func _build_interaction_trigger() -> void:
+	if _interaction_trigger != null:
+		return
+	_interaction_trigger = Area3D.new()
+	_interaction_trigger.name = "InteractionTrigger"
+	_interaction_trigger.collision_layer = INTERACTION_TRIGGER_LAYER
+	_interaction_trigger.collision_mask = INTERACTION_SENSOR_LAYER
+	_interaction_trigger.monitoring = true
+	_interaction_trigger.monitorable = true
+	_trigger_shape = CollisionShape3D.new()
+	_trigger_shape.name = "Shape"
+	var cylinder := CylinderShape3D.new()
+	cylinder.height = TRIGGER_HEIGHT
+	_trigger_shape.shape = cylinder
+	_interaction_trigger.add_child(_trigger_shape)
+	add_child(_interaction_trigger)
+	_update_interaction_trigger()
+
+func _update_interaction_trigger() -> void:
+	if _interaction_trigger == null or _trigger_shape == null:
+		return
+	_interaction_trigger.global_position = focus_position()
+	var cylinder := _trigger_shape.shape as CylinderShape3D
+	if cylinder != null:
+		cylinder.radius = maxf(effective_focus_radius() + trigger_padding, 0.05)
+		cylinder.height = TRIGGER_HEIGHT
+
+func interaction_trigger() -> Area3D:
+	return _interaction_trigger
 
 
 ## 热区锚点（世界坐标）—— 交互判定、悬浮图标、编辑器热区预览共用的唯一真相源。
@@ -134,7 +177,7 @@ func visual_root() -> Node3D:
 		if c == _heat:
 			continue
 		var n := String(c.name)
-		if n == "HeatPreview" or n == "Blockers":
+		if n == "HeatPreview" or n == "Blockers" or n == "InteractionTrigger":
 			continue
 		return c
 	return null

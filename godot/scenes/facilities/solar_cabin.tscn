@@ -5,8 +5,17 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_surface.tscn" id="surface"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/animals/solar_cabin_gulls.tscn" id="gulls"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="PackedScene" path="res://scenes/props/farm_plot_single.tscn" id="farm_plot"]
+[ext_resource type="Script" path="res://src/orders/shipping_box.gd" id="shipping"]
+[ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
+[ext_resource type="Script" path="res://src/room/room_door.gd" id="room_door"]
 
-[node name="太阳能木屋" type="Node3D" unique_id=839374598]
+[sub_resource type="BoxShape3D" id="HomeDockingShape"]
+size = Vector3(1.5, 1.4, 2.2)
+
+[node name="太阳能木屋" type="Node3D" unique_id=839374598 groups=["facility_assemblies"]]
 script = ExtResource("contract")
 instance_id = "facility/solar_cabin"
 facility_id = "solar_cabin"
@@ -30,3 +39,84 @@ excluded_components = PackedStringArray()
 script = ExtResource("blockers")
 mode = "auto"
 target_path = NodePath("../太阳能木屋-海上区域")
+
+; 建筑本体拥有通行面、泊位和建筑入口。移动该实例时，这些节点整体随根节点移动。
+[node name="WalkAreas" type="Node3D" parent="."]
+
+[node name="Walk_zone1_home_dock" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+area_id = "zone1_home_dock"
+scene_collision = true
+zone_id = "zone1"
+surface_y = 1.38
+span_min = 1.0
+span_max = 1.68
+rects = [Rect2(-1, 5, 5.5, 6.5), Rect2(4.5, 7.5, 6.9, 4), Rect2(3.5, 2.5, 2.0, 5.2), Rect2(1.28, 11.5, 3.6, 0.42), Rect2(0.936, 11.92, 4.261, 5.23), Rect2(-1, 2.52, 4.75, 2.68)]
+
+[node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.066625, 1.38, 16.8845)
+script = ExtResource("landing")
+landing_label = "sea"
+
+[node name="Arrival" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main"]
+position = Vector3(0.083375, 0, -5.6845)
+rotation = Vector3(0, 3.141593, 0)
+
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.26, 3.65225)
+
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05225)
+
+[node name="DockingArea" type="Area3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main/DockEdge"]
+position = Vector3(0, 0, 1.15)
+collision_layer = 0
+collision_mask = 2048
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main/DockEdge/DockingArea"]
+shape = SubResource("HomeDockingShape")
+
+[node name="Walk_sunroom_upper_deck" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+area_id = "sunroom_upper_deck"
+scene_collision = true
+zone_id = "zone1"
+surface_y = 6.4663
+span_min = 5.2
+span_max = 7.5
+rects = [Rect2(0.27, -3.02, 10.27, 5.74)]
+
+; 菜箱、出货箱和房间入口是建筑上的独立设施。它们各自保留自己的交互 Area3D。
+[node name="Facilities" type="Node3D" parent="."]
+
+[node name="home_plot" parent="Facilities" instance=ExtResource("farm_plot")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0.05, 1.38, 8.35)
+plot_id = "home_plot"
+zone_id = "zone1"
+plot_name = "木屋菜箱"
+requires_site = "home_cabin"
+requires_level = 1
+
+[node name="ShippingBox" type="Node3D" parent="Facilities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.38, 14.6)
+script = ExtResource("shipping")
+id = "home_shipping_box"
+label = "出货箱"
+verb = "放入 / 取回"
+priority = 3
+hold_time = 0.12
+
+[node name="Visual" parent="Facilities/ShippingBox" instance=ExtResource("shipping_visual")]
+transform = Transform3D(0.017022815, 0, 1.724916, 0, 1.5869999, 0, -1.724916, 0, 0.017022815, -1.4000826, 0, 1.5174732)
+instance_id = "solar_cabin/shipping_box"
+facility_id = "solar_cabin"
+
+[node name="RoomDoor" type="Node3D" parent="Facilities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35, 1.38, 8.75)
+script = ExtResource("room_door")
+id = "room_door"
+label = "太阳房 · 房间"
+verb = "进入房间"
+priority = 5
+hold_time = 0.15

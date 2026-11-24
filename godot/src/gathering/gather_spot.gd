@@ -52,24 +52,16 @@ var _rng := RandomNumberGenerator.new()
 var _rest_scale := Vector3.ONE
 
 
-func setup(data: Dictionary) -> void:
-	id = str(data.get("id", id))
-	kind = str(data.get("kind", kind))
-	var meta: Dictionary = KINDS.get(kind, {})
-	label = str(data.get("label", meta.get("label", kind)))
-	verb = "采集"
-	amount = int(data.get("amount", 1))
-	hold_time = float(data.get("hold", meta.get("hold", 1.2)))
-	respawn = float(data.get("respawn", meta.get("respawn", 60.0)))
-	priority = int(data.get("priority", 0))
-	accent = meta.get("color", accent)
-	requires_site = str(data.get("requires_site", ""))
-	requires_level = int(data.get("requires_level", 0))
-	position = Vector3(float(data.get("x", 0.0)), float(data.get("y", 0.0)), float(data.get("z", 0.0)))
-	_rng.seed = hash(id)
-
-
 func _on_ready() -> void:
+	var definition: Dictionary = KINDS.get(kind, {})
+	label = str(definition.get("label", kind))
+	verb = "采集"
+	hold_time = float(definition.get("hold", 1.2))
+	respawn = float(definition.get("respawn", 60.0))
+	accent = definition.get("color", accent)
+	_rng.seed = hash(id)
+	interaction_context = "shore"
+	trigger_padding = 0.1
 	# 采集物在俯视镜头里只有十几像素，直接按真实尺寸做会看不见。
 	# 统一放大到 1.45 倍，再加一颗缓慢起伏的信号珠（不是图标，只是让视线能抓到一个亮点）。
 	_rest_scale = Vector3.ONE * 1.45

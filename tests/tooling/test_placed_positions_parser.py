@@ -20,6 +20,7 @@ IDENTITY = '1, 0, 0, 0, 1, 0, 0, 0, 1'
 ROTATED = '+6e-1, +8E-1, 0, -.8, .6, 0, 0, 0, +1.'
 SCALED = '1.2, 1.6, 0, -2.4, 1.8, 0, 0, 0, 4'
 POSITION = '+1e1, -.25, +3E+0'
+MINIMAL_NODES = ('Deck', 'Ramp', 'Boat', 'Ramp/Berth', 'Ramp/Berth/Shore', 'Ramp/Berth/BoatPark')
 
 
 def scene(transform):
@@ -90,23 +91,32 @@ class PlacedPositionsGateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.main_path = self.root / 'main.tscn'
+        self.minimal_path = self.root / 'main_minimal.tscn'
         self.zones_path = self.root / 'zones.json'
         self.ledger_path = self.root / 'placed_positions.md'
 
     def prepare(self, *, bound=True, basis=ROTATED, note='', actual=POSITION,
                 reference='0, 0, 0', include_row=True):
         self.main_path.write_text(scene(f'Transform3D({basis}, {POSITION})'), encoding='utf-8')
+        nodes = ['[gd_scene format=3]', '[node name="Minimal" type="Node3D"]']
+        rows = []
+        for key in MINIMAL_NODES:
+            parent, _, node = key.rpartition('/')
+            nodes.extend([f'[node name="{node}" type="Node3D" parent="{parent or "."}"]',
+                          'position = Vector3(0, 0, 0)'])
+            rows.append(f'| `main_minimal.tscn#{key}` | - | (0, 0, 0) | (0, 0, 0) | 0 m | | |')
+        self.minimal_path.write_text('\n'.join(nodes) + '\n', encoding='utf-8')
         zones = [{'id': 'test_zone', 'scene_binding': BINDING, 'origin': [0, 0, 0]}] if bound else []
         self.zones_path.write_text(json.dumps(zones), encoding='utf-8')
         row = (f'| `{BINDING}` | `test_zone` | `({reference})` | `({actual})` '
                f'| 参考偏差 | {note} | 用户手摆 |\n')
-        self.ledger_path.write_text(row if include_row else '', encoding='utf-8')
+        self.ledger_path.write_text('\n'.join(rows) + '\n' + (row if include_row else ''), encoding='utf-8')
 
     def run_checker(self, *args):
-        paths = (self.main_path, self.zones_path, self.ledger_path)
+        paths = (self.main_path, self.minimal_path, self.zones_path, self.ledger_path)
         before = {path: path.read_bytes() for path in paths if path.exists()}
         output = io.StringIO()
-        with patch.multiple(checker, ROOT=self.root, MAIN=self.main_path,
+        with patch.multiple(checker, ROOT=self.root, MAIN=self.main_path, MINIMAL=self.minimal_path,
                             ZONES=self.zones_path, LEDGER=self.ledger_path), \
                 patch.object(sys, 'argv', ['check_placed_positions.py', *args]), \
                 redirect_stdout(output):
@@ -121,7 +131,22 @@ class PlacedPositionsGateTests(unittest.TestCase):
                 self.prepare(bound=bound)
                 code, output = self.run_checker()
                 self.assertEqual(code, 0, output)
-                self.assertIn('1 placed structure(s), 0 warning(s)', output)
+                self.assertIn(f'{1 + len(MINIMAL_NODES)} placed structure(s), 0 warning(s)', output)
+
+    def test_facility_marker_checks_own_scene_local_translation(self):
+        self.prepare()
+        facility = self.root / 'facilities' / 'shop.tscn'
+        facility.parent.mkdir()
+        fixture = '[gd_scene format=3]\n[node name="Shop" type="Node3D"]\n[node name="Berth" type="Marker3D" parent="."]\n'
+        facility.write_text(fixture + 'position = Vector3(0, 1, 2)\n', encoding='utf-8')
+        with self.ledger_path.open('a', encoding='utf-8') as ledger:
+            ledger.write('| `facilities/shop.tscn#Berth` | shop | (0, 1, 1) | (0, 1, 2) | 1 m | | |\n')
+        code, output = self.run_checker()
+        self.assertEqual(code, 0, output)
+        facility.write_text(fixture + 'position = Vector3(0, 1, 3)\n', encoding='utf-8')
+        code, output = self.run_checker()
+        self.assertEqual(code, 1, output)
+        self.assertIn('facilities/shop.tscn#Berth: ledger actual', output)
 
     def test_nonuniform_scale_only_warns_unless_intentionally_approved(self):
         for bound in (True, False):

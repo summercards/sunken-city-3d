@@ -84,5 +84,20 @@
     "owner": "main_agent",
     "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
     "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  },
+  "construction_variant": {
+    "version": "v003",
+    "export_manifest": "godot/assets/models/building_kit/construction_v003/export_manifest.json",
+    "runtime_path": "godot/assets/models/building_kit/construction_v003/roof_flat_5x5.glb",
+    "runtime_sha256": "e993b1b5b77394dcbde432f152e7327fde438390a5085a0fe626a3ef65f036f0",
+    "prefab": "godot/scenes/buildables/kit/roof_flat_5x5.tscn",
+    "construction_animation": {
+      "clip": "construction",
+      "elements": 6,
+      "duration_seconds": 1.955,
+      "trigger": "BuildingService.completed",
+      "animation_script": "godot/src/building/construction_animation.gd",
+      "verification": "docs/development/2026-11-23_building_construction.md"
+    }
   }
 }

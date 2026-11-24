@@ -1,0 +1,133 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "deck_tile_c",
+  "asset_id": "SEA-SCENE-ORF7-DECK-TILE-C",
+  "name": "补角露台板",
+  "category": "structure",
+  "component_family": "tile",
+  "source": "art_source/scenes/ocean_rooftop_farm/v012/component_packages/deck_tile_c/deck_tile_c.blend",
+  "source_sha256": "26b03849103a2e3c28cc2d7288fecaa5631f33767ffd69118360ff6ee90eb390",
+  "collection": "MASTER | deck_tile_c",
+  "bounds_m": [
+    2.1430001258850098,
+    2.2730000019073486,
+    0.20000000298023224
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DECK-TILE-C",
+  "version": "v012",
+  "form": [
+    {
+      "id": "Staggered paving stone 1.1",
+      "kind": "horizontal_cover",
+      "bottom": 0.7895000000000001,
+      "top": 0.7792365000000001,
+      "extent": [
+        1.2434999999999998,
+        0.7895000000000001,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 1.2",
+      "kind": "horizontal_cover",
+      "bottom": 0.7895000000000001,
+      "top": 0.7792365000000001,
+      "extent": [
+        0.8815,
+        0.7895000000000001,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 2.1",
+      "kind": "horizontal_cover",
+      "bottom": 0.6944999999999999,
+      "top": 0.6854714999999999,
+      "extent": [
+        0.6944999999999999,
+        0.9530000000000001,
+        0.2
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 2.2",
+      "kind": "horizontal_cover",
+      "bottom": 0.9530000000000001,
+      "top": 0.9406110000000001,
+      "extent": [
+        1.0739999999999998,
+        0.9530000000000001,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 2.3",
+      "kind": "horizontal_cover",
+      "bottom": 0.3384999999999999,
+      "top": 0.3340994999999999,
+      "extent": [
+        0.3384999999999999,
+        0.9530000000000001,
+        0.2
+      ],
+      "taper_along": "y",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 3.1",
+      "kind": "horizontal_cover",
+      "bottom": 0.49450000000000005,
+      "top": 0.48807150000000005,
+      "extent": [
+        0.9484999999999999,
+        0.49450000000000005,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered paving stone 3.2",
+      "kind": "horizontal_cover",
+      "bottom": 0.49450000000000005,
+      "top": 0.48807150000000005,
+      "extent": [
+        1.1764999999999999,
+        0.49450000000000005,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "form_style": "SF-B",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v012/deck_tile_c.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v012/deck_tile_c.tscn"
+}

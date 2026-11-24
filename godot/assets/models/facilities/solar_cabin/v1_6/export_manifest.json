@@ -1,0 +1,182 @@
+{
+  "version": "1.6",
+  "source": "art_source/scenes/sunny_bloom_retreat/v008/sunny_bloom_retreat.blend",
+  "source_sha256": "28e5ee21f6f54c4800fe5054646052009941446528e16295814001b0b5ab7793",
+  "optimized_sha256": "990f57a057f93b0dd3b59f4e9b75487f0b2848a627e01dd538519d26bb5cacb2",
+  "components": {
+    "awning": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/awning.glb",
+      "sha256": "a66349dc1b29513462fdc83317b191154695daad431a21906f6a80b3156f461c",
+      "triangles": 5028,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/awning.tscn",
+      "asset_id": "SEA-SCENE-SBR-AWNING"
+    },
+    "canopy_post": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/canopy_post.glb",
+      "sha256": "f9a7023891f54151f2c6708ac0e6929b9b591e37d36a55d87dd3bab700df0812",
+      "triangles": 752,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/canopy_post.tscn",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-POST"
+    },
+    "cap": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/cap.glb",
+      "sha256": "09752a8bff24bf0037bebbbbf2bd5dcda6481cfe1700e3367e29941182125856",
+      "triangles": 1284,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/cap.tscn",
+      "asset_id": "SEA-SCENE-SBR-CAP"
+    },
+    "deck_rail": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/deck_rail.glb",
+      "sha256": "089b265f13565b3a9873ed5b06be49207ac8287089a8093b05200519178af583",
+      "triangles": 540,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/deck_rail.tscn",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY"
+    },
+    "eave_bracket": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/eave_bracket.glb",
+      "sha256": "a921deb4a7510585e6324e6ac0274405aca455e4c6dcc9373440d161e28d2682",
+      "triangles": 376,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/eave_bracket.tscn",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY"
+    },
+    "float_shell": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/float_shell.glb",
+      "sha256": "c0fbdbff808d5aecbd65d1349d0b646cd026d4bf1f76d0a03c5de5d8e1665869",
+      "triangles": 960,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/float_shell.tscn",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY"
+    },
+    "house": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/house.glb",
+      "sha256": "8e3e52b888838db35420d64efc8c348e4360b16ec61ff3b7ef56fd2966d054b4",
+      "triangles": 1292,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/house.tscn",
+      "asset_id": "SEA-SCENE-SBR-HOUSE"
+    },
+    "ladder": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/ladder.glb",
+      "sha256": "8e1a1c787dcd230f28dc410e04e875a6d5e743cd6d1c33cd1de2aaaacd20f2d9",
+      "triangles": 3868,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/ladder.tscn",
+      "asset_id": "SEA-SCENE-SBR-LADDER"
+    },
+    "narrow_window": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/narrow_window.glb",
+      "sha256": "b60e17ce577f75f1c10dc15348d2e1f080b62f666711b69bcfb8eb90268b8e97",
+      "triangles": 1140,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Gloss"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/narrow_window.tscn",
+      "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW"
+    },
+    "parapet": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/parapet_open_v2.glb",
+      "sha256": "4afc298e9fdbc5699ccbfc314ebf58be379205078559b393fcf84eeb38caf2f9",
+      "triangles": 828,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/parapet.tscn",
+      "asset_id": "SEA-SCENE-SBR-PARAPET"
+    },
+    "service_box": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/service_box.glb",
+      "sha256": "c8e9fc27f1e01d00d0550aa270a9f8951ee3f3266b36c1978751c78357f3d1eb",
+      "triangles": 757,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/service_box.tscn",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY"
+    },
+    "slope": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/slope.glb",
+      "sha256": "2e541bc3200c94db86e0e5ec3f3029879ee325343400ff21562182fa0458dcec",
+      "triangles": 3384,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/slope.tscn",
+      "asset_id": "SEA-SCENE-SBR-SLOPE"
+    },
+    "solar": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/solar.glb",
+      "sha256": "25049ac7e3ff4ed9197792798e6825a960b9d1a72f0e8b1f9c88817ce9a6b15d",
+      "triangles": 2400,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/solar.tscn",
+      "asset_id": "SEA-SCENE-SBR-SOLAR"
+    },
+    "terrace": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/terrace.glb",
+      "sha256": "ccc40508ec0cb518e1527de97ac57cf958b5cd1f0bc34ae9547ca1ae335f19fd",
+      "triangles": 2552,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/terrace.tscn",
+      "asset_id": "SEA-SCENE-SBR-TERRACE"
+    },
+    "umbrella": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/umbrella.glb",
+      "sha256": "55c53bf93b868a3a139d407eb6d2fe672b0a591d9cd4e25763bf0339b039a1af",
+      "triangles": 3764,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/umbrella.tscn",
+      "asset_id": "SEA-SCENE-SBR-UMBRELLA"
+    },
+    "wall_skirt": {
+      "glb": "godot/assets/models/facilities/solar_cabin/v1_6/wall_skirt.glb",
+      "sha256": "b7c3fda18118d673d6da6fb31b19360e9c49198d0c94838697c19ab3b49d57ea",
+      "triangles": 376,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "prefab": "godot/scenes/components/solar_cabin/v1_6/wall_skirt.tscn",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY"
+    }
+  },
+  "drop_tracks": 127,
+  "wind_seconds": 4.0,
+  "scene_modules": [
+    "rear_building",
+    "solar_room",
+    "front_platform",
+    "bridge"
+  ]
+}

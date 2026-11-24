@@ -2,7 +2,8 @@ extends Node3D
 class_name Interactor
 ## 玩家身上的交互探测器。
 ##
-## 每 0.12 秒扫一次附近的 Interactable，按「面朝向 → 优先级 → 距离」挑一个焦点。
+## 每 0.12 秒扫一次附近的 Interactable，先读取真实 Area3D 触发器重叠，
+## 再按「面朝向 → 优先级 → 触发器中心距离」挑一个焦点。
 ##
 ## **触发式交互（2026-11-07）**：走近 → 进判定区 → 出现图标 → 点一下就走完。
 ## 不再要求玩家按住读条 —— 一次按下 = 执行一次，`hold_time` 从「要按多久」
@@ -22,7 +23,7 @@ signal progress_changed(ratio: float)
 signal completed(spot: Node3D, reward: Dictionary)
 signal blocked(reason: String)
 
-## 世界坐标的探测半径（米）。
+## 兼容测试夹具的默认半径。正式对象的有效范围由 Interactable.Area3D 拥有。
 @export var radius := 2.8
 ## 扫描间隔，避免每帧遍历整张表。
 @export var scan_interval := 0.12
@@ -30,9 +31,11 @@ signal blocked(reason: String)
 @export var move_tolerance := 0.35
 
 var active := false
+## 当前交互空间。海上状态不开放岸上交互，房间只开放 room 交互。
+var interaction_context := "shore"
 ## Optional actor-space query. The interactor never owns navigation or rules.
 var reachable_query: Callable
-## 点击目标后由 main 打开：小人走到位就自动按住，不用玩家再按 E。
+## 近距选择的动作走同一交互计时。
 var auto_hold := false
 ## 点击选择的地格优先，避免相邻六格被最近距离抢走。
 var preferred_target: Node3D
@@ -56,6 +59,8 @@ var _wait_release := false
 ## 本轮按住已经触发过一次动作（松开时清）。自动接近的命令不占用它。
 var _acted_once := false
 var keyboard_target: Node3D
+var _reach_sensor: Area3D
+var _reach_shape: CollisionShape3D
 ## 对齐度分档带宽：差量不超过它的两个目标视为「同等正对」，
 ## 这时才比优先级和距离。0.08 ≈ 5° 的朝向差。
 const FACING_TIE := 0.08
@@ -69,22 +74,64 @@ func facing_alignment(point: Vector3) -> float:
 	forward.y = 0.0
 	return forward.normalized().dot(offset.normalized())
 
+func is_within_reach(node: Node3D) -> bool:
+	if _reach_sensor != null and node.has_method("interaction_trigger"):
+		var trigger: Area3D = node.interaction_trigger()
+		if not is_instance_valid(trigger):
+			return false
+		if _reach_sensor.overlaps_area(trigger):
+			return true
+		var point_query := PhysicsPointQueryParameters3D.new()
+		point_query.position = global_position
+		point_query.collision_mask = Interactable.INTERACTION_TRIGGER_LAYER
+		point_query.collide_with_areas = true
+		for hit in get_world_3d().direct_space_state.intersect_point(point_query, 64):
+			if hit.get("collider") == trigger:
+				return true
+		# Area overlap lists update on the next physics tick. Use the same live
+		# CollisionShape3D pair for immediate queries after a body moves.
+		var sensor_shape := _reach_sensor.get_node_or_null("Shape") as CollisionShape3D
+		var trigger_shape := trigger.get_node_or_null("Shape") as CollisionShape3D
+		if sensor_shape == null or trigger_shape == null or sensor_shape.shape == null or trigger_shape.shape == null:
+			return false
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.shape = sensor_shape.shape
+		query.transform = _reach_sensor.global_transform * sensor_shape.transform
+		query.collision_mask = Interactable.INTERACTION_TRIGGER_LAYER
+		query.exclude = [_reach_sensor.get_rid()]
+		for hit in get_world_3d().direct_space_state.intersect_shape(query, 64):
+			if hit.get("collider") == trigger:
+				return true
+		return false
+	var focus: Vector3 = node.focus_position()
+	var offset := focus - global_position
+	return absf(offset.y) <= 2.5 and Vector2(offset.x, offset.z).length() <= minf(radius, float(node.effective_focus_radius())) + 0.9
+
+func action_consumed() -> bool:
+	return _acted_once and not acting
+
 func _scan_candidates() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for node in get_tree().get_nodes_in_group("interactable"):
 		if not node is Node3D or not is_instance_valid(node) or not node.is_visible_in_tree(): continue
 		if not node.can_interact(): continue
+		var context := str(node.get("interaction_context"))
+		if context != "any" and context != interaction_context: continue
 		if reachable_query.is_valid() and not bool(reachable_query.call(node)): continue
+		if not is_within_reach(node): continue
 		var focus: Vector3 = node.focus_position()
-		var offset: Vector3 = focus - global_position
-		if absf(offset.y) > 2.5: continue
-		offset.y = 0.0
-		var distance := offset.length()
-		if distance <= minf(radius, float(node.effective_focus_radius())) + 0.9:
-			result.append({"node": node, "focus": focus, "distance": distance})
+		var offset := focus - global_position
+		result.append({"node": node, "focus": focus, "distance": Vector2(offset.x, offset.z).length()})
 	result.sort_custom(func(a: Dictionary, b: Dictionary):
 		return str((a["node"] as Node3D).get_path()) < str((b["node"] as Node3D).get_path()))
 	return result
+
+func set_interaction_context(value: String) -> void:
+	interaction_context = value if value in ["shore", "room", "sea"] else "shore"
+	if target != null:
+		var context := str(target.get("interaction_context"))
+		if context != "any" and context != interaction_context:
+			_release()
 
 
 func candidates() -> Array[Node3D]:
@@ -128,7 +175,23 @@ static func ensure_input_map() -> void:
 
 func _ready() -> void:
 	ensure_input_map()
+	_build_reach_sensor()
 	set_process(true)
+
+func _build_reach_sensor() -> void:
+	_reach_sensor = Area3D.new()
+	_reach_sensor.name = "InteractionSensor"
+	_reach_sensor.collision_layer = Interactable.INTERACTION_SENSOR_LAYER
+	_reach_sensor.collision_mask = Interactable.INTERACTION_TRIGGER_LAYER
+	_reach_sensor.monitoring = true
+	_reach_sensor.monitorable = true
+	_reach_shape = CollisionShape3D.new()
+	_reach_shape.name = "Shape"
+	var sphere := SphereShape3D.new()
+	sphere.radius = 0.05
+	_reach_shape.shape = sphere
+	_reach_sensor.add_child(_reach_shape)
+	add_child(_reach_sensor)
 
 
 func _process(delta: float) -> void:
@@ -317,11 +380,18 @@ func _refresh_target_from_scan(scanned: Array[Dictionary]) -> void:
 			continue
 		# 显式选择（Q 键盘切目标、点击落下）压过一切自然排序。
 		var align := facing_alignment(focus)
+		if str(spot.get("id")) == "room_exit":
+			align = INF
 		if (is_instance_valid(keyboard_target) and spot == keyboard_target) \
 				or (is_instance_valid(preferred_target) and spot == preferred_target):
 			align = INF
 		# 距离与优先级只在「同等正对」时起作用。
 		var score := dist - float(spot.priority) * 0.25
+		# Keep explicit exit points ahead of furniture when the player is in a
+		# doorway overlap. This is the same authored priority used by the room
+		# scene, but avoids a one-frame focus swap after restoring the entry pose.
+		if str(spot.get("id")) == "room_exit":
+			score -= 100.0
 		if align > best_align + FACING_TIE:
 			best_align = align
 			best_score = score

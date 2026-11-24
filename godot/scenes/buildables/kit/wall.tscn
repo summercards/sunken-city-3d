@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
 [ext_resource type="PackedScene" path="res://assets/models/building_kit/wall/wall.glb" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/kit_wall.scn" id="kit_wall"]
+
 [node name="wall" type="Node3D"]
 script = ExtResource("1")
 content_id = "wall"
 metadata/water_layer = "surface"
 metadata/water_layer_role = "entity"
 [node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="SurfaceCollision" parent="." instance=ExtResource("kit_wall")]

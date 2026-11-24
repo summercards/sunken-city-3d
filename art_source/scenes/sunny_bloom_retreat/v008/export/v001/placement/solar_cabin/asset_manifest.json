@@ -8,13 +8,14 @@
   "source_sha256": "38af30635092dbd467aade9937a4fafb82e68a6df370dfa861fea3238848af4d",
   "manifest": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/placement/solar_cabin/asset_manifest.json",
   "version": "v008",
-  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/v1_6/instances.json",
   "prefab": "godot/scenes/facilities/solar_cabin.tscn",
   "license": "existing_project_asset_provenance_unchanged",
   "geometry_fingerprint": null,
   "consumer_features": [
     "SEA-ASSET",
-    "SEA-WORLD"
+    "SEA-WORLD",
+    "SEA-SUNROOM"
   ],
   "category": "facility_assembly",
   "scope_label": "海面可玩区·设施总成",
@@ -69,17 +70,40 @@
     }
   ],
   "note": "v008 thin 0.22m timber decks, reference warm timber color; current authored base overhang and waterline preserved.",
-  "runtime_version": "1.5",
+  "runtime_version": "1.6",
   "runtime_verified": true,
-  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/solar_cabin_optimized_v001.blend",
-  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/export_manifest.json",
+  "export_manifest": "godot/assets/models/facilities/solar_cabin/v1_6/export_manifest.json",
   "runtime_scope": "v006海上区域 + 七层新版海下基座",
   "scope": "scene_local",
-  "optimized_sha256": "55c9788ddef159c3b8aad8494ba01d8b7c791cb506dc756adea3a1c0b6abc19c",
+  "optimized_sha256": "990f57a057f93b0dd3b59f4e9b75487f0b2848a627e01dd538519d26bb5cacb2",
   "classification": {
     "category": "building",
     "subcategory": "structure"
   },
   "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
-  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SOLAR-CABIN"
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SOLAR-CABIN",
+  "previous_surface_runtime": {
+    "runtime_version": "1.5",
+    "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+    "optimized_source": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/solar_cabin_optimized_v001.blend",
+    "optimized_sha256": "55c9788ddef159c3b8aad8494ba01d8b7c791cb506dc756adea3a1c0b6abc19c",
+    "export_manifest": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/export_manifest.json"
+  },
+  "construction_animation": {
+    "scene": "godot/scenes/facilities/solar_cabin_surface.tscn",
+    "clip": "construction",
+    "fps": 30,
+    "frame_range": [
+      1,
+      225
+    ],
+    "seconds": 7.466667,
+    "animated_instances": 127,
+    "autoplay": false,
+    "playback_trigger": "pending_gameplay_design",
+    "play_method": "play_construction",
+    "finish_method": "finish_construction",
+    "verification": "docs/development/2026-11-21_sunroom_godot_animation.md"
+  },
+  "surface_assembly_asset_id": "SEA-SCENE-SBR-ASSEMBLY"
 }

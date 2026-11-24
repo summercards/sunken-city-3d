@@ -36,10 +36,10 @@ func equivalent(a: Variant,b: Variant) -> bool:
 			if not equivalent(a[i],b[i]): return false
 		return true
 	return a==b
-func old_layout() -> Dictionary:
+func old_layout(offset := 0.0) -> Dictionary:
 	return {"version":1,"next_id":3,"instances":[
-		{"id":"built_1","kind":"raft_4x4","x":0,"z":0,"px":2.0,"pz":10.0,"py":0.0,"turn":0,"support":"","left":0.0},
-		{"id":"built_2","kind":"flower_pot","x":0,"z":0,"px":.8,"pz":8.4,"py":0.0,"turn":0,"support":"built_1","left":0.0}]}
+		{"id":"built_1","kind":"raft_4x4","x":0,"z":0,"px":2.0+offset,"pz":10.0,"py":0.0,"turn":0,"support":"","left":0.0},
+		{"id":"built_2","kind":"flower_pot","x":0,"z":0,"px":.8+offset,"pz":8.4,"py":0.0,"turn":0,"support":"built_1","left":0.0}]}
 func rules() -> void:
 	var service:=model();var legacy:=old_layout()
 	check(service.from_dict(legacy),"historical off-grid raft restores")
@@ -69,9 +69,7 @@ func rules() -> void:
 	var legacy_board: Dictionary={"version":1,"next_id":2,"instances":[{"id":"built_1","kind":"deck","x":3,"z":0,"px":0.0,"pz":0.0,"turn":0,"support":"","left":0.0}]}
 	check(service.from_dict(legacy_board) and service.to_dict()==legacy_board,"historical grid board remains byte-field equivalent")
 func wait_action() -> void:
-	for i in 1800:
-		main.actor_controller.tick(1.0/60.0);main.building_controller.tick(1.0/60.0)
-		if i>2 and main.building_controller.pending.is_empty(): return
+	await process_frame
 func run() -> void:
 	rules()
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main)
@@ -86,9 +84,26 @@ func run() -> void:
 		if decoded.ok:
 			var restored:=Save.restore(main,decoded.snapshot)
 			check(restored.ok,"player copy restores: "+str(restored.reason))
-			check(main.building.query()==decoded.snapshot.building.instances,"player layout unchanged after restore")
+			var old_rows: Array = decoded.snapshot.building.instances
+			var live_rows: Array = main.building.query()
+			check(equivalent(live_rows.slice(0, old_rows.size()),old_rows),"existing player layout unchanged after restore")
+			var additions := live_rows.slice(old_rows.size())
+			if not decoded.snapshot.building.get("starter_planters",false):
+				check(additions.size() == 6 and additions.all(func(row): return row.kind == "planter" and row.left == 0),"legacy player layout gains six removable beds")
 			check(root.get_node("GameState").current_zone==decoded.snapshot.game.zone,"saved active zone survives restore")
-			check(equivalent(econ.farm.to_dict().plots,decoded.snapshot.economy.farm.plots),"player crops survive restoration")
+			var migrated_plots: Array = []
+			for plot_id: String in decoded.snapshot.economy.farm.plots:
+				var saved: Dictionary = decoded.snapshot.economy.farm.plots[plot_id]
+				if str(saved.crop) != "":
+					var actual := plot_id
+					if plot_id.begins_with("platform_plot") and econ.farm.is_empty(plot_id):
+						for row in additions:
+							var candidate := "dynamic/" + str(row.id)
+							if candidate not in migrated_plots and equivalent(econ.farm.state(candidate),saved):
+								actual = candidate
+								migrated_plots.append(candidate)
+								break
+					check(equivalent(econ.farm.state(actual),saved),"player crop survives restoration: " + plot_id)
 	var editor: Node=main.building_controller
 	# Management buttons must explain context, even while the player is home.
 	main.restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[8.35,1.38,9.55]})
@@ -104,27 +119,31 @@ func run() -> void:
 	check(editor.book.visible and editor.guide.visible and editor.guide_back.visible,"return button reopens book inside unified building toolbar")
 	editor.close()
 	# An old independent raft plus new edge board, projected into the real world.
-	main._restore_building(old_layout())
-	check(main.building.query()==old_layout().instances,"historical fixture projects into real game")
+	var fixture_layout := old_layout(18.0)
+	main._restore_building(fixture_layout)
+	check(equivalent(main.building.query().slice(0,fixture_layout.instances.size()),fixture_layout.instances),"historical fixture projects into real game")
 	main._debug_teleport("zone5")
-	main.actor_controller.restore_pose({"mode":0,"player":[24.5,1.48,25.5]})
+	main.actor_controller.restore_pose({"mode":0,"player":[42.5,1.48,25.5]})
 	root.get_node("GameState").enter_zone("zone5")
 	main.cam.follow_enabled=false
-	main.cam.global_position=Vector3(24,23,38);main.cam.look_at(Catalog.ORIGIN+Vector3(2,0,10))
+	main.cam.global_position=Vector3(42,23,38);main.cam.look_at(Catalog.ORIGIN+Vector3(20,0,10))
 	econ.inventory.set_count("wood",100);econ.inventory.set_count("soil",10)
-	var snapped: Dictionary=editor._deck_request(Vector2(5.0,10.0))
+	var snapped: Dictionary=editor._deck_request(Vector2(23.0,10.0))
 	check(main.building.can_place(snapped)=="","mouse board request can extend restored raft")
 	var joined: Dictionary=main.building.begin(snapped);check(joined.ok,"real world accepts snapped board")
 	main.building.tick(3)
+	check(main.building_world.node_for(joined.id).has_node("Construction"),"accepted build runs completion animation")
+	for frame in 3: await physics_frame
 	var snapshot:=Save.encode(main)
 	var written:=Save.write("user://building-compat.json",main)
 	check(written.ok,"mixed layout writes through production save: "+str(written.reason))
 	var read:=Save.read("user://building-compat.json")
 	check(read.ok and equivalent(read.snapshot.building,snapshot.building),"mixed layout survives disk read")
 	if read.ok: check(Save.restore(main,read.snapshot).ok,"mixed layout restores through production registry")
-	check(equivalent(main.building.row("built_1"),old_layout().instances[0]),"disk roundtrip leaves old raft untouched")
+	check(not main.building_world.node_for(joined.id).has_node("Construction"),"loading a completed build skips its animation")
+	check(equivalent(main.building.row("built_1"),fixture_layout.instances[0]),"disk roundtrip leaves old raft untouched")
 	# A high lamp is selected at its body, rather than only its tiny ground square.
-	var lamp: Dictionary=main.building.begin({"kind":"lamp_post","px":3.2,"pz":11.1,"py":0.0,"turn":0,"support":"built_1"})
+	var lamp: Dictionary=main.building.begin({"kind":"lamp_post","px":21.2,"pz":11.1,"py":0.0,"turn":0,"support":"built_1"})
 	check(lamp.ok,"tall furnishing fixture builds")
 	main.building.tick(20)
 	await physics_frame;await physics_frame
@@ -145,7 +164,7 @@ func run() -> void:
 		check(econ.count("wood")==count_before+int(Catalog.RECIPES.lamp_post.cost.get("wood",0)),"removal refunds exactly once")
 	# Save/load rebuilding the layout must not strand reclaim commands.
 	var pot: Dictionary=main.building.row("built_2")
-	main.actor_controller.restore_pose({"mode":0,"player":[24.5,1.48,25.5]})
+	main.actor_controller.restore_pose({"mode":0,"player":[42.5,1.48,25.5]})
 	editor.update_preview(main.cam.unproject_position(main.building_world.position_for(pot)+Vector3.UP*.15))
 	check(editor.hovered_id==pot.id,"historical furnishing can be selected after restore")
 	check(editor.demolition.target.get("id","")==pot.id and editor.selection_outline.visible and editor.demolition.target_label.text.contains(str(Catalog.RECIPES[pot.kind].name)),"remove mode shows selected object's real name and outline without a permanent key tutorial")

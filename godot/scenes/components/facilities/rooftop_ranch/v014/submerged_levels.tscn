@@ -1,0 +1,4083 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_bay.tscn" id="deep_bay"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_bay_open.tscn" id="deep_bay_open"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_bay_spalled.tscn" id="deep_bay_spalled"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_beam.tscn" id="deep_beam"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_beam_broken.tscn" id="deep_beam_broken"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_debris.tscn" id="deep_debris"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_plate.tscn" id="deep_plate"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_post.tscn" id="deep_post"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/v014/deep_post_broken.tscn" id="deep_post_broken"]
+
+[node name="SubmergedLevels" type="Node3D"]
+metadata/visual_only = true
+metadata/building_class = "underwater"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+
+[node name="Floor01" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_1_01" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_2_02" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_0_03" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_1_04" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_2_05" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_06" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_07" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_08" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_0_09" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_10" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_11" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_0_12" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_13" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_14" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_0_15" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -5.1, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_16" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_17" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_6_0_18" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -4.82, 4.28)
+quaternion = Quaternion(-0.0995426, 0.0367153, -0.133723, 0.985323)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_6_0_19" parent="Floor01" instance=ExtResource("deep_debris")]
+position = Vector3(11.080362, -5.059379, 4.809151)
+quaternion = Quaternion(-0.0768191, -0.9952424, 0.046194, 0.038179)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_6_1_20" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -5.1, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_21" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_7_0_22" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -4.82, 4.28)
+quaternion = Quaternion(-0.1067445, -0.0845391, -0.1676601, 0.9763958)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_7_0_23" parent="Floor01" instance=ExtResource("deep_debris")]
+position = Vector3(15.356647, -5.059379, 4.805788)
+quaternion = Quaternion(-0.074731, -0.9926297, 0.0495008, 0.0815545)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_debris_7_1_24" parent="Floor01" instance=ExtResource("deep_debris")]
+position = Vector3(15.371462, -5.059379, 0.544517)
+quaternion = Quaternion(0.0833898, 0.9878945, -0.0328817, 0.126607)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_7_2_25" parent="Floor01" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -5.1, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_26" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -4.89, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_27" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_28" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_29" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_30" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(0, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_31" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_32" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_33" parent="Floor01" instance=ExtResource("deep_post_broken")]
+position = Vector3(12.790384, -4.89, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_8_1_34" parent="Floor01" instance=ExtResource("deep_post_broken")]
+position = Vector3(17.120001, -4.89, 6.469616)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_0_3_35" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -4.89, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_36" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_37" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_38" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_39" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(0, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_40" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_41" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_42" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -4.89, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_43" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -4.89, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_44" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -4.89, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_2_45" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -4.89, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_46" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -4.89, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_47" parent="Floor01" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -4.89, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_48" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -4.885, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F1_49" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_50" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -4.885, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_51" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_52" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -4.885, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F3_53" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_54" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -4.885, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_55" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_56" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -4.885, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_57" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_58" parent="Floor01" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(6.42, -4.885, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F6_59" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_60" parent="Floor01" instance=ExtResource("deep_bay_open")]
+position = Vector3(9.66, -4.885, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F7_61" parent="Floor01" instance=ExtResource("deep_beam_broken")]
+position = Vector3(10.7, -0.570454, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F8_62" parent="Floor01" instance=ExtResource("deep_bay_open")]
+position = Vector3(13.94, -4.885, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F8_63" parent="Floor01" instance=ExtResource("deep_beam_broken")]
+position = Vector3(14.98, -0.570454, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B1_64" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_65" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_66" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B2_67" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_68" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_69" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_70" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_71" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_72" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_73" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_74" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_75" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_76" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_77" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_78" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -4.885, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_79" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -0.566, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_80" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -4.885, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W1_81" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -0.566, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_82" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -4.885, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W2_83" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -0.566, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_84" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -4.885, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_85" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -0.566, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_86" parent="Floor01" instance=ExtResource("deep_bay_open")]
+position = Vector3(17.120001, -4.885, 5.32)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_E1_87" parent="Floor01" instance=ExtResource("deep_beam_broken")]
+position = Vector3(17.120001, -0.570454, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_E2_88" parent="Floor01" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(17.1875, -4.885, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_E2_89" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -0.566, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_90" parent="Floor01" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -4.885, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E3_91" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -0.566, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_92" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -0.566, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -0.566, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor01" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -0.566, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor02" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_1_01" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_2_02" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_0_03" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_1_04" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_2_05" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_06" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_07" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_08" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_3_0_09" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -9.92, 4.28)
+quaternion = Quaternion(-0.0102244, -0.0494197, -0.1514859, 0.9871703)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_3_0_10" parent="Floor02" instance=ExtResource("deep_debris")]
+position = Vector3(-1.855296, -10.159378, 4.834503)
+quaternion = Quaternion(0.0008135, -0.4722275, 0.0896348, 0.8769072)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_3_1_11" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_12" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_4_0_13" parent="Floor02" instance=ExtResource("deep_debris")]
+position = Vector3(2.528882, -10.159378, 4.880138)
+quaternion = Quaternion(0.0888757, 0.8026518, 0.0116692, 0.5896737)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_4_1_14" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_15" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_0_16" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_17" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_18" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_0_19" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_20" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_21" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_0_22" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -10.2, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_1_23" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -10.2, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_2_24" parent="Floor02" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -10.2, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_25" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -9.99, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_26" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_27" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_28" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_29" parent="Floor02" instance=ExtResource("deep_post_broken")]
+position = Vector3(-0.049616, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_5_1_30" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_31" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_32" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -9.99, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_33" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -9.99, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_34" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -9.99, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_35" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_36" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_37" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_38" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(0, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_39" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_40" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_41" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -9.99, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_42" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -9.99, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_43" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -9.99, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_2_44" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -9.99, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_45" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -9.99, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_46" parent="Floor02" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -9.99, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_47" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -9.985, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F1_48" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_49" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -9.985, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_50" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_51" parent="Floor02" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-6.42, -9.985, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F3_52" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_53" parent="Floor02" instance=ExtResource("deep_bay_open")]
+position = Vector3(-3.18, -9.985, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F4_54" parent="Floor02" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-2.14, -5.670454, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F5_55" parent="Floor02" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(2.14, -9.985, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F5_56" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_57" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -9.985, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F6_58" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_59" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -9.985, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_60" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_61" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -9.985, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F8_62" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_63" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_64" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_65" parent="Floor02" instance=ExtResource("deep_bay_open")]
+position = Vector3(11.74, -9.985, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_B2_66" parent="Floor02" instance=ExtResource("deep_beam_broken")]
+position = Vector3(10.7, -5.670454, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B3_67" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_68" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_69" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_70" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_71" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_72" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_73" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_74" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_75" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_76" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_77" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -9.985, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_78" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -5.666, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_79" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -9.985, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W1_80" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -5.666, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_81" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -9.985, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W2_82" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -5.666, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_83" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -9.985, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_84" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -5.666, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_85" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -9.985, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E1_86" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -5.666, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_87" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -9.985, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E2_88" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -5.666, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_89" parent="Floor02" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -9.985, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E3_90" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -5.666, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_91" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_92" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -5.666, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -5.666, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor02" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -5.666, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor03" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_0_1_01" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -15.02, 0)
+quaternion = Quaternion(-0.0705627, 0.0209475, -0.2126327, 0.974356)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_0_1_02" parent="Floor03" instance=ExtResource("deep_debris")]
+position = Vector3(-14.635339, -15.259378, 0.512763)
+quaternion = Quaternion(-0.056387, -0.9221639, 0.0696818, 0.3762695)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="fallen_slab_0_2_03" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -15.02, -4.28)
+quaternion = Quaternion(0.0839954, -0.0979329, -0.1693271, 0.9770784)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_0_2_04" parent="Floor03" instance=ExtResource("deep_debris")]
+position = Vector3(-14.630368, -15.259378, -3.766613)
+quaternion = Quaternion(-0.0593728, -0.9376988, 0.067156, 0.3356872)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_1_0_05" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_1_06" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_1_2_07" parent="Floor03" instance=ExtResource("deep_debris")]
+position = Vector3(-10.390986, -15.259378, -3.661652)
+quaternion = Quaternion(0.0539707, 0.142001, 0.0715697, 0.9857995)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_2_0_08" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_09" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_10" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_0_11" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_12" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_13" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_0_14" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_15" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_16" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_0_17" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_18" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_19" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_0_20" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_21" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_22" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_0_23" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -15.3, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_1_24" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -15.3, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_2_25" parent="Floor03" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -15.3, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_26" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -15.09, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_27" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_28" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_29" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_30" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(0, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_31" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_32" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_33" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -15.09, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_34" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -15.09, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_35" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -15.09, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_36" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_37" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_38" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_39" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(0, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_40" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_41" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_42" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -15.09, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_43" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -15.09, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_44" parent="Floor03" instance=ExtResource("deep_post_broken")]
+position = Vector3(-17.120001, -15.09, 2.189616)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_0_2_45" parent="Floor03" instance=ExtResource("deep_post_broken")]
+position = Vector3(-17.120001, -15.09, -2.090384)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_8_1_46" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -15.09, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_47" parent="Floor03" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -15.09, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_48" parent="Floor03" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-14.98, -15.085, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F1_49" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_50" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_51" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_52" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F3_53" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_54" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_55" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_56" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_57" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_58" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F6_59" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_60" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_61" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_62" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -15.085, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F8_63" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_64" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_65" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_66" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B2_67" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_68" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_69" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_70" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_71" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_72" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_73" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_74" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_75" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_76" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -15.085, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_77" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -10.766, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_78" parent="Floor03" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-14.98, -15.085, -6.4875)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_B8_79" parent="Floor03" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-14.98, -10.770453, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_W1_80" parent="Floor03" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-17.1875, -15.085, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_W1_81" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -10.766, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_82" parent="Floor03" instance=ExtResource("deep_bay_open")]
+position = Vector3(-17.120001, -15.085, -1.04)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_W2_83" parent="Floor03" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-17.120001, -10.770453, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_W3_84" parent="Floor03" instance=ExtResource("deep_bay_open")]
+position = Vector3(-17.120001, -15.085, 3.24)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_W3_85" parent="Floor03" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-17.120001, -10.770453, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_E1_86" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -15.085, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E1_87" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -10.766, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_88" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -15.085, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E2_89" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -10.766, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_90" parent="Floor03" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -15.085, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E3_91" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -10.766, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_92" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -10.766, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -10.766, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor03" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -10.766, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor04" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_1_01" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_2_02" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -20.4, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_0_03" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_1_04" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_2_05" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -20.4, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_06" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_07" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_2_2_08" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -20.120001, -4.28)
+quaternion = Quaternion(0.0566817, 0.0849318, -0.1791642, 0.978506)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_2_2_09" parent="Floor04" instance=ExtResource("deep_debris")]
+position = Vector3(-6.049861, -20.359379, -3.758882)
+quaternion = Quaternion(-0.071096, -0.9845228, 0.0545932, 0.1505983)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_3_0_10" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_11" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_3_2_12" parent="Floor04" instance=ExtResource("deep_debris")]
+position = Vector3(-1.747399, -20.359379, -3.686958)
+quaternion = Quaternion(0.0894732, 0.8418301, 0.0054411, 0.5322471)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_4_0_13" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_14" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_4_2_15" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -20.120001, -4.28)
+quaternion = Quaternion(-0.0138562, 0.0055866, -0.155689, 0.9876931)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_4_2_16" parent="Floor04" instance=ExtResource("deep_debris")]
+position = Vector3(2.431652, -20.359379, -3.740987)
+quaternion = Quaternion(-0.0124443, -0.5966557, 0.0887705, 0.7974754)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_5_0_17" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_18" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_5_2_19" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -20.120001, -4.28)
+quaternion = Quaternion(-0.0174674, -0.1019786, -0.1862832, 0.9770332)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_5_2_20" parent="Floor04" instance=ExtResource("deep_debris")]
+position = Vector3(6.774227, -20.359379, -3.654364)
+quaternion = Quaternion(0.0780327, 0.5233102, 0.0441129, 0.8474146)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_6_0_21" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_22" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_23" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -20.4, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_0_24" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -20.4, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_1_25" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -20.4, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_2_26" parent="Floor04" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -20.4, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_27" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -20.190001, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_28" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_29" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_30" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_31" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(0, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_32" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_33" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_34" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -20.190001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_35" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -20.190001, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_36" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -20.190001, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_37" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_38" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_39" parent="Floor04" instance=ExtResource("deep_post_broken")]
+position = Vector3(-4.329617, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_4_3_40" parent="Floor04" instance=ExtResource("deep_post_broken")]
+position = Vector3(-0.049616, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_5_3_41" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_42" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_43" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -20.190001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_44" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -20.190001, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_45" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -20.190001, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_2_46" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -20.190001, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_47" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -20.190001, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_48" parent="Floor04" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -20.190001, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_49" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F1_50" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_51" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_52" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_53" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F3_54" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_55" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_56" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_57" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_58" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_59" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F6_60" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_61" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_62" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_63" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -20.184999, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F8_64" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_65" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -20.184999, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_66" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -15.866, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_67" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -20.184999, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B2_68" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -15.866, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_69" parent="Floor04" instance=ExtResource("deep_bay_open")]
+position = Vector3(7.46, -20.184999, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_B3_70" parent="Floor04" instance=ExtResource("deep_beam_broken")]
+position = Vector3(6.42, -15.870454, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B4_71" parent="Floor04" instance=ExtResource("deep_bay_open")]
+position = Vector3(3.18, -20.184999, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_B4_72" parent="Floor04" instance=ExtResource("deep_beam_broken")]
+position = Vector3(2.14, -15.870454, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B5_73" parent="Floor04" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-2.14, -20.184999, -6.4875)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_B5_74" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -15.866, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_75" parent="Floor04" instance=ExtResource("deep_bay_open")]
+position = Vector3(-5.38, -20.184999, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_B6_76" parent="Floor04" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-6.42, -15.870454, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B7_77" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -20.184999, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_78" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -15.866, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_79" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -20.184999, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_80" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -15.866, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_81" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -20.184999, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W1_82" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -15.866, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_83" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -20.184999, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W2_84" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -15.866, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_85" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -20.184999, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_86" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -15.866, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_87" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -20.184999, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E1_88" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -15.866, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_89" parent="Floor04" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -20.184999, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E2_90" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -15.866, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_91" parent="Floor04" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(17.1875, -20.184999, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_E3_92" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -15.866, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -15.866, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -15.866, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_96" parent="Floor04" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -15.866, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor05" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_1_01" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_2_02" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_0_03" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_1_1_04" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -25.219999, 0)
+quaternion = Quaternion(0.1009816, 0.0684865, -0.1595147, 0.9796261)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_1_1_05" parent="Floor05" instance=ExtResource("deep_debris")]
+position = Vector3(-10.384864, -25.459377, 0.621764)
+quaternion = Quaternion(0.0582393, 0.2019178, 0.0681413, 0.9752918)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_1_2_06" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_07" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_08" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_09" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_0_10" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_11" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_12" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_0_13" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_14" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_15" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_5_0_16" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -25.219999, 4.28)
+quaternion = Quaternion(0.080289, -0.078463, -0.2253621, 0.9677857)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_5_0_17" parent="Floor05" instance=ExtResource("deep_debris")]
+position = Vector3(6.816955, -25.459377, 4.842659)
+quaternion = Quaternion(0.0876732, 0.95345, -0.0186675, 0.2879201)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_5_1_18" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_19" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_0_20" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_21" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_22" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_0_23" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -25.5, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_1_24" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -25.5, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_2_25" parent="Floor05" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -25.5, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_26" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -25.290001, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_27" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_28" parent="Floor05" instance=ExtResource("deep_post_broken")]
+position = Vector3(-8.609616, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_3_1_29" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_30" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(0, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_31" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_32" parent="Floor05" instance=ExtResource("deep_post_broken")]
+position = Vector3(8.510385, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_7_1_33" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -25.290001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_34" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -25.290001, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_35" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -25.290001, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_36" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_37" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_38" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_39" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(0, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_40" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_41" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_42" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -25.290001, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_43" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -25.290001, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_44" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -25.290001, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_2_45" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -25.290001, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_46" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -25.290001, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_47" parent="Floor05" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -25.290001, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_48" parent="Floor05" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-14.98, -25.285, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F1_49" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_50" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -25.285, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_51" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_52" parent="Floor05" instance=ExtResource("deep_bay_open")]
+position = Vector3(-7.46, -25.285, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F3_53" parent="Floor05" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-6.42, -20.970453, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F4_54" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -25.285, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_55" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_56" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -25.285, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_57" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_58" parent="Floor05" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(6.42, -25.285, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F6_59" parent="Floor05" instance=ExtResource("deep_beam_broken")]
+position = Vector3(6.42, -20.970453, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F7_60" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -25.285, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_61" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_62" parent="Floor05" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(14.98, -25.285, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F8_63" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_64" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_65" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_66" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B2_67" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_68" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_69" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_70" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_71" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_72" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_73" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_74" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_75" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_76" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_77" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_78" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -25.285, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_79" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -20.966, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_80" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -25.285, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W1_81" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -20.966, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_82" parent="Floor05" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-17.1875, -25.285, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_W2_83" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -20.966, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_84" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -25.285, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_85" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -20.966, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_86" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -25.285, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E1_87" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -20.966, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_88" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -25.285, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E2_89" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -20.966, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_90" parent="Floor05" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -25.285, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E3_91" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -20.966, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_92" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -20.966, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -20.966, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor05" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -20.966, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor06" type="Node3D" parent="."]
+
+[node name="slab_0_0_00" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_1_01" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_0_2_02" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_0_03" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_1_04" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_2_05" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_06" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_07" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_08" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_0_09" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_10" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_11" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_0_12" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_13" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_14" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_0_15" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_16" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_17" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -30.6, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_0_18" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -30.6, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_19" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -30.6, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_6_2_20" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -30.32, -4.28)
+quaternion = Quaternion(0.1150641, 0.0060356, -0.1232626, 0.9856623)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_6_2_21" parent="Floor06" instance=ExtResource("deep_debris")]
+position = Vector3(10.982691, -30.559378, -3.713662)
+quaternion = Quaternion(0.0101784, -0.3779789, 0.0890587, 0.9214646)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="fallen_slab_7_0_22" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -30.32, 4.28)
+quaternion = Quaternion(-0.0835939, 0.0406596, -0.190705, 0.9772362)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_7_0_23" parent="Floor06" instance=ExtResource("deep_debris")]
+position = Vector3(15.268677, -30.559378, 4.824236)
+quaternion = Quaternion(-0.0077814, -0.5541012, 0.0893001, 0.8276091)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="fallen_slab_7_1_24" parent="Floor06" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -30.32, 0)
+quaternion = Quaternion(-0.1201359, 0.0956966, -0.1085031, 0.9821591)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_7_1_25" parent="Floor06" instance=ExtResource("deep_debris")]
+position = Vector3(15.31434, -30.559378, 0.627147)
+quaternion = Quaternion(0.0691871, 0.3682079, 0.056993, 0.9254122)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_debris_7_2_26" parent="Floor06" instance=ExtResource("deep_debris")]
+position = Vector3(15.263085, -30.559378, -3.717651)
+quaternion = Quaternion(0.0070641, -0.4099073, 0.0893597, 0.9077119)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="post_0_1_27" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -30.389999, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_1_28" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_1_29" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_30" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_31" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(0, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_32" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_33" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_34" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -30.389999, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_35" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -30.389999, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_36" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -30.389999, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_37" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_38" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_39" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_40" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(0, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_41" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_42" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_43" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -30.389999, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_44" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -30.389999, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_45" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -30.389999, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_2_46" parent="Floor06" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -30.389999, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_47" parent="Floor06" instance=ExtResource("deep_post_broken")]
+position = Vector3(17.120001, -30.389999, 2.189616)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_8_2_48" parent="Floor06" instance=ExtResource("deep_post_broken")]
+position = Vector3(17.120001, -30.389999, -2.090384)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="bay_F1_49" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F1_50" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F2_51" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F2_52" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F3_53" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F3_54" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_55" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_56" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_57" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_58" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_59" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F6_60" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_61" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_62" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_63" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -30.385, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F8_64" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_65" parent="Floor06" instance=ExtResource("deep_bay_open")]
+position = Vector3(16.02, -30.385, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_B1_66" parent="Floor06" instance=ExtResource("deep_beam_broken")]
+position = Vector3(14.98, -26.070454, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_B2_67" parent="Floor06" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(10.7, -30.385, -6.4875)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_B2_68" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_69" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_70" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_71" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_72" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_73" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_74" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_75" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_76" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_77" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_78" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_79" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -30.385, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_80" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -26.066, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_81" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -30.385, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W1_82" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -26.066, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W2_83" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -30.385, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W2_84" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -26.066, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_85" parent="Floor06" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -30.385, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_86" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -26.066, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_87" parent="Floor06" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(17.1875, -30.385, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_E1_88" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -26.066, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_89" parent="Floor06" instance=ExtResource("deep_bay_open")]
+position = Vector3(17.120001, -30.385, 1.04)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_E2_90" parent="Floor06" instance=ExtResource("deep_beam_broken")]
+position = Vector3(17.120001, -26.070454, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_E3_91" parent="Floor06" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(17.1875, -30.385, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_E3_92" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -26.066, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -26.066, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -26.066, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_96" parent="Floor06" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -26.066, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="Floor07" type="Node3D" parent="."]
+
+[node name="fallen_slab_0_0_00" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -35.419998, 4.28)
+quaternion = Quaternion(-0.0002983, 0.0056901, -0.2000433, 0.9797705)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_0_0_01" parent="Floor07" instance=ExtResource("deep_debris")]
+position = Vector3(-14.649323, -35.659382, 4.793336)
+quaternion = Quaternion(-0.0474747, -0.8694345, 0.0760343, 0.4858483)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="fallen_slab_0_1_02" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -35.419998, 0)
+quaternion = Quaternion(-0.0667294, -0.0461217, -0.1186657, 0.9896153)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_0_1_03" parent="Floor07" instance=ExtResource("deep_debris")]
+position = Vector3(-14.58899, -35.659382, 0.543623)
+quaternion = Quaternion(0.0830996, 0.9889618, -0.0336081, 0.1179812)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_0_2_04" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-14.98, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="fallen_slab_1_0_05" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -35.419998, 4.28)
+quaternion = Quaternion(-0.0190149, 0.0080012, -0.17342, 0.9846319)
+scale = Vector3(0.75, 1, 0.8)
+metadata/component_key = "deep_plate"
+
+[node name="slab_debris_1_0_06" parent="Floor07" instance=ExtResource("deep_debris")]
+position = Vector3(-10.303696, -35.659382, 4.838705)
+quaternion = Quaternion(0.0869683, 0.9629174, -0.0217158, 0.2544699)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_debris"
+
+[node name="slab_1_1_07" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_1_2_08" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-10.7, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_0_09" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_1_10" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_2_2_11" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-6.42, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_0_12" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_1_13" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_3_2_14" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(-2.14, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_0_15" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_1_16" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_4_2_17" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(2.14, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_0_18" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_1_19" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_5_2_20" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(6.42, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_0_21" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_1_22" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_6_2_23" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(10.7, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_0_24" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -35.700001, 4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_1_25" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -35.700001, 0)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="slab_7_2_26" parent="Floor07" instance=ExtResource("deep_plate")]
+position = Vector3(14.98, -35.700001, -4.28)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_plate"
+
+[node name="post_0_1_27" parent="Floor07" instance=ExtResource("deep_post_broken")]
+position = Vector3(-17.120001, -35.490002, 6.469616)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_1_1_28" parent="Floor07" instance=ExtResource("deep_post_broken")]
+position = Vector3(-12.889616, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_2_1_29" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_1_30" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_1_31" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(0, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_1_32" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_1_33" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_1_34" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -35.490002, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_35" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -35.490002, 6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_3_36" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -35.490002, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_1_3_37" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-12.84, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_2_3_38" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-8.56, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_3_3_39" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-4.28, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_4_3_40" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(0, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_5_3_41" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(4.28, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_6_3_42" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(8.56, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_7_3_43" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(12.84, -35.490002, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_3_44" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -35.490002, -6.42)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_0_1_45" parent="Floor07" instance=ExtResource("deep_post_broken")]
+position = Vector3(-17.120001, -35.490002, 2.189616)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post_broken"
+
+[node name="post_0_2_46" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(-17.120001, -35.490002, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_1_47" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -35.490002, 2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="post_8_2_48" parent="Floor07" instance=ExtResource("deep_post")]
+position = Vector3(17.120001, -35.490002, -2.14)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_post"
+
+[node name="bay_F1_49" parent="Floor07" instance=ExtResource("deep_bay_open")]
+position = Vector3(-16.02, -35.485001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F1_50" parent="Floor07" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-14.98, -31.170454, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F2_51" parent="Floor07" instance=ExtResource("deep_bay_open")]
+position = Vector3(-11.74, -35.485001, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_F2_52" parent="Floor07" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-10.7, -31.170454, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_F3_53" parent="Floor07" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-6.42, -35.485001, 6.4875)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_F3_54" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F4_55" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -35.485001, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F4_56" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F5_57" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -35.485001, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F5_58" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F6_59" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -35.485001, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F6_60" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F7_61" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -35.485001, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F7_62" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_F8_63" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -35.485001, 6.46)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_F8_64" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B1_65" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(14.98, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B1_66" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(14.98, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B2_67" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(10.7, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B2_68" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(10.7, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B3_69" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(6.42, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B3_70" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(6.42, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B4_71" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(2.14, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B4_72" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(2.14, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B5_73" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-2.14, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B5_74" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-2.14, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B6_75" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-6.42, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B6_76" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-6.42, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B7_77" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-10.7, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B7_78" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-10.7, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_B8_79" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-14.98, -35.485001, -6.46)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_B8_80" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-14.98, -31.166, -6.42)
+quaternion = Quaternion(-0, -1, -0, 0)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W1_81" parent="Floor07" instance=ExtResource("deep_bay_open")]
+position = Vector3(-17.120001, -35.485001, -5.32)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_open"
+
+[node name="beam_W1_82" parent="Floor07" instance=ExtResource("deep_beam_broken")]
+position = Vector3(-17.120001, -31.170454, -4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam_broken"
+
+[node name="bay_W2_83" parent="Floor07" instance=ExtResource("deep_bay_spalled")]
+position = Vector3(-17.1875, -35.485001, -0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay_spalled"
+
+[node name="beam_W2_84" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -31.166, 0)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_W3_85" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(-17.160002, -35.485001, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_W3_86" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -31.166, 4.28)
+quaternion = Quaternion(-0, -0.7071068, -0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E1_87" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -35.485001, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E1_88" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -31.166, 4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E2_89" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -35.485001, -0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E2_90" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -31.166, 0)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bay_E3_91" parent="Floor07" instance=ExtResource("deep_bay")]
+position = Vector3(17.160002, -35.485001, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(1, 1, 1)
+metadata/component_key = "deep_bay"
+
+[node name="beam_E3_92" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -31.166, -4.28)
+quaternion = Quaternion(0, 0.7071068, 0, 0.7071068)
+scale = Vector3(0.854, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_93" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_94" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(-17.120001, -31.166, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_95" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -31.166, 6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"
+
+[node name="bearing_17_12_6_42_96" parent="Floor07" instance=ExtResource("deep_beam")]
+position = Vector3(17.120001, -31.166, -6.42)
+quaternion = Quaternion(0, 0, 0, 1)
+scale = Vector3(0.148, 1, 1)
+metadata/component_key = "deep_beam"

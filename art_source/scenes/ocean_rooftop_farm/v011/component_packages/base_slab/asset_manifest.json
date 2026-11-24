@@ -1,0 +1,56 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "base_slab",
+  "asset_id": "SEA-SCENE-ORF7-BASE-SLAB",
+  "name": "底层楼板",
+  "category": "structure",
+  "component_family": "deck",
+  "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/base_slab/base_slab.blend",
+  "source_sha256": "f62c895e400f6ff890ba7f4b886971abe347a9c5e9a2f28ec0927dc9af0fa27c",
+  "collection": "MASTER | base_slab",
+  "bounds_m": [
+    34.720001220703125,
+    13.819999694824219,
+    0.20000000298023224
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BASE-SLAB",
+  "version": "v011",
+  "source_revision": "v011",
+  "form_style": "SF-B",
+  "form": [
+    {
+      "id": "Reinforced 200 mm slab",
+      "kind": "horizontal_cover",
+      "bottom": 13.82,
+      "top": 13.6818,
+      "extent": [
+        34.72,
+        13.82,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v011/base_slab.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v011/base_slab.tscn"
+}

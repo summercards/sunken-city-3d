@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "house_roof",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-ROOF",
+  "name": "平屋顶、烟囱及检修口",
+  "category": "structure",
+  "component_family": "house",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/house_roof/house_roof.blend",
+  "source_sha256": "1f8312094560583f4ec1d84544cb8de80d1d8cb23987648d285fab9d98a9939e",
+  "collection": "MASTER | house_roof",
+  "bounds_m": [
+    8.760000228881836,
+    5.199999809265137,
+    1.445744514465332
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.1099998950958252,
+    -0.33274614810943604
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-ROOF",
+  "version": "v009"
+}

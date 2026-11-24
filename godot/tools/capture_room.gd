@@ -45,7 +45,7 @@ func run() -> void:
 	main.set_process(false)
 
 	var room: Node3D = main.room
-	var door: Node3D = main._zone_nodes.zone1.get_node("Objects/RoomDoor")
+	var door: Node3D = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/RoomDoor")
 
 	# ⓪ 室外全景：确认房间没有反过来破坏屋顶外观（它在屋面上方，从甲板看得出体积）。
 	await shot("outside", Vector3(2.5, 10.5, 1.0), 30.0, Vector3(-0.55, 0.42, 0.72))

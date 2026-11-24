@@ -1,0 +1,421 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "facade_bay_open",
+  "asset_id": "SEA-SCENE-ORF7-FACADE-BAY-OPEN",
+  "name": "空窗和缺砖窗跨",
+  "category": "structure",
+  "component_family": "facade",
+  "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/facade_bay_open/facade_bay_open.blend",
+  "source_sha256": "a101e4d3e7cd838377fbce9bcefe1373c9df648e863518ecebd1fef66e3ed706",
+  "collection": "MASTER | facade_bay_open",
+  "bounds_m": [
+    3.7340002059936523,
+    0.7279999852180481,
+    4.257999897003174
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.04899999499320984,
+    0.046000003814697266
+  ],
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-FACADE-BAY-OPEN",
+  "version": "v011",
+  "source_revision": "v011",
+  "form_style": "SF-B",
+  "form": [
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.257,
+      "top": 0.250318,
+      "extent": [
+        0.9958,
+        0.257,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.278,
+      "top": 0.270772,
+      "extent": [
+        0.8836,
+        0.278,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.245,
+      "top": 0.23862999999999998,
+      "extent": [
+        0.921,
+        0.245,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.108,
+      "top": 0.105192,
+      "extent": [
+        0.8836,
+        0.108,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.265,
+      "top": 0.25811,
+      "extent": [
+        0.547,
+        0.265,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.257,
+      "top": 0.250318,
+      "extent": [
+        1.1828,
+        0.257,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.278,
+      "top": 0.270772,
+      "extent": [
+        1.0706,
+        0.278,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.245,
+      "top": 0.23862999999999998,
+      "extent": [
+        0.8836,
+        0.245,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.245,
+      "top": 0.23862999999999998,
+      "extent": [
+        0.921,
+        0.245,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.265,
+      "top": 0.25811,
+      "extent": [
+        1.0332000000000001,
+        0.265,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.108,
+      "top": 0.105192,
+      "extent": [
+        1.1828,
+        0.108,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Staggered solid ashlar",
+      "kind": "masonry",
+      "bottom": 0.278,
+      "top": 0.270772,
+      "extent": [
+        0.547,
+        0.278,
+        0.362
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Backing behind the masonry courses",
+      "kind": "vertical_structure",
+      "bottom": 0.3,
+      "top": 0.29369999999999996,
+      "extent": [
+        3.724,
+        0.3,
+        1.25
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Deep tapered masonry jamb",
+      "kind": "vertical_structure",
+      "bottom": 0.334,
+      "top": 0.326986,
+      "extent": [
+        0.334,
+        0.54,
+        2.39
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Square projecting sill",
+      "kind": "opening",
+      "bottom": 0.5,
+      "top": 0.4895,
+      "extent": [
+        1.58,
+        0.5,
+        0.142
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Deep tapered masonry jamb",
+      "kind": "vertical_structure",
+      "bottom": 0.334,
+      "top": 0.326986,
+      "extent": [
+        0.334,
+        0.54,
+        2.39
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Square projecting sill",
+      "kind": "opening",
+      "bottom": 0.5,
+      "top": 0.4895,
+      "extent": [
+        1.58,
+        0.5,
+        0.142
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Central dressed stone jamb",
+      "kind": "vertical_structure",
+      "bottom": 0.105,
+      "top": 0.102795,
+      "extent": [
+        0.105,
+        0.48,
+        2.12
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Recessed interior shadow",
+      "kind": "vertical_structure",
+      "bottom": 0.062,
+      "top": 0.060697999999999995,
+      "extent": [
+        3.28,
+        0.062,
+        2.15
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset lower sash rail",
+      "kind": "opening",
+      "bottom": 0.096,
+      "top": 0.093984,
+      "extent": [
+        1.52,
+        0.096,
+        0.095
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset upper sash rail",
+      "kind": "opening",
+      "bottom": 0.1,
+      "top": 0.0979,
+      "extent": [
+        1.52,
+        0.1,
+        0.093
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset vertical sash rail",
+      "kind": "opening",
+      "bottom": 0.085,
+      "top": 0.08321500000000001,
+      "extent": [
+        0.085,
+        0.1,
+        1.76
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset vertical sash rail",
+      "kind": "opening",
+      "bottom": 0.085,
+      "top": 0.08321500000000001,
+      "extent": [
+        0.085,
+        0.1,
+        1.76
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset lower sash rail",
+      "kind": "opening",
+      "bottom": 0.096,
+      "top": 0.093984,
+      "extent": [
+        1.52,
+        0.096,
+        0.095
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset upper sash rail",
+      "kind": "opening",
+      "bottom": 0.1,
+      "top": 0.0979,
+      "extent": [
+        1.52,
+        0.1,
+        0.093
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset vertical sash rail",
+      "kind": "opening",
+      "bottom": 0.085,
+      "top": 0.08321500000000001,
+      "extent": [
+        0.085,
+        0.1,
+        1.76
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Inset vertical sash rail",
+      "kind": "opening",
+      "bottom": 0.085,
+      "top": 0.08321500000000001,
+      "extent": [
+        0.085,
+        0.1,
+        1.76
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Beveled continuous window lintel",
+      "kind": "vertical_structure",
+      "bottom": 0.59,
+      "top": 0.57761,
+      "extent": [
+        3.72,
+        0.59,
+        0.28
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Recessed upper masonry panel",
+      "kind": "vertical_structure",
+      "bottom": 0.36,
+      "top": 0.35244,
+      "extent": [
+        3.72,
+        0.36,
+        0.604
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v011/facade_bay_open.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v011/facade_bay_open.tscn"
+}

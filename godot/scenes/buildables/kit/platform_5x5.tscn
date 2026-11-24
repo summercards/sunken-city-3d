@@ -1,17 +1,28 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
-[ext_resource type="PackedScene" path="res://assets/models/building_kit/platform_5x5/platform_5x5.glb" id="2"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/construction_v003/platform_5x5.glb" id="2"]
+
+[sub_resource type="BoxShape3D" id="Deck"]
+size = Vector3(5, 0.5, 5)
 
 [node name="platform_5x5" type="Node3D"]
 script = ExtResource("1")
 content_id = "platform_5x5"
 metadata/asset_id = "SEA-KIT-PLATFORM-5X5"
-metadata/asset_version = "v002"
+metadata/asset_version = "v003"
 metadata/source_units = "meters"
 metadata/source_origin = "surface_center"
 metadata/water_layer = "surface"
 metadata/water_layer_role = "entity"
-metadata/collision_owner = "sea_building_space_projection"
+metadata/collision_owner = "component_scene"
 
 [node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="SurfaceCollision" type="StaticBody3D" parent="."]
+collision_layer = 12288
+collision_mask = 0
+
+[node name="Deck" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(0, -0.25, 0)
+shape = SubResource("Deck")

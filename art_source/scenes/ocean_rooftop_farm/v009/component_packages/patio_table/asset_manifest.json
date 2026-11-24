@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "patio_table",
+  "asset_id": "SEA-SCENE-ORF7-PATIO-TABLE",
+  "name": "圆桌、矮凳和茶具",
+  "category": "facility",
+  "component_family": "patio",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/patio_table/patio_table.blend",
+  "source_sha256": "852033a61d5d214fa450b02c01fedf7fe066af15046d441d467e82c69985fb5c",
+  "collection": "MASTER | patio_table",
+  "bounds_m": [
+    2.944056987762451,
+    2.9281506538391113,
+    1.3703312873840332
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.17327022552490234,
+    -0.17095857858657837,
+    0.019668638706207275
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-PATIO-TABLE",
+  "version": "v009"
+}

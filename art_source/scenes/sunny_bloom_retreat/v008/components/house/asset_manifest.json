@@ -70,5 +70,15 @@
   },
   "component_contract": "godot/src/ambient/scene_component.gd",
   "instance_manifest": "godot/assets/models/facilities/solar_cabin/instances.json",
-  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-HOUSE"
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-HOUSE",
+  "sunroom_1_6_runtime": {
+    "version": "1.6",
+    "scene": "godot/scenes/facilities/solar_cabin_surface.tscn",
+    "glb": "godot/assets/models/facilities/solar_cabin/v1_6/house.glb",
+    "prefab": "godot/scenes/components/solar_cabin/v1_6/house.tscn",
+    "assembly_source": "art_source/scenes/sunny_bloom_retreat/v008/sunny_bloom_retreat.blend",
+    "assembly_source_sha256": "28e5ee21f6f54c4800fe5054646052009941446528e16295814001b0b5ab7793",
+    "export_manifest": "godot/assets/models/facilities/solar_cabin/v1_6/export_manifest.json",
+    "status": "runtime_integrated_verified"
+  }
 }

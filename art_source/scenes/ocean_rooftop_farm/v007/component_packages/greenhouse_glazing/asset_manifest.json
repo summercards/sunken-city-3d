@@ -1,0 +1,38 @@
+{
+  "key": "greenhouse_glazing",
+  "asset_id": "SEA-SCENE-ORF7-GREENHOUSE-GLAZING",
+  "name": "温室弧拱、玻璃与框架",
+  "category": "facility",
+  "component_family": "greenhouse",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/greenhouse_glazing/greenhouse_glazing.blend",
+  "source_sha256": "2b6483a1fdd743cb620acb32edf6f4094c4c47ecee70b475c45f27b84f5f8e75",
+  "collection": "MASTER | greenhouse_glazing",
+  "bounds_m": [
+    5.40500020980835,
+    6.575999736785889,
+    3.515532970428467
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.8600000739097595
+  ],
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-GREENHOUSE-GLAZING",
+  "version": "v007"
+}

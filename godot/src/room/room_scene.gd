@@ -2,7 +2,7 @@
 extends "res://src/world/zone_scene.gd"
 ## SEA-ROOM 房间壳。
 ##
-## 走的是和海上区块同一套接口（`walk_areas` / `area_at` / `pick_walk` / `landing_points`），
+## 复用海上区块的空间声明和泊位接口，
 ## 所以「在房间里点地面走路」「交互判定」「存档位置校验」都不需要另开一条通道 ——
 ## 房间只是又一个区块，`zone_id="room"`。
 ##

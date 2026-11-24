@@ -37,8 +37,6 @@
     "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
-    "selftest",
-    "surface",
     "visual-sea-style",
     "visual-blockers",
     "decorations",
@@ -55,7 +53,8 @@
     "sunken-city",
     "editor-scene-assembly",
     "editor-building-attachments",
-    "editor-workshop-attachments"
+    "editor-workshop-attachments",
+    "formal-facility-berths"
   ]
 }
 ```
@@ -124,7 +123,7 @@
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py selftest surface`。
+当前入口为 `python3 scripts/run_verification.py formal-facility-berths visual-formal-surface-handoff`。
 
 本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
@@ -607,3 +606,103 @@ R05/R44：原家园栈桥下挂手工可编辑 `BoardHullContact`，随原组件
 ## 2026-11-20 晚间正式 Main 复核
 
 R05/R07/R12/R46：GroundSpace 仍从正式场景的 WalkArea 派生地板和外缘体，家园试坡走同一支撑体系。正式场景运行确认船的物理掩码只匹配家园栈桥实体，其余旧轮廓仍参与船中心禁入。证据见[正式 Main 复核](../../development/2026-11-20_3c_structure_audit.md#2026-11-20-晚间--正式-main-现状复核)。
+
+## 2026-11-20 家园场景碰撞接入
+
+| 对应设计条款 | 实施与证据 |
+|---|---|
+| SEA-WORLD-R47 | 阳光房甲板、庭院、栈桥和试坡具有随场景摆放的实体碰撞。阳光房脚下和主泊位均查无旧层地板。墙体与实体支撑专项 17 项全过，试坡实窗 18 项全过。[运行记录](../../development/2026-11-20_native_home_roundtrip.md)。 |
+
+## 2026-11-20 阳光房栈桥下船区域
+
+| 对应设计条款 | 实施与证据 |
+|---|---|
+| SEA-WORLD-R48 | 主泊位的 `DockEdge/DockingArea` 已接入，实窗验证区域识别实际船体且船上角色位置变化不影响结果。[验证记录](../../development/2026-11-20_home_docking_hull.md)。 |
+
+## 2026-11-21 建筑组装动画接入
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R49 | 阳光房提供显式播放入口，正式 Main 仍直接装配完工态。主场景和家园区块场景的摆放保持原文件字节，补墙使用阳光房原碰撞树。实窗回归验证手动航行和上下船。其他建筑接入及正式事件待定。[接入记录](../../development/2026-11-21_sunroom_godot_animation.md)。 |
+
+## 2026-11-21 正式设施碰撞和泊位
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R50 | 八个固定泊位、升级渔场和三栋景观建筑的船壳扫掠合计 28 项通过。卧室进出与行走 761 项通过。各设施间完整航程和内部路线待验。 [开发与验证](../../development/2026-11-21_main_native_facilities.md)。 |
+
+## 2026-11-22 建筑组件与独立设施归属
+
+| 条款 ID | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-WORLD-R51 | 已实现。`ZoneScene` 递归登记建筑子树中的 WalkArea/LandingPoint，阳光房主甲板、上层、主泊位和 DockingArea 已从 zone1 拆出并挂入 `solar_cabin.tscn`。 | `godot/src/world/zone_scene.gd`、`godot/scenes/facilities/solar_cabin.tscn`；`sunroom-runtime`、`sunroom-surface-collision` exit 0 |
+| SEA-WORLD-R52 | 已实现。阳光房 `Facilities` 子树独立拥有菜箱、出货箱、房间入口和带 `facility=solar_cabin` 归属的采集点，各物件继续使用统一 Interactable Area3D 热区；Main 通过建筑实例查找公开设施，不再读取 `zone1/Objects` 旧路径。 | `godot/scenes/facilities/solar_cabin.tscn`、`godot/src/gathering/gather_field.gd`、`godot/src/bootstrap/main.gd`；海上/岸上上下文隔离仍由 `Interactor` 统一过滤。 |
+
+## 2026-11-22 运动中进入泊位并归位
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-NAV-R33 | 正式泊位交接继续读取船体 `HullCollision` 与 `DockingArea` 的实际重叠。船在推进中进入触发区即可出现“上岸”，按 E 后船体归位至场景 `BoatPark`，没有重新引入中心点或自动航线判定。 |
+
+## 2026-11-22 家园临时试坡撤下
+
+SEA-WORLD-R46 的正式场景试坡已撤下。碰撞专项确认原坡道位置为正常平甲板，旧试坡专项入口已退役，原摆位留作历史记录。[开发与验证](../../development/2026-11-22_sunroom_bridge_collision.md)。
+
+## 2026-11-22 正式设施碰撞与归属复核
+
+SEA-WORLD-R50–R52：固定泊位专项 36/0，主场景探针与泊位专项均退出 0。霓虹花园三座屋顶与花园桥存在导航标为可走、可见模型存在、但无角色碰撞支撑的采样点。打捞台与渔场共用的泊位、收鱼点、绞盘和升级牌仍分挂区块或 Main。横滨与浅水养殖台按整个区块跟随，模型子件、合并网格与泊位仍分开归属。本次盘点保留场景摆位与功能状态。[设施明细与证据](../../development/2026-11-22_main_facility_collision_audit.md)。
+
+## 2026-11-23 正式设施组件归属与实体碰撞
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R53 | 打捞台、养殖台、横滨、霓虹花园的实体和泊位归入服务组件。固定八泊位与三个景观船壳扫掠通过。三座屋顶和菜园桥的十二处原漏点均命中实体。 |
+| SEA-WORLD-R54 | 正式区块的旧模型切换、聚合碰撞和运行时采集摆放入口已撤。场景摆位、逐设施实测和抽样余项见[开发记录](../../development/2026-11-23_facility_scene_alignment.md)。 |
+
+## 2026-11-23 制造区替换旧养殖台
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R55 | 正式区块已装配新版起始甲板和初始码头，旧总成与其碰撞、固定种植和采集节点退出场景。 [交付及验证](../../development/2026-11-23_workshop_dock.md)。 |
+
+## 2026-11-23 起始种植区与四轮胎护舷
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R56 | 场景及参考配置已更新，位置台账记录五件固定初始组件与停船标记。 [交付和验证](../../development/2026-11-23_workshop_dock.md#起始种植区与四轮胎护舷)。 |
+
+## 2026-11-23 顶层牧场小屋与分件阻挡
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R57 | 正式 Main 加载 v010 小屋。墙段和门板实体随相应部件，破损门洞可通，完工门板阻挡。岸上交互实测、屋顶导航、NPC 站位查询与泊位回归通过。小屋修复状态为当前场景会话状态。[交付与证据](../../development/2026-11-23_rooftop_restoration_v010.md)。 |
+
+## 2026-11-23 顶层牧场整套替换
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R58 | 正式 Main 以 v010 整体替换旧牧场，包括右后方的蓝墙红顶工具棚。区块和手摆根保持原位，新码头供船靠泊，双段折返梯通往八处修复入口。25 个 NPC 站位落在保留铺面上。无窗口专项 1305/0，实窗 1311/0，固定泊位回归 43/0。[交付与证据](../../development/2026-11-23_rooftop_ranch_full.md)。 |
+
+## 2026-11-24 顶层牧场主楼结构深化
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R59 | 正式场景使用 v011 主楼，继承原码头、梯段、屋面和设施动画。船壳实测、八处修复、落装与 25 个站位通过。无窗口 1426/0，实窗 1434/0，固定泊位 43/0。[交付与证据](../../development/2026-11-24_rooftop_ranch_structure.md)。 |
+
+## 2026-11-24 顶层牧场入口与落装
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R60 | v012 破损态可登顶，完工后胶囊可从前沿走回接板。搬开的花圃及两株植物在同一新位置落装。八段区域修复、共用落装、温室石基分段阻挡及固定泊位通过。 [交付与证据](../../development/2026-11-24_rooftop_ranch_roof_joints.md)。 |
+
+## 2026-11-24 顶层牧场破损态野生植被
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R61 | 八区植被随各自修复清理，破损登顶通路、角色往返和完工设施通过实测。无窗口 1529/0、实窗 1539/0、泊位 43/0。 [交付与证据](../../development/2026-11-24_rooftop_ranch_wild_growth.md)。 |
+
+## 2026-11-24 顶层牧场新水线与登顶
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-WORLD-R62 | 正式牧场楼体下移 1.8 米，码头和停船标记留在原海面交接标高。新梯上下通行、旧档落脚、分区修复和完整落装通过。无窗口 2229/0，实窗 2239/0，正式泊位 43/0。水层专项剩九项均在范围外。[交付与证据](../../development/2026-11-24_rooftop_ranch_submerged.md)。 |

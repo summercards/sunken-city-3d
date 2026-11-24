@@ -176,3 +176,15 @@ b2-transactions103/0、farming35/0、farm-day-change23/0与modules101/0已PASS/e
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 005436 transactions103/0 PASS/exit0；012647 management按当前安装内容区分zone3退役后37/0、exit0，不恢复生产内容，历史36/1保留。
 - 010438 visual-garden-bubble产4张PNG、exit0，仅目检garden-bubble-single：对白可读但下半身被作物遮挡，不能签脚底接触/全站姿美术；全库契约仍失败，登记头partial不变。
+
+## 2026-11-23 制造区旧种植格作物承接
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-FARM-R18 | 用户存档副本中的两株生菜状态通过核对。专项验证旧作物能随存档恢复，完工空种植格承接其中一株并清理原记录。 [交付及验证](../../development/2026-11-23_workshop_dock.md)。 |
+
+## 2026-11-23 起始种植区与四轮胎护舷
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-FARM-R19 | 用原档副本恢复两株旧生菜并核对生长和浇水，太阳房菜箱原作物同步通过核对。 [交付和验证](../../development/2026-11-23_workshop_dock.md#起始种植区与四轮胎护舷)。 |

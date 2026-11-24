@@ -1,0 +1,37 @@
+{
+  "key": "flowers",
+  "asset_id": "SEA-SCENE-ORF7-FLOWERS",
+  "name": "花株与叶簇",
+  "category": "vegetation",
+  "component_family": "plants",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v008/component_packages/flowers/flowers.blend",
+  "source_sha256": "76262d1d49c0be0a9403e8b2ee2aeb3226ddc644ff209f1c93d3b98ad47bdd5f",
+  "collection": "MASTER | flowers",
+  "bounds_m": [
+    1.047240972518921,
+    0.627204418182373,
+    0.8577412962913513
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.001379460096359253,
+    0.025349020957946777,
+    -0.009741312824189663
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": null,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-FLOWERS",
+  "version": "v008"
+}

@@ -18,6 +18,8 @@ var approach_path_query: Callable
 
 
 func _on_ready() -> void:
+	interaction_context = "room"
+	trigger_padding = 0.0
 	id = "room_bed"
 	label = "床"
 	verb = "睡到早上 06:00"

@@ -1,0 +1,49 @@
+{
+  "key": "deep_beam_broken",
+  "name": "露筋断梁",
+  "component_family": "beam",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-BEAM-BROKEN",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_beam_broken/deep_beam_broken.blend",
+  "source_sha256": "4e09d85635ff126460f3267b2a3a7b71327e27c9a2422cf248120ca6a8536dfe",
+  "collection": "MASTER | deep_beam_broken",
+  "bounds_m": [
+    4.260000228881836,
+    0.6399999856948853,
+    0.5644540190696716
+  ],
+  "form": [
+    {
+      "id": "Drooping reinforcement",
+      "kind": "linear",
+      "d_bottom": 0.056,
+      "d_top": 0.05
+    },
+    {
+      "id": "Drooping reinforcement",
+      "kind": "linear",
+      "d_bottom": 0.056,
+      "d_top": 0.05
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    -0.0044540055096149445
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_beam_broken.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_beam_broken.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-BEAM-BROKEN"
+}

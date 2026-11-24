@@ -1,0 +1,37 @@
+{
+  "key": "rubble",
+  "asset_id": "SEA-SCENE-ORF7-RUBBLE",
+  "name": "散落破砖和碎石",
+  "category": "structure",
+  "component_family": "damage",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/rubble/rubble.blend",
+  "source_sha256": "2e2715ac2602b89fd39e2ca037c9330fdfcc925ac82dd203cefd2838a60a4e4e",
+  "collection": "MASTER | rubble",
+  "bounds_m": [
+    0.7890000343322754,
+    0.7630000114440918,
+    0.13199999928474426
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.005500003695487976,
+    0.011500000953674316,
+    0.018000006675720215
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-RUBBLE",
+  "version": "v007"
+}

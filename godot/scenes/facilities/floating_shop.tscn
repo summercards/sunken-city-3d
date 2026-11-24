@@ -60,6 +60,13 @@
 [ext_resource type="Script" path="res://src/world/shop_sightline.gd" id="sightline"]
 [ext_resource type="PackedScene" path="res://scenes/npc/floating_shop_npc_stations.tscn" id="npc_stations"]
 
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/shop_deck_collision.scn" id="shop_deck_collision"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/shop_walls_collision.scn" id="shop_walls_collision"]
+[ext_resource type="PackedScene" path="res://scenes/components/docking_area.tscn" id="dock_area"]
+
+[sub_resource type="BoxShape3D" id="HullContact"]
+size = Vector3(17.75, 1.18, 17.75)
+
 [node name="FloatingGiftKiosk" type="Node3D"]
 script = ExtResource("structure")
 zone_id = "sea_supply"
@@ -1318,6 +1325,7 @@ cell = 0.3
 [node name="Walk_sea_supply_deck" type="Node3D" parent="WalkAreas"]
 script = ExtResource("walk")
 area_id = "sea_supply_deck"
+scene_collision = true
 zone_id = "sea_supply"
 surface_y = 1.42
 span_min = 1.07
@@ -1330,7 +1338,8 @@ script = ExtResource("landing")
 landing_label = "海上补给站"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
-position = Vector3(0, -0.3, 4.3)
+position = Vector3(0, -0.3, 3)
+rotation = Vector3(0, 1.570796, 0)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
 position = Vector3(0, 0, 1.1)
@@ -1385,3 +1394,19 @@ script = ExtResource("roof_reveal")
 
 [node name="SightlineReveal" type="Node3D" parent="."]
 script = ExtResource("sightline")
+
+[node name="DeckCollision" parent="Visual" instance=ExtResource("shop_deck_collision")]
+
+[node name="WallCollision" parent="Visual" instance=ExtResource("shop_walls_collision")]
+
+[node name="DockingArea" parent="WalkAreas/Walk_sea_supply_deck/Landing_main/DockEdge" instance=ExtResource("dock_area")]
+position = Vector3(0, -0.3, 1.2)
+rotation = Vector3(0, 1.570796, 0)
+
+[node name="HullContact" type="StaticBody3D" parent="Visual"]
+position = Vector3(0, -0.44, 0)
+collision_layer = 4096
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="Visual/HullContact"]
+shape = SubResource("HullContact")

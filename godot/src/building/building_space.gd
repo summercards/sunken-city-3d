@@ -40,8 +40,9 @@ static func support_cells(rows: Array) -> Dictionary:
 
 static func exterior_cuts(rows: Array, radius: float) -> Array:
 	var tiles: Array=Catalog.deck_tiles(rows)
-	for x in 3:
-		for z in 2: tiles.append(Catalog.tile_rect(x,z))
+	if not Catalog.has_starter(rows):
+		for x in 3:
+			for z in 2: tiles.append(Catalog.tile_rect(x,z))
 	var cuts: Array=[]
 	if radius<=0: return cuts
 	for tile: Rect2 in Catalog.deck_tiles(rows):

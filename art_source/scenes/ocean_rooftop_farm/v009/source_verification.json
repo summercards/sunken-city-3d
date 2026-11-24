@@ -1,0 +1,223 @@
+{
+  "checks": 396720,
+  "frames_checked": 300,
+  "component_count": 43,
+  "placements": 377,
+  "independent_scenes": 9,
+  "materials": [
+    "SEA_Emission",
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "tiles": {
+    "a": [
+      "stone"
+    ],
+    "b": [
+      "sand"
+    ],
+    "c": [
+      "cloud"
+    ]
+  },
+  "tank_swatches": [
+    "aqua",
+    "ocean",
+    "teal"
+  ],
+  "house_angles_deg": {
+    "footprint": 7.0,
+    "roof": 7.0
+  },
+  "route_geometry": {
+    "capsule_radius_m": 0.22,
+    "capsule_height_m": 1.3,
+    "samples_by_frame": {
+      "1": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      },
+      "71": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      },
+      "112": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      },
+      "191": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      },
+      "240": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      },
+      "300": {
+        "front": {
+          "samples": 449,
+          "max_height_change_m": 0.12
+        },
+        "house": {
+          "samples": 52,
+          "max_height_change_m": 0.001
+        },
+        "greenhouse": {
+          "samples": 35,
+          "max_height_change_m": 0.001
+        },
+        "tower": {
+          "samples": 55,
+          "max_height_change_m": 0.001
+        }
+      }
+    }
+  },
+  "house_fittings": {
+    "square_eave_segments": 5,
+    "intact_window_panes": 12,
+    "broken_glass_fragments": 6,
+    "ladder_rungs": {
+      "intact": 12,
+      "damaged": 9
+    },
+    "hollow_pipe_meshes": 3,
+    "state_frames": {
+      "eaves": 129,
+      "drainage": 135,
+      "ladder": 140
+    },
+    "other_placement_records_matching_v008": 363
+  },
+  "triangles_per_master": {
+    "access_stairs": 8084,
+    "barrels": 4212,
+    "base_slab": 188,
+    "bench": 2256,
+    "clothesline": 12024,
+    "corner_pier": 188,
+    "deck_tile_a": 188,
+    "deck_tile_b": 188,
+    "deck_tile_c": 424,
+    "deck_underframe": 940,
+    "doghouse": 3764,
+    "edge_beam": 376,
+    "entry_assembly": 21620,
+    "facade_bay": 3284,
+    "facility_footing": 564,
+    "flowers": 4200,
+    "greenhouse_base": 8272,
+    "greenhouse_debris": 5076,
+    "greenhouse_glazing": 42044,
+    "greens": 160,
+    "house_corner_patch": 756,
+    "house_damage": 13684,
+    "house_eaves": 2444,
+    "house_eaves_damage": 3472,
+    "house_pipe": 3384,
+    "house_pipe_damage": 3424,
+    "house_roof": 6976,
+    "house_shell": 10876,
+    "patio_table": 4236,
+    "pier_dock": 1880,
+    "planter": 1316,
+    "rail_pier": 376,
+    "rail_section": 2632,
+    "roof_ladder": 9420,
+    "roof_ladder_damage": 8356,
+    "rubble": 944,
+    "terrace_step": 564,
+    "tower_debris": 2068,
+    "tower_support": 11640,
+    "tower_tank": 6708,
+    "trellis": 4512,
+    "upper_stair_bridge": 1504,
+    "windmill": 4324
+  },
+  "triangles_by_state": {
+    "before": 393412,
+    "after": 522224
+  },
+  "repairs": {
+    "west": 17,
+    "center": 33,
+    "east": 12,
+    "greenhouse_floor": 25,
+    "tower_floor": 16,
+    "house": 13,
+    "greenhouse": 5,
+    "tower": 6,
+    "construction": 54
+  }
+}

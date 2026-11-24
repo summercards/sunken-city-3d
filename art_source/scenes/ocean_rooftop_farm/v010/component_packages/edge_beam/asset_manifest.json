@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "edge_beam",
+  "asset_id": "SEA-SCENE-ORF7-EDGE-BEAM",
+  "name": "露台边梁",
+  "category": "structure",
+  "component_family": "deck",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/edge_beam/edge_beam.blend",
+  "source_sha256": "a24bb23f9601848aa753ea344a8b2516b93ca728141cc7425e571a4cd2f25d36",
+  "collection": "MASTER | edge_beam",
+  "bounds_m": [
+    4.28000020980835,
+    0.6499999761581421,
+    0.7300000190734863
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    -0.009999990463256836,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-EDGE-BEAM",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/edge_beam.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/edge_beam.tscn"
+}

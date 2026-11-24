@@ -51,6 +51,8 @@ func setup(data: Dictionary) -> void:
 
 
 func _on_ready() -> void:
+	interaction_context = "shore"
+	trigger_padding = 0.2
 	id = plot_id
 	label = plot_name
 	priority = 2
@@ -119,40 +121,12 @@ func current_stage() -> int:
 # ---- 造型 -------------------------------------------------------------------
 
 func _build_box() -> void:
-	# 底板 + 四边框：像一个真的木箱，而不是一块贴图。
-	var wood := _mat(Color("#a9784a"))
-	var wood_dark := _mat(Color("#7d5634"))
-	var base := MeshInstance3D.new()
-	var bm := BoxMesh.new()
-	bm.size = Vector3(1.30, 0.10, 0.90)
-	base.mesh = bm
-	base.position = Vector3(0, 0.05, 0)
-	base.material_override = wood_dark
-	add_child(base)
-
-	for spec in [
-		[Vector3(1.30, 0.26, 0.07), Vector3(0, 0.20, -0.415)],
-		[Vector3(1.30, 0.26, 0.07), Vector3(0, 0.20, 0.415)],
-		[Vector3(0.07, 0.26, 0.76), Vector3(-0.615, 0.20, 0)],
-		[Vector3(0.07, 0.26, 0.76), Vector3(0.615, 0.20, 0)],
-	]:
-		var side := MeshInstance3D.new()
-		var sm := BoxMesh.new()
-		sm.size = spec[0]
-		side.mesh = sm
-		side.position = spec[1]
-		side.material_override = wood
-		add_child(side)
-
-	_soil_mat = _mat(Color("#8a6a48"))
-	var soil := MeshInstance3D.new()
-	var soil_mesh := BoxMesh.new()
-	soil_mesh.size = Vector3(1.16, 0.10, 0.76)
-	soil.mesh = soil_mesh
-	soil.position = Vector3(0, 0.28, 0)
-	soil.material_override = _soil_mat
-	add_child(soil)
-
+	var model := get_node_or_null("Model")
+	if model == null:
+		model = preload("res://scenes/buildables/cultivation_bed_model.tscn").instantiate()
+		add_child(model)
+	var soil: MeshInstance3D = model.get_node("Soil")
+	_soil_mat = soil.material_override
 	_build_shadow()
 
 
@@ -241,11 +215,3 @@ func _pop() -> void:
 	var tw := create_tween()
 	_crop_view.scale = base * 0.92
 	tw.tween_property(_crop_view, "scale", base, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-
-
-func _mat(color: Color) -> StandardMaterial3D:
-	var m := StandardMaterial3D.new()
-	m.albedo_color = color
-	m.roughness = 0.92
-	m.metallic_specular = 0.08
-	return m

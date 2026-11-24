@@ -5,12 +5,14 @@ const BodyDimensions = preload("res://src/avatar/avatar_dimensions.gd")
 const BODY_RADIUS := BodyDimensions.BODY_RADIUS
 const BODY_HEIGHT := BodyDimensions.BODY_HEIGHT
 const GROUND_LAYER := 256
+const SCENE_GROUND_LAYER := 8192
 const ACTOR_LAYER := 512
 const GRAVITY := 18.0
 const SNAP := 0.16
 var grounded_motion_enabled := false
 var ground_contact := false
 var _fall_speed := 0.0
+var scene_ground := false
 
 func _ready() -> void:
 	ensure_body()
@@ -41,11 +43,24 @@ func set_grounded_motion(enabled: bool) -> void:
 
 func _apply_motion_layers() -> void:
 	collision_layer = ACTOR_LAYER if grounded_motion_enabled else 0
-	collision_mask = GROUND_LAYER if grounded_motion_enabled else 0
+	var ground_mask := SCENE_GROUND_LAYER if scene_ground else GROUND_LAYER | SCENE_GROUND_LAYER
+	collision_mask = ground_mask if grounded_motion_enabled else 0
+	platform_floor_layers = SCENE_GROUND_LAYER if scene_ground else 0
 
-## Transport in a moving floor's coordinate frame. Walking continues to use
-## capsule sweeps below; this explicit support displacement has no gravity or
-## input fallback and is requested only by the sole ActorController owner.
+func set_scene_ground(enabled: bool) -> void:
+	if scene_ground == enabled: return
+	scene_ground = enabled
+	safe_margin = 0.002 if enabled else 0.0001
+	floor_constant_speed = not enabled
+	_apply_motion_layers()
+
+func move_on_scene(horizontal: Vector3, delta: float) -> Vector3:
+	velocity = Vector3(horizontal.x, minf(velocity.y, 0.0) - GRAVITY * delta, horizontal.z)
+	move_and_slide()
+	ground_contact = is_on_floor()
+	var actual := get_real_velocity()
+	return Vector3(actual.x, 0.0, actual.z)
+
 func carry_ground_support(offset: Vector3) -> void:
 	if grounded_motion_enabled and offset.is_finite():
 		global_position += offset

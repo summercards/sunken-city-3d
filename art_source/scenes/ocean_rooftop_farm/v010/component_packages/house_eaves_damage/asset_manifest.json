@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_pending_runtime",
+  "key": "house_eaves_damage",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-EAVES-DAMAGE",
+  "name": "断裂檐口与露筋",
+  "category": "structure",
+  "component_family": "house_eaves",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_eaves_damage/house_eaves_damage.blend",
+  "source_sha256": "0c9d2505a95d338383457f60d5df4067e936ed7135f82a19785532b8b98a5da8",
+  "collection": "MASTER | house_eaves_damage",
+  "bounds_m": [
+    9.08946418762207,
+    5.910463809967041,
+    1.0198858976364136
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.05473160743713379,
+    -0.046231746673583984,
+    -0.27218031883239746
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/house_eaves_damage.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/house_eaves_damage.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-EAVES-DAMAGE",
+  "version": "v010"
+}

@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_pending_runtime",
+  "key": "house_pipe",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-PIPE",
+  "name": "檐沟与外墙落水管",
+  "category": "facility",
+  "component_family": "house_drainage",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe/house_pipe.blend",
+  "source_sha256": "88c53ee1f315f6cb725d9f45fe73622b3721801a5e2ccdd55c425c672ad784e9",
+  "collection": "MASTER | house_pipe",
+  "bounds_m": [
+    7.28000020980835,
+    0.5664999485015869,
+    3.3360002040863037
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.7200000286102295,
+    -2.839749813079834,
+    0.16899999976158142
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/house_pipe.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/house_pipe.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-PIPE",
+  "version": "v010"
+}

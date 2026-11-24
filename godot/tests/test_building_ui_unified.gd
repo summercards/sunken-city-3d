@@ -66,7 +66,7 @@ func run() -> void:
 	var projection:=TestProjection.new();root.add_child(projection)
 	var camera:=Camera3D.new();root.add_child(camera)
 	var editor:=Editor.new();root.add_child(editor)
-	editor.configure(model,projection,camera,hud,func(): return {},func(): pass,Callable(),Callable(),
+	editor.configure(model,projection,camera,hud,func(): return {},func(): pass,func(_request): return true,
 		func(): return {"mode":0,"position":Catalog.ORIGIN+Vector3.UP*2.8})
 	var router:=Router.new();router.editor=editor;root.add_child(router)
 	await process_frame

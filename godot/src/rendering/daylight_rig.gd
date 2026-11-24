@@ -722,7 +722,7 @@ func apply(hour: float) -> void:
 		_apply_offsets(hour)
 		return
 	var f := _factors(hour)
-	_apply_home_lights(lamp_amount(hour))
+	_apply_lamp_groups(home_lamp_amount(hour), lamp_amount(hour))
 	RenderingServer.global_shader_parameter_set("world_night",float(f.night))
 	if is_instance_valid(_water_moon):_water_moon.light_energy=0.32*float(f.night)
 	RenderingServer.global_shader_parameter_set("world_daylight", clampf(float(f.ambient_energy)+float(f.sun_energy),0.0,1.0)*(1.0-float(f.night)))
@@ -742,11 +742,19 @@ static func lamp_amount(hour: float) -> float:
 	var h := fposmod(hour,24.0)
 	return smoothstep(18.0,19.0,h) if h>=12.0 else 1.0-smoothstep(5.5,7.0,h)
 
+static func home_lamp_amount(hour: float) -> float:
+	var h := fposmod(hour, 24.0)
+	return smoothstep(18.0, 19.0, h) if h >= 12.0 else 0.0
+
+func _apply_lamp_groups(home_amount: float, boat_amount: float) -> void:
+	RenderingServer.global_shader_parameter_set("world_home_lights",home_amount)
+	for entry in _home_lights:
+		if is_instance_valid(entry.node): entry.node.light_energy=float(entry.energy)*home_amount
+	for entry in _boat_lights:
+		if is_instance_valid(entry.node): entry.node.light_energy=float(entry.energy)*boat_amount
 
 func _apply_home_lights(amount: float) -> void:
-	RenderingServer.global_shader_parameter_set("world_home_lights",amount)
-	for entry in _home_lights + _boat_lights:
-		if is_instance_valid(entry.node): entry.node.light_energy=float(entry.energy)*amount
+	_apply_lamp_groups(amount, amount)
 
 
 func _apply_sun(f: Dictionary) -> void:

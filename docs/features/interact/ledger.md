@@ -27,7 +27,6 @@
     "keyboard-control",
     "visual-corner-notebook",
     "click",
-    "surface",
     "framework-integration",
     "visual-pocket-bubbles",
     "visual-plot-shipping",
@@ -341,3 +340,15 @@ R31：近距 E、图标和实际动作共用泊位检查，远处不再叫船。
 ## 2026-11-20 正式 F5 近距 E 提示复验
 
 R31：停船、松键后才显示可执行的 E 上岸；相反键同时按着不算松开，不显示可执行的 E 上船，实际按 E 不登船。不改变普通交互的仲裁和旧寻路入口。实窗 33/0，exit 0。
+## 2026-11-22 统一交互触发器
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-INTERACT-R32 | 所有 `Interactable`（出货箱、房门、床铺、设施交互点、NPC 交互点）统一在运行时创建 `InteractionTrigger/Shape`，玩家 `Interactor` 挂载 `InteractionSensor`，候选只接受真实 Area3D 重叠。触发器中心和半径仍由交互物自己的 `focus_position()` / `effective_focus_radius()` 提供，保留视觉偏移箱体的正确锚点；编辑器可在节点树看到触发器。`interact-focus`、`interaction-reach`、`room`、`interactor-query-reuse`、`interactor-action-target` 均通过。 |
+
+## 2026-11-22 交互空间与上下文隔离
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-INTERACT-R33 | 交互触发器增加 `interaction_context`（`shore` / `room` / `any`）和对象自有 `trigger_padding`。岸上对象不会在海上被 `Interactor` 选中，房间床铺和出门点只在 `room` 上下文生效。出货箱、房门、NPC、种植格、采集点分别声明自己的边缘范围，不再由基类统一追加同一个隐式距离。 |
+| SEA-INTERACT-R34 | 船岸交接成功后，`Interactor` 进入等待释放状态，完成交接的同一次 `E` 不会在下一帧重新触发邻近岸上对象。房门出口优先级高于室内床铺，门口重叠时不会抢错焦点。`room`、`interact-focus`、`interaction-reach`、`interactor-query-reuse` 均通过。 |

@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_wall_pending_runtime",
+  "key": "house_corner_patch",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-CORNER-PATCH",
+  "name": "门廊转角修复墙块",
+  "category": "structure",
+  "component_family": "house",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_corner_patch/house_corner_patch.blend",
+  "source_sha256": "694930bb780f2103a369f32e37605f2ecd031eec4b8938ce78a98d82e1d4a128",
+  "collection": "MASTER | house_corner_patch",
+  "bounds_m": [
+    0.4228614568710327,
+    0.3214998245239258,
+    3.4137353897094727
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.781069278717041,
+    -2.402250051498413,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/house_corner_patch.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/house_corner_patch.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-CORNER-PATCH",
+  "version": "v010"
+}

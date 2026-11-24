@@ -17,6 +17,7 @@ GODOT_ROOT = ROOT / 'godot'
 MINIMAL_MAIN_CHECKS = {'minimal-main', 'visual-minimal-main', 'minimal-main-launch', 'minimal-skiff', 'visual-minimal-skiff', 'visual-minimal-surface-reuse'}
 LEGACY_MAIN_CHECK = 'legacy-main-restore'
 TESTS = {
+    'formal-facility-berths': ('tests/test_formal_facility_berths.gd', r'\[formal-facility-berths\] [1-9]\d* checks, 0 failures'),
     'underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
     'visual-underwater-experience': ('tests/test_underwater_experience.gd', r'\[underwater-experience\] \d+ checks, 0 failures'),
     'underwater-surface-debug': ('tests/test_underwater_surface_debug.gd', r'\[underwater-surface-debug\] \d+ checks, 0 failures'),
@@ -118,7 +119,6 @@ TESTS = {
     # 两个 Blender 派生植物库只消费本入口导出的原生 Godot 网格快照；
     # runner 负责隔离 user://，输出写到 SEA_WORK_ROOT 工程外。
     'botanical-library-extract': ('tools/extract_botanical_libraries.gd', r'\[botanical-library-extract\] \d+ checks, 0 failures'),
-    'surface': ('tests/test_surface_movement.gd', r'\[surface\].*failures=0'),
     'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
     # 键盘操控：方向键走人 / 划船、镜头不再被方向键平移、E 上下船
     # （SEA-MOVE-R20 / SEA-NAV-R15 / SEA-CAMERA-R12 / SEA-INTERACT-R13）。
@@ -136,8 +136,6 @@ TESTS = {
     # 手感参数：加减速时间常数、反向弧线、步频耦合、镜头前视/零滞后、船转向惯性与侧滑、E 去抖
     # （SEA-MOVE-R22 / SEA-CAMERA-R13 / SEA-NAV-R16）。
     'control-feel': ('tests/test_control_feel.gd', r'\[control-feel\] \d+ checks, 0 failures'),
-    'boat-unstick': ('tests/test_boat_unstick.gd', r'\[boat-unstick\] \d+ checks, 0 failures'),
-    'visual-boat-unstick': ('tests/test_boat_unstick.gd', r'\[boat-unstick\] \d+ checks, 0 failures'),
     'shift-jog': ('tests/test_shift_jog.gd', r'\[shift-jog\] \d+ checks, 0 failures'),
     'visual-shift-jog': ('tests/test_shift_jog.gd', r'\[shift-jog\] \d+ checks, 0 failures'),
     'facing-interaction': ('tests/test_facing_interaction.gd', r'\[facing-interaction\] \d+ checks, 0 failures'),
@@ -169,10 +167,10 @@ TESTS = {
     # 点船 = 上船；靠岸图标随「点击会干什么」换宿主（岸上贴船、船上贴码头）。
     'board-click': ('tests/test_board_by_click.gd', r'\[board-click\] \d+ checks, 0 failures'),
     'ocean': ('tests/test_ocean.gd', r'\[ocean\].*failures=0'),
-    'selftest': (None, r'\[selftest\] \d+ passed, 0 failed'),
 }
 CORE = list(TESTS)
 TESTS.update({
+    'surface-collision-authoring': ('tools/probe_surface_collision_authoring.gd', r'\[surface-collision-authoring\] complete'),
     'editor-workshop': ('', r'\[workshop-editor\] \d+ checks, 0 failures'),
     'editor-workshop-upgrade': ('', r'\[workshop-upgrade\] \d+ checks, 0 failures'),
     'surface-paint': ('tests/test_surface_paint.gd', r'\[surface-paint\] [1-9]\d* checks, 0 failures'),
@@ -224,6 +222,10 @@ TESTS.update({
     'building-5m-experience': ('tests/test_building_5m_experience.gd', r'\[building-5m-experience\] \d+ checks, 0 failures'),
     'visual-building-5m-experience': ('tests/test_building_5m_experience.gd', r'\[building-5m-experience\] \d+ checks, 0 failures'),
     'building-5m-rules': ('tests/test_building_5m_rules.gd', r'\[building-5m-rules\] \d+ checks, 0 failures'),
+    'building-construction': ('tests/test_building_construction.gd', r'\[building-construction\] \d+ checks, 0 failures'),
+    'workshop-dock': ('tests/test_workshop_dock.gd', r'\[workshop-dock\] \d+ checks, 0 failures'),
+    'visual-workshop-dock': ('tests/test_workshop_dock.gd', r'\[workshop-dock\] \d+ checks, 0 failures'),
+    'visual-building-construction': ('tests/test_building_construction.gd', r'\[building-construction\] \d+ checks, 0 failures'),
     'building-ui-unified': ('tests/test_building_ui_unified.gd', r'\[building-ui-unified\] \d+ checks, 0 failures'),
     'visual-building-ui-unified': ('tests/test_building_ui_unified.gd', r'\[building-ui-unified\] \d+ checks, 0 failures'),
     'building-demolition': ('tests/test_building_demolition.gd', r'\[building-demolition\] \d+ checks, 0 failures'),
@@ -316,14 +318,15 @@ TESTS.update({
     'visual-reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
     # 海上悬浮商铺：位置=阳光房主体正南 50 米、材质序列化在预制体里、只导 4 个运行网格。
     'sea-supply-probe': ('tools/probe_sea_supply.gd', r'\[sea-supply-probe\] '),
-    'route-supply-probe': ('tools/probe_route_supply.gd', r'\[route-probe\] '),
     'sunroom-body-probe': ('tools/probe_sunroom_body.gd', r'\[sunroom-probe\] '),
     # 海上补给站：浮店作为最小区块，涵盖登记/甲板/泊位/上岸/柜台/存档校验。
     'sea-supply': ('tests/test_gift_kiosk.gd', r'\[sea-supply\] \d+ checks, 0 failures'),
     # 顶层牧场：原顶部梯段不挪位，整楼下沉至仅最后一段在水上，登陆可达屋顶。
     'rooftop-ranch': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
+    'rooftop-house-repair': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
+    'visual-rooftop-house-repair': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
     'ranch-deck-probe': ('tools/probe_ranch_decks.gd', r'DOCKEDGE world='),
-    'visual-rooftop-ranch': ('tools/capture_rooftop_ranch_v005.gd', r'\[ranch-shot\] complete'),
+    'visual-rooftop-ranch': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
     'floating-shop': ('tests/test_gift_kiosk.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
     'building-scale-reference': ('tools/probe_building_scale.gd', r'\[building-scale-reference\] \d+ rows, 0 failures'),
     'visual-floating-shop': ('tools/capture_gift_kiosk.gd', r'\[gift-kiosk-render\] \d+ checks, 0 failures'),
@@ -395,11 +398,12 @@ TESTS.update({
     'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
     'sunroom-repair': ('tests/test_sunroom_repair.gd', r'\[sunroom-repair\] \d+ checks, 0 failures'),
     'sunroom-runtime': ('tests/test_sunroom_runtime.gd', r'\[sunroom-runtime\] \d+ checks, 0 failures'),
+    'sunroom-animation': ('tests/test_sunroom_animation.gd', r'\[sunroom-animation\] \d+ checks, 0 failures'),
+    'visual-sunroom-animation': ('tests/test_sunroom_animation.gd', r'\[sunroom-animation\] \d+ checks, 0 failures'),
     'sunroom-surface-collision': ('tests/test_sunroom_surface_collision.gd', r'\[sunroom-surface-collision\] \d+ checks, 0 failures'),
     'visual-formal-manual-sea': ('tests/test_formal_manual_sea.gd', r'\[formal-manual-sea\] [1-9]\d* checks, 0 failures'),
     'visual-formal-surface-handoff': ('tests/test_formal_surface_handoff.gd', r'\[formal-surface-handoff\] [1-9]\d* checks, 0 failures'),
     'visual-formal-sunroom-deck': ('tests/test_formal_sunroom_deck.gd', r'\[formal-sunroom-deck\] [1-9]\d* checks, 0 failures'),
-    'visual-formal-home-ramp': ('tests/test_formal_home_ramp.gd', r'\[formal-home-ramp\] [1-9]\d* checks, 0 failures'),
     'visual-formal-default-launch': (None, r'Godot Engine v'),
     'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
@@ -410,7 +414,6 @@ TESTS.update({
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
     'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),
     # 航线水纹：航路虚线已移除，落点改成贴浪面的扩散波纹。
-    'visual-route-ripple': ('tools/capture_route_ripple.gd', r'\[route-ripple\] checks done, failures=0'),
     'visual-underwater-depth': ('tests/test_underwater_depth.gd', r'\[uw-depth\] double_sided_lighting.*PASS'),
     'visual-underwater-capture': ('tools/capture_underwater_suite.gd', r'\[uw-suite\] surface_environment_restored=true'),
     'visual-paper-fit': ('tools/check_paper_fit.gd', r'\[paper-fit\] \d+ checks, 0 failures'),
@@ -471,7 +474,6 @@ TESTS.update({
     'visual-legacy-surface-reference': ('tests/test_surface_visual_reuse.gd', r'\[surface-visual-reuse\] [1-9]\d* checks, 0 failures'),
     'legacy-main-restore': ('tests/test_legacy_main_restore.gd', r'\[legacy-main-restore\] [1-9]\d* checks, 0 failures'),
 })
-EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 
 
 def write_project_config(path, text):
@@ -485,9 +487,7 @@ def inspect_log(name, code, text, marker):
     expected = []
     errors = []
     for line in text.splitlines():
-        if name == 'selftest' and line.strip() == EXPECTED_JSON_ERROR:
-            expected.append(line)
-        elif re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:|\bFAIL\b', line):
+        if re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:|\bFAIL\b', line):
             errors.append(line)
     completion = re.search(r'\[minimum-loop\]\s+(\d+)\s+checks,\s+(\d+)\s+failures', text)
     removed_nodes = [line.split('] ', 1)[1] for line in text.splitlines()
@@ -1052,9 +1052,7 @@ def main():
                 cmd.append('--check-only')
                 marker = r'Godot Engine v'
             cmd += ['--script', 'res://' + script]
-        else:
-            cmd += ['--', '--selftest', '--nosave']
-        if 'title-screen' not in name and name not in {'visual-formal-default-launch', 'visual-formal-home-ramp', 'visual-formal-surface-handoff'}:
+        if 'title-screen' not in name and name not in {'visual-formal-default-launch', 'visual-formal-surface-handoff'}:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--skip-title')
         if name == 'visual-legacy-surface-reference':

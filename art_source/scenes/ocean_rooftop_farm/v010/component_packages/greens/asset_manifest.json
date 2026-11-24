@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "greens",
+  "asset_id": "SEA-SCENE-ORF7-GREENS",
+  "name": "菜叶及常绿叶簇",
+  "category": "vegetation",
+  "component_family": "plants",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/greens/greens.blend",
+  "source_sha256": "cf4330ce97666b475b6c321e06bfb9c536ba3fcffdb0ed25915d2df851b5fe86",
+  "collection": "MASTER | greens",
+  "bounds_m": [
+    0.9540210962295532,
+    0.6204066872596741,
+    0.5264478921890259
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.04198426008224487,
+    0.006735652685165405,
+    0.03999999910593033
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": null,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/greens.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/greens.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-GREENS",
+  "version": "v010"
+}

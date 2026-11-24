@@ -1,0 +1,39 @@
+{
+  "key": "wall_stone_warm",
+  "asset_id": "SEA-SCENE-ORF7-WALL-STONE-WARM",
+  "name": "外墙大块嵌砖 warm",
+  "category": "structure",
+  "component_family": "wall_stone",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 4000,
+  "collision_owner": "宿主墙体",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/wall_stone_warm/wall_stone_warm.blend",
+  "source_sha256": "21003bde979db66d3341a6d64b1a91907f603e68816bfd561781361e5b0558e5",
+  "collection": "MASTER | wall_stone_warm",
+  "bounds_m": [
+    1.0299999713897705,
+    0.15000000596046448,
+    0.6600000262260437
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.014999985694885254,
+    -0.032999999821186066,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/wall_stone_warm.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/wall_stone_warm.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-WALL-STONE-WARM",
+  "version": "v010"
+}

@@ -58,14 +58,11 @@ Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwat
 
 ## 玩法：交互与采集
 
-靠近采集物 2.4m 内会出现焦点环与底部提示，**按住 E** 读条采集；松手、走开或换目标都会中断。
+进入采集物自己的交互区域后，按一次 E 启动采集。离开热区或切换目标会中断。
 采完物件枯竭变暗，冷却结束原地恢复。部分点位有建造前提（如铁道站的玻璃需要车站 2 级）。
 
-- 规则实现在 `scripts/core/`（`interactable` / `gather_spot` / `gather_field` / `interactor`），
-  提示条是 `src/interaction/interact_prompt.gd`；
-- 摆放表 `assets/data/gather_spots.json` 由 `tools/build_gather_spots.py` 从行走矩形 + 建筑包围盒求解生成，
-  **不要手写坐标**（很容易埋进建筑里）；
-- 重生成：`python3 tools/build_gather_spots.py`。
+- `GatherSpot` 实例在所属设施场景中摆放，自己的 `InteractionTrigger` 跟随物件。各物件可编辑交互锚点和范围。
+- `GatherField` 在 Main 登记现有节点，按稳定 ID 恢复冷却。旧摆放表留给历史生成工具。
 
 功能重做的路线与进度见 `docs/功能重做计划.md`。
 
@@ -134,8 +131,7 @@ zone1 **打捞浮台**上立着一块订单板（三张钉着的单子 + 一盏�
 
 - 规则：`src/orders/orders.gd`（`Economy.orders`：抽单 / 长期保留 / 补位 / 换一批 / 档位 / 存档）；
 - 世界：`src/orders/trade_board.gd`，面板 `src/orders/order_panel.gd`；
-- 数据：订单池 `assets/data/orders.json`（唯一来源），摆放表 `assets/data/trade_board.json`
-  由 `tools/place_trade_board.py` 求解（**不要手写**：要避让采集点/建造牌/菜箱 2.6m）；
+- 数据：订单池取 `assets/data/orders.json`。打捞台上的木牌实例与热区随 `scenes/facilities/salvage_station.tscn` 摆放。
 - 改数值只改表；**报酬必须 ≥ 物品售价 × 数量**，自检会拦。
 
 ## 玩法：存档与读档
@@ -170,19 +166,15 @@ scenes/
 │     LandingMarkers / HUD / InteractPrompt / ColorGrade
 ├─ world/environment.tscn       外围沉没街区（非区块）
 ├─ zones/zone1_home_harbor.tscn 每区块一个场景
-│     ├─ StaticBatch            烘焙几何（MultiMesh，读 assets/zones/<zone>/）
-│     ├─ ModelRoot              glb 模型单元（读 assets/models/<zone>/，默认路径）
-│     ├─ WalkAreas/Walk_<id>    可行动区域（矩形 + 站立面高度）
-│     ├─ Landings               上岸点（预留容器）
+│     ├─ Models                 可编辑的设施实例
+│     │  └─ <设施>              模型、实体碰撞、导航面、泊位、独立玩法物件
 │     └─ Plants                 植物场（读 assets/data/plants_<zone>.json）
 └─ plants/
    ├─ common/<id>.tscn          通用植物：任何区块都能用
    └─ zones/<zone>/<id>.tscn    区块专用植物：与区块绑定，自带摆动与效果
 ```
 
-区块坐标系：**区块内坐标相对区块 origin，y 是绝对高度**；搬区块只改 origin。
-
-`geometry_source` 二选一：`models`（默认，glb 可替换）/ `baked`（回退，实例批次）。
+主场景手摆变换决定区块和设施的位置。正式支撑、墙体和泊位按所属组件使用局部坐标，导航声明另供 NPC、存档和空间查询使用。
 
 > 打开 `scenes/main.tscn` 后按 **F** 框住整个场景（编辑器视角默认在原点附近，
 > 第一次打开可能正对着某栋楼内部）。区块建筑由 `model_zone.gd` 在编辑器里预览，
@@ -192,7 +184,6 @@ scenes/
 `main.gd` 只做「找到它们 → 接线」，找不到时才退回程序化创建（供老场景/测试用）。
 环境与水面的参数在 `assets/materials/*.tres` 里，改完重启游戏即生效；
 重新生成这两份资源：`Godot --headless --path . --script res://tools/make_scene_resources.gd`。
-运行时对比：`Godot --path . -- --source=baked`。
 
 ## 滤镜面板（P）
 

@@ -1,0 +1,56 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "beam_corner",
+  "asset_id": "SEA-SCENE-ORF7-BEAM-CORNER",
+  "name": "转角梁承托块",
+  "category": "structure",
+  "component_family": "beam_joint",
+  "source": "art_source/scenes/ocean_rooftop_farm/v011/component_packages/beam_corner/beam_corner.blend",
+  "source_sha256": "0ac30bd236bd27ff8f364a85707819fe3034fe23d53b102f3bf384a34c630336",
+  "collection": "MASTER | beam_corner",
+  "bounds_m": [
+    0.6399999856948853,
+    0.6399999856948853,
+    0.5600000023841858
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-BEAM-CORNER",
+  "version": "v011",
+  "source_revision": "v011",
+  "form_style": "SF-B",
+  "form": [
+    {
+      "id": "Corner beam bearing block",
+      "kind": "vertical_structure",
+      "bottom": 0.64,
+      "top": 0.62912,
+      "extent": [
+        0.64,
+        0.64,
+        0.56
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v011/beam_corner.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v011/beam_corner.tscn"
+}

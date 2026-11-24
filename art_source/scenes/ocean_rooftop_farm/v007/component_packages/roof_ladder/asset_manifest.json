@@ -1,0 +1,37 @@
+{
+  "key": "roof_ladder",
+  "asset_id": "SEA-SCENE-ORF7-ROOF-LADDER",
+  "name": "外挂检修梯",
+  "category": "facility",
+  "component_family": "house_fixture",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/roof_ladder/roof_ladder.blend",
+  "source_sha256": "9e183d765964426ae57d351299437d6360e4c973fd37be040db66d428a22669e",
+  "collection": "MASTER | roof_ladder",
+  "bounds_m": [
+    0.8359999656677246,
+    0.28524094820022583,
+    3.697469711303711
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.07462046295404434,
+    0.029999999329447746
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ROOF-LADDER",
+  "version": "v007"
+}

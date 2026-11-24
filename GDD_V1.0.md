@@ -27,7 +27,57 @@
 
 ## 当前可玩版本与阶段记录
 
+**2026-11-24 · 顶层牧场下沉及水下七层。** v014 沿窗下水线降低楼体，重做较短的双段折返梯，补齐水下七层各自的坍塌结构。归 SEA-ASSET-R94、SEA-WORLD-R62。[交付与验证](docs/development/2026-11-24_rooftop_ranch_submerged.md)。
+
+**2026-11-24 · 顶层牧场破损态植被。** v013 沿碎砖、温室残骸和墙脚布置植物工坊草丛、矮草堆及苔藓。固定通路保留，植物随分区维修清理。归 SEA-ASSET-R93、SEA-WORLD-R61。[交付与验证](docs/development/2026-11-24_rooftop_ranch_wild_growth.md)。
+
+**2026-11-24 · 顶层牧场入口、屋面与温室底座。** v012 首次进场保持破损，花圃移到入口侧边，局部错缝砖和温室石基接入正式场景。八处维修后使用共用施工曲线逐件搭建。归 SEA-ASSET-R92、SEA-WORLD-R60、SEA-BUILDING-R39。[交付与验证](docs/development/2026-11-24_rooftop_ranch_roof_joints.md)。
+
+**2026-11-24 · 顶层牧场主楼结构深化。** v011 统一两层柱网、层间梁和转角承托，窗下改用实体错缝砖。四种窗跨错开排布，玻璃破损与缺砖各有变化。归 SEA-ASSET-R91、SEA-WORLD-R59。[交付与验证](docs/development/2026-11-24_rooftop_ranch_structure.md)。
+
+**2026-11-23 · 顶层牧场整套替换。** 正式 Main 使用 v010 楼体、木码头、折返梯、屋面、小屋和整套设施，沿用用户摆放。八处修复完毕后可搭建温室、水塔、风车及陈设。归 SEA-ASSET-R90、SEA-WORLD-R58。[交付与验证](docs/development/2026-11-23_rooftop_ranch_full.md)。
+
+**2026-11-23 · 顶层牧场小屋接入游戏。** v010 加入大块错色嵌砖及约 4 秒的逐件修复。顶层牧场的正式小屋使用独立模型和组件内的墙段、门板阻挡，登顶后可在屋前触发。归 SEA-ASSET-R89、SEA-WORLD-R57。[交付与验证](docs/development/2026-11-23_rooftop_restoration_v010.md)。
+
+**2026-11-23 · 屋顶小屋檐口与外墙细化。** v009 重做完工与破损的小屋檐口、窗扇、排水管和检修梯。两种形态及 43 个组件包已在 Blender 重开验证。归 SEA-ASSET-R88。[制作与自检](docs/development/2026-11-23_rooftop_restoration_v009.md)。
+
+**2026-11-23 · 海上屋顶牧场近景深化。** v008 增加破损态登顶接板和连通铺面，深化斜置小屋的破损与翻新形态，并用共享色板调整铺地及水塔。38 个独立组件通过 Blender 重开，正式接入待验。归 SEA-ASSET-R87。[制作与自检](docs/development/2026-11-23_rooftop_restoration_v008.md)。
+
+**2026-11-23 · 海上屋顶牧场双形态制作源。** v007 提供露台破损和完工形态、八段区域修复及新设施落装。36 个独立组件与完整时间线已通过 Blender 源验收，正式接入待验。归 SEA-ASSET-R86。[交付与自检](docs/development/2026-11-23_rooftop_restoration.md)。
+
+**2026-11-23 · 制造区培养土贴边排列。** 六块培养土位于起始木台右侧，按两列三排相接。旧档仍在原默认位置的培养土随布局迁移，保留作物和已拆卸记录。归 SEA-BUILDING-R38、SEA-SAVE-R26。[交付和验证](docs/development/2026-11-23_workshop_dock.md#培养土贴边排列)。
+
+**2026-11-23 · 制造区右移并配备六块培养土。** 固定起始木台右移一块板宽并向外错开一排，左前方保留专用码头。六块培养土首次随起始布局生成，按普通培养土搬移、拆卸和存档，旧格作物可接续。码头沿前缘布置两根阳光房同款柱子和四只等间距护舷轮胎。归 SEA-BUILDING-R37、SEA-NAV-R39、SEA-WORLD-R56、SEA-ASSET-R85、SEA-FARM-R19、SEA-SAVE-R25。[交付和验证](docs/development/2026-11-23_workshop_dock.md#起始种植区与四轮胎护舷)。
+
+**2026-11-23 · 制造区改用新版起始平台与专用码头。** 四块 5×5 米木台和一座 5 米宽、2.5 米深的码头接替旧养殖台，组成固定起始区。制造区只在已完工码头上下船，码头甲板与外侧水面留给靠泊。初始与可建码头均使用长向铺板和阳光房同款吊绳轮胎。旧固定格作物保留，完工的自建培养土可接回。归 SEA-BUILDING-R36、SEA-NAV-R38、SEA-WORLD-R55、SEA-ASSET-R84、SEA-FARM-R18、SEA-SAVE-R24。[交付和验证](docs/development/2026-11-23_workshop_dock.md)。
+
+**2026-11-23 · 家园建造组件统一制作。** 建造手册 22 项与旧档兼容 13 项均使用可分件落装的组件，完工外观与对应实体随组件安装。施工完工时逐件从上方落下、弹性放大并归位，继续使用既有拼装与存档规则。归 SEA-BUILDING-R35、SEA-ASSET-R83。[逐项交付与验证](docs/development/2026-11-23_building_construction.md)。
+
 本节条目按时间**倒序**追加：最新的变更在最上面，`2026-10-27`「太阳房最小生活循环」的原始阶段描述保留在本节末尾，其中已被后续阶段覆盖的部分就地标注。当前默认可玩范围与各功能状态以本节顶部条目和各功能账本为准。
+
+**2026-11-23 · 小船转向、加速划桨和贴墙脱困。** 开阔水域转向更快。按住 Shift 和方向键可加快划船，增加桨幅、桨频和身体摆动。船头转向受阻时，船壳沿玩家输入中有净空的方向低速滑移，腾出空间后继续转向。持续直顶障碍时船壳保持阻挡。归 SEA-NAV-R36/R37、SEA-MOVE-R47。[验证记录](docs/development/2026-11-23_manual_rowing.md)。
+
+**2026-11-23 · 正式海面设施按阳光房的组件归属统一。** 打捞台、浅水养殖台、横滨铁道和霓虹花园的通行实体、泊位与所属模块一起编辑，绞盘、升级牌、收鱼点、菜箱和采集物继续各用自己的交互区域。岸上角色与手动船由 Godot 实体碰撞裁决，导航数据服务于寻路和空间查询。正式区块已移除旧视觉切换入口，采集摆放以场景为准。归 SEA-WORLD-R53/R54、SEA-FACILITY-R05、SEA-GATHER-R08、SEA-AQUA-R12、SEA-RESIDENT-R28。[逐设施结果](docs/development/2026-11-23_facility_scene_alignment.md)。
+
+**2026-11-22 · 阳光房桥口与屋前碰撞修订。** 正式家园撤下临时试坡，桥口按实际绳栏和桥板留出双向通道，栈桥两侧及外端防跌落，庭院沙发和斜顶玻璃房外墙补齐角色碰撞。归 SEA-SUNROOM-R21、SEA-WORLD-R46。[开发记录](docs/development/2026-11-22_sunroom_bridge_collision.md)。
+
+**2026-11-22 · 正式 Main 支持航行中上岸。** 船壳进入泊位的 `DockingArea`，岸上落脚点具备实体支撑和角色胶囊净空时，划船中即可按 E。成功后船停桨并一次性归位到 `BoatPark`，同一角色回到岸上。归 SEA-NAV-R35、SEA-MOVE-R46。[泊位及往返验证](docs/development/2026-11-23_manual_rowing.md)。
+
+**2026-11-22 · 建筑组件与独立设施触发区域统一。** 阳光房的码头、上下层通行面、楼梯端点、房间进出口和 DockingArea 归入阳光房 PackedScene，区块只登记建筑公开的 WalkArea/LandingPoint。菜箱、出货箱和其他设施作为建筑上的独立物件，各自拥有统一 Interactable Area3D 热区和业务状态，移动建筑根节点时整体跟随；海上状态按交互上下文隔离岸上设施。归 SEA-WORLD-R51/R52、SEA-SUNROOM-R17/R18。[归属与验证](docs/development/2026-11-22_building_component_trigger_ownership.md)。
+
+**2026-11-21 · 正式 Main 设施统一使用实体碰撞与手动划船。** WASD 或方向键控制岸上步行和船只。自动航行和陆地点击走位已退役。归 SEA-MOVE-R44、SEA-NAV-R32、SEA-WORLD-R50、SEA-BUILDING-R34、SEA-SAVE-R23。[开发与验证](docs/development/2026-11-21_main_native_facilities.md)。
+
+**2026-11-21 · 阳光房 1.6 接入正式 Main。** 新版结构及梯后实墙已接入，太阳伞循环随风，落装动画有显式播放入口，播放契机待定。每栋建筑交付配套组装动画，阳光房为首个运行样例，其余建筑逐栋补齐。归 SEA-ASSET-R82、SEA-SUNROOM-R16、SEA-WORLD-R49。[Godot 接入与实测](docs/development/2026-11-21_sunroom_godot_animation.md)。
+
+**2026-11-20 · 阳光房 Blender 结构与动画。** 原制作源按参考调整浮台、露台、遮阳与斜屋顶，梯后补实体墙，加入垂直落装和伞面风动。源级核验通过。归 SEA-ASSET-R81、SEA-SUNROOM-R15。[制作与验证](docs/development/2026-11-20_sunroom_blender_structure.md)。
+
+**2026-11-20 · 旅人发型按发束走向重塑。** 14 款分别处理分缝、刘海、后发和扎发收束，连续网格以真实起伏表现发束。归 SEA-AVATAR-R30、SEA-ASSET-R80。[同机位对照与复验](docs/development/2026-11-20_avatar_hair_flow.md)。
+
+**2026-11-20 · 旅人 14 款发型重制。** 刘海、后发与扎发改为连续网格，沿用染色、发饰、三项发型滑杆和原存档 ID。共用角色表现入口。归 SEA-AVATAR-R29、SEA-ASSET-R79。[制作与复验](docs/development/2026-11-20_avatar_hair_remodel.md)。
+
+**2026-11-20 · 正式 Main 阳光房与海面往返切换到场景碰撞。** 当时阳光房庭院、甲板、栈桥和试坡由场景实体支撑，步行用 WASD 或方向键。手动船用凸壳扫掠裁决，移除旧船中心轮廓禁入。泊位交接规则后续由 SEA-NAV-R35 和 SEA-MOVE-R46 更新。归 SEA-MOVE-R42、SEA-NAV-R31、SEA-WORLD-R47。[开发与复验](docs/development/2026-11-20_native_home_roundtrip.md)。
+
+**2026-11-20 · 阳光房栈桥按船壳判断下船距离。** 正式船的凸形碰撞进入栈桥外沿触发区后，使用当时的交接检查。现行交接条件见 SEA-MOVE-R46。归 SEA-MOVE-R43、SEA-WORLD-R48。[验证记录](docs/development/2026-11-20_home_docking_hull.md)。
 
 **2026-11-20 · 白盒复用原版上午海面表现。** 保留既有水材质、天空和白盒波场，只补原版上午主光与补光、可见几何岸线泡沫及实际船壳接触。不改物理水线和操控，不挂旧时钟或尾迹；旧 zone1 水下视觉单独取证，白盒潜水交接待集成。归 SEA-OCEAN-R49。[相近机位与同机位前后对照](docs/development/2026-11-20_minimal_surface_visual_reuse.md)。
 
@@ -592,7 +642,7 @@
 
 ## 2026-11-05 方向键走人划船与 E 上下船
 
-按用户要求把「上下左右」从移动镜头改成正常角色操控：岸上方向键与 WASD 沿镜头朝向连续行走，船上同一组键手动划船，两者都保留鼠标点击走路/划船；`Q`/`E` 的镜头旋转一并下线，镜头只留鼠标。新增 `E` 上下船：泊位旁 2.4 米内按 E 上船、船上停稳按 E 上岸，附近有交互物时按「谁更近」让位给采集，提示条在无焦点时显示 `E 上船`/`E 上岸`。角色新增第 10 个状态 `strolling`，与点击走路共用同一物理胶囊、2.3 m/s 速度与 +Z 朝向；每步先验证脚下地面（高度差 ≤ 0.45 米）再按 2D 净空收边，且不比当前净空更贴边才放行，分轴尝试支持贴边滑动。船手动划行仍过 `_clear()` 岸线判定，撞岸停住，松手减速到零才退出手动。顺带修掉「走到泊位站立点差 6 厘米被判前面被挡住」导致上船失败的老问题（最后航点 0.10 米安全余量）。归 SEA-MOVE-R20/R21、SEA-NAV-R15、SEA-CAMERA-R12、SEA-INTERACT-R13。`keyboard-control` 29 项 0 失败，`click`/`camera`/`ground-space`/`board-click`/`walk-facing`/`walk-deck-fit`/`dock-seed`/`framework-integration`/`character-space-save`/`walk-on-planters`/`actor-presentation`/`rowing-fit` 复跑通过；`surface`（3）、`character-motor`（2）、`harvest-receive`（9）的失败来自工作区另一轮「角色放大 1.5 倍」未完成，与本轮无关且未计为通过。手柄、触屏与室内房间键位行走未实测。[交付、键位与实测](docs/development/2026-11-05_keyboard_control.md)。
+按用户要求把「上下左右」从移动镜头改成正常角色操控：岸上方向键与 WASD 沿镜头朝向连续行走，船上同一组键手动划船，两者都保留鼠标点击走路/划船；`Q`/`E` 的镜头旋转一并下线，镜头只留鼠标。新增 `E` 上下船：泊位旁 2.4 米内按 E 上船、船壳进入泊位触发区后按 E 上岸，交接时船体归位到 `BoatPark`，附近有交互物时按「谁更近」让位给采集，提示条在无焦点时显示 `E 上船`/`E 上岸`。角色新增第 10 个状态 `strolling`，与点击走路共用同一物理胶囊、2.3 m/s 速度与 +Z 朝向；每步先验证脚下地面（高度差 ≤ 0.45 米）再按 2D 净空收边，且不比当前净空更贴边才放行，分轴尝试支持贴边滑动。船手动划行仍过 `_clear()` 岸线判定，撞岸停住，松手减速到零才退出手动。顺带修掉「走到泊位站立点差 6 厘米被判前面被挡住」导致上船失败的老问题（最后航点 0.10 米安全余量）。归 SEA-MOVE-R20/R21、SEA-NAV-R15、SEA-CAMERA-R12、SEA-INTERACT-R13。`keyboard-control` 29 项 0 失败，`click`/`camera`/`ground-space`/`board-click`/`walk-facing`/`walk-deck-fit`/`dock-seed`/`framework-integration`/`character-space-save`/`walk-on-planters`/`actor-presentation`/`rowing-fit` 复跑通过；`surface`（3）、`character-motor`（2）、`harvest-receive`（9）的失败来自工作区另一轮「角色放大 1.5 倍」未完成，与本轮无关且未计为通过。手柄、触屏与室内房间键位行走未实测。[交付、键位与实测](docs/development/2026-11-05_keyboard_control.md)。
 
 ## 2026-11-05 沉没旧城统一限高浅水新版
 
@@ -1138,3 +1188,7 @@ import及每项exit0、passed=true、completion_marker=true、unexpected_errors=
 ## 2026-11-20 陆地与海面近距广角
 
 白盒和原完整入口共用室外近距广角；启动入口、潜水、标题和室内镜头不变。详见[镜头设计](docs/features/camera/spec.md#2026-11-20-陆地与海面近距广角)及[实测](docs/development/2026-11-20_surface_camera.md)。
+
+## 2026-11-22 船边泡沫与阳光房二楼
+
+船边泡沫的边缘平滑不再受计算半径分支影响。阳光房二楼楼板由场景实体持续支撑，梯修好后可在露台上行走。归 SEA-OCEAN-R50 与 SEA-SUNROOM-R23。[开发与验证](docs/development/2026-11-22_boat_ring_sunroom_upper_deck.md)。

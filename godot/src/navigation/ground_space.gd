@@ -12,7 +12,6 @@ const ACTOR_HEIGHT := BodyDimensions.BODY_HEIGHT
 const ENDPOINT_TOLERANCE := 0.25
 const EPS := 0.0001
 const GroundPath = preload("res://src/navigation/ground_path.gd")
-const ActorCollision = preload("res://src/navigation/actor_collision_body.gd")
 
 var revision := 0
 var navigation_polygons := 0
@@ -59,7 +58,7 @@ func rebuild(_area: Node3D = null) -> void:
 		if not is_instance_valid(area): continue
 		var faces: PackedVector3Array = _upward_faces(area.surface_faces())
 		records.append({"area": area, "faces": faces})
-		signature_data.append([area.get_instance_id(), faces, float(area.body_radius)])
+		signature_data.append([area.get_instance_id(), faces, float(area.body_radius), area.scene_collision])
 	var next_signature := hash(signature_data)
 	if _map.is_valid() and next_signature == _signature: return
 	_signature = next_signature
@@ -91,8 +90,9 @@ func rebuild(_area: Node3D = null) -> void:
 			_add_region(_exact_rect_mesh(area, faces))
 		else:
 			baked_faces.append_array(faces)
-		_add_body(floor_faces, "GroundFloor")
-		physical_records.append({"area":area,"faces":floor_faces})
+		if not area.scene_collision:
+			_add_body(floor_faces, "GroundFloor")
+			physical_records.append({"area":area,"faces":floor_faces})
 	if not baked_faces.is_empty():
 		var mesh := NavigationMesh.new()
 		mesh.cell_size = 0.05
@@ -138,7 +138,7 @@ func _add_region(mesh: NavigationMesh) -> void:
 
 func _add_body(faces: PackedVector3Array, label: String) -> void:
 	if faces.is_empty(): return
-	var body := ActorCollision.new()
+	var body := StaticBody3D.new()
 	body.name = label
 	body.collision_layer = GROUND_LAYER
 	body.collision_mask = ACTOR_LAYER
@@ -207,31 +207,27 @@ func body_point(point: Vector3) -> Vector3:
 	return point + Vector3.UP * ACTOR_RADIUS * (1.0/maxf(normal.y,0.65)-1.0)
 
 func route(start: Vector3, goal: Vector3) -> Array[Vector3]:
+	return native_route(start, goal)
+
+## Engine navigation path for actors that execute movement through physics.
+## The navigation mesh supplies intent waypoints, while the actor capsule and
+## scene collision decide the actual movement.
+func native_route(start: Vector3, goal: Vector3) -> Array[Vector3]:
 	var result: Array[Vector3] = []
 	if not _map.is_valid() or _regions.is_empty(): return result
-	if NavigationServer3D.map_get_iteration_id(_map) == 0:
-		NavigationServer3D.map_force_update(_map)
-		if NavigationServer3D.map_get_iteration_id(_map) == 0: return result
-	var from := surface_point(start, 0.5)
-	var to := surface_point(goal, 0.5)
-	if not from.is_finite() or not to.is_finite(): return result
-	if from.distance_squared_to(to) < 0.00000001:
-		return [from, to]
-	var mapped_from := NavigationServer3D.map_get_closest_point(_map, from)
-	var mapped_to := NavigationServer3D.map_get_closest_point(_map, to)
-	if from.distance_to(mapped_from) > ENDPOINT_TOLERANCE or to.distance_to(mapped_to) > ENDPOINT_TOLERANCE:
+	if not start.is_finite() or not goal.is_finite(): return result
+	NavigationServer3D.map_force_update(_map)
+	var mapped_start := NavigationServer3D.map_get_closest_point(_map, start)
+	var mapped_goal := NavigationServer3D.map_get_closest_point(_map, goal)
+	if mapped_start.distance_to(start) > ENDPOINT_TOLERANCE or mapped_goal.distance_to(goal) > ENDPOINT_TOLERANCE:
 		return result
-	var path := NavigationServer3D.map_get_path(_map, mapped_from, mapped_to, true, 1)
-	if path.is_empty() or path[path.size()-1].distance_to(mapped_to) > 0.05: return result
-	# Start and goal belong to the declared surface, never an unrelated floor
-	# selected solely because NavigationServer can find a nearby polygon.
-	result.append(from)
+	var path := NavigationServer3D.map_get_path(_map, mapped_start, mapped_goal, true, 1)
+	if path.is_empty() or path[path.size() - 1].distance_to(mapped_goal) > 0.05:
+		return result
+	result.append(start)
 	for point: Vector3 in path:
-		var projected := surface_point(point, 0.35)
-		if not projected.is_finite(): return []
-		if result.back().distance_to(projected) > 0.001: result.append(projected)
-	if result.back().distance_to(to) > 0.001: result.append(to)
-	else: result[result.size()-1] = to
+		if result.back().distance_to(point) > 0.001: result.append(point)
+	if result.back().distance_to(goal) > 0.001: result.append(goal)
 	return result
 
 static func _upward_faces(source: PackedVector3Array) -> PackedVector3Array:

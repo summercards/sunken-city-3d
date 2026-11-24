@@ -108,7 +108,9 @@ func route(from: Vector3, to: Vector3) -> Array:
 	var start := _supported(from, context)
 	var goal := _supported(to, context)
 	if not start.is_finite() or not goal.is_finite(): return []
-	return context.ground_space.route(start, goal)
+	if context.ground_space.has_method("native_route"):
+		return context.ground_space.native_route(start, goal)
+	return []
 
 func home_labels() -> Dictionary:
 	var labels := {}

@@ -84,5 +84,20 @@
     "owner": "main_agent",
     "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
     "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  },
+  "construction_variant": {
+    "version": "v003",
+    "export_manifest": "godot/assets/models/building_kit/construction_v003/export_manifest.json",
+    "runtime_path": "godot/assets/models/building_kit/construction_v003/platform_5x5.glb",
+    "runtime_sha256": "d6a47fcf5bab3ecd87c81f380b0ef6b593d9a5e5258a8ad8105414567cb567c4",
+    "prefab": "godot/scenes/buildables/kit/platform_5x5.tscn",
+    "construction_animation": {
+      "clip": "construction",
+      "elements": 9,
+      "duration_seconds": 2.047,
+      "trigger": "BuildingService.completed",
+      "animation_script": "godot/src/building/construction_animation.gd",
+      "verification": "docs/development/2026-11-23_building_construction.md"
+    }
   }
 }

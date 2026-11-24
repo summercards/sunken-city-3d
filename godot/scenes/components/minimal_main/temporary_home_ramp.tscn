@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="1_walk"]
 [ext_resource type="PackedScene" path="res://scenes/components/minimal_main/ramp.tscn" id="2_ramp"]
@@ -11,12 +11,17 @@ roughness = 0.89
 material = SubResource("DeckMaterial")
 size = Vector3(1.44, 0.72, 0.9)
 
+[sub_resource type="ConvexPolygonShape3D" id="Slope"]
+points = PackedVector3Array(-0.72, -0.1, 0, 0.72, -0.1, 0, -0.72, 0.72, 0, 0.72, 0.72, 0, -0.72, -0.1, 2.16, 0.72, -0.1, 2.16, -0.72, 0, 2.16, 0.72, 0, 2.16)
+
+[sub_resource type="BoxShape3D" id="HighDeckBody"]
+size = Vector3(1.44, 0.72, 0.9)
+
 [node name="TemporaryHomeRamp" type="Node3D"]
 script = ExtResource("1_walk")
 area_id = "temporary_home_ramp"
 zone_id = "zone1"
-; Visual wedge reused at 0.45/0.72/0.60 scale; the apron is flush to the
-; existing deck. GroundSpace consumes these faces as the single physics owner.
+scene_collision = true
 surface_triangles = PackedVector3Array(-0.72, 0.72, 0, -0.72, 0, 2.16, 0.72, 0, 2.16, -0.72, 0.72, 0, 0.72, 0, 2.16, 0.72, 0.72, 0, -0.72, 0, 2.16, -0.72, 0, 3.6, 0.72, 0, 3.6, -0.72, 0, 2.16, 0.72, 0, 3.6, 0.72, 0, 2.16, -0.72, 0.72, -0.9, -0.72, 0.72, 0, 0.72, 0.72, 0, -0.72, 0.72, -0.9, 0.72, 0.72, 0, 0.72, 0.72, -0.9)
 metadata/temporary_fixture = true
 
@@ -28,6 +33,17 @@ collision_layer = 0
 [node name="HighDeckVisual" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.36, -0.45)
 mesh = SubResource("HighDeck")
+
+[node name="RampCollision" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Slope" type="CollisionShape3D" parent="RampCollision"]
+shape = SubResource("Slope")
+
+[node name="HighDeck" type="CollisionShape3D" parent="RampCollision"]
+position = Vector3(0, 0.36, -0.45)
+shape = SubResource("HighDeckBody")
 
 [node name="LowMark" type="Marker3D" parent="."]
 position = Vector3(0, 0, 3.2)

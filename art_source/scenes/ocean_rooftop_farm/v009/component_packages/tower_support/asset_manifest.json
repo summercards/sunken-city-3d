@@ -1,0 +1,37 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "tower_support",
+  "asset_id": "SEA-SCENE-ORF7-TOWER-SUPPORT",
+  "name": "水塔支架与检修台",
+  "category": "facility",
+  "component_family": "tower",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/tower_support/tower_support.blend",
+  "source_sha256": "8c1968116a6fbd1076461125a9062c31cb220e161171c967a644a098c86d1f05",
+  "collection": "MASTER | tower_support",
+  "bounds_m": [
+    3.2980000972747803,
+    3.2300000190734863,
+    3.4825234413146973
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.06747639179229736
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-TOWER-SUPPORT",
+  "version": "v009"
+}

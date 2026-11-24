@@ -257,3 +257,18 @@ G03职业打捞取SalvageRewards整笔实际added/overflow/reason，无原子端
 ### B2 最终状态（2026-11-14）· [主记录](../../development/2026-11-13_engine_deep_audit.md#b2-最后复测与签署范围2026-11-14)
 - 005741 NPC853/0、seed527/0、restart280/0均exit0；012421强化真实可支付/旧确认Callable有效前置后session53/0、exit0。当前012203重置矩阵unit0、五seed预期引擎-9/runner1、五recover0、外层0，补齐同机进程中断证据。
 - 010438菜园视觉4PNG/exit0，仅目检garden-bubble-single：对白可读但作物遮住下半身，不能签脚底接触/全站姿美术；旧失败保留，全库契约仍失败，登记头implemented不升verified。
+
+## 2026-11-22 NPC 原生寻路与 AI 状态
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-RESIDENT-R26 | NPC 由 `native_route()` 取得引擎导航点，`CharacterMotor` 胶囊扫掠推进，`world_snapshot()` 暴露 moving/performing/blocked/idle。日程动作保留浇水/收获表现映射，真实结算未接入。`npc-world` 135/0、`npc-performance` 61/0、`npc-rules` 655/0、`npc-careers` 87/0。 |
+| SEA-RESIDENT-R27 | 跨区无连续地面路线时不写 NPC 坐标，进入受阻并尝试住所路线；同区物理受阻超过阈值后停止并记录 fallback。`npc-integration` 脚本编译通过，完整 Main 集成受既有建造装配错误阻断。 |
+
+本轮不把日程动作名称当作真实播种、浇水、收获结算。行为树、失败重试和业务原子提交仍待后续实现。
+
+## 2026-11-23 菜园桥坡面与站位
+
+| 条款 ID | 当前实施与证据 |
+|---|---|
+| SEA-RESIDENT-R28 | 菜园桥站位随桥，旧住所 ID 映射到桥上站位，保留存档身份。实测五锚点、日程出生及招呼，`garden-npc` 26/0、`npc-world` 135/0。[开发记录](../../development/2026-11-23_facility_scene_alignment.md)。 |

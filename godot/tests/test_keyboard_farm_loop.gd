@@ -425,7 +425,7 @@ func repeated_water(plot: Node3D) -> void:
 
 func sleep_keyboard(day_index: int) -> bool:
 	# 跨区定位夹具不代替进屋/睡觉；实际房门与床都用 Q + E 完成。
-	var door: Node3D = main._zone_nodes.zone1.get_node("Objects/RoomDoor")
+	var door: Node3D = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/RoomDoor")
 	var at: Vector3 = main.room_controller.exit_position
 	main.restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[at.x,at.y,at.z],"far_sea":false})
 	main.cam.set_process(true)

@@ -1,0 +1,50 @@
+{
+  "key": "deep_bay_open",
+  "name": "抽空窗跨",
+  "component_family": "facade",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-BAY-OPEN",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_bay_open/deep_bay_open.blend",
+  "source_sha256": "38d146367a858693fb072cd0b4c85869fdce3a500d95ae05a5b7d69c61aee4bd",
+  "collection": "MASTER | deep_bay_open",
+  "bounds_m": [
+    1.6200000047683716,
+    0.38999998569488525,
+    2.7390127182006836
+  ],
+  "form": [
+    {
+      "id": "Twisted remnant sash",
+      "kind": "vertical_structure",
+      "bottom": 0.083,
+      "top": 0.081257,
+      "extent": [
+        0.083,
+        0.083,
+        1.6408839691223127
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    -1.0399999618530273,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_bay_open.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_bay_open.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-BAY-OPEN"
+}

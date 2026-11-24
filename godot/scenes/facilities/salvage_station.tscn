@@ -1,6 +1,15 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 [ext_resource type="Script" path="res://src/world/legacy_facility_materials.gd" id="bind"]
 [ext_resource type="PackedScene" path="res://assets/models/facilities/legacy_home/salvage_station.glb" id="g0"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/salvage_collision.scn" id="surface"]
+[ext_resource type="PackedScene" path="res://scenes/components/docking_area.tscn" id="dock"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="Script" path="res://src/salvage/salvage_winch.gd" id="winch"]
+[ext_resource type="Script" path="res://src/orders/trade_board.gd" id="trade"]
+[ext_resource type="Script" path="res://src/gathering/gather_spot.gd" id="gather"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/wild_fishery.tscn" id="fishery"]
+
 [node name="绞盘打捞台" type="Node3D"]
 script = ExtResource("bind")
 instance_id = "facility/salvage_station"
@@ -12,4 +21,69 @@ metadata/water_layer_role = "entity"
 position = Vector3(0, 0, 0)
 [node name="PoleAndFlowers" parent="salvage_station" index="2"]
 position = Vector3(2.2, 0, 2.4)
+
+[node name="SurfaceCollision" parent="." instance=ExtResource("surface")]
+
+[node name="Walk_zone1_salvage" type="Node3D" parent="."]
+position = Vector3(4.999999, 0, -4.149999)
+script = ExtResource("walk")
+area_id = "zone1_salvage"
+zone_id = "zone1"
+scene_collision = true
+local_surface_height = true
+surface_y = 1.33
+span_min = 1.0
+span_max = 1.5
+rects = [Rect2(-16.5, 10.2, 7.5, 3.3)]
+
+[node name="Landing_salvage" type="Marker3D" parent="Walk_zone1_salvage"]
+position = Vector3(-11.84749, 1.33, 12.84749)
+script = ExtResource("landing")
+landing_id = "salvage"
+landing_label = "绞盘打捞台"
+
+[node name="BoatPark" type="Marker3D" parent="Walk_zone1_salvage/Landing_salvage"]
+position = Vector3(6.89749, -0.21, 1.47251)
+
+[node name="DockEdge" type="Marker3D" parent="Walk_zone1_salvage/Landing_salvage"]
+position = Vector3(2.84749, 0, 0.15251)
+
+[node name="DockingArea" parent="Walk_zone1_salvage/Landing_salvage/DockEdge" instance=ExtResource("dock")]
+position = Vector3(2.65, -0.21, 0.86)
+rotation = Vector3(0, 1.570796, 0)
+
+[node name="Facilities" type="Node3D" parent="."]
+
+[node name="SalvageWinch" type="Node3D" parent="Facilities"]
+position = Vector3(-8.598476, 1.33, 8.548478)
+rotation = Vector3(0, 2.356194, 0)
+script = ExtResource("winch")
+id = "salvage_winch"
+label = "绞盘打捞台"
+verb = "打捞"
+priority = 4
+focus_radius = 2.6
+accent = Color(1, 0.831373, 0.47451, 1)
+
+[node name="TradeBoard" type="Node3D" parent="Facilities"]
+position = Vector3(-8.371, 1.33, 8.731123)
+rotation = Vector3(0, 3.641398, 0)
+script = ExtResource("trade")
+id = "dock_orders"
+label = "渔场 · 待建"
+verb = "建造渔场"
+priority = 5
+focus_radius = 2.6
+accent = Color(1, 0.831373, 0.47451, 1)
+
+[node name="Spot_zone1_rope" type="Node3D" parent="Facilities"]
+position = Vector3(-10.928335, 1.33, 8.367077)
+script = ExtResource("gather")
+id = "zone1_rope"
+kind = "rope"
+metadata/zone = "zone1"
+
+[node name="WildFishery" parent="." instance=ExtResource("fishery")]
+position = Vector3(-8.033947, 1.33, 8.595798)
+
 [editable path="salvage_station"]

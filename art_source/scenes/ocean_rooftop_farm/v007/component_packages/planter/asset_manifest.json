@@ -1,0 +1,37 @@
+{
+  "key": "planter",
+  "asset_id": "SEA-SCENE-ORF7-PLANTER",
+  "name": "矮花槽和盆",
+  "category": "facility",
+  "component_family": "storage",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "source": "art_source/scenes/ocean_rooftop_farm/v007/component_packages/planter/planter.blend",
+  "source_sha256": "f24a24152e400cda252957b7d7cdd9c05eeacce90edddaa47860b6f53f89ae62",
+  "collection": "MASTER | planter",
+  "bounds_m": [
+    1.3899999856948853,
+    0.7870000004768372,
+    0.49714988470077515
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    -0.01264999806880951
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-PLANTER",
+  "version": "v007"
+}

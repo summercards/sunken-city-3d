@@ -25,6 +25,11 @@ func home_labels() -> Dictionary:
 
 func canonical_anchor_for_npc(anchor_id: String, npc: Dictionary) -> String:
 	var home := str(npc.get("residence_id", ""))
+	if home == "residence_sunroom_greenhouse":
+		if anchor_id == "anchor_planter":
+			return "residence_garden_bridge_work"
+		if anchor_id.begins_with(home):
+			return "residence_garden_bridge" + anchor_id.trim_prefix(home)
 	if home == "residence_general_store":
 		if anchor_id == "anchor_home_dock": return home + "_social"
 		if anchor_id == "anchor_general_store": return "anchor_general_store"

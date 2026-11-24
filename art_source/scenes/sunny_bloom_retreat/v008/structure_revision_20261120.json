@@ -1,0 +1,38 @@
+{
+  "asset_id": "SEA-SCENE-SBR-ASSEMBLY",
+  "feature_id": "SEA-ASSET",
+  "version": "v008",
+  "building_class": "above_water",
+  "reference_sha256": "7b7efa832f4804e51ce6aad0e49b22f3e46f7d74852d30aa8227ca5e3a436171",
+  "source_input_sha256": "db7208f814cfde6caaff6e6b168ed97bb86e08501a941d659a483b0a82e52d2b",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "axes": {"up": "+Z", "front": "-Y", "units": "Blender meters"},
+  "retained_interfaces": ["main deck top", "dock deck top and centerline", "upper deck top", "ladder centerline", "lower building and glazed porch footprint"],
+  "assembly_only_exclusions": ["loose board in the center of the reference", "game-generated vegetation", "watercraft", "game UI and water effects"],
+  "reworked_masters": [
+    {"key": "house", "asset_id": "SEA-SCENE-SBR-HOUSE", "scope": "solid infill in the existing lower wall opening behind the ladder"},
+    {"key": "narrow_window", "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW", "scope": "wider sill and continuous rounded frame"},
+    {"key": "terrace", "asset_id": "SEA-SCENE-SBR-TERRACE", "scope": "continuous edge and individually modeled planks"},
+    {"key": "parapet", "asset_id": "SEA-SCENE-SBR-PARAPET", "scope": "glazed railing with hardware"},
+    {"key": "canopy_post", "asset_id": "SEA-SCENE-SBR-CANOPY-POST", "scope": "shorter tapered posts and banded caps"},
+    {"key": "cap", "asset_id": "SEA-SCENE-SBR-CAP", "scope": "stacked fascia and recessed planting bed"},
+    {"key": "slope", "asset_id": "SEA-SCENE-SBR-SLOPE", "scope": "planked roof with side beams and a supported eave"},
+    {"key": "solar", "asset_id": "SEA-SCENE-SBR-SOLAR", "scope": "existing panels with mounting feet and retaining clips"},
+    {"key": "awning", "asset_id": "SEA-SCENE-SBR-AWNING", "scope": "continuous striped fabric and scalloped valance"},
+    {"key": "ladder", "asset_id": "SEA-SCENE-SBR-LADDER", "scope": "extended hooks and even rung spacing"},
+    {"key": "umbrella", "asset_id": "SEA-SCENE-SBR-UMBRELLA", "scope": "continuous sewn canopy, static pole and looped morph animation"}
+  ],
+  "source_local_masters": [
+    {"key": "float_shell", "collection": "SBR-EDIT-FLOAT-SHELL", "family": "foundation", "origin": "bottom_center", "triangle_budget": 1500},
+    {"key": "deck_rail", "collection": "SBR-EDIT-DECK-RAIL", "family": "railing", "origin": "bottom_center", "triangle_budget": 900},
+    {"key": "eave_bracket", "collection": "SBR-EDIT-EAVE-BRACKET", "family": "bracing", "origin": "bottom_center", "triangle_budget": 500},
+    {"key": "wall_skirt", "collection": "SBR-EDIT-WALL-SKIRT", "family": "trim", "origin": "bottom_center", "triangle_budget": 1400},
+    {"key": "service_box", "collection": "SBR-EDIT-SERVICE-BOX", "family": "wall_fixture", "origin": "bottom_center", "triangle_budget": 1100}
+  ],
+  "animation": {
+    "fps": 30,
+    "assembly_frame_range": [1, 225],
+    "wind_loop_frames": 120,
+    "settle_order": ["float and stringers", "planking and dock", "walls and porch", "upper deck and ladder", "roof and upper room", "railings and furniture", "umbrella"]
+  }
+}

@@ -12,6 +12,20 @@
 [ext_resource type="PackedScene" path="res://scenes/components/fishery/marker_buoy.tscn" id="marker_buoy"]
 [ext_resource type="PackedScene" path="res://scenes/components/fishery/net_panel.tscn" id="net_panel"]
 [ext_resource type="PackedScene" path="res://scenes/components/fishery/net_corner.tscn" id="net_corner"]
+[ext_resource type="PackedScene" path="res://scenes/components/surface_collision/fishery_collision.scn" id="fishery_collision"]
+
+[ext_resource type="Script" path="res://src/aqua/fishery_harvest.gd" id="harvest"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fishery_school"]
+
+[sub_resource type="BoxShape3D" id="NetLong"]
+size = Vector3(10.07, 0.6, 0.14)
+
+[sub_resource type="BoxShape3D" id="NetShort"]
+size = Vector3(8.07, 0.6, 0.14)
+
+[sub_resource type="BoxShape3D" id="NetCorner"]
+size = Vector3(1.48, 0.6, 0.14)
+
 [node name="WildFishery" type="Node3D"]
 script = ExtResource("script")
 visible = false
@@ -19,6 +33,11 @@ metadata/asset_id = "SEA-FISHERY-ASSEMBLY"
 metadata/asset_version = "v001"
 water_layer = "amphibious"
 water_layer_role = "entity"
+shore_navigation = PackedVector2Array(-3.05, -2.1, -2.98, -2.45, -2.96, -1.16, -1.08, -1.16, -1.08, -2.53, 2.8, -2.53, 3.05, -2.28, 3.05, 0.9, 1.7, 0.9, 1.7, 1.94, 3.05, 1.94, 3.05, 2.28, 2.8, 2.53, -1.05, 2.53, -1.05, 1.3, -2.94, 1.3, -3.05, 2.25)
+[node name="PenBounds" type="Marker3D" parent="."]
+position = Vector3(1.772444, -0.21, 9.52942)
+rotation = Vector3(0, 0.785398, 0)
+
 [node name="Blockers" type="Node3D" parent="."]
 script = ExtResource("blocker")
 mode = "none"
@@ -189,3 +208,90 @@ position = Vector3(-12.166051102, -0.440000000, 8.054199982)
 position = Vector3(-12.166051102, -0.440000000, 6.054199982)
 [node name="float_063" parent="Water" instance=ExtResource("marker_buoy")]
 position = Vector3(-12.166051102, -0.440000000, 4.054199982)
+
+[node name="SurfaceCollision" parent="." instance=ExtResource("fishery_collision")]
+
+[node name="NetHullCollision" type="StaticBody3D" parent="Water"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="North" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-6.166051, -0.67, 3.0542)
+shape = SubResource("NetLong")
+
+[node name="South" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-6.166051, -0.67, 13.0542)
+shape = SubResource("NetLong")
+
+[node name="East" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-0.166051, -0.67, 8.0542)
+rotation = Vector3(0, 1.570796, 0)
+shape = SubResource("NetShort")
+
+[node name="West" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-12.166051, -0.67, 8.0542)
+rotation = Vector3(0, 1.570796, 0)
+shape = SubResource("NetShort")
+
+[node name="Northeast" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-0.666051, -0.67, 3.5542)
+rotation = Vector3(0, -0.785398, 0)
+shape = SubResource("NetCorner")
+
+[node name="Southeast" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-0.666051, -0.67, 12.5542)
+rotation = Vector3(0, 0.785398, 0)
+shape = SubResource("NetCorner")
+
+[node name="Southwest" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-11.666051, -0.67, 12.5542)
+rotation = Vector3(0, -0.785398, 0)
+shape = SubResource("NetCorner")
+
+[node name="Northwest" type="CollisionShape3D" parent="Water/NetHullCollision"]
+position = Vector3(-11.666051, -0.67, 3.5542)
+rotation = Vector3(0, 0.785398, 0)
+shape = SubResource("NetCorner")
+
+[node name="Facilities" type="Node3D" parent="."]
+
+[node name="FisheryHarvest" type="Node3D" parent="Facilities"]
+position = Vector3(-0.166089, 0, -1.345808)
+rotation = Vector3(0, 0.785398, 0)
+script = ExtResource("harvest")
+
+[node name="FisherySchools" type="Node3D" parent="." unique_id=474557921]
+visible = false
+metadata/visual_only = true
+
+[node name="West" parent="FisherySchools" unique_id=1924614075 instance=ExtResource("fishery_school")]
+position = Vector3(0.181454, -0.21, 10.978988)
+rotation = Vector3(0, 0.785398, 0)
+palette = "surface"
+profile = "flat"
+count = 10
+orbit_radius = Vector2(1.45, 1)
+spread_radius = 1.45
+swim_speed = 0.26
+ride_water = true
+submerge_min = 0.55
+submerge_max = 1.35
+size_scale = 0.5
+instance_id = "fishery/fish/west"
+
+[node name="East" parent="FisherySchools" unique_id=32209780 instance=ExtResource("fishery_school")]
+position = Vector3(3.575566, -0.21, 8.362694)
+rotation = Vector3(0, 0.785398, 0)
+palette = "surface"
+profile = "flat"
+palette_index = 1
+count = 10
+orbit_radius = Vector2(1.6, 1.15)
+spread_radius = 1.68
+swim_speed = 0.24
+phase = 2.0
+seed_value = 72
+ride_water = true
+submerge_min = 0.6
+size_scale = 0.5
+instance_id = "fishery/fish/east"

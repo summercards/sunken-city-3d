@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/windmill.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.882793, 3.499346, 0.753522)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(0.882793, 3.499346, 0.753522)
+
+[sub_resource type="BoxShape3D" id="SolidBox2"]
+size = Vector3(0.282827, 3.48675, 0.741061)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-WINDMILL"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-0.326235, 1.749673, 0.265511)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.326235, 1.749673, 0.265511)
+shape = SubResource("SolidBox1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.046023, 1.74974, -0.271742)
+shape = SubResource("SolidBox2")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

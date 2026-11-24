@@ -15,7 +15,7 @@
 
 | 节点（main.tscn） | 区块 id | 参考位（带入时） | 实测位（用户摆放） | 偏差 | 缩放确认 | 现状与结语 |
 |---|---|---|---|---|---|---|
-| `World/SeaStructures/rooftop_ranch` | `rooftop_ranch` | `(46, -55.92, -52)` | `(-87.471634, -55.92, 6.712494)` | 145.814 m | 等比（无缩放） | 2026-11-06 用户调整平面位置和朝向。维持 v006 的 Y=-55.92，草皮和草堆使用天台局部坐标随楼移动。 |
+| `World/SeaStructures/rooftop_ranch` | `rooftop_ranch` | `(46, -55.92, -52)` | `(-87.471634, -55.92, 6.712494)` | 145.814 m | 等比（无缩放） | 2026-11-06 用户调整平面位置和朝向。2026-11-23 在同一实例内替换为 v010 整栋楼和设施。 |
 | `World/SeaStructures/neon_garden_quarter` | `neon_garden_quarter` | `(156.149682, 1.12, 2.473711)` | `(106.55533, -15.869949, 88.88402)` | 101.069 m | 等比（无缩放） | 2026-11-07 18:58 只按当前TSCN同步用户手摆实测。上一行登记值为`(106.55533, -21.726082, 88.88402)`；参考位保持，未改main.tscn。 |
 | `World/SeaStructures/floating_rest_stop` | `retired_marine_rest_stop` | `(6.158, -1.134, 51.813)` | `(69.91094, -18.097904, 46.376625)` | 66.19 m | **有意** —— 用户 2026-11-06 口头确认「我手动调的」 | 位置与三轴缩放 1.386／2.418／1.777 都是用户手动摆的，**按实测为准，不再当缺陷**。可航性不因此成立：甲板落在世界 -12 米量级、船位 Y=-12.4096，`floating-shop` 41 项 5 失败、`sea-supply` 37 项 8 失败（[11-02 清点](ledger.md)）仍如实挂着；用户明确「先不管」，故泊位、行走投影与这些断言**都不按参考位重算**，等实际用到补给站停靠时再按实测标高处理。 2026-11-07 降级为旧驿站景观，原模型及用户完整变换保留；不再拥有sea_supply身份、泊位、行走面或补给交互。 |
 | `World/SeaStructures/floating_shop` | `sea_supply` | `(147.571356, 1.12, 143.891356)` | `(147.571356, 1.12, 143.891356)` | 0 m | 等比（无缩放） | 2026-11-07 初次带入参考位：按本轮运行探针测得阳光房主体中心东南方向200米计算。正式TSCN拥有后续摆位；根保持静态参考，内部甲板与支撑竖向浮动。 |
@@ -52,8 +52,79 @@ python3 scripts/check_placed_positions.py
 
 ## 2026-11-20 正式家园临时试坡
 
-位置相对 `zone1_home_harbor.tscn` 的 `WalkAreas`，不新增区块条目；撤下实例时将此行改为历史记录。
+历史记录（已撤下）。临时试坡于 2026-11-20 首次布置，局部参考位与当时实测位均为 `(2.65, 1.38, 6.2)`，偏差 0 m。2026-11-22 改挂阳光房场景后按反馈撤下。
 
-| 节点（区块场景） | 区块 id | 参考位（初摆） | 实测位（当前 TSCN） | 偏差 | 缩放确认 | 现状与结语 |
+## 2026-11-20 阳光房往返锚点
+
+- `Landing_main/Arrival` 新旅人和落水返回共用标记。局部初摆参考位及 TSCN 实测位均为 `(0.083375, 0, -5.6845)`，偏差 0 m。
+- `SunroomLadderTopAnchor` 对齐木板顶面。局部参考位 `(4.66225, 7.016335, 2.708127)`，TSCN 实测位 `(4.66225, 7.2363, 2.708127)`，向上约 0.220 m。
+- `SunroomUpperRestoreAnchor` 随二楼未休整时的梯顶落脚面调整。局部参考位 `(6.83575, 7.016335, -0.814)`，TSCN 实测位 `(6.5, 7.2363, 2.2)`，偏差约 3.04 m。
+
+## 2026-11-20 阳光房栈桥下船区域
+
+- `Landing_main/DockEdge/DockingArea` 相对 DockEdge 的初摆参考位及 TSCN 实测位均为 `(0, 0, 1.15)`，偏差 0 m。区域尺寸由场景碰撞形状保存。
+
+## 2026-11-21 阳光房 1.6 梯脚与附属表现
+
+以下均为 `solar_cabin_surface.tscn` 中的局部位置，参考列为换版前的初摆参考，实测列取当前场景。阳光房总成沿用已有手摆。
+
+- `SunroomRepairAnchor` 与 `SunroomLadderBottomAnchor` 的参考位为 `(4.66225, 2.15, 2.708127)`，实测 `(4.66225, 2.15, 3.08)`，偏差 0.372 m。
+- `SunroomDamageAnchor` 的参考位为 `(4.66225, 2.15, 2.708127)`，实测 `(4.66225, 2.15, 3.04)`，偏差 0.332 m。
+- `VegetationTurf/Regions/upper_roof_meadow` 的参考位为 `(6.835, 10.847, -0.815)`，实测 `(6.835, 10.834, -0.815)`，偏差 0.013 m。
+- `VegetationTurf/Regions/left_parapet` 的参考位为 `(0.04, 7.895, -0.2)`，实测 `(0.37, 7.236, -0.2)`，偏差 0.737 m。
+- `VegetationTurf/Regions/front_parapet` 的参考位为 `(1.9, 7.895, 2.725)`，实测 `(1.9, 7.236, 2.31)`，偏差 0.779 m。
+
+## 2026-11-21 设施泊位子节点
+
+下表记录 Marker 在各自父节点坐标系中的位置。正式设施根沿用 Main 手摆。
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
 |---|---|---|---|---|---|---|
-| `zone1_home_harbor.tscn#WalkAreas/TemporaryHomeRamp` | `zone1` | `(2.65, 1.38, 6.2)` | `(2.65, 1.38, 6.2)` | 0 m | 等比（无缩放） | 2026-11-20 14:08 批次实测，临时初摆；既有手摆不变。 |
+| `facilities/salvage_station.tscn#Walk_zone1_salvage/Landing_salvage` | zone1 | `(-11.6, 1.33, 12.6)` | `(-11.84749, 1.33, 12.84749)` | 0.350 m | 等比 | 2026-11-23 迁入打捞台，走域局部坐标系与原摆放对应。 |
+| `zones/zone2_yokohama_station.tscn#Models/unit_03/Walk_zone2_station/Landing_main` | zone2 | `(2.8, 2.78, 3.807)` | `(2.8, 2.78, 3.457)` | 0.350 m | 等比 | 2026-11-23 换算到西站台局部空间。 |
+| `facilities/rooftop_ranch.tscn#WalkAreas/Walk_rooftop_ranch_access/Landing_main` | rooftop_ranch | `(26.4, 57.3, -2.1)` | `(18.36, 57.35, 6.28)` | 11.613 m | 等比 | 2026-11-23 换用新版楼体的木码头。参考位为旧楼原泊位。 |
+| `facilities/rooftop_ranch.tscn#WalkAreas/Walk_rooftop_ranch_access/Landing_main/BoatPark` | rooftop_ranch | `(0, -0.30, 1.82)` | `(0, -0.31, 2.65)` | 0.830 m | 等比 | 2026-11-23 相对落脚点，停船位根据真实船壳外移。 |
+| `facilities/neon_garden_quarter.tscn#Visual/StairFoot/WalkLeftFloat/Landing_main` | neon_garden_quarter | `(6.613068, 14.11, 2.882)` | `(-0.45, 0, 0.1)` | 16.02 m | 等比 | 2026-11-23 迁入检修浮台。参考位为原屋顶标记换算至浮台局部。 |
+| `facilities/rooftop_arcade.tscn#WalkAreas/WalkWestDeck/Landing_main` | rooftop_arcade | `(-1.8, 0.42, -0.76)` | `(-0.75, 0.42, -1.11)` | 1.107 m | 等比 | 2026-11-21 西侧甲板落脚。 |
+| `facilities/rooftop_arcade.tscn#WalkAreas/WalkWestDeck/Landing_main/BoatPark` | rooftop_arcade | `(-3.65, -0.30, 0)` | `(-5.45, -0.30, 0.35)` | 1.834 m | 等比 | 2026-11-21 船位随甲板边沿调整。 |
+| `facilities/floating_shop.tscn#WalkAreas/Walk_sea_supply_deck/Landing_main/BoatPark` | sea_supply | `(0, -0.3, 4.3)` | `(0, -0.3, 3)` | 1.300 m | 等比 | 2026-11-21 船位随码头边沿调整，运行时船仍处于水线。 |
+| `zones/zone5_aqua_platform.tscn#WorkshopStarter` | zone5 | `(0, 1.48, 0)` | `(0, 1.48, 0)` | 0 m | 等比 | 2026-11-23 起始组件接替旧养殖台，泊位随码头组件。 |
+| `buildables/workshop_starter.tscn#DeckNW` | zone5 | `(-2.5, 0, 5.075)` | `(0.725, 0, 4.925)` | 3.228 m | 等比 | 2026-11-23 右移一板并向外错开一排。 |
+| `buildables/workshop_starter.tscn#DeckNE` | zone5 | `(2.5, 0, 5.075)` | `(5.725, 0, 4.925)` | 3.228 m | 等比 | 2026-11-23 北边与存档内的自建木台相接。 |
+| `buildables/workshop_starter.tscn#DeckSW` | zone5 | `(-2.5, 0, 10.075)` | `(0.725, 0, 9.925)` | 3.228 m | 等比 | 2026-11-23 接左侧码头。 |
+| `buildables/workshop_starter.tscn#DeckSE` | zone5 | `(2.5, 0, 10.075)` | `(5.725, 0, 9.925)` | 3.228 m | 等比 | 2026-11-23 随固定起始区平移。 |
+| `buildables/workshop_starter.tscn#Dock` | zone5 | `(-2.5, 0, 13.825)` | `(0.725, 0, 13.675)` | 3.228 m | 等比 | 2026-11-23 左前侧，靠船边布置四只护舷。 |
+| `buildables/kit/workshop_dock.tscn#DockWalk/Berth/BoatPark` | zone5 | `(0, -0.36, 2.48)` | `(0, -0.36, 2.55)` | 0.070 m | 等比 | 2026-11-23 给轮胎留出船壳净空。 |
+
+## 2026-11-22 阳光房菜箱摆位
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
+|---|---|---|---|---|---|---|
+| `facilities/solar_cabin.tscn#Facilities/home_plot` | zone1 | `(-0.52, 1.38, 8.35)` | `(0.05, 1.38, 8.35)` | 0.57 m | 等比 | 2026-11-22 在阳光房局部空间沿甲板内侧移开护栏。 |
+
+## 2026-11-23 菜园桥 NPC 站位
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
+|---|---|---|---|---|---|---|
+| `facilities/neon_garden_quarter.tscn#Visual/GardenBridge/NpcStations/residence_garden_bridge` | neon_garden_quarter | `(-5.5, 4.362, 0.4325)` | `(-5.5, 5.05752, 0.4325)` | 0.696 m | 等比 | 2026-11-23 五个站位随桥，根站位抬至土面。 |
+| `facilities/neon_garden_quarter.tscn#Visual/GardenBridge/NpcStations/residence_garden_bridge/Work` | neon_garden_quarter | `(0, 0, 0.4)` | `(0, -0.19527, 0.4)` | 0.195 m | 等比 | 2026-11-23 工作站位匹配坡度。 |
+| `facilities/neon_garden_quarter.tscn#Visual/GardenBridge/NpcStations/residence_garden_bridge/Door` | neon_garden_quarter | `(3.2, 0, -0.4)` | `(3.2, 0, 0)` | 0.400 m | 等比 | 2026-11-23 出入口锚点移入桥面。 |
+
+## 2026-11-23 顶层牧场小屋摆位
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
+|---|---|---|---|---|---|---|
+| `facilities/rooftop_ranch.tscn#Models/House_Shell_298` | rooftop_ranch | `(-11.289909, 10.5, -2.879624)` | `(-11.289909, 10.5, -2.879624)` | 0 m | 等比 | 2026-11-23 新版整组模型内，小屋破损帧的局部位姿。原独立小屋实例已由整组部件替换。 |
+| `components/facilities/rooftop_ranch/house/v010/rooftop_house.tscn#RepairPrompt` | rooftop_ranch | `(2, 0.07, 3.15)` | `(2, 0.02, 3.85)` | 0.702 m | 等比 | 2026-11-23 复测后移至屋前通道，随小屋移动。 |
+## 2026-11-24 顶层牧场入口花圃
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
+|---|---|---|---|---|---|---|
+| `facilities/rooftop_ranch.tscn#Models/Planter_006_366` | rooftop_ranch | `(14.40, 13.286337, 4.10)` | `(13.12, 13.286337, 4.30)` | 1.296 m | 等比 | 2026-11-24 将落装的花圃和两株植物一起移向入口侧边。本表记录 TSCN 初始隐藏关键帧，完工落点同向移动。 |
+
+## 2026-11-24 顶层牧场下沉装配
+
+| 节点（场景与路径） | 区块 id | 参考位 | 实测位 | 偏差 | 缩放确认 | 说明 |
+|---|---|---|---|---|---|---|
+| `facilities/rooftop_ranch.tscn#Models` | rooftop_ranch | `(0, 52.04, 0)` | `(0, 50.24, 0)` | 1.800 m | 等比 | 2026-11-24 按截图调整水线。参考位为 v013 模型层局部位置。 |
+| `facilities/rooftop_ranch.tscn#SubmergedLevels` | rooftop_ranch | `(0, 50.24, 0)` | `(0, 50.24, 0)` | 0 m | 等比 | 2026-11-24 七层观赏部分首次装配，使用与楼体一致的局部基准。 |

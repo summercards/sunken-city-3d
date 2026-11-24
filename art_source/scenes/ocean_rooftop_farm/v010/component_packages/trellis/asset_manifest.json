@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "trellis",
+  "asset_id": "SEA-SCENE-ORF7-TRELLIS",
+  "name": "格网与收纳木箱",
+  "category": "facility",
+  "component_family": "storage",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/trellis/trellis.blend",
+  "source_sha256": "20238da84e0c9dc10b76b8910d2dd39696544e5bd5d0bbfd200b51b149a9c64f",
+  "collection": "MASTER | trellis",
+  "bounds_m": [
+    2.797999858856201,
+    0.7530800104141235,
+    2.3418798446655273
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.27754002809524536,
+    -0.011879980564117432
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-TRELLIS",
+  "version": "v010",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/trellis.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/trellis.tscn"
+}

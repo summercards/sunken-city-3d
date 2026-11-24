@@ -3,27 +3,33 @@ extends Node3D
 const Catalog = preload("res://src/building/building_catalog.gd")
 const Space = preload("res://src/building/building_space.gd")
 const Deck = preload("res://scenes/buildables/wood_deck.tscn")
-const Plot = preload("res://scenes/props/farm_cell.tscn")
+const Plot = preload("res://scenes/buildables/cultivation_bed.tscn")
+const PlotModel = preload("res://scenes/buildables/cultivation_bed_model.tscn")
+const ConstructionAnimation = preload("res://src/building/construction_animation.gd")
 var service: RefCounted
 var area: Node3D
+var zone: Node3D
 var field: Node3D
 var bind_plot: Callable
 var geometry_changed: Callable
 var _base_rects: Array=[]
 var _nodes := {}
+var _starter: Node3D
 var _completed := {}
 var _fixed_footprints: Array=[]
 var revision := 0
 var prop_action: Callable
 var _assembly_walk: Node3D
 
-func configure(model: RefCounted, ground: Node3D, farm_field: Node3D, bind: Callable, invalidate: Callable) -> void:
+func configure(model: RefCounted, site_zone: Node3D, ground: Node3D, farm_field: Node3D, bind: Callable, invalidate: Callable) -> void:
+	zone = site_zone
 	service=model;area=ground;field=farm_field;bind_plot=bind;geometry_changed=invalidate
 	# These rectangles describe valid actor CENTERS, with body clearance already
 	# applied to the union and its obstacles. A WalkArea-level inset would erode
 	# each thin strip/seam a second time and make compact gardens unreachable.
 	if "body_radius" in area: area.body_radius=0.0
 	_base_rects=area.rects.duplicate()
+	_starter = zone.get_node_or_null("WorkshopStarter")
 	_fixed_footprints.clear()
 	# Fixed planting beds are pass-through by default. Only explicitly solid
 	# component metadata reserves a footprint; crops never supply collision.
@@ -32,7 +38,19 @@ func configure(model: RefCounted, ground: Node3D, farm_field: Node3D, bind: Call
 		if not bool(plot.get_meta("blocks_actor",false)): continue
 		_fixed_footprints.append(_fixed_plot_rect(plot))
 	service.changed.connect(sync)
+	service.completed.connect(_play_construction)
 	sync()
+
+func _play_construction(id: String) -> void:
+	var component := node_for(id)
+	var row: Dictionary = service.row(id)
+	if component == null or row.is_empty() or not _completed.get(id, false) or component.has_node("Construction"):
+		return
+	var overlay := ConstructionAnimation.new()
+	overlay.name = "Construction"
+	component.add_child(overlay)
+	overlay.play(component, str(row.kind))
+
 func _fixed_plot_rect(plot: Node3D) -> Rect2:
 	var center: Vector3=plot.global_position-Catalog.ORIGIN
 	var extent:=Vector2(1.30*absf(plot.global_basis.get_scale().x),0.90*absf(plot.global_basis.get_scale().z))
@@ -43,7 +61,10 @@ func fixed_occupied_rects() -> Array:
 	for plot: Node3D in field.plots:
 		if str(plot.zone_id)=="zone5" and not str(plot.plot_id).begins_with("dynamic/"): result.append(_fixed_plot_rect(plot))
 	return result
-func node_for(id: String) -> Node3D: return _nodes.get(id)
+func node_for(id: String) -> Node3D:
+	if _starter != null and id.begins_with("@starter/"):
+		return _starter.get_node_or_null(id.trim_prefix("@starter/"))
+	return _nodes.get(id)
 func position_for(row: Dictionary) -> Vector3:
 	var p: Vector2=Catalog.footprint_rect(row).get_center()
 	return Catalog.ORIGIN+Vector3(p.x,Catalog.elevation(row),p.y)
@@ -63,6 +84,7 @@ func sync() -> void:
 			var existing: Node3D=_nodes[item.id]
 			existing.position=position_for(item)
 			existing.rotation.y=int(item.turn)*PI/2
+			_scale_stairs(existing, item)
 			continue
 		var node: Node3D
 		if item.kind=="deck":
@@ -74,21 +96,24 @@ func sync() -> void:
 			if prop_action.is_valid(): node.action_requested.connect(func(action): prop_action.call(action))
 		elif done and Catalog.role(str(item.kind))=="planter":
 			node=Plot.instantiate();node.plot_id="dynamic/"+item.id;node.zone_id="zone5";node.plot_name="培养土种植格"
-			var footprint: Vector2=Catalog.RECIPES[item.kind].footprint
-			node.scale=Vector3(footprint.x/1.30,0.65,footprint.y/0.90);node.rotation.y=int(item.turn)*PI/2
+			node.scale=planter_scale(str(item.kind))
 			node.farm_model=field.farm_model
 		else:
 			node=ghost_planter(str(item.kind))
 			node.rotation.y=int(item.turn)*PI/2
 		node.name=item.id;node.position=position_for(item);node.rotation.y=int(item.turn)*PI/2
+		_scale_stairs(node, item)
 		add_child(node);_nodes[item.id]=node;_completed[item.id]=done
 		node.set_meta("building_instance_id",str(item.id))
+		if Catalog.is_dock(item.kind):
+			node.get_node("DockWalk/Berth").landing_id = "built:" + str(item.id) + ":dock"
 		if Catalog.role(str(item.kind))=="planter" and done:
 			field.register_node(node)
 			bind_plot.call(node)
-	area.rects=walk_rects(rows)
+	var layout: Array = service.layout()
+	area.rects=walk_rects(layout)
 	area.polygons.clear()
-	_sync_assembly(rows)
+	_sync_assembly(layout)
 	# Every placement can change another plot's usable operation side. Refresh
 	# all anchors after projecting the complete candidate walking surface.
 	for item in rows:
@@ -98,13 +123,19 @@ func sync() -> void:
 		if str(plot.zone_id)!="zone5" or str(plot.plot_id).begins_with("dynamic/"): continue
 		plot.set_meta("approach_points",_world_operation_points(_fixed_plot_rect(plot),bool(plot.get_meta("blocks_actor",false))))
 	geometry_changed.call()
+
+func _scale_stairs(node: Node3D, item: Dictionary) -> void:
+	var recipe: Dictionary = Catalog.RECIPES[item.kind]
+	if recipe.get("profile", "") == "stairs":
+		node.scale.y = Catalog.stair_rise(item) / float(recipe.height)
+
 func _sync_assembly(rows: Array) -> void:
-	var zone: Node3D=area.get_parent().get_parent()
 	if _assembly_walk==null:
 		_assembly_walk=preload("res://src/navigation/walk_area.gd").new()
 		_assembly_walk.name="AssemblyWalk";_assembly_walk.area_id="zone5_assembly";_assembly_walk.zone_id="zone5"
 		_assembly_walk.body_radius=0.0;_assembly_walk.surface_y=Catalog.ORIGIN.y+Catalog.LAYER_HEIGHT
-		area.get_parent().add_child(_assembly_walk);_assembly_walk.global_position=Catalog.ORIGIN
+		_assembly_walk.scene_collision = true
+		add_child(_assembly_walk);_assembly_walk.global_position=Catalog.ORIGIN
 		zone.walk_areas.append(_assembly_walk)
 		zone.ground_space.configure(zone.walk_areas)
 	_assembly_walk.surface_triangles=preload("res://src/building/assembly_surfaces.gd").faces(rows)
@@ -162,7 +193,6 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 				if side>=2: at=Vector2(target_rect.position.x if side==2 else target_rect.end.x,target_rect.position.y+target_rect.size.y*fraction)
 				boundary_probes.append(Catalog.ORIGIN+Vector3(at.x,Catalog.elevation(request),at.y))
 	if center.y>Catalog.ORIGIN.y+.5 and _assembly_walk!=null:
-		var zone: Node3D=area.get_parent().get_parent()
 		var best_3d:=Vector3.INF;var best_score:=INF
 		var probes_3d: Array[Vector3]=boundary_probes.duplicate()
 		for dx in [-2.0,-1.0,0.0,1.0,2.0]:
@@ -180,7 +210,7 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 			var near:=point.distance_to(center) if request.is_empty() else Catalog.rect_distance(target_rect,Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z))
 			if near>max_distance: continue
 			if not request.is_empty() and Catalog.is_furnishing(str(request.get("kind",""))) and Catalog.blocks_actor(str(request.get("kind",""))) and Catalog.footprint_rect(request).grow(.22).has_point(Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)): continue
-			if zone.ground_space.route(actor,point).is_empty(): continue
+			if zone.ground_space.native_route(actor,point).is_empty(): continue
 			var rank:=actor.distance_to(point)+point.distance_to(center)*.2
 			if rank<best_score: best_score=rank;best_3d=point
 		if best_3d.is_finite(): return best_3d
@@ -190,7 +220,7 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 			if not candidate.is_finite() or absf(candidate.y-center.y)>.4: continue
 			var near:=candidate.distance_to(center) if request.is_empty() else Catalog.rect_distance(target_rect,Vector2(candidate.x-Catalog.ORIGIN.x,candidate.z-Catalog.ORIGIN.z))
 			if near>max_distance: continue
-			if not _assembly_walk.path_between(actor,candidate).is_empty(): return candidate
+			if not zone.ground_space.native_route(actor,candidate).is_empty(): return candidate
 	if center.y>Catalog.ORIGIN.y+.5: return Vector3.INF
 	var walk: Array=area.rects
 	var groups:=Space.components(walk)
@@ -223,7 +253,7 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 	if best==Vector2.INF: return Vector3.INF
 	return Catalog.ORIGIN+Vector3(best.x,0,best.y)
 func water_shapes(saved: Variant = null) -> Array:
-	var rows: Array=service.query() if saved==null else saved
+	var rows: Array=service.layout() if saved==null else saved
 	var result: Array=[]
 	for item in rows:
 		if not Catalog.is_deck(str(item.kind)) or not Catalog.same_level(Catalog.elevation(item),0.0): continue
@@ -234,7 +264,7 @@ func water_shapes(saved: Variant = null) -> Array:
 	return result
 func contact_rects() -> Array:
 	var result: Array=[]
-	for item in service.query():
+	for item in service.layout():
 		if not Catalog.is_deck(str(item.kind)) or item.left>0 or not Catalog.same_level(Catalog.elevation(item),0.0): continue
 		var rect:=Catalog.footprint_rect(item)
 		var center:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
@@ -255,13 +285,17 @@ func contains_saved(point: Vector3, rows: Array) -> bool:
 	for rect in Space.cut_all(legacy,cuts):
 		if preload("res://src/navigation/ground_path.gd").contains([Catalog.polygon(rect)],p): return true
 	return false
-static func ghost_planter(kind: String="planter") -> Node3D:
-	var node:=Node3D.new()
-	var footprint: Vector2=Catalog.RECIPES.get(kind,Catalog.RECIPES.planter).footprint
-	var mesh:=MeshInstance3D.new();var box:=BoxMesh.new();box.size=Vector3(footprint.x,0.22,footprint.y)
-	mesh.mesh=box;mesh.position.y=0.11
+static func planter_scale(kind: String) -> Vector3:
+	var footprint: Vector2 = Catalog.RECIPES[kind].footprint
+	return Vector3(footprint.x / 1.30, 0.65, footprint.y / 0.90)
+
+static func ghost_planter(kind: String) -> Node3D:
+	var node := PlotModel.instantiate() as Node3D
+	node.scale = planter_scale(kind)
 	var mat:=StandardMaterial3D.new();mat.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
 	mat.render_priority=10
 	mat.albedo_color=Color(0.55,0.95,0.78,0.48);mat.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
-	mesh.material_override=mat;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;node.add_child(mesh)
+	for mesh: MeshInstance3D in node.get_children():
+		mesh.material_override = mat
+		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return node

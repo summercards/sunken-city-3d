@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/trellis.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.94, 0.56376, 0.66816)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(0.94, 0.56376, 0.66816)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-TRELLIS"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-0.73, 0.28188, -0.00246)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0.37, 0.28188, -0.04246)
+shape = SubResource("SolidBox1")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

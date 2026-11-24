@@ -1,0 +1,39 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "doghouse",
+  "asset_id": "SEA-SCENE-ORF7-DOGHOUSE",
+  "name": "蓝顶小屋",
+  "category": "facility",
+  "component_family": "house_fixture",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/doghouse/doghouse.blend",
+  "source_sha256": "c290446340c02d8a692d7c8d09d8beffda7ac29433179efdddd3b9606b0000e6",
+  "collection": "MASTER | doghouse",
+  "bounds_m": [
+    1.5297253131866455,
+    1.5399994850158691,
+    1.432999849319458
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    -0.0003204047679901123,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/doghouse.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/doghouse.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DOGHOUSE",
+  "version": "v010"
+}

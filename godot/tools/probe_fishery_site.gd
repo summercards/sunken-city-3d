@@ -26,7 +26,7 @@ func run() -> void:
 	main.world_clock.paused = true
 	main.weather_service.paused = true
 	var site: Node3D = main.get_node("World/Zones/Zone1HomeHarbor/Models/绞盘打捞台")
-	var area: Node3D = main.get_node("World/Zones/Zone1HomeHarbor/WalkAreas/Walk_zone1_salvage")
+	var area: Node3D = site.get_node("Walk_zone1_salvage")
 	var rows: Array = []
 	scan(site,rows)
 	var deck_faces: Array = []

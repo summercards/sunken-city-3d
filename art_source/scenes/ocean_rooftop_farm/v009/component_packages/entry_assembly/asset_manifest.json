@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "individual_facility_pending_runtime",
+  "key": "entry_assembly",
+  "asset_id": "SEA-SCENE-ORF7-ENTRY-ASSEMBLY",
+  "name": "门窗和红瓦雨篷",
+  "category": "facility",
+  "component_family": "house_fixture",
+  "source": "art_source/scenes/ocean_rooftop_farm/v009/component_packages/entry_assembly/entry_assembly.blend",
+  "source_sha256": "8ba7955f83d0c96000890202819c32c4b7fa8b09a1f30fe6d3ee99bbc9dac69d",
+  "collection": "MASTER | entry_assembly",
+  "bounds_m": [
+    7.831999778747559,
+    1.8082644939422607,
+    3.203235626220703
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.2239999771118164,
+    -0.5341322422027588,
+    0.0
+  ],
+  "materials": [
+    "SEA_Emission",
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ENTRY-ASSEMBLY",
+  "version": "v009"
+}

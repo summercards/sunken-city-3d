@@ -28,12 +28,12 @@ func run() -> void:
 	if quarter == null:
 		finish(); return
 	print("[garden-npc] quarter global=", quarter.global_position)
-	var deck: Node3D = quarter.get_node_or_null("WalkAreas/WalkGardenDeck")
+	var deck: Node3D = quarter.get_node_or_null("Visual/GardenBridge/WalkGardenDeck")
 	ok(deck != null, "菜园桥可走面存在")
 	if deck != null:
 		print("[garden-npc] deck surface_y=", deck.get("surface_y"), " rects=", deck.get("rects").size(),
 			" active=", deck.get("active"), " built=", deck.get("_built"))
-		ok(deck.get("rects").size() > 0 and deck.get("active") == true, "菜园桥可走面已从模型派生")
+		ok(not deck.surface_faces().is_empty() and deck.active, "菜园桥可走面已从模型派生")
 	# 强制按当前日程刷一次，否则 NPC 还停在上一轮的站位
 	main.npc_world_presenter.sync_world(main._npc_world_query(), true)
 	for i in 6:
@@ -55,7 +55,7 @@ func run() -> void:
 		ok(local.x > -10.5 and local.x < 10.5 and local.z > -1.5 and local.z < 6.0,
 			"豆豆的水平位置落在菜园桥范围内（x %.2f z %.2f）" % [local.x, local.z])
 	# 锚点解析
-	var stations = quarter.get_node_or_null("NpcStations")
+	var stations = quarter.get_node_or_null("Visual/GardenBridge/NpcStations")
 	ok(stations != null, "霓虹花园 NpcStations 存在")
 	if stations != null:
 		var snaps: Dictionary = stations.anchor_snapshot()

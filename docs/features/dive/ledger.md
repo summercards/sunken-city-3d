@@ -25,7 +25,6 @@
     "visual-dive-maps",
     "sunroom-underwater",
     "visual-sunroom-underwater",
-    "selftest",
     "modules",
     "framework-integration",
     "decorations",

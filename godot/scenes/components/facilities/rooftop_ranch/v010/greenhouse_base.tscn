@@ -1,0 +1,75 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/v010/greenhouse_base.glb" id="model"]
+
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[sub_resource type="BoxShape3D" id="SolidBox0"]
+size = Vector3(0.16, 0.84, 6.48)
+
+[sub_resource type="BoxShape3D" id="SolidBox1"]
+size = Vector3(0.16, 0.84, 6.48)
+
+[sub_resource type="BoxShape3D" id="SolidBox2"]
+size = Vector3(1.88, 0.82, 0.18)
+
+[sub_resource type="BoxShape3D" id="SolidBox3"]
+size = Vector3(1.88, 0.82, 0.18)
+
+[sub_resource type="BoxShape3D" id="SolidBox4"]
+size = Vector3(1.88, 0.82, 0.18)
+
+[sub_resource type="BoxShape3D" id="SolidBox5"]
+size = Vector3(1.88, 0.82, 0.18)
+
+[sub_resource type="BoxShape3D" id="SolidBox6"]
+size = Vector3(1.56, 3.08, 0.18)
+
+[sub_resource type="BoxShape3D" id="SolidBox7"]
+size = Vector3(1.7, 0.82, 0.18)
+
+[node name="Piece" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-ORF7-GREENHOUSE-BASE"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-2.67, 0.42, -0.115)
+shape = SubResource("SolidBox0")
+
+[node name="Segment1" type="CollisionShape3D" parent="Solid"]
+position = Vector3(2.67, 0.42, -0.115)
+shape = SubResource("SolidBox1")
+
+[node name="Segment2" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.69, 0.41, 3.085)
+shape = SubResource("SolidBox2")
+
+[node name="Segment3" type="CollisionShape3D" parent="Solid"]
+position = Vector3(-1.69, 0.41, -3.315)
+shape = SubResource("SolidBox3")
+
+[node name="Segment4" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.69, 0.41, 3.085)
+shape = SubResource("SolidBox4")
+
+[node name="Segment5" type="CollisionShape3D" parent="Solid"]
+position = Vector3(1.69, 0.41, -3.315)
+shape = SubResource("SolidBox5")
+
+[node name="Segment6" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0, 1.54, 3.145)
+shape = SubResource("SolidBox6")
+
+[node name="Segment7" type="CollisionShape3D" parent="Solid"]
+position = Vector3(0, 0.41, -3.315)
+shape = SubResource("SolidBox7")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

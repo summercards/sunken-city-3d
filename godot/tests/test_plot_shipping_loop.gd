@@ -165,7 +165,7 @@ func run() -> void:
 	main.cam.global_position=Vector3(-6,14,29)
 	main.cam.look_at(Vector3(2,2,14))
 	main.cam.fov=38
-	var box = main._zone_nodes.zone1.get_node("Objects/ShippingBox")
+	var box = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/ShippingBox")
 	check(main._zone_nodes.zone1.landing_point("main").ground().contains_world(box.global_position.x,box.global_position.z),"shipping box is on accessible dock")
 	await snapshot("dock-shipping-box")
 	await interact_world(box)

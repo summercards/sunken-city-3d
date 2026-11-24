@@ -13,34 +13,35 @@ func run() -> void:
 	await settle(12)
 	main.cam.suspend_follow()
 
-	# ---- 1. 站在贝壳旁边，等焦点锁定 ----
-	var shell: Node3D = main.gather.find("zone1_shell")
-	if shell == null:
-		check(false, "zone1_shell 存在")
+	# ---- 1. 站在打捞台的绳索旁边，等焦点锁定 ----
+	var rope: Node3D = main.gather.find("zone1_rope")
+	if rope == null:
+		check(false, "zone1_rope 存在")
+		print("[interaction-reach-render] failures=%d" % failures)
+		quit(1)
 		return
 	var zone: Node = main._zone_nodes["zone1"]
-	var area: Node3D = zone.area_at(shell.global_position, 0.6)
-	var stand: Vector2 = area.clamp_point(shell.global_position.x + 1.1, shell.global_position.z + 0.9)
+	var area: Node3D = zone.area_at(rope.global_position, 0.6)
+	var stand: Vector2 = area.clamp_point(rope.global_position.x + 1.1, rope.global_position.z + 0.9)
 	var pos: Vector3 = area.surface_point(Vector3(stand.x, area.surface_y, stand.y))
 	main.actor_controller.restore_pose({"mode": 0, "player": [pos.x, pos.y, pos.z]})
-	main.actor_controller.walk_area = area
+	main.player.look_at(Vector3(rope.global_position.x, pos.y, rope.global_position.z), Vector3.UP, true)
 	for i in 30:
 		await process_frame
-	check(main.interactor.target == shell, "贝壳成为 E 焦点（实际 %s）" % str(main.interactor.target))
+	check(main.interactor.target == rope, "绳索成为 E 焦点（实际 %s）" % str(main.interactor.target))
 	print("[dbg] active=", main.interactor.active, " prompt_visible=", main.prompt.visible,
 		" prompt_text=", main.prompt._text.text if main.prompt._text != null else "n/a",
 		" shortcut='", main.prompt.shortcut, "' mode=", main.actor_controller.mode(),
 		" hud_modal=", main.hud.is_modal())
-	main.cam.target = shell.global_position
+	main.cam.target = rope.global_position
 	main.cam.distance = 11.0
 	main.cam.orbit_dir = Vector3(-0.62, 0.66, 0.42)
 	main.cam.refresh()
 	await shot("2026-11-06-gather-focus")
 
 	# ---- 2. 泊位旁：船上说「上岸」 ----
-	var data: Dictionary = main._landing_data("zone1", "main")
-	var park := Vector3(float(data.boatPark[0]), 1.12, float(data.boatPark[2]))
-	main.boat.place_at(park, float(data.boatYaw))
+	var park: Marker3D = zone.landing_point("main").get_node("BoatPark")
+	main.boat.place_at(park.global_position, park.global_rotation.y)
 	main.actor_controller.restore_pose({"mode": 1})
 	for i in 20:
 		await process_frame

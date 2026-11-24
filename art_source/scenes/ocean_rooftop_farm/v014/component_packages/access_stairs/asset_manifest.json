@@ -1,0 +1,583 @@
+{
+  "scope": "scene_local",
+  "origin": "existing_stair_interface",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_visual_and_separate_proxies_pending_runtime",
+  "key": "access_stairs",
+  "asset_id": "SEA-SCENE-ORF7-ACCESS-STAIRS",
+  "name": "登顶折返楼梯",
+  "category": "structure",
+  "component_family": "access",
+  "source_revision": "v014",
+  "building_class": "above_water",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/access_stairs/access_stairs.blend",
+  "source_sha256": "33504825baf2d3f41e4e29b9b8752c0dc0a3ba25b5f9e2bc8bcbdad64f0fcd26",
+  "collection": "MASTER | access_stairs",
+  "bounds_m": [
+    2.884000062942505,
+    5.338000297546387,
+    4.094107627868652
+  ],
+  "form": [
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight stringer",
+      "kind": "vertical_structure",
+      "bottom": 0.19,
+      "top": 0.18601,
+      "extent": [
+        0.19,
+        0.19,
+        3.964303386678299
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight stringer",
+      "kind": "vertical_structure",
+      "bottom": 0.19,
+      "top": 0.18601,
+      "extent": [
+        0.19,
+        0.19,
+        3.964303386678299
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail",
+      "kind": "vertical_structure",
+      "bottom": 0.1,
+      "top": 0.0979,
+      "extent": [
+        0.1,
+        0.1,
+        3.8992306622931046
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight tread",
+      "kind": "vertical_structure",
+      "bottom": 0.296,
+      "top": 0.289784,
+      "extent": [
+        1.36,
+        0.296,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight stringer",
+      "kind": "vertical_structure",
+      "bottom": 0.19,
+      "top": 0.18601,
+      "extent": [
+        0.19,
+        0.19,
+        3.838993323715538
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight stringer",
+      "kind": "vertical_structure",
+      "bottom": 0.19,
+      "top": 0.18601,
+      "extent": [
+        0.19,
+        0.19,
+        3.838993323715538
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail post",
+      "kind": "linear",
+      "d_bottom": 0.104,
+      "d_top": 0.096
+    },
+    {
+      "id": "Short flight handrail",
+      "kind": "vertical_structure",
+      "bottom": 0.1,
+      "top": 0.0979,
+      "extent": [
+        0.1,
+        0.1,
+        3.903814395711761
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Turning platform",
+      "kind": "vertical_structure",
+      "bottom": 0.91,
+      "top": 0.89089,
+      "extent": [
+        2.85,
+        0.91,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Roof connection platform",
+      "kind": "vertical_structure",
+      "bottom": 0.59,
+      "top": 0.57761,
+      "extent": [
+        1.36,
+        0.59,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Berth connection platform",
+      "kind": "vertical_structure",
+      "bottom": 0.67,
+      "top": 0.65593,
+      "extent": [
+        1.36,
+        0.67,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Turning platform rear post",
+      "kind": "linear",
+      "d_bottom": 0.11,
+      "d_top": 0.1
+    },
+    {
+      "id": "Turning platform rear post",
+      "kind": "linear",
+      "d_bottom": 0.11,
+      "d_top": 0.1
+    },
+    {
+      "id": "Turning platform rear post",
+      "kind": "linear",
+      "d_bottom": 0.11,
+      "d_top": 0.1
+    },
+    {
+      "id": "Turning platform rear rail",
+      "kind": "vertical_structure",
+      "bottom": 0.104,
+      "top": 0.10181599999999999,
+      "extent": [
+        0.104,
+        0.104,
+        2.779999955678157
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    },
+    {
+      "id": "Turning platform knee rail",
+      "kind": "vertical_structure",
+      "bottom": 0.082,
+      "top": 0.080278,
+      "extent": [
+        0.082,
+        0.082,
+        2.779999955678157
+      ],
+      "taper_along": "z",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/access_stairs.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/access_stairs.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-ACCESS-STAIRS"
+}

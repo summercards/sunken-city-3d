@@ -1,0 +1,49 @@
+{
+  "key": "deep_plate",
+  "name": "水下楼板",
+  "component_family": "slab",
+  "asset_id": "SEA-SCENE-ORF7-DEEP-PLATE",
+  "category": "structure",
+  "scope": "submerged_extension",
+  "building_class": "underwater",
+  "collision_owner": "visual_only",
+  "budget_triangles": 12000,
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "form_style": "SF-B",
+  "version": "v014",
+  "source": "art_source/scenes/ocean_rooftop_farm/v014/component_packages/deep_plate/deep_plate.blend",
+  "source_sha256": "31276ddae3ef87bf6eb38444be4fecd07acb0090c922ec72d89ff05e32f8a1c5",
+  "collection": "MASTER | deep_plate",
+  "bounds_m": [
+    4.26800012588501,
+    4.26800012588501,
+    0.20000000298023224
+  ],
+  "form": [
+    {
+      "id": "Reinforced deck panel",
+      "kind": "vertical_structure",
+      "bottom": 4.268,
+      "top": 4.1783719999999995,
+      "extent": [
+        4.268,
+        4.268,
+        0.2
+      ],
+      "taper_along": "x",
+      "tilt_deg": 0
+    }
+  ],
+  "authoring_origin_before_recenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "materials": [
+    "SEA_Matte"
+  ],
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v014/deep_plate.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v014/deep_plate.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-DEEP-PLATE"
+}

@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/house/v010/house_corner_patch.glb" id="model"]
+
+[sub_resource type="BoxShape3D" id="box0"]
+
+size = Vector3(0.422861, 3.413735, 0.317)
+
+[node name="Piece" type="Node3D"]
+
+metadata/asset_id = "SEA-SCENE-ORF7-HOUSE-CORNER-PATCH"
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="Solid" type="StaticBody3D" parent="."]
+
+collision_layer = 8192
+
+collision_mask = 0
+
+[node name="Segment0" type="CollisionShape3D" parent="Solid"]
+
+position = Vector3(0, 1.706868, -0.00225)
+
+shape = SubResource("box0")

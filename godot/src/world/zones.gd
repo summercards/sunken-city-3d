@@ -104,9 +104,13 @@ func bind_scene(zone: Node3D) -> void:
 	for area in zone.walk_areas:
 		var rects: Array = []
 		for r: Rect2 in area.rects:
-			var a: Vector3 = area.to_global(Vector3(r.position.x, 0, r.position.y))
-			var b: Vector3 = area.to_global(Vector3(r.end.x, 0, r.end.y))
-			rects.append([a.x, b.x, a.z, b.z])
-		walk.append({"id": area.area_id, "y": area.surface_y, "rects": rects,
-			"span": [area.span_min, area.span_max]})
+			var bounds := Rect2()
+			for corner in [r.position, Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y)]:
+				var point: Vector3 = area.to_global(Vector3(corner.x, 0.0, corner.y))
+				var xz := Vector2(point.x, point.z)
+				bounds = Rect2(xz, Vector2.ZERO) if corner == r.position else bounds.expand(xz)
+			rects.append([bounds.position.x, bounds.end.x, bounds.position.y, bounds.end.y])
+		var span: Vector2 = area.area_span()
+		walk.append({"id": area.area_id, "y": area.floor_y(), "rects": rects,
+			"span": [span.x, span.y]})
 	cfg["walk"] = walk

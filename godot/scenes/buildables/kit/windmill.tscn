@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
 [ext_resource type="PackedScene" path="res://assets/models/building_kit/windmill/windmill.glb" id="2"]
+
+[sub_resource type="BoxShape3D" id="Mast"]
+size = Vector3(0.16, 1.27, 0.17)
+
 [node name="windmill" type="Node3D"]
 script = ExtResource("1")
 content_id = "windmill"
 metadata/water_layer = "none"
 metadata/water_layer_role = "none"
 [node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="SurfaceCollision" type="StaticBody3D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Mast" type="CollisionShape3D" parent="SurfaceCollision"]
+position = Vector3(0, 0.635, 0)
+shape = SubResource("Mast")

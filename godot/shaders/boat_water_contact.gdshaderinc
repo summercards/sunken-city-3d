@@ -43,9 +43,10 @@ float boat_hull_distance(vec2 p) {
 // x = hull meniscus/wash, y = splash thrown by each real blade entry.
 vec2 boat_water_foam(vec2 p) {
 	float hull=0.0;
+	// Screen-space derivatives must be evaluated before the per-pixel radius test.
+	float aa=max(length(fwidth(p)),0.018);
 	if(boat_hull_count>2 && distance(p,u_boat.xy)<5.5) {
 		float d=boat_hull_distance(p);
-		float aa=max(fwidth(d),0.018);
 		// A constant-width band traced the hull exactly and read as a sticker
 		// outline. Real displacement is ragged: the gap breathes along the
 		// waterline, thins at the ends and breaks in the middle.

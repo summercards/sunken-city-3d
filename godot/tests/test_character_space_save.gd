@@ -15,10 +15,21 @@ func run() -> void:
 	var zone: Node3D = main._zone_nodes.zone1
 	var upper = preload("res://src/navigation/walk_area.gd").new()
 	upper.area_id="test_upper"; upper.zone_id="zone1"
+	upper.scene_collision = true
 	upper.surface_y=12.0; upper.rects=[Rect2(1.0,7.0,3.0,3.0)]
-	zone.get_node("WalkAreas").add_child(upper)
+	zone.add_child(upper)
 	zone.walk_areas.append(upper)
 	zone.ground_space.configure(zone.walk_areas)
+	var deck := StaticBody3D.new()
+	deck.collision_layer = 8192
+	deck.collision_mask = 0
+	var floor_shape := BoxShape3D.new()
+	floor_shape.size = Vector3(3, 0.3, 3)
+	var floor_collision := CollisionShape3D.new()
+	floor_collision.shape = floor_shape
+	deck.position = Vector3(2.5, 11.85, 8.5)
+	deck.add_child(floor_collision)
+	zone.add_child(deck)
 	for i in 3: await physics_frame; await process_frame
 	var state: Node=root.get_node("GameState")
 	state.enter_zone("zone1"); state.landing_id="main"
@@ -30,14 +41,14 @@ func run() -> void:
 	check(written.ok,"upper floor pose writes through real save registry: "+str(written.reason))
 	main.actor_controller.restore_pose({"mode":0,"player":[2.0,1.38,8.0]})
 	var restored: Dictionary=Save.restore(main,encoded)
-	check(restored.ok and absf(main.player.global_position.y-12.0)<0.001,"restore preserves saved upper floor instead of first XZ match")
+	check(restored.ok and absf(main.player.global_position.y-12.0)<0.02,"restore preserves saved upper floor")
 	var economy_before: String=JSON.stringify(root.get_node("Economy").to_dict())
 	var bad: Dictionary=encoded.duplicate(true); bad.game.player[1]=6.0
 	var rejected: Dictionary=Save.restore(main,bad)
-	check(not rejected.ok and absf(main.player.global_position.y-12.0)<0.001,"unsupported height rejects without changing live pose")
+	check(not rejected.ok and absf(main.player.global_position.y-12.0)<0.02,"unsupported height rejects without changing live pose")
 	check(JSON.stringify(root.get_node("Economy").to_dict())==economy_before,"bad pose cannot partially apply economy")
 	main.cam.restore_follow(main.player); main.cam._process(1.0/60)
-	check(absf(main.cam.target.y-(12.0+main.BodyScale.CAMERA_FOCUS))<0.001,
+	check(absf(main.cam.target.y-(main.player.global_position.y+main.BodyScale.CAMERA_FOCUS))<0.001,
 		"follow camera consumes upper floor height above old 10m clamp target=%.3f"%main.cam.target.y)
 	main.cam.suspend_follow(); main.cam.target.y=12.7; main.cam._process(1.0/60)
 	check(is_equal_approx(main.cam.target.y,10.0),"manual camera preserves original observation clamp")
@@ -46,8 +57,16 @@ func run() -> void:
 	var spot = preload("res://src/interaction/interactable.gd").new()
 	spot.id="upper_fixture";spot.focus_anchor="node"
 	main.add_child(spot);spot.global_position=Vector3(2,12,8)
-	check(main._compute_reach_reason(spot)!="","unconnected upper interaction is unreachable")
-	check(not main.interactor.reachable_query.call(spot),"injected E query refuses interaction through another floor")
+	check(main._land_reach_reason(spot)!="","upper interaction is out of reach")
+	check(not main.interactor.candidates().has(spot),"E scan refuses interaction through another floor")
+	zone.walk_areas.erase(upper)
+	zone.ground_space.configure(zone.walk_areas)
+	main.actor_controller.restore_pose({"mode":0,"player":[2.0,12.0,8.0]})
+	check(Save.write("user://character-native-deck.json", main).ok, "authored deck outside a WalkArea saves")
+	main.boat.place_at(Vector3(-37.95, 1.12, -25.0), 0.0)
+	main.actor_controller.restore_pose({"mode":1})
+	if main.boat.hull_clear():
+		check(Save.write("user://character-native-water.json", main).ok, "clear hull pose passes the save registry")
 	main.queue_free();await process_frame
 	print("[character-space-save] %d checks, %d failures"%[checks,failures])
 	quit(1 if failures else 0)

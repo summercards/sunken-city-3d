@@ -61,12 +61,15 @@ func stage() -> void:
 	var layer:=CanvasLayer.new(); preview.add_child(layer)
 	caption=Label.new(); caption.position=Vector2(15,10); caption.add_theme_font_override("font",preload("res://src/ui/ui_font.gd").embedded()); caption.add_theme_font_size_override("font_size",18); caption.add_theme_color_override("font_color",Color("#554a42")); layer.add_child(caption)
 
-func tile(profile: Dictionary,yaw: float,label: String,face:=false,action: String="idle",progress:=.52,crop: String="lettuce") -> Image:
+func tile(profile: Dictionary,yaw: float,label: String,face:=false,action: String="idle",progress:=.52,crop: String="lettuce",hair:=false,elevation:=.07) -> Image:
 	Support.sample_action(actor,"idle",0); actor.apply_avatar(profile); Support.sample_action(actor,action,progress,crop); actor.set_preview_yaw(yaw)
 	caption.text=label
 	var center: Vector3=actor.head_pivot.global_position if face else Vector3(0,.85 if action=="harvesting" else .75,0)
 	camera.size=.88 if face else (2.25 if action=="harvesting" else 1.80)
-	camera.position=center+Vector3(.10,.07,4.0); camera.look_at(center)
+	if hair:
+		center=actor.head_pivot.global_position+Vector3(-.15*sin(yaw),-.005,0)
+		camera.size=1.66
+	camera.position=center+Vector3(.10,elevation,4.0); camera.look_at(center)
 	await settle(3); await RenderingServer.frame_post_draw
 	var image:=preview.get_texture().get_image(); image.convert(Image.FORMAT_RGBA8)
 	var background:=image.get_pixel(image.get_width()-5,image.get_height()-5)
@@ -78,13 +81,13 @@ func tile(profile: Dictionary,yaw: float,label: String,face:=false,action: Strin
 	check(foreground>1200,"real nonempty foreground "+label+" sampled_pixels="+str(foreground))
 	return image
 
-func contact_sheet(id: String,entries: Array,views: Array,face:=false) -> void:
+func contact_sheet(id: String,entries: Array,views: Array,face:=false,hair:=false) -> void:
 	var sheet:=Image.create(480*views.size(),400*entries.size(),false,Image.FORMAT_RGBA8); sheet.fill(Color("#eee9da"))
 	for row in entries.size():
 		var previous: Image
 		for column in views.size():
 			var entry: Dictionary=entries[row]; var view: Dictionary=views[column]
-			var image: Image=await tile(entry.profile,view.yaw,str(entry.id)+" / "+str(view.id),face,str(entry.get("action","idle")),float(entry.get("progress",.52)),str(entry.get("crop","lettuce")))
+			var image: Image=await tile(entry.profile,view.yaw,str(entry.id)+" / "+str(view.id),face,str(entry.get("action","idle")),float(entry.get("progress",.52)),str(entry.get("crop","lettuce")),hair,float(view.get("elevation",.07)))
 			if previous!=null:
 				var different:=0
 				for y in range(48,image.get_height(),2):
@@ -104,8 +107,20 @@ func gallery() -> void:
 	for option in Catalog.options("hair_style"):
 		var accessory: String="ribbon" if entries.size()%2==0 else "band"
 		entries.append({"id":str(option.id)+" / "+accessory,"profile":Support.profile({"hair_style":option.id,"hair_accessory":accessory,"hat":"none","blush":"peach"},{"hair_length":1.0,"hair_volume":1.0})})
-		if entries.size()==4: await contact_sheet("hair-"+str(sheets.size()+1),entries,views); entries=[]
-	if not entries.is_empty(): await contact_sheet("hair-final",entries,views)
+		if entries.size()==4: await contact_sheet("hair-"+str(sheets.size()+1),entries,views,false,true); entries=[]
+	if not entries.is_empty(): await contact_sheet("hair-final",entries,views,false,true)
+	entries=[]
+	var crown_views: Array=[
+		{"id":"front three-quarter","yaw":-.54,"elevation":1.7},
+		{"id":"rear three-quarter","yaw":PI+.46,"elevation":1.7}
+	]
+	for style in ["side","bob","long","high_ponytail","braid"]:
+		entries.append({"id":style,"profile":Support.profile({"hair_style":style,"hat":"none"})})
+	await contact_sheet("flow-crown",entries,crown_views,false,true)
+	entries=[]
+	for sweep in [0.0,1.0]:
+		entries.append({"id":"sweep %.0f"%sweep,"profile":Support.profile({"hair_style":"side","hat":"none"},{"hair_sweep":sweep})})
+	await contact_sheet("flow-sweep",entries,crown_views,false,true)
 	entries=[]
 	for option in Catalog.options("eyes"):
 		entries.append({"id":"eyes/"+str(option.id),"profile":Support.profile({"hair_style":"pixie","fringe":"open","eyes":option.id,"blush":"peach"},{"eye_spacing":1.0})})
@@ -117,7 +132,7 @@ func gallery() -> void:
 	entries=[]
 	for hat in ["fedora","bucket","beanie"]:
 		entries.append({"id":"hat/"+hat+" max-volume","profile":Support.profile({"hair_style":"high_ponytail","fringe":"straight","hat":hat,"beard":"goatee","glasses":"round"},{"head_size":1.0,"hair_length":1.0,"hair_volume":1.0,"hair_sweep":1.0})})
-	await contact_sheet("hat-clearance",entries,views)
+	await contact_sheet("hat-clearance",entries,views,false,true)
 	entries=[]
 	for shape in Catalog.options("body_type"):
 		for build in [0.0,1.0]:

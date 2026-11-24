@@ -15,7 +15,6 @@
     "godot/src/salvage"
   ],
   "verification": [
-    "selftest",
     "management",
     "modules",
     "framework-integration"

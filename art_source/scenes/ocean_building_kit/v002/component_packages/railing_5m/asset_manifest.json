@@ -84,5 +84,20 @@
     "owner": "main_agent",
     "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
     "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  },
+  "construction_variant": {
+    "version": "v003",
+    "export_manifest": "godot/assets/models/building_kit/construction_v003/export_manifest.json",
+    "runtime_path": "godot/assets/models/building_kit/construction_v003/railing_5m.glb",
+    "runtime_sha256": "57932d7dc8d2af621cd4a0249aaa864079696e1a3e87db5c04000fa2c633854e",
+    "prefab": "godot/scenes/buildables/kit/railing_5m.tscn",
+    "construction_animation": {
+      "clip": "construction",
+      "elements": 9,
+      "duration_seconds": 2.047,
+      "trigger": "BuildingService.completed",
+      "animation_script": "godot/src/building/construction_animation.gd",
+      "verification": "docs/development/2026-11-23_building_construction.md"
+    }
   }
 }

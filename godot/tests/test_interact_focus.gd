@@ -14,13 +14,13 @@ var checks := 0
 var failures := 0
 
 class InteractionContext extends RefCounted:
-	var actor: Node3D
-	var auto_target: Node3D
+	var interaction_target: Node3D
 	var interactor: Node
 	var ports: Dictionary
 	var completions := 0
 	func complete_interaction() -> void:
 		completions += 1
+		interaction_target = null
 		interactor.auto_hold = false
 
 func _init() -> void:
@@ -42,8 +42,12 @@ func run() -> void:
 	for i in 6:
 		await process_frame
 
-	var box: Node3D = main._zone_nodes.zone1.get_node("Objects/ShippingBox")
+	var box: Node3D = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/ShippingBox")
 	var visual: Node3D = box.get_node("Visual")
+	check(box.get_node_or_null("InteractionTrigger") is Area3D, "出货箱拥有统一 Area3D 触发器")
+	check(box.get_node("InteractionTrigger/Shape").shape is CylinderShape3D, "出货箱触发器使用圆柱形状")
+	var door: Node3D = main._zone_nodes.zone1.get_node("Models/太阳能木屋/Facilities/RoomDoor")
+	check(door.get_node_or_null("InteractionTrigger") is Area3D, "房门拥有统一 Area3D 触发器")
 
 	# ---- 1. 锚点 = 视觉中心 ----
 	var center: Vector3 = box.visual_aabb().get_center()
@@ -69,14 +73,18 @@ func run() -> void:
 	# ---- 3. 判定：新位置够得着，旧位置够不着 ----
 	var interactor: Node = main.interactor
 	check(interactor != null, "找到 Interactor")
+	main.set_process(false)
+	main.set_physics_process(false)
+	interactor.set_process(false)
+	interactor.set_interaction_context("shore")
 	if interactor != null:
-		var reach: float = minf(float(interactor.radius), float(box.effective_focus_radius()))
 		# 新位置正前方 0.8 米
 		var near: Vector3 = box.focus_position()
 		near.x -= 0.8
 		interactor.active = false
 		interactor._release()
 		interactor.global_position = near
+		for frame in 2: await physics_frame
 		interactor.active = true
 		interactor._refresh_target()
 		check(interactor.target == box, "站在物体旁能选中出货箱")
@@ -86,6 +94,7 @@ func run() -> void:
 		interactor.active = false
 		interactor._release()
 		interactor.global_position = far
+		for frame in 2: await physics_frame
 		interactor.active = true
 		interactor._refresh_target()
 		check(interactor.target != box, "站回旧锚点位置不应再选中（说明热区已搬走）")
@@ -98,9 +107,7 @@ func run() -> void:
 
 	# 到位自动长按也必须用同一视觉锚点，不能走到箱旁后还测旧原点。
 	var context := InteractionContext.new()
-	context.actor = Node3D.new()
-	root.add_child(context.actor)
-	context.auto_target = box
+	context.interaction_target = box
 	context.interactor = interactor
 	var gate := {"blocked":false}
 	context.ports = {"input_blocked":func(): return gate.blocked}
@@ -109,9 +116,10 @@ func run() -> void:
 	var outward: Vector3 = box.focus_position() - box.global_position
 	outward.y = 0.0
 	outward = outward.normalized()
-	context.actor.global_position = box.focus_position() + outward
-	check(context.actor.global_position.distance_to(box.global_position)>2.2,
-		"自动交互反例确实位于旧原点门槛之外")
+	interactor.global_position = box.focus_position() + outward
+	for frame in 2: await physics_frame
+	check(interactor.global_position.distance_to(box.global_position)>2.2,
+		"交互探测器位于旧原点门槛之外")
 	state.tick(0.0)
 	check(interactor.auto_hold,"视觉旁到位后可自动交互")
 	gate.blocked = true
@@ -123,20 +131,14 @@ func run() -> void:
 	var reach := 2.2
 	if box.has_method("effective_focus_radius"):
 		reach = maxf(reach, float(box.effective_focus_radius()) + 0.6)
-	context.actor.global_position = box.focus_position() + outward * (reach + 0.3)
+	interactor.global_position = box.focus_position() + outward * (reach + 0.3)
+	for frame in 2: await physics_frame
 	state.tick(0.0)
 	check(not interactor.auto_hold,"离开够得着范围后停止自动交互（门槛 %.2f 米）" % reach)
-	var plain := Node3D.new()
-	root.add_child(plain)
-	context.auto_target = plain
-	context.actor.global_position = plain.global_position + Vector3.RIGHT
+	check(context.completions == 1, "离开热区结束本次动作")
+	context.interaction_target = null
 	state.tick(0.0)
-	check(interactor.auto_hold,"没有视觉锚点接口的目标保留节点位置后备")
-	context.auto_target = null
-	state.tick(0.0)
-	check(context.completions==1 and not interactor.auto_hold,"目标消失仍结束并释放自动输入")
-	context.actor.queue_free()
-	plain.queue_free()
+	check(context.completions == 2 and not interactor.auto_hold, "目标消失时结束动作")
 
 	print("[interact-focus] %d checks, %d failures" % [checks, failures])
 	main.queue_free()

@@ -18,7 +18,6 @@
   ],
   "verification": [
     "management",
-    "selftest",
     "modules",
     "framework-integration",
     "minimum-loop",

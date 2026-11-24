@@ -21,11 +21,7 @@ func run() -> void:
 		await process_frame
 	quarter = main._zone_nodes.get("neon_garden_quarter")
 	left = quarter.get_node("Visual/LeftBuilding")
-	var areas: Node3D = quarter.get_node("WalkAreas")
-	var stair: Node3D = null
-	for child in areas.get_children():
-		if str(child.get("area_id")) == "neon_garden_left_stair":
-			stair = child
+	var stair := left.get_node_or_null("WalkLeftStair") as Node3D
 	if stair == null:
 		print("[route] 找不到走域")
 		quit(2)

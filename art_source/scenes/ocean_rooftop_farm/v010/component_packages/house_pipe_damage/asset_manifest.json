@@ -1,0 +1,40 @@
+{
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "budget_triangles": 24000,
+  "collision_owner": "component_local_pending_runtime",
+  "key": "house_pipe_damage",
+  "asset_id": "SEA-SCENE-ORF7-HOUSE-PIPE-DAMAGE",
+  "name": "断裂檐沟与落水管",
+  "category": "facility",
+  "component_family": "house_drainage",
+  "source": "art_source/scenes/ocean_rooftop_farm/v010/component_packages/house_pipe_damage/house_pipe_damage.blend",
+  "source_sha256": "7486351f2f98fc1d2c493c1dca2881cbcb1ee69ef0eb33fe6f5b57ea4fac99f1",
+  "collection": "MASTER | house_pipe_damage",
+  "bounds_m": [
+    6.860000133514404,
+    0.5664999485015869,
+    3.4448792934417725
+  ],
+  "collection_offset": [
+    0,
+    0,
+    0
+  ],
+  "authoring_origin_before_recenter": [
+    0.5099999904632568,
+    -2.839749813079834,
+    0.06012079119682312
+  ],
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "building_class": "above_water",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_path": "godot/assets/models/facilities/rooftop_ranch/v010/house_pipe_damage.glb",
+  "prefab": "godot/scenes/components/facilities/rooftop_ranch/v010/house_pipe_damage.tscn",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF7-HOUSE-PIPE-DAMAGE",
+  "version": "v010"
+}
